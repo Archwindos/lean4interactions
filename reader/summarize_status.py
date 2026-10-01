@@ -4,6 +4,7 @@ import hashlib
 import json
 from collections import Counter
 from pathlib import Path
+from evidence_paths import EVIDENCE
 
 WORK = Path(__file__).resolve().parent
 
@@ -53,7 +54,7 @@ def summarize():
               'other_delivered_scope_or_counterexample_targets': sum(p['other_delivered_scope_or_counterexample_targets'] for p in papers),
               'current_lean_evidence_roles': {k: totals[k] for k in ('theorem_proof', 'partial_component', 'counterexample', 'none')},
               'papers': papers}
-    output = WORK / 'evidence/status-summary.json'
+    output = EVIDENCE / 'status-summary.json'
     output.write_text(json.dumps(report, ensure_ascii=False, indent=2) + '\n')
     print(json.dumps({k: report[k] for k in ('status', 'paper_count', 'inventory_entries', 'result_pages', 'proof_targets', 'shared_proofs', 'canonical_concepts', 'complete_proof_text', 'other_delivered_scope_or_counterexample_targets', 'current_lean_evidence_roles')}))
     return report

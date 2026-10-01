@@ -1,0 +1,71 @@
+                                Defects of Convolutional Decoder Networks in Frequency Representation
+
+                   CIFAR-10 dataset                 CIFAR-10 dataset              Tiny-ImageNet dataset          Broden dataset
+
+
+
+
+                                                        Randomly selected
+                                                           frequencies
+
+
+
+Figure 5. The exponential increase of the SOM of feature spectrums, SOM(h(uv) ), along with the network depth, i.e., the linear increase
+of logSOM(h(uv) ) along with the network depth.
+
+             CIFAR-10 dataset                 CIFAR-10 dataset               Tiny-ImageNet dataset             Broden dataset
+trum of the input. For testing, we constructed an input                     decoder network repeated strong signals at certain frequen-
+image x ∼ N (0, Σ = 0.01 · I) following a Gaussian distri-                  cies of the generated image. Results on more datasets in
+bution, which made each frequency component of x have                       Appendix C.2 yielded similar conclusions.
+                                            Randomly selected
+weak strength. We then selected six low frequencies   within
+                                               frequencies
+the range of u ∈ {u|0 ≤ u ≤ 3} ∪ {u|60 < u ≤ 63} and                        6. Conclusion
+v ∈ {v|0 ≤ v ≤ 3} ∪ {v|60 < v ≤ 63}, and we set sig-
+nificantTiny-ImageNet
+         components fordataset           Broden dataset
+                          these six low frequencies.   Then,                In this paper, we have reformulated the rule for the forward
+we constructed the target image for regression by shifting                  propagation of a cascaded convolutional decoder network in
+each salient frequency component [u, v] in x to [u + ∆u, v]                 the frequency domain. Based on such propagation rules, we
+or [u − ∆u, v] towards higher frequencies8 . Here, we set                   have discovered and theoretically proven that both the convo-
+∆u = 1, 4, 8 to generate three target images, respectively.                 lution operation and the zero-padding operation strengthen
+We trained an auto-encoder with five convolutional layers                   low-frequency components in the decoder. The upsampling
+on each pair of the input image and the target image. Each                  operation repeats the strong magnitude of the fundamental
+intermediate convolutional layer contained 64 convolutional                 frequency in the input feature to different frequencies of
+kernels (with the kernel size 3 × 3) and followed by an                     the spectrum of the output feature map. Besides, we also
+ReLU layer.                                                                 discover and prove the difficulty of pushing an auto-encoder
+                                                                            to fit specific frequency components in the target output,
+We used the metric ∆xmn = [x∗(1)                  ∗(2)         ∗(C)
+                                           mn , xmn , . . . , xmn ] −
+   (1)    (2)            (C)                                                which have a small shift from the spectrum of the input.
+[x̂mn , x̂mn , . . . , x̂mn ] 2 to measure the fitting error on the
+                                                                            Such properties may hurt the representation capacity of a
+pixel [m, n] between the target output x∗ ∈ RC×M ×N and                     convolutional decoder network. Experiments on ReLU net-
+the network output x̂ ∈ RC×M ×N . Figure 1(c) shows the                     works have verified our theoretical proofs. Note that our
+heatmap of the fitting error ∆xmn , and the histogram of                    findings can explain general trends of networks with above
+fitting errors |∆xmn | over different pixels. Results show that             three operations, but cannot derive a deterministic property
+when the target frequency components were shifted by a                      of a specific network, and cannot be extended to networks
+smaller distance, it was more difficult to learn a decoder                  for image classification, because we have not derived the
+to fit the target image, i.e., yielding larger fitting errors in            property of the max-pooling operation.
+Figure 1(c.1,c.2). Besides, Figure 1(c.3) reports the average
+weight change k∆Wk over different DNNs, which was de-                       Acknowledgements. This work is partially supported
+creased along with the shifting distance. This also verified                by the National Nature Science Foundation of China
+that it took more effort to learn a decoder to fit the target               (62276165, 62206170), National Key R&D Program of
+image, when the target frequency components were shifted                    China (2021ZD0111602), Shanghai Natural Science Foun-
+by a smaller distance.                                                      dation (21JC1403800,21ZR1434600), National Nature Sci-
+                                                                            ence Foundation of China (U19B2043), and the Alibaba
+5.3. Verifying the repeat of certain frequencies                            Group through Alibaba Innovative Research Program.
+
+We conducted experiments to verify the problem that the
+upsampling operation made a decoder network repeat strong                   References
+signals at certain frequencies of the generated image in The-               Amjad, R. A. and Geiger, B. C. Learning representations for
+orem 4.4. To this end, we compared feature spectrums                         neural network-based classification using the information
+between the input spectrum and the output spectrum of the                    bottleneck principle. IEEE transactions on pattern analy-
+upsampling layer. We also conducted experiments on the                       sis and machine intelligence, 42(9):2225–2239, 2019.
+auto-encoder introduced above6 . Figure 1(b) shows that the
+   8                                                                        Bau, D., Zhou, B., Khosla, A., Oliva, A., and Torralba,
+       Please see Appendix C.9 for details about the frequency shift.
+                                                                              A. Network dissection: Quantifying interpretability of
+
+                                                                        9
+

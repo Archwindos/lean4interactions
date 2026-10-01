@@ -1,0 +1,97 @@
+                              Defects of Convolutional Decoder Networks in Frequency Representation
+
+(3) The convolution operation makes a cascaded convolu-                       components of the input sample.
+tional decoder network more likely to weaken the high-
+frequency components of the input sample, if the convolu-                     4.3. Effects of the upsampling operation
+tion operation does not change the feature map size. Espe-
+                                                                              Let the l-th intermediate-layer feature map F ∈ RCl ×M0 ×N0
+cially, when the decoder network is deep, such a problem is                   pass through an upsampling layer to extend its width and
+more significant. See Appendix B.1 for more discussions.                      height to M × N , subject to M = M0 · ratio, N = N0 · ratio
+                                                                              as follows.
+(4) If the expectation µl of convolutional weights in each
+l-th layer has a large absolute value |µl |, then the decoder                  ∀c, m∗ , n∗ ,
+network is less likely to learn high-frequency components.
+                                                                                         (
+                                                                                               (c)
+                                                                                 (c)         Fmn ,     mod(m∗ , ratio) = mod(n∗ , ratio) = 0
+Please see Appendix B.2 for more discussions.                                  Fm∗ n∗ =
+                                                                               e
+                                                                                                                                             (10)
+                                                                                             0,        otherwise
+(5) If the convolutional kernel size K is small, then the                                  m∗         n∗
+decoder network is less likely to learn high-frequency com-                    s.t. m =         ; n=
+                                                                                          ratio      ratio
+ponents. Please see Appendix B.3 for more discussions.
+                                                                              Theorem 4.4. (Proof in Appendix A.6) Let G =
+Experiments in Section 5.1 have verified the above con-                       [G(1) , G(2) , . . . , G(Cl ) ] ∈ CCl ×M0 ×N0 denote spectrums of
+clusions in the general case that each convolutional layer                    the Cl channels of feature F. Then, spectrums H =
+contains more than one feature map.                                           [H (1) , H (2) , . . . , H (Cl ) ] ∈ CCl ×M ×N of the output feature
+                                                                              e can be computed as follows.
+                                                                              F
+4.2. Effects of the zero-padding operation                                                             (c)
+                                                                                       ∀c, u, v,     Hu+(s−1)M0 ,v+(t−1)N0 = G(c)
+                                                                                                                              uv
+To simplify the proof, let us consider the following one-side                                                              M                   N    (11)
+zero-padding. Given each c-th channel F (c) ∈ RM ×N of the                                           s.t. s = 1, . . . ,      ; t = 1, . . . ,
+                                                                                                                           M0                  N0
+feature map, the zero-padding puts zero values at the edge
+                                                   0  0
+of F (c) , so as to obtain a new feature Fe(c) ∈ RM ×N .                      Theorem 4.4 shows that the upsampling operation repeats
+                  (
+                       (c)
+                      Fmn ,    0 ≤ m < M, 0 ≤ n < N
+                                                                              the strong magnitude of the fundamental frequency G(c)  00 of
+          (c)
+ ∀m, n, Femn  =
+                      0,       M ≤ m < M 0, N ≤ n < N 0
+                                                        (8)                   the lower layer to different frequency components ∀c, Hu(c)
+                                                                                                                                        ∗ v∗
+
+                                                                              of the higher layer, where u∗ = 0, M0 , 2M0 , . . . ; v ∗ =
+We have proven that the zero-padding operation boosts mag-                    0, N0 , 2N0 , . . .. Besides Figure 1(b), Appendix C.2 shows
+nitudes of low-frequency components of feature spectrums                      such a phenomenon on more datasets.
+of the feature map, as shown in Theorem 4.3.                                  (Conclusion) The upsampling operation makes the upcon-
+Theorem 4.3. (Proof in Appendix A.5) Let each element                         volution operation generate a feature spectrum, in which
+in each c-th channel F (c) of the feature map follows the                     strong signals of the input periodically appear at certain
+Gaussian distribution N (a, σ 2 ). G(c) ∈ CM ×N denotes the                   frequencies. Such strong periodic signals hurt the represen-
+                                            0     0
+frequency spectrum of F (c) , and H (c) ∈ CM ×N denotes the                   tation capacity of the network.
+                                              (c)
+frequency spectrum of the output feature Fe after apply-                      More crucially, according to the spectrum propagation in
+ing zero-padding on F (c) . Then, the zero-padding on F (c)                   Corollary 3.3, such periodic frequency components can be
+boosts the second-order moment (SOM) of each frequency                        further propagated to upper layers. Thus, Corollary 3.3 may
+component at [u, v] as follows, whose strength is measured                    provide some clues to differentiate real samples and the
+by averaging over different sampled features.                                 generated samples.
+
+        ∀0 ≤ u < M, 0 ≤ v < N, u + v 6= 0                                     4.4. Difficulty of representing specific frequencies
+                       (c)
+                                                                    (9)
+                  SOM(Huv  ) − SOM(G(c)     2 2
+                                    uv ) = a τuv ,
+                                                                              Based on the propagation rule in frequency in Section 3, we
+           (c)        (c)            (c)
+where SOM(Huv  ) = E[Huv H uv ] denotes the second-order                      discover a further counter-intuitive phenomenon, i.e., in the
+           (c)                sin( M uπ
+                                      0 ) sin(
+                                               N vπ )
+                                                  0                           scenario of an auto-encoder, if salient frequency components
+moment of Huv  ; τuv =             M
+                               sin( uπ0 )
+                                                 N
+                                            sin( vπ0 )
+                                                         ∈ R. Note that
+                                   M
+                                              (c)
+                                                 N                            in the input sample and salient frequency components in
+for the fundamental frequency u = v = 0, SOM(H00  ) =                         the target output for regression have a small shift, then the
+       (c)
+SOM(G00 ).                                                                    decoder usually cannot be effectively learned.
+(Conclusion) According to the rule of the forward propa-                      Let us consider the input x ∈ RM ×N with a single channel
+gation in Equation (4) and the change of T (l,uv) in Equa-                    to simplify the proof. Then, G ∈ CM ×N , H ∈ CM ×N , and
+tion (5), the zero-padding operation boosts the SOM of                        H ∗ ∈ CM ×N denote spectrums of the input, the output, and
+                                       2
+low-frequency components, because τuv    is large for low fre-                the target image to fit, respectively. In a traditional auto-
+quencies. This exhibits the trend of encoding low-frequency                   encoder, people usually set the target image the same as the
+
+                                                                          6
+

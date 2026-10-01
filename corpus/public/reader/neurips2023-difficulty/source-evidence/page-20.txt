@@ -1,0 +1,75 @@
+G.3   Proof of Theorem 4 in the main paper
+
+Theorem 4. Given an arbitrarily masked sample xT (∀T ⊆ N ), the function CS (xT ) defined above
+can well fit the binary activation state of the concept S in the sample xT .
+                                                          Ai (xT ) = 1(S ⊆ T ),
+                                                 Y
+                           ∀ T ⊆ N, C(S|xT ) =                                                  (19)
+                                                    i∈S
+
+where Ai (xT ) ∈ {0, 1} denotes whether the variable xi is present Ai (xT ) = 1 or being masked
+Ai (xT ) = 0 in the sample xT .
+
+Proof. We know that the function of the activation state on an arbitrary sample x′ is given by
+                                         X
+                              CS (x′ ) =            US,π J(S, π|x′ )/US ,
+                                              π∈QS
+                                         Y                                 π
+                                                                    x′i − bi i                 (20)
+                                    ′                     ′
+                   where J(S, π|x ) =              sign(xi − bi ) ·
+                                             i∈S                        τ
+
+Specifically, now we consider a masked sample xT , and we will prove that CS (xT ) = 1(S ⊆ T ).
+We consider the following two cases.
+Case 1: S ⊊ T . Then there exists some j ∈ S \ T . Since j ∈
+                                                           / T , according to the masking rule of
+the sample xT , we have (xT )j − bj = 0. Since j ∈ S, we have
+                                                                              π
+                                      Y                             (xT )i − bi i
+            ∀π ∈ QS , J(S, π|xT ) =            sign((xT )i − ri ) ·               =0         (21)
+                                          i∈S                            τ
+                                P
+In this way, we have CS (xT ) = π∈QS US,π J(S, π|xT )/US = 0.
+Case 2: S ⊆ T . In this case, ∀i ∈ S, we have i ∈ T . According to the setting of the reference value
+in Section 2.3 of the main paper, we have (xT )i − bi ∈ {τ, −τ }. Then we have sign((xT )i − bi ) ·
+(xT )i −bi
+    τ      = 1, ∀i ∈ S. This further implies that
+                                                                                 π
+                                        Y                              (xT )i − bi i
+            ∀π ∈ QS , J(S, π|xT ) =               sign((xT )i − bi ) ·               = 1.        (22)
+                                           i∈S                              τ
+Therefore, we can derive                     X
+                                  CS (xT ) =           US,π /US .                      (23)
+                                                 π∈QS
+                                           P
+Recall that US       = I(S|x) =               π∈QS US,π J(S, π|x), in which J(S, π|x)    =
+                       xi −bi πi
+Q                            
+  i∈S sign(xi − ri ) ·    τ      = 1, because xi − bi ∈ {τ, −τ }. So actually, we have
+                                             X
+                                       US =            US,π .                          (24)
+                                                 π∈QS
+                       P
+Therefore, CS (xT ) = π∈QS US,π /US = 1.
+Combining the two cases, we can conclude that CS (xT ) = 1(S ⊆ T ) = i∈S Ai (xT ).
+                                                                         Q
+
+
+
+G.4   Relation between interactive concepts and multi-order interactions
+
+In this section, we derive that high-order interactive concepts (computed via the Harsanyi dividend
+[18]) can be considered as elementary components for high-order interactions used in [43].
+Given a pre-trained DNN v and a masked sample xS , the multi-order interaction I (m) (i, j) used in
+[43] is given as follows:
+                             I (m) (i, j) = ES⊆N \{i,j},|S|=m [∆v(i, j, S)],                    (25)
+where ∆v(i, j, S) = v(xS∪{i,j} ) − v(xS∪{i} ) − v(xS∪{j} ) + v(xS ).
+Let ∆vT (S) = L⊆T (−1)|T |−|L| v(xL∪S ) denote the marginal benefit of variables in T ⊆ N \ S,
+                P
+
+given the environment S. In this way, ∆vT (S) can bePrepresented as the sum of interaction effects
+inside T and sub-environments of S, i.e. ∆vT (S) = S ′ ⊆S I(T ∪ S ′ ) [45].
+
+
+                                                   20

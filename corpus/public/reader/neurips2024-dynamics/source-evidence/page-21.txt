@@ -1,0 +1,84 @@
+Furthermore, according to the analytic form of interaction effect in Eq. (19), we note that the values
+   e |x) and JeT (x) have a ratio of wT . Therefore, if we write JeT (x) = JT (x) + ϵT , then the
+of I(T
+noise term satisfies ϵT = ∆IT /wT , and thus E[ϵT ] = 0, Var[ϵT ] ∝ 2|T | σ 2 .
+
+
+
+F.4 Proof of Theorem 3
+Proof. We concatenate all J (xS ) (w.r.t. all 2n masked samples xS , S ⊆ N ) into a matrix
+                                                          n   n
+J = [J (xS1 ), J (xS2 ), · · · , J (xS2n )]⊤ ∈ {0, 1}2 ×2 to represent the triggering strength of 2n
+interactions on 2 masked samples We also concatenate all noise terms on all 2n masked samples
+                 n
+                                            n
+into a matrix E = [ϵ(1) , ϵ(2) , · · · , ϵ(2 ) ]⊤ to represent the noise term over J . We concatenate the
+                      def                                              n
+output score vector y = [y(xS1 ), y(xS2 ), · · · , y(xS2n )]⊤ ∈ R2 to represent the finally converged
+outputs on all 2n masked samples.
+The optimal weights ŵ can be solved by minimizing the loss function L(w)
+                                                                     e    in Eq. (9). The loss
+function can be rewritten as follows:
+              ŵ = arg min L(w)
+                           e                                                                            (41)
+                         w
+                              h                     2 i
+              L(w)
+              e     = Eϵ ES⊆N yS − w⊤ (J (xS ) + ϵ)      ,                                              (42)
+                                        
+                       1
+               = EE n ∥y − (J + E)w∥22 ,                                                                (43)
+                      2
+                  1
+               = n EE (y − (J + E)w)⊤ (y − (J + E)w) ,
+                                                        
+                                                                                                        (44)
+                 2
+                  1
+               = n y ⊤ y − 2y ⊤ EE [(J + E)] w + w⊤ EE (J + E)⊤ (J + E) w .
+                                                                       
+                                                                                                        (45)
+                 2
+
+Taking the derivative with respect to w and setting it to zero, we get:
+
+                   ∂L
+                    e
+                      = −2EE (J + E)⊤ y + 2EE (J + E)⊤ (J + E)w = 0,
+                                                             
+                                                                                                        (46)
+                   ∂w
+                      ⇒ EE (J + E)⊤ (J + E) w = EE (J + E)⊤ y ,
+                                                          
+                                                                                                        (47)
+                              ⊤             ⊤        ⊤                  ⊤            ⊤
+                        ⇒ (J J + EE [E J ] + J EE [E] + EE [E E])w = J y,                               (48)
+                              ⊤             ⊤             ⊤
+                        ⇒ (J J + EE [E E])w = J y. // because E[E] = 0                                  (49)
+
+                                             1 ⊤
+Notice that the sample covariance matrix m     E E converges to the true covariance matrix Cov(E),
+                                           ⊤
+when m = 2n is large. Therefore, EE [E E]) = EE [2n Cov(E)]) = 2n Cov(E). Because we assume
+noises on different interactions are independent, it is a diagonal matrix, denoted by Cov(E) = diag(c),
+                                                                                n
+where c = vec({Var[ϵT ] : T ⊆ N }) = vec({2|T | σ 2 : T ⊆ N }) ∈ R2 denotes the vector of
+                                          n
+variances of the triggering strength of 2 interactions.
+Thus, we have:
+                                     (J ⊤ J + 2n diag(c))w = J ⊤ y.                                     (50)
+
+Next, we can prove that the matrix J ⊤ J + 2n diag(c) is always invertible, as follows. (1) We can
+prove that J ⊤ J is positive semi-definite, because ∀u ̸= 0, u⊤ J ⊤ J u = ∥J u∥22 ≥ 0. (2) We can
+further prove that J ⊤ J is positive definite. Let us denote the eigenvalues of J ⊤ J as λ1 , · · · , λ2n ∈ R
+(because J ⊤ J is real symmetric, its eigenvalues must be real). Note that the diagonal elements
+                                           Q2n           Q2n
+of J ⊤ J are all positive, so we have i=1 λi = i=1 (J ⊤ J )ii > 0. Combining the positive
+semi-definiteness, we know that the eigenvalues of J ⊤ J must be all positive, without having a
+zero eigenvalue. It means that J ⊤ J is positive definite. (3) We can prove that J ⊤ J + 2n diag(c)
+is positive definite. The diagonal matrix 2n diag(c) is positive definite, because all its diagonal
+elements are positive. The sum of two positive definite matrices is still positive definite. (4) Since
+J ⊤ J + 2n diag(c) is positive definite, it cannot have a zero eigenvalue, and is thus invertible.
+
+
+                                                     21

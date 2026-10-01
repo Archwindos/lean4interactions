@@ -1,0 +1,134 @@
+                                     Defects of Convolutional Decoder Networks in Frequency Representation
+
+
+
+
+A.3. Proof of Corollary 3.4
+In this section, we prove Corollary 3.4 in Section 3 of the main paper, as follows.
+
+
+
+
+Proof. First, we focus on a single convolutional layer.
+                                                                                                                             (l,c)       (l,c)
+According to the DFT and the inverse DFT, we can obtain the mathematical relationship between Guv and Fmn , and the
+                                    (l,uv)      (l)[ker=d]
+mathematical relationship between Tdc      and Wcts        , as follows.
+
+                                                                              
+                               M −1 N −1                                                   K−1
+                                                                                           X K−1
+                                          (l,c) −i( um + vn
+                      (l,c)
+                               X    X                       )2π
+                                                                                 (l,uv)
+                                                                                               X (l)[ker=d] i( ut + vs )2π
+                      G      =           Fmn   e                                T        =       Wcts      e M N
+                     
+                                                   M    N
+                                                                               
+                                                                               
+                      uv                                                        dc
+                     
+                                                                              
+                                                                               
+                                                                               
+                                     m=0 n=0                                                 t=0 s=0
+                                                                                                                                                    (19)
+                                          M −1 N −1                                                 M −1 N −1
+                     
+                       (l,c)          1   X    X        (l,c) i( um + vn )2π
+                                                                               
+                                                                                 (l)[ker=d]      1 X X (l,uv) −i( ut    vs
+                                                                                                              Tdc e M + N )2π
+                                                                              
+                     Fmn =                            Guv    e                Wcts        =
+                     
+                                                                M    N
+                                                                               
+                                                                               
+                                     MN                                                         M N u=0 v=0
+                                                                              
+                                          u=0 v=0
+
+
+
+
+Based on Equation (19) and the derivation rule for complex numbers (Kreutz-Delgado, 2009), we can obtain the mathematical
+relationship between ∂Loss
+                        (l,c) and
+                                   ∂Loss
+                                     (l,c) , and the mathematical relationship between
+                                                                                       ∂Loss
+                                                                                        (l,uv) and
+                                                                                                      ∂Loss
+                                                                                                      (l)[ker=d] , as follows.
+                               ∂Guv            ∂F mn                                                             ∂T dc       ∂W cts
+Note that when we use gradient descent to optimize a real-valued loss function Loss with complex variables, people usually
+treat the real and imaginary values, a ∈ C and b ∈ C, of a complex variable (z = a + bi) as two separate real-valued
+variables, and separately update these two real-valued variables. In this way, the exact optimization step of z computed
+                                                             (l,c)       (l)[ker=d]
+based on such a technology is equivalent to ∂Loss
+                                               ∂z . Since Fmn and Wcts              are real numbers, ∂Loss
+                                                                                                        (l,c) =
+                                                                                                                ∂Loss
+                                                                                                                  (l,c) and
+                                                                                                                              ∂F mn          ∂Fmn
+ ∂Loss               ∂Loss
+   (l)[ker=d]   =     (l)[ker=d] .
+∂W cts              ∂Wcts
+
+
+
+                                                                                
+                                   M −1 N −1                                                           K−1 K−1
+                 ∂Loss        1 X X ∂Loss −i( um             + vn )2π
+                                                                                   ∂Loss          1 X X ∂Loss                   ut  vs
+                           =                          e                                        =                             ei( M + N )2π
+                
+                                                          M    N
+                                                                                 
+                                                                                 
+                 ∂G(l,c)    M N m=0 n=0 ∂F (l,c)                                 ∂T (l,uv)      M N t=0 s=0 ∂W (l)[ker=d]
+                
+                                                                                
+                                                                                 
+                     uv                           mn                                  dc                            cts
+                                                                                                                                                    (20)
+                             M −1 N −1                                                              M −1 N −1
+                 ∂Loss      X    X    ∂Loss       um   vn
+                                                                                    ∂Loss          X    X    ∂Loss         ut   vs
+                                                ei( M + N )2π                                                          e−i( M + N )2π
+                                                                                
+                           =                                                                      =
+                
+                                                                                
+                                                                                 
+                     (l,c)                (l,c)                                        (l)[ker=d]               (l,uv)
+                
+                                                                                
+                                                                                 
+                  ∂F mn      u=0 v=0 ∂Guv                                          ∂W cts           u=0 v=0 ∂T dc
+
+
+
+
+Let us conduct the convolution operation (based on Assumption 3.1) on the feature map F(l−1) =
+[F (l−1,1) , F (l−1,2) , . . . , F (l−1,C) ] ∈ RC×M ×N , and obtain the output feature map F(l) = [F (l,1) , F (l,2) , . . . , F (l,D) ] ∈
+RD×M ×N of the l-th layer as follows.
+
+
+                                                                     C K−1
+                                                                       X K−1             (l)[ker=d]    (l−1,c)
+                                                                     X     X
+                                                 (l,d)
+                                                Fmn    = b(d) +                       Wcts            Fm+t,n+s                                      (21)
+                                                                     c=1 t=0 s=0
+
+
+
+
+Based on Equation (19) and Equation (20), and the derivation rule for complex numbers (Kreutz-Delgado, 2009), the exact
+
+                                                                                15
+

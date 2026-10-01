@@ -1,0 +1,91 @@
+                   Bayesian Neural Networks Avoid Encoding Complex and Perturbation-Sensitive Concepts
+
+
+
+                                                        h
+                                                        Y    ϵi πi i
+                           Eϵ [J(S, π|x + ϵ)] =           1+  Eϵi
+                                                              τ
+                                                i∈S
+                                                   "                  #
+                                                     Y      ϵi  π i
+                                              = Eϵ        1+
+                                                             τ
+                                                     i∈S
+                                                                        Y
+                                                Y            ϵi 2πi               h   ϵi πi i2
+                         Varϵ [J(S, π|x + ϵ)] =     Eϵi 1 +               −      Eϵi 1 +
+                                                              τ                          τ
+                                                i∈S                          i∈S
+                                                      "                  #
+                                                        Y      ϵi πi
+                                              = Varϵ       1+              .
+                                                                 τ
+                                                                  i∈S
+
+
+
+
+G.4. Proof of Theorem 2.4 in the main paper
+Theorem 2.4. Let S and S ′ be two interactive concepts, such that S ⊊ S ′ . Let us consider expansion terms J(S, π) and
+J(S ′ , π ′ ), where the term J(S ′ , π ′ ) is extended from the term J(S, π) with π ≺ π ′ . I.e., (1) ∀i ∈ S ′ , πi′ ∈ N+ ; otherwise,
+πi′ = 0. (2) Given π ′ , ∀j ∈ S, πj = πj′ ; otherwise, πj = 0. Then, we have
+
+
+                                                         Varϵ [J(S ′ , π ′ |x + ϵ)]   Y                     ϵi ′
+                                                                                    >            E2ϵi [(1 + )πi ],
+                                                         Varϵ [J(S, π|x + ϵ)]           i∈S ′ \S            τ
+                                                                                                                                  (39)
+                                Eϵ [J(S ′ , π ′ |x + ϵ)]/Varϵ [J(S ′ , π ′ |x + ϵ)]                1
+                                                                                    < Q                    ϵi π ′
+                                                                                                                  ,
+                                 Eϵ [J(S, π|x + ϵ)]/Varϵ [J(S, π|x + ϵ)]               i∈S ′ \S Eϵi [(1 + τ ) ]
+                                                                                                               i
+
+
+
+
+                                       ϵi πi′
+and we can also obtain Eϵi [(1 +       τ
+                                         ) ]    ≥ 1.
+
+
+
+
+Proof. According to Theorem 2.3, we have
+
+                                                        "                         #
+                                                                              ′
+                            ′     ′
+                                                            Y         ϵi πi
+                 Varϵ [J(S , π |x + ϵ)] = Varϵ                      1+
+                                                                       τ
+                                                         i∈S ′
+                                                                                                 
+                                                                           ′                    ′
+                                                            Y       ϵi i
+                                                                        π     Y            π
+                                                                                          ϵi i 
+                                                = Varϵ           1+                   1+                 //S ⊊ S ′
+                                                                     τ                    τ
+                                                            i∈S              i∈S ′ \S
+                                                                                                 
+                                                       Y                                 ′
+                                                                 ϵi  π i Y        ϵi  π i 
+                                                                                                          //∀i ∈ S, πi′ = πi
+                                                       
+                                                = Varϵ     1 +                 1 +          
+                                                                                                                                  (40)
+                                                       
+                                                       i∈S      τ          ′
+                                                                                    τ        
+                                                                         i∈S \S              
+                                                        |     {z       }|       {z        }
+                                                                     A                 B
+                                                = Varϵ [AB]
+                                                = (E2ϵ [A] + Varϵ [A])(E2ϵ [B] + Varϵ [B]) − E2ϵ [A]E2ϵ [B]
+                                                  //A and B are independent; Proposition G.1
+                                                = E2ϵ [A]Varϵ [B] + E2ϵ [B]Varϵ [A] + Varϵ [A]Varϵ [B]
+                                                > E2ϵ [B]Varϵ [A] + Varϵ [A]Varϵ [B]
+
+                                                                         18

@@ -1,0 +1,109 @@
+                                           Extracting interactions from different time points during training
+                                                                                                                                      Gap between training
+                       Time point 1   Time point 2        Time point 3       Time point 4         Time point 5   Time point 6          loss and testing loss
+                                                                                                                                           Six time
+
+
+ AlexNet
+                                                                                                                                            points
+
+
+
+
+                                                                                                                                Gap
+   CUB
+                 𝑘
+               𝐼real
+
+                         order 𝑘        order 𝑘            order 𝑘              order 𝑘             order 𝑘       order 𝑘              0   training epochs 256
+                                                                                                                                           Six time
+ CIFAR-10
+ VGG-11
+
+
+
+                                                                                                                                            points
+
+
+
+
+                                                                                                                                Gap
+                 𝑘
+               𝐼real
+
+
+                         order 𝑘        order 𝑘            order 𝑘              order 𝑘             order 𝑘       order 𝑘              0   training epochs 256
+ BERT-Medium
+
+
+
+
+                                                                                                                                           Six time
+                 𝑘                                                                                                                          points
+
+
+
+
+                                                                                                                                Gap
+    SST-2
+
+
+
+
+               𝐼real
+
+
+                         order 𝑘        order 𝑘            order 𝑘              order 𝑘             order 𝑘       order 𝑘              0
+                                                                                                                                           training epochs 256
+
+                                                      (k)
+Figure 2: The distribution of interaction strength Ireal  over different orders k. Each row shows
+the change in the distribution during the training process. Experiments showed that the two-phase
+phenomenon widely existed on different DNNs trained on various datasets. It also verified the finding
+in [41] that the beginning of the 2nd phase was temporally aligned with the time point when the
+loss gap increased. Please see Appendix J.1 for results on the other six DNNs trained for 3D point
+cloud/image/sentiment classification.
+
+• Discrimination property. This property means that the same interaction extracted from different
+samples consistently contributes to the classification of a certain category. This property has been
+observed on various DNNs [21], and it implies that interactions are discriminative for classification.
+Complexity/order of interactions. The complexity (or order) of an interaction is defined as the
+                                                       def
+number of input variables in the set S, i.e., order(S) = |S|. In this way, a high-order interaction
+represents a complex non-linear relationship among many input variables.
+3.2 Two-phase dynamics of learning interactions
+Zhang et al. [41] have discovered the following two-phase dynamics of interaction complexity during
+the training process. (1) As Figure 2 shows, before the training process, the DNN with randomly
+initialized parameters mainly encodes interactions of medium orders. (2) In the first phase, the DNN
+removes initial interactions of medium and high orders, and mainly encodes low-order interactions.
+(3) In the second phase, the DNN gradually learns interactions of increasing orders.
+To better illustrate this phenomenon, we followed [41] to conduct experiments on different DNNs,
+including AlexNet [17], VGG [31], BERT [9], DGCNN [38], and on various datasets, including
+image data (MNIST [19], CIFAR-10 [16], CUB-200-2011 [36], and Tiny-ImageNet [18]), natural
+language data (SST-2 [32]), and point cloud data (ShapeNet [39]). For image data, we followed [41]
+to select a random set of ten image patches as input variables. For natural language data, we
+set the entire embedding vector of each token as an input variable. For point cloud data, we
+took point clusters as input variables.      Please see Appendix G.3 for the detailed settings. We set
+v(x) = log p(y truth |x)/[1 − p(y truth |x)] by following [7], where p(y truth |x) denotes the probability of
+classifying the input sample x to the ground-truth category. We followed [41] to define the in-
+teraction whose absolute value is greater than or equal to τ = 0.03 Ex [|v(x) − v(x∅ )|] as salient
+interaction. For interactions of each k-th order, we normalized the strength of salient interactions
+    (k)        P             P
+as Ireal = Ex [ type∈{and,or} S:|S|=k,|Itype (S|x)|≥τ |Itype (S|x)|]/Z to enable fair comparison between dif-
+ferent training epochs9 , where Z = E1≤k′ ≤n Ex [ type∈{and,or} S:|S|=k′ ,|Itype (S|x)|≥τ |Itype (S|x)|] denotes
+                                                       P             P
+
+the normalizing constant.
+                                                             (k)
+Figure 2 shows how the distribution of interaction strength Ireal of different orders changed throughout
+the entire training process, and it demonstrates that the two-phase dynamics widely existed on
+different DNNs trained on various datasets. Before training, the interaction strength of medium orders
+dominated, and the distribution of interaction strength of different orders looked like a spindle. In
+the first phase (from the 2nd column to the 3rd column in the figure), the strength of medium-order
+and high-order interactions gradually shrank to zero, while the strength of low-order interactions
+       9
+    The normalization removes the effect of the explosion of output values during the training process and
+enables us to only analyze the relative distribution of interaction strength.
+
+
+                                                                               5

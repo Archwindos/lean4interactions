@@ -1,0 +1,85 @@
+                                      Defects of Convolutional Decoder Networks in Frequency Representation
+
+computed by measuring real network parameters, termed                                    value of all parameters in W(l) usually has a small bias dur-
+∆∗ T (l,uv) , and the change of T (l,uv) derived with as-                                ing the training process, instead of being exactly zero. There-
+sumptions in Corollary 3.4, termed ∆T (l,uv) . The sim-                                  fore, let us assume that in early epochs, each parameter in
+ilarity was also computed2 as sim(∆∗ T (l,uv) , ∆T (l,uv) ) =                            W(l) is sampled from a Gaussian distribution N (µl , σl2 ).
+Ec [cos(vec(mag(∆∗ T (l,uv) )), vec(mag(∆T (l,uv) )))]. The veri-
+fication was also conducted on the above three baseline net-                             Note that we also experimentally verify that Assumption 4.1
+works. Figure 3(b) reports ∀l, sim(∆∗ T (l,uv) , ∆T (l,uv) ) aver-                       can be also applied to fully trained DNNs, besides DNNs
+aged over all samples. The similarity was greater than 0.88                              trained after early epochs. Please see Appendix C.7 for
+for all three baseline networks, which was large3 enough to                              details.
+verify Corollary 3.4.
+                                                                                         According to h(uv) = T(uv)(L:1) g(uv) + δuv M N b in Corol-
+                                                                                         lary 3.3, we investigate the magnitude of T(uv)(L:1) as an
+4. Representation problems                                                               indicator to measure the strength of the network encod-
+In this section, we aim to prove three defects in the fre-                               ing this specific frequency component g(uv) .
+quency representation with a cascaded convolutional de-                                  Theorem 4.2. (Proof in Appendix A.4) Let us focus on
+coder network. Note that unlike previous studies (Xu et al.,                             the simplest case that each convolutional layer only con-
+2019a; Rahaman et al., 2019) extracting frequent compo-                                  tains a feature map with a single channel, i.e., ∀l, Cl =
+nents in the sample space, we focus on a more commonly-                                  1. Based on Assumption 4.1, T(uv)(L:1) ∈ C is com-
+used frequency, i.e., applying DFT to each channel of the                                puted as T (L,uv) · · · T (2,uv) T (1,uv) , which is the product
+intermediate-layer feature.                                                              of L complex numbers. Because each complex num-
+                                                                                         ber T (l,uv) follows a Gaussian distribution4 , the mean
+4.1. Effects of the convolution operation                                                value of T(uv)(L:1) is L
+                                                                                                                    Q
+                                                                                                                       l=1 µl Ruv ∈ C, where Ruv =
+                                                                                             uKπ       vKπ
+                                                                                         sin( M ) sin( N ) i(   (K−1)u    (K−1)v
+                                                                                                                        +         )π
+Given an initialized, cascaded, convolutional decoder1 net-                               sin( uπ ) sin( vπ )
+                                                                                                              e   M          N        ∈ C is a complex
+                                                                                               M         N
+work with L convolutional layers, let us focus on the behav-                             coefficient; 0 ≤ |Ruv | ≤ K 2 . The logarithm of the
+ior of the decoder network in the early epochs of train-                                 second-order moment is given as log SOM(T(uv)(L:1) ) =
+                                                                                         PL                   2     2 2
+ing. We notice that each element in the matrix T (l,uv) ,                                   l=1 log(|µl Ruv | + K σl ) ∈ R.
+        (l,uv)
+i.e., Tdc      , is exclusively determined by the c-th channel
+                           (l)[ker=d]
+of the d-th kenel Wc,0:K−1,0:K−1           ∈ RK×K , according to                         Theorem 4.2 tells us the following five conclusions.
+Theorem 3.2. Because parameters in W (l) in the decoder
+                                                                                         (1) The magnitude of T(uv)(L:1) , which is measured using the
+network are initialized to random noises, we can consider
+                                                                                         second-order moment SOM(T(uv)(L:1) ), increases along with
+that all elements in T (l,uv) are irrelevant to each other, i.e.,
+                        (l,uv)                                                           the following four terms, including the absolute value of the
+∀d 6= d0 , c 6= c0 , Tdc        is irrelevant to Td(l,uv)
+                                                    0 c0  . Similarly,
+                                                                                         expectation |µl |, the magnitude of the complex coefficient
+since different layers’ parameters W (l) are irrelevant to each
+                                                                                         |Ruv |, the kernel size K , and the variance σl2 .
+other in the initialized decoder, we can consider that ele-
+ments in different layers’ T (l,uv) are irrelevant to each other,                        (2) For each frequency component [u, v], the magnitude
+                                                              0
+i.e., ∀l 6= l0 , elements in T (l,uv) and elements in T (l ,uv) are                      of T(uv)(L:1) will exponentially increase along with the
+irrelevant to each other. Moreover, since the early training                             depth L of the network. We can consider that each layer’
+of a DNN mainly modifies a few parameters according to                                   T (l,uv) has independent effects log(|µl Ruv |2 + K 2 σl2 ) on
+                                                                                         log SOM(T(uv)(L:1) ) = L                    2   2 2
+                                                                                                                 P
+the lottery ticket hypothesis (Frankle & Carbin, 2018), we                                                          l=1 log(|µl Ruv | + K σl ). We ad-
+can still assume such irrelevant relationships in early epochs,                          mit that such an conclusion is derived from the second-order
+as follows.                                                                              moment of T(uv)(L:1) , instead of a deterministic claim for
+Assumption 4.1. (Proof in Appendix A.4) We assume that                                   a specific neural network. Nevertheless, according to the
+all elements in T (l,uv) are irrelevant to each other, and                               Law of Large Numbers, SOM(T(uv)(L:1) ) is still a convincing
+                                        0
+∀l 6= l0 , elements in T (l,uv) and T (l ,uv) are irrelevant to                          metric to reflect the average significance of T(uv)(L:1) .
+each other in early epochs.                                                              For the general case that each convolutional kernel contains
+            0
+   ∀d 6= d ; ∀c 6= c ,   0                                                               more than one channel, i.e., ∀l, Cl > 1, the magnitude of
+                (l,uv)       (l,uv)                (l,uv)            (l,uv)
+                                                                               (6)       T(uv)(L:1) also approximately exponentially increases along
+      EW(l) [Tdc         Td0 c0 ] = EW(l) [Tdc              ]EW(l) [Td0 c0 ]
+                                                                                         with the network depth with a quite complicated analytic
+                                                                                         solution. Please see Appendix A.4 for the proof.
+  ∀l, d, c, d0 , c0 , EW(l) ,...,W(1) [Tdc
+                                         (l,uv)    (uv)(l−1:1)
+                                                  Td0 c0          ]=                         4
+                                                                               (7)             The Gaussian distribution of complex numbers has three pa-
+                           (l,uv)                   (uv)(l−1:1)
+                   EW(l) [Tdc )]EW(l−1) ,...,W(1) [Td0 c0       ]                        rameters µ ∈ C, σ 2 ∈ R and r ∈ C, which control the mean value,
+                                                                                         the variance, and the diversity of the phase of the sampled complex
+Besides, according to experimental experience, the mean                                  number, respectively.
+
+                                                                                     5
+

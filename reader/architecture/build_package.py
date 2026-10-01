@@ -42,4 +42,7 @@ def build():
       'lean':{'type':'object','required':['evidence_role'],'properties':{'evidence_role':{'enum':['none','theorem_proof','counterexample','partial_component']}}}}}}
     (HERE/'full-content.schema.json').write_text(json.dumps(content_schema,ensure_ascii=False,indent=2)+'\n')
     return {'status':'built','resources':len(resources),'tools':len(tools),'nodes':len(nodes),'edges':len(edges),'validation':out['validation']}
-if __name__=='__main__':print(json.dumps(build(),ensure_ascii=False))
+if __name__=='__main__':
+    report=build()
+    print(json.dumps(report,ensure_ascii=False))
+    raise SystemExit(report['validation']['status']!='passed')

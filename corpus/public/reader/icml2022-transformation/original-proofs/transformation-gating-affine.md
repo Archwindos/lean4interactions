@@ -1,0 +1,7 @@
+In this section, we further discuss gating states of different gating layers, which is mentioned in Section 3 of the paper. Let $\mathbf h_l\triangleq W_l(\boldsymbol\sigma_{l-1}(W_{l-1}\ldots(W_2\boldsymbol\sigma_1(W_1\mathbf x+\mathbf b_1)+\mathbf b_2)\cdots+\mathbf b_{l-1}))+\mathbf b_l$ denote the input of the $l$-th gating layer. We consider the vectorized form of $\mathbf h_l$. Given $\mathbf h_l\in\mathbb R^D$, the formulation of $\boldsymbol\sigma_l$ in different gating layers is given as follows.
+
+(1) ReLU layer. In this case, $\boldsymbol\sigma_l=\operatorname{diag}(\sigma_l^1,\sigma_l^2,\ldots,\sigma_l^D)\in\{0,1\}^D$, which is a diagonal matrix. If the $d$-th dimension of $\mathbf h_l$ is larger than $0$, then we have $\sigma_l^d=1$; otherwise, $\sigma_l^d=0$.
+
+(2) Dropout layer. In this case, $\boldsymbol\sigma_l=\operatorname{diag}(\sigma_l^1,\sigma_l^2,\ldots,\sigma_l^D)\in\{0,1\}^D$, which is a diagonal matrix. If the $d$-th dimension of $\mathbf h_l$ is not dropped, then we have $\sigma_l^d=1$; otherwise, $\sigma_l^d=0$.
+
+(3) Max-Pooling layer. Since a pooling layer may change the size of the input, $\boldsymbol\sigma_l$ is not necessarily a square matrix. Let the output of the max-pooling layer be $\boldsymbol\sigma_l\mathbf h_l\in\mathbb R^{D'}$, i.e. the input $\mathbf h_l$ is divided into $D'$ regions. In this case, we have $\boldsymbol\sigma_l\in\{0,1\}^{D'\times D}$. If $(\mathbf h_l)_{d'}$ is the largest element in the $d'$-th region, then we have $(\boldsymbol\sigma_l)_{d'd}=1$; otherwise, $(\boldsymbol\sigma_l)_{d'd}=0$.

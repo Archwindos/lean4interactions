@@ -1,0 +1,57 @@
+                                               Defects of Convolutional Decoder Networks in Frequency Representation
+                                               Input        𝜇 = 0 𝜇 = 0.001𝜇 = 0.01       Input       𝜇 = 0 𝜇 = 0.001𝜇 = 0.01
+
+
+
+
+                   (a) CIFAR-10 dataset
+
+
+
+                                               Input        𝜇 = 0 𝜇 = 0.001𝜇 = 0.01       Input       𝜇 = 0 𝜇 = 0.001𝜇 = 0.01
+                   (b) Tiny-ImageNet dataset
+
+
+
+
+Figure 12. A network whose convolutional weights had a mean value significantly biased from 0 usually strengthened low-frequency
+components, but weakened high-frequency components. Here, each magnitude map of the feature spectrum was averaged over all
+channels. For clarity, we moved low frequencies to the center of the spectrum map, moved high frequencies to corners of the spectrum
+map, and set the magnitude of the fundamental frequency to be the same with the frequency that has the second large magnitude.
+For resutls in (b), we only visualized components in the center of the spectrum map with the range of relatively low frequencies
+u ∈ {u|0 ≤ u < M/6} ∪ {u|5M/6 ≤ u < M }; v ∈ {v|0 ≤ v < N/6} ∪ {v|5N/6 ≤ v < N } for clarity.
+
+
+applied a network architecture with 5 convolutional layers. Each layer contained 16 convolutional kernels (kernel size
+was 9×9), except for the last layer containing 3 convolutional kernels. Based on this architecture, we constructed three
+networks, whose parameters were sampled from Gaussian distributions N (µ = 0, σ 2 = 0.012 ), N (µ = 0.001, σ 2 = 0.012 ),
+and N (µ = 0.01, σ 2 = 0.012 ), respectively. Results on the CIFAR-10 dataset and the Tiny-ImageNet dataset in Figure 12
+show that magnitudes of low-frequency components increased along with the absolute mean value of parameters.
+
+C.6. Discussions on the curse of dimension
+In this section, we discuss the problem of the curse of dimension, when we compute the cosine similarity of two high-
+dimensional vectors with as many as 322 , 642 or 2242 dimensions. In general, for each pair of extremely high-dimensional
+vectors, it’s hard for these vectors to have very high cosine similarity. It is because even if the noisy differences between
+many pairs of dimensions can be ignored, in the process of calculating the sum of squares, these noisy differences will
+accumulate. Therefore, the cosine similarity of two extremely high-dimensional vectors will not be particularly large.
+
+C.7. Verifying that Assumption 3.1 can be applied to fully trained DNNs
+Assumption 4.1 shows that in early training of a DNN, all elements in T (l,uv) are irrelevant to each other, and ∀l 6= l0 ,
+                              0
+elements in T (l,uv) and T (l ,uv) are irrelevant to each other. In this section, we further conducted experiments to verify
+that such irrelevant relationships also existed in a fully trained DNN. To this end, we constructed a cascaded convolutional
+auto-encoder by using the VGG-16 as the encoder network. The decoder network contained ten convolutional layers, where
+the 1st, 3rd, 5th, 7th, and 9th layers were traditional convolutional layers, and the 2nd, 4th, 6th, 8th, and 10th layers were
+upconvolutional layers. Each convolutional/upconvolutional layer applied zero-paddings and was followed by a batch
+normalization layer and an ReLU layer. The network was trained on the Tiny-ImageNet dataset using the mean squared
+error (MSE) loss for image reconstruction.
+Let the above auto-encoder be trained to convergence. Then, we computed the Pearson’s correlation coefficient between
+                                  (l,uv)        (l,uv)                                            (l,uv)      (l,uv)
+each random pair of variables |∆Td1 c1 | and |∆Td2 c2 | through different images, denoted by r(|∆Td1 c1 |, |∆Td2 c2 |), to
+                                                                     (l,uv)      (l,uv)
+measure the relevance between two elements Td1 c1 and Td2 c2 in T (l,uv) . Here, ∆T (l,uv) denoted the change of T (l,uv)
+when we updated parameters W for a single gradient-descent step on a single input sample. Results in Table 1 show that even
+when the network was fully trained, different elements in T (l,uv) had low Pearson’s correlation coefficient r. This proved
+
+                                                                                 32
+

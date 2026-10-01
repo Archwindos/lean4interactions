@@ -1,0 +1,100 @@
+                           Defects of Convolutional Decoder Networks in Frequency Representation
+
+
+                                        (l,uv)                   (l,uv)           (l,uv)              (l,uv)
+                       σ 2 = E[(Tdc               − E[Tdc                 ])(Tdc           − E[Tdc             ])] //By definetion of σ 2
+                                           (l,uv)
+                           = V ar[Tdc                  ]
+                                        K−1
+                                        X K−1                    (l)[ker=d] i( ut  vs
+                                            X
+                           = V ar[                         Wcts               eM + N )2π         ] //Equation (19)
+                                         t=0 s=0
+                                                                          (l)[ker=d]        (l)[ker=d]               (l)[ker=d]         (l)[ker=d]
+                         //∀t 6= t0 or s 6= s0 : E[Wcts                                Wct0 s0           ] = E[Wcts               ]E[Wct0 s0         ]
+                               K−1
+                               X K−1                             (l)[ker=d] i( ut  vs
+                                   X
+                           =                     V ar[Wcts                    eM + N )2π         ]
+                                t=0 s=0
+                               K−1
+                               X K−1                             (l)[ker=d]
+                                   X
+                           =                     V ar[Wcts                    ] //V ar[aX] = |a|2 V ar[X]
+                                t=0 s=0
+                               K−1
+                               X K−1                                         (l)[ker=d]
+                                   X
+                           =                     σl2       //V ar[Wcts                     ] = σl2
+                                t=0 s=0
+                           = K 2 σl2
+
+                                        (l,uv)                  (l,uv)        (l,uv)                 (l,uv)
+                       r = E[(Tdc                − E[Tdc                 ])(Tdc            − E[Tdc            ])] //By definetion of r
+                                    (l,uv)
+                         = C[Tdc             ] //Define C[X] = E[(X − E[X])(X − E[X])]
+                                  X K−1
+                                  K−1
+                                                           (l)[ker=d] i( ut  vs
+                                      X
+                         = C[                      Wcts                  M + N )2π
+                                                                         e                   ] //Equation (19)
+                                  t=0 s=0
+                                                                         (l)[ker=d]        (l)[ker=d]               (l)[ker=d]         (l)[ker=d]
+                         //∀t 6= t0 or s 6= s0 : E[Wcts                               Wct0 s0           ] = E[Wcts               ]E[Wct0 s0         ]
+                               K−1
+                               X K−1                       (l)[ker=d] i( ut  vs
+                                   X
+                         =                   C[Wcts                      M + N )2π
+                                                                         e                   ]
+                               t=0 s=0
+                               X K−1
+                               K−1
+                                                                              2ut
+                                                           (l)[ker=d]               + 2vs
+                                   X
+                         =                   C[Wcts                      ]ei( M        N )2π          //C[aX] = a2 C[X]
+                               t=0 s=0
+                                  K−1
+                                  X K−1                     2ut
+                                                                  + 2vs                              (l)[ker=d]
+                                      X
+                         = σl2                        ei( M          N )2π         //V ar[Wcts                    ] = σl2
+                                   t=0 s=0
+                                                                         X K−1
+                                                                         K−1
+                                                                                            ut    vs
+                                                                             X
+                         = σl2 R2u,2v              // Ruv =                            ei( M + N )2π
+                                                                          t=0 s=0
+
+Finally, let us consider the value of Ruv .
+                           K−1
+                           X K−1                 ut        vs
+                               X
+                  Ruv =                    ei( M + N )2π
+                           t=0 s=0
+                           K−1                    K−1
+                                        2uπ                       2vπ
+                           X                      X
+                       =          ei(    M )t               ei(    N )s
+
+                           t=0                    s=0
+                         sin( Ku       Kv
+                              M π) sin( N π)
+                                                  (K−1)u (K−1)v
+                       =      u   ·     v    · ei( M + N )π                                                    //According to Equation (13)
+                         sin( M π) sin( N π)
+
+                               (l,uv)
+Therefore, we prove that Tdc            follows a Gaussian distribution of complex numbers.
+                                             (l,uv)
+                                ∀d, c      Tdc             ∼ ComplexN (µ̂ = µl Ruv , σ̂ 2 = K 2 σl2 , r = σl2 R2u,2v )                                   (27)
+                                                                sin(uKπ/M ) sin(vKπ/N ) i( (K−1)u +
+                                                                                                    (K−1)v
+                                                                                                           )π
+                                        s.t. Ruv =                                     e     M        N
+                                                                 sin(uπ/M ) sin(vπ/N )
+
+                                                                                       20
+

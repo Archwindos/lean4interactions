@@ -18,11 +18,11 @@ import tempfile
 from datetime import datetime, timezone
 from pathlib import Path
 from input_manifest import load_manifest, project_path as guarded_project_path
+from evidence_paths import EVIDENCE
 
 ROOT = Path(__file__).resolve().parents[1]
 WORK = Path(__file__).resolve().parent
 SITE = WORK / "preview"
-EVIDENCE = WORK / "evidence"
 PAPER_IDS = set()
 INPUTS: dict[str, dict] = {}
 PUBLIC_FILES: dict[str, dict] = {}
@@ -328,9 +328,17 @@ def build(allow_incomplete_language=False,allow_incomplete_content=False) -> dic
     configured=load_manifest(read_json)
     PAPER_IDS={item['paper_id'] for item in configured['papers']}
     record(WORK/'input_manifest.py')
+    record(WORK/'evidence_paths.py')
     record(Path(__file__).resolve())
     SITE.mkdir(parents=True, exist_ok=True)
     EVIDENCE.mkdir(parents=True, exist_ok=True)
+    aggregate_report=read_json(EVIDENCE/'aggregate-report.json')
+    for bound in aggregate_report['inputs']:
+        path=project_file(bound['path'])
+        if digest(path)!=bound['sha256']:raise ValueError('Aggregate input changed; rebuild aggregate: '+bound['path'])
+        record(path)
+    for path,expected in aggregate_report['output_sha256'].items():
+        if digest(project_file(path))!=expected:raise ValueError('Aggregate output changed: '+path)
     paper_data = read_json(WORK / "data/papers.json")
     math_data = read_json(WORK / "data/math-content.json")
     papers = copy.deepcopy(paper_data["papers"])
@@ -341,6 +349,9 @@ def build(allow_incomplete_language=False,allow_incomplete_content=False) -> dic
     completion=completion_report(full_data)
     write_json(EVIDENCE/'content-completion-checks.json',completion)
     record(WORK/'check_completion.py')
+    preservation_baseline=WORK/'evidence/six-paper-preservation-baseline.json'
+    if preservation_baseline.is_file():record(preservation_baseline)
+    if completion['inventory_contract_errors']:raise ValueError('Invalid proof denominator: '+ '; '.join(completion['inventory_contract_errors'][:20]))
     if completion['incomplete'] and not allow_incomplete_content:raise ValueError('Unfinished proof targets: '+', '.join(x['id'] for x in completion['incomplete']))
     from bilingual import validate_translations
     language_check=validate_translations(full_data,strict=not allow_incomplete_language)
@@ -361,7 +372,7 @@ def build(allow_incomplete_language=False,allow_incomplete_content=False) -> dic
                 if isinstance(page, int):
                     page_requests.setdefault(source_id, set()).add(page)
     source_page_records = []
-    # The four official PDFs have independent page numbering; every inventoried
+    # Official PDFs have independent page numbering; every inventoried
     # page has a real inline source image, including reference/nonproof pages.
     for inventory in full_data['inventories']:
         for audit in inventory['page_audit']:
@@ -369,6 +380,8 @@ def build(allow_incomplete_language=False,allow_incomplete_content=False) -> dic
     enrich_step_maps(math_content)
     page_cache_path = EVIDENCE / "source-pages-manifest.json"
     page_cache = json.loads(page_cache_path.read_text(encoding="utf-8")).get("pages", []) if page_cache_path.exists() else []
+    accepted_cache_path=WORK/'evidence/source-pages-manifest.json'
+    accepted_cache=json.loads(accepted_cache_path.read_text()).get('pages',[]) if accepted_cache_path.exists() else []
     for paper in papers:
         if paper.get("visibility") != "public" or paper.get("publication_status") != "published":
             raise ValueError(f"Non-public or non-formal paper: {paper['id']}")
@@ -382,12 +395,19 @@ def build(allow_incomplete_language=False,allow_incomplete_content=False) -> dic
                 if not 1 <= page_number <= source["total_pages"]:
                     raise ValueError(f"PDF page outside formal source: {source['id']}:{page_number}")
                 cache_image = EVIDENCE / "source-pages" / f"{source['id']}-p{page_number:02}.png"
+                cached=next((item for item in page_cache if item['source_id']==source['id'] and item['pdf_page']==page_number and item['pdf_sha256']==source['sha256']),None)
+                if cached and cached.get('cache_path'):cache_image=guarded_project_path(cached['cache_path'],required=False)
                 valid = cache_image.exists() and any(item["source_id"] == source["id"] and item["pdf_page"] == page_number and item["pdf_sha256"] == source["sha256"] and item["image_sha256"] == digest(cache_image) for item in page_cache)
                 if not valid:
+                    accepted=WORK/'evidence/source-pages'/cache_image.name
+                    reused=next((item for item in accepted_cache if item['source_id']==source['id'] and item['pdf_page']==page_number and item['pdf_sha256']==source['sha256'] and accepted.is_file() and item['image_sha256']==digest(accepted)),None)
+                    if reused:cache_image=accepted;valid=True
+                if not valid:
+                    cache_image=EVIDENCE/'source-pages'/f"{source['id']}-p{page_number:02}.png"
                     cache_image.parent.mkdir(parents=True, exist_ok=True)
                     subprocess.run(["pdftoppm", "-f", str(page_number), "-l", str(page_number), "-r", "110", "-png", "-singlefile", str(source_file), str(cache_image.with_suffix(""))], check=True, stdout=subprocess.DEVNULL, stderr=subprocess.PIPE)
                 source["page_images"][str(page_number)] = publish(cache_image, "files/source-pages/" + cache_image.name)
-                source_page_records.append({"source_id": source["id"], "pdf_page": page_number, "pdf_sha256": source["sha256"], "render_dpi": 110, "image_sha256": digest(cache_image)})
+                source_page_records.append({"source_id": source["id"], "pdf_page": page_number, "pdf_sha256": source["sha256"], "render_dpi": 110, "image_sha256": digest(cache_image),'cache_path':cache_image.relative_to(ROOT).as_posix()})
             source.pop("local_path", None)
         for key in ("candidate_id", "selection_status", "review_status", "user_approval_status", "version_label"):
             paper.pop(key, None)
@@ -445,6 +465,8 @@ def build(allow_incomplete_language=False,allow_incomplete_content=False) -> dic
     for source_name, label, target in [
         ("docs/paper-agent-data-model.md", "数据关系与 Paper2Agent 参考", "files/paper-agent-data-model.md"),
         ("docs/agent-extension-workflow.md", "新增论文的处理流程", "files/agent-extension-workflow.md"),
+        ("docs/library-api.md", "独立公共模块与准确适用条件", "files/library-api.md"),
+        ("docs/ai-use-library.md", "AI 调用公共库与实际消费示例", "files/ai-use-library.md"),
         ("reader/architecture/paper_agent.py", "只读命令行工具（项目内运行）", "files/paper_agent.py"),
         ("reader/architecture/v2_verification_helper.py", "源指纹与声明证据检查", "files/v2_verification_helper.py"),
         ("reader/architecture/agent-package.json", "可核验的数据包", "files/agent-package.json"),

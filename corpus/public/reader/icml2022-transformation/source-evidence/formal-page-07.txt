@@ -1,0 +1,75 @@
+                               Towards Theoretical Analysis of Transformation Complexity of ReLU DNNs
+
+   10                                   10                                     complexity of transformations encoded in shallow MLPs
+    8                                    8
+    6                                    6
+                                                                               was usually higher than that encoded in deep MLPs.
+H(Σ)
+
+
+
+
+                                     H(Σ)
+    4                                    4                                     In other words, the transformation complexity did not
+    2         MLP-6      MLP-12                  res MLP-6       res MLP-12
+                                         2                                     monotonously increase along with the depth of the DNN.
+    0         MLP-18     MLP-24          0       res MLP-18      res MLP-24
+        0     10       20        30         0        10         20        30   This phenomenon shows the ceiling of a DNN’s complexity.
+                (a)  the order of the task complexity, n    (b)
+                                                                               Findings from residual networks. Besides above target
+Figure 6. The change of target MLPs’ transformation complexity
+                                                                               MLPs, we further designed new target MLPs with skip-
+along with the increase of task complexity n. We used MLPs with
+                                                                               connections, which were termed residual MLPs. We added
+(a) traditional stacked architectures and (b) residual architectures.
+                                                                               a skip-connection to each FC layer in each of above target
+                                                                               MLPs. The complexity of transformations encoded in resid-
+The VAE was trained on the MNIST dataset and the CIFAR-                        ual MLPs was shown in Figure 6(b).
+10 dataset, respectively. Figure 5 shows the complexity of                     (1) Deep residual MLPs always encoded higher transforma-
+transformations encoded in each gating layer of the classi-                    tion complexity than shallow residual MLPs.
+fier. The difference between H(Σl ) and I(X; Σl ) gradually                    (2) We also found that when we gradually increased the
+decreased during the training process. This indicated that                     task complexity to train target MLPs, the transformation
+the impact of inputs on the transformation complexity kept                     complexity encoded in target MLPs increased along with
+increasing. At the same time, the noisy features encoded in                    the increase of the task complexity in the beginning.
+the DNN kept decreasing.                                                       (3) However, when the task complexity exceeded a certain
+Maximum complexity: exploring the ceiling of a DNN’s                           limit, the transformation complexity saturated and started to
+complexity. In order to examine whether a DNN always                           decrease.
+encoded more complex transformations when it dealt with                        I.e., the transformation complexity did not keep increasing
+more complex tasks, we first constructed a set of different                    when the DNN was forced to handle more and more complex
+tasks with various complexities. Specifically, we designed a                   tasks. This phenomenon indicated the ceiling of a DNN’s
+set of knowledge-distillation tasks with different complexity                  complexity from another perspective.
+levels. In other words, we defined different task MLPs with
+various complexities and distilled the knowledge of the task                   4.3. Learning a DNN with the minimum complexity
+MLP to a target MLP. We explored whether a target MLP                          Minimum complexity. A DNN may use over-complex
+would learn more complex transformations, when it distilled                    transformations for prediction, i.e., the complexity
+knowledge from a more complex task MLP.                                        I(X; Σ; Y ) does not always represent the real complexity
+Each of the task MLPs was assigned with randomly ini-                          of the task. In this section, we develop a method to avoid
+tialized parameters without further training. A task MLP                       learning an over-complex DNN. The basic idea is to use the
+consisted of n ReLU layers and FC layers with the width of                     following loss to quantify and penalize the complexity of
+1024. The task MLP took gray-scale CIFAR-10 images as                          transformations during the training process.
+input, and generated a 1024-dimensional vector as output.
+                                                                                          L =Ltask + λLcomplexity ,
+We learned the target MLP to reconstruct this output vector                                    XL               XL                               (4)
+with an MSE loss.                                                                 Lcomplexity =     H(Σl ) =        {−Eσl [log p(σl )]}
+                                                                                                   l=1                 l=1
+Since the task MLP was randomly parameterized, the task
+complexity would be high, when the number of ReLU layers                       The first term Ltask denotes the task loss, e.g., the cross-
+n in the task MLP was large. Therefore, we considered that                     entropy loss for object classification. The second term
+the complexity of distilling knowledge of this task MLP                        Lcomplexity penalizes the complexity of transformations en-
+into the target MLP was at the n-th level. We conducted                        coded in the DNN. λ is a positive scalar. To simplify
+multiple experiments to train different target MLPs. Each                      the computation of p(σl ), we use an energy-based model
+target MLP had a specific depth with 6, 12, 18 or 24 ReLU                      (EBM) (LeCun et al., 2006; Gao et al., 2018) with param-
+layers and FC layers, and each layer had 1024 neurons. We                      eters θf . The EBM is a widely-used method to model a
+trained these target MLPs to regress task MLPs of different                    high-dimensional distribution (Du & Mordatch, 2019; Pang
+complexities, n = 0, 1, . . . , 31.                                            et al., 2020), e.g., pθf (σl ) in this paper.
+
+Findings from stacked networks. Figure 6(a) compares the                                                   1
+complexity of transformations encoded in target MLPs (with                               pθf (σl ) =            exp[f (σl ; θf )] · q(σl ),      (5)
+                                                                                                         Z(θf )
+the traditional stacked architecture) for different tasks.
+(1) For the task of low complexity, deep MLPs learned more                     where q(σl ) is a prior distribution defined as q(σl ) =
+complex transformations than shallow MLPs.                                       d q(σl,d ) and q(σl,d )∼Bernoulli(al,d ). f (σl ; θf ) ∈ R is imple-
+                                                                               Q
+
+(2) However, as the complexity of the task increased, the                      mented as the scalar output of a ConvNet with parameters
+

@@ -1,0 +1,60 @@
+                         Towards Theoretical Analysis of Transformation Complexity of ReLU DNNs
+
+of the feature Z . Let us take the ReLU layer for an instance.    us assume that p(σl,d ) ∼ Bernoulli(al,d ), where al,d is the
+In ReLU layers, the gating state Σ only represents whether        activation rate of the d-th dimension in the l-th gating layer
+the elements in feature Z are positive. The information           over all samples. In particular, T C(Σl ) is zero if and only
+encoded in Σ cannot be directly used to infer Y , which           if all dimensions of σl are independent with each other. In
+makes the transformation complexity I(X; Σ) essentially           this case, we say all dimensions in Σl are disentangled.
+different from I(X; Z) in mathematics.
+                                                                  For DNNs with similar activation rates, we prove the neg-
+Advantages of investigating gating states over studying           ative correlation between the complexity H(Σl ) and the
+neural activations. I(X; Σ) based on gating states Σ is sub-      entanglement T C(Σl ) (proof in Appendix B.4).
+stantially more related to the transformation complexity than                                             X
+I(X; Z) based on neural activations Z . Theoretically speak-              H(Σl ) + T C(Σl ) = Cl , Cl =       Hl,d ,    (2)
+                                                                                                                                     d
+ing, the entropy/mutual information of neural activations         where Hl,d = −al,d log al,d − (1 − al,d ) log(1 − al,d ). We
+Z in an intermediate layer is affected by two aspects, i.e.,      can roughly consider Cl as a constant if the average acti-
+the diversity of transformations and the continuous changes       vation rate over all dimensions {al,d |1 ≤ d ≤ D} in the
+of input samples. We have proven that gating states more          l-th layer converges to a certain number. Furthermore, we
+directly reflect the transformation complexity in DNNs than       extend conclusions in Eq. (2) and prove that the negative
+neural activations z .                                            correlation between the complexity and the entanglement
+To be precise, any intermediate-layer neural activation z can     of transformations in the DNN still holds true for I(X; Σl )
+be represented as a linear transformation on the input x, i.e.,   and I(X; Σl ; Y ).
+z = Wx + b, where W and b are determined by gating
+states in nonlinear layers directly. Therefore, gating states         I(X; Σl ) + T C(Σl ) = Cl − H(Σl |X)
+are the most direct factor that determines and reflects the         I(X; Σl ; Y ) + (T C(Σl ) − T C(Σl |Y ))
+diversity of linear subspaces in piecewise linear transforma-                        |         {z          }                             (3)
+                                                                                  multi-variate mutual information used to infer Y
+tions, and are directly related to the representation power of
+                                                                                = Cl − Cl|Y − (H(Σl |X) − H(Σl |X, Y ))
+a DNN. Whereas, the complexity of neural activations z are
+also affected by noisy signals in x, instead of purely being      Whether the entanglement of features is good for classi-
+affected by the division of linear subspaces.                     fication or not? As is shown above, given a fixed activation
+Therefore, in this study, we exclusively focus on the com-        rate in a DNN, the decrease of complexity leads to the in-
+plexity of transformations (W, b), which can be considered        crease of entanglement. The entangled representations (or
+as a more purified metric for a DNN’s representation than         gating states) are supposed to occur in the following two
+the feature complexity.                                           cases. One case is good for the classification, but the other
+                                                                  is not.
+4. Analysis of DNNs Based on the                                  (1) The first case is when the DNN fails to extract mean-
+   Transformation Complexity                                      ingful patterns from the input. Many pixels in an input
+                                                                  image are actually entangled with each other to represent
+4.1. Strong correlation between the complexity and the            a certain concept. The successful extraction of features for
+     disentanglement                                              meaningful concepts is to summarize all information of such
+The disentanglement is a property of a DNN that measures          pixel-wise entanglement into a certain intermediate-layer
+the independence of different feature dimensions in the           filter, which makes the intermediate-layer feature more dis-
+DNN. Stronger disentanglement sometimes leads to more             entangled. The lack of the transformation complexity of a
+interpretable features (Burgess et al., 2017), though the         DNN usually will lead to high entanglement and hurt the
+disentanglement is not necessarily equivalent to the discrim-     classification performance.
+ination power of features (which will be analyzed later).         (2) The second case is when the DNN has successfully
+Although intuitively, the disentanglement of gating states        selected a few discriminative and reliable features from
+seems not related to the complexity, in this section, we prove    input images in high convolutional layers for classification.
+a clear correlation between these two terms.                      Sometimes, the number of reliable features is much less than
+For gating states of the l-th gating layer Σl , the entangle-     the filter number. In other words, there exists a significant
+ment of transformations T C(Σl ) measures the dependence          redundancy of feature representations, i.e., multiple filters
+between gating states σl,d in different dimensions (Achille       may represent similar features in high convolutional layers,
+& Soatto, 2018a; Ver Steeg & Galstyan, 2015). Specifically,       which leads to high entanglement. Such an entanglement
+T C(Σl ) = KL(p(σl )∥ d p(σl,d )), where p(σl,d ) denotes the
+                      Q                                           (redundancy) of reliable features is good for classification.
+marginal distribution of the state of the d-th gate in σl . Let   More intuitive examples for these two cases are shown in
+                                                                  Appendix D.
+

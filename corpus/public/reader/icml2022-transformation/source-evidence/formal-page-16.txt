@@ -1,0 +1,59 @@
+                         Towards Theoretical Analysis of Transformation Complexity of ReLU DNNs
+
+If there is no additional information besides the input in the DNN, then H(Σl |X, Y ) = 0. Thus, we have
+
+                                 I(X; Σl ) + T C(Σl ) = Cl − H(Σl |X) = Cl
+                                                                                                                          (21)
+                                 I(X; Σl |Y ) + T C(Σl |Y ) = Cl|Y − H(Σl |X, Y ) = Cl|Y
+
+Therefore,
+                                  I(X; Σl ; Y ) = I(X; Σl ) − I(X; Σl |Y )
+                                                = (Cl − T C(Σl )) − (Cl|Y − T C(Σl |Y ))
+                                                                                                                          (22)
+                                                = (Cl − Cl|Y ) − (T C(Σl ) − T C(Σl |Y ))
+                                                                 |          {z          }
+                                                                   multi-variate mutual information
+                                                                            used to infer Y
+
+where the difference between T C(Σl ) and T C(Σl |Y ) represents the entanglement of the transformations that are used to
+infer Y . For DNNs with similar activation rates, we can also roughly consider that these DNNs share similar values of Cl
+and Cl|Y . Thus, we can conclude that the higher complexity makes the DNN use more disentangled transformation for
+inference.
+
+C. About Values of Cl|Y
+In experiments, we found that in most cases, for DNNs with similar activation rates adl in their corresponding layers, these
+DNNs usually shared similar values of Cl|Y . However, in some extreme cases, e.g. when the DNN was learned from very
+few training samples, or when the target layer was very close to the input layer or the output layer, values of Cl|Y of these
+DNNs were different from those values of other DNNs.
+
+D. Intuitive Examples for the Entanglement of Features
+This section introduces intuitive examples for the two cases of feature entanglement mentioned in Section 4.1 of the paper.
+For the first case, if we use an extremely simple DNN (e.g. a two-layer neural network) to classify complex images, it is
+likely that the network fails to extract features for meaningful concepts. The lack of representation power (transformation
+complexity) of a DNN usually leads to high entanglement of features and hurts the classification performance. In other
+words, the intermediate-layer features in the DNN are still highly entangled, just like the entanglement of pixel colors in the
+image.
+For the second case, if we use a sophisticated enough DNN (e.g. a VGG-16) to classify very simple digits in the MNIST
+dataset. Then, features in high layers (e.g. the conv5-3 layer) are redundant to represent the simple knowledge in the
+digits, thus leading to entanglement of features. In this case, due to the feature redundancy, features in some channels of
+the conv5-3 layer may be similar to each other, which can be considered as feature entanglement. Such an entanglement
+(redundancy) of reliable features is good for classification.
+
+E. Detailed Explanation of the KDE Method
+The kernel density estimation (KDE) method was proposed by (Kolchinsky & Tracey, 2017), and has been considered as a
+standard method to estimate the entropy and the mutual information. In this section, we briefly summarize key techniques of
+the KDE method, which are used to quantify the transformation complexity.
+The KDE approach was proposed to estimate the mutual information between the input X and the feature of an intermediate
+layer T in a DNN (Kolchinsky & Tracey, 2017; Kolchinsky et al., 2019). The KDE approach assumes that the intermediate-
+layer feature is distributed as a mixture of Gaussians. Since T is a continuous variable, H(T ) can be negative. The KDE
+method transforms each feature point into a local Gaussian distribution to approximate the accurate feature distribution. Let
+T̂ = T + ϵ where ϵ ∼ N (0, σ02 I). Then, the distribution of T̂ can be considered as a mixture of Gaussians, with a Gaussian
+centered on T . In this setting, previous studies (Kolchinsky & Tracey, 2017; Kolchinsky et al., 2019; Saxe et al., 2019)
+shows that an upper bound for the mutual information with the input is
+
+                                                                            1 ||ti − tj ||2
+                                                                                           
+                                                  1 X        1 X
+                                   I(T̂ ; X) ≤ −        log        exp −                                                 (23)
+                                                 P i        P j             2      σ02
+

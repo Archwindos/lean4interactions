@@ -1,0 +1,619 @@
+theorem Harsanyi.Frequency.MultiChannel.actual_cascade_uniform_moments.{u_1, u_3} : ∀ {Ω : Type u_1}
+  [inst : MeasurableSpace Ω] (μ : MeasureTheory.Measure Ω) [MeasureTheory.IsProbabilityMeasure μ] (S : ℕ → Type u_3)
+  [inst_2 : (n : ℕ) → Fintype (S n)] [inst_3 : (n : ℕ) → DecidableEq (S n)]
+  (A : (n : ℕ) → Ω → Harsanyi.Frequency.MultiChannel.RandomMatrix S n),
+  (∀ (n : ℕ), Measurable (A n)) →
+    (∀ (n : ℕ) (d : S (n + 1)) (c : S n), MeasureTheory.MemLp (fun ω => A n ω d c) 2 μ) →
+      ProbabilityTheory.iIndepFun A μ →
+        (∀ (n : ℕ) (d : S (n + 1)), ProbabilityTheory.iIndepFun (fun c ω => A n ω d c) μ) →
+          (∀ (n : ℕ) (c : S 0),
+              ProbabilityTheory.iIndepFun (fun d => Harsanyi.Frequency.MultiChannel.cascadeEntry S A (n + 1) c d) μ) →
+            ∀ (a : ℕ → ℂ) (b : ℕ → ℝ),
+              (∀ (n : ℕ) (d : S (n + 1)) (c : S n), ∫ (ω : Ω), A n ω d c ∂μ = a n) →
+                (∀ (n : ℕ) (d : S (n + 1)) (c : S n), ∫ (ω : Ω), Complex.normSq (A n ω d c) ∂μ = b n) →
+                  ∀ (n : ℕ) (c : S 0) (d : S (n + 1)),
+                    MeasureTheory.MemLp (Harsanyi.Frequency.MultiChannel.cascadeEntry S A (n + 1) c d) 2 μ ∧
+                      ∫ (ω : Ω), Harsanyi.Frequency.MultiChannel.cascadeEntry S A (n + 1) c d ω ∂μ =
+                          Harsanyi.Frequency.MultiChannel.meanSequence S a n ∧
+                        ∫ (ω : Ω), Complex.normSq (Harsanyi.Frequency.MultiChannel.cascadeEntry S A (n + 1) c d ω) ∂μ =
+                          Harsanyi.Frequency.MultiChannel.somSequence S a b n :=
+fun {Ω} [MeasurableSpace Ω] μ [MeasureTheory.IsProbabilityMeasure μ] S [(n : ℕ) → Fintype (S n)]
+    [(n : ℕ) → DecidableEq (S n)] A hm hp hi hrow hprefix a b he hs n =>
+  have hbase := fun c d =>
+    funext fun ω =>
+      of_eq_true
+        (Eq.trans
+          (congrArg (fun x => x = A 0 ω d c)
+            (Eq.trans
+              (congrArg (fun x => x (Pi.single c 1) d)
+                (LinearMap.comp.congr_simp ((fun n => Harsanyi.Frequency.MultiChannel.matrixLinear S (A n ω)) 0)
+                  { toFun := fun z d => ∑ x, A 0 ω d x * z x,
+                    map_add' :=
+                      Eq.ndrec (motive := fun toFun => ∀ (x y : S 0 → ℂ), toFun (x + y) = toFun x + toFun y)
+                        (Harsanyi.Frequency.MultiChannel.matrixLinear._proof_1 S (A 0 ω))
+                        (funext fun z =>
+                          funext fun d => Finset.sum_congr (Eq.refl Finset.univ) fun x a => Eq.refl (A 0 ω d x * z x)),
+                    map_smul' :=
+                      Eq.ndrec (motive := fun toAddHom =>
+                        ∀ (m : ℂ) (x : S 0 → ℂ), toAddHom.toFun (m • x) = (RingHom.id ℂ) m • toAddHom.toFun x)
+                        (Harsanyi.Frequency.MultiChannel.matrixLinear._proof_2 S (A 0 ω))
+                        ((fun {M N} [Add M] [Add N] toFun toFun_1 e_toFun =>
+                            Eq.rec (motive := fun toFun_2 e_toFun =>
+                              ∀ (map_add' : ∀ (x y : M), toFun (x + y) = toFun x + toFun y),
+                                { toFun := toFun, map_add' := map_add' } =
+                                  { toFun := toFun_2,
+                                    map_add' :=
+                                      Eq.ndrec (motive := fun toFun => ∀ (x y : M), toFun (x + y) = toFun x + toFun y)
+                                        map_add' e_toFun })
+                              (fun map_add' => Eq.refl { toFun := toFun, map_add' := map_add' }) e_toFun)
+                          (fun z d => ∑ c, A 0 ω d c * z c) (fun z d => ∑ x, A 0 ω d x * z x)
+                          (funext fun z =>
+                            funext fun d => Finset.sum_congr (Eq.refl Finset.univ) fun x a => Eq.refl (A 0 ω d x * z x))
+                          (Harsanyi.Frequency.MultiChannel.matrixLinear._proof_1 S (A 0 ω))) }
+                  ((fun {R S} [Semiring R] [Semiring S] {σ} {M M₂} [AddCommMonoid M] [AddCommMonoid M₂] [Module R M]
+                        [Module S M₂] toAddHom toAddHom_1 e_toAddHom =>
+                      Eq.rec (motive := fun toAddHom_2 e_toAddHom =>
+                        ∀ (map_smul' : ∀ (m : R) (x : M), toAddHom.toFun (m • x) = σ m • toAddHom.toFun x),
+                          { toAddHom := toAddHom, map_smul' := map_smul' } =
+                            { toAddHom := toAddHom_2,
+                              map_smul' := Eq.ndrec (motive := fun toAddHom => ∀ (m : R), ⋯) map_smul' e_toAddHom })
+                        (fun map_smul' => Eq.refl { toAddHom := toAddHom, map_smul' := map_smul' }) e_toAddHom)
+                    { toFun := fun z d => ∑ c, A 0 ω d c * z c,
+                      map_add' := Harsanyi.Frequency.MultiChannel.matrixLinear._proof_1 S (A 0 ω) }
+                    { toFun := fun z d => ∑ x, A 0 ω d x * z x,
+                      map_add' :=
+                        Eq.ndrec (motive := fun toFun => ∀ (x y : S 0 → ℂ), toFun (x + y) = toFun x + toFun y)
+                          (Harsanyi.Frequency.MultiChannel.matrixLinear._proof_1 S (A 0 ω))
+                          (funext fun z =>
+                            funext fun d =>
+                              Finset.sum_congr (Eq.refl Finset.univ) fun x a => Eq.refl (A 0 ω d x * z x)) }
+                    ((fun {M N} [Add M] [Add N] toFun toFun_1 e_toFun =>
+                        Eq.rec (motive := fun toFun_2 e_toFun =>
+                          ∀ (map_add' : ∀ (x y : M), toFun (x + y) = toFun x + toFun y),
+                            { toFun := toFun, map_add' := map_add' } =
+                              { toFun := toFun_2,
+                                map_add' :=
+                                  Eq.ndrec (motive := fun toFun => ∀ (x y : M), toFun (x + y) = toFun x + toFun y)
+                                    map_add' e_toFun })
+                          (fun map_add' => Eq.refl { toFun := toFun, map_add' := map_add' }) e_toFun)
+                      (fun z d => ∑ c, A 0 ω d c * z c) (fun z d => ∑ x, A 0 ω d x * z x)
+                      (funext fun z =>
+                        funext fun d => Finset.sum_congr (Eq.refl Finset.univ) fun x a => Eq.refl (A 0 ω d x * z x))
+                      (Harsanyi.Frequency.MultiChannel.matrixLinear._proof_1 S (A 0 ω)))
+                    (Harsanyi.Frequency.MultiChannel.matrixLinear._proof_2 S (A 0 ω)))
+                  (Harsanyi.Frequency.cascadeLinear S (fun n => Harsanyi.Frequency.MultiChannel.matrixLinear S (A n ω))
+                    0)
+                  LinearMap.id (id (Eq.refl LinearMap.id))))
+              (Eq.trans
+                (Eq.trans
+                  (Finset.sum_congr (Eq.refl Finset.univ) fun x a =>
+                    Eq.trans
+                      (Eq.trans (congrArg (HMul.hMul (A 0 ω d x)) (Pi.single_apply c 1 x))
+                        (mul_ite (x = c) (A 0 ω d x) 1 0))
+                      (ite_congr (Eq.refl (x = c)) (fun a => mul_one (A 0 ω d x)) fun a => mul_zero (A 0 ω d x)))
+                  (Finset.sum_ite_eq' Finset.univ c (A 0 ω d)))
+                (ite_cond_eq_true (A 0 ω d c) 0 (Finset.mem_univ._simp_1 c)))))
+          (eq_self (A 0 ω d c)));
+  Nat.recAux
+    (fun c d =>
+      Eq.mpr
+        (id
+          (congrArg
+            (fun _a =>
+              MeasureTheory.MemLp _a 2 μ ∧
+                ∫ (ω : Ω), _a ω ∂μ = Harsanyi.Frequency.MultiChannel.meanSequence S a 0 ∧
+                  ∫ (ω : Ω), Complex.normSq (_a ω) ∂μ = Harsanyi.Frequency.MultiChannel.somSequence S a b 0)
+            (hbase c d)))
+        ⟨hp 0 d c, ⟨he 0 d c, hs 0 d c⟩⟩)
+    (fun n ih c d =>
+      let X := fun e => Harsanyi.Frequency.MultiChannel.cascadeEntry S A (n + 1) c e;
+      let R := fun e ω => A (n + 1) ω d e;
+      have hmX := fun e => Harsanyi.Frequency.MultiChannel.cascade_entry_measurable S A hm (n + 1) c e;
+      have hmR := fun e =>
+        Measurable.comp (measurable_pi_apply e) (Measurable.comp (measurable_pi_apply d) (hm (n + 1)));
+      have hpX := fun e => (ih c e).left;
+      have hpR := hp (n + 1) d;
+      have hRX :=
+        have h :=
+          ProbabilityTheory.IndepFun.comp
+            (Harsanyi.Frequency.MultiChannel.independent_layer_prefix μ S A hm hi (n + 1) c) (measurable_pi_apply d)
+            measurable_id;
+        h;
+      have hprod := fun e =>
+        have h := ProbabilityTheory.IndepFun.comp hRX (measurable_pi_apply e) (measurable_pi_apply e);
+        Harsanyi.Frequency.MultiChannel.independent_complex_mul_memLp μ (hmR e) (hmX e) (hpR e) (hpX e) h;
+      have hout := funext fun ω => Harsanyi.Frequency.MultiChannel.cascade_entry_succ S A (n + 1) c d ω;
+      Eq.mpr
+        (id
+          (congrArg
+            (fun _a =>
+              MeasureTheory.MemLp _a 2 μ ∧
+                ∫ (ω : Ω), _a ω ∂μ = Harsanyi.Frequency.MultiChannel.meanSequence S a (n + 1) ∧
+                  ∫ (ω : Ω), Complex.normSq (_a ω) ∂μ = Harsanyi.Frequency.MultiChannel.somSequence S a b (n + 1))
+            hout))
+        ⟨have hsum := MeasureTheory.memLp_finset_sum' Finset.univ fun e x => hprod e;
+          have hs :=
+            funext fun ω =>
+              of_eq_true
+                (Eq.trans
+                  (congrArg (fun x => x = ∑ c, R c ω * X c ω) (Finset.sum_apply ω Finset.univ fun c ω => R c ω * X c ω))
+                  (eq_self (∑ c, R c ω * X c ω)));
+          Eq.mp (congrArg (fun _a => MeasureTheory.MemLp _a 2 μ) hs) hsum,
+          ⟨Harsanyi.Frequency.MultiChannel.row_column_mean μ R X hmR hmX hpR hpX hRX (a (n + 1))
+              (Harsanyi.Frequency.MultiChannel.meanSequence S a n) (he (n + 1) d) fun e => (ih c e).right.left,
+            Harsanyi.Frequency.MultiChannel.row_column_second_moment μ R X hmR hmX hpR hpX
+              (fun x x_1 h => ProbabilityTheory.iIndepFun.indepFun (hrow (n + 1) d) h)
+              (fun x x_1 h => ProbabilityTheory.iIndepFun.indepFun (hprefix n c) h) hRX (a (n + 1))
+              (Harsanyi.Frequency.MultiChannel.meanSequence S a n) (b (n + 1))
+              (Harsanyi.Frequency.MultiChannel.somSequence S a b n) (he (n + 1) d) (fun e => (ih c e).right.left)
+              (hs (n + 1) d) fun e => (ih c e).right.right⟩⟩)
+    n
+'Harsanyi.Frequency.MultiChannel.actual_cascade_uniform_moments' depends on axioms: [propext,
+ Classical.choice,
+ Quot.sound]
+theorem Harsanyi.Frequency.MultiChannel.finite_affine_expansion : ∀ (d e : ℕ → ℝ) (s : ℝ) (n : ℕ),
+  Harsanyi.Frequency.MultiChannel.affineSequence d e s n =
+    s * ∏ j ∈ Finset.range n, d j + ∑ i ∈ Finset.range n, e i * ∏ j ∈ Finset.Ico (i + 1) n, d j :=
+fun d e s n =>
+  Nat.recAux
+    (of_eq_true
+      (Eq.trans
+        (congrArg (Eq s)
+          (Eq.trans
+            (congr (congrArg HAdd.hAdd (mul_one s))
+              (Finset.sum_congr (Eq.refl ∅) fun x a =>
+                Eq.trans
+                  (congrArg (HMul.hMul (e x))
+                    (Finset.prod_congr
+                      (Finset.Ico_eq_empty_of_le
+                        (of_eq_true (Eq.trans (le_mul_iff_one_le_left'._simp_4 0) (one_le._simp_4 (x + 1)))))
+                      fun x a => Eq.refl (d x)))
+                  (mul_one (e x))))
+            (add_zero s)))
+        (eq_self s)))
+    (fun n ih =>
+      have hsum :=
+        Eq.mpr
+          (id
+            (congrArg (fun _a => ∑ i ∈ Finset.range n, e i * ∏ j ∈ Finset.Ico (i + 1) (n + 1), d j = _a)
+              (Finset.sum_mul (Finset.range n) (fun i => e i * ∏ j ∈ Finset.Ico (i + 1) n, d j) (d n))))
+          (Finset.sum_congr rfl fun i hi =>
+            Eq.mpr
+              (id
+                (congrArg (fun _a => e i * _a = (e i * ∏ j ∈ Finset.Ico (i + 1) n, d j) * d n)
+                  (Finset.prod_Ico_succ_top (Nat.succ_le_iff.mpr (Finset.mem_range.mp hi)) d)))
+              (Mathlib.Tactic.Ring.of_eq
+                (Mathlib.Tactic.Ring.mul_congr (Mathlib.Tactic.Ring.atom_pf (e i))
+                  (Mathlib.Tactic.Ring.mul_congr (Mathlib.Tactic.Ring.atom_pf (∏ k ∈ Finset.Ico i.succ n, d k))
+                    (Mathlib.Tactic.Ring.atom_pf (d n))
+                    (Mathlib.Tactic.Ring.add_mul
+                      (Mathlib.Tactic.Ring.mul_add
+                        (Mathlib.Tactic.Ring.mul_pf_left (∏ k ∈ Finset.Ico i.succ n, d k) (Nat.rawCast 1)
+                          (Mathlib.Tactic.Ring.mul_pf_right (d n) (Nat.rawCast 1)
+                            (Mathlib.Tactic.Ring.one_mul (Nat.rawCast 1))))
+                        (Mathlib.Tactic.Ring.mul_zero
+                          ((∏ k ∈ Finset.Ico i.succ n, d k) ^ Nat.rawCast 1 * Nat.rawCast 1))
+                        (Mathlib.Tactic.Ring.add_pf_add_zero
+                          ((∏ k ∈ Finset.Ico i.succ n, d k) ^ Nat.rawCast 1 * (d n ^ Nat.rawCast 1 * Nat.rawCast 1) +
+                            0)))
+                      (Mathlib.Tactic.Ring.zero_mul (d n ^ Nat.rawCast 1 * Nat.rawCast 1 + 0))
+                      (Mathlib.Tactic.Ring.add_pf_add_zero
+                        ((∏ k ∈ Finset.Ico i.succ n, d k) ^ Nat.rawCast 1 * (d n ^ Nat.rawCast 1 * Nat.rawCast 1) +
+                          0))))
+                  (Mathlib.Tactic.Ring.add_mul
+                    (Mathlib.Tactic.Ring.mul_add
+                      (Mathlib.Tactic.Ring.mul_pf_left (e i) (Nat.rawCast 1)
+                        (Mathlib.Tactic.Ring.mul_pf_right (∏ k ∈ Finset.Ico i.succ n, d k) (Nat.rawCast 1)
+                          (Mathlib.Tactic.Ring.mul_pf_right (d n) (Nat.rawCast 1)
+                            (Mathlib.Tactic.Ring.one_mul (Nat.rawCast 1)))))
+                      (Mathlib.Tactic.Ring.mul_zero (e i ^ Nat.rawCast 1 * Nat.rawCast 1))
+                      (Mathlib.Tactic.Ring.add_pf_add_zero
+                        (e i ^ Nat.rawCast 1 *
+                            ((∏ k ∈ Finset.Ico i.succ n, d k) ^ Nat.rawCast 1 * (d n ^ Nat.rawCast 1 * Nat.rawCast 1)) +
+                          0)))
+                    (Mathlib.Tactic.Ring.zero_mul
+                      ((∏ k ∈ Finset.Ico i.succ n, d k) ^ Nat.rawCast 1 * (d n ^ Nat.rawCast 1 * Nat.rawCast 1) + 0))
+                    (Mathlib.Tactic.Ring.add_pf_add_zero
+                      (e i ^ Nat.rawCast 1 *
+                          ((∏ k ∈ Finset.Ico i.succ n, d k) ^ Nat.rawCast 1 * (d n ^ Nat.rawCast 1 * Nat.rawCast 1)) +
+                        0))))
+                (Mathlib.Tactic.Ring.mul_congr
+                  (Mathlib.Tactic.Ring.mul_congr (Mathlib.Tactic.Ring.atom_pf (e i))
+                    (Mathlib.Tactic.Ring.atom_pf (∏ j ∈ Finset.Ico (i + 1) n, d j))
+                    (Mathlib.Tactic.Ring.add_mul
+                      (Mathlib.Tactic.Ring.mul_add
+                        (Mathlib.Tactic.Ring.mul_pf_left (e i) (Nat.rawCast 1)
+                          (Mathlib.Tactic.Ring.mul_pf_right (∏ k ∈ Finset.Ico i.succ n, d k) (Nat.rawCast 1)
+                            (Mathlib.Tactic.Ring.one_mul (Nat.rawCast 1))))
+                        (Mathlib.Tactic.Ring.mul_zero (e i ^ Nat.rawCast 1 * Nat.rawCast 1))
+                        (Mathlib.Tactic.Ring.add_pf_add_zero
+                          (e i ^ Nat.rawCast 1 * ((∏ k ∈ Finset.Ico i.succ n, d k) ^ Nat.rawCast 1 * Nat.rawCast 1) +
+                            0)))
+                      (Mathlib.Tactic.Ring.zero_mul
+                        ((∏ k ∈ Finset.Ico i.succ n, d k) ^ Nat.rawCast 1 * Nat.rawCast 1 + 0))
+                      (Mathlib.Tactic.Ring.add_pf_add_zero
+                        (e i ^ Nat.rawCast 1 * ((∏ k ∈ Finset.Ico i.succ n, d k) ^ Nat.rawCast 1 * Nat.rawCast 1) +
+                          0))))
+                  (Mathlib.Tactic.Ring.atom_pf (d n))
+                  (Mathlib.Tactic.Ring.add_mul
+                    (Mathlib.Tactic.Ring.mul_add
+                      (Mathlib.Tactic.Ring.mul_pf_left (e i) (Nat.rawCast 1)
+                        (Mathlib.Tactic.Ring.mul_pf_left (∏ k ∈ Finset.Ico i.succ n, d k) (Nat.rawCast 1)
+                          (Mathlib.Tactic.Ring.mul_pf_right (d n) (Nat.rawCast 1)
+                            (Mathlib.Tactic.Ring.one_mul (Nat.rawCast 1)))))
+                      (Mathlib.Tactic.Ring.mul_zero
+                        (e i ^ Nat.rawCast 1 * ((∏ k ∈ Finset.Ico i.succ n, d k) ^ Nat.rawCast 1 * Nat.rawCast 1)))
+                      (Mathlib.Tactic.Ring.add_pf_add_zero
+                        (e i ^ Nat.rawCast 1 *
+                            ((∏ k ∈ Finset.Ico i.succ n, d k) ^ Nat.rawCast 1 * (d n ^ Nat.rawCast 1 * Nat.rawCast 1)) +
+                          0)))
+                    (Mathlib.Tactic.Ring.zero_mul (d n ^ Nat.rawCast 1 * Nat.rawCast 1 + 0))
+                    (Mathlib.Tactic.Ring.add_pf_add_zero
+                      (e i ^ Nat.rawCast 1 *
+                          ((∏ k ∈ Finset.Ico i.succ n, d k) ^ Nat.rawCast 1 * (d n ^ Nat.rawCast 1 * Nat.rawCast 1)) +
+                        0))))));
+      Eq.mpr
+        (id
+          (congrArg
+            (fun _a =>
+              _a =
+                s * ∏ j ∈ Finset.range (n + 1), d j +
+                  ∑ i ∈ Finset.range (n + 1), e i * ∏ j ∈ Finset.Ico (i + 1) (n + 1), d j)
+            (Harsanyi.Frequency.MultiChannel.affineSequence.eq_2 d e s n)))
+        (Eq.mpr
+          (id
+            (congrArg
+              (fun _a =>
+                d n * _a + e n =
+                  s * ∏ j ∈ Finset.range (n + 1), d j +
+                    ∑ i ∈ Finset.range (n + 1), e i * ∏ j ∈ Finset.Ico (i + 1) (n + 1), d j)
+              ih))
+          (Eq.mpr
+            (id
+              (congrArg
+                (fun _a =>
+                  d n * (s * ∏ j ∈ Finset.range n, d j + ∑ i ∈ Finset.range n, e i * ∏ j ∈ Finset.Ico (i + 1) n, d j) +
+                      e n =
+                    s * _a + ∑ i ∈ Finset.range (n + 1), e i * ∏ j ∈ Finset.Ico (i + 1) (n + 1), d j)
+                (Finset.prod_range_succ d n)))
+            (Eq.mpr
+              (id
+                (congrArg
+                  (fun _a =>
+                    d n *
+                          (s * ∏ j ∈ Finset.range n, d j +
+                            ∑ i ∈ Finset.range n, e i * ∏ j ∈ Finset.Ico (i + 1) n, d j) +
+                        e n =
+                      s * ((∏ x ∈ Finset.range n, d x) * d n) + _a)
+                  (Finset.sum_range_succ (fun i => e i * ∏ j ∈ Finset.Ico (i + 1) (n + 1), d j) n)))
+              (Eq.mpr
+                (id
+                  (congrArg
+                    (fun _a =>
+                      d n *
+                            (s * ∏ j ∈ Finset.range n, d j +
+                              ∑ i ∈ Finset.range n, e i * ∏ j ∈ Finset.Ico (i + 1) n, d j) +
+                          e n =
+                        s * ((∏ x ∈ Finset.range n, d x) * d n) + (_a + e n * ∏ j ∈ Finset.Ico (n + 1) (n + 1), d j))
+                    hsum))
+                (Eq.mpr
+                  (id
+                    (congrArg
+                      (fun x =>
+                        d n *
+                              (s * ∏ j ∈ Finset.range n, d j +
+                                ∑ i ∈ Finset.range n, e i * ∏ j ∈ Finset.Ico (i + 1) n, d j) +
+                            e n =
+                          s * ((∏ j ∈ Finset.range n, d j) * d n) +
+                            ((∑ i ∈ Finset.range n, e i * ∏ j ∈ Finset.Ico (i + 1) n, d j) * d n + x))
+                      (Eq.trans
+                        (congrArg (HMul.hMul (e n))
+                          (Finset.prod_congr (Finset.Ico_self (n + 1)) fun x a => Eq.refl (d x)))
+                        (mul_one (e n)))))
+                  (Mathlib.Tactic.Ring.of_eq
+                    (Mathlib.Tactic.Ring.add_congr
+                      (Mathlib.Tactic.Ring.mul_congr (Mathlib.Tactic.Ring.atom_pf (d n))
+                        (Mathlib.Tactic.Ring.add_congr
+                          (Mathlib.Tactic.Ring.mul_congr (Mathlib.Tactic.Ring.atom_pf s)
+                            (Mathlib.Tactic.Ring.atom_pf (∏ j ∈ Finset.range n, d j))
+                            (Mathlib.Tactic.Ring.add_mul
+                              (Mathlib.Tactic.Ring.mul_add
+                                (Mathlib.Tactic.Ring.mul_pf_left s (Nat.rawCast 1)
+                                  (Mathlib.Tactic.Ring.mul_pf_right (∏ j ∈ Finset.range n, d j) (Nat.rawCast 1)
+                                    (Mathlib.Tactic.Ring.one_mul (Nat.rawCast 1))))
+                                (Mathlib.Tactic.Ring.mul_zero (s ^ Nat.rawCast 1 * Nat.rawCast 1))
+                                (Mathlib.Tactic.Ring.add_pf_add_zero
+                                  (s ^ Nat.rawCast 1 * ((∏ j ∈ Finset.range n, d j) ^ Nat.rawCast 1 * Nat.rawCast 1) +
+                                    0)))
+                              (Mathlib.Tactic.Ring.zero_mul
+                                ((∏ j ∈ Finset.range n, d j) ^ Nat.rawCast 1 * Nat.rawCast 1 + 0))
+                              (Mathlib.Tactic.Ring.add_pf_add_zero
+                                (s ^ Nat.rawCast 1 * ((∏ j ∈ Finset.range n, d j) ^ Nat.rawCast 1 * Nat.rawCast 1) +
+                                  0))))
+                          (Mathlib.Tactic.Ring.atom_pf (∑ i ∈ Finset.range n, e i * ∏ j ∈ Finset.Ico (i + 1) n, d j))
+                          (Mathlib.Tactic.Ring.add_pf_add_lt
+                            (s ^ Nat.rawCast 1 * ((∏ j ∈ Finset.range n, d j) ^ Nat.rawCast 1 * Nat.rawCast 1))
+                            (Mathlib.Tactic.Ring.add_pf_zero_add
+                              ((∑ i ∈ Finset.range n, e i * ∏ j ∈ Finset.Ico (i + 1) n, d j) ^ Nat.rawCast 1 *
+                                  Nat.rawCast 1 +
+                                0))))
+                        (Mathlib.Tactic.Ring.add_mul
+                          (Mathlib.Tactic.Ring.mul_add
+                            (Mathlib.Tactic.Ring.mul_pf_left (d n) (Nat.rawCast 1)
+                              (Mathlib.Tactic.Ring.mul_pf_right s (Nat.rawCast 1)
+                                (Mathlib.Tactic.Ring.mul_pf_right (∏ j ∈ Finset.range n, d j) (Nat.rawCast 1)
+                                  (Mathlib.Tactic.Ring.one_mul (Nat.rawCast 1)))))
+                            (Mathlib.Tactic.Ring.mul_add
+                              (Mathlib.Tactic.Ring.mul_pf_left (d n) (Nat.rawCast 1)
+                                (Mathlib.Tactic.Ring.mul_pf_right
+                                  (∑ i ∈ Finset.range n, e i * ∏ j ∈ Finset.Ico (i + 1) n, d j) (Nat.rawCast 1)
+                                  (Mathlib.Tactic.Ring.one_mul (Nat.rawCast 1))))
+                              (Mathlib.Tactic.Ring.mul_zero (d n ^ Nat.rawCast 1 * Nat.rawCast 1))
+                              (Mathlib.Tactic.Ring.add_pf_add_zero
+                                (d n ^ Nat.rawCast 1 *
+                                    ((∑ i ∈ Finset.range n, e i * ∏ j ∈ Finset.Ico (i + 1) n, d j) ^ Nat.rawCast 1 *
+                                      Nat.rawCast 1) +
+                                  0)))
+                            (Mathlib.Tactic.Ring.add_pf_add_lt
+                              (d n ^ Nat.rawCast 1 *
+                                (s ^ Nat.rawCast 1 * ((∏ j ∈ Finset.range n, d j) ^ Nat.rawCast 1 * Nat.rawCast 1)))
+                              (Mathlib.Tactic.Ring.add_pf_zero_add
+                                (d n ^ Nat.rawCast 1 *
+                                    ((∑ i ∈ Finset.range n, e i * ∏ j ∈ Finset.Ico (i + 1) n, d j) ^ Nat.rawCast 1 *
+                                      Nat.rawCast 1) +
+                                  0))))
+                          (Mathlib.Tactic.Ring.zero_mul
+                            (s ^ Nat.rawCast 1 * ((∏ j ∈ Finset.range n, d j) ^ Nat.rawCast 1 * Nat.rawCast 1) +
+                              ((∑ i ∈ Finset.range n, e i * ∏ j ∈ Finset.Ico (i + 1) n, d j) ^ Nat.rawCast 1 *
+                                  Nat.rawCast 1 +
+                                0)))
+                          (Mathlib.Tactic.Ring.add_pf_add_zero
+                            (d n ^ Nat.rawCast 1 *
+                                (s ^ Nat.rawCast 1 * ((∏ j ∈ Finset.range n, d j) ^ Nat.rawCast 1 * Nat.rawCast 1)) +
+                              (d n ^ Nat.rawCast 1 *
+                                  ((∑ i ∈ Finset.range n, e i * ∏ j ∈ Finset.Ico (i + 1) n, d j) ^ Nat.rawCast 1 *
+                                    Nat.rawCast 1) +
+                                0)))))
+                      (Mathlib.Tactic.Ring.atom_pf (e n))
+                      (Mathlib.Tactic.Ring.add_pf_add_lt
+                        (d n ^ Nat.rawCast 1 *
+                          (s ^ Nat.rawCast 1 * ((∏ j ∈ Finset.range n, d j) ^ Nat.rawCast 1 * Nat.rawCast 1)))
+                        (Mathlib.Tactic.Ring.add_pf_add_lt
+                          (d n ^ Nat.rawCast 1 *
+                            ((∑ i ∈ Finset.range n, e i * ∏ j ∈ Finset.Ico (i + 1) n, d j) ^ Nat.rawCast 1 *
+                              Nat.rawCast 1))
+                          (Mathlib.Tactic.Ring.add_pf_zero_add (e n ^ Nat.rawCast 1 * Nat.rawCast 1 + 0)))))
+                    (Mathlib.Tactic.Ring.add_congr
+                      (Mathlib.Tactic.Ring.mul_congr (Mathlib.Tactic.Ring.atom_pf s)
+                        (Mathlib.Tactic.Ring.mul_congr (Mathlib.Tactic.Ring.atom_pf (∏ j ∈ Finset.range n, d j))
+                          (Mathlib.Tactic.Ring.atom_pf (d n))
+                          (Mathlib.Tactic.Ring.add_mul
+                            (Mathlib.Tactic.Ring.mul_add
+                              (Mathlib.Tactic.Ring.mul_pf_right (d n) (Nat.rawCast 1)
+                                (Mathlib.Tactic.Ring.mul_pf_left (∏ j ∈ Finset.range n, d j) (Nat.rawCast 1)
+                                  (Mathlib.Tactic.Ring.one_mul (Nat.rawCast 1))))
+                              (Mathlib.Tactic.Ring.mul_zero
+                                ((∏ j ∈ Finset.range n, d j) ^ Nat.rawCast 1 * Nat.rawCast 1))
+                              (Mathlib.Tactic.Ring.add_pf_add_zero
+                                (d n ^ Nat.rawCast 1 * ((∏ j ∈ Finset.range n, d j) ^ Nat.rawCast 1 * Nat.rawCast 1) +
+                                  0)))
+                            (Mathlib.Tactic.Ring.zero_mul (d n ^ Nat.rawCast 1 * Nat.rawCast 1 + 0))
+                            (Mathlib.Tactic.Ring.add_pf_add_zero
+                              (d n ^ Nat.rawCast 1 * ((∏ j ∈ Finset.range n, d j) ^ Nat.rawCast 1 * Nat.rawCast 1) +
+                                0))))
+                        (Mathlib.Tactic.Ring.add_mul
+                          (Mathlib.Tactic.Ring.mul_add
+                            (Mathlib.Tactic.Ring.mul_pf_right (d n) (Nat.rawCast 1)
+                              (Mathlib.Tactic.Ring.mul_pf_left s (Nat.rawCast 1)
+                                (Mathlib.Tactic.Ring.mul_pf_right (∏ j ∈ Finset.range n, d j) (Nat.rawCast 1)
+                                  (Mathlib.Tactic.Ring.one_mul (Nat.rawCast 1)))))
+                            (Mathlib.Tactic.Ring.mul_zero (s ^ Nat.rawCast 1 * Nat.rawCast 1))
+                            (Mathlib.Tactic.Ring.add_pf_add_zero
+                              (d n ^ Nat.rawCast 1 *
+                                  (s ^ Nat.rawCast 1 * ((∏ j ∈ Finset.range n, d j) ^ Nat.rawCast 1 * Nat.rawCast 1)) +
+                                0)))
+                          (Mathlib.Tactic.Ring.zero_mul
+                            (d n ^ Nat.rawCast 1 * ((∏ j ∈ Finset.range n, d j) ^ Nat.rawCast 1 * Nat.rawCast 1) + 0))
+                          (Mathlib.Tactic.Ring.add_pf_add_zero
+                            (d n ^ Nat.rawCast 1 *
+                                (s ^ Nat.rawCast 1 * ((∏ j ∈ Finset.range n, d j) ^ Nat.rawCast 1 * Nat.rawCast 1)) +
+                              0))))
+                      (Mathlib.Tactic.Ring.add_congr
+                        (Mathlib.Tactic.Ring.mul_congr
+                          (Mathlib.Tactic.Ring.atom_pf (∑ i ∈ Finset.range n, e i * ∏ j ∈ Finset.Ico (i + 1) n, d j))
+                          (Mathlib.Tactic.Ring.atom_pf (d n))
+                          (Mathlib.Tactic.Ring.add_mul
+                            (Mathlib.Tactic.Ring.mul_add
+                              (Mathlib.Tactic.Ring.mul_pf_right (d n) (Nat.rawCast 1)
+                                (Mathlib.Tactic.Ring.mul_pf_left
+                                  (∑ i ∈ Finset.range n, e i * ∏ j ∈ Finset.Ico (i + 1) n, d j) (Nat.rawCast 1)
+                                  (Mathlib.Tactic.Ring.one_mul (Nat.rawCast 1))))
+                              (Mathlib.Tactic.Ring.mul_zero
+                                ((∑ i ∈ Finset.range n, e i * ∏ j ∈ Finset.Ico (i + 1) n, d j) ^ Nat.rawCast 1 *
+                                  Nat.rawCast 1))
+                              (Mathlib.Tactic.Ring.add_pf_add_zero
+                                (d n ^ Nat.rawCast 1 *
+                                    ((∑ i ∈ Finset.range n, e i * ∏ j ∈ Finset.Ico (i + 1) n, d j) ^ Nat.rawCast 1 *
+                                      Nat.rawCast 1) +
+                                  0)))
+                            (Mathlib.Tactic.Ring.zero_mul (d n ^ Nat.rawCast 1 * Nat.rawCast 1 + 0))
+                            (Mathlib.Tactic.Ring.add_pf_add_zero
+                              (d n ^ Nat.rawCast 1 *
+                                  ((∑ i ∈ Finset.range n, e i * ∏ j ∈ Finset.Ico (i + 1) n, d j) ^ Nat.rawCast 1 *
+                                    Nat.rawCast 1) +
+                                0))))
+                        (Mathlib.Tactic.Ring.atom_pf (e n))
+                        (Mathlib.Tactic.Ring.add_pf_add_lt
+                          (d n ^ Nat.rawCast 1 *
+                            ((∑ i ∈ Finset.range n, e i * ∏ j ∈ Finset.Ico (i + 1) n, d j) ^ Nat.rawCast 1 *
+                              Nat.rawCast 1))
+                          (Mathlib.Tactic.Ring.add_pf_zero_add (e n ^ Nat.rawCast 1 * Nat.rawCast 1 + 0))))
+                      (Mathlib.Tactic.Ring.add_pf_add_lt
+                        (d n ^ Nat.rawCast 1 *
+                          (s ^ Nat.rawCast 1 * ((∏ j ∈ Finset.range n, d j) ^ Nat.rawCast 1 * Nat.rawCast 1)))
+                        (Mathlib.Tactic.Ring.add_pf_zero_add
+                          (d n ^ Nat.rawCast 1 *
+                              ((∑ i ∈ Finset.range n, e i * ∏ j ∈ Finset.Ico (i + 1) n, d j) ^ Nat.rawCast 1 *
+                                Nat.rawCast 1) +
+                            (e n ^ Nat.rawCast 1 * Nat.rawCast 1 + 0))))))))))))
+    n
+'Harsanyi.Frequency.MultiChannel.finite_affine_expansion' depends on axioms: [propext, Classical.choice, Quot.sound]
+theorem Harsanyi.Frequency.MultiChannel.som_sequence_source_closed.{u_3} : ∀ (S : ℕ → Type u_3)
+  [inst : (n : ℕ) → Fintype (S n)] [(n : ℕ) → DecidableEq (S n)] (a : ℕ → ℂ) (b : ℕ → ℝ) (n : ℕ),
+  (∀ j ≤ n, Fintype.card (S (j + 1)) ≠ 0) →
+    Harsanyi.Frequency.MultiChannel.somSequence S a b n = Harsanyi.Frequency.MultiChannel.sourceSOM S a b n :=
+fun S [(n : ℕ) → Fintype (S n)] [(n : ℕ) → DecidableEq (S n)] a b n hC =>
+  Eq.mpr
+    (id
+      (congrArg (fun _a => _a = Harsanyi.Frequency.MultiChannel.sourceSOM S a b n)
+        (Harsanyi.Frequency.MultiChannel.som_sequence_affine S a b n)))
+    (Eq.mpr
+      (id
+        (congrArg (fun _a => _a = Harsanyi.Frequency.MultiChannel.sourceSOM S a b n)
+          (Harsanyi.Frequency.MultiChannel.finite_affine_expansion
+            (Harsanyi.Frequency.MultiChannel.diagonalCoefficient S b)
+            (Harsanyi.Frequency.MultiChannel.crossCoefficient S a) (b 0) n)))
+      (id
+        ((fun {α β γ} [HAdd α β γ] a a_1 e_a =>
+            Eq.rec (motive := fun a_2 e_a => ∀ (a_3 a_4 : β), a_3 = a_4 → a + a_3 = a_2 + a_4)
+              (fun a_2 a_3 e_a => e_a ▸ Eq.refl (a + a_2)) e_a)
+          (b 0 * ∏ j ∈ Finset.range n, Harsanyi.Frequency.MultiChannel.diagonalCoefficient S b j)
+          ((↑(Fintype.card (S (n + 1))))⁻¹ * ∏ j ∈ Finset.range (n + 1), ↑(Fintype.card (S (j + 1))) * b j)
+          (Eq.mpr
+            (id
+              (congrArg
+                (fun _a =>
+                  b 0 * ∏ j ∈ Finset.range n, Harsanyi.Frequency.MultiChannel.diagonalCoefficient S b j =
+                    (↑(Fintype.card (S (n + 1))))⁻¹ * _a)
+                (Eq.symm (Harsanyi.Frequency.MultiChannel.diagonal_product_source S b n))))
+            (Eq.symm
+              (inv_mul_cancel_left₀ (Nat.cast_ne_zero.mpr (hC n le_rfl))
+                (b 0 * ∏ j ∈ Finset.range n, Harsanyi.Frequency.MultiChannel.diagonalCoefficient S b j))))
+          (∑ i ∈ Finset.range n,
+            Harsanyi.Frequency.MultiChannel.crossCoefficient S a i *
+              ∏ j ∈ Finset.Ico (i + 1) n, Harsanyi.Frequency.MultiChannel.diagonalCoefficient S b j)
+          (∑ i ∈ Finset.range n,
+            (↑(Fintype.card (S (i + 1))) - 1) / ↑(Fintype.card (S (i + 1))) *
+                Complex.normSq (Harsanyi.Frequency.MultiChannel.sourceMean S a (i + 1)) *
+              ∏ j ∈ Finset.Ico (i + 1) n, Harsanyi.Frequency.MultiChannel.diagonalCoefficient S b j)
+          (Finset.sum_congr rfl fun i hi =>
+            Eq.mpr
+              (id
+                (congrArg
+                  (fun _a =>
+                    _a * ∏ j ∈ Finset.Ico (i + 1) n, Harsanyi.Frequency.MultiChannel.diagonalCoefficient S b j =
+                      (↑(Fintype.card (S (i + 1))) - 1) / ↑(Fintype.card (S (i + 1))) *
+                          Complex.normSq (Harsanyi.Frequency.MultiChannel.sourceMean S a (i + 1)) *
+                        ∏ j ∈ Finset.Ico (i + 1) n, Harsanyi.Frequency.MultiChannel.diagonalCoefficient S b j)
+                  (Harsanyi.Frequency.MultiChannel.cross_coefficient_source S a i
+                    (hC i (Nat.le_of_lt (Finset.mem_range.mp hi))))))
+              (Eq.mpr
+                (id
+                  (congrArg
+                    (fun _a =>
+                      (↑(Fintype.card (S (i + 1))) - 1) / ↑(Fintype.card (S (i + 1))) * Complex.normSq _a *
+                          ∏ j ∈ Finset.Ico (i + 1) n, Harsanyi.Frequency.MultiChannel.diagonalCoefficient S b j =
+                        (↑(Fintype.card (S (i + 1))) - 1) / ↑(Fintype.card (S (i + 1))) *
+                            Complex.normSq (Harsanyi.Frequency.MultiChannel.sourceMean S a (i + 1)) *
+                          ∏ j ∈ Finset.Ico (i + 1) n, Harsanyi.Frequency.MultiChannel.diagonalCoefficient S b j)
+                    (Harsanyi.Frequency.MultiChannel.mean_sequence_source_closed S a (i + 1)
+                      (hC (i + 1) (Nat.succ_le_iff.mpr (Finset.mem_range.mp hi))))))
+                (Eq.refl
+                  ((↑(Fintype.card (S (i + 1))) - 1) / ↑(Fintype.card (S (i + 1))) *
+                      Complex.normSq (Harsanyi.Frequency.MultiChannel.sourceMean S a (i + 1)) *
+                    ∏ j ∈ Finset.Ico (i + 1) n, Harsanyi.Frequency.MultiChannel.diagonalCoefficient S b j)))))))
+'Harsanyi.Frequency.MultiChannel.som_sequence_source_closed' depends on axioms: [propext, Classical.choice, Quot.sound]
+theorem Harsanyi.Frequency.MultiChannel.actual_gaussian_cascade_closed.{u_1, u_3} : ∀ {Ω : Type u_1}
+  [inst : MeasurableSpace Ω] (μ : MeasureTheory.Measure Ω) [MeasureTheory.IsProbabilityMeasure μ] (S : ℕ → Type u_3)
+  [inst_2 : (n : ℕ) → Fintype (S n)] [inst_3 : (n : ℕ) → DecidableEq (S n)] {M N K : ℕ} [inst_4 : NeZero M]
+  [inst_5 : NeZero N] (W : (n : ℕ) → S (n + 1) → S n → Fin K × Fin K → Ω → ℝ),
+  (∀ (n : ℕ) (d : S (n + 1)) (c : S n) (t : Fin K × Fin K), Measurable (W n d c t)) →
+    ∀ (m : ℕ → ℝ) (q : ℕ → NNReal),
+      (∀ (n : ℕ) (d : S (n + 1)) (c : S n) (t : Fin K × Fin K),
+          MeasureTheory.Measure.map (W n d c t) μ = ProbabilityTheory.gaussianReal (m n) (q n)) →
+        (∀ (n : ℕ) (d : S (n + 1)) (c : S n), ProbabilityTheory.iIndepFun (W n d c) μ) →
+          (∀ (n : ℕ) (d : S (n + 1)), ProbabilityTheory.iIndepFun (fun c ω t => W n d c t ω) μ) →
+            ProbabilityTheory.iIndepFun (fun n ω d c t => W n d c t ω) μ →
+              ∀ (u : ZMod M) (v : ZMod N),
+                (∀ (n : ℕ) (c : S 0),
+                    ProbabilityTheory.iIndepFun
+                      (fun d =>
+                        Harsanyi.Frequency.MultiChannel.cascadeEntry S
+                          (Harsanyi.Frequency.MultiChannel.kernelMatrices S W u v) (n + 1) c d)
+                      μ) →
+                  ∀ (n : ℕ),
+                    (∀ j ≤ n, Fintype.card (S (j + 1)) ≠ 0) →
+                      ∀ (c : S 0) (d : S (n + 1)),
+                        ∫ (ω : Ω),
+                              Harsanyi.Frequency.MultiChannel.cascadeEntry S
+                                (Harsanyi.Frequency.MultiChannel.kernelMatrices S W u v) (n + 1) c d ω ∂μ =
+                            Harsanyi.Frequency.MultiChannel.sourceMean S
+                              (fun j => ↑(m j) * Harsanyi.Frequency.phaseSum u v) n ∧
+                          ∫ (ω : Ω),
+                              Complex.normSq
+                                (Harsanyi.Frequency.MultiChannel.cascadeEntry S
+                                  (Harsanyi.Frequency.MultiChannel.kernelMatrices S W u v) (n + 1) c d ω) ∂μ =
+                            Harsanyi.Frequency.MultiChannel.sourceSOM S
+                              (fun j => ↑(m j) * Harsanyi.Frequency.phaseSum u v)
+                              (fun j => Complex.normSq (↑(m j) * Harsanyi.Frequency.phaseSum u v) + ↑(K * K) * ↑(q j))
+                              n :=
+fun {Ω} [MeasurableSpace Ω] μ [MeasureTheory.IsProbabilityMeasure μ] S [(n : ℕ) → Fintype (S n)]
+    [(n : ℕ) → DecidableEq (S n)] {M N K} [NeZero M] [NeZero N] W hmW m q hl hwithin hrows hlayers u v hprefix n hC c
+    d =>
+  let A := Harsanyi.Frequency.MultiChannel.kernelMatrices S W u v;
+  have hmA := fun j =>
+    measurable_pi_lambda (A j) fun d =>
+      measurable_pi_lambda (fun c => A j c d) fun c =>
+        id
+          (id
+            (id
+              (id
+                (Finset.measurable_sum Finset.univ fun i a =>
+                  Measurable.mul_const (Measurable.complex_ofReal (hmW j d c i))
+                    ((Harsanyi.Frequency.gridCharacter u v) (Harsanyi.Frequency.squareShift K i))))));
+  have hpA := fun j d c =>
+    id
+      (Eq.mpr
+        (id
+          (congrArg (fun _a => MeasureTheory.MemLp _a 2 μ) (Harsanyi.Frequency.random_response_weighted (W j d c) u v)))
+        (Harsanyi.Frequency.weighted_response_memLp μ
+          (fun t => (Harsanyi.Frequency.gridCharacter u v) (Harsanyi.Frequency.squareShift K t)) (W j d c) fun t =>
+          (Harsanyi.ConceptGaussian.gaussian_feature_moments μ (W j d c t) (m j) (q j) (hmW j d c t)
+              (hl j d c t)).left));
+  have hiA :=
+    ProbabilityTheory.iIndepFun.comp hlayers
+      (fun x z d c => Harsanyi.Frequency.offsetResponse (Harsanyi.Frequency.squareShift K) (fun t => ↑(z d c t)) u v)
+      fun x =>
+      id
+        (measurable_pi_lambda
+          (fun z d c =>
+            ∑ t, (fun t => ↑(z d c t)) t * (Harsanyi.Frequency.gridCharacter u v) (Harsanyi.Frequency.squareShift K t))
+          fun a =>
+          measurable_pi_lambda
+            (fun c c_1 =>
+              ∑ t,
+                (fun t => ↑(c a c_1 t)) t * (Harsanyi.Frequency.gridCharacter u v) (Harsanyi.Frequency.squareShift K t))
+            fun a_1 =>
+            Finset.measurable_sum Finset.univ fun i a_2 =>
+              Measurable.mul_const
+                (Measurable.complex_ofReal
+                  (Measurable.comp' (measurable_pi_apply i)
+                    (Measurable.comp' (measurable_pi_apply a_1) (measurable_pi_apply a))))
+                ((Harsanyi.Frequency.gridCharacter u v) (Harsanyi.Frequency.squareShift K i)));
+  have hrowA := fun j d =>
+    ProbabilityTheory.iIndepFun.comp (hrows j d)
+      (fun x z => Harsanyi.Frequency.offsetResponse (Harsanyi.Frequency.squareShift K) (fun t => ↑(z t)) u v) fun x =>
+      id
+        (Finset.measurable_sum Finset.univ fun i a =>
+          Measurable.mul_const (Measurable.complex_ofReal (measurable_pi_apply i))
+            ((Harsanyi.Frequency.gridCharacter u v) (Harsanyi.Frequency.squareShift K i)));
+  Harsanyi.Frequency.MultiChannel.actual_cascade_source_closed μ S A hmA hpA hiA hrowA hprefix
+    (fun j => ↑(m j) * Harsanyi.Frequency.phaseSum u v)
+    (fun j => Complex.normSq (↑(m j) * Harsanyi.Frequency.phaseSum u v) + ↑(K * K) * ↑(q j))
+    (fun j d c => Harsanyi.Frequency.actual_kernel_mean μ (W j d c) (m j) (q j) (hmW j d c) (hl j d c) u v)
+    (fun j d c =>
+      Harsanyi.Frequency.actual_kernel_second_moment μ (W j d c) (m j) (q j) (hmW j d c) (hl j d c) (hwithin j d c) u v)
+    n hC c d
+'Harsanyi.Frequency.MultiChannel.actual_gaussian_cascade_closed' depends on axioms: [propext,
+ Classical.choice,
+ Quot.sound]

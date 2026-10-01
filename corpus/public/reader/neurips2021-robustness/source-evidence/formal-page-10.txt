@@ -1,0 +1,41 @@
+the cutout method can be considered as removing high-order interactions and pushing DNNs to learn
+more insensitive low-order interactions. Therefore, the learned DNN is robust to adversarial attacks.
+In experiments, we applied the dropout operation to the misclassified adversarial examples, in order to
+verify the attacking-alleviating influence on the network output of removing high-order interactions.
+If the removal of high-order interactions could alleviate the effects of adversarial attacks, it would
+prove the attacking-alleviating influence of removing high-order interactions. Given ResNet-18/50
+and DenseNet-161 trained on the ImageNet dataset, we selected normal samples that are correctly
+classified in the validation set of the ImageNet dataset, and generated adversarial examples with the
+ℓ∞ untargeted PGD attack based on [62]. The attack was stopped once it succeeded. We applied
+the dropout operation with different dropout rates α at the pixel level, and the dropped pixels were
+filled with the average value of surrounding pixels. For the cutout method, we set the length of the
+side of the masked square regions as 112, which was half of the side length of the input sample
+(dropping α = 25% pixels of the input), following settings in [15]. Table 1 reports the ratio of
+adversarial examples whose classification results were corrected. When we applied dropout to
+adversarial examples, the classification accuracy of adversarial examples significantly increased,
+and even performed better than the cutout method. This indicated that the removal of high-order
+interactions presented a more essential defense mechanism than the cutout method.
+
+5   Conclusion
+In this paper, we have used the multi-order interaction to provide a unified understanding for the
+success of adversarial attacks and defense. Based on the multi-order interaction, we have explained
+adversarial attacking as mainly affecting high-order interactions between input variables. Furthermore,
+we have also explained the success of adversarial training, i.e. learning more category-specific low-
+order interactions to boost the robustness. Besides, we have further provided a unified explanation for
+some existing adversarial defense methods.
+
+Acknowledgments and Disclosure of Funding
+This work is partially supported by National Science and Technology Innovation 2030 Major Project
+of the Ministry of Science and Technology of China under Grant (2021ZD0111602), the National
+Nature Science Foundation of China (No. 61906120, U19B2043), Shanghai Natural Science Foun-
+dation (21JC1403800,21ZR1434600), Shanghai Municipal Science and Technology Major Project
+(2021SHZDZX0102). This work is also partially supported by Huawei Technologies Inc. Prof.
+Yisen Wang is partially supported by the National Natural Science Foundation of China under Grant
+62006153, and Project 2020BD006 supported by PKU-Baidu Fund. Xin Wang is supported by Wu
+Wen Jun Honorary Doctoral Scholarship, AI Institute, Shanghai Jiao Tong University.
+
+
+
+
+                                                  10
+

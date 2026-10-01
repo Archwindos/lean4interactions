@@ -1,0 +1,90 @@
+                           Defects of Convolutional Decoder Networks in Frequency Representation
+
+
+                                                  M −1 N −1
+                                                  X    X                  (u+(s−1)M0 )m   (v+(t−1)N0 )n
+                   (c)                                          (c) −i(                 +               )2π
+                 Hu+(s−1)M0 ,v+(t−1)N0 =                      F̃mn e            M              N                      //Equation (19)
+                                                  m=0 n=0
+                                                  M0 −1 N0 −1
+                                                  X X                        (u+(s−1)M0 )(m·ratio)   (v+(t−1)N0 )(n·ratio)
+                                                                 (c) −i(                           +                       )2π
+                                             =                  Fmn e                 M                       N
+
+                                                  m=0   n=0
+                                                  M0 −1 N0 −1
+                                                                             (u+(s−1)M0 )m   (v+(t−1)N0 )n
+                                                                       −i(                 +               )2π
+                                                  X X            (c)
+                                             =                  Fmn  e          M/ratio         N/ratio
+
+                                                  m=0   n=0
+                                         //M = M0 · ratio; N = N0 · ratio
+                                                  M0 −1 N0 −1
+                                                                                                                                          (41)
+                                                                             (u+(s−1)M0 )m   (v+(t−1)N0 )n
+                                                                 (c) −i(                   +               )2π
+                                                  X X
+                                             =                  Fmn e             M0              N0
+
+                                                  m=0   n=0
+                                                  M0 −1 N0 −1
+                                                                       −i( um  vn )2π
+                                                                              +N
+                                                  X X
+                                             =                   (c)
+                                                                Fmn  e     M  0         0      · e−i((s−1)m+(t−1)n)2π
+                                                  m=0   n=0
+                                                  M0 −1 N0 −1
+                                                                       −i( um  vn )2π
+                                                                              +N
+                                                  X X            (c)
+                                             =                  Fmn  e     M  0         0        //s, t ∈ Z
+                                                  m=0   n=0
+
+                                             = G(c)
+                                                uv       //Equation (40)
+
+Therefore we prove that:
+                                  (c)                    (c)
+                   ∀c, u, v,    Hu+(s−1)M0 ,v+(t−1)N0 = Guv                        s.t. s = 1, . . . , M/M0 ; t = 1, . . . , N/N0         (42)
+
+
+
+
+A.7. Proof of Theorem 4.5
+In this section, we prove Theorem 4.5 in the main paper. Recall that we consider the input x ∈ RM ×N with a single channel
+to simplify the proof. Then, G ∈ CM ×N , H ∈ CM ×N , and H ∗ ∈ CM ×N denote spectrums of the input, the output, and
+the target image to fit, respectively. Specifically, Hu∗1 v1 = (1 − A)G(u1 v1 ) , and Hu∗2 v2 = (1 + A)G(u2 v2 ) , where A = αeiφ
+and A denotes the conjugate of A; α > 0; φ < π/2. Theorem 4.5 proves a case that weights W is optimized to satisfy
+Hu1 v1 = Hu∗1 v1 and Hu2 v2 = Hu∗2 v2 simultaneously.
+
+Proof. Let us provide specific constrains as follows, so as to make the auto-encoder learnable (i.e., ensuring ∆W is
+real-valued) and make the objective function can reach zero by a single step of gradient descent.
+                                                             1                                   1
+                                                   λ1 =              ;             λ2 =                                                   (43)
+                                                          |Gu1 v1 |2                          |Gu2 v2 |2
+
+                                                              (K − 1)(u2 − u1 ) (K − 1)(v2 − v1 ) π
+                               A = αeiφ ,        s.t. φ = (                    +                 )                                        (44)
+                                                                    M                 N            2
+
+                                                      T(u2 v2 )(L:1) = T(u1 v1 )(L:1) = 1                                                 (45)
+
+                    L
+                    X                         2                          2        L
+                                                                                  X                            2                      2
+                          T(u1 v1 )(L:l+1)          T(u1 v1 )(l−1:1)         =              T(u2 v2 )(L:l+1)       T(u2 v2 )(l−1:1)       (46)
+                    l=1                                                           l=1
+
+If the objective function can reach zero (i.e., Hu1 v1 = Hu∗1 v1 and Hu2 v2 = Hu∗2 v2 ) by a single step of gradient descent, the
+change of weights ∆W can be rewritten as η Loss                                            Loss
+                                                ∂W , where η denotes the learning rate, ∂W denotes the gradient on weights.
+                                                 Loss
+Then, we will prove the formulations of η and ∂W .
+According to Corollary 3.3, the network output Huv can be computed as follows.
+
+                                                            Huv = T(uv)(L:1) Guv ,                                                        (47)
+
+                                                                             24
+

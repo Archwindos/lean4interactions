@@ -1,0 +1,1502 @@
+{
+  "schema_version": "symbol-table-1.0",
+  "paper_id": "icml2023-decoder",
+  "symbols": [
+    {
+      "id": "decoder-grid",
+      "canonical_id": "decoder-grid",
+      "canonical_tex": "M,N;[u,v]",
+      "name": "空间与频率网格",
+      "description": "输出负相位，核正相位；padding后M′/N′是新网格",
+      "type_or_domain": "正整数尺寸与有限循环指标",
+      "scope": "输出负相位，核正相位；padding后M′/N′是新网格",
+      "assumptions": "使用该符号当前条目列出的尺寸、概率、独立或可微条件。",
+      "empty_set_convention": "空层积为恒等映射，空偏移和为0；不是coalition空集输出。",
+      "baseline_convention": "空间bias及DC项保留；频谱g不等于g_x(S)，不施加v(x_∅)=0。",
+      "paper_mappings": [
+        {
+          "paper_id": "icml2023-decoder",
+          "original_tex": "M,N;[u,v]",
+          "canonical_tex": "M,N;[u,v]",
+          "note": "输出负相位，核正相位；padding后M′/N′是新网格",
+          "conflict_note": "保留当前定义/作用域，不按同字母合并别篇概念。",
+          "translations": {
+            "en": {
+              "note": "Negative output phase and positive kernel phase; M′/N′ denote the new padding grid",
+              "conflict_note": "Retain this definition and scope; matching letters alone do not identify concepts across papers."
+            }
+          }
+        }
+      ],
+      "translations": {
+        "en": {
+          "name": "Spatial and frequency grids",
+          "description": "Negative output phase and positive kernel phase; M′/N′ denote the new padding grid",
+          "type_or_domain": "Positive sizes and finite cyclic indices",
+          "scope": "Negative output phase and positive kernel phase; M′/N′ denote the new padding grid",
+          "assumptions": "Use the size, probability, independence or differentiability conditions stated in the current entry.",
+          "empty_set_convention": "An empty layer product is the identity and an empty offset sum is zero; this is not a coalition empty-set output.",
+          "baseline_convention": "Retain spatial biases and DC terms. Spectral g is distinct from g_x(S), and no v(x_∅)=0 convention is imposed.",
+          "paper_mappings": [
+            {
+              "note": "Negative output phase and positive kernel phase; M′/N′ denote the new padding grid",
+              "conflict_note": "Retain this definition and scope; matching letters alone do not identify concepts across papers."
+            }
+          ]
+        }
+      }
+    },
+    {
+      "id": "decoder-input-feature",
+      "canonical_id": "decoder-input-feature",
+      "canonical_tex": "F",
+      "name": "输入空间feature",
+      "description": "与复谱G区分；总体像素随机律另列",
+      "type_or_domain": "有限通道×实M×N数组",
+      "scope": "与复谱G区分；总体像素随机律另列",
+      "assumptions": "使用该符号当前条目列出的尺寸、概率、独立或可微条件。",
+      "empty_set_convention": "空层积为恒等映射，空偏移和为0；不是coalition空集输出。",
+      "baseline_convention": "空间bias及DC项保留；频谱g不等于g_x(S)，不施加v(x_∅)=0。",
+      "paper_mappings": [
+        {
+          "paper_id": "icml2023-decoder",
+          "original_tex": "F",
+          "canonical_tex": "F",
+          "note": "与复谱G区分；总体像素随机律另列",
+          "conflict_note": "保留当前定义/作用域，不按同字母合并别篇概念。",
+          "translations": {
+            "en": {
+              "note": "Distinct from complex spectrum G; random pixel laws are stated separately",
+              "conflict_note": "Retain this definition and scope; matching letters alone do not identify concepts across papers."
+            }
+          }
+        }
+      ],
+      "translations": {
+        "en": {
+          "name": "Input spatial feature",
+          "description": "Distinct from complex spectrum G; random pixel laws are stated separately",
+          "type_or_domain": "A finite-channel real M×N array",
+          "scope": "Distinct from complex spectrum G; random pixel laws are stated separately",
+          "assumptions": "Use the size, probability, independence or differentiability conditions stated in the current entry.",
+          "empty_set_convention": "An empty layer product is the identity and an empty offset sum is zero; this is not a coalition empty-set output.",
+          "baseline_convention": "Retain spatial biases and DC terms. Spectral g is distinct from g_x(S), and no v(x_∅)=0 convention is imposed.",
+          "paper_mappings": [
+            {
+              "note": "Distinct from complex spectrum G; random pixel laws are stated separately",
+              "conflict_note": "Retain this definition and scope; matching letters alone do not identify concepts across papers."
+            }
+          ]
+        }
+      }
+    },
+    {
+      "id": "decoder-input-spectrum",
+      "canonical_id": "decoder-input-spectrum",
+      "canonical_tex": "G,g^{(uv)}",
+      "name": "输入频谱",
+      "description": "原g是频谱列，不是固定样本coalition game g_x",
+      "type_or_domain": "复M×N数组及通道列向量",
+      "scope": "原g是频谱列，不是固定样本coalition game g_x",
+      "assumptions": "使用该符号当前条目列出的尺寸、概率、独立或可微条件。",
+      "empty_set_convention": "空层积为恒等映射，空偏移和为0；不是coalition空集输出。",
+      "baseline_convention": "空间bias及DC项保留；频谱g不等于g_x(S)，不施加v(x_∅)=0。",
+      "paper_mappings": [
+        {
+          "paper_id": "icml2023-decoder",
+          "original_tex": "G,g^{(uv)}",
+          "canonical_tex": "G,g^{(uv)}",
+          "note": "原g是频谱列，不是固定样本coalition game g_x",
+          "conflict_note": "保留当前定义/作用域，不按同字母合并别篇概念。",
+          "translations": {
+            "en": {
+              "note": "The source g is a spectrum column, distinct from a fixed-sample coalition game g_x",
+              "conflict_note": "Retain this definition and scope; matching letters alone do not identify concepts across papers."
+            }
+          }
+        }
+      ],
+      "translations": {
+        "en": {
+          "name": "Input spectrum",
+          "description": "The source g is a spectrum column, distinct from a fixed-sample coalition game g_x",
+          "type_or_domain": "A complex M×N array and channel column",
+          "scope": "The source g is a spectrum column, distinct from a fixed-sample coalition game g_x",
+          "assumptions": "Use the size, probability, independence or differentiability conditions stated in the current entry.",
+          "empty_set_convention": "An empty layer product is the identity and an empty offset sum is zero; this is not a coalition empty-set output.",
+          "baseline_convention": "Retain spatial biases and DC terms. Spectral g is distinct from g_x(S), and no v(x_∅)=0 convention is imposed.",
+          "paper_mappings": [
+            {
+              "note": "The source g is a spectrum column, distinct from a fixed-sample coalition game g_x",
+              "conflict_note": "Retain this definition and scope; matching letters alone do not identify concepts across papers."
+            }
+          ]
+        }
+      }
+    },
+    {
+      "id": "decoder-target-spectrum",
+      "canonical_id": "decoder-target-spectrum",
+      "canonical_tex": "H^*",
+      "name": "目标频谱",
+      "description": "实图像目标保持负频共轭；loss仅原选定两频",
+      "type_or_domain": "Hermitian复数组",
+      "scope": "实图像目标保持负频共轭；loss仅原选定两频",
+      "assumptions": "使用该符号当前条目列出的尺寸、概率、独立或可微条件。",
+      "empty_set_convention": "空层积为恒等映射，空偏移和为0；不是coalition空集输出。",
+      "baseline_convention": "空间bias及DC项保留；频谱g不等于g_x(S)，不施加v(x_∅)=0。",
+      "paper_mappings": [
+        {
+          "paper_id": "icml2023-decoder",
+          "original_tex": "H^*",
+          "canonical_tex": "H^*",
+          "note": "实图像目标保持负频共轭；loss仅原选定两频",
+          "conflict_note": "保留当前定义/作用域，不按同字母合并别篇概念。",
+          "translations": {
+            "en": {
+              "note": "A real-image target retains conjugate negative frequencies; the loss uses only the source-selected pair",
+              "conflict_note": "Retain this definition and scope; matching letters alone do not identify concepts across papers."
+            }
+          }
+        }
+      ],
+      "translations": {
+        "en": {
+          "name": "Target spectrum",
+          "description": "A real-image target retains conjugate negative frequencies; the loss uses only the source-selected pair",
+          "type_or_domain": "A Hermitian complex array",
+          "scope": "A real-image target retains conjugate negative frequencies; the loss uses only the source-selected pair",
+          "assumptions": "Use the size, probability, independence or differentiability conditions stated in the current entry.",
+          "empty_set_convention": "An empty layer product is the identity and an empty offset sum is zero; this is not a coalition empty-set output.",
+          "baseline_convention": "Retain spatial biases and DC terms. Spectral g is distinct from g_x(S), and no v(x_∅)=0 convention is imposed.",
+          "paper_mappings": [
+            {
+              "note": "A real-image target retains conjugate negative frequencies; the loss uses only the source-selected pair",
+              "conflict_note": "Retain this definition and scope; matching letters alone do not identify concepts across papers."
+            }
+          ]
+        }
+      }
+    },
+    {
+      "id": "decoder-kernel",
+      "canonical_id": "decoder-kernel",
+      "canonical_tex": "W",
+      "name": "实卷积权重",
+      "description": "真实参数更新在实坐标，T不独立任意复参数",
+      "type_or_domain": "输出×输入通道×有限K×K实数组",
+      "scope": "真实参数更新在实坐标，T不独立任意复参数",
+      "assumptions": "使用该符号当前条目列出的尺寸、概率、独立或可微条件。",
+      "empty_set_convention": "空层积为恒等映射，空偏移和为0；不是coalition空集输出。",
+      "baseline_convention": "空间bias及DC项保留；频谱g不等于g_x(S)，不施加v(x_∅)=0。",
+      "paper_mappings": [
+        {
+          "paper_id": "icml2023-decoder",
+          "original_tex": "W",
+          "canonical_tex": "W",
+          "note": "真实参数更新在实坐标，T不独立任意复参数",
+          "conflict_note": "保留当前定义/作用域，不按同字母合并别篇概念。",
+          "translations": {
+            "en": {
+              "note": "Actual updates use real coordinates; T is not an unconstrained complex parameter",
+              "conflict_note": "Retain this definition and scope; matching letters alone do not identify concepts across papers."
+            }
+          }
+        }
+      ],
+      "translations": {
+        "en": {
+          "name": "Real convolution weights",
+          "description": "Actual updates use real coordinates; T is not an unconstrained complex parameter",
+          "type_or_domain": "An output/input-channel finite K×K real array",
+          "scope": "Actual updates use real coordinates; T is not an unconstrained complex parameter",
+          "assumptions": "Use the size, probability, independence or differentiability conditions stated in the current entry.",
+          "empty_set_convention": "An empty layer product is the identity and an empty offset sum is zero; this is not a coalition empty-set output.",
+          "baseline_convention": "Retain spatial biases and DC terms. Spectral g is distinct from g_x(S), and no v(x_∅)=0 convention is imposed.",
+          "paper_mappings": [
+            {
+              "note": "Actual updates use real coordinates; T is not an unconstrained complex parameter",
+              "conflict_note": "Retain this definition and scope; matching letters alone do not identify concepts across papers."
+            }
+          ]
+        }
+      }
+    },
+    {
+      "id": "decoder-kernel-response",
+      "canonical_id": "decoder-kernel-response",
+      "canonical_tex": "T^{(l,uv)}",
+      "name": "频率响应矩阵",
+      "description": "正相位有限核和，受实核共轭约束",
+      "type_or_domain": "C_l×C_(l−1)复矩阵",
+      "scope": "正相位有限核和，受实核共轭约束",
+      "assumptions": "使用该符号当前条目列出的尺寸、概率、独立或可微条件。",
+      "empty_set_convention": "空层积为恒等映射，空偏移和为0；不是coalition空集输出。",
+      "baseline_convention": "空间bias及DC项保留；频谱g不等于g_x(S)，不施加v(x_∅)=0。",
+      "paper_mappings": [
+        {
+          "paper_id": "icml2023-decoder",
+          "original_tex": "T^{(l,uv)}",
+          "canonical_tex": "T^{(l,uv)}",
+          "note": "正相位有限核和，受实核共轭约束",
+          "conflict_note": "保留当前定义/作用域，不按同字母合并别篇概念。",
+          "translations": {
+            "en": {
+              "note": "A positive-phase finite kernel sum, constrained by the real kernel",
+              "conflict_note": "Retain this definition and scope; matching letters alone do not identify concepts across papers."
+            }
+          }
+        }
+      ],
+      "translations": {
+        "en": {
+          "name": "Frequency-response matrix",
+          "description": "A positive-phase finite kernel sum, constrained by the real kernel",
+          "type_or_domain": "A C_l×C_(l−1) complex matrix",
+          "scope": "A positive-phase finite kernel sum, constrained by the real kernel",
+          "assumptions": "Use the size, probability, independence or differentiability conditions stated in the current entry.",
+          "empty_set_convention": "An empty layer product is the identity and an empty offset sum is zero; this is not a coalition empty-set output.",
+          "baseline_convention": "Retain spatial biases and DC terms. Spectral g is distinct from g_x(S), and no v(x_∅)=0 convention is imposed.",
+          "paper_mappings": [
+            {
+              "note": "A positive-phase finite kernel sum, constrained by the real kernel",
+              "conflict_note": "Retain this definition and scope; matching letters alone do not identify concepts across papers."
+            }
+          ]
+        }
+      }
+    },
+    {
+      "id": "decoder-cascade-response",
+      "canonical_id": "decoder-cascade-response",
+      "canonical_tex": "\\mathbb T^{(uv)(b:a)}",
+      "name": "级联响应",
+      "description": "层顺序不可交换；单通道才为标量乘积",
+      "type_or_domain": "相容复线性映射的有序复合",
+      "scope": "层顺序不可交换；单通道才为标量乘积",
+      "assumptions": "使用该符号当前条目列出的尺寸、概率、独立或可微条件。",
+      "empty_set_convention": "空层积为恒等映射，空偏移和为0；不是coalition空集输出。",
+      "baseline_convention": "空间bias及DC项保留；频谱g不等于g_x(S)，不施加v(x_∅)=0。",
+      "paper_mappings": [
+        {
+          "paper_id": "icml2023-decoder",
+          "original_tex": "\\mathbb T^{(uv)(b:a)}",
+          "canonical_tex": "\\mathbb T^{(uv)(b:a)}",
+          "note": "层顺序不可交换；单通道才为标量乘积",
+          "conflict_note": "保留当前定义/作用域，不按同字母合并别篇概念。",
+          "translations": {
+            "en": {
+              "note": "Layer order cannot be exchanged; a single channel reduces it to scalar multiplication",
+              "conflict_note": "Retain this definition and scope; matching letters alone do not identify concepts across papers."
+            }
+          }
+        }
+      ],
+      "translations": {
+        "en": {
+          "name": "Cascade response",
+          "description": "Layer order cannot be exchanged; a single channel reduces it to scalar multiplication",
+          "type_or_domain": "An ordered composition of compatible complex linear maps",
+          "scope": "Layer order cannot be exchanged; a single channel reduces it to scalar multiplication",
+          "assumptions": "Use the size, probability, independence or differentiability conditions stated in the current entry.",
+          "empty_set_convention": "An empty layer product is the identity and an empty offset sum is zero; this is not a coalition empty-set output.",
+          "baseline_convention": "Retain spatial biases and DC terms. Spectral g is distinct from g_x(S), and no v(x_∅)=0 convention is imposed.",
+          "paper_mappings": [
+            {
+              "note": "Layer order cannot be exchanged; a single channel reduces it to scalar multiplication",
+              "conflict_note": "Retain this definition and scope; matching letters alone do not identify concepts across papers."
+            }
+          ]
+        }
+      }
+    },
+    {
+      "id": "decoder-bias",
+      "canonical_id": "decoder-bias",
+      "canonical_tex": "b,\\beta",
+      "name": "空间与级联偏置",
+      "description": "不默认为0；MN乘完整级联偏置括号",
+      "type_or_domain": "实通道向量及DC谱向量",
+      "scope": "不默认为0；MN乘完整级联偏置括号",
+      "assumptions": "使用该符号当前条目列出的尺寸、概率、独立或可微条件。",
+      "empty_set_convention": "空层积为恒等映射，空偏移和为0；不是coalition空集输出。",
+      "baseline_convention": "空间bias及DC项保留；频谱g不等于g_x(S)，不施加v(x_∅)=0。",
+      "paper_mappings": [
+        {
+          "paper_id": "icml2023-decoder",
+          "original_tex": "b,\\beta",
+          "canonical_tex": "b,\\beta",
+          "note": "不默认为0；MN乘完整级联偏置括号",
+          "conflict_note": "保留当前定义/作用域，不按同字母合并别篇概念。",
+          "translations": {
+            "en": {
+              "note": "Not set to zero; MN multiplies the complete cascade-bias bracket",
+              "conflict_note": "Retain this definition and scope; matching letters alone do not identify concepts across papers."
+            }
+          }
+        }
+      ],
+      "translations": {
+        "en": {
+          "name": "Spatial and cascade biases",
+          "description": "Not set to zero; MN multiplies the complete cascade-bias bracket",
+          "type_or_domain": "A real channel vector and a DC spectral vector",
+          "scope": "Not set to zero; MN multiplies the complete cascade-bias bracket",
+          "assumptions": "Use the size, probability, independence or differentiability conditions stated in the current entry.",
+          "empty_set_convention": "An empty layer product is the identity and an empty offset sum is zero; this is not a coalition empty-set output.",
+          "baseline_convention": "Retain spatial biases and DC terms. Spectral g is distinct from g_x(S), and no v(x_∅)=0 convention is imposed.",
+          "paper_mappings": [
+            {
+              "note": "Not set to zero; MN multiplies the complete cascade-bias bracket",
+              "conflict_note": "Retain this definition and scope; matching letters alone do not identify concepts across papers."
+            }
+          ]
+        }
+      }
+    },
+    {
+      "id": "decoder-delta",
+      "canonical_id": "decoder-delta",
+      "canonical_tex": "\\delta_{uv}",
+      "name": "DC指示",
+      "description": "u=v=0同时成立才是DC",
+      "type_or_domain": "取0/1的频率函数",
+      "scope": "u=v=0同时成立才是DC",
+      "assumptions": "使用该符号当前条目列出的尺寸、概率、独立或可微条件。",
+      "empty_set_convention": "空层积为恒等映射，空偏移和为0；不是coalition空集输出。",
+      "baseline_convention": "空间bias及DC项保留；频谱g不等于g_x(S)，不施加v(x_∅)=0。",
+      "paper_mappings": [
+        {
+          "paper_id": "icml2023-decoder",
+          "original_tex": "\\delta_{uv}",
+          "canonical_tex": "\\delta_{uv}",
+          "note": "u=v=0同时成立才是DC",
+          "conflict_note": "保留当前定义/作用域，不按同字母合并别篇概念。",
+          "translations": {
+            "en": {
+              "note": "DC requires both u=0 and v=0",
+              "conflict_note": "Retain this definition and scope; matching letters alone do not identify concepts across papers."
+            }
+          }
+        }
+      ],
+      "translations": {
+        "en": {
+          "name": "DC indicator",
+          "description": "DC requires both u=0 and v=0",
+          "type_or_domain": "A zero/one frequency indicator",
+          "scope": "DC requires both u=0 and v=0",
+          "assumptions": "Use the size, probability, independence or differentiability conditions stated in the current entry.",
+          "empty_set_convention": "An empty layer product is the identity and an empty offset sum is zero; this is not a coalition empty-set output.",
+          "baseline_convention": "Retain spatial biases and DC terms. Spectral g is distinct from g_x(S), and no v(x_∅)=0 convention is imposed.",
+          "paper_mappings": [
+            {
+              "note": "DC requires both u=0 and v=0",
+              "conflict_note": "Retain this definition and scope; matching letters alone do not identify concepts across papers."
+            }
+          ]
+        }
+      }
+    },
+    {
+      "id": "decoder-depth",
+      "canonical_id": "decoder-depth",
+      "canonical_tex": "L,l",
+      "name": "层深度",
+      "description": "不同于DFT网格尺寸",
+      "type_or_domain": "有限非负层数与层指标",
+      "scope": "不同于DFT网格尺寸",
+      "assumptions": "使用该符号当前条目列出的尺寸、概率、独立或可微条件。",
+      "empty_set_convention": "空层积为恒等映射，空偏移和为0；不是coalition空集输出。",
+      "baseline_convention": "空间bias及DC项保留；频谱g不等于g_x(S)，不施加v(x_∅)=0。",
+      "paper_mappings": [
+        {
+          "paper_id": "icml2023-decoder",
+          "original_tex": "L,l",
+          "canonical_tex": "L,l",
+          "note": "不同于DFT网格尺寸",
+          "conflict_note": "保留当前定义/作用域，不按同字母合并别篇概念。",
+          "translations": {
+            "en": {
+              "note": "Distinct from DFT grid sizes",
+              "conflict_note": "Retain this definition and scope; matching letters alone do not identify concepts across papers."
+            }
+          }
+        }
+      ],
+      "translations": {
+        "en": {
+          "name": "Layer depth",
+          "description": "Distinct from DFT grid sizes",
+          "type_or_domain": "Finite nonnegative depth and layer indices",
+          "scope": "Distinct from DFT grid sizes",
+          "assumptions": "Use the size, probability, independence or differentiability conditions stated in the current entry.",
+          "empty_set_convention": "An empty layer product is the identity and an empty offset sum is zero; this is not a coalition empty-set output.",
+          "baseline_convention": "Retain spatial biases and DC terms. Spectral g is distinct from g_x(S), and no v(x_∅)=0 convention is imposed.",
+          "paper_mappings": [
+            {
+              "note": "Distinct from DFT grid sizes",
+              "conflict_note": "Retain this definition and scope; matching letters alone do not identify concepts across papers."
+            }
+          ]
+        }
+      }
+    },
+    {
+      "id": "decoder-channels",
+      "canonical_id": "decoder-channels",
+      "canonical_tex": "C_l,c,d",
+      "name": "通道宽度与指标",
+      "description": "多通道矩阵范围与单通道分开",
+      "type_or_domain": "各层有限通道类型",
+      "scope": "多通道矩阵范围与单通道分开",
+      "assumptions": "使用该符号当前条目列出的尺寸、概率、独立或可微条件。",
+      "empty_set_convention": "空层积为恒等映射，空偏移和为0；不是coalition空集输出。",
+      "baseline_convention": "空间bias及DC项保留；频谱g不等于g_x(S)，不施加v(x_∅)=0。",
+      "paper_mappings": [
+        {
+          "paper_id": "icml2023-decoder",
+          "original_tex": "C_l,c,d",
+          "canonical_tex": "C_l,c,d",
+          "note": "多通道矩阵范围与单通道分开",
+          "conflict_note": "保留当前定义/作用域，不按同字母合并别篇概念。",
+          "translations": {
+            "en": {
+              "note": "Multichannel matrices are separate from the scalar single-channel scope",
+              "conflict_note": "Retain this definition and scope; matching letters alone do not identify concepts across papers."
+            }
+          }
+        }
+      ],
+      "translations": {
+        "en": {
+          "name": "Channel widths and indices",
+          "description": "Multichannel matrices are separate from the scalar single-channel scope",
+          "type_or_domain": "A finite channel type at each layer",
+          "scope": "Multichannel matrices are separate from the scalar single-channel scope",
+          "assumptions": "Use the size, probability, independence or differentiability conditions stated in the current entry.",
+          "empty_set_convention": "An empty layer product is the identity and an empty offset sum is zero; this is not a coalition empty-set output.",
+          "baseline_convention": "Retain spatial biases and DC terms. Spectral g is distinct from g_x(S), and no v(x_∅)=0 convention is imposed.",
+          "paper_mappings": [
+            {
+              "note": "Multichannel matrices are separate from the scalar single-channel scope",
+              "conflict_note": "Retain this definition and scope; matching letters alone do not identify concepts across papers."
+            }
+          ]
+        }
+      }
+    },
+    {
+      "id": "decoder-kernel-size",
+      "canonical_id": "decoder-kernel-size",
+      "canonical_tex": "K",
+      "name": "核尺寸",
+      "description": "R随K一起变化，不是独立自由参数",
+      "type_or_domain": "正整数核宽高",
+      "scope": "R随K一起变化，不是独立自由参数",
+      "assumptions": "使用该符号当前条目列出的尺寸、概率、独立或可微条件。",
+      "empty_set_convention": "空层积为恒等映射，空偏移和为0；不是coalition空集输出。",
+      "baseline_convention": "空间bias及DC项保留；频谱g不等于g_x(S)，不施加v(x_∅)=0。",
+      "paper_mappings": [
+        {
+          "paper_id": "icml2023-decoder",
+          "original_tex": "K",
+          "canonical_tex": "K",
+          "note": "R随K一起变化，不是独立自由参数",
+          "conflict_note": "保留当前定义/作用域，不按同字母合并别篇概念。",
+          "translations": {
+            "en": {
+              "note": "R changes with K, rather than being a separately fixed parameter",
+              "conflict_note": "Retain this definition and scope; matching letters alone do not identify concepts across papers."
+            }
+          }
+        }
+      ],
+      "translations": {
+        "en": {
+          "name": "Kernel size",
+          "description": "R changes with K, rather than being a separately fixed parameter",
+          "type_or_domain": "A positive integer kernel width and height",
+          "scope": "R changes with K, rather than being a separately fixed parameter",
+          "assumptions": "Use the size, probability, independence or differentiability conditions stated in the current entry.",
+          "empty_set_convention": "An empty layer product is the identity and an empty offset sum is zero; this is not a coalition empty-set output.",
+          "baseline_convention": "Retain spatial biases and DC terms. Spectral g is distinct from g_x(S), and no v(x_∅)=0 convention is imposed.",
+          "paper_mappings": [
+            {
+              "note": "R changes with K, rather than being a separately fixed parameter",
+              "conflict_note": "Retain this definition and scope; matching letters alone do not identify concepts across papers."
+            }
+          ]
+        }
+      }
+    },
+    {
+      "id": "decoder-geometric",
+      "canonical_id": "decoder-geometric",
+      "canonical_tex": "P_n(z)",
+      "name": "有限几何和",
+      "description": "z=1直接为n，不用未定义商",
+      "type_or_domain": "自然数长度、复z到复数",
+      "scope": "z=1直接为n，不用未定义商",
+      "assumptions": "使用该符号当前条目列出的尺寸、概率、独立或可微条件。",
+      "empty_set_convention": "空层积为恒等映射，空偏移和为0；不是coalition空集输出。",
+      "baseline_convention": "空间bias及DC项保留；频谱g不等于g_x(S)，不施加v(x_∅)=0。",
+      "paper_mappings": [
+        {
+          "paper_id": "icml2023-decoder",
+          "original_tex": "P_n(z)",
+          "canonical_tex": "P_n(z)",
+          "note": "z=1直接为n，不用未定义商",
+          "conflict_note": "保留当前定义/作用域，不按同字母合并别篇概念。",
+          "translations": {
+            "en": {
+              "note": "At z=1 the value is directly n, without an undefined quotient",
+              "conflict_note": "Retain this definition and scope; matching letters alone do not identify concepts across papers."
+            }
+          }
+        }
+      ],
+      "translations": {
+        "en": {
+          "name": "Finite geometric sum",
+          "description": "At z=1 the value is directly n, without an undefined quotient",
+          "type_or_domain": "A natural length and complex z mapping to a complex sum",
+          "scope": "At z=1 the value is directly n, without an undefined quotient",
+          "assumptions": "Use the size, probability, independence or differentiability conditions stated in the current entry.",
+          "empty_set_convention": "An empty layer product is the identity and an empty offset sum is zero; this is not a coalition empty-set output.",
+          "baseline_convention": "Retain spatial biases and DC terms. Spectral g is distinct from g_x(S), and no v(x_∅)=0 convention is imposed.",
+          "paper_mappings": [
+            {
+              "note": "At z=1 the value is directly n, without an undefined quotient",
+              "conflict_note": "Retain this definition and scope; matching letters alone do not identify concepts across papers."
+            }
+          ]
+        }
+      }
+    },
+    {
+      "id": "decoder-phase-sum",
+      "canonical_id": "decoder-phase-sum",
+      "canonical_tex": "R_{uv}",
+      "name": "核相位和",
+      "description": "正弦商仅在非零分母域，原有限和全域合法",
+      "type_or_domain": "有限K×K复求和",
+      "scope": "正弦商仅在非零分母域，原有限和全域合法",
+      "assumptions": "使用该符号当前条目列出的尺寸、概率、独立或可微条件。",
+      "empty_set_convention": "空层积为恒等映射，空偏移和为0；不是coalition空集输出。",
+      "baseline_convention": "空间bias及DC项保留；频谱g不等于g_x(S)，不施加v(x_∅)=0。",
+      "paper_mappings": [
+        {
+          "paper_id": "icml2023-decoder",
+          "original_tex": "R_{uv}",
+          "canonical_tex": "R_{uv}",
+          "note": "正弦商仅在非零分母域，原有限和全域合法",
+          "conflict_note": "保留当前定义/作用域，不按同字母合并别篇概念。",
+          "translations": {
+            "en": {
+              "note": "The sine quotient is valid only off zero denominators; the source finite sum is defined everywhere",
+              "conflict_note": "Retain this definition and scope; matching letters alone do not identify concepts across papers."
+            }
+          }
+        }
+      ],
+      "translations": {
+        "en": {
+          "name": "Kernel phase sum",
+          "description": "The sine quotient is valid only off zero denominators; the source finite sum is defined everywhere",
+          "type_or_domain": "A finite K×K complex sum",
+          "scope": "The sine quotient is valid only off zero denominators; the source finite sum is defined everywhere",
+          "assumptions": "Use the size, probability, independence or differentiability conditions stated in the current entry.",
+          "empty_set_convention": "An empty layer product is the identity and an empty offset sum is zero; this is not a coalition empty-set output.",
+          "baseline_convention": "Retain spatial biases and DC terms. Spectral g is distinct from g_x(S), and no v(x_∅)=0 convention is imposed.",
+          "paper_mappings": [
+            {
+              "note": "The sine quotient is valid only off zero denominators; the source finite sum is defined everywhere",
+              "conflict_note": "Retain this definition and scope; matching letters alone do not identify concepts across papers."
+            }
+          ]
+        }
+      }
+    },
+    {
+      "id": "decoder-cross-frequency",
+      "canonical_id": "decoder-cross-frequency",
+      "canonical_tex": "\\chi_{u^{\\prime}v^{\\prime}uv}",
+      "name": "跨频梯度核",
+      "description": "对角值K²/(MN)，不能删除坐标相等项",
+      "type_or_domain": "完整网格频率对到复数",
+      "scope": "对角值K²/(MN)，不能删除坐标相等项",
+      "assumptions": "使用该符号当前条目列出的尺寸、概率、独立或可微条件。",
+      "empty_set_convention": "空层积为恒等映射，空偏移和为0；不是coalition空集输出。",
+      "baseline_convention": "空间bias及DC项保留；频谱g不等于g_x(S)，不施加v(x_∅)=0。",
+      "paper_mappings": [
+        {
+          "paper_id": "icml2023-decoder",
+          "original_tex": "\\chi_{u^{\\prime}v^{\\prime}uv}",
+          "canonical_tex": "\\chi_{u^{\\prime}v^{\\prime}uv}",
+          "note": "对角值K²/(MN)，不能删除坐标相等项",
+          "conflict_note": "保留当前定义/作用域，不按同字母合并别篇概念。",
+          "translations": {
+            "en": {
+              "note": "The diagonal equals K²/(MN); equal-coordinate terms cannot be removed",
+              "conflict_note": "Retain this definition and scope; matching letters alone do not identify concepts across papers."
+            }
+          }
+        }
+      ],
+      "translations": {
+        "en": {
+          "name": "Cross-frequency gradient kernel",
+          "description": "The diagonal equals K²/(MN); equal-coordinate terms cannot be removed",
+          "type_or_domain": "A complex function of full-grid frequency pairs",
+          "scope": "The diagonal equals K²/(MN); equal-coordinate terms cannot be removed",
+          "assumptions": "Use the size, probability, independence or differentiability conditions stated in the current entry.",
+          "empty_set_convention": "An empty layer product is the identity and an empty offset sum is zero; this is not a coalition empty-set output.",
+          "baseline_convention": "Retain spatial biases and DC terms. Spectral g is distinct from g_x(S), and no v(x_∅)=0 convention is imposed.",
+          "paper_mappings": [
+            {
+              "note": "The diagonal equals K²/(MN); equal-coordinate terms cannot be removed",
+              "conflict_note": "Retain this definition and scope; matching letters alone do not identify concepts across papers."
+            }
+          ]
+        }
+      }
+    },
+    {
+      "id": "decoder-valid-mixing",
+      "canonical_id": "decoder-valid-mixing",
+      "canonical_tex": "\\alpha_{u^{\\prime}v^{\\prime}uv}",
+      "name": "无padding跨频系数",
+      "description": "原Eq17项数错误与circular特例分开",
+      "type_or_domain": "新旧频率对到复数",
+      "scope": "原Eq17项数错误与circular特例分开",
+      "assumptions": "使用该符号当前条目列出的尺寸、概率、独立或可微条件。",
+      "empty_set_convention": "空层积为恒等映射，空偏移和为0；不是coalition空集输出。",
+      "baseline_convention": "空间bias及DC项保留；频谱g不等于g_x(S)，不施加v(x_∅)=0。",
+      "paper_mappings": [
+        {
+          "paper_id": "icml2023-decoder",
+          "original_tex": "\\alpha_{u^{\\prime}v^{\\prime}uv}",
+          "canonical_tex": "\\alpha_{u^{\\prime}v^{\\prime}uv}",
+          "note": "原Eq17项数错误与circular特例分开",
+          "conflict_note": "保留当前定义/作用域，不按同字母合并别篇概念。",
+          "translations": {
+            "en": {
+              "note": "The Equation (17) count error is separate from the circular specialization",
+              "conflict_note": "Retain this definition and scope; matching letters alone do not identify concepts across papers."
+            }
+          }
+        }
+      ],
+      "translations": {
+        "en": {
+          "name": "Valid-convolution frequency mixing",
+          "description": "The Equation (17) count error is separate from the circular specialization",
+          "type_or_domain": "A complex function of new/old frequency pairs",
+          "scope": "The Equation (17) count error is separate from the circular specialization",
+          "assumptions": "Use the size, probability, independence or differentiability conditions stated in the current entry.",
+          "empty_set_convention": "An empty layer product is the identity and an empty offset sum is zero; this is not a coalition empty-set output.",
+          "baseline_convention": "Retain spatial biases and DC terms. Spectral g is distinct from g_x(S), and no v(x_∅)=0 convention is imposed.",
+          "paper_mappings": [
+            {
+              "note": "The Equation (17) count error is separate from the circular specialization",
+              "conflict_note": "Retain this definition and scope; matching letters alone do not identify concepts across papers."
+            }
+          ]
+        }
+      }
+    },
+    {
+      "id": "decoder-inverse-dft",
+      "canonical_id": "decoder-inverse-dft",
+      "canonical_tex": "\\mathcal F^{-1}",
+      "name": "逆DFT",
+      "description": "正相位并含1/(MN)",
+      "type_or_domain": "复网格到复网格线性映射",
+      "scope": "正相位并含1/(MN)",
+      "assumptions": "使用该符号当前条目列出的尺寸、概率、独立或可微条件。",
+      "empty_set_convention": "空层积为恒等映射，空偏移和为0；不是coalition空集输出。",
+      "baseline_convention": "空间bias及DC项保留；频谱g不等于g_x(S)，不施加v(x_∅)=0。",
+      "paper_mappings": [
+        {
+          "paper_id": "icml2023-decoder",
+          "original_tex": "\\mathcal F^{-1}",
+          "canonical_tex": "\\mathcal F^{-1}",
+          "note": "正相位并含1/(MN)",
+          "conflict_note": "保留当前定义/作用域，不按同字母合并别篇概念。",
+          "translations": {
+            "en": {
+              "note": "Positive phase with normalization 1/(MN)",
+              "conflict_note": "Retain this definition and scope; matching letters alone do not identify concepts across papers."
+            }
+          }
+        }
+      ],
+      "translations": {
+        "en": {
+          "name": "Inverse DFT",
+          "description": "Positive phase with normalization 1/(MN)",
+          "type_or_domain": "A linear map between complex grid arrays",
+          "scope": "Positive phase with normalization 1/(MN)",
+          "assumptions": "Use the size, probability, independence or differentiability conditions stated in the current entry.",
+          "empty_set_convention": "An empty layer product is the identity and an empty offset sum is zero; this is not a coalition empty-set output.",
+          "baseline_convention": "Retain spatial biases and DC terms. Spectral g is distinct from g_x(S), and no v(x_∅)=0 convention is imposed.",
+          "paper_mappings": [
+            {
+              "note": "Positive phase with normalization 1/(MN)",
+              "conflict_note": "Retain this definition and scope; matching letters alone do not identify concepts across papers."
+            }
+          ]
+        }
+      }
+    },
+    {
+      "id": "decoder-som",
+      "canonical_id": "decoder-som",
+      "canonical_tex": "SOM",
+      "name": "二阶矩",
+      "description": "E|Z|²不是方差也不是样本值",
+      "type_or_domain": "复随机变量到非负实数",
+      "scope": "E|Z|²不是方差也不是样本值",
+      "assumptions": "使用该符号当前条目列出的尺寸、概率、独立或可微条件。",
+      "empty_set_convention": "空层积为恒等映射，空偏移和为0；不是coalition空集输出。",
+      "baseline_convention": "空间bias及DC项保留；频谱g不等于g_x(S)，不施加v(x_∅)=0。",
+      "paper_mappings": [
+        {
+          "paper_id": "icml2023-decoder",
+          "original_tex": "SOM",
+          "canonical_tex": "SOM",
+          "note": "E|Z|²不是方差也不是样本值",
+          "conflict_note": "保留当前定义/作用域，不按同字母合并别篇概念。",
+          "translations": {
+            "en": {
+              "note": "E|Z|² is neither a variance nor a realized sample value",
+              "conflict_note": "Retain this definition and scope; matching letters alone do not identify concepts across papers."
+            }
+          }
+        }
+      ],
+      "translations": {
+        "en": {
+          "name": "Second-order moment",
+          "description": "E|Z|² is neither a variance nor a realized sample value",
+          "type_or_domain": "A complex random variable mapping to a nonnegative real",
+          "scope": "E|Z|² is neither a variance nor a realized sample value",
+          "assumptions": "Use the size, probability, independence or differentiability conditions stated in the current entry.",
+          "empty_set_convention": "An empty layer product is the identity and an empty offset sum is zero; this is not a coalition empty-set output.",
+          "baseline_convention": "Retain spatial biases and DC terms. Spectral g is distinct from g_x(S), and no v(x_∅)=0 convention is imposed.",
+          "paper_mappings": [
+            {
+              "note": "E|Z|² is neither a variance nor a realized sample value",
+              "conflict_note": "Retain this definition and scope; matching letters alone do not identify concepts across papers."
+            }
+          ]
+        }
+      }
+    },
+    {
+      "id": "decoder-mean",
+      "canonical_id": "decoder-mean",
+      "canonical_tex": "\\mu_l,\\hat\\mu",
+      "name": "实权重/复响应均值",
+      "description": "复响应均值是μ_l R，不默认为0",
+      "type_or_domain": "实层均值与复响应均值",
+      "scope": "复响应均值是μ_l R，不默认为0",
+      "assumptions": "使用该符号当前条目列出的尺寸、概率、独立或可微条件。",
+      "empty_set_convention": "空层积为恒等映射，空偏移和为0；不是coalition空集输出。",
+      "baseline_convention": "空间bias及DC项保留；频谱g不等于g_x(S)，不施加v(x_∅)=0。",
+      "paper_mappings": [
+        {
+          "paper_id": "icml2023-decoder",
+          "original_tex": "\\mu_l,\\hat\\mu",
+          "canonical_tex": "\\mu_l,\\hat\\mu",
+          "note": "复响应均值是μ_l R，不默认为0",
+          "conflict_note": "保留当前定义/作用域，不按同字母合并别篇概念。",
+          "translations": {
+            "en": {
+              "note": "The response mean is μ_l R and is not assumed zero",
+              "conflict_note": "Retain this definition and scope; matching letters alone do not identify concepts across papers."
+            }
+          }
+        }
+      ],
+      "translations": {
+        "en": {
+          "name": "Real-weight and complex-response means",
+          "description": "The response mean is μ_l R and is not assumed zero",
+          "type_or_domain": "A real layer mean and a complex response mean",
+          "scope": "The response mean is μ_l R and is not assumed zero",
+          "assumptions": "Use the size, probability, independence or differentiability conditions stated in the current entry.",
+          "empty_set_convention": "An empty layer product is the identity and an empty offset sum is zero; this is not a coalition empty-set output.",
+          "baseline_convention": "Retain spatial biases and DC terms. Spectral g is distinct from g_x(S), and no v(x_∅)=0 convention is imposed.",
+          "paper_mappings": [
+            {
+              "note": "The response mean is μ_l R and is not assumed zero",
+              "conflict_note": "Retain this definition and scope; matching letters alone do not identify concepts across papers."
+            }
+          ]
+        }
+      }
+    },
+    {
+      "id": "decoder-variance",
+      "canonical_id": "decoder-variance",
+      "canonical_tex": "\\sigma_l^2,\\hat\\sigma^2",
+      "name": "Gaussian方差与复方差",
+      "description": "复方差是中心平方模期望",
+      "type_or_domain": "非负实参数，普通log用正域",
+      "scope": "复方差是中心平方模期望",
+      "assumptions": "使用该符号当前条目列出的尺寸、概率、独立或可微条件。",
+      "empty_set_convention": "空层积为恒等映射，空偏移和为0；不是coalition空集输出。",
+      "baseline_convention": "空间bias及DC项保留；频谱g不等于g_x(S)，不施加v(x_∅)=0。",
+      "paper_mappings": [
+        {
+          "paper_id": "icml2023-decoder",
+          "original_tex": "\\sigma_l^2,\\hat\\sigma^2",
+          "canonical_tex": "\\sigma_l^2,\\hat\\sigma^2",
+          "note": "复方差是中心平方模期望",
+          "conflict_note": "保留当前定义/作用域，不按同字母合并别篇概念。",
+          "translations": {
+            "en": {
+              "note": "Complex variance is the expected centered squared magnitude",
+              "conflict_note": "Retain this definition and scope; matching letters alone do not identify concepts across papers."
+            }
+          }
+        }
+      ],
+      "translations": {
+        "en": {
+          "name": "Gaussian and complex variances",
+          "description": "Complex variance is the expected centered squared magnitude",
+          "type_or_domain": "Nonnegative real parameters; ordinary logs use positive domains",
+          "scope": "Complex variance is the expected centered squared magnitude",
+          "assumptions": "Use the size, probability, independence or differentiability conditions stated in the current entry.",
+          "empty_set_convention": "An empty layer product is the identity and an empty offset sum is zero; this is not a coalition empty-set output.",
+          "baseline_convention": "Retain spatial biases and DC terms. Spectral g is distinct from g_x(S), and no v(x_∅)=0 convention is imposed.",
+          "paper_mappings": [
+            {
+              "note": "Complex variance is the expected centered squared magnitude",
+              "conflict_note": "Retain this definition and scope; matching letters alone do not identify concepts across papers."
+            }
+          ]
+        }
+      }
+    },
+    {
+      "id": "decoder-pseudocovariance",
+      "canonical_id": "decoder-pseudocovariance",
+      "canonical_tex": "C,r",
+      "name": "复伪协方差",
+      "description": "不同于SOM/方差，实Gaussian通常非0",
+      "type_or_domain": "可能非实的中心平方期望",
+      "scope": "不同于SOM/方差，实Gaussian通常非0",
+      "assumptions": "使用该符号当前条目列出的尺寸、概率、独立或可微条件。",
+      "empty_set_convention": "空层积为恒等映射，空偏移和为0；不是coalition空集输出。",
+      "baseline_convention": "空间bias及DC项保留；频谱g不等于g_x(S)，不施加v(x_∅)=0。",
+      "paper_mappings": [
+        {
+          "paper_id": "icml2023-decoder",
+          "original_tex": "C,r",
+          "canonical_tex": "C,r",
+          "note": "不同于SOM/方差，实Gaussian通常非0",
+          "conflict_note": "保留当前定义/作用域，不按同字母合并别篇概念。",
+          "translations": {
+            "en": {
+              "note": "Distinct from SOM/variance and generally nonzero for a real Gaussian",
+              "conflict_note": "Retain this definition and scope; matching letters alone do not identify concepts across papers."
+            }
+          }
+        }
+      ],
+      "translations": {
+        "en": {
+          "name": "Complex pseudocovariance",
+          "description": "Distinct from SOM/variance and generally nonzero for a real Gaussian",
+          "type_or_domain": "A possibly nonreal centered-square expectation",
+          "scope": "Distinct from SOM/variance and generally nonzero for a real Gaussian",
+          "assumptions": "Use the size, probability, independence or differentiability conditions stated in the current entry.",
+          "empty_set_convention": "An empty layer product is the identity and an empty offset sum is zero; this is not a coalition empty-set output.",
+          "baseline_convention": "Retain spatial biases and DC terms. Spectral g is distinct from g_x(S), and no v(x_∅)=0 convention is imposed.",
+          "paper_mappings": [
+            {
+              "note": "Distinct from SOM/variance and generally nonzero for a real Gaussian",
+              "conflict_note": "Retain this definition and scope; matching letters alone do not identify concepts across papers."
+            }
+          ]
+        }
+      }
+    },
+    {
+      "id": "decoder-independence",
+      "canonical_id": "decoder-independence",
+      "canonical_tex": "independence",
+      "name": "随机权重独立",
+      "description": "真正独立与仅一阶不相关显示式不同",
+      "type_or_domain": "共同概率空间的随机数组",
+      "scope": "真正独立与仅一阶不相关显示式不同",
+      "assumptions": "使用该符号当前条目列出的尺寸、概率、独立或可微条件。",
+      "empty_set_convention": "空层积为恒等映射，空偏移和为0；不是coalition空集输出。",
+      "baseline_convention": "空间bias及DC项保留；频谱g不等于g_x(S)，不施加v(x_∅)=0。",
+      "paper_mappings": [
+        {
+          "paper_id": "icml2023-decoder",
+          "original_tex": "independence",
+          "canonical_tex": "independence",
+          "note": "真正独立与仅一阶不相关显示式不同",
+          "conflict_note": "保留当前定义/作用域，不按同字母合并别篇概念。",
+          "translations": {
+            "en": {
+              "note": "Genuine independence differs from displays of first-moment uncorrelatedness",
+              "conflict_note": "Retain this definition and scope; matching letters alone do not identify concepts across papers."
+            }
+          }
+        }
+      ],
+      "translations": {
+        "en": {
+          "name": "Independence of random weights",
+          "description": "Genuine independence differs from displays of first-moment uncorrelatedness",
+          "type_or_domain": "Random arrays on a common probability space",
+          "scope": "Genuine independence differs from displays of first-moment uncorrelatedness",
+          "assumptions": "Use the size, probability, independence or differentiability conditions stated in the current entry.",
+          "empty_set_convention": "An empty layer product is the identity and an empty offset sum is zero; this is not a coalition empty-set output.",
+          "baseline_convention": "Retain spatial biases and DC terms. Spectral g is distinct from g_x(S), and no v(x_∅)=0 convention is imposed.",
+          "paper_mappings": [
+            {
+              "note": "Genuine independence differs from displays of first-moment uncorrelatedness",
+              "conflict_note": "Retain this definition and scope; matching letters alone do not identify concepts across papers."
+            }
+          ]
+        }
+      }
+    },
+    {
+      "id": "decoder-padding",
+      "canonical_id": "decoder-padding",
+      "canonical_tex": "\\widetilde F_{\\rm pad}",
+      "name": "边缘零padding",
+      "description": "按作者edge文字otherwise0；原Eq8漏域保留",
+      "type_or_domain": "有限旧数组嵌入新数组",
+      "scope": "按作者edge文字otherwise0；原Eq8漏域保留",
+      "assumptions": "使用该符号当前条目列出的尺寸、概率、独立或可微条件。",
+      "empty_set_convention": "空层积为恒等映射，空偏移和为0；不是coalition空集输出。",
+      "baseline_convention": "空间bias及DC项保留；频谱g不等于g_x(S)，不施加v(x_∅)=0。",
+      "paper_mappings": [
+        {
+          "paper_id": "icml2023-decoder",
+          "original_tex": "\\widetilde F_{\\rm pad}",
+          "canonical_tex": "\\widetilde F_{\\rm pad}",
+          "note": "按作者edge文字otherwise0；原Eq8漏域保留",
+          "conflict_note": "保留当前定义/作用域，不按同字母合并别篇概念。",
+          "translations": {
+            "en": {
+              "note": "Use otherwise-zero under the edge-padding prose; preserve the omitted domain in printed (8)",
+              "conflict_note": "Retain this definition and scope; matching letters alone do not identify concepts across papers."
+            }
+          }
+        }
+      ],
+      "translations": {
+        "en": {
+          "name": "Edge zero padding",
+          "description": "Use otherwise-zero under the edge-padding prose; preserve the omitted domain in printed (8)",
+          "type_or_domain": "An embedding of an old finite array into a larger one",
+          "scope": "Use otherwise-zero under the edge-padding prose; preserve the omitted domain in printed (8)",
+          "assumptions": "Use the size, probability, independence or differentiability conditions stated in the current entry.",
+          "empty_set_convention": "An empty layer product is the identity and an empty offset sum is zero; this is not a coalition empty-set output.",
+          "baseline_convention": "Retain spatial biases and DC terms. Spectral g is distinct from g_x(S), and no v(x_∅)=0 convention is imposed.",
+          "paper_mappings": [
+            {
+              "note": "Use otherwise-zero under the edge-padding prose; preserve the omitted domain in printed (8)",
+              "conflict_note": "Retain this definition and scope; matching letters alone do not identify concepts across papers."
+            }
+          ]
+        }
+      }
+    },
+    {
+      "id": "decoder-padding-factor",
+      "canonical_id": "decoder-padding-factor",
+      "canonical_tex": "\\tau_{uv}",
+      "name": "矩形相位幅值",
+      "description": "轴上的商0/0须回有限和",
+      "type_or_domain": "矩形有限相位和的绝对值",
+      "scope": "轴上的商0/0须回有限和",
+      "assumptions": "使用该符号当前条目列出的尺寸、概率、独立或可微条件。",
+      "empty_set_convention": "空层积为恒等映射，空偏移和为0；不是coalition空集输出。",
+      "baseline_convention": "空间bias及DC项保留；频谱g不等于g_x(S)，不施加v(x_∅)=0。",
+      "paper_mappings": [
+        {
+          "paper_id": "icml2023-decoder",
+          "original_tex": "\\tau_{uv}",
+          "canonical_tex": "\\tau_{uv}",
+          "note": "轴上的商0/0须回有限和",
+          "conflict_note": "保留当前定义/作用域，不按同字母合并别篇概念。",
+          "translations": {
+            "en": {
+              "note": "On coordinate axes, the quotient 0/0 must return to the finite sum",
+              "conflict_note": "Retain this definition and scope; matching letters alone do not identify concepts across papers."
+            }
+          }
+        }
+      ],
+      "translations": {
+        "en": {
+          "name": "Rectangular phase magnitude",
+          "description": "On coordinate axes, the quotient 0/0 must return to the finite sum",
+          "type_or_domain": "The magnitude of a finite rectangle phase sum",
+          "scope": "On coordinate axes, the quotient 0/0 must return to the finite sum",
+          "assumptions": "Use the size, probability, independence or differentiability conditions stated in the current entry.",
+          "empty_set_convention": "An empty layer product is the identity and an empty offset sum is zero; this is not a coalition empty-set output.",
+          "baseline_convention": "Retain spatial biases and DC terms. Spectral g is distinct from g_x(S), and no v(x_∅)=0 convention is imposed.",
+          "paper_mappings": [
+            {
+              "note": "On coordinate axes, the quotient 0/0 must return to the finite sum",
+              "conflict_note": "Retain this definition and scope; matching letters alone do not identify concepts across papers."
+            }
+          ]
+        }
+      }
+    },
+    {
+      "id": "decoder-upsampling",
+      "canonical_id": "decoder-upsampling",
+      "canonical_tex": "\\widetilde F_{\\rm ins}",
+      "name": "零插值",
+      "description": "原位置乘r，其余位置0",
+      "type_or_domain": "旧网格到r倍新网格",
+      "scope": "原位置乘r，其余位置0",
+      "assumptions": "使用该符号当前条目列出的尺寸、概率、独立或可微条件。",
+      "empty_set_convention": "空层积为恒等映射，空偏移和为0；不是coalition空集输出。",
+      "baseline_convention": "空间bias及DC项保留；频谱g不等于g_x(S)，不施加v(x_∅)=0。",
+      "paper_mappings": [
+        {
+          "paper_id": "icml2023-decoder",
+          "original_tex": "\\widetilde F_{\\rm ins}",
+          "canonical_tex": "\\widetilde F_{\\rm ins}",
+          "note": "原位置乘r，其余位置0",
+          "conflict_note": "保留当前定义/作用域，不按同字母合并别篇概念。",
+          "translations": {
+            "en": {
+              "note": "Multiply original positions by r and put zero elsewhere",
+              "conflict_note": "Retain this definition and scope; matching letters alone do not identify concepts across papers."
+            }
+          }
+        }
+      ],
+      "translations": {
+        "en": {
+          "name": "Zero insertion",
+          "description": "Multiply original positions by r and put zero elsewhere",
+          "type_or_domain": "An old grid mapped into an r-times larger grid",
+          "scope": "Multiply original positions by r and put zero elsewhere",
+          "assumptions": "Use the size, probability, independence or differentiability conditions stated in the current entry.",
+          "empty_set_convention": "An empty layer product is the identity and an empty offset sum is zero; this is not a coalition empty-set output.",
+          "baseline_convention": "Retain spatial biases and DC terms. Spectral g is distinct from g_x(S), and no v(x_∅)=0 convention is imposed.",
+          "paper_mappings": [
+            {
+              "note": "Multiply original positions by r and put zero elsewhere",
+              "conflict_note": "Retain this definition and scope; matching letters alone do not identify concepts across papers."
+            }
+          ]
+        }
+      }
+    },
+    {
+      "id": "decoder-upsampling-ratio",
+      "canonical_id": "decoder-upsampling-ratio",
+      "canonical_tex": "ratio,r",
+      "name": "插值整数比率",
+      "description": "不是padding尺寸比的自由实数",
+      "type_or_domain": "正整数",
+      "scope": "不是padding尺寸比的自由实数",
+      "assumptions": "使用该符号当前条目列出的尺寸、概率、独立或可微条件。",
+      "empty_set_convention": "空层积为恒等映射，空偏移和为0；不是coalition空集输出。",
+      "baseline_convention": "空间bias及DC项保留；频谱g不等于g_x(S)，不施加v(x_∅)=0。",
+      "paper_mappings": [
+        {
+          "paper_id": "icml2023-decoder",
+          "original_tex": "ratio,r",
+          "canonical_tex": "ratio,r",
+          "note": "不是padding尺寸比的自由实数",
+          "conflict_note": "保留当前定义/作用域，不按同字母合并别篇概念。",
+          "translations": {
+            "en": {
+              "note": "Distinct from an arbitrary real padding-size ratio",
+              "conflict_note": "Retain this definition and scope; matching letters alone do not identify concepts across papers."
+            }
+          }
+        }
+      ],
+      "translations": {
+        "en": {
+          "name": "Integer insertion ratio",
+          "description": "Distinct from an arbitrary real padding-size ratio",
+          "type_or_domain": "A positive integer",
+          "scope": "Distinct from an arbitrary real padding-size ratio",
+          "assumptions": "Use the size, probability, independence or differentiability conditions stated in the current entry.",
+          "empty_set_convention": "An empty layer product is the identity and an empty offset sum is zero; this is not a coalition empty-set output.",
+          "baseline_convention": "Retain spatial biases and DC terms. Spectral g is distinct from g_x(S), and no v(x_∅)=0 convention is imposed.",
+          "paper_mappings": [
+            {
+              "note": "Distinct from an arbitrary real padding-size ratio",
+              "conflict_note": "Retain this definition and scope; matching letters alone do not identify concepts across papers."
+            }
+          ]
+        }
+      }
+    },
+    {
+      "id": "decoder-loss",
+      "canonical_id": "decoder-loss",
+      "canonical_tex": "Loss",
+      "name": "原频率loss",
+      "description": "原两频loss不自动加所有共轭项",
+      "type_or_domain": "实权重到非负实数",
+      "scope": "原两频loss不自动加所有共轭项",
+      "assumptions": "使用该符号当前条目列出的尺寸、概率、独立或可微条件。",
+      "empty_set_convention": "空层积为恒等映射，空偏移和为0；不是coalition空集输出。",
+      "baseline_convention": "空间bias及DC项保留；频谱g不等于g_x(S)，不施加v(x_∅)=0。",
+      "paper_mappings": [
+        {
+          "paper_id": "icml2023-decoder",
+          "original_tex": "Loss",
+          "canonical_tex": "Loss",
+          "note": "原两频loss不自动加所有共轭项",
+          "conflict_note": "保留当前定义/作用域，不按同字母合并别篇概念。",
+          "translations": {
+            "en": {
+              "note": "The original two-frequency loss does not automatically add every conjugate term",
+              "conflict_note": "Retain this definition and scope; matching letters alone do not identify concepts across papers."
+            }
+          }
+        }
+      ],
+      "translations": {
+        "en": {
+          "name": "Original spectral loss",
+          "description": "The original two-frequency loss does not automatically add every conjugate term",
+          "type_or_domain": "Real weights mapping to a nonnegative real",
+          "scope": "The original two-frequency loss does not automatically add every conjugate term",
+          "assumptions": "Use the size, probability, independence or differentiability conditions stated in the current entry.",
+          "empty_set_convention": "An empty layer product is the identity and an empty offset sum is zero; this is not a coalition empty-set output.",
+          "baseline_convention": "Retain spatial biases and DC terms. Spectral g is distinct from g_x(S), and no v(x_∅)=0 convention is imposed.",
+          "paper_mappings": [
+            {
+              "note": "The original two-frequency loss does not automatically add every conjugate term",
+              "conflict_note": "Retain this definition and scope; matching letters alone do not identify concepts across papers."
+            }
+          ]
+        }
+      }
+    },
+    {
+      "id": "decoder-gradient",
+      "canonical_id": "decoder-gradient",
+      "canonical_tex": "\\nabla_WLoss,q",
+      "name": "实梯度与谱pullback",
+      "description": "q=(MN)−1正相位实梯度DFT；标准Wirtinger另换算2",
+      "type_or_domain": "实坐标导数及复线性相位和",
+      "scope": "q=(MN)−1正相位实梯度DFT；标准Wirtinger另换算2",
+      "assumptions": "使用该符号当前条目列出的尺寸、概率、独立或可微条件。",
+      "empty_set_convention": "空层积为恒等映射，空偏移和为0；不是coalition空集输出。",
+      "baseline_convention": "空间bias及DC项保留；频谱g不等于g_x(S)，不施加v(x_∅)=0。",
+      "paper_mappings": [
+        {
+          "paper_id": "icml2023-decoder",
+          "original_tex": "\\nabla_WLoss,q",
+          "canonical_tex": "\\nabla_WLoss,q",
+          "note": "q=(MN)−1正相位实梯度DFT；标准Wirtinger另换算2",
+          "conflict_note": "保留当前定义/作用域，不按同字母合并别篇概念。",
+          "translations": {
+            "en": {
+              "note": "q is the positive-phase real-gradient DFT divided by MN; standard Wirtinger derivatives need a separate factor-two conversion",
+              "conflict_note": "Retain this definition and scope; matching letters alone do not identify concepts across papers."
+            }
+          }
+        }
+      ],
+      "translations": {
+        "en": {
+          "name": "Real gradient and spectral pullback",
+          "description": "q is the positive-phase real-gradient DFT divided by MN; standard Wirtinger derivatives need a separate factor-two conversion",
+          "type_or_domain": "Real-coordinate derivatives and a complex phase sum",
+          "scope": "q is the positive-phase real-gradient DFT divided by MN; standard Wirtinger derivatives need a separate factor-two conversion",
+          "assumptions": "Use the size, probability, independence or differentiability conditions stated in the current entry.",
+          "empty_set_convention": "An empty layer product is the identity and an empty offset sum is zero; this is not a coalition empty-set output.",
+          "baseline_convention": "Retain spatial biases and DC terms. Spectral g is distinct from g_x(S), and no v(x_∅)=0 convention is imposed.",
+          "paper_mappings": [
+            {
+              "note": "q is the positive-phase real-gradient DFT divided by MN; standard Wirtinger derivatives need a separate factor-two conversion",
+              "conflict_note": "Retain this definition and scope; matching letters alone do not identify concepts across papers."
+            }
+          ]
+        }
+      }
+    },
+    {
+      "id": "decoder-learning-rate",
+      "canonical_id": "decoder-learning-rate",
+      "canonical_tex": "\\eta",
+      "name": "学习步长",
+      "description": "原精确梯度步长与一阶拟合步长分开",
+      "type_or_domain": "实数，反例取任意正η",
+      "scope": "原精确梯度步长与一阶拟合步长分开",
+      "assumptions": "使用该符号当前条目列出的尺寸、概率、独立或可微条件。",
+      "empty_set_convention": "空层积为恒等映射，空偏移和为0；不是coalition空集输出。",
+      "baseline_convention": "空间bias及DC项保留；频谱g不等于g_x(S)，不施加v(x_∅)=0。",
+      "paper_mappings": [
+        {
+          "paper_id": "icml2023-decoder",
+          "original_tex": "\\eta",
+          "canonical_tex": "\\eta",
+          "note": "原精确梯度步长与一阶拟合步长分开",
+          "conflict_note": "保留当前定义/作用域，不按同字母合并别篇概念。",
+          "translations": {
+            "en": {
+              "note": "Exact gradient steps are distinct from first-order fitting steps",
+              "conflict_note": "Retain this definition and scope; matching letters alone do not identify concepts across papers."
+            }
+          }
+        }
+      ],
+      "translations": {
+        "en": {
+          "name": "Learning rate",
+          "description": "Exact gradient steps are distinct from first-order fitting steps",
+          "type_or_domain": "A real scalar, positive in the counterexample",
+          "scope": "Exact gradient steps are distinct from first-order fitting steps",
+          "assumptions": "Use the size, probability, independence or differentiability conditions stated in the current entry.",
+          "empty_set_convention": "An empty layer product is the identity and an empty offset sum is zero; this is not a coalition empty-set output.",
+          "baseline_convention": "Retain spatial biases and DC terms. Spectral g is distinct from g_x(S), and no v(x_∅)=0 convention is imposed.",
+          "paper_mappings": [
+            {
+              "note": "Exact gradient steps are distinct from first-order fitting steps",
+              "conflict_note": "Retain this definition and scope; matching letters alone do not identify concepts across papers."
+            }
+          ]
+        }
+      }
+    },
+    {
+      "id": "decoder-shift-amplitude",
+      "canonical_id": "decoder-shift-amplitude",
+      "canonical_tex": "A,\\alpha",
+      "name": "复移位幅值",
+      "description": "不能自动保证|1−A|<1",
+      "type_or_domain": "A=αexp(iφ)、α>0",
+      "scope": "不能自动保证|1−A|<1",
+      "assumptions": "使用该符号当前条目列出的尺寸、概率、独立或可微条件。",
+      "empty_set_convention": "空层积为恒等映射，空偏移和为0；不是coalition空集输出。",
+      "baseline_convention": "空间bias及DC项保留；频谱g不等于g_x(S)，不施加v(x_∅)=0。",
+      "paper_mappings": [
+        {
+          "paper_id": "icml2023-decoder",
+          "original_tex": "A,\\alpha",
+          "canonical_tex": "A,\\alpha",
+          "note": "不能自动保证|1−A|<1",
+          "conflict_note": "保留当前定义/作用域，不按同字母合并别篇概念。",
+          "translations": {
+            "en": {
+              "note": "Does not automatically ensure |1−A|<1",
+              "conflict_note": "Retain this definition and scope; matching letters alone do not identify concepts across papers."
+            }
+          }
+        }
+      ],
+      "translations": {
+        "en": {
+          "name": "Complex shift amplitude",
+          "description": "Does not automatically ensure |1−A|<1",
+          "type_or_domain": "A=αexp(iφ), with α>0",
+          "scope": "Does not automatically ensure |1−A|<1",
+          "assumptions": "Use the size, probability, independence or differentiability conditions stated in the current entry.",
+          "empty_set_convention": "An empty layer product is the identity and an empty offset sum is zero; this is not a coalition empty-set output.",
+          "baseline_convention": "Retain spatial biases and DC terms. Spectral g is distinct from g_x(S), and no v(x_∅)=0 convention is imposed.",
+          "paper_mappings": [
+            {
+              "note": "Does not automatically ensure |1−A|<1",
+              "conflict_note": "Retain this definition and scope; matching letters alone do not identify concepts across papers."
+            }
+          ]
+        }
+      }
+    },
+    {
+      "id": "decoder-shift-phase",
+      "canonical_id": "decoder-shift-phase",
+      "canonical_tex": "\\varphi,\\phi",
+      "name": "移位相位",
+      "description": "不偷偷加下界；实际反例φ0",
+      "type_or_domain": "原仅φ<π/2",
+      "scope": "不偷偷加下界；实际反例φ0",
+      "assumptions": "使用该符号当前条目列出的尺寸、概率、独立或可微条件。",
+      "empty_set_convention": "空层积为恒等映射，空偏移和为0；不是coalition空集输出。",
+      "baseline_convention": "空间bias及DC项保留；频谱g不等于g_x(S)，不施加v(x_∅)=0。",
+      "paper_mappings": [
+        {
+          "paper_id": "icml2023-decoder",
+          "original_tex": "\\varphi,\\phi",
+          "canonical_tex": "\\varphi,\\phi",
+          "note": "不偷偷加下界；实际反例φ0",
+          "conflict_note": "保留当前定义/作用域，不按同字母合并别篇概念。",
+          "translations": {
+            "en": {
+              "note": "No lower bound is inserted; the actual counterexample uses φ=0",
+              "conflict_note": "Retain this definition and scope; matching letters alone do not identify concepts across papers."
+            }
+          }
+        }
+      ],
+      "translations": {
+        "en": {
+          "name": "Shift phase",
+          "description": "No lower bound is inserted; the actual counterexample uses φ=0",
+          "type_or_domain": "The source only states φ<π/2",
+          "scope": "No lower bound is inserted; the actual counterexample uses φ=0",
+          "assumptions": "Use the size, probability, independence or differentiability conditions stated in the current entry.",
+          "empty_set_convention": "An empty layer product is the identity and an empty offset sum is zero; this is not a coalition empty-set output.",
+          "baseline_convention": "Retain spatial biases and DC terms. Spectral g is distinct from g_x(S), and no v(x_∅)=0 convention is imposed.",
+          "paper_mappings": [
+            {
+              "note": "No lower bound is inserted; the actual counterexample uses φ=0",
+              "conflict_note": "Retain this definition and scope; matching letters alone do not identify concepts across papers."
+            }
+          ]
+        }
+      }
+    },
+    {
+      "id": "decoder-cosine",
+      "canonical_id": "decoder-cosine",
+      "canonical_tex": "\\cos(x,y)",
+      "name": "余弦相似度",
+      "description": "高维本身不限制趋近1",
+      "type_or_domain": "非零实向量对到[-1,1]",
+      "scope": "高维本身不限制趋近1",
+      "assumptions": "使用该符号当前条目列出的尺寸、概率、独立或可微条件。",
+      "empty_set_convention": "空层积为恒等映射，空偏移和为0；不是coalition空集输出。",
+      "baseline_convention": "空间bias及DC项保留；频谱g不等于g_x(S)，不施加v(x_∅)=0。",
+      "paper_mappings": [
+        {
+          "paper_id": "icml2023-decoder",
+          "original_tex": "\\cos(x,y)",
+          "canonical_tex": "\\cos(x,y)",
+          "note": "高维本身不限制趋近1",
+          "conflict_note": "保留当前定义/作用域，不按同字母合并别篇概念。",
+          "translations": {
+            "en": {
+              "note": "High dimension alone does not prevent values near one",
+              "conflict_note": "Retain this definition and scope; matching letters alone do not identify concepts across papers."
+            }
+          }
+        }
+      ],
+      "translations": {
+        "en": {
+          "name": "Cosine similarity",
+          "description": "High dimension alone does not prevent values near one",
+          "type_or_domain": "A pair of nonzero real vectors mapping into [-1,1]",
+          "scope": "High dimension alone does not prevent values near one",
+          "assumptions": "Use the size, probability, independence or differentiability conditions stated in the current entry.",
+          "empty_set_convention": "An empty layer product is the identity and an empty offset sum is zero; this is not a coalition empty-set output.",
+          "baseline_convention": "Retain spatial biases and DC terms. Spectral g is distinct from g_x(S), and no v(x_∅)=0 convention is imposed.",
+          "paper_mappings": [
+            {
+              "note": "High dimension alone does not prevent values near one",
+              "conflict_note": "Retain this definition and scope; matching letters alone do not identify concepts across papers."
+            }
+          ]
+        }
+      }
+    },
+    {
+      "id": "decoder-pearson",
+      "canonical_id": "decoder-pearson",
+      "canonical_tex": "r(U,V)",
+      "name": "Pearson相关",
+      "description": "低线性相关不等于独立，|ΔT|不同于T",
+      "type_or_domain": "方差非0实随机变量对",
+      "scope": "低线性相关不等于独立，|ΔT|不同于T",
+      "assumptions": "使用该符号当前条目列出的尺寸、概率、独立或可微条件。",
+      "empty_set_convention": "空层积为恒等映射，空偏移和为0；不是coalition空集输出。",
+      "baseline_convention": "空间bias及DC项保留；频谱g不等于g_x(S)，不施加v(x_∅)=0。",
+      "paper_mappings": [
+        {
+          "paper_id": "icml2023-decoder",
+          "original_tex": "r(U,V)",
+          "canonical_tex": "r(U,V)",
+          "note": "低线性相关不等于独立，|ΔT|不同于T",
+          "conflict_note": "保留当前定义/作用域，不按同字母合并别篇概念。",
+          "translations": {
+            "en": {
+              "note": "Low linear correlation is not independence, and |ΔT| differs from T",
+              "conflict_note": "Retain this definition and scope; matching letters alone do not identify concepts across papers."
+            }
+          }
+        }
+      ],
+      "translations": {
+        "en": {
+          "name": "Pearson correlation",
+          "description": "Low linear correlation is not independence, and |ΔT| differs from T",
+          "type_or_domain": "A pair of real random variables with nonzero variances",
+          "scope": "Low linear correlation is not independence, and |ΔT| differs from T",
+          "assumptions": "Use the size, probability, independence or differentiability conditions stated in the current entry.",
+          "empty_set_convention": "An empty layer product is the identity and an empty offset sum is zero; this is not a coalition empty-set output.",
+          "baseline_convention": "Retain spatial biases and DC terms. Spectral g is distinct from g_x(S), and no v(x_∅)=0 convention is imposed.",
+          "paper_mappings": [
+            {
+              "note": "Low linear correlation is not independence, and |ΔT| differs from T",
+              "conflict_note": "Retain this definition and scope; matching letters alone do not identify concepts across papers."
+            }
+          ]
+        }
+      }
+    },
+    {
+      "id": "decoder-low-frequency",
+      "canonical_id": "decoder-low-frequency",
+      "canonical_tex": "\\Omega_{\\rm low},p_{\\rm low}",
+      "name": "低频集合与能量比",
+      "description": "定义四角范围；显示移中心不改DFT定义",
+      "type_or_domain": "有限频率集合和非零总能量比",
+      "scope": "定义四角范围；显示移中心不改DFT定义",
+      "assumptions": "使用该符号当前条目列出的尺寸、概率、独立或可微条件。",
+      "empty_set_convention": "空层积为恒等映射，空偏移和为0；不是coalition空集输出。",
+      "baseline_convention": "空间bias及DC项保留；频谱g不等于g_x(S)，不施加v(x_∅)=0。",
+      "paper_mappings": [
+        {
+          "paper_id": "icml2023-decoder",
+          "original_tex": "\\Omega_{\\rm low},p_{\\rm low}",
+          "canonical_tex": "\\Omega_{\\rm low},p_{\\rm low}",
+          "note": "定义四角范围；显示移中心不改DFT定义",
+          "conflict_note": "保留当前定义/作用域，不按同字母合并别篇概念。",
+          "translations": {
+            "en": {
+              "note": "Defined by corner ranges; moving the display center does not change the DFT",
+              "conflict_note": "Retain this definition and scope; matching letters alone do not identify concepts across papers."
+            }
+          }
+        }
+      ],
+      "translations": {
+        "en": {
+          "name": "Low-frequency set and energy ratio",
+          "description": "Defined by corner ranges; moving the display center does not change the DFT",
+          "type_or_domain": "A finite frequency set and a ratio with nonzero total energy",
+          "scope": "Defined by corner ranges; moving the display center does not change the DFT",
+          "assumptions": "Use the size, probability, independence or differentiability conditions stated in the current entry.",
+          "empty_set_convention": "An empty layer product is the identity and an empty offset sum is zero; this is not a coalition empty-set output.",
+          "baseline_convention": "Retain spatial biases and DC terms. Spectral g is distinct from g_x(S), and no v(x_∅)=0 convention is imposed.",
+          "paper_mappings": [
+            {
+              "note": "Defined by corner ranges; moving the display center does not change the DFT",
+              "conflict_note": "Retain this definition and scope; matching letters alone do not identify concepts across papers."
+            }
+          ]
+        }
+      }
+    }
+  ]
+}

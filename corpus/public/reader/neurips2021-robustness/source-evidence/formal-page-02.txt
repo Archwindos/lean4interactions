@@ -1,0 +1,85 @@
+                                  High-order interactions (usually global shapes)                                              Normal
+                                                                                                                               Normal            Low-order
+                                                                                                                                                   Low-order      High-order
+                                                                                                                                                                      High-order
+                                                                                                       ResNet-18             input image
+                                                                                                                            input  image        interactions
+                                                                                                                                                  interactions   interactions
+                                                                                                                                                                     interactions
+
+
+
+
+   Standard DNN
+                   0.1n           0.95n         0.1n           0.95n     0.1n           0.95n       0.1n            0.95n
+                          order                        order                    order                        order
+                                                                                                           ResNet-18
+Adversarially
+trained DNN
+
+
+
+
+                                                                                                    0.1n
+                   0.1n
+                          order
+                                  0.95n         0.1n
+                                                       order   0.95n     0.1n
+                                                                                order
+                                                                                        0.95n
+                                                                                                             order 0.95n
+
+                                  Low-order interactions (usually local shapes)
+                   Interactions in            Adversarial effects         Interactions in           Attacking utility       Pixels with                              Pixels with
+                  normal samples               on interactions         adversarial examples         to model output         weak interactions                strong interactions
+
+
+Figure 1: (Left) Adversarial attacks mainly affect high-order interactions in input samples. High-order
+interactions in adversarially trained DNNs are more robust than those in standard DNNs. (Right)
+Regions with strong low-order and high-order interactions, which are visualized by the method
+extended from [70].
+
+
+interactions between input variables of a DNN. It is because in an adversarial example, adversarial
+perturbations on different pixels do not attack the DNN independently. Instead, perturbation pixels
+usually interact with each other to form a specific pattern for attacking. Surprisingly, we find that
+such interactions can explain various aspects of adversarial robustness. Specifically, this study aims
+to answer the following three questions.
+• How to disentangle feature representations that are sensitive to adversarial perturbations.
+Based on the game-theoretic interactions, we aim to summarize the distinct property of feature repre-
+sentations, which are sensitive to adversarial perturbations, among overall feature representations.
+• How to explain the effectiveness of the adversarial training. The above summarized property of
+sensitive feature representations also provides a new perspective to explain the utility of the adversarial
+training, i.e. why and how the adversarial training penalizes such sensitive feature representations.
+• How to unify various adversarial defense methods in a single theoretic system. Our research
+provides a unified understanding for the success of adversarial defense methods [65, 15, 30].
+As a prerequisite of analyzing the adversarial robustness, let us first revisit the interaction between
+input variables in DNNs. Let a set of input variables collaborate with each other to form an inference
+pattern, the Shapley interaction index [22] is a standard metric to measure the numerical benefits
+to the inference from their collaborations. This metric can be further extended to the multi-order
+interaction [70]. For the interaction between two input variables (i, j), the interaction order measures
+the number of contextual variables that influence the significance of the interaction between i and j.
+In other words, low-order interactions represent simple collaborations between input variables with
+small contexts, while high-order interactions indicate complex collaborations over large contexts (see
+Figure 1 (right)).
+We further prove that the network output can be decomposed into the sum of multi-order interactions
+between different pairs of input variables. Thus, the overall effects of adversarial perturbations on
+the network output can be decomposed into elementary effects on different interaction components.
+Therefore, we can explain adversarial robustness using such elementary interaction components.
+(1) We discover and partially prove that adversarial perturbations mainly affect high-order
+interactions, rather than low-order interactions (see Figure 1 (left)). In comparison, low-order
+interactions are naturally robust to attacks. In other words, adversarial attacks mainly affect the
+complex and large-scale collaborations among most pixels in the image. Based on this, we can
+successfully disentangle sensitive feature representations, i.e. high-order interactions.
+Interaction vs. frequency & rank. Some studies explained adversarial examples as high-frequency
+features [66, 51, 23] and high-rank features [30]. We have conducted experiments to show that
+high-order interactions can better explain the essential property of attacking-sensitive representations,
+i.e. the complex and large-scale visual concepts.
+(2) A clear difference between standard DNNs and adversarially trained DNNs is as follows. Adver-
+sarial training significantly increases the robustness of high-order interactions. In other words,
+attacks mainly affect complex collaborations in standard DNNs, while for adversarially trained DNNs,
+complex collaborations are not so vulnerable w.r.t. simple collaborations.
+
+
+                                                                                                2
+

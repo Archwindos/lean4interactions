@@ -1,0 +1,118 @@
+{
+  "status": "four_page_root_sample_completed",
+  "scope": "Actual Chromium visits CN/EN rewrite and source/Lean tabs on four newly admitted result pages. This sample is not the full twelve-paper browser gate. Mathematical/source alignment is reviewed separately.",
+  "created_at": "2026-10-01T13:47:47.476658+00:00",
+  "input_sha256": "35589c845d574f86dea3d6ca0b32c08b810b1d41e39cd451e75b8320fc6f9dab",
+  "inputs_unchanged": true,
+  "javascript_errors": [],
+  "samples": [
+    {
+      "id": "decoder-backpropagation",
+      "url": "http://127.0.0.1:8004/papers/icml2023-decoder/results/decoder-backpropagation/",
+      "title": "Corollary 3.4：实梯度与频域pullback",
+      "zh_characters": 4030,
+      "en_characters": 6224,
+      "actual_role": "theorem_proof",
+      "math_errors": [],
+      "tabs": {
+        "statement": {
+          "characters": 4915,
+          "math_errors": []
+        },
+        "original-proof": {
+          "characters": 18825,
+          "math_errors": []
+        },
+        "lean": {
+          "characters": 41531,
+          "math_errors": []
+        }
+      },
+      "overflow": false,
+      "screenshot": "reader/evidence/twelve-paper-20261001/root-twelve-sample-0.png",
+      "screenshot_sha256": "a6f138804386fd59e7e4dd7de7fa17da1b2fa28bf957fa19d2544bc9a4fe1a3a",
+      "english_excerpt": "Statement\n\n(\nΔ\n𝑇\n(\n𝑙\n,\n𝑢\n𝑣\n)\n)\n⊤\n=\n\t\n−\n𝜂\n𝑀\n𝑁\n∑\n𝑢\n′\n=\n0\n𝑀\n−\n1\n∑\n𝑣\n′\n=\n0\n𝑁\n−\n1\n𝜒\n𝑢\n′\n𝑣\n′\n𝑢\n𝑣\n(\n𝑇\n‾\n(\n𝑢\n′\n𝑣\n′\n)\n(\n𝑙\n−\n1\n:\n1\n)\n𝑔\n‾\n(\n𝑢\n′\n𝑣\n′\n)\n\n\n\t\n+\n𝛿\n𝑢\n′\n𝑣\n′\n𝛽\n‾\n′\n)\n∂\n𝐿\n𝑜\n𝑠\n𝑠\n∂\n(\nℎ\n‾\n(\n𝑢\n′\n𝑣\n′\n)\n)\n⊤\n𝑇\n‾\n(\n𝑢\n′\n𝑣\n′\n)\n(\n𝐿\n:\n𝑙\n+\n1\n)\n;\n(5)\n(ΔT\n(l,uv)\n)\n⊤\n=\n\t​\n\n−ηMN\nu\n′\n=0\n∑\nM−1\n\t​\n\nv\n′\n=0\n∑\nN−1\n\t​\n\nχ\nu\n′\nv\n′\nuv\n\t​\n\n(\nT\n(u\n′\nv\n′\n)(l−1:1)\ng\n\t​\n\n(u\n′\nv\n′\n)\n+δ\nu\n′\nv\n′\n\t​\n\nβ\n\t​\n\n′\n)\n∂(\nh\n(u\n′\nv\n′\n)\n)\n⊤\n∂Loss\n\t​\n\nT\n(u\n′\nv\n′\n)(L:l+1)\n;(5)\n\t​\n\nNotation and conditions\n\nSource Assumption 3.1 uses stride one, positive-offset convolution and circular padding preserving \n𝑀\n×\n𝑁\nM×N. The activation-free linear cascade may have varying channel widths.\n\nThe loss is differentiable in actual real features and weights"
+    },
+    {
+      "id": "decoder-multi-channel-moments",
+      "url": "http://127.0.0.1:8004/papers/icml2023-decoder/results/decoder-multi-channel-moments/",
+      "title": "A.4：多通道均值、SOM递推与附加独立范围",
+      "zh_characters": 4639,
+      "en_characters": 7335,
+      "actual_role": "partial_component",
+      "math_errors": [],
+      "tabs": {
+        "statement": {
+          "characters": 1396,
+          "math_errors": []
+        },
+        "original-proof": {
+          "characters": 4175,
+          "math_errors": []
+        },
+        "lean": {
+          "characters": 58039,
+          "math_errors": []
+        }
+      },
+      "overflow": false,
+      "screenshot": "reader/evidence/twelve-paper-20261001/root-twelve-sample-1.png",
+      "screenshot_sha256": "d1b16ce26f1b10ccafcd906444bf0e6fbeec3562fb0f0b8efe68fdbe0c678755",
+      "english_excerpt": "Statement\n\nThe displayed formula and steps are conditional valid components of the original multichannel derivation. Genuine independence requirements and their difference from the weak source displays are stated explicitly, without claiming the whole target under those displays.\n\n𝑚\n𝐿\n=\n𝐶\n𝐿\n−\n1\n𝜇\n𝐿\n𝑅\n𝑚\n𝐿\n−\n1\n,\n𝑠\n𝐿\n=\n𝐶\n𝐿\n−\n1\n𝑎\n𝐿\n𝑠\n𝐿\n−\n1\n+\n𝐶\n𝐿\n−\n1\n(\n𝐶\n𝐿\n−\n1\n−\n1\n)\n∣\n𝜇\n𝐿\n𝑅\n𝑚\n𝐿\n−\n1\n∣\n2\nm\nL\n\t​\n\n=C\nL−1\n\t​\n\nμ\nL\n\t​\n\nRm\nL−1\n\t​\n\n,s\nL\n\t​\n\n=C\nL−1\n\t​\n\na\nL\n\t​\n\ns\nL−1\n\t​\n\n+C\nL−1\n\t​\n\n(C\nL−1\n\t​\n\n−1)∣μ\nL\n\t​\n\nRm\nL−1\n\t​\n\n∣\n2\nNotation and conditions\n\nUnder the genuine independence reading of the source prose, real weights have laws \n𝑁\n(\n𝜇\n𝑙\n,\n𝜎\n𝑙\n2\n)\nN(μ\nl\n\t​\n\n,σ\nl\n2\n\t​\n\n), kernel elements are independent within a"
+    },
+    {
+      "id": "diff-regression",
+      "url": "http://127.0.0.1:8004/papers/neurips2023-difficulty/results/diff-regression/",
+      "title": "真实独立 Gaussian 回归最优与丢均值反例",
+      "zh_characters": 6001,
+      "en_characters": 9437,
+      "actual_role": "partial_component",
+      "math_errors": [],
+      "tabs": {
+        "statement": {
+          "characters": 2304,
+          "math_errors": []
+        },
+        "original-proof": {
+          "characters": 1959,
+          "math_errors": []
+        },
+        "lean": {
+          "characters": 34834,
+          "math_errors": []
+        }
+      },
+      "overflow": false,
+      "screenshot": "reader/evidence/twelve-paper-20261001/root-twelve-sample-2.png",
+      "screenshot_sha256": "bd9070ab38b9a9a6cebb980fbdf35cdf541f47d4f021b3e275dbc8e291265943",
+      "english_excerpt": "Statement\n\nThe following retains the source claim, including the refuted clauses. The steps separately present valid components, repaired identities and original-model counterexamples; these auxiliary formulas do not replace the source statement.\n\n𝐿\n(\n𝑤\n)\n=\n1\n2\n𝐸\n(\n𝑤\n⊤\n𝑓\n−\n𝑦\n∗\n)\n2\n,\n∣\n𝑤\n𝑖\n∗\n∣\n∝\n∣\n1\n/\n𝜎\n𝑖\n2\n∣\n(source Step 3)\nL(w)=\n2\n1\n\t​\n\nE(w\n⊤\nf−y\n∗\n)\n2\n,∣w\ni\n∗\n\t​\n\n∣∝∣1/σ\ni\n2\n\t​\n\n∣(source Step 3)\nNotation and conditions\n\nFix the feature distribution and squared loss, with positive true variances. Both variances are1 in the main counterexample, so Σ=Σ²=I under either source notation.\n\nFeatures have finite index \n{\n1\n,\n…\n,\n𝑘\n}\n{1,…,k}, with \n𝑓\n,\n𝑤\n,\n𝜇\n∈\n𝑅\n𝑘\nf,w,μ∈R\nk\n, true-variance vector \n𝑑\n"
+    },
+    {
+      "id": "diff-kappa-conversion",
+      "url": "http://127.0.0.1:8004/papers/neurips2023-difficulty/results/diff-kappa-conversion/",
+      "title": "κ 的跨样本约分反例",
+      "zh_characters": 3876,
+      "en_characters": 5822,
+      "actual_role": "counterexample",
+      "math_errors": [],
+      "tabs": {
+        "statement": {
+          "characters": 1385,
+          "math_errors": []
+        },
+        "original-proof": {
+          "characters": 432,
+          "math_errors": []
+        },
+        "lean": {
+          "characters": 18452,
+          "math_errors": []
+        }
+      },
+      "overflow": false,
+      "screenshot": "reader/evidence/twelve-paper-20261001/root-twelve-sample-3.png",
+      "screenshot_sha256": "4e1f3225fcd996c3ddfb607dd6a9077151082d446b40d3563e25f064a4b45d3e",
+      "english_excerpt": "Statement\n\nThe following retains the source claim, including the refuted clauses. The steps separately present valid components, repaired identities and original-model counterexamples; these auxiliary formulas do not replace the source statement.\n\n𝜅\n(\n𝑆\n)\n=\n𝐸\n𝑥\n𝐸\n𝜖\n∣\n𝐼\n(\n𝑆\n∣\n𝑥\n+\n𝜖\n)\n−\n𝐼\n(\n𝑆\n∣\n𝑥\n)\n∣\n𝐸\n𝑥\n∣\n𝐼\n(\n𝑆\n∣\n𝑥\n)\n∣\n=\n𝐸\n𝑥\n𝐸\n𝜖\n∣\n𝐶\n𝑥\n(\n𝑥\n+\n𝜖\n)\n−\n𝐶\n𝑥\n(\n𝑥\n)\n∣\n𝐸\n𝑥\n∣\n𝐶\n𝑥\n(\n𝑥\n)\n∣\nκ(S)=\nE\nx\n\t​\n\n∣I(S∣x)∣\nE\nx\n\t​\n\nE\nϵ\n\t​\n\n∣I(S∣x+ϵ)−I(S∣x)∣\n\t​\n\n=\nE\nx\n\t​\n\n∣C\nx\n\t​\n\n(x)∣\nE\nx\n\t​\n\nE\nϵ\n\t​\n\n∣C\nx\n\t​\n\n(x+ϵ)−C\nx\n\t​\n\n(x)∣\n\t​\n\nNotation and conditions\n\nUse an actual single ReLU and the full Gaussian ε=σZ, Z~N(0,1), with σ=m0/[8(1+m0)] and m0=E|Z|>0. Lean proves 0<σ<1/8; fixed σ=.1 is not claimed machine-verified.\n"
+    }
+  ]
+}

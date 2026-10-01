@@ -1,0 +1,104 @@
+where k = |K| = b(1 − α)nc. Thus,
+v α (N |x) = EK∈K [v(K|x)]
+                                                                                 
+                                                        k−2
+                                 X                 X    X     k − 1 − m (m)
+         = EK∈K v(∅|x) +        φ(0) (i|K, x) +                         Iij,K (x)
+                                                               k(k  − 1)
+                             i∈K                 i6=j∈K m=0
+                           "                        #                                          
+                             X                                      X k−2X k − 1 − m (m)
+         = v(∅|x) + EK∈K         (v(i|x) − v(∅|x)) + EK∈K                              I    (x)
+                                                                              k(k − 1) ij,K
+                            i∈K                                  i6=j∈K m=0
+                                "              #                                                
+                                  X (0)                             X k−2X k − 1 − m (m)
+         = v(∅|x) + E K⊂N             φ (i|x) + E K⊂N                                   I    (x)
+                      k=(1−α)n                        k=(1−α)n                 k(k − 1) ij,K
+                                  i∈K                             i6=j∈K m=0
+                                                                                          
+                             X (0)                           X k−2  X k − 1 − m (m)
+         = v(∅|x) + (1 − α)      φ (i|x) + E K⊂N                                  I    (x)
+                                               k=(1−α)n                  k(k − 1) ij,K
+                            i∈N                            i6=j∈K m=0
+                                                                                                            
+                             X (0)                           X k−2  X k−1−m
+         = v(∅|x) + (1 − α)      φ (i|x) + E K⊂N                                  ES⊆K\{i,j} [∆v(i, j, S|x)]
+                            i∈N
+                                               k=(1−α)n
+                                                                   m=0
+                                                                         k(k − 1)     |S|=m
+                                                                       i6=j∈K
+
+                                                                  k−2
+                                 X                     k(k − 1) X X k − 1 − m
+         = v(∅|x) + (1 − α)             φ(0) (i|x) +                          E K⊂N ES⊆K\{i,j} [∆v(i, j, S|x)]
+                                 i∈N
+                                                       n(n − 1)   m=0
+                                                                      k(k − 1) k=(1−α)n |S|=m
+                                                                  i6=j∈N
+                                                                k−2
+                                 X                      X       X     k−1−m
+         = v(∅|x) + (1 − α)             φ(0) (i|x) +                          E K⊂N ES⊆K\{i,j} [∆v(i, j, S|x)]
+                                                                      n(n − 1) k=(1−α)n |S|=m
+                                 i∈N                   i6=j∈N m=0
+
+                                 X                      X k−2
+                                                          X k−1−m
+         = v(∅|x) + (1 − α)             φ(0) (i|x) +                   ES⊂N \{i,j} [∆v(i, j, S|x)]
+                                 i∈N                      m=0
+                                                              n(n − 1)   |S|=m
+                                                       i6=j∈N
+
+                                 X                      X k−2
+                                                          X k − 1 − m (m)
+         = v(∅|x) + (1 − α)             φ(0) (i|x) +                   I    (x)
+                                 i∈N                      m=0
+                                                              n(n − 1) ij,N
+                                                       i6=j∈N
+                                                                                                 (14)
+Thus, the change in the network output caused by the dropout operation can be represented as follows,
+                                                       " n−2                     k−2
+                                                                                                       #
+          α
+                       X         (0)
+                                                  X      X n − 1 − m (m)         X k − 1 − m (m)
+v(N |x)−v (N |x) = α         φ         (i, x) +                       I    (x) −              I    (x)
+                       i∈N                              m=0
+                                                             n(n − 1) ij,N       m=0
+                                                                                     n(n − 1) ij,N
+                                              i6=j∈N
+
+                       X                          X k−2
+                                                    X        n − k (m)          X             n−2
+                                                                                              X      n − 1 − m (m)
+                  =α         φ(0) (i, x) +                          I     (x) +                                I    (x)
+                                                            n(n − 1) ij,N                             n(n − 1) ij,N
+                       i∈N                    i6=j∈N m=0                            i6=j∈N m=k−1
+                                                                k−2                     n−2
+                       X                           α  X         X      (m)
+                                                                                    X   X      n − 1 − m (m)
+                  =α         φ(0) (i, x) +                            Iij,N (x) +                        I    (x)
+                                                  n−1                                           n(n − 1) ij,N
+                       i∈N                             i6=j∈N m=0               i6=j∈N m=k−1
+                                                                                |                {z             }
+                                                                                         high-order interactions
+                                                                                              (15)
+According to Eq. (15), the dropout operation removes all high-order interactions (m > (1 − α)n− 2),
+while slightly affects low-order interactions. Thus, the dropout operation can remove sensitive
+interaction components of the DNN, thereby reducing the attacking utility of perturbations and
+correcting the network output.
+
+I     More experimental results
+I.1   More visualization results based on ResNet-50
+
+The method in [25] could be directly extended to visualize salient concepts of the multi-order
+                                                                                             (m)
+interaction without much change. For a specific order m, we visualized all contexts {S} of Iij
+for each pair (i, j) with top 10% interaction strengths. We exclusively visualized contexts {S}
+                               (m)                     (m)
+that boosted the strength of Iij , i.e. ∆v(S, i, j) · Iij > 0. Let map(S) ∈ {0, 1}n denote the
+
+
+                                                            10
+

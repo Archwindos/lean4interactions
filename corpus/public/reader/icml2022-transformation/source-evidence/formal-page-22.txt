@@ -1,0 +1,57 @@
+                           Towards Theoretical Analysis of Transformation Complexity of ReLU DNNs
+
+single-step attack as 0.5/255. Other experimental settings remained the same as in (Wang et al., 2020).
+We have also found in Section 4.3 that adversarial perturbations for complex DNNs could not be well transferred to simple
+DNNs. However, adversarial perturbations for simple DNNs could be transferred to complex DNNs. We conducted the
+PGD attack for each image using DNNs with different transformation complexities, and following the experimental settings
+in (Wang et al., 2020) to measure the adversarial transferability between DNNs.
+Following settings in (Liang et al., 2019), we explored the knowledge consistency between DNNs with different transforma-
+tion complexities. Specifically, we used the intermediate-layer feature xA of a DNN (Net-A) trained with a specific value
+of λ, to reconstruct the intermediate-layer feature xB of another DNN (Net-B) also trained with λ. Net-A and Net-B had
+the same architecture and were trained on the same dataset, but with different initialization parameters. xA and xB denote
+intermediate-layer features of Net-A and Net-B in the same layer, respectively.
+We followed the experimental settings in (Liang et al., 2019) to diagnose the feature representation in the residual MLP
+trained on the CIFAR-10 dataset and ResNet-34 trained on the Tiny-ImageNet dataset. We diagnosed the output feature of
+the last layer (3072 dimensional) in the residual MLP and the output feature of the last convolutional layer (7 × 7 × 512
+dimensional) in ResNet-34. We disentangled 0-order, 1-order, and 2-order consistent features x(0) , x(1) , and x(2) from xA .
+For the fair comparison between DNNs learned with different λ values, we computed the strength of the k-order consistent
+feature as V ar(x(k) )/V ar(xA ). V ar(xA ) ≜ EI,i [(xA,I,i − EI ′ ,i′ [xA,I ′ ,i′ ])2 ], where xA,I,i denotes the i-th element of xA
+given the image I.
+
+                                  0.4
+                                                                                   0.2
+
+                                  0.3
+
+
+
+                                  0.2
+                                                                                   0.1
+                                                          𝑉𝑎𝑟 𝑥   0   Τ𝑉𝑎𝑟 𝑥𝐴                            𝑉𝑎𝑟 𝑥   0   Τ𝑉𝑎𝑟 𝑥𝐴
+                                  0.1                     𝑉𝑎𝑟 𝑥   1   Τ𝑉𝑎𝑟 𝑥𝐴                            𝑉𝑎𝑟 𝑥   1   Τ𝑉𝑎𝑟 𝑥𝐴
+
+                                                          𝑉𝑎𝑟 𝑥   2   Τ𝑉𝑎𝑟 𝑥𝐴                            𝑉𝑎𝑟 𝑥   2   Τ𝑉𝑎𝑟 𝑥𝐴
+
+                                  0.0                                              0.0
+                                        10−5   10−4         10−3           10−2          10−5         10−4                10−3
+                                                      𝜆                                                𝜆
+
+Figure 14. The strength of consistent features with different orders in (left) residual MLP trained on the CIFAR-10 dataset, and (right)
+ResNet-34 trained on the Tiny ImageNet dataset.
+
+Figure 14 shows the strength of consistent features with different orders. We found that pairs of simple DNNs usually
+encoded similar knowledge representations (exhibiting high knowledge consistency), while complex DNNs are more likely
+to encode diverse knowledge. This demonstrated the reliability of features learned by simple DNNs.
+
+G.8. Computational cost of the proposed method
+This section reports the computational cost of training DNNs with the complexity loss. We compare the time cost of training
+for an epoch with and without the complexity loss. The time cost was measured using PyTorch 1.6 (Paszke et al., 2019) on
+Ubuntu 18.04, with the Intel(R) Core(TM) i9-10900X CPU @ 3.70GHz and one NVIDIA(R) TITAN RTX(TM) GPU.
+                       Table 3. Time cost of training DNNs for an epoch with and without the complexity loss.
+                          model               dataset                 batch size         time w/o Lcomplexity         time w/ Lcomplexity
+                      residual MLP          CIFAR-10                     128                 21 s/epoch                   85 s/epoch
+                        ResNet-20           CIFAR-10                     128                 64 s/epoch                  218 s/epoch
+                        ResNet-32           CIFAR-10                     128                101 s/epoch                  296 s/epoch
+                        ResNet 18         Tiny-ImageNet                  128                 41 s/epoch                   83 s/epoch
+                        ResNet-34         Tiny-ImageNet                  128                 68 s/epoch                  105 s/epoch
+

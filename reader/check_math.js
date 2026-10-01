@@ -17,5 +17,7 @@ function walk(x,where){
   }else walk(v,where+'.'+k);
  }
 }
-walk(value,'$');const report={status:errors.length?'failed':'passed',scope:'formula_rendering_only',engine:'actual local KaTeX',input_sha256:crypto.createHash('sha256').update(fs.readFileSync(input)).digest('hex'),checked,errors};
-fs.writeFileSync(path.join(work,'evidence/math-rendering-check.json'),JSON.stringify(report,null,2)+'\n');console.log(JSON.stringify({status:report.status,checked,errors:errors.slice(0,10)}));process.exitCode=errors.length?1:0;
+walk(value,'$');const inputHashes={};[input,__filename,path.join(root,'web/static/vendor/katex/katex.min.js')].forEach(p=>{inputHashes[path.relative(root,p)]=crypto.createHash('sha256').update(fs.readFileSync(p)).digest('hex');});
+const report={status:errors.length?'failed':'passed',scope:'formula_rendering_only',engine:'actual local KaTeX',input_sha256:inputHashes[path.relative(root,input)],input_hashes:inputHashes,checked,errors};
+const evidence=path.join(work,'evidence/twelve-paper-20261001');fs.mkdirSync(evidence,{recursive:true});
+fs.writeFileSync(path.join(evidence,'math-rendering-check.json'),JSON.stringify(report,null,2)+'\n');console.log(JSON.stringify({status:report.status,checked,errors:errors.slice(0,10)}));process.exitCode=errors.length?1:0;

@@ -1,0 +1,61 @@
+the reward. The Shapley value φ(i) of each input variable i ∈ N is regarded as the importance of
+the variable i to the network output. Each subset of variables S ⊆ N represents a specific context.
+v(S) represents the network output, when we keep variables in S unchanged and mask variables in
+N \ S by following settings in [1]. In particular, v(N ) refers to the network output w.r.t. the entire
+input N , and v(∅) denotes the output when we mask all variables. Note that for the DNN trained for
+multi-category classification, v(S) can be taken as an arbitrary dimension of the network output, so
+as to measure the variable importance to the corresponding category.
+
+B     Multi-order interactions and multi-order Shapley values
+In this section, we first revisit the definition of the Shapley interaction index [6] and multi-order
+interactions [25], in order to improve the readability. Then, we provide proofs of extended properties
+of multi-order interactions, proofs of the relationship between multi-order interactions and multi-order
+Shapley values, and the proof of Proposition 1 in Section 4.1 of the paper.
+
+B.1   Multi-order interactions
+
+Shapley interaction index. Input variables of a DNN do not contribute to the network output inde-
+pendently. Instead, there are interactions/collaborations between different variables. To this end, the
+Shapley interaction index [6] measures the influence of a variable on the Shapley value (importance)
+of another variable. I.e. for two variables (i, j), it examines whether the absence/presence of j can
+change the importance of i. Thus, the Shapley interaction index is defined as the change in the
+Shapley value (importance) of variable i when the variable j is always present w.r.t. the case when j
+is always absent, as follows.
+                             I(i, j) = φ̃(i)j always present − φ̃(i)j always absent                    (2)
+where φ̃(i)j always present denotes the Shapley value of the variable i computed under the specific
+condition that j is always present. φ̃(i)j always absent is computed under the specific condition that j is
+always absent. Note that I(i, j) = I(j, i). If I(i, j) > 0, it indicates that the presence of the variable
+j will increase the importance of the variable i. Thus, we consider variables (i, j) have a positive
+interaction. If I(i, j) < 0, it indicates a negative interaction.
+
+Multi-order interactions. Zhang et al. [25] decomposed the Shapley interaction index into inter-
+actions of different orders, as follows.
+                                  (m)
+                                 Iij    = ES⊆N \{i,j},|S|=m [∆v(i, j, S)],                             (3)
+                   def                                                                (m)
+where ∆v(i, j, S) = v(S ∪ {i, j}) − v(S ∪ {i}) − v(S ∪ {j}) + v(S). Iij denotes the interaction
+of the m-th order, which measures the average interaction between variables (i, j) under all contexts
+                                                                                                  (m)
+consisting of m variables (e.g. a visual context consisting of m pixels). For a low order m, Iij
+reflects the interaction between i and j w.r.t. simple contextual collaborations with a few variables.
+                       (m)
+For a high order m, Iij corresponds to the interaction w.r.t. complex contextual collaborations with
+massive variables.
+Proofs of new properties of multi-order interactions claimed in the paper. In Section 3 of the
+                      (m)
+paper, we claim that Iij satisfies linearity, nullity, commutativity, symmetry, and efficiency properties.
+Proofs are given as follows.
+(1) Linearity property: If we merge outputs of two DNNs, u(S) = w(S) + v(S), then, ∀i, j ∈ N ,
+                 (m)                                                  (m)     (m)     (m)
+the interaction Iij,u w.r.t. the new output u can be decomposed into Iij,u = Iij,w + Iij,v .
+• Proof :
+                          (m)
+                         Iij,u = ES⊆N \{i,j},|S|=m [∆u(S, i, j)]
+                                = ES⊆N \{i,j},|S|=m [∆v(i, j, S) + ∆w(S, i, j)]
+                                   (m)      (m)
+                                = Iij,v + Iij,w
+                                                                                                        
+
+
+                                                       2
+

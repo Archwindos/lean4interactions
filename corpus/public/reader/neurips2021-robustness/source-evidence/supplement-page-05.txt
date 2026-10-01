@@ -1,0 +1,82 @@
+• Proof :
+      φ(m) (i) = ES⊆N \{i},|S|=m [v(S ∪ {i}) − v(S)]
+                 m!(n − 1 − m)! X
+               =                         [v(S ∪ {i}) − v(S)]
+                    (n − 1)!
+                                  S⊆N \{i},
+                                   |S|=m
+                                                                                                                
+                  m!(n − 1 − m)!          X                                        X
+              =                                   [v(S ∪ {i, j}) − v(S, j)] +             [v(S ∪ {i}) − v(S)]
+                     (n − 1)!
+                                       S⊆N \{i,j},                              S⊆N \{i,j},
+                                        |S|=m−1                                   |S|=m
+                                                                                                                
+                  m!(n − 1 − m)!          X                                        X
+              =                                   [v(S ∪ {i, j}) − v(S, i)] +            [v(S ∪ {j}) − v(S)]
+                     (n − 1)!
+                                       S⊆N \{i,j},                           S⊆N \{i,j},
+                                        |S|=m−1                                |S|=m
+
+              = ES⊆N \{j},|S|=m [v(S ∪ {j}) − v(S)]
+              = φ(m) (j)
+                                                                                                                     
+(4) Efficiency        property:     The overall             reward     can   be     assigned        to   all   players,
+ 1
+        Pn−1
+                    φ(m) (i) = v(N ) − v(∅).
+   P
+n      i∈N    m=0
+• Proof :
+                                              X                  1X    Xn−1 (m)
+                           v(N ) − v(∅) =               φ(i) =              φ (i)
+                                                  i∈N            n i∈N  m=0
+
+                                                                                                                     
+
+B.3     Relationship between multi-order Shapley values and multi-order interactions
+
+This section provides proofs of the relationship between multi-order Shapley values and multi-order
+interactions. We have proven that multi-order Shapley values and multi-order interactions satisfy the
+following marginal attribution and accumulation properties.
+(1) Marginal attribution property: The marginal attribution of the (m + 1)-th order Shapley values
+beyond the m-th order is equal to the average interaction of the m-th order between i and all other
+                                                                  (m)
+variables. ∀i, j ∈ N, i 6= j, φ(m+1) (i) − φ(m) (i) = Ej∈N \{i} [Iij ].
+• Proof :
+φ(m+1) (i) − φ(m) (i) = E S0 ⊆N \{i} v(S 0 ∪ {i}) − v(S 0 ) − E S⊆N \{i} v(S ∪ {i}) − v(S)
+                                                                                        
+                             0
+                          |S |=m+1                               |S|=m
+                                    h                                            i                         
+                      = E S⊆N \{i} Ej∈N \(S∪{i}) v(S ∪ {j} ∪ {i}) − v(S ∪ {j}) − E S⊆N \{i} v(S ∪ {i}) − v(S)
+                           |S|=m                                                          |S|=m
+                                    h                                                             i
+                      = E S⊆N \{i} Ej∈N \(S∪{i}) v(S ∪ {j} ∪ {i}) − v(S ∪ {j}) − v(S ∪ {i}) + v(S)
+                           |S|=m
+                                                             
+                      = E S⊆N \{i} Ej∈N \(S∪{i}) ∆v(i, j, S)
+                           |S|=m
+                                                           
+                      = Ej∈N \{i} E S⊆N \{i,j} ∆v(i, j, S)
+                                          |S|=m
+                                       (m)
+                       =   Ej∈N \{i} [Iij ]
+                                                                                                                     
+(2) Accumulation property: The m-th (m > 0) order Shapley value of the variable i ∈ N can be
+                                                                    Pm−1 (k)
+decomposed into interactions of lower orders, φ(m) (i) = Ej∈N \{i} [ k=0 Iij ] + φ(0) (i).
+• Proof :
+             φ(m) (i) = φ(m) (i) − φ(m−1) (i) + φ(m−1) (i) − φ(m−2) (i) + · · · − φ(0) (i) + φ(0) (i)
+                                    (m−1)                      (m−2)                          (0)
+                     = Ej∈N \{i} [Iij ] + Ej∈N \{i} [Iij  ] + · · · + Ej∈N \{i} [Iij ] + φ(0) (i)
+                                 h Xk=m−1       i
+                                            (k)
+                     = Ej∈N \{i}           Iij + φ(0) (i)
+                                         k=0
+
+                                                                                                                     
+
+
+                                                           5
+

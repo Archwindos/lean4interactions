@@ -1,0 +1,86 @@
+      ˜
+Thus, I(S|x ′
+              ) satisfies the faithfulness requirement in Eq. (4) when Ω = 2N .
+Therefore, Theorem 2 holds.
+
+G.2    Proof of Theorem 3 in the main paper
+
+Theorem 3. Let us add a Gaussian perturbation ϵ ∼ N (0, σ 2 I) to the input sample x. Let us first
+consider the case with the lowest degree π̂ = [π̂1 , . . . , π̂n ] ∈ QS , satisfying that ∀i ∈ S, π̂i = 1; ∀i ∈
+                                                                                                              /
+S, π̂i = 0. The mean and variance of J(S, π̂|x + ϵ) over the Gaussian perturbation ϵ are given as
+                                                                                                           
+                                                                    2                                s
+               Eϵ [I(S|x + ϵ)] = US,π̂ ,       Varϵ [I(S|x + ϵ)] = US, π̂         1 + (σ/τ )2             −1 .
+
+Furthermore, for the more general case with an arbitrary degree π ∈ QS = {[π1 , · · · , πn ]|∀i ∈ S, πi ∈
+N+ ; ∀i ∈
+        / S, πi = 0}, the mean and variance of J(S, π|x + ϵ) are computed as
+                            Y                                                            Y
+   Eϵ [J(S, π|x + ϵ)] = Eϵ [           (1 + ϵi /τ )πi ],    Varϵ [J(S, π|x + ϵ)] = Varϵ [                       (1 + ϵi /τ )πi ].
+                                 i∈S                                                                      i∈S
+
+
+Proof. If we only consider Taylor expansion term of the lowest degree, then I(S|x′ ) ≈ US,π̂ ·
+                                                        x′ −b
+J(S, π̂|x′ ), where J(S, π̂|x′ ) = i∈S sign(x′i − bi ) · i τ i .
+                                  Q
+
+Let us add a Gaussian perturbation ϵ ∼ N (0, σ 2 I) to the input sample x. Then, we have
+             I(S|x + ϵ) ≈ US,π̂ · J(S, π̂|x + ϵ)
+                            Y                         xi + ϵi − bi
+           J(S, π̂|x + ϵ) =     sign(xi + ϵi − bi ) ·
+                                                             τ                                                                      (9)
+                            i∈S
+                                                                                           
+                            Y                           x i − bi                         ϵi
+                          =       sign(xi + ϵi − bi ) ·          + sign(xi + ϵi − bi ) ·
+                                                            τ                            τ
+                               i∈S
+
+According to the setting of the baseline value, we have ∀i ∈ S, xi − bi ∈ {−τ, τ }. In Section
+2.2, we have assumed that the perturbation is small, i.e., ∀i ∈ S, |ϵi | ≤ τ . In this way, we have
+sign(xi + ϵi − bi ) = sign(xi − bi ), and we can obtain
+                                  Y                     x i − bi                      ϵi
+                                                                                          
+              J(S, π̂|x + ϵ) =          sign(xi − bi ) ·           + sign(xi − bi ) ·
+                                                             τ                         τ
+                                  i∈S
+                                                                                                (10)
+                                  Y                          ϵi 
+                               =        1 + sign(xi − bi ) ·
+                                                               τ
+                                  i∈S
+                                                "                                  #
+                                                  Y                          ϵi 
+                   ⇒ Eϵ [J(S, π̂|x + ϵ)] = Eϵ            1 + sign(xi − bi ) ·
+                                                                              τ
+                                                 i∈S
+                                                  "                                   #         (11)
+                                                    Y                           ϵi 
+                    Varϵ [J(S, π̂|x + ϵ)] = Varϵ           1 + sign(xi − bi ) ·
+                                                                                 τ
+                                                             i∈S
+
+                                                                        ϵi
+Since sign(xi − bi ) ∈ {−1, 1}, we have 1 + sign(xi − bi ) ·            τ    ∼ N (1, (σ/τ )2 ), ∀i ∈ S.
+Proposition 1. If random variables X1 , X2 , · · · , Xk are independent of each other, then
+                     Qk                                         Qk          2          2
+E[X1 X2 · · · Xk ] =  i=1 E[Xi ], and Var[X1 X2 · · · Xk ] =     i=1 (E[Xi ] + Var[Xi ] ) −
+Qk           2
+  i=1 E[Xi ] .
+
+According to the above proposition, we have
+                                                           Y
+                            Eϵ [J(S, π̂|x + ϵ)] =                1=1
+                                                           i∈S
+                                                           Y                 2
+                                                                                         Y
+                         Varϵ [J(S, π̂|x + ϵ)] =                 12 + (σ/τ )          −         12                              (12)
+                                                           i∈S                            i∈S
+                                                                   |S|
+                                                                  2
+                                                      = 1 + (σ/τ )       −1
+
+
+                                                           18

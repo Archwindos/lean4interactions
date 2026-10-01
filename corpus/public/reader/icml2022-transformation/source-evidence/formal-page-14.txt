@@ -1,0 +1,53 @@
+                             Towards Theoretical Analysis of Transformation Complexity of ReLU DNNs
+
+• I(X; {Σ1 , . . . , Σl }; Y ) ≥ I(X; {Σ1 , . . . , Σl+1 }; Y )
+Proof. According to Eq. (7), if there is no additional information besides the input throughout the DNN, then
+
+                                       I(X; {Σ1 , . . . , Σl }; Y ) = H(Y ) − H(Y |{Σ1 , . . . , Σl })                       (10)
+
+We can obtain the following inequality:
+
+                                 I(X; {Σ1 , . . . , Σl }; Y ) − I(X; {Σ1 , . . . , Σl+1 }; Y )
+                              =(H(Y ) − H(Y |{Σ1 , . . . , Σl })) − (H(Y ) − H(Y |{Σ1 , . . . , Σl+1 }))
+                              =H(Y |{Σ1 , . . . , Σl+1 }) − H(Y |{Σ1 , . . . , Σl })                                         (11)
+                              = − I(Σl+1 ; Y |{Σ1 , . . . , Σl })
+                              ≤0
+
+B.3. Decrease of the complexity through layerwise propagation
+Property 3. The complexity of transforming the intermediate-layer feature tl to the output y decreases, when we use the
+feature of higher layers.
+• H(Σl , . . . , ΣL ) ≥ H(Σl+1 , . . . , ΣL )
+Proof.
+                                                    H(Σl , . . . , ΣL ) − H(Σl+1 , . . . , ΣL )
+                                                  =H(Σl |Σl+1 , . . . , ΣL )
+                                                                                                                             (12)
+                                                  = − Eσl ,...,σL [log p(σl |σl+1 , . . . , σL )]
+                                                  ≥0
+
+• I(Tl−1 ; {Σl , . . . , ΣL }) ≥ I(Tl ; {Σl+1 , . . . , ΣL })
+Proof. If the DNN does not introduce additional information besides the input during the forward propagation, then
+Σl , Σl+1 , . . . , ΣL are all determined by Tl−1 , thereby H(Σl , . . . , ΣL |Tl−1 ) = 0. Therefore,
+
+                     I(Tl−1 ; {Σl , . . . , ΣL }) − I(Tl ; {Σl+1 , . . . , ΣL })
+                  =(H(Σl , . . . , ΣL ) − H(Σl , . . . , ΣL |Tl−1 )) − (H(Σl+1 , . . . , ΣL ) − H(Σl+1 , . . . , ΣL |Tl ))
+                                                                                                                             (13)
+                  =H(Σl , . . . , ΣL ) − H(Σl+1 , . . . , ΣL )
+                  ≥0
+
+• I(Tl−1 ; {Σl , . . . , ΣL }; Y ) ≥ I(Tl ; {Σl+1 , . . . , ΣL }; Y )
+Proof. According to Eq. (7), if there is no additional information besides the input throughout the DNN, then
+
+                                     I(Tl−1 ; {Σl , . . . , ΣL }; Y ) = H(Y ) − H(Y |{Σl , . . . , ΣL })                     (14)
+
+We can obtain the following inequality:
+
+                                I(Tl−1 ; {Σl , . . . , ΣL }; Y ) − I(Tl ; {Σl+1 , . . . , ΣL }; Y )
+                              =(H(Y ) − H(Y |{Σl , . . . , ΣL })) − (H(Y ) − H(Y |{Σl+1 , . . . , ΣL }))
+                              =H(Y |{Σl+1 , . . . , ΣL }) − H(Y |{Σl , . . . , ΣL })                                         (15)
+                              =I(Σl ; Y |{Σl+1 , . . . , ΣL })
+                              ≥0
+
+B.4. Strong correlations between the complexity and the disentanglement of transformations
+Some previous studies used the entanglement (the multi-variate mutual information) to analyze the information encoded
+in DNNs. (Ver Steeg & Galstyan, 2015) used T C(X) to measure the correlation between different input samples. In
+

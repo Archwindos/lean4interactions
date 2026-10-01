@@ -1,0 +1,74 @@
+                          Defects of Convolutional Decoder Networks in Frequency Representation
+
+
+
+Then, we prove Theorem 4.2 as follows.
+                                              (l,uv)                            (l,uv)
+According to Equation (27), ∀d, c, l : E[Tdc           ] = µl Ruv , V ar[Tdc             ] = K 2 σl2 .
+
+                                                     (l,uv)              (l,uv) 2
+                                       SOM (Tdc               ) = E[|Tdc        | ]
+                                                                        (l,uv)          (l,uv)
+                                                               =   |E[Tdc ]|2 + V ar[Tdc ]                                     (28)
+                                                               =   |µl Ruv |2 + K 2 σl2
+
+Then, we have
+
+              log(SOM (T(uv)(L:1) )) = log(E[|T(uv)(L:1) |2 ])
+                                          = log(E[|T (L,uv) T(uv)(L−1:1) |2 ])
+                                       //According to Assumption 4.1, and Cl = 1
+                                          = log(E[|T (L,uv) |2 ]E[|T(uv)(L−1:1) |2 ])
+                                          = log((|µL Ruv |2 + K 2 σL
+                                                                   2
+                                                                     )SOM (T(uv)(L−1:1) ))                //Equation (28)
+                                                    L
+                                                    Y
+                                          = log(          |µl Ruv |2 + K 2 σl2 )
+                                                    l=1
+                                              L
+                                              X
+                                          =         log(|µl Ruv |2 + K 2 σl2 )
+                                              l=1
+
+
+
+
+For the more general case that each convolutional kernel contains more than one channel, i.e., ∀l, Cl > 1, the
+SOM(T(uv)(L:1) ) also approximately exponentially increases along with the depth of the network with a quite compli-
+cated analytic solution, as proved below. Note that the following proof is based Assumption 4.1. Besides, we further
+                                                                                                      (uv)(l:1) (uv)(l:1)
+assume that all elements in T(uv)(l:1) are independent with each other. I.e., ∀d 6= d0 ; c 6= c0 , E[Tdc       Td0 c0     ] =
+    (uv)(l:1)     (uv)(l:1)
+E[Tdc         ]E[Td0 c0     ].
+
+Proof. According to Equation (27), all elements in T (l,uv) follow the same Gaussian distribution. Therefore, we have
+                                                                         (l,uv)
+                                                E[T (l,uv) ] = E[Tdc              ]1(Cl ×Cl−1 )
+                                                                                                                               (29)
+                                                                = µl Ruv 1(Cl ×Cl−1 )
+
+and we have
+                                                                            (l,uv)
+                                     SOM (T (l,uv) ) = SOM (Tdc                       )1(Cl ×Cl−1 )
+                                                                                                                               (30)
+                                                              = (|µl Ruv | + K 2 σl2 )1(Cl ×Cl−1 )
+                                                                            2
+
+
+
+Let us first consider the expectation of T(uv)(L:1) as follows.
+
+            E[T(uv)(L:1) ] = E[T (L,uv) T(uv)(L−1:1) ]
+                                           (L,uv)          (uv)(L−1:1)
+                          = (CL−1 E[Tdc             ]E[Tdc               ])1(CL ×C0 )        //Assumption 4.1, Equation (29)
+                                                    (uv)(L−1:1)
+                          = (CL−1 µl Ruv E[Tdc       ])1(CL ×C0 ) //Equation (27)                                              (31)
+                                  L
+                                              !
+                               1 Y
+                          =          Cl µl Ruv 1(CL ×C0 ) //Assumption 4.1
+                              CL
+                                    l=1
+
+                                                                      21
+

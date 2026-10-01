@@ -1,0 +1,53 @@
+A    Literature on the representation capacity of DNNs
+Formulating and evaluating the representation ability of DNNs is an emerging perspective to explain
+DNNs. Pascanu et al. [38] and Montufar et al. [35] evaluated the representation capacity of DNNs
+based on the number of linear response regions. Kornblith et al. [21], Raghu et al. [42], and Morcos
+et al. [36] analyzed representations similarity between DNNs by using canonical correlation analysis.
+Shen et al. [52], Chen et al. [7], and Liu et al. [30] measured the quality of knowledge representations
+encoded in DNNs for point cloud processing. The information-bottleneck theory [54] quantified
+information encoded in DNNs, and was extended to improve the representation capacity of DNNs
+[1, 3]. Xu [64] and Xu et al. [63] explained the generalization of DNNs from the perspective of Fourier
+analysis. Furthermore, several metrics were proposed to evaluate the robustness or generalization
+capacity of DNNs, including the flatness of loss functions at minima [13], the stability of optimization
+[17], the CLEVER score [62], the stiffness [14], and the sensitivity metrics [37].
+In contrast to previous empirical studies, we mathematically formulate concepts encoded by DNNs
+and theoretically prove that DNNs mainly learn simple concepts.
+
+B    Literature on interactions
+Many studies investigated interactions between input variables of DNNs in recent years. Grabisch and
+Roubens [16] proposed the Shapley interaction index to measure the interaction between players in a
+cooperative game, based on the Shapley value [51]. Lundberg et al. [32] used the Shapley interaction
+index to analyze tree ensembles. Sundararajan et al. [57] proposed the Shapley-Taylor interaction
+index, and Tsai et al. [58] defined Faith-Shap, which was another interaction index.
+In this paper, we use interactions between input variables of a DNN to represent concepts encoded by
+the DNN. In this way, We theoretically explain and empirically verify that DNN is easier to learn
+simple interactive concepts.
+
+C    Literature on the shortcut learning and simplicity bias of DNNs
+Many studies focused on the underlying principles and limitations of DNNs. Geirhos et al. [15],
+Robinson et al. [48], and Scimeca et al. [49] investigated the shortcut learning in DNNs. I.e., DNNs
+may find decision rules that perform well on standard datasets, but fail to generalize to real-world
+scenarios. For example, DNNs successfully detected pneumonia by identifying hospital-specific metal
+tokens on the scan, but they failed to learn much about pneumonia and achieved low performance for
+scans from novel hospitals. Meanwhile, many studies proposed simplicity bias, i.e., standard training
+procedures for DNNs have a bias towards learning simple models [50, 20, 40]. Specifically, DNNs
+tend to learn low-rank embeddings [20] or simple features [50, 29, 40, 2].
+From the perspective of the simplicity bias, our study considers the definition of interactive concepts
+in [47], and analyzes the bias towards learning simple concepts. This work clarifies an exact form of
+the complexity of concepts that a DNN is difficult to learn.
+
+D    Axioms and theorems for the Harsanyi dividend interaction
+In this section, we introduce that the Harsanyi dividend interaction I(S) satisfies several desirable
+axioms and theorems.
+The Harsanyi dividend interactions I(S) satisfies the efficiency, linearity, dummy, symmetry, anonymity,
+recursive and interaction distribution axioms, as follows.
+(1) Efficiency axiom (proved by [18]). The rewardP      of a neural network can be decomposed into
+interaction effects of different contexts, i.e. v(N ) = S⊆N I(S).
+(2) Linearity axiom. If we merge rewards of two neural networks w and v as the reward of model u,
+i.e. ∀S ⊆ N, u(S) = w(S) + v(S), then their interaction effects Iv (S) and Iw (S) can be represented
+as ∀S ⊆ N, Iu (S) = Iv (S) + Iw (S).
+(3) Dummy axiom. If a variable i ∈ N is a dummy variable, i.e. ∀S ⊆ N \{i}, v(S ∪ {i}) =
+v(S) + v({i}), then it does not interact with other variables, ∀∅ ̸= S ⊂ N \ {i}, I(S ∪ {i}) = 0.
+
+
+                                                  15

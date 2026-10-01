@@ -1,0 +1,78 @@
+{
+  "scope": "Development-package structure and language only; no source/math/Lean acceptance or manifest mutation",
+  "paper_id": "icml2022-transformation",
+  "status": "structural_checks_passed_pending_mathematical_review",
+  "result_count": 34,
+  "target_entries": 31,
+  "target_result_ids": [
+    "transformation-activation-heuristics",
+    "transformation-coinfo-nonnegative",
+    "transformation-conditional-correlation",
+    "transformation-deterministic-input",
+    "transformation-ebm-cross-entropy",
+    "transformation-ebm-dnn-gradient",
+    "transformation-ebm-langevin",
+    "transformation-ebm-mle",
+    "transformation-ebm-normalization",
+    "transformation-ebm-relaxation",
+    "transformation-ebm-sampling-loss",
+    "transformation-entropy-chain",
+    "transformation-external-theorems",
+    "transformation-gating-affine",
+    "transformation-ib-label-scope",
+    "transformation-input-correlation",
+    "transformation-kde-coinfo",
+    "transformation-kde-gates",
+    "transformation-kde-input",
+    "transformation-kde-labels",
+    "transformation-kde-randomness",
+    "transformation-kde-tc",
+    "transformation-prefix-coinfo",
+    "transformation-prefix-coinfo-main",
+    "transformation-prefix-entropy",
+    "transformation-prefix-input",
+    "transformation-suffix-coinfo",
+    "transformation-suffix-entropy",
+    "transformation-suffix-input",
+    "transformation-tc-zero-independence",
+    "transformation-total-correlation"
+  ],
+  "non_target_entries": [
+    {
+      "id": "transformation-external-and-experiments",
+      "kind": "empirical",
+      "reason": "Named-network, dataset and sample measurements, figure captions and experimental settings; no universal mathematical conclusion is asserted by this grouped experimental entry.",
+      "requires_source_and_content_review": true
+    },
+    {
+      "id": "transformation-ebm-alternating",
+      "kind": "algorithm",
+      "reason": "The stated update schedule freezes the EBM or DNN while updating the other; it is an algorithm description without a claimed convergence proof.",
+      "requires_source_and_content_review": true
+    },
+    {
+      "id": "transformation-regularizer-definition",
+      "kind": "definition",
+      "reason": "Definition of the stated weighted training objective and its finite layer penalty; it does not assert an optimizer or a convergence theorem.",
+      "requires_source_and_content_review": true
+    }
+  ],
+  "errors": [],
+  "bilingual_errors": [],
+  "inline_math_differences": [],
+  "input_hashes": {
+    "corpus/public/reader/icml2022-transformation/paper-metadata.json": "e863fda0e45ace8bb199da65ca0f7501269116b9c2f5ce49f0aeab85d6b28172",
+    "corpus/public/reader/icml2022-transformation/inventory.json": "ac8a2fc6e4f9dbd2efc32ae3dbda1a35111bfd6510fdf0f8929ae2a6525fca42",
+    "corpus/public/reader/icml2022-transformation/content.json": "4f82755ed12e72a6d1131fe8d1ae12129493d864c382cf48d7684bf582d4bc00",
+    "corpus/public/reader/icml2022-transformation/symbols.json": "3860752cf1af6d96c4c46c4d569f63424e93b6429c08012d373a21c7cf615846",
+    "corpus/public/reader/icml2022-transformation/issues.json": "3c167984bdcb5bdb3bfe917173fc8a4acc1b23d2d6546d9836eefbdf0c16897e",
+    "reader/check_draft_admission.py": "cf98e56c12173858353bac810a20752884ab6ac4f266975ff269630107947648",
+    "reader/architecture/admission-contract.json": "29dfffdc33d3463989cb6485e72265e0d5c53e0122d7d1f70952530336f5010f",
+    "reader/inventory_contract.py": "e942198bd0e61da3144d3f19d0dba2a611df7eb3ea748359b1b96a9ba47033f2",
+    "reader/bilingual.py": "aeec1605b4d57cec38a3fc7215215ace4b686153e5910493f3daa11595f7bc88",
+    "reader/symbols_english.py": "cc75b9f100874e2310c3f12365de5a2b79d9f79e96757c89459ad2f5ce680a96",
+    "reader/symbol_context_english.py": "0faf107350cb6e7617963f75ff48301a7e8a78f3c28bf07ed11e5d1e957f5654",
+    "reader/evidence_paths.py": "0691f8e89020fc256f3edc079070201580230a187a849f674ddc6314341046ae"
+  },
+  "machine_role_status_reviews": []
+}

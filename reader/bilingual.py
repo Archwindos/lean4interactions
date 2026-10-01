@@ -3,8 +3,9 @@ from __future__ import annotations
 import copy,json,re
 from pathlib import Path
 PROTECTED={'id','paper_id','statement_tex','formula_tex','lean_refs','shared_step_ref','result_step_ref','lean','source_refs','shared_proof_ids','symbol_ids','original_tex','canonical_tex','relationship','source','canonical','original','rewrite_status','alignment_status','user_review_status','proof_target','statement_assessment','verification_role','rewrite_role','reading_status','compiled','status','evidence_role','fix_authorization','requested_compilation_status'}
+PROTECTED.update({'definition_tex','original_definition_tex','source_id','version_id','canonical_id','canonical_concept_id','source_concept_id','relation_type','pdf_pages','paper_version','version'})
 TEXT_KEYS={'title','overview','assumptions','definitions','proof_scope','completion_scope','scope_label','proof_steps','notation_map','paper_adaptation_md','adaptation_md','statement_md','original_statement_md','original_proof_md','original_statement_coverage_md','original_proof_coverage_md','original_proof_notes_md','scope','label','name_zh','name_en','description_md','type_or_domain','empty_set_convention','baseline_convention','body_md','text_md','justification','note','meaning','explanation_md','original_statement_note','original_proof_note','example_md','caveats','statement_zh_md','original_statement_heading','original_proof_heading','source_material_summary_md','evidence_md','counterexample_md','impact_md','summary_md','problem_md','analysis_md','explanation'}
-TEXT_KEYS.update({'encoding_note','description'})
+TEXT_KEYS.update({'encoding_note','description','paper_mappings','conflict_note','short_title','intro','abstract','name','scope_variants'})
 
 def machine_refs(refs):
  return [{k:v for k,v in r.items() if k not in {'explanation_md'}} if isinstance(r,dict) else r for r in refs]
@@ -108,6 +109,19 @@ def prose_strings(value):
   for key,row in value.items():
    if key in {'text_md','body_md','title','justification','meaning','note','explanation_md'}:yield from prose_strings(row)
 
+def incomplete_prose(base,translated,path):
+ """A nonempty human sentence cannot disappear in its English overlay."""
+ if isinstance(base,str):
+  if base.strip() and (not isinstance(translated,str) or not translated.strip() or re.search(r'[\u3400-\u9fff]',translated)):
+   yield path
+ elif isinstance(base,list):
+  if not isinstance(translated,list) or len(base)!=len(translated):yield path;return
+  for i,(raw,eng) in enumerate(zip(base,translated)):yield from incomplete_prose(raw,eng,path+'/'+str(i))
+ elif isinstance(base,dict):
+  for key,raw in base.items():
+   if key in {'text_md','body_md','title','justification','meaning','note','explanation_md','conflict_note','scope','type_or_domain','assumptions','empty_set_convention','baseline_convention','description_md','name_zh','name_en'}:
+    yield from incomplete_prose(raw,(translated or {}).get(key),path+'/'+key)
+
 def inline_math(text):
  return re.findall(r"(?<!\\)\$([^$]+)\$|\\\((.*?)\\\)|\\\[(.*?)\\\]",str(text),re.S)
 
@@ -121,10 +135,9 @@ def validate_translations(output,strict=True):
    for key in ['title','overview','assumptions','definitions','proof_scope','completion_scope','scope_label','paper_adaptation_md','adaptation_md','notation_map','caveats','example_md','statement_md','statement_zh_md']:
     raw=node.get(key)
     if not raw:continue
-    for text in prose_strings(translated.get(key,raw)):
-     # IDs and formulas are inherited. Chinese source notation is excluded by
-     # prose_strings, while explanatory paragraphs must actually be English.
-     if re.search(r'[\u3400-\u9fff]',text):missing.append(node['id']+':'+key)
+    # Source notation and formulas are inherited; every human sentence remains
+    # nonempty. An empty overlay must not pass merely because it contains no CJK.
+    missing.extend(incomplete_prose(raw,translated.get(key),node['id']+':'+key))
     if key in ['title','overview'] and key not in en:missing.append(node['id']+':'+key)
    es={x['id']:x for x in en.get('proof_steps',[])}
    for step in node.get('proof_steps',[]):
@@ -142,6 +155,16 @@ def validate_translations(output,strict=True):
      if raw.get(key)!=eng.get(key):raise ValueError('Translation changed proof mapping: '+node['id']+':'+key)
     if machine_refs(raw.get('lean_refs',[]))!=machine_refs(eng.get('lean_refs',[])):raise ValueError('Translation changed formal Lean mapping: '+node['id'])
    checks.append({'kind':kind,'id':node['id'],'protected_fields_unchanged':True,'proof_steps':len(node.get('proof_steps',[]))})
+ for kind,nodes,fields in [
+  ('paper',output.get('papers',[]),['title','short_title','intro','abstract','description_md','scope']),
+  ('symbol',output.get('symbols',[]),['name_zh','description_md','type_or_domain','scope','assumptions','empty_set_convention','baseline_convention','paper_mappings','scope_variants']),
+  ('issue',output.get('issues',[]),['title','text_md','description_md','problem_md','summary_md','analysis_md','evidence_md','counterexample_md','impact_md'])]:
+  for node in nodes:
+   en=node.get('translations',{}).get('en',{})
+   translated=merge_overlay(node,en,node['id'])
+   for field in fields:
+    if node.get(field):missing.extend(incomplete_prose(node[field],translated.get(field),node['id']+':'+field))
+   checks.append({'kind':kind,'id':node['id'],'protected_fields_unchanged':True})
  missing=list(dict.fromkeys(missing))
  if strict and missing:raise ValueError('Incomplete English content: '+', '.join(missing[:20]))
  return {'status':'passed' if not missing else 'in_progress','checks':checks,'missing':missing,'inline_math_differences':math_differences,'scope':'language_coverage_and_formal_identity_only_not_mathematical_review','inherited_fields':['Original source text and original notation','formula_tex','Lean machine names, paths, line numbers, reports and signatures'],'review_required':'Inline TeX text differences are reported for semantic review; they are not automatically judged mathematically unequal.'}

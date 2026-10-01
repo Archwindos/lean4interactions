@@ -1,0 +1,52 @@
+F.6     Proof of Theorem 4
+Proof. We prove that for any two subsets T, T ′ ⊆ N of the same order, the vector m̂T is a permuta-
+tion of the vector m̂T ′ .
+The proof consists of two steps. First, we show that there exists a symmetric matrix transformation
+T (·) = Pk Pk−1 · · · P1 (·)P1 P2 · · · Pk−1 Pk , where Pi is a permutation matrix, that maps both J ⊤ J
+and J ⊤ J + 2n diag(c) to themselves, i.e., T (J ⊤ J ) = J ⊤ J , T (J ⊤ J + 2n diag(c)) = J ⊤ J +
+2n diag(c). We will show that this transformation T (·) applies permutation to the rows and columns
+of the same order.
+Second, we show that this transformation also maps M̂ to itself, i.e., T (M̂ ) = M̂ , implying that
+row vectors of the same order in M̂ are permutations of each other.
+From Theorem 3, we have:
+                                   (J ⊤ J + 2n diag(c))M̂ = J ⊤ J                                  (60)
+
+To simplify the notation, we denote B := J ⊤ J and D := 2n diag(c). Then, we have:
+
+                                          (B + D)M̂ = B                                            (61)
+
+Step 1: We construct a transformation T (·) which permutes the rows and columns of a 2n × 2n
+matrix based on element selection. Let us first consider the matrix B. For the matrix D, the analysis
+is similar because its diagonal elements 2|T |+n σ 2 are the same for each order. Thus, if T (·) maps B
+to itself, it also maps D to itself.
+Given the set N = {1, 2, · · · , n}, the subsets S1 , S2 , · · · , S2n can be regarded as selec-
+tions from the power set of N , denoted as 2N . Consider a permutation P acting on N .
+Under this permutation, the selections S1 , S2 , · · · , S2n transform correspondingly. For ex-
+ample, if N = {1, 2, 3} is mapped to N = {3, 2, 1} under the permutation P, the list
+of subsets [S1 , S2 , · · · , S2n ] = [∅, {1}, {2}, {3}, {1, 2}, {1, 3}, {2, 3}, {1, 2, 3}] is mapped to
+[∅, {3}, {2}, {1}, {3, 2}, {3, 1}, {2, 1}, {3, 2, 1}].
+This permutation induces a transformation T (·) = Pk Pk−1 · · · P1 (·)P1 P2 · · · Pk−1 Pk on the matrix
+B = J ⊤ J by permuting its rows and columns.
+Since the permutation acts on N and preserves the inclusion relation, the transformation T (·) is
+invariant, meaning T (B) = B. Similarly, we have T (B + D) = B + D.
+Step 2: We apply T (·) to the matrices B + D and B in Eq. (61). Since the transformation is
+invariant, we have:
+                                   T (B + D)M̂ = T (B)                                 (62)
+Thus:
+      Pk Pk−1 · · · P1 (B + D)P1 P2 · · · Pk−1 Pk M̂ = Pk Pk−1 · · · P1 (B)P1 P2 · · · Pk−1 Pk     (63)
+
+We can easily see that if M̂ is a solution to this equation, then T (M̂ ) =
+Pk Pk−1 · · · P1 M̂ P1 P2 · · · Pk−1 Pk is also a solution, since Pi2 = I, i = 1, · · · , k, where I is
+the identity matrix. In addition, because B + D is invertible (as shown in Appendix F.4), this solution
+is unique. Therefore:
+                                               T (M̂ ) = M̂                                        (64)
+This shows that the transformation T (·) also maps M̂ to itself.
+Conclusion: We have shown that, under the transformation T (·), the affected rows of M̂ are
+permutations of each other. Note that only the rows with the same order will be permuted to each
+other because T (·) is derived from the permutation of the power set of N , so the order of the rows is
+preserved.
+For any two subsets T, T ′ ⊆ N of the same order, we can construct a permutation of indices from T
+to T ′ that maps m̂T to m̂T ′ . Therefore, m̂T is a permutation of m̂T ′ .
+
+
+                                                  23

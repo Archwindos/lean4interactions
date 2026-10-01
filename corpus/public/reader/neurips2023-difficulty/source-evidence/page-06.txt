@@ -1,0 +1,69 @@
+ 0     log[𝑉𝑉 (𝑠𝑠) ]                                   𝐸𝐸   𝑠𝑠
+                                                                                       Five-layer MLP on Census   Five-layer MLP on TV news
+                                      200               𝑉𝑉 (𝑠𝑠)                                                   ResNet-18 on Tiny-ImageNet
+                                                                                       ResNet-20 on CIFAR-10
+ -2
+                                                                                       AlexNet on CIFAR-10        AlexNet on Tiny-ImageNet
+ -4                                    0                                               VGG-11 on CIFAR-10         VGG-11 on Tiny-ImageNet
+      0.1n             0.5n    0.9n         0.1n            0.5n         0.9n
+                       Order                            Order
+Figure 2: The logarithm of √the variance of interaction effects log[V (s) ] and the stability of interaction
+effects (measured by E / V (s) ). The variance V (s) of interaction effects increases along with the
+                        (s)
+
+order of interactive concepts exponentially. The stability of effects decreases along with the order.
+
+
+all belong to the same subset Ωc ⊆ Ωsalient . Therefore, we can consider the interactive concepts as
+common knowledge learned by the DNN, and we aim to analyze the difficulty of learning each
+interactive concept with different complexity.
+To facilitate the analysis, we first simplify the conceptual learning as a linear regression problem.
+Specifically, we first rewrite the interaction effect of an interactive concept S . Given an input sample
+x, according to Equation (4), the interaction effect of the concept S on the sample x′ (obtained by
+applying some transformations on x), I(S|x′ ), can be rewritten as
+                                                                 I(S|x′ ) = US · CS (x′ ),                                               (7)
+where the constant US = I(S|x) denotes the interaction effect on the sample x, and the function for
+the triggering state on the transformed sample x′ is given as CS (x′ ) = π∈QS US,π J(S, π|x′ )/US .
+                                                                        P
+
+Theorem 4. Given an arbitrarily masked sample xT (T ⊆ N ), the function CS (xT ) defined above
+can be computed as the binary triggering state of the concept S in the sample xT .
+                                                                                      Ai (xT ) = 1(S ⊆ T ),
+                                                                          Y
+                                       ∀ T ⊆ N, CS (xT ) =                                                                               (8)
+                                                                                i∈S
+
+where Ai (xT ) ∈ {0, 1} denotes whether the variable xi is present Ai (xT ) = 1 or being masked
+Ai (xT ) = 0 in the sample xT .
+
+The function CS (xT ) represents the triggering state of the concept S under an arbitrarily masking
+condition ∀ T ⊆ N . Only when all variables in S are present under the masking condition T , the
+concept S is triggered CS (xT ) = 1. If any of variables in S is masked, then the concept S will not be
+triggered CS (xT ) = 0, yielding zero interaction effect I(S|xT ) = 0. Theorem 4 shows that given a
+masked sample xT , the concept S is only triggered when the sample xT contains all variables in S ,
+i.e., T ⊇ S .
+Thus, inspired by [46], we can extend the conclusion to a continuous version that explains the output
+of the DNN as a linear regression of very few salient interactive concepts based on Equation (3).
+                              X                        X
+                     v(x′ ) =          US · CS (x′ ) ≈            US · CS (x′ ),                  (9)
+                                                   S⊆N                                     S∈Ωsalient
+                                                   ′
+where the triggering state CS (x ) of each interactive concept S can be considered as an input
+dimension of the linear function, which reflects whether the input sample x′ contains the concept S .
+Therefore, the absolute value of the weight coefficient US in Equation (9) can be viewed as the
+strength of the DNN encoding the interactive concept S . Considering the sparsity of interactive
+concepts discussed in Section 3.1, most interactive concepts have ignorable coefficients US ≈ 0, and
+not so many concepts S have large absolute value of |US |. Thus, we can consider that the DNN only
+learns a small number of salient interactive concepts.
+
+3.2.2         Explaining the learning difficulty of concepts
+Equation (9) in the previous subsection enables us to understand a DNN for the classification task as a
+pseudo-linear function. Then, if an input feature dimension has a stable value (i.e., the triggering state
+CS of an interactive concept S stably being present/absent) across all samples in the same category,
+then we consider this feature dimension (i.e., the concept) is easy to learn. In comparison, when
+we extract the same concept from different samples in the same category, if this concept exhibits
+inconsistent interaction effects (e.g., such a concept does not consistently present or absent over
+different samples), then this feature dimension (i.e., the concept) is hard to learn.
+
+
+                                                                                6

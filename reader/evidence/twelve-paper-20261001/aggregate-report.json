@@ -1,0 +1,676 @@
+{
+  "status": "passed",
+  "scope": "directory_coverage_and_exact_duplicate_normalization",
+  "inventory_entries": 358,
+  "covered_entries": 358,
+  "paper_counts": {
+    "cvpr2023-sparse-concepts": 28,
+    "iclr2024-sparse": 42,
+    "iclr2024-generalizable": 30,
+    "icml2023-harsanyinet": 22,
+    "icml2024-layerwise": 17,
+    "icml2025-coalition": 29,
+    "neurips2021-robustness": 27,
+    "neurips2024-dynamics": 32,
+    "icml2022-transformation": 34,
+    "icml2023-bayesian": 22,
+    "neurips2023-difficulty": 38,
+    "icml2023-decoder": 34
+  },
+  "result_count": 355,
+  "shared_proof_count": 37,
+  "issue_count": 138,
+  "symbol_records": 393,
+  "missing_directory_entries": [],
+  "exact_shared_proof_deduplications": [
+    {
+      "result_id": "cvpr2023-linearity",
+      "shared_proof_id": "shared-harsanyi-linearity",
+      "removed_exact_duplicate_steps": 3
+    },
+    {
+      "result_id": "cvpr2023-symmetry",
+      "shared_proof_id": "shared-harsanyi-symmetry",
+      "removed_exact_duplicate_steps": 3
+    },
+    {
+      "result_id": "cvpr2023-anonymity",
+      "shared_proof_id": "shared-harsanyi-anonymity",
+      "removed_exact_duplicate_steps": 3
+    },
+    {
+      "result_id": "cvpr2023-recursive",
+      "shared_proof_id": "shared-harsanyi-recursive",
+      "removed_exact_duplicate_steps": 3
+    },
+    {
+      "result_id": "cvpr2023-interaction-distribution",
+      "shared_proof_id": "shared-harsanyi-interaction-distribution",
+      "removed_exact_duplicate_steps": 4
+    },
+    {
+      "result_id": "cvpr2023-marginal-decomposition",
+      "shared_proof_id": "shared-harsanyi-marginal-decomposition",
+      "removed_exact_duplicate_steps": 3
+    },
+    {
+      "result_id": "cvpr2023-shapley",
+      "shared_proof_id": "shared-harsanyi-shapley-dividend",
+      "removed_exact_duplicate_steps": 6
+    },
+    {
+      "result_id": "cvpr2023-shapley-interaction",
+      "shared_proof_id": "shared-harsanyi-shapley-interaction-dividend",
+      "removed_exact_duplicate_steps": 6
+    },
+    {
+      "result_id": "cvpr2023-shapley-taylor",
+      "shared_proof_id": "shared-harsanyi-shapley-taylor-dividend",
+      "removed_exact_duplicate_steps": 7
+    },
+    {
+      "proof_id": "shared-harsanyi-shapley-dividend",
+      "step_id": "factorial-lemma",
+      "authority": {
+        "proof_id": "shared-harsanyi-factorial-convolution",
+        "step_id": "factorial-lemma"
+      }
+    },
+    {
+      "proof_id": "shared-harsanyi-shapley-dividend",
+      "step_id": "factorial-coefficient",
+      "authority": {
+        "proof_id": "shared-harsanyi-factorial-convolution",
+        "step_id": "factorial-coefficient"
+      }
+    },
+    {
+      "proof_id": "shared-harsanyi-shapley-dividend",
+      "step_id": "factorial-transform",
+      "authority": {
+        "proof_id": "shared-harsanyi-factorial-convolution",
+        "step_id": "factorial-transform"
+      }
+    },
+    {
+      "proof_id": "shared-harsanyi-shapley-interaction-dividend",
+      "step_id": "factorial-lemma",
+      "authority": {
+        "proof_id": "shared-harsanyi-factorial-convolution",
+        "step_id": "factorial-lemma"
+      }
+    },
+    {
+      "proof_id": "shared-harsanyi-shapley-interaction-dividend",
+      "step_id": "factorial-coefficient",
+      "authority": {
+        "proof_id": "shared-harsanyi-factorial-convolution",
+        "step_id": "factorial-coefficient"
+      }
+    },
+    {
+      "proof_id": "shared-harsanyi-shapley-interaction-dividend",
+      "step_id": "factorial-transform",
+      "authority": {
+        "proof_id": "shared-harsanyi-factorial-convolution",
+        "step_id": "factorial-transform"
+      }
+    },
+    {
+      "proof_id": "shared-harsanyi-shapley-taylor-dividend",
+      "step_id": "factorial-lemma",
+      "authority": {
+        "proof_id": "shared-harsanyi-factorial-convolution",
+        "step_id": "factorial-lemma"
+      }
+    },
+    {
+      "proof_id": "shared-harsanyi-shapley-taylor-dividend",
+      "step_id": "factorial-coefficient",
+      "authority": {
+        "proof_id": "shared-harsanyi-factorial-convolution",
+        "step_id": "factorial-coefficient"
+      }
+    },
+    {
+      "proof_id": "shared-harsanyi-shapley-taylor-dividend",
+      "step_id": "factorial-transform",
+      "authority": {
+        "proof_id": "shared-harsanyi-factorial-convolution",
+        "step_id": "factorial-transform"
+      }
+    },
+    {
+      "result_id": "iclr2024-generalizable-theorem1",
+      "step_id": "cvpr-recon-main",
+      "authority": {
+        "result_id": "cvpr2023-reconstruction",
+        "step_id": "cvpr-recon-main"
+      }
+    },
+    {
+      "result_id": "iclr2024-generalizable-theorem1",
+      "step_id": "cvpr-recon-empty",
+      "authority": {
+        "result_id": "cvpr2023-reconstruction",
+        "step_id": "cvpr-recon-empty"
+      }
+    },
+    {
+      "result_id": "iclr2024-sparse-derivative-cutoff",
+      "step_id": "cutoff-difference-derivative",
+      "authority": {
+        "proof_id": "shared-harsanyi-derivative-cutoff-mvt",
+        "step_id": "cutoff-difference-derivative"
+      }
+    },
+    {
+      "result_id": "iclr2024-sparse-derivative-cutoff",
+      "step_id": "cutoff-mvt-induction",
+      "authority": {
+        "proof_id": "shared-harsanyi-derivative-cutoff-mvt",
+        "step_id": "cutoff-mvt-induction"
+      }
+    },
+    {
+      "result_id": "iclr2024-sparse-derivative-cutoff",
+      "step_id": "cutoff-mask-bridge",
+      "authority": {
+        "proof_id": "shared-harsanyi-derivative-cutoff-mvt",
+        "step_id": "cutoff-mask-bridge"
+      }
+    },
+    {
+      "result_id": "iclr2024-sparse-derivative-cutoff",
+      "step_id": "cutoff-apply-beta",
+      "authority": {
+        "proof_id": "shared-harsanyi-derivative-cutoff-mvt",
+        "step_id": "cutoff-apply-beta"
+      }
+    },
+    {
+      "result_id": "iclr2024-sparse-derivative-cutoff",
+      "step_id": "cutoff-centered-source",
+      "authority": {
+        "proof_id": "shared-harsanyi-derivative-cutoff-mvt",
+        "step_id": "cutoff-centered-source"
+      }
+    },
+    {
+      "result_id": "f11-shapley",
+      "step_id": "shapley-definition",
+      "authority": {
+        "proof_id": "shared-harsanyi-shapley-dividend",
+        "step_id": "shapley-definition"
+      }
+    },
+    {
+      "result_id": "f11-shapley",
+      "step_id": "factorial-lemma",
+      "authority": {
+        "proof_id": "shared-harsanyi-factorial-convolution",
+        "step_id": "factorial-lemma"
+      }
+    },
+    {
+      "result_id": "f11-shapley",
+      "step_id": "factorial-coefficient",
+      "authority": {
+        "proof_id": "shared-harsanyi-factorial-convolution",
+        "step_id": "factorial-coefficient"
+      }
+    },
+    {
+      "result_id": "f11-shapley",
+      "step_id": "factorial-transform",
+      "authority": {
+        "proof_id": "shared-harsanyi-factorial-convolution",
+        "step_id": "factorial-transform"
+      }
+    },
+    {
+      "result_id": "f11-shapley",
+      "step_id": "shapley-specialize",
+      "authority": {
+        "proof_id": "shared-harsanyi-shapley-dividend",
+        "step_id": "shapley-specialize"
+      }
+    },
+    {
+      "result_id": "f11-shapley",
+      "step_id": "shapley-empty-example",
+      "authority": {
+        "proof_id": "shared-harsanyi-shapley-dividend",
+        "step_id": "shapley-empty-example"
+      }
+    },
+    {
+      "result_id": "iclr2024-generalizable-andor",
+      "step_id": "f11-mask-comp",
+      "authority": {
+        "result_id": "f11-and-mask-zero",
+        "step_id": "f11-mask-comp"
+      }
+    },
+    {
+      "result_id": "iclr2024-generalizable-andor",
+      "step_id": "f11-and-coeff-align",
+      "authority": {
+        "result_id": "iclr2024-generalizable-and",
+        "step_id": "f11-and-coeff-align"
+      }
+    },
+    {
+      "result_id": "iclr2024-generalizable-andor",
+      "step_id": "f11-and-reconstruct",
+      "authority": {
+        "result_id": "iclr2024-generalizable-and",
+        "step_id": "f11-and-reconstruct"
+      }
+    },
+    {
+      "result_id": "iclr2024-generalizable-andor",
+      "step_id": "f11-or-literal-game",
+      "authority": {
+        "result_id": "iclr2024-generalizable-or",
+        "step_id": "f11-or-literal-game"
+      }
+    },
+    {
+      "result_id": "iclr2024-generalizable-andor",
+      "step_id": "f11-or-filter",
+      "authority": {
+        "result_id": "iclr2024-generalizable-or",
+        "step_id": "f11-or-filter"
+      }
+    },
+    {
+      "result_id": "iclr2024-generalizable-andor",
+      "step_id": "f11-or-transform",
+      "authority": {
+        "result_id": "iclr2024-generalizable-or",
+        "step_id": "f11-or-transform"
+      }
+    },
+    {
+      "result_id": "iclr2024-generalizable-andor",
+      "step_id": "f11-or-baseline",
+      "authority": {
+        "result_id": "iclr2024-generalizable-or",
+        "step_id": "f11-or-baseline"
+      }
+    }
+  ],
+  "output_sha256": {
+    "reader/data/full-content.json": "3c032784146e468753cfb5d7a9a69d6f3610226e3eb4961f0b3647e88090944e",
+    "reader/data/papers.json": "9b3e063fc293e165349a6785b4f385c2dc88ceb61bff28c0702d45f5a4485831",
+    "reader/data/math-content.json": "a6399282b15f5161e8c343e4879de7bfdd65fd17bf5a6baf9906d0150287711f",
+    "reader/math/issues.json": "df81e86ac6b1a2eda67dd0748af0c9428d0826f26292d157a5afda8c53f2267a"
+  },
+  "inputs": [
+    {
+      "path": "catalog/library.json",
+      "sha256": "a41992e71e39c9c3710449b019e89bdff2f640abe6e84ced7da30f0ef2f8350a"
+    },
+    {
+      "path": "corpus/public/reader/cvpr2023-sparse-concepts/content.json",
+      "sha256": "917214da0e8bd9762dd1b0e23bbfd3ae84ac45a5006b0e29e90a968adedc41e9"
+    },
+    {
+      "path": "corpus/public/reader/cvpr2023-sparse-concepts/inventory.json",
+      "sha256": "41de940bea9384113a247284847e9c554195866c094fcfeb82a5ffbd45bb66b4"
+    },
+    {
+      "path": "corpus/public/reader/cvpr2023-sparse-concepts/issues.json",
+      "sha256": "97159687813745abfdb997e269659d0ea6b305ca943c8fdcb5d0c66564d64c62"
+    },
+    {
+      "path": "corpus/public/reader/cvpr2023-sparse-concepts/paper-metadata.json",
+      "sha256": "84beb2e1bc72f2538ebfae6ae0326c732b8e7b3de84adddda993c809fd96f73e"
+    },
+    {
+      "path": "corpus/public/reader/cvpr2023-sparse-concepts/symbols.json",
+      "sha256": "9014c90e95fedab799fd7d282509332304a221766c00a6af921778834b315501"
+    },
+    {
+      "path": "corpus/public/reader/iclr2024-generalizable/content.json",
+      "sha256": "330c21032d7a18989be9dafa6b15998b9bcd8ad8d3b3e6d448896d870f1efd26"
+    },
+    {
+      "path": "corpus/public/reader/iclr2024-generalizable/inventory.json",
+      "sha256": "e57177d21fd59e57fdbfc337a18795f75090159b23f9ea660371afe68d075f65"
+    },
+    {
+      "path": "corpus/public/reader/iclr2024-generalizable/issues.json",
+      "sha256": "f21cbd9a11ad3dd25a589fb977c54d87bf2690b2be570965bd1dd30e59a95848"
+    },
+    {
+      "path": "corpus/public/reader/iclr2024-generalizable/paper-metadata.json",
+      "sha256": "bbdeee8dab99195dd24d479c96bf19a67589e8e664ad998c63aa4d611a575a57"
+    },
+    {
+      "path": "corpus/public/reader/iclr2024-generalizable/symbols.json",
+      "sha256": "98069432881b3fe4842dc43a75ee9f425e0069c049bfefcd169d27ca0b454a65"
+    },
+    {
+      "path": "corpus/public/reader/iclr2024-sparse/content.json",
+      "sha256": "0fdc6a20146c4a79b174b33f7b2e5618f9816cc5362da3710fe2b84e5bacc8b3"
+    },
+    {
+      "path": "corpus/public/reader/iclr2024-sparse/inventory.json",
+      "sha256": "4051eed97493f94e17e6a2d05cd19ff3dcb812d1357b7d4fc202483da8dce4b7"
+    },
+    {
+      "path": "corpus/public/reader/iclr2024-sparse/issues.json",
+      "sha256": "1c17f1f1b367deb5c0a6b5717a694c998dece3ab82fa93ce2e2b99794fc904b4"
+    },
+    {
+      "path": "corpus/public/reader/iclr2024-sparse/paper-metadata.json",
+      "sha256": "da442b1abbd8a8ea16112cfafcaa1f2c9723740765d3c2fe279a0ec161b8bbfb"
+    },
+    {
+      "path": "corpus/public/reader/iclr2024-sparse/review-source-issues.json",
+      "sha256": "cc376f2d86a67f88faf3ee2ca0c0c3b6a77db8ca6588b9c0f74d032a9f1ddd06"
+    },
+    {
+      "path": "corpus/public/reader/iclr2024-sparse/symbols.json",
+      "sha256": "aa8cbf0c200f147103a7898d47e2c0d974d0bc965046dafc13e9a29bba55094b"
+    },
+    {
+      "path": "corpus/public/reader/icml2022-transformation/content.json",
+      "sha256": "5144d5b5f97d9c077fd2799ac5b88536bcae9cfcc76f2ca60d5244b288500e0b"
+    },
+    {
+      "path": "corpus/public/reader/icml2022-transformation/inventory.json",
+      "sha256": "ac8a2fc6e4f9dbd2efc32ae3dbda1a35111bfd6510fdf0f8929ae2a6525fca42"
+    },
+    {
+      "path": "corpus/public/reader/icml2022-transformation/issues.json",
+      "sha256": "3c167984bdcb5bdb3bfe917173fc8a4acc1b23d2d6546d9836eefbdf0c16897e"
+    },
+    {
+      "path": "corpus/public/reader/icml2022-transformation/paper-metadata.json",
+      "sha256": "e863fda0e45ace8bb199da65ca0f7501269116b9c2f5ce49f0aeab85d6b28172"
+    },
+    {
+      "path": "corpus/public/reader/icml2022-transformation/symbols.json",
+      "sha256": "3860752cf1af6d96c4c46c4d569f63424e93b6429c08012d373a21c7cf615846"
+    },
+    {
+      "path": "corpus/public/reader/icml2022-transformation/verification/report.json",
+      "sha256": "97e2314d11b4f9a52468d1bdaed247a983e70d3086159d50ec00c7106eda41d2"
+    },
+    {
+      "path": "corpus/public/reader/icml2023-bayesian/content.json",
+      "sha256": "657e7290ef39424f1b3dea66d0aca0b43ec1f5036c43e9ffd41c219b52e171ba"
+    },
+    {
+      "path": "corpus/public/reader/icml2023-bayesian/inventory.json",
+      "sha256": "234187806470daf8410c98e65d7414f378512932a6312602ae76e15f46352afb"
+    },
+    {
+      "path": "corpus/public/reader/icml2023-bayesian/issues.json",
+      "sha256": "184c38e9bfee0b22c3c3481d611919c48c1157696856c8a5bd6420b0fb80a874"
+    },
+    {
+      "path": "corpus/public/reader/icml2023-bayesian/paper-metadata.json",
+      "sha256": "8250899fe3090a4a7ff287b5bb29e33f7676b87d3a49a7f86ad14ed8d1d1e5b5"
+    },
+    {
+      "path": "corpus/public/reader/icml2023-bayesian/symbols.json",
+      "sha256": "bccba1ebe98b1e9c80001e70466b1d3533237944125c804cbd630bebcd028bb2"
+    },
+    {
+      "path": "corpus/public/reader/icml2023-bayesian/verification/report.json",
+      "sha256": "d48affd3a5a280c04ec4d2df56dec5174de7f6bf5d4b895477d39117a9663aad"
+    },
+    {
+      "path": "corpus/public/reader/icml2023-decoder/content.json",
+      "sha256": "e457f5388d581359a8f37e249651f2eeca4320a457b44f49439c3a3fe32cabc3"
+    },
+    {
+      "path": "corpus/public/reader/icml2023-decoder/inventory.json",
+      "sha256": "70310d481040c9531680d99f8bfc2d98f7c273edcb7c34302e8a98006e405759"
+    },
+    {
+      "path": "corpus/public/reader/icml2023-decoder/issues.json",
+      "sha256": "6d6c2c0294b9cd60f0fc8db177a1f68887b58c4ecc93fc37c470ca9c4ef7b3d2"
+    },
+    {
+      "path": "corpus/public/reader/icml2023-decoder/paper-metadata.json",
+      "sha256": "4220da372429bbee735a95df2a3f99a9cbba7b40b63ea7a6c7f3201058392931"
+    },
+    {
+      "path": "corpus/public/reader/icml2023-decoder/symbols.json",
+      "sha256": "d822c2b7c5a36ed691c83f20cb7ca8fff526baba2e6749cc7917a28785f4726e"
+    },
+    {
+      "path": "corpus/public/reader/icml2023-decoder/verification/report.json",
+      "sha256": "83716554ba03e8d9e9fe4872aaffade6224360f4208cf4126148524623af3099"
+    },
+    {
+      "path": "corpus/public/reader/icml2023-harsanyinet/content.json",
+      "sha256": "270fb734c8d29f5329e8985922a47797a370c38a6f33b241f78f1d471bcaf02c"
+    },
+    {
+      "path": "corpus/public/reader/icml2023-harsanyinet/inventory.json",
+      "sha256": "8695d28eb96178c5f39403c0b785937e04272ac42de6272a8d0b09b08732280a"
+    },
+    {
+      "path": "corpus/public/reader/icml2023-harsanyinet/issues.json",
+      "sha256": "e1c4742eadc7cca74853bbb2876d08fb6879bbac2b50796ca4663779711a6ba8"
+    },
+    {
+      "path": "corpus/public/reader/icml2023-harsanyinet/paper-metadata.json",
+      "sha256": "bfc34810518ff29f2172dc252fa16515a43d4b1229f951df210b092f08ce6a29"
+    },
+    {
+      "path": "corpus/public/reader/icml2023-harsanyinet/symbols.json",
+      "sha256": "d4154758eaa51f4a7b3d515a7b176a21c0b002f9511d2804efb5b083a0a479d6"
+    },
+    {
+      "path": "corpus/public/reader/icml2023-harsanyinet/verification/report.json",
+      "sha256": "a7194bd7f5f8e4bd5cf68f59734e9852408e79754feee9c6a313874de2e6cb45"
+    },
+    {
+      "path": "corpus/public/reader/icml2024-layerwise/content.json",
+      "sha256": "b4c9805cfb5825695d48f4c1cac70a1ec60af1e24589f94a53dc24f03c590556"
+    },
+    {
+      "path": "corpus/public/reader/icml2024-layerwise/inventory.json",
+      "sha256": "7ccfd73a9771cab32930708192eaca628ca3516762eaa79cba0a7b2202f32167"
+    },
+    {
+      "path": "corpus/public/reader/icml2024-layerwise/issues.json",
+      "sha256": "0416abdb96a1569c5d178a940f89a78184cf8f960785a475847c4400110ad004"
+    },
+    {
+      "path": "corpus/public/reader/icml2024-layerwise/paper-metadata.json",
+      "sha256": "0a107bfe109cb338f870d7bfda7f82d8fec516b9e03a290c6d041bc7c4463c4a"
+    },
+    {
+      "path": "corpus/public/reader/icml2024-layerwise/symbols.json",
+      "sha256": "50b8df06368f6e0ceda6c2958826a0b6738c31a78e167c5a9044a6b3eaf03acc"
+    },
+    {
+      "path": "corpus/public/reader/icml2024-layerwise/verification/report.json",
+      "sha256": "eee8b46b28f1a7ec47eb5910e809922d8dbc0325f3b751c371cf85521468b39c"
+    },
+    {
+      "path": "corpus/public/reader/icml2025-coalition/content.json",
+      "sha256": "fcd90a749706c2e75d1131585de97b043dae4554fd66a35c11bc8512816a6f6a"
+    },
+    {
+      "path": "corpus/public/reader/icml2025-coalition/inventory.json",
+      "sha256": "ec77ca043f30432bbf0faa97883c9a498020ba30b43b64bc78af52e3cf884cd4"
+    },
+    {
+      "path": "corpus/public/reader/icml2025-coalition/issues.json",
+      "sha256": "de944c84d2f842649b2c61350c55d989497389c061ac53377503ed47b60066a9"
+    },
+    {
+      "path": "corpus/public/reader/icml2025-coalition/paper-metadata.json",
+      "sha256": "ff5ee3e64742702098d398abc0f86aaf50f455385387d224d186ab291755b13d"
+    },
+    {
+      "path": "corpus/public/reader/icml2025-coalition/symbols.json",
+      "sha256": "aaa406c6c24725a0de87feacc8c012c87918ac2bed165f182881bb84ffbd7dee"
+    },
+    {
+      "path": "corpus/public/reader/icml2025-coalition/verification/report.json",
+      "sha256": "26a835c77c66310d088fa3fd33e4fd6478b909244af975c65e702691a77f2079"
+    },
+    {
+      "path": "corpus/public/reader/input-manifest.json",
+      "sha256": "1c92206e3dacdcecc50f81c69394da630ae2d2b1f82796b7cc8c1b3a63a37c1c"
+    },
+    {
+      "path": "corpus/public/reader/neurips2021-robustness/content.json",
+      "sha256": "1b9f324cbea8fbe3475013743c93b5b290f6e65295e5a1bdbbedba8ea3fd74c9"
+    },
+    {
+      "path": "corpus/public/reader/neurips2021-robustness/inventory.json",
+      "sha256": "a97885de8c24a595cea95eac975b0ebcf4891529568068df65307d6edb0d41ac"
+    },
+    {
+      "path": "corpus/public/reader/neurips2021-robustness/issues.json",
+      "sha256": "533349d7bc314eb970b857be1fd1d6c9e1b7a0e2583da902a0533e7198132ebf"
+    },
+    {
+      "path": "corpus/public/reader/neurips2021-robustness/paper-metadata.json",
+      "sha256": "fb27a254055dbd37d4a24161821b0268a5f4534aef5db1b8a09ff055fef1dc9c"
+    },
+    {
+      "path": "corpus/public/reader/neurips2021-robustness/symbols.json",
+      "sha256": "852b461762b466ee3aae434c483e41c41d623dff28d58c54f5046f472a5478ce"
+    },
+    {
+      "path": "corpus/public/reader/neurips2021-robustness/verification/report.json",
+      "sha256": "37e24ab1713f3f3af62c9b0874f0f2ce70a5d9fef437ce220baf8c91e486431b"
+    },
+    {
+      "path": "corpus/public/reader/neurips2023-difficulty/content.json",
+      "sha256": "d3bf2f80d215006ab0039bff6cb7dd28f00fbafcfbc264cb0b4bdb1b0fc9f28f"
+    },
+    {
+      "path": "corpus/public/reader/neurips2023-difficulty/inventory.json",
+      "sha256": "8d0affef55352b4a9ce18863d97407c303fd028f55ea2246c4ed8452b957ac71"
+    },
+    {
+      "path": "corpus/public/reader/neurips2023-difficulty/issues.json",
+      "sha256": "c7a57cb884bcca4c66ef0818f25c94d3fc62a95355886d88f20c86ba582abb1d"
+    },
+    {
+      "path": "corpus/public/reader/neurips2023-difficulty/paper-metadata.json",
+      "sha256": "8df961b371cfc9ef2600ee7f57b9f2e0aad696ffd33e323581a02b54ab6d8711"
+    },
+    {
+      "path": "corpus/public/reader/neurips2023-difficulty/symbols.json",
+      "sha256": "d3a39a077d1405b9e259fdcaddcd4d64d261bceb89033a934340247b5fea0398"
+    },
+    {
+      "path": "corpus/public/reader/neurips2023-difficulty/verification/report.json",
+      "sha256": "d337368c937611dcf31c22862a33be7d08b58f90377b7f93d5da405cf332bf51"
+    },
+    {
+      "path": "corpus/public/reader/neurips2024-dynamics/content.json",
+      "sha256": "0dde248321876c533894e257e0517e98fd1379374704e70d08b3cae772b78b21"
+    },
+    {
+      "path": "corpus/public/reader/neurips2024-dynamics/inventory.json",
+      "sha256": "a40afb20fee4be80031bb45f85400ee1e47a74458d2dc04fe73f6988bb5d35b5"
+    },
+    {
+      "path": "corpus/public/reader/neurips2024-dynamics/issues.json",
+      "sha256": "3e1f62b5aba8d3466b6af8e301f8830ff0cae3397e84760d110eaf2d86ceba4a"
+    },
+    {
+      "path": "corpus/public/reader/neurips2024-dynamics/paper-metadata.json",
+      "sha256": "e287960b8f9d6149cd68653f69d05aa0f07f7c19ff1ed4cf0244e8c7db0fed10"
+    },
+    {
+      "path": "corpus/public/reader/neurips2024-dynamics/symbols.json",
+      "sha256": "234059f8064259d03aa39388b95ca4d6e8a8eecfafa8a2b6cc4a30ea14280db5"
+    },
+    {
+      "path": "corpus/public/reader/neurips2024-dynamics/verification/report.json",
+      "sha256": "307f46d0f15a6832709cda2886e0b46429410c6f17c148a372d5438adf25cba8"
+    },
+    {
+      "path": "corpus/public/reader/shared-proof-seed.json",
+      "sha256": "987510b3b27babda02a67114231726532218a622665300983e30dc2cd2bb490a"
+    },
+    {
+      "path": "corpus/public/translations/cvpr2023-sparse-concepts.en.json",
+      "sha256": "2268c01d6a19b58b5a1ea490e8e0b371285b186dffb33d746cd64e65f07feb4e"
+    },
+    {
+      "path": "corpus/public/translations/iclr2024-generalizable.en.json",
+      "sha256": "cd32714d12d8046f4ddbb4261566a6477c4e15bc18ceb00d85aaf2174efc303a"
+    },
+    {
+      "path": "corpus/public/translations/iclr2024-sparse.en.json",
+      "sha256": "d89a164367fc93074ee2603d0d01e2e8f6c8be3426e095a1c425ed48d351c89e"
+    },
+    {
+      "path": "corpus/public/translations/shared-finite.en.json",
+      "sha256": "5e06792750ed08753d75fbcf9e511383f988203db52a2e38d6d84b5c6097c0bf"
+    },
+    {
+      "path": "corpus/public/translations/shared-sparse.en.json",
+      "sha256": "9d0d628ed4185c6df0d4dccd51d3ef9c1f264a7ec31a78db68f0a0328139d04e"
+    },
+    {
+      "path": "reader/aggregate.py",
+      "sha256": "4cad7efae80f20c285f946ea515776bd4b410bea04493f650a3e47521e8832be"
+    },
+    {
+      "path": "reader/architecture/admission-contract.json",
+      "sha256": "8320da63fdea7ed2d4bdadf003fde9230252cd6ad8881e507bc2f9aa8b8681ff"
+    },
+    {
+      "path": "reader/bilingual.py",
+      "sha256": "aeec1605b4d57cec38a3fc7215215ace4b686153e5910493f3daa11595f7bc88"
+    },
+    {
+      "path": "reader/evidence/six-paper-preservation-baseline.json",
+      "sha256": "4655fb03fa491c71c8d5baf4e6c8565b9fcc0b8029e43ecea2c8bbcd1e5963fd"
+    },
+    {
+      "path": "reader/evidence_paths.py",
+      "sha256": "0691f8e89020fc256f3edc079070201580230a187a849f674ddc6314341046ae"
+    },
+    {
+      "path": "reader/input_manifest.py",
+      "sha256": "a4325ebaf25c5cc2a581adc2b01ca857a5b2a76fe76e73b0277ca464a58984cd"
+    },
+    {
+      "path": "reader/inventory_contract.py",
+      "sha256": "bab2fa12c588b6a85f8881d16ffbca605ec22acc8fafecb978e584040faec009"
+    },
+    {
+      "path": "reader/symbol_context_english.py",
+      "sha256": "0faf107350cb6e7617963f75ff48301a7e8a78f3c28bf07ed11e5d1e957f5654"
+    },
+    {
+      "path": "reader/symbols_english.py",
+      "sha256": "cc75b9f100874e2310c3f12365de5a2b79d9f79e96757c89459ad2f5ce680a96"
+    },
+    {
+      "path": "reports/lean/20261001T032325-2/report.json",
+      "sha256": "57ed644198ecf8cc064e99ff9143c7da1a796b7b4b081c5328b7c21ddf5ab88b"
+    },
+    {
+      "path": "research/full-proof-integration-20260930/cvpr2023/verification/derivative-report.json",
+      "sha256": "7ed3044a7015416db605737a0cedf1732ca9d30ba378a25b13e80b843ae7216e"
+    },
+    {
+      "path": "research/full-proof-integration-20260930/cvpr2023/verification/report.json",
+      "sha256": "878259c0040e3eeb5c1a707b109cd45c4a05987e548c03d95c2496e93709b363"
+    },
+    {
+      "path": "research/full-proof-integration-20260930/iclr2024-sparse/verification/report.json",
+      "sha256": "ee9ab3cba131c2a88d254499802effeac2e6a77c3dc79d160181005648c368b5"
+    }
+  ]
+}

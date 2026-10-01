@@ -1,6 +1,7 @@
 """Public reader input contract. Only entries in the explicit published manifest are active."""
 import json
 from pathlib import Path
+from inventory_contract import accepted_paper_ids,validate_inventory,source_errors,issue_errors,control_character_errors
 ROOT=Path(__file__).resolve().parents[1]
 MANIFEST=ROOT/'corpus/public/reader/input-manifest.json'
 def project_path(value,required=True):
@@ -17,6 +18,7 @@ def load_manifest(read=None):
  if manifest.get('visibility')!='public' or manifest.get('publication_status')!='published':raise ValueError('Reader requires public/formal manifest')
  ids=[x['paper_id'] for x in manifest.get('papers',[])]
  if not ids or len(ids)!=len(set(ids)):raise ValueError('Reader requires a nonempty explicit list of unique paper IDs')
+ legacy_ids=accepted_paper_ids(read)
  for item in manifest['papers']:
   prefix='corpus/public/reader/'+item['paper_id']+'/'
   for key in ['metadata_path','inventory_path','content_path','symbols_path','issues_path']:
@@ -31,4 +33,14 @@ def load_manifest(read=None):
     import hashlib
     if hashlib.sha256(path.read_bytes()).hexdigest()!=source['sha256']:raise ValueError('Formal source hash changed')
   if not metadata.get('sources'):raise ValueError('Formal source list is empty')
+  if item['paper_id'] not in legacy_ids and source_errors(metadata):raise ValueError('Source metadata admission rejected: '+'; '.join(source_errors(metadata)))
+  content=read(project_path(item['content_path']))
+  validate_inventory(read(project_path(item['inventory_path'])),content,legacy=item['paper_id'] in legacy_ids)
+  if item['paper_id'] not in legacy_ids:
+   symbol_failures=control_character_errors(read(project_path(item['symbols_path'])),'symbols')
+   if symbol_failures:raise ValueError('Symbol admission rejected: '+'; '.join(symbol_failures[:20]))
+   listed=read(project_path(item['issues_path']));listed=listed.get('issues',[]) if isinstance(listed,dict) else listed
+   issues=list(content.get('issues',[]))+listed
+   failures=issue_errors(issues,metadata,content)
+   if failures:raise ValueError('Issue admission rejected: '+'; '.join(failures[:20]))
  return manifest

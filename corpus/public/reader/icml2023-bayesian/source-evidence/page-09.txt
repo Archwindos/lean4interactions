@@ -1,0 +1,66 @@
+                  Bayesian Neural Networks Avoid Encoding Complex and Perturbation-Sensitive Concepts
+
+ture on the TV news dataset, the Census dataset, and the               and Explaining the Representation Bottleneck of DNNs.
+MNIST dataset. We trained standard DNNs and BNNs with                  In International Conference on Learning Representations,
+the LeNet architecture on the CIFAR-10 dataset. Appendix               2022.
+H introduces how to efficiently compute I(S|x) on images.
+Figure 4 shows that the strength of high-order interactive           Dua, D. and Graff, C. UCI machine learning repository,
+concepts of BNNs was much weaker than that of standard                 2017. URL http://archive.ics.uci.edu/ml.
+DNNs in all comparisons. This verified that BNNs were less
+likely to encode high-order (complex) interactive concepts           Engstrom, L., Ilyas, A., Santurkar, S., Tsipras, D., Tran,
+than standard DNNs.                                                    B., and Madry, A. Adversarial robustness as a prior for
+                                                                       learned representations, 2019.
+
+4. Conclusion and discussion                                         Etmann, C., Lunz, S., Maass, P., and Schönlieb, C.-B.
+                                                                       On the connection between adversarial robustness and
+In this paper, we have proven the tendency of mean-field
+                                                                       saliency map interpretability, 2019.
+variational BNNs to avoid encoding high-order (complex)
+concepts. Many studies (Ren et al., 2023a; Li & Zhang,               Foong, A., Burt, D., Li, Y., and Turner, R. On the ex-
+2023; Ren et al., 2023c) have shown that there does exist a            pressiveness of approximate inference in bayesian neural
+concept-emerging phenomenon when a neural network is                   networks. In Larochelle, H., Ranzato, M., Hadsell, R.,
+sufficiently trained.                                                  Balcan, M., and Lin, H. (eds.), Advances in Neural Infor-
+Besides, as discussed in the introduction, encoding less com-          mation Processing Systems, volume 33, pp. 15897–15908.
+plex concepts does not mean that BNNs have weaker rep-                 Curran Associates, Inc., 2020.
+resentation power than standard DNNs, because a standard
+DNN can be considered as a specific BNN with zero weight             Fortuin, V., Garriga-Alonso, A., Ober, S. W., Wenzel, F.,
+uncertainty. More crucially, Ren et al. (2021) and Lengerich           Ratsch, G., Turner, R. E., van der Wilk, M., and Aitchi-
+et al. (2022) proved that high-order concepts are usually vul-         son, L. Bayesian neural network priors revisited. In
+nerable to adversarial attacks and have weak generalization            International Conference on Learning Representations,
+power. Thus, it is hard to say whether the tendency to avoid           2022.
+encoding complex concepts is a demerit or not.
+                                                                     Gal, Y. and Ghahramani, Z. Dropout as a bayesian approx-
+                                                                       imation: Representing model uncertainty in deep learn-
+Acknowledgements. This work is partially supported
+                                                                       ing. In international conference on machine learning, pp.
+by the National Nature Science Foundation of China
+                                                                      1050–1059. PMLR, 2016.
+(62276165), National Key R&D Program of China
+(2021ZD0111602), Shanghai Natural Science Foundation                 Gal, Y. and Smith, L. Sufficient conditions for idealised
+(21JC1403800,21ZR1434600), National Nature Science                     models to have no adversarial examples: a theoretical and
+Foundation of China (U19B2043). This work is also par-                 empirical study with bayesian neural networks, 2018.
+tially supported by Huawei Technologies Inc.
+                                                                     Grabisch, M. and Roubens, M. An axiomatic approach to
+References                                                             the concept of interaction among players in cooperative
+                                                                       games. International Journal of game theory, 28(4):547–
+Ancona, M., Oztireli, C., and Gross, M. Explaining deep                565, 1999.
+  neural networks with a polynomial time algorithm for
+  shapley value approximation. In International Confer-              Harsanyi, J. C. A simplified bargaining model for the n-
+  ence on Machine Learning, pp. 272–281. PMLR, 2019.                   person cooperative game. International Economic Re-
+                                                                       view, 4(2):194–220, 1963. ISSN 00206598, 14682354.
+Blundell, C., Cornebise, J., Kavukcuoglu, K., and Wierstra,
+  D. Weight uncertainty in neural network. In International
+                                                                     Hochreiter, S. and Schmidhuber, J. Long short-term memory.
+  conference on machine learning, pp. 1613–1622. PMLR,
+                                                                       Neural Computation, 9(8):1735–1780, 1997. doi: 10.
+  2015.
+                                                                      1162/neco.1997.9.8.1735.
+Carbone, G., Wicker, M., Laurenti, L., Patane, A., Borto-
+  lussi, L., and Sanguinetti, G. Robustness of bayesian              Ilyas, A., Santurkar, S., Tsipras, D., Engstrom, L., Tran, B.,
+  neural networks to gradient-based attacks. Advances                   and Madry, A. Adversarial examples are not bugs, they
+  in Neural Information Processing Systems, 33:15602–                   are features. In Wallach, H., Larochelle, H., Beygelz-
+  15613, 2020.                                                          imer, A., d'Alché-Buc, F., Fox, E., and Garnett, R. (eds.),
+                                                                        Advances in Neural Information Processing Systems, vol-
+Deng, H., Ren, Q., Zhang, H., and Zhang, Q. Discovering                 ume 32. Curran Associates, Inc., 2019.
+
+                                                                 9

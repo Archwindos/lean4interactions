@@ -1,0 +1,67 @@
+            (m)         (m)             (m)
+where ∆Iij (x) = Iij (x) − Iij (xadv ).
+• Proof :
+                                                 (m)
+                      ∆I (m) = Inor
+                                (m)
+                                    − Iadv
+                                                       (m)                              (m)
+                                  = Ex∈Ωnor Ei,j [Iij (x)] − Ex∈Ωadv Ei,j [Iij (x)]
+                                                       (m)                              (m)
+                                  = Ex∈Ωnor Ei,j [Iij (x)] − Ex∈Ωnor Ei,j [Iij (x + ∆x)]
+                                                       (m)           (m)
+                                  = Ex∈Ωnor Ei,j [Iij (x) − Iij (x + ∆x)]
+                                                       (m)           (m)
+                                  = Ex∈Ωnor Ei,j [Iij (x) − Iij (xadv )]
+                                                        (m)
+                                  = Ex∈Ωnor Ei,j [∆Iij (x)]
+                                                                                                                   
+
+E    Relationship between v̂(S) and v(S)
+In Section 4.1 of the main paper, we claim that the trend of v(S) can roughly reflect the negative
+trend of v̂(S). In this section, we discuss the negative correlation between v̂(S) and v(S).
+According to Proposition 1, v̂(S) = H(Y |XS ) denotes the entropy of the classification probability
+given variables in S of the image x. Thus, v̂(S) measures the uncertainty of the prediction. If the
+model prediction is correct and confident, i.e. the value of v(S) = log p(y = y truth |x, S) is large,
+then the uncertainty v̂(S) is very low. In comparison, if the model prediction is correct but with a
+small value of v(S), then the uncertainty is large, yielding a large value of v̂(S). Therefore, the trend
+of v(S) can roughly reflect the negative trend of v̂(S) when the model prediction is correct.
+
+F    More discussions about the disentanglement metric
+This section provides more discussions about the disentanglement metric in Eq. (4) of the main paper.
+The motivation of the disentanglement is to measure the discrimination power of interactions of a
+specific order, as discussed in Section 4.2 of the paper. According to the efficiency property of the
+multi-order interactions, the model output can be decomposed into the weighted sum of massive
+interaction components ∆v(i, j, S|x):
+                                                              n−2
+                            X                       X         X   n−1−m
+ v(N |x) = v(∅|x) +               φ(0) (i|x) +                             ES⊆N \{i,j},|S|=m [∆v(i, j, S)] (9)
+                                                              m=0
+                                                                  n(n − 1)
+                            i∈N                  i,j∈N,i6=j
+
+In this way, if interaction components of a certain order m are all positive (or negative) and do not
+conflict with each other, it indicates that these components jointly promote or suppress the model
+output, showing a strong discrimination power. Otherwise, if some interaction components are
+positive and others are negative, their effects on the model output will be eliminated. In this case, the
+discrimination power of interactions is poor.
+In this way, we design the disentanglement metric D(m) in Eq. (4) to model the above phenomenon.
+The physical meaning of this metric is shown in the following equation.
+                                                        the strength of the average utility of all components
+                                                  z               }|              {
+                      (m)                         |ES⊆N \{i,j},|S|=m ∆v(i, j, S|x)|
+                  D         = Ex∈Ω Ei,j∈N,i6=j                                                                   (10)
+                                               ES⊆N \{i,j},|S|=m     |∆v(i, j, S|x)|
+                                                                     |    {z       }
+                                                                                the strength of each component
+
+The numerator measures the strength of the average utility of all interaction components between
+(i, j) under different contexts S. The dominator represents the average strength of each interaction
+component. If D(m) approximates to 1, then it indicates that almost all interaction components have
+similar effects (either positive or negative) on the model output. If D(m) approximates to 0, then it
+shows that most interaction components conflict with each other and are eliminated. Therefore, the
+disentanglement D(m) measures the discrimination power of interactions.
+
+
+                                                               8
+

@@ -1,6 +1,6 @@
 # 从中文证明到实际 Lean 对照
 
-当前三篇的完整目录由 `research/full-proof-integration-20260930/` 的逐页清单生成。原陈述、作者证明、项目中文证明与 Lean 分栏保存；原 PDF 及数学转录可逐式核对。正文或附录重述是同一目标的多个出现，不是多份新证明。
+活动目录由 `corpus/public/reader/input-manifest.json` 中各篇的逐页清单生成，维护入口为 `reader/`。当前十二篇授权范围按 [发布契约](twelve-paper-release-20261001.md) 逐篇交付；旧研究目录保留历史证据。原陈述、作者证明、项目双语证明与 Lean 分别保存；原 PDF 及数学转录可逐式核对。正文或附录重述是同一目标的多个出现，不是多份新证明。
 
 首先确定对象与量词：模型 \(v\)、输入 \(x\)、输入基线 \(r\)、有限总体 \(N\)、集合函数 \(g(S)=v(x_S)\)、输出基线 \(b=g(\varnothing)\) 和中心化函数 \(g_0\)。交互必须注明作用函数，条件系数保留条件输入，空集例外不能省略。符号页保存论文原符号及规范对照。
 
@@ -10,17 +10,17 @@
 
 公共证明只保存一份权威正文。结果保存其自己的定义映射和适配步骤，再引用共享步骤；网页连续展开全文，读者不必来回查找。引用依据完全一致的步骤 ID 与内容建立，不按相似标题自动归并。父定理与子结论分别记录范围。
 
-当前三篇允许修正证明，不能改变原命题及其假设。原证明错步保留原式、页码和错误依据；同一原命题的正确证明另栏展示。原命题错误单列反例，反例的 Lean 编译通过显示“反例已验证”，不会显示原定理通过。未量化的近似主张、复杂度的查询次数子结论和复合句的有效部分也明确各自范围。
+当前十二篇允许修正证明，不能改变原命题及其假设。原证明错步保留原式、页码和错误依据；同一原命题的正确证明另栏展示。原命题错误单列反例，反例的 Lean 编译通过显示“反例已验证”，不会显示原定理通过。未量化的近似主张、复杂度的查询次数子结论和复合句的有效部分也明确各自范围。
 
 实际编译报告记录成功命令、退出码、声明类型、公理、工具链及全部源文件 SHA-256。仅在报告当前、所用声明真实存在且公理通过时显示相应 Lean 证据；改动源码后旧报告降级为过期。中文说明完整、数学语义对齐和形式化范围是不同维度。
 
 本地查询示例（项目根目录加载 `scripts/env.sh` 后）：
 
 ```bash
-python research/full-proof-integration-20260930/architecture/paper_agent.py search Shapley
-python research/full-proof-integration-20260930/architecture/paper_agent.py result cvpr2023-dummy
-python research/full-proof-integration-20260930/architecture/paper_agent.py verification-status cvpr2023-dummy
-python research/full-proof-integration-20260930/architecture/paper_agent.py library Harsanyi.Sparsity
+python reader/architecture/paper_agent.py search Shapley
+python reader/architecture/paper_agent.py result cvpr2023-dummy
+python reader/architecture/paper_agent.py verification-status cvpr2023-dummy
+python reader/architecture/paper_agent.py library Harsanyi.Sparsity
 ```
 
 `catalog/library.json` 保存公共库真实导出类型和验证指纹，`catalog/descriptions.json` 提供用途、前提和符号关联。数学代码、论文适配和网页数据分别维护。历史 v2 的四个示例与十九条被审计声明不代表当前全文范围；保留作历史验收记录。

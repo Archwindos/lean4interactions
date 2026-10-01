@@ -1,0 +1,117 @@
+                                 Defects of Convolutional Decoder Networks in Frequency Representation
+
+Then, let us conduct the convlution operation (in Equation (1) in the main paper) on feature F = [F (1) , F (2) , . . . , F (C) ], in
+                                   e ∈ RD×M 0 ×N 0 .
+order to obtain the output feature F
+                      ∀d = 1, 2, . . . ,D; 0 ≤ m < M 0 ; 0 ≤ n < N 0 ;
+                                                          C K−1
+                                                          X X K−1
+                                                                X
+                                    (d)                                                           (c)
+                                  F̃mn  = b(d) +                                      ker=d
+                                                                                     Wcts   Fm+t,n+s
+                                                          c=1 t=0 s=0
+                                                          C K−1
+                                                            X K−1                                  M −1 N −1
+                                                          X     X                               1 X X (c) i( u(m+t)    v(n+s)
+                                          = b(d) +                                    ker=d
+                                                                                     Wcts                    Guv e M
+                                                                                                                     +   N
+                                                                                                                              )2π
+
+                                                          c=1 t=0 s=0
+                                                                                               M N u=0 v=0
+                                                          C               M −1 N −1                 K−1
+                                                                                                    X K−1
+                                                          X            1 X X (c) i( um        vn        X ker=d i( ut + vs )2π
+                                          = b(d) +                                  Guv e M + N )2π         Wcts e M N
+                                                          c=1
+                                                                      M N u=0 v=0                   t=0 s=0
+                                                          C               M −1 N −1
+                                                          X            1 X X (uv) (c) i( um       vn
+                                          = b(d) +                                  Tdc Guv e M + N )2π
+                                                          c=1
+                                                                      M N u=0 v=0
+
+
+                                                e in order to obtain feature spectrums H 0 0 of F.                                      (d)
+Then, let us conduct the DFT on each channel of F,                                      uv
+                                                                                                e
+
+         ∀d = 1, 2, . . . , D; 0 ≤ u0 < M 0 ; 0 ≤ v 0 < N 0 ;
+                            0      0
+                          M   −1 N   −1                       0          0
+                                            (l,d) −i( u m +v n
+                (d)
+                          X      X                             )2π
+             Hu0 v0 =                     Femn   e    M0   N0
+
+                           m=0 n=0
+                            0      0
+                          M   −1 N   −1                                              C          M −1 N −1
+                          X      X               u0 m + v 0 n )2π                    X       1 X X (uv) (c) i( um     vn
+                      =                   e−i(   M0     N0              (b(d) +                           T Guv e M + N )2π )                    //Equation (15)
+                           m=0 n=0                                                    c=1
+                                                                                            M N u=0 v=0 dc
+                                                                                                            0      0
+                                                    C M −1 N −1                                   M −1 N −1
+                                                    X X    X                                   1 X X i(( M    u − u0 )m+( v − v 0 )n)2π
+                      = M 0 N 0 b(d) δu0 v0 +
+                                                                                    (uv)
+                                                                                   Tdc G(c)
+                                                                                        uv                  e    M0       N   N0
+
+                                                    c=1 u=0 v=0
+                                                                                              M N m=0 n=0
+                                                              0         0
+                                                 M −1 N −1
+                                              1 X X i(( M    u − u0 )m+( v − v 0 )n)2π
+                      // Let αu0 v0 uv     =               e    M0       N   N0
+                                             M N m=0 n=0
+                                                    M
+                                                    X −1 N
+                                                         X −1                         C
+                                                                                      X
+                      = M 0 N 0 b(d) δu0 v0 +
+                                                                                             (uv)(c)
+                                                                        αu0 v0 uv           Tdc Guv
+                                                    u=0 v=0                           c=1
+
+
+
+When the convlution operation does not apply paddings, and its stride size is 1, M 0 = M − K + 1, N 0 = N − K + 1. In
+this way, αu0 v0 uv can be rewritten as follows.
+                                                    0             0
+                                            M −1 N −1
+                                         1 X X i(( M    u − u0 )m+( v − v 0 )n)2π
+                          αu0 v0 uv   =               e    M0       N   N0
+                                        M N m=0 n=0
+                                      //M 0 = M − K + 1, N 0 = N − K + 1
+                                              M −K N −K
+                                           1 X X i(( M    u −    u0       v −
+                                                                     )m+( N      v0  )n)2π
+                                      =                 e     M −K+1          N −K+1
+                                          M N m=0 n=0
+                                                                                                                                                                   (17)
+                                                  M −K                                        N −K
+                                           1      X                  u −
+                                                                  i( M      u0  )2πm
+                                                                                              X            v −
+                                                                                                        i( N      v0  )2πn
+                                      =                       e          M −K+1                         e      N −K+1
+                                          MN      m=0                                         n=0
+                                      //According to Equation (13)
+                                           1 sin((M − K)λuu0 π) sin((N − K)γvv0 π) i((M −K)λuu0 +(N −K)γvv0 )π
+                                      =                                           e
+                                          MN      sin(λuu0 π)        sin(γvv0 π)
+                 (u−u0 )M −u(K−1)                             (v−v 0 )N −v(K−1)
+where λuu0 =       M (M −K+1)     ,          γvv0 =             N (N −K+1)      .
+                                                        0 0                   (1)      (2)                  (D)
+Therefore, we prove that the vector h(u v ) = [Hu0 v0 , Hu0 v0 , . . . , Hu0 v0 ]> ∈ CD can be computed as follows.
+                                                                                                                M −1 N −1
+                                                                             0 0                                X    X
+                              ∀d = 1, 2, . . . , D;                   h(u v ) = δu0 v0 M 0 N 0 b +                          αu0 v0 uv T (uv) g(uv)
+                                                                                                                  u=0 v=0
+
+                                                                                             13
+

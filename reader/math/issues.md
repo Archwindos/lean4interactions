@@ -724,6 +724,982 @@ These proof defects are retained; the original symmetry-β statement already fai
 
 来源：src-icml2025-coalition PDF 19, src-icml2025-coalition PDF 20
 
+## Proposition1原证明的两处熵符号错误
+
+记录 ID：robustness-entropy-proof-sign
+
+原命题定义+H。正确四项差为$H(Y\mid S,i,j)-H(Y\mid S,i)-H(Y\mid S,j)+H(Y\mid S)$，等于$MI(X_i;Y\mid S)-MI(X_i;Y\mid S,X_j)$。原证明用了四项的相反数，再用了与Eq7相反的三元MI定义，最终两错抵消。H(H|XS)另为Y误植。
+
+原命题定义+H。正确四项差为$H(Y\mid S,i,j)-H(Y\mid S,i)-H(Y\mid S,j)+H(Y\mid S)$，等于$MI(X_i;Y\mid S)-MI(X_i;Y\mid S,X_j)$。原证明用了四项的相反数，再用了与Eq7相反的三元MI定义，最终两错抵消。H(H|XS)另为Y误植。
+
+只修证明；保留原+H与Eq6。原Eq7采用co-information符号，不能改成enhancement约定。
+
+来源：src-neurips2021-robustness-formal PDF 7, src-neurips2021-robustness-supplement PDF 6
+
+## B.1对称性证明上下文集合误植
+
+记录 ID：robustness-symmetry-context-typo
+
+对象$I_{ik}^{(m)}$的上下文应排除i,k，首/末平均却印成排除i,j。中间求和实际用N\{i,k}及N\{i,j,k}，可修为交换i,j的上下文双射证明。
+
+对象$I_{ik}^{(m)}$的上下文应排除i,k，首/末平均却印成排除i,j。中间求和实际用N\{i,k}及N\{i,j,k}，可修为交换i,j的上下文双射证明。
+
+对称性原陈述与原条件保持。
+
+来源：src-neurips2021-robustness-supplement PDF 3
+
+## Eq14/15把固定大小取整丢弃率换成连续比例
+
+记录 ID：robustness-dropout-floor
+
+原K均匀取固定大小k，不是Bernoulli dropout。取n=4、α=2/5、k=2、$g(S)=|S|$，所有pair交互0，真实均值2，原Eq14为$(1-α)4=12/5$。正确抽取包含率k/n仅可作为另一个修订推导，不能把它冒充原Eq14证明。
+
+原K均匀取固定大小k，不是Bernoulli dropout。取n=4、α=2/5、k=2、$g(S)=|S|$，所有pair交互0，真实均值2，原Eq14为$(1-α)4=12/5$。正确抽取包含率k/n仅可作为另一个修订推导，不能把它冒充原Eq14证明。
+
+固定大小平均的floor子句错误；高阶截断及经验cutout结论另分范围。
+
+来源：src-neurips2021-robustness-formal PDF 9, src-neurips2021-robustness-formal PDF 10, src-neurips2021-robustness-supplement PDF 9, src-neurips2021-robustness-supplement PDF 10
+
+## D(m)在全零交互上下文未定义
+
+记录 ID：robustness-disentanglement-zero
+
+若全部上下文Δg=0，分母与分子均0，原文未给0/0约定。比值界和同号等号只在分母正的定义域证明；不增加前提后声称全部原定义有效。
+
+若全部上下文Δg=0，分母与分子均0，原文未给0/0约定。比值界和同号等号只在分母正的定义域证明；不增加前提后声称全部原定义有效。
+
+单列定义域问题，不等于interaction性质错误。
+
+来源：src-neurips2021-robustness-formal PDF 8, src-neurips2021-robustness-supplement PDF 8
+
+## Nullity显示量词与双玩家定义域
+
+记录 ID：robustness-self-pair-quantifier
+
+原文字说other variables，但显示∀j∈N包含j=i。pair的原上下文大小范围n−2及两玩家解释要求i≠j；若硬扩成自配对，Δ(i,i,S)=g(S)−g(Si)，dummy增量非零时不为0。原量词照录，适配的i≠j是双玩家domain，不是补入以救自配对扩张。
+
+原文字说other variables，但显示∀j∈N包含j=i。pair的原上下文大小范围n−2及两玩家解释要求i≠j；若硬扩成自配对，Δ(i,i,S)=g(S)−g(Si)，dummy增量非零时不为0。原量词照录，适配的i≠j是双玩家domain，不是补入以救自配对扩张。
+
+仅量词/定义域歧义，双玩家nullity仍有效。
+
+来源：src-neurips2021-robustness-supplement PDF 3
+
+## Eq7取消后的exclusive变量误植
+
+记录 ID：robustness-benefit-cancellation-typo
+
+取消Xi exclusive后应留下MI(Xj;Y|Xi,XS)，原第三行却仍写Xi。下一行log分子p(xj,y|xi,xS)已经使用正确Xj。重写以四熵恒等式消去该误植，原链照录。
+
+取消Xi exclusive后应留下MI(Xj;Y|Xi,XS)，原第三行却仍写Xi。下一行log分子p(xj,y|xi,xS)已经使用正确Xj。重写以四熵恒等式消去该误植，原链照录。
+
+只修作者证明变量，不改Eq7原命题及co-information约定。
+
+来源：src-neurips2021-robustness-supplement PDF 7
+
+## 任意 DNN 的全局 Taylor 等式不成立
+
+记录 ID：dyn-issue-taylor
+
+原 Lemma 3 没有解析或收敛前提。
+
+$v(t)=\max(t-1/2,0)$、基线0、输入1，是一层 ReLU 网络；在0邻域恒零，全部 Taylor 系数0，而单变量交互为1/2。
+
+原无条件命题被反驳；有限多项式支持分组是另列的有效子结果。
+
+来源：src-neurips2024-dynamics-formal PDF 18, src-neurips2024-dynamics-formal PDF 19
+
+## 零交互使归一化触发无定义
+
+记录 ID：dyn-issue-zero-trigger
+
+原 Eq.(7) 与 Lemma 2 对所有子集使用除法而未排非空零交互。
+
+恒定模型 $v=1$ 满足原 DNN 设置，所有非空 $I(T)=K_T=0$；对 $T\subseteq S$ 的触发是通常实数中无定义的0/0，不能约去得到1。
+
+保留原定义域问题，非零域的归一化证明不冒充原无条件命题。
+
+来源：src-neurips2024-dynamics-formal PDF 7, src-neurips2024-dynamics-formal PDF 19, src-neurips2024-dynamics-formal PDF 20, src-neurips2024-dynamics-formal PDF 22
+
+## Lemma 1 的边缘律不足以给方差和
+
+记录 ID：dyn-issue-marginal-independence
+
+正文只有 Gaussian 边缘，附录才新增 iid。
+
+一变量两个输出噪声共用 $Z\sim\mathcal N(0,\sigma^2)$，$\sigma>0$；全部边缘满足原条件而 $\Delta I_{\{1\}}=Z-Z=0$。PaperDynamics 的反例实际绑定 Gaussian map-law 与原交互。
+
+均值与线性恒等式有效；iid 方差另作为带明确原附录前提的子结果。
+
+来源：src-neurips2024-dynamics-formal PDF 7, src-neurips2024-dynamics-formal PDF 20, src-neurips2024-dynamics-formal PDF 21
+
+## 触发缩放与 Assumption 1 是不同模型
+
+记录 ID：dyn-issue-trigger-variance
+
+Lemma 1 的除以权重会引入逐概念比例；输出噪声也使多个交互相关。
+
+若 $w_{T_1}=1,w_{T_2}=2$，同一阶数的方差比例为1和1/4；不能使用同一个比例常数。
+
+Theorem 3 可在另外明确规定的 Assumption 1 下证明；不宣称该假设由 Lemma 1 推出。
+
+来源：src-neurips2024-dynamics-formal PDF 7, src-neurips2024-dynamics-formal PDF 8, src-neurips2024-dynamics-formal PDF 21
+
+## Gram 行列式不是对角项乘积
+
+记录 ID：dyn-issue-gram-determinant
+
+原 F.4 把特征值乘积误等同对角项乘积，并把零噪声对角罚项误称正定。
+
+一变量 zeta Gram 为 $\begin{pmatrix}2&1\\1&1\end{pmatrix}$，行列式1而对角积2；$\sigma=0$ 罚项为零。
+
+用 Möbius 单射证明 Gram 正定，再加半正定罚项；原最优命题无需新条件。
+
+来源：src-neurips2024-dynamics-formal PDF 22
+
+## 大样本协方差不能替代精确期望
+
+记录 ID：dyn-issue-expectation
+
+原证明把样本数足够大的近似收敛作为固定样本数的等式理由。
+
+逐行有 $E[\epsilon_T\epsilon_U]=0$（$T\ne U$）和 $E[\epsilon_T^2]=c_T$，求和恰为 $2^n\operatorname{diag}(c)$，无需行间独立或渐近。
+
+逐行精确期望补正同一证明，Lean 直接积分平方残差。
+
+来源：src-neurips2024-dynamics-formal PDF 21, src-neurips2024-dynamics-formal PDF 22
+
+## 标签向量转置错误
+
+记录 ID：dyn-issue-label-transpose
+
+原矩阵行是遮罩、列是概念，所以标签应用 J 而非其转置。
+
+$y_S=\sum_{T\subseteq S}w_T^*$ 正是 $(Jw^*)_S$；一变量取 $w^*=(1,2)$，$Jw^*=(1,3)$ 而 $J^\top w^*=(3,2)$。
+
+正文 Theorem 3 的末式正确，用正确标签补正证明。
+
+来源：src-neurips2024-dynamics-formal PDF 22
+
+## OR 证明的激活分组边界
+
+记录 ID：dyn-issue-or-grouping
+
+L 与 S 不交时，T 必须仍与 S 相交，不能把空激活项放入内和。另当 L 包含 S 但 L≠N 时，原声称内和零也无效。
+
+$N=\{1,2\},S=\{1\},L=\varnothing$：合法超集T为{1},{1,2}，激活块只取{1}，不是包括空块的二项式和。$L=S=\{1\}\ne N$ 时原内和仅一项1。
+
+全 OR 和减去不激活和给完整同命题证明。
+
+来源：src-neurips2024-dynamics-formal PDF 17, src-neurips2024-dynamics-formal PDF 18
+
+## Eq.(3) 使用未定义空 AND 项
+
+记录 ID：dyn-issue-eq3-empty
+
+主文 Eq.(2) 只定义非空分量交互，Eq.(3) 却包含空 AND 系数。F.1 规定的是空分量输出，不是主文空交互定义。
+
+若按通常 Möbius 公式补扩展 $I_a(\varnothing)=a(\varnothing)=b$，取常数网络 $v=1,a=1,o=0$，扩展后的 Eq.(3) 给2而原输出1；该例严格依赖此显式扩展。若约定空 AND 为0，重复消失，但主文 Eq.(2) 未给该约定。Eq.(4) 非空和正确。
+
+记录定义域/约定缺口及条件性反例，不能无说明把辅助扩展当作原定义再宣称原式已否定。
+
+来源：src-neurips2024-dynamics-formal PDF 3, src-neurips2024-dynamics-formal PDF 4, src-neurips2024-dynamics-formal PDF 16
+
+## 普通交互与分量交互同名作用域
+
+记录 ID：dyn-issue-and-scope
+
+Appendix A 七性质以完整模型 v 的普通交互使用该符号，主文 Eq.(2) 以 v_and 分量且只对非空S定义。
+
+两实例分别是 $I_g$ 与 $I_a$；任意拆分参数不能使 $I_a$ 单独重构完整 $g$，也不能从 $g=g_1+g_2$ 自动推出任意分量间同样关系。
+
+七性质按普通全模型实例保留原前提并证明；符号表明确记录两个局部映射。
+
+来源：src-neurips2024-dynamics-formal PDF 3, src-neurips2024-dynamics-formal PDF 14
+
+## Appendix E 半模型与裸 v 记号不一致
+
+记录 ID：dyn-issue-complement-half
+
+原先明确两个分量等于0.5v，随后 Eq.(14)–(16) 用裸v写变换，未交代是否重新命名分量模型。
+
+若裸v仍是同一总模型，取一变量 $v(x)=x$、基线0、输入1，原分量 OR 为1/2，Eq.(14) 裸v右端为1。若裸v指固定分量o，则负补集恒等式准确，实际Lean验证此忠实局部解释。
+
+保留原全部式与半模型前提；精确分量补集适配是有效子结果，不无说明宣称原每行缩放一致。
+
+来源：src-neurips2024-dynamics-formal PDF 15, src-neurips2024-dynamics-formal PDF 16
+
+## Appendix C 的分量标签和噪声拆分符号
+
+记录 ID：dyn-issue-split-sign
+
+原第一段把第二个分量也标为 AND，噪声段两个分量都加 gamma。
+
+取 $v(x_T)=1,\delta_T=0,\gamma_T=1$，两个原噪声分量均为3/2，总和3而目标输出1。
+
+保存原录文与精确反例；不把修改过的优化定义冒充原式。
+
+来源：src-neurips2024-dynamics-formal PDF 15
+
+## Proposition 1 严格子句失败，一般单调性未决
+
+记录 ID：dyn-issue-proposition1
+
+原命题未排零噪声，且原文仅给 Figure 3 数值验证，没有一般解析证明。
+
+$\sigma=0$ 时 $\hat M=I$，全部行范数1；例如一变量 $T=\varnothing,T\prime=\{1\}$ 的比为1而非大于1。Lean 给所有有限总体完整矩阵证明。
+
+仅严格原子句被反驳；同阶不变与真权重独立有效，正噪声一般阶数比及噪声单调子句保留未决，有限数值不替代。
+
+来源：src-neurips2024-dynamics-formal PDF 9, src-neurips2024-dynamics-formal PDF 23
+
+## 补集恒等式不足以传递稀疏定理前提
+
+记录 ID：dyn-issue-sparsity-transfer
+
+外引稀疏界有三个游戏条件，分量分解或反向输入尚未核实这些条件。
+
+精确的有限反演及补集变换只控制重构，不自动给最高阶零、平均单调与多项式界。
+
+外引适配保持范围审查，不冒称原渐近界机器已证。
+
+来源：src-neurips2024-dynamics-formal PDF 4, src-neurips2024-dynamics-formal PDF 14, src-neurips2024-dynamics-formal PDF 15, src-neurips2024-dynamics-formal PDF 16
+
+## Eq.(46) 导数漏公共归一化
+
+记录 ID：dyn-issue-derivative-scale
+
+Eq.(45)损失有2^{-n}，Eq.(46)导数未带该公共因子。
+
+真实梯度是原Eq.(46)右端乘 $2^{-n}$。该因子严格正，所以设梯度为0时得到同一正规方程；不改变唯一最优结论。
+
+保留原导数式，重写直接精确期望和完成平方，不依赖该漏因子。
+
+来源：src-neurips2024-dynamics-formal PDF 21
+
+## 原排列构造未说明每步为换位
+
+记录 ID：dyn-issue-permutation-involution
+
+Eq.(63)之后用P_i平方为单位，但此前只称每个P_i是permutation matrix，未说明是换位矩阵。
+
+三循环排列的平方不为单位。可以把所需有限变量排列分解为换位，各因子才满足该性质；也可直接对整体P用 $P^{-1}$ 共轭。实际Lean与重写使用正确的逆和置换。
+
+这是缺少构造说明的证明缺口，Theorem4同阶范数结论未被否定。
+
+来源：src-neurips2024-dynamics-formal PDF 23
+
+## B.2第三≥子句方向错误
+
+记录 ID：transformation-prefix-direction
+
+常数门与Y的MI为0，扩展门$(1,Y)$与Y的MI为$\log2$。两者由X确定，因此相应co-information也是0与$\log2>0$；原附录第三≥子句不成立。原Eq11≤0和正文increase方向仍正确。
+
+常数门与Y的MI为0，扩展门$(1,Y)$与Y的MI为$\log2$。两者由X确定，因此相应co-information也是0与$\log2>0$；原附录第三≥子句不成立。原Eq11≤0和正文increase方向仍正确。
+
+仅该附录子句被反驳；正文Property2与Eq11方向正确。
+
+来源：src-icml2022-transformation-formal PDF 14
+
+## IB条件独立推理的Y作用域复用
+
+记录 ID：transformation-ib-label-prediction
+
+取$X=Y\sim\mathrm{Bernoulli}(1/2)$。真实权重0、偏置1的ReLU特征对两个输入都等于1。因此唯一Z条件行的实际联合律仍为$p(0,0)=p(1,1)=1/2$；完整计算$I(X;Y\mid Z)=\log2>0$。Lean显式构造单元素Z联合条件律并连接实际ReLU常值计算。
+
+取$X=Y\sim\mathrm{Bernoulli}(1/2)$。真实权重0、偏置1的ReLU特征对两个输入都等于1。因此唯一Z条件行的实际联合律仍为$p(0,0)=p(1,1)=1/2$；完整计算$I(X;Y\mid Z)=\log2>0$。Lean显式构造单元素Z联合条件律并连接实际ReLU常值计算。
+
+预测确定于Z的读取成立；真实标签读取被实际ReLU反例反驳。保持两种作用域及原Y符号可追溯。
+
+来源：src-icml2022-transformation-formal PDF 2, src-icml2022-transformation-formal PDF 3, src-icml2022-transformation-formal PDF 4
+
+## Eq24字面公式为负
+
+记录 ID：transformation-kde-label-negative
+
+令层权重0、偏置1，两个输入的特征均$t_i=\operatorname{ReLU}(1)=1$；类别各半。添加独立Gaussian噪声后$\widehat T=1+\epsilon$仍独立于Y，故真实MI为0。任意概率特征律下常数标签条件核的MI0计算已验证。
+
+所有核都是1。全局项为$-\log1=0$；每类括号为$-(1/2)\log(1/2)$，再乘类权重1/2并求和。原RHS为$-(1/2)\log2<0$，既不是真实MI等式也不是其上界。反例不要求特征区分类别，源也无此要求。
+
+令层权重0、偏置1，两个输入的特征均$t_i=\operatorname{ReLU}(1)=1$；类别各半。添加独立Gaussian噪声后$\widehat T=1+\epsilon$仍独立于Y，故真实MI为0。任意概率特征律下常数标签条件核的MI0计算已验证。
+
+所有核都是1。全局项为$-\log1=0$；每类括号为$-(1/2)\log(1/2)$，再乘类权重1/2并求和。原RHS为$-(1/2)\log2<0$，既不是真实MI等式也不是其上界。反例不要求特征区分类别，源也无此要求。
+
+原公式保留，反驳该字面上界/等式；实验趋势保持原经验作用域。
+
+来源：src-icml2022-transformation-formal PDF 17
+
+## Eq25离散门熵界反例
+
+记录 ID：transformation-kde-discrete-bound
+
+门为等概率0/1，真实熵$\log2$、方差1/4。因此原$\sigma_0^2=\kappa\operatorname{Var}(\Sigma)$确实为$\kappa/4$，不使用自由带宽或零方差。
+
+每个样本核平均为$[1+\exp(-2/\kappa)]/2$。所以估计值$\log2-\log(1+\exp(-2/\kappa))$严格小于$\log2$，因为跨状态核严格正。
+
+门为等概率0/1，真实熵$\log2$、方差1/4。因此原$\sigma_0^2=\kappa\operatorname{Var}(\Sigma)$确实为$\kappa/4$，不使用自由带宽或零方差。
+
+每个样本核平均为$[1+\exp(-2/\kappa)]/2$。所以估计值$\log2-\log(1+\exp(-2/\kappa))$严格小于$\log2$，因为跨状态核严格正。
+
+原公式保留，反驳该字面上界/等式；实验趋势保持原经验作用域。
+
+来源：src-icml2022-transformation-formal PDF 17
+
+## Eq26随机dropout门MI界反例
+
+记录 ID：transformation-kde-randomness-bound
+
+四个等概率$(X,B)$状态推前到$(X,\Sigma)$得到质量$1/2,0,1/4,1/4$。dropout后ReLU确实产生该门，移除dropout得到X；这符合Eq26含额外随机性的前提。
+
+$\operatorname{Var}(\Sigma)=3/16$，故原带宽$16(3/16)=3$。真实$I(X;\Sigma)=(3/4)\log(4/3)\ge3/16$；移除采样后的二值核估计在h=3时不超过1/6，且$1/6<3/16$。
+
+四个等概率$(X,B)$状态推前到$(X,\Sigma)$得到质量$1/2,0,1/4,1/4$。dropout后ReLU确实产生该门，移除dropout得到X；这符合Eq26含额外随机性的前提。
+
+$\operatorname{Var}(\Sigma)=3/16$，故原带宽$16(3/16)=3$。真实$I(X;\Sigma)=(3/4)\log(4/3)\ge3/16$；移除采样后的二值核估计在h=3时不超过1/6，且$1/6<3/16$。
+
+原公式保留，反驳该字面上界/等式；实验趋势保持原经验作用域。
+
+来源：src-icml2022-transformation-formal PDF 17
+
+## Eq27正规类别权重下仍非上界
+
+记录 ID：transformation-kde-coinfo-bound
+
+门为等概率0/1，真实熵$\log2$、方差1/4。因此原$\sigma_0^2=\kappa\operatorname{Var}(\Sigma)$确实为$\kappa/4$，不使用自由带宽或零方差。
+
+各类只有一个门状态，自核为1，类条件KDE为$-\log1=0$。确定性给$I(\Sigma;Y\mid X)=0$，真实co-information为$I(\Sigma;Y)=\log2$。
+
+原RHS于是退化全局二值KDE，严格小于真实$\log2$。该反例不借助一般$p_m=n_m/M$的归一化错误；该错误另列。
+
+门为等概率0/1，真实熵$\log2$、方差1/4。因此原$\sigma_0^2=\kappa\operatorname{Var}(\Sigma)$确实为$\kappa/4$，不使用自由带宽或零方差。
+
+各类只有一个门状态，自核为1，类条件KDE为$-\log1=0$。确定性给$I(\Sigma;Y\mid X)=0$，真实co-information为$I(\Sigma;Y)=\log2$。
+
+原RHS于是退化全局二值KDE，严格小于真实$\log2$。该反例不借助一般$p_m=n_m/M$的归一化错误；该错误另列。
+
+原公式保留，反驳该字面上界/等式；实验趋势保持原经验作用域。
+
+来源：src-icml2022-transformation-formal PDF 18
+
+## Eq29精确合成边缘乘积仍非上界
+
+记录 ID：transformation-kde-tc-bound
+
+真实联合律$p_{00}=p_{11}=1/2$的TC为$\log2$。合成分布在四个二值状态上均匀，确实独立且逐坐标激活率与真实门一致。向量平方方差为1/2，故h为κ/2。
+
+令$t=\exp[-1/(2h)]>0$。对于真实00或11状态，分子为$2(1+t^2)$，分母为$1+2t+t^2=(1+t)^2$。四项相同，所以Eq29 RHS为$\log[2(1+t^2)/(1+t)^2]$。
+
+由于$2t>0$，比值严格小于2；log单调，故原核比上界严格小于真实TC=$\log2$。这是精确有限样本和精确边缘乘积，不是合成分布Monte Carlo误差。
+
+真实联合律$p_{00}=p_{11}=1/2$的TC为$\log2$。合成分布在四个二值状态上均匀，确实独立且逐坐标激活率与真实门一致。向量平方方差为1/2，故h为κ/2。
+
+令$t=\exp[-1/(2h)]>0$。对于真实00或11状态，分子为$2(1+t^2)$，分母为$1+2t+t^2=(1+t)^2$。四项相同，所以Eq29 RHS为$\log[2(1+t^2)/(1+t)^2]$。
+
+由于$2t>0$，比值严格小于2；log单调，故原核比上界严格小于真实TC=$\log2$。这是精确有限样本和精确边缘乘积，不是合成分布Monte Carlo误差。
+
+原公式保留，反驳该字面上界/等式；实验趋势保持原经验作用域。
+
+来源：src-icml2022-transformation-formal PDF 18
+
+## Eq27后的类别权重未归一化
+
+记录 ID：transformation-class-weights
+
+$\sum_mn_m=n$，所以$\sum_mp_m=n/M$，一般不是1；Eq24此前$p_l=P_l/P$正规。
+
+$\sum_mn_m=n$，所以$\sum_mp_m=n/M$，一般不是1；Eq24此前$p_l=P_l/P$正规。
+
+另列权重定义错误；Eq27反例即使n=M也成立。
+
+来源：src-icml2022-transformation-formal PDF 18
+
+## 连续近似Langevin更新的正值域边界
+
+记录 ID：transformation-ebm-domain
+
+添加Gaussian噪声给原更新算法，但有限步是否采到目标EBM没有在此证明。线性先验在s∈[0,1]且0<p̂<1时正，未约束Gaussian步可离开该域；例如p̂=3/4,s=−1时q=−1/4。这是具体域边界，不是否定作者已给的sigmoid松弛。
+
+添加Gaussian噪声给原更新算法，但有限步是否采到目标EBM没有在此证明。线性先验在s∈[0,1]且0<p̂<1时正，未约束Gaussian步可离开该域；例如p̂=3/4,s=−1时q=−1/4。这是具体域边界，不是否定作者已给的sigmoid松弛。
+
+作者已给sigmoid/Swish连续近似；需区分其正值域与未约束Gaussian采样状态。
+
+来源：src-icml2022-transformation-formal PDF 19, src-icml2022-transformation-formal PDF 20
+
+## 平均激活率不决定C
+
+记录 ID：transformation-activation-average
+
+$(1/2,1/2)$与$(0,1)$平均率都是1/2，但$C$分别2log2与0。因此PDF5由平均率收敛推出roughly constant不能仅由均值成立。此反例不否定PDF15逐坐标相似$a_l^d$或PDF6逐维实验。
+
+$(1/2,1/2)$与$(0,1)$平均率都是1/2，但$C$分别2log2与0。因此PDF5由平均率收敛推出roughly constant不能仅由均值成立。此反例不否定PDF15逐坐标相似$a_l^d$或PDF6逐维实验。
+
+只限定PDF5从跨维平均率到rough constant的推断，不否定逐坐标条件或精确Eq2/16。
+
+来源：src-icml2022-transformation-formal PDF 5
+
+## Eq34与35复用L但符号相反
+
+记录 ID：transformation-mle-sign
+
+原Eq34用L作正log最大化，Eq35/36用同名L作负log最小化/梯度。重写以负log损失为准，原式原样保留。
+
+原Eq34用L作正log最大化，Eq35/36用同名L作负log最小化/梯度。重写以负log损失为准，原式原样保留。
+
+优化目的可等价表达，但同名L的定义需区分。
+
+来源：src-icml2022-transformation-formal PDF 19
+
+## B.2第二子句重复Σ1
+
+记录 ID：transformation-prefix-index
+
+原第二bullet末索引印Σ1，而其证明Eq9完整使用Σl。重写按本条前缀作用域Σ1:l修下标；不修改原转录。
+
+原第二bullet末索引印Σ1，而其证明Eq9完整使用Σl。重写按本条前缀作用域Σ1:l修下标；不修改原转录。
+
+下标勘误；不改变正确前缀输入MI命题的作用域。
+
+来源：src-icml2022-transformation-formal PDF 14
+
+## 正文Swish等号需按原prose解释为近似
+
+记录 ID：transformation-swish-equality
+
+正文明确说can be approximated，但显示式写=；有限β且x=1时sigmoid(β)<1，所以不是精确ReLU值1。附录Eq41正确保留≈；重写导数属于连续近似本身。
+
+正文明确说can be approximated，但显示式写=；有限β且x=1时sigmoid(β)<1，所以不是精确ReLU值1。附录Eq41正确保留≈；重写导数属于连续近似本身。
+
+保留正文原等号和附录≈；不把平滑门当成硬门精确恒等式。
+
+来源：src-icml2022-transformation-formal PDF 8, src-icml2022-transformation-formal PDF 20
+
+## Appendix A门矩阵维度与池化下标笔误
+
+记录 ID：transformation-gate-matrix-index
+
+ReLU/dropout对象明确是D×D对角矩阵，却写属于{0,1}^D，向量是其对角值。池化选择条件写(h_l)_{d′}最大，却要定义行d′列d；应按窗口内输入索引d选择最大者。若最大值并列，需选择一个最大者，不能让多个1把值相加。
+
+ReLU/dropout对象明确是D×D对角矩阵，却写属于{0,1}^D，向量是其对角值。池化选择条件写(h_l)_{d′}最大，却要定义行d′列d；应按窗口内输入索引d选择最大者。若最大值并列，需选择一个最大者，不能让多个1把值相加。
+
+原文原样保留，固定门算子的维度与一个最大者选择在重写定义澄清；真实ReLU Eq1证明不受影响。
+
+来源：src-icml2022-transformation-formal PDF 13
+
+## 任意 DNN 的全局 Taylor 等式错误
+
+记录 ID：bnn-issue-taylor
+
+原Lemma2.1未给解析、收敛与合法分组条件。
+
+允许的ReLU网络 $v(t)=\max(t-1/2,0)$，参考0输入1：所有基线Taylor系数零而交互1/2。人读反例完整；Lean只验证有效有限多项式子结果。
+
+不修改原量词；有限多项式支持证明与原错误命题明确分开。
+
+来源：src-icml2023-bayesian-formal PDF 5, src-icml2023-bayesian-formal PDF 15, src-icml2023-bayesian-formal PDF 16
+
+## 奇次绝对触发的精确矩不等于有符号矩
+
+记录 ID：bnn-issue-folded-moments
+
+原Theorem2.3的J定义为绝对幂，而印出的均值/方差公式使用有符号Gaussian幂；正文虽明确忽略低概率越界，精确未截断等式仍不成立。
+
+一坐标$x=1,r=0,\tau=1,\pi=1,\epsilon\sim N(0,q)$，任意$q>0$：原J均值严格大于1，有符号均值1。PaperBayesian.general_moment_counterexample实际绑定原触发定义与Gaussian积分。平方相同还给真实方差小于q。
+
+该反例针对J，不否定真实最低交互的符号相消；Theorem2.4下界用独立乘积与绝对矩下界重新证明。
+
+来源：src-icml2023-bayesian-formal PDF 5, src-icml2023-bayesian-formal PDF 6, src-icml2023-bayesian-formal PDF 17, src-icml2023-bayesian-formal PDF 18
+
+## 移动符号系数与固定参考幅值的记号作用域
+
+记录 ID：bnn-issue-moving-coefficient
+
+Lemma的U定义含当前x′符号，但最低项矩式与附录证明又把U及δ按参考x取固定系数；二者不能无说明混同。
+
+真实最低多项式I=a∏(x_i′−r_i)可以跨符号区精确因式分解为U_ref∏(1+s_iε_i/τ)。这里U_ref=I(x)是固定基点值；U(x′)与J_abs(x′)配对才恢复同一I。
+
+提供忠实参考系数解释和完整实际交互证明；不将固定U×absJ反例误报成Theorem2.2真实I反例。
+
+来源：src-icml2023-bayesian-formal PDF 5, src-icml2023-bayesian-formal PDF 6, src-icml2023-bayesian-formal PDF 15, src-icml2023-bayesian-formal PDF 16, src-icml2023-bayesian-formal PDF 17
+
+## 零参考交互使触发比值无定义
+
+记录 ID：bnn-issue-zero-trigger
+
+作者没有排除精确为零的参考交互，定义及二值约去都会使用该分母。
+
+允许的常数网络v=1所有非空I=0，原归一化分子也0，得到通常实数中无定义的0/0。实际有限掩码支持律仍成立，但不能除以0。
+
+保留源定义域缺口；非零域的真实掩码声明只记有效适配，不覆盖原所有零系数。
+
+来源：src-icml2023-bayesian-formal PDF 7
+
+## 增长比的空支持与零噪声边界
+
+记录 ID：bnn-issue-growth-domain
+
+严格包含本身不排空旧支持，原Gaussian参数也未在该条排零噪声；这些比值需要非零方差。
+
+S为空时J_S=1；σ=0时全部坐标扰动0、所有J恒1，所以相应方差为0。有效域S非空、σ>0时，Gaussian无原子与整数幂证明方差正，完整增长主干已实际形式化。
+
+不将边界无定义升级为有效正噪声比较被否定，不把Lean总除法0当作作者约定。
+
+来源：src-icml2023-bayesian-formal PDF 6, src-icml2023-bayesian-formal PDF 18, src-icml2023-bayesian-formal PDF 19, src-icml2023-bayesian-formal PDF 20
+
+## 特征方差与交互尺度比值的零域
+
+记录 ID：bnn-issue-regression-domain
+
+原回归比例未排零特征方差，缩放界也未排零U导致的零交互方差。
+
+C1=C2=1,y*=1时独立常数特征损失(y*−U1−U2)^2有整条最优直线，而EC/VarC=1/0无定义。缩放若U=0，则I=0且VarI=0。
+
+真实期望损失的唯一全局最优已在正方差域证明；该条件不被隐藏为无条件原命题的机器证明。
+
+来源：src-icml2023-bayesian-formal PDF 7, src-icml2023-bayesian-formal PDF 8, src-icml2023-bayesian-formal PDF 20, src-icml2023-bayesian-formal PDF 21, src-icml2023-bayesian-formal PDF 22
+
+## 显著和缺激活条件且小残差未量化
+
+记录 ID：bnn-issue-salient-activation
+
+Eq5不同于Eq4，实际未写S⊆T，且“小”没有误差界；原式保留。
+
+真实单变量线性掩码得分c>0，空输出0而显著单例交互和c，残差−c。PaperBayesian.salient_empty_mask绑定真实掩码得分和交互和，但只证明该精确代数事实，不冒充未量化近似命题的机器反例。
+
+正确残差需同时计遗漏激活项与纳入的未激活项；没有统一小尾界时不证明小残差。
+
+来源：src-icml2023-bayesian-formal PDF 3, src-icml2023-bayesian-formal PDF 4
+
+## 外引稀疏与对抗关系未给完整本地适配
+
+记录 ID：bnn-issue-sparsity-adaptation
+
+外引技术前提不在本篇完整陈述；Appendix D代数分量关系不能自动转移所有对抗脆弱性结论。
+
+有限重构可产生密集游戏；多阶上下文平均混合多种概念阶数。已证明的差分分解仅是准确有限代数适配。
+
+保留外引与经验角色；不将条件库引理算成整篇无前提原结论。
+
+来源：src-icml2023-bayesian-formal PDF 3, src-icml2023-bayesian-formal PDF 12, src-icml2023-bayesian-formal PDF 13
+
+## 两端界下降不单独推出中间量阶数单调
+
+记录 ID：bnn-issue-order-inference
+
+源文保持approximately consider措辞；精确缩放界与后续近似推论是不同证明义务。
+
+Amin=.1,Amax=.2，KI为10、9，|U|分别.1、.2时，两端界下降但KC从1升至1.8。该逻辑例未声称完整BNN模型反例。
+
+整体阶数倾向还依赖近似模型、单项式到任意叠加的适配及经验数据。
+
+来源：src-icml2023-bayesian-formal PDF 8
+
+## 掩码零坐标的零次幂不能判为零
+
+记录 ID：bnn-issue-zero-degree
+
+原G1在未限制π_i>0时把所有掩码零坐标幂写成0。
+
+π_i=0时通常多项式约定0^0=1；正确筛选只删除支持包含某个未保留正次数变量的项。
+
+有限支持证明按严格正次数消去；不改原式，也不把该步骤修复当作任意DNN全局Taylor成立。
+
+来源：src-icml2023-bayesian-formal PDF 15
+
+## 单项方差到整个交互缺少协方差控制
+
+记录 ID：bnn-issue-superposition
+
+作者由单个绝对触发的支持增长及系数通常chaotic，粗略推出整个交互随阶数增长；没有系数概率律、交叉协方差或统一幅值前提。
+
+有限L2和的真实方差包含 $\sum_{\pi,\rho}c_\pi c_\rho\operatorname{Cov}(J_\pi,J_\rho)$；同输入上的重叠次数触发不自动独立，移动符号系数也不能当固定数移出积分。
+
+保留原近似措辞及其完整论述；有效单项增长证明不升级为任意Taylor和的统一跨阶结论。
+
+来源：src-icml2023-bayesian-formal PDF 6
+
+## 任意 DNN 的全局 Taylor 展开失败
+
+记录 ID：diff-issue-taylor
+
+作者未要求解析性、全局收敛或所有掩码上的合法展开。
+
+一维ReLU v(t)=max(t−1/2,0)，r0,x1，全部Taylor系数零而单例交互1/2。人读网络反例完整；Lean只验证真实有限多项式支持子结果。
+
+不把有限多项式机器类型扩成任意DNN原量词。
+
+来源：src-neurips2023-difficulty-formal PDF 4, src-neurips2023-difficulty-formal PDF 17, src-neurips2023-difficulty-formal PDF 18
+
+## 最低阶 J 自身的均值和方差错式
+
+记录 ID：diff-issue-lowest-absolute
+
+原对象J含绝对增量；小Gaussian不会几乎处处保持符号。
+
+单支持、τ1、ε~N(0,q),q>0时J=|1+ε|。实际Lean证明EJ>1及VarJ<q，完整原对象、真实法则和两个矩都已绑定。
+
+与F08及本篇G2显示的有符号最低I矩区分；这里只否定正文J精确子句，不由此否定附录I变体。
+
+来源：src-neurips2023-difficulty-formal PDF 5, src-neurips2023-difficulty-formal PDF 18, src-neurips2023-difficulty-formal PDF 19
+
+## 最低阶主文 J 与附录 I 的原陈述差异
+
+记录 ID：diff-issue-main-appendix-lowest
+
+正文Eq5写J自身矩；G2重述prose仍说J，显示式却为I并带U。Theorem2定义的U还含随x′变动的符号。
+
+原两个版本均完整保留。真实最低单项式的固定参考U矩已用actual maskedLowest及Gaussian法则形式化；空支持的固定输出基线另证均值b、方差0。
+
+不把主文folded反例扩大为附录signed I错误，也不将最低单项式类型扩大为任意DNN完整I。
+
+来源：src-neurips2023-difficulty-formal PDF 4, src-neurips2023-difficulty-formal PDF 5, src-neurips2023-difficulty-formal PDF 18, src-neurips2023-difficulty-formal PDF 19
+
+## 一般次数的绝对幂不能全改有符号幂
+
+记录 ID：diff-issue-general-absolute
+
+奇次幂在越过参考时与绝对幂不同，≪τ只为近似。
+
+π1=1复用实际最低J均值/方差反例。正确folded乘积矩有实际Gaussian L2和独立法则证明；偶数幂子域绝对值可消去。
+
+不将错误奇次子句扩大为所有整数次数错误。
+
+来源：src-neurips2023-difficulty-formal PDF 5, src-neurips2023-difficulty-formal PDF 19
+
+## Proposition1 方差项被再次平方
+
+记录 ID：diff-issue-product-variance-square
+
+原声明方差平方，下一Eq12却使用正确方差一次。
+
+真实k1 GaussianX~N(0,2)：VarX=2，打印右式4；机器绑定实际积分及方差。原乘积均值仍有效。
+
+公共正确product_variance不替换原Proposition。
+
+来源：src-neurips2023-difficulty-formal PDF 18
+
+## 零参考交互的触发商无定义
+
+记录 ID：diff-issue-zero-reference
+
+作者未排U_S=0，二值短证明直接约分。
+
+常数网络全部非空参考交互0；原商0/0，若当前交互变非零则不能固定零U表达。κ实际反例两个U非零，避开此域。
+
+有效非零域的掩码/线性适配已证明，但不隐去源零域。
+
+来源：src-neurips2023-difficulty-formal PDF 5, src-neurips2023-difficulty-formal PDF 6, src-neurips2023-difficulty-formal PDF 7, src-neurips2023-difficulty-formal PDF 20
+
+## G3 不触发分支的包含方向错
+
+记录 ID：diff-issue-binary-inclusion
+
+严格包含S⊊T不允许找到S\T元素。
+
+正确分支是S不包含于T；真实maskedGame支持律不依赖此错步。
+
+只修证明步骤，保留Theorem4原陈述及零U范围。
+
+来源：src-neurips2023-difficulty-formal PDF 20
+
+## 输入 r_i 与 b_i 局部切换
+
+记录 ID：diff-issue-reference-notation
+
+Eq21/24局部输入参考符号切换，需说明同一基线。
+
+原作者式原样保留；重写一致用r_i并与输出基线b区分。
+
+不由记号笔误单独否定非零域的二值结论。
+
+来源：src-neurips2023-difficulty-formal PDF 17, src-neurips2023-difficulty-formal PDF 20
+
+## 原 Eq25 内和错用 |L|=m
+
+记录 ID：diff-issue-multiorder-final-index
+
+按l分组内层应|L|=l，打印最终等式不是正确关系。
+
+真实N3, v=z1z2, x1,r0,m1：实际上下文平均1，打印右式0；实际Lean maskedPolynomial反例。
+
+不得把修过下标的公式标成原等式已证。
+
+来源：src-neurips2023-difficulty-formal PDF 21
+
+## 原 Eq25 包含上下文的计数错误
+
+记录 ID：diff-issue-multiorder-coefficient
+
+固定l个变量后应从剩余n−2−l变量选m−l。
+
+实际N4,v=z1z2z3,m2平均1，修内层但保留原系数时右式2。第二机器反例独立验证。
+
+公共一般上下文计数与l分组恒等式及论文n−2适配已机器完成，原最后错误式仍由两个反例分别否定。
+
+来源：src-neurips2023-difficulty-formal PDF 21
+
+## G5 Step3 省掉特征均值
+
+记录 ID：diff-issue-regression-mean
+
+Step2含μ_i，不能在跨特征比较无条件删除。
+
+真实独立Gaussian μ=(1,2),双方差1,y1，唯一最优(1/6,1/3)，比1/2而逆方差比1。Σ=Σ²=I使记号读法一致。
+
+保留有效期望损失、正规方程与唯一最优；Step2须按真实方差读法及非零分母限定，主反例专门反驳Step3。
+
+来源：src-neurips2023-difficulty-formal PDF 21
+
+## Σ 与 Σ² 的方差记号冲突
+
+记录 ID：diff-issue-covariance-square
+
+字面读法真实方差σ_i^4，后文比例使用σ_i²；故Step2也只能在将σ_i²解释真实方差d_i时与有效公式一致。
+
+原式保留；规范真实方差d_i。主反例取两方差1，在两个读法都否定丢μ。
+
+不无说明将原Σ²替换成diag真实方差。
+
+来源：src-neurips2023-difficulty-formal PDF 21
+
+## 跨数据不能约去变化的 |U_x|
+
+记录 ID：diff-issue-kappa-cancellation
+
+逐样本I=U_xC_x只给加权比值，U_x随参考x变化。
+
+标准化数据±1,均值0,τ1,r0,单ReLU max(t+1/2,0),b1/2；完整Gaussian明确σ，实际单例I及literal C积分给κ_I>κ_C。全部前提实际编译。
+
+原等号被原模型反例否定，指标I定义本身仍保留。
+
+来源：src-neurips2023-difficulty-formal PDF 7
+
+## chaotic 系数未控制整体协方差
+
+记录 ID：diff-issue-superposition
+
+单项J方差增长与加权I增长有额外协方差、幅值与移动系数条件。
+
+完整有限和方差有所有交叉协方差；源未给删除它们的定量前提。
+
+保留roughly近似解释，不伪造精确普遍结论。
+
+来源：src-neurips2023-difficulty-formal PDF 5
+
+## 条件外引与学习机制解释的缺失桥梁
+
+记录 ID：diff-issue-external-learning
+
+完整外引前提、学习率模型与不同频率对象的适配未在本篇给出。
+
+每条人读证明明确其实际源前提和所缺桥梁；Xu段为样本空间/损失景观频率，不能套F06中间特征DFT。
+
+不将经验/未量化解释加强成通用Lean定理，也不宣称完整外引定理被否定。
+
+来源：src-neurips2023-difficulty-formal PDF 3, src-neurips2023-difficulty-formal PDF 4, src-neurips2023-difficulty-formal PDF 6, src-neurips2023-difficulty-formal PDF 7, src-neurips2023-difficulty-formal PDF 8, src-neurips2023-difficulty-formal PDF 9, src-neurips2023-difficulty-formal PDF 10
+
+## 标准差、幅值和上下文平均的零域
+
+记录 ID：diff-issue-zero-metrics
+
+源未统一指定零标准差、零平均幅值、零Jaccard并集及无上下文平均的赋值。
+
+常数交互给标准差0；全零概念给幅值0和Jaccard0/0；m>n−2无合法上下文。τ0亦使原J除法无定义。
+
+所有有效条件范围明确保留，不用Lean的总运算约定替作者补定义。
+
+来源：src-neurips2023-difficulty-formal PDF 5, src-neurips2023-difficulty-formal PDF 7, src-neurips2023-difficulty-formal PDF 8, src-neurips2023-difficulty-formal PDF 9, src-neurips2023-difficulty-formal PDF 16, src-neurips2023-difficulty-formal PDF 21
+
+## 原几何/R/χ/τ商的零分母
+
+记录 ID：decoder-issue-quotient-domain
+
+θ=0或频率同坐标时，普通商0/0；χ完整和包含这些频率，不能排除必要项。有限和保留合法值n或K。
+
+θ=0或频率同坐标时，普通商0/0；χ完整和包含这些频率，不能排除必要项。有限和保留合法值n或K。
+
+全称商域问题；不否定有限DFT传播。
+
+来源：src-icml2023-decoder-formal PDF 4, src-icml2023-decoder-formal PDF 5, src-icml2023-decoder-formal PDF 6, src-icml2023-decoder-formal PDF 11, src-icml2023-decoder-formal PDF 17, src-icml2023-decoder-formal PDF 20, src-icml2023-decoder-formal PDF 23
+
+## Eq17正弦项数漏一项
+
+记录 ID：decoder-issue-valid-count
+
+M=N=3,K=2,u=v=0,u′=v′=1给正确有限和0、原式−1/9，两个分母都非0。原相位使用项数减1，恰为M−K与N−K，本身正确；错误仅正弦分子项数。
+
+M=N=3,K=2,u=v=0,u′=v′=1给正确有限和0、原式−1/9，两个分母都非0。原相位使用项数减1，恰为M−K与N−K，本身正确；错误仅正弦分子项数。
+
+仅无padding Eq17子式错误；circle Thm3.2不受牵连。
+
+来源：src-icml2023-decoder-formal PDF 13
+
+## A.2额外MN与层索引
+
+记录 ID：decoder-issue-cascade-typos
+
+正文β=MN乘全括号正确；A2末展开一行内多MN并把若干T层上标写l，逐层仿射归纳给正确同一命题。
+
+正文β=MN乘全括号正确；A2末展开一行内多MN并把若干T层上标写l，逐层仿射归纳给正确同一命题。
+
+修局部证明，不改正文Cor3.3。
+
+来源：src-icml2023-decoder-formal PDF 14
+
+## A.3 Eq24局部共轭遗漏
+
+记录 ID：decoder-issue-backprop-bars
+
+Eq24第一行g微分未带bar，第二行带bar；正文Eq5图上共轭完整，作者CR梯度约定从实梯度解释，不能把标准Wirtinger因子单独当原终式反例。
+
+Eq24第一行g微分未带bar，第二行带bar；正文Eq5图上共轭完整，作者CR梯度约定从实梯度解释，不能把标准Wirtinger因子单独当原终式反例。
+
+局部证明共轭修复；完整真实loss矩阵链现已实际验证。
+
+来源：src-icml2023-decoder-formal PDF 17
+
+## A.3漏输出通道求和及转置维度标注
+
+记录 ID：decoder-issue-backprop-channel-shape
+
+PDF17前层标量梯度左侧没有d，右侧却固定d且没有Σ_d，必须对全部输出通道求和。Eq22前文字把对(T的共轭转置)的导数标成D×C，实际g共轭列(C)与loss行(D)外积为C×D；T本身为D×C。重写从真实空间伴随和显式通道求和推导，不改变正确Eq23/正文Eq5矩阵终式。
+
+PDF17前层标量梯度左侧没有d，右侧却固定d且没有Σ_d，必须对全部输出通道求和。Eq22前文字把对(T的共轭转置)的导数标成D×C，实际g共轭列(C)与loss行(D)外积为C×D；T本身为D×C。重写从真实空间伴随和显式通道求和推导，不改变正确Eq23/正文Eq5矩阵终式。
+
+仅局部证明漏和/维度注修复，原完整矩阵更新命题不被此问题否定。
+
+来源：src-icml2023-decoder-formal PDF 17
+
+## 实Gaussian误写零复伪协方差
+
+记录 ID：decoder-issue-real-gaussian-cast
+
+实Gaussian复嵌入实际C(W)=σ²，非零方差时不是0；实际独立实线性组合得到原Eq27的C(T)=σ²R2u2v。
+
+实Gaussian复嵌入实际C(W)=σ²，非零方差时不是0；实际独立实线性组合得到原Eq27的C(T)=σ²R2u2v。
+
+原Eq27最终矩结论正确，错误在中间圆对称替换。
+
+来源：src-icml2023-decoder-formal PDF 19, src-icml2023-decoder-formal PDF 20
+
+## 显示一阶矩不足SOM乘积分解
+
+记录 ID：decoder-issue-weak-independence
+
+U与BU两Gaussian边缘满足显示一阶式但平方模乘积矩3≠1；多通道同列交叉矩也不在d≠d′且c≠c′的显示域。
+
+U与BU两Gaussian边缘满足显示一阶式但平方模乘积矩3≠1；多通道同列交叉矩也不在d≠d′且c≠c′的显示域。
+
+区分弱显示式与prose真正独立模型，后者可证明。
+
+来源：src-icml2023-decoder-formal PDF 5, src-icml2023-decoder-formal PDF 18, src-icml2023-decoder-formal PDF 19, src-icml2023-decoder-formal PDF 21, src-icml2023-decoder-formal PDF 22
+
+## K增大时SOM可下降
+
+记录 ID：decoder-issue-kernel-growth
+
+M=N=8,f=(4,0),μ1,σ²1/16，K1矩17/16而K2矩1/4；R随真实K改变。
+
+M=N=8,f=(4,0),μ1,σ²1/16，K1矩17/16而K2矩1/4；R随真实K改变。
+
+只反驳四参数列表的K全称子句。
+
+来源：src-icml2023-decoder-formal PDF 5
+
+## 实际独立GaussianSOM随深度下降
+
+记录 ID：decoder-issue-depth-growth
+
+真实独立N(0,1/4)、K1层响应给SOM=(1/4)^L，f=(1,1)也成立，正弦分母非0。
+
+真实独立N(0,1/4)、K1层响应给SOM=(1/4)^L，f=(1,1)也成立，正弦分母非0。
+
+否定无条件增加，保留正确product/log公式。
+
+来源：src-icml2023-decoder-formal PDF 5, src-icml2023-decoder-formal PDF 21, src-icml2023-decoder-formal PDF 22
+
+## 大核可加剧原频率不均衡
+
+记录 ID：decoder-issue-large-k-imbalance
+
+M=N8,μ=σ²=1，K2与4的DC/(4,0)矩比5→17。
+
+M=N8,μ=σ²=1，K2与4的DC/(4,0)矩比5→17。
+
+解释子句缺条件，不否定核矩公式。
+
+来源：src-icml2023-decoder-formal PDF 6, src-icml2023-decoder-formal PDF 27
+
+## Eq8遗漏两条边带
+
+记录 ID：decoder-issue-padding-definition
+
+打印零分支把m越界与n越界合取，只覆盖右下角；原文字edge-padding还需要两边带0。保留原打印条件，用原文字otherwise0定义算子。
+
+打印零分支把m越界与n越界合取，只覆盖右下角；原文字edge-padding还需要两边带0。保留原打印条件，用原文字otherwise0定义算子。
+
+定义排版域修复，与像素相关反例分开。
+
+来源：src-icml2023-decoder-formal PDF 6
+
+## 边缘Gaussian不足padding矩等式
+
+记录 ID：decoder-issue-padding-iid
+
+四像素同一U~N(0,q)，2×2补3×3，f11旧谱0新谱U(1+z)²，SOM差q而a0右边0。实际全源条件满足，原proof额外iid未加进命题。
+
+四像素同一U~N(0,q)，2×2补3×3，f11旧谱0新谱U(1+z)²，SOM差q而a0右边0。实际全源条件满足，原proof额外iid未加进命题。
+
+原非DC子句反例，DC相等仍正确。
+
+来源：src-icml2023-decoder-formal PDF 6, src-icml2023-decoder-formal PDF 22, src-icml2023-decoder-formal PDF 23
+
+## 移位设置不总减第一个幅值
+
+记录 ID：decoder-issue-phase-magnitude
+
+α3,φ0满足原α>0,φ<π/2但|1−A|2>1。
+
+α3,φ0满足原α>0,φ<π/2但|1−A|2>1。
+
+只影响设置的幅值解释；真实一步反例另取合法α1/4。
+
+来源：src-icml2023-decoder-formal PDF 6, src-icml2023-decoder-formal PDF 7
+
+## 满足43–46的真实网络仍一步非零loss
+
+记录 ID：decoder-issue-one-step
+
+两层identity2×2核、4×4δ输入、f01/f10、α1/4满足λ1=λ2=1、φ0、两层响应1和bypass和2。真实两层实梯度(0,−2α,2α,0)，任意η>0后Im H10=−2c(1+c)≠0。
+
+两层identity2×2核、4×4δ输入、f01/f10、α1/4满足λ1=λ2=1、φ0、两层响应1和bypass和2。真实两层实梯度(0,−2α,2α,0)，任意η>0后Im H10=−2c(1+c)≠0。
+
+精确一步零loss子句被反驳；不牵连DFT传播与矩定理。
+
+来源：src-icml2023-decoder-formal PDF 7, src-icml2023-decoder-formal PDF 24, src-icml2023-decoder-formal PDF 25, src-icml2023-decoder-formal PDF 26
+
+## Eq56归一化与Eq57自指
+
+记录 ID：decoder-issue-gradient-norm
+
+q=(MN)−1正相位DFT时Parseval给Σr²=MNΣ|q|²；Eq57中间印η√||ΔW||²应是梯度范数链。
+
+q=(MN)−1正相位DFT时Parseval给Σr²=MNΣ|q|²；Eq57中间印η√||ΔW||²应是梯度范数链。
+
+局部尺度/排版修复不挽救原精确一步命题。
+
+来源：src-icml2023-decoder-formal PDF 26
+
+## 未编号频率/训练推断的条件范围
+
+记录 ID：decoder-issue-inference-scope
+
+B1–4、main8、C6/C7从矩、输入幅值、层积或低Pearson相关推出训练/概率结论，原没有补齐响应下界、联合随机模型或概率量化。原完整作者链各条保留。
+
+B1–4、main8、C6/C7从矩、输入幅值、层积或低Pearson相关推出训练/概率结论，原没有补齐响应下界、联合随机模型或概率量化。原完整作者链各条保留。
+
+精确恒等式、条件比较、未量化解释分开，不把所有issue叫整定理错误。
+
+来源：src-icml2023-decoder-formal PDF 6, src-icml2023-decoder-formal PDF 8, src-icml2023-decoder-formal PDF 25, src-icml2023-decoder-formal PDF 26, src-icml2023-decoder-formal PDF 27, src-icml2023-decoder-formal PDF 32, src-icml2023-decoder-formal PDF 33
+
 ## Table7若沿用相邻概率输出尺度，则数值不相容；本节未说明尺度变化
 
 记录 ID：cvpr-issue-bow-table7-probability-scale

@@ -1,6 +1,17 @@
 """English explanations of canonical concepts; source notation is preserved."""
 NAMES={
 'sym-model':'Scalar model output','sym-input':'Fixed input','sym-universe':'Finite variable universe','sym-variable-count':'Number of variables','sym-coalition':'Variable subset','sym-input-baseline':'Input baseline vector','sym-mask':'Input retaining subset S','sym-game':'Masked-output set function','sym-output-baseline':'Scalar output baseline','sym-centered-game':'Centered output game','sym-and-interaction':'Raw Harsanyi interaction','sym-order':'Interaction order','sym-cvpr-source-state':'Binary retained-variable state','sym-cvpr-trigger':'AND pattern activation','sym-cvpr-causal-output':'Causal-graph output','sym-cvpr-pattern-set':'Retained pattern family','sym-cvpr-alternative-coefficients':'Alternative reconstruction coefficients','sym-cvpr-context-interaction':'Context interaction with variable i retained','sym-cvpr-permutation':'Variable permutation','sym-cvpr-pure-and-coefficient':'Constant pure-AND effect','sym-cvpr-marginal':'Higher-order marginal difference in an environment','sym-shapley':'Classical Shapley value','sym-cvpr-sii':'Shapley interaction index','sym-cvpr-sti':'Shapley-Taylor index','sym-cvpr-sti-order':'Maximum retained Shapley-Taylor order','sym-cvpr-beta':'Auxiliary beta function','sym-cvpr-coefficient-weight':'Combinatorial coefficient after reindexing','sym-cvpr-support-budget':'Maximum retained-pattern count','sym-cvpr-lasso-penalty':'Sparsity penalty coefficient','sym-cvpr-unfaithfulness':'Squared residual sum over all masks','sym-cvpr-residual':'Unexplained full-input effect','sym-cvpr-explained-ratio':'Explained-effect ratio','sym-cvpr-aog':'And-Or graph','sym-cvpr-node-set':'AOG node dictionary','sym-cvpr-shared-node':'Shared AND subpattern node','sym-cvpr-children':'Child nodes forming a pattern','sym-cvpr-description-length':'Total minimum description length','sym-cvpr-mdl-efficiency':'Description-length change rate','sym-cvpr-baseline-radius':'Allowed baseline-learning radius','sym-cvpr-label-threshold':'Ground-truth pattern activation threshold','sym-input-coordinate':'Input coordinate','sym-centered-interaction':'Centered Harsanyi interaction','cutoff-order':'Maximum nonzero interaction or derivative order','mask-order':'Number of retained variables','interaction-order-index':'Interaction-order index','mean-output':'Mean masked output at order m','robustness-exponent':'Mean-output robustness exponent','order-total':'Signed total of order-k interactions','cancellation-ratio':'Signed cancellation ratio','salient-count':'Number of salient order-k interactions','salience-threshold':'Interaction salience threshold','normalized-interaction':'Normalized interaction','mean-strength':'Mean absolute strength by order','leading-coefficient':'Normalized leading-block coefficient','leading-aggregate':'Weighted leading-block sum at m0','growth-offset':'Common exponent offset of the highest base-n block','nary-degree':'Highest base-n degree at order k','nary-digit':'Lower-order base-n coefficient','nary-aggregate':'Weighted lower-block sum at m0','witness-order':'Retained-variable count witnessing a nonzero leading block','taylor-multiindex':'Taylor multi-index','taylor-support-class':'Multi-indices with support exactly S','taylor-restricted-class':'Multi-indices with support contained in S','mixed-derivative':'Mixed derivative at the input baseline','sym-centered-or-interaction':'Centered OR interaction','and-component':'AND output component','or-component':'OR output component','decomposition-parameter':'AND-OR decomposition parameter','output-noise':'Masked-output noise','noise-bound':'Bound on learnable noise magnitude','output-filter-threshold':'Confidence threshold for sample filtering','sample-count':'Sampled-mask count by order','sym-coordinate-direction':'Coordinate unit direction','sym-coordinate-step':'Actual coordinate difference step','sym-coordinate-partial':'Classical coordinate derivative','sym-rectangular-difference':'Finite translation difference','sym-and-output':'AND component set function','sym-or-output':'OR component set function','sym-and-component-interaction':'Interaction of the AND component','sym-or-interaction':'OR interaction','sym-or-component-interaction':'Interaction of the OR component','sym-conditional-interaction':'Interaction of a conditional masked game','sym-threshold':'Salience threshold','sym-significant-set':'Salient-interaction family','sym-model-count':'Number of models','sym-shared-interactions':'Interactions salient in every model','sym-transferability':'Transferability ratio','sym-decomposition-parameter':'Decomposition parameter','sym-common-gamma':'Shared decomposition parameter','sym-individual-gamma':'Model-specific decomposition parameter','sym-gamma-threshold':'Decomposition-difference threshold','sym-interaction-matrix':'Interaction matrix','sym-rowmax':'Maximum absolute magnitude in each row','sym-entrywise-l1':'Entrywise absolute-value sum','sym-redundancy-weight':'Redundancy penalty weight','sym-gaussian-noise':'IID random output noise','sym-noise-variance':'Variance of one output perturbation','sym-learned-error':'Learnable deterministic output error','sym-error-threshold':'Learned-error threshold','sym-matching-precision':'Top-k matching precision','sym-mobius-transform':'Finite-set Mobius transform'}
+NAMES.update({
+ 'sym-coalition-total-effect':'Sum of AND and OR interactions',
+ 'sym-coalition-attribution':'Coalition attribution',
+ 'sym-coalition-banzhaf':'Banzhaf value',
+ 'sym-coalition-uniform-share':'Single-variable equal share within a coalition',
+ 'sym-coalition-individual-conflict':'Single-variable conflict from partial coverage',
+ 'sym-coalition-total-conflict':'Total coalition conflict attribution',
+ 'sym-coalition-metric-R':'Coalition faithfulness ratio R',
+ 'sym-coalition-metric-Rprime':'Coalition faithfulness ratio R-prime',
+ 'sym-coalition-metric-Q':'Coalition faithfulness ratio Q',
+})
 NOTES={
 'sym-model':'This is the model value, distinct from its induced set function.',
 'sym-input':'The input remains fixed during one interaction calculation.',
@@ -57,6 +68,20 @@ NOTES={
 'sym-mobius-transform':'The acting function f fixes the empty value. Raw g, centered g0, AND components and repeated-mask components are distinct instances.'}
 
 def translate_symbol(sym):
+ from symbol_context_english import translate_context
  ident=sym['id'];provided=sym.get('translations',{}).get('en',{})
- name=provided.get('name_en') or provided.get('name_zh') or sym.get('name_en') or NAMES.get(ident,ident.replace('sym-','').replace('-',' ').capitalize())
- return {'name_zh':name,'name_en':name,'description_md':NOTES.get(ident,name+'. Its exact definition and source-specific domain are recorded by the formula and mappings below.'),**provided}
+ name=provided.get('name_en') or provided.get('name_zh') or sym.get('name_en') or NAMES.get(ident,sym.get('name_zh',''))
+ description=NOTES.get(ident,name if sym.get('description_md')==sym.get('name_zh') else sym.get('description_md',''))
+ result={'name_zh':name,'name_en':name,'description_md':description,**provided}
+ for field in ['type_or_domain','scope','assumptions','empty_set_convention','baseline_convention']:
+  if sym.get(field) and field not in result:result[field]=translate_context(sym[field])
+ if sym.get('scope_variants'):result['scope_variants']=[{**{key:translate_context(value) for key,value in item.items() if key in {'scope','type_or_domain'}},**item.get('translations',{}).get('en',{})} for item in sym['scope_variants']]
+ mappings=[]
+ supplied=provided.get('paper_mappings',[])
+ for index,mapping in enumerate(sym.get('paper_mappings',[])):
+  overlay={field:translate_context(mapping[field]) for field in ['note','conflict_note'] if mapping.get(field)}
+  overlay.update(mapping.get('translations',{}).get('en',{}))
+  if index<len(supplied):overlay.update({key:value for key,value in supplied[index].items() if key in {'note','conflict_note'}})
+  mappings.append(overlay)
+ if any(mappings):result['paper_mappings']=mappings
+ return result

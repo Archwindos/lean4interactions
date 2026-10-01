@@ -1,0 +1,68 @@
+where the interaction triggering function JT (x) is a real-valued approximation of the binary indicator
+function 1(x̂S triggers the AND relation T ) in Eq. (3) and returns the triggering value of the interaction
+pattern T . In particular, we set w∅ = v(x = x̂∅ ), J∅ (x) = 1. JT (x) is computed as a sum of
+compositional terms in the Taylor expansion of v(x).
+                               X          1      ∂ π1 +···+πn v          Y
+                   JT (x) =          Qn            π1        πn                (xi − bi )πi /wT ,          (7)
+                              π∈QT     i=1 πi ! ∂x1 · · · ∂xn     x=x∅
+                                                                         i∈T
+
+ where the scalar weight wT should be computed as wT = I(T |x = x̂) to satisfy the equality in Eq. (6),
+and QT = {[π1 , . . . , πn ]⊤ : ∀i ∈ T, πi ∈ N+ ; ∀i ̸∈ T, πi = 0}. See Appendix F.2 for proof.
+Understanding JT (x) and wT . Let us consider a masked sample x̂S in which input variables in
+N \ S are masked. If T ⊆ S , which means all input variables in T are not masked in x̂S , then
+JT (x̂S ) = 1, indicating the interaction pattern is triggered; otherwise, JT (x̂S ) = 0, indicating the
+interaction pattern is not triggered. wT is a scalar
+                                                 P       weight. Particularly, let If (T |x) denote the
+interaction extracted from the function f (x) = T ⊆N wT JT (x), then we have If (T |x) = wT .
+• Step 2: Based on Eq. (6), the learning of the DNN on an input sample can be reformulated as
+learning the scalar weight wT for each interaction triggering function JT (x), under a linear
+regression setting. We can roughly consider the learning problem as a linear regression to a set
+of potentially true interactions, because it has been discovered by [21, 4] that different DNNs for
+the same task usually encode similar sets of interactions. Therefore, the learning of a DNN can be
+considered as training a model to fit a set of pre-defined interactions. In spite of the above simplifying
+settings, subsequent experiments in Figure 4 still verify that our theoretical results can well predict
+the learning dynamics of interactions in real DNNs.
+Specifically, let the DNN be trained on a set of samples D = {(x, y)}. According to The-
+orem 2, given each training sample x, output scores of the finally converged DNN on all 2n
+                                                                                    def
+randomly   masked samples {xS : S ⊆ N } can beP         written in the form of yS = y(xS ) = v(x∅ )+
+  ∅̸=T ⊆N 1(xS triggers interaction T ) · wT = v(x∅ ) +
+P                                          ∗                      ∗
+                                                         ∅̸=T ⊆S wT , which is determined by parameters
+   ∗           11    ∗
+{wT : T ⊆ N } . {wT : T ⊆ N } can be taken as a set of true interactions that the DNN needs to learn.
+Therefore, the learning of the converged interactions on the training sample x can be represented as
+the regression towards the converged function y(xS ) on all masked samples {(xS , yS ) : S ⊆ N }.
+
+                                  L(w) = ES⊆N [(yS − w⊤ J (xS ))2 ].                                       (8)
+                                                       def                                  n
+where we simplify the notation as follows. w = vec({wT : T ⊆ N }) ∈ R2 denotes the weight
+                                                 def                            n
+vector of 2n different interactions, and J (xS ) = vec({JT (xS ) : T ⊆ N }) ∈ R2 denotes the vector of
+triggering values of 2n different interactions {T ⊆ N } on the masked sample xS .
+• Step 3: Directly optimizing Eq. (8) gives the interactions of the finally converged DNN
+wT ← wT∗ , but how do we estimate the interactions in an intermediate time point during the
+training process? To this end, we assume that the training process of the DNN is subject to parameter
+noises (see Lemma 1). In fact, this assumption is common. Before training, randomly initialized
+parameters in the DNN are pure noises without clear meanings. In this way, the DNN’s training
+process can be viewed as a process of gradually reducing the noise on its parameters. This is also
+supported by the lottery ticket hypothesis [10], i.e., the learning process actually penalizes most
+noisy parameters and learns a very small number of meaningful parameters. Therefore, as training
+proceeds, the noise on the network parameters can be considered to gradually diminish.
+Lemma 1 (Noisy triggering function, proven in Appendix F.3). If the inference score of the DNN
+contains an unlearnable noise, i.e., ∀S ⊆ N, ve(xS ) = v(xS ) + ∆vS , ∆vS ∼ N (0, σ 2 ), then the
+interaction between input variables w.r.t. ∅ ≠ T ⊆ N , extracted from inference scores {e    v (xS )} can
+               e |x) = I(T |x) + ∆IT , where ∆IT denotes the noise in the interaction caused by
+be written as I(T
+the noise in the output ∆vS , and we have E[∆IT ] = 0 and Var[∆IT ] = 2|T | σ 2 . In this way, given an
+input sample x̂, we can consider the scalar weight wT = I(T |x = x̂), and consider the interaction
+triggering function JeT (x) = JT (x) + ϵT , where JT (x) is defined in Eq. (7). ϵT = ∆IT /wT represents
+the noise term on the triggering function. We have E[ϵT ] = 0 and Var[ϵT ] ∝ 2|T | σ 2 w.r.t. noises.
+  11
+     Note that in the converged output yS , the true interactions {wT∗ : T ⊆ N } actually mean interactions
+extracted from the finally converged DNN, which probably contain over-fitted interaction patterns. I.e., {wT∗ :
+T ⊆ N } is not the ideal representation for the task.
+
+
+                                                       7

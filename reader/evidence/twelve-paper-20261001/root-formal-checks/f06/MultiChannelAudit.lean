@@ -1,0 +1,9 @@
+import Harsanyi.Extensions.DecoderMultiChannel
+#print Harsanyi.Frequency.MultiChannel.actual_cascade_uniform_moments
+#print axioms Harsanyi.Frequency.MultiChannel.actual_cascade_uniform_moments
+#print Harsanyi.Frequency.MultiChannel.finite_affine_expansion
+#print axioms Harsanyi.Frequency.MultiChannel.finite_affine_expansion
+#print Harsanyi.Frequency.MultiChannel.som_sequence_source_closed
+#print axioms Harsanyi.Frequency.MultiChannel.som_sequence_source_closed
+#print Harsanyi.Frequency.MultiChannel.actual_gaussian_cascade_closed
+#print axioms Harsanyi.Frequency.MultiChannel.actual_gaussian_cascade_closed

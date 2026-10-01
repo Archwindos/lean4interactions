@@ -54,3 +54,33 @@ def test_missing_or_chinese_proof_text_is_not_complete(missing):
  if missing in {'assumptions','definitions','proof_scope'}:del en[missing]
  else:en['proof_steps'][0][missing]='未翻译'
  with pytest.raises(ValueError,match='Incomplete English'):validate_translations({'results':[n],'shared_proofs':[]})
+
+def test_empty_english_assumption_and_definition_are_rejected():
+ n=node();n['translations']['en']['assumptions']=[''];n['translations']['en']['definitions'][0]['body_md']=''
+ with pytest.raises(ValueError,match='Incomplete English'):validate_translations({'results':[n],'shared_proofs':[]})
+
+def test_symbol_domain_and_mapping_explanations_need_real_translation():
+ symbol={'id':'symbol','canonical_tex':'x','name_zh':'输入','type_or_domain':'输入域','scope':'固定样本',
+  'paper_mappings':[{'paper_id':'paper','original_tex':'x','relation_type':'same_definition','conflict_note':'局部作用域'}],
+  'translations':{'en':{'name_zh':'Input','type_or_domain':'Input domain','scope':'Fixed sample','paper_mappings':[{'conflict_note':''}]}}}
+ with pytest.raises(ValueError,match='Incomplete English'):validate_translations({'results':[],'shared_proofs':[],'symbols':[symbol]})
+ symbol['translations']['en']['paper_mappings'][0]['conflict_note']='The symbol has a local scope.'
+ assert validate_translations({'results':[],'shared_proofs':[],'symbols':[symbol]})['status']=='passed'
+ assert merge_overlay(symbol,symbol['translations']['en'])['paper_mappings'][0]['original_tex']=='x'
+
+def test_scope_variant_conventions_cannot_disappear_in_english():
+ symbol={'id':'symbol','scope_variants':[{'scope':'局部集合函数','baseline_convention':'保留非零基线'}],
+  'translations':{'en':{'scope_variants':[{'scope':'Local set function','baseline_convention':''}]}}}
+ with pytest.raises(ValueError,match='Incomplete English'):validate_translations({'results':[],'shared_proofs':[],'symbols':[symbol]})
+ symbol['translations']['en']['scope_variants'][0]['baseline_convention']='Preserve a nonzero baseline.'
+ assert validate_translations({'results':[],'shared_proofs':[],'symbols':[symbol]})['status']=='passed'
+
+def test_new_author_scope_translation_overrides_an_unknown_dictionary_entry():
+ from symbols_english import translate_symbol
+ symbol={'id':'new-symbol','name_zh':'新局部概念',
+  'scope_variants':[{'type_or_domain':'作者新增的精确域','scope':'作者新增的局部范围',
+   'translations':{'en':{'type_or_domain':'The source-specific domain.', 'scope':'The local scope supplied by the author.'}}}],
+  'translations':{'en':{'name_zh':'New local concept'}}}
+ symbol['translations']['en']=translate_symbol(symbol)
+ assert validate_translations({'results':[],'shared_proofs':[],'symbols':[symbol]})['status']=='passed'
+ assert symbol['translations']['en']['scope_variants'][0]['scope']=='The local scope supplied by the author.'

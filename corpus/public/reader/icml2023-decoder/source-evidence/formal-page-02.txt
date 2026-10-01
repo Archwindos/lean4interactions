@@ -1,0 +1,68 @@
+                              Defects of Convolutional Decoder Networks in Frequency Representation
+
+                     Epoch:                                    Map size:                         Shifting Shifting Shifting
+  Input    50      100    300      400       Input    4×4     8×8    16×16 32×32         Input    1 unit 4 units 8 units
+
+
+                                                                                                                                        (c.2)
+
+
+
+                                                                                                                                        (c.3)
+
+
+
+                       (a)                                        (b)                   (c)         (c.1) RMSE errors of
+                                                                                                   fitting the target image
+
+Figure 1. Three representation problems with a cascaded convolutional decoder network. (a) The convolution operation and the zero-
+padding operation make the decoder usually learn low-frequency components first and then gradually learn higher frequencies. (b) For
+cascaded upconvolutional layers, the upsampling operation in the decoder repeats strong frequency components of the input to generate
+spectrums of upper layers. High-frequency components in magnitude maps in (b) are also weakened by the convolution operation after
+upsampling. We visualize the magnitude map of the feature spectrum, which is averaged over all channels. For clarity, we move low
+frequencies to the center of the spectrum map, and move high frequencies to the corners of the spectrum map. (c) The auto-encoder
+usually cannot be trained to fit the target output, whose specific frequency components have a small shift from the spectrum of the input
+image. We visualize the heatmap of fitting errors (c.1), i.e., the root mean squared error (RMSE), visualize the histogram of fitting errors
+over different pixels (c.2), and report the learning difficulty k∆Wk (c.3). Here, results in (c.2) and (c.3) are averaged over different DNNs.
+Note that for magnitude maps in (a), we set the magnitude of the fundamental frequency to be the same with the magnitude of the second
+significant frequency.
+
+
+operations in the decoder, we have conducted experiments,                   atively slowly learned the high-frequency ones. Ma et al.
+which have successfully verified such defects in differ-                    (2020) further explored the boundary of the F-Principle,
+ent multi-layer decoder networks with ReLU layers. This                     beyond which the F-Principle did not hold anymore. Be-
+proves the trustworthiness of our theorems. Note that we                    sides, Lin et al. (2019) empirically proposed to smooth
+have not derived the property of max-pooling operations, so                 out high-frequency components to improve the adversarial
+in this paper, it is difficult to extend such findings to neural            robustness. In comparison, we focus on a fully different
+networks for image classification.                                          type of frequency, i.e., the frequency w.r.t. the DFT on an
+                                                                            input image or a feature map.
+Discussions on two types of frequencies. People usually
+analyze feature representations of a network considering                    In this direction, previous studies mainly experimentally
+two types of frequencies. (Xu et al., 2019a; Rahaman et al.,                analyzed the relationship between the learning of different
+2019) took the landscape of the loss function on all input                  frequencies and the robustness of a DNN. Yin et al. (2019)
+samples as the time domain to analyze the frequency in the                  conducted a lot of experiments to analyze the robustness
+sample space. In comparison, we focus on the second type                    of a DNN w.r.t. different frequencies of the image. They
+of frequency, i.e., we apply DFT to each channel of the                     discovered that both adversarial training and Gaussian data
+intermediate-layer feature of a convolutional decoder and                   augmentation improved the DNN’s robustness to higher
+analyze defects in representing specific frequencies.                       frequencies. Wang et al. (2020) empirically proposed to re-
+                                                                            move high-frequency components of convolutional weights
+2. Related work                                                             to improve the adversarial robustness. In comparison, we
+                                                                            theoretically prove representation defects of DNNs in the
+Although few previous studies directly prove a DNN’s de-                    frequency domain.
+fects from the perspective of representing specific feature
+                                                                            In fact, many studies explained the representation capacity
+components, we still make a survey on research on the rep-
+                                                                            of a DNN in the time domain. The information bottle-
+resentation capacity of a DNN.
+                                                                            neck hypothesis (Tishby & Zaslavsky, 2015; Shwartz-Ziv
+Some studies focused on a specific frequency that took                      & Tishby, 2017; Wolchover & Reading, 2017; Amjad &
+the landscape of the loss function on all input samples as                  Geiger, 2019) showed that the learning process of DNNs
+the time domain (Xu et al., 2019b; Rahaman et al., 2019;                    was to retain the task-relevant input information and dis-
+Xu et al., 2019a; Luo et al., 2019). Based on such a spe-                   carded the task-irrelevant input information. The lottery
+cific frequency, they observed and proved a phenomenon                      ticket hypothesis (Frankle & Carbin, 2018) showed that
+namely Frequency Principle (F-Principle) that a DNN first                   some initial parameters of DNNs inherently contributed
+quickly learned low-frequency components, and then rel-                     more to the network output. The double-descent phe-
+
+
+                                                                        2
+

@@ -58,4 +58,14 @@ lake exe demo
 | `Harsanyi.Extensions.Noise` | 实际随机变量的交互方差与掩码噪声桥接 | 概率测度、噪声分布与独立性；固定模型输出和自适应参数须分清 |
 | `Harsanyi.Extensions.DerivativeCutoff` | 混合偏导恒零、矩形有限差分、实际掩码交互截断 | 经典导数必须真实存在；不能只用 Lean 总函数 `deriv` 的数值为零代替可微性 |
 
-共享库声明与某篇论文的应用是两个层次：公共库用于复用，论文适配核对原符号、基线和量词。全部论文应用及其独立报告见 `research/full-proof-integration-20260930/`；三包验证不会自动构建这个目录的所有研究文件。新下游仍须单独构建并审计。
+独立扩展从当前真实报告查询，不包含在基础 barrel 的审计范围中。从根目录执行 `python reader/architecture/paper_agent.py library Harsanyi.Robustness.pairDelta_baseline`，读取实际 `import`、类型、源路径及当前证据。[ExtensionConsumer.lean](../examples/library-consumer/ExtensionConsumer.lean) 在独立下游直接导入 `Harsanyi.Extensions.RobustnessFinite`，组合三条公共引理证明非零基线也适用的二阶交互仿射比例律。
+
+```bash
+source scripts/env.sh
+cd examples/library-consumer
+lake env lean ExtensionConsumer.lean
+```
+
+根目录的 `python reader/check_library_consumer.py` 重跑公共模块构建、实际消费证明和类型/公理审计；它不改基础 API 目录。公共证明、空上下文平均定义与原论文商式适配的边界见 [AI 使用库](ai-use-library.md)。
+
+共享库声明与某篇论文的应用是两个层次：公共库用于复用，论文适配核对原符号、基线和量词。当前论文应用及独立报告以 `corpus/public/reader/input-manifest.json` 与查询接口为准；`research/full-proof-integration-20260930/` 保留历史应用和报告。三包验证不会自动构建所有独立研究文件。新下游仍须单独构建并审计。

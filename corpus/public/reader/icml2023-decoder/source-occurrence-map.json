@@ -1,0 +1,652 @@
+[
+  {
+    "occurrence_id": "main-preliminaries",
+    "source_id": "src-icml2023-decoder-formal",
+    "version_id": "ver-icml2023-decoder-formal",
+    "pdf_pages": [
+      3
+    ],
+    "section": "3",
+    "author_label": "Preliminaries 1–2",
+    "result_id": "decoder-preliminaries",
+    "source_boundary_note": "Convolution uses positive spatial shifts; forward DFT uses negative phase. Preserve channel/grid dimensions and real-valued kernel/bias conventions."
+  },
+  {
+    "occurrence_id": "main-assumption-3.1",
+    "source_id": "src-icml2023-decoder-formal",
+    "version_id": "ver-icml2023-decoder-formal",
+    "pdf_pages": [
+      3
+    ],
+    "section": "3.1",
+    "author_label": "Assumption 3.1",
+    "result_id": "decoder-assumption-3-1",
+    "source_boundary_note": "Circular padding and stride one define the exact scope; this source condition is not an independent proved theorem."
+  },
+  {
+    "occurrence_id": "main-theorem-3.2",
+    "source_id": "src-icml2023-decoder-formal",
+    "version_id": "ver-icml2023-decoder-formal",
+    "pdf_pages": [
+      3
+    ],
+    "section": "3.1",
+    "author_label": "Theorem 3.2",
+    "result_id": "decoder-forward-convolution",
+    "source_boundary_note": "Single-layer multi-channel h=Tg+delta MN b. Channel counts and circular scope remain explicit."
+  },
+  {
+    "occurrence_id": "main-linear-network-scope",
+    "source_id": "src-icml2023-decoder-formal",
+    "version_id": "ver-icml2023-decoder-formal",
+    "pdf_pages": [
+      3
+    ],
+    "section": "3.1",
+    "author_label": "Unnumbered activation-free theoretical network and ReLU applicability paragraph",
+    "result_id": "decoder-assumption-3-1",
+    "source_boundary_note": "Author theoretical cascade omits activation functions; empirical verification on ReLU networks must not become an exact ReLU propagation theorem."
+  },
+  {
+    "occurrence_id": "main-corollary-3.3",
+    "source_id": "src-icml2023-decoder-formal",
+    "version_id": "ver-icml2023-decoder-formal",
+    "pdf_pages": [
+      4
+    ],
+    "section": "3.1",
+    "author_label": "Corollary 3.3",
+    "result_id": "decoder-cascade-forward",
+    "source_boundary_note": "Full multi-channel cascade and DC bias beta; MN multiplies the whole bias bracket."
+  },
+  {
+    "occurrence_id": "main-corollary-3.4",
+    "source_id": "src-icml2023-decoder-formal",
+    "version_id": "ver-icml2023-decoder-formal",
+    "pdf_pages": [
+      4
+    ],
+    "section": "3.1",
+    "author_label": "Corollary 3.4",
+    "result_id": "decoder-backpropagation",
+    "source_boundary_note": "Equation (5) has conjugation on prefix T, input g, beta prime, derivative h and suffix T. Preserve transpose, eta MN, coupling chi and its quotient domain."
+  },
+  {
+    "occurrence_id": "main-assumption-4.1",
+    "source_id": "src-icml2023-decoder-formal",
+    "version_id": "ver-icml2023-decoder-formal",
+    "pdf_pages": [
+      5
+    ],
+    "section": "4.1",
+    "author_label": "Assumption 4.1 and claimed early-epoch justification",
+    "result_id": "decoder-independence-scope",
+    "source_boundary_note": "The source gives an argument from randomly initialized disjoint kernels, independent layers and the lottery-ticket hypothesis to early-epoch irrelevance; it is not solely a non-proof condition. Equations (6)/(7) state selected moment factorizations, not the same statement as independence of all products."
+  },
+  {
+    "occurrence_id": "main-theorem-4.2",
+    "source_id": "src-icml2023-decoder-formal",
+    "version_id": "ver-icml2023-decoder-formal",
+    "pdf_pages": [
+      5
+    ],
+    "section": "4.1",
+    "author_label": "Theorem 4.2",
+    "result_id": "decoder-single-channel-moments",
+    "source_boundary_note": "Source theorem here is single-channel, a complex product mean and log second moment; R is a sine quotient. Do not substitute the multi-channel formula for this statement."
+  },
+  {
+    "occurrence_id": "main-conclusion-1",
+    "source_id": "src-icml2023-decoder-formal",
+    "version_id": "ver-icml2023-decoder-formal",
+    "pdf_pages": [
+      5
+    ],
+    "section": "4.1",
+    "author_label": "Theorem 4.2 conclusion (1)",
+    "result_id": "decoder-moment-parameter-growth",
+    "source_boundary_note": "Magnitude/SOM increases with four quantities: abs mean, abs R, kernel size and variance. The source list is not a numbered equation."
+  },
+  {
+    "occurrence_id": "main-conclusion-2",
+    "source_id": "src-icml2023-decoder-formal",
+    "version_id": "ver-icml2023-decoder-formal",
+    "pdf_pages": [
+      5
+    ],
+    "section": "4.1",
+    "author_label": "Theorem 4.2 conclusion (2)",
+    "result_id": "decoder-depth-growth",
+    "source_boundary_note": "Retain exponential increase, independent log contributions, the LLN qualification, and the separate approximate multi-channel claim; a product formula alone does not establish every interpretation."
+  },
+  {
+    "occurrence_id": "main-conclusion-3",
+    "source_id": "src-icml2023-decoder-formal",
+    "version_id": "ver-icml2023-decoder-formal",
+    "pdf_pages": [
+      6
+    ],
+    "section": "4.1",
+    "author_label": "Theorem 4.2 conclusion (3)",
+    "result_id": "decoder-frequency-preference",
+    "source_boundary_note": "High-frequency weakening and stronger effect in deep networks, with the actual B.1 citation."
+  },
+  {
+    "occurrence_id": "main-conclusion-4",
+    "source_id": "src-icml2023-decoder-formal",
+    "version_id": "ver-icml2023-decoder-formal",
+    "pdf_pages": [
+      6
+    ],
+    "section": "4.1",
+    "author_label": "Theorem 4.2 conclusion (4)",
+    "result_id": "decoder-mean-preference",
+    "source_boundary_note": "Large absolute mean makes high-frequency learning less likely, with B.2. Its source page is 6, not 5."
+  },
+  {
+    "occurrence_id": "main-conclusion-5",
+    "source_id": "src-icml2023-decoder-formal",
+    "version_id": "ver-icml2023-decoder-formal",
+    "pdf_pages": [
+      6
+    ],
+    "section": "4.1",
+    "author_label": "Theorem 4.2 conclusion (5)",
+    "result_id": "decoder-kernel-preference",
+    "source_boundary_note": "Small kernel makes high-frequency learning less likely, with B.3 and empirical verification qualification."
+  },
+  {
+    "occurrence_id": "main-padding-definition",
+    "source_id": "src-icml2023-decoder-formal",
+    "version_id": "ver-icml2023-decoder-formal",
+    "pdf_pages": [
+      6
+    ],
+    "section": "4.2",
+    "author_label": "One-side zero-padding definition",
+    "result_id": "decoder-zero-padding",
+    "source_boundary_note": "The printed second branch uses both edge conditions together. Retain the source definition, do not silently turn the AND into a complement/OR."
+  },
+  {
+    "occurrence_id": "main-theorem-4.3",
+    "source_id": "src-icml2023-decoder-formal",
+    "version_id": "ver-icml2023-decoder-formal",
+    "pdf_pages": [
+      6
+    ],
+    "section": "4.2",
+    "author_label": "Theorem 4.3",
+    "result_id": "decoder-zero-padding",
+    "source_boundary_note": "Main statement assumes each pixel marginal Gaussian and states a SOM difference plus DC equality; A.5 later uses i.i.d. Preserve both scopes."
+  },
+  {
+    "occurrence_id": "main-padding-interpretation",
+    "source_id": "src-icml2023-decoder-formal",
+    "version_id": "ver-icml2023-decoder-formal",
+    "pdf_pages": [
+      6
+    ],
+    "section": "4.2",
+    "author_label": "Unnumbered Conclusion following Theorem 4.3",
+    "result_id": "decoder-padding-interpretation",
+    "source_boundary_note": "Forward/backward propagation plus large tau squared at low frequencies is used to infer low-frequency preference. Keep this author explanation distinct from the exact SOM identity."
+  },
+  {
+    "occurrence_id": "main-upsampling-definition",
+    "source_id": "src-icml2023-decoder-formal",
+    "version_id": "ver-icml2023-decoder-formal",
+    "pdf_pages": [
+      6
+    ],
+    "section": "4.3",
+    "author_label": "Zero-insertion upsampling definition",
+    "result_id": "decoder-upsampling",
+    "source_boundary_note": "Width/height ratios and modular placement define the source operation; this is zero insertion, not an unspecified interpolation method."
+  },
+  {
+    "occurrence_id": "main-theorem-4.4",
+    "source_id": "src-icml2023-decoder-formal",
+    "version_id": "ver-icml2023-decoder-formal",
+    "pdf_pages": [
+      6
+    ],
+    "section": "4.3",
+    "author_label": "Theorem 4.4",
+    "result_id": "decoder-upsampling",
+    "source_boundary_note": "Every channel/frequency repeats at the source ratio-indexed frequencies; preserve input/output dimensions."
+  },
+  {
+    "occurrence_id": "main-upsampling-interpretation",
+    "source_id": "src-icml2023-decoder-formal",
+    "version_id": "ver-icml2023-decoder-formal",
+    "pdf_pages": [
+      6
+    ],
+    "section": "4.3",
+    "author_label": "Unnumbered Conclusion and Corollary 3.3 interpretation",
+    "result_id": "decoder-upsampling-interpretation",
+    "source_boundary_note": "Repeated fundamental frequencies are used to argue representation harm and possible real/generated discrimination; preserve the author may qualification."
+  },
+  {
+    "occurrence_id": "main-shift-setup",
+    "source_id": "src-icml2023-decoder-formal",
+    "version_id": "ver-icml2023-decoder-formal",
+    "pdf_pages": [
+      6,
+      7
+    ],
+    "section": "4.4",
+    "author_label": "Shifted-frequency target and identity baseline",
+    "result_id": "decoder-shift-setup",
+    "source_boundary_note": "Source setup uses a single-channel real image, A and conjugate A, alpha>0, phi<pi/2 only, real weights, and the identity baseline. Do not strengthen phase conditions."
+  },
+  {
+    "occurrence_id": "main-theorem-4.5",
+    "source_id": "src-icml2023-decoder-formal",
+    "version_id": "ver-icml2023-decoder-formal",
+    "pdf_pages": [
+      7
+    ],
+    "section": "4.4",
+    "author_label": "Theorem 4.5",
+    "result_id": "decoder-one-step-fitting",
+    "source_boundary_note": "Separate the literal one-gradient-step zero-loss clause from the proportional update norm. The main statement explicitly points to constraints (43)/(44), whose full context is in A.7."
+  },
+  {
+    "occurrence_id": "main-shift-interpretation",
+    "source_id": "src-icml2023-decoder-formal",
+    "version_id": "ver-icml2023-decoder-formal",
+    "pdf_pages": [
+      7
+    ],
+    "section": "4.4",
+    "author_label": "Unnumbered explanation after Theorem 4.5",
+    "result_id": "decoder-shift-difficulty-interpretation",
+    "source_boundary_note": "Small frequency shift is used to infer large optimization cost and high learning difficulty; preserve its relation to the exact and proportional source claims."
+  },
+  {
+    "occurrence_id": "main-natural-image-inference",
+    "source_id": "src-icml2023-decoder-formal",
+    "version_id": "ver-icml2023-decoder-formal",
+    "pdf_pages": [
+      8
+    ],
+    "section": "5.1",
+    "author_label": "Unnumbered natural-image frequency argument",
+    "result_id": "decoder-natural-input",
+    "source_boundary_note": "External empirical low-frequency natural-image fact plus Corollaries 3.3/3.4 is used as an inference, repeated more fully in B.4; not just an experiment setting."
+  },
+  {
+    "occurrence_id": "main-layer-placement-inference",
+    "source_id": "src-icml2023-decoder-formal",
+    "version_id": "ver-icml2023-decoder-formal",
+    "pdf_pages": [
+      8
+    ],
+    "section": "5.1",
+    "author_label": "Unnumbered large-mean layer-placement explanation",
+    "result_id": "decoder-layer-placement",
+    "source_boundary_note": "Author says different mean-biased layer positions have similar roles because of Corollary 3.3. C.8 supplies experimental results; keep the main mathematical explanation traceable."
+  },
+  {
+    "occurrence_id": "main-experimental-metrics",
+    "source_id": "src-icml2023-decoder-formal",
+    "version_id": "ver-icml2023-decoder-formal",
+    "pdf_pages": [
+      4,
+      5,
+      8,
+      9
+    ],
+    "section": "3.2; 5",
+    "author_label": "Cosine similarity, SOM, low-frequency proportion and image-fitting error",
+    "result_id": "decoder-metrics",
+    "source_boundary_note": "Exact cosine, low-frequency energy and pixel fitting definitions; PDF7 weight-change norm belongs to the separate shift/gradient targets."
+  },
+  {
+    "occurrence_id": "appendix-lemma-a1",
+    "source_id": "src-icml2023-decoder-formal",
+    "version_id": "ver-icml2023-decoder-formal",
+    "pdf_pages": [
+      11,
+      12
+    ],
+    "section": "A",
+    "author_label": "Lemma A.1",
+    "result_id": "decoder-geometric-sum",
+    "source_boundary_note": "Retain the all-real-theta quotient and root-of-unity special case, including limit reasoning; domain correction must remain separate from author source."
+  },
+  {
+    "occurrence_id": "appendix-orthogonality",
+    "source_id": "src-icml2023-decoder-formal",
+    "version_id": "ver-icml2023-decoder-formal",
+    "pdf_pages": [
+      12
+    ],
+    "section": "A",
+    "author_label": "Two derived DFT finite sums",
+    "result_id": "decoder-orthogonality",
+    "source_boundary_note": "Distinct support equations used in subsequent proofs; do not omit because they have no separate theorem title."
+  },
+  {
+    "occurrence_id": "appendix-a1-general-forward",
+    "source_id": "src-icml2023-decoder-formal",
+    "version_id": "ver-icml2023-decoder-formal",
+    "pdf_pages": [
+      12,
+      13
+    ],
+    "section": "A.1",
+    "author_label": "General output-size forward DFT derivation",
+    "result_id": "decoder-valid-convolution",
+    "source_boundary_note": "Derivation first allows M prime,N prime and cross-frequency alpha. It is broader than the later circular specialization; preserve the full intermediate sum."
+  },
+  {
+    "occurrence_id": "appendix-a1-valid",
+    "source_id": "src-icml2023-decoder-formal",
+    "version_id": "ver-icml2023-decoder-formal",
+    "pdf_pages": [
+      13
+    ],
+    "section": "A.1",
+    "author_label": "No-padding cross-frequency coefficient",
+    "result_id": "decoder-valid-convolution",
+    "source_boundary_note": "Source valid-convolution branch uses M-K+1,N-K+1 samples but prints M-K,N-K sine numerators. It is a different derivation from the circular theorem and remains a target."
+  },
+  {
+    "occurrence_id": "appendix-a1-circular",
+    "source_id": "src-icml2023-decoder-formal",
+    "version_id": "ver-icml2023-decoder-formal",
+    "pdf_pages": [
+      14
+    ],
+    "section": "A.1",
+    "author_label": "Circular coefficient and final h=Tg+delta MN b",
+    "result_id": "decoder-forward-convolution",
+    "source_boundary_note": "Same final object as main Theorem 3.2 after explicit circular specialization; preserve the source intermediate indices, rather than replacing them by a corrected final statement."
+  },
+  {
+    "occurrence_id": "appendix-a2",
+    "source_id": "src-icml2023-decoder-formal",
+    "version_id": "ver-icml2023-decoder-formal",
+    "pdf_pages": [
+      14
+    ],
+    "section": "A.2",
+    "author_label": "Proof of Corollary 3.3",
+    "result_id": "decoder-cascade-forward",
+    "source_boundary_note": "No new differently quantified theorem restatement. Full layer-by-layer proof includes source terminal indexing and an extra MN in one bias expansion; source and corrected proof cannot be conflated."
+  },
+  {
+    "occurrence_id": "appendix-a3",
+    "source_id": "src-icml2023-decoder-formal",
+    "version_id": "ver-icml2023-decoder-formal",
+    "pdf_pages": [
+      15,
+      16,
+      17,
+      18
+    ],
+    "section": "A.3",
+    "author_label": "Proof of Corollary 3.4",
+    "result_id": "decoder-backpropagation",
+    "source_boundary_note": "Complete real/imaginary CR reasoning, kernel-gradient transform, finite-support coupling, cascade chain rule and final update. Equation (24) first/second lines differ in the g conjugation bar; all original bars/transposes and normalizations retained."
+  },
+  {
+    "occurrence_id": "appendix-a4-assumption",
+    "source_id": "src-icml2023-decoder-formal",
+    "version_id": "ver-icml2023-decoder-formal",
+    "pdf_pages": [
+      18,
+      19
+    ],
+    "section": "A.4",
+    "author_label": "Proof of Assumption 4.1",
+    "result_id": "decoder-independence-scope",
+    "source_boundary_note": "Source disjoint-kernel/random-initialization and lottery-ticket extension argument is a genuine local argument; its early-training extrapolation remains separate from a rigorous initialization statement."
+  },
+  {
+    "occurrence_id": "appendix-a4-kernel-law",
+    "source_id": "src-icml2023-decoder-formal",
+    "version_id": "ver-icml2023-decoder-formal",
+    "pdf_pages": [
+      19,
+      20
+    ],
+    "section": "A.4",
+    "author_label": "Complex Gaussian kernel-response law",
+    "result_id": "decoder-gaussian-response",
+    "source_boundary_note": "Source first replaces a real Gaussian by ComplexN(mu,sigma squared,0), then derives a generally nonzero response pseudocovariance. It is a proof-scope/object change to audit, not a repeated scalar moment statement."
+  },
+  {
+    "occurrence_id": "appendix-a4-single-moments",
+    "source_id": "src-icml2023-decoder-formal",
+    "version_id": "ver-icml2023-decoder-formal",
+    "pdf_pages": [
+      21
+    ],
+    "section": "A.4",
+    "author_label": "Single-channel kernel/cascade SOM and mean",
+    "result_id": "decoder-single-channel-moments",
+    "source_boundary_note": "Source log product and expectation recurrences support the main single-channel theorem; zero/positivity and independent-product scope still require mathematical review."
+  },
+  {
+    "occurrence_id": "appendix-a4-multi-moments",
+    "source_id": "src-icml2023-decoder-formal",
+    "version_id": "ver-icml2023-decoder-formal",
+    "pdf_pages": [
+      21,
+      22
+    ],
+    "section": "A.4",
+    "author_label": "Multi-channel product-matrix mean and SOM correction terms",
+    "result_id": "decoder-multi-channel-moments",
+    "source_boundary_note": "Different matrix-valued object from main single-channel theorem, with an explicit additional assumption on product-matrix elements. Keep the full multi-channel correction terms and the printed intermediate mu index."
+  },
+  {
+    "occurrence_id": "appendix-a5",
+    "source_id": "src-icml2023-decoder-formal",
+    "version_id": "ver-icml2023-decoder-formal",
+    "pdf_pages": [
+      22,
+      23
+    ],
+    "section": "A.5",
+    "author_label": "Proof of Theorem 4.3",
+    "result_id": "decoder-zero-padding",
+    "source_boundary_note": "No new theorem restatement; proof annotations add i.i.d. pixels at variance sums, absent from the marginal-Gaussian main statement. Retain this hypothesis change."
+  },
+  {
+    "occurrence_id": "appendix-a6",
+    "source_id": "src-icml2023-decoder-formal",
+    "version_id": "ver-icml2023-decoder-formal",
+    "pdf_pages": [
+      23,
+      24
+    ],
+    "section": "A.6",
+    "author_label": "Proof of Theorem 4.4",
+    "result_id": "decoder-upsampling",
+    "source_boundary_note": "Same zero-insertion spectrum object as main. Full DC and periodic general-frequency calculations occupy both pages."
+  },
+  {
+    "occurrence_id": "appendix-a7-constraints",
+    "source_id": "src-icml2023-decoder-formal",
+    "version_id": "ver-icml2023-decoder-formal",
+    "pdf_pages": [
+      24
+    ],
+    "section": "A.7",
+    "author_label": "Theorem 4.5 constraints and identity-side conditions",
+    "result_id": "decoder-one-step-fitting",
+    "source_boundary_note": "Specific source lambda, phase, total-response and bypass-square conditions are essential. Retain the original sufficient one-step claim; do not transfer the claim to an approximation silently."
+  },
+  {
+    "occurrence_id": "appendix-a7-updates",
+    "source_id": "src-icml2023-decoder-formal",
+    "version_id": "ver-icml2023-decoder-formal",
+    "pdf_pages": [
+      25,
+      26
+    ],
+    "section": "A.7",
+    "author_label": "A.7 Eqs51–55",
+    "result_id": "decoder-shift-other-frequencies",
+    "source_boundary_note": "Other-frequency updates (51)–(55), with Equation (55) on PDF26; selected-frequency updates (48)–(50) are separately linked to the one-step target."
+  },
+  {
+    "occurrence_id": "appendix-a7-norm",
+    "source_id": "src-icml2023-decoder-formal",
+    "version_id": "ver-icml2023-decoder-formal",
+    "pdf_pages": [
+      26
+    ],
+    "section": "A.7",
+    "author_label": "Gradient norm and final update proportionality",
+    "result_id": "decoder-gradient-norm",
+    "source_boundary_note": "Source norm conversion (56) and the printed self-referential sqrt norm in (57) must remain visible for repair/assessment."
+  },
+  {
+    "occurrence_id": "appendix-b1",
+    "source_id": "src-icml2023-decoder-formal",
+    "version_id": "ver-icml2023-decoder-formal",
+    "pdf_pages": [
+      26,
+      27
+    ],
+    "section": "B.1",
+    "author_label": "Effects of the network depth",
+    "result_id": "decoder-frequency-preference",
+    "source_boundary_note": "Complete independent log-effect/LLN argument and almost certainly claim. It repeats and strengthens main conclusions (2)/(3), so preserve both locations and qualifications."
+  },
+  {
+    "occurrence_id": "appendix-b2",
+    "source_id": "src-icml2023-decoder-formal",
+    "version_id": "ver-icml2023-decoder-formal",
+    "pdf_pages": [
+      27
+    ],
+    "section": "B.2",
+    "author_label": "Effects of initialization mean",
+    "result_id": "decoder-mean-preference",
+    "source_boundary_note": "Actual imbalance argument repeats main conclusion (4), with its complete because/thereby reasoning."
+  },
+  {
+    "occurrence_id": "appendix-b3",
+    "source_id": "src-icml2023-decoder-formal",
+    "version_id": "ver-icml2023-decoder-formal",
+    "pdf_pages": [
+      27
+    ],
+    "section": "B.3",
+    "author_label": "Effects of kernel size",
+    "result_id": "decoder-kernel-preference",
+    "source_boundary_note": "Actual large-K imbalance/alleviation argument repeats main conclusion (5), without numerical monotonicity hypotheses being supplied."
+  },
+  {
+    "occurrence_id": "appendix-b4",
+    "source_id": "src-icml2023-decoder-formal",
+    "version_id": "ver-icml2023-decoder-formal",
+    "pdf_pages": [
+      27
+    ],
+    "section": "B.4",
+    "author_label": "Effects of training-data distribution",
+    "result_id": "decoder-natural-input",
+    "source_boundary_note": "Power-law external empirical premise plus forward/backpropagation implication is an author inferential chain, not solely background."
+  },
+  {
+    "occurrence_id": "appendix-c-experiments",
+    "source_id": "src-icml2023-decoder-formal",
+    "version_id": "ver-icml2023-decoder-formal",
+    "pdf_pages": [
+      27,
+      28,
+      29,
+      30,
+      31,
+      32
+    ],
+    "section": "C.1–C.5",
+    "author_label": "Empirical frequency, upsampling, padding, depth and mean tests",
+    "result_id": "decoder-experiments",
+    "source_boundary_note": "These sections and Figures 6–12 report measured behavior/settings and reiterate already indexed theoretical claims; no newly supplied analytic proof was found in their captions/settings."
+  },
+  {
+    "occurrence_id": "appendix-c6",
+    "source_id": "src-icml2023-decoder-formal",
+    "version_id": "ver-icml2023-decoder-formal",
+    "pdf_pages": [
+      32
+    ],
+    "section": "C.6",
+    "author_label": "Unnumbered curse-of-dimension/cosine-similarity argument",
+    "result_id": "decoder-cosine-dimension",
+    "source_boundary_note": "Author reasons that small coordinate differences accumulate in squared sums, therefore cosine similarity of very high-dimensional vectors is not particularly large. This explanatory mathematical claim needs a readable scope/assessment, rather than only empirical-background classification."
+  },
+  {
+    "occurrence_id": "appendix-c7",
+    "source_id": "src-icml2023-decoder-formal",
+    "version_id": "ver-icml2023-decoder-formal",
+    "pdf_pages": [
+      32,
+      33
+    ],
+    "section": "C.7",
+    "author_label": "Low-Pearson-correlation to trained-network assumption argument",
+    "result_id": "decoder-trained-independence",
+    "source_boundary_note": "Heading says Assumption 3.1, body says 4.1. Table 1 measures Pearson correlation between magnitudes of single-step Delta T, then the author argues T elements are irrelevant and retains 4.1 to infer frequency weakening. Preserve object/claim differences and full cross-page conclusion."
+  },
+  {
+    "occurrence_id": "appendix-c8",
+    "source_id": "src-icml2023-decoder-formal",
+    "version_id": "ver-icml2023-decoder-formal",
+    "pdf_pages": [
+      33
+    ],
+    "section": "C.8",
+    "author_label": "Large mean in different layer positions",
+    "result_id": "decoder-experiments",
+    "source_boundary_note": "Six-network experiment/figure results are empirical here. The separate mathematical because-Corollary3.3 explanation is on main PDF8 and must be mapped independently."
+  },
+  {
+    "occurrence_id": "appendix-c9",
+    "source_id": "src-icml2023-decoder-formal",
+    "version_id": "ver-icml2023-decoder-formal",
+    "pdf_pages": [
+      33,
+      34
+    ],
+    "section": "C.9",
+    "author_label": "Frequency-shift examples",
+    "result_id": "decoder-experiments",
+    "source_boundary_note": "Concrete shift construction and Figure 14; preserve as source evidence for the shifted-frequency target, not a new proof."
+  },
+  {
+    "occurrence_id": "appendix-c10",
+    "source_id": "src-icml2023-decoder-formal",
+    "version_id": "ver-icml2023-decoder-formal",
+    "pdf_pages": [
+      33,
+      34
+    ],
+    "section": "C.10",
+    "author_label": "Fitting-error metric and epoch table",
+    "result_id": "decoder-metrics",
+    "source_boundary_note": "Table 2 and mean normalized squared-error definition are empirical metadata, not proof claims."
+  },
+  {
+    "occurrence_id": "appendix-a7-selected-updates",
+    "parent_occurrence_id": "appendix-a7-updates",
+    "source_id": "src-icml2023-decoder-formal",
+    "version_id": "ver-icml2023-decoder-formal",
+    "pdf_pages": [
+      24,
+      25
+    ],
+    "section": "A.7",
+    "author_label": "A.7 Eqs48–50",
+    "result_id": "decoder-one-step-fitting",
+    "source_boundary_note": "A precise component split of the original broad A.7 updates appearance, not an additional theorem or copied proof."
+  }
+]

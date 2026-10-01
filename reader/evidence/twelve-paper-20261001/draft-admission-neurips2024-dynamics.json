@@ -1,0 +1,1176 @@
+{
+  "scope": "Development-package structure and language only; no source/math/Lean acceptance or manifest mutation",
+  "paper_id": "neurips2024-dynamics",
+  "status": "structural_checks_passed_pending_mathematical_review",
+  "result_count": 32,
+  "target_entries": 22,
+  "target_result_ids": [
+    "dyn-anonymity",
+    "dyn-binary-trigger",
+    "dyn-complement",
+    "dyn-distribution",
+    "dyn-dummy",
+    "dyn-efficiency",
+    "dyn-equal-order",
+    "dyn-first-phase",
+    "dyn-linearity",
+    "dyn-noise-split",
+    "dyn-noisy-output",
+    "dyn-order-monotonic",
+    "dyn-recursion",
+    "dyn-regression",
+    "dyn-sparsity",
+    "dyn-split-labels",
+    "dyn-symmetry",
+    "dyn-taylor",
+    "dyn-trigger-representation",
+    "dyn-uniqueness",
+    "dyn-universal",
+    "dyn-zero-noise"
+  ],
+  "non_target_entries": [
+    {
+      "id": "dyn-interaction-definition",
+      "kind": "definition",
+      "reason": "Eq2定义分量与交互计算规则，非其重构结论；重构另作dyn-universal数学目标。",
+      "requires_source_and_content_review": true
+    },
+    {
+      "id": "dyn-salience",
+      "kind": "definition",
+      "reason": "原页定义显著阈值和经验/理论归一化指标，不给普遍数学等式定理。",
+      "requires_source_and_content_review": true
+    },
+    {
+      "id": "dyn-regression-definition",
+      "kind": "definition",
+      "reason": "Eq8/9定义回归损失，Assumption1明确规定替代噪声模型；其唯一最优解单列dyn-regression目标。",
+      "requires_source_and_content_review": true
+    },
+    {
+      "id": "dyn-extraction",
+      "kind": "algorithm",
+      "reason": "Appendix C的L1优化及有界修正是方法定义；其中实际两个错误分解恒等主张分别由dyn-split-labels和dyn-noise-split目标覆盖。",
+      "requires_source_and_content_review": true
+    },
+    {
+      "id": "dyn-experiments",
+      "kind": "empirical",
+      "reason": "图表与训练设置报告特定网络/数据的两阶段观察，没有所有模型训练轨迹的量化证明结论。",
+      "requires_source_and_content_review": true
+    },
+    {
+      "id": "dyn-cutoff",
+      "kind": "assumption",
+      "reason": "Appendix B Condition1是假定高于M阶严格为零的外引稀疏前提，不在此篇断言所有DNN必然满足。",
+      "requires_source_and_content_review": true
+    },
+    {
+      "id": "dyn-mask-monotonic",
+      "kind": "assumption",
+      "reason": "Appendix B Condition2是假定按保留变量数的平均分数单调的外引前提，不是本篇证明结论。",
+      "requires_source_and_content_review": true
+    },
+    {
+      "id": "dyn-mask-polynomial",
+      "kind": "assumption",
+      "reason": "Appendix B Condition3是假定平均分数退化下界的外引前提，不是本篇证明结论。",
+      "requires_source_and_content_review": true
+    },
+    {
+      "id": "dyn-transferability",
+      "kind": "external_empirical_claim",
+      "reason": "正文明确引用特定实验中通常跨样本复现的观察，没有样本/分布全称数学命题。",
+      "requires_source_and_content_review": true
+    },
+    {
+      "id": "dyn-discrimination",
+      "kind": "external_empirical_claim",
+      "reason": "正文明确引用交互跨样本贡献某类别的经验观察，没有量化类别/样本全称数学定理。",
+      "requires_source_and_content_review": true
+    }
+  ],
+  "errors": [],
+  "bilingual_errors": [],
+  "inline_math_differences": [
+    {
+      "id": "dyn-interaction-definition",
+      "step_id": "dyn-interaction-definition-step-1",
+      "classification": "inline_tex_text_difference_requires_semantic_review",
+      "zh": [
+        [
+          "I_{and},I_{or}",
+          "",
+          ""
+        ],
+        [
+          "A,O",
+          "",
+          ""
+        ],
+        [
+          "g",
+          "",
+          ""
+        ],
+        [
+          "I_g",
+          "",
+          ""
+        ],
+        [
+          "A",
+          "",
+          ""
+        ],
+        [
+          "T",
+          "",
+          ""
+        ],
+        [
+          "a(\\varnothing)=b,o(\\varnothing)=0",
+          "",
+          ""
+        ],
+        [
+          "\\gamma_\\varnothing=b/2",
+          "",
+          ""
+        ]
+      ],
+      "en": [
+        [
+          "I_{and},I_{or}",
+          "",
+          ""
+        ],
+        [
+          "A,O",
+          "",
+          ""
+        ],
+        [
+          "I_g",
+          "",
+          ""
+        ],
+        [
+          "A",
+          "",
+          ""
+        ],
+        [
+          "T",
+          "",
+          ""
+        ],
+        [
+          "a(\\varnothing)=b,o(\\varnothing)=0",
+          "",
+          ""
+        ],
+        [
+          "\\gamma_\\varnothing=b/2",
+          "",
+          ""
+        ]
+      ]
+    },
+    {
+      "id": "dyn-salience",
+      "step_id": "dyn-salience-step-1",
+      "classification": "inline_tex_text_difference_requires_semantic_review",
+      "zh": [
+        [
+          "Z",
+          "",
+          ""
+        ],
+        [
+          "Z=0",
+          "",
+          ""
+        ],
+        [
+          "\\hat w",
+          "",
+          ""
+        ],
+        [
+          "\\tau_{theo}=0.03|v_{theo}(x)-\\hat w_\\varnothing|",
+          "",
+          ""
+        ]
+      ],
+      "en": [
+        [
+          "Z",
+          "",
+          ""
+        ],
+        [
+          "Z=0",
+          "",
+          ""
+        ],
+        [
+          "\\tau_{theo}=0.03|v_{theo}(x)-\\hat w_\\varnothing|",
+          "",
+          ""
+        ]
+      ]
+    },
+    {
+      "id": "dyn-trigger-representation",
+      "step_id": "dyn-trigger-representation-step-1",
+      "classification": "inline_tex_text_difference_requires_semantic_review",
+      "zh": [
+        [
+          "w_T",
+          "",
+          ""
+        ],
+        [
+          "w_T\\ne0",
+          "",
+          ""
+        ],
+        [
+          "w_T=0",
+          "",
+          ""
+        ],
+        [
+          "J_T",
+          "",
+          ""
+        ],
+        [
+          "0/0",
+          "",
+          ""
+        ]
+      ],
+      "en": [
+        [
+          "w_T\\ne0",
+          "",
+          ""
+        ],
+        [
+          "w_T=0",
+          "",
+          ""
+        ],
+        [
+          "J_T",
+          "",
+          ""
+        ],
+        [
+          "0/0",
+          "",
+          ""
+        ]
+      ]
+    },
+    {
+      "id": "dyn-regression-definition",
+      "step_id": "dyn-regression-definition-step-1",
+      "classification": "inline_tex_text_difference_requires_semantic_review",
+      "zh": [
+        [
+          "S",
+          "",
+          ""
+        ],
+        [
+          "2^n",
+          "",
+          ""
+        ],
+        [
+          "w,J,y",
+          "",
+          ""
+        ],
+        [
+          "J_\\varnothing=1,w_\\varnothing=b",
+          "",
+          ""
+        ],
+        [
+          "2^{|T|}\\sigma^2",
+          "",
+          ""
+        ]
+      ],
+      "en": [
+        [
+          "2^n",
+          "",
+          ""
+        ],
+        [
+          "w,J,y",
+          "",
+          ""
+        ],
+        [
+          "J_\\varnothing=1,w_\\varnothing=b",
+          "",
+          ""
+        ],
+        [
+          "2^{|T|}\\sigma^2",
+          "",
+          ""
+        ]
+      ]
+    },
+    {
+      "id": "dyn-regression",
+      "step_id": "dyn-regression-step-2",
+      "classification": "inline_tex_text_difference_requires_semantic_review",
+      "zh": [
+        [
+          "J_{ST}=\\mathbf1_{T\\subseteq S}",
+          "",
+          ""
+        ],
+        [
+          "Jw",
+          "",
+          ""
+        ],
+        [
+          "J",
+          "",
+          ""
+        ],
+        [
+          "u",
+          "",
+          ""
+        ],
+        [
+          "u^\\top J^\\top Ju=\\|Ju\\|^2>0",
+          "",
+          ""
+        ],
+        [
+          "2^n\\operatorname{diag}(c)",
+          "",
+          ""
+        ],
+        [
+          "\\sigma=0",
+          "",
+          ""
+        ],
+        [
+          "A=J^\\top J+2^n\\operatorname{diag}(c)",
+          "",
+          ""
+        ],
+        [
+          "u=A^{-1}J^\\top y",
+          "",
+          ""
+        ],
+        [
+          "2^n(\\widetilde L(w)-\\widetilde L(u))=(w-u)^\\top A(w-u)>0",
+          "",
+          ""
+        ],
+        [
+          "w\\ne u",
+          "",
+          ""
+        ],
+        [
+          "u",
+          "",
+          ""
+        ]
+      ],
+      "en": [
+        [
+          "J_{ST}=\\mathbf1_{T\\subseteq S}",
+          "",
+          ""
+        ],
+        [
+          "Jw",
+          "",
+          ""
+        ],
+        [
+          "u^\\top J^\\top Ju=\\|Ju\\|^2>0",
+          "",
+          ""
+        ],
+        [
+          "u",
+          "",
+          ""
+        ],
+        [
+          "2^n\\operatorname{diag}(c)",
+          "",
+          ""
+        ],
+        [
+          "\\sigma=0",
+          "",
+          ""
+        ],
+        [
+          "A=J^\\top J+2^n\\operatorname{diag}(c)",
+          "",
+          ""
+        ],
+        [
+          "u=A^{-1}J^\\top y",
+          "",
+          ""
+        ],
+        [
+          "2^n(\\widetilde L(w)-\\widetilde L(u))=(w-u)^\\top A(w-u)>0",
+          "",
+          ""
+        ],
+        [
+          "w\\ne u",
+          "",
+          ""
+        ]
+      ]
+    },
+    {
+      "id": "dyn-binary-trigger",
+      "step_id": "dyn-binary-trigger-step-1",
+      "classification": "inline_tex_text_difference_requires_semantic_review",
+      "zh": [
+        [
+          "w_T",
+          "",
+          ""
+        ],
+        [
+          "w_T\\ne0",
+          "",
+          ""
+        ],
+        [
+          "w_T=0",
+          "",
+          ""
+        ],
+        [
+          "J_T",
+          "",
+          ""
+        ],
+        [
+          "0/0",
+          "",
+          ""
+        ]
+      ],
+      "en": [
+        [
+          "w_T\\ne0",
+          "",
+          ""
+        ],
+        [
+          "w_T=0",
+          "",
+          ""
+        ],
+        [
+          "J_T",
+          "",
+          ""
+        ],
+        [
+          "0/0",
+          "",
+          ""
+        ]
+      ]
+    },
+    {
+      "id": "dyn-equal-order",
+      "step_id": "dyn-equal-order-step-2",
+      "classification": "inline_tex_text_difference_requires_semantic_review",
+      "zh": [
+        [
+          "A=B+D",
+          "",
+          ""
+        ],
+        [
+          "A\\hat M=B",
+          "",
+          ""
+        ],
+        [
+          "A(P\\hat MP^{-1})=B",
+          "",
+          ""
+        ],
+        [
+          "P\\hat MP^{-1}=\\hat M",
+          "",
+          ""
+        ],
+        [
+          "|T|=|T'|",
+          "",
+          ""
+        ],
+        [
+          "T",
+          "",
+          ""
+        ],
+        [
+          "T'",
+          "",
+          ""
+        ],
+        [
+          "T",
+          "",
+          ""
+        ],
+        [
+          "T'",
+          "",
+          ""
+        ],
+        [
+          "\\sigma=0",
+          "",
+          ""
+        ]
+      ],
+      "en": [
+        [
+          "A=B+D",
+          "",
+          ""
+        ],
+        [
+          "A\\hat M=B",
+          "",
+          ""
+        ],
+        [
+          "A(P\\hat MP^{-1})=B",
+          "",
+          ""
+        ],
+        [
+          "P\\hat MP^{-1}=\\hat M",
+          "",
+          ""
+        ],
+        [
+          "|T|=|T'|",
+          "",
+          ""
+        ],
+        [
+          "\\sigma=0",
+          "",
+          ""
+        ]
+      ]
+    },
+    {
+      "id": "dyn-order-monotonic",
+      "step_id": "dyn-order-monotonic-step-1",
+      "classification": "inline_tex_text_difference_requires_semantic_review",
+      "zh": [
+        [
+          ">1",
+          "",
+          ""
+        ],
+        [
+          "\\sigma=0",
+          "",
+          ""
+        ],
+        [
+          "\\hat M=(J^\\top J)^{-1}J^\\top J=I",
+          "",
+          ""
+        ],
+        [
+          "1",
+          "",
+          ""
+        ],
+        [
+          "1",
+          "",
+          ""
+        ],
+        [
+          "w^*",
+          "",
+          ""
+        ]
+      ],
+      "en": [
+        [
+          ">1",
+          "",
+          ""
+        ],
+        [
+          "\\sigma=0",
+          "",
+          ""
+        ],
+        [
+          "\\hat M=(J^\\top J)^{-1}J^\\top J=I",
+          "",
+          ""
+        ],
+        [
+          "w^*",
+          "",
+          ""
+        ]
+      ]
+    },
+    {
+      "id": "dyn-order-monotonic",
+      "step_id": "dyn-order-monotonic-step-2",
+      "classification": "inline_tex_text_difference_requires_semantic_review",
+      "zh": [
+        [
+          "\\hat M",
+          "",
+          ""
+        ],
+        [
+          "\\hat M",
+          "",
+          ""
+        ],
+        [
+          "n,\\sigma^2",
+          "",
+          ""
+        ],
+        [
+          "\\sigma>0",
+          "",
+          ""
+        ]
+      ],
+      "en": [
+        [
+          "\\hat M",
+          "",
+          ""
+        ],
+        [
+          "n,\\sigma^2",
+          "",
+          ""
+        ],
+        [
+          "\\sigma>0",
+          "",
+          ""
+        ]
+      ]
+    },
+    {
+      "id": "dyn-zero-noise",
+      "step_id": "dyn-zero-noise-step-1",
+      "classification": "inline_tex_text_difference_requires_semantic_review",
+      "zh": [
+        [
+          "J",
+          "",
+          ""
+        ],
+        [
+          "B=J^\\top J",
+          "",
+          ""
+        ],
+        [
+          "\\sigma=0",
+          "",
+          ""
+        ],
+        [
+          "B^{-1}Bw^*=w^*",
+          "",
+          ""
+        ],
+        [
+          "w_\\varnothing^*=b",
+          "",
+          ""
+        ]
+      ],
+      "en": [
+        [
+          "B=J^\\top J",
+          "",
+          ""
+        ],
+        [
+          "\\sigma=0",
+          "",
+          ""
+        ],
+        [
+          "B^{-1}Bw^*=w^*",
+          "",
+          ""
+        ],
+        [
+          "w_\\varnothing^*=b",
+          "",
+          ""
+        ]
+      ]
+    },
+    {
+      "id": "dyn-dummy",
+      "step_id": "dyn-dummy-step-1",
+      "classification": "inline_tex_text_difference_requires_semantic_review",
+      "zh": [
+        [
+          "S",
+          "",
+          ""
+        ],
+        [
+          "i",
+          "",
+          ""
+        ],
+        [
+          "I_g(S\\cup\\{i\\})=I_{h_i}(S)",
+          "",
+          ""
+        ],
+        [
+          "h_i(U)=g(U\\cup\\{i\\})-g(U)",
+          "",
+          ""
+        ],
+        [
+          "h_i",
+          "",
+          ""
+        ],
+        [
+          "U\\subseteq S",
+          "",
+          ""
+        ],
+        [
+          "g(\\{i\\})",
+          "",
+          ""
+        ],
+        [
+          "U=\\varnothing",
+          "",
+          ""
+        ],
+        [
+          "g(\\varnothing)=0",
+          "",
+          ""
+        ]
+      ],
+      "en": [
+        [
+          "i",
+          "",
+          ""
+        ],
+        [
+          "I_g(S\\cup\\{i\\})=I_{h_i}(S)",
+          "",
+          ""
+        ],
+        [
+          "h_i(U)=g(U\\cup\\{i\\})-g(U)",
+          "",
+          ""
+        ],
+        [
+          "h_i",
+          "",
+          ""
+        ],
+        [
+          "g(\\{i\\})",
+          "",
+          ""
+        ],
+        [
+          "U\\subseteq S",
+          "",
+          ""
+        ],
+        [
+          "U=\\varnothing",
+          "",
+          ""
+        ],
+        [
+          "g(\\varnothing)=0",
+          "",
+          ""
+        ]
+      ]
+    },
+    {
+      "id": "dyn-recursion",
+      "step_id": "dyn-recursion-step-1",
+      "classification": "inline_tex_text_difference_requires_semantic_review",
+      "zh": [
+        [
+          "S\\cup\\{i\\}",
+          "",
+          ""
+        ],
+        [
+          "U",
+          "",
+          ""
+        ],
+        [
+          "U\\cup\\{i\\}",
+          "",
+          ""
+        ],
+        [
+          "U\\subseteq S",
+          "",
+          ""
+        ],
+        [
+          "i",
+          "",
+          ""
+        ],
+        [
+          "i",
+          "",
+          ""
+        ],
+        [
+          "\\sum_{U\\subseteq S}(-1)^{|S|-|U|}[g(U\\cup\\{i\\})-g(U)]",
+          "",
+          ""
+        ]
+      ],
+      "en": [
+        [
+          "U",
+          "",
+          ""
+        ],
+        [
+          "U\\cup\\{i\\}",
+          "",
+          ""
+        ],
+        [
+          "U\\subseteq S",
+          "",
+          ""
+        ],
+        [
+          "i",
+          "",
+          ""
+        ],
+        [
+          "i",
+          "",
+          ""
+        ],
+        [
+          "\\sum_{U\\subseteq S}(-1)^{|S|-|U|}[g(U\\cup\\{i\\})-g(U)]",
+          "",
+          ""
+        ]
+      ]
+    },
+    {
+      "id": "dyn-uniqueness",
+      "step_id": "dyn-uniqueness-step-1",
+      "classification": "inline_tex_text_difference_requires_semantic_review",
+      "zh": [
+        [
+          "I_{\\operatorname{reconstruct}d}(S)=d(S)",
+          "",
+          ""
+        ],
+        [
+          "g",
+          "",
+          ""
+        ],
+        [
+          "d(S)=I_g(S)",
+          "",
+          ""
+        ],
+        [
+          "\\gamma",
+          "",
+          ""
+        ]
+      ],
+      "en": [
+        [
+          "I_{\\operatorname{reconstruct}d}(S)=d(S)",
+          "",
+          ""
+        ],
+        [
+          "g",
+          "",
+          ""
+        ],
+        [
+          "d(S)=I_g(S)",
+          "",
+          ""
+        ]
+      ]
+    },
+    {
+      "id": "dyn-split-labels",
+      "step_id": "dyn-split-labels-step-1",
+      "classification": "inline_tex_text_difference_requires_semantic_review",
+      "zh": [
+        [
+          "v_{and}",
+          "",
+          ""
+        ],
+        [
+          "2\\gamma_T=0",
+          "",
+          ""
+        ],
+        [
+          "\\gamma_T",
+          "",
+          ""
+        ],
+        [
+          "v=1",
+          "",
+          ""
+        ],
+        [
+          "\\gamma_T=1",
+          "",
+          ""
+        ],
+        [
+          "v_{and}(x_T)=3/2",
+          "",
+          ""
+        ],
+        [
+          "-1/2",
+          "",
+          ""
+        ]
+      ],
+      "en": [
+        [
+          "v_{and}",
+          "",
+          ""
+        ],
+        [
+          "2\\gamma_T=0",
+          "",
+          ""
+        ],
+        [
+          "v=1",
+          "",
+          ""
+        ],
+        [
+          "\\gamma_T=1",
+          "",
+          ""
+        ],
+        [
+          "v_{and}(x_T)",
+          "",
+          ""
+        ],
+        [
+          "3/2",
+          "",
+          ""
+        ],
+        [
+          "-1/2",
+          "",
+          ""
+        ]
+      ]
+    },
+    {
+      "id": "dyn-shared-positive-regression",
+      "step_id": "dyn-shared-positive-regression-step-2",
+      "classification": "inline_tex_text_difference_requires_semantic_review",
+      "zh": [
+        [
+          "J_{ST}=\\mathbf1_{T\\subseteq S}",
+          "",
+          ""
+        ],
+        [
+          "Jw",
+          "",
+          ""
+        ],
+        [
+          "J",
+          "",
+          ""
+        ],
+        [
+          "u",
+          "",
+          ""
+        ],
+        [
+          "u^\\top J^\\top Ju=\\|Ju\\|^2>0",
+          "",
+          ""
+        ],
+        [
+          "2^n\\operatorname{diag}(c)",
+          "",
+          ""
+        ],
+        [
+          "\\sigma=0",
+          "",
+          ""
+        ],
+        [
+          "A=J^\\top J+2^n\\operatorname{diag}(c)",
+          "",
+          ""
+        ],
+        [
+          "u=A^{-1}J^\\top y",
+          "",
+          ""
+        ],
+        [
+          "2^n(\\widetilde L(w)-\\widetilde L(u))=(w-u)^\\top A(w-u)>0",
+          "",
+          ""
+        ],
+        [
+          "w\\ne u",
+          "",
+          ""
+        ],
+        [
+          "u",
+          "",
+          ""
+        ]
+      ],
+      "en": [
+        [
+          "J_{ST}=\\mathbf1_{T\\subseteq S}",
+          "",
+          ""
+        ],
+        [
+          "Jw",
+          "",
+          ""
+        ],
+        [
+          "u^\\top J^\\top Ju=\\|Ju\\|^2>0",
+          "",
+          ""
+        ],
+        [
+          "u",
+          "",
+          ""
+        ],
+        [
+          "2^n\\operatorname{diag}(c)",
+          "",
+          ""
+        ],
+        [
+          "\\sigma=0",
+          "",
+          ""
+        ],
+        [
+          "A=J^\\top J+2^n\\operatorname{diag}(c)",
+          "",
+          ""
+        ],
+        [
+          "u=A^{-1}J^\\top y",
+          "",
+          ""
+        ],
+        [
+          "2^n(\\widetilde L(w)-\\widetilde L(u))=(w-u)^\\top A(w-u)>0",
+          "",
+          ""
+        ],
+        [
+          "w\\ne u",
+          "",
+          ""
+        ]
+      ]
+    }
+  ],
+  "input_hashes": {
+    "corpus/public/reader/neurips2024-dynamics/paper-metadata.json": "e287960b8f9d6149cd68653f69d05aa0f07f7c19ff1ed4cf0244e8c7db0fed10",
+    "corpus/public/reader/neurips2024-dynamics/inventory.json": "a40afb20fee4be80031bb45f85400ee1e47a74458d2dc04fe73f6988bb5d35b5",
+    "corpus/public/reader/neurips2024-dynamics/content.json": "0dde248321876c533894e257e0517e98fd1379374704e70d08b3cae772b78b21",
+    "corpus/public/reader/neurips2024-dynamics/symbols.json": "234059f8064259d03aa39388b95ca4d6e8a8eecfafa8a2b6cc4a30ea14280db5",
+    "corpus/public/reader/neurips2024-dynamics/issues.json": "3e1f62b5aba8d3466b6af8e301f8830ff0cae3397e84760d110eaf2d86ceba4a",
+    "reader/check_draft_admission.py": "a161a2c782dbe305e55aa3a85a626c82617ff45953fd98553d07bc152d3ff9af",
+    "reader/architecture/admission-contract.json": "d37b4b99d30e64326090c8557020fcae72a518ac98323f34d0ea1abbb9c997f1",
+    "reader/inventory_contract.py": "942ce26830c587fa5fdee10c82879809f290d52beaea64da012854fa5993fd58",
+    "reader/bilingual.py": "aeec1605b4d57cec38a3fc7215215ace4b686153e5910493f3daa11595f7bc88",
+    "reader/symbols_english.py": "cc75b9f100874e2310c3f12365de5a2b79d9f79e96757c89459ad2f5ce680a96",
+    "reader/symbol_context_english.py": "0faf107350cb6e7617963f75ff48301a7e8a78f3c28bf07ed11e5d1e957f5654",
+    "reader/evidence_paths.py": "0691f8e89020fc256f3edc079070201580230a187a849f674ddc6314341046ae"
+  }
+}

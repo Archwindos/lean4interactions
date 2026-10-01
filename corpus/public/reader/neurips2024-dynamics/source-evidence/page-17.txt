@@ -1,0 +1,87 @@
+                                               P
+Thus, we have ∀∅ =
+                 ̸ S ⊆ N, vand (xS ) =            ∅̸=T ⊆S Iand (T |x)   + v(x∅ ).
+
+(2) Universal matching theorem of OR interactions.
+
+According
+P             to the definition of OR interactions, we will derive that ∀S ⊆ N, vor (xS ) =
+   T :T ∩S̸=∅ Ior (S|x), where we define vor (x∅ ) = 0 (recall that in Step (1), we attribute the out-
+put on empty input to AND interactions).
+
+Specifically, the OR interaction is defined as Ior (T |x) = − L⊆T (−1)|T |−|L| vor (xN \L ) in 2.
+                                                                  P
+Similar to the above derivation of the universal matching theorem h ofPAND interactions, to compute i
+the sum of OR interactions T :T ∩S̸=∅ Ior (T |x) = T :T ∩S̸=∅ − L⊆T (−1)|T |−|L| vor (xN \L ) ,
+                              P                       P
+
+we first exchange the order of summation of the set L ⊆ T ⊆ N and the set T : T ∩ S ̸= ∅. That
+is, we compute all linear combinations of all setsP T containing L with respect to the model outputs
+vor (xN \L ) given a set of input variables L, i.e., T :T ∩S̸=∅,T ⊇L (−1)|T |−|L| vor (xN \L ). Then, we
+compute all summations over the set L ⊆ N .
+
+In this way, we can compute them separately for different cases of L ⊆ T ⊆ N, T ∩ S ̸= ∅. In
+the following, we consider the cases (1) L = N \ S, (2) L = N , (3) L ∩ S ̸= ∅, L ̸= N , and (4)
+L ∩ S = ∅, L ̸= N \ S, respectively.
+
+(1) When L = N \ S,    Pthe linear combination of all subsets T containing      L with respect to the model
+output vor (xN \L ) is T :T ∩S̸=∅,T ⊇L (−1)|T |−|L| vor (xN \L ) = T :T ∩S̸=∅,T ⊇L (−1)|T |−|L| vor (xS ).
+                                                                       P
+
+For all sets T : T ⊇ L, T ∩ S ̸= ∅ (then T ̸= N \ S, T ̸= L), let us consider the lin-
+ear combinations of all sets T with number |T | for the model output vor (xS ), respectively. Let
+                                                                         |T ′ |
+|T ′ | := |T | − |L|, (1 ≤ |T ′ | ≤ |S|), then there are a total of C|S| combinations of all sets T ′ of
+order |T ′ |. Thus, given L, accumulating the model outputs vor (xS ) corresponding to all T ⊇ L, then
+                                                            X|S|        |T ′ |    ′
+                        |T |−|L|
+                                                                      C (−1)|T | = −vor (xS ).
+P
+   T :T ∩S̸=∅,T ⊇L (−1)          vor (xN \L ) = vor (xS ) ·
+                                                              |T ′ |=1 |S|
+                                                            |          {z         }
+                                                                        =−1
+
+(2) When L = N (then T = N ), the  P linear combination of all subsets T containing L with respect
+to the model output vor (xN \L ) is T :T ∩S̸=∅,T ⊇L (−1)|T |−|L| vor (xN \L ) = (−1)|N |−|N | vor (x∅ ) =
+vor (x∅ ).
+
+(3) When L ∩ S ̸= ∅, L ̸= N , the linear             Pcombination of all subsets T containing L with
+respect to the model output vor (xN \L ) is T :T ∩S̸=∅,T ⊇L (−1)|T |−|L| vor (xN \L ). For all sets
+T : T ⊇ L, T ∩ S ̸= ∅, let us consider the linear combinations of all sets T with num-
+ber |T | for the model output vor (xS ), respectively. Let us split |T | − |L| into |T ′ | and |T ′′ |,
+i.e.,|T | − |L| = |T ′ | + |T ′′ |, where T ′ = {i|i ∈ T, i ∈
+                                                            / L, i ∈ N \ S}, T ′′ = {i|i ∈ T, i ∈
+                                                                                                / L, i ∈ S}
+                ′′                               ′      ′′
+(then 0 ≤ |T | ≤ |S| − |S ∩ L|) and |T | + |T | + |L| = |T |. In this way, there are a total of
+   |T ′′ |
+C|S|−|S∩L| combinations of all sets T ′′ of order |T ′′ |. Thus, given L, accumulating the model
+outputs vor (xN \L ) corresponding to all T ⊇ L, then T :T ∩S̸=∅,T ⊇L (−1)|T |−|L| vor (xN \L ) =
+                                                                P
+                               X|S|−|S∩L| |T ′′ |                ′    ′′
+                                              C|S|−|S∩L| (−1)|T |+|T | = 0.
+               P
+vor (xN \L ) · T ′ ⊆N \S\L
+                                    |T ′′ |=0
+                               |                   {z                  }
+                                                  =0
+
+(4) When L ∩ S = ∅, L ̸= N \ S, the          Plinear combination |T    of all subsets T containing L with respect
+to the model output vor (xN \L ) is T :T ∩S̸=∅,T ⊇L (−1) |−|L| vor (xN \L ). Similarly, let us split
+|T | − |L| into |T ′ | and |T ′′ |, i.e.,|T | − |L| = |T ′ | + |T ′′ |, where T ′ = {i|i ∈ T, i ∈/ L, i ∈ N \ S},
+T ′′ = {i|i ∈ T, i ∈ S} (then 0 ≤ |T ′′ | ≤ |S|) and |T ′ | + |T ′′ | + |L| = |T |. In this way, there are
+              |T ′′ |
+a total of C|S| combinations of all sets T ′′ of order |T ′′ |. Thus, given L, accumulating the model
+outputs vor (xN \L ) corresponding to all T ⊇ L, then T :T ∩S̸=∅,T ⊇L (−1)|T |−|L| vor (xN \L ) =
+                                                                      P
+                              X|S|             |T ′′ |      ′    ′′
+                                              C|S| (−1)|T |+|T | = 0.
+               P
+vor (xN \L ) · T ′ ⊆N \S\L             ′′
+                                    |T |=0
+                              |                  {z               }
+                                             =0
+
+
+                                                       17

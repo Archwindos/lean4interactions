@@ -1,0 +1,84 @@
+                           Towards Theoretical Analysis of Transformation Complexity of ReLU DNNs
+
+where P is the number of training samples, and ti denotes the intermediate-layer feature of the input sample i. Similarly, the
+upper bound for the mutual information w.r.t the output Y can be calculated as
+
+
+                             I(T̂ ; Y ) =H(T̂ ) − H(T̂ |Y )
+                                                                   1 ||ti − tj ||2
+                                                                                  
+                                            1 X         1 X
+                                        =−         log      exp −
+                                           P i         P j         2      σ02
+                                                                                                                                   (24)
+                                            L                                                       2
+                                                                                                       
+                                           X           1  X      1 X                1 ||t i −  t j ||
+                                         −      pl −        log          exp −                          
+                                                       P         P                  2       σ02
+                                                  l=1                i:Yi =l           j:Yj =l
+
+
+
+where L is the number of categories. Pl denotes the number of samples belonging to the l-th category. pl = Pl /P denotes
+the probability of the category l.
+We use the KDE method to quantify the transformation complexity H(Σ), I(X; Σ) and I(X; Σ; Y ). The entropy of gating
+states H(Σl ) is quantified as follows.
+
+                                                            n        n
+                                                                             1 ∥σl,j − σl,k ∥22
+                                                                                               
+                                                         1X        1X
+                                          H(Σl ) ≤ −           log     exp −                                                         (25)
+                                                         n j=1     n         2       σ02
+                                                                              k=1
+
+
+
+where n denotes the number of training samples. σl,j and σl,k denote the vectorized gating states of the l-th gating
+layer for the j-th sample and the k-th sample, respectively. σ02 is quantified as σ02 = κ · V ar(Σl ), where V ar(Σl ) =
+Ex [∥σl − µ∥2 ], µ = Ex [σl ]. V ar(Σl ) measures the variance of gating states of the l-th gating layer. κ is a positive constant.
+The above equation can also be used to quantify H(Σ), when we simply replace Σl with Σ. Figure 10 shows the complexity
+I(X; Σ) and I(Σ; Y ), which were calculated on MLP-α networks learned with different κ values on the MNIST dataset.
+The κ value affected the scale of the complexity value, but it did not affect the trend of the complexity change during the
+training process. Thus, given a fixed κ value, the complexity of different DNNs could be fairly compared.
+
+
+                                 11
+
+                                 10                                                  3.0
+
+                                  9                                                  2.5
+                                  8
+                                                                                     2.0
+                                  7
+                                                                                     1.5
+                                  6
+                                                                κ=0.005                                             κ=0.005
+                                  5                                                  1.0
+                                                                κ=0.01                                              κ=0.01
+                                  4                             κ=0.02               0.5                            κ=0.02
+                                      0     100    200   300   400      500                0     100   200   300   400   500
+                                                    epoch                                               epoch
+
+Figure 10. The complexity calculated with different values of κ. The κ value only affected the scale of I(X; Σ), but it did not affect the
+trend of the complexity change. Thus, given a fixed κ value, the complexity of different DNNs can be fairly compared.
+
+
+If the DNN does not introduce additional complexity besides the input X, we have H(Σl |X) = 0, I(X; Σl ) = H(Σl ) −
+H(Σl |X) = H(Σl ). If the DNN introduces additional complexity (e.g. using the sampling operation in VAE, or the dropout
+operation), then I(X; Σl ) can be quantified as follows.
+
+                                                       n        n
+                                                                        1 ∥σ̂l,j − σ̂l,k ∥22
+                                                                                            
+                                                    1X        1X
+                                      I(X; Σl ) ≤ −       log     exp −                                                              (26)
+                                                    n j=1     n         2        σ02
+                                                                               k=1
+
+
+
+where σ̂l,j and σ̂l,k represent the vectorized gating states when sampling operations are removed (in this way, we can use
+the method of measuring H(Σl ) to quantify I(X; Σl )).
+

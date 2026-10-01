@@ -1,0 +1,60 @@
+                  Bayesian Neural Networks Avoid Encoding Complex and
+                             Perturbation-Sensitive Concepts
+
+
+                      Qihan Ren * 1 Huiqi Deng * 1 Yunuo Chen 1 Siyu Lou 1 Quanshi Zhang 1 2
+
+
+                          Abstract                                      perspective to investigate the representation capacity of
+      In this paper, we focus on mean-field variational                 BNNs, i.e., we discover and theoretically prove that BNNs
+      Bayesian Neural Networks (BNNs) and explore                       are less likely to encode complex and perturbation-sensitive
+      the representation capacity of such BNNs by in-                   concepts than standard DNNs. In fact, such a property
+      vestigating which types of concepts are less likely               brings specific advantages to feature representations of
+      to be encoded by the BNN. It has been observed                    BNNs. To be precise, we limit our study to the scope
+      and studied that a relatively small set of interac-               of mean-field variational BNNs (Blundell et al., 2015),
+      tive concepts usually emerge in the knowledge                     which is one of the most commonly used BNNs. Thus, in
+      representation of a sufficiently-trained neural net-              this paper, we just use the term BNN to refer to mean-field
+      work, and such concepts can faithfully explain                    variational BNNs.
+      the network output. Based on this, our study                      Common phenomenon of concept emergence in various
+      proves that compared to standard deep neural                      neural networks. Although it is well-known that a neural
+      networks (DNNs), it is less likely for BNNs to                    network does not explicitly encode concepts like graphical
+      encode complex concepts. Experiments verify                       models, recent studies have discovered (Ren et al., 2023a; Li
+      our theoretical proofs. Note that the tendency to                 & Zhang, 2023) and theoretically proved (Ren et al., 2023c)
+      encode less complex concepts does not necessar-                   a common concept-emerging phenomenon that neural net-
+      ily imply weak representation power, considering                  works usually implicitly encode a small number of inter-
+      that complex concepts exhibit low generalization                  active concepts for inference, which have been observed
+      power and high adversarial vulnerability. The                     in different neural networks for various tasks. Specifically,
+      code is available at https://github.com/                          each interactive concept represents an AND relationship
+      sjtu-xai-lab/BNN-concepts.                                        among a set of input variables.
+                                                                        For example, we can use I(S = {eyes, nose, mouth}) = US ·
+                                                                        exist(eyes) · exist(nose) · exist(mouth) to illustrate the AND
+1. Introduction
+                                                                        relationship for the face concept in image classification. If
+Unlike standard deep neural networks (DNNs), Bayesian                   any image patch in the set S = {eyes, nose, mouth} is masked,
+neural networks (BNNs) represent network weights as prob-               then the face concept will be deactivated, and the numerical
+ability distributions. Therefore, BNNs exhibit distinctive              effect of this concept is removed (I(S) = 0) and no longer
+representation capacities from standard DNNs. Existing                  influences the network output.
+studies (Blundell et al., 2015; Gal & Smith, 2018; Kristiadi
+                                                                        More importantly, interactive concepts can be considered as
+et al., 2020; Carbone et al., 2020; Wenzel et al., 2020; Krish-
+                                                                        faithful inference patterns encoded by the neural network.
+nan et al., 2020; Zhang et al., 2022) usually analyzed BNNs
+                                                                        It is because Ren et al. (2023a) has proved that people can
+in terms of generalization power, adversarial robustness, and
+                                                                        use a relatively small number of interactive concepts to well
+optimization.
+                                                                        mimic the inference logic of the neural network on a certain
+In contrast to the above studies, this paper proposes a new             input sample. That is, numerical effects of these concepts
+  *
+                                                                        always well predict diverse network outputs, no matter how
+    Equal contribution 1 Shanghai Jiao Tong University, Shanghai,       the input sample is masked.
+China 2 Quanshi Zhang is the corresponding author. He is with
+the Department of Computer Science and Engineering, the John            BNNs ignore complex and perturbation-sensitive con-
+Hopcroft Center, at the Shanghai Jiao Tong University, China.           cepts. Based on the interactive concepts, we discover and
+Correspondence to: Quanshi Zhang <zqs1022@sjtu.edu.cn>.
+                                                                        theoretically prove that compared to standard DNNs, it is
+Proceedings of the 40 th International Conference on Machine            more difficult for a neural network to encode complex inter-
+Learning, Honolulu, Hawaii, USA. PMLR 202, 2023. Copyright              active concepts, as long as it has weight uncertainty. The
+2023 by the author(s).
+
+                                                                    1

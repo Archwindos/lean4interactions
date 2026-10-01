@@ -1,0 +1,75 @@
+                                                   census                                          TV news
+                                    0.6                                             0.4
+
+                                                                                    0.3
+
+
+
+
+                                                                        frequency
+                                    0.4
+
+
+
+
+                        frequency
+                                                                                    0.2
+                                    0.2
+                                                                                    0.1
+
+                                    0.0                                             0.0
+                                          0.0 0.2 0.4 0.6 0.8 1.0                         0.0 0.2 0.4 0.6 0.8 1.0
+                                                𝑈𝑈𝒮𝒮 ⁄max𝒮𝒮 ′ 𝑈𝑈𝒮𝒮 ′                            𝑈𝑈𝒮𝒮 ⁄max𝒮𝒮 ′ 𝑈𝑈𝒮𝒮 ′
+
+
+
+Figure 7: The average histograms of absolute effects of interactive concepts encoded by five-layer
+MLPs.
+
+(4) Symmetry axiom. Given two input variables i, j ∈ N , if ∀S ⊆ N \{i, j}, v(S ∪ {i}) = v(S ∪ {j}),
+then ∀S ⊆ N \{i, j}, I(S ∪ {i}) = I(S ∪ {j}).
+(5) Anonymity axiom. For any permutations π on N , we have ∀S ⊆ N, Iv (S) = Iπv (πS), where
+πS{π(i)|i ∈S}, and the new model πv is defined by (πv)(πS)=v(S). This indicates that interaction
+effects are not changed by permutation.
+(6) Recursive axiom. The interaction effects can be calculated recursively. Given i ∈ N and S ⊆
+N \{i}, the interaction effect of the pattern S ∪{i} can be represented as the interaction effect of S with
+i minus the interaction effect of S without i, i.e. ∀S ⊆ N\{i}, I(S ∪ {i}) = I(S|i is always present)−I(S).
+I(S|i is always present) denotes the interaction effect when the variable i is always present as a constant
+context, i.e. I(S|i is always present) = L⊆S (−1)|S|−|L| · v(L ∪ {i}).
+                                         P
+
+(7) Interaction distribution axiom. This axiom shows how interactions are distributed for “interaction
+functions” [57]. The definition of the interaction function vT parameterized by a subset of variables
+T is given as follows. ∀S ⊆ N , if T ⊆ S , vT (S) = c; otherwise, vT (S) = 0. The function vT models
+pure interaction among the variables in T , because only if all variables in T are present, the output
+value will be increased by c. The interactions encoded in the function vT satisfies I(T ) = c, and
+∀S ̸= T , I(S) = 0.
+
+
+E    Sparsity of interactive concepts
+In this section, we conducted experiments to verify the sparsity of interactive concepts. To this end,
+we computed effects US of all 2n interactive concepts encoded by a DNN following [45]. Specifically,
+we trained a five-layer MLP on the census dataset and the TV news dataset), respectively. For better
+visualization, we re-scaled effects of interactive concepts US by |US |/ maxS ′ ⊆N |US ′ |. Moreover, the
+strength of effects are average over different samples in each dataset. Fig. 7 shows histograms of
+absolute effects of interactive concepts.
+
+F    Complexity of interactive concepts
+Many previous studies [11, 67, 59, 45, 43] used multi-order interactions to analyze DNNs. Specif-
+ically, Given a pre-trained DNN v and a masked sample xS , the multi-order interaction I (m) (i, j)
+used in [59, 11, 67] is given as follows:
+                                     I (m) (i, j) = ES⊆N \{i,j},|S|=m [∆v(i, j, S)],                                   (1)
+
+where ∆v(i, j, S) = v(xS∪{i,j} ) − v(xS∪{i} ) − v(xS∪{j} ) + v(xS ). They consider that I (m) (i, j)
+reflects the collaboration with m contextual variables (m pixels). In this way, the order m measures the
+number of variables in S . Therefore, a low-order interaction denotes a relatively simple collaboration
+between input variables with a small context S. In contrast, a high-order interaction represents a
+complex collaboration between input variables with a large context S.
+In this paper, we consider that the number of variables in an interactive concept S can measure the
+complexity of an interactive concept encoded by a DNN, namely the order of the interactive concept,
+complexity(S)=order(S) = |S|. Thus, low-order concepts usually represent simple AND relationships
+among a few input variables. In comparison, high-order concepts often refer to as relatively complex
+AND relationships among a large number of input variables.
+
+
+                                                                       16

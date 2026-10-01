@@ -1,0 +1,77 @@
+                         Towards Theoretical Analysis of Transformation Complexity of ReLU DNNs
+
+izations. We followed (Wang et al., 2020) to measure the          the CIFAR-10 dataset, the architecture of the MLP was
+minimum L2 norm of adversarial perturbations computed             set as 3072-1024-256-128-64-10 (termed MLP-CIFAR10).
+w.r.t. a certain attacking utility to quantify the adversarial    For the CelebA, Pascal VOC 2012, and Tiny ImageNet
+robustness of DNNs. Figure 9(a) shows the minimum L2              datasets, we learned VGG-16 (Simonyan et al., 2017) and
+norm of adversarial perturbations towards each DNN. We            the pre-activation version of ResNet-18/34. We used images
+found that DNNs with low transformation complexity usu-           cropped by bounding boxes for both training and testing.
+ally exhibited high adversarial robustness, while DNNs with       Please see Appendix G.3 for these DNNs’ classification
+high transformation complexity were usually sensitive to          accuracy. We analyzed the transformation complexity of
+adversarial perturbations. Besides, Table 1 compares the          ReLU layers.
+transformation complexity in normally trained DNNs and
+adversarially trained DNNs. Results show that adversari-          5. Conclusion
+ally trained DNNs, which were more robust than normally
+trained DNNs, usually exhibited lower complexity. This            In this paper, we have proposed three complexity measures
+also verifies the negative correlation between transforma-        for feature transformations encoded in DNNs. We further
+tion complexity and adversarial robustness.                       prove the decrease of the transformation complexity through
+                                                                  layerwise propagation. We also prove the strong correlation
+Following settings in (Wang et al., 2020), we also measured
+                                                                  between the complexity and the disentanglement of trans-
+the adversarial transferability between DNNs with different
+                                                                  formations. Based on the proposed metrics, we develop
+transformation complexities. Figure 9(b) shows the adver-
+                                                                  a generic method to learn a minimum-complexity DNN,
+sarial transferability between ResNet-20/32’s with different
+                                                                  which also reduces the gap between the training loss and the
+transformation complexities. We found that adversarial per-
+                                                                  testing loss, and influences adversarial robustness, adversar-
+turbations for complex DNNs could not be well transferred
+                                                                  ial transferability, and knowledge consistency. Comparative
+to simple DNNs. However, adversarial perturbations for
+                                                                  studies reveal the ceiling of a DNN’s complexity. Further-
+simple DNNs could be transferred to complex DNNs. This
+                                                                  more, we summarize the change of the transformation com-
+reflected that simple DNNs encoded common knowledge
+                                                                  plexity during the training process into two typical cases.
+that could be transferred to DNNs learned for the same task.
+                                                                  As a generic tool, the transformation complexity enables us
+Furthermore, we followed (Liang et al., 2019) to explore the      to understand DNNs from new perspectives.
+knowledge consistency between DNNs with different trans-
+                                                                  Acknowledgments. This work is partially supported by
+formation complexities. We found that each pair of simple
+                                                                  National Key R&D Program of China (2021ZD0111602),
+DNNs usually encoded similar knowledge representations
+                                                                  the National Nature Science Foundation of China
+(exhibiting high knowledge consistency), while complex
+                                                                  (No. 61906120, U19B2043), Shanghai Natural Sci-
+DNNs are more likely to encode diverse knowledge. This
+                                                                  ence Foundation (21JC1403800, 21ZR1434600), Shang-
+demonstrated the reliability of features learned by simple
+                                                                  hai Municipal Science and Technology Major Project
+DNNs. Please refer to Appendix G.7 for experimental re-
+                                                                  (2021SHZDZX0102). This work is also partially supported
+sults on knowledge consistency.
+                                                                  by Huawei Technologies Inc.
+Experimental settings. We conducted a set of comparative
+studies on the task of classification using the MNIST (Le-        References
+Cun et al., 1998), CIFAR-10 (Krizhevsky et al., 2009),
+CelebA (Liu et al., 2015), Pascal VOC 2012 (Evering-              Achille, A. and Soatto, S. Emergence of invariance and
+ham et al., 2015), and Tiny ImageNet (Le & Yang, 2015)              disentanglement in deep representations. The Journal of
+datasets. For the MNIST dataset and the CIFAR-10 dataset,          Machine Learning Research, 19(1):1947–1980, 2018a.
+we learned LeNet-5 (LeCun et al., 1998), the revised VGG-
+11 (Jastrzebski et al., 2017), the pre-activation version of      Achille, A. and Soatto, S. Information dropout: Learning
+ResNet-20/32 (He et al., 2016a;b), and the MLP. In particu-         optimal representations through noisy computation. IEEE
+lar, for the MNIST dataset, we learned three MLP models:            transactions on pattern analysis and machine intelligence,
+MLP-MNIST contained 5 fully connected (FC) layers with              40(12):2897–2905, 2018b.
+the width of 784-1024-256-128-64-10, MLP-α contained
+11 FC layers with the width of 784-1024-1024-512-512-             Arora, R., Basu, A., Mianjy, P., and Mukherjee, A. Under-
+256-256-128-128-64-16-10, and MLP-β contained 5 FC                  standing deep neural networks with rectified linear units.
+layers with the width of 784-1024-256-120-84-105 . For              arXiv preprint arXiv:1611.01491, 2016.
+    5
+      For comparison, we modified the architecture of MLP-MNIST   Blum, A. and Rivest, R. L. Training a 3-node neural net-
+and made the width of the last three FC layers be the same with
+the fully connected layers in the LeNet-5 network.
+                                                                    work is np-complete. In Advances in neural information
+                                                                    processing systems, pp. 494–501, 1989.
+

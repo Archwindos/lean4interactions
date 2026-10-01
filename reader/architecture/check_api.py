@@ -1,10 +1,14 @@
 #!/usr/bin/env python3
 """Check actual local retrieval, evidence roles, schemas and negative fixtures."""
+import argparse
 import copy
 import hashlib
 import json
+import sys
 from pathlib import Path
-from paper_agent import PaperPackage
+from paper_agent import PaperPackage,public_extension_import
+sys.path.insert(0,str(Path(__file__).resolve().parents[1]))
+from evidence_paths import EVIDENCE
 
 ROOT=Path(__file__).resolve().parents[2];WORK=Path(__file__).resolve().parents[1]
 def schema_errors(schema,value,path='$'):
@@ -27,12 +31,22 @@ def schema_errors(schema,value,path='$'):
         for i,item in enumerate(value):errors+=schema_errors(schema['items'],item,path+'['+str(i)+']')
     return errors
 def main():
+    parser=argparse.ArgumentParser(description=__doc__)
+    parser.add_argument('--report-name',default='api-checks.json')
+    args=parser.parse_args()
+    if Path(args.report_name).name!=args.report_name or not args.report_name.endswith('.json') or args.report_name.startswith('root-'):
+        parser.error('report-name must be a local non-root JSON filename')
     p=PaperPackage();checks=[]
     def check(name,value,detail=None):checks.append({'name':name,'passed':bool(value),'detail':detail})
-    paths=[WORK/'data/full-content.json',WORK/'architecture/agent-package.json',ROOT/'catalog/library.json',Path(__file__).resolve()]
+    paths=[WORK/'data/full-content.json',WORK/'architecture/agent-package.json',ROOT/'catalog/library.json',WORK/'architecture/paper_agent.py',WORK/'architecture/full-content.schema.json',WORK/'architecture/package.schema.json',WORK/'evidence_paths.py',Path(__file__).resolve()]
+    reports=sorted({r.get('lean',{}).get('report_path') for r in p.data['results']+p.data.get('shared_proofs',[]) if r.get('lean',{}).get('report_path')}|{json.loads((ROOT/'catalog/library.json').read_text())['verification_report']})
+    for report_path in reports:
+        path=ROOT/report_path;paths.append(path)
+        paths.extend(ROOT/source['path'] for source in json.loads(path.read_text()).get('source_files',[]))
+    paths=sorted(set(paths))
     def fingerprints():return {str(x.relative_to(ROOT)):hashlib.sha256(x.read_bytes()).hexdigest() for x in paths}
     before=fingerprints();check('directory-source-and-reference-validation',p.validate()['status']=='passed',p.validate())
-    check('cross-paper-Shapley-search',len({r['paper_id'] for r in p.search('Shapley')})==3)
+    check('cross-paper-Shapley-search',{'cvpr2023-sparse-concepts','iclr2024-sparse','iclr2024-generalizable'} <= {r['paper_id'] for r in p.search('Shapley')})
     check('ambiguous-Sparse-Theorem6-search',set(r['id'] for r in p.search('Theorem 6','iclr2024-sparse'))=={'iclr2024-sparse-theorem3','iclr2024-sparse-theorem6'})
     check('whole-paper-title-search',[r['id'] for r in p.paper_search('Generalizable')]==['iclr2024-generalizable'])
     check('search-results-unique',len(p.search(''))==len({r['id'] for r in p.search('')}))
@@ -47,6 +61,20 @@ def main():
     for ident in ('sym-and-interaction','sym-centered-interaction','sym-centered-or-interaction','sym-or-interaction','sym-and-component-interaction','sym-or-component-interaction','sym-conditional-interaction'):
         check('scoped-symbol:'+ident,len(p.symbol(ident)['records'])==1)
     catalog=p.library();check('library-current',catalog['library_version']=='0.2.0' and catalog['current_evidence']['freshness']=='current')
+    extensions=catalog.get('extension_declarations',[])
+    check('independent-public-extension-types-retrievable',bool(extensions))
+    for row in extensions:
+        module=public_extension_import(row['source_path'])
+        module_path=ROOT/'lean/HarsanyiLib'/Path(*module.split('.')).with_suffix('.lean') if module else None
+        evidence=row.get('current_evidence',{})
+        check('direct-import-current-type:'+row['name'],
+              module==row.get('import') and module_path is not None and module_path.is_file()
+              and str(module_path.relative_to(ROOT))==row['source_path']
+              and row.get('source_role')=='public_library_extension'
+              and bool(row.get('signature')) and row.get('kind') in {'theorem','definition','type','inductive','constructor','projection'}
+              and evidence.get('freshness')=='current' and evidence.get('compilation')=='passed'
+              and evidence.get('axiom_audit')=='passed',
+              {'import':module,'source_path':row['source_path'],'report_path':row['report_path']})
     expected={'Harsanyi.Sparsity.CoefficientWitness':'type','Harsanyi.Sparsity.CoefficientWitness.mk':'constructor','Harsanyi.Sparsity.CoefficientWitness.representation':'projection','Harsanyi.Sparsity.CoefficientWitness.leadingBound':'projection','Harsanyi.Sparsity.CoefficientWitness.positiveBound':'projection'}
     for name,kind in expected.items():
         rows=[r for r in p.library(name) if r['name']==name];check('actual-structure-type:'+name,len(rows)==1 and rows[0]['kind']==kind and bool(rows[0]['signature']))
@@ -58,5 +86,5 @@ def main():
         p.data=copy.deepcopy(original);mutate(p.data['results'][0]);check('negative:'+label,p.validate()['status']=='failed')
     p.data=original;after=fingerprints();check('bound-files-unchanged-during-API-check',before==after)
     report={'status':'passed' if all(c['passed'] for c in checks) else 'failed','scope':'retrieval_schema_evidence_role_and_reference_checks_only','checks':checks,'snapshot_hashes':{'before':before,'after':after}}
-    (WORK/'evidence/api-checks.json').write_text(json.dumps(report,ensure_ascii=False,indent=2)+'\n');print(json.dumps({'status':report['status'],'checks':len(checks),'failures':[c for c in checks if not c['passed']]},ensure_ascii=False));return int(report['status']!='passed')
+    (EVIDENCE/args.report_name).write_text(json.dumps(report,ensure_ascii=False,indent=2)+'\n');print(json.dumps({'status':report['status'],'checks':len(checks),'failures':[c for c in checks if not c['passed']]},ensure_ascii=False));return int(report['status']!='passed')
 if __name__=='__main__':raise SystemExit(main())

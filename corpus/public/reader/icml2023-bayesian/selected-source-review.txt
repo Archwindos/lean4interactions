@@ -1,0 +1,419 @@
+PAGE 16
+                   Bayesian Neural Networks Avoid Encoding Complex and Perturbation-Sensitive Concepts
+
+      ˜
+Thus, I(S|x ′
+              ) satisfies the faithfulness requirement in Eq. (22) when Ω = 2N .
+
+Therefore, Lemma 1 holds.
+
+G.2. Proof of Theorem 2.2 in the main paper
+Theorem 2.2. Let π̂ denote the lowest degree of the expansion terms of the interaction effect I(S|x′ ), i.e., ∀i ∈ S, π̂i =
+1; ∀i ̸∈ S, π̂i = 0. Let us consider the interaction effect I(S|x′ ) only containing the expansion term of the lowest degree,
+i.e., I(S|x′ ) = US,π̂ · J(S, π̂|x′ ). In this way, the mean and variance of the interaction effect I(S|x′ = x + ϵ) over different
+perturbations ϵ are given as
+                                          Eϵ [I(S|x + ϵ)] = US,π̂ ,
+                                                                                                                               (27)
+                                                             2
+                                        Varϵ [I(S|x + ϵ)] = US,π̂ ((1 + (σ/τ )2 )|S| − 1).
+
+Proof. If we only consider Taylor expansion term of the lowest degree, then I(S|x′ ) = US,π̂ · J(S, π̂|x′ ), where
+                                    x′ −r
+J(S, π̂|x′ ) = i∈S sign(x′i − ri ) · i τ i .
+              Q
+
+Let us add a Gaussian perturbation ϵ ∼ N (0, σ 2 I) to the input sample x. In this way, we have
+
+                        I(S|x + ϵ) ≈ US,π̂ · J(S, π̂|x + ϵ)
+                                       Y                         xi + ϵi − ri
+                      J(S, π̂|x + ϵ) =     sign(xi + ϵi − ri ) ·
+                                                                       τ                                                       (28)
+                                       i∈S
+                                                                                                     
+                                       Y                           xi − ri                         ϵi
+                                     =       sign(xi + ϵi − ri ) ·         + sign(xi + ϵi − ri ) ·
+                                                                      τ                            τ
+                                         i∈S
+
+
+According to the setting of the reference value in Section 2.3, we have ∀i ∈ S, xi − ri ∈ {−τ, τ }. Also in Section 2.3, we
+have assumed that the variance of the perturbation ϵ is small, so that we can ignore the extremely low probability that the
+perturbation is large such that |ϵi | ≥ τ . In this way, we have sign(xi + ϵi − ri ) = sign(xi − ri ), and we can obtain
+                                                 Y                    xi − ri                     ϵi
+                                                                                                      
+                           J(S, π̂|x + ϵ) =           sign(xi − ri ) ·          + sign(xi − ri ) ·
+                                                                          τ                        τ
+                                                 i∈S
+                                                                                                                         (29)
+                                                 Y                        ϵi 
+                                              =       1 + sign(xi − ri ) ·
+                                                                            τ
+                                               i∈S
+
+                                                               "                                            #
+                                                                   Y                         ϵi 
+                               ⇒ Eϵ [J(S, π̂|x + ϵ)] = Eϵ                1 + sign(xi − ri ) ·
+                                                                                              τ
+                                                               i∈S
+                                                                   "                                            #              (30)
+                                                                       Y                         ϵi 
+                                Varϵ [J(S, π̂|x + ϵ)] = Varϵ                 1 + sign(xi − ri ) ·
+                                                                                                  τ
+                                                                       i∈S
+
+                                                                   ϵi
+Since sign(xi − ri ) ∈ {−1, 1}, we have 1 + sign(xi − ri ) ·       τ    ∼ N (1, (σ/τ )2 ), ∀i ∈ S.
+                                                                                                                     Qk
+Proposition G.1. If random variables X1 , X2 , · · · , Xk are independent of each other, then E[X1 X2 · · · Xk ] =     i=1   E[Xi ],
+                          Qk                              Qk
+and Var[X1 X2 · · · Xk ] = i=1 (E[Xi ]2 + Var[Xi ]) − i=1 E[Xi ]2 .
+
+According to the above proposition, we have
+                                                               Y
+                                       Eϵ [J(S, π̂|x + ϵ)] =            1=1
+                                                               i∈S
+                                                               Y                    2
+                                                                                                Y
+                                    Varϵ [J(S, π̂|x + ϵ)] =              12 + (σ/τ )         −         12                      (31)
+                                                               i∈S                               i∈S
+                                                                         |S|
+                                                                        2
+                                                           = 1 + (σ/τ )        −1
+
+                                                               16
+
+
+PAGE 17
+                  Bayesian Neural Networks Avoid Encoding Complex and Perturbation-Sensitive Concepts
+
+Therefore,
+                      Eϵ [I(S|x + ϵ)] = Eϵ [US,π̂ · J(S, π̂|x + ϵ)] = US,π̂
+                                                                                                                                          (32)
+                                                                                                               |S|        
+                                                                                  2                          2
+                    Varϵ [I(S|x + ϵ)] = Varϵ [US,π̂ · J(S, π̂|x + ϵ)] =          US, π̂        1 + (σ/τ )               −1
+
+
+
+
+G.3. Proof of Theorem 2.3 in the main paper
+Theorem 2.3. Let π ∈ QS = {[π1 , . . . , πn ]|∀i ∈ S, πi ∈ N+ ; ∀i ̸∈ S, πi = 0} denote an arbitrary degree. Then, the mean and
+the variance of J(S, π|x + ϵ) over perturbations ϵ are
+                                                                        Y     ϵ i πi
+                                          Eϵ [J(S, π|x + ϵ)] = Eϵ [             (1 +
+                                                                                 ) ],
+                                                                          i∈S τ                                                           (33)
+                                                                      Y          ϵi
+                                        Varϵ [J(S, π|x + ϵ)] = Varϵ [      (1 + )πi ]
+                                                                       i∈S        τ
+
+Proof. According to Lemma 2.1, given an arbitrary input sample x′ , we have
+                                                                                 π
+                                                                          x′ − ri i
+                                                Y      
+                                 J(S, π|x′ ) =           sign(x′i − ri ) · i                                                              (34)
+                                                   i∈S                       τ
+
+Let us add a Gaussian perturbation ϵ ∼ N (0, σ 2 I) to the input sample x. In this way, we have
+                                      Y                                      π
+                                                                  xi + ϵi − ri i
+                    J(S, π|x + ϵ) =        sign(xi + ϵi − ri ) ·
+                                                                       τ
+                                     i∈S
+                                                                                                   π                                    (35)
+                                      Y                           xi − ri                         ϵi i
+                                   =       sign(xi + ϵi − ri ) ·          + sign(xi + ϵi − ri ) ·
+                                                                     τ                            τ
+                                       i∈S
+
+
+According to the setting of the reference value in Section 2.3, ∀i ∈ S, xi − ri ∈ {−τ, τ }. Also, in Section 2.3, we have
+assumed that the variance of the perturbation ϵ is small, so that we can ignore the extremely low probability that the
+perturbation is large such that |ϵi | ≥ τ . In this way, sign(xi + ϵi − ri ) = sign(xi − ri ), and we can obtain
+                                                Y                                                  π
+                                                                      xi − ri                     ϵi i
+                          J(S, π|x + ϵ) =            sign(xi − ri ) ·          + sign(xi − ri ) ·
+                                                                         τ                        τ
+                                                i∈S
+                                                                              π
+                                                                                                                      (36)
+                                                Y                        ϵi   i
+                                             =       1 + sign(xi − ri ) ·
+                                                                           τ
+                                             i∈S
+                                                            "                                            #
+                                                                Y                         ϵi  π i
+                             ⇒ Eϵ [J(S, π|x + ϵ)] = Eϵ                1 + sign(xi − ri ) ·
+                                                                                           τ
+                                                                i∈S
+                                                                "                                            #                            (37)
+                                                                    Y                        ϵi  π i
+                              Varϵ [J(S, π|x + ϵ)] = Varϵ                1 + sign(xi − ri ) ·
+                                                                                              τ
+                                                                  i∈S
+
+Since ∀i ∈ S, ϵi is independent of each other, according to Proposition G.1 and Eq. (37), we have
+                             Y       h                      ϵi  π i i
+       Eϵ [J(S, π|x + ϵ)] =      Eϵi 1 + sign(xi − ri ) ·
+                                                             τ
+                             i∈S
+                                                                       Y                                                               (38)
+                             Y                              ϵi 2πi            h                    ϵi πi i2
+     Varϵ [J(S, π|x + ϵ)] =      Eϵi 1 + sign(xi − ri ) ·               −    Eϵi 1 + sign(xi − ri ) ·
+                                                             τ                                        τ
+                               i∈S                                              i∈S
+
+                                                h                                  i            h                i
+                                                                            ϵi k                         ϵi k
+                                                                                                          
+Since sign(xi − ri ) ∈ {−1, 1}, we have Eϵi         1 + sign(xi − ri ) ·    τ          = Eϵi        1+   τ           , ∀k ∈ N+ . Therefore, we
+obtain
+
+                                                                17
+
+
+PAGE 18
+                   Bayesian Neural Networks Avoid Encoding Complex and Perturbation-Sensitive Concepts
+
+
+
+                                                        h
+                                                        Y    ϵi πi i
+                           Eϵ [J(S, π|x + ϵ)] =           1+  Eϵi
+                                                              τ
+                                                i∈S
+                                                   "                  #
+                                                     Y      ϵi  π i
+                                              = Eϵ        1+
+                                                             τ
+                                                     i∈S
+                                                                        Y
+                                                Y            ϵi 2πi               h   ϵi πi i2
+                         Varϵ [J(S, π|x + ϵ)] =     Eϵi 1 +               −      Eϵi 1 +
+                                                              τ                          τ
+                                                i∈S                          i∈S
+                                                      "                  #
+                                                        Y      ϵi πi
+                                              = Varϵ       1+              .
+                                                                 τ
+                                                                  i∈S
+
+
+
+
+G.4. Proof of Theorem 2.4 in the main paper
+Theorem 2.4. Let S and S ′ be two interactive concepts, such that S ⊊ S ′ . Let us consider expansion terms J(S, π) and
+J(S ′ , π ′ ), where the term J(S ′ , π ′ ) is extended from the term J(S, π) with π ≺ π ′ . I.e., (1) ∀i ∈ S ′ , πi′ ∈ N+ ; otherwise,
+πi′ = 0. (2) Given π ′ , ∀j ∈ S, πj = πj′ ; otherwise, πj = 0. Then, we have
+
+
+                                                         Varϵ [J(S ′ , π ′ |x + ϵ)]   Y                     ϵi ′
+                                                                                    >            E2ϵi [(1 + )πi ],
+                                                         Varϵ [J(S, π|x + ϵ)]           i∈S ′ \S            τ
+                                                                                                                                  (39)
+                                Eϵ [J(S ′ , π ′ |x + ϵ)]/Varϵ [J(S ′ , π ′ |x + ϵ)]                1
+                                                                                    < Q                    ϵi π ′
+                                                                                                                  ,
+                                 Eϵ [J(S, π|x + ϵ)]/Varϵ [J(S, π|x + ϵ)]               i∈S ′ \S Eϵi [(1 + τ ) ]
+                                                                                                               i
+
+
+
+
+                                       ϵi πi′
+and we can also obtain Eϵi [(1 +       τ
+                                         ) ]    ≥ 1.
+
+
+
+
+Proof. According to Theorem 2.3, we have
+
+                                                        "                         #
+                                                                              ′
+                            ′     ′
+                                                            Y         ϵi πi
+                 Varϵ [J(S , π |x + ϵ)] = Varϵ                      1+
+                                                                       τ
+                                                         i∈S ′
+                                                                                                 
+                                                                           ′                    ′
+                                                            Y       ϵi i
+                                                                        π     Y            π
+                                                                                          ϵi i 
+                                                = Varϵ           1+                   1+                 //S ⊊ S ′
+                                                                     τ                    τ
+                                                            i∈S              i∈S ′ \S
+                                                                                                 
+                                                       Y                                 ′
+                                                                 ϵi  π i Y        ϵi  π i 
+                                                                                                          //∀i ∈ S, πi′ = πi
+                                                       
+                                                = Varϵ     1 +                 1 +          
+                                                                                                                                  (40)
+                                                       
+                                                       i∈S      τ          ′
+                                                                                    τ        
+                                                                         i∈S \S              
+                                                        |     {z       }|       {z        }
+                                                                     A                 B
+                                                = Varϵ [AB]
+                                                = (E2ϵ [A] + Varϵ [A])(E2ϵ [B] + Varϵ [B]) − E2ϵ [A]E2ϵ [B]
+                                                  //A and B are independent; Proposition G.1
+                                                = E2ϵ [A]Varϵ [B] + E2ϵ [B]Varϵ [A] + Varϵ [A]Varϵ [B]
+                                                > E2ϵ [B]Varϵ [A] + Varϵ [A]Varϵ [B]
+
+                                                                         18
+
+
+PAGE 19
+                  Bayesian Neural Networks Avoid Encoding Complex and Perturbation-Sensitive Concepts
+
+Therefore, we can prove the first equality as follows.
+
+                       Varϵ [J(S ′ , π ′ |x + ϵ)]   Varϵ [AB]
+                                                  =
+                       Varϵ [J(S, π|x + ϵ)]          Varϵ [A]
+                                                    > E2ϵ [B] + Varϵ [B]
+                                                    > E2ϵ [B]
+                                                                                 
+                                                                         ϵ   πi′
+                                                                 Y        i                                             (41)
+                                                    = E2ϵ            1+          
+                                                                         τ
+                                                            i∈S ′ \S
+                                                                               ′
+                                                       Y
+                                                                2        ϵi πi
+                                                    =         Eϵi 1 +
+                                                          ′
+                                                                          τ
+                                                       i∈S \S
+
+                                                       //ϵi is independent of each other; Proposition G.1
+
+Furthermore, we have
+                                                "                             #
+                                                                          ′
+                          ′   ′
+                                                    Y         ϵi  π i
+                  Eϵ [J(S , π |x + ϵ)] = Eϵ                 1+
+                                                               τ
+                                                    i∈S ′
+                                                                                
+                                                     ϵ
+                                                    Y   πi′ Y       ϵ    πi′
+                                                      i                   i
+                                        = Eϵ     1+                1+                              //S ⊊ S ′
+                                                     τ           ′
+                                                                        τ                                                (42)
+                                              i∈S            i∈S \S
+                                                                                
+                                               Y    ϵ   π i Y       ϵ    πi′
+                                                       i                 i
+                                        = Eϵ     1+                1+                             //∀i ∈ S, πi′ = πi
+                                                     τ          ′
+                                                                       τ
+                                                    i∈S                   i∈S \S
+
+                                        = Eϵ [AB]
+
+and also                                                              "                     #
+                                                                          Y         ϵi πi
+                                   Eϵ [J(S, π|x + ϵ)] = Eϵ                        1+          = Eϵ [A].                  (43)
+                                                                                     τ
+                                                                      i∈S
+
+Therefore, we have
+                                        Eϵ [J(S ′ , π ′ |x + ϵ)]   Eϵ [AB]
+                                                                 =         = Eϵ [B].                                     (44)
+                                        Eϵ [J(S, π|x + ϵ)]          Eϵ [A]
+
+Then, we can prove the second inequality as follows.
+
+                                        Eϵ [J(S ′ , π ′ |x + ϵ)]/Varϵ [J(S ′ , π ′ |x + ϵ)]
+                                         Eϵ [J(S, π|x + ϵ)]/Varϵ [J(S, π|x + ϵ)]
+                                               Eϵ [B]
+                                      =
+                                        Varϵ [AB]/Varϵ [A]
+                                        Eϵ [B]
+                                      < 2
+                                        Eϵ [B]
+                                          1                                                                              (45)
+                                      =
+                                        Eϵ [B]
+                                                        1
+                                      = hQ                        ′i
+                                                               ϵi πi
+                                        Eϵ          ′
+                                               i∈S \S      1 + τ
+                                                             1
+                                      =Q                     h            ′      i
+                                                                      ϵ i πi
+                                           i∈S ′ \S    Eϵi       1+   τ
+
+
+                                        ϵi k
+Moreover, we can prove that Eϵi [(1 +   τ ) ]   ≥ 1, ∀k ∈ N+ , i.e., E[X k ] ≥ 1, where X ∼ N (1, (σ/τ )2 ).
+
+                                                                      19
+
+
+PAGE 20
+                  Bayesian Neural Networks Avoid Encoding Complex and Perturbation-Sensitive Concepts
+
+For a random variable following a Gaussian distribution X̃ ∼ N (µ̃, σ̃ 2 ), Willink (2005) proved the following property:
+                                         h       i       h i               h      i
+                                       E X̃ k+1 = µ̃E X̃ k + kσ̃ 2 E X̃ k−1                                            (46)
+                                                                              
+Now let us consider X ∼ N (1, (σ/τ )2 ). We have E X k+1 = E X k + k(σ/τ )2 E X k−1 . By induction, it is easy to
+prove that E[X k ] ≥ E[X] = 1.
+
+G.5. Proof of Theorem 2.5 in the main paper
+Theorem 2.5. Given two random interactive concepts S and S ′ , we can roughly assume that CS (x + ϵ) is independent
+of CS ′ (x + ϵ), because the two concepts S and S ′ usually have little overlap in most cases. Let Eϵ [CS (x + ϵ)] and
+Varϵ [CS (x + ϵ)] denote the mean and the variance of CS (x + ϵ) w.r.t. ϵ, respectively. Then, the solution to Eq. (15) in the
+main paper satisfies the following property:
+
+                                     ∀ S ∈ Ω,    |US∗ | ∝ |Eϵ [CS (x + ϵ)]/Varϵ [CS (x + ϵ)]|                              (47)
+
+Proof. Let p = |Ω|. Let C(x + ϵ) = [CS1 (x + ϵ), · · · , CSp (x + ϵ)]⊤ denote the vector of all CS (x + ϵ), S ∈ Ω, and let
+U = [US1 , · · · , USp ]⊤ denote the vector of all coefficients US , S ∈ Ω. To further simplify the notation, we simply use C to
+denote the random vector C(x + ϵ). Besides, since we assume that each dimension of the vector C(x + ϵ) is independent
+of each other, we can use Eϵ [C] = [α1 , · · · , αp ]⊤ ∈ Rp and Varϵ [C] = diag(β12 , · · · , βp2 ) ∈ Rp×p to denote the mean
+vector and covariance matrix of the random vector C(x + ϵ), respectively. We prove this theorem in three steps.
+Step 1. We first prove that the optimal solution to Eq. (15) in the main paper is given by
+                                                     1
+                          ∀1 ≤ i ≤ p,     US∗i =         det(M1 , · · · , Mi−1 , ρ, Mi+1 , · · · , Mp )                    (48)
+                                                   det M
+where M = Eϵ [C]Eϵ [C]⊤ + Varϵ [C], ρ = y ∗ Eϵ [C], and Mj denotes the j-th column of the matrix M .
+We can rewrite the objective function in Eq. (15) in the main paper as
+
+                                                min Eϵ [(y ∗ − U ⊤ C(x + ϵ))2 ]                                            (49)
+                                                 U
+
+To minimize the loss L = Eϵ [(y ∗ − U ⊤ C)2 ], we set the gradient of the loss w.r.t U to zero, i.e.,
+
+                                 ∇U L = Eϵ [2C(U ⊤ C − y ∗ )]
+                                        = 2Eϵ [CC ⊤ U − y ∗ C]
+                                                                                                                           (50)
+                                        = 2Eϵ [CC ⊤ ]U − 2y ∗ Eϵ [C]
+                                        = 2(Eϵ [C]Eϵ [C]⊤ + Varϵ [C])U − 2y ∗ Eϵ [C] = 0
+
+                                        ⇒ (Eϵ [C]Eϵ [C]⊤ + Varϵ [C])U = y ∗ Eϵ [C]                                         (51)
+
+Let M = Eϵ [C]Eϵ [C]⊤ + Varϵ [C], and ρ = y ∗ Eϵ [C]. By Cramer’s rule, we can obtain the solution to Eq. (51):
+                                                     1
+                          ∀1 ≤ i ≤ p,     US∗i =         det(M1 , · · · , Mi−1 , ρ, Mi+1 , · · · , Mp )
+                                                   det M
+where Mj denotes the j-th column of the matrix M .
+Step 2. We prove that for the optimal solution U ∗ , we have
+                                                 |US∗i |   |Eϵ [CSi (x + ϵ)]/Varϵ [CSi (x + ϵ)]|
+                              ∀1 ≤ i, j ≤ p,        ∗    =                                                                 (52)
+                                                 |USj |    |Eϵ [CSj (x + ϵ)]/Varϵ [CSj (x + ϵ)]|
+
+Since M = Eϵ [C]Eϵ [C]⊤ + Varϵ [C], we can obtain the j-th column of M as
+
+                                                     Mj = αj Eϵ [C] + Vj                                                   (53)
+
+                                                               20

@@ -1,0 +1,683 @@
+[
+  {
+    "id": "decoder-issue-quotient-domain",
+    "paper_id": "icml2023-decoder",
+    "title": "原几何/R/χ/τ商的零分母",
+    "kind": "definition_or_algorithm_boundary",
+    "classification": "definition_or_algorithm_boundary",
+    "status": "agent_confirmed",
+    "original_expression": "\\sin(a\\theta)/\\sin\\theta",
+    "source_location": "formal PDF 4,5,6,11,17,20,23",
+    "evidence_md": "θ=0或频率同坐标时，普通商0/0；χ完整和包含这些频率，不能排除必要项。有限和保留合法值n或K。",
+    "problem_md": "θ=0或频率同坐标时，普通商0/0；χ完整和包含这些频率，不能排除必要项。有限和保留合法值n或K。",
+    "impact_md": "全称商域问题；不否定有限DFT传播。",
+    "related_result_ids": [
+      "decoder-geometric-sum",
+      "decoder-backpropagation",
+      "decoder-gaussian-response",
+      "decoder-zero-padding"
+    ],
+    "fix_authorization": "proof_only_granted",
+    "user_confirmation": "not_required_for_proof_only_correction",
+    "user_review_status": "pending",
+    "resolution": "original_statement_preserved",
+    "translations": {
+      "en": {
+        "title": "Zero denominators in the geometric/R/χ/τ quotients",
+        "problem_md": "At θ=0 or equal-coordinate frequencies, the ordinary quotient is 0/0. The complete χ sum includes these frequencies, so they cannot be excluded. Finite sums retain legitimate values n or K.",
+        "evidence_md": "At θ=0 or equal-coordinate frequencies, the ordinary quotient is 0/0. The complete χ sum includes these frequencies, so they cannot be excluded. Finite sums retain legitimate values n or K.",
+        "impact_md": "A universal quotient-domain issue, without refuting finite DFT propagation."
+      }
+    },
+    "issue_type": "definition_or_algorithm_boundary",
+    "source_refs": [
+      {
+        "source_id": "src-icml2023-decoder-formal",
+        "version_id": "ver-icml2023-decoder-formal",
+        "pdf_pages": [
+          4,
+          5,
+          6,
+          11,
+          17,
+          20,
+          23
+        ],
+        "section": "source issue quotient-domain"
+      }
+    ],
+    "original_statement_status": "scope_under_review"
+  },
+  {
+    "id": "decoder-issue-valid-count",
+    "paper_id": "icml2023-decoder",
+    "title": "Eq17正弦项数漏一项",
+    "kind": "statement_partial_counterexample",
+    "classification": "statement_partial_counterexample",
+    "status": "agent_confirmed",
+    "original_expression": "\\sin((M-K)\\lambda\\pi)",
+    "source_location": "formal PDF 13",
+    "evidence_md": "M=N=3,K=2,u=v=0,u′=v′=1给正确有限和0、原式−1/9，两个分母都非0。原相位使用项数减1，恰为M−K与N−K，本身正确；错误仅正弦分子项数。",
+    "problem_md": "M=N=3,K=2,u=v=0,u′=v′=1给正确有限和0、原式−1/9，两个分母都非0。原相位使用项数减1，恰为M−K与N−K，本身正确；错误仅正弦分子项数。",
+    "impact_md": "仅无padding Eq17子式错误；circle Thm3.2不受牵连。",
+    "related_result_ids": [
+      "decoder-valid-convolution"
+    ],
+    "fix_authorization": "proof_only_granted",
+    "user_confirmation": "not_required_for_proof_only_correction",
+    "user_review_status": "pending",
+    "resolution": "original_statement_preserved",
+    "translations": {
+      "en": {
+        "title": "The missing sine term count in Equation (17)",
+        "problem_md": "M=N=3,K=2,u=v=0,u′=v′=1 gives finite sum zero and printed value −1/9, with both denominators nonzero. The original phase uses the term count minus one, namely M−K and N−K, and is correct; only the sine-numerator count is wrong.",
+        "evidence_md": "M=N=3,K=2,u=v=0,u′=v′=1 gives finite sum zero and printed value −1/9, with both denominators nonzero. The original phase uses the term count minus one, namely M−K and N−K, and is correct; only the sine-numerator count is wrong.",
+        "impact_md": "Only the valid-convolution Equation (17) subformula is refuted; circular Theorem3.2 is unaffected."
+      }
+    },
+    "issue_type": "statement_partial_counterexample",
+    "source_refs": [
+      {
+        "source_id": "src-icml2023-decoder-formal",
+        "version_id": "ver-icml2023-decoder-formal",
+        "pdf_pages": [
+          13
+        ],
+        "section": "source issue valid-count"
+      }
+    ],
+    "original_statement_status": "compound_clause_counterexample_verified"
+  },
+  {
+    "id": "decoder-issue-cascade-typos",
+    "paper_id": "icml2023-decoder",
+    "title": "A.2额外MN与层索引",
+    "kind": "proof_step_error",
+    "classification": "proof_step_error",
+    "status": "agent_confirmed",
+    "original_expression": "\\delta MN(\\cdots+MNb^{(L)})",
+    "source_location": "formal PDF 14",
+    "evidence_md": "正文β=MN乘全括号正确；A2末展开一行内多MN并把若干T层上标写l，逐层仿射归纳给正确同一命题。",
+    "problem_md": "正文β=MN乘全括号正确；A2末展开一行内多MN并把若干T层上标写l，逐层仿射归纳给正确同一命题。",
+    "impact_md": "修局部证明，不改正文Cor3.3。",
+    "related_result_ids": [
+      "decoder-cascade-forward"
+    ],
+    "fix_authorization": "proof_only_granted",
+    "user_confirmation": "not_required_for_proof_only_correction",
+    "user_review_status": "pending",
+    "resolution": "original_statement_preserved",
+    "translations": {
+      "en": {
+        "title": "Extra MN and layer indices in A.2",
+        "problem_md": "The main β formula correctly multiplies the whole bracket by MN; an A.2 line adds an inner MN and reuses layer l on some T factors. Affine induction proves the same intended theorem correctly.",
+        "evidence_md": "The main β formula correctly multiplies the whole bracket by MN; an A.2 line adds an inner MN and reuses layer l on some T factors. Affine induction proves the same intended theorem correctly.",
+        "impact_md": "Repair the local proof without changing main Corollary3.3."
+      }
+    },
+    "issue_type": "proof_step_error",
+    "source_refs": [
+      {
+        "source_id": "src-icml2023-decoder-formal",
+        "version_id": "ver-icml2023-decoder-formal",
+        "pdf_pages": [
+          14
+        ],
+        "section": "source issue cascade-typos"
+      }
+    ],
+    "original_statement_status": "scope_under_review"
+  },
+  {
+    "id": "decoder-issue-backprop-bars",
+    "paper_id": "icml2023-decoder",
+    "title": "A.3 Eq24局部共轭遗漏",
+    "kind": "proof_step_error",
+    "classification": "proof_step_error",
+    "status": "agent_confirmed",
+    "original_expression": "\\partial(g^{(L)})^\\top",
+    "source_location": "formal PDF 17",
+    "evidence_md": "Eq24第一行g微分未带bar，第二行带bar；正文Eq5图上共轭完整，作者CR梯度约定从实梯度解释，不能把标准Wirtinger因子单独当原终式反例。",
+    "problem_md": "Eq24第一行g微分未带bar，第二行带bar；正文Eq5图上共轭完整，作者CR梯度约定从实梯度解释，不能把标准Wirtinger因子单独当原终式反例。",
+    "impact_md": "局部证明共轭修复；完整真实loss矩阵链现已实际验证。",
+    "related_result_ids": [
+      "decoder-backpropagation"
+    ],
+    "fix_authorization": "proof_only_granted",
+    "user_confirmation": "not_required_for_proof_only_correction",
+    "user_review_status": "pending",
+    "resolution": "original_statement_preserved",
+    "translations": {
+      "en": {
+        "title": "A local conjugation omission in A.3 Equation (24)",
+        "problem_md": "Equation (24) first omits a bar on the g differential while the next line includes it. The main Equation (5) has its conjugations. Interpret the source CR convention from the real gradient; a standard Wirtinger factor alone is not a counterexample to its final convention.",
+        "evidence_md": "Equation (24) first omits a bar on the g differential while the next line includes it. The main Equation (5) has its conjugations. Interpret the source CR convention from the real gradient; a standard Wirtinger factor alone is not a counterexample to its final convention.",
+        "impact_md": "A local conjugation repair; the complete actual-loss matrix chain is now verified."
+      }
+    },
+    "issue_type": "proof_step_error",
+    "source_refs": [
+      {
+        "source_id": "src-icml2023-decoder-formal",
+        "version_id": "ver-icml2023-decoder-formal",
+        "pdf_pages": [
+          17
+        ],
+        "section": "source issue backprop-bars"
+      }
+    ],
+    "original_statement_status": "scope_under_review"
+  },
+  {
+    "id": "decoder-issue-backprop-channel-shape",
+    "paper_id": "icml2023-decoder",
+    "title": "A.3漏输出通道求和及转置维度标注",
+    "kind": "proof_step_error",
+    "classification": "proof_step_error",
+    "status": "agent_confirmed",
+    "original_expression": "\\frac{\\partial Loss}{\\partial\\overline F^{(l-1,c)}}=\\sum_{t,s}W_{cts}^{[\\mathrm{ker}=d]}\\frac{\\partial Loss}{\\partial\\overline F^{(l,d)}}",
+    "source_location": "formal PDF 17",
+    "evidence_md": "PDF17前层标量梯度左侧没有d，右侧却固定d且没有Σ_d，必须对全部输出通道求和。Eq22前文字把对(T的共轭转置)的导数标成D×C，实际g共轭列(C)与loss行(D)外积为C×D；T本身为D×C。重写从真实空间伴随和显式通道求和推导，不改变正确Eq23/正文Eq5矩阵终式。",
+    "problem_md": "PDF17前层标量梯度左侧没有d，右侧却固定d且没有Σ_d，必须对全部输出通道求和。Eq22前文字把对(T的共轭转置)的导数标成D×C，实际g共轭列(C)与loss行(D)外积为C×D；T本身为D×C。重写从真实空间伴随和显式通道求和推导，不改变正确Eq23/正文Eq5矩阵终式。",
+    "impact_md": "仅局部证明漏和/维度注修复，原完整矩阵更新命题不被此问题否定。",
+    "related_result_ids": [
+      "decoder-backpropagation"
+    ],
+    "fix_authorization": "proof_only_granted",
+    "user_confirmation": "not_required_for_proof_only_correction",
+    "user_review_status": "pending",
+    "resolution": "original_statement_preserved",
+    "translations": {
+      "en": {
+        "title": "A.3 omits an output-channel sum and reverses a transpose shape",
+        "problem_md": "On PDF17 the earlier-layer scalar gradient has no d on the left but a fixed d on the right without a sum over output channels; all d must be summed. The text before Equation (22) calls the derivative with respect to the conjugate transpose of T a D×C matrix, while its C-column/D-row outer product is C×D; T itself is D×C. The rewrite derives the adjoint from the real spatial operator with explicit channel sums, retaining the correct Equation (23) and main Equation (5).",
+        "evidence_md": "On PDF17 the earlier-layer scalar gradient has no d on the left but a fixed d on the right without a sum over output channels; all d must be summed. The text before Equation (22) calls the derivative with respect to the conjugate transpose of T a D×C matrix, while its C-column/D-row outer product is C×D; T itself is D×C. The rewrite derives the adjoint from the real spatial operator with explicit channel sums, retaining the correct Equation (23) and main Equation (5).",
+        "impact_md": "Only local sum/shape annotations need repair; these errors do not refute the complete matrix-update statement."
+      }
+    },
+    "issue_type": "proof_step_error",
+    "source_refs": [
+      {
+        "source_id": "src-icml2023-decoder-formal",
+        "version_id": "ver-icml2023-decoder-formal",
+        "pdf_pages": [
+          17
+        ],
+        "section": "source issue backprop-channel-shape"
+      }
+    ],
+    "original_statement_status": "scope_under_review"
+  },
+  {
+    "id": "decoder-issue-real-gaussian-cast",
+    "paper_id": "icml2023-decoder",
+    "title": "实Gaussian误写零复伪协方差",
+    "kind": "proof_step_error",
+    "classification": "proof_step_error",
+    "status": "agent_confirmed",
+    "original_expression": "W\\sim Complex\\mathcal N(\\mu,\\sigma^2,0)",
+    "source_location": "formal PDF 19,20",
+    "evidence_md": "实Gaussian复嵌入实际C(W)=σ²，非零方差时不是0；实际独立实线性组合得到原Eq27的C(T)=σ²R2u2v。",
+    "problem_md": "实Gaussian复嵌入实际C(W)=σ²，非零方差时不是0；实际独立实线性组合得到原Eq27的C(T)=σ²R2u2v。",
+    "impact_md": "原Eq27最终矩结论正确，错误在中间圆对称替换。",
+    "related_result_ids": [
+      "decoder-gaussian-response"
+    ],
+    "fix_authorization": "proof_only_granted",
+    "user_confirmation": "not_required_for_proof_only_correction",
+    "user_review_status": "pending",
+    "resolution": "original_statement_preserved",
+    "translations": {
+      "en": {
+        "title": "A real Gaussian incorrectly assigned zero pseudocovariance",
+        "problem_md": "A real Gaussian embedded in the complex plane has C(W)=σ², not zero at positive variance. Actual independent real linear combinations give the correct C(T)=σ²R2u2v in Equation (27).",
+        "evidence_md": "A real Gaussian embedded in the complex plane has C(W)=σ², not zero at positive variance. Actual independent real linear combinations give the correct C(T)=σ²R2u2v in Equation (27).",
+        "impact_md": "The final Equation (27) moments are correct; the error is the intermediate circular replacement."
+      }
+    },
+    "issue_type": "proof_step_error",
+    "source_refs": [
+      {
+        "source_id": "src-icml2023-decoder-formal",
+        "version_id": "ver-icml2023-decoder-formal",
+        "pdf_pages": [
+          19,
+          20
+        ],
+        "section": "source issue real-gaussian-cast"
+      }
+    ],
+    "original_statement_status": "scope_under_review"
+  },
+  {
+    "id": "decoder-issue-weak-independence",
+    "paper_id": "icml2023-decoder",
+    "title": "显示一阶矩不足SOM乘积分解",
+    "kind": "statement_alignment_or_scope",
+    "classification": "statement_alignment_or_scope",
+    "status": "agent_confirmed",
+    "original_expression": "\\mathbb E[XY]=\\mathbb EX\\mathbb EY",
+    "source_location": "formal PDF 5,18,19,21,22",
+    "evidence_md": "U与BU两Gaussian边缘满足显示一阶式但平方模乘积矩3≠1；多通道同列交叉矩也不在d≠d′且c≠c′的显示域。",
+    "problem_md": "U与BU两Gaussian边缘满足显示一阶式但平方模乘积矩3≠1；多通道同列交叉矩也不在d≠d′且c≠c′的显示域。",
+    "impact_md": "区分弱显示式与prose真正独立模型，后者可证明。",
+    "related_result_ids": [
+      "decoder-independence-scope",
+      "decoder-single-channel-moments",
+      "decoder-multi-channel-moments"
+    ],
+    "fix_authorization": "proof_only_granted",
+    "user_confirmation": "not_required_for_proof_only_correction",
+    "user_review_status": "pending",
+    "resolution": "original_statement_preserved",
+    "translations": {
+      "en": {
+        "title": "Displayed first moments do not imply SOM factorization",
+        "problem_md": "U and BU have Gaussian marginals and satisfy the first-product displays, but their squared-product moment is 3 rather than 1. Same-column multichannel cross moments also lie outside the display requiring both d≠d′ and c≠c′.",
+        "evidence_md": "U and BU have Gaussian marginals and satisfy the first-product displays, but their squared-product moment is 3 rather than 1. Same-column multichannel cross moments also lie outside the display requiring both d≠d′ and c≠c′.",
+        "impact_md": "Separate weak displays from the genuinely independent prose model, whose moments can be proved."
+      }
+    },
+    "issue_type": "statement_alignment_or_scope",
+    "source_refs": [
+      {
+        "source_id": "src-icml2023-decoder-formal",
+        "version_id": "ver-icml2023-decoder-formal",
+        "pdf_pages": [
+          5,
+          18,
+          19,
+          21,
+          22
+        ],
+        "section": "source issue weak-independence"
+      }
+    ],
+    "original_statement_status": "scope_under_review"
+  },
+  {
+    "id": "decoder-issue-kernel-growth",
+    "paper_id": "icml2023-decoder",
+    "title": "K增大时SOM可下降",
+    "kind": "statement_partial_counterexample",
+    "classification": "statement_partial_counterexample",
+    "status": "agent_confirmed",
+    "original_expression": "SOM\\text{ increases with }K",
+    "source_location": "formal PDF 5",
+    "evidence_md": "M=N=8,f=(4,0),μ1,σ²1/16，K1矩17/16而K2矩1/4；R随真实K改变。",
+    "problem_md": "M=N=8,f=(4,0),μ1,σ²1/16，K1矩17/16而K2矩1/4；R随真实K改变。",
+    "impact_md": "只反驳四参数列表的K全称子句。",
+    "related_result_ids": [
+      "decoder-moment-parameter-growth"
+    ],
+    "fix_authorization": "proof_only_granted",
+    "user_confirmation": "not_required_for_proof_only_correction",
+    "user_review_status": "pending",
+    "resolution": "original_statement_preserved",
+    "translations": {
+      "en": {
+        "title": "SOM may decrease as K grows",
+        "problem_md": "At M=N=8,f=(4,0),μ=1,σ²=1/16, K1 gives 17/16 and K2 gives 1/4; R changes with the actual K.",
+        "evidence_md": "At M=N=8,f=(4,0),μ=1,σ²=1/16, K1 gives 17/16 and K2 gives 1/4; R changes with the actual K.",
+        "impact_md": "Refutes only the universal K subclause of the four-parameter list."
+      }
+    },
+    "issue_type": "statement_partial_counterexample",
+    "source_refs": [
+      {
+        "source_id": "src-icml2023-decoder-formal",
+        "version_id": "ver-icml2023-decoder-formal",
+        "pdf_pages": [
+          5
+        ],
+        "section": "source issue kernel-growth"
+      }
+    ],
+    "original_statement_status": "compound_clause_counterexample_verified"
+  },
+  {
+    "id": "decoder-issue-depth-growth",
+    "paper_id": "icml2023-decoder",
+    "title": "实际独立GaussianSOM随深度下降",
+    "kind": "statement_partial_counterexample",
+    "classification": "statement_partial_counterexample",
+    "status": "agent_confirmed",
+    "original_expression": "SOM\\text{ exponentially increases with }L",
+    "source_location": "formal PDF 5,21,22",
+    "evidence_md": "真实独立N(0,1/4)、K1层响应给SOM=(1/4)^L，f=(1,1)也成立，正弦分母非0。",
+    "problem_md": "真实独立N(0,1/4)、K1层响应给SOM=(1/4)^L，f=(1,1)也成立，正弦分母非0。",
+    "impact_md": "否定无条件增加，保留正确product/log公式。",
+    "related_result_ids": [
+      "decoder-depth-growth"
+    ],
+    "fix_authorization": "proof_only_granted",
+    "user_confirmation": "not_required_for_proof_only_correction",
+    "user_review_status": "pending",
+    "resolution": "original_statement_preserved",
+    "translations": {
+      "en": {
+        "title": "Actual independent Gaussian SOM decays with depth",
+        "problem_md": "Actual independent N(0,1/4) K1 responses give SOM=(1/4)^L, including f=(1,1) with nonzero sine denominators.",
+        "evidence_md": "Actual independent N(0,1/4) K1 responses give SOM=(1/4)^L, including f=(1,1) with nonzero sine denominators.",
+        "impact_md": "Rejects unconditional increase while retaining the correct product/log formula."
+      }
+    },
+    "issue_type": "statement_partial_counterexample",
+    "source_refs": [
+      {
+        "source_id": "src-icml2023-decoder-formal",
+        "version_id": "ver-icml2023-decoder-formal",
+        "pdf_pages": [
+          5,
+          21,
+          22
+        ],
+        "section": "source issue depth-growth"
+      }
+    ],
+    "original_statement_status": "compound_clause_counterexample_verified"
+  },
+  {
+    "id": "decoder-issue-large-k-imbalance",
+    "paper_id": "icml2023-decoder",
+    "title": "大核可加剧原频率不均衡",
+    "kind": "analysis_subclause_counterexample",
+    "classification": "analysis_subclause_counterexample",
+    "status": "agent_confirmed",
+    "original_expression": "\\mathrm{large}\\ K\\ \\mathrm{alleviates\\ imbalance}",
+    "source_location": "formal PDF 6,27",
+    "evidence_md": "M=N8,μ=σ²=1，K2与4的DC/(4,0)矩比5→17。",
+    "problem_md": "M=N8,μ=σ²=1，K2与4的DC/(4,0)矩比5→17。",
+    "impact_md": "解释子句缺条件，不否定核矩公式。",
+    "related_result_ids": [
+      "decoder-kernel-preference"
+    ],
+    "fix_authorization": "proof_only_granted",
+    "user_confirmation": "not_required_for_proof_only_correction",
+    "user_review_status": "pending",
+    "resolution": "original_statement_preserved",
+    "translations": {
+      "en": {
+        "title": "Larger kernels can worsen the stated imbalance",
+        "problem_md": "For M=N=8 and μ=σ²=1, the DC/(4,0) SOM ratio rises from 5 to 17 at K2 versus K4.",
+        "evidence_md": "For M=N=8 and μ=σ²=1, the DC/(4,0) SOM ratio rises from 5 to 17 at K2 versus K4.",
+        "impact_md": "The interpretation lacks conditions; the kernel-moment formula is not refuted."
+      }
+    },
+    "issue_type": "analysis_subclause_counterexample",
+    "source_refs": [
+      {
+        "source_id": "src-icml2023-decoder-formal",
+        "version_id": "ver-icml2023-decoder-formal",
+        "pdf_pages": [
+          6,
+          27
+        ],
+        "section": "source issue large-k-imbalance"
+      }
+    ],
+    "original_statement_status": "scope_under_review"
+  },
+  {
+    "id": "decoder-issue-padding-definition",
+    "paper_id": "icml2023-decoder",
+    "title": "Eq8遗漏两条边带",
+    "kind": "definition_or_algorithm_boundary",
+    "classification": "definition_or_algorithm_boundary",
+    "status": "agent_confirmed",
+    "original_expression": "M\\le m<M",
+    "source_location": "formal PDF 6",
+    "evidence_md": "打印零分支把m越界与n越界合取，只覆盖右下角；原文字edge-padding还需要两边带0。保留原打印条件，用原文字otherwise0定义算子。",
+    "problem_md": "打印零分支把m越界与n越界合取，只覆盖右下角；原文字edge-padding还需要两边带0。保留原打印条件，用原文字otherwise0定义算子。",
+    "impact_md": "定义排版域修复，与像素相关反例分开。",
+    "related_result_ids": [
+      "decoder-zero-padding"
+    ],
+    "fix_authorization": "proof_only_granted",
+    "user_confirmation": "not_required_for_proof_only_correction",
+    "user_review_status": "pending",
+    "resolution": "original_statement_preserved",
+    "translations": {
+      "en": {
+        "title": "Equation (8) omits two edge strips",
+        "problem_md": "The zero branch conjoins both out-of-range coordinates and covers only the bottom-right region. The edge-padding prose also requires zero on two strips. Preserve the printing error and define the intended operator by otherwise zero.",
+        "evidence_md": "The zero branch conjoins both out-of-range coordinates and covers only the bottom-right region. The edge-padding prose also requires zero on two strips. Preserve the printing error and define the intended operator by otherwise zero.",
+        "impact_md": "A definition-domain repair, separate from the correlated-pixel counterexample."
+      }
+    },
+    "issue_type": "definition_or_algorithm_boundary",
+    "source_refs": [
+      {
+        "source_id": "src-icml2023-decoder-formal",
+        "version_id": "ver-icml2023-decoder-formal",
+        "pdf_pages": [
+          6
+        ],
+        "section": "source issue padding-definition"
+      }
+    ],
+    "original_statement_status": "scope_under_review"
+  },
+  {
+    "id": "decoder-issue-padding-iid",
+    "paper_id": "icml2023-decoder",
+    "title": "边缘Gaussian不足padding矩等式",
+    "kind": "statement_partial_counterexample",
+    "classification": "statement_partial_counterexample",
+    "status": "agent_confirmed",
+    "original_expression": "SOM(H)-SOM(G)=a^2\\tau^2",
+    "source_location": "formal PDF 6,22,23",
+    "evidence_md": "四像素同一U~N(0,q)，2×2补3×3，f11旧谱0新谱U(1+z)²，SOM差q而a0右边0。实际全源条件满足，原proof额外iid未加进命题。",
+    "problem_md": "四像素同一U~N(0,q)，2×2补3×3，f11旧谱0新谱U(1+z)²，SOM差q而a0右边0。实际全源条件满足，原proof额外iid未加进命题。",
+    "impact_md": "原非DC子句反例，DC相等仍正确。",
+    "related_result_ids": [
+      "decoder-zero-padding"
+    ],
+    "fix_authorization": "proof_only_granted",
+    "user_confirmation": "not_required_for_proof_only_correction",
+    "user_review_status": "pending",
+    "resolution": "original_statement_preserved",
+    "translations": {
+      "en": {
+        "title": "Gaussian marginals do not suffice for the padding moment identity",
+        "problem_md": "Four pixels equal the same U~N(0,q); padding 2×2 to 3×3 gives old spectrum zero and new U(1+z)² at f11, with SOM difference q but a=0 on the right. The source premises hold; the proof’s extra iid condition is not inserted into the theorem.",
+        "evidence_md": "Four pixels equal the same U~N(0,q); padding 2×2 to 3×3 gives old spectrum zero and new U(1+z)² at f11, with SOM difference q but a=0 on the right. The source premises hold; the proof’s extra iid condition is not inserted into the theorem.",
+        "impact_md": "A counterexample to the non-DC subclause; DC equality remains correct."
+      }
+    },
+    "issue_type": "statement_partial_counterexample",
+    "source_refs": [
+      {
+        "source_id": "src-icml2023-decoder-formal",
+        "version_id": "ver-icml2023-decoder-formal",
+        "pdf_pages": [
+          6,
+          22,
+          23
+        ],
+        "section": "source issue padding-iid"
+      }
+    ],
+    "original_statement_status": "compound_clause_counterexample_verified"
+  },
+  {
+    "id": "decoder-issue-phase-magnitude",
+    "paper_id": "icml2023-decoder",
+    "title": "移位设置不总减第一个幅值",
+    "kind": "statement_partial_counterexample",
+    "classification": "statement_partial_counterexample",
+    "status": "agent_confirmed",
+    "original_expression": "|1-A|<1",
+    "source_location": "formal PDF 6,7",
+    "evidence_md": "α3,φ0满足原α>0,φ<π/2但|1−A|2>1。",
+    "problem_md": "α3,φ0满足原α>0,φ<π/2但|1−A|2>1。",
+    "impact_md": "只影响设置的幅值解释；真实一步反例另取合法α1/4。",
+    "related_result_ids": [
+      "decoder-shift-setup"
+    ],
+    "fix_authorization": "proof_only_granted",
+    "user_confirmation": "not_required_for_proof_only_correction",
+    "user_review_status": "pending",
+    "resolution": "original_statement_preserved",
+    "translations": {
+      "en": {
+        "title": "The shift setting need not reduce the first magnitude",
+        "problem_md": "α=3 and φ=0 satisfy α>0 and φ<π/2 but |1−A|=2>1.",
+        "evidence_md": "α=3 and φ=0 satisfy α>0 and φ<π/2 but |1−A|=2>1.",
+        "impact_md": "Affects only the setup’s magnitude interpretation; the actual one-step witness uses α=1/4."
+      }
+    },
+    "issue_type": "statement_partial_counterexample",
+    "source_refs": [
+      {
+        "source_id": "src-icml2023-decoder-formal",
+        "version_id": "ver-icml2023-decoder-formal",
+        "pdf_pages": [
+          6,
+          7
+        ],
+        "section": "source issue phase-magnitude"
+      }
+    ],
+    "original_statement_status": "compound_clause_counterexample_verified"
+  },
+  {
+    "id": "decoder-issue-one-step",
+    "paper_id": "icml2023-decoder",
+    "title": "满足43–46的真实网络仍一步非零loss",
+    "kind": "statement_partial_counterexample",
+    "classification": "statement_partial_counterexample",
+    "status": "agent_confirmed",
+    "original_expression": "Loss(W-\\eta\\nabla Loss)=0",
+    "source_location": "formal PDF 7,24,25,26",
+    "evidence_md": "两层identity2×2核、4×4δ输入、f01/f10、α1/4满足λ1=λ2=1、φ0、两层响应1和bypass和2。真实两层实梯度(0,−2α,2α,0)，任意η>0后Im H10=−2c(1+c)≠0。",
+    "problem_md": "两层identity2×2核、4×4δ输入、f01/f10、α1/4满足λ1=λ2=1、φ0、两层响应1和bypass和2。真实两层实梯度(0,−2α,2α,0)，任意η>0后Im H10=−2c(1+c)≠0。",
+    "impact_md": "精确一步零loss子句被反驳；不牵连DFT传播与矩定理。",
+    "related_result_ids": [
+      "decoder-one-step-fitting",
+      "decoder-first-order-product",
+      "decoder-shift-difficulty-interpretation"
+    ],
+    "fix_authorization": "proof_only_granted",
+    "user_confirmation": "not_required_for_proof_only_correction",
+    "user_review_status": "pending",
+    "resolution": "original_statement_preserved",
+    "translations": {
+      "en": {
+        "title": "A real network satisfying (43)–(46) still has nonzero one-step loss",
+        "problem_md": "Two identity 2×2 kernels, a 4×4 delta input, f01/f10 and α=1/4 satisfy λ1=λ2=1, φ=0, unit responses and equal bypass sums two. Both actual real gradients are (0,−2α,2α,0), and every η>0 gives Im H10=−2c(1+c)≠0.",
+        "evidence_md": "Two identity 2×2 kernels, a 4×4 delta input, f01/f10 and α=1/4 satisfy λ1=λ2=1, φ=0, unit responses and equal bypass sums two. Both actual real gradients are (0,−2α,2α,0), and every η>0 gives Im H10=−2c(1+c)≠0.",
+        "impact_md": "Refutes exact one-step zero loss without affecting DFT propagation or moment theorems."
+      }
+    },
+    "issue_type": "statement_partial_counterexample",
+    "source_refs": [
+      {
+        "source_id": "src-icml2023-decoder-formal",
+        "version_id": "ver-icml2023-decoder-formal",
+        "pdf_pages": [
+          7,
+          24,
+          25,
+          26
+        ],
+        "section": "source issue one-step"
+      }
+    ],
+    "original_statement_status": "compound_clause_counterexample_verified"
+  },
+  {
+    "id": "decoder-issue-gradient-norm",
+    "paper_id": "icml2023-decoder",
+    "title": "Eq56归一化与Eq57自指",
+    "kind": "proof_step_error",
+    "classification": "proof_step_error",
+    "status": "agent_confirmed",
+    "original_expression": "\\sum r^2=\\sum|q|^2",
+    "source_location": "formal PDF 26",
+    "evidence_md": "q=(MN)−1正相位DFT时Parseval给Σr²=MNΣ|q|²；Eq57中间印η√||ΔW||²应是梯度范数链。",
+    "problem_md": "q=(MN)−1正相位DFT时Parseval给Σr²=MNΣ|q|²；Eq57中间印η√||ΔW||²应是梯度范数链。",
+    "impact_md": "局部尺度/排版修复不挽救原精确一步命题。",
+    "related_result_ids": [
+      "decoder-gradient-norm"
+    ],
+    "fix_authorization": "proof_only_granted",
+    "user_confirmation": "not_required_for_proof_only_correction",
+    "user_review_status": "pending",
+    "resolution": "original_statement_preserved",
+    "translations": {
+      "en": {
+        "title": "Normalization in (56) and self-reference in (57)",
+        "problem_md": "For q=(MN)−1 times the positive-phase DFT, Parseval gives Σr²=MNΣ|q|². The middle line of (57) prints η√||ΔW||² where the argument needs a gradient norm.",
+        "evidence_md": "For q=(MN)−1 times the positive-phase DFT, Parseval gives Σr²=MNΣ|q|². The middle line of (57) prints η√||ΔW||² where the argument needs a gradient norm.",
+        "impact_md": "Local normalization/printing repairs do not rescue the exact one-step claim."
+      }
+    },
+    "issue_type": "proof_step_error",
+    "source_refs": [
+      {
+        "source_id": "src-icml2023-decoder-formal",
+        "version_id": "ver-icml2023-decoder-formal",
+        "pdf_pages": [
+          26
+        ],
+        "section": "source issue gradient-norm"
+      }
+    ],
+    "original_statement_status": "scope_under_review"
+  },
+  {
+    "id": "decoder-issue-inference-scope",
+    "paper_id": "icml2023-decoder",
+    "title": "未编号频率/训练推断的条件范围",
+    "kind": "statement_alignment_or_scope",
+    "classification": "statement_alignment_or_scope",
+    "status": "agent_confirmed",
+    "original_expression": "\\mathrm{moment/low\\ correlation}\\Rightarrow\\mathrm{learning/independence}",
+    "source_location": "formal PDF 6,8,25,26,27,32,33",
+    "evidence_md": "B1–4、main8、C6/C7从矩、输入幅值、层积或低Pearson相关推出训练/概率结论，原没有补齐响应下界、联合随机模型或概率量化。原完整作者链各条保留。",
+    "problem_md": "B1–4、main8、C6/C7从矩、输入幅值、层积或低Pearson相关推出训练/概率结论，原没有补齐响应下界、联合随机模型或概率量化。原完整作者链各条保留。",
+    "impact_md": "精确恒等式、条件比较、未量化解释分开，不把所有issue叫整定理错误。",
+    "related_result_ids": [
+      "decoder-frequency-preference",
+      "decoder-mean-preference",
+      "decoder-natural-input",
+      "decoder-layer-placement",
+      "decoder-cosine-dimension",
+      "decoder-trained-independence",
+      "decoder-shift-other-frequencies",
+      "decoder-padding-interpretation",
+      "decoder-upsampling-interpretation"
+    ],
+    "fix_authorization": "proof_only_granted",
+    "user_confirmation": "not_required_for_proof_only_correction",
+    "user_review_status": "pending",
+    "resolution": "original_statement_preserved",
+    "translations": {
+      "en": {
+        "title": "Conditional scope of unnumbered frequency/learning inferences",
+        "problem_md": "B1–4, main8 and C6/C7 infer learning or probability claims from moments, input magnitudes, products or low Pearson correlation, without complete response lower bounds, joint models or probability quantifiers. Every complete author chain is retained in its own entry.",
+        "evidence_md": "B1–4, main8 and C6/C7 infer learning or probability claims from moments, input magnitudes, products or low Pearson correlation, without complete response lower bounds, joint models or probability quantifiers. Every complete author chain is retained in its own entry.",
+        "impact_md": "Separate exact identities, conditional comparisons and unquantified explanations; do not call every issue a whole-theorem error."
+      }
+    },
+    "issue_type": "statement_alignment_or_scope",
+    "source_refs": [
+      {
+        "source_id": "src-icml2023-decoder-formal",
+        "version_id": "ver-icml2023-decoder-formal",
+        "pdf_pages": [
+          6,
+          8,
+          25,
+          26,
+          27,
+          32,
+          33
+        ],
+        "section": "source issue inference-scope"
+      }
+    ],
+    "original_statement_status": "scope_under_review"
+  }
+]

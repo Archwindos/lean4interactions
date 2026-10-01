@@ -1,0 +1,68 @@
+{
+  "status": "superseded_by_revised_package_admission",
+  "paper_id": "neurips2024-dynamics",
+  "package_report_observed": {
+    "status": "passed",
+    "checked_declarations": 68
+  },
+  "scope": "Independent source/type/content reading; a passing Lean report is not sufficient for data-contract or full source alignment.",
+  "items": [
+    {
+      "id": "role-contract",
+      "status": "open",
+      "finding": "Custom rewrite/statement/Lean roles do not match reader contract and can misclassify counts or evidence. Use reviewed canonical roles."
+    },
+    {
+      "id": "counterexample-evidence",
+      "status": "open",
+      "finding": "dyn-taylor and dyn-universal contain human counterexamples but only partial valid-subresult Lean declarations. Do not present those as formally checked counterexamples."
+    },
+    {
+      "id": "shared-package",
+      "status": "open",
+      "finding": "Three new shared proofs lack final rewrite and Lean evidence metadata. Generic repeated justifications add no actual reason."
+    },
+    {
+      "id": "increment-monomial",
+      "status": "open",
+      "finding": "Monomial is defined on increment z while statement uses general x_S with nonzero baseline. Define increment masking explicitly and preserve finite-index polynomial scope."
+    },
+    {
+      "id": "local-definitions",
+      "status": "open",
+      "finding": "Generic copied definitions repeat overview/statement instead of defining local objects; supply actual index sets, dimensions and normalization needed by each target."
+    },
+    {
+      "id": "source-boundaries",
+      "status": "open",
+      "finding": "Original equations must remain as printed: Eq23 x_i versus masked x_i, Eq24 original line chain; mark project empty-case/normalization annotations separately. Appendix A normalized repeats belong outside original statement; retain Lemma3 Q_T definition."
+    },
+    {
+      "id": "regression-core",
+      "status": "provisionally_checked_awaiting_cross_review",
+      "finding": "Actual expected-residual expansion, positive-definite zeta Gram, original positive normalization and global unique argmin are represented; upstream trigger-domain issues are separately retained."
+    },
+    {
+      "id": "equal-order-core",
+      "status": "provisionally_checked_awaiting_cross_review",
+      "finding": "Whole-powerset variable permutation, complement extension, matrix conjugation and squared Euclidean row norms are formalized, with actual sqrt adapter and source 2^n factor."
+    },
+    {
+      "id": "and-domain-source-correction",
+      "status": "open",
+      "finding": "PDF3 defines Eq2 only for nonempty sets. Eq3 needs empty-domain convention clarification; the first package silently used a full Mobius extension to claim a counterexample. AppendixA raw-game AND and main component AND must not be conflated."
+    }
+  ],
+  "second_package_review": {
+    "status": "source_and_scope_repairs_reviewed_pending_coefficient_adapter_and_cross_review",
+    "entries": 32,
+    "targets": 22,
+    "pages": 36,
+    "lean_declarations": 74,
+    "independent_adapter_compilation_exit_code": 0,
+    "remaining_substantive_issue": "root-f07-transform-coefficient-uniqueness",
+    "rendering": "author current hash-bound KaTeX report passed 2913 formulas; not source/mathematics acceptance"
+  },
+  "initial_status": "returned_for_revision",
+  "superseded_by": "reader/evidence/twelve-paper-20261001/root-f07-admission.json"
+}

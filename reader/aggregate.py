@@ -8,10 +8,21 @@ import re
 from pathlib import Path
 from input_manifest import load_manifest, project_path
 from bilingual import attach_translations
+from evidence_paths import EVIDENCE
 
 ROOT = Path(__file__).resolve().parents[1]
 WORK = Path(__file__).resolve().parent
 INPUTS = {}
+
+def resolve_lean_evidence_role(lean,assessment,*,legacy=False):
+    """A reviewed machine role is independent of the parent statement assessment."""
+    if not lean.get('declarations'):return 'none'
+    explicit=lean.get('evidence_role')
+    if not legacy and explicit in {'none','theorem_proof','counterexample','partial_component'}:
+        return explicit
+    if legacy and (lean.get('status')=='partial_scope_verified' or assessment=='partially_refuted'):
+        return 'partial_component'
+    return explicit or lean.get('verification_role') or ('counterexample' if assessment=='refuted' else 'partial_component' if lean.get('status')=='partially_formalized' else 'theorem_proof')
 
 def read(path):
     INPUTS[path.relative_to(ROOT).as_posix()] = hashlib.sha256(path.read_bytes()).hexdigest()
@@ -60,9 +71,9 @@ def normalize_issue(issue):
     elif category in {'undefined_original_scope','underspecified_decomposition_rule','false_under_displayed_definitions','statement_alignment_or_scope','expression_domain','scope_mismatch','external_scope_issue'}:typ='statement_alignment_or_scope'
     elif category=='analysis_subclause_counterexample':typ='analysis_subclause_counterexample'
     elif category in {'statement_counterexample','source_statement_counterexample'}:typ='statement_counterexample'
-    elif category=='source_compound_claim_truncated_clause_counterexample':typ='statement_partial_counterexample'
+    elif category in {'source_compound_claim_truncated_clause_counterexample','statement_partial_counterexample'}:typ='statement_partial_counterexample'
     elif category in {'source_statement_assumption_gap','source_statement_definition_conflict','statement_notation_scope_issue','statement_parameter_domain_gap','conditional_source_example_scale_gap','notation_alignment_note','interpretation_scope_issue'}:typ='statement_alignment_or_scope'
-    elif category=='algorithm_or_definition_boundary':typ='definition_or_algorithm_boundary'
+    elif category in {'algorithm_or_definition_boundary','definition_or_algorithm_boundary'}:typ='definition_or_algorithm_boundary'
     elif category in {'proof_case_and_mask_alignment_errors','proof_case_coverage_gap','proof_definition_and_boundary_error','proof_display_index_error','proof_error','proof_error_repaired','proof_step_error','source_proof_error','source_proof_notation_error','source_proof_step_issue'}:typ='proof_step_error'
     else:raise ValueError('Unknown issue category: '+str(category))
     issue['issue_type']=typ
@@ -90,7 +101,13 @@ def fallback(entry,paper_id):
             'content_delivery_status':'awaiting_mathematical_content'}
 
 def build():
+    INPUTS.clear()
+    for implementation in ['aggregate.py','input_manifest.py','inventory_contract.py','bilingual.py','symbols_english.py','symbol_context_english.py','evidence_paths.py']:
+        path=WORK/implementation;INPUTS[path.relative_to(ROOT).as_posix()]=hashlib.sha256(path.read_bytes()).hexdigest()
+    read(WORK/'architecture/admission-contract.json')
     manifest=load_manifest(read)
+    from inventory_contract import accepted_paper_ids
+    legacy_ids=accepted_paper_ids(read)
     old_math=read(project_path(manifest['shared_proof_seed_path'])) if manifest.get('shared_proof_seed_path') else {'shared_proofs':[],'notation':{}}
     papers=[copy.deepcopy(read(project_path(item['metadata_path']))) for item in manifest['papers']]
     results={}; proofs={p['id']:copy.deepcopy(p) for p in old_math['shared_proofs']}
@@ -111,7 +128,10 @@ def build():
             r['shared_proof_id']=next(iter(r['shared_proof_ids']),None)
             if r['id'] in results: raise ValueError('Duplicate result ID: '+r['id'])
             results[r['id']]=r; local.append(r)
-        for proof in content.get('shared_proofs',[]): proofs[proof['id']]=copy.deepcopy(proof)
+        for proof in content.get('shared_proofs',[]):
+            proof=copy.deepcopy(proof)
+            if paper_id not in legacy_ids:proof['paper_id']=paper_id
+            proofs[proof['id']]=proof
         issue_rows=content.get('issues',[])
         if item.get('issues_path') and project_path(item['issues_path'],False).is_file():
             value=read(project_path(item['issues_path'])); issue_rows+=value.get('issues',[]) if isinstance(value,dict) else value
@@ -161,7 +181,7 @@ def build():
     current_catalog=read(ROOT/'catalog/library.json')
     report_paths={r.get('lean',{}).get('report_path') for r in results.values() if r.get('lean',{}).get('report_path')}
     if current_catalog.get('verification_report'):report_paths.add(current_catalog['verification_report'])
-    for path in sorted(report_paths):
+    for path in sorted(report_paths,key=lambda path:(path!=current_catalog.get('verification_report'),path)):
         report=read(project_path(path))
         fresh=all((ROOT/x['path']).is_file() and hashlib.sha256((ROOT/x['path']).read_bytes()).hexdigest()==x['sha256'] for x in report.get('source_files',[]))
         if report.get('status')=='passed' and fresh and report.get('commands') and all(c.get('exit_code')==0 for c in report['commands']):covering_reports.append((path,report))
@@ -209,16 +229,17 @@ def build():
         lean_role_map={'counterexample_with_explicit_partial_scope':'partial_component','grouped_block_step_and_regrouping_and_counterexample':'partial_component','counterexample_and_valid_architecture_subclaim':'partial_component','theorem_proof':'theorem_proof','partial_component':'partial_component','counterexample':'counterexample','none':'none'}
         if raw_lean_role and raw_lean_role not in lean_role_map:raise ValueError('Unknown Lean evidence role: '+raw_lean_role)
         raw_lean_status=r.get('lean',{}).get('status');r.setdefault('source_semantic_status',{})['lean_status']=raw_lean_status
-        if raw_lean_status=='partial_scope_verified':r.setdefault('lean',{})['evidence_role']='partial_component';raw_lean_role='partial_component'
+        if raw_lean_status=='partial_scope_verified' and (r['paper_id'] in legacy_ids or not raw_lean_role):
+            r.setdefault('lean',{})['evidence_role']='partial_component';raw_lean_role='partial_component'
         if raw_lean_role:r.setdefault('source_semantic_status',{})['lean_evidence_role']=raw_lean_role;r['lean']['evidence_role']=lean_role_map[raw_lean_role]
         elif declared_verification:r.setdefault('lean',{})['evidence_role']=verification_map[declared_verification]
         names=r.get('lean',{}).get('declarations',[])
         declared_role=r.get('lean',{}).get('evidence_role') or r.get('lean',{}).get('verification_role')
         is_mixed=r['statement_assessment']=='partially_refuted'
-        r['verification_role']='none' if not names else 'partial_component' if is_mixed else declared_role or ('counterexample' if r['statement_assessment']=='refuted' else 'partial_component' if r.get('lean',{}).get('status')=='partially_formalized' else 'theorem_proof')
+        r['verification_role']=resolve_lean_evidence_role(r.get('lean',{}),r['statement_assessment'],legacy=r['paper_id'] in legacy_ids)
         r.setdefault('lean',{})['evidence_role']=r['verification_role']
         if r['verification_role']=='partial_component' and r.get('rewrite_role') in {None,'proof'}:r['rewrite_role']='partial_component'
-        if is_mixed:r['lean']['evidence_components']={'proved_clauses':[n for n in names if 'counterexample' not in (n if isinstance(n,str) else n.get('name','')).lower()], 'counterexample_clauses':[n for n in names if 'counterexample' in (n if isinstance(n,str) else n.get('name','')).lower()]}
+        if is_mixed and r['paper_id'] in legacy_ids:r['lean']['evidence_components']={'proved_clauses':[n for n in names if 'counterexample' not in (n if isinstance(n,str) else n.get('name','')).lower()], 'counterexample_clauses':[n for n in names if 'counterexample' in (n if isinstance(n,str) else n.get('name','')).lower()]}
         explanation_ids={'f11-external-sparsity','f11-theorem1-approx','f11-proposition1','iclr2024-sparse-salient-approximation','iclr2024-sparse-asymptotic-claim'}
         case2_refuted=any(c.get('id')=='case2_nonexponential_eta_implies_per_order_sparsity' and c.get('status')=='refuted' for c in r.get('clause_assessments',[]))
         if case2_refuted:
@@ -288,6 +309,11 @@ def build():
     for sym in symbols:
         key=explicit_concepts.get(sym['id'],sym.get('canonical_id') or sym['id'])
         sym=copy.deepcopy(sym)
+        english_mappings=sym.get('translations',{}).get('en',{}).get('paper_mappings',[])
+        for index,mapping in enumerate(sym.get('paper_mappings',[])):
+            if index<len(english_mappings):
+                translated={key:value for key,value in english_mappings[index].items() if key in {'note','conflict_note'}}
+                if translated:mapping.setdefault('translations',{}).setdefault('en',{}).update(translated)
         lean_names=[];representations=[];planned=[]
         for name in sym.get('lean_names',[]):
             names=re.findall(r'\bHarsanyi\.[A-Za-z_][A-Za-z_0-9.]*',name)
@@ -299,22 +325,25 @@ def build():
         for mapping in sym.get('paper_mappings',[]):
             mapping['source_concept_id']=mapping.get('canonical_concept_id',sym['id'])
             mapping['canonical_concept_id']=key
+        variant={'definition_tex':sym.get('definition_tex',''),'type_or_domain':sym.get('type_or_domain',''),'scope':sym.get('scope','')}
+        variant_en={field:sym.get('translations',{}).get('en',{})[field] for field in ['type_or_domain','scope'] if field in sym.get('translations',{}).get('en',{})}
+        if variant_en:variant['translations']={'en':variant_en}
         if key not in canonical_symbols:
             canonical_symbols[key]=copy.deepcopy(sym)
             canonical_symbols[key]['id']=key
             canonical_symbols[key]['canonical_id']=key
             canonical_symbols[key]['record_ids']=[sym['id']]
-            canonical_symbols[key]['scope_variants']=[{'definition_tex':sym.get('definition_tex',''),'type_or_domain':sym.get('type_or_domain',''),'scope':sym.get('scope','')}]
+            canonical_symbols[key]['scope_variants']=[variant]
         else:
             dest=canonical_symbols[key];dest['paper_mappings']+=sym.get('paper_mappings',[])
             dest['record_ids'].append(sym['id']);dest['aliases']=list(dict.fromkeys(dest.get('aliases',[])+sym.get('aliases',[])))
             dest.setdefault('lean_names',[]).extend(x for x in sym.get('lean_names',[]) if x not in dest.get('lean_names',[]))
-            dest['scope_variants'].append({'definition_tex':sym.get('definition_tex',''),'type_or_domain':sym.get('type_or_domain',''),'scope':sym.get('scope','')})
+            dest['scope_variants'].append(variant)
     symbol_alias={alias:s['id'] for s in canonical_symbols.values() for alias in s['record_ids']}
     qualified_symbol_alias={(m['paper_id'],alias):s['id'] for s in canonical_symbols.values() for alias in s['record_ids'] for m in s.get('paper_mappings',[])}
-    def symbol_for(result,ident):return qualified_symbol_alias.get((result['paper_id'],ident),symbol_alias.get(ident,ident))
-    for r in results.values():
-        r['symbol_ids']=list(dict.fromkeys(symbol_for(r,x) for x in r.get('symbol_ids',[])))
+    def symbol_for(result,ident):return qualified_symbol_alias.get((result.get('paper_id'),ident),symbol_alias.get(ident,ident))
+    for r in list(results.values())+list(proofs.values()):
+        if 'symbol_ids' in r:r['symbol_ids']=list(dict.fromkeys(symbol_for(r,x) for x in r['symbol_ids']))
         if r['id'] in {'iclr2024-generalizable-and','iclr2024-generalizable-andor'}:r['symbol_ids']=list(dict.fromkeys(r['symbol_ids']+['sym-and-output','sym-and-component-interaction']))
         if r['id'] in {'iclr2024-generalizable-or','iclr2024-generalizable-andor'}:r['symbol_ids']=list(dict.fromkeys(r['symbol_ids']+['sym-or-output','sym-or-component-interaction','sym-conditional-interaction']))
     neutral={
@@ -369,7 +398,7 @@ def build():
             'shared_proofs':list(proofs.values()),'issues':list(issues.values()),'symbols':list(canonical_symbols.values()),'inventories':inventories,
             'coverage':coverage,'notation':old_math['notation'],'merge_status':'content_is_incremental_completion_is_per_result'}
     language_report=attach_translations(output,manifest,read,project_path,strict=False)
-    write(WORK/'evidence/bilingual-checks.json',language_report)
+    write(EVIDENCE/'bilingual-checks.json',language_report)
     write(WORK/'data/full-content.json',output)
     write(WORK/'data/papers.json',{'schema_version':'3.0','papers':papers})
     write(WORK/'data/math-content.json',{k:output[k] for k in ('schema_version','language','results','shared_proofs','notation')})
@@ -383,10 +412,11 @@ def build():
             if issue.get(key):issue_lines+=[issue[key],'']
         issue_lines+=['来源：'+', '.join(x['source_id']+' PDF '+str(l['pdf_page']) for x in issue.get('source_refs',[]) for l in x.get('locations',[]) if l.get('pdf_page')),'']
     (WORK/'math/issues.md').write_text('\n'.join(issue_lines),encoding='utf-8')
-    write(WORK/'evidence/aggregate-report.json',{'status':'passed','scope':'directory_coverage_and_exact_duplicate_normalization','inventory_entries':len(coverage),'covered_entries':len(coverage),
+    write(EVIDENCE/'aggregate-report.json',{'status':'passed','scope':'directory_coverage_and_exact_duplicate_normalization','inventory_entries':len(coverage),'covered_entries':len(coverage),
         'paper_counts':{p['id']:sum(r['paper_id']==p['id'] for r in results.values()) for p in papers},
         'result_count':len(results),'shared_proof_count':len(proofs),'issue_count':len(issues),'symbol_records':len(symbols),
         'missing_directory_entries':[],'exact_shared_proof_deduplications':deduplications,
+        'output_sha256':{p.relative_to(ROOT).as_posix():hashlib.sha256(p.read_bytes()).hexdigest() for p in [WORK/'data/full-content.json',WORK/'data/papers.json',WORK/'data/math-content.json',WORK/'math/issues.json']},
         'inputs':[{'path':p,'sha256':h} for p,h in sorted(INPUTS.items())]})
     return {'status':'merged','inventory_entries':len(coverage),'result_pages':len(results),'papers':len(papers)}
 

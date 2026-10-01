@@ -1,0 +1,85 @@
+                           Defects of Convolutional Decoder Networks in Frequency Representation
+
+usually first generated images with low-frequency compo-             network strengthened the encoding of low-frequency com-
+nents, and then gradually generated more high-frequency              ponents of the input sample. Results on the Broden dataset
+components. Results on more datasets in Appendix C.1                 in Figure 4(a) show that magnitudes of low frequencies in-
+yielded similar conclusions.                                         creased along with the network layer number. Results on
+                                                                     more datasets in Appendix C.4 yielded similar conclusions.
+• Verifying that the zero-padding operation strength-
+ened the encoding of low-frequency components. To this               (2) Verifying that a larger absolute mean value µl of each
+end, we compared feature spectrums between the network               l-th layer’s parameters strengthened low-frequency com-
+with zero-padding operations and the network without zero-           ponents. To this end, we compared spectrums of output
+padding operations. Therefore, we constructed the follow-            features, when we set convolution parameters with different
+ing three baseline networks. The first baseline network              mean values µl . Therefore, we applied the network architec-
+contained 5 convolutional layers, and each layer applied             ture used in the verification of the zero-padding’s effects, but
+zero-paddings. Each convolutional layer contained 16 con-            we changed the kernel size to 9×9. Based on this architec-
+volutional kernels (kernel size was 7×7), except for the last        ture, we constructed three networks, whose parameters were
+layer containing 3 convolutional kernels. The second and             sampled from Gaussian distributions N (µ = 0, σ 2 = 0.012 ),
+the third baseline networks were constructed by replacing            N (µ = 0.001, σ 2 = 0.012 ), and N (µ = 0.01, σ 2 = 0.012 ), re-
+all zero-padding operations with circular padding opera-             spectively. Results on the Broden dataset in Figure 4(b)
+tions and replacing all zero-padding operations with mirror          show that magnitudes of low-frequency components in-
+padding operations, respectively. Results on the Broden              creased along with the absolute mean value of parameters.
+(Bau et al., 2017) dataset in Figure 4(c) show that the net-         In addition, Appendix C.5 shows results on more datasets,
+work with zero-padding operations encoded more significant           which also yielded similar conclusions.
+low-frequency components than the network with circular
+                                                                     We also conducted experiments to measure the effects of
+padding operations. The mirror padding operation also en-
+                                                                     large absolute mean values on layers with different depth.
+hanced the significance of low-frequency components, to
+                                                                     Results in Appendix C.8 show that no matter which layer
+some extent. Results on more datasets in Appendix C.3
+                                                                     had parameters of a large absolute mean value, there was
+yielded similar conclusions.
+                                                                     no significant difference in weakening the encoding of high-
+• Verifying factors that strengthened low-frequency                  frequency components. It was because different convolu-
+components. Previous studies (Ruderman, 1994) have em-               tional layers, including both shallow and deep layers, theo-
+pirically found that natural images were dominated by low-           retically had similar roles in affecting the frequency repre-
+frequency components. Therefore, according to Corollar-              sentation of the entire network, according to Corollary 3.3.
+ies 3.3 and 3.4, we know that if the cascaded convolutional
+                                                                     (3) Verifying that a small kernel size K strengthened low-
+decoder is trained on natural images, then the decoder is
+                                                                     frequency components. To this end, we compared feature
+more likely to strengthen low-frequencies. Please see Ap-
+                                                                     spectrums of networks with different kernel sizes. There-
+pendix B.4 for more discussions. Besides, we conducted
+                                                                     fore, we constructed three networks with kernel sizes of
+experiments to verify the following three factors that were
+                                                                     1×1, 3×3, and 5×5. Each network contained 5 convolu-
+found to strengthen low frequencies.
+                                                                     tional layers, each layer contained 16 convolutional kernels,
+(1) Verifying that a deep network strengthened low-                  except for the last layer containing 3 kernels. We used the
+                                                                                                            (c)
+frequency components. To this end, we constructed a net-                                            Ec [|Huv |2 ]
+                                                                                     P
+                                                                                       [u,v]∈Ωlow
+                                                                     metric plow =                    (c)           to measure the ratio of
+work with 50 convolutional layers. Each convolutional layer                                               2
+                                                                                         P
+                                                                                             uv Ec [|Huv | ]
+
+applied zero-paddings to avoid changing the size of fea-             low-frequency components to all frequencies, where Ωlow
+ture maps, and was followed by an ReLU layer. We con-                denoted the set of low-frequency components7 . Figure 4(d)
+ducted this experiment on three datasets, including CIFAR-           reports the average plow value over all images. Results show
+10 (Krizhevsky et al., 2009), Tiny-ImageNet, and Broden              that the network with a small kernel size encoded more
+datasets, respectively. The exponential increase of T(uv)(L:1)       low-frequency components.
+along with the network depth L indicated that the frequency
+component of the network output also increased exponen-              5.2. Verifying the difficulty of fitting shifted frequencies
+tially along with L. Therefore, for the frequency component
+                                                                     This experiment was conducted to verify the difficulty of
+h(uv) generated by the l-th layer in a real decoder network,
+                                                                     learning an auto-encoder, when salient frequency compo-
+we measured its second-order moment SOM(h(uv) ). Fig-
+                                                                     nents of the target output had a small shift from the spec-
+ure 5 shows that SOM(h(uv) ) increased along with the layer
+                                                                        7
+number in an exponential manner.                                         Low-frequencies [u, v] ∈ Ωlow were included in u ∈ {u|0 ≤
+                                                                     u < M 8
+                                                                             } ∪ {u| 7M
+                                                                                      8
+                                                                                        ≤ u < M } and v ∈ {v|0 ≤ v < N8 } ∪
+Besides, we visualized feature spectrums of different convo-            7N
+                                                                     {v| 8 ≤ v < N }.
+lutional layers, which verified the claim that a deep decoder
+
+                                                                 8
+

@@ -1,0 +1,699 @@
+{
+  "status": "passed",
+  "scope": "Actual author-transcription/project-translation/no-local-author-proof source attribution, plus definition/experiment explanation labels and accessible existing definition Lean evidence in Chinese and English. No mathematical admission, source-page completeness, Lean freshness or whole-library browser acceptance.",
+  "candidate_ui_route_override": false,
+  "published_preview_modified": false,
+  "served_paper_count": 12,
+  "panels_checked": 20,
+  "selected_cases": [
+    {
+      "label": "manual-author-proof",
+      "tab": "original-proof",
+      "source_type": "complete_manual_formal_proof_transcription",
+      "expected": "author",
+      "result_id": "transformation-gating-affine"
+    },
+    {
+      "label": "manual-author-statement",
+      "tab": "statement",
+      "source_type": "complete_manual_source_statement_transcription",
+      "expected": "author",
+      "result_id": "robustness-interaction-linearity"
+    },
+    {
+      "label": "author-statement",
+      "tab": "statement",
+      "source_type": "formal_author_transcription",
+      "expected": "author",
+      "result_id": "bnn-posterior"
+    },
+    {
+      "label": "author-proof",
+      "tab": "original-proof",
+      "source_type": "formal_author_transcription",
+      "expected": "author",
+      "result_id": "bnn-taylor"
+    },
+    {
+      "label": "project-statement",
+      "tab": "statement",
+      "source_type": "formal_mathematical_transcription_with_project_chinese_translation",
+      "expected": "project",
+      "result_id": "dyn-interaction-definition"
+    },
+    {
+      "label": "project-proof",
+      "tab": "original-proof",
+      "source_type": "formal_complete_mathematical_transcription_with_project_chinese_translation",
+      "expected": "project",
+      "result_id": "dyn-universal"
+    },
+    {
+      "label": "no-author-proof",
+      "tab": "original-proof",
+      "source_type": "no_local_author_proof",
+      "expected": "none",
+      "result_id": "bnn-posterior"
+    }
+  ],
+  "source_material_cases": [
+    {
+      "label": "definition",
+      "result_id": "hnet-shapley-definition"
+    },
+    {
+      "label": "experiment",
+      "result_id": "dyn-experiments"
+    },
+    {
+      "label": "definition-with-Lean-evidence",
+      "result_id": "hnet-shapley-definition"
+    }
+  ],
+  "snapshot_hashes": {
+    "before": {
+      "reader/preview/data.public.json": "543a4f76540af9c7bf941abc6ef3b1711de32652492f8422407c8ed8256b6838",
+      "reader/preview/data.public.js": "333fc6139c843edc3c91cac31af8e12fe0518542806386da58e171ac8d439d24",
+      "reader/preview/reader.js": "a4d577d3577f89444d33a1f0727c1b5c2c151620f5b5f148c3a97898d7a158ba",
+      "reader/check_source_presentation.py": "f50deaac42d0709e517e9affd0c7649bb1a37d87790eea71d410a93ff342ed85"
+    },
+    "after": {
+      "reader/preview/data.public.json": "543a4f76540af9c7bf941abc6ef3b1711de32652492f8422407c8ed8256b6838",
+      "reader/preview/data.public.js": "333fc6139c843edc3c91cac31af8e12fe0518542806386da58e171ac8d439d24",
+      "reader/preview/reader.js": "a4d577d3577f89444d33a1f0727c1b5c2c151620f5b5f148c3a97898d7a158ba",
+      "reader/check_source_presentation.py": "f50deaac42d0709e517e9affd0c7649bb1a37d87790eea71d410a93ff342ed85"
+    }
+  },
+  "checks": [
+    {
+      "name": "actual-source-class:manual-author-proof",
+      "passed": true,
+      "detail": {
+        "paper_id": "icml2022-transformation",
+        "source_type": "complete_manual_formal_proof_transcription"
+      }
+    },
+    {
+      "name": "actual-source-class:manual-author-statement",
+      "passed": true,
+      "detail": {
+        "paper_id": "neurips2021-robustness",
+        "source_type": "complete_manual_source_statement_transcription"
+      }
+    },
+    {
+      "name": "actual-source-class:author-statement",
+      "passed": true,
+      "detail": {
+        "paper_id": "icml2023-bayesian",
+        "source_type": "formal_author_transcription"
+      }
+    },
+    {
+      "name": "actual-source-class:author-proof",
+      "passed": true,
+      "detail": {
+        "paper_id": "icml2023-bayesian",
+        "source_type": "formal_author_transcription"
+      }
+    },
+    {
+      "name": "actual-source-class:project-statement",
+      "passed": true,
+      "detail": {
+        "paper_id": "neurips2024-dynamics",
+        "source_type": "formal_mathematical_transcription_with_project_chinese_translation"
+      }
+    },
+    {
+      "name": "actual-source-class:project-proof",
+      "passed": true,
+      "detail": {
+        "paper_id": "neurips2024-dynamics",
+        "source_type": "formal_complete_mathematical_transcription_with_project_chinese_translation"
+      }
+    },
+    {
+      "name": "actual-source-class:no-author-proof",
+      "passed": true,
+      "detail": {
+        "paper_id": "icml2023-bayesian",
+        "source_type": "no_local_author_proof"
+      }
+    },
+    {
+      "name": "actual-source-material:definition",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "actual-source-material:experiment",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "actual-source-material:definition-with-Lean-evidence",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "author-attribution:zh:manual-author-proof:transformation-gating-affine",
+      "passed": true,
+      "detail": {
+        "notes": [
+          "下文按所链接正式 PDF 转录作者原文与数学记号，保留原式及错误；这是项目转录，并非作者 TeX 源码。"
+        ],
+        "headings": [
+          "作者原证明或推导转录"
+        ]
+      }
+    },
+    {
+      "name": "author-not-mislabeled-as-translation:zh:manual-author-proof:transformation-gating-affine",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "source-math:zh:manual-author-proof:transformation-gating-affine",
+      "passed": true,
+      "detail": []
+    },
+    {
+      "name": "source-width:zh:manual-author-proof:transformation-gating-affine",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "author-attribution:zh:manual-author-statement:robustness-interaction-linearity",
+      "passed": true,
+      "detail": {
+        "notes": [
+          "下文按所链接正式 PDF 转录作者原文与数学记号，保留原式及错误；这是项目转录，并非作者 TeX 源码。"
+        ],
+        "headings": [
+          "作者原命题转录"
+        ]
+      }
+    },
+    {
+      "name": "author-not-mislabeled-as-translation:zh:manual-author-statement:robustness-interaction-linearity",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "source-math:zh:manual-author-statement:robustness-interaction-linearity",
+      "passed": true,
+      "detail": []
+    },
+    {
+      "name": "source-width:zh:manual-author-statement:robustness-interaction-linearity",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "author-attribution:zh:author-statement:bnn-posterior",
+      "passed": true,
+      "detail": {
+        "notes": [
+          "下文按所链接正式 PDF 转录作者原文与数学记号，保留原式及错误；这是项目转录，并非作者 TeX 源码。"
+        ],
+        "headings": [
+          "作者原文陈述转录"
+        ]
+      }
+    },
+    {
+      "name": "author-not-mislabeled-as-translation:zh:author-statement:bnn-posterior",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "source-math:zh:author-statement:bnn-posterior",
+      "passed": true,
+      "detail": []
+    },
+    {
+      "name": "source-width:zh:author-statement:bnn-posterior",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "author-attribution:zh:author-proof:bnn-taylor",
+      "passed": true,
+      "detail": {
+        "notes": [
+          "下文按所链接正式 PDF 转录作者原文与数学记号，保留原式及错误；这是项目转录，并非作者 TeX 源码。"
+        ],
+        "headings": [
+          "作者原证明或推导转录"
+        ]
+      }
+    },
+    {
+      "name": "author-not-mislabeled-as-translation:zh:author-proof:bnn-taylor",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "source-math:zh:author-proof:bnn-taylor",
+      "passed": true,
+      "detail": []
+    },
+    {
+      "name": "source-width:zh:author-proof:bnn-taylor",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "project-explanation-disclosed:zh:project-statement:dyn-interaction-definition",
+      "passed": true,
+      "detail": {
+        "notes": [
+          "下文保留原文数学内容，文字为项目译述或说明；作者原句请对照所链接的正式 PDF。"
+        ],
+        "headings": [
+          "原文数学转录与项目译述"
+        ]
+      }
+    },
+    {
+      "name": "source-math:zh:project-statement:dyn-interaction-definition",
+      "passed": true,
+      "detail": []
+    },
+    {
+      "name": "source-width:zh:project-statement:dyn-interaction-definition",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "project-explanation-disclosed:zh:project-proof:dyn-universal",
+      "passed": true,
+      "detail": {
+        "notes": [
+          "下文保留原文数学内容，文字为项目译述或说明；作者原句请对照所链接的正式 PDF。"
+        ],
+        "headings": [
+          "原文数学转录与项目译述"
+        ]
+      }
+    },
+    {
+      "name": "source-math:zh:project-proof:dyn-universal",
+      "passed": true,
+      "detail": []
+    },
+    {
+      "name": "source-width:zh:project-proof:dyn-universal",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "no-local-author-proof-disclosed:zh:no-author-proof:bnn-posterior",
+      "passed": true,
+      "detail": {
+        "notes": [
+          "所选正式来源未提供本条独立的作者证明；下方若有说明，仅为来源上下文，不是作者证明。",
+          "本条未登记独立的原证明页。下列正式 PDF 位置提供命题或推导上下文。"
+        ],
+        "headings": []
+      }
+    },
+    {
+      "name": "no-author-proof-not-missing-transcription:zh:no-author-proof:bnn-posterior",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "source-math:zh:no-author-proof:bnn-posterior",
+      "passed": true,
+      "detail": []
+    },
+    {
+      "name": "source-width:zh:no-author-proof:bnn-posterior",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "source-material-explanation-label:zh:definition:hnet-shapley-definition",
+      "passed": true,
+      "detail": {
+        "tab": "条目说明",
+        "heading": "条目说明",
+        "source_role": "source_material",
+        "rewrite_status": "in_progress",
+        "machine_evidence_role": "theorem_proof"
+      }
+    },
+    {
+      "name": "source-material-not-proof-idea:zh:definition:hnet-shapley-definition",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "source-material-math:zh:definition:hnet-shapley-definition",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "source-material-width:zh:definition:hnet-shapley-definition",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "source-material-explanation-label:zh:experiment:dyn-experiments",
+      "passed": true,
+      "detail": {
+        "tab": "条目说明",
+        "heading": "条目说明",
+        "source_role": "source_material",
+        "rewrite_status": "in_progress",
+        "machine_evidence_role": "none"
+      }
+    },
+    {
+      "name": "source-material-not-proof-idea:zh:experiment:dyn-experiments",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "source-material-math:zh:experiment:dyn-experiments",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "source-material-width:zh:experiment:dyn-experiments",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "source-material-explanation-label:zh:definition-with-Lean-evidence:hnet-shapley-definition",
+      "passed": true,
+      "detail": {
+        "tab": "条目说明",
+        "heading": "条目说明",
+        "source_role": "source_material",
+        "rewrite_status": "in_progress",
+        "machine_evidence_role": "theorem_proof"
+      }
+    },
+    {
+      "name": "source-material-not-proof-idea:zh:definition-with-Lean-evidence:hnet-shapley-definition",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "source-material-math:zh:definition-with-Lean-evidence:hnet-shapley-definition",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "source-material-width:zh:definition-with-Lean-evidence:hnet-shapley-definition",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "definition-machine-evidence-still-accessible:zh:definition-with-Lean-evidence:hnet-shapley-definition",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "author-attribution:en:manual-author-proof:transformation-gating-affine",
+      "passed": true,
+      "detail": {
+        "notes": [
+          "The author’s original wording and mathematical notation are transcribed below from the linked formal PDF. Source errors remain intact; this is a project transcription, not the author’s TeX source."
+        ],
+        "headings": [
+          "Author proof or derivation transcription"
+        ]
+      }
+    },
+    {
+      "name": "author-not-mislabeled-as-translation:en:manual-author-proof:transformation-gating-affine",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "source-math:en:manual-author-proof:transformation-gating-affine",
+      "passed": true,
+      "detail": []
+    },
+    {
+      "name": "source-width:en:manual-author-proof:transformation-gating-affine",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "author-attribution:en:manual-author-statement:robustness-interaction-linearity",
+      "passed": true,
+      "detail": {
+        "notes": [
+          "The author’s original wording and mathematical notation are transcribed below from the linked formal PDF. Source errors remain intact; this is a project transcription, not the author’s TeX source."
+        ],
+        "headings": [
+          "Author statement transcription"
+        ]
+      }
+    },
+    {
+      "name": "author-not-mislabeled-as-translation:en:manual-author-statement:robustness-interaction-linearity",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "source-math:en:manual-author-statement:robustness-interaction-linearity",
+      "passed": true,
+      "detail": []
+    },
+    {
+      "name": "source-width:en:manual-author-statement:robustness-interaction-linearity",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "author-attribution:en:author-statement:bnn-posterior",
+      "passed": true,
+      "detail": {
+        "notes": [
+          "The author’s original wording and mathematical notation are transcribed below from the linked formal PDF. Source errors remain intact; this is a project transcription, not the author’s TeX source."
+        ],
+        "headings": [
+          "Author statement transcription"
+        ]
+      }
+    },
+    {
+      "name": "author-not-mislabeled-as-translation:en:author-statement:bnn-posterior",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "source-math:en:author-statement:bnn-posterior",
+      "passed": true,
+      "detail": []
+    },
+    {
+      "name": "source-width:en:author-statement:bnn-posterior",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "author-attribution:en:author-proof:bnn-taylor",
+      "passed": true,
+      "detail": {
+        "notes": [
+          "The author’s original wording and mathematical notation are transcribed below from the linked formal PDF. Source errors remain intact; this is a project transcription, not the author’s TeX source."
+        ],
+        "headings": [
+          "Author proof or derivation transcription"
+        ]
+      }
+    },
+    {
+      "name": "author-not-mislabeled-as-translation:en:author-proof:bnn-taylor",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "source-math:en:author-proof:bnn-taylor",
+      "passed": true,
+      "detail": []
+    },
+    {
+      "name": "source-width:en:author-proof:bnn-taylor",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "project-explanation-disclosed:en:project-statement:dyn-interaction-definition",
+      "passed": true,
+      "detail": {
+        "notes": [
+          "The source mathematical content is transcribed below with project translation or explanation. Consult the linked formal PDF for the author’s original wording."
+        ],
+        "headings": [
+          "Source mathematical transcription and project explanation"
+        ]
+      }
+    },
+    {
+      "name": "source-math:en:project-statement:dyn-interaction-definition",
+      "passed": true,
+      "detail": []
+    },
+    {
+      "name": "source-width:en:project-statement:dyn-interaction-definition",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "project-explanation-disclosed:en:project-proof:dyn-universal",
+      "passed": true,
+      "detail": {
+        "notes": [
+          "The source mathematical content is transcribed below with project translation or explanation. Consult the linked formal PDF for the author’s original wording."
+        ],
+        "headings": [
+          "Source mathematical transcription and project explanation"
+        ]
+      }
+    },
+    {
+      "name": "source-math:en:project-proof:dyn-universal",
+      "passed": true,
+      "detail": []
+    },
+    {
+      "name": "source-width:en:project-proof:dyn-universal",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "no-local-author-proof-disclosed:en:no-author-proof:bnn-posterior",
+      "passed": true,
+      "detail": {
+        "notes": [
+          "The selected formal source provides no separate local author proof for this item. Any explanation below is source context, not an author proof.",
+          "No separate proof page is inventoried for this item. The linked formal PDF pages give the statement or derivation context."
+        ],
+        "headings": []
+      }
+    },
+    {
+      "name": "no-author-proof-not-missing-transcription:en:no-author-proof:bnn-posterior",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "source-math:en:no-author-proof:bnn-posterior",
+      "passed": true,
+      "detail": []
+    },
+    {
+      "name": "source-width:en:no-author-proof:bnn-posterior",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "source-material-explanation-label:en:definition:hnet-shapley-definition",
+      "passed": true,
+      "detail": {
+        "tab": "Entry explanation",
+        "heading": "Entry explanation",
+        "source_role": "source_material",
+        "rewrite_status": "in_progress",
+        "machine_evidence_role": "theorem_proof"
+      }
+    },
+    {
+      "name": "source-material-not-proof-idea:en:definition:hnet-shapley-definition",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "source-material-math:en:definition:hnet-shapley-definition",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "source-material-width:en:definition:hnet-shapley-definition",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "source-material-explanation-label:en:experiment:dyn-experiments",
+      "passed": true,
+      "detail": {
+        "tab": "Entry explanation",
+        "heading": "Entry explanation",
+        "source_role": "source_material",
+        "rewrite_status": "in_progress",
+        "machine_evidence_role": "none"
+      }
+    },
+    {
+      "name": "source-material-not-proof-idea:en:experiment:dyn-experiments",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "source-material-math:en:experiment:dyn-experiments",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "source-material-width:en:experiment:dyn-experiments",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "source-material-explanation-label:en:definition-with-Lean-evidence:hnet-shapley-definition",
+      "passed": true,
+      "detail": {
+        "tab": "Entry explanation",
+        "heading": "Entry explanation",
+        "source_role": "source_material",
+        "rewrite_status": "in_progress",
+        "machine_evidence_role": "theorem_proof"
+      }
+    },
+    {
+      "name": "source-material-not-proof-idea:en:definition-with-Lean-evidence:hnet-shapley-definition",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "source-material-math:en:definition-with-Lean-evidence:hnet-shapley-definition",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "source-material-width:en:definition-with-Lean-evidence:hnet-shapley-definition",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "definition-machine-evidence-still-accessible:en:definition-with-Lean-evidence:hnet-shapley-definition",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "no-js-errors",
+      "passed": true,
+      "detail": []
+    },
+    {
+      "name": "no-external-requests",
+      "passed": true,
+      "detail": []
+    },
+    {
+      "name": "snapshot-unchanged",
+      "passed": true,
+      "detail": null
+    }
+  ],
+  "js_errors": [],
+  "external_requests": []
+}

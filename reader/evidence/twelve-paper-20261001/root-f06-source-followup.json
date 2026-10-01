@@ -1,0 +1,264 @@
+{
+  "status": "pre_package_source_review",
+  "paper_id": "icml2023-decoder",
+  "scope": "Selected source clauses and machine-source reads; not final admission.",
+  "recorded_at": "2026-10-01T11:16:04.142606+00:00",
+  "independent_occurrence_manifest": "reader/evidence/twelve-paper-20261001/f06-source-occurrence-candidates.json",
+  "occurrence_manifest_sha256": "14ccc7a8a2712eddad2bb2554d2cac0ccc530f38bcb97243edaeeef1924bb256",
+  "findings": [
+    {
+      "pages": [
+        15,
+        16
+      ],
+      "subject": "Real versus complex gradient convention",
+      "finding": "A.3 explicitly identifies conjugate-gradient notation on real variables with the real gradient and describes an optimization step. The exact real Fréchet pullback can use DFT(real gradient)/(MN) to match that convention. Do not infer a final theorem error solely from standard half-scaled Wirtinger derivatives without recording the convention."
+    },
+    {
+      "pages": [
+        21,
+        22
+      ],
+      "subject": "Multi-channel recurrence and closed expression",
+      "finding": "Separate matrix-valued mean/SOM proof from scalar Theorem4.2. Extra independence language and the weaker displayed first-product moments must stay distinct. The actual image and source transcription show 1/C_l INSIDE the squared modulus of the correction term; do not invent a missing-square error from flattened PDF text."
+    },
+    {
+      "pages": [
+        32,
+        33
+      ],
+      "subject": "Additional inferential passages",
+      "finding": "C.6 dimension/cosine argument and C.7 correlation-to-assumption reasoning are mathematical explanations to index and assess. Source C.7 tests abs(Delta T), not simply original T or independent kernels."
+    }
+  ],
+  "selected_machine_source_reads": [
+    "DecoderKernelMoments.lean",
+    "DecoderLayerMoments.lean",
+    "DecoderBackprop.lean",
+    "DecoderSpectralPullback.lean",
+    "DecoderCascade.lean",
+    "DecoderPadding.lean",
+    "DecoderDepthCounterexample.lean"
+  ],
+  "remaining": "First full content/inventory plus actual complete matrix-gradient and multi-channel moment adapters and final independent build are pending.",
+  "first_package_human_math_review": {
+    "reviewed_at": "2026-10-01T11:31:28.429918+00:00",
+    "content_sha256": "7d35f2780fad9644d38edc2894e9d0bb6f1b80883819c8d10301da395236042d",
+    "entries_read": 34,
+    "mathematical_targets_declared": 30,
+    "status": "returned_for_revision_not_admitted",
+    "findings": [
+      {
+        "id": "root-f06-gradient-normalization",
+        "finding": "Step 2 defines q=sum chi*conj(Fhat)*Dhat with D the actual real spatial Riesz gradient and chi already containing 1/(MN); this q is the unnormalized transformed weight gradient, hence DeltaT=-eta*q. Step3 instead writes -eta*MN*q. Define normalized spectral gradient E=Dhat/(MN) explicitly or remove the extra MN. Complete prefix/suffix composition must retain the chosen definition."
+      },
+      {
+        "id": "root-f06-source-issue-precision",
+        "finding": "Eq17 has wrong sine numerators M-K and N-K instead of M-K+1/N-K+1, but its displayed phase with M-K and N-K is correct. The issue title must not allege a phase error. The M=N=3,K=2,u=v=0,uprime=vprime=1 nonzero-denominator coefficient counterexample is valid."
+      },
+      {
+        "id": "root-f06-control-escapes",
+        "finding": "Thirteen content paths contain backspace in b,beta due to a Python nonraw escape; fix generator and symbols/notation copies. Validate the complete generated package."
+      },
+      {
+        "id": "root-f06-visible-statement-role",
+        "finding": "Headers displaying a counterexample or a valid component rather than the source statement need visible bilingual statement_md and preserved original statement; review depth-growth and one-step-fitting in particular."
+      },
+      {
+        "id": "root-f06-local-assumptions",
+        "finding": "Padding/upsampling interpretations should retain their actual operator assumptions rather than inherit the circular no-activation cascade assumption. C7 uncorrelated-dependent example U and U^2-EU^2 needs a specified symmetric law such as N(0,1)."
+      }
+    ],
+    "pending_implementation_remains_pending": [
+      "full actual Cor3.4 prefix/suffix matrix gradient chain",
+      "actual multichannel mean/conjugated second-moment recurrence and finite closed form",
+      "conditional trigonometric quotient and valid-convolution coefficient/counterexample",
+      "actual weak-independence and changing-K model instances"
+    ],
+    "note": "Unquantified empirical learning explanations may retain honest scope-only status; unfinished valid mathematical targets may not be reclassified as permanently unavailable solely to pass admission."
+  },
+  "additional_a3_image_review": {
+    "images": {
+      ".tmp/f06-author-transcription/formal-16.png": "4a5b28db12f6f7f5a30e320a80489cd5218a06cc3e9759e8efbedf04cb2125ad",
+      ".tmp/f06-author-transcription/formal-17.png": "47c186f68f91a7f64fb3025c0981f82ff5a0ecb13655c94c7ecd83932f9a6256"
+    },
+    "findings": [
+      {
+        "page": 17,
+        "location": "Similarly... previous-feature gradient chain above Eq22",
+        "finding": "The scalar chain for the previous-layer gradient has a free output-channel d on the right and omits its sum; a full multi-output-channel pullback must sum d. The subsequent matrix Eq23 includes that contraction correctly. Preserve the source chain and repair the local proof."
+      },
+      {
+        "page": 17,
+        "location": "Dimension annotation immediately before Eq22",
+        "finding": "The annotation says the transposed-kernel derivative is D-by-C, while the displayed outer product of the C-entry input column and D-entry derivative row is C-by-D, matching the final DeltaT-transpose shape. Treat this as a local annotation issue rather than a counterexample to the final source matrix formula."
+      }
+    ],
+    "status": "returned_for_source_image_confirmation_and_local_proof_record"
+  },
+  "new_module_semantic_reads": {
+    "read_at": "2026-10-01T11:59:40.758984+00:00",
+    "input_hashes": {
+      "lean/HarsanyiLib/Harsanyi/Extensions/DecoderMatrixBackprop.lean": "45bf526afda97ad59721147bd45986d65626e47fe884e0ef2dd588c265402448",
+      "lean/HarsanyiLib/Harsanyi/Extensions/DecoderValid.lean": "4cdb6f9a4dad1c5e8e6c2b582818d34639788c41f6ae26e3c44b27693007dfb4"
+    },
+    "status": "public_model_semantics_reviewed_paper_binding_and_final_compilation_pending",
+    "findings": [
+      "MatrixBackprop defines the actual real heterogeneous finite cascade, proves its input derivative, explicit sum over output channels, real functional pullback, conjugate-transpose reverse composition, actual prefix spectrum including all biases, normalized suffix cotangent and spectral real-coordinate parameter update. The final paper adapter must bind the same actual differentiable Loss/point/J to both derivative and update rather than only expose the arbitrary-J algebraic result.",
+      "DecoderValid defines crop through integer representatives, proves its actual DFT mixing, actual multi-channel biased output formula, valid-rectangle index bounds and real-input constant/delta-kernel counterexample. The incorrect source Eq17 coefficient predicts -1 where the actual output DFT is0; both sine denominators are nonzero. The real/complex geometric sine quotient is restricted to a nonzero sine denominator. General periodic sampling is explicitly separate from arbitrary padding."
+    ],
+    "scope": "Independent source reading, not final report acceptance or independent root compilation. Later source edits require final binding."
+  },
+  "transferred_modules_root_review": {
+    "reviewed_at": "2026-10-01T12:13:58.713772+00:00",
+    "source_hashes": {
+      "lean/HarsanyiLib/Harsanyi/Extensions/DecoderValid.lean": "542fc9dcfd7f73000018e42af4aa2eedae646ff7c34318d6b0a94d4560e0892f",
+      "lean/HarsanyiLib/Harsanyi/Extensions/DecoderParameterCounterexamples.lean": "069193f4098858083765aacb585991b4f479d758c010a9500cd9bb58300c4b81",
+      "lean/HarsanyiLib/Harsanyi/Extensions/DecoderWeakIndependence.lean": "4bc4ca82421923171e4f43c6a2093d5bfe76ef541043a32e01299b6d55f2aa46"
+    },
+    "source_hashes_fresh": {
+      "lean/HarsanyiLib/Harsanyi/Extensions/DecoderValid.lean": true,
+      "lean/HarsanyiLib/Harsanyi/Extensions/DecoderParameterCounterexamples.lean": true,
+      "lean/HarsanyiLib/Harsanyi/Extensions/DecoderWeakIndependence.lean": true
+    },
+    "selected_types": [
+      "Harsanyi.Frequency.Valid.valid_indices_no_wrap",
+      "Harsanyi.Frequency.Valid.valid_layer_dft",
+      "Harsanyi.Frequency.Valid.actual_valid_equation17_counterexample",
+      "Harsanyi.Frequency.Valid.geometric_real_sine_quotient",
+      "Harsanyi.Frequency.Parameters.actual_kernel_size_growth_counterexample",
+      "Harsanyi.Frequency.Parameters.actual_kernel_dc_ratio_counterexample",
+      "Harsanyi.Frequency.WeakIndependence.standard_gaussian_fourth_moment",
+      "Harsanyi.Frequency.WeakIndependence.actual_w2_law",
+      "Harsanyi.Frequency.WeakIndependence.actual_not_independent",
+      "Harsanyi.Frequency.WeakIndependence.actual_unit_kernel_weak_counterexample"
+    ],
+    "semantic_findings": [
+      "Valid no-wrap lemma connects periodic representation to physical valid-convolution rectangles. Frequency difference is bound to actual old/new grids, both quotient denominators are nonzero in the counterexample.",
+      "Parameters uses actual product Gaussian kernel laws and actual DFT-response integrals. K=1 versus K=2 SOM 17/16 versus 1/4 refutes unconditional monotonicity; K=2 versus K=4 DC ratio 5 versus17 refutes unconditional ratio decrease. Finite phase sums define DC boundary values.",
+      "WeakIndependence constructs fair-sign times a standard Gaussian with both actual Gaussian marginals, first product moment zero, squared product moment3 versus product1. Fourth moment is derived through actual Gaussian MGF, and the combined counterexample is connected to actual singleton convolution kernel responses."
+    ],
+    "status": "source_semantics_and_independent_actual_types_axioms_passed",
+    "independent_compilation": {
+      "command": "lake -d lean/HarsanyiLib env lean .tmp/twelve-root-audit/F06TransferredAudit.lean",
+      "exit_code": 0,
+      "log_path": ".tmp/twelve-root-audit/f06-transferred-root-types-axioms.log",
+      "log_sha256": "1b0cf6854739c06071898205090ec8c944cb60482c57adf329bb1d5ab94f2428",
+      "declarations": 10,
+      "axiom_whitelist": [
+        "Classical.choice",
+        "Quot.sound",
+        "propext"
+      ],
+      "audit_source_sha256": "b0c6457ae14cf8c65b28c637c68bb10b251f66fa34cc0088887971f584aa864b"
+    }
+  },
+  "multichannel_root_read": {
+    "source_path": "lean/HarsanyiLib/Harsanyi/Extensions/DecoderMultiChannel.lean",
+    "source_sha256": "f0a6f44aa3f666946935d553eef6797f9d3771c54732bf81aba5d71456ed3f12",
+    "status": "source_semantics_and_independent_actual_types_axioms_passed",
+    "findings": [
+      "The actual heterogeneous matrix cascade is evaluated on a basis vector; its entry recursion is the finite row-column product, not an assumed target moment.",
+      "Layer-prefix independence is derived from genuine finite blocks of an independent family. Independence across entries of a prefix column is a separate assumption, not a consequence of independent layers.",
+      "Gaussian real kernel laws produce actual spectral response means and second moments. The cascade induction proves L2 integrability and actual integral recurrence.",
+      "With source L=n+1, sourceMean contains C_L inverse outside the product, sourceSOM contains normSq(sourceMean) with C_l inverse inside normSq. The correction index i runs l=i+2, and the suffix product is over subsequent layers. Positive channel counts support precisely the source divisions.",
+      "The finite affine recurrence expansion is proved by induction. The source Gaussian specialization supplies kernel-derived coefficients; it does not assume the desired final expectation or SOM."
+    ],
+    "selected_declarations": [
+      "Harsanyi.Frequency.MultiChannel.actual_cascade_uniform_moments",
+      "Harsanyi.Frequency.MultiChannel.finite_affine_expansion",
+      "Harsanyi.Frequency.MultiChannel.som_sequence_source_closed",
+      "Harsanyi.Frequency.MultiChannel.actual_gaussian_cascade_closed"
+    ],
+    "independent_compilation": {
+      "exit_code": 0,
+      "log_path": ".tmp/twelve-root-audit/f06-multichannel-root-types-axioms.log",
+      "log_sha256": "c6c6f92fce3fcbb1b6863344bb56bf83badd609183d1a4ea2f9450d1619a351f",
+      "actual_declarations": 4,
+      "axiom_whitelist": [
+        "Classical.choice",
+        "Quot.sound",
+        "propext"
+      ]
+    }
+  },
+  "final_model_rewrite_review": {
+    "reviewed_at": "2026-10-01T12:38:41.769129+00:00",
+    "content_sha256": "651e4ba1a752ece12aa16bb22ae82266c279cbaf7d3236a848f4eff4ca24ad9d",
+    "status": "seven_revised_model_arguments_reviewed_local_notation_followup_pending_final_report",
+    "entries": [
+      "decoder-valid-convolution",
+      "decoder-backpropagation",
+      "decoder-independence-scope",
+      "decoder-multi-channel-moments",
+      "decoder-moment-parameter-growth",
+      "decoder-kernel-preference",
+      "decoder-one-step-fitting"
+    ],
+    "findings": [
+      "The crop rewrite includes exact finite coefficients, all-channel bias, valid-domain no-wrap scope and a nonzero-denominator actual-convolution counterexample.",
+      "The real-loss rewrite derives the same functional at the same state, normalized spectral gradient, explicit channel contraction and full prefix/suffix update.",
+      "The weak-condition witness explicitly uses actual singleton kernels and Gaussian marginal laws; it does not claim to refute the genuinely independent model.",
+      "The multi-channel rewrite includes real Gaussian response moments, measurable layer-prefix independence, explicit independent-row and independent-prefix-column assumptions, complex conjugated cross terms, integrability, base cases and complete Eq31/32 finite formula with correct indices.",
+      "The two changing-K witnesses use their distinct fixed variances and compute actual phase sums and integral moments.",
+      "The one-step counterexample verifies all four source constraints and follows actual real-coordinate gradients through both updated convolution layers."
+    ],
+    "small_followups": [
+      "Backprop step2 reuses D_l for both an intermediate gradient and an output-channel dimension. Replace the shape statement with C_l by C_(l-1) and its transpose; change human text only.",
+      "Single-channel log proof should start with the stated positive-factor domain; positive noise is a sufficient case, not an extra universal premise."
+    ],
+    "small_followups_status": "Both small text followups independently checked resolved at content49aab17c87280ecf15cc8324973bb99a254f99ef481d3478bc454c376f4a58ef; full frozen package still pending."
+  },
+  "independent_full_adapter_compile": {
+    "source_path": "corpus/public/reader/icml2023-decoder/lean/PaperDecoder.lean",
+    "source_sha256": "406ea769f120fa412f0364239e05850b2cbede9ace79120a702b25e1a4c59a5a",
+    "command": "lake -d lean/HarsanyiLib env lean corpus/public/reader/icml2023-decoder/lean/PaperDecoder.lean",
+    "exit_code": 0,
+    "log_path": "reader/evidence/twelve-paper-20261001/root-formal-checks/f06/positive-log-paper-compile.txt",
+    "log_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "scope": "Entire current paper adapter, including the new actual_positive_factor_log_som on its full positive-factor domain; q=0 is permitted where the mean response is nonzero. Final source/content/report admission remains pending."
+  },
+  "preserved_independent_machine_artifacts": [
+    {
+      "executed_original": ".tmp/twelve-root-audit/F06TransferredAudit.lean",
+      "preserved_copy": "reader/evidence/twelve-paper-20261001/root-formal-checks/f06/TransferredAudit.lean",
+      "sha256": "b0c6457ae14cf8c65b28c637c68bb10b251f66fa34cc0088887971f584aa864b"
+    },
+    {
+      "executed_original": ".tmp/twelve-root-audit/f06-transferred-root-types-axioms.log",
+      "preserved_copy": "reader/evidence/twelve-paper-20261001/root-formal-checks/f06/transferred-types-axioms.txt",
+      "sha256": "1b0cf6854739c06071898205090ec8c944cb60482c57adf329bb1d5ab94f2428"
+    },
+    {
+      "executed_original": ".tmp/twelve-root-audit/F06MultiChannelAudit.lean",
+      "preserved_copy": "reader/evidence/twelve-paper-20261001/root-formal-checks/f06/MultiChannelAudit.lean",
+      "sha256": "f285c6a93f15ca7de38fa1c84ccc4d98c09d418fd41b352d6047f18db809921d"
+    },
+    {
+      "executed_original": ".tmp/twelve-root-audit/f06-multichannel-root-types-axioms.log",
+      "preserved_copy": "reader/evidence/twelve-paper-20261001/root-formal-checks/f06/multichannel-types-axioms.txt",
+      "sha256": "c6c6f92fce3fcbb1b6863344bb56bf83badd609183d1a4ea2f9450d1619a351f"
+    },
+    {
+      "executed_original": ".tmp/twelve-root-audit/f06-root-final-adapter-compile.log",
+      "preserved_copy": "reader/evidence/twelve-paper-20261001/root-formal-checks/f06/paper-adapter-compile.txt",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    }
+  ],
+  "independent_adapter_compile_history": [
+    {
+      "source_path": "corpus/public/reader/icml2023-decoder/lean/PaperDecoder.lean",
+      "source_sha256": "691cf757b0b8e4c435555946fcd018b9b376cee5f616d09112b53adca4c7430c",
+      "command": "lake -d lean/HarsanyiLib env lean corpus/public/reader/icml2023-decoder/lean/PaperDecoder.lean",
+      "exit_code": 0,
+      "log_path": ".tmp/twelve-root-audit/f06-root-final-adapter-compile.log",
+      "log_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "scope": "Entire actual adapter, including the same-loss gradient update and actual Gaussian multichannel mean/SOM source formulas. Final report/content/source boundary admission still pending."
+    }
+  ],
+  "positive_log_domain_followup": {
+    "finding": "Independent cross-review found the public log lemma assumed positive variances while human scope also admitted zero variance and positive moment factors. Root earlier inferred the machine domain from the prose and corrected that assessment.",
+    "resolution": "New paper adapter derives the logarithm from the already-proved actual product moments plus Real.log_prod under exactly positive factors. Root read the actual theorem and independently recompiled the entire adapter with exit0.",
+    "status": "machine_domain_repaired_final_report_binding_pending"
+  }
+}

@@ -1,0 +1,89 @@
+                              Defects of Convolutional Decoder Networks in Frequency Representation
+
+                                                                   (l,uv)
+According to Equation (22), the gradient w.r.t. T                                 can be computed as follows.
+                            M −1 N −1
+            ∂Loss           X    X                               0 0       ∂Loss
+             (l,uv) >
+                        =                  χu0 v0 uv g(l−1,u      v )
+                                                                               0 0
+         ∂(T       )        u0 =0 v 0 =0
+                                                                        ∂(g(l,u v ) )>
+                            M −1 N −1
+                            X    X                        (u0 v 0 )(l−1:1) (0,u0 v 0 )               0            ∂Loss        (u0 v 0 )(L:l+1)
+                        =                  χu0 v0 uv (T                       g              + β δu0 v0 )             0 0     T                 //Corollary 3.3
+                            u0 =0 v 0 =0
+                                                                                                               ∂(g(L,u v ) )>                                             (25)
+                                       (uv)        (0,uv)        (uv)             (L,uv)
+                            // Let g          =g            ;h          =g
+                            M −1 N −1
+                            X    X                        (u0 v 0 )(l−1:1) (u0 v 0 )             0                 ∂Loss       (u0 v 0 )(L:l+1)
+                        =                  χu0 v0 uv (T                       g             + β δu0 v0 )      (u0 v 0 ) >
+                                                                                                                              T
+                            u0 =0 v 0 =0                                                                   ∂(h         )
+
+                                                                                                                            (l)[ker=d]
+Let us use the gradient descent algorithm to update the convlutional weight Wc                                                           |n of the n-th epoch, the updated
+                       (l)[ker=d]
+frequency spectrum Wc             |n+1 can be computed as follows.
+
+                                                          (l)[ker=d]                         (l)[ker=d]                      ∂Loss
+                                        ∀t, s,      Wcts                |n+1 = Wcts                       |n − η ·            (l)[ker=d]
+                                                                                                                          ∂W cts
+
+where η is the learning rate. Then, the updated frequency spectrum T (l,uv) |n+1 computed based on Equation (20) is given
+as follows.
+
+               (l,uv)         (l,uv)                (l,uv)
+           ∆Tdc         = Tdc          |n+1 − Tdc            |n
+                            K−1
+                            X K−1             (l)[ker=d]                 ut        vs                (l,uv)
+                                X
+                        =                  Wcts             |n+1 ei( M + N )2π − Tdc                          |n        //Equation (19)
+                            t=0 s=0
+                            K−1
+                            X K−1
+                                X              (l)[ker=d]                          ∂Loss                  ut       vs          (l,uv)
+                        =                (Wcts               |n − η ·            (l)[ker=d]
+                                                                                                     )ei( M + N )2π − Tdc               |n
+                            t=0 s=0                                           ∂W cts
+                             X K−1
+                             K−1                                                                                          X K−1
+                                                                                                                          K−1
+                                 X             (l)[ker=d]               ut        vs             (l,uv)
+                                                                                                                              X          ∂Loss              ut    vs
+                        =(                  Wcts             |n ei( M + N )2π − Tdc                       |n ) − η                   (l)[ker=d]
+                                                                                                                                                        ei( M + N )2π
+                             t=0 s=0                                                                                      t=0 s=0 ∂W cts
+
+                                X K−1
+                                K−1 X               ∂Loss                    ut        vs
+                        = −η                (l)[ker=d]
+                                                                       ei( M + N )2π             //Equation (19)
+                                 t=0 s=0 ∂W cts
+                                           ∂Loss
+                        = −ηM N               (l,uv)
+                                                           //Equation (20)
+                                        ∂T dc
+
+                                                   (l)[ker=d]                                                      (uv)
+Therefore, we prove that any step on Wcts                          equals to M N step on Tdc . In this way, pull Equation (25) in the change
+of T (l,uv) can be computed as follows.
+                        >         M −1 N −1
+                                  X    X              (u0 v0 )(l−1:1) 0 0               0
+                                                                                                                                    ∂Loss             (u0 v 0 )(L:l+1)
+              ∆T (l,uv)    = −ηM N           χu0 v0 uv T               g(u v ) + δu0 v0 β                                            (u0 v 0 ) >
+                                                                                                                                                   T                      (26)
+                                               u0 =0 v 0 =0                                                                       ∂(h         )
+
+
+
+
+A.4. Proofs of Assumption 4.1 and Theorem 4.2
+We prove Assumption 4.1 in the main paper, as follows.
+
+Proof. Given an initialized, cascaded, convolutional decoder network with L convolutional layers, let us focus on the
+behavior of the decoder network in early epochs of training. We notice that each element in the matrix T (l,uv) is exclusively
+
+                                                                                            18
+

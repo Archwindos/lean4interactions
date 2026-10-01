@@ -1,0 +1,118 @@
+{
+  "schema_version": "1.0",
+  "scope": "New formal-paper admission; accepted legacy paper inputs remain immutable.",
+  "result_required_fields": [
+    "id",
+    "title",
+    "rewrite_status",
+    "rewrite_role",
+    "statement_assessment",
+    "lean"
+  ],
+  "rewrite_status": [
+    "complete",
+    "in_progress",
+    "not_started",
+    "blocked_by_source_issue",
+    "not_applicable",
+    "not_a_proof_target",
+    "complete_empirical_explanation",
+    "complete_external_reference_explanation",
+    "complete_with_scope_issue",
+    "complete_with_definition_only_counterexample",
+    "complete_with_original_domain_issue"
+  ],
+  "rewrite_role": [
+    "proof",
+    "counterexample",
+    "statement_scope_explanation",
+    "partial_proof_with_refuted_clause",
+    "partial_component",
+    "source_material"
+  ],
+  "statement_assessment": [
+    "no_statement_error_recorded",
+    "refuted",
+    "partially_refuted",
+    "counterexample_recorded",
+    "scope_under_review"
+  ],
+  "lean_evidence_role": [
+    "theorem_proof",
+    "partial_component",
+    "counterexample",
+    "none"
+  ],
+  "issue_required_fields": [
+    "id",
+    "title",
+    "kind",
+    "issue_type",
+    "source_refs"
+  ],
+  "issue_type": [
+    "statement_counterexample",
+    "statement_partial_counterexample",
+    "analysis_subclause_counterexample",
+    "statement_alignment_or_scope",
+    "definition_or_algorithm_boundary",
+    "proof_step_error"
+  ],
+  "shared_required_fields": [
+    "id",
+    "title",
+    "statement_tex",
+    "assumptions",
+    "definitions",
+    "proof_scope",
+    "proof_steps",
+    "rewrite_status",
+    "lean",
+    "translations"
+  ],
+  "non_proof_kinds": [
+    "definition",
+    "assumption",
+    "algorithm",
+    "method",
+    "empirical",
+    "experiment",
+    "experimental_result",
+    "external_empirical_claim",
+    "external_background",
+    "background"
+  ],
+  "non_proof_reason_field": "non_proof_reason",
+  "merge_fields": [
+    "merge_target_id",
+    "merge_id",
+    "merge_rationale",
+    "merge_reason"
+  ],
+  "source_required_fields": [
+    "id",
+    "local_path",
+    "sha256",
+    "total_pages",
+    "publication_status",
+    "visibility",
+    "url"
+  ],
+  "shape_rules": {
+    "entry.proof_target": "Required JSON boolean for every new inventory entry.",
+    "entry.content_mapping": "Every inventory entry resolves to exactly one actual content result. A different result ID requires explicit merge_target_id or merge_id; inventory_ids alone cannot silently rename the target.",
+    "issue.kind": "Required nonempty source classification, preserved as author metadata; it does not implicitly select the display category.",
+    "issue.issue_type": "Required explicit stable display category, selected by the mathematics author. A whole-statement counterexample requires original_statement_status=counterexample_verified; a compound-clause counterexample requires compound_clause_counterexample_verified.",
+    "issue.source_refs": "Required nonempty array with source_id, version_id and nonempty positive-integer pdf_pages, matching the actual formal paper metadata and page range.",
+    "issue.result_links": "Required nonempty affected_result_ids or related_result_ids, resolving to actual results that link back through related_issue_ids.",
+    "entry.non_proof_reason": "Required nonempty source-grounded sentence when proof_target is false; software does not establish its mathematical reasonableness.",
+    "inventory.proof_targets": "Optional list of target result IDs, or objects with id and inventory_ids; if supplied it must exactly agree with per-entry booleans.",
+    "result.lean": "Object with explicit evidence_role and declarations array; report_path is required when declarations are claimed.",
+    "shared.lean": "Same explicit role and declaration/report binding as result.lean; a related report is not automatically evidence for this shared proposition.",
+    "shared.translations": "Object with en overlay; strict bilingual validation checks the actual title, conditions and proof steps.",
+    "paper.sources[].id": "Source identity is id in paper metadata and source_id in inventory/source references.",
+    "mathematical_claims": "External numbered theorems, false statements and substantive unnumbered derivations stay in the target denominator. Definitions containing a proof must be split or classified as a target.",
+    "text_control_characters": "All new input strings reject C0 controls other than ordinary prose newline/tab or a CRLF line ending, and reject DEL. Fields ending in _tex additionally reject tab and all carriage returns, including list values. This catches Python escape corruption such as backspace from beta, formfeed from frac and a standalone carriage return from rho; it does not establish source or mathematical correctness.",
+    "lean.evidence_role": "An explicit reviewed machine evidence role, independent of the source parent statement assessment. A complete counterexample to one clause may coexist with a partially-refuted parent; finite-domain components with only a human counterexample remain partial_component. Old scope-status wording cannot silently override a new paper role."
+  }
+}

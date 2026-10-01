@@ -1,0 +1,85 @@
+nteraction                                = 1,2,3, …        =3                    −2           + …
+ variables (m=1)
+                                                ∀ ∈     ,        = 1,                 =0
+                                    ⇒   1,2 = 3       contexts selected from               ,   ,   ,
+
+                             Suppose         =     +                    +             +⋯                                                          m=0.3n            m=0.5n
+)     ( ∪ { })     ( )                                                                                                                                     m=0.4n
+                                                  ∪ ,       =1              ∪     =0               ∪       =0              =0
+
+                              ( )
+…            …           …
+                                    =
+                                                                 …                     …                        …               …
+)     ( ∪ { })     ( )
+                                    +       …
+…            …           …
+                             Figure 2: (Left) Computation of the m-order interaction between two input variables (m = 2).
+                                                                             (m)
+                             (Right) Contexts of the m-order interaction Iij     . Variables (i, j) are indicated by red boxes. We
+                             extend the visualization method in [71], which visualized contexts of the Shapley interaction index,
+                             to show contexts of multi-order interactions (details in the supplementary material). Red (blue) colors
+                             indicate pixels that frequently (infrequently) appear in contexts which cause significant interactions.
+
+                             Proof of decomposing network output into multi-order interactions to explain adversarial
+                             attacks. In this study, we successfully prove that the network output can be decomposed as the
+                             weighted sum of multi-order interactions. This enables us to use such interactions to explain
+                             adversarial attacks. Before the decomposition, let us first use interactions to understand the attack. As
+                                                                                                 (m)
+                             Figure 2 (left) shows, the interaction component of each order Iij      represents collaborations between
+                             two input variables (i, j) with a specific contextual complexity. Let us consider input variables i, j and
+                                                                               (m)
+                             an arbitrary set of m contextual variables. If Iij     > 0, it indicates that the presence of the variable
+                             j will increase the importance of the variable i. Thus, we consider variables (i, j) have a positive
+                                              (m)
+                             interaction. If Iij  < 0, it indicates a negative interaction.
+                             The m-order interaction between two input variables (i, j) measures the average interaction between
+                             (i, j) when we consider their collaborations with m contextual variables (m pixels). From another
+                             perspective, the order m measures the number of contextual variables that influence the interaction
+                                                                  (m)
+                             between i and j. For a low order m, Iij   reflects the interaction between i and j w.r.t. simple contexts
+                                                                        (m)
+                             of a few variables. For a high order m, Iij    corresponds to the interaction w.r.t. complex contexts
+                             with massive variables. Figure 2 (right) visualizes the contexts S corresponding to strong low-order
+                             interactions and strong high-order interactions, respectively. Cheng et al. [11] has also proven that
+                             low-order interactions (local collaborations) mainly reflect simple and common concepts (features),
+                             and high-order interactions (global collaborations) usually represent complex and global features.
+                                                                                            (m)
+                             • Properties of multi-order interactions. We have proven that Iij  satisfies linearity, nullity, commu-
+                             tativity, symmetry, and efficiency properties (please see the supplementary material for details). In
+                             particular, the efficiency property is given as follows.
+                             Efficiency property: The output of the DNN given the entire input v(N ) can be decomposed into
+                                                                                                                  (m)
+                             interactions of different orders, i.e. v(N ) = v(∅) + i∈N ϕ(0) (i) + i,j∈N,i̸=j n−2
+                                                                                  P              P          P
+                                                                                                             m=0 Jij , where
+                              (m) def n−1−m (m)                                 def
+                             Jij  = n(n−1) Iij ,            and ϕ(0) (i) = v({i}) − v(∅).
+                             • Decomposing the overall attacking utility into interactions of different orders. According to the
+                             efficiency property of interactions, the output of the DNN w.r.t. the image x can be decomposed
+                             into the sum of multi-order interactions between different pairs of input variables. Thus, we can
+                             decompose the overall utility of adversarial perturbations on the network output into elementary
+                             effects on interactions.
+                                              def                                   X                 X n−2 X      (m)
+                                    ∆v(N |x) = v(N |x) − v(N |xadv ) = ∆v(∅|x) +       ∆ϕ(0) (i|x) +            ∆Jij (x) (3)
+                                                                                                                        i∈N                  i̸=j∈N m=0
+                                                                                                       |                 {z              }
+                                                                                                                usually can be ignored
+
+                             where x ∈ Rn denotes the normal sample, and xadv = x + ∆x ∈ Rn denotes the adversarial example.
+                             v(N |xadv ) denotes the network output given all variables in N of the adversarial example xadv . v(N |x)
+                             corresponds to the normal sample. The first term ∆v(∅) = v(∅|x) − v(∅|xadv ) = 0. In the second term,
+                                          def
+                             ∆ϕ(0) (i|x) = (v({i}|x) − v(∅|x)) − (v({i}|xadv ) − v(∅|xadv )) = v({i}|x) − v({i}|xadv ). Because in most
+                             applications, the importance of a single variable (e.g. a pixel) is usually small, we can ignore this
+                             term. In the third term, ∆Jij(m) (x) denotes the attacking utility of the m-order interaction between
+                                                                def                                  def (m)
+                             variables (i, j) in x. ∆Jij(m) (x) = n−1−m
+                                                                    n(n−1)
+                                                                             (m)              (m)                    (m)
+                                                                           ∆Iij (x), where ∆Iij (x) = Iij (x) − Iij (xadv ) measures
+                             the elementary effects of adversarial perturbations on the m-order interaction.
+
+
+                                                                                                                    5
+

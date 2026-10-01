@@ -1,0 +1,652 @@
+PAGE 3
+The above studies indicated that salient interactions could be considered primitive inference patterns
+encoded by a DNN, which served as the theoretical foundation of this study. Based on interactions,
+we also defined and learned the optimal baseline value for the Shapley value [25], and explained the
+encoding of different types of visual patterns in DNNs for image classification [5, 6].
+• Using interactions to explain the representation power of DNNs. Our recent studies showed
+that interactions well explained the hidden factors that determine the adversarial robustness [24],
+adversarial transferability [37], and generalization power [44] of a DNN. We also discovered and
+proved the representation bottleneck of a DNN in encoding middle-complexity interactions [7]. In
+addition, we proved that compared to a standard DNN, a Bayesian neural network (BNN) tended to
+avoid encoding complex interactions [26], thus explaining the good adversarial robustness of BNNs.
+We discovered and explained the phenomenon that DNNs tended to learn simple interactions more
+easily than complex interactions [22]. We found that complex interactions were less generalizable
+than simple interactions [44], and further discovered the two-phase dynamics of a DNN learning
+interactions of different complexities [41]. To this end, this study aims to theoretically prove the
+discovery in [41] to better understand the two-phase dynamics of interactions.
+• Using interactions to unify the common mechanism of various empirical deep learning methods.
+We proved that fourteen attribution methods could all be explained as a re-allocation of interaction
+effects [8]. We proved that twelve existing methods to improve adversarial transferability all shared
+the common utility of suppressing the interactions between adversarial perturbation units [42].
+
+3    Dynamics of interactions
+3.1 Preliminary: interactions
+Let us consider a DNN v and an input sample x = [x1 , · · · , xn ]⊤ with n input variables indexed by
+N = {1, · · · , n}. In different tasks, one can define different input variables, e.g., each input variable
+may represent an image patch for image classification or a word/token for text classification. Let
+us consider a scalar output5 of a DNN, denoted by v(x) ∈ R. Previous studies [4, 43] show that the
+output score v(x) can be decomposed into the sum of AND interactions and OR interactions.
+                                         X                        X
+                      v(x) = v(x∅ ) +               Iand (S|x) +             Ior (S|x),                 (1)
+                                              ∅̸=S⊆N                      ∅̸=S⊆N
+
+where the computation of Iand (S|x) and Ior (S|x) will be introduced later in Eq. (2).
+How to understand the physical meaning of AND-OR interactions. Suppose that we are given an
+input sample x. According to Theorem 2, a non-zero interaction effect Iand (S|x) indicates that the
+entire function of the DNN must equivalently encode an AND relationship between input variables in
+the set S ⊆ N , although the DNN does not use an explicit neuron to model such an AND relationship.
+As Figure 1 shows, when the image patchs in the set S2 = {x1 = nose, x2 = tongue, x3 = cheek} are all
+present (i.e., not masked), the three regions form a dog-snout pattern, and make a numerical effect
+Iand (S2 |x) to push the output score v(x) towards the dog category. Masking any image patch in
+S2 will deactivate the AND interaction and remove Iand (S2 |x) from v(x). This will be shown by
+Theorem 2. Likewise, Ior (S|x) can be considered as the numerical effect of the OR relationship
+encoded by the DNN between input variables in the set S. As Figure 1 shows, when one of the
+patches in S1 = {x4 = spotty region1, x5 = spotty region2} is present, a speckles pattern is used by the
+DNN to make a numerical effect Ior (S1 |x) on the network output v(x).
+Definition and computation. Given a DNN and an input x, the AND-OR interactions between each
+specific set of input variables S ⊆ N (S ̸= ∅) are computed as follows [4, 43].
+                X                                               X
+                        (−1)|S|−|T | vand (xT ) , Ior (S|x) = −         (−1)|S|−|T | vor xN \T , (2)
+                                                                                              
+ Iand (S|x) =
+                     T ⊆S                                                    T ⊆S
+
+where xT denotes the sample in which input variables in N \ T are masked6 , while input variables in
+T are unchanged. The network output on each masked sample v(xT ), T ⊆ N , is decomposed into two
+    5
+      For example, one may set v(x) as the loss value on sample x. For a multi-category classification task, one
+usually either set v(x) to be the output score for the ground-truth category before the softmax operation, or
+                              p(y truth |x)
+follow[7] to set v(x) = log 1−p(y    truth |x) . See Table 1 for a summary of mathematical settings for interactions.
+    6
+      The masked states of input variables are represented by specific baseline values b = [b1 , · · · , bn ]⊤ by
+following [41]. See Appendix G.3 for the detailed setting of baseline values.
+
+
+                                                         3
+
+
+PAGE 4
+components: (1) the component vand (xT ) = 0.5v(xT ) + γT that exclusively contains AND interactions,
+and (2) the component vor (xT ) = 0.5v(xT ) − γT that exclusively contains OR      P interactions, subject
+to v(xT ) = vand (xT ) + vor (xT ). Appendix F.1 shows that vand (xT ) = v(x∅ ) + ∅̸=S ′ ⊆T Iand (S ′ |x) and
+vor (xT ) = S ′ ⊆N :S ′ ∩T ̸=∅ Ior (S ′ |x). The P
+           P
+                                                 sparsest AND-OR interactions are extracted by minimizing
+the following objective [20]: min{γT } S⊆N |Iand (S|x)| + |Ior (S|x)|. Please see Appendix C for
+details about the computation and Appendix D for mathematical support of the coefficient in Eq. (2).
+Salient interactions and noisy patterns. Let us enumerate all 2n combinations of variables S ⊆ N ,
+and compute the interaction effects Iand (S|x) and Ior (S|x). We can identify a few salient interactions
+from all these interactions, i.e., interactions whose absolute value exceeds a threshold (|Iand (S|x)| ≥ τ
+or |Ior (S|x)| ≥ τ ). Other interactions have small effects and are termed noisy patterns.
+Theorem 1 (Sparsity property, proven by [27], and discussed in Appendix B). Given a DNN v
+                                                         def
+and an input sample x with n input variables, let Ω = {S ⊆ N : |Iand (S|x)| ≥ τ } denote the set
+of salient AND interactions whose absolute value exceeds a threshold τ . If the DNN can generate
+relatively stable inference outputs v(xS ) on masked samples7 , then the size of the set |Ω| has an upper
+bound of O(nξ /τ ), where ξ is an intrinsic parameter for the smoothness of the network function v(·).
+Empirically, ξ is usually within the range of [1.9,2.2].
+Theorem 2 (Universal matching property, proven in [4] and Appendix F.1). Given an input sample x̂,
+let us construct the following surrogate logical model f (·) to use AND-OR interactions for inference,
+which are extracted from the DNN v(·) on the sample x̂. Then, the output of the surrogate logical
+model f (·) can always match the output of the DNN v(·), no matter how the input sample is masked.
+
+                                                         Iand (T |x̂)· 1 AND                Ior (T |x̂)· 1 OR
+                                                   X                                    X                             
+                                                                          x̂S triggers                      x̂S triggers
+∀S ⊆ N, f (x̂S ) = v(x̂S ), f (x̂S ) = v(x̂∅ )+                               relation T +                     relation T  (3)
+                                                  T ⊆N                                    T ⊆N
+                                        |                      {z                    } |                 {z            }
+                                                            vand(x )                                   vor(x )
+                                                                  S                                         S
+                         X                                 X
+       = v(x = x̂∅ ) +                Iand (T |x = x̂) +                       Ior (T |x = x̂)                             (4)
+                            ∅̸=T ⊆S                            T ⊆N :T ∩S̸=∅
+                         X                                          X
+       ≈ v(x = x̂∅ ) +                         Iand (T |x = x̂) +                        Ior (T |x = x̂) ,                 (5)
+                            T ∈Ωand :∅̸=T ⊆S                           T ∈Ωor :T ∩S̸=∅
+
+where Ωand is the set of all salient AND interactions, and Ωor is the set of all salient OR interactions.
+What makes the interaction-based explanation faithful. The following four properties guarantee
+that the inference score of a DNN can be faithfully explained by symbolic interactions.
+• Sparsity property. The sparsity property means that a DNN for a classification task usually only
+encodes a small number of AND interactions with salient effects, i.e., for most of all 2n subsets of
+input variables S ⊆ N , Iand (S|x) has almost zero interaction effect. Specifically, the sparsity property
+has been widely observed on various DNNs for different tasks [21], and it is also theoretically proven
+(see Theorem 1). The number of AND interactions whose absolute value exceeds the threshold τ
+(|Iand (S|x)| ≥ τ ), is O(nξ /τ ), where ξ is empirically within the range of [1.9, 2.2]. This indicates that
+the number of salient interactions is much less than 2n . Furthermore, the sparsity property also holds
+for OR interactions, because an OR interaction can be viewed as a special kind of AND interaction8 .
+• Universal matching property. The universal matching property means that the output of the DNN
+on a masked sample xS can be well matched by the sum of interaction effects, no matter how we
+randomly mask the sample and obtain xS . This property is proven in Theorem 2.
+• Transferability property. The transferability property means that salient interactions extracted from
+one input sample can usually be extracted from other input samples as well. If so, these interactions
+are considered transferable across different samples. This property has been widely observed by [21]
+on various DNNs for different tasks.
+    7
+      This is formulated by three mathematical conditions. (1) The DNN does not encode highly complex
+interactions. (2) Let us compute the average classification confidence when we mask different random sets of
+k input variables (generating {xT : |T | = n − k}). Then, the average confidence monotonically decreases
+when more input variables are masked. (3) The decreasing speed of the average confidence is polynomial. See
+Appendix B for the detailed mathematical formulation.
+    8
+      If we flip the masked state and the presence state of each input variable (i.e., taking bi as the presence state
+of the i-th variable, while taking xi as the masked state), then OR interactions can be viewed as a special kind of
+AND interactions. See Appendix E for details.
+
+
+                                                              4
+
+
+PAGE 10
+dataset, and the Tiny-ImageNet dataset, trained BERT-Tiny and BERT-Medium on the SST-2 dataset,
+and trained DGCNN on the ShapeNet dataset. Then, we computed the real distribution of interaction
+strength over different orders on each DNN, and tracked the change of the distribution throughout the
+training process. As mentioned in Section 3.2, the real interaction strength of each k-th order was
+               (k)                                                                                           (k)
+                    = Ex [ S:|S|=k,|I(S|x)|≥τ |I(S|x)|] / Z 12 . Accordingly, we defined the metric Itheo =
+                            P
+quantified as Ireal
+    P                                                         (k)
+Ex [ S:|S|=k,|ŵS |≥τtheo |ŵS |] / Ztheo in the same way of Ireal to measure the theoretical distribution of the
+                                                       P
+interaction strength, where Ztheo = E1≤k′ ≤n Ex [ S:|S|=k′ ,|ŵS |≥τtheo |ŵS |], τtheo = 0.03 · |vtheo (x) − ŵ∅ |,
+               def
+and vtheo (x) = S⊆N ŵS . To compute the theoretical solution ŵ = M̂ w∗ in Eq. (10), given an input
+                     P
+sample x, we used the set of salient interactions Ω = {S ⊆ N : |I(S|x)| ≥ τ }) extracted from the
+finally converged DNN to construct the set of true interactions w∗ .
+                                                   (k)                                            (k)
+Figure 4 shows that the theoretical distribution Itheo could well match the real distribution Ireal   at
+                                                                                              (k)
+different training epochs. Particularly, we used a sequence of theoretical distributions of Itheo  with
+                                                          (k)
+decreasing σ 2 values to match the real distribution of Ireal  at different epochs. The σ 2 value was
+                                                (k)      (k)
+determined to achieve the best match between Itheo and Ireal .
+
+3.3.3      Explaining the dynamics in the first phase
+Because the spindle-shaped distribution of interaction strength in a randomly initialized DNN has
+already been proven by [41], in this subsection, let us further explain the DNN’s dynamics in the first
+phase based on Eq. (9). As previously shown in Figure 2, in the first phase, the DNN removes initial
+interactions of medium and high orders, and mainly encodes low-order interactions.
+
+Therefore, the first phase is explained as the process of removing chaotic initial interactions and
+converging to the optimal solution to Eq. (9) under large parameter noise (i.e., large σ 2 ). In sum,
+the first phase is a process of pushing initial random interactions to the optimal solution, while the
+second phase corresponds to the change of the optimal solution as σ 2 gradually decreases.
+
+4        Conclusion and discussion
+In this study, we have proven the two-phase dynamics of a DNN learning interactions of different
+orders. Specifically, we have followed [26, 22] to reformulate the learning of interactions as a linear
+regression problem on a set of interaction triggering functions. In this way, we have successfully
+derived an analytic solution to interaction effects when the DNN was learned with unavoidable
+parameter noises. This analytic solution has successfully predicted a DNN’s two-phase dynamics
+of learning interactions in real experiments. Considering a series of recent theoretical guarantees of
+taking interactions as faithful primitive inference patterns encoded by the DNN [44, 27], our study
+has first mathematically explained why and how the learning process gradually shifts attention from
+generalizable (low-order) inference patterns to probably over-fitted (high-order) inference patterns.
+
+Practical implications. A theoretical understanding of the two-phase dynamics of interactions
+offers a new perspective to monitor the overfitting level of the DNN on different training samples
+throughout training. The two-phase dynamics enables us to evaluate the overfitting level of each
+specific sample, making overfitting no longer a problem w.r.t. the entire dataset. We can track
+the change of the interaction complexity for each training sample, and take the time point when
+high-order interactions increase as a sign of overfitting. In this way, the two-phase dynamics of
+interactions may help people remove overfitted samples from training and guide the early stopping
+on a few "hard samples."
+
+
+Acknowledgements. This work is partially supported by the National Science and Technology Major
+Project (2021ZD0111602), the National Nature Science Foundation of China (92370115, 62276165).
+This work is also partially supported by Huawei Technologies Inc.
+
+    12                                                                   (k)
+    In experiments, the real distribution of interaction strength Ireal was computed using both AND and
+OR interactions. Because the OR interaction was a special AND interaction and had similar dynamics, this
+experiment actually tested the fidelity of our theory to explain the dynamics of all interactions. Nevertheless,
+                                                                       (k)
+Appendix J.4 also reports the fitness of the theoretical distribution Itheo and real distribution of AND interactions.
+
+
+                                                         10
+
+
+PAGE 14
+A    Properties of the AND interaction
+The Harsanyi interaction [14] (i.e., the AND interaction in this paper) was a standard metric to
+measure the AND relationship between input variables encoded by the network. In this section, we
+present several desirable properties/axioms that the Harsanyi AND interaction Iand (S|x) satisfies.
+These properties further demonstrate the faithfulness of using Harsanyi AND interaction to explain
+the inference score of a DNN.
+(1) Efficiency axiom (proven by [14]). ThePoutput score of a model can be decomposed into interaction
+effects of different patterns, i.e. v(x) = S⊆N Iand (S|x).
+(2) Linearity axiom. If we merge output scores of two models v1 and v2 as the output of model v, i.e.
+                                                                      v1             v2
+∀S ⊆ N, v(xS ) = v1 (xS ) + v2 (xS ), then their interaction effects Iand (S|x) and Iand (S|x) can also be
+                     v           v1           v2
+merged as ∀S ⊆ N, Iand (S|x) = Iand (S|x) + Iand (S|x).
+(3) Dummy axiom. If a variable i ∈ N is a dummy variable, i.e. ∀S ⊆ N \ {i}, v(xS∪{i} ) =
+v(xS ) + v(x{i} ), then it has no interaction with other variables, ∀ ∅ ̸= S ⊆ N \ {i}, Iand (S ∪ {i}|x) = 0.
+(4) Symmetry axiom. If input variables i, j ∈ N cooperate with other variables in the same way,
+∀S ⊆ N \ {i, j}, v(xS∪{i} ) = v(xS∪{j} ), then they have same interaction effects with other variables,
+∀S ⊆ N \ {i, j}, Iand (S ∪ {i}|x) = Iand (S ∪ {j}|x).
+                                                                    v            πv
+(5) Anonymity axiom. For any permutations π on N , we have ∀S ⊆ N, Iand (S|x) = Iand (πS|x), where
+    def
+πS = {π(i)|i ∈ S}, and the new model πv is defined by (πv)(xπS ) = v(xS ). This indicates that
+interaction effects are not changed by permutation.
+(6) Recursive axiom. The interaction effects can be computed recursively. For i ∈ N and S ⊆
+N \ {i}, the interaction effect of the pattern S ∪ {i} is equal to the interaction effect of S with the
+presence of i minus the interaction effect of S with the absence of i, i.e. ∀S ⊆ N \ {i}, Iand (S ∪
+{i}|x) = Iand (S|x, i is always present) − Iand (S|x). Iand (S|x, i is always present) denotes the interaction
+effect when the variable i is always present as a constant context, i.e. Iand (S|x, i is always present) =
+P          |S|−|L|
+   L⊆S (−1)        · v(xL∪{i} ).
+(7) Interaction distribution axiom. This axiom characterizes how interactions are distributed for
+“interaction functions” [33]. An interaction function vT parameterized by a subset of variables T is
+defined as follows. ∀S ⊆ N , if T ⊆ S , vT (xS ) = c ; otherwise, vT (xS ) = 0. The function vT models
+pure interaction among the variables in T , because only if all variables in T are present, the output
+value will be increased by c. The interactions encoded in the function vT satisfies Iand (T |x) = c, and
+∀S ̸= T , Iand (S|x) = 0.
+
+B    Common conditions for sparse interactions
+Ren et al. [27] have formulated three mathematical conditions for the sparsity of AND interactions,
+as follows.
+Condition 1. The DNN does not encode interactions higher than the M -th order: ∀ S ∈ {S ⊆ N |
+|S| ≥ M + 1}, Iand (S|x) = 0.
+Condition 1 implies that the DNN does not encode extremely high-order interactions. This is because
+extremely high-order interactions usually represent very complex and over-fitted patterns, which are
+unnecessary and unlikely to be learned by the DNN in real applications.
+                                                                        def
+Condition 2. Let us consider the average network output ū(k) = E|S|=k [v(xS ) − v(x∅ )] over all
+masked samples xS with k unmasked input variables. This average network output monotonically
+                                                   ′
+increases when k increases: ∀ k ′ ≤ k, we have ū(k ) ≤ ū(k) .
+Condition 2 implies that a well-trained DNN is likely to have higher classification confidence for
+input samples that are less masked.
+Condition 3. Given the average network output ū(k) of samples with k unmasked input variables,
+there is a polynomial lower bound for the average network output of samples with k ′ (k ′ ≤ k)
+                                        ′        ′
+unmasked input variables: ∀ k′ ≤ k, ū(k ) ≥ ( kk )p ū(k) , where p > 0 is a positive constant.
+Condition 3 implies that the classification confidence of the DNN does not significantly degrade on
+masked input samples. The classification/detection of masked/occluded samples is common in real
+
+
+                                                     14
+
+
+PAGE 15
+scenarios. In this way, a well-trained DNN usually learns to classify a masked input sample based
+on local information (which can be extracted from unmasked parts of the input) and thus should not
+yield a significantly low confidence score on masked samples.
+
+C    Details of optimizing {γT } to extract the sparsest AND-OR interactions
+A method is proposed [20, 4] to simultaneously extract AND interactions Iand (S|x) and OR interac-
+tions Ior (S|x) from the network output. Given a masked sample xT , [20] proposed to learn a decom-
+position v(xT ) = vand (xT )+vor (xT ) towards the sparsest interactions. The component vand (xT ) was
+explained by AND interactions, and the component vor (xT ) was explained by OR interactions. Specif-
+ically, they decomposed v(xT ) into vand (xT ) = 0.5 v(xT ) + γT and vand (xT ) = 0.5 · v(xT ) − γT ,
+where {γT : T ⊆ N } is a set of learnable variables that determine the decomposition. In
+this way, theP AND interactions and OR interactions can bePcomputed according to Eq. (2), i.e.,
+Iand (S|x) = T ⊆S (−1)|S|−|T | vand (xT ), and Ior (S|x) = − T ⊆S (−1)|S|−|T | vor (xN \T ).
+
+The parameters {γT } were learned by minimizing the following LASSO-like loss to obtain sparse
+interactions:
+                                    X
+                               min      |Iand (S|x)| + |Ior (S|x)|                        (11)
+                                   {γT }
+                                           S⊆N
+
+
+
+Removing small noises. A small noise δS in the network output may significantly affect the extracted
+interactions, especially for high-order interactions. Thus, [20] proposed to learn to remove a small
+noise term δS from the computation of AND-OR interactions. Specifically, the decomposition was
+rewritten as vand (xT ) = 0.5(v(xT ) − δT ) + γT and vor (xT ) = 0.5(v(xT ) − δT ) + γT . Thus, the
+parameters {δT }, and {γT } are simultaneously learned by minimizing the loss function in Eq. (11).
+The values of {δT } were constrained in [−ζ, ζ] where ζ = 0.02 · |v(x) − v(x∅ )|.
+
+D    Where does the coefficient (−1)|S|−|T | in Eq. (2) come from?
+In fact, it is proven in [13] and [23] that the coefficient (−1)|S|−|T | in Eq. (2) is the unique coefficient
+to ensure that the interaction satisfies the universal matching property. Recall that the universal
+matching property means that no matter how we randomly mask an input sample x, the network
+output on the masked sample xS can always be accurately mimicked by the sum of interaction effects
+within S. An extension of this property for AND-OR interactions is also mentioned in Theorem 2.
+
+E    OR interactions can be considered a special kind of AND interactions
+The OR interaction can be considered a specific kind of AND interaction, when we flip the masked
+state and presence (unmasked) state of each input variable.
+Given an input sample x ∈ Rn , let xT denote the masked sample obtained by masking input variables
+in N \ T , while leaving variables in T unchanged. Specifically, the baseline values b ∈ Rn are used
+to mask the input variables, which represent the masked states of the input variables. The definition
+of xT is given as follows.
+                                              
+                                                xi , i ∈ T
+                                     (xT )i =                                                    (12)
+                                                bi , i ∈ N \ T
+
+Based   on the above definition, the AND interaction is computed as Iand (S|x) =
+            |S|−|T |
+P
+  T ⊆S (−1)          vand (xT ), while the OR interaction is computed as Ior (S|x)                    =
+               |S|−|T |
+  P                              
+− T ⊆S (−1)             vor xN \T . To simplify the analysis, let us assume vand (·) = vor (·) = 0.5v(·).
+
+Then, let us consider a masked sample x̃T , where we flip the masked state and presence (unmasked)
+state of each input variable. In this way, x̃T is defined as follows.
+                                                   
+                                                       xi , i ∈ N \ T
+                                       (x̃T )i =                                                        (13)
+                                                       bi , i ∈ T
+
+                                                        15
+
+
+PAGE 16
+Therefore, the OR interaction Ior (S|x) in Eq. 2 in main paper can be represented as an AND
+interaction Ior (S|x̃), as follows.
+                                              X
+                                Ior (S|x) = −   (−1)|S|−|T | v(xN \T ),                  (14)
+                                                  T ⊆S
+                                                  X
+                                             =−          (−1)|S|−|T | v(x̃T ),                            (15)
+                                                  T ⊆S
+                                             = −Iand (S|x̃) .                                             (16)
+
+In this way, the proof of the sparsity of AND interactions in [27] can also extend to OR interactions.
+Furthermore, we can simplify our analysis of the DNN’s learning of interactions by only focusing on
+AND interactions.
+
+F    Proof of theorems
+F.1 Proof of Theorem 2
+Proof. (1) Universal matching theorem of AND interactions.
+We will prove that output component vand (xS ) on all 2n masked samples {xS : S ⊆ N } could
+P universally explained by the all interactions in S ⊆ N , i.e., ∀∅ =
+be                                                                                  ̸ S ⊆ N, vand (xS ) =
+   ∅̸=T ⊆S I and (T |x) + v(x ∅ ). In particular, we define v and (x ∅ ) = v(x∅ ) (i.e., we attribute output on
+an empty sample to AND interactions).
+Specifically, the AND interaction is defined as Iand (T |x) = L⊆T (−1)|T |−|L| vand (xL ) in 2. To
+                                                                        P
+
+compute the sum of AND interactions ∅̸=T ⊆S Iand (T |x) = ∅̸=T ⊆S L⊆T (−1)|T |−|L| vand (xL ),
+                                           P                         P          P
+we first exchange the order of summation of the set L ⊆ T ⊆ S and the set T ⊇ L. That is,
+we compute all linear combinations of all sets      PT containing L with respect to the model outputs
+vand (xL ) given a set of input variables L, i.e., T :L⊆T ⊆S (−1)|T |−|L| vand (xL ). Then, we compute
+all summations over the set L ⊆ S.
+In this way, we can compute them separately for different cases of L ⊆ T ⊆ S. In the following, we
+consider the cases (1) L = S = T , and (2) L ⊆ T ⊆ S, L ̸= S, respectively.
+(1) When L = S = T , the linear combination of all subsets T containing L with respect to the model
+output vand (xL ) is (−1)|S|−|S| vand (xL ) = vand (xL ).
+(2) When L ⊆ T ⊆ S, L ̸= S, the    P linear combination of all subsets T containing L with respect
+to the model output vand (xL ) is T :L⊆T ⊆S (−1)|T |−|L| vand (xL ). For all sets T : S ⊇ T ⊇ L, let
+us consider the linear combinations of all sets T with number |T | for the model output vand (xL ),
+                                                                                  m
+respectively. Let m := |T |−|L|, (0 ≤ m ≤ |S|−|L|), then there are a total of C|S|−|L|  combinations
+of all sets T of order |T |. Thus, given L, accumulating the model outputs vand (xL ) corresponding
+                                                                     X|S|−|L|
+                                                                                   m
+to all T ⊇ L, then T :L⊆T ⊆S (−1)|T |−|L| vand (xL ) = vand (xL ) ·                       (−1)m = 0.
+                     P
+                                                                                 C|S|−|L|
+                                                                     | m=0        {z          }
+                                                                                         =0
+Please see the complete derivation of the following formula.
+                X
+                        Iand (T |x)
+                    ∅̸=T ⊆S
+                X       X
+             =                    (−1)|T |−|L| vand (xL )
+                ∅̸=T ⊆S     L⊆T
+               X      X
+             =                      (−1)|T |−|L| vand (xL ) − vand (x∅ )
+                    L⊆S       T :L⊆T ⊆S
+                              X                             X|S|−|L|                                      (17)
+                                                                         m
+             = vand (xS ) +                  vand (xL ) ·              C|S|−|L| (−1)m −vand (x∅ )
+               | {z }             L⊆S,L̸=S                      m=0
+                                                            |           {z          }
+                  L=S                                                   =0
+             =vand (xS ) − vand (x∅ )
+             =vand (xS ) − v(x∅ )
+
+
+                                                         16
+
+
+PAGE 17
+                                               P
+Thus, we have ∀∅ =
+                 ̸ S ⊆ N, vand (xS ) =            ∅̸=T ⊆S Iand (T |x)   + v(x∅ ).
+
+(2) Universal matching theorem of OR interactions.
+
+According
+P             to the definition of OR interactions, we will derive that ∀S ⊆ N, vor (xS ) =
+   T :T ∩S̸=∅ Ior (S|x), where we define vor (x∅ ) = 0 (recall that in Step (1), we attribute the out-
+put on empty input to AND interactions).
+
+Specifically, the OR interaction is defined as Ior (T |x) = − L⊆T (−1)|T |−|L| vor (xN \L ) in 2.
+                                                                  P
+Similar to the above derivation of the universal matching theorem h ofPAND interactions, to compute i
+the sum of OR interactions T :T ∩S̸=∅ Ior (T |x) = T :T ∩S̸=∅ − L⊆T (−1)|T |−|L| vor (xN \L ) ,
+                              P                       P
+
+we first exchange the order of summation of the set L ⊆ T ⊆ N and the set T : T ∩ S ̸= ∅. That
+is, we compute all linear combinations of all setsP T containing L with respect to the model outputs
+vor (xN \L ) given a set of input variables L, i.e., T :T ∩S̸=∅,T ⊇L (−1)|T |−|L| vor (xN \L ). Then, we
+compute all summations over the set L ⊆ N .
+
+In this way, we can compute them separately for different cases of L ⊆ T ⊆ N, T ∩ S ̸= ∅. In
+the following, we consider the cases (1) L = N \ S, (2) L = N , (3) L ∩ S ̸= ∅, L ̸= N , and (4)
+L ∩ S = ∅, L ̸= N \ S, respectively.
+
+(1) When L = N \ S,    Pthe linear combination of all subsets T containing      L with respect to the model
+output vor (xN \L ) is T :T ∩S̸=∅,T ⊇L (−1)|T |−|L| vor (xN \L ) = T :T ∩S̸=∅,T ⊇L (−1)|T |−|L| vor (xS ).
+                                                                       P
+
+For all sets T : T ⊇ L, T ∩ S ̸= ∅ (then T ̸= N \ S, T ̸= L), let us consider the lin-
+ear combinations of all sets T with number |T | for the model output vor (xS ), respectively. Let
+                                                                         |T ′ |
+|T ′ | := |T | − |L|, (1 ≤ |T ′ | ≤ |S|), then there are a total of C|S| combinations of all sets T ′ of
+order |T ′ |. Thus, given L, accumulating the model outputs vor (xS ) corresponding to all T ⊇ L, then
+                                                            X|S|        |T ′ |    ′
+                        |T |−|L|
+                                                                      C (−1)|T | = −vor (xS ).
+P
+   T :T ∩S̸=∅,T ⊇L (−1)          vor (xN \L ) = vor (xS ) ·
+                                                              |T ′ |=1 |S|
+                                                            |          {z         }
+                                                                        =−1
+
+(2) When L = N (then T = N ), the  P linear combination of all subsets T containing L with respect
+to the model output vor (xN \L ) is T :T ∩S̸=∅,T ⊇L (−1)|T |−|L| vor (xN \L ) = (−1)|N |−|N | vor (x∅ ) =
+vor (x∅ ).
+
+(3) When L ∩ S ̸= ∅, L ̸= N , the linear             Pcombination of all subsets T containing L with
+respect to the model output vor (xN \L ) is T :T ∩S̸=∅,T ⊇L (−1)|T |−|L| vor (xN \L ). For all sets
+T : T ⊇ L, T ∩ S ̸= ∅, let us consider the linear combinations of all sets T with num-
+ber |T | for the model output vor (xS ), respectively. Let us split |T | − |L| into |T ′ | and |T ′′ |,
+i.e.,|T | − |L| = |T ′ | + |T ′′ |, where T ′ = {i|i ∈ T, i ∈
+                                                            / L, i ∈ N \ S}, T ′′ = {i|i ∈ T, i ∈
+                                                                                                / L, i ∈ S}
+                ′′                               ′      ′′
+(then 0 ≤ |T | ≤ |S| − |S ∩ L|) and |T | + |T | + |L| = |T |. In this way, there are a total of
+   |T ′′ |
+C|S|−|S∩L| combinations of all sets T ′′ of order |T ′′ |. Thus, given L, accumulating the model
+outputs vor (xN \L ) corresponding to all T ⊇ L, then T :T ∩S̸=∅,T ⊇L (−1)|T |−|L| vor (xN \L ) =
+                                                                P
+                               X|S|−|S∩L| |T ′′ |                ′    ′′
+                                              C|S|−|S∩L| (−1)|T |+|T | = 0.
+               P
+vor (xN \L ) · T ′ ⊆N \S\L
+                                    |T ′′ |=0
+                               |                   {z                  }
+                                                  =0
+
+(4) When L ∩ S = ∅, L ̸= N \ S, the          Plinear combination |T    of all subsets T containing L with respect
+to the model output vor (xN \L ) is T :T ∩S̸=∅,T ⊇L (−1) |−|L| vor (xN \L ). Similarly, let us split
+|T | − |L| into |T ′ | and |T ′′ |, i.e.,|T | − |L| = |T ′ | + |T ′′ |, where T ′ = {i|i ∈ T, i ∈/ L, i ∈ N \ S},
+T ′′ = {i|i ∈ T, i ∈ S} (then 0 ≤ |T ′′ | ≤ |S|) and |T ′ | + |T ′′ | + |L| = |T |. In this way, there are
+              |T ′′ |
+a total of C|S| combinations of all sets T ′′ of order |T ′′ |. Thus, given L, accumulating the model
+outputs vor (xN \L ) corresponding to all T ⊇ L, then T :T ∩S̸=∅,T ⊇L (−1)|T |−|L| vor (xN \L ) =
+                                                                      P
+                              X|S|             |T ′′ |      ′    ′′
+                                              C|S| (−1)|T |+|T | = 0.
+               P
+vor (xN \L ) · T ′ ⊆N \S\L             ′′
+                                    |T |=0
+                              |                  {z               }
+                                             =0
+
+
+                                                       17
+
+
+PAGE 19
+To this end, we only need to prove K(T |x) also satisfies the property in Eq. (21). Specifically, given
+an input sample x ∈ Rn , let us consider the Taylor expansion of the network output v(xS ) of an
+arbitrarily masked sample xS , which is expanded at x∅ = b = [b1 , · · · , bn ]⊤ . Then, we have
+
+                                      ∞             ∞                                                n
+                                      X             X             1     ∂ π1 +···+πn v               Y
+          ∀ S ⊆ N, v(xS ) =                   ···           Qn            π1        πn                   ((xS )i − bi )πi   (22)
+                                      π1 =0         πn =0     i=1 πi ! ∂x1 · · · ∂xn        x=x∅ i=1
+
+
+
+where bi denotes the baseline value to mask the input variable xi .
+
+According to the definition of the masked sample xS , we have that all variables in S keep unchanged
+and other variables are masked to the baseline value. That is, ∀ i ∈ S, (xS )i = xi ; ∀ i ̸∈ S,
+(xS )i = bi . Hence, we obtain ∀i ̸∈ S, ((xS )i − bi )πi = 0 if πi > 0. Then, among all Taylor
+expansion terms, only terms corresponding to degrees π in the set PS = {[π1 , · · · , πn ]⊤ | ∀i ∈
+S, πi ∈ N; ∀i ̸∈ S, πi = 0} may not be zero (we consider the value of ((xS )i − bi )πi to be always
+equal to 1 if πi = 0). Therefore, Eq. (22) can be re-written as
+
+                                                X             1       ∂ π1 +···+πn v               Y
+                 ∀ S ⊆ N,        v(xS ) =                Qn             π1        πn                   (xi − bi )πi .       (23)
+                                               π∈PS         i=1 πi ! ∂x1 · · · ∂xn         x=x∅ i∈S
+
+
+
+We find that the set PS can be divided into multiple disjoint sets as PS = ∪T ⊆S QT , where
+QT = {[π1 , · · · , πn ]⊤ | ∀i ∈ T, πi ∈ N+ ; ∀i ̸∈ T, πi = 0}. Then, we can further write Eq. (23) as
+
+                               X X                   1     ∂ π1 +···+πn v                  Y
+   ∀ S ⊆ N,      v(xS ) =                     Qn             π1        πn                      (xi − bi )πi
+                               T ⊆S π∈QT         i=1 πi ! ∂x1 · · · ∂xn             x=x∅ i∈T
+                                X
+                           =             K(T |x) + v(x∅ ). // according to the definition of K(T |x) in Eq. (20)
+                               ∅̸=T ⊆S
+                                                                                                 (24)
+The last step is obtained as follows. When T = ∅, QT only has one element π = [0, · · · , 0]⊤ , which
+corresponds to the term v(x∅ ).
+
+Thus, K(T |x) satisfies the property in Eq. (21), and this means I(T |x) = K(T |x) =
+       Qn 1      ∂ π1 +···+πn v                  πi
+P                               Q
+  π∈QT      πi ! ∂xπ1 ···∂xπn     ni∈T (xi − bi ) .
+           i=1         1                 x=x∅
+
+
+
+
+Then, let us continue the proof of Eq. (6) and Eq. (7).
+
+
+
+
+Proof. Given a specific sample x̂, let us consider the following function defined in Eq. (6) and
+Eq. (7).
+                                                            X
+                                                f (x) =                      wT JT (x),                                     (25)
+                                                                      T ⊆N
+
+
+where the scalar weight wT    =                             I(T |x              =   x̂),   and the function JT (x)           =
+         1    ∂ π1 +···+πn v                                               πi
+P                            Q
+  π∈QT
+         Qn
+                 πi ! ∂xπ 1    πn                    i∈T (xi      − bi ) /wT .
+           i=1          1 ···∂xn  x=x∅
+
+
+                                                                      19
+
+
+PAGE 20
+We will then prove that ∀S ⊆ N, f (x̂S ) = v(x̂S ).
+            X
+ f (x̂S ) =     wT JT (x̂S )                                                                              (26)
+             T ⊆N
+             X X              1      ∂ π1 +···+πn v            Y
+         =               Qn            π1        πn                 ((x̂S )i − bi )πi // wT cancels out   (27)
+             T ⊆N π∈QT     i=1 πi ! ∂x1 · · · ∂xn        x=x∅ i∈T
+             X X              1     ∂ π1 +···+πn v            Y
+         =               Qn           π1        πn                  ((x̂S )i − bi )πi                     (28)
+             T ⊆S π∈QT    i=1 πi ! ∂x1 · · · ∂xn        x=x∅ i∈T
+
+           // if T ⊈ S, then ∃j ∈ T \ S, s.t. (x̂S )j − bj = 0, which makes the whole term zero
+                                                                                              (29)
+           X X             1        ∂ π1 +···+πn v        Y
+         =            Qn              π1          πn        (x̂i − bi )πi                     (30)
+                         i=1 π i ! ∂x 1   · · · ∂xn  x=x∅
+             T ⊆S π∈QT                                        i∈T
+
+           // when T ⊆ S, we have ∀i ∈ T, (x̂S )i = x̂i                                      (31)
+             X
+         =        I(T |x = x̂) + v(x∅ ) // the inverse direction of Lemma 3 we have just proven
+             ∅̸=T ⊆S
+                                                                                                          (32)
+         = v(x̂S ) // the inverse direction of universal matching theorem                                 (33)
+
+
+Remark. The function f (x) essentially provides a continuous implementation of Eq. (3) in the
+universal matching theorem (Theorem 2). The weight wT = I(T |x = x̂) is the interaction effect
+w.r.t. to subset T on the unmasked sample x̂, while the function JT (x) is a continuous extension of
+the indicator function 1(x̂S triggers the AND relation T ) (thus we call JT (x) a triggering function
+and the value of this function triggering strength).
+F.3 Proof of Lemma 1
+Proof. Given the inference scores on masked samples {e
+                                                     v (xS ) : S ⊆ N }, the interaction between in-
+                                              e |x) = P            |T |−|S|
+put variables w.r.t. T ⊆ N can be computed as I(T        S⊆T (−1)           ve(xS ) (the computation
+of AND interactions in Eq. (2)).
+Since we assume that ∀S ⊆ N, ve(xS ) = v(xS ) + ∆vS , ∆vS ∼ N (0, σ 2 ), I(T
+                                                                         e |x) can be written as
+                               X
+                   e |x) =
+                   I(T            (−1)|T |−|S| ve(xS )                                         (34)
+                                      S⊆T
+                                      X
+                                  =         (−1)|T |−|S| (v(xS ) + ∆vS )                                  (35)
+                                      S⊆T
+                                      X                             X
+                                  =         (−1)|T |−|S| v(xS ) +         (−1)|T |−|S| ∆vS                (36)
+                                      S⊆T                           S⊆T
+                                  = I(T |x) + ∆IT                                                         (37)
+where I(T |x) = S⊆T (−1)|T |−|S| v(xS ) is a noiseless component (not a random variable), and
+                    P
+
+∆IT = S⊆T (−1)|T |−|S| ∆vS is the noise component on the interaction.
+       P
+
+
+                        P∆vS ∼ N|T
+Since each Gaussian noise          (0, σ 2 ), ∀S ⊆ N , is independent and identically distributed, it
+is easy to see E[∆IT ] = S⊆T (−1) |−|S| E[∆vS ] = 0. The variance of ∆IT is computed as
+                                   X
+                  Var[∆IT ] = Var(     (−1)|T |−|S| ∆vS )                                       (38)
+                                             S⊆T
+                                  = Var(∆vS1 ) + Var(∆vS2 ) + · · · + Var(∆vS2|T | )                      (39)
+                                  = 2|T | · σ 2 ,                                                         (40)
+because there are a total of 2|T | subsets for S ⊆ T .
+
+
+                                                        20

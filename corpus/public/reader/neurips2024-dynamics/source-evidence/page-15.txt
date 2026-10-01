@@ -1,0 +1,65 @@
+scenarios. In this way, a well-trained DNN usually learns to classify a masked input sample based
+on local information (which can be extracted from unmasked parts of the input) and thus should not
+yield a significantly low confidence score on masked samples.
+
+C    Details of optimizing {γT } to extract the sparsest AND-OR interactions
+A method is proposed [20, 4] to simultaneously extract AND interactions Iand (S|x) and OR interac-
+tions Ior (S|x) from the network output. Given a masked sample xT , [20] proposed to learn a decom-
+position v(xT ) = vand (xT )+vor (xT ) towards the sparsest interactions. The component vand (xT ) was
+explained by AND interactions, and the component vor (xT ) was explained by OR interactions. Specif-
+ically, they decomposed v(xT ) into vand (xT ) = 0.5 v(xT ) + γT and vand (xT ) = 0.5 · v(xT ) − γT ,
+where {γT : T ⊆ N } is a set of learnable variables that determine the decomposition. In
+this way, theP AND interactions and OR interactions can bePcomputed according to Eq. (2), i.e.,
+Iand (S|x) = T ⊆S (−1)|S|−|T | vand (xT ), and Ior (S|x) = − T ⊆S (−1)|S|−|T | vor (xN \T ).
+
+The parameters {γT } were learned by minimizing the following LASSO-like loss to obtain sparse
+interactions:
+                                    X
+                               min      |Iand (S|x)| + |Ior (S|x)|                        (11)
+                                   {γT }
+                                           S⊆N
+
+
+
+Removing small noises. A small noise δS in the network output may significantly affect the extracted
+interactions, especially for high-order interactions. Thus, [20] proposed to learn to remove a small
+noise term δS from the computation of AND-OR interactions. Specifically, the decomposition was
+rewritten as vand (xT ) = 0.5(v(xT ) − δT ) + γT and vor (xT ) = 0.5(v(xT ) − δT ) + γT . Thus, the
+parameters {δT }, and {γT } are simultaneously learned by minimizing the loss function in Eq. (11).
+The values of {δT } were constrained in [−ζ, ζ] where ζ = 0.02 · |v(x) − v(x∅ )|.
+
+D    Where does the coefficient (−1)|S|−|T | in Eq. (2) come from?
+In fact, it is proven in [13] and [23] that the coefficient (−1)|S|−|T | in Eq. (2) is the unique coefficient
+to ensure that the interaction satisfies the universal matching property. Recall that the universal
+matching property means that no matter how we randomly mask an input sample x, the network
+output on the masked sample xS can always be accurately mimicked by the sum of interaction effects
+within S. An extension of this property for AND-OR interactions is also mentioned in Theorem 2.
+
+E    OR interactions can be considered a special kind of AND interactions
+The OR interaction can be considered a specific kind of AND interaction, when we flip the masked
+state and presence (unmasked) state of each input variable.
+Given an input sample x ∈ Rn , let xT denote the masked sample obtained by masking input variables
+in N \ T , while leaving variables in T unchanged. Specifically, the baseline values b ∈ Rn are used
+to mask the input variables, which represent the masked states of the input variables. The definition
+of xT is given as follows.
+                                              
+                                                xi , i ∈ T
+                                     (xT )i =                                                    (12)
+                                                bi , i ∈ N \ T
+
+Based   on the above definition, the AND interaction is computed as Iand (S|x) =
+            |S|−|T |
+P
+  T ⊆S (−1)          vand (xT ), while the OR interaction is computed as Ior (S|x)                    =
+               |S|−|T |
+  P                              
+− T ⊆S (−1)             vor xN \T . To simplify the analysis, let us assume vand (·) = vor (·) = 0.5v(·).
+
+Then, let us consider a masked sample x̃T , where we flip the masked state and presence (unmasked)
+state of each input variable. In this way, x̃T is defined as follows.
+                                                   
+                                                       xi , i ∈ N \ T
+                                       (x̃T )i =                                                        (13)
+                                                       bi , i ∈ T
+
+                                                        15

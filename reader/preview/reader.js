@@ -29,6 +29,7 @@
   }
   const D = localized(window.READER_V2_DATA);
   const UI = {
+    "正式会议PDF（含文件内附录）":"Formal conference PDF (including appendices)",
     "论文与证明":"Papers and proofs", "论文":"Papers", "符号表":"Symbols", "给 AI 与维护者":"For AI and maintainers", "跳到正文":"Skip to content", "本次范围":"Current scope",
     "公开正式论文 · 中文证明阅读原型":"Published papers · Bilingual proof reader", "相关符号":"Related symbols", "全部论文":"All papers", "筛选论文":"Filter papers", "搜索符号或含义":"Search symbols or meanings", "搜索符号":"Search symbols", "没有匹配的符号。":"No matching symbols.",
     "原文":"Source", "中文重写":"Rewritten proof", "证明重写":"Rewritten proof", "完整证明":"Complete proof", "证明整理中":"Proof in progress", "原文与覆盖范围":"Source and coverage", "完整说明":"Complete explanation", "范围说明":"Scope explanation",
@@ -42,10 +43,25 @@
   };
   Object.assign(UI,{"完整证明": "Complete proof", "完整说明": "Complete explanation", "证明整理中": "Proof in progress", "中文证明": "Proof", "中文说明": "Explanation", "证明与范围": "Proof and scope", "反例与说明": "Counterexample and explanation", "记号与条件": "Notation and conditions", "查看本证明的符号定义": "Definitions used in this proof", "命题": "Statement", "证明思路": "Proof idea", "查看 Lean 对照 ↗": "View Lean comparison ↗", "公共命题": "Shared statement", "公共证明的记号与条件": "Notation and conditions for the shared proof", "论文定义与公共证明的对应": "Paper definitions and shared-proof adaptation", "反例与原命题问题": "Counterexample and original-statement issue", "分项证明与问题": "Component proof and issues", "陈述与适用条件": "Statement and conditions", "已证明的范围": "Proved scope", "一个具体例子": "A concrete example", "本证明的适用范围": "Scope of this proof", "补充材料 ↗": "Supplement ↗", "正式论文 ↗": "Formal paper ↗", "本论文符号对照 →": "Notation for this paper →", "定义、假设、方法与实验（": "Definitions, assumptions, methods and experiments (", "项）": " items)", "原文核验范围": "Source-review scope", "核验说明": "Review explanation", "公共数学结果": "Shared mathematical result", "阅读内容": "Reading content", "← 论文目录": "← Paper directory", "下一结果": "Next result", "当前位置": "Current location", "继续阅读": "Continue reading", "原命题与反例": "Original statement and counterexample", "复合陈述中的问题": "Issue in a compound statement", "分析子断言有反例；父结论未判定": "Counterexample to an analysis subclaim; parent conclusion unassessed", "原文记号与适用范围": "Source notation and scope", "定义与算法的边界": "Definitions and algorithm boundaries", "原证明的错误步骤": "Incorrect step in the original proof"});
   Object.assign(UI,{
+    "条目说明":"Entry explanation", "条目陈述":"Entry statement", "原文陈述":"Original source statement", "说明思路":"Explanation", "本条目的适用范围":"Scope of this entry", "查看本条目的符号定义":"Definitions used in this entry",
     "实际 Lean 类型":"Actual Lean type", "当前编译记录 · ":"Current compilation record · ", "验证报告 ↗":"Verification report ↗", "源码第 ":"Source line ", " 行 ↗":" ↗", "返回中文证明的这一步":"Return to this proof step", "此结果尚未提供已编译的 Lean 对照。":"A compiled Lean comparison is not available for this result.", "所列声明已编译；实际验证范围见下方类型与报告。":"The listed declarations compiled; the actual verification scope is shown by the types and reports below.", "本论文与 Lean 的逐步对应":"Paper steps and Lean declarations", "公共证明与 Lean 的逐步对应":"Shared-proof steps and Lean declarations", "对应步骤 ":"Corresponding step ", "该声明尚未取得当前编译报告、实际类型和源码位置；本步不宣称已形式化。":"A current compilation report, actual type and source location are not available for this declaration; this step does not claim formalization.", "对应的数学陈述":"Corresponding mathematical statement", "被检验的原陈述":"Original statement being checked", "原陈述与本次验证范围":"Original statement and verified scope", "反例针对的子断言":"Subclaim targeted by the counterexample", "实际反例命题：":"Actual counterexample statement: ", "错误子句的反例：":"Counterexample to the incorrect clause: ", "实际Lean类型：":"Actual Lean type: ", "实际反例命题与 Lean 类型":"Actual counterexample statement and Lean type", "实际分项命题与 Lean 类型":"Actual subcomponent statement and Lean type", "完整 Lean 类型陈述":"Full Lean type", "已编译的论文适配":"Compiled paper adapter", "论文适配源码":"Paper adapter source", "目前只有声明级对应，尚未给出逐步代码对照。":"Only declaration-level correspondence is available; a stepwise code comparison has not been supplied.", "Lean 源文件":"Lean source file", "编译与公理检查记录":"Compilation and axiom audit", "公共 Lean 源文件":"Shared Lean source file", "Lean 编码说明":"Lean encoding note", "反例检验的是下列分析子断言；上方父陈述的整体结论没有因此被判定为错误。":"This counterexample checks the analysis subclaim below; it does not classify the complete parent conclusion as false."
   });
   Object.assign(UI,{"论文概览":"Paper overview","本论文符号对照":"Notation for this paper","Lean 对照":"Lean comparison","论文目录":"Paper directory","论文与定理目录":"Paper and theorem directory","从论文，读到完整证明":"Read the complete proof behind each paper","阅读论文 →":"Read paper →","选择一篇正式论文，查看其中的命题、中英双语证明与 Lean 对照。采用规范符号，并保留论文原记号对照，把省略的推导逐步展开。":"Choose a formal paper to read its statements, bilingual proofs and Lean comparisons. Proofs use canonical notation and retain a comparison with the original paper notation, expanding omitted derivations step by step.","查看第 ":"View step "," 步的 Lean 对照":" in Lean","原文数学核验":"Source mathematics review","原文数学问题":"Source mathematical issues","部分范围的 Lean 证据通过":"Lean evidence verified for a partial scope","部分范围的 Lean 证据未取得":"Lean evidence unavailable for the partial scope"});
   Object.assign(UI,{"原文核验":"Source review"});
+  Object.assign(UI,{"正式PDF":"Formal PDF", "查看原文核验记录 ↗":"View source review record ↗", "完整 AND/OR 定理的原证明另有核验记录 ↗":"Separate source review record for the complete AND/OR theorem ↗"});
+  Object.assign(UI,{
+    "数学原式据正式PDF核对；中文是项目译文。原PDF版面保留。":"The original mathematical formulas were checked against the formal PDF. The Chinese text is a project translation; the original PDF layout is retained.",
+    "原数学推导与项目忠实修正证明分开；原错误等号仍保留。":"The original mathematical derivation is separate from the project's faithful proof repair; incorrect equalities in the source remain visible.",
+    "项目核对说明：脚注没有单独展开负号证明；项目按原Eq.(2)明确负号与非空范围。":"Project review note: the footnote does not separately prove the minus sign. The project makes the sign and nonempty scope explicit using the original Eq. (2).",
+    "项目核对说明：原期望式的内层用了S而非固定T；它与后续Var推导分别保存，问题见关联记录。":"Project review note: the inner expectation uses S instead of the fixed T. This expression and the subsequent variance derivation are retained separately; the associated issue records explain the discrepancy.",
+    "项目范围说明：证明和Lean只核验掩码/查询数量；不把它冒充作者整个运行时间主张的证明。":"Project scope note: the proof and Lean verify only mask/query counts. They do not establish the author's full runtime claim."
+  });
+  Object.assign(UI,{"另见这些论文： ":"See also these papers: ","（本页已展开）":" (expanded on this page)","正式主文":"Formal main paper","正式会议PDF":"Formal conference PDF","正式全文":"Formal full paper","（含附录）":" (including appendices)"});
+  Object.assign(UI,{
+    "下文是原证明推导的中文说明；原文请查看对应的正式 PDF 或展开原文页。":"The source proof's mathematical content is shown below. Consult the linked formal PDF or expand its original pages.",
+    "下文呈现原命题的公式与中文说明；正式原文请查看对应 PDF 或展开原文页。":"The source statement's formulas and explanation appear below. Consult the linked formal PDF or expand its original pages.",
+    "查看正式 PDF 原文页（":"View formal PDF source pages (", " 页）":" pages)", " 页原文":" source image"
+  });
   function ui(value) {
     if(language!=="en" || typeof value!=="string")return value;
     if(UI[value])return UI[value];
@@ -191,6 +207,7 @@
     for(const id of ids){const sym=known.find(s=>s.id===id||s.canonical_id===id);if(!sym)continue;const link=a('', '/symbols/?paper='+result.paper_id+'#'+encodeURIComponent(sym.canonical_id||sym.id));formula(sym.canonical_tex,link,false);link.setAttribute('title',sym.name_zh||sym.id);row.append(link);}
     parent.append(row);
   }
+  function isSourceMaterial(result){return !result.is_shared_proof && (result.rewrite_role==='source_material'||result.rewrite_status==='not_a_proof_target'||result.proof_target===false);}
   function symbolsPage(){
     document.getElementById('symbols-nav').setAttribute('aria-current','page');
     const main=el('main',null,{class:'about-page symbols-page',id:'main',tabindex:'-1'});main.append(el('h1','符号表'));
@@ -202,10 +219,10 @@
       for(const sym of list){const card=el('details',null,{class:'symbol-card',id:sym.canonical_id||sym.id});const summary=el('summary');const glyph=el('span',null,{class:'symbol-glyph'});formula(sym.canonical_tex,glyph,false);summary.append(glyph,el('span',sym.name_zh||sym.id,{class:'symbol-name'}));const names=[...new Set(asList(sym.paper_mappings).map(m=>shortTitle(paperMap.get(m.paper_id)||{title:m.paper_id})))];summary.append(el('span',names.join(' · '),{class:'symbol-papers'}));card.append(summary);
         const detail=el('div',null,{class:'symbol-detail'});formula(sym.definition_tex,detail);markdown(sym.description_md,detail);paragraph('域：'+textValue(sym.type_or_domain)+'；作用域：'+textValue(sym.scope),detail,{class:'source-notes'});
         if(sym.parent_concept_id)detail.append(a('相关公共定义 →','/symbols/#'+sym.parent_concept_id,{class:'source-link'}));
-        if(sym.empty_set_convention)markdown('空集约定：'+sym.empty_set_convention,detail);if(sym.baseline_convention)markdown('基线约定：'+sym.baseline_convention,detail);
-        for(const map of asList(sym.paper_mappings).filter(m=>!select.value||m.paper_id===select.value)){const p=paperMap.get(map.paper_id);const row=el('div',null,{class:'symbol-mapping'});row.append(el('h3',p?shortTitle(p):map.paper_id));if(/无独立原符号|no separate|same as/i.test(map.original_tex||''))paragraph(map.original_tex,row);else formula(map.original_tex,row,false);formula(map.original_definition_tex,row);paragraph('对应关系：'+(labels[map.relation_type]||'定义关系待核对'),row,{class:'source-notes'});if(map.conflict_note)markdown(map.conflict_note,row);sourceLinks({source_refs:[{source_id:map.source_id,locations:asList(map.pdf_pages).map(n=>({pdf_page:n,label:'PDF 第 '+n+' 页'}))}]},row);detail.append(row);}
+        if(sym.empty_set_convention)markdown(ui('空集约定：')+sym.empty_set_convention,detail);if(sym.baseline_convention)markdown(ui('基线约定：')+sym.baseline_convention,detail);
+        for(const map of asList(sym.paper_mappings).filter(m=>!select.value||m.paper_id===select.value)){const p=paperMap.get(map.paper_id);const row=el('div',null,{class:'symbol-mapping'});row.append(el('h3',p?shortTitle(p):map.paper_id));if(/无独立原符号|no separate|same as/i.test(map.original_tex||''))paragraph(map.original_tex,row,{class:'raw-source'});else formula(map.original_tex,row,false);formula(map.original_definition_tex,row);paragraph('对应关系：'+(labels[map.relation_type]||'定义关系待核对'),row,{class:'source-notes'});if(map.note)markdown(map.note,row);if(map.conflict_note)markdown(map.conflict_note,row);sourceLinks({source_refs:[{source_id:map.source_id,locations:asList(map.pdf_pages).map(n=>({pdf_page:n,label:'PDF 第 '+n+' 页'}))}]},row);detail.append(row);}
         const used=results.filter(r=>asList(r.symbol_ids).includes(sym.id));if(used.length){detail.append(el('h3','使用这个符号的结果'));const links=el('div',null,{class:'symbol-results'});for(const r of used)links.append(a(r.title,resultUrl(r)));detail.append(links);}
-        if(asList(sym.lean_names).length){const names=el('p',null,{class:'source-notes'});names.append(document.createTextNode('Lean 定义： '));for(const name of sym.lean_names)names.append(el('code',name));detail.append(names);}card.append(detail);body.append(card);}
+        if(asList(sym.lean_names).length){const names=el('p',null,{class:'source-notes'});names.append(document.createTextNode(ui('Lean 定义： ')));for(const name of sym.lean_names)names.append(el('code',name));detail.append(names);}card.append(detail);body.append(card);}
       math(body);if(!list.length)paragraph('没有匹配的符号。',body);
       if(location.hash){const selected=document.getElementById(decodeURIComponent(location.hash.slice(1)));if(selected){selected.open=true;setTimeout(()=>selected.scrollIntoView({block:'start'}),0);}}
     }select.addEventListener('change',()=>{history.replaceState(null,'','/symbols/'+(select.value?'?paper='+select.value:''));draw();});search.addEventListener('input',draw);window.addEventListener('hashchange',draw);app.append(main);draw();
@@ -323,7 +340,7 @@
     function appendItem(item,target,isAssumption){const block=el("div",null,{class:isAssumption?"condition":"definition-item"});markdown(textValue(item),block);for(const tex of asList(item.formula_tex))formula(tex,block);target.append(block);}
     for(const item of assumptions)appendItem(item,section,true);
     for(const item of local)appendItem(item,section,false);
-    if(shared.length){const details=el('details',null,{class:'proof-symbol-definitions'});details.append(el('summary','查看本证明的符号定义'));for(const item of shared)appendItem(item,details,false);section.append(details);}
+    if(shared.length){const details=el('details',null,{class:'proof-symbol-definitions'});details.append(el('summary',isSourceMaterial(result)?'查看本条目的符号定义':'查看本证明的符号定义'));for(const item of shared)appendItem(item,details,false);section.append(details);}
     parent.append(section);
   }
   function statement(result,parent,label) {
@@ -333,7 +350,7 @@
   }
   function overview(result,parent) {
     if(!result.overview)return;
-    const box=el("section",null,{class:"proof-idea"});box.append(el("h2","证明思路"));for(const text of asList(result.overview))markdown(textValue(text),box);parent.append(box);
+    const box=el("section",null,{class:"proof-idea"});box.append(el("h2",isSourceMaterial(result)?"说明思路":"证明思路"));for(const text of asList(result.overview))markdown(textValue(text),box);parent.append(box);
   }
   function stepAnchor(prefix,id,index) { return prefix+"-"+String(id||index+1).replace(/[^a-zA-Z0-9_-]/g,"-"); }
   function proofSteps(proof,parent,prefix,title) {
@@ -357,22 +374,22 @@
   }
   function caveats(result,parent) {
     const items=asList(result.caveats);if(!items.length)return;
-    const detail=el("details",null,{class:"caveats"});detail.append(el("summary","本证明的适用范围"));const body=el("div",null,{class:"caveat-body"});for(const item of items)markdown(textValue(item),body);detail.append(body);parent.append(detail);
+    const detail=el("details",null,{class:"caveats"});detail.append(el("summary",isSourceMaterial(result)?"本条目的适用范围":"本证明的适用范围"));const body=el("div",null,{class:"caveat-body"});for(const item of items)markdown(textValue(item),body);detail.append(body);parent.append(detail);
   }
   function relatedPapers(result,parent) {
     if(!result.shared_proof_id)return;
     const related=results.filter(r=>r.id!==result.id&&r.paper_id&&r.shared_proof_id===result.shared_proof_id);
     if(!related.length)return;
-    const text=el("p",null,{class:"shared-intro"});text.append(document.createTextNode("另见这些论文： "));
+    const text=el("p",null,{class:"shared-intro"});text.append(document.createTextNode(ui("另见这些论文： ")));
     for(const r of related){const p=paperMap.get(r.paper_id);if(p)text.append(a(venueLabel(p)+" · "+shortTitle(p),resultUrl(r)));}parent.append(text);
   }
   function rewritePanel() {
     renderedProofSteps = new Map();
     const parent=el("div",null,{class:"proof-prose"});
-    statement(currentResult,parent);
+    statement(currentResult,parent,isSourceMaterial(currentResult)?"条目陈述":null);
     conditions(currentResult,parent);
     overview(currentResult,parent);
-    proofSteps(currentResult,parent,"paper",currentResult.rewrite_role==='counterexample'?'反例与原命题问题':currentResult.rewrite_role==='partial_proof_with_refuted_clause'?'分项证明与问题':currentResult.rewrite_role==='statement_scope_explanation'?'陈述与适用条件':currentResult.rewrite_role==='partial_component'?'已证明的范围':currentShared ? "论文定义与公共证明的对应" : "完整证明");
+    proofSteps(currentResult,parent,"paper",isSourceMaterial(currentResult)?'条目说明':currentResult.rewrite_role==='counterexample'?'反例与原命题问题':currentResult.rewrite_role==='partial_proof_with_refuted_clause'?'分项证明与问题':currentResult.rewrite_role==='statement_scope_explanation'?'陈述与适用条件':currentResult.rewrite_role==='partial_component'?'已证明的范围':currentShared ? "论文定义与公共证明的对应" : "完整证明");
     const sharedList=asList(currentResult.shared_proof_ids||currentResult.shared_proof_id).map(id=>sharedMap.get(id)).filter(Boolean);
     for(const [index,shared] of sharedList.entries()){
       if(!asList(shared.proof_steps).some(s=>!renderedProofSteps.has(stepIdentity(s)))){const p=el('p',null,{class:'shared-intro'});p.append(a((shared.title||'公共证明')+'（本页已展开） ↗',commonProofUrl(shared)));parent.append(p);continue;}
@@ -396,16 +413,34 @@
     const parent=el("div",null,{class:"proof-prose"});
     const value=proof ? currentResult.original_proof_md : currentResult.original_statement_md;
     const note=proof ? currentResult.original_proof_note : currentResult.original_statement_note;
-    paragraph(note||(proof?"下文是原证明推导的中文说明；原文请查看对应的正式 PDF 或展开原文页。":"下文呈现原命题的公式与中文说明；正式原文请查看对应 PDF 或展开原文页。"),parent,{class:"source-notes"});
+    const sourceType=String(proof?currentResult.original_proof_source_type||'':currentResult.original_statement_source_type||'');
+    const noAuthorProof=proof && /^(no_local_|no_separate_)/.test(sourceType);
+    const authorTranscription=new Set(['formal_author_transcription','complete_manual_formal_proof_transcription','complete_manual_formal_statement_transcription','complete_manual_source_statement_transcription','source_formula_transcription_with_original_premises_in_assumptions','complete_author_mathematical_proof_transcription_with_english_prose']).has(sourceType);
+    const projectTranslation=/(chinese|project_translation|paraphrase|project_explanation)/.test(sourceType);
+    const defaultNote=noAuthorProof
+      ? (language==='en'?'The selected formal source provides no separate local author proof for this item. Any explanation below is source context, not an author proof.':'所选正式来源未提供本条独立的作者证明；下方若有说明，仅为来源上下文，不是作者证明。')
+      : authorTranscription
+        ? (language==='en'?'The author’s original wording and mathematical notation are transcribed below from the linked formal PDF. Source errors remain intact; this is a project transcription, not the author’s TeX source.':'下文按所链接正式 PDF 转录作者原文与数学记号，保留原式及错误；这是项目转录，并非作者 TeX 源码。')
+        : projectTranslation
+          ? (language==='en'?'The source mathematical content is transcribed below with project translation or explanation. Consult the linked formal PDF for the author’s original wording.':'下文保留原文数学内容，文字为项目译述或说明；作者原句请对照所链接的正式 PDF。')
+          : (language==='en'?'The recorded source mathematical content appears below. Check the linked formal PDF and the stated transcription scope for the author’s original wording.':'下文为已记录的原文数学内容；作者原句及转录范围请对照所链接正式 PDF 和本条说明。');
+    const defaultHeading=noAuthorProof
+      ? (language==='en'?'Source context · no local author proof':'来源上下文 · 无独立作者证明')
+      : authorTranscription
+        ? (language==='en'?(proof?'Author proof or derivation transcription':'Author statement transcription'):(proof?'作者原证明或推导转录':isSourceMaterial(currentResult)?'作者原文陈述转录':'作者原命题转录'))
+        : projectTranslation
+          ? (language==='en'?'Source mathematical transcription and project explanation':'原文数学转录与项目译述')
+          : (language==='en'?'Recorded source mathematical content':'原文数学内容记录');
+    paragraph(note||defaultNote,parent,{class:"source-notes"});
     const dedicatedProof=asList(currentResult.source_refs).some(ref=>referenceLocations(ref).some(loc=>loc.role==='proof'));
     if(proof&&!dedicatedProof)paragraph(language==='en'?'No separate proof page is inventoried for this item. The linked formal PDF pages give the statement or derivation context.':'本条未登记独立的原证明页。下列正式 PDF 位置提供命题或推导上下文。',parent,{class:'source-notes'});
     sourceLinks(currentResult,parent,proof&&dedicatedProof?"proof":"statement");
     if(proof||!isComplete(currentResult))issueNote(currentResult,parent);
     sourcePageImages(currentResult,parent,proof&&dedicatedProof?"proof":"statement");
-    if(value){const section=el("section",null,{class:"original-section"});section.append(el("h2",proof?(currentResult.original_proof_heading||"原证明数学内容与译文"):(currentResult.original_statement_heading||"原命题数学内容与译文")));
+    if(value){const section=el("section",null,{class:"original-section"});section.append(el("h2",(proof?currentResult.original_proof_heading:currentResult.original_statement_heading)||defaultHeading));
       if(String(value).includes('```text')){paragraph('精确数学转录正在整理；下方原始抽取仅作辅助，请对照上方正式PDF页。',section,{class:'source-notes'});const details=el('details',null,{class:'raw-extraction'});details.append(el('summary','辅助：原始文本抽取'));const raw=el('div');markdown(value,raw);details.append(raw);section.append(details);}
       else markdown(value,section);parent.append(section);}
-    else paragraph("本页未转录这一部分的完整原文，请查看上方正式 PDF 的对应位置。",parent,{class:"source-notes"});
+    else if(!noAuthorProof)paragraph(language==='en'?'This part of the full source text is not transcribed on this page; consult the linked formal PDF location.':'本页未转录这一部分的完整原文，请查看上方正式 PDF 的对应位置。',parent,{class:"source-notes"});
     for(const asset of (D.formula_transcripts||{})[currentResult.paper_id]||[]){const details=el("details",null,{class:"lean-details original-tex"});details.append(el("summary","查看选定公式的 TeX 转录"));const body=el("div");paragraph("按正式 PDF 核对的公式摘录，含命题与证明片段；这是项目转录，未取得作者 TeX 源码。",body,{class:"source-notes"});body.append(a("下载公式转录 TeX ↗",asset.public_path,{class:"source-link",target:"_blank",rel:"noopener"}),el("pre",asset.raw_text,{class:"code-panel raw-source"}));details.append(body);parent.append(details);}
     return parent;
   }
@@ -486,7 +521,7 @@
     relatedSymbols(result,main);
     const tabs=el("div",null,{class:"tabs",role:"tablist","aria-label":"阅读内容"});
     const hasText=asList(result.proof_steps).length>0;
-    const labels=result.is_shared_proof?[["rewrite","完整证明"],["lean","Lean 对照"]]:hasText?[["rewrite",result.rewrite_role==='statement_scope_explanation'?'中文说明':result.rewrite_role==='partial_component'||result.rewrite_role==='partial_proof_with_refuted_clause'?'证明与范围':result.rewrite_role==='counterexample'?'反例与说明':'中文证明'],["statement","原命题"],["original-proof","原证明"],["lean","Lean 对照"]]:[["statement","原命题"],["original-proof","原证明"],["scope","核验说明"]];
+    const labels=result.is_shared_proof?[["rewrite","完整证明"],["lean","Lean 对照"]]:hasText?[["rewrite",isSourceMaterial(result)?'条目说明':result.rewrite_role==='statement_scope_explanation'?'中文说明':result.rewrite_role==='partial_component'||result.rewrite_role==='partial_proof_with_refuted_clause'?'证明与范围':result.rewrite_role==='counterexample'?'反例与说明':'中文证明'],["statement",isSourceMaterial(result)?"原文陈述":"原命题"],["original-proof","原证明"],["lean","Lean 对照"]]:[["statement",isSourceMaterial(result)?"原文陈述":"原命题"],["original-proof","原证明"],["scope","核验说明"]];
     labels.forEach(([id,label],index)=>{
       const button=el("button",label,{type:"button",role:"tab",class:"tab",id:"tab-"+id,"data-tab":id,"aria-controls":"reader-panel","aria-selected":"false",tabindex:"-1"});
       button.addEventListener("click",()=>setTab(id));button.addEventListener("keydown",event=>{if(!["ArrowLeft","ArrowRight","Home","End"].includes(event.key))return;event.preventDefault();const next=event.key === "Home" ? 0 : event.key === "End" ? labels.length-1 : (index+(event.key === "ArrowRight" ? 1 : -1)+labels.length)%labels.length;setTab(labels[next][0],true);});tabs.append(button);

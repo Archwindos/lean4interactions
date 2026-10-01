@@ -1,0 +1,1883 @@
+PAGE 1
+                  Bayesian Neural Networks Avoid Encoding Complex and
+                             Perturbation-Sensitive Concepts
+
+
+                      Qihan Ren * 1 Huiqi Deng * 1 Yunuo Chen 1 Siyu Lou 1 Quanshi Zhang 1 2
+
+
+                          Abstract                                      perspective to investigate the representation capacity of
+      In this paper, we focus on mean-field variational                 BNNs, i.e., we discover and theoretically prove that BNNs
+      Bayesian Neural Networks (BNNs) and explore                       are less likely to encode complex and perturbation-sensitive
+      the representation capacity of such BNNs by in-                   concepts than standard DNNs. In fact, such a property
+      vestigating which types of concepts are less likely               brings specific advantages to feature representations of
+      to be encoded by the BNN. It has been observed                    BNNs. To be precise, we limit our study to the scope
+      and studied that a relatively small set of interac-               of mean-field variational BNNs (Blundell et al., 2015),
+      tive concepts usually emerge in the knowledge                     which is one of the most commonly used BNNs. Thus, in
+      representation of a sufficiently-trained neural net-              this paper, we just use the term BNN to refer to mean-field
+      work, and such concepts can faithfully explain                    variational BNNs.
+      the network output. Based on this, our study                      Common phenomenon of concept emergence in various
+      proves that compared to standard deep neural                      neural networks. Although it is well-known that a neural
+      networks (DNNs), it is less likely for BNNs to                    network does not explicitly encode concepts like graphical
+      encode complex concepts. Experiments verify                       models, recent studies have discovered (Ren et al., 2023a; Li
+      our theoretical proofs. Note that the tendency to                 & Zhang, 2023) and theoretically proved (Ren et al., 2023c)
+      encode less complex concepts does not necessar-                   a common concept-emerging phenomenon that neural net-
+      ily imply weak representation power, considering                  works usually implicitly encode a small number of inter-
+      that complex concepts exhibit low generalization                  active concepts for inference, which have been observed
+      power and high adversarial vulnerability. The                     in different neural networks for various tasks. Specifically,
+      code is available at https://github.com/                          each interactive concept represents an AND relationship
+      sjtu-xai-lab/BNN-concepts.                                        among a set of input variables.
+                                                                        For example, we can use I(S = {eyes, nose, mouth}) = US ·
+                                                                        exist(eyes) · exist(nose) · exist(mouth) to illustrate the AND
+1. Introduction
+                                                                        relationship for the face concept in image classification. If
+Unlike standard deep neural networks (DNNs), Bayesian                   any image patch in the set S = {eyes, nose, mouth} is masked,
+neural networks (BNNs) represent network weights as prob-               then the face concept will be deactivated, and the numerical
+ability distributions. Therefore, BNNs exhibit distinctive              effect of this concept is removed (I(S) = 0) and no longer
+representation capacities from standard DNNs. Existing                  influences the network output.
+studies (Blundell et al., 2015; Gal & Smith, 2018; Kristiadi
+                                                                        More importantly, interactive concepts can be considered as
+et al., 2020; Carbone et al., 2020; Wenzel et al., 2020; Krish-
+                                                                        faithful inference patterns encoded by the neural network.
+nan et al., 2020; Zhang et al., 2022) usually analyzed BNNs
+                                                                        It is because Ren et al. (2023a) has proved that people can
+in terms of generalization power, adversarial robustness, and
+                                                                        use a relatively small number of interactive concepts to well
+optimization.
+                                                                        mimic the inference logic of the neural network on a certain
+In contrast to the above studies, this paper proposes a new             input sample. That is, numerical effects of these concepts
+  *
+                                                                        always well predict diverse network outputs, no matter how
+    Equal contribution 1 Shanghai Jiao Tong University, Shanghai,       the input sample is masked.
+China 2 Quanshi Zhang is the corresponding author. He is with
+the Department of Computer Science and Engineering, the John            BNNs ignore complex and perturbation-sensitive con-
+Hopcroft Center, at the Shanghai Jiao Tong University, China.           cepts. Based on the interactive concepts, we discover and
+Correspondence to: Quanshi Zhang <zqs1022@sjtu.edu.cn>.
+                                                                        theoretically prove that compared to standard DNNs, it is
+Proceedings of the 40 th International Conference on Machine            more difficult for a neural network to encode complex inter-
+Learning, Honolulu, Hawaii, USA. PMLR 202, 2023. Copyright              active concepts, as long as it has weight uncertainty. The
+2023 by the author(s).
+
+                                                                    1
+
+PAGE 2
+                         Bayesian Neural Networks Avoid Encoding Complex and Perturbation-Sensitive Concepts
+
+          (a)                                           (b)                MLP on                          MLP on                   CNN on                    CNN on
+                                              𝐶𝑆1 = 1         30         Census dataset        40
+                                                                                                        TV news dataset    25     CoLA dataset       50     SST-2 dataset
+                                                                            salient                         salient                 salient                   salient
+                                    3-order             |𝐼(𝑆)|
+                                    concept                                      noise                          noise                    noise                      noise
+                                              𝐶𝑆2 = 0            0                             0                           0                         0
+                                                                     1                    2𝑛        1                 2𝑛  1             2𝑛  1              2𝑛
+                    𝒙𝟑 𝒙𝟏
+                                                                          ResMLP on                      ResMLP on          LSTM on           ResNet-32 on
+                    𝒙𝟐                                        50         Census dataset        80       TV news dataset 12 CoLA dataset    7 MNIST dataset
+                                                                            salient                         salient           salient           salient
+                                              𝐶𝑆3 = 0   |𝐼(𝑆)|
+                                                                                noise                           noise                    noise                      noise
+                               𝒙𝟔
+                                                                 0                              0                          0                         0
+                                    7-order
+                Masked sample 𝑥𝑆                                     1               2𝑛             1                 2𝑛        0               2𝑛        1               2𝑛
+                                    concept
+                                                                     index of concepts               index of concepts           index of concepts         index of concepts
+
+
+Figure 1. (a) Illustration of interactive concepts encoded by a neural network. Each interactive concept S corresponds to an AND
+relationship among a specific set S of input variables (image patches). CS represents the activation state of the concept S. The patch x1 is
+masked (unmask(x1 ) = 0), so the concept S2 is deactivated, i.e., CS2 = 3i=1 unmask(xi ) = 0. Similarly, x6 is masked, so that the
+                                                                             V
+concept S3 is deactivated, and CS3 = 0. (b) Experiments demonstrate the common concept-emerging phenomenon. Neural networks
+with various architectures all encode sparse interactive concepts. In other words, most interactive concepts have near-zero effects, i.e.,
+I(S) ≈ 0, and can be considered as noises; only a relatively small number of interactive concepts have significant effects. For better
+visualization, the interactive concepts are sorted by strengths in descending order.
+
+
+complexity of an interactive concept S is defined as the                                 then our research indicates that the BNN must reduce its
+number of variables in the set S , i.e., complexity(S) = |S|.                            weight uncertainty, to some extent.
+Here, |S| is also termed the order of the interactive concept.
+                                                                                         Practical values and advantages of avoiding encoding
+We prove the above conclusion through three steps. First, it                             complex concepts. Although we prove that BNNs tend
+is difficult to theoretically analyze interactive concepts en-                           to avoid encoding complex concepts, it is not necessarily
+coded by BNNs, because BNNs represent network weights                                    a disadvantage of the BNN, compared to standard DNNs.
+as probability distributions. To this end, we find that we can                           On the contrary, it has been found that compared to sim-
+usually use a surrogate DNN model, which is constructed                                  ple (low-order) concepts, complex (high-order) concepts
+by adding perturbations to both the input and low-layer                                  encoded by a neural network usually have poorer generaliza-
+features of a standard DNN, to approximate feature repre-                                tion ability (Lengerich et al., 2022) and are more vulnerable
+sentations of a BNN. In this way, we can directly analyze                                to adversarial attacks (Ren et al., 2021). Thus, encoding less
+the surrogate DNN model with feature uncertainty, instead                                complex concepts might be an advantage.
+of investigating the BNN with weight uncertainty.
+Second, we prove that in the surrogate DNN model, high-                                  2. BNNs ignore complex and perturbation-
+order interactive concepts are more sensitive to random                                     sensitive concepts
+perturbations than low-order interactive concepts.
+                                                                                         Unlike standard DNNs, a BNN represents each weight in
+Third, we prove that the sensitivity makes high-order in-                                the network as a probability distribution, instead of a scalar.
+teractive concepts difficult to be learned when features are                             In this paper, we limit the scope of our study to mean-field
+perturbed. In this way, we can conclude that high-order                                  variational BNNs (Blundell et al., 2015), where all weights
+interactive concepts are also less likely to be learned by the                           W are formulated as a Gaussian distribution N (W ; µ, Σ),
+BNN when its weights are perturbed.                                                      and the covariance matrix Σ is diagonal. Other types of
+In addition, experiments showed that the strength of high-                               BNNs (e.g., BNNs based on the Monte Carlo Dropout (Gal
+order (complex) interactive concepts encoded by BNNs                                     & Ghahramani, 2016)) are not discussed. The BNN learns
+was weaker than those encoded by standard DNNs, which                                    parameters θ = (µ, Σ), and we use qθ (W ) to represent the
+verified the above theoretical conclusion.                                               weight distribution. Let us consider a classification task
+                                                                                         with the training data D = {(x(1) , y (1) ), . . . , (x(n) , y (n) )}.
+Note that our proof does NOT mean that a BNN has                                         Training a BNN is to minimize the Kullback-Leibler (KL)
+limited representation capacity. Instead, we just demon-                                 divergence between the distribution qθ (W ) and the posterior
+strate the distinctive tendency of avoiding encoding complex                             distribution p(W |D).
+(high-order) interactive concepts, when weight uncertainty
+is introduced into the neural network. This does not mean
+that BNNs have weaker representation power than standard                                 θ ∗= argmin KL[qθ (W )∥p(W |D)]                                                       (1)
+                                                                                                            θ
+DNNs. If the task loss requires to encode complex concepts,                                    = argmin −EW ∼qθ (W ) [log p(D|W )]+KL[qθ (W )∥p(W )],
+                                                                                                            θ
+
+
+                                                                                  2
+
+PAGE 3
+                   Bayesian Neural Networks Avoid Encoding Complex and Perturbation-Sensitive Concepts
+
+where the first term is the classification loss, and the second         If I(S|x) has a significant value, then the neural network is
+term is the KL divergence between qθ (W ) and the prior dis-            considered to encode an interactive concept S ; otherwise, if
+tribution p(W ), which is usually formulated as a Gaussian              I(S|x) ≈ 0, the concept S does not exist. Here, xT denotes
+distribution N (W ; 0, I). In addition, given a testing sample          the masked input sample, where variables in N \ T are
+x, the inference of the BNN is conducted as follows. First,             masked and variables in T are kept unchanged. Besides,
+network weights are sampled from the weight distribution                v(xT ) ∈ R can be computed as a scalar output of the neural
+qθ (W ) to construct multiple neural networks. Then, each               network on the masked sample xT (e.g., the confidence
+network is used to conduct inference on the sample x, and               score of classifying the input sample xT to the ground-truth
+                                                                                                p(y=ytruth |xT )
+the final inference result p(y|x) is computed as the average            category v(xT ) = log 1−p(y=y   truth |xT )
+                                                                                                                    ).
+classification probability of all the networks,
+                                                                        Faithfulness of interactive concepts. Given an input sam-
+            p(y|x) = EW ∼qθ (W ) [p(y|x, W )].               (2)        ple x with n variables, we have 2n different ways to mask
+                                                                        the sample x and obtain the masked sample xT w.r.t. all
+2.1. Preliminaries: emergence of sparse concepts                        subsets T ⊆ N . To this end, Ren et al. (2021) proved that
+The learning of neural networks is usually regarded as
+                                                                                                                 X
+                                                                         ∃ Ω ⊆ 2N , s.t. ∀ T ⊆ N, v(xT ) =                        I(S|x), (4)
+                                                                                                                        S∈Ω,S⊆T
+a fitting problem between the ground-truth label and the
+model prediction, without explicit learning of specific con-            where 2N = {S|S ⊆ N }. The equation indicates that inter-
+cepts. However, recent studies have empirically discov-                 active concepts in Ω can well mimic network outputs on all
+ered (Ren et al., 2023a; Li & Zhang, 2023) and theoretically            the 2n masked samples. Thus, we can consider that all in-
+proved (Ren et al., 2023c) that sparse AND relationships                teractive concepts in the set Ω as faithful inference patterns
+between input variables were usually implicitly encoded by              encoded by the neural network.
+a neural network when it was sufficiently trained. As shown
+in Figure 1(a), these AND relationships can be viewed as                Sparsity of interactive concepts. More crucially, exten-
+specific types of interactive concepts, which will be intro-            sive experiments (Ren et al., 2023a; Li & Zhang, 2023)
+duced in the interactive concepts paragraph.                            discovered that interactive concepts emerging in a neural
+                                                                        network are usually very sparse. Figure 1(b) shows that
+Although counter-intuitive, this concept-emerging phe-                  most interactive concepts have near-zero interaction effects
+nomenon does exist in various neural networks. Further-                 (|I(S|x)| ≈ 0), thus having negligible influence on the net-
+more, such interactive concepts have been used to prove                 work output. Only a few salient interactive concepts have
+the representation bottleneck of the neural network (Deng               significant effects I(S|x) on the network output. In this way,
+et al., 2022) and obtain optimal masking states for attribution         the network output can be mimicked by only a few salient
+methods (Ren et al., 2023b). We also verify the trustwor-               interactive concepts in Ωsalient .
+thiness of using interactive concepts to explain neural
+networks in experiments (see the end of this section).
+                                                                                                       X
+                                                                                ∀ T ⊆ N, v(xT ) =                       I(S|x) + ϵ        (5)
+                                                                                                           S∈Ωsalient
+Interactive concepts. Ren et al. (2021) proposed the in-
+teraction effect I(S) to study the emergence of concepts.               The above equation decomposes the output v(xT ) into two
+Let us consider a pre-trained neural network v and an input             parts: (1) effects of all salient interactive concepts in Ωsalient ,
+sample x = [x1 , . . . , xn ] with n input variables indexed by         and (2) a small residual term ϵ containing negligible effects
+N = {1, . . . , n}. Let Ω denote a set of interactive con-              of all non-salient interactive concepts.
+cepts extracted from the network. Each interactive concept              Empirically verifying the sparsity of concepts. Based
+S ∈ Ω corresponds to the collaboration (AND relation-                   on Eq. (5), in the following analysis, only salient inter-
+ship) between input variables in a specific set S ⊆ N , thus            active concepts in Ωsalient are regarded as valid concepts
+Ω ⊆ 2N = {S|S ⊆ N }. For instance, as Figure 1(a) shows, a              encoded by a neural network. We empirically verify the
+concept S = {x1 , x2 , x3 } is formed due to the co-occurrence          emergence of sparse concepts in various neural networks,
+of the three image patches. The concept will be activated               including multi-layer perceptrons (MLPs), residual multi-
+and make a certain interaction effect I(S) on the network               layer perceptrons (ResMLPs) (Touvron et al., 2022), long
+output, only if the patches x1 , x2 , x3 are all present. In con-       short-term memory (LSTM) (Hochreiter & Schmidhuber,
+trast, the absence (masking) of any patch among x1 , x2 , and           1997), and convolutional neural networks (CNNs), and on
+x3 will deactivate the concept and remove the interaction               different datasets, including tabular data (Census dataset
+effect, i.e., I(S|xmask ) = 0.                                          and TV news dataset (Dua & Graff, 2017)), language data
+Specifically, the interaction effect I(S|x) on the sample x is          (CoLA (Warstadt et al., 2019) and SST-2 (Socher et al.,
+computed by the Harsanyi dividend (Harsanyi, 1963).                     2013)), and image data (MNIST (LeCun et al., 1998)). Fig-
+                       X                                                ure 1(b) verifies that concepts encoded by various neural
+            I(S|x) =             (−1)|S|−|T | · v(xT ).      (3)        networks are all sparse.
+                          T ⊆S
+
+
+                                                                    3
+
+PAGE 4
+                     Bayesian Neural Networks Avoid Encoding Complex and Perturbation-Sensitive Concepts
+
+Complexity of a neural network representing a concept.                                      10000 Layer2            Layer3        Layer4
+
+
+
+
+                                                                                 MLP-5 on
+                                                                                  MNIST
+                                                                                                                                                     Feature
+In many previous studies (Deng et al., 2022; Wang et al.,                                                                                            distribution of
+2021; Zhang et al., 2021), the complexity of an interactive                                                                                          the BNN
+                                                                                                0
+                                                                                                  -15 -10 -5         -10     0      -10    0
+concept S was measured by the number of variables in the                                    10000 Conv2             FC1           FC2                Feature
+
+
+
+
+                                                                                 CIFAR-10
+                                                                                 LeNet on
+set S (also termed the order of the interactive concept),                                                                                            distribution of
+                                                                                                                                                     the surrogate
+i.e., complexity(S) = order(S) = |S|. Then, a low-order                                                                                              DNN model
+                                                                                                0
+concept represents a simple collaboration among a few input                                         -3     -2         20     30     -40        -20
+variables, while a high-order concept represents a complex
+collaboration among many input variables.                                      Figure 2. Comparison between the feature distribution of the BNN
+                                                                               and the feature distribution of the surrogate DNN model. We
+                                                                               randomly selected a feature dimension from each layer of the
+2.2. Approximating weight uncertainty by adding input
+                                                                               network. Each sub-figure compares feature distributions between
+     perturbations
+                                                                               the BNN and the surrogate DNN model in the selected dimension.
+In this paper, we aim to prove that compared to standard                       Please see Appendix I for results on tabular datasets.
+DNNs, it is more difficult to encode high-order (complex)                                                   这个是icml修改的，把
+interactive concepts as long as the network has weight un-                                                  图例的字改小了一些，
+                                                                               Table 1. Approximation error of the surrogate model and approxi-
+                                                                                                            然后图改宽了一些
+certainty. Note that previous studies (Lengerich et al., 2022;                 mation error of the baseline distribution. The approximation error
+Ren et al., 2021) found that a DNN encoding less com-                          was measured using features of the last layer of the network.
+plex concepts was NOT necessarily equivalent to a weak
+                                                                                                     MLP-5 on LeNet on MLP-8 on MLP-8 on
+representation capacity. Instead, it usually boosts the gen-                                          MNIST CIFAR-10 Census     TV news
+eralization power and adversarial robustness. In addition,                      surrogate             0.16      0.06    0.11     0.16
+as discussed in the last two paragraphs of the introduction,                    baseline              21.38    19.68    4.79     4.50
+the BNN can still encode complex concepts when it learns
+small variances.
+Unlike standard DNNs, a BNN formulates each weight as                          model ψ are set as the mean of the weight distribution
+a probability distribution, which boosts the difficulty of                     and the mean of the bias distribution in the BNN, i.e., ψ =
+theoretically analyzing interactive concepts encoded in a                      {µW (l) , µb(l) }L
+                                                                                                l=1 . Given an input sample x, we add pertur-
+
+BNN. Therefore, in this subsection, we first discover that                     bations ∆x ∼ N (0, Σ∆x ) to input variables and perturba-
+                                                                                            ′
+
+introducing uncertainty to weights in the BNN can be ap-                       tions ∆h(l ) ∼ N (0, Σ∆h(l′ ) ) to features between the first
+proximated by adding perturbations to input variables and                      layer and the (l − 1)-th layer in the surrogate DNN model
+low-layer features in experiments. In other words, we add                      (1 ≤ l′ ≤ l − 1). In this way, we can obtain the distribution
+random perturbations to both input variables and low-layer                     of the l-th layer feature h̃(l) in the surrogate DNN model,
+                                                                                                      (l)
+features of a standard DNN, and we demonstrate that such a                     denoted as pDNN (h̃ |∆ = {Σ∆x , Σ∆h(1) , · · · , Σ∆h(l−1) }),
+                                                                                                      (l)
+perturbed DNN performs as a surrogate DNN model, which                         and we use pDNN (h̃ |∆) to mimic the feature distribution
+well approximates feature representations of a BNN.                            pBNN (h(l) ) in the BNN. Thus, the objective function is for-
+                                                                               mulated as minimizing the following KL divergence.
+Let us consider a feed-forward BNN, which has L cascaded
+linear layers and ReLU layers. Given an input sample x ∈                                                                                             (l)
+RD0 (D0 = n), the feature of the l-th layer h(l) ∈ RDl                            ∀ 1 ≤ l ≤ L,              min KL(pBNN (h(l) )∥pDNN (h̃ |∆)), (7)
+                                                                                                                ∆
+(1 ≤ l ≤ L) is computed as follows.
+                                                                               where we set Σ∆x , Σ∆h(l′ ) ∈ ∆ as diagonal matrices.
+       h(l) = W (l) (· · · Φ(1) (W (1) x + b(1) ) · · · ) + b(l) ,   (6)
+                                                                               However, it is difficult to directly optimize Eq. (7). In-
+           (l)      Dl ×Dl−1          (l)     Dl                               stead, we learn the covariance matrices in a layer-wise
+where W ∈ R                  and b ∈ R denote the weight
+                                                                               manner, as follows. First, we learn the covariance ma-
+matrix and bias of the l-th linear layer, respectively. In the
+                         (l)                                                   trix Σ∆x on input variables to match the first-layer fea-
+BNN, Wij(l) ∼ N (W ij , (σij  (l) 2
+                                 ) ) is independently sampled
+                                                               (l)
+                                                                               ture of the surrogate DNN model to the first-layer feature
+from Gaussian distributions. We use µW (l) = [W ij ] ∈                                                                             (1)
+                                                                               of the BNN, i.e., minΣ∆x KL(pBNN (h(1) )∥pDNN (h̃ |Σ∆x )).
+RDl ×Dl−1 to denote the mean of the weight matrix. Besides,                    Then, we fix the learned covariance matrix Σ∆x (note
+b(l) ∼ N (µb(l) , Σb(l) ), where Σb(l) is a diagonal matrix. The               that it is not to fix the perturbation ∆x), and learn the
+diagonal matrix Φ(l) = diag(ϕ(l)                 (l)
+                                    1 , · · · , ϕDl ) ∈ {0, 1}
+                                                               Dl ×Dl
+                                                                               covariance matrix Σ∆h(1) on the first-layer feature to fit
+denotes binary gating states of the l-th ReLU layer.                           feature distributions of the second layer by minimizing
+                                                                                                       (2)
+Then, we construct the surrogate DNN model with the                            KL(pBNN (h(2) )∥pDNN (h̃ |Σ∆x , Σ∆h(1) )). We recursively
+same architecture as the BNN, to approximate the BNN’s                         learn the covariance matrix of an upper layer by fixing the
+feature distribution. Parameters of this surrogate DNN                         covariance matrices in all lower layers, until the last layer.
+
+                                                                           4
+
+PAGE 5
+                   Bayesian Neural Networks Avoid Encoding Complex and Perturbation-Sensitive Concepts
+
+Experimental verification. We trained BNNs on image                    output features of the l-th layer can be considered as per-
+datasets and tabular datasets to verify the quality of using           turbing input variables of the (l + 1)-th layer. Hence, in this
+the surrogate DNN model to approximate the feature dis-                subsection, we just analyze interactive concepts in a simple
+tribution of the BNN. For image datasets, we tested BNNs               case where we perturb input variables in a certain layer,
+with two architectures. For the MNIST dataset (LeCun                   instead of analyzing the complex case of simultaneously
+et al., 1998), we constructed a BNN with the architecture              perturbing features of different layers.
+of a 5-layer MLP. We also tested a BNN with the LeNet
+                                                                       To prove that high-order interactive concepts are more sen-
+architecture (LeCun et al., 1998), which was trained on the
+                                                                       sitive to input perturbations than low-order interactive con-
+CIFAR-10 dataset (Krizhevsky et al., 2009). We used two
+                                                                       cepts, let us first derive the analytical form of the interaction
+tabular datasets, including the UCI TV news dataset (termed
+                                                                       effect I(S) of an interactive concept.
+TV news) and the UCI census income dataset (termed Cen-
+sus) (Dua & Graff, 2017). We constructed BNNs with an                  Lemma 2.1. Given a neural network v and an arbitrary in-
+8-layer MLP architecture for these tabular datasets. All               put sample x′ ∈ Rn , the network output can be decomposed
+                                                                       using the Taylor expansion v(x′ ) = S⊆N π∈QS US,π ·
+                                                                                                               P       P
+MLPs contained 100 neurons in each hidden layer. For
+each BNN, we constructed a corresponding surrogate DNN                 J(S, π|x′ ). In this way, according to Eq. (3), the interaction
+model. Please see Appendix H for implementation details.               effect I(S|x′ ) on the sample x′ can be reformulated as
+                                                                                                 X
+Figure 2 shows that the feature distribution of the                                 I(S|x′ ) =             US,π · J(S, π|x′ ),             (8)
+                                                                                                    π∈QS
+surrogate DNN model well matched the feature dis-
+                                                                                                                                     πi
+tribution of the BNN. Furthermore, we used the KL                                                                              ′
+                                                                                                          
+                                                                                                                               xi −ri
+                                                                       where J(S, π|x′ ) =                          ′
+                                                                                                   Q
+                                                                                                       i∈S sign(xi − ri ) ·       τ
+                                                                                                                                           de-
+divergence KL(pBNN (h(l) )∥pDNN (h̃(l) |∆)) in Eq. (7) to
+                                                                       notes an expansion term of the degree π, π ∈ QS =
+measure the approximation error. To compare with
+                                                                       {[π1 , . . . , πn ]|∀i ∈ S, πi ∈ N+ ; ∀i ̸∈ S, πi = 0}. US,π =
+KL(pBNN (h(l) )∥pDNN (h̃(l) |∆)), we further constructed a sim-            m          ∂ m v(x∅ )
+                                                                       Qnτ                       · i∈S [sign(x′i − ri )]πi , m = n
+                                                                                                  Q                                P
+                                                                              πi ! ∂xπ1 ···∂xπn                                       i=1 πi .
+ple baseline distribution of the features pbase (h(l) ) =                i=1       1      n
+
+N (µ̂1, σ̂ 2 I), where µ̂ and σ̂ 2 denote the mean and the vari-
+                                                                       Lemma 2.1 provides a new perspective to analyze the sensi-
+ance over all feature dimensions of the BNN, respectively.
+                                                                       tivity of the interaction effect I(S). In particular, just like
+We computed KL(pBNN (h(l) )∥pbase (h(l) )) for comparison. Ta-
+                                                                       in Ren et al. (2023a) and Ren et al. (2023b), we mask the
+ble 1 shows that the approximation error of the surrogate
+                                                                       input variable xi by setting it to its reference value xi ← ri .
+DNN model was significantly smaller than the approxima-
+                                                                       The reference value ri is designed as follows. Let Ex [xi ]
+tion error of the baseline distribution.
+                                                                       denote the average value of the input variable xi over all in-
+Experimental results showed that the weight uncertainty                put samples, which is usually regarded as a no-information
+in a BNN could be well approximated by adding random                   state of this input variable (Ancona et al., 2019). In this
+perturbations to both input variables and low-layer features.          paper, we remove the information from the input variable
+                                                                       xi by pushing xi by a large enough distance τ towards its
+2.3. High-order concepts are sensitive to perturbations                mean value. In other words, if xi > Ex [xi ], we set the ref-
+                                                                       erence value ri = xi − τ 1 ; otherwise, ri = xi + τ . Here,
+In the previous subsection, we have demonstrated that                  τ ∈ R is a pre-defined constant. In this way, compared to
+adding random perturbations to input variables and low-                setting ri = Ex [xi ], the above setting ensures comparable
+layer features can successfully approximate the feature dis-           perturbation magnitudes over different input dimensions.
+tribution in a BNN with weight uncertainty. In this way,
+proving the difficulty of BNNs in encoding high-order in-              Furthermore, in order to simplify the proof, when we add
+teractive concepts can be converted into the proof of the              a small Gaussian perturbation ϵ ∼ N (0, σ 2 I) to the sample
+following two steps. First, in this subsection, we prove               x, we ignore the extremely low possibility of large perturba-
+that high-order interactive concepts are more sensitive to             tions |ϵi | ≥ τ because the variance σ 2 is small.
+perturbations than low-order interactive concepts, which is            Let us start with a simple case in Lemma 2.1. Since people
+inspired by the proof in Zhou et al. (2023). Then, in the              usually adopt low-order Taylor expansion for approximation
+next subsection, we will prove that perturbation-sensitive             in real implementations, we first approximate the interaction
+concepts are difficult to be learned by a neural network.              effect I(S|x′ ) using the expansion term of the lowest degree,
+Note that according to Section 2.2, introducing the weight             and analyze the influence of input perturbations on I(S|x′ ).
+uncertainty in a BNN can be approximated by adding ran-                Theorem 2.2. Let π̂ denote the lowest degree of the expan-
+dom perturbations to both input variables and features of                  1
+different layers. However, simultaneously adding perturba-                   We need to avoid the case of over-perturbation, by setting
+                                                                       ri ← max(ri , Ex [xi ]), if xi > Ex [xi ]; ri ← min(ri , Ex [xi ]),
+tions to features of multiple layers significantly boosts the          otherwise. However, such cases are not common in real applica-
+difficulty of analysis. Fortunately, adding perturbations to           tions, so we ignore such settings in the following analysis.
+
+                                                                   5
+
+PAGE 6
+                    Bayesian Neural Networks Avoid Encoding Complex and Perturbation-Sensitive Concepts
+
+sion terms of the interaction effect I(S|x′ ), i.e., ∀i ∈ S, π̂i =         Since coefficients US,π w.r.t. different S and π are usu-
+1; ∀i ̸∈ S, π̂i = 0. Let us consider the interaction effect                ally chaotic, we can roughly consider that the sensitiv-
+I(S|x′ ) only containing the expansion term of the lowest                  ity of I(S|x + ϵ) also grows exponentially along with
+degree, i.e., I(S|x′ ) = US,π̂ · J(S, π̂|x′ ). In this way, the            the order |S| of the interactive concept S . In addition,
+mean and variance of the interaction effect I(S|x′ = x + ϵ)                Theorem 2.4 also proves the approximately exponential
+                                                                                                   ′
+                                                                                                     ,π ′ |x+ϵ)]/Varϵ [J(S ′ ,π ′ |x+ϵ)]
+over different perturbations ϵ are given as                                decrease of EϵE[J(Sϵ [J(S,π|x+ϵ)]/Varϵ [J(S,π|x+ϵ)]
+                                                                                                                                         along with
+         Eϵ [I(S|x + ϵ)] = US,π̂ ,                                         |S ′ | − |S|. Similarly, we can obtain that the relative stability
+                                                                 (9)       Eϵ [I(S|x + ϵ)]/Varϵ [I(S|x + ϵ)] decreases along with the
+                            2
+       Varϵ [I(S|x + ϵ)] = US,π̂ ((1 + (σ/τ )2 )|S| − 1).                  order |S|.
+
+Theorem 2.2 proves that the variance Varϵ [I(S|x + ϵ)] in-                 Conclusions. Both Theorem 2.2 and Theorem 2.4 tell us
+creases along with the order |S| of the interactive concept in             that high-order interactive concepts are much more sensitive
+an exponential manner. It indicates that high-order interac-               to input perturbations. Furthermore, combined with the
+tive concepts are much more sensitive to input perturbations               conclusion in Section 2.2, we can conclude that high-order
+than low-order concepts. Furthermore, as mentioned in                      interactive concepts encoded by the BNN are much more
+Section 2.2, since we can add perturbations to a surrogate                 sensitive to the weight uncertainty in the BNN than low-
+DNN model to well mimic feature representations of a BNN,                  order concepts.
+we can consider that high-order interactive concepts en-                   Experimental verification. We conducted experiments
+coded by the BNN are much more sensitive to weight                         to verify the above conclusions. To verify the sensitiv-
+uncertainty in the BNN than low-order concepts.                            ity to input perturbations, we added a random perturba-
+Theorem 2.3 (Proof in Appendix G.3). Let π ∈ QS =                          tion ϵ ∼ N (0, σ 2 I) to a given input sample x, where
+{[π1 , . . . , πn ]|∀i ∈ S, πi ∈ N+ ; ∀i ̸∈ S, πi = 0} denote an           σ 2 = 0.052 . Then, we used the following two metrics,
+                                                                              (s)                                                   (s)
+arbitrary degree. Then, the mean and the variance of                       Vnoise = Ex [E|S|=s [Varϵ∼N (0,σ2 I) [I(S|x + ϵ)]]] and Knoise =
+                                                                                        |E            2 I) [I(S|x+ϵ)]|
+J(S, π|x + ϵ) over perturbations ϵ are                                     Ex [E|S|=s [ Varϵ∼N (0,σ                       ]], to measure the average
+                                                                                             ϵ∼N (0,σ 2 I)
+                                                                                                             [I(S|x+ϵ)]
+                                    Y      ϵi πi                           variance and the average relative stability of the s-order
+        Eϵ [J(S, π|x + ϵ)] = Eϵ [            ) ],
+                                             (1 +
+                                       i∈S τ                    (10)       interactive concepts w.r.t. the input perturbation ϵ. Then, a
+                                   Y         ϵi                                    (s)
+                                                                           large Vnoise             (s)
+                                                                                        or a small Knoise indicated that the s-order inter-
+     Varϵ [J(S, π|x + ϵ)] = Varϵ [      (1 + )πi ]
+                                    i∈S       τ                            active concepts were sensitive to input perturbations.
+Theorem 2.3 extends Theorem 2.2 to a general case, where                   Similarly, to verify the sensitivity to the weight un-
+we use a higher-order Taylor expansion to represent I(S|x′ ).              certainty, we sampled different weights W from the
+Theorem 2.4 (Proof in Appendix G.4). Let S and S ′ be                      weight distribution qθ (W ) of the BNN. Then, we used
+                                                                             (s)                                                        (s)
+                                                                           VBNN = Ex [E|S|=s [VarW ∼qθ (W ) [I(S|x, W )]]] and KBNN =
+two interactive concepts, such that S ⊊ S ′ . Let us con-                               |EW ∼q (W ) [I(S|x,W )]|
+sider expansion terms J(S, π) and J(S ′ , π ′ ), where the term            Ex [E|S|=s [ Var θ                     ]] to measure the average
+                                                                                           W ∼qθ (W ) [I(S|x,W )]
+J(S ′ , π ′ ) is extended from the term J(S, π) with π ≺ π ′ .             variance and the average relative stability of the s-order
+I.e., (1) ∀i ∈ S ′ , πi′ ∈ N+ ; otherwise, πi′ = 0. (2) Given π ′ ,        interactive concepts w.r.t. the weight uncertainty in the
+                                                                                                                       (s)
+∀j ∈ S, πj = πj′ ; otherwise, πj = 0. Then, we have                        BNN. Therefore, a large value of VBNN           or a small value of
+                                                                             (s)
+                                                                           KBNN indicated that the s-order interactive concepts were
+   Varϵ [J(S ′ , π ′ |x + ϵ)]   Y                      ϵi ′                sensitive to the weight uncertainty. We followed experimen-
+                              >            E2ϵi [(1 + )πi ],
+   Varϵ [J(S, π|x + ϵ)]           i∈S ′ \S             τ                   tal settings in the experiments paragraph in Section 2.2 to
+          ′     ′                    ′   ′
+   Eϵ [J(S , π |x + ϵ)]/Varϵ [J(S , π |x + ϵ)]                             train BNNs. Specifically, we trained BNNs with the MLP
+    Eϵ [J(S, π|x + ϵ)]/Varϵ [J(S, π|x + ϵ)]
+                                                                (11)
+                                                                           architecture on the MNIST dataset, the TV news dataset,
+                                             1                             and the Census dataset. We trained BNNs with the LeNet ar-
+                             < Q                     ϵi π ′
+                                                            ,
+                                            i [(1 + τ )
+                                    ′    E ϵ             i]                chitecture on the CIFAR-10 dataset. Appendix H introduces
+                                i∈S \S
+                                                                           how to efficiently compute I(S|x) on images.
+                                      ϵi πi′
+and we can also obtain Eϵi [(1 +      τ
+                                        ) ]    ≥ 1.                                                                        (s)       (s)
+                                                                           Figure 3 shows that the average variance Vnoise     and VBNN
+Theorem 2.4 indicates that for an arbitrary degree π of the in-            increased exponentially along with the order s, while the
+                                                                                               (s)        (s)
+teractive concept S , Varϵ [J(S ′ , π ′ |x + ϵ)]/Varϵ [J(S, π|x +          relative stability Knoise and KBNN both decreased along with
+ϵ)] increases in an exponential manner along with |S ′ \                   the order. This demonstrated that high-order interactive
+S| = |S ′ | − |S|. Therefore, we can roughly consider that                 concepts were much more sensitive to input perturbations
+Varϵ [J(S, π|x + ϵ)] increases exponentially w.r.t. the or-                and the weight uncertainty in the BNN, thereby verifying
+der |S|. Furthermore, according to Lemma 2.1, I(S|x + ϵ)                   Theorem 2.2 and Theorem 2.4.
+can be re-written as the weighted sum of J(S, π|x + ϵ).
+
+                                                                       6
+
+PAGE 7
+                                            长宽比是 (8,7)的版本
+
+
+
+                    Bayesian Neural Networks Avoid Encoding Complex and Perturbation-Sensitive Concepts
+
+                                                                                           (𝑠𝑠)
+         (𝑠𝑠)
+       𝑉𝑉noise     (a)                2000
+                                     (𝑠𝑠)
+                                   𝐾𝐾noise           (b)     (𝑠𝑠)
+                                                           𝑉𝑉BNN            (c)           𝐾𝐾BNN          (d)               MLP-8 on TV news
+                                                                                                                           MLP-8 on Census
+                                      1000
+                                                                                                                            MLP-5 on MNIST
+                                                                                                                            LeNet on CIFAR-10
+
+                   order                           order                   order                        order
+
+                                                                     (s)
+Figure 3. (a) The exponential increase of the average variance Vnoise and (b) the roughly exponential decrease of the average relative
+            (s)
+stability Knoise along with the order s, under perturbations from a distribution ϵ ∼ N (0, 0.052 · I). (c) The exponential increase of the
+                     (s)                                                                                (s)
+average variance VBNN and (d) the roughly exponential decrease of the average relative stability KBNN along with the order s, under
+weight uncertainty in the BNN.
+
+
+2.4. Perturbation-sensitive concepts are difficult to learn                 explains the output as a linear regression problem.
+In this subsection, we prove that high-order interactive con-
+                                                                                                             X
+                                                                                                  v(x′ ) =            US · CS (x′ ),            (14)
+                                                                                                                S∈Ω
+cepts, which are sensitive to input perturbations and weight
+uncertainty, are difficult to be learned by a BNN in a regres-             where the activation state CS (x′ ) can be considered as an in-
+sion task. Specifically, we measure the learning effects of                put dimension of the linear function, which reflects whether
+interactive concepts (denoted by US ), and Theorems 2.5 and                the input sample x′ contains the concept S .
+2.6 prove the small learning effects of perturbation-sensitive
+concepts.                                                                  Therefore, the absolute value of the coefficient US can be
+                                                                           considered as the strength of the neural network in learning
+To facilitate the analysis, we first simplify the conceptual               the interactive concept S . According to Section 2.1 and Ren
+learning as a linear problem. Specifically, we first rewrite               et al. (2023a), most interactive concepts have negligible
+the interaction effect of an interactive concept S . Given an              coefficients |US | ≈ 0, so we can consider that the neural
+input sample x, according to Eq. (8), the interaction effect               network only encodes a few interactive concepts S with
+of the concept S on the sample x′ (obtained by applying                    large absolute values |US |.
+some transformations on x), I(S|x′ ), can be rewritten as
+                                                                            Let us facilitate the poof on a regression task. Based on
+                           ′
+                    I(S|x ) = US · CS (x ),    ′
+                                                              (12)          the conclusion in Section 2.2, we can roughly consider
+                                                                            that training a BNN on normal samples is equivalent to
+                                                                            training a surrogate DNN model on perturbed input samples
+where the constant US = I(S|x) denotes the interaction
+                                                                            x′ = x + ϵ. Then, according to Eq. (14), the learning of the
+effect of the concept S , and the function for the activation
+                                                                            BNN on a certain input sample can be roughly represented
+state is given as CS (x′ ) = π∈QS US,π J(S, π|x′ )/US .
+                            P
+                                                                            as min{US |S∈Ω} L({US }), and the loss is given by
+Understanding of CS (x′ ). Let us consider a sample x′
+                                                                                   L({US }) = Eϵ (y ∗ − v(x′ ))2
+                                                                                                                
+where each input variable x′i is either masked by the refer-
+ence value ri or kept unchanged as xi . Then, the function
+                                                                                                         X                                      (15)
+                                                                                            = Eϵ [(y ∗ −        US · CS (x + ϵ))2 ]
+                                                                                                                 S∈Ω
+CS (x′ ) defined above represents the binary activation state
+of the concept S in the sample x′ , which is an AND rela-                  where x and y ∗ denote the input sample and the ground-
+tionship between all variables in S :                                      truth output, respectively, and x′ = x + ϵ.
+                               ^                                           Theorem 2.5 (Proof in Appendix G.5). Given two random
+                 CS (x′ ) =           unmask(x′i ),           (13)         interactive concepts S and S ′ , we can roughly assume that
+                               i∈S
+                                                                           CS (x + ϵ) is independent of CS ′ (x + ϵ), because the two
+where the binary function unmask(x′i ) ∈ {0, 1} checks                     concepts S and S ′ usually have little overlap in most cases.
+whether the i-th variable x′i is masked in the sample x′ . If              Let Eϵ [CS (x + ϵ)] and Varϵ [CS (x + ϵ)] denote the mean and
+the i-th variable is masked, then unmask(x′i ) = 0; otherwise,             the variance of CS (x + ϵ) w.r.t. ϵ, respectively. Then, the
+unmask(x′i ) = 1.                                                          solution to Eq. (15) satisfies the following property:
+Only when all input variables in S are not masked in the                      ∀ S ∈ Ω,     |US∗ | ∝ |Eϵ [CS (x + ϵ)]/Varϵ [CS (x + ϵ)]| (16)
+sample x′ , the concept S is activated, and CS (x′ ) = 1. If any
+input variable in S is masked, then the concept S will not
+                                                                           Theorem 2.5 proves that the learning effect of an interactive
+be activated (CS (x′ ) = 0), yielding zero interaction effect
+                                                                           concept S , measured by |US∗ |, is proportional to the relative
+I(S|x′ ) = 0.
+                                                                           stability of the activation state of the interactive concept
+Thus, we can extend Eq. (4) to a continuous version that                   |Eϵ [CS (x + ϵ)]/Varϵ [CS (x + ϵ)]| w.r.t. perturbations ϵ. This
+
+                                                                      7
+
+PAGE 8
+                     Bayesian Neural Networks Avoid Encoding Complex and Perturbation-Sensitive Concepts
+
+       (a)                                                                                                    Standard DNN 𝝍𝝍𝜽𝜽∗
+                 MLP-8 on TV news      MLP-8 on Census       MLP-5 on MNIST           LeNet on CIFAR-10
+                                                                                                              BNN 𝜽𝜽∗
+                                                                                                              Standard DNN 𝝍𝝍∗
+                                                                                                              BNN 𝜽𝜽𝝍𝝍∗
+                       order                 order                     order                 order
+       (b)
+                 Acc=60%               Acc=65%               Acc=70%                   Acc=75%
+                                                                                                                           �
+                                                                                                              Standard DNN 𝝍𝝍
+                                                                                                                  �
+                                                                                                              BNN 𝜽𝜽
+
+                      order                  order                     order                 order
+
+Figure 4. (a) Comparison of the strength of interactive concepts (i) between a trained BNN θ ∗ and the constructed standard DNN ψθ∗ ,
+(ii) between a trained standard DNN ψ ∗ and the constructed BNN θψ∗ . (b) We trained a standard DNN ψ̂ and a BNN θ̂ with the LeNet
+architecture on the CIFAR-10 dataset, and compared the strength of interactive concepts between the two networks when the two networks
+were trained to have the same training accuracy.
+
+
+indicates that perturbation-sensitive interactive concepts are by ψθ∗ . Then, we compared the strength of all high-order
+more difficult to learn.           最后第二行用的是lenet cifar10，训     interactive concepts between the BNN θ∗ and the standard
+                                   练acc到同一level的图              DNN ψθ∗ without weight/feature uncertainty.
+Theorem 2.6 (Proof in Appendix G.6). Let Amin =
+minS |US | and Amax = maxS |US | denote the lower bound                 (2) Similarly, given a trained standard DNN ψ ∗ , we con-
+and the upper bound of |US | over all interactive concepts S .          structed a BNN θψ∗ by setting the mean value of its weight
+Then, for any S ⊆ N , we have                                           distribution to the weights of the standard DNN. We set all
+                                                                        weight dimensions in the l-th layer of the BNN to share the
+            |Eϵ [I(S|x + ϵ)]|   |Eϵ [CS (x + ϵ)]|
+   Amin ·                     ≤                                         same variance σl2 , where σl2 was computed as the average
+            Varϵ [I(S|x + ϵ)]   Varϵ [CS (x + ϵ)]
+                                                            (17)        of variances of all weight dimensions in the l-th layer of
+                                       |Eϵ [I(S|x + ϵ)]|                the previous BNN θ∗ . Then, we compared the strength of
+                              ≤ Amax ·
+                                       Varϵ [I(S|x + ϵ)]                high-order interactive concepts between the standard DNN
+                                                                        ψ ∗ and the BNN θψ∗ .
+Theorem 2.6 proves that high-order (complex) interactive
+concepts have low relative stability w.r.t. perturbations ϵ.            (3) We trained a standard DNN and a BNN with the same
+In fact, both Theorem 2.4 and Figure 3 have told us that                architecture. Then, we compared the strength of high-order
+|Eϵ [I(S|x + ϵ)]/Varϵ [I(S|x + ϵ)]| significantly decreases
+                                                                        interactive concepts between each pair of standard DNN
+                                                                        ψ̂ and the BNN θ̂ when these two networks were trained
+along with the order s = |S| of the interactive concept S .
+Therefore, both the lower bound and the upper bound of                  to have the same training accuracy. We used the training
+|Eϵ [CS (x + ϵ)]/Varϵ [CS (x + ϵ)]| in Eq. (17) decrease along
+                                                                        accuracy to align the learning progress of the two networks
+with the order s significantly. In this way, we can approx-             for fair comparison.
+imately consider that the strength of encoding a concept                Specifically, the average strength of the s-order
+|US∗ | ∝ |Eϵ [CS (x+ϵ)]/Varϵ [CS (x+ϵ)]| also decreases along           interactive concepts was measured as Istrength      (s)
+                                                                                                                                    =
+with the order of interactive concepts. In other words, we              Ex [ES⊆N,|S|=s [|I(S|x)|]].  To compute the interaction
+prove that high-order interactive concepts are more difficult                                                    p(y=y ∗ |xS )
+                                                                        effect I(S|x), we set v(xS ) = log 1−p(y=y       ∗ |x )
+                                                                                                                             S
+                                                                                                                                ∈ R,
+to be learned under perturbations ϵ. Combining the conclu-              which reflected the confidence of classifying the masked
+sion in Section 2.2, we also prove that high-order interactive          input sample xS into the ground-truth category y ∗ . For
+concepts are more difficult to be learned by the BNN.                   standard DNNs, p(y = y ∗ |xS ) referred to the classification
+                                                                        probability of the ground-truth category on the masked
+3. Experiments                                                          sample xS . For BNNs, p(y = y ∗ |xS ) was computed
+                                                                        according to Eq. (2), where we sampled ten neural networks
+In this section, we experimentally verified that compared to            from the weight distribution qθ (W ) of the BNN, and
+standard DNNs, BNNs were less likely to encode high-order               computed the average classification probability over all
+(complex) interactive concepts. Specifically, we constructed            these networks.
+three pairs of baseline networks for comparison.
+                                                                        We followed experimental settings in the experiments para-
+(1) Given a trained BNN θ∗ , we constructed a standard                  graph in Section 2.2 to train the networks. Specifically, we
+DNN by setting its weights to the mean value of the weight              trained standard DNNs and BNNs with the MLP architec-
+distribution of the BNN. The standard DNN was denoted
+
+                                                                   8
+
+PAGE 9
+                  Bayesian Neural Networks Avoid Encoding Complex and Perturbation-Sensitive Concepts
+
+ture on the TV news dataset, the Census dataset, and the               and Explaining the Representation Bottleneck of DNNs.
+MNIST dataset. We trained standard DNNs and BNNs with                  In International Conference on Learning Representations,
+the LeNet architecture on the CIFAR-10 dataset. Appendix               2022.
+H introduces how to efficiently compute I(S|x) on images.
+Figure 4 shows that the strength of high-order interactive           Dua, D. and Graff, C. UCI machine learning repository,
+concepts of BNNs was much weaker than that of standard                 2017. URL http://archive.ics.uci.edu/ml.
+DNNs in all comparisons. This verified that BNNs were less
+likely to encode high-order (complex) interactive concepts           Engstrom, L., Ilyas, A., Santurkar, S., Tsipras, D., Tran,
+than standard DNNs.                                                    B., and Madry, A. Adversarial robustness as a prior for
+                                                                       learned representations, 2019.
+
+4. Conclusion and discussion                                         Etmann, C., Lunz, S., Maass, P., and Schönlieb, C.-B.
+                                                                       On the connection between adversarial robustness and
+In this paper, we have proven the tendency of mean-field
+                                                                       saliency map interpretability, 2019.
+variational BNNs to avoid encoding high-order (complex)
+concepts. Many studies (Ren et al., 2023a; Li & Zhang,               Foong, A., Burt, D., Li, Y., and Turner, R. On the ex-
+2023; Ren et al., 2023c) have shown that there does exist a            pressiveness of approximate inference in bayesian neural
+concept-emerging phenomenon when a neural network is                   networks. In Larochelle, H., Ranzato, M., Hadsell, R.,
+sufficiently trained.                                                  Balcan, M., and Lin, H. (eds.), Advances in Neural Infor-
+Besides, as discussed in the introduction, encoding less com-          mation Processing Systems, volume 33, pp. 15897–15908.
+plex concepts does not mean that BNNs have weaker rep-                 Curran Associates, Inc., 2020.
+resentation power than standard DNNs, because a standard
+DNN can be considered as a specific BNN with zero weight             Fortuin, V., Garriga-Alonso, A., Ober, S. W., Wenzel, F.,
+uncertainty. More crucially, Ren et al. (2021) and Lengerich           Ratsch, G., Turner, R. E., van der Wilk, M., and Aitchi-
+et al. (2022) proved that high-order concepts are usually vul-         son, L. Bayesian neural network priors revisited. In
+nerable to adversarial attacks and have weak generalization            International Conference on Learning Representations,
+power. Thus, it is hard to say whether the tendency to avoid           2022.
+encoding complex concepts is a demerit or not.
+                                                                     Gal, Y. and Ghahramani, Z. Dropout as a bayesian approx-
+                                                                       imation: Representing model uncertainty in deep learn-
+Acknowledgements. This work is partially supported
+                                                                       ing. In international conference on machine learning, pp.
+by the National Nature Science Foundation of China
+                                                                      1050–1059. PMLR, 2016.
+(62276165), National Key R&D Program of China
+(2021ZD0111602), Shanghai Natural Science Foundation                 Gal, Y. and Smith, L. Sufficient conditions for idealised
+(21JC1403800,21ZR1434600), National Nature Science                     models to have no adversarial examples: a theoretical and
+Foundation of China (U19B2043). This work is also par-                 empirical study with bayesian neural networks, 2018.
+tially supported by Huawei Technologies Inc.
+                                                                     Grabisch, M. and Roubens, M. An axiomatic approach to
+References                                                             the concept of interaction among players in cooperative
+                                                                       games. International Journal of game theory, 28(4):547–
+Ancona, M., Oztireli, C., and Gross, M. Explaining deep                565, 1999.
+  neural networks with a polynomial time algorithm for
+  shapley value approximation. In International Confer-              Harsanyi, J. C. A simplified bargaining model for the n-
+  ence on Machine Learning, pp. 272–281. PMLR, 2019.                   person cooperative game. International Economic Re-
+                                                                       view, 4(2):194–220, 1963. ISSN 00206598, 14682354.
+Blundell, C., Cornebise, J., Kavukcuoglu, K., and Wierstra,
+  D. Weight uncertainty in neural network. In International
+                                                                     Hochreiter, S. and Schmidhuber, J. Long short-term memory.
+  conference on machine learning, pp. 1613–1622. PMLR,
+                                                                       Neural Computation, 9(8):1735–1780, 1997. doi: 10.
+  2015.
+                                                                      1162/neco.1997.9.8.1735.
+Carbone, G., Wicker, M., Laurenti, L., Patane, A., Borto-
+  lussi, L., and Sanguinetti, G. Robustness of bayesian              Ilyas, A., Santurkar, S., Tsipras, D., Engstrom, L., Tran, B.,
+  neural networks to gradient-based attacks. Advances                   and Madry, A. Adversarial examples are not bugs, they
+  in Neural Information Processing Systems, 33:15602–                   are features. In Wallach, H., Larochelle, H., Beygelz-
+  15613, 2020.                                                          imer, A., d'Alché-Buc, F., Fox, E., and Garnett, R. (eds.),
+                                                                        Advances in Neural Information Processing Systems, vol-
+Deng, H., Ren, Q., Zhang, H., and Zhang, Q. Discovering                 ume 32. Curran Associates, Inc., 2019.
+
+                                                                 9
+
+PAGE 10
+                  Bayesian Neural Networks Avoid Encoding Complex and Perturbation-Sensitive Concepts
+
+Janizek, J. D., Sturmfels, P., and Lee, S.-I. Explaining              DNNs. In Proceedings of the IEEE/CVF Conference on
+  explanations: Axiomatic feature interactions for deep               Computer Vision and Pattern Recognition (CVPR), pp.
+  networks. J. Mach. Learn. Res., 22:104–1, 2021.                     20280–20289, June 2023a.
+
+Kingma, D. P. and Ba, J. Adam: A method for stochastic              Ren, J., Zhou, Z., Chen, Q., and Zhang, Q. Can We Faith-
+  optimization. In ICLR (Poster), 2015.                               fully Represent Masked States to Compute Shapley Val-
+                                                                      ues on a DNN? In International Conference on Learning
+Krishnan, R., Subedar, M., and Tickoo, O. Specifying                  Representations, 2023b.
+  weight priors in bayesian deep neural networks with em-
+  pirical bayes. In Proceedings of the AAAI Conference on           Ren, Q., Gao, J., Shen, W., and Zhang, Q. Where We Have
+  Artificial Intelligence, volume 34, pp. 4477–4484, 2020.            Arrived in Proving the Emergence of Sparse Symbolic
+                                                                      Concepts in AI Models. arXiv preprint arXiv:2305.01939,
+Kristiadi, A., Hein, M., and Hennig, P. Being bayesian,               2023c.
+  even just a bit, fixes overconfidence in relu networks. In
+  International conference on machine learning, pp. 5436–           Socher, R., Perelygin, A., Wu, J., Chuang, J., Manning,
+  5446. PMLR, 2020.                                                   C. D., Ng, A. Y., and Potts, C. Recursive deep models for
+                                                                      semantic compositionality over a sentiment treebank. In
+Krizhevsky, A., Hinton, G., et al. Learning multiple layers
+                                                                      Proceedings of the 2013 conference on empirical methods
+  of features from tiny images. 2009.
+                                                                      in natural language processing, pp. 1631–1642, 2013.
+LeCun, Y., Bottou, L., Bengio, Y., and Haffner, P. Gradient-
+                                                                    Sundararajan, M., Dhamdhere, K., and Agarwal, A. The
+  based learning applied to document recognition. Proceed-
+                                                                      shapley taylor interaction index. In International Con-
+  ings of the IEEE, 86(11):2278–2324, 1998.
+                                                                      ference on Machine Learning, pp. 9259–9268. PMLR,
+Lengerich, B. J., Xing, E., and Caruana, R. Dropout as                2020.
+  a regularizer of interaction effects. In Camps-Valls, G.,
+                                                                    Touvron, H., Bojanowski, P., Caron, M., Cord, M., El-
+  Ruiz, F. J. R., and Valera, I. (eds.), Proceedings of The
+                                                                      Nouby, A., Grave, E., Izacard, G., Joulin, A., Syn-
+  25th International Conference on Artificial Intelligence
+                                                                      naeve, G., Verbeek, J., and Jégou, H. Resmlp: Feed-
+  and Statistics, volume 151 of Proceedings of Machine
+                                                                      forward networks for image classification with data-
+  Learning Research, pp. 7550–7564. PMLR, 28–30 Mar
+                                                                      efficient training. IEEE Transactions on Pattern Anal-
+  2022.
+                                                                      ysis and Machine Intelligence, pp. 1–9, 2022. doi:
+Li, M. and Zhang, Q. Does a Neural Network Really En-                 10.1109/TPAMI.2022.3206148.
+  code Symbolic Concepts? International Conference on
+                                                                    Wang, X., Ren, J., Lin, S., Zhu, X., Wang, Y., and Zhang,
+  Machine Learning, 2023.
+                                                                     Q. A Unified Approach to Interpreting and Boosting
+Lundberg, S. M., Erion, G. G., and Lee, S.-I. Consistent in-         Adversarial Transferability. In International Conference
+  dividualized feature attribution for tree ensembles. arXiv         on Learning Representations, 2021.
+  preprint arXiv:1802.03888, 2018.
+                                                                    Warstadt, A., Singh, A., and Bowman, S. R. Neural network
+Madry, A., Makelov, A., Schmidt, L., Tsipras, D., and                acceptability judgments. Transactions of the Association
+ Vladu, A. Towards deep learning models resistant to                 for Computational Linguistics, 7:625–641, 2019.
+ adversarial attacks. In International Conference on Learn-
+ ing Representations, 2018.                                         Wenzel, F., Roth, K., Veeling, B. S., Swiatkowski, J., Tran,
+                                                                     L., Mandt, S., Snoek, J., Salimans, T., Jenatton, R., and
+Olah, C., Mordvintsev, A., and Schubert, L. Feature vi-              Nowozin, S. How good is the bayes posterior in deep
+  sualization. Distill, 2017. doi: 10.23915/distill.00007.           neural networks really? In International conference on
+  https://distill.pub/2017/feature-visualization.                    machine learning, 2020.
+
+Ren, J., Zhang, D., Wang, Y., Chen, L., Zhou, Z., Chen, Y.,         Willink, R. Normal moments and hermite polynomials.
+  Cheng, X., Wang, X., Zhou, M., Shi, J., and Zhang, Q. A            Statistics & Probability Letters, 73(3):271–275, 2005.
+  Unified Game-Theoretic Interpretation of Adversarial Ro-           ISSN 0167-7152. doi: https://doi.org/10.1016/j.spl.2005.
+  bustness. In Advances in Neural Information Processing             03.015.
+  Systems, volume 34, pp. 3797–3810. Curran Associates,
+  Inc., 2021.                                                       Wu, A., Nowozin, S., Meeds, E., Turner, R. E., Hernandez-
+                                                                     Lobato, J. M., and Gaunt, A. L. Deterministic variational
+Ren, J., Li, M., Chen, Q., Deng, H., and Zhang, Q. Defining          inference for robust bayesian neural networks. In Inter-
+  and Quantifying the Emergence of Sparse Concepts in                national Conference on Learning Representations, 2019.
+
+                                                               10
+
+PAGE 11
+                  Bayesian Neural Networks Avoid Encoding Complex and Perturbation-Sensitive Concepts
+
+Zhang, H., Li, S., Ma, Y., Li, M., Xie, Y., and Zhang,
+  Q. Interpreting and Boosting Dropout from a Game-
+  Theoretic View. In International Conference on Learning
+  Representations, 2021.
+Zhang, J., Hua, Y., Song, T., Wang, H., Xue, Z., Ma, R., and
+  Guan, H. Improving bayesian neural networks by adver-
+  sarial sampling. In Proceedings of the AAAI Conference
+  on Artificial Intelligence, 2022.
+Zhou, H., Zhang, H., Deng, H., Liu, D., Shen, W.,
+  Chan, S.-H., and Zhang, Q. Concept-Level Explana-
+  tion for the Generalization of a DNN. arXiv preprint
+  arXiv:2302.13091, 2023.
+
+
+
+
+                                                               11
+
+PAGE 12
+                  Bayesian Neural Networks Avoid Encoding Complex and Perturbation-Sensitive Concepts
+
+A. Discussion on literature in representation capacities of BNNs
+Many studies investigated the representation capacity of BNNs from different perspectives. Gal & Smith (2018) and Carbone
+et al. (2020) proved that BNNs were robust to adversarial attacks. Kristiadi et al. (2020) proved that BNNs could mitigate the
+over-confidence problem in standard ReLU networks. Wenzel et al. (2020) considered that the poor performance of BNNs
+was due to the inappropriate prior distribution of weights in the BNN, and a series of studies (Wu et al., 2019; Krishnan et al.,
+2020; Fortuin et al., 2022) found that using carefully-designed prior distributions of weights could improve the performance
+of the BNN. Zhang et al. (2022) also showed that adding adversarial perturbations to weights during training could improve
+the performance of the BNN. Besides, Foong et al. (2020) proved that using either fully-factorized Gaussian distributions or
+dropout operations to approximate the posterior distribution of a BNN would lead to inaccurate uncertainty estimation of the
+network prediction. Unlike previous studies, we focus on the conceptual representation of BNNs, and theoretically prove
+that mean-field variational BNNs are less likely to encode complex interactive concepts than standard DNNs.
+
+B. Discussion on literature in interactions in neural networks
+Interactions in game theory are often used to explain neural networks and are closely related to the quantification of
+concepts. Grabisch & Roubens (1999) first proposed the Shapley interaction index, and Lundberg et al. (2018) later used this
+index to explain tree ensembles. Janizek et al. (2021) explained the pairwise feature interaction in DNNs, while Sundararajan
+et al. (2020) proposed the Shapley Taylor interaction index to quantify interactions among multiple input variables. Ren
+et al. (2023a) used game-theoretic interactions to analyze the emergence of concepts in the training of neural networks, and
+proved the faithfulness and sparsity of such formulation of concepts. In this paper, we follow the definition of concepts
+in Ren et al. (2023a), and prove BNNs’ tendency to avoid encoding high-order (complex) concepts.
+
+C. Discussion on literature in the connection between adversarial robustness and interpretability
+Recent studies have shown that adversarial robustness is closely related to the interpretability of neural networks. Etmann
+et al. (2019) discovered and explained the phenomenon that adversarially robust models exhibit simpler and more human-
+interpretable saliency maps. Engstrom et al. (2019) demonstrated that adversarially robust models showed clear human-
+recognizable features when using the optimization-based feature visualization method (Olah et al., 2017), and the mapping
+from input images to intermediate features of the model is approximately invertible. Ilyas et al. (2019) demonstrated that
+adversarial samples can be attributed to the existence of non-robust features (features that are noisy and not interpretable
+to humans, but are highly predictive). Ren et al. (2021) showed that high-order (complex) interactive concepts encoded
+by neural networks are vulnerable to adversarial attacks, and that adversarially-trained DNNs encode more discriminative
+low-order (simple) interactive concepts than standard DNNs. In this paper, we prove that BNNs tend to avoid encoding
+high-order (complex) interactive concepts, which implies that BNNs may exhibit good adversarial robustness, from the
+perspective of conceptual representations.
+
+
+
+
+                                                              12
+
+PAGE 13
+                                Bayesian Neural Networks Avoid Encoding Complex and Perturbation-Sensitive Concepts
+
+D. Experiments on the connection between conceptual complexity and adversarial robustness
+We show experimental results in (Ren et al., 2021) to demonstrate that high-order (complex) interactive concepts are more
+vulnerable to adversarial attacks, as illustrated in Figure 5. Although the interaction used in (Ren et al., 2021) was a bit
+different from the interaction used in this paper, we can prove that the Harsanyi dividend interaction in this paper is the
+elementary component of the multi-order interaction in (Ren et al., 2021). Thus, experimental results still reflect adversarial
+vulnerability of high-order interactive concepts. Please see Ren et al. (2021) for more details.
+
+                                       ResNet-18                          ResNet-50                            Wide-                           DenseNet-161                     VGG-16
+                            0.04                           0.06                                              ResNet50-4
+        Standard
+
+
+
+
+                                                                                                                                0.02                             0.06
+                                                                                              0.06                                                                                                       𝑚
+          DNN
+
+
+
+
+                               0
+                                                                                                                                                                                                        𝐼nor
+                        𝑚
+
+
+
+
+                                                                                                                                                                 0.02
+                                                           0.02
+                        𝐼
+
+
+
+
+                            -0.04                                                                 0                             -0.02
+                                                                                                                                                                 -0.02
+
+                            -0.08                          -0.02                              -0.06                             -0.06                            -0.06                                   𝑚
+                                    0.1n   order   0.95n           0.1n
+                                                                            order
+                                                                                     0.95n            0.1n
+                                                                                                               order
+                                                                                                                        0.95n           0.1n
+                                                                                                                                                 order
+                                                                                                                                                         0.95n           0.1n
+                                                                                                                                                                                  order
+                                                                                                                                                                                          0.95n
+                                                                                                                                                                                                        𝐼adv
+        Adversarially
+        trained DNN
+
+
+
+
+                                                           0.02                               0.06                              0.04                             0.04
+                            0.03
+                                                           0.01                                                                                                  0.02
+                                                                                                                                                                                                             (𝑚)   (𝑚)
+                        𝑚
+
+
+
+
+                            0.01
+                                                                                              0.02                                 0
+                                                                                                                                                                                                  Δ𝐼 (𝑚) = 𝐼nor − 𝐼adv
+                        𝐼
+
+
+
+
+                                                              0                                                                                                     0
+
+                            -0.01                          -0.01                              -0.02                             -0.04                            -0.02
+                                    0.1n           0.95n           0.1n               0.95n           0.1n              0.95n           0.1n             0.95n           0.1n             0.95n
+                                           order                             order                              order                            order                            order
+
+Figure 5. Adversarial attacks mainly affect high-order interactive concepts. Please refer to Ren et al. (2021) for more details.
+
+
+
+E. Comparison of adversarial robustness between BNNs and standard DNNs
+This experiment compares the adversarial robustness between BNNs and standard DNNs. Specifically, we train two BNNs
+with 8-layer MLP architecture on tabular datasets, including the Census dataset and the TV news dataset. All MLPs
+contain 100 neurons in each hidden layer. For each trained BNN θ ∗ , we compare this BNN with a standard DNN ψθ∗
+that is constructed by following the experimental setting of Comparison (1) in Section 3. In other words, the standard
+DNN ψθ∗ is constructed by setting its weights to the mean value of the weight distribution of the BNN. Thus, with such
+experimental settings, the main difference between the BNN θ ∗ and the DNN ψθ∗ is the weight uncertainty of BNNs, so
+that our experiment can faithfully reflect the impact of weight uncertainty of BNNs on the adversarial robustness.
+We compare the classification accuracy on adversarial samples in the testing set between the BNN θ ∗ and the standard DNN
+ψθ∗ . To this end, for each pair of BNN and standard DNN, we adopt the untargeted PGD adversarial attack (Madry et al.,
+2018) based on the l∞ norm, and accordingly obtain their accuracies on adversarial samples. In the PGD attack based on
+the l∞ norm, an adversarial sample x̃ is constrained wthin the l∞ -ball around the original sample x, i.e., ∥x̃ − x∥∞ ≤ ϵ.
+We conduct the attack for 20 steps with ϵ = 0.1, and set the step size to 0.01. Table 2 shows that BNNs exhibit higher
+adversarial accuracies than the corresponding DNNs, which indicates that BNNs are more robust to adversarial attacks.
+
+
+                        Table 2. Adversarial accuracies of the BNN θ ∗ and the standard DNN ψθ∗ constructed based on the BNN.
+
+                                                                                                 MLP-8 on Census                                 MLP-8 on TV news
+                                                                    BNN θ ∗                         77.51%                                           53.54%
+                                                                    DNN ψθ∗                         75.22%                                           50.54%
+
+
+
+F. Experiments on the connection between conceptual complexity and generalization power.
+ Zhou et al. (2023) have investigated the connection between the generalization ability of an interactive concept encoded by
+a neural network and the complexity (order) of this concept.
+The generalization ability of a concept S is defined as follows. For a generalizable concept S, if the concept is frequently
+extracted from training samples, then it is supposed to be also frequently extracted from testing samples and to make
+consistently positive (or consistently negative) effects to the classification of a certain category. Otherwise, this concept
+would not be considered generalizable. Thus, the generalization ability of a specific concept can be evaluated by whether
+this concept’s interaction effects over training samples are similar to its interaction effects over testing samples. To this end,
+Zhou et al. (2023) quantified the average generalization ability g (m) over all m-order interactive concepts by the similarity
+
+                                                                                                                           13
+
+PAGE 14
+                   Bayesian Neural Networks Avoid Encoding Complex and Perturbation-Sensitive Concepts
+
+between interaction effects of m-order interactive concepts in training samples and those in testing samples:
+                                                       h                      i
+                                                  def           (m)     (m)
+                                            g (m) = Ec sim Itrain, c , Itest ,c ,                                                       (18)
+
+                       (m)                                                                                                    ⊤
+where the vector Itrain, c = [Ex∈train,c [I (S1 |x)] , Ex∈train,c [I (S2 |x)] , . . . , Ex∈train,c [I (Sd |x)]]    ∈ Rd denotes
+interaction effects of all m-order interactive concepts [S1 , · · · , Sd ]. The interaction effect of each concept
+                                                                                                                           (m)
+Ex∈train,c [I (Si |x)] is averaged over different training samples in the category c. Accordingly, the vector Itest, c =
+                                                                               ⊤
+[Ex∈test,c [I (S1 |x)] , Ex∈test,c [I (S2 |x)] , . . . , Ex∈test,c [I (Sd |x)]] ∈ Rd denotes interaction effects of all m-order in-
+teractive concepts, which are averaged over different testing samples in the category c.
+                                                                                                                                  (m)   (m)
+In addition, the similarity is defined as the following Jaccard similarity between non-negative elements of Itrain, c and Itest, c .
+                                                                                                                 
+                                                                                              (m)          (m)
+                                                                                    min I˜train ,c , I˜test,c
+                           (m)        (m)                    (m)         (m)
+                      sim Itrain,c , Itest,c = Jaccard sim I˜train,c , I˜test,c       =                             1
+                                                                                                                          ,             (19)
+                                                                                               (m)         (m)
+                                                                                        max I˜train,c , I˜test,c
+                                                                                                                      1
+                                                                 ⊤                           ⊤ ⊤
+                                     (m)                 (m)                     (m)
+where the 2d-dimensional vector I˜train,c =         max Itrain,c , 0    , − min Itrain,c , 0                 is constructed to contain non-
+negative elements of Itrain,c . Similarly, I˜test,c is constructed based on Itest,c to contain non-negative elements. Thus, a high
+Jaccard similarity indicates that most m-order interactive concepts can be well-generalized from training samples to testing
+samples.
+In this experiment, we train 8-layer MLPs for tabular datasets, including the Census dataset and the TV news dataset.
+All MLPs contain 100 neurons in each hidden layer. For each DNN, we compute the interaction effects of all interactive
+concepts encoded by the network. Then, we follow Zhou et al. (2023) to evaluate the average generalization ability g (m)
+of interactive concepts of different complexities (orders) on the above-mentioned DNNs. Table 3 shows that complex
+(high-order) interactive concepts usually have poorer generalization power than simple (low-order) interactive concepts.
+
+
+                  Table 3. Comparison of the generalization ability g (m) of interactive concepts of different orders.
+
+                                                     order=1    order=3     order=5          order=7      order=9
+                         MLP-8 on Census             0.7989     0.6203      0.5505           0.4436       0.3758
+                         MLP-8 on TV news            0.8156     0.5854      0.3860           0.3322       0.1522
+
+
+
+
+                                                                   14
+
+PAGE 15
+                    Bayesian Neural Networks Avoid Encoding Complex and Perturbation-Sensitive Concepts
+
+G. Proof of Theorems
+G.1. Proof of Lemma 2.1 in the main paper
+Lemma 2.1. Given a neural network v and an arbitrary input sample x′ ∈ Rn , the network output can be decomposed
+using the Taylor expansion v(x′ ) = S⊆N π∈QS US,π · J(S, π|x′ ). In this way, according to Eq. (3) in the main paper, the
+                                    P       P
+                        ′                 ′
+interaction effect I(S|x ) on the sample x can be reformulated as
+                                                                           X
+                                                         I(S|x′ ) =                           US,π · J(S, π|x′ ),                                                       (20)
+                                                                                π∈QS
+                                                               πi
+                                                     x′i −ri
+                                
+where J(S, π|x′ ) =                 sign(x′i − ri ) ·
+                      Q
+                          i∈S                            τ
+                                                                     denotes an expansion term of the degree π, π ∈ QS = {[π1 , . . . , πn ]|∀i ∈
+          +                                       m        ∂ m v(x∅ )                           ′                       Pn
+                                              Qnτ                                                     − ri )]πi , m =
+                                                                                Q
+S, πi ∈ N ; ∀i ̸∈ S, πi = 0}. US,π =                        π1     πn       ·        i∈S [sign(xi                         i=1   πi .
+                                               i=1 πi ! ∂x1 ···∂xn
+
+
+
+                                                              ˜
+Proof. Let us denote the function on the right of Eq. (20) by I(S|x ′
+                                                                      ), i.e.,
+                                                       X
+                                           ˜
+                                           I(S|x  ′
+                                                    )=          US,π J(S, π|x′ )                                                                                        (21)
+                                                                                     π∈QS
+
+                                                                ˜
+We need to prove that for any arbitrary input sample ∀x′ ∈ Rn , I(S|x ′
+                                                                        ) = I(S|x′ ).
+
+Actually, it has been proven in Grabisch & Roubens (1999) and Ren et al. (2023a) that the Harsanyi dividend I(S|x′ ) is the
+unique metric satisfying the faithfulness requirement mentioned in the main paper, i.e., satisfying
+                                                            X
+                                        ∀ T ⊆ N, v(x′T ) =               I(S|x′ ).                                     (22)
+                                                                                                S∈Ω,S⊆T
+
+                                   ˜
+Thus, as long as we can prove that I(S|x           ′                                                        ˜
+                                         ) also satisfies the above faithfulness requirement, we can obtain I(S|x ′
+                                                                                                                    ) = I(S|x′ ).
+                                     ˜
+To this end, we only need to prove I(S|x   ′
+                                             ) also satisfies the faithfulness requirement in Eq. (22). Specifically, given an
+                 ′    n
+input sample ∀x ∈ R , let us consider the Taylor expansion of the network output v(xT ) of an arbitrarily masked sample
+x′T (T ⊆ N ), which is expanded at x′∅ = [r1 , . . . , rn ]. Then, we have
+                                                        ∞ X
+                                                          ∞                ∞                                           n
+                                                        X                  X               1        ∂ m v(x′∅ )       Y
+                      ∀ T ⊆ N,           v(x′T ) =                   ···             Qn              π1          πn ·    [(x′T )i − ri ]πi ,                            (23)
+                                                       π1 =0 π2 =0         πn =0         i=1 πi ! ∂x 1  · · · ∂x n
+                                                                                                                      i=1
+                                                                                                                                               Pn
+where π ∈ {[π1 , . . . , πn ]|∀i ∈ N, πi ∈ N} denotes the degree vector of Taylor expansion terms, and m =                                      i=1   πi . In addition,
+ri denotes the reference value to mask the input variable xi .
+According to the definition of the masked sample x′T , we have that all variables in T keep unchanged and other variables are
+masked to the reference value. That is, ∀ i ∈ T , (x′T )i = xi ; ∀ i ̸∈ T , (x′T )i = ri . Hence, we obtain ∀i ̸∈ T, [(x′T )i − ri ]πi = 0.
+Then, among all Taylor expansion terms, only terms corresponding to degrees π in the set P = {[π1 , . . . , πn ]|∀i ∈ T, πi ∈
+N; ∀i ̸∈ T, πi = 0} may not be zero. Therefore, Eq. (23) can be re-written as
+                                                                 X                   1        ∂ m v(x′∅ )       Y ′
+                                     ∀ T ⊆ N,        v(x′T ) =              Qn                 π1          πn ·     (xi − ri )πi .                                      (24)
+                                                                 π∈P
+                                                                                       π
+                                                                                    i=1 i ! ∂x 1  · · · ∂x n
+                                                                                                                i∈T
+
+We find that the set P can be divided into multiple disjoint sets as follows, P = ∪S⊆T QS , where QS = {[π1 , . . . , πn ]|∀i ∈
+S, πi ∈ N+ ; ∀i ̸∈ S, πi = 0}. Then, we can derive that
+                                                        X X                     1    ∂ m v(x′∅ )       Y ′
+                       ∀ T ⊆ N,           v(x′T ) =                   Qn              π1          πn ·     (xi − ri )πi
+                                                                              π
+                                                                           i=1 i ! ∂x 1  · · · ∂x n
+                                                        S⊆T π∈QS                                       i∈S
+                                                        X X            τm     ∂ m v(x′∅ ) Y             Y x′i − ri π                                                    (25)
+                                                  =                   Qn      π1         πn   (δi )πi ·     (δi     ) i,
+                                                        S⊆T π∈QS   i=1 πi ! ∂x1 · · · ∂xn i∈S           i∈S
+                                                                                                                  τ
+                                                                 |                {z                } |         {z    }
+                                                                                               termed US,π                 termed J(S,π|x′ )
+
+                                                                                                                                                    Q             2πi
+where τ ∈ R is a pre-defined constant and δi = sign(xi − ri ) ∈ {−1, 1} is a sign function and it satisfies                                           i∈S (δi )         = 1.
+Then, Eq. (25) can be re-written as
+                                                                     X X                                            X
+                                        ∀ T ⊆ N, v(x′T ) =                               US,π · J(S, π|x′ ) =           ˜
+                                                                                                                        I(S|x ′
+                                                                                                                                ).                                      (26)
+                                                                 S⊆T π∈QS                                        S⊆T
+
+
+                                                                                         15
+
+PAGE 16
+                   Bayesian Neural Networks Avoid Encoding Complex and Perturbation-Sensitive Concepts
+
+      ˜
+Thus, I(S|x ′
+              ) satisfies the faithfulness requirement in Eq. (22) when Ω = 2N .
+
+Therefore, Lemma 1 holds.
+
+G.2. Proof of Theorem 2.2 in the main paper
+Theorem 2.2. Let π̂ denote the lowest degree of the expansion terms of the interaction effect I(S|x′ ), i.e., ∀i ∈ S, π̂i =
+1; ∀i ̸∈ S, π̂i = 0. Let us consider the interaction effect I(S|x′ ) only containing the expansion term of the lowest degree,
+i.e., I(S|x′ ) = US,π̂ · J(S, π̂|x′ ). In this way, the mean and variance of the interaction effect I(S|x′ = x + ϵ) over different
+perturbations ϵ are given as
+                                          Eϵ [I(S|x + ϵ)] = US,π̂ ,
+                                                                                                                               (27)
+                                                             2
+                                        Varϵ [I(S|x + ϵ)] = US,π̂ ((1 + (σ/τ )2 )|S| − 1).
+
+Proof. If we only consider Taylor expansion term of the lowest degree, then I(S|x′ ) = US,π̂ · J(S, π̂|x′ ), where
+                                    x′ −r
+J(S, π̂|x′ ) = i∈S sign(x′i − ri ) · i τ i .
+              Q
+
+Let us add a Gaussian perturbation ϵ ∼ N (0, σ 2 I) to the input sample x. In this way, we have
+
+                        I(S|x + ϵ) ≈ US,π̂ · J(S, π̂|x + ϵ)
+                                       Y                         xi + ϵi − ri
+                      J(S, π̂|x + ϵ) =     sign(xi + ϵi − ri ) ·
+                                                                       τ                                                       (28)
+                                       i∈S
+                                                                                                     
+                                       Y                           xi − ri                         ϵi
+                                     =       sign(xi + ϵi − ri ) ·         + sign(xi + ϵi − ri ) ·
+                                                                      τ                            τ
+                                         i∈S
+
+
+According to the setting of the reference value in Section 2.3, we have ∀i ∈ S, xi − ri ∈ {−τ, τ }. Also in Section 2.3, we
+have assumed that the variance of the perturbation ϵ is small, so that we can ignore the extremely low probability that the
+perturbation is large such that |ϵi | ≥ τ . In this way, we have sign(xi + ϵi − ri ) = sign(xi − ri ), and we can obtain
+                                                 Y                    xi − ri                     ϵi
+                                                                                                      
+                           J(S, π̂|x + ϵ) =           sign(xi − ri ) ·          + sign(xi − ri ) ·
+                                                                          τ                        τ
+                                                 i∈S
+                                                                                                                         (29)
+                                                 Y                        ϵi 
+                                              =       1 + sign(xi − ri ) ·
+                                                                            τ
+                                               i∈S
+
+                                                               "                                            #
+                                                                   Y                         ϵi 
+                               ⇒ Eϵ [J(S, π̂|x + ϵ)] = Eϵ                1 + sign(xi − ri ) ·
+                                                                                              τ
+                                                               i∈S
+                                                                   "                                            #              (30)
+                                                                       Y                         ϵi 
+                                Varϵ [J(S, π̂|x + ϵ)] = Varϵ                 1 + sign(xi − ri ) ·
+                                                                                                  τ
+                                                                       i∈S
+
+                                                                   ϵi
+Since sign(xi − ri ) ∈ {−1, 1}, we have 1 + sign(xi − ri ) ·       τ    ∼ N (1, (σ/τ )2 ), ∀i ∈ S.
+                                                                                                                     Qk
+Proposition G.1. If random variables X1 , X2 , · · · , Xk are independent of each other, then E[X1 X2 · · · Xk ] =     i=1   E[Xi ],
+                          Qk                              Qk
+and Var[X1 X2 · · · Xk ] = i=1 (E[Xi ]2 + Var[Xi ]) − i=1 E[Xi ]2 .
+
+According to the above proposition, we have
+                                                               Y
+                                       Eϵ [J(S, π̂|x + ϵ)] =            1=1
+                                                               i∈S
+                                                               Y                    2
+                                                                                                Y
+                                    Varϵ [J(S, π̂|x + ϵ)] =              12 + (σ/τ )         −         12                      (31)
+                                                               i∈S                               i∈S
+                                                                         |S|
+                                                                        2
+                                                           = 1 + (σ/τ )        −1
+
+                                                               16
+
+PAGE 17
+                  Bayesian Neural Networks Avoid Encoding Complex and Perturbation-Sensitive Concepts
+
+Therefore,
+                      Eϵ [I(S|x + ϵ)] = Eϵ [US,π̂ · J(S, π̂|x + ϵ)] = US,π̂
+                                                                                                                                          (32)
+                                                                                                               |S|        
+                                                                                  2                          2
+                    Varϵ [I(S|x + ϵ)] = Varϵ [US,π̂ · J(S, π̂|x + ϵ)] =          US, π̂        1 + (σ/τ )               −1
+
+
+
+
+G.3. Proof of Theorem 2.3 in the main paper
+Theorem 2.3. Let π ∈ QS = {[π1 , . . . , πn ]|∀i ∈ S, πi ∈ N+ ; ∀i ̸∈ S, πi = 0} denote an arbitrary degree. Then, the mean and
+the variance of J(S, π|x + ϵ) over perturbations ϵ are
+                                                                        Y     ϵ i πi
+                                          Eϵ [J(S, π|x + ϵ)] = Eϵ [             (1 +
+                                                                                 ) ],
+                                                                          i∈S τ                                                           (33)
+                                                                      Y          ϵi
+                                        Varϵ [J(S, π|x + ϵ)] = Varϵ [      (1 + )πi ]
+                                                                       i∈S        τ
+
+Proof. According to Lemma 2.1, given an arbitrary input sample x′ , we have
+                                                                                 π
+                                                                          x′ − ri i
+                                                Y      
+                                 J(S, π|x′ ) =           sign(x′i − ri ) · i                                                              (34)
+                                                   i∈S                       τ
+
+Let us add a Gaussian perturbation ϵ ∼ N (0, σ 2 I) to the input sample x. In this way, we have
+                                      Y                                      π
+                                                                  xi + ϵi − ri i
+                    J(S, π|x + ϵ) =        sign(xi + ϵi − ri ) ·
+                                                                       τ
+                                     i∈S
+                                                                                                   π                                    (35)
+                                      Y                           xi − ri                         ϵi i
+                                   =       sign(xi + ϵi − ri ) ·          + sign(xi + ϵi − ri ) ·
+                                                                     τ                            τ
+                                       i∈S
+
+
+According to the setting of the reference value in Section 2.3, ∀i ∈ S, xi − ri ∈ {−τ, τ }. Also, in Section 2.3, we have
+assumed that the variance of the perturbation ϵ is small, so that we can ignore the extremely low probability that the
+perturbation is large such that |ϵi | ≥ τ . In this way, sign(xi + ϵi − ri ) = sign(xi − ri ), and we can obtain
+                                                Y                                                  π
+                                                                      xi − ri                     ϵi i
+                          J(S, π|x + ϵ) =            sign(xi − ri ) ·          + sign(xi − ri ) ·
+                                                                         τ                        τ
+                                                i∈S
+                                                                              π
+                                                                                                                      (36)
+                                                Y                        ϵi   i
+                                             =       1 + sign(xi − ri ) ·
+                                                                           τ
+                                             i∈S
+                                                            "                                            #
+                                                                Y                         ϵi  π i
+                             ⇒ Eϵ [J(S, π|x + ϵ)] = Eϵ                1 + sign(xi − ri ) ·
+                                                                                           τ
+                                                                i∈S
+                                                                "                                            #                            (37)
+                                                                    Y                        ϵi  π i
+                              Varϵ [J(S, π|x + ϵ)] = Varϵ                1 + sign(xi − ri ) ·
+                                                                                              τ
+                                                                  i∈S
+
+Since ∀i ∈ S, ϵi is independent of each other, according to Proposition G.1 and Eq. (37), we have
+                             Y       h                      ϵi  π i i
+       Eϵ [J(S, π|x + ϵ)] =      Eϵi 1 + sign(xi − ri ) ·
+                                                             τ
+                             i∈S
+                                                                       Y                                                               (38)
+                             Y                              ϵi 2πi            h                    ϵi πi i2
+     Varϵ [J(S, π|x + ϵ)] =      Eϵi 1 + sign(xi − ri ) ·               −    Eϵi 1 + sign(xi − ri ) ·
+                                                             τ                                        τ
+                               i∈S                                              i∈S
+
+                                                h                                  i            h                i
+                                                                            ϵi k                         ϵi k
+                                                                                                          
+Since sign(xi − ri ) ∈ {−1, 1}, we have Eϵi         1 + sign(xi − ri ) ·    τ          = Eϵi        1+   τ           , ∀k ∈ N+ . Therefore, we
+obtain
+
+                                                                17
+
+PAGE 18
+                   Bayesian Neural Networks Avoid Encoding Complex and Perturbation-Sensitive Concepts
+
+
+
+                                                        h
+                                                        Y    ϵi πi i
+                           Eϵ [J(S, π|x + ϵ)] =           1+  Eϵi
+                                                              τ
+                                                i∈S
+                                                   "                  #
+                                                     Y      ϵi  π i
+                                              = Eϵ        1+
+                                                             τ
+                                                     i∈S
+                                                                        Y
+                                                Y            ϵi 2πi               h   ϵi πi i2
+                         Varϵ [J(S, π|x + ϵ)] =     Eϵi 1 +               −      Eϵi 1 +
+                                                              τ                          τ
+                                                i∈S                          i∈S
+                                                      "                  #
+                                                        Y      ϵi πi
+                                              = Varϵ       1+              .
+                                                                 τ
+                                                                  i∈S
+
+
+
+
+G.4. Proof of Theorem 2.4 in the main paper
+Theorem 2.4. Let S and S ′ be two interactive concepts, such that S ⊊ S ′ . Let us consider expansion terms J(S, π) and
+J(S ′ , π ′ ), where the term J(S ′ , π ′ ) is extended from the term J(S, π) with π ≺ π ′ . I.e., (1) ∀i ∈ S ′ , πi′ ∈ N+ ; otherwise,
+πi′ = 0. (2) Given π ′ , ∀j ∈ S, πj = πj′ ; otherwise, πj = 0. Then, we have
+
+
+                                                         Varϵ [J(S ′ , π ′ |x + ϵ)]   Y                     ϵi ′
+                                                                                    >            E2ϵi [(1 + )πi ],
+                                                         Varϵ [J(S, π|x + ϵ)]           i∈S ′ \S            τ
+                                                                                                                                  (39)
+                                Eϵ [J(S ′ , π ′ |x + ϵ)]/Varϵ [J(S ′ , π ′ |x + ϵ)]                1
+                                                                                    < Q                    ϵi π ′
+                                                                                                                  ,
+                                 Eϵ [J(S, π|x + ϵ)]/Varϵ [J(S, π|x + ϵ)]               i∈S ′ \S Eϵi [(1 + τ ) ]
+                                                                                                               i
+
+
+
+
+                                       ϵi πi′
+and we can also obtain Eϵi [(1 +       τ
+                                         ) ]    ≥ 1.
+
+
+
+
+Proof. According to Theorem 2.3, we have
+
+                                                        "                         #
+                                                                              ′
+                            ′     ′
+                                                            Y         ϵi πi
+                 Varϵ [J(S , π |x + ϵ)] = Varϵ                      1+
+                                                                       τ
+                                                         i∈S ′
+                                                                                                 
+                                                                           ′                    ′
+                                                            Y       ϵi i
+                                                                        π     Y            π
+                                                                                          ϵi i 
+                                                = Varϵ           1+                   1+                 //S ⊊ S ′
+                                                                     τ                    τ
+                                                            i∈S              i∈S ′ \S
+                                                                                                 
+                                                       Y                                 ′
+                                                                 ϵi  π i Y        ϵi  π i 
+                                                                                                          //∀i ∈ S, πi′ = πi
+                                                       
+                                                = Varϵ     1 +                 1 +          
+                                                                                                                                  (40)
+                                                       
+                                                       i∈S      τ          ′
+                                                                                    τ        
+                                                                         i∈S \S              
+                                                        |     {z       }|       {z        }
+                                                                     A                 B
+                                                = Varϵ [AB]
+                                                = (E2ϵ [A] + Varϵ [A])(E2ϵ [B] + Varϵ [B]) − E2ϵ [A]E2ϵ [B]
+                                                  //A and B are independent; Proposition G.1
+                                                = E2ϵ [A]Varϵ [B] + E2ϵ [B]Varϵ [A] + Varϵ [A]Varϵ [B]
+                                                > E2ϵ [B]Varϵ [A] + Varϵ [A]Varϵ [B]
+
+                                                                         18
+
+PAGE 19
+                  Bayesian Neural Networks Avoid Encoding Complex and Perturbation-Sensitive Concepts
+
+Therefore, we can prove the first equality as follows.
+
+                       Varϵ [J(S ′ , π ′ |x + ϵ)]   Varϵ [AB]
+                                                  =
+                       Varϵ [J(S, π|x + ϵ)]          Varϵ [A]
+                                                    > E2ϵ [B] + Varϵ [B]
+                                                    > E2ϵ [B]
+                                                                                 
+                                                                         ϵ   πi′
+                                                                 Y        i                                             (41)
+                                                    = E2ϵ            1+          
+                                                                         τ
+                                                            i∈S ′ \S
+                                                                               ′
+                                                       Y
+                                                                2        ϵi πi
+                                                    =         Eϵi 1 +
+                                                          ′
+                                                                          τ
+                                                       i∈S \S
+
+                                                       //ϵi is independent of each other; Proposition G.1
+
+Furthermore, we have
+                                                "                             #
+                                                                          ′
+                          ′   ′
+                                                    Y         ϵi  π i
+                  Eϵ [J(S , π |x + ϵ)] = Eϵ                 1+
+                                                               τ
+                                                    i∈S ′
+                                                                                
+                                                     ϵ
+                                                    Y   πi′ Y       ϵ    πi′
+                                                      i                   i
+                                        = Eϵ     1+                1+                              //S ⊊ S ′
+                                                     τ           ′
+                                                                        τ                                                (42)
+                                              i∈S            i∈S \S
+                                                                                
+                                               Y    ϵ   π i Y       ϵ    πi′
+                                                       i                 i
+                                        = Eϵ     1+                1+                             //∀i ∈ S, πi′ = πi
+                                                     τ          ′
+                                                                       τ
+                                                    i∈S                   i∈S \S
+
+                                        = Eϵ [AB]
+
+and also                                                              "                     #
+                                                                          Y         ϵi πi
+                                   Eϵ [J(S, π|x + ϵ)] = Eϵ                        1+          = Eϵ [A].                  (43)
+                                                                                     τ
+                                                                      i∈S
+
+Therefore, we have
+                                        Eϵ [J(S ′ , π ′ |x + ϵ)]   Eϵ [AB]
+                                                                 =         = Eϵ [B].                                     (44)
+                                        Eϵ [J(S, π|x + ϵ)]          Eϵ [A]
+
+Then, we can prove the second inequality as follows.
+
+                                        Eϵ [J(S ′ , π ′ |x + ϵ)]/Varϵ [J(S ′ , π ′ |x + ϵ)]
+                                         Eϵ [J(S, π|x + ϵ)]/Varϵ [J(S, π|x + ϵ)]
+                                               Eϵ [B]
+                                      =
+                                        Varϵ [AB]/Varϵ [A]
+                                        Eϵ [B]
+                                      < 2
+                                        Eϵ [B]
+                                          1                                                                              (45)
+                                      =
+                                        Eϵ [B]
+                                                        1
+                                      = hQ                        ′i
+                                                               ϵi πi
+                                        Eϵ          ′
+                                               i∈S \S      1 + τ
+                                                             1
+                                      =Q                     h            ′      i
+                                                                      ϵ i πi
+                                           i∈S ′ \S    Eϵi       1+   τ
+
+
+                                        ϵi k
+Moreover, we can prove that Eϵi [(1 +   τ ) ]   ≥ 1, ∀k ∈ N+ , i.e., E[X k ] ≥ 1, where X ∼ N (1, (σ/τ )2 ).
+
+                                                                      19
+
+PAGE 20
+                  Bayesian Neural Networks Avoid Encoding Complex and Perturbation-Sensitive Concepts
+
+For a random variable following a Gaussian distribution X̃ ∼ N (µ̃, σ̃ 2 ), Willink (2005) proved the following property:
+                                         h       i       h i               h      i
+                                       E X̃ k+1 = µ̃E X̃ k + kσ̃ 2 E X̃ k−1                                            (46)
+                                                                              
+Now let us consider X ∼ N (1, (σ/τ )2 ). We have E X k+1 = E X k + k(σ/τ )2 E X k−1 . By induction, it is easy to
+prove that E[X k ] ≥ E[X] = 1.
+
+G.5. Proof of Theorem 2.5 in the main paper
+Theorem 2.5. Given two random interactive concepts S and S ′ , we can roughly assume that CS (x + ϵ) is independent
+of CS ′ (x + ϵ), because the two concepts S and S ′ usually have little overlap in most cases. Let Eϵ [CS (x + ϵ)] and
+Varϵ [CS (x + ϵ)] denote the mean and the variance of CS (x + ϵ) w.r.t. ϵ, respectively. Then, the solution to Eq. (15) in the
+main paper satisfies the following property:
+
+                                     ∀ S ∈ Ω,    |US∗ | ∝ |Eϵ [CS (x + ϵ)]/Varϵ [CS (x + ϵ)]|                              (47)
+
+Proof. Let p = |Ω|. Let C(x + ϵ) = [CS1 (x + ϵ), · · · , CSp (x + ϵ)]⊤ denote the vector of all CS (x + ϵ), S ∈ Ω, and let
+U = [US1 , · · · , USp ]⊤ denote the vector of all coefficients US , S ∈ Ω. To further simplify the notation, we simply use C to
+denote the random vector C(x + ϵ). Besides, since we assume that each dimension of the vector C(x + ϵ) is independent
+of each other, we can use Eϵ [C] = [α1 , · · · , αp ]⊤ ∈ Rp and Varϵ [C] = diag(β12 , · · · , βp2 ) ∈ Rp×p to denote the mean
+vector and covariance matrix of the random vector C(x + ϵ), respectively. We prove this theorem in three steps.
+Step 1. We first prove that the optimal solution to Eq. (15) in the main paper is given by
+                                                     1
+                          ∀1 ≤ i ≤ p,     US∗i =         det(M1 , · · · , Mi−1 , ρ, Mi+1 , · · · , Mp )                    (48)
+                                                   det M
+where M = Eϵ [C]Eϵ [C]⊤ + Varϵ [C], ρ = y ∗ Eϵ [C], and Mj denotes the j-th column of the matrix M .
+We can rewrite the objective function in Eq. (15) in the main paper as
+
+                                                min Eϵ [(y ∗ − U ⊤ C(x + ϵ))2 ]                                            (49)
+                                                 U
+
+To minimize the loss L = Eϵ [(y ∗ − U ⊤ C)2 ], we set the gradient of the loss w.r.t U to zero, i.e.,
+
+                                 ∇U L = Eϵ [2C(U ⊤ C − y ∗ )]
+                                        = 2Eϵ [CC ⊤ U − y ∗ C]
+                                                                                                                           (50)
+                                        = 2Eϵ [CC ⊤ ]U − 2y ∗ Eϵ [C]
+                                        = 2(Eϵ [C]Eϵ [C]⊤ + Varϵ [C])U − 2y ∗ Eϵ [C] = 0
+
+                                        ⇒ (Eϵ [C]Eϵ [C]⊤ + Varϵ [C])U = y ∗ Eϵ [C]                                         (51)
+
+Let M = Eϵ [C]Eϵ [C]⊤ + Varϵ [C], and ρ = y ∗ Eϵ [C]. By Cramer’s rule, we can obtain the solution to Eq. (51):
+                                                     1
+                          ∀1 ≤ i ≤ p,     US∗i =         det(M1 , · · · , Mi−1 , ρ, Mi+1 , · · · , Mp )
+                                                   det M
+where Mj denotes the j-th column of the matrix M .
+Step 2. We prove that for the optimal solution U ∗ , we have
+                                                 |US∗i |   |Eϵ [CSi (x + ϵ)]/Varϵ [CSi (x + ϵ)]|
+                              ∀1 ≤ i, j ≤ p,        ∗    =                                                                 (52)
+                                                 |USj |    |Eϵ [CSj (x + ϵ)]/Varϵ [CSj (x + ϵ)]|
+
+Since M = Eϵ [C]Eϵ [C]⊤ + Varϵ [C], we can obtain the j-th column of M as
+
+                                                     Mj = αj Eϵ [C] + Vj                                                   (53)
+
+                                                               20
+
+PAGE 21
+                     Bayesian Neural Networks Avoid Encoding Complex and Perturbation-Sensitive Concepts
+
+where Eϵ [C] = [α1 , · · · , αp ]⊤ , and Vj = [0, · · · , βj2 , · · · , 0]⊤ .
+According to the conclusion in Step 1, we have
+                                  1
+                    |US∗i | = |       | · | det(M1 , · · · , Mi−1 , ρ, Mi+1 , · · · , Mj−1 , Mj , Mj+1 , · · · , Mp )|             (54)
+                                det M
+                                  1
+                    |US∗j | = |       | · | det(M1 , · · · , Mi−1 , Mi , Mi+1 , · · · , Mj−1 , ρ, Mj+1 , · · · , Mp )|             (55)
+                                det M
+
+We know that exchanging the rows or columns of a matrix only changes the sign of the determinant of the matrix, but does
+not change the absolute value of the determinant. Therefore, we have
+                             1
+                 |US∗i | = |     | · | det(Mj , ρ, M1 , · · · , Mi−1 , Mi+1 , · · · , Mj−1 , Mj+1 , · · · , Mp )|
+                           det M
+                             1
+                        =|       | · | det(Mj , ρ, Mothers )| //Let Mothers denote the third to the last column
+                           det M
+                             1
+                        =|       | · | det(αj Eϵ [C] + Vj , y ∗ Eϵ [C], Mothers )| //Eq. (53)
+                           det M
+                             1
+                        =|       | · | det(αj Eϵ [C], y ∗ Eϵ [C], Mothers ) + det(Vj , y ∗ Eϵ [C], Mothers )|
+                           det M       |               {z                }
+                                                                =0
+                         //The determinant is 0 if two columns are linearly dependent
+                             1
+                        =|       | · | det(Vj , y ∗ Eϵ [C], Mothers )|
+                           det M
+                                             0 y ∗ α1 α1 α1 + β12 · · ·
+                                                                                        
+                                                                                α1 αp
+                                            ..                                          
+                                            .                                           
+                                            0 y ∗ αi
+                                                                                        
+                                                             α  i α 1  · · ·    αi αp    
+                             1             
+                                            ..
+                                                                                         
+                        =|       | · | det  .                                           |
+                                                                                         
+                           det M            2       ∗
+                                                                                         
+                                                                                                                                   (56)
+                                           β
+                                            j y αj          αj α1     ···      αj αp   
+                                            .
+                                            ..
+                                                                                         
+                                                                                         
+                                             0 y ∗ αp        αp α1     · · · αp αp + βp2
+                                            βj y ∗ αj
+                                           2                                           
+                                                             αj α1     ···     αj αp
+                                           0 y ∗ αi         αi α1     ···     αi αp 
+                             1             0 y ∗ α1 α1 α1 + β12 · · ·
+                                          
+                                                                               α1 αp 
+                                                                                        
+                        =|       | · |det                                              |                      //Exchange rows
+                           det M           ..                                          
+                                           .                                           
+                                             0 y ∗ αp                    αp α1        ···   αp αp + βp2
+                                            βj y ∗ αj
+                                            2                                                             
+                                                                        αj α1         ···          αj αp
+                                           0     y∗                     α1           ···           αp     
+                             αi                  ∗
+                                                                     α1 α1 + β12      ···
+                                                                                                           
+                        =|       | · | det  0 y α1                                                α1 αp   |   //Extract out αi
+                                                                                                          
+                           det M            ..                                                            
+                                            .                                                             
+                                                   0       y ∗ αp        αp α1        ···    αp αp + βp2
+                                αi βj2
+                        =|             | · | det M ′ |,
+                               det M
+where
+                                                     y∗
+                                                                                                          
+                                                                         α1           ···           αp
+                                                     ∗
+                                                    y α1             α1 α1 + β12      ···          α1 αp
+                                             M′ = 
+                                                                                                          
+                                                                                                           .                      (57)
+                                                   ···                                                    
+                                                   y ∗ αp                αp α1        ···   αp αp + βp2
+
+Similarly, we can prove that
+                                                                         αj βi2
+                                                          |US∗j | = |           | · | det M ′ |.                                   (58)
+                                                                        det M
+                                                                              21
+
+PAGE 22
+                 Bayesian Neural Networks Avoid Encoding Complex and Perturbation-Sensitive Concepts
+
+Therefore, we have
+                                          |US∗i |   |αi /βi2 |   |Eϵ [CSi (x + ϵ)]/Varϵ [CSi (x + ϵ)]|
+                      ∀1 ≤ i, j ≤ p,         ∗    =            =                                       .
+                                          |USj |    |αj /βj2 |   |Eϵ [CSj (x + ϵ)]/Varϵ [CSj (x + ϵ)]|
+
+Step 3. Based on Step 2, we can directly prove that for the optimal solution U ∗ , we have
+
+                                    ∀S ∈ Ω,    |US∗ | ∝ |Eϵ [CS (x + ϵ)]/Varϵ [CS (x + ϵ)]|                           (59)
+
+
+
+
+G.6. Proof of Theorem 2.6 in the main paper
+Theorem 2.6. Let Amin = minS |US | and Amax = maxS |US | denote the lower bound and the upper bound of |US | over all
+interactive concepts S . Then, for any S ⊆ N , we have
+                                   |Eϵ [I(S|x + ϵ)]|   |Eϵ [CS (x + ϵ)]|          |Eϵ [I(S|x + ϵ)]|
+                          Amin ·                     ≤                   ≤ Amax ·                                     (60)
+                                   Varϵ [I(S|x + ϵ)]   Varϵ [CS (x + ϵ)]          Varϵ [I(S|x + ϵ)]
+
+Proof. According to Eq. (12) in the main paper, we have I(S|x′ ) = US · CS (x′ ). Hence, we have
+
+               |Eϵ [I(S|x + ϵ)]| = |US | · |Eϵ [CS (x + ϵ)]|,        Varϵ [I(S|x + ϵ)] = US2 · Varϵ [CS (x + ϵ)],
+
+Therefore,
+                                        |Eϵ [CS (x + ϵ)]|           |Eϵ [I(S|x + ϵ)]|
+                                                          = |US | ·
+                                        Varϵ [CS (x + ϵ)]           Varϵ [I(S|x + ϵ)]
+Then, let Amin                     max
+             S = minS |US | and AS = maxS |US | denote the lower bound and the upper bound of the absolute value |US |
+over all interactive concepts S , we have
+
+                              |Eϵ [I(S|x + ϵ)]|   |Eϵ [CS (x + ϵ)]|        |Eϵ [I(S|x + ϵ)]|
+                       Amin
+                        S ·                     ≤                   ≤ Amax
+                                                                       S ·
+                              Varϵ [I(S|x + ϵ)]   Varϵ [CS (x + ϵ)]        Varϵ [I(S|x + ϵ)]
+
+
+
+
+H. Experimental details
+Training settings. We trained standard DNNs and BNNs with the same architectures on two image datasets and two tabular
+datasets. For image datasets, we trained standard DNNs and BNNs with two architectures. On the MNIST dataset, we
+trained a standard DNN and a BNN with the 5-layer MLP architecture. On the CIFAR-10 dataset, we trained a standard
+DNN and a BNN with the LeNet architecture. On the two tabular datasets, including the UCI TV news dataset (termed TV
+news) and the UCI census income dataset (termed census), we trained standard DNNs and BNNs with the 8-layer MLP
+architecture. All MLPs contained 100 neurons in each hidden layer. For the training of BNNs, the prior distribution of
+network weights was set to N (W ; 0, I), and the number of Monte Carlo sampling of network weights was set to 1. All
+standard DNNs and BNNs were trained using the Adam optimizer (Kingma & Ba, 2015) with learning rate 0.001. The
+5-layer MLPs (standard DNN and BNN) on the MNIST dataset was trained for 50 epochs. The LeNet (standard DNN and
+BNN) on the CIFAR-10 dataset was trained for 300 epochs. The 8-layer MLPs (standard DNN and BNN) on tabular datasets
+were trained for 200 epochs.
+Implementation details for the calculation of I(S). Since the computational cost of I(S) was intolerable for image
+datasets, we applied a sampling-based approximation method to calculate US . For the CIFAR-10 dataset (32 × 32 pixels on
+each image), we uniformly split each input image into 8 × 8 patches. Furthermore, we random sampled 12 patches from the
+central 6 × 6 region (i.e., we did not sample patches that were on the edges of an image), and considered these patches as
+input variables for each image. The remaining 52 patches were set to the reference value. Similarly, for the MNIST dataset
+(28 × 28 pixels on each image), we uniformly split each input image into 7 × 7 patches, and randomly sampled 12 patches
+from the central 5 × 5 region.
+
+                                                                22
+
+PAGE 23
+               Mlp5 mnist sample 0
+                   Bayesian Neural Networks Avoid Encoding Complex and Perturbation-Sensitive Concepts
+
+                     Feature distribution of the BNN           Approximated feature distribution of the surrogate model
+          Layer2
+   5000
+
+
+      0
+
+          Layer3
+   5000
+
+
+      0
+
+          Layer4
+   5000
+
+
+      0
+
+
+
+                               Figure 6. More visualization results of MLP-5 on the MNIST dataset.
+
+
+Implementation details of the reference value. Let Ex [xi ] denote the mean value of the i-th input dimension over all input
+samples in the dataset. Then, given an input sample x, the reference value is set as follows.
+                                                  
+                                                     xi − τ, xi > Ex [xi ]
+                                             ri =
+                                                     xi + τ, xi < Ex [xi ]
+
+where τ ∈ R is a constant. We set τ = 0.5 on all datasets (including the TV news dataset, the Census dataset, the MNIST
+dataset, and the CIFAR-10 dataset). In our experiments, we assume that input samples have been normalized as follows. First,
+we subtract the mean value of each input dimension over the whole dataset from the input sample. Second, we divide each
+dimension of the input sample by the standard deviation of this input dimension over the whole dataset. In this way, input
+samples have zero mean and unit variance on each dimension over the whole dataset, i.e., ∀i ∈ N, Ex [xi ] = 0, Varx [xi ] = 1.
+Implementation details of the experiment in Section 2.2 of the main paper. In Section 2.2 of the main paper, we
+minimized the KL divergence between the feature distribution in the surrogate DNN model and the feature distribution in the
+BNN. The feature distributions in the surrogate DNN model and in the BNN were not Gaussian distributions. Therefore, the
+KL divergence between the feature distributions did not have a close-form formula. To facilitate the optimization, we simply
+used two Gaussian distributions to approximate the feature distributions in the surrogate DNN model and in the BNN, and
+optimized the KL divergence between the two Gaussian distributions. Besides, we did not consider the dependency between
+different feature dimensions to simplify the computation.
+
+I. More visualization results for experiments in Section 2.2 of the main paper
+In this subsection, we provided more visualization results to show that the feature distribution of the surrogate DNN model
+could well approximate the feature distribution of the BNN.
+
+
+
+
+                                                               23
+
+PAGE 24
+                   Bayesian Neural Networks Avoid Encoding Complex and Perturbation-Sensitive Concepts
+
+                 lenet cifar10 sample 1
+
+
+                       Feature distribution of the BNN           Approximated feature distribution of the surrogate model
+10000   Conv2
+
+ 5000
+
+
+    0
+
+        FC1
+ 5000
+
+
+    0
+
+        FC2
+ 5000
+
+
+    0
+
+
+
+                               Figure 7. More visualization results of LeNet on the CIFAR-10 dataset.
+
+
+
+
+                 mlp8 census sample 0
+
+                       Feature distribution of the BNN           Approximated feature distribution of the surrogate model
+        Layer4
+
+ 5000
+
+
+   0
+
+10000   Layer5
+
+5000
+
+
+    0
+
+        Layer6
+10000
+
+ 5000
+
+   0
+
+
+10000   Layer7
+
+ 5000
+
+   0
+
+
+
+                                Figure 8. More visualization results of MLP-8 on the Census dataset.
+
+
+
+
+                                                                24
+
+PAGE 25
+                    Bayesian Neural Networks Avoid Encoding Complex and Perturbation-Sensitive Concepts
+
+
+
+
+                 mlp8 commercial sample 0
+
+                       Feature distribution of the BNN           Approximated feature distribution of the surrogate model
+10000   Layer4
+
+ 5000
+
+
+   0
+
+        Layer5
+
+ 5000
+
+
+    0
+
+10000   Layer6
+
+ 5000
+
+
+   0
+
+10000   Layer7
+
+ 5000
+
+   0
+
+
+
+                                Figure 9. More visualization results of MLP-8 on the TV news dataset.
+
+
+
+
+                                                                 25

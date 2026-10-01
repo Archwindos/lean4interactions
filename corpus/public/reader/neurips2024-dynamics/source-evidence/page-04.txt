@@ -1,0 +1,70 @@
+components: (1) the component vand (xT ) = 0.5v(xT ) + γT that exclusively contains AND interactions,
+and (2) the component vor (xT ) = 0.5v(xT ) − γT that exclusively contains OR      P interactions, subject
+to v(xT ) = vand (xT ) + vor (xT ). Appendix F.1 shows that vand (xT ) = v(x∅ ) + ∅̸=S ′ ⊆T Iand (S ′ |x) and
+vor (xT ) = S ′ ⊆N :S ′ ∩T ̸=∅ Ior (S ′ |x). The P
+           P
+                                                 sparsest AND-OR interactions are extracted by minimizing
+the following objective [20]: min{γT } S⊆N |Iand (S|x)| + |Ior (S|x)|. Please see Appendix C for
+details about the computation and Appendix D for mathematical support of the coefficient in Eq. (2).
+Salient interactions and noisy patterns. Let us enumerate all 2n combinations of variables S ⊆ N ,
+and compute the interaction effects Iand (S|x) and Ior (S|x). We can identify a few salient interactions
+from all these interactions, i.e., interactions whose absolute value exceeds a threshold (|Iand (S|x)| ≥ τ
+or |Ior (S|x)| ≥ τ ). Other interactions have small effects and are termed noisy patterns.
+Theorem 1 (Sparsity property, proven by [27], and discussed in Appendix B). Given a DNN v
+                                                         def
+and an input sample x with n input variables, let Ω = {S ⊆ N : |Iand (S|x)| ≥ τ } denote the set
+of salient AND interactions whose absolute value exceeds a threshold τ . If the DNN can generate
+relatively stable inference outputs v(xS ) on masked samples7 , then the size of the set |Ω| has an upper
+bound of O(nξ /τ ), where ξ is an intrinsic parameter for the smoothness of the network function v(·).
+Empirically, ξ is usually within the range of [1.9,2.2].
+Theorem 2 (Universal matching property, proven in [4] and Appendix F.1). Given an input sample x̂,
+let us construct the following surrogate logical model f (·) to use AND-OR interactions for inference,
+which are extracted from the DNN v(·) on the sample x̂. Then, the output of the surrogate logical
+model f (·) can always match the output of the DNN v(·), no matter how the input sample is masked.
+
+                                                         Iand (T |x̂)· 1 AND                Ior (T |x̂)· 1 OR
+                                                   X                                    X                             
+                                                                          x̂S triggers                      x̂S triggers
+∀S ⊆ N, f (x̂S ) = v(x̂S ), f (x̂S ) = v(x̂∅ )+                               relation T +                     relation T  (3)
+                                                  T ⊆N                                    T ⊆N
+                                        |                      {z                    } |                 {z            }
+                                                            vand(x )                                   vor(x )
+                                                                  S                                         S
+                         X                                 X
+       = v(x = x̂∅ ) +                Iand (T |x = x̂) +                       Ior (T |x = x̂)                             (4)
+                            ∅̸=T ⊆S                            T ⊆N :T ∩S̸=∅
+                         X                                          X
+       ≈ v(x = x̂∅ ) +                         Iand (T |x = x̂) +                        Ior (T |x = x̂) ,                 (5)
+                            T ∈Ωand :∅̸=T ⊆S                           T ∈Ωor :T ∩S̸=∅
+
+where Ωand is the set of all salient AND interactions, and Ωor is the set of all salient OR interactions.
+What makes the interaction-based explanation faithful. The following four properties guarantee
+that the inference score of a DNN can be faithfully explained by symbolic interactions.
+• Sparsity property. The sparsity property means that a DNN for a classification task usually only
+encodes a small number of AND interactions with salient effects, i.e., for most of all 2n subsets of
+input variables S ⊆ N , Iand (S|x) has almost zero interaction effect. Specifically, the sparsity property
+has been widely observed on various DNNs for different tasks [21], and it is also theoretically proven
+(see Theorem 1). The number of AND interactions whose absolute value exceeds the threshold τ
+(|Iand (S|x)| ≥ τ ), is O(nξ /τ ), where ξ is empirically within the range of [1.9, 2.2]. This indicates that
+the number of salient interactions is much less than 2n . Furthermore, the sparsity property also holds
+for OR interactions, because an OR interaction can be viewed as a special kind of AND interaction8 .
+• Universal matching property. The universal matching property means that the output of the DNN
+on a masked sample xS can be well matched by the sum of interaction effects, no matter how we
+randomly mask the sample and obtain xS . This property is proven in Theorem 2.
+• Transferability property. The transferability property means that salient interactions extracted from
+one input sample can usually be extracted from other input samples as well. If so, these interactions
+are considered transferable across different samples. This property has been widely observed by [21]
+on various DNNs for different tasks.
+    7
+      This is formulated by three mathematical conditions. (1) The DNN does not encode highly complex
+interactions. (2) Let us compute the average classification confidence when we mask different random sets of
+k input variables (generating {xT : |T | = n − k}). Then, the average confidence monotonically decreases
+when more input variables are masked. (3) The decreasing speed of the average confidence is polynomial. See
+Appendix B for the detailed mathematical formulation.
+    8
+      If we flip the masked state and the presence state of each input variable (i.e., taking bi as the presence state
+of the i-th variable, while taking xi as the masked state), then OR interactions can be viewed as a special kind of
+AND interactions. See Appendix E for details.
+
+
+                                                              4

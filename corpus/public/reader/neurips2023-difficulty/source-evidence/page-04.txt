@@ -1,0 +1,76 @@
+We also conduct experiments to illustrate the concept-emergence phenomenon on various DNNs,
+including multi-layer perceptrons (MLPs), long short-term memory (LSTM), AlexNet [23], ResNet
+[19], convolutional neural networks (CNNs), and PointNet [41] trained on different types of data,
+including tabular data (UCI dataset [6]), natural language data (CoLA [61] and SST-2 [56]), image
+data (MNIST [26] and CelebA [31]), and point cloud data (ShapeNet [65]). We follow experimental
+settings in [45, 27], and Figure 1(b) shows that interactive concepts encoded by a DNN are usually
+indeed sparse.
+Theorem 1. Given an input sample x ∈ Rn with n variables, there are 2n different masked samples
+xT w.r.t. all potential subsets T ⊆ N . Then, [45] has proven that
+                                          X                         X
+                     ∀ T ⊆ N, v(xT ) =                  I(S|x) ≈                         I(S|x).        (3)
+                                                  S⊆T                  S∈Ωsalient &S⊆T
+
+
+Theorem 1 means that we can use a small number of interactive concepts in Ωsalient to well approximate
+network outputs on anyone xT of the 2n masked samples.
+Trustworthiness of interactive concepts. The mathematical proof in [47] makes I(S) become the
+first concepts whose emergence in DNNs is certificated. Equations (2) and (3) further guarantee
+that interactive concepts can faithfully explain the output of DNNs. In addition, Li and Zhang [27]
+have discovered that (i) interactive concepts are transferable across different samples; (ii) interactive
+concepts are discriminative, i.e., if a concept S has salient interaction effects I(S) on a set of samples,
+then the concept tends to push these samples to be classified towards the same category. In this way,
+we can roughly consider such interactive concepts a relatively rigorous definition of concepts.
+Complexity (order) of interactive concepts. The complexity of an interactive concept S is defined as
+the number of input variables involved in S , which is also termed the order of the interactive concept,
+i.e., complexity(S) = order(S) = |S|. Thus, low-order interactive concepts usually represent simple
+AND relationships among a few input variables. In comparison, high-order interactive concepts often
+refer to as relatively complex AND relationships among a large number of input variables.
+
+3.2   Simple interactive concepts in data are more stable and easier to learn
+
+Unlike other interaction metrics [16, 32, 57], sparse interactive concepts are certificated to emerge in
+DNN, and can faithfully represent the inference score of DNNs. Therefore, in this study, we aim to
+further explore the learning difficulty of these certificated concepts. Specifically, we theoretically
+explain that a DNN is more likely to encode simple (i.e., low-order) interactive concepts.
+In this subsection, we show that low-order interactive concepts encoded by DNNs are generally more
+stable to inevitable noises in data, compared to high-order interactive concepts. Specifically, we
+derive an approximate analytical solution to the variance (instability) of interactive concepts’ effects
+w.r.t. data noise, and show that the variance (instability) increases along the order of concepts in an
+exponential manner.
+Theorem 2 (proven in the supplementary material). Given a neural network v and an arbitrary
+                 ′
+input sample
+           P x P   ∈ Rn , the network output can be decomposed by using the Taylor expansion i.e.,
+    ′                                     ′
+v(x ) =      S⊆N     π∈QS US,π · J(S, π|x ). In this way, according to Equation (1), the Harsanyi
+interaction effect I(S|x ) on the sample x′ can be reformulated as follows.
+                          ′
+
+                                              X
+                                 I(S|x′ ) =                   US,π · J(S, π|x′ ).                       (4)
+                                                    π∈QS
+                                             ′
+                                                    πi
+Here, J(S, π|x′ )= i∈S sign(x′i − bi ) · xi −b
+                    Q                          i
+                                            τ
+                                                    denotes a Taylor expansion term of the degree π,
+where the degree π ∈ QS = {[π1 , . . . , πn ]|∀i ∈ S, πi ∈ N+ ; ∀i ̸∈ S, πi = 0} and bi is the baseline
+                                                                m      ∂ m v(x′ )
+value to mask the input variable xi . In addition, US,π = Qnτ πi ! ∂xπ1 ···∂x∅πn · i∈S [sign(x′i − bi )]πi ,
+                                                                                  Q
+                                                             i=1        1       n
+where x′∅ denotes the sample whose input variables are all masked. m = ni=1 πi .
+                                                                                P
+
+
+Theorem 2 rewrites the Harsanyi interaction effect I(S|x) of each concept from a new perspective,
+to facilitate the analysis of the instability of interactive concepts. The derivation of Theorem 2 is
+inspired by [12, 70, 46], in which the Harsanyi interaction effect is re-written as the sum of the Taylor
+interaction effects. Therefore, in this study, we define a new baseline value bi to further extend the
+finding in [12] and obtain Theorem 2, which significantly simplifies the further proof. Specifically,
+the new baseline value bi is set as follows to represent the masked state of the i-th input variable. i.e.,
+
+
+                                                          4

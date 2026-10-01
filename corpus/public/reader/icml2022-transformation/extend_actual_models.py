@@ -1,0 +1,46 @@
+"""Close the two source-model followups without replacing any author field."""
+from pathlib import Path
+from copy import deepcopy
+import json
+
+def update(directory):
+ p=Path(directory)/'content.json';c=json.loads(p.read_text());rows={x['id']:x for x in c['results']}
+ def ns(st):return [n if isinstance(n,str) else n['declaration'] for n in st['lean_refs']]
+ affine=rows['transformation-gating-affine'];ae=affine['translations']['en']
+ new=[
+ ('step-4','固定真实 dropout 的坐标作用','Freeze the actual coordinate action of dropout',r'原 Appendix A 的保留位 $k_d\in\{0,1\}$ 给真实输出 $D_k(h)_d=k_dh_d$。Boolean keep 的 public dropoutLinear 正是保留坐标或置零；分别检查保留/删除两支，得到加法与标量乘法保持。故 $D_k(Wx+b)=(D_k\circ W)x+D_k(b)$，偏置同样被门作用，不被丢掉。这里固定的是实际采样所得 keep 位，不假定带随机门的整个网络全局仿射。',r'In Appendix A, the retained bit $k_d\in\{0,1\}$ gives actual output $D_k(h)_d=k_dh_d$. Public dropoutLinear with Boolean keep retains the coordinate or sets it to zero. Checking both cases proves preservation of addition and scalar multiplication. Therefore $D_k(Wx+b)=(D_k\circ W)x+D_k(b)$, retaining the gated bias. The actual sampled keep bits are frozen; no globally affine network with varying random gates is assumed.',r'D_k(Wx+b)=(D_k\circ W)x+D_k(b)', ['Harsanyi.GatedAffine.dropoutLinear','Harsanyi.GatedAffine.fixed_dropout_layer_affine','PaperTransformation.actual_dropout_module_affine']),
+ ('step-5','从真实最大池化构造一个最大者选择','Construct one maximizing selector from actual max pooling',r'每个输出窗口 $R_p$ 是非空有限输入索引集，真实池化值为 $M(h)_p=\max_{d\in R_p}h_d$。有限最大值存在且达到，public maximizingSelector 为每个窗口选择一个达到最大值的输入，允许并列。于是 $M(h)_p=h_{a(p)}$，不是在并列时把多个最大值相加。固定门区域要求同一 $a(p)\in R_p$ 对该真实预激活仍最大；证明有限 sup 等于选择值后，得到 $M(Wx+b)=(P_a\circ W)x+P_a(b)$。这些真实算子的线性作用可吸收到此前仿射链的权重/偏置，layer_comp 继续保留末层偏置。原 Appendix A 的池化输入下标笔误另列，不改作者式。',r'Each output window $R_p$ is a nonempty finite set of input indices, with actual pool value $M(h)_p=\max_{d\in R_p}h_d$. A finite maximum is attained; public maximizingSelector chooses one attaining input per window, including ties. Thus $M(h)_p=h_{a(p)}$, without adding tied maxima. A fixed gate region requires the same $a(p)\in R_p$ to maximize the actual preactivation. Proving that the finite supremum equals its selected value yields $M(Wx+b)=(P_a\circ W)x+P_a(b)$. These actual linear actions are absorbed into the preceding affine chain weights and biases; layer_comp retains the final bias. The source pooling input-index slip remains separately recorded.',r'M(h)_p=\max_{d\in R_p}h_d=h_{a(p)},\quad M(Wx+b)=(P_a\circ W)x+P_a(b)', ['Harsanyi.GatedAffine.selectedPoolLinear','Harsanyi.GatedAffine.finiteMaxPool','Harsanyi.GatedAffine.maximizingSelector_spec','Harsanyi.GatedAffine.finite_max_pool_selected','Harsanyi.GatedAffine.fixed_maximizer_pool','Harsanyi.GatedAffine.fixed_pool_layer_affine','Harsanyi.GatedAffine.layer_comp','PaperTransformation.actual_pool_module_affine'])]
+ for suffix,zt,et,zb,eb,tex,names in new:
+  ident=affine['id']+'-'+suffix
+  affine['proof_steps']=[s for s in affine['proof_steps'] if s['id']!=ident];ae['proof_steps']=[s for s in ae['proof_steps'] if s['id']!=ident]
+  affine['proof_steps'].append(dict(id=ident,title=zt,body_md=zb,formula_tex=tex,justification='',lean_refs=names));ae['proof_steps'].append(dict(id=ident,title=et,body_md=eb,justification=''))
+ affine['scope']='真实ReLU有限网络、实际门区域和最后线性层，以及Appendix A固定0/1 dropout和非空有限窗口max-pool的一个真实最大者选择均已连接公共仿射链；包含并列最大值和所有偏置。'
+ ae['scope']='Actual finite ReLU evaluation, gate regions and the final linear layer, plus Appendix A fixed0/1 dropout and one actual maximizer per finite nonempty max-pool window, are connected to the public affine chain, including ties and all biases.'
+ affine['lean']['evidence_role']='theorem_proof';affine['lean']['declarations']=list(dict.fromkeys(n for st in affine['proof_steps'] for n in ns(st)))
+ lab=rows['transformation-kde-labels'];le=lab['translations']['en'];first=lab['proof_steps'][0];efirst=le['proof_steps'][0]
+ first['body_md']=r'在真实 ReLU 层取权重 $0$、偏置 $1$，两类两个输入的特征均为 $t_y=\max(0,0x_y+1)=1$。标签在 Boolean 上均匀，$\epsilon\sim\mathcal N(0,q)$ 且 $q=\sigma_0^2>0$；实际概率空间是标签律与 Gaussian 律的乘积。public 构造证明 $\widehat T=1+\epsilon\sim\mathcal N(1,q)$，并证明它与 $Y$ 独立。实际 pushforward 联合律等于 $\mathcal N(1,q)\otimes K$，其中真实常核 $K_z=P_Y$、每类质量 $1/2$。所以有限标签条件熵的真实信息 $H(Y)-\int H(K_z)dP_{\widehat T}(z)=0$；没有把所需联合独立或Gaussian法则放进假设。'
+ efirst['body_md']=r'Take weight $0$ and bias $1$ in an actual ReLU layer, giving $t_y=\max(0,0x_y+1)=1$ at both inputs. Labels are uniform on Boolean, with $\epsilon\sim\mathcal N(0,q)$ and $q=\sigma_0^2>0$; the actual probability space is the product of the label and Gaussian laws. The public construction proves $\widehat T=1+\epsilon\sim\mathcal N(1,q)$ and independence from $Y$. Its actual pushed joint law equals $\mathcal N(1,q)\otimes K$, where the genuine constant kernel $K_z=P_Y$ has class masses $1/2$. Thus actual finite-label information is $H(Y)-\int H(K_z)dP_{\widehat T}(z)=0$. The required joint independence and Gaussian law are proved rather than assumed.'
+ first['formula_tex']=r'\widehat T=\operatorname{ReLU}(0X+1)+\epsilon=1+\epsilon,\quad P_{\widehat T,Y}=\mathcal N(1,q)\otimes P_Y,\quad I(\widehat T;Y)=0'
+ first['lean_refs']=['Harsanyi.Entropy.balanced_label_mass','Harsanyi.Entropy.constant_relu_feature','Harsanyi.Entropy.gaussian_feature_noise_law','Harsanyi.Entropy.noisy_constant_relu_law','Harsanyi.Entropy.gaussian_feature_independent','Harsanyi.Entropy.gaussian_feature_joint_kernel','Harsanyi.Entropy.gaussian_label_kernel_mass','Harsanyi.Entropy.actual_gaussian_feature_information_zero']
+ second=lab['proof_steps'][1]
+ second['lean_refs']=list(dict.fromkeys(ns(second)+['Harsanyi.Entropy.constantFeatureKernel','Harsanyi.Entropy.actual_constant_feature_kernel','Harsanyi.Entropy.actualConstantFeatureEstimator','Harsanyi.Entropy.actual_constant_feature_estimator_negative','Harsanyi.Entropy.actual_gaussian_eq24_counterexample','PaperTransformation.actual_gaussian_eq24_model']))
+ lab['scope']='原常值ReLU、独立Gaussian噪声、实际N(1,q)特征法则、实际joint pushforward与常标签kernel完整形式化，真实MI0与原两个1/P因子的KDE负值在同一源模型反例中绑定。'
+ le['scope']='The constant actual ReLU, independent Gaussian noise, actual N(1,q) feature law, joint pushforward and constant label kernel are fully formalized, binding actual MI0 and the negative KDE value with both literal1/P factors in one source-model counterexample.'
+ lab['lean']['evidence_role']='counterexample';lab['lean']['declarations']=list(dict.fromkeys(n for st in lab['proof_steps'] for n in ns(st)))
+ for row in [affine,lab]:row['lean']['scope']=row['scope'];row['lean']['translations']['en']['scope']=row['translations']['en']['scope']
+ sid='shared-transformation-fixed-gating-operators';c['shared_proofs']=[s for s in c['shared_proofs'] if s['id']!=sid]
+ ps=deepcopy(affine['proof_steps'][-2:]);es=deepcopy(ae['proof_steps'][-2:])
+ for j,(a,b) in enumerate(zip(ps,es),1):a['id']=b['id']=f'{sid}-step-{j}'
+ declarations=list(dict.fromkeys(n for st in ps for n in ns(st)))
+ scopez='真实固定dropout及实际有限非空窗口最大池化与所选线性门、仿射偏置的连接完整验证；随机门全局线性不在此命题中。'
+ scopee='Actual fixed dropout and finite nonempty-window max pooling are fully connected to their selected linear gates and affine biases; global linearity with varying random gates is outside this statement.'
+ zdef=r'$D_k(h)_d=k_dh_d$，$M(h)_p=\max_{d\in R_p}h_d$，$a(p)\in R_p$ 为一个达到最大值的输入，$P_a(h)_p=h_{a(p)}$；输入窗口与输出索引域可以不同。'
+ edef=r'$D_k(h)_d=k_dh_d$, $M(h)_p=\max_{d\in R_p}h_d$, with one maximizing $a(p)\in R_p$ and $P_a(h)_p=h_{a(p)}$. Input-window and output index domains may differ.'
+ zass='固定keep位；每个池化窗口非空有限。门区域中固定选择仍达到实际预激活的最大值；并列时只选一个。'
+ eass='Freeze keep bits; each pool window is finite and nonempty. On the gate region the fixed selector still maximizes the actual preactivation; choose only one input at a tie.'
+ sh=dict(id=sid,title='共享证明：真实 dropout 与最大池化的固定门仿射作用',statement_tex=r'D_k(Wx+b)=(D_k\circ W)x+D_k(b),\quad M(Wx+b)=(P_a\circ W)x+P_a(b)',assumptions=[dict(id=sid+'-assumption',body_md=zass)],definitions=[dict(id=sid+'-definition',body_md=zdef)],overview=ps[0]['body_md'],proof_steps=ps,symbol_ids=affine['symbol_ids'],notation_map=deepcopy(affine.get('notation_map',[])),rewrite_status='complete',rewrite_role='proof',statement_assessment='no_statement_error_recorded',scope=scopez,proof_scope='exact_actual_fixed_operators',lean=dict(status='pending_verification',compiled=False,evidence_role='theorem_proof',declarations=declarations,scope=scopez,translations=dict(en=dict(scope=scopee))),paper_mappings=[dict(paper_id=c['paper_id'],result_id=affine['id'],note=scopez,translations=dict(en=dict(note=scopee)))],translations=dict(en=dict(title='Shared proof: affine action of actual fixed dropout and max-pool gates',assumptions=[dict(id=sid+'-assumption',body_md=eass)],definitions=[dict(id=sid+'-definition',body_md=edef)],overview=es[0]['body_md'],proof_steps=es,notation_map=deepcopy(ae.get('notation_map',[])),scope=scopee)))
+ c['shared_proofs'].append(sh);affine['shared_proof_ids']=list(dict.fromkeys(affine['shared_proof_ids']+[sid]))
+ temporary=p.with_name(p.name+'.tmp');temporary.write_text(json.dumps(c,ensure_ascii=False,indent=2)+'\n');temporary.replace(p)
+ print('actual-model followups:',len(declarations),'shared declarations; source fields unchanged')
+
+if __name__=='__main__':update(Path(__file__).parent)

@@ -1,0 +1,119 @@
+                                      Standard DNN                          Adversarially trained DNN                                                                Adverarially trained DNN              Standard DNN
+                                                                 Wide-ResNet50-4
+                                                                                                                                                              ResNet-18 ResNet-50      Wide-   DenseNet-161 VGG-16      ResNet-18 ResNet-34
+                       ResNet-18              ResNet-50            ResNet-50                    DenseNet-161       VGG-16                                     on ImageNet on ImageNet ResNet50-4 on ImageNet on ImageNet on Tiny     on Tiny
+                                                               1.6                                          1.8
+
+
+
+
+untargeted
+                                                                                                                                                                                      on ImageNet                        ImageNet   ImageNet
+                       1𝑒                     1𝑒                     1𝑒                    1𝑒                      1𝑒
+                 1.6                                                                   1                                                                 1
+
+
+
+
+                                                                                                                                          untargeted
+                                        1.6
+
+
+
+
+  attack
+                                                                                                            1.2
+                                                                                                                                                       0.8
+
+
+
+
+                                                                                                                                            attack
+                                                               0.6
+                 0.8                    0.6                                           -1                    0.6                                        0.6
+                                                                                                                                                       0.4
+                  0                     -0.4                   -0.4                   -3                       0
+                   0.1n     order   0.95n 0.1n             0.95n 0.1n             0.95n 0.1n             0.95n 0.1n     order 0.95n                    0.2
+                                                   order                  order                  order                                                       0.1n   0.95n                          order
+                 1.2                    1.2                                            1                     1.2
+                       1𝑒                     1𝑒                     1𝑒                    1𝑒                      1𝑒                                    1
+targeted
+
+                                                               0.7
+
+
+
+
+                                                                                                                                          targeted
+ attack
+
+                                                                                       0                     0.6                                       0.8
+
+
+
+
+                                                                                                                                           attack
+                 0.6                    0.4                                                                                                            0.6
+                                                               0.2                    -1                       0
+                                                                                                                                                       0.4
+                  0                    -0.4                   -0.3                    -2                    -0.6                                       0.2
+                   0.1n     order 0.95n    0.1n    order 0.95n    0.1n    order 0.95n 0.1n       order 0.95n    0.1n    order 0.95n                          0.1n   0.95n                          order
+
+
+Figure 4: Distribution of compositional attacking                                                                                         Figure 5: The interaction disentanglement D(m) .
+utilities caused by interactions of different orders                                                                                      Interactions of adversarially trained DNNs exhib-
+{∆J (m) }.                                                                                                                                ited higher disentanglement than those of stan-
+                                                                                                                                          dard DNNs.
+
+
+(m < 0.5n) in standard ResNet-18 decreased a little, while the interaction of order m = 0.95n
+dropped from 0.01 to −0.059. This phenomenon was consistent with the heuristic findings of Dong
+et al. [16] that neurons corresponding to high-level semantics were ambiguous.
+Additional experiments on the target category and other categories. Beyond above analysis about
+interactions w.r.t. the ground-truth category, we also conducted experiments and found that high-order
+interactions w.r.t. the target category6 increased significantly. Please see the supplementary material
+for details. In sum, high-order interactions were much more sensitive than low-order interactions,
+which verified our conclusions.
+Theoretic explanation of the sensitivity of high-order interactions. Besides the above empirical
+observation, we can also theoretically prove that high-order interactions are more sensitive than
+low-order interactions.
+Proposition 1 (equivalence between the multi-order interaction and the mutual information): Given
+an input sample x ∈ X ⊆ Rn and the network output Y , we define XS = {xS |x ∈ X} where
+S ⊆ N ; each xS represents the sample, where variables not in S are masked. If v(S) is set
+                                                           P                                   (m)
+as the entropy of classification v(S) = H(Y |XS ) =           xS p(xS )H(Y |XS = xS ), then Iij     =
+ES⊆N \{i,j},|S|=m M I(Xi ; Xj ; Y |XS ). The conditional mutual information M I(Xi ; Xj ; Y |XS ) mea-
+sures the remaining mutual information7 between Xi , Xj and Y , when XS is given. When XS (with
+m pixels) is given, M I(Xi ; Xj ; Y |XS ) can be considered as the benefit to the inference from the
+interaction between Xi and Xj . Please see the supplementary material for proofs.
+Proposition 1 indicates that compared to low-order interactions, high-order interactions are condi-
+tioned on larger contexts S, i.e. conditioned on more contextual perturbations, thereby suffering more
+from adversarial perturbations.
+Note that in Proposition 1, we set v̂(S) = H(Y |XS ), which is slightly different from setting v(S) =
+log p(y = y truth |S, x) in Section 4.1. Nevertheless, the trend of v(S) can roughly reflect the negative
+trend of v̂(S), which is discussed in the supplementary material.
+Comparison with frequency-based methods. Previous studies [66, 51, 23] explained adversarial
+perturbations as high-frequency features. Figure 6 (left) shows the difference in the frequency
+between normal samples and adversarial samples. We find that high-order interactions can better
+distinguish adversarial examples and normal samples, than the frequency of features, which indicates
+that the interaction metric can better explain the essential property of adversarial perturbations. Please
+see the supplementary material for more details.
+
+
+4.2               Explaining specific interactions encoded by adversarially trained DNNs
+
+Discovery. In order to understand the difference in signal-processing behaviors between adversarially
+trained DNNs and standard DNNs, we have proven that the overall attacking utility Ex∈Ω [∆v(N |x)]
+can be approximately decomposed as the sum of attacking utilities on multi-order interactions
+∆J (m) , according to Eq. (3). Figure 4 shows the attacking utility of multi-order interactions i.e.
+∆J (m) = n−1−m
+           n(n−1)
+                  ∆I (m) .
+
+
+             7
+                 Note that unlike the bivariate mutual information, M I(Xi ; Xj ; Y |XS ) can be negative.
+
+
+                                                                                                                                      7
+

@@ -1,0 +1,2 @@
+Proof:
+$$\begin{aligned}v(N)&=v(\varnothing)+\frac1n\sum_{i\in N}\sum_{m=0}^{n-1}\phi^{(m)}(i)\\&=v(\varnothing)+\frac1n\sum_i\phi^{(0)}(i)+\frac1n\sum_i\sum_{m=1}^{n-1}\left[E_{j\in N\setminus\{i\}}\left[\sum_{k=0}^{m-1}I_{ij}^{(k)}\right]+\phi^{(0)}(i)\right]\\&=v(\varnothing)+\sum_i\phi^{(0)}(i)+\frac1{n(n-1)}\sum_i\sum_{j\in N\setminus\{i\}}\sum_{m=1}^{n-1}\left[\sum_{k=0}^{m-1}I_{ij}^{(k)}\right]\\&=v(\varnothing)+\sum_i\phi^{(0)}(i)+\sum_i\sum_{j\in N\setminus\{i\}}\left[\sum_{m=0}^{n-2}\frac{n-1-m}{n(n-1)}I_{ij}^{(m)}\right].\end{aligned}$$

@@ -1,0 +1,65 @@
+• Defining, extracting, and quantifying interactive concepts encoded by DNNs. Quantifying the
+interactions between different input variables [57, 58] is a new perspective to formulate the knowledge
+encoded by a DNN. Based on game theory, Zhang et al. [66, 68, 67] introduced multi-variate
+interaction and multi-order interaction to quantify the interactions encoded by the DNN. Ren et al.
+[45] empirically observed and Ren et al. [47] further proved that a DNN usually just encoded a small
+number of salient interactions. Ren et al. [44] defined the optimal baseline value for computing the
+Shapley value based on these interactions. Li and Zhang [27] found that salient interactions usually
+have high transferability over different samples and DNNs. These findings showed that these salient
+interactions could be viewed as interactive concepts encoded by a DNN.
+• Using interactive concepts to explain/measure the representation power of DNNs. The repre-
+sentation power of DNNs has been explained by game-theoretic multi-order interaction, including
+generalization power [67, 70], adversarial robustness [45, 70], and adversarial transferability [60].
+Besides, Cheng et al. [8] used interactions to investigate how shapes and textures were encoded in
+DNNs. Cheng et al. [9] found that salient interactions often represented prototypical patterns encoded
+by DNNs. Deng et al. [11] derived that the DNN was less likely to encode mid-order interactions.
+In comparison, Ren et al. [46] proved that the Bayesian neural network was less likely to encode
+high-order interactions, thereby obtaining good adversarial robustness.
+• Unifying the common underlying mechanism shared by previous empirical findings. Interactions
+have superior representation power, and we find that many previous studies can be re-explained
+from the perspective of interactions. Deng et al. [12] proved that fourteen attribution methods could
+be reformulated and considered as a certain allocation of interaction effects. Besides, Zhang et al.
+[69] proved that reducing the interactions was the common underlying mechanism shared by twelve
+previous studies for improving adversarial transferability.
+
+3         Explaining simple interactive concepts are easy to learn
+3.1       Preliminaries: sparse interactive concepts emerge in DNNs
+
+It is generally believed that the learning of DNNs is a fitting problem between the ground-truth label
+and the model output, instead of explicitly learning specific concepts like graphical models. However,
+Ren et al. [45], Li and Zhang [27] have empirically observed and Ren et al. [47] have mathematically
+proven the counter-intuitive emergence of concepts in DNNs, i.e., it is proven that under a set of
+common conditions, a DNN encodes just a small number of interactive concepts for inference.
+Specifically, given a pre-trained DNN v and an input sample x = [x1 , . . . , xn ] with n variables indexed
+by N = {1, . . . , n}, v(x) ∈ R denotes a scalar output of the DNN3 . Each interaction in [45, 27, 47]
+is defined as Harsanyi dividend (or Harsanyi interaction) [18] in game theory, which represents a
+collaboration (AND relationship) between input variables in a specific set S (S ⊆ N ). For example,
+as Figure 1(a) shows, the co-appearance of image patches forms a mouth interaction S = {x1 , x2 , x3 }.
+Only when these three patches are all present, the mouth interaction will be triggered, and make a
+certain interaction effect I(S) on the network output. The absence (masking) of any patches of x1 , x2 ,
+and x3 will deactivate the mouth interaction and remove the interaction effect, i.e., I(S) = 0. The
+interaction effect I(S|x) on the input sample x is computed as follows.
+                                                X
+                                    I(S|x) =               (−1)|S|−|T | · v(xT ),                                (1)
+                                                    T ⊆S
+
+where xT denotes the masked input sample, when we mask input variables in N \T and keep variables
+in T unchanged. Please see more properties of the Harsanyi dividend in the supplementary material.
+Theoretically, there are 2n potential subsets S of input variables (S ∈ 2N = {S|S ⊆ N }). The
+proven concept-emergence phenomenon refers to that only a small number of subsets S ∈ Ωsalient ⊆
+2N make salient interaction effects I(S|x) on the network output, and can be considered as
+interactive concepts. Interaction effects of all other subsets are close to zero (I(S|x) ≈ 0), which
+can be considered as ignorable noisy patterns. Therefore, the network output v(x) can be well
+approximated by interaction effects of a small number of interactive concepts, i.e.,
+                                          X                     X
+                                 v(x) =            I(S|x) ≈                      I(S|x)                          (2)
+                                             S⊆N                    S∈Ωsalient
+
+      3
+     Here, v(x) ∈ R can be implemented as either a scalar output of the DNN or a dimension of an output vector
+                                                                                                 p(y=ytruth |x)
+(e.g., the confidence score of classifying the sample x to the ground-truth category v(x) = log 1−p(y=y  truth |x)
+                                                                                                                   ).
+
+
+                                                           3

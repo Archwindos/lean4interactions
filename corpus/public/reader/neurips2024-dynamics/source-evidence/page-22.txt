@@ -1,0 +1,83 @@
+So the optimal weights can be solved as
+                                    ŵ = (J ⊤ J + 2n diag(c))−1 J ⊤ y.                                            (51)
+                                ⊤ ∗
+P we will∗ show that y = J w . Recall that definition of y(xS ) is given by y(xS ) = v(x∅ ) +
+Next
+          w
+   ∅̸=T ⊆S T  in the main paper. According to the Lemma 2, we have JT (x) = 1(T ⊆ S). Therefore,
+                                                                           def
+y(xS ) can be rewritten as y(xS ) = T ⊆N JT (xS )wT∗ , where we define w∅∗ = v(x∅ ) for simplicity
+                                    P
+
+of notation. Writing the sum in vector norm, we obtain y(xS ) = J (xS )⊤ w∗ . Furthermore, the
+whole vector y can be written as y = J ⊤ w∗ .
+With y = J ⊤ w∗ , we have ŵ = (J ⊤ J + 2n diag(c))−1 J ⊤ J w∗ = M̂ w∗ .
+
+F.5 Proof of Lemma 2
+Proof. According to Eq. (7), the interaction triggering function on an arbitrarily given sample x̂ is
+given by
+                          X          1       ∂ π1 +···+πn v     Y            π
+              JT (x) =          Qn             π1        πn        (xi − bi ) i /wT             (52)
+                           π∈QT    i=1 πi ! ∂x1 · · · ∂xn x=x∅                i∈T
+
+where wT = I(T |x = x̂), and QT = {[π1 , . . . , πn ]⊤ : ∀i ∈ T, πi ∈ N+ ; ∀i ̸∈ T, πi = 0}.
+Specifically, now we consider a masked sample x̂S , and we will prove that JT (x̂S ) = 1(T ⊆ S).
+We consider the following two cases.
+Case 1: T ⊈ S. Then, there exists some j ∈ T \ S. Since j ∈   / S, according to the masking rule of the
+sample x̂S , we have (x̂S )j − bj = 0. Since j ∈ T , we have πj ∈ N+ . Therefore, ((x̂S )j − bj )πj = 0.
+In this way, we have                           Y                 π
+                                 ∀π ∈ QT ,        ((x̂S )i − bi ) i = 0.                            (53)
+                                                      i∈T
+Since each term in the summation equals zero, we have JT (x̂S ) = 0.
+Case 2: T ⊆ S. In this case, ∀i ∈ T , we have i ∈ S. Therefore, according to the masking rule, we
+have ∀i ∈ T ⇒ i ∈ S ⇒ (x̂S )i = x̂i .
+According to the analytic form of I(T |x) in Eq. (19) in the proof in Appendix F.2, we can derive the
+value of wT as
+                                   X         1       ∂ π1 +···+πn v         Y            π
+           wT = I(T |x = x̂) =           Qn            π1          πn         (x̂i − bi ) i .    (54)
+                                               π
+                                           i=1 i  ! ∂x 1   · · · ∂xn  x=x ∅
+                                      π∈QT                                                 i∈T
+
+
+Therefore, we can derive the value of JT (x̂S ) as follows.
+                 X         1       ∂ π1 +···+πn v         Y                π
+     JT (x̂S ) =       Qn            π1          πn         ((x̂S )i − bi ) i /wT                                 (55)
+                             π
+                         i=1 i  ! ∂x 1   · · · ∂xn  x=x ∅
+                  π∈QT                                            i∈T
+
+                           Qn 1       ∂ π1 +···+πn v                                       πi
+                  P                                               Q
+                    π∈QT         πi !    π
+                                      ∂x1 1 ···∂xπ n              i∈T   ((x̂S )i − bi )
+                             i=1                 n   x=x∅
+              =                                                                                  // by Eq. (54)   (56)
+                   P
+                             Qn 1       ∂ π1 +···+πn v
+                                                                  Q                       πi
+                      π∈QT                 π1      πn                 i∈T   (x̂i − bi )
+                               i=1 πi ! ∂x1 ···∂xn     x=x∅
+
+                           Qn 1           ∂ π1 +···+πn v                              πi
+                  P                                               Q
+                    π∈QT           πi !      π
+                                          ∂x1 1 ···∂xπ n          i∈T   (x̂i − bi )
+                             i=1                     n     x=x∅
+              =P                                                                                                  (57)
+                           Qn 1       ∂ π1 +···+πn v
+                                                                  Q                   πi
+                    π∈QT                 π1      πn               i∈T   (x̂i − bi )
+                             i=1 πi ! ∂x1 ···∂xn     x=x∅
+                   // because we have proven ∀i ∈ T, (x̂S )i = x̂i                                                (58)
+              =1                                                                                                  (59)
+
+Combining the two cases, we can conclude that JT (x̂S ) = 1(T ⊆ S).
+In this way, no matter how we change the DNN v(·) or the input sample x, the matrix J =
+                                                  n  n
+[J (xS1 ), J (xS2 ), · · · , J (xS2n )]⊤ ∈ {0, 1}2 ×2 in Eq. (10) is a always a fixed binary matrix.
+
+
+
+
+                                                            22

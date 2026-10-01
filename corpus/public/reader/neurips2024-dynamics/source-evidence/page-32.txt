@@ -1,0 +1,52 @@
+       (a) If the contribution is primarily a new algorithm, the paper should make it clear how
+           to reproduce that algorithm.
+       (b) If the contribution is primarily a new model architecture, the paper should describe
+           the architecture clearly and fully.
+       (c) If the contribution is a new model (e.g., a large language model), then there should
+           either be a way to access this model for reproducing the results or a way to reproduce
+           the model (e.g., with an open-source dataset or instructions for how to construct
+           the dataset).
+       (d) We recognize that reproducibility may be tricky in some cases, in which case
+           authors are welcome to describe the particular way they provide for reproducibility.
+           In the case of closed-source models, it may be that access to the model is limited in
+           some way (e.g., to registered users), but it should be possible for other researchers
+           to have some path to reproducing or verifying the results.
+5. Open access to data and code
+  Question: Does the paper provide open access to the data and code, with sufficient instruc-
+  tions to faithfully reproduce the main experimental results, as described in supplemental
+  material?
+  Answer: [No]
+  Justification: The code will be released when the paper is accepted. All datasets used in
+  this paper are publicly available. Nevertheless, to enhance reproducibility, we provide the
+  detailed experimental settings in Appendix F.
+  Guidelines:
+     • The answer NA means that paper does not include experiments requiring code.
+     • Please see the NeurIPS code and data submission guidelines (https://nips.cc/
+       public/guides/CodeSubmissionPolicy) for more details.
+     • While we encourage the release of code and data, we understand that this might not be
+       possible, so “No” is an acceptable answer. Papers cannot be rejected simply for not
+       including code, unless this is central to the contribution (e.g., for a new open-source
+       benchmark).
+     • The instructions should contain the exact command and environment needed to run to
+       reproduce the results. See the NeurIPS code and data submission guidelines (https:
+       //nips.cc/public/guides/CodeSubmissionPolicy) for more details.
+     • The authors should provide instructions on data access and preparation, including how
+       to access the raw data, preprocessed data, intermediate data, and generated data, etc.
+     • The authors should provide scripts to reproduce all experimental results for the new
+       proposed method and baselines. If only a subset of experiments are reproducible, they
+       should state which ones are omitted from the script and why.
+     • At submission time, to preserve anonymity, the authors should release anonymized
+       versions (if applicable).
+     • Providing as much information as possible in supplemental material (appended to the
+       paper) is recommended, but including URLs to data and code is permitted.
+6. Experimental Setting/Details
+  Question: Does the paper specify all the training and test details (e.g., data splits, hyper-
+  parameters, how they were chosen, type of optimizer, etc.) necessary to understand the
+  results?
+  Answer: [Yes]
+  Justification: Details on dataset preprocessing can be found in Appendix F.1. Details on
+  training settings can be found in Appendix F.2. Details on how to compute interactions can
+  be found in Appendix F.3.
+
+
+                                           32

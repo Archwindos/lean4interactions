@@ -1,0 +1,102 @@
+J.2            More details for the alignment between the two phases and the loss gap
+
+
+
+
+Besides the loss gap, in Figure 7, we also show the training loss and the testing loss separately. In
+fact, instead of considering underfitting (or learning useful features) and overfitting (or learning
+overfitted features) as two separate processes, the DNN simultaneously learns both useful features
+and overfitted features during training. The learning of useful features decreases the training loss and
+the testing loss, which alleviates underfitting. Meanwhile, the learning of overfitted features gradually
+increases the loss gap.
+
+
+
+
+                                      Extracting interactions from different time points during training
+                                                                                                                                         Loss gap                     Training and testing loss
+                       Time point 1       Time point 2    Time point 3     Time point 4     Time point 5    Time point 6
+                                                                                                                                     Six time
+                                                                                                                                      points
+ AlexNet
+
+
+
+
+                                                                                                                                                               Loss
+                                                                                                                           Gap
+   CUB
+
+
+
+
+                 𝑘
+               𝐼real                                                                                                                                                        Training loss
+                                                                                                                                                                            Testing loss
+                         order 𝑘            order 𝑘          order 𝑘         order 𝑘          order 𝑘           order 𝑘          0     training epochs   256            0    training epochs        256
+
+                                                                                                                                     Six time                                       Training loss         Simultaneously
+ CIFAR-10
+ VGG-11
+
+
+
+
+                                                                                                                                      points                                        Testing loss          learning generalizable
+
+
+
+
+                                                                                                                                                               Loss
+                                                                                                                           Gap
+
+                 𝑘                                                                                                                                                                                        interactions and
+               𝐼real
+                                                                                                                                                                                                          overfitted interactions
+                         order 𝑘            order 𝑘          order 𝑘         order 𝑘          order 𝑘           order 𝑘          0     training epochs 256             0     training epochs        256
+ BERT-Medium
+
+
+
+
+                                                                                                                                     Six time                               Training loss
+                                                                                                                                      points                                Testing loss
+    SST-2
+
+
+
+
+                 𝑘
+                                                                                                                           Gap
+
+
+
+
+                                                                                                                                                               Loss
+               𝐼real
+
+                         order 𝑘            order 𝑘          order 𝑘         order 𝑘          order 𝑘           order 𝑘
+                                                                                                                                 0     training epochs   256           0     training epochs 256
+
+
+
+
+Figure 7: Demonstration of the training loss and the testing loss (the last column) in addition to the
+two-phase dynamics of interactions (1st column to 6th column) and the loss gap (7th column).
+
+
+
+
+J.3            More results for the experimental verification of our theory
+
+
+
+
+                                                                                                                                                                                                                              (k)
+In this subsection, we show results of using the theoretical distribution of interaction strength Itheo
+                                                        (k)
+to match the real distribution of interaction strength Ireal on more DNNs and datasets, as shown in
+Figure 8.
+
+
+                                                                                                           27

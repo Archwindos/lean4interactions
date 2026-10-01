@@ -1,0 +1,32 @@
+H    Experimental Settings
+Training details. We trained AlexNet [23], VGG-11 [55], ResNet-18/20 [19] on the CIFAR-10
+dataset [22] and the Tiny ImageNet dataset [25], respectively. We also trained a five-layer MLP on
+the UCI census dataset (namely census dataset) and the UCI TV news dataset (namely TV news
+dataset) [6], respectively. Each layer of the MLP contained 100 neurons. We trained each neural
+networks for 200 epochs with the SGD optimizer.
+Sampling details. Since, the computational cost of I(S|x) was intolerable in real implementation,
+we applied the sampling-based approximation method in [67] to calculate I(S|x). Due to the high
+dimension of image data (e.g. 224 × 224 for ImageNet), we uniformly split the input image into 8×8
+patches. Furthermore, we random sampled 12 patches and considered these patches as input variables
+for each image. The remaining 52 patches are set to the baseline value.
+Implementations details. Here, we introduce how to measure β(S) and κ(S) in Section 2.3. On
+the Tiny ImageNet dataset, we randomly sampled 100 training images. These training images were
+randomly sampled from different 10 classes. On the CIFAR-10 dataset, we randomly sampled 10
+training images from each class. For tabular datasets, we randomly sampled 50 training samples
+from each class. For image datasets, we set τ = 2 when the input data is normalized by its standard
+deviation. For tabular datasets, we set τ = 1 when the input data is normalized by its standard
+deviation. In this way, we set the baseline bi = max(xi − τ, µ), if xi > µi , and we set the baseline
+bi = min(xi + τ, µ), if xi < µi . For Gaussian perturbation ϵ, we set σ = 0.02. Besides, for
+each training sample, we randomly sampled five Gaussian perturbation with five different seeds,
+respectively.
+Adversarial attack. Here, we introduce how to measure A(s) in Section 3.1. For tabular datasets, we
+randomly sampled 50 training samples from each class from the training set. On the Tiny-ImageNet
+dataset, we randomly sampled 100 training images. These training images were randomly sampled
+from different 10 classes. On the CIFAR-10 dataset, we randomly sampled 10 training images
+from each class. We used the l∞ untargeted PGD attack by following [33], in which the constraint
+ϵ = 16/255, and the attack was conducted with 5 steps with the step size ϵ = 3/255.
+
+
+
+
+                                                 22

@@ -1,0 +1,69 @@
+                         Towards Theoretical Analysis of Transformation Complexity of ReLU DNNs
+
+Some studies directly visualized knowledge representations        analyzed the complexity of features in a DNN by comparing
+encoded in the DNN (Zeiler & Fergus, 2014; Mahendran &            them with features learned by a linear classifier.
+Vedaldi, 2015; Yosinski et al., 2015; Dosovitskiy & Brox,
+                                                                  Unlike analyzing the complexity of the DNN based on its
+2016; Simonyan et al., 2017). Other methods estimated the
+                                                                  architecture, we aim to measure the complexity of feature
+pixel-wise attribution to the network output (Zhou et al.,
+                                                                  transformations learned by the DNN. We define three types
+2015; Selvaraju et al., 2017; Fong & Vedaldi, 2017; Kinder-
+                                                                  of transformation complexity, which provide new perspec-
+mans et al., 2017; Zhou et al., 2016). The LIME (Ribeiro
+                                                                  tives to understand the DNN.
+et al., 2016) and SHAP (Lundberg & Lee, 2017) extracted
+important input units that directly contributed to the output.
+Some visual explanations reveal certain insightful properties     3. Transformation Complexity
+of DNNs. Fong & Vedaldi (2017) analyzed how multiple
+                                                                  Strong connection between gating states and the trans-
+filters jointly represented a certain semantic concept. In
+                                                                  formation complexity. Given the input x ∈ X and the
+contrast, in this paper, we propose to investigate the repre-
+                                                                  target label y ∈ Y , the DNN is learned to map x to y . Lay-
+sentation capacity from the perspective of transformation
+                                                                  erwise transformations of mapping x to y can be roughly
+complexity encoded in DNNs.
+                                                                  represented by
+• The second type is to analyze the feature representation        y = g(z), z = WL+1 . . . σ 2 (W2 σ 1 (W1 x+b1 )+b2 ) · · ·+bL+1
+capacity of DNNs. The stiffness (Fort et al., 2019) was                                                                        (1)
+proposed to diagnose the generalization capacity of DNNs.          where g denotes the optional layer on the top, e.g., the
+Xu (2018) applied the Fourier analysis to explain the gen-        softmax layer. z denotes the output feature before the top
+eralization capacity of DNNs. The CLEVER score (Weng              layer. The network module z = WL+1 . . . σ 2 (W2 σ 1 (W1 x +
+et al., 2018) was used to estimate the robustness of DNNs.        b1 ) + b2 ) · · · + bL+1 is a piecewise linear model.
+Wolchover (2017); Shwartz-Ziv & Tishby (2017) proposed
+the information bottleneck theory and used mutual informa-        Specifically, Wl and bl denote the weight and the bias
+tion to quantify the information encoded in DNNs. Xu &            of the l-th linear layer. Let σl = [σl,1 , σl,2 , . . . , σl,D ] ∈
+Raginsky (2017); Achille & Soatto (2018b); Goldfeld et al.        {0, 1}D denote gating states of the l-th gating layer.
+(2019) further extended the information bottleneck theory         σ l = diag(σl,1 , σl,2 , . . . , σl,D ) is a diagonal matrix with
+to constrain the feature representation to learn more disen-      (σl,1 , σl,2 , . . . , σl,D ) as its main diagonal. Gating layers in-
+tangled features. Chen et al. (2018) selected instance-wise       clude the ReLU, max-Pooling, and Dropout layer. Take
+features based on mutual information to interpret DNNs.           the ReLU layer as an example1 . If the d-th dimension of
+Kornblith et al. (2019) used the canonical correlation analy-     the input feature is larger than 0, then we have σl,d = 1;
+sis to compare features from the perspective of similarity.       otherwise, σl,d = 0. Let Σl = {σ l } denote the random vari-
+                                                                  able of gating states of the l-th gating layer. Given a certain
+Unlike previous studies, we focus on the complexity of            input x, σ = [σ 1 , σ 2 , . . . , σ L ] represents concatenated and
+transformations encoded in DNNs. Previous methods on              vectorized gating states of all gating layers. Accordingly,
+the complexity of DNNs can be summarized as follows:              Σ = [Σ1 , Σ2 , . . . , ΣL ] denotes the set of gating states of all
+• Computational complexity and difficulty of learning a           L gating layers over all samples2 .
+DNN: Blum & Rivest (1989) proved that learning a one-             Therefore, the layerwise transformation of mapping x to y
+layer network with a sign activation function was NP-hard.        can be represented as y = g(z) and z = Wx + b, where
+Livni et al. (2014) further discussed the computational com-      W = WL+1 σ L WL · · · σ 2 W2 σ 1 W1 is the equivalent weight
+plexity when the DNN used other activation functions. Boob        matrix, and b is the equivalent bias term. The piecewise
+et al. (2018); Manurangsi & Reichman (2018) proved learn-         linear module z = Wx + b generates different gating states
+ing a two-layer ReLU network was also NP-hard. Arora              σ 1 , · · · , σ L for different inputs x, which lead to different
+et al. (2016) showed that it was possible to learn a ReLU         values of W and b. Therefore, we can roughly use the
+network with one hidden layer in polynomial time, when            diversity of gating states to approximate the diversity of
+the dimension of input was constant.                              transformations. Thus, the entropy of gating states H(Σ)
+• Architectural complexity and representation complexity:         can represent the transformation complexity.
+Raghu et al. (2017) proved that the maximal complexity of         Note that not all small perturbations of the input x change
+features grew exponentially along with the increase of the        the gating states, so gating states can be considered more
+DNN depth. Pascanu et al. (2013); Zhang et al. (2016) pro-        directly related to the transformation complexity than the
+posed three metrics to measure the architectural complexity
+                                                                      1
+of recurrent neural networks. To estimate the maximal rep-              Please see Appendix A for more details about other types of
+resentation capacity, (Liang et al., 2017; Cortes et al., 2017)   gating layers.
+                                                                      2
+                                                                        Please see Appendix G.1 for details about samples that are
+applied the Rademacher complexity. (Kalimeris et al., 2019)       considered in implementations.
+

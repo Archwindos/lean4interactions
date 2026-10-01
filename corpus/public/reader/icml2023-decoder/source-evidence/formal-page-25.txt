@@ -1,0 +1,74 @@
+                                  Defects of Convolutional Decoder Networks in Frequency Representation
+
+where T(uv)(L:1) = T (L,uv) T (L−1,uv) · · · T (1,uv) ∈ C1×1 .
+According to Corollary 3.4, after a single step of gradient descent, the change of T(uv)(L:1) can be computed as follows.
+
+  ∆T(uv)(L:1)
+     = ∆(T (L,uv) T (L−1,uv) · · · T (1,uv) )
+         L
+         X
+     ≈         T(L:l+1)(uv) ∆T (l,uv) T(l−1:1)(uv)            //First order approximation
+         l=1
+                   L
+                   X                       X                (l−1:1)(uv)         ∂Loss
+     = −ηM N              T(L:l+1)(uv) (        χu0 v0 uv T               Guv      T
+                                                                                         T(L:l−1)(uv) )T T(l−1:1)(uv)
+                    l=1                u0 v 0                                   ∂H uv
+                                                                                                                       L
+                                                                                                                       X                          2                       2
+     = −2ηM N (λ1 χu1 v1 uv Gu1 v1 (Hu1 v1 − Hu∗1 v1 ) + λ2 χu2 v2 uv Gu2 v2 (Hu2 v2 − Hu∗2 v2 ))                              T(L:l+1)(uv)               T(l−1:1)(uv)
+                                                                                                                       l=1
+    //According to Equation (43)
+                                                                                                                  L
+                                                      Hu∗1 v1                                 Hu∗2 v2 X (L:l+1)(uv)                     2                        2
+     = −2ηM N (χu1 v1 uv (T(L:1)(u1 v1 ) −                    ) + χu2 v2 uv (T(L:1)(u2 v2 ) −        )) T                                   T(l−1:1)(uv)
+                                                      Gu1 v1                                  Gu2 v2
+                                                                                                                 l=1
+                                                      L
+                                                      X                         2                   2
+     = −2ηM N (Aχu1 v1 uv − Aχu2 v2 uv )                      T(L:l+1)(uv)          T(l−1:1)(uv)        //Equation (45)
+                                                      l=1
+                                                                                                                                                                         (48)
+
+
+For frequencies [u1 , v1 ] and [u2 , v2 ], we have:
+
+                                                                                              L
+                                                                                              X                            2                          2
+                    ∆T(L:1)(u1 v1 ) = −2ηM N (Aχu1 v1 u1 v1 − Aχu2 v2 u1 v1 )                           T(L:l+1)(u1 v1 )       T(l−1:1)(u1 v1 )                          (49)
+                                                                                              l=1
+
+
+                                                                                              L
+                                                                                              X                            2                          2
+                    ∆T(L:1)(u2 v2 ) = −2ηM N (Aχu1 v1 u2 v2 − Aχu2 v2 u2 v2 )                           T(L:l+1)(u2 v2 )       T(l−1:1)(u2 v2 )                          (50)
+                                                                                              l=1
+
+
+
+For any other frequency component [u, v], where u 6= u1 , u 6= u2 , v 6= v1 , v 6= v2 , the change ∆T(uv)(L:1) can be cpmputed
+as the linear combination of the ∆T(L:1)(u1 v1 ) and ∆T(L:1)(u2 v2 ) as follows.
+
+                                                  ∆T(uv)(L:1) = a1 ∆T(L:1)(u1 v1 ) + a2 ∆T(L:1)(u2 v2 )                                                                  (51)
+
+where a1 ∈ C and a2 ∈ C are two complex coefficients, which keep unchanged during the learning process.
+On the other hand, the exact change of T(uv)(L:1) can be directly computed given the objective function. For frequencies
+[u1 , v1 ] and [u2 , v2 ], we have:
+
+                                                                           Hu∗1 v1
+                                                   ∆T(L:1)(u1 v1 ) =               − T(L:1)(u1 v1 ) = −A                                                                 (52)
+                                                                           Gu1 v1
+
+                                                                             Hu∗2 v2
+                                                    ∆T(L:1)(u2 v2 ) =                − T(L:1)(u2 v2 ) = A                                                                (53)
+                                                                             Gu2 v2
+
+For any other frequency component [u, v], the change ∆T(uv)(L:1) can be computed as follows:
+
+                                                                 ∆T(uv)(L:1) = −a1 A + a2 A                                                                              (54)
+
+
+
+
+                                                                                    25
+

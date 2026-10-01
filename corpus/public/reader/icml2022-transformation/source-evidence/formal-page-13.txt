@@ -1,0 +1,54 @@
+                            Towards Theoretical Analysis of Transformation Complexity of ReLU DNNs
+
+A. Gating States in Gating Layers
+In this section, we further discuss gating states of different gating layers, which is mentioned in Section 3 of the paper. Let
+hl ≜ Wl (σ l−1 (Wl−1 . . . (W2 σ 1 (W1 x + b1 ) + b2 ) · · · + bl−1 )) + bl denote the input of the l-th gating layer. We consider
+the vectorized form of hl . Given hl ∈ RD , the formulation of σ l in different gating layers is given as follows.
+(1) ReLU layer. In this case, σ l = diag(σl1 , σl2 , . . . , σlD ) ∈ {0, 1}D , which is a diagonal matrix. If the d-th dimension of hl
+is larger than 0, then we have σld = 1; otherwise, σld = 0.
+(2) Dropout layer. In this case, σ l = diag(σl1 , σl2 , . . . , σlD ) ∈ {0, 1}D , which is a diagonal matrix. If the d-th dimension of
+hl is not dropped, then we have σld = 1; otherwise, σld = 0.
+(3) Max-Pooling layer. Since a pooling layer may change the size of the input, σ l is not necessarily a square matrix. Let
+                                                         ′
+the output of the max-pooling layer be σ l hl ∈ RD , i.e. the input hl is divided into D′ regions. In this case, we have
+             ′
+σ l ∈ {0, 1}D ×D . If (hl )d′ is the largest element in the d′ -th region, then we have (σ l )d′ d = 1; otherwise, (σ l )d′ d = 0.
+
+B. Proofs of Important Conclusions
+This section proves the three properties mentioned in Section 3 of the paper, and also gives detailed proofs for other important
+conclusions in the paper.
+
+B.1. Non-negativity of the complexity I(X; Σ; Y )
+Property 1. If the DNN does not introduce information besides the input X (e.g. there is no sampling operations or
+dropout operations throughout the DNN), we have I(X; Σ; Y ) ≥ 0.
+Proof. Recall that the mutual information is defined as
+
+                                  I(X; Σ; Y ) =I(X; Y ) − I(X; Y |Σ)
+                                                =(H(Y ) − H(Y |X)) − (H(Y |Σ) − H(Y |X, Σ))                                       (6)
+                                                =(H(Y ) − H(Y |Σ)) − (H(Y |X) − H(Y |X, Σ))
+
+If the DNN does not introduce additional information besides X, which means that Σ is determined by X, then we have
+H(Y |X) − H(Y |X, Σ) = I(Σ; Y |X) = 0. Therefore,
+
+                                                 I(X; Σ; Y ) = H(Y ) − H(Y |Σ) ≥ 0                                                (7)
+
+B.2. Increase of the complexity along with the increase of gating layers
+Property 2.      The complexity of transforming the input x increases when we consider more gating layers.
+• H(Σ1 , . . . , Σl ) ≤ H(Σ1 , . . . , Σl+1 )
+Proof.
+                                                   H(Σ1 , . . . , Σl ) − H(Σ1 , . . . , Σl+1 )
+                                                 = − H(Σl+1 |Σ1 , . . . , Σl )
+                                                                                                                                  (8)
+                                                 =Eσ1 ,...,σl+1 [log p(σl+1 |σ1 , . . . , σl )]
+                                                 ≤0
+
+• I(X; {Σ1 , . . . , Σ1 }) ≤ I(X; {Σ1 , . . . , Σl+1 })
+Proof. If the DNN does not introduce additional information besides the input during the forward propagation, then
+Σ1 , . . . , Σl , Σl+1 are all determined by X, thereby H(Σ1 , . . . , Σl |X) = H(Σ1 , . . . , Σl+1 |X) = 0. Therefore,
+
+                       I(X; {Σ1 , . . . , Σl }) − I(X; {Σ1 , . . . , Σl+1 })
+                    =(H(Σ1 , . . . , Σl ) − H(Σ1 , . . . , Σl |X)) − (H(Σ1 , . . . , Σl+1 ) − H(Σ1 , . . . , Σl+1 |X))
+                                                                                                                                  (9)
+                    =H(Σ1 , . . . , Σl ) − H(Σ1 , . . . , Σl+1 )
+                    ≤0
+

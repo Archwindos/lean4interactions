@@ -1,0 +1,84 @@
+                           Defects of Convolutional Decoder Networks in Frequency Representation
+
+A. Proofs of our theoretical findings
+We first introduce an important equation, which is widely used in the following proofs.
+Lemma A.1. Given N complex numbers, einθ , n = 0, 1, . . . , N − 1, the sum of these N complex numbers is given as
+follows.
+                                              N −1
+                                              X               sin( N2θ ) i (N −1)θ
+                               ∀θ ∈ R,             einθ =                e 2                                  (13)
+                                              n=0
+                                                               sin( θ2 )
+
+Specifically, when N θ = 2kπ, k ∈ Z, −N < k < N , we have
+
+                            N −1
+                            X               sin( N2θ )        (N −1)θ
+                ∀θ ∈ R,            einθ =                ei      2        = N δθ ;        s.t. N θ = 2kπ, k ∈ Z, −N < k < N,
+                            n=0
+                                             sin( θ2 )
+                                      (                                                                                                      (14)
+                                       1,                θ=0
+                           where δθ =
+                                       0,                otherwise
+
+
+We prove Lemma A.1 as follows.
+
+                                                                                PN −1
+Proof. First, let us use the letter S ∈ C to denote the term of                    n=0    einθ .
+
+                                                                           N
+                                                                           X −1
+                                                                    S=             einθ
+                                                                           n=0
+
+
+
+Therefore, eiθ S is formulated as follows.
+                                                                           N
+                                                                           X
+                                                               iθ
+                                                              e S=               einθ ∈ C
+                                                                          n=1
+
+
+                                     eiθ S−S
+Then, S can be computed as S =        eiθ −1
+                                             .   Therefore, we have
+
+                                                          eiθ S − S
+                                                  S=
+                                                           eiθ − 1
+                                                          PN       inθ
+                                                                            PN −1
+                                                             n=1 e      − n=0 einθ
+                                                     =
+                                                                     eiθ − 1
+                                                            iN θ
+                                                          e       −1
+                                                     =
+                                                           eiθ − 1
+                                                             Nθ         Nθ
+                                                          ei 2 − e−i 2 i (N −1)θ
+                                                     =         θ        θ   e 2
+                                                            ei 2 − e−i 2
+                                                              Nθ          Nθ
+                                                          (ei 2 − e−i 2 )/2i i (N −1)θ
+                                                     =           θ        θ     e 2
+                                                            (ei 2 − e−i 2 )/2i
+                                                          sin( N2θ )           (N −1)θ
+                                                     =                    ei      2
+                                                              sin( θ2 )
+
+                           PN −1             sin( N2θ ) i (N −1)θ
+Therefore, we prove that    n=0    einθ =     sin( θ2 )
+                                                        e 2 .
+                                                                                                                              (
+                                                                                                   PN −1       inθ             N,   θ=0
+Then, we prove the special case that when N θ = 2kπ, k ∈ Z, −N < k < N ,                            n=0    e         = N δθ =                 , as
+                                                                                                                               0,   otherwise
+follows.
+
+                                                                            11
+

@@ -1,0 +1,1 @@
+(Conclusion) According to the rule of the forward propagation in Equation (4) and the change of $T^{(l,uv)}$ in Equation (5), the zero-padding operation boosts the SOM of low-frequency components, because $\tau_{uv}^2$ is large for low frequencies. This exhibits the trend of encoding low-frequency components of the input sample.

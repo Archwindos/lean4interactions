@@ -1,0 +1,190 @@
+{
+  "status": "passed_core_mathematics",
+  "scope": "independent targeted mathematical cross-review, not all-paper publication approval",
+  "input_report_sha256": "87ced407f296bd8386418711d6ec28a7200a712da17e960fe508cc931bcc5a55",
+  "input_content_sha256": "888bb84ad8dd8e843bc1fa7483bc11fa6dca4edee6958059db002fd1d3a73617",
+  "actual_declarations": [
+    "PaperTransformation.actual_relu_module_affine",
+    "Harsanyi.Entropy.deterministic_gate_co_information_eq",
+    "Harsanyi.Entropy.deterministic_input_suffix",
+    "Harsanyi.Entropy.deterministic_gate_refinement_information",
+    "Harsanyi.Entropy.random_gate_correlation_identity",
+    "Harsanyi.Entropy.total_correlation_zero_iff_independent",
+    "Harsanyi.Entropy.relu_prefix_clause_counterexample",
+    "Harsanyi.Entropy.printed_constant_feature_estimator_negative",
+    "Harsanyi.Entropy.variance_bandwidth_kde_counterexample",
+    "Harsanyi.Entropy.additional_randomness_kde_counterexample",
+    "Harsanyi.Entropy.normalized_class_co_information_bound_counterexample",
+    "Harsanyi.Entropy.source_bandwidth_tc_counterexample",
+    "Harsanyi.Entropy.empirical_marginal_prior_nll",
+    "Harsanyi.Entropy.ebm_nll_hasFDerivAt",
+    "Harsanyi.Entropy.frozen_batch_state_loss_hasFDerivAt",
+    "Harsanyi.Entropy.relaxed_prior_sigmoid_positive"
+  ],
+  "independent_command": [
+    "lake",
+    "-d",
+    "lean/HarsanyiLib",
+    "env",
+    "lean",
+    ".tmp/f04-dynamics-cross/Audit.lean"
+  ],
+  "exit_code": 0,
+  "compile_log_path": ".tmp/f04-dynamics-cross/compile.log",
+  "compile_log_sha256": "3aae2bb4333a3e7175260a88ac20a361bdafd3706668e6e0fd71720f5cd78404",
+  "axiom_whitelist": [
+    "propext",
+    "Classical.choice",
+    "Quot.sound"
+  ],
+  "printed_axiom_lists": [
+    [
+      "PaperTransformation.actual_relu_module_affine",
+      "propext, Classical.choice, Quot.sound"
+    ],
+    [
+      "Harsanyi.Entropy.deterministic_gate_co_information_eq",
+      "propext, Classical.choice, Quot.sound"
+    ],
+    [
+      "Harsanyi.Entropy.deterministic_input_suffix",
+      "propext, Classical.choice, Quot.sound"
+    ],
+    [
+      "Harsanyi.Entropy.deterministic_gate_refinement_information",
+      "propext, Classical.choice, Quot.sound"
+    ],
+    [
+      "Harsanyi.Entropy.random_gate_correlation_identity",
+      "propext, Classical.choice, Quot.sound"
+    ],
+    [
+      "Harsanyi.Entropy.total_correlation_zero_iff_independent",
+      "propext, Classical.choice, Quot.sound"
+    ],
+    [
+      "Harsanyi.Entropy.relu_prefix_clause_counterexample",
+      "propext, Classical.choice, Quot.sound"
+    ],
+    [
+      "Harsanyi.Entropy.printed_constant_feature_estimator_negative",
+      "propext,\n Classical.choice,\n Quot.sound"
+    ],
+    [
+      "Harsanyi.Entropy.variance_bandwidth_kde_counterexample",
+      "propext, Classical.choice, Quot.sound"
+    ],
+    [
+      "Harsanyi.Entropy.additional_randomness_kde_counterexample",
+      "propext, Classical.choice, Quot.sound"
+    ],
+    [
+      "Harsanyi.Entropy.normalized_class_co_information_bound_counterexample",
+      "propext,\n Classical.choice,\n Quot.sound"
+    ],
+    [
+      "Harsanyi.Entropy.source_bandwidth_tc_counterexample",
+      "propext, Classical.choice, Quot.sound"
+    ],
+    [
+      "Harsanyi.Entropy.empirical_marginal_prior_nll",
+      "propext, Classical.choice, Quot.sound"
+    ],
+    [
+      "Harsanyi.Entropy.ebm_nll_hasFDerivAt",
+      "propext, Classical.choice, Quot.sound"
+    ],
+    [
+      "Harsanyi.Entropy.frozen_batch_state_loss_hasFDerivAt",
+      "propext, Classical.choice, Quot.sound"
+    ],
+    [
+      "Harsanyi.Entropy.relaxed_prior_sigmoid_positive",
+      "propext, Classical.choice, Quot.sound"
+    ]
+  ],
+  "source_files": [
+    {
+      "path": "corpus/public/reader/icml2022-transformation/lean/PaperTransformation.lean",
+      "sha256": "ad55a3759112b94ce291e4312fbec7dc6e5c2ab871950b5c99dbefdadfcd94f6"
+    },
+    {
+      "path": "corpus/public/reader/icml2022-transformation/sources/formal.pdf",
+      "sha256": "ff0cdc30b3dd59c6a0e33a711fefa9db54a060b4b87fa1d5ae03a242474bc361"
+    },
+    {
+      "path": "corpus/public/reader/icml2022-transformation/verification/AuditPaperTransformation.lean",
+      "sha256": "2462a0b45bf48eb694f6745c5ef6921c26c3a86041452296569209c4bf6dda3c"
+    },
+    {
+      "path": "corpus/public/reader/icml2022-transformation/verify_transformation.py",
+      "sha256": "80f79d6e7652c60215a34658829922fd7c08661775f6dea785f4835db874c029"
+    },
+    {
+      "path": "lean/HarsanyiLib/Harsanyi/Extensions/TransformationAffine.lean",
+      "sha256": "0e66b90e010f9677936369ac69b5997cde19fde6371d4f54014f2ca30eae0c90"
+    },
+    {
+      "path": "lean/HarsanyiLib/Harsanyi/Extensions/TransformationChains.lean",
+      "sha256": "23212ba8c54f0892308793938c84f703c359258d0e594604e1c337b10561202f"
+    },
+    {
+      "path": "lean/HarsanyiLib/Harsanyi/Extensions/TransformationCorrelation.lean",
+      "sha256": "5bec76fff3b25af6e899de7c4c5e988acfa5652e9e7615b59a4bff4521f59ac2"
+    },
+    {
+      "path": "lean/HarsanyiLib/Harsanyi/Extensions/TransformationCounterexamples.lean",
+      "sha256": "f140b5710690316a235184d3a87728f567e69aec139392c338e2f9734e84d8ff"
+    },
+    {
+      "path": "lean/HarsanyiLib/Harsanyi/Extensions/TransformationEBM.lean",
+      "sha256": "f96ca1eca4f96a250d4047c1ad3eca2c35e5d75117ba70d7f7a0a8406b27bf05"
+    },
+    {
+      "path": "lean/HarsanyiLib/Harsanyi/Extensions/TransformationEntropy.lean",
+      "sha256": "55b66b964ede761a9b14110f3f28f2a61cfeb410687d0a49c7c612354e0cd8fb"
+    },
+    {
+      "path": "lean/HarsanyiLib/Harsanyi/Extensions/TransformationFinite.lean",
+      "sha256": "14d742d5515cac763f4f619bc8c37be2de8d9b97dd62c91abbe30913758417ff"
+    },
+    {
+      "path": "lean/HarsanyiLib/Harsanyi/Extensions/TransformationGates.lean",
+      "sha256": "51e3e1e18c143a3783dfbcd4c894ea07f3aefed0553a1ee9d04185da260f4e21"
+    },
+    {
+      "path": "lean/HarsanyiLib/Harsanyi/Extensions/TransformationKernels.lean",
+      "sha256": "8eefddb7252834a2d579165d656c01721253bcd47e566ab061468e4d12c8f3ac"
+    },
+    {
+      "path": "lean/HarsanyiLib/Harsanyi/Extensions/TransformationRefinement.lean",
+      "sha256": "5b515c2fd2238320d6a314fd40f708febad8f11f19bfbbd101368888741529e6"
+    },
+    {
+      "path": "lean/HarsanyiLib/Harsanyi/Extensions/TransformationRelaxation.lean",
+      "sha256": "daee2bb339a7e8bab279076433ae04cb3c0f77855db0b7c7934afa798dbce924"
+    },
+    {
+      "path": "lean/HarsanyiLib/lake-manifest.json",
+      "sha256": "15530a48dc2a100f79aa805876b097388ace6afe1cae57b0e162cd71195f681c"
+    },
+    {
+      "path": "lean/HarsanyiLib/lakefile.toml",
+      "sha256": "50cc9923bd5123f934d889fb5de03787d6de944a4e243cf71e18eb342caaef8f"
+    },
+    {
+      "path": "lean/HarsanyiLib/lean-toolchain",
+      "sha256": "42779d67b81608af8a12aa4328d2ab47ca201925b3b2bd68369587b5340bb434"
+    },
+    {
+      "path": "locks/lean-dependencies.json",
+      "sha256": "a63213e8dd95acb9a139bb2ab5b02efe8bed54467e95ed9cb5e735203795eecb"
+    }
+  ],
+  "observations": [
+    "PDF20 page audit should include Appendix F Eqs40–42 before G1–G3. This is source metadata, not a mathematical rejection.",
+    "Frozen-score finite-state EBM and smooth-prior domains are preserved; Langevin sampling is not proved convergent or distributionally exact."
+  ],
+  "final_report_checked_declarations": 190,
+  "root_additional_review": "Six IB label-scope declarations independently recompiled and source-reviewed by root; not added to this targeted 16-declaration print/axiom audit."
+}

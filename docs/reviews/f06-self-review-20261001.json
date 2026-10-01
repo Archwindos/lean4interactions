@@ -1,0 +1,396 @@
+{
+  "status": "agent_self_review_complete_pending_root_admission",
+  "paper_id": "icml2023-decoder",
+  "hashes": {
+    "content.json": "e457f5388d581359a8f37e249651f2eeca4320a457b44f49439c3a3fe32cabc3",
+    "inventory.json": "70310d481040c9531680d99f8bfc2d98f7c273edcb7c34302e8a98006e405759",
+    "paper-metadata.json": "4220da372429bbee735a95df2a3f99a9cbba7b40b63ea7a6c7f3201058392931",
+    "symbols.json": "d822c2b7c5a36ed691c83f20cb7ca8fff526baba2e6749cc7917a28785f4726e",
+    "issues.json": "6d6c2c0294b9cd60f0fc8db177a1f68887b58c4ecc93fc37c470ca9c4ef7b3d2",
+    "source-occurrence-map.json": "1a3cd300ce7caa9d5e91c18af22013e72bef84fdf13f0d62ead5b5dd3a136a08",
+    "verification/report.json": "83716554ba03e8d9e9fe4872aaffade6224360f4208cf4126148524623af3099",
+    "verification/content-preflight.json": "f4df844bcd6de6c38bc3b226bfcd6b72f8c3654f7e4a42830e9b560e47ebe4ab",
+    "verification/bilingual-checks.json": "c07064f54d389741f1ffc7a3a126a3578b542462c08d15587506e1779fb14a43",
+    "verification/katex-checks.json": "7bae22721b01c57e02a2fef6e274f70adafaadeb34342893f9ead645f026bafa",
+    "lean/PaperDecoder.lean": "406ea769f120fa412f0364239e05850b2cbede9ace79120a702b25e1a4c59a5a"
+  },
+  "physical_pages": 34,
+  "source_occurrences": 52,
+  "reading_entries": 34,
+  "proof_targets": 30,
+  "shared_proofs": 4,
+  "symbols": 34,
+  "issues": 16,
+  "actual_declarations": 296,
+  "verification_status": "passed",
+  "source_fingerprint": "b4c9178db081ce68a8f6a1c3a151b09b401cf10a0e144ab1ad47bc54d5ab1c02",
+  "canonical_evidence_roles": {
+    "theorem_proof": [
+      "decoder-orthogonality",
+      "decoder-forward-convolution",
+      "decoder-cascade-forward",
+      "decoder-backpropagation",
+      "decoder-gaussian-response",
+      "decoder-single-channel-moments",
+      "decoder-upsampling"
+    ],
+    "counterexample": [
+      "decoder-valid-convolution",
+      "decoder-independence-scope",
+      "decoder-depth-growth",
+      "decoder-kernel-preference",
+      "decoder-zero-padding",
+      "decoder-one-step-fitting"
+    ],
+    "partial_component": [
+      "decoder-geometric-sum",
+      "decoder-multi-channel-moments",
+      "decoder-moment-parameter-growth",
+      "decoder-frequency-preference",
+      "decoder-mean-preference",
+      "decoder-first-order-product",
+      "decoder-gradient-norm",
+      "decoder-external-gaussian-closure"
+    ],
+    "none": [
+      "decoder-shift-setup",
+      "decoder-shift-other-frequencies",
+      "decoder-padding-interpretation",
+      "decoder-upsampling-interpretation",
+      "decoder-shift-difficulty-interpretation",
+      "decoder-natural-input",
+      "decoder-layer-placement",
+      "decoder-cosine-dimension",
+      "decoder-trained-independence"
+    ]
+  },
+  "source_semantics_automatically_verified": false,
+  "metadata_correction": {
+    "status": "passed",
+    "scope": "Only original-statement assessment and domain-boundary presentation metadata",
+    "before_hashes": {
+      "content.json": "edf8fa8f7de0f254b9ee6e75c70ab24f6ca81aef367983580baba638df704d73",
+      "inventory.json": "8a8052babc22b3dbb49f364fe4c18d270eb21afa9ad48abc035f7adc71a79d7b",
+      "verification/report.json": "83716554ba03e8d9e9fe4872aaffade6224360f4208cf4126148524623af3099",
+      "lean/PaperDecoder.lean": "406ea769f120fa412f0364239e05850b2cbede9ace79120a702b25e1a4c59a5a",
+      "issues.json": "6d6c2c0294b9cd60f0fc8db177a1f68887b58c4ecc93fc37c470ca9c4ef7b3d2",
+      "symbols.json": "d822c2b7c5a36ed691c83f20cb7ca8fff526baba2e6749cc7917a28785f4726e",
+      "source-occurrence-map.json": "1a3cd300ce7caa9d5e91c18af22013e72bef84fdf13f0d62ead5b5dd3a136a08"
+    },
+    "after_hashes": {
+      "content.json": "e457f5388d581359a8f37e249651f2eeca4320a457b44f49439c3a3fe32cabc3",
+      "inventory.json": "70310d481040c9531680d99f8bfc2d98f7c273edcb7c34302e8a98006e405759",
+      "verification/report.json": "83716554ba03e8d9e9fe4872aaffade6224360f4208cf4126148524623af3099",
+      "lean/PaperDecoder.lean": "406ea769f120fa412f0364239e05850b2cbede9ace79120a702b25e1a4c59a5a",
+      "issues.json": "6d6c2c0294b9cd60f0fc8db177a1f68887b58c4ecc93fc37c470ca9c4ef7b3d2",
+      "symbols.json": "d822c2b7c5a36ed691c83f20cb7ca8fff526baba2e6749cc7917a28785f4726e",
+      "source-occurrence-map.json": "1a3cd300ce7caa9d5e91c18af22013e72bef84fdf13f0d62ead5b5dd3a136a08"
+    },
+    "changes": [
+      {
+        "id": "decoder-geometric-sum",
+        "before": {
+          "statement_assessment": "partially_refuted",
+          "rewrite_status": "complete",
+          "rewrite_role": "partial_proof_with_refuted_clause",
+          "scope_label": null
+        },
+        "after": {
+          "statement_assessment": "scope_under_review",
+          "rewrite_status": "complete_with_original_domain_issue",
+          "rewrite_role": "partial_component",
+          "scope_label": "有限和全域成立；原正弦商分母零点未定义"
+        },
+        "scope_label_en": "Finite sums hold everywhere; the original sine quotient is undefined at its denominator zeros"
+      },
+      {
+        "id": "decoder-backpropagation",
+        "before": {
+          "statement_assessment": "partially_refuted",
+          "rewrite_status": "complete",
+          "rewrite_role": "proof",
+          "scope_label": null
+        },
+        "after": {
+          "statement_assessment": "scope_under_review",
+          "rewrite_status": "complete_with_original_domain_issue",
+          "rewrite_role": "proof",
+          "scope_label": "有限和解释下完整证明；原正弦商存在未定义频率"
+        },
+        "scope_label_en": "Complete proof using finite sums; the original sine quotient is undefined at some frequencies"
+      }
+    ],
+    "mathematical_prose_originals_and_lean_unchanged": true,
+    "shared_proofs_unchanged": true,
+    "denominator_and_counts_unchanged": true,
+    "all_34_assessments_reviewed": [
+      {
+        "id": "decoder-preliminaries",
+        "statement_assessment": "no_statement_error_recorded",
+        "related_issue_types": [],
+        "decision": "retained_after_individual_scope_review"
+      },
+      {
+        "id": "decoder-assumption-3-1",
+        "statement_assessment": "no_statement_error_recorded",
+        "related_issue_types": [],
+        "decision": "retained_after_individual_scope_review"
+      },
+      {
+        "id": "decoder-geometric-sum",
+        "statement_assessment": "scope_under_review",
+        "related_issue_types": [
+          "definition_or_algorithm_boundary"
+        ],
+        "decision": "domain_boundary_status_corrected"
+      },
+      {
+        "id": "decoder-orthogonality",
+        "statement_assessment": "no_statement_error_recorded",
+        "related_issue_types": [],
+        "decision": "retained_after_individual_scope_review"
+      },
+      {
+        "id": "decoder-forward-convolution",
+        "statement_assessment": "no_statement_error_recorded",
+        "related_issue_types": [],
+        "decision": "retained_after_individual_scope_review"
+      },
+      {
+        "id": "decoder-valid-convolution",
+        "statement_assessment": "counterexample_recorded",
+        "related_issue_types": [
+          "statement_partial_counterexample"
+        ],
+        "decision": "retained_after_individual_scope_review"
+      },
+      {
+        "id": "decoder-cascade-forward",
+        "statement_assessment": "no_statement_error_recorded",
+        "related_issue_types": [
+          "proof_step_error"
+        ],
+        "decision": "retained_after_individual_scope_review"
+      },
+      {
+        "id": "decoder-backpropagation",
+        "statement_assessment": "scope_under_review",
+        "related_issue_types": [
+          "definition_or_algorithm_boundary",
+          "proof_step_error",
+          "proof_step_error"
+        ],
+        "decision": "domain_boundary_status_corrected"
+      },
+      {
+        "id": "decoder-independence-scope",
+        "statement_assessment": "scope_under_review",
+        "related_issue_types": [
+          "statement_alignment_or_scope"
+        ],
+        "decision": "retained_after_individual_scope_review"
+      },
+      {
+        "id": "decoder-gaussian-response",
+        "statement_assessment": "no_statement_error_recorded",
+        "related_issue_types": [
+          "definition_or_algorithm_boundary",
+          "proof_step_error"
+        ],
+        "decision": "retained_after_individual_scope_review"
+      },
+      {
+        "id": "decoder-single-channel-moments",
+        "statement_assessment": "no_statement_error_recorded",
+        "related_issue_types": [
+          "statement_alignment_or_scope"
+        ],
+        "decision": "retained_after_individual_scope_review"
+      },
+      {
+        "id": "decoder-multi-channel-moments",
+        "statement_assessment": "scope_under_review",
+        "related_issue_types": [
+          "statement_alignment_or_scope"
+        ],
+        "decision": "retained_after_individual_scope_review"
+      },
+      {
+        "id": "decoder-moment-parameter-growth",
+        "statement_assessment": "partially_refuted",
+        "related_issue_types": [
+          "statement_partial_counterexample"
+        ],
+        "decision": "retained_after_individual_scope_review"
+      },
+      {
+        "id": "decoder-depth-growth",
+        "statement_assessment": "counterexample_recorded",
+        "related_issue_types": [
+          "statement_partial_counterexample"
+        ],
+        "decision": "retained_after_individual_scope_review"
+      },
+      {
+        "id": "decoder-frequency-preference",
+        "statement_assessment": "scope_under_review",
+        "related_issue_types": [
+          "statement_alignment_or_scope"
+        ],
+        "decision": "retained_after_individual_scope_review"
+      },
+      {
+        "id": "decoder-mean-preference",
+        "statement_assessment": "scope_under_review",
+        "related_issue_types": [
+          "statement_alignment_or_scope"
+        ],
+        "decision": "retained_after_individual_scope_review"
+      },
+      {
+        "id": "decoder-kernel-preference",
+        "statement_assessment": "counterexample_recorded",
+        "related_issue_types": [
+          "analysis_subclause_counterexample"
+        ],
+        "decision": "retained_after_individual_scope_review"
+      },
+      {
+        "id": "decoder-zero-padding",
+        "statement_assessment": "partially_refuted",
+        "related_issue_types": [
+          "definition_or_algorithm_boundary",
+          "definition_or_algorithm_boundary",
+          "statement_partial_counterexample"
+        ],
+        "decision": "retained_after_individual_scope_review"
+      },
+      {
+        "id": "decoder-upsampling",
+        "statement_assessment": "no_statement_error_recorded",
+        "related_issue_types": [],
+        "decision": "retained_after_individual_scope_review"
+      },
+      {
+        "id": "decoder-shift-setup",
+        "statement_assessment": "counterexample_recorded",
+        "related_issue_types": [
+          "statement_partial_counterexample"
+        ],
+        "decision": "retained_after_individual_scope_review"
+      },
+      {
+        "id": "decoder-one-step-fitting",
+        "statement_assessment": "partially_refuted",
+        "related_issue_types": [
+          "statement_partial_counterexample"
+        ],
+        "decision": "retained_after_individual_scope_review"
+      },
+      {
+        "id": "decoder-first-order-product",
+        "statement_assessment": "scope_under_review",
+        "related_issue_types": [
+          "statement_partial_counterexample"
+        ],
+        "decision": "retained_after_individual_scope_review"
+      },
+      {
+        "id": "decoder-shift-other-frequencies",
+        "statement_assessment": "scope_under_review",
+        "related_issue_types": [
+          "statement_alignment_or_scope"
+        ],
+        "decision": "retained_after_individual_scope_review"
+      },
+      {
+        "id": "decoder-gradient-norm",
+        "statement_assessment": "scope_under_review",
+        "related_issue_types": [
+          "proof_step_error"
+        ],
+        "decision": "retained_after_individual_scope_review"
+      },
+      {
+        "id": "decoder-padding-interpretation",
+        "statement_assessment": "scope_under_review",
+        "related_issue_types": [
+          "statement_alignment_or_scope"
+        ],
+        "decision": "retained_after_individual_scope_review"
+      },
+      {
+        "id": "decoder-upsampling-interpretation",
+        "statement_assessment": "scope_under_review",
+        "related_issue_types": [
+          "statement_alignment_or_scope"
+        ],
+        "decision": "retained_after_individual_scope_review"
+      },
+      {
+        "id": "decoder-shift-difficulty-interpretation",
+        "statement_assessment": "scope_under_review",
+        "related_issue_types": [
+          "statement_partial_counterexample"
+        ],
+        "decision": "retained_after_individual_scope_review"
+      },
+      {
+        "id": "decoder-natural-input",
+        "statement_assessment": "scope_under_review",
+        "related_issue_types": [
+          "statement_alignment_or_scope"
+        ],
+        "decision": "retained_after_individual_scope_review"
+      },
+      {
+        "id": "decoder-layer-placement",
+        "statement_assessment": "scope_under_review",
+        "related_issue_types": [
+          "statement_alignment_or_scope"
+        ],
+        "decision": "retained_after_individual_scope_review"
+      },
+      {
+        "id": "decoder-cosine-dimension",
+        "statement_assessment": "scope_under_review",
+        "related_issue_types": [
+          "statement_alignment_or_scope"
+        ],
+        "decision": "retained_after_individual_scope_review"
+      },
+      {
+        "id": "decoder-trained-independence",
+        "statement_assessment": "scope_under_review",
+        "related_issue_types": [
+          "statement_alignment_or_scope"
+        ],
+        "decision": "retained_after_individual_scope_review"
+      },
+      {
+        "id": "decoder-external-gaussian-closure",
+        "statement_assessment": "scope_under_review",
+        "related_issue_types": [],
+        "decision": "retained_after_individual_scope_review"
+      },
+      {
+        "id": "decoder-metrics",
+        "statement_assessment": "no_statement_error_recorded",
+        "related_issue_types": [],
+        "decision": "retained_after_individual_scope_review"
+      },
+      {
+        "id": "decoder-experiments",
+        "statement_assessment": "no_statement_error_recorded",
+        "related_issue_types": [],
+        "decision": "retained_after_individual_scope_review"
+      }
+    ],
+    "rationale": {
+      "backpropagation": "The full same-loss Eq5 matrix identity is proved using finite sums. Related errors concern undefined sine quotients and local proof steps; there is no counterexample to its matrix conclusion.",
+      "geometric_sum": "The sole issue is an undefined ordinary sine quotient at denominator zeros. Finite sums and the valid quotient domain are proved; undefined notation is not a numerical clause counterexample.",
+      "retained_partial_counterexamples": "The K-growth, non-DC padding and exact one-step zero-loss clauses each have actual original-model counterexamples and remain partially_refuted."
+    }
+  },
+  "prior_math_source_cross_evidence_preserved": true
+}

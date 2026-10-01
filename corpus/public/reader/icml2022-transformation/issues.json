@@ -1,0 +1,568 @@
+[
+  {
+    "id": "transformation-prefix-direction",
+    "paper_id": "icml2022-transformation",
+    "title": "B.2第三≥子句方向错误",
+    "kind": "false_statement_clause",
+    "classification": "false_statement_clause",
+    "status": "agent_confirmed",
+    "original_expression": "I(X;\\Sigma_{1:l};Y)\\ge I(X;\\Sigma_{1:l+1};Y)",
+    "source_location": "Formal PDF 14",
+    "evidence_md": "常数门与Y的MI为0，扩展门$(1,Y)$与Y的MI为$\\log2$。两者由X确定，因此相应co-information也是0与$\\log2>0$；原附录第三≥子句不成立。原Eq11≤0和正文increase方向仍正确。",
+    "problem_md": "常数门与Y的MI为0，扩展门$(1,Y)$与Y的MI为$\\log2$。两者由X确定，因此相应co-information也是0与$\\log2>0$；原附录第三≥子句不成立。原Eq11≤0和正文increase方向仍正确。",
+    "impact_md": "仅该附录子句被反驳；正文Property2与Eq11方向正确。",
+    "related_result_ids": [
+      "transformation-prefix-coinfo",
+      "transformation-prefix-coinfo-main"
+    ],
+    "fix_authorization": "proof_only_granted",
+    "user_confirmation": "not_required_for_proof_only_correction",
+    "user_review_status": "pending",
+    "resolution": "original_statement_preserved",
+    "translations": {
+      "en": {
+        "title": "Wrong direction in the third B.2 ≥ clause",
+        "problem_md": "The constant gate has MI zero with Y, while the extended gate $(1,Y)$ has MI $\\log2$ with Y. Both are determined by X, so their co-information values are also zero and $\\log2>0$. The appendix third ≥ clause fails. Equation (11) and the main increase direction remain correct.",
+        "evidence_md": "The constant gate has MI zero with Y, while the extended gate $(1,Y)$ has MI $\\log2$ with Y. Both are determined by X, so their co-information values are also zero and $\\log2>0$. The appendix third ≥ clause fails. Equation (11) and the main increase direction remain correct.",
+        "impact_md": "Only the appendix clause is refuted; main Property 2 and Equation (11) have the correct direction."
+      }
+    },
+    "issue_type": "statement_counterexample",
+    "source_refs": [
+      {
+        "source_id": "src-icml2022-transformation-formal",
+        "version_id": "ver-icml2022-transformation-formal",
+        "pdf_pages": [
+          14
+        ],
+        "section": "B.2第三≥子句方向错误"
+      }
+    ],
+    "original_statement_status": "counterexample_verified"
+  },
+  {
+    "id": "transformation-ib-label-prediction",
+    "paper_id": "icml2022-transformation",
+    "title": "IB条件独立推理的Y作用域复用",
+    "kind": "domain_ambiguity",
+    "classification": "domain_ambiguity",
+    "status": "agent_confirmed",
+    "original_expression": "I(X;Y\\mid Z)=0",
+    "source_location": "Formal PDF 2,3,4",
+    "evidence_md": "取$X=Y\\sim\\mathrm{Bernoulli}(1/2)$。真实权重0、偏置1的ReLU特征对两个输入都等于1。因此唯一Z条件行的实际联合律仍为$p(0,0)=p(1,1)=1/2$；完整计算$I(X;Y\\mid Z)=\\log2>0$。Lean显式构造单元素Z联合条件律并连接实际ReLU常值计算。",
+    "problem_md": "取$X=Y\\sim\\mathrm{Bernoulli}(1/2)$。真实权重0、偏置1的ReLU特征对两个输入都等于1。因此唯一Z条件行的实际联合律仍为$p(0,0)=p(1,1)=1/2$；完整计算$I(X;Y\\mid Z)=\\log2>0$。Lean显式构造单元素Z联合条件律并连接实际ReLU常值计算。",
+    "impact_md": "预测确定于Z的读取成立；真实标签读取被实际ReLU反例反驳。保持两种作用域及原Y符号可追溯。",
+    "related_result_ids": [
+      "transformation-ib-label-scope"
+    ],
+    "fix_authorization": "proof_only_granted",
+    "user_confirmation": "not_required_for_proof_only_correction",
+    "user_review_status": "pending",
+    "resolution": "original_statement_preserved",
+    "translations": {
+      "en": {
+        "title": "Reuse of Y in the IB conditional-independence argument",
+        "problem_md": "Take $X=Y\\sim\\mathrm{Bernoulli}(1/2)$. A real ReLU feature of weight zero and bias one equals one at both inputs. The actual joint law in the sole Z row remains $p(0,0)=p(1,1)=1/2$, giving $I(X;Y\\mid Z)=\\log2>0$. Lean constructs the singleton-Z conditional law explicitly and connects it with the actual constant ReLU evaluation.",
+        "evidence_md": "Take $X=Y\\sim\\mathrm{Bernoulli}(1/2)$. A real ReLU feature of weight zero and bias one equals one at both inputs. The actual joint law in the sole Z row remains $p(0,0)=p(1,1)=1/2$, giving $I(X;Y\\mid Z)=\\log2>0$. Lean constructs the singleton-Z conditional law explicitly and connects it with the actual constant ReLU evaluation.",
+        "impact_md": "The reading with a prediction determined by Z is valid; the true-label reading is refuted by an actual ReLU example. Keep both scopes and the original Y traceable."
+      }
+    },
+    "issue_type": "statement_alignment_or_scope",
+    "source_refs": [
+      {
+        "source_id": "src-icml2022-transformation-formal",
+        "version_id": "ver-icml2022-transformation-formal",
+        "pdf_pages": [
+          2,
+          3,
+          4
+        ],
+        "section": "IB条件独立推理的Y作用域复用"
+      }
+    ],
+    "original_statement_status": "original_statement_preserved"
+  },
+  {
+    "id": "transformation-kde-label-negative",
+    "paper_id": "icml2022-transformation",
+    "title": "Eq24字面公式为负",
+    "kind": "false_statement_clause",
+    "classification": "false_statement_clause",
+    "status": "agent_confirmed",
+    "original_expression": "I(\\widehat T;Y)=\\widehat H(\\widehat T)-\\sum_l p_l\\widehat H(\\widehat T\\mid Y=l)",
+    "source_location": "Formal PDF 17",
+    "evidence_md": "令层权重0、偏置1，两个输入的特征均$t_i=\\operatorname{ReLU}(1)=1$；类别各半。添加独立Gaussian噪声后$\\widehat T=1+\\epsilon$仍独立于Y，故真实MI为0。任意概率特征律下常数标签条件核的MI0计算已验证。\n\n所有核都是1。全局项为$-\\log1=0$；每类括号为$-(1/2)\\log(1/2)$，再乘类权重1/2并求和。原RHS为$-(1/2)\\log2<0$，既不是真实MI等式也不是其上界。反例不要求特征区分类别，源也无此要求。",
+    "problem_md": "令层权重0、偏置1，两个输入的特征均$t_i=\\operatorname{ReLU}(1)=1$；类别各半。添加独立Gaussian噪声后$\\widehat T=1+\\epsilon$仍独立于Y，故真实MI为0。任意概率特征律下常数标签条件核的MI0计算已验证。\n\n所有核都是1。全局项为$-\\log1=0$；每类括号为$-(1/2)\\log(1/2)$，再乘类权重1/2并求和。原RHS为$-(1/2)\\log2<0$，既不是真实MI等式也不是其上界。反例不要求特征区分类别，源也无此要求。",
+    "impact_md": "原公式保留，反驳该字面上界/等式；实验趋势保持原经验作用域。",
+    "related_result_ids": [
+      "transformation-kde-labels"
+    ],
+    "fix_authorization": "proof_only_granted",
+    "user_confirmation": "not_required_for_proof_only_correction",
+    "user_review_status": "pending",
+    "resolution": "original_statement_preserved",
+    "translations": {
+      "en": {
+        "title": "Equation (24) has a negative literal value",
+        "problem_md": "Set the layer weight to zero and bias to one, so both features are $t_i=\\operatorname{ReLU}(1)=1$, with balanced labels. After independent Gaussian noise, $\\widehat T=1+\\epsilon$ remains independent of Y and its true MI is zero. The zero-MI calculation for the constant label kernel is verified for any probability feature law.\n\nEvery kernel is one. The global term is $-\\log1=0$. Each class bracket is $-(1/2)\\log(1/2)$, then weighted by one half. The printed RHS is $-(1/2)\\log2<0$, so it is neither the true MI nor an upper bound. The source does not require features to distinguish labels.",
+        "evidence_md": "Set the layer weight to zero and bias to one, so both features are $t_i=\\operatorname{ReLU}(1)=1$, with balanced labels. After independent Gaussian noise, $\\widehat T=1+\\epsilon$ remains independent of Y and its true MI is zero. The zero-MI calculation for the constant label kernel is verified for any probability feature law.\n\nEvery kernel is one. The global term is $-\\log1=0$. Each class bracket is $-(1/2)\\log(1/2)$, then weighted by one half. The printed RHS is $-(1/2)\\log2<0$, so it is neither the true MI nor an upper bound. The source does not require features to distinguish labels.",
+        "impact_md": "Retain the printed expression and refute its literal bound/equality; experimental trends keep their empirical scope."
+      }
+    },
+    "issue_type": "statement_counterexample",
+    "source_refs": [
+      {
+        "source_id": "src-icml2022-transformation-formal",
+        "version_id": "ver-icml2022-transformation-formal",
+        "pdf_pages": [
+          17
+        ],
+        "section": "Eq24字面公式为负"
+      }
+    ],
+    "original_statement_status": "counterexample_verified"
+  },
+  {
+    "id": "transformation-kde-discrete-bound",
+    "paper_id": "icml2022-transformation",
+    "title": "Eq25离散门熵界反例",
+    "kind": "false_statement_clause",
+    "classification": "false_statement_clause",
+    "status": "agent_confirmed",
+    "original_expression": "H(\\Sigma_l)\\le-\\frac1n\\sum_j\\log\\frac1n\\sum_k e^{-\\|\\sigma_j-\\sigma_k\\|^2/(2\\sigma_0^2)}",
+    "source_location": "Formal PDF 17",
+    "evidence_md": "门为等概率0/1，真实熵$\\log2$、方差1/4。因此原$\\sigma_0^2=\\kappa\\operatorname{Var}(\\Sigma)$确实为$\\kappa/4$，不使用自由带宽或零方差。\n\n每个样本核平均为$[1+\\exp(-2/\\kappa)]/2$。所以估计值$\\log2-\\log(1+\\exp(-2/\\kappa))$严格小于$\\log2$，因为跨状态核严格正。",
+    "problem_md": "门为等概率0/1，真实熵$\\log2$、方差1/4。因此原$\\sigma_0^2=\\kappa\\operatorname{Var}(\\Sigma)$确实为$\\kappa/4$，不使用自由带宽或零方差。\n\n每个样本核平均为$[1+\\exp(-2/\\kappa)]/2$。所以估计值$\\log2-\\log(1+\\exp(-2/\\kappa))$严格小于$\\log2$，因为跨状态核严格正。",
+    "impact_md": "原公式保留，反驳该字面上界/等式；实验趋势保持原经验作用域。",
+    "related_result_ids": [
+      "transformation-kde-gates"
+    ],
+    "fix_authorization": "proof_only_granted",
+    "user_confirmation": "not_required_for_proof_only_correction",
+    "user_review_status": "pending",
+    "resolution": "original_statement_preserved",
+    "translations": {
+      "en": {
+        "title": "Counterexample to the discrete gate entropy bound",
+        "problem_md": "The gate is a balanced binary variable with true entropy $\\log2$ and variance one quarter. Thus the source bandwidth $\\sigma_0^2=\\kappa\\operatorname{Var}(\\Sigma)$ is exactly $\\kappa/4$, without a free bandwidth or a zero-variance degeneracy.\n\nEach average kernel is $[1+\\exp(-2/\\kappa)]/2$. Hence the estimate $\\log2-\\log(1+\\exp(-2/\\kappa))$ is strictly below $\\log2$, since the cross-state kernel is strictly positive.",
+        "evidence_md": "The gate is a balanced binary variable with true entropy $\\log2$ and variance one quarter. Thus the source bandwidth $\\sigma_0^2=\\kappa\\operatorname{Var}(\\Sigma)$ is exactly $\\kappa/4$, without a free bandwidth or a zero-variance degeneracy.\n\nEach average kernel is $[1+\\exp(-2/\\kappa)]/2$. Hence the estimate $\\log2-\\log(1+\\exp(-2/\\kappa))$ is strictly below $\\log2$, since the cross-state kernel is strictly positive.",
+        "impact_md": "Retain the printed expression and refute its literal bound/equality; experimental trends keep their empirical scope."
+      }
+    },
+    "issue_type": "statement_counterexample",
+    "source_refs": [
+      {
+        "source_id": "src-icml2022-transformation-formal",
+        "version_id": "ver-icml2022-transformation-formal",
+        "pdf_pages": [
+          17
+        ],
+        "section": "Eq25离散门熵界反例"
+      }
+    ],
+    "original_statement_status": "counterexample_verified"
+  },
+  {
+    "id": "transformation-kde-randomness-bound",
+    "paper_id": "icml2022-transformation",
+    "title": "Eq26随机dropout门MI界反例",
+    "kind": "false_statement_clause",
+    "classification": "false_statement_clause",
+    "status": "agent_confirmed",
+    "original_expression": "I(X;\\Sigma_l)\\le-\\frac1n\\sum_j\\log\\frac1n\\sum_k e^{-\\|\\widehat\\sigma_j-\\widehat\\sigma_k\\|^2/(2\\sigma_0^2)}",
+    "source_location": "Formal PDF 17",
+    "evidence_md": "四个等概率$(X,B)$状态推前到$(X,\\Sigma)$得到质量$1/2,0,1/4,1/4$。dropout后ReLU确实产生该门，移除dropout得到X；这符合Eq26含额外随机性的前提。\n\n$\\operatorname{Var}(\\Sigma)=3/16$，故原带宽$16(3/16)=3$。真实$I(X;\\Sigma)=(3/4)\\log(4/3)\\ge3/16$；移除采样后的二值核估计在h=3时不超过1/6，且$1/6<3/16$。",
+    "problem_md": "四个等概率$(X,B)$状态推前到$(X,\\Sigma)$得到质量$1/2,0,1/4,1/4$。dropout后ReLU确实产生该门，移除dropout得到X；这符合Eq26含额外随机性的前提。\n\n$\\operatorname{Var}(\\Sigma)=3/16$，故原带宽$16(3/16)=3$。真实$I(X;\\Sigma)=(3/4)\\log(4/3)\\ge3/16$；移除采样后的二值核估计在h=3时不超过1/6，且$1/6<3/16$。",
+    "impact_md": "原公式保留，反驳该字面上界/等式；实验趋势保持原经验作用域。",
+    "related_result_ids": [
+      "transformation-kde-randomness"
+    ],
+    "fix_authorization": "proof_only_granted",
+    "user_confirmation": "not_required_for_proof_only_correction",
+    "user_review_status": "pending",
+    "resolution": "original_statement_preserved",
+    "translations": {
+      "en": {
+        "title": "Counterexample to the random-dropout gate MI bound",
+        "problem_md": "Push forward the four equally likely $(X,B)$ states to $(X,\\Sigma)$, giving masses $1/2,0,1/4,1/4$. ReLU after dropout produces precisely this gate, and removing dropout gives X. This meets the additional-randomness premise of Equation (26).\n\nThe variance is $\\operatorname{Var}(\\Sigma)=3/16$, so the original bandwidth is $16(3/16)=3$. The true information is $I(X;\\Sigma)=(3/4)\\log(4/3)\\ge3/16$, while the removed-sampling binary kernel estimate at h=3 is at most one sixth and $1/6<3/16$.",
+        "evidence_md": "Push forward the four equally likely $(X,B)$ states to $(X,\\Sigma)$, giving masses $1/2,0,1/4,1/4$. ReLU after dropout produces precisely this gate, and removing dropout gives X. This meets the additional-randomness premise of Equation (26).\n\nThe variance is $\\operatorname{Var}(\\Sigma)=3/16$, so the original bandwidth is $16(3/16)=3$. The true information is $I(X;\\Sigma)=(3/4)\\log(4/3)\\ge3/16$, while the removed-sampling binary kernel estimate at h=3 is at most one sixth and $1/6<3/16$.",
+        "impact_md": "Retain the printed expression and refute its literal bound/equality; experimental trends keep their empirical scope."
+      }
+    },
+    "issue_type": "statement_counterexample",
+    "source_refs": [
+      {
+        "source_id": "src-icml2022-transformation-formal",
+        "version_id": "ver-icml2022-transformation-formal",
+        "pdf_pages": [
+          17
+        ],
+        "section": "Eq26随机dropout门MI界反例"
+      }
+    ],
+    "original_statement_status": "counterexample_verified"
+  },
+  {
+    "id": "transformation-kde-coinfo-bound",
+    "paper_id": "icml2022-transformation",
+    "title": "Eq27正规类别权重下仍非上界",
+    "kind": "false_statement_clause",
+    "classification": "false_statement_clause",
+    "status": "agent_confirmed",
+    "original_expression": "I(X;\\Sigma_l;Y)\\le\\widehat H(\\Sigma_l)-\\sum_m p_m\\widehat H(\\Sigma_l\\mid Y=m)-I(\\Sigma_l;Y\\mid X)",
+    "source_location": "Formal PDF 18",
+    "evidence_md": "门为等概率0/1，真实熵$\\log2$、方差1/4。因此原$\\sigma_0^2=\\kappa\\operatorname{Var}(\\Sigma)$确实为$\\kappa/4$，不使用自由带宽或零方差。\n\n各类只有一个门状态，自核为1，类条件KDE为$-\\log1=0$。确定性给$I(\\Sigma;Y\\mid X)=0$，真实co-information为$I(\\Sigma;Y)=\\log2$。\n\n原RHS于是退化全局二值KDE，严格小于真实$\\log2$。该反例不借助一般$p_m=n_m/M$的归一化错误；该错误另列。",
+    "problem_md": "门为等概率0/1，真实熵$\\log2$、方差1/4。因此原$\\sigma_0^2=\\kappa\\operatorname{Var}(\\Sigma)$确实为$\\kappa/4$，不使用自由带宽或零方差。\n\n各类只有一个门状态，自核为1，类条件KDE为$-\\log1=0$。确定性给$I(\\Sigma;Y\\mid X)=0$，真实co-information为$I(\\Sigma;Y)=\\log2$。\n\n原RHS于是退化全局二值KDE，严格小于真实$\\log2$。该反例不借助一般$p_m=n_m/M$的归一化错误；该错误另列。",
+    "impact_md": "原公式保留，反驳该字面上界/等式；实验趋势保持原经验作用域。",
+    "related_result_ids": [
+      "transformation-kde-coinfo"
+    ],
+    "fix_authorization": "proof_only_granted",
+    "user_confirmation": "not_required_for_proof_only_correction",
+    "user_review_status": "pending",
+    "resolution": "original_statement_preserved",
+    "translations": {
+      "en": {
+        "title": "Equation (27) fails even with normalized class weights",
+        "problem_md": "The gate is a balanced binary variable with true entropy $\\log2$ and variance one quarter. Thus the source bandwidth $\\sigma_0^2=\\kappa\\operatorname{Var}(\\Sigma)$ is exactly $\\kappa/4$, without a free bandwidth or a zero-variance degeneracy.\n\nEach class contains one gate state, whose self kernel is one and class KDE is $-\\log1=0$. Determinism gives $I(\\Sigma;Y\\mid X)=0$, and the true co-information is $I(\\Sigma;Y)=\\log2$.\n\nThe source RHS reduces to the global binary KDE, strictly below the true $\\log2$. This counterexample does not rely on the separate general normalization error in $p_m=n_m/M$.",
+        "evidence_md": "The gate is a balanced binary variable with true entropy $\\log2$ and variance one quarter. Thus the source bandwidth $\\sigma_0^2=\\kappa\\operatorname{Var}(\\Sigma)$ is exactly $\\kappa/4$, without a free bandwidth or a zero-variance degeneracy.\n\nEach class contains one gate state, whose self kernel is one and class KDE is $-\\log1=0$. Determinism gives $I(\\Sigma;Y\\mid X)=0$, and the true co-information is $I(\\Sigma;Y)=\\log2$.\n\nThe source RHS reduces to the global binary KDE, strictly below the true $\\log2$. This counterexample does not rely on the separate general normalization error in $p_m=n_m/M$.",
+        "impact_md": "Retain the printed expression and refute its literal bound/equality; experimental trends keep their empirical scope."
+      }
+    },
+    "issue_type": "statement_counterexample",
+    "source_refs": [
+      {
+        "source_id": "src-icml2022-transformation-formal",
+        "version_id": "ver-icml2022-transformation-formal",
+        "pdf_pages": [
+          18
+        ],
+        "section": "Eq27正规类别权重下仍非上界"
+      }
+    ],
+    "original_statement_status": "counterexample_verified"
+  },
+  {
+    "id": "transformation-kde-tc-bound",
+    "paper_id": "icml2022-transformation",
+    "title": "Eq29精确合成边缘乘积仍非上界",
+    "kind": "false_statement_clause",
+    "classification": "false_statement_clause",
+    "status": "agent_confirmed",
+    "original_expression": "TC(\\Sigma_l)\\le\\frac1P\\sum_i\\log\\frac{\\sum_j e^{-\\|\\sigma_i-\\sigma_j\\|^2/(2\\sigma_0^2)}}{\\sum_j e^{-\\|\\sigma_i-\\widehat\\sigma_j\\|^2/(2\\sigma_0^2)}}",
+    "source_location": "Formal PDF 18",
+    "evidence_md": "真实联合律$p_{00}=p_{11}=1/2$的TC为$\\log2$。合成分布在四个二值状态上均匀，确实独立且逐坐标激活率与真实门一致。向量平方方差为1/2，故h为κ/2。\n\n令$t=\\exp[-1/(2h)]>0$。对于真实00或11状态，分子为$2(1+t^2)$，分母为$1+2t+t^2=(1+t)^2$。四项相同，所以Eq29 RHS为$\\log[2(1+t^2)/(1+t)^2]$。\n\n由于$2t>0$，比值严格小于2；log单调，故原核比上界严格小于真实TC=$\\log2$。这是精确有限样本和精确边缘乘积，不是合成分布Monte Carlo误差。",
+    "problem_md": "真实联合律$p_{00}=p_{11}=1/2$的TC为$\\log2$。合成分布在四个二值状态上均匀，确实独立且逐坐标激活率与真实门一致。向量平方方差为1/2，故h为κ/2。\n\n令$t=\\exp[-1/(2h)]>0$。对于真实00或11状态，分子为$2(1+t^2)$，分母为$1+2t+t^2=(1+t)^2$。四项相同，所以Eq29 RHS为$\\log[2(1+t^2)/(1+t)^2]$。\n\n由于$2t>0$，比值严格小于2；log单调，故原核比上界严格小于真实TC=$\\log2$。这是精确有限样本和精确边缘乘积，不是合成分布Monte Carlo误差。",
+    "impact_md": "原公式保留，反驳该字面上界/等式；实验趋势保持原经验作用域。",
+    "related_result_ids": [
+      "transformation-kde-tc"
+    ],
+    "fix_authorization": "proof_only_granted",
+    "user_confirmation": "not_required_for_proof_only_correction",
+    "user_review_status": "pending",
+    "resolution": "original_statement_preserved",
+    "translations": {
+      "en": {
+        "title": "Equation (29) fails for an exact synthesized marginal product",
+        "problem_md": "The true law $p_{00}=p_{11}=1/2$ has TC $\\log2$. The synthesized law is uniform on all four binary states, hence independent with exactly the true coordinate activation rates. The squared vector variance is one half, so h is κ/2.\n\nLet $t=\\exp[-1/(2h)]>0$. At each actual state 00 or 11, the numerator is $2(1+t^2)$ and denominator $1+2t+t^2=(1+t)^2$. All four terms agree, so the Equation (29) RHS is $\\log[2(1+t^2)/(1+t)^2]$.\n\nSince $2t>0$, the ratio is strictly below two. Monotonicity of log makes the printed kernel bound smaller than the true TC $\\log2$. Both the finite sample law and marginal product are exact, so this is not synthesis Monte Carlo error.",
+        "evidence_md": "The true law $p_{00}=p_{11}=1/2$ has TC $\\log2$. The synthesized law is uniform on all four binary states, hence independent with exactly the true coordinate activation rates. The squared vector variance is one half, so h is κ/2.\n\nLet $t=\\exp[-1/(2h)]>0$. At each actual state 00 or 11, the numerator is $2(1+t^2)$ and denominator $1+2t+t^2=(1+t)^2$. All four terms agree, so the Equation (29) RHS is $\\log[2(1+t^2)/(1+t)^2]$.\n\nSince $2t>0$, the ratio is strictly below two. Monotonicity of log makes the printed kernel bound smaller than the true TC $\\log2$. Both the finite sample law and marginal product are exact, so this is not synthesis Monte Carlo error.",
+        "impact_md": "Retain the printed expression and refute its literal bound/equality; experimental trends keep their empirical scope."
+      }
+    },
+    "issue_type": "statement_counterexample",
+    "source_refs": [
+      {
+        "source_id": "src-icml2022-transformation-formal",
+        "version_id": "ver-icml2022-transformation-formal",
+        "pdf_pages": [
+          18
+        ],
+        "section": "Eq29精确合成边缘乘积仍非上界"
+      }
+    ],
+    "original_statement_status": "counterexample_verified"
+  },
+  {
+    "id": "transformation-class-weights",
+    "paper_id": "icml2022-transformation",
+    "title": "Eq27后的类别权重未归一化",
+    "kind": "definition_error",
+    "classification": "definition_error",
+    "status": "agent_confirmed",
+    "original_expression": "p_m=n_m/M",
+    "source_location": "Formal PDF 18",
+    "evidence_md": "$\\sum_mn_m=n$，所以$\\sum_mp_m=n/M$，一般不是1；Eq24此前$p_l=P_l/P$正规。",
+    "problem_md": "$\\sum_mn_m=n$，所以$\\sum_mp_m=n/M$，一般不是1；Eq24此前$p_l=P_l/P$正规。",
+    "impact_md": "另列权重定义错误；Eq27反例即使n=M也成立。",
+    "related_result_ids": [
+      "transformation-kde-coinfo"
+    ],
+    "fix_authorization": "proof_only_granted",
+    "user_confirmation": "not_required_for_proof_only_correction",
+    "user_review_status": "pending",
+    "resolution": "original_statement_preserved",
+    "translations": {
+      "en": {
+        "title": "Unnormalized class weights following Equation (27)",
+        "problem_md": "$\\sum_mn_m=n$, so $\\sum_mp_m=n/M$, generally not one; the earlier $p_l=P_l/P$ in Equation (24) is normalized.",
+        "evidence_md": "$\\sum_mn_m=n$, so $\\sum_mp_m=n/M$, generally not one; the earlier $p_l=P_l/P$ in Equation (24) is normalized.",
+        "impact_md": "Record this separate definition error; the Equation (27) counterexample works even when n=M."
+      }
+    },
+    "issue_type": "definition_or_algorithm_boundary",
+    "source_refs": [
+      {
+        "source_id": "src-icml2022-transformation-formal",
+        "version_id": "ver-icml2022-transformation-formal",
+        "pdf_pages": [
+          18
+        ],
+        "section": "Eq27后的类别权重未归一化"
+      }
+    ],
+    "original_statement_status": "original_statement_preserved"
+  },
+  {
+    "id": "transformation-ebm-domain",
+    "paper_id": "icml2022-transformation",
+    "title": "连续近似Langevin更新的正值域边界",
+    "kind": "domain_issue",
+    "classification": "domain_issue",
+    "status": "agent_confirmed",
+    "original_expression": "\\widetilde q_p(s)=1-p+s(2p-1)",
+    "source_location": "Formal PDF 19,20",
+    "evidence_md": "添加Gaussian噪声给原更新算法，但有限步是否采到目标EBM没有在此证明。线性先验在s∈[0,1]且0<p̂<1时正，未约束Gaussian步可离开该域；例如p̂=3/4,s=−1时q=−1/4。这是具体域边界，不是否定作者已给的sigmoid松弛。",
+    "problem_md": "添加Gaussian噪声给原更新算法，但有限步是否采到目标EBM没有在此证明。线性先验在s∈[0,1]且0<p̂<1时正，未约束Gaussian步可离开该域；例如p̂=3/4,s=−1时q=−1/4。这是具体域边界，不是否定作者已给的sigmoid松弛。",
+    "impact_md": "作者已给sigmoid/Swish连续近似；需区分其正值域与未约束Gaussian采样状态。",
+    "related_result_ids": [
+      "transformation-ebm-langevin",
+      "transformation-ebm-relaxation"
+    ],
+    "fix_authorization": "proof_only_granted",
+    "user_confirmation": "not_required_for_proof_only_correction",
+    "user_review_status": "pending",
+    "resolution": "original_statement_preserved",
+    "translations": {
+      "en": {
+        "title": "Positive-domain boundary of relaxed Langevin updates",
+        "problem_md": "Adding Gaussian noise gives the source update algorithm, but target-EBM sampling after finitely many steps is not proved here. The linear prior is positive for s∈[0,1] and 0<p̂<1, while an unconstrained Gaussian step may leave this domain; p̂=3/4 and s=−1 gives q=−1/4. This is a specific domain boundary, rather than denial of the stated sigmoid relaxation.",
+        "evidence_md": "Adding Gaussian noise gives the source update algorithm, but target-EBM sampling after finitely many steps is not proved here. The linear prior is positive for s∈[0,1] and 0<p̂<1, while an unconstrained Gaussian step may leave this domain; p̂=3/4 and s=−1 gives q=−1/4. This is a specific domain boundary, rather than denial of the stated sigmoid relaxation.",
+        "impact_md": "The author does provide a sigmoid/Swish relaxation; distinguish its positive domain from unconstrained Gaussian sampling states."
+      }
+    },
+    "issue_type": "definition_or_algorithm_boundary",
+    "source_refs": [
+      {
+        "source_id": "src-icml2022-transformation-formal",
+        "version_id": "ver-icml2022-transformation-formal",
+        "pdf_pages": [
+          19,
+          20
+        ],
+        "section": "连续近似Langevin更新的正值域边界"
+      }
+    ],
+    "original_statement_status": "original_statement_preserved"
+  },
+  {
+    "id": "transformation-activation-average",
+    "paper_id": "icml2022-transformation",
+    "title": "平均激活率不决定C",
+    "kind": "unquantified_approximation",
+    "classification": "unquantified_approximation",
+    "status": "agent_confirmed",
+    "original_expression": "C_l=\\sum_dh(a_l^d)",
+    "source_location": "Formal PDF 5",
+    "evidence_md": "$(1/2,1/2)$与$(0,1)$平均率都是1/2，但$C$分别2log2与0。因此PDF5由平均率收敛推出roughly constant不能仅由均值成立。此反例不否定PDF15逐坐标相似$a_l^d$或PDF6逐维实验。",
+    "problem_md": "$(1/2,1/2)$与$(0,1)$平均率都是1/2，但$C$分别2log2与0。因此PDF5由平均率收敛推出roughly constant不能仅由均值成立。此反例不否定PDF15逐坐标相似$a_l^d$或PDF6逐维实验。",
+    "impact_md": "只限定PDF5从跨维平均率到rough constant的推断，不否定逐坐标条件或精确Eq2/16。",
+    "related_result_ids": [
+      "transformation-activation-heuristics"
+    ],
+    "fix_authorization": "proof_only_granted",
+    "user_confirmation": "not_required_for_proof_only_correction",
+    "user_review_status": "pending",
+    "resolution": "original_statement_preserved",
+    "translations": {
+      "en": {
+        "title": "The mean activation rate does not determine C",
+        "problem_md": "Rates $(1/2,1/2)$ and $(0,1)$ both average to one half, but $C$ is respectively 2log2 and zero. Thus the page-5 inference from an average rate to a roughly constant C does not follow from that average alone. This does not refute the page-15 coordinate-wise similarity of $a_l^d$ or page-6 per-dimension experiments.",
+        "evidence_md": "Rates $(1/2,1/2)$ and $(0,1)$ both average to one half, but $C$ is respectively 2log2 and zero. Thus the page-5 inference from an average rate to a roughly constant C does not follow from that average alone. This does not refute the page-15 coordinate-wise similarity of $a_l^d$ or page-6 per-dimension experiments.",
+        "impact_md": "Confine the gap to the page-5 inference from an average rate to rough constancy, without refuting coordinate-wise premises or exact Equations (2)/(16)."
+      }
+    },
+    "issue_type": "statement_alignment_or_scope",
+    "source_refs": [
+      {
+        "source_id": "src-icml2022-transformation-formal",
+        "version_id": "ver-icml2022-transformation-formal",
+        "pdf_pages": [
+          5
+        ],
+        "section": "平均激活率不决定C"
+      }
+    ],
+    "original_statement_status": "original_statement_preserved"
+  },
+  {
+    "id": "transformation-mle-sign",
+    "paper_id": "icml2022-transformation",
+    "title": "Eq34与35复用L但符号相反",
+    "kind": "notation_error",
+    "classification": "notation_error",
+    "status": "agent_confirmed",
+    "original_expression": "L_{34}=E_r\\log p,\\quad L_{35}=-E_r\\log p",
+    "source_location": "Formal PDF 19",
+    "evidence_md": "原Eq34用L作正log最大化，Eq35/36用同名L作负log最小化/梯度。重写以负log损失为准，原式原样保留。",
+    "problem_md": "原Eq34用L作正log最大化，Eq35/36用同名L作负log最小化/梯度。重写以负log损失为准，原式原样保留。",
+    "impact_md": "优化目的可等价表达，但同名L的定义需区分。",
+    "related_result_ids": [
+      "transformation-ebm-mle"
+    ],
+    "fix_authorization": "proof_only_granted",
+    "user_confirmation": "not_required_for_proof_only_correction",
+    "user_review_status": "pending",
+    "resolution": "original_statement_preserved",
+    "translations": {
+      "en": {
+        "title": "Equations (34) and (35) reuse L with opposite signs",
+        "problem_md": "Equation (34) uses L for positive log-likelihood maximization, while Equations (35)/(36) use L for negative-log minimization/gradient. The rewrite uses the negative-log loss and preserves the original expressions.",
+        "evidence_md": "Equation (34) uses L for positive log-likelihood maximization, while Equations (35)/(36) use L for negative-log minimization/gradient. The rewrite uses the negative-log loss and preserves the original expressions.",
+        "impact_md": "The optimization objectives are equivalent after negation, but the two definitions of L must be distinguished."
+      }
+    },
+    "issue_type": "proof_step_error",
+    "source_refs": [
+      {
+        "source_id": "src-icml2022-transformation-formal",
+        "version_id": "ver-icml2022-transformation-formal",
+        "pdf_pages": [
+          19
+        ],
+        "section": "Eq34与35复用L但符号相反"
+      }
+    ],
+    "original_statement_status": "original_statement_preserved"
+  },
+  {
+    "id": "transformation-prefix-index",
+    "paper_id": "icml2022-transformation",
+    "title": "B.2第二子句重复Σ1",
+    "kind": "notation_error",
+    "classification": "notation_error",
+    "status": "agent_confirmed",
+    "original_expression": "\\{\\Sigma_1,\\ldots,\\Sigma_1\\}",
+    "source_location": "Formal PDF 14",
+    "evidence_md": "原第二bullet末索引印Σ1，而其证明Eq9完整使用Σl。重写按本条前缀作用域Σ1:l修下标；不修改原转录。",
+    "problem_md": "原第二bullet末索引印Σ1，而其证明Eq9完整使用Σl。重写按本条前缀作用域Σ1:l修下标；不修改原转录。",
+    "impact_md": "下标勘误；不改变正确前缀输入MI命题的作用域。",
+    "related_result_ids": [
+      "transformation-prefix-input"
+    ],
+    "fix_authorization": "proof_only_granted",
+    "user_confirmation": "not_required_for_proof_only_correction",
+    "user_review_status": "pending",
+    "resolution": "original_statement_preserved",
+    "translations": {
+      "en": {
+        "title": "Repeated Σ1 in the second B.2 clause",
+        "problem_md": "The second bullet prints Σ1 as its final index, while its full Equation (9) proof uses Σl. The rewrite repairs the index to the intended prefix Σ1:l and preserves the original transcription.",
+        "evidence_md": "The second bullet prints Σ1 as its final index, while its full Equation (9) proof uses Σl. The rewrite repairs the index to the intended prefix Σ1:l and preserves the original transcription.",
+        "impact_md": "Index correction; the valid prefix input-MI scope is retained."
+      }
+    },
+    "issue_type": "proof_step_error",
+    "source_refs": [
+      {
+        "source_id": "src-icml2022-transformation-formal",
+        "version_id": "ver-icml2022-transformation-formal",
+        "pdf_pages": [
+          14
+        ],
+        "section": "B.2第二子句重复Σ1"
+      }
+    ],
+    "original_statement_status": "original_statement_preserved"
+  },
+  {
+    "id": "transformation-swish-equality",
+    "paper_id": "icml2022-transformation",
+    "title": "正文Swish等号需按原prose解释为近似",
+    "kind": "unjustified_equality",
+    "classification": "unjustified_equality",
+    "status": "agent_confirmed",
+    "original_expression": "\\operatorname{ReLU}(x)=x\\operatorname{sigmoid}(\\beta x)",
+    "source_location": "Formal PDF 8,20",
+    "evidence_md": "正文明确说can be approximated，但显示式写=；有限β且x=1时sigmoid(β)<1，所以不是精确ReLU值1。附录Eq41正确保留≈；重写导数属于连续近似本身。",
+    "problem_md": "正文明确说can be approximated，但显示式写=；有限β且x=1时sigmoid(β)<1，所以不是精确ReLU值1。附录Eq41正确保留≈；重写导数属于连续近似本身。",
+    "impact_md": "保留正文原等号和附录≈；不把平滑门当成硬门精确恒等式。",
+    "related_result_ids": [
+      "transformation-ebm-relaxation"
+    ],
+    "fix_authorization": "proof_only_granted",
+    "user_confirmation": "not_required_for_proof_only_correction",
+    "user_review_status": "pending",
+    "resolution": "original_statement_preserved",
+    "translations": {
+      "en": {
+        "title": "Interpret the main Swish equality as the stated approximation",
+        "problem_md": "The main prose says can be approximated but the display uses =. For finite β and x=1, sigmoid(β)<1, whereas the exact ReLU value is one. Appendix Equation (41) correctly retains ≈; rewritten derivatives concern the continuous approximation itself.",
+        "evidence_md": "The main prose says can be approximated but the display uses =. For finite β and x=1, sigmoid(β)<1, whereas the exact ReLU value is one. Appendix Equation (41) correctly retains ≈; rewritten derivatives concern the continuous approximation itself.",
+        "impact_md": "Preserve the main equality and appendix ≈, without treating a smooth gate as an exact hard-gate identity."
+      }
+    },
+    "issue_type": "proof_step_error",
+    "source_refs": [
+      {
+        "source_id": "src-icml2022-transformation-formal",
+        "version_id": "ver-icml2022-transformation-formal",
+        "pdf_pages": [
+          8,
+          20
+        ],
+        "section": "正文Swish等号需按原prose解释为近似"
+      }
+    ],
+    "original_statement_status": "original_statement_preserved"
+  },
+  {
+    "id": "transformation-gate-matrix-index",
+    "paper_id": "icml2022-transformation",
+    "title": "Appendix A门矩阵维度与池化下标笔误",
+    "kind": "notation_error",
+    "classification": "notation_error",
+    "status": "agent_confirmed",
+    "original_expression": "\\operatorname{diag}(\\sigma^1,\\ldots,\\sigma^D)\\in\\{0,1\\}^D;\\quad(h_l)_{d\\prime}",
+    "source_location": "Formal PDF 13",
+    "evidence_md": "ReLU/dropout对象明确是D×D对角矩阵，却写属于{0,1}^D，向量是其对角值。池化选择条件写(h_l)_{d′}最大，却要定义行d′列d；应按窗口内输入索引d选择最大者。若最大值并列，需选择一个最大者，不能让多个1把值相加。",
+    "problem_md": "ReLU/dropout对象明确是D×D对角矩阵，却写属于{0,1}^D，向量是其对角值。池化选择条件写(h_l)_{d′}最大，却要定义行d′列d；应按窗口内输入索引d选择最大者。若最大值并列，需选择一个最大者，不能让多个1把值相加。",
+    "impact_md": "原文原样保留，固定门算子的维度与一个最大者选择在重写定义澄清；真实ReLU Eq1证明不受影响。",
+    "related_result_ids": [
+      "transformation-gating-affine"
+    ],
+    "fix_authorization": "proof_only_granted",
+    "user_confirmation": "not_required_for_proof_only_correction",
+    "user_review_status": "pending",
+    "resolution": "original_statement_preserved",
+    "translations": {
+      "en": {
+        "title": "Gate-matrix dimension and pooling index slips in Appendix A",
+        "problem_md": "The ReLU/dropout object is explicitly a D×D diagonal matrix but is assigned to {0,1}^D, the space of its diagonal values. The pooling condition tests whether (h_l)_{d′} is maximal while defining row d′, column d; selection must use the input index d within the region. At a tie, choose one maximizer rather than adding multiple maximal values.",
+        "evidence_md": "The ReLU/dropout object is explicitly a D×D diagonal matrix but is assigned to {0,1}^D, the space of its diagonal values. The pooling condition tests whether (h_l)_{d′} is maximal while defining row d′, column d; selection must use the input index d within the region. At a tie, choose one maximizer rather than adding multiple maximal values.",
+        "impact_md": "Preserve the source and clarify dimensions and one-maximizer selection in the rewritten definitions. The actual ReLU Equation (1) proof is unaffected."
+      }
+    },
+    "issue_type": "definition_or_algorithm_boundary",
+    "source_refs": [
+      {
+        "source_id": "src-icml2022-transformation-formal",
+        "version_id": "ver-icml2022-transformation-formal",
+        "pdf_pages": [
+          13
+        ],
+        "section": "Appendix A门矩阵维度与池化下标笔误"
+      }
+    ],
+    "original_statement_status": "original_statement_preserved"
+  }
+]

@@ -1,0 +1,68 @@
+{
+  "status": "approved_for_phase1_reader_admission",
+  "paper_id": "icml2023-decoder",
+  "reviewed_at": "2026-10-01T13:35:53.536947+00:00",
+  "counts": {
+    "source_files": 1,
+    "physical_pages": 34,
+    "source_occurrences": 52,
+    "entries": 34,
+    "proof_targets": 30,
+    "shared_proofs": 4,
+    "symbols": 34,
+    "issues": 16,
+    "lean_declarations": 296
+  },
+  "independent_adapter_compile": {
+    "source_path": "corpus/public/reader/icml2023-decoder/lean/PaperDecoder.lean",
+    "source_sha256": "406ea769f120fa412f0364239e05850b2cbede9ace79120a702b25e1a4c59a5a",
+    "command": "lake -d lean/HarsanyiLib env lean corpus/public/reader/icml2023-decoder/lean/PaperDecoder.lean",
+    "exit_code": 0,
+    "log_path": "reader/evidence/twelve-paper-20261001/root-formal-checks/f06/positive-log-paper-compile.txt",
+    "log_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "scope": "Entire current paper adapter, including the new actual_positive_factor_log_som on its full positive-factor domain; q=0 is permitted where the mean response is nonzero. Final source/content/report admission remains pending."
+  },
+  "cross_review": "docs/reviews/f06-cross-review-20261001.json",
+  "cross_review_sha256": "af81e9e3dd668f3d3b9d5f35e2c4ef9a24d2e26c9b3756859e17307d6da42a5f",
+  "source_boundary_review": "reader/evidence/twelve-paper-20261001/f06-source-boundary-followup.json",
+  "source_boundary_review_sha256": "6047823a36b3947c5ae5df00a6f879489c8ca10b5a503d640321cea0266d463c",
+  "root_semantic_review": "reader/evidence/twelve-paper-20261001/root-f06-source-followup.json",
+  "root_semantic_review_sha256": "f0824a3e86f92e84cbdfb1575786885c3bc5862ea74f5cc3112419d35af240d8",
+  "input_hashes": {
+    "corpus/public/reader/icml2023-decoder/content.json": "e457f5388d581359a8f37e249651f2eeca4320a457b44f49439c3a3fe32cabc3",
+    "corpus/public/reader/icml2023-decoder/inventory.json": "70310d481040c9531680d99f8bfc2d98f7c273edcb7c34302e8a98006e405759",
+    "corpus/public/reader/icml2023-decoder/paper-metadata.json": "4220da372429bbee735a95df2a3f99a9cbba7b40b63ea7a6c7f3201058392931",
+    "corpus/public/reader/icml2023-decoder/symbols.json": "d822c2b7c5a36ed691c83f20cb7ca8fff526baba2e6749cc7917a28785f4726e",
+    "corpus/public/reader/icml2023-decoder/issues.json": "6d6c2c0294b9cd60f0fc8db177a1f68887b58c4ecc93fc37c470ca9c4ef7b3d2",
+    "corpus/public/reader/icml2023-decoder/verification/report.json": "83716554ba03e8d9e9fe4872aaffade6224360f4208cf4126148524623af3099",
+    "corpus/public/reader/icml2023-decoder/verification/content-preflight.json": "f4df844bcd6de6c38bc3b226bfcd6b72f8c3654f7e4a42830e9b560e47ebe4ab",
+    "corpus/public/reader/icml2023-decoder/verification/katex-checks.json": "7bae22721b01c57e02a2fef6e274f70adafaadeb34342893f9ead645f026bafa",
+    "corpus/public/reader/icml2023-decoder/verification/bilingual-checks.json": "c07064f54d389741f1ffc7a3a126a3578b542462c08d15587506e1779fb14a43",
+    "corpus/public/reader/icml2023-decoder/source-occurrence-map.json": "1a3cd300ce7caa9d5e91c18af22013e72bef84fdf13f0d62ead5b5dd3a136a08"
+  },
+  "proof_target_machine_roles": {
+    "theorem_proof": 7,
+    "counterexample": 6,
+    "partial_component": 8,
+    "none": 9
+  },
+  "non_target_entries": 4,
+  "root_followups_resolved": [
+    "Complete main/appendix including A7/B1–B4/C6/C7 and repeated appearances retained; author original statements and proof errors preserved.",
+    "Actual positive-shift real convolution, negative-phase DFT, all diagonal finite character sums, heterogeneous full cascade and full bias normalization.",
+    "Actual crop/valid no-wrap operator and nonzero-denominator Eq17 source counterexample; original phase retained as correct.",
+    "Actual real Gaussian laws, complex closure, expectation/SOM/pseudocovariance and actual weak first-moment kernel counterexample.",
+    "Actual same-loss same-state full matrix real derivative and normalized spectral update; complete channel sums and exact paper binding.",
+    "Actual heterogeneous Gaussian matrix cascade, conjugated cross-moment recurrence and source finite Eq31/32 closed forms with explicit independent-prefix-column condition.",
+    "Actual padding, depth and changing-kernel-size counterexamples, actual two-layer real-gradient one-step counterexample with source constraints.",
+    "General positive-factor logarithm adapter closes the zero-variance/nonzero-mean case; all final source hashes and independent compilation bound."
+  ],
+  "scope": "Complete source inventory, bilingual rewritten arguments, counterexamples and scoped explanations are admitted. Seven targets have theorem proof evidence, six have machine counterexamples, eight have component/conditional evidence and nine retain explicit human/external/unquantified scope without a whole-target Lean proof. Four definitions/experimental records are non-targets. No original claim is silently changed and no generic lemma count substitutes for target completion. Final twelve-paper aggregate/API/browser/publication gates remain.",
+  "open_final_release_followups": [],
+  "metadata_only_followup": {
+    "report": "reader/evidence/twelve-paper-20261001/root-f06-status-metadata-review.json",
+    "sha256": "785baa23698785edae225bd578cda140aadea9d65fc6a3bae47c810189fda8e3",
+    "previous_admission": "reader/evidence/twelve-paper-20261001/root-f06-admission-before-status-metadata.json",
+    "scope": "Two domain-boundary metadata corrections; no mathematical prose, source or Lean changes. Existing cross/source evidence remains bound to its earlier snapshot and is inherited only through the explicit byte-difference review."
+  }
+}

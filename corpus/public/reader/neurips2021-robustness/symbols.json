@@ -1,0 +1,1657 @@
+{
+  "schema_version": "symbol-table-1.0",
+  "paper_id": "neurips2021-robustness",
+  "symbols": [
+    {
+      "id": "model-output",
+      "canonical_id": "sym-model",
+      "canonical_tex": "v",
+      "name_zh": "固定标量模型",
+      "name": "固定标量模型",
+      "definition_tex": "v:X\\to\\mathbb R",
+      "description_md": "模型输出的一个固定scalar维度。",
+      "type_or_domain": "X→ℝ",
+      "scope": "固定模型",
+      "assumptions": [
+        "原对象须位于上列domain。"
+      ],
+      "empty_set_convention": "g(∅)=b；不设为0。",
+      "baseline_convention": "r是输入基线，b=v(r)是输出基线；二者不同类型。",
+      "aliases": [
+        "v"
+      ],
+      "paper_mappings": [
+        {
+          "paper_id": "neurips2021-robustness",
+          "source_id": "src-neurips2021-robustness-formal",
+          "version": "NeurIPS 2021 formal",
+          "original_tex": "v",
+          "original_definition_tex": "v:X\\to\\mathbb R",
+          "pdf_pages": [
+            4,
+            5
+          ],
+          "equation_labels": [],
+          "canonical_concept_id": "model-output",
+          "relation_type": "same_definition",
+          "note": "保留原作者符号，规范概念与scope见当前定义。",
+          "conflict_note": "本映射没有符号冲突。",
+          "original_definition_status": "source_definition_with_project_concept_mapping",
+          "translations": {
+            "en": {
+              "note": "Retain the author notation; the canonical concept and scope are given in this definition.",
+              "conflict_note": "This mapping has no notation conflict."
+            }
+          }
+        }
+      ],
+      "lean_names": [],
+      "version": "1.0",
+      "translations": {
+        "en": {
+          "name": "Fixed scalar model",
+          "name_zh": "Fixed scalar model",
+          "description_md": "A fixed scalar dimension of the model output.",
+          "type_or_domain": "X→ℝ",
+          "scope": "Fixed model",
+          "assumptions": [
+            "The object must lie in the domain stated above."
+          ],
+          "empty_set_convention": "g(∅)=b, without assuming zero.",
+          "baseline_convention": "r is the input baseline and b=v(r) the output baseline; they have different types.",
+          "paper_mappings": [
+            {
+              "note": "Retain the author notation; the canonical concept and scope are given in this definition.",
+              "conflict_note": "This mapping has no notation conflict."
+            }
+          ]
+        }
+      }
+    },
+    {
+      "id": "fixed-input",
+      "canonical_id": "sym-input",
+      "canonical_tex": "x",
+      "name_zh": "正常固定输入",
+      "name": "正常固定输入",
+      "definition_tex": "x\\in\\mathcal X",
+      "description_md": "正常样本；对抗样本为xadv=x+Δx。",
+      "type_or_domain": "输入域X",
+      "scope": "固定样本",
+      "assumptions": [
+        "原对象须位于上列domain。"
+      ],
+      "empty_set_convention": "g(∅)=b；不设为0。",
+      "baseline_convention": "r是输入基线，b=v(r)是输出基线；二者不同类型。",
+      "aliases": [
+        "x"
+      ],
+      "paper_mappings": [
+        {
+          "paper_id": "neurips2021-robustness",
+          "source_id": "src-neurips2021-robustness-formal",
+          "version": "NeurIPS 2021 formal",
+          "original_tex": "x",
+          "original_definition_tex": "x\\in\\mathcal X",
+          "pdf_pages": [
+            4,
+            5
+          ],
+          "equation_labels": [],
+          "canonical_concept_id": "fixed-input",
+          "relation_type": "same_definition",
+          "note": "保留原作者符号，规范概念与scope见当前定义。",
+          "conflict_note": "本映射没有符号冲突。",
+          "original_definition_status": "source_definition_with_project_concept_mapping",
+          "translations": {
+            "en": {
+              "note": "Retain the author notation; the canonical concept and scope are given in this definition.",
+              "conflict_note": "This mapping has no notation conflict."
+            }
+          }
+        }
+      ],
+      "lean_names": [],
+      "version": "1.0",
+      "translations": {
+        "en": {
+          "name": "Fixed normal input",
+          "name_zh": "Fixed normal input",
+          "description_md": "The normal sample; the adversarial sample is xadv=x+Δx.",
+          "type_or_domain": "Input domain X",
+          "scope": "Fixed sample",
+          "assumptions": [
+            "The object must lie in the domain stated above."
+          ],
+          "empty_set_convention": "g(∅)=b, without assuming zero.",
+          "baseline_convention": "r is the input baseline and b=v(r) the output baseline; they have different types.",
+          "paper_mappings": [
+            {
+              "note": "Retain the author notation; the canonical concept and scope are given in this definition.",
+              "conflict_note": "This mapping has no notation conflict."
+            }
+          ]
+        }
+      }
+    },
+    {
+      "id": "input-baseline-vector",
+      "canonical_id": "sym-input-baseline",
+      "canonical_tex": "r",
+      "name_zh": "输入mask基线",
+      "name": "输入mask基线",
+      "definition_tex": "x_\\varnothing=r",
+      "description_md": "所有mask使用同一输入基线。",
+      "type_or_domain": "输入域X中的向量",
+      "scope": "掩码输入",
+      "assumptions": [
+        "原对象须位于上列domain。"
+      ],
+      "empty_set_convention": "g(∅)=b；不设为0。",
+      "baseline_convention": "r是输入基线，b=v(r)是输出基线；二者不同类型。",
+      "aliases": [
+        "mask settings"
+      ],
+      "paper_mappings": [
+        {
+          "paper_id": "neurips2021-robustness",
+          "source_id": "src-neurips2021-robustness-formal",
+          "version": "NeurIPS 2021 formal",
+          "original_tex": "mask settings",
+          "original_definition_tex": "x_\\varnothing=r",
+          "pdf_pages": [
+            4
+          ],
+          "equation_labels": [],
+          "canonical_concept_id": "input-baseline-vector",
+          "relation_type": "scope_preserving_mapping",
+          "note": "原作者符号按此scope映为规范概念；原原文公式不改符号。",
+          "conflict_note": "本映射没有符号冲突。",
+          "original_definition_status": "source_definition_with_project_concept_mapping",
+          "translations": {
+            "en": {
+              "note": "Map the author notation to the canonical concept in this scope; original-source formulas retain their notation.",
+              "conflict_note": "This mapping has no notation conflict."
+            }
+          }
+        }
+      ],
+      "lean_names": [],
+      "version": "1.0",
+      "translations": {
+        "en": {
+          "name": "Input-mask baseline",
+          "name_zh": "Input-mask baseline",
+          "description_md": "All masks use the same input baseline.",
+          "type_or_domain": "A vector in input domain X",
+          "scope": "Masked inputs",
+          "assumptions": [
+            "The object must lie in the domain stated above."
+          ],
+          "empty_set_convention": "g(∅)=b, without assuming zero.",
+          "baseline_convention": "r is the input baseline and b=v(r) the output baseline; they have different types.",
+          "paper_mappings": [
+            {
+              "note": "Map the author notation to the canonical concept in this scope; original-source formulas retain their notation.",
+              "conflict_note": "This mapping has no notation conflict."
+            }
+          ]
+        }
+      }
+    },
+    {
+      "id": "variable-universe",
+      "canonical_id": "sym-universe",
+      "canonical_tex": "N",
+      "name_zh": "玩家总体",
+      "name": "玩家总体",
+      "definition_tex": "N=\\{1,\\ldots,n\\}",
+      "description_md": "有限输入变量集合。",
+      "type_or_domain": "有限集",
+      "scope": "各固定输入游戏",
+      "assumptions": [
+        "原对象须位于上列domain。"
+      ],
+      "empty_set_convention": "g(∅)=b；不设为0。",
+      "baseline_convention": "r是输入基线，b=v(r)是输出基线；二者不同类型。",
+      "aliases": [
+        "N"
+      ],
+      "paper_mappings": [
+        {
+          "paper_id": "neurips2021-robustness",
+          "source_id": "src-neurips2021-robustness-formal",
+          "version": "NeurIPS 2021 formal",
+          "original_tex": "N",
+          "original_definition_tex": "N=\\{1,\\ldots,n\\}",
+          "pdf_pages": [
+            4,
+            5
+          ],
+          "equation_labels": [],
+          "canonical_concept_id": "variable-universe",
+          "relation_type": "same_definition",
+          "note": "保留原作者符号，规范概念与scope见当前定义。",
+          "conflict_note": "本映射没有符号冲突。",
+          "original_definition_status": "source_definition_with_project_concept_mapping",
+          "translations": {
+            "en": {
+              "note": "Retain the author notation; the canonical concept and scope are given in this definition.",
+              "conflict_note": "This mapping has no notation conflict."
+            }
+          }
+        }
+      ],
+      "lean_names": [],
+      "version": "1.0",
+      "translations": {
+        "en": {
+          "name": "Player universe",
+          "name_zh": "Player universe",
+          "description_md": "The finite set of input variables.",
+          "type_or_domain": "Finite set",
+          "scope": "Each fixed-input game",
+          "assumptions": [
+            "The object must lie in the domain stated above."
+          ],
+          "empty_set_convention": "g(∅)=b, without assuming zero.",
+          "baseline_convention": "r is the input baseline and b=v(r) the output baseline; they have different types.",
+          "paper_mappings": [
+            {
+              "note": "Retain the author notation; the canonical concept and scope are given in this definition.",
+              "conflict_note": "This mapping has no notation conflict."
+            }
+          ]
+        }
+      }
+    },
+    {
+      "id": "variable-count",
+      "canonical_id": "variable-count",
+      "canonical_tex": "n",
+      "name_zh": "玩家数",
+      "name": "玩家数",
+      "definition_tex": "n=|N|",
+      "description_md": "上下文归一化的总体大小。",
+      "type_or_domain": "自然数；pair条目n≥2",
+      "scope": "有限总体",
+      "assumptions": [
+        "原对象须位于上列domain。"
+      ],
+      "empty_set_convention": "g(∅)=b；不设为0。",
+      "baseline_convention": "r是输入基线，b=v(r)是输出基线；二者不同类型。",
+      "aliases": [
+        "n"
+      ],
+      "paper_mappings": [
+        {
+          "paper_id": "neurips2021-robustness",
+          "source_id": "src-neurips2021-robustness-formal",
+          "version": "NeurIPS 2021 formal",
+          "original_tex": "n",
+          "original_definition_tex": "n=|N|",
+          "pdf_pages": [
+            4,
+            5
+          ],
+          "equation_labels": [],
+          "canonical_concept_id": "variable-count",
+          "relation_type": "same_definition",
+          "note": "保留原作者符号，规范概念与scope见当前定义。",
+          "conflict_note": "本映射没有符号冲突。",
+          "original_definition_status": "source_definition_with_project_concept_mapping",
+          "translations": {
+            "en": {
+              "note": "Retain the author notation; the canonical concept and scope are given in this definition.",
+              "conflict_note": "This mapping has no notation conflict."
+            }
+          }
+        }
+      ],
+      "lean_names": [],
+      "version": "1.0",
+      "translations": {
+        "en": {
+          "name": "Number of players",
+          "name_zh": "Number of players",
+          "description_md": "The universe size used in context normalization.",
+          "type_or_domain": "Natural number; pair entries use n≥2",
+          "scope": "Finite universe",
+          "assumptions": [
+            "The object must lie in the domain stated above."
+          ],
+          "empty_set_convention": "g(∅)=b, without assuming zero.",
+          "baseline_convention": "r is the input baseline and b=v(r) the output baseline; they have different types.",
+          "paper_mappings": [
+            {
+              "note": "Retain the author notation; the canonical concept and scope are given in this definition.",
+              "conflict_note": "This mapping has no notation conflict."
+            }
+          ]
+        }
+      }
+    },
+    {
+      "id": "coalition",
+      "canonical_id": "sym-coalition",
+      "canonical_tex": "S",
+      "name_zh": "上下文集合",
+      "name": "上下文集合",
+      "definition_tex": "S\\subseteq N",
+      "description_md": "保留输入变量的mask集合，合法pair上下文排除i,j。",
+      "type_or_domain": "N的有限子集",
+      "scope": "当前上下文",
+      "assumptions": [
+        "原对象须位于上列domain。"
+      ],
+      "empty_set_convention": "g(∅)=b；不设为0。",
+      "baseline_convention": "r是输入基线，b=v(r)是输出基线；二者不同类型。",
+      "aliases": [
+        "S"
+      ],
+      "paper_mappings": [
+        {
+          "paper_id": "neurips2021-robustness",
+          "source_id": "src-neurips2021-robustness-formal",
+          "version": "NeurIPS 2021 formal",
+          "original_tex": "S",
+          "original_definition_tex": "S\\subseteq N",
+          "pdf_pages": [
+            4,
+            5
+          ],
+          "equation_labels": [],
+          "canonical_concept_id": "coalition",
+          "relation_type": "same_definition",
+          "note": "保留原作者符号，规范概念与scope见当前定义。",
+          "conflict_note": "本映射没有符号冲突。",
+          "original_definition_status": "source_definition_with_project_concept_mapping",
+          "translations": {
+            "en": {
+              "note": "Retain the author notation; the canonical concept and scope are given in this definition.",
+              "conflict_note": "This mapping has no notation conflict."
+            }
+          }
+        }
+      ],
+      "lean_names": [],
+      "version": "1.0",
+      "translations": {
+        "en": {
+          "name": "Context set",
+          "name_zh": "Context set",
+          "description_md": "The mask set of retained variables; admissible pair contexts exclude i,j.",
+          "type_or_domain": "Finite subset of N",
+          "scope": "Current context",
+          "assumptions": [
+            "The object must lie in the domain stated above."
+          ],
+          "empty_set_convention": "g(∅)=b, without assuming zero.",
+          "baseline_convention": "r is the input baseline and b=v(r) the output baseline; they have different types.",
+          "paper_mappings": [
+            {
+              "note": "Retain the author notation; the canonical concept and scope are given in this definition.",
+              "conflict_note": "This mapping has no notation conflict."
+            }
+          ]
+        }
+      }
+    },
+    {
+      "id": "masked-input",
+      "canonical_id": "sym-mask",
+      "canonical_tex": "x_S",
+      "name_zh": "掩码输入",
+      "name": "掩码输入",
+      "definition_tex": "(x_S)_i=\\begin{cases}x_i&i\\in S\\\\r_i&i\\notin S\\end{cases}",
+      "description_md": "原输入在S内保留，其余取r。",
+      "type_or_domain": "输入域X",
+      "scope": "固定x及r",
+      "assumptions": [
+        "原对象须位于上列domain。"
+      ],
+      "empty_set_convention": "g(∅)=b；不设为0。",
+      "baseline_convention": "r是输入基线，b=v(r)是输出基线；二者不同类型。",
+      "aliases": [
+        "x_S"
+      ],
+      "paper_mappings": [
+        {
+          "paper_id": "neurips2021-robustness",
+          "source_id": "src-neurips2021-robustness-formal",
+          "version": "NeurIPS 2021 formal",
+          "original_tex": "x_S",
+          "original_definition_tex": "(x_S)_i=\\begin{cases}x_i&i\\in S\\\\r_i&i\\notin S\\end{cases}",
+          "pdf_pages": [
+            4,
+            7
+          ],
+          "equation_labels": [],
+          "canonical_concept_id": "masked-input",
+          "relation_type": "same_definition",
+          "note": "保留原作者符号，规范概念与scope见当前定义。",
+          "conflict_note": "本映射没有符号冲突。",
+          "original_definition_status": "source_definition_with_project_concept_mapping",
+          "translations": {
+            "en": {
+              "note": "Retain the author notation; the canonical concept and scope are given in this definition.",
+              "conflict_note": "This mapping has no notation conflict."
+            }
+          }
+        }
+      ],
+      "lean_names": [],
+      "version": "1.0",
+      "translations": {
+        "en": {
+          "name": "Masked input",
+          "name_zh": "Masked input",
+          "description_md": "Keep the original input on S and use r elsewhere.",
+          "type_or_domain": "Input domain X",
+          "scope": "Fixed x and r",
+          "assumptions": [
+            "The object must lie in the domain stated above."
+          ],
+          "empty_set_convention": "g(∅)=b, without assuming zero.",
+          "baseline_convention": "r is the input baseline and b=v(r) the output baseline; they have different types.",
+          "paper_mappings": [
+            {
+              "note": "Retain the author notation; the canonical concept and scope are given in this definition.",
+              "conflict_note": "This mapping has no notation conflict."
+            }
+          ]
+        }
+      }
+    },
+    {
+      "id": "masked-game",
+      "canonical_id": "sym-game",
+      "canonical_tex": "g_x",
+      "name_zh": "固定样本集合函数",
+      "name": "固定样本集合函数",
+      "definition_tex": "g_x(S)=v(x_S)",
+      "description_md": "把原fixed-x的v(S|x)映为g_x；不与分布熵游戏混同。",
+      "type_or_domain": "2^N→ℝ",
+      "scope": "固定样本",
+      "assumptions": [
+        "原对象须位于上列domain。"
+      ],
+      "empty_set_convention": "g(∅)=b；不设为0。",
+      "baseline_convention": "r是输入基线，b=v(r)是输出基线；二者不同类型。",
+      "aliases": [
+        "v(S|x)"
+      ],
+      "paper_mappings": [
+        {
+          "paper_id": "neurips2021-robustness",
+          "source_id": "src-neurips2021-robustness-formal",
+          "version": "NeurIPS 2021 formal",
+          "original_tex": "v(S|x)",
+          "original_definition_tex": "g_x(S)=v(x_S)",
+          "pdf_pages": [
+            4,
+            5
+          ],
+          "equation_labels": [],
+          "canonical_concept_id": "masked-game",
+          "relation_type": "scope_preserving_mapping",
+          "note": "原作者符号按此scope映为规范概念；原原文公式不改符号。",
+          "conflict_note": "本映射没有符号冲突。",
+          "original_definition_status": "source_definition_with_project_concept_mapping",
+          "translations": {
+            "en": {
+              "note": "Map the author notation to the canonical concept in this scope; original-source formulas retain their notation.",
+              "conflict_note": "This mapping has no notation conflict."
+            }
+          }
+        }
+      ],
+      "lean_names": [],
+      "version": "1.0",
+      "translations": {
+        "en": {
+          "name": "Fixed-input set function",
+          "name_zh": "Fixed-input set function",
+          "description_md": "Map the source fixed-x v(S|x) to g_x; keep it distinct from the population entropy game.",
+          "type_or_domain": "2^N→ℝ",
+          "scope": "Fixed sample",
+          "assumptions": [
+            "The object must lie in the domain stated above."
+          ],
+          "empty_set_convention": "g(∅)=b, without assuming zero.",
+          "baseline_convention": "r is the input baseline and b=v(r) the output baseline; they have different types.",
+          "paper_mappings": [
+            {
+              "note": "Map the author notation to the canonical concept in this scope; original-source formulas retain their notation.",
+              "conflict_note": "This mapping has no notation conflict."
+            }
+          ]
+        }
+      }
+    },
+    {
+      "id": "output-baseline",
+      "canonical_id": "sym-output-baseline",
+      "canonical_tex": "b",
+      "name_zh": "输出基线",
+      "name": "输出基线",
+      "definition_tex": "b=g_x(\\varnothing)=v(r)",
+      "description_md": "全mask的真实scalar输出。",
+      "type_or_domain": "实数",
+      "scope": "固定模型和输入基线",
+      "assumptions": [
+        "原对象须位于上列domain。"
+      ],
+      "empty_set_convention": "g(∅)=b；不设为0。",
+      "baseline_convention": "r是输入基线，b=v(r)是输出基线；二者不同类型。",
+      "aliases": [
+        "v(∅)"
+      ],
+      "paper_mappings": [
+        {
+          "paper_id": "neurips2021-robustness",
+          "source_id": "src-neurips2021-robustness-formal",
+          "version": "NeurIPS 2021 formal",
+          "original_tex": "v(∅)",
+          "original_definition_tex": "b=g_x(\\varnothing)=v(r)",
+          "pdf_pages": [
+            5
+          ],
+          "equation_labels": [],
+          "canonical_concept_id": "output-baseline",
+          "relation_type": "scope_preserving_mapping",
+          "note": "原作者符号按此scope映为规范概念；原原文公式不改符号。",
+          "conflict_note": "本映射没有符号冲突。",
+          "original_definition_status": "source_definition_with_project_concept_mapping",
+          "translations": {
+            "en": {
+              "note": "Map the author notation to the canonical concept in this scope; original-source formulas retain their notation.",
+              "conflict_note": "This mapping has no notation conflict."
+            }
+          }
+        }
+      ],
+      "lean_names": [],
+      "version": "1.0",
+      "translations": {
+        "en": {
+          "name": "Output baseline",
+          "name_zh": "Output baseline",
+          "description_md": "The actual scalar output under the empty mask.",
+          "type_or_domain": "Real number",
+          "scope": "Fixed model and input baseline",
+          "assumptions": [
+            "The object must lie in the domain stated above."
+          ],
+          "empty_set_convention": "g(∅)=b, without assuming zero.",
+          "baseline_convention": "r is the input baseline and b=v(r) the output baseline; they have different types.",
+          "paper_mappings": [
+            {
+              "note": "Map the author notation to the canonical concept in this scope; original-source formulas retain their notation.",
+              "conflict_note": "This mapping has no notation conflict."
+            }
+          ]
+        }
+      }
+    },
+    {
+      "id": "centered-game",
+      "canonical_id": "sym-centered-game",
+      "canonical_tex": "g_{x,0}",
+      "name_zh": "中心化游戏",
+      "name": "中心化游戏",
+      "definition_tex": "g_{x,0}=g_x-b",
+      "description_md": "项目辅助中心化，不把原v的空值默认0。",
+      "type_or_domain": "2^N→ℝ",
+      "scope": "同一固定样本",
+      "assumptions": [
+        "原对象须位于上列domain。"
+      ],
+      "empty_set_convention": "g(∅)=b；不设为0。",
+      "baseline_convention": "r是输入基线，b=v(r)是输出基线；二者不同类型。",
+      "aliases": [
+        "v(S)−v(∅)"
+      ],
+      "paper_mappings": [
+        {
+          "paper_id": "neurips2021-robustness",
+          "source_id": "src-neurips2021-robustness-formal",
+          "version": "NeurIPS 2021 formal",
+          "original_tex": "v(S)−v(∅)",
+          "original_definition_tex": "g_{x,0}=g_x-b",
+          "pdf_pages": [
+            5
+          ],
+          "equation_labels": [],
+          "canonical_concept_id": "centered-game",
+          "relation_type": "scope_preserving_mapping",
+          "note": "原作者符号按此scope映为规范概念；原原文公式不改符号。",
+          "conflict_note": "本映射没有符号冲突。",
+          "original_definition_status": "source_definition_with_project_concept_mapping",
+          "translations": {
+            "en": {
+              "note": "Map the author notation to the canonical concept in this scope; original-source formulas retain their notation.",
+              "conflict_note": "This mapping has no notation conflict."
+            }
+          }
+        }
+      ],
+      "lean_names": [],
+      "version": "1.0",
+      "translations": {
+        "en": {
+          "name": "Centered game",
+          "name_zh": "Centered game",
+          "description_md": "Project centering, without declaring the source v empty value zero.",
+          "type_or_domain": "2^N→ℝ",
+          "scope": "Same fixed sample",
+          "assumptions": [
+            "The object must lie in the domain stated above."
+          ],
+          "empty_set_convention": "g(∅)=b, without assuming zero.",
+          "baseline_convention": "r is the input baseline and b=v(r) the output baseline; they have different types.",
+          "paper_mappings": [
+            {
+              "note": "Map the author notation to the canonical concept in this scope; original-source formulas retain their notation.",
+              "conflict_note": "This mapping has no notation conflict."
+            }
+          ]
+        }
+      }
+    },
+    {
+      "id": "robustness-context-order",
+      "canonical_id": "robustness-context-order",
+      "canonical_tex": "m",
+      "name_zh": "pair上下文阶",
+      "name": "pair上下文阶",
+      "definition_tex": "m=|S|",
+      "description_md": "m计上下文变量，不是dividend阶数。",
+      "type_or_domain": "0,…,n−2；φ为0,…,n−1",
+      "scope": "固定size上下文",
+      "assumptions": [
+        "原对象须位于上列domain。"
+      ],
+      "empty_set_convention": "g(∅)=b；不设为0。",
+      "baseline_convention": "r是输入基线，b=v(r)是输出基线；二者不同类型。",
+      "aliases": [
+        "m"
+      ],
+      "paper_mappings": [
+        {
+          "paper_id": "neurips2021-robustness",
+          "source_id": "src-neurips2021-robustness-formal",
+          "version": "NeurIPS 2021 formal",
+          "original_tex": "m",
+          "original_definition_tex": "m=|S|",
+          "pdf_pages": [
+            4,
+            8
+          ],
+          "equation_labels": [],
+          "canonical_concept_id": "robustness-context-order",
+          "relation_type": "same_definition",
+          "note": "保留原作者符号，规范概念与scope见当前定义。",
+          "conflict_note": "m是上下文size，不能合并到dividend阶数。",
+          "original_definition_status": "source_definition_with_project_concept_mapping",
+          "translations": {
+            "en": {
+              "note": "Retain the author notation; the canonical concept and scope are given in this definition.",
+              "conflict_note": "m is context size and is distinct from dividend order."
+            }
+          }
+        }
+      ],
+      "lean_names": [],
+      "version": "1.0",
+      "translations": {
+        "en": {
+          "name": "Pair context order",
+          "name_zh": "Pair context order",
+          "description_md": "m counts context variables, not dividend order.",
+          "type_or_domain": "0,…,n−2 for pairs; 0,…,n−1 for φ",
+          "scope": "Fixed-size contexts",
+          "assumptions": [
+            "The object must lie in the domain stated above."
+          ],
+          "empty_set_convention": "g(∅)=b, without assuming zero.",
+          "baseline_convention": "r is the input baseline and b=v(r) the output baseline; they have different types.",
+          "paper_mappings": [
+            {
+              "note": "Retain the author notation; the canonical concept and scope are given in this definition.",
+              "conflict_note": "m is context size and is distinct from dividend order."
+            }
+          ]
+        }
+      }
+    },
+    {
+      "id": "robustness-pair-difference",
+      "canonical_id": "robustness-pair-difference",
+      "canonical_tex": "\\Delta g",
+      "name_zh": "四项pair差",
+      "name": "四项pair差",
+      "definition_tex": "\\Delta g(i,j,S)=g(Sij)-g(Si)-g(Sj)+g(S)",
+      "description_md": "有限上下文二阶差分。",
+      "type_or_domain": "实数；不同i,j且S排除两者",
+      "scope": "当前pair上下文",
+      "assumptions": [
+        "原对象须位于上列domain。"
+      ],
+      "empty_set_convention": "g(∅)=b；不设为0。",
+      "baseline_convention": "r是输入基线，b=v(r)是输出基线；二者不同类型。",
+      "aliases": [
+        "Δv"
+      ],
+      "paper_mappings": [
+        {
+          "paper_id": "neurips2021-robustness",
+          "source_id": "src-neurips2021-robustness-formal",
+          "version": "NeurIPS 2021 formal",
+          "original_tex": "Δv",
+          "original_definition_tex": "\\Delta g(i,j,S)=g(Sij)-g(Si)-g(Sj)+g(S)",
+          "pdf_pages": [
+            4
+          ],
+          "equation_labels": [],
+          "canonical_concept_id": "robustness-pair-difference",
+          "relation_type": "scope_preserving_mapping",
+          "note": "原作者符号按此scope映为规范概念；原原文公式不改符号。",
+          "conflict_note": "本映射没有符号冲突。",
+          "original_definition_status": "source_definition_with_project_concept_mapping",
+          "translations": {
+            "en": {
+              "note": "Map the author notation to the canonical concept in this scope; original-source formulas retain their notation.",
+              "conflict_note": "This mapping has no notation conflict."
+            }
+          }
+        }
+      ],
+      "lean_names": [
+        "Harsanyi.Robustness.pairDelta"
+      ],
+      "version": "1.0",
+      "translations": {
+        "en": {
+          "name": "Four-term pair difference",
+          "name_zh": "Four-term pair difference",
+          "description_md": "A second finite difference in a context.",
+          "type_or_domain": "Real number; distinct i,j and S excludes them",
+          "scope": "Current pair context",
+          "assumptions": [
+            "The object must lie in the domain stated above."
+          ],
+          "empty_set_convention": "g(∅)=b, without assuming zero.",
+          "baseline_convention": "r is the input baseline and b=v(r) the output baseline; they have different types.",
+          "paper_mappings": [
+            {
+              "note": "Map the author notation to the canonical concept in this scope; original-source formulas retain their notation.",
+              "conflict_note": "This mapping has no notation conflict."
+            }
+          ]
+        }
+      }
+    },
+    {
+      "id": "robustness-order-interaction",
+      "canonical_id": "robustness-order-interaction",
+      "canonical_tex": "I_{ij}^{(m)}",
+      "name_zh": "多阶pair交互",
+      "name": "多阶pair交互",
+      "definition_tex": "I_{ij}^{(m)}=E_{|S|=m}\\Delta g(i,j,S)",
+      "description_md": "同一size上下文的均匀四项差平均。",
+      "type_or_domain": "实数；0≤m≤n−2",
+      "scope": "固定样本与pair",
+      "assumptions": [
+        "原对象须位于上列domain。"
+      ],
+      "empty_set_convention": "g(∅)=b；不设为0。",
+      "baseline_convention": "r是输入基线，b=v(r)是输出基线；二者不同类型。",
+      "aliases": [
+        "I_{ij}^{(m)}"
+      ],
+      "paper_mappings": [
+        {
+          "paper_id": "neurips2021-robustness",
+          "source_id": "src-neurips2021-robustness-formal",
+          "version": "NeurIPS 2021 formal",
+          "original_tex": "I_{ij}^{(m)}",
+          "original_definition_tex": "I_{ij}^{(m)}=E_{|S|=m}\\Delta g(i,j,S)",
+          "pdf_pages": [
+            4,
+            5
+          ],
+          "equation_labels": [],
+          "canonical_concept_id": "robustness-order-interaction",
+          "relation_type": "same_definition",
+          "note": "保留原作者符号，规范概念与scope见当前定义。",
+          "conflict_note": "本映射没有符号冲突。",
+          "original_definition_status": "source_definition_with_project_concept_mapping",
+          "translations": {
+            "en": {
+              "note": "Retain the author notation; the canonical concept and scope are given in this definition.",
+              "conflict_note": "This mapping has no notation conflict."
+            }
+          }
+        }
+      ],
+      "lean_names": [
+        "Harsanyi.Robustness.multiOrderInteraction"
+      ],
+      "version": "1.0",
+      "translations": {
+        "en": {
+          "name": "Order-wise pair interaction",
+          "name_zh": "Order-wise pair interaction",
+          "description_md": "The uniform average of the four-term difference at one context size.",
+          "type_or_domain": "Real number; 0≤m≤n−2",
+          "scope": "Fixed sample and pair",
+          "assumptions": [
+            "The object must lie in the domain stated above."
+          ],
+          "empty_set_convention": "g(∅)=b, without assuming zero.",
+          "baseline_convention": "r is the input baseline and b=v(r) the output baseline; they have different types.",
+          "paper_mappings": [
+            {
+              "note": "Retain the author notation; the canonical concept and scope are given in this definition.",
+              "conflict_note": "This mapping has no notation conflict."
+            }
+          ]
+        }
+      }
+    },
+    {
+      "id": "robustness-order-attribution",
+      "canonical_id": "robustness-order-attribution",
+      "canonical_tex": "\\phi^{(m)}",
+      "name_zh": "多阶归因",
+      "name": "多阶归因",
+      "definition_tex": "\\phi^{(m)}(i)=E_{|S|=m}[g(Si)-g(S)]",
+      "description_md": "当前m上下文中玩家i的平均边际。",
+      "type_or_domain": "实数；0≤m≤n−1",
+      "scope": "固定样本与玩家",
+      "assumptions": [
+        "原对象须位于上列domain。"
+      ],
+      "empty_set_convention": "g(∅)=b；不设为0。",
+      "baseline_convention": "r是输入基线，b=v(r)是输出基线；二者不同类型。",
+      "aliases": [
+        "φ^{(m)}"
+      ],
+      "paper_mappings": [
+        {
+          "paper_id": "neurips2021-robustness",
+          "source_id": "src-neurips2021-robustness-formal",
+          "version": "NeurIPS 2021 formal",
+          "original_tex": "φ^{(m)}",
+          "original_definition_tex": "\\phi^{(m)}(i)=E_{|S|=m}[g(Si)-g(S)]",
+          "pdf_pages": [
+            8
+          ],
+          "equation_labels": [],
+          "canonical_concept_id": "robustness-order-attribution",
+          "relation_type": "scope_preserving_mapping",
+          "note": "原作者符号按此scope映为规范概念；原原文公式不改符号。",
+          "conflict_note": "本映射没有符号冲突。",
+          "original_definition_status": "source_definition_with_project_concept_mapping",
+          "translations": {
+            "en": {
+              "note": "Map the author notation to the canonical concept in this scope; original-source formulas retain their notation.",
+              "conflict_note": "This mapping has no notation conflict."
+            }
+          }
+        }
+      ],
+      "lean_names": [
+        "Harsanyi.Robustness.multiOrderAttribution"
+      ],
+      "version": "1.0",
+      "translations": {
+        "en": {
+          "name": "Order-wise attribution",
+          "name_zh": "Order-wise attribution",
+          "description_md": "The average marginal of player i in m-contexts.",
+          "type_or_domain": "Real number; 0≤m≤n−1",
+          "scope": "Fixed sample and player",
+          "assumptions": [
+            "The object must lie in the domain stated above."
+          ],
+          "empty_set_convention": "g(∅)=b, without assuming zero.",
+          "baseline_convention": "r is the input baseline and b=v(r) the output baseline; they have different types.",
+          "paper_mappings": [
+            {
+              "note": "Map the author notation to the canonical concept in this scope; original-source formulas retain their notation.",
+              "conflict_note": "This mapping has no notation conflict."
+            }
+          ]
+        }
+      }
+    },
+    {
+      "id": "shapley-value",
+      "canonical_id": "sym-shapley",
+      "canonical_tex": "\\phi",
+      "name_zh": "经典Shapley值",
+      "name": "经典Shapley值",
+      "definition_tex": "\\phi(i)=\\sum_{S\\subseteq N\\setminus\\{i\\}}\\frac{|S|!(n-|S|-1)!}{n!}(g(Si)-g(S))",
+      "description_md": "原factorial边际分配。",
+      "type_or_domain": "实数；i∈N",
+      "scope": "固定游戏",
+      "assumptions": [
+        "原对象须位于上列domain。"
+      ],
+      "empty_set_convention": "g(∅)=b；不设为0。",
+      "baseline_convention": "r是输入基线，b=v(r)是输出基线；二者不同类型。",
+      "aliases": [
+        "φ(i)"
+      ],
+      "paper_mappings": [
+        {
+          "paper_id": "neurips2021-robustness",
+          "source_id": "src-neurips2021-robustness-supplement",
+          "version": "NeurIPS 2021 formal",
+          "original_tex": "φ(i)",
+          "original_definition_tex": "\\phi(i)=\\sum_{S\\subseteq N\\setminus\\{i\\}}\\frac{|S|!(n-|S|-1)!}{n!}(g(Si)-g(S))",
+          "pdf_pages": [
+            1
+          ],
+          "equation_labels": [],
+          "canonical_concept_id": "shapley-value",
+          "relation_type": "scope_preserving_mapping",
+          "note": "原作者符号按此scope映为规范概念；原原文公式不改符号。",
+          "conflict_note": "本映射没有符号冲突。",
+          "original_definition_status": "source_definition_with_project_concept_mapping",
+          "translations": {
+            "en": {
+              "note": "Map the author notation to the canonical concept in this scope; original-source formulas retain their notation.",
+              "conflict_note": "This mapping has no notation conflict."
+            }
+          }
+        }
+      ],
+      "lean_names": [
+        "Harsanyi.factorialShapley"
+      ],
+      "version": "1.0",
+      "translations": {
+        "en": {
+          "name": "Classical Shapley value",
+          "name_zh": "Classical Shapley value",
+          "description_md": "The source factorial-weighted marginal allocation.",
+          "type_or_domain": "Real number; i∈N",
+          "scope": "Fixed game",
+          "assumptions": [
+            "The object must lie in the domain stated above."
+          ],
+          "empty_set_convention": "g(∅)=b, without assuming zero.",
+          "baseline_convention": "r is the input baseline and b=v(r) the output baseline; they have different types.",
+          "paper_mappings": [
+            {
+              "note": "Map the author notation to the canonical concept in this scope; original-source formulas retain their notation.",
+              "conflict_note": "This mapping has no notation conflict."
+            }
+          ]
+        }
+      }
+    },
+    {
+      "id": "shapley-interaction",
+      "canonical_id": "shapley-interaction",
+      "canonical_tex": "I(i,j)",
+      "name_zh": "经典Shapley pair index",
+      "name": "经典Shapley pair index",
+      "definition_tex": "I(i,j)=\\widetilde\\phi_{j\\text{ present}}(i)-\\widetilde\\phi_{j\\text{ absent}}(i)",
+      "description_md": "两个缩减游戏Shapley值之差。",
+      "type_or_domain": "实数；i≠j",
+      "scope": "同一缩减玩家总体",
+      "assumptions": [
+        "原对象须位于上列domain。"
+      ],
+      "empty_set_convention": "g(∅)=b；不设为0。",
+      "baseline_convention": "r是输入基线，b=v(r)是输出基线；二者不同类型。",
+      "aliases": [
+        "I(i,j)"
+      ],
+      "paper_mappings": [
+        {
+          "paper_id": "neurips2021-robustness",
+          "source_id": "src-neurips2021-robustness-supplement",
+          "version": "NeurIPS 2021 formal",
+          "original_tex": "I(i,j)",
+          "original_definition_tex": "I(i,j)=\\widetilde\\phi_{j\\text{ present}}(i)-\\widetilde\\phi_{j\\text{ absent}}(i)",
+          "pdf_pages": [
+            2
+          ],
+          "equation_labels": [],
+          "canonical_concept_id": "shapley-interaction",
+          "relation_type": "same_definition",
+          "note": "保留原作者符号，规范概念与scope见当前定义。",
+          "conflict_note": "本映射没有符号冲突。",
+          "original_definition_status": "source_definition_with_project_concept_mapping",
+          "translations": {
+            "en": {
+              "note": "Retain the author notation; the canonical concept and scope are given in this definition.",
+              "conflict_note": "This mapping has no notation conflict."
+            }
+          }
+        }
+      ],
+      "lean_names": [
+        "Harsanyi.Robustness.conditionalShapleyDifference"
+      ],
+      "version": "1.0",
+      "translations": {
+        "en": {
+          "name": "Classical Shapley pair index",
+          "name_zh": "Classical Shapley pair index",
+          "description_md": "The difference of Shapley values on two reduced games.",
+          "type_or_domain": "Real number; i≠j",
+          "scope": "Same reduced player universe",
+          "assumptions": [
+            "The object must lie in the domain stated above."
+          ],
+          "empty_set_convention": "g(∅)=b, without assuming zero.",
+          "baseline_convention": "r is the input baseline and b=v(r) the output baseline; they have different types.",
+          "paper_mappings": [
+            {
+              "note": "Retain the author notation; the canonical concept and scope are given in this definition.",
+              "conflict_note": "This mapping has no notation conflict."
+            }
+          ]
+        }
+      }
+    },
+    {
+      "id": "robustness-entropy-game",
+      "canonical_id": "robustness-entropy-game",
+      "canonical_tex": "H_Y",
+      "name_zh": "分布平均熵游戏",
+      "name": "分布平均熵游戏",
+      "definition_tex": "H_Y(S)=H(Y\\mid X_S)",
+      "description_md": "原B4的v(S)是条件熵平均，不是fixed-x g_x。",
+      "type_or_domain": "有限玩家幂集上的实值条件熵表；输入分布空间可连续。",
+      "scope": "B4/Proposition1",
+      "assumptions": [
+        "条件熵有限；标准Shannon语义使用共同联合概率律。"
+      ],
+      "empty_set_convention": "空上下文熵H_Y(∅)=H(Y)，不设为0。",
+      "baseline_convention": "H_Y是分布平均游戏；不使用fixed-x输出基线替代H(Y)。",
+      "aliases": [
+        "v(S)=H(Y|X_S)"
+      ],
+      "paper_mappings": [
+        {
+          "paper_id": "neurips2021-robustness",
+          "source_id": "src-neurips2021-robustness-formal",
+          "version": "NeurIPS 2021 formal",
+          "original_tex": "v(S)=H(Y|X_S)",
+          "original_definition_tex": "H_Y(S)=H(Y\\mid X_S)",
+          "pdf_pages": [
+            7
+          ],
+          "equation_labels": [],
+          "canonical_concept_id": "robustness-entropy-game",
+          "relation_type": "scope_preserving_mapping",
+          "note": "原作者符号按此scope映为规范概念；原原文公式不改符号。",
+          "conflict_note": "熵游戏与fixed-x masked游戏不能同名合并。",
+          "original_definition_status": "source_definition_with_project_concept_mapping",
+          "translations": {
+            "en": {
+              "note": "Map the author notation to the canonical concept in this scope; original-source formulas retain their notation.",
+              "conflict_note": "Keep the population entropy game separate from the fixed-x masked game."
+            }
+          }
+        }
+      ],
+      "lean_names": [],
+      "version": "1.0",
+      "translations": {
+        "en": {
+          "name": "Population entropy game",
+          "name_zh": "Population entropy game",
+          "description_md": "The source B.4 v(S) is a population conditional entropy, distinct from fixed-x g_x.",
+          "type_or_domain": "A real conditional-entropy table on a finite player powerset; the input distribution space may be continuous.",
+          "scope": "B.4/Proposition 1",
+          "assumptions": [
+            "Conditional entropies are finite; standard Shannon semantics use a common joint probability law."
+          ],
+          "empty_set_convention": "The empty-context entropy is H_Y(∅)=H(Y), without assuming zero.",
+          "baseline_convention": "H_Y is a population game; do not replace H(Y) by a fixed-x output baseline.",
+          "paper_mappings": [
+            {
+              "note": "Map the author notation to the canonical concept in this scope; original-source formulas retain their notation.",
+              "conflict_note": "Keep the population entropy game separate from the fixed-x masked game."
+            }
+          ]
+        }
+      }
+    },
+    {
+      "id": "robustness-label",
+      "canonical_id": "robustness-label",
+      "canonical_tex": "Y",
+      "name_zh": "预测标签随机变量",
+      "name": "预测标签随机变量",
+      "definition_tex": "Y\\in\\{y^1,\\ldots,y^C\\}",
+      "description_md": "原分类概率输出的标签空间。",
+      "type_or_domain": "有限标签集",
+      "scope": "共同概率律",
+      "assumptions": [
+        "条件熵有限；标准Shannon语义使用共同联合概率律。"
+      ],
+      "empty_set_convention": "空上下文熵H_Y(∅)=H(Y)，不设为0。",
+      "baseline_convention": "H_Y是分布平均游戏；不使用fixed-x输出基线替代H(Y)。",
+      "aliases": [
+        "Y"
+      ],
+      "paper_mappings": [
+        {
+          "paper_id": "neurips2021-robustness",
+          "source_id": "src-neurips2021-robustness-formal",
+          "version": "NeurIPS 2021 formal",
+          "original_tex": "Y",
+          "original_definition_tex": "Y\\in\\{y^1,\\ldots,y^C\\}",
+          "pdf_pages": [
+            7
+          ],
+          "equation_labels": [],
+          "canonical_concept_id": "robustness-label",
+          "relation_type": "same_definition",
+          "note": "保留原作者符号，规范概念与scope见当前定义。",
+          "conflict_note": "熵游戏与fixed-x masked游戏不能同名合并。",
+          "original_definition_status": "source_definition_with_project_concept_mapping",
+          "translations": {
+            "en": {
+              "note": "Retain the author notation; the canonical concept and scope are given in this definition.",
+              "conflict_note": "Keep the population entropy game separate from the fixed-x masked game."
+            }
+          }
+        }
+      ],
+      "lean_names": [],
+      "version": "1.0",
+      "translations": {
+        "en": {
+          "name": "Predicted-label random variable",
+          "name_zh": "Predicted-label random variable",
+          "description_md": "The label space of the source classification probabilities.",
+          "type_or_domain": "Finite label set",
+          "scope": "Common probability law",
+          "assumptions": [
+            "Conditional entropies are finite; standard Shannon semantics use a common joint probability law."
+          ],
+          "empty_set_convention": "The empty-context entropy is H_Y(∅)=H(Y), without assuming zero.",
+          "baseline_convention": "H_Y is a population game; do not replace H(Y) by a fixed-x output baseline.",
+          "paper_mappings": [
+            {
+              "note": "Retain the author notation; the canonical concept and scope are given in this definition.",
+              "conflict_note": "Keep the population entropy game separate from the fixed-x masked game."
+            }
+          ]
+        }
+      }
+    },
+    {
+      "id": "robustness-context-random-variable",
+      "canonical_id": "robustness-context-random-variable",
+      "canonical_tex": "X_S",
+      "name_zh": "上下文输入随机变量",
+      "name": "上下文输入随机变量",
+      "definition_tex": "X_S=\\{x_S:x\\in\\mathcal X\\}",
+      "description_md": "熵游戏中分布变化的masked输入。",
+      "type_or_domain": "原X⊆ℝⁿ的mask像",
+      "scope": "B4共同分布",
+      "assumptions": [
+        "条件熵有限；标准Shannon语义使用共同联合概率律。"
+      ],
+      "empty_set_convention": "空上下文熵H_Y(∅)=H(Y)，不设为0。",
+      "baseline_convention": "H_Y是分布平均游戏；不使用fixed-x输出基线替代H(Y)。",
+      "aliases": [
+        "X_S"
+      ],
+      "paper_mappings": [
+        {
+          "paper_id": "neurips2021-robustness",
+          "source_id": "src-neurips2021-robustness-formal",
+          "version": "NeurIPS 2021 formal",
+          "original_tex": "X_S",
+          "original_definition_tex": "X_S=\\{x_S:x\\in\\mathcal X\\}",
+          "pdf_pages": [
+            7
+          ],
+          "equation_labels": [],
+          "canonical_concept_id": "robustness-context-random-variable",
+          "relation_type": "same_definition",
+          "note": "保留原作者符号，规范概念与scope见当前定义。",
+          "conflict_note": "熵游戏与fixed-x masked游戏不能同名合并。",
+          "original_definition_status": "source_definition_with_project_concept_mapping",
+          "translations": {
+            "en": {
+              "note": "Retain the author notation; the canonical concept and scope are given in this definition.",
+              "conflict_note": "Keep the population entropy game separate from the fixed-x masked game."
+            }
+          }
+        }
+      ],
+      "lean_names": [],
+      "version": "1.0",
+      "translations": {
+        "en": {
+          "name": "Context-input random variable",
+          "name_zh": "Context-input random variable",
+          "description_md": "The distribution-varying masked input in the entropy game.",
+          "type_or_domain": "The masked image of source X⊆ℝⁿ",
+          "scope": "B.4 common distribution",
+          "assumptions": [
+            "Conditional entropies are finite; standard Shannon semantics use a common joint probability law."
+          ],
+          "empty_set_convention": "The empty-context entropy is H_Y(∅)=H(Y), without assuming zero.",
+          "baseline_convention": "H_Y is a population game; do not replace H(Y) by a fixed-x output baseline.",
+          "paper_mappings": [
+            {
+              "note": "Retain the author notation; the canonical concept and scope are given in this definition.",
+              "conflict_note": "Keep the population entropy game separate from the fixed-x masked game."
+            }
+          ]
+        }
+      }
+    },
+    {
+      "id": "robustness-conditional-mi",
+      "canonical_id": "robustness-conditional-mi",
+      "canonical_tex": "MI(X_i;Y\\mid X_S)",
+      "name_zh": "条件mutual information",
+      "name": "条件mutual information",
+      "definition_tex": "MI=H_Y(S)-H_Y(Si)",
+      "description_md": "原两元条件MI的熵差。",
+      "type_or_domain": "熵有限时实数",
+      "scope": "B4共同条件信息",
+      "assumptions": [
+        "条件熵有限；标准Shannon语义使用共同联合概率律。"
+      ],
+      "empty_set_convention": "空上下文熵H_Y(∅)=H(Y)，不设为0。",
+      "baseline_convention": "H_Y是分布平均游戏；不使用fixed-x输出基线替代H(Y)。",
+      "aliases": [
+        "MI(X_i;Y|X_S)"
+      ],
+      "paper_mappings": [
+        {
+          "paper_id": "neurips2021-robustness",
+          "source_id": "src-neurips2021-robustness-formal",
+          "version": "NeurIPS 2021 formal",
+          "original_tex": "MI(X_i;Y|X_S)",
+          "original_definition_tex": "MI=H_Y(S)-H_Y(Si)",
+          "pdf_pages": [
+            7
+          ],
+          "equation_labels": [],
+          "canonical_concept_id": "robustness-conditional-mi",
+          "relation_type": "scope_preserving_mapping",
+          "note": "原作者符号按此scope映为规范概念；原原文公式不改符号。",
+          "conflict_note": "熵游戏与fixed-x masked游戏不能同名合并。",
+          "original_definition_status": "source_definition_with_project_concept_mapping",
+          "translations": {
+            "en": {
+              "note": "Map the author notation to the canonical concept in this scope; original-source formulas retain their notation.",
+              "conflict_note": "Keep the population entropy game separate from the fixed-x masked game."
+            }
+          }
+        }
+      ],
+      "lean_names": [
+        "Harsanyi.Robustness.conditionalMI"
+      ],
+      "version": "1.0",
+      "translations": {
+        "en": {
+          "name": "Conditional mutual information",
+          "name_zh": "Conditional mutual information",
+          "description_md": "The entropy difference for source bivariate conditional MI.",
+          "type_or_domain": "Real when the entropies are finite",
+          "scope": "B.4 common conditional information",
+          "assumptions": [
+            "Conditional entropies are finite; standard Shannon semantics use a common joint probability law."
+          ],
+          "empty_set_convention": "The empty-context entropy is H_Y(∅)=H(Y), without assuming zero.",
+          "baseline_convention": "H_Y is a population game; do not replace H(Y) by a fixed-x output baseline.",
+          "paper_mappings": [
+            {
+              "note": "Map the author notation to the canonical concept in this scope; original-source formulas retain their notation.",
+              "conflict_note": "Keep the population entropy game separate from the fixed-x masked game."
+            }
+          ]
+        }
+      }
+    },
+    {
+      "id": "robustness-co-information",
+      "canonical_id": "robustness-co-information",
+      "canonical_tex": "MI(X_i;X_j;Y\\mid X_S)",
+      "name_zh": "条件co-information",
+      "name": "条件co-information",
+      "definition_tex": "MI(X_i;Y\\mid X_S)-MI(X_i;Y\\mid X_S,X_j)",
+      "description_md": "采用Eq7符号，可负；不是反号的enhancement。",
+      "type_or_domain": "有限实条件熵差",
+      "scope": "B4/Proposition1",
+      "assumptions": [
+        "条件熵有限；标准Shannon语义使用共同联合概率律。"
+      ],
+      "empty_set_convention": "空上下文熵H_Y(∅)=H(Y)，不设为0。",
+      "baseline_convention": "H_Y是分布平均游戏；不使用fixed-x输出基线替代H(Y)。",
+      "aliases": [
+        "MI(X_i;X_j;Y|X_S)"
+      ],
+      "paper_mappings": [
+        {
+          "paper_id": "neurips2021-robustness",
+          "source_id": "src-neurips2021-robustness-formal",
+          "version": "NeurIPS 2021 formal",
+          "original_tex": "MI(X_i;X_j;Y|X_S)",
+          "original_definition_tex": "MI(X_i;Y\\mid X_S)-MI(X_i;Y\\mid X_S,X_j)",
+          "pdf_pages": [
+            7
+          ],
+          "equation_labels": [],
+          "canonical_concept_id": "robustness-co-information",
+          "relation_type": "scope_preserving_mapping",
+          "note": "原作者符号按此scope映为规范概念；原原文公式不改符号。",
+          "conflict_note": "熵游戏与fixed-x masked游戏不能同名合并。",
+          "original_definition_status": "source_definition_with_project_concept_mapping",
+          "translations": {
+            "en": {
+              "note": "Map the author notation to the canonical concept in this scope; original-source formulas retain their notation.",
+              "conflict_note": "Keep the population entropy game separate from the fixed-x masked game."
+            }
+          }
+        }
+      ],
+      "lean_names": [
+        "Harsanyi.Robustness.conditionalCoI"
+      ],
+      "version": "1.0",
+      "translations": {
+        "en": {
+          "name": "Conditional co-information",
+          "name_zh": "Conditional co-information",
+          "description_md": "Use the Equation (7) sign, which may be negative; it is not the opposite enhancement sign.",
+          "type_or_domain": "A finite real conditional-entropy difference",
+          "scope": "B.4/Proposition 1",
+          "assumptions": [
+            "Conditional entropies are finite; standard Shannon semantics use a common joint probability law."
+          ],
+          "empty_set_convention": "The empty-context entropy is H_Y(∅)=H(Y), without assuming zero.",
+          "baseline_convention": "H_Y is a population game; do not replace H(Y) by a fixed-x output baseline.",
+          "paper_mappings": [
+            {
+              "note": "Map the author notation to the canonical concept in this scope; original-source formulas retain their notation.",
+              "conflict_note": "Keep the population entropy game separate from the fixed-x masked game."
+            }
+          ]
+        }
+      }
+    },
+    {
+      "id": "robustness-interaction-attack-change",
+      "canonical_id": "robustness-interaction-attack-change",
+      "canonical_tex": "\\Delta I_{ij}^{(m)}",
+      "name_zh": "交互攻击差",
+      "name": "交互攻击差",
+      "definition_tex": "\\Delta I=I(x)-I(x_{adv})",
+      "description_md": "原normal−adv方向。",
+      "type_or_domain": "实数",
+      "scope": "配对样本",
+      "assumptions": [
+        "原对象须位于上列domain。"
+      ],
+      "empty_set_convention": "g(∅)=b；不设为0。",
+      "baseline_convention": "r是输入基线，b=v(r)是输出基线；二者不同类型。",
+      "aliases": [
+        "ΔI"
+      ],
+      "paper_mappings": [
+        {
+          "paper_id": "neurips2021-robustness",
+          "source_id": "src-neurips2021-robustness-formal",
+          "version": "NeurIPS 2021 formal",
+          "original_tex": "ΔI",
+          "original_definition_tex": "\\Delta I=I(x)-I(x_{adv})",
+          "pdf_pages": [
+            5,
+            6
+          ],
+          "equation_labels": [],
+          "canonical_concept_id": "robustness-interaction-attack-change",
+          "relation_type": "scope_preserving_mapping",
+          "note": "原作者符号按此scope映为规范概念；原原文公式不改符号。",
+          "conflict_note": "本映射没有符号冲突。",
+          "original_definition_status": "source_definition_with_project_concept_mapping",
+          "translations": {
+            "en": {
+              "note": "Map the author notation to the canonical concept in this scope; original-source formulas retain their notation.",
+              "conflict_note": "This mapping has no notation conflict."
+            }
+          }
+        }
+      ],
+      "lean_names": [],
+      "version": "1.0",
+      "translations": {
+        "en": {
+          "name": "Interaction attack difference",
+          "name_zh": "Interaction attack difference",
+          "description_md": "The source normal-minus-adversarial direction.",
+          "type_or_domain": "Real number",
+          "scope": "Paired sample",
+          "assumptions": [
+            "The object must lie in the domain stated above."
+          ],
+          "empty_set_convention": "g(∅)=b, without assuming zero.",
+          "baseline_convention": "r is the input baseline and b=v(r) the output baseline; they have different types.",
+          "paper_mappings": [
+            {
+              "note": "Map the author notation to the canonical concept in this scope; original-source formulas retain their notation.",
+              "conflict_note": "This mapping has no notation conflict."
+            }
+          ]
+        }
+      }
+    },
+    {
+      "id": "robustness-disentanglement",
+      "canonical_id": "robustness-disentanglement",
+      "canonical_tex": "D^{(m)}",
+      "name_zh": "disentanglement比值平均",
+      "name": "disentanglement比值平均",
+      "definition_tex": "D^{(m)}=E_xE_{i\\ne j}|E_S\\Delta g|/E_S|\\Delta g|",
+      "description_md": "局部ratio再跨样本/pair平均，原0分母未定义。",
+      "type_or_domain": "每个分母正时实数",
+      "scope": "样本总体",
+      "assumptions": [
+        "原对象须位于上列domain。"
+      ],
+      "empty_set_convention": "g(∅)=b；不设为0。",
+      "baseline_convention": "r是输入基线，b=v(r)是输出基线；二者不同类型。",
+      "aliases": [
+        "D^{(m)}"
+      ],
+      "paper_mappings": [
+        {
+          "paper_id": "neurips2021-robustness",
+          "source_id": "src-neurips2021-robustness-formal",
+          "version": "NeurIPS 2021 formal",
+          "original_tex": "D^{(m)}",
+          "original_definition_tex": "D^{(m)}=E_xE_{i\\ne j}|E_S\\Delta g|/E_S|\\Delta g|",
+          "pdf_pages": [
+            8
+          ],
+          "equation_labels": [],
+          "canonical_concept_id": "robustness-disentanglement",
+          "relation_type": "same_definition",
+          "note": "保留原作者符号，规范概念与scope见当前定义。",
+          "conflict_note": "本映射没有符号冲突。",
+          "original_definition_status": "source_definition_with_project_concept_mapping",
+          "translations": {
+            "en": {
+              "note": "Retain the author notation; the canonical concept and scope are given in this definition.",
+              "conflict_note": "This mapping has no notation conflict."
+            }
+          }
+        }
+      ],
+      "lean_names": [],
+      "version": "1.0",
+      "translations": {
+        "en": {
+          "name": "Average disentanglement ratio",
+          "name_zh": "Average disentanglement ratio",
+          "description_md": "Average the local ratio over samples and pairs; zero denominator is undefined in the source.",
+          "type_or_domain": "Real only when every denominator is positive",
+          "scope": "Sample population",
+          "assumptions": [
+            "The object must lie in the domain stated above."
+          ],
+          "empty_set_convention": "g(∅)=b, without assuming zero.",
+          "baseline_convention": "r is the input baseline and b=v(r) the output baseline; they have different types.",
+          "paper_mappings": [
+            {
+              "note": "Retain the author notation; the canonical concept and scope are given in this definition.",
+              "conflict_note": "This mapping has no notation conflict."
+            }
+          ]
+        }
+      }
+    },
+    {
+      "id": "robustness-retention-size",
+      "canonical_id": "robustness-retention-size",
+      "canonical_tex": "k",
+      "name_zh": "固定保留变量数",
+      "name": "固定保留变量数",
+      "definition_tex": "k=\\lfloor(1-\\alpha)n\\rfloor",
+      "description_md": "原固定size取整，不是期望保留数。",
+      "type_or_domain": "0,…,n",
+      "scope": "dropout",
+      "assumptions": [
+        "原对象须位于上列domain。"
+      ],
+      "empty_set_convention": "g(∅)=b；不设为0。",
+      "baseline_convention": "r是输入基线，b=v(r)是输出基线；二者不同类型。",
+      "aliases": [
+        "k"
+      ],
+      "paper_mappings": [
+        {
+          "paper_id": "neurips2021-robustness",
+          "source_id": "src-neurips2021-robustness-supplement",
+          "version": "NeurIPS 2021 formal",
+          "original_tex": "k",
+          "original_definition_tex": "k=\\lfloor(1-\\alpha)n\\rfloor",
+          "pdf_pages": [
+            9,
+            10
+          ],
+          "equation_labels": [],
+          "canonical_concept_id": "robustness-retention-size",
+          "relation_type": "same_definition",
+          "note": "保留原作者符号，规范概念与scope见当前定义。",
+          "conflict_note": "本映射没有符号冲突。",
+          "original_definition_status": "source_definition_with_project_concept_mapping",
+          "translations": {
+            "en": {
+              "note": "Retain the author notation; the canonical concept and scope are given in this definition.",
+              "conflict_note": "This mapping has no notation conflict."
+            }
+          }
+        }
+      ],
+      "lean_names": [],
+      "version": "1.0",
+      "translations": {
+        "en": {
+          "name": "Fixed number of retained variables",
+          "name_zh": "Fixed number of retained variables",
+          "description_md": "The rounded fixed size in the source, not an expected retention count.",
+          "type_or_domain": "0,…,n",
+          "scope": "Dropout",
+          "assumptions": [
+            "The object must lie in the domain stated above."
+          ],
+          "empty_set_convention": "g(∅)=b, without assuming zero.",
+          "baseline_convention": "r is the input baseline and b=v(r) the output baseline; they have different types.",
+          "paper_mappings": [
+            {
+              "note": "Retain the author notation; the canonical concept and scope are given in this definition.",
+              "conflict_note": "This mapping has no notation conflict."
+            }
+          ]
+        }
+      }
+    },
+    {
+      "id": "robustness-dropout-rate",
+      "canonical_id": "robustness-dropout-rate",
+      "canonical_tex": "\\alpha",
+      "name_zh": "丢弃率",
+      "name": "丢弃率",
+      "definition_tex": "0\\le\\alpha\\le1",
+      "description_md": "原固定保留size由α确定。",
+      "type_or_domain": "[0,1]实数",
+      "scope": "dropout",
+      "assumptions": [
+        "原对象须位于上列domain。"
+      ],
+      "empty_set_convention": "g(∅)=b；不设为0。",
+      "baseline_convention": "r是输入基线，b=v(r)是输出基线；二者不同类型。",
+      "aliases": [
+        "α"
+      ],
+      "paper_mappings": [
+        {
+          "paper_id": "neurips2021-robustness",
+          "source_id": "src-neurips2021-robustness-supplement",
+          "version": "NeurIPS 2021 formal",
+          "original_tex": "α",
+          "original_definition_tex": "0\\le\\alpha\\le1",
+          "pdf_pages": [
+            9,
+            10
+          ],
+          "equation_labels": [],
+          "canonical_concept_id": "robustness-dropout-rate",
+          "relation_type": "scope_preserving_mapping",
+          "note": "原作者符号按此scope映为规范概念；原原文公式不改符号。",
+          "conflict_note": "本映射没有符号冲突。",
+          "original_definition_status": "source_definition_with_project_concept_mapping",
+          "translations": {
+            "en": {
+              "note": "Map the author notation to the canonical concept in this scope; original-source formulas retain their notation.",
+              "conflict_note": "This mapping has no notation conflict."
+            }
+          }
+        }
+      ],
+      "lean_names": [],
+      "version": "1.0",
+      "translations": {
+        "en": {
+          "name": "Dropout rate",
+          "name_zh": "Dropout rate",
+          "description_md": "α determines the source fixed retention size.",
+          "type_or_domain": "Real in [0,1]",
+          "scope": "Dropout",
+          "assumptions": [
+            "The object must lie in the domain stated above."
+          ],
+          "empty_set_convention": "g(∅)=b, without assuming zero.",
+          "baseline_convention": "r is the input baseline and b=v(r) the output baseline; they have different types.",
+          "paper_mappings": [
+            {
+              "note": "Map the author notation to the canonical concept in this scope; original-source formulas retain their notation.",
+              "conflict_note": "This mapping has no notation conflict."
+            }
+          ]
+        }
+      }
+    }
+  ]
+}

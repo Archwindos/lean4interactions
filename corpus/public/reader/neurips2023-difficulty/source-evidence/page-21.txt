@@ -1,0 +1,79 @@
+Thus, the I (m) (i, j) can be represented as follows,
+
+                       I (m) (i, j) =ES⊆N \{i,j},|S|=m [∆v(i, j, S)]
+                                                         X
+                                    =ES⊆N \{i,j},|S|=m [   I(L ∪ {i, j})]
+                                                                 L⊆S
+                                          1          X          X
+                                  =    n−2
+                                                           [         I(L ∪ {i, j})]
+                                        m         S⊆N \{i,j}    L⊆S
+                                                    |S|=m
+                                          X                                 X           1
+                                  =                  I(L ∪ {i, j})                     n−2
+                                                                                            
+                                      L⊆N \{i,j}                        L⊆S⊆N \{i,j}    m
+                                       |L|≤m                              |S|=m
+
+                                                                         n−2
+                                                                             
+                                          X                              m−l
+                                  =                  I(L ∪ {i, j})       n−2
+                                                                            
+                                      L⊆N \{i,j}                          m
+                                       |L|≤m
+
+                                      m                     n−2
+                                                                 
+                                      X           X         m−l
+                                  =                         n−2 I(L
+                                                                        ∪ {i, j}).
+                                      l=0     L⊆N \{i,j}     m
+                                               |L|=m
+
+                                                                       n−2
+                                          Pm P                        (m−l )
+Therefore, we prove that I (m) (i, j) =                 L⊆N \{i,j}           I(L ∪ {i, j}).
+                                               l=0       |L|=m        (n−2
+                                                                        m )
+
+
+
+G.5   Theoretical connection between variance and learning difficulty
+
+There is a close connection between the variance of interactive concepts and the learning difficulty.
+In fact, a similar connection has been discovered by [46]. The theoretical connection is proved as
+follows. Specifically, we simplify the learning of a DNN into a linear regression problem. In this
+very simple setting, we assume each i-th concept encoded by the DNN to be a specific feature, and
+use fi to represent the triggering (presence) state of the i-th concept in a training sample. Because
+according to Eq. (9) in the main paper, the network output v(·) is the sum of a small number of
+salient interactive concepts, we roughly simplify and rewrite the inference output of the DNN as the
+following linear function
+                                  y = w⊤ f = w1 f1 + · · · + wd fd ,
+                            ⊤
+where f = [f1 , · · · , fd ] . Then, wi can be viewed as the strength of the DNN encoding the i-th
+interactive concept. In this way, if wi ≈ 0, the DNN does not learn the i-th interactive concept.
+We suppose that training samples are sampled from f ∼ P (f ) = N (µ, Σ2 ) and y ∗ denotes the
+ground truth label. Specifically, µ = [µ1 , µ2 , ..., µd ]⊤ and Σ = diag(σ12 , σ22 , ..., σd2 ).
+The toy regression problem can be formulated as follows,
+                                               1
+                                  L = EP (f ) [ (w⊤ f − y ∗ )2 ]                                    (26)
+                                               2
+We derive the optimal weights to the above regression task in three steps.
+Step 1. The optimal weight wi for the regression problem in Eq. (26) is computed by
+                                       1
+               ∀1 ≤ i ≤ d, wi =            det(K1 , · · · , Ki−1 , ζ, Ki+1 , · · · , Kd )           (27)
+                                    det K
+where K = µµ⊤ + Σ2 , ζ = y ∗ µ, and Kj denotes the j-th column of the matrix K.
+Step 2. We further prove that for the optimal w, we have
+                                                  |wi |   |µi /σi2 |
+                                 ∀1 ≤ i, j ≤ d,         =                                           (28)
+                                                  |wj |   |µj /σj2 |
+
+Step 3. Based on Step 2, we can derive |wi | ∝ |1/σi2 |, where wi denotes the strength of the DNN
+encoding the i-th interactive concept. |wi | ∝ |1/σi2 | indicates that the learning effect of the i-th
+interactive concept is inversely proportional to the variance of the i-th interactive concept. Therefore,
+interactive concepts with high variances (high-order interactive concepts) are more difficult to learn.
+
+
+                                                           21

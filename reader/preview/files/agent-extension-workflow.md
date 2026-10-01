@@ -1,6 +1,6 @@
 # 增加正式论文与扩展可复用库
 
-当前六篇活动范围覆盖正文、附录及 CVPR 正式补充材料的全部登记目标。此前 v2 选定结果的范围已被全篇授权取代，历史输入和报告仍保留。当前实现入口是 `reader/`，活动输入是 `corpus/public/reader/`。旧研究目录与Lean源码/报告作为历史只读证据保留。
+当前授权为十二篇正式论文的全篇范围，包含正文、附录及正式补充材料；原六篇为已验收基线，新增六篇完成后逐篇加入活动清单。此前 v2 选定结果的范围已被全篇授权取代，历史输入和报告仍保留。当前实现入口是 `reader/`，活动输入是 `corpus/public/reader/input-manifest.json`。旧研究目录与 Lean 源码/报告作为历史只读证据保留；分阶段契约见 [十二篇发布计划](twelve-paper-release-20261001.md)。
 
 1. 确认论文范围，取得可核实的会议或期刊正式全文及补充材料。为论文、版本和源文件建立稳定 ID，记录正式链接、页数及 SHA-256。预印本只作发现线索，私稿保持本地和私有，不进入公开构建。
 2. 逐页核查全部来源。登记定理、引理、性质、未编号推导、外引未证、定义、算法和经验条目；保留每次出现的编号、别名及证明范围。目录覆盖数与独立证明数分开。
@@ -8,13 +8,20 @@
 4. 对齐量词、定义域、有限总体、空集与基线，再写完整中文证明。已有授权范围获 `proof_only_granted`，可以直接修正同一命题的证明并标原错处；原假设和结论不能修改。命题错误单列反例。范围外材料依其具体授权处理。
 5. 先查公共符号和共享证明。论文结果只保存自己的定义映射和适配，完整公共正文单存；完全一致的步骤按 ID 和内容建立引用。相似题名仅产生候选关联，不自动共享状态。
 6. 在分工独立源码中编写真实 Lean 适配。需要新通用结果时扩展公共库，不复制环境。保留经典定义到交互公式的连接，不能只证明小例子、假设结论或改变原命题来通过。为每个文字步骤填写真实 `lean_refs`。
-7. 编译与公理审计，保存命令、退出码、实际类型、源码位置、工具链与源指纹。论文适配报告和公共库报告的范围分开；根代理在源码冻结后运行 `scripts/verify-lean.sh`，生成当前 `catalog/library.json`。用途描述可提供真实示例，未提供时留空。
-8. 运行聚合与构建，再检查全目录、原文、正文、符号、来源、问题和 Lean 对照。浏览器报告绑定本次数据、构建清单与脚本哈希；这些软件检查不代替独立数学交叉审阅。新预览仅服务其 `preview/`，保留已有论文 URL。
+7. 编译与公理审计，保存命令、退出码、实际类型、源码位置、工具链与源指纹。独立扩展按自身 direct import 闭包出具真实报告，不修改旧 barrel；基础入口变更时才重跑 `scripts/verify-lean.sh` 更新基础 `catalog/library.json`。论文适配报告和公共库报告的范围分开。用途描述可提供真实示例，未提供时留空；独立消费者示例见 [AI 调用库](ai-use-library.md)。
+8. 运行聚合与构建，再检查全目录、原文、正文、符号、来源、问题和 Lean 对照。浏览器报告绑定本次数据、构建清单与脚本哈希；这些软件检查不代替独立数学交叉审阅。新预览仅服务其 `preview/`，保留已有论文 URL。本轮最终完整顺序、实际分母和停止条件见[十二篇验收操作单](twelve-paper-validation-runbook-20261001.md)。
 
 ```bash
 source scripts/env.sh
+python reader/check_inputs.py
 python reader/aggregate.py
+python reader/architecture/build_package.py
+python reader/check_completion.py
+python reader/check_bilingual.py
+python reader/check_symbols.py
 python reader/architecture/paper_agent.py validate
+python reader/architecture/check_api.py
+node reader/check_math.js
 python reader/build_preview.py
 python reader/check_preview.py --base http://127.0.0.1:8001/
 ```
@@ -34,7 +41,7 @@ python reader/check_preview.py --base http://127.0.0.1:8001/
 }
 ```
 
-当前配置含六篇正式论文；构建器不硬编码篇数，新增论文只修改显式manifest并提供数据。该轮确切六篇集合由验收测试核对。论文标题查询可用 `paper_agent.py paper-search 'Generalizable'`；`search` 返回命题/推导结果及原编号别名。
+活动配置以显式 manifest 为准；构建器不硬编码篇数，新增论文只修改该 manifest 并提供完整数据。本轮十二篇确切集合由根代理按授权核对；开发中的论文不提前标为完整收录。论文标题查询可用 `paper_agent.py paper-search 'Generalizable'`；`search` 返回命题/推导结果及原编号别名。
 
 元数据顶层使用 `id` 作为论文ID；每个 `sources` 项使用 `id`、`label`、`kind`、`local_path`、`sha256`、`total_pages`、`visibility`、`publication_status`。文件路径是项目内 `corpus/public/reader/<paper_id>/` 的正式源相对路径，不能以旧私稿或legacy corpus路径代替。清单的 `statement_location`、`proof_location` 和每次 `appearances` 均携带实际 `source_id` 与文件内页码。先运行 `python reader/check_inputs.py` 检查元数据、路径、哈希和逐页台账，再做聚合；内容尚未完成时也可先运行这项来源预检。
 
@@ -45,6 +52,6 @@ python reader/check_preview.py --base http://127.0.0.1:8001/
 
 private池独立提供papers、claims、theorems、issues、reviews与relations；列表和搜索只在选定池活动，private可以单向引用公共theorem/proof。手动导入默认private/unpublished。跨池visibility修订会被拒绝；显式promote只导入另行核查的正式原件，不自动公开私稿证明或评审。旧corpus根层目录是ignored legacy，不能重新当作活动输入。
 
-正式构建默认拒绝缺译/未交付证明目标；开发预览的 `--allow-incomplete-content` / `--allow-incomplete-language` 必须显式声明，不能据其称已验收。issue 英文可置于 sidecar 顶层 `issues:{id:{title,text_md,evidence_md,problem_md,analysis_md,impact_md}}`，原式、分类、授权与状态继承。Lean 对象的 `translations.en` 仅容许展示说明字段（scope/label/encoding_note/statement_md 及逐步说明），其机器字段不改。基础 verify-lean 按实际入口 import 闭包验证，新增独立模块需 direct import 及真实单独报告。
+正式构建默认拒绝缺译/未交付证明目标；开发预览的 `--allow-incomplete-content` / `--allow-incomplete-language` 必须显式声明，不能据其称已验收。本轮证据单独保存在 `reader/evidence/twelve-paper-20261001/`。符号翻译涵盖域、作用域、空集/基线、前提及每篇映射说明；未知符号不自动套用通用英文。完整作者数学转录不能由 fenced 整页文本抽取冒充，步骤依据须由实际正文和来源核查，不能靠非空模板通过数学验收。issue 英文可置于 sidecar 顶层 `issues:{id:{title,text_md,evidence_md,problem_md,analysis_md,impact_md}}`，原式、分类、授权与状态继承。Lean 对象的 `translations.en` 仅容许展示说明字段（scope/label/encoding_note/statement_md 及逐步说明），其机器字段不改。基础 verify-lean 按实际入口 import 闭包验证，新增独立模块需 direct import 及真实单独报告；当前 `paper_agent.py library` 同时查询基础目录及论文实际报告中的扩展声明，不强行归入统一基础版本。
 
 新增论文的英文 Lean 说明应放在数据的 `lean.translations.en` 中（`scope`、`encoding_note`、`statement_md`），逐步说明优先从 `translations.en.proof_steps[id].lean_refs` 按同一 `declaration` 取得英文 `explanation_md`，或在对应 step_map 记录提供只含人读字段的 `translations.en`。机器映射必须相同，不能翻译状态、声明、签名或路径；状态标签按实际当前验证结果生成。`reader/lean_english.py` 的旧句子字典仅为历史资料迁移后备，新论文无需编辑此全局字典。

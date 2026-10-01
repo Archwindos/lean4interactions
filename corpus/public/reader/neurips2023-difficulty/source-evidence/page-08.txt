@@ -1,0 +1,76 @@
+                           Five-layer MLP on Census     AlexNet on CIFAR-10            VGG-11 on CIFAR-10        ResNet-20 on CIFAR-10
+                                                                                                                                             𝑠 = 0.1𝑛
+          𝑠       𝑠                                                                                                                          𝑠 = 0.2𝑛
+ sim(𝐼𝑡 , 𝐼final )
+                                                                                                                                             𝑠 = 0.3𝑛
+                                              Epoch                      Epoch                          Epoch                       Epoch
+                                                                                                                                             𝑠 = 0.4𝑛
+
+                                                                                                                                             𝑠 = 0.5𝑛
+                           Five-layer MLP on TV news   AlexNet on Tiny-ImageNet       VGG-11 on Tiny-ImageNet   ResNet-18 on Tiny-ImageNet
+                                                                                                                                             𝑠 = 0.6𝑛
+
+          𝑠        𝑠                                                                                                                         𝑠 = 0.7𝑛
+ sim(𝐼𝑡       , 𝐼final )
+                                                                                                                                             𝑠 = 0.8𝑛
+                                              Epoch                       Epoch                         Epoch                      Epoch
+                                                                                                                                             𝑠 = 0.9𝑛
+
+
+ Figure 5: The weighted Jaccard similarity sim(It(s) , Ifinal
+                                                        (s)
+                                                              ) between s-order interactive concepts learned
+                               (s)                                                 (s)
+ after the intermediate epoch It and those learned after the final epoch Ifinal        . Low-order concepts
+ usually have higher Jaccard similarity during the learning process, which indicates that DNNs first
+ learn low-order concepts and then gradually learn more about high-order concepts.
+
+
+ lower instability κ(S) than high-order concepts. It means that low-order concepts usually are more
+ consistent and more stable. Thus, this experiment explains the reason why low-order interactive
+ concepts are easier to learn.
+
+ 3.2.3                Fast learning of low-order concepts
+
+ In this subsection, we illustrate the phenomenon that low-order interactive concepts are usually
+ learned faster than high-order concepts, as a support for the claim that low-order interactive concepts
+ are easier to be learned. We have theoretically proven in Section 3.2 and experimentally verified
+ that low-order interactive concepts are more consistently present or consistently absent in different
+ samples of the same category, which makes low-order interactive concepts easier to be learned. Then,
+ this experiment is conducted to check whether low-order concepts are really learned faster than
+ high-order concepts.
+Specifically, we examine whether interactive concepts encoded by the finally-learned DNN vfinal (x)
+have already been encoded by the DNN that is vt (x) trained after t epochs. If so, we consider
+                                                                         (s)                                 ⊤         d
+such interactive concepts are learned fast. Specifically,      let It = [It (S1 |x), · · · , It (Sd |x)] ∈ R
+                                                             n
+denote a vector of interaction effects for all d = s interactive concepts of s-order. Then, we
+compute the Jaccard similarity between s-order interactive concepts encoded by the DNN vfinal (x)
+and those encoded by the DNN vt (x), i.e., sim(It(s) , Ifinal   (s)              (s)   (s)               (s)   (s)
+                                                                    ) = ∥ min(Iet , Iefinal )∥1 /∥ max(Iet , Iefinal )∥1
+and ∥ · ∥1 denotes L1-norm. We extend the d-dimensional vector It(s) into a 2d-dimensional vector
+with non-negative elements Iet(s) = [(It(s),+ )⊤ , (It(s),− )⊤ ]⊤ = [max(It(s) , 0)⊤ , − min(It(s) , 0)⊤ ]⊤ ∈ R2d .
+                             (s)                                             (s)
+Similarly, we compute Iefinal    with non-negative elements based on Ifinal      . In this way, a large similarity
+     (s)   (s)
+sim(It , Ifinal ) at an earlier epoch t indicates that interactive concepts are easier to be learned.
+To this end, let us use DNNs and experimental settings introduced in the experimental verification
+paragraph of Section 3.2 for evaluation. Figure 5 shows that DNNs first learn low-order interactive
+concepts, and then learn high-order interactive concepts. Such a phenomenon verifies the conclusion
+that a DNN easily learns low-order (simple) interactive concepts.
+
+
+ 4        Explaining findings in previous studies
+
+ 4.1           Explaining adversarial robustness
+
+ Previous study [43] has discovered that low-order interactions are more robust to adversarial attacks
+ than high-order interactions. Notice that their high-order (low-order) interactions are different from,
+ but highly related to our high-order (low-order) interactive concepts. Specifically, our interactive
+ concepts can be explained as elementary components for such multi-order interactions in [43]. Please
+ see the supplementary material for the proof. Therefore, from this perspective, our conclusion that
+“low-order interactive concepts are easy to learn” can also explain how a DNN encodes concepts of
+ different adversarial robustness.
+
+
+                                                                                  8

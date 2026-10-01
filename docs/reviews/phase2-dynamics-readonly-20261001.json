@@ -1,0 +1,1346 @@
+{
+  "status": "read_only_phase2_candidates_before_phase1_checkpoint",
+  "reviewer": "twelve_dynamics_math",
+  "papers": [
+    "icml2023-harsanyinet",
+    "icml2024-layerwise",
+    "icml2025-coalition"
+  ],
+  "result_count": 68,
+  "proof_step_count": 129,
+  "source_fields_modified": false,
+  "content_or_lean_modified": false,
+  "input_hashes": [
+    {
+      "path": "corpus/public/reader/icml2023-harsanyinet/content.json",
+      "sha256": "270fb734c8d29f5329e8985922a47797a370c38a6f33b241f78f1d471bcaf02c"
+    },
+    {
+      "path": "corpus/public/reader/icml2023-harsanyinet/inventory.json",
+      "sha256": "8695d28eb96178c5f39403c0b785937e04272ac42de6272a8d0b09b08732280a"
+    },
+    {
+      "path": "corpus/public/reader/icml2023-harsanyinet/symbols.json",
+      "sha256": "d4154758eaa51f4a7b3d515a7b176a21c0b002f9511d2804efb5b083a0a479d6"
+    },
+    {
+      "path": "corpus/public/reader/icml2023-harsanyinet/paper-metadata.json",
+      "sha256": "bfc34810518ff29f2172dc252fa16515a43d4b1229f951df210b092f08ce6a29"
+    },
+    {
+      "path": "corpus/public/reader/icml2024-layerwise/content.json",
+      "sha256": "b4c9805cfb5825695d48f4c1cac70a1ec60af1e24589f94a53dc24f03c590556"
+    },
+    {
+      "path": "corpus/public/reader/icml2024-layerwise/inventory.json",
+      "sha256": "7ccfd73a9771cab32930708192eaca628ca3516762eaa79cba0a7b2202f32167"
+    },
+    {
+      "path": "corpus/public/reader/icml2024-layerwise/symbols.json",
+      "sha256": "50b8df06368f6e0ceda6c2958826a0b6738c31a78e167c5a9044a6b3eaf03acc"
+    },
+    {
+      "path": "corpus/public/reader/icml2024-layerwise/paper-metadata.json",
+      "sha256": "0a107bfe109cb338f870d7bfda7f82d8fec516b9e03a290c6d041bc7c4463c4a"
+    },
+    {
+      "path": "corpus/public/reader/icml2025-coalition/content.json",
+      "sha256": "fcd90a749706c2e75d1131585de97b043dae4554fd66a35c11bc8512816a6f6a"
+    },
+    {
+      "path": "corpus/public/reader/icml2025-coalition/inventory.json",
+      "sha256": "ec77ca043f30432bbf0faa97883c9a498020ba30b43b64bc78af52e3cf884cd4"
+    },
+    {
+      "path": "corpus/public/reader/icml2025-coalition/symbols.json",
+      "sha256": "aaa406c6c24725a0de87feacc8c012c87918ac2bed165f182881bb84ffbd7dee"
+    },
+    {
+      "path": "corpus/public/reader/icml2025-coalition/paper-metadata.json",
+      "sha256": "ff5ee3e64742702098d398abc0f86aaf50f455385387d224d186ab291755b13d"
+    }
+  ],
+  "results": [
+    {
+      "paper_id": "icml2023-harsanyinet",
+      "result_id": "hnet-shapley-definition",
+      "step_ids": [
+        "hnet-shapley-def-domain",
+        "hnet-shapley-def-center"
+      ],
+      "english_step_ids": [
+        "hnet-shapley-def-domain",
+        "hnet-shapley-def-center"
+      ],
+      "reviewed": "read_only_normalized_statement_local_definitions_zh_en_steps_shared_links_and_machine_scope",
+      "finding": "Replace project-rewrite V by g0 consistently in the top formula and center step; original Definition 1 V remains untouched. Marginal baseline cancellation already correct.",
+      "current_shared_proof_ids": [],
+      "current_declarations": [
+        "Harsanyi.factorialShapley"
+      ],
+      "implementation_status": "not_started_phase2_not_authorized_to_write_yet"
+    },
+    {
+      "paper_id": "icml2023-harsanyinet",
+      "result_id": "hnet-centered-definition",
+      "step_ids": [
+        "hnet-definition-center",
+        "hnet-definition-recursive"
+      ],
+      "english_step_ids": [
+        "hnet-definition-center",
+        "hnet-definition-recursive"
+      ],
+      "reviewed": "read_only_normalized_statement_local_definitions_zh_en_steps_shared_links_and_machine_scope",
+      "finding": "Use g0 and I_g0 in normalized recursive definition, preserving the zero empty dividend and raw baseline b. Existing source V↔g0 mapping is explicit.",
+      "current_shared_proof_ids": [
+        "proof-finite-mobius-reconstruction-v2",
+        "proof-finite-mobius-uniqueness-v2"
+      ],
+      "current_declarations": [
+        "Harsanyi.interaction_recursive"
+      ],
+      "implementation_status": "not_started_phase2_not_authorized_to_write_yet"
+    },
+    {
+      "paper_id": "icml2023-harsanyinet",
+      "result_id": "hnet-reconstruction",
+      "step_ids": [
+        "hnet-recon-apply",
+        "hnet-recon-empty"
+      ],
+      "english_step_ids": [
+        "hnet-recon-apply",
+        "hnet-recon-empty"
+      ],
+      "reviewed": "read_only_normalized_statement_local_definitions_zh_en_steps_shared_links_and_machine_scope",
+      "finding": "Make top conclusion ∑I_g0=g0(T)=g(T)−b. Existing shared raw finite-game reconstruction is instantiated at g0, not at g.",
+      "current_shared_proof_ids": [
+        "proof-finite-mobius-reconstruction-v2"
+      ],
+      "current_declarations": [
+        "Harsanyi.reconstruction"
+      ],
+      "implementation_status": "not_started_phase2_not_authorized_to_write_yet"
+    },
+    {
+      "paper_id": "icml2023-harsanyinet",
+      "result_id": "hnet-r1-r2",
+      "step_ids": [
+        "hnet-r1-full",
+        "hnet-r2-missing"
+      ],
+      "english_step_ids": [
+        "hnet-r1-full",
+        "hnet-r2-missing"
+      ],
+      "reviewed": "read_only_normalized_statement_local_definitions_zh_en_steps_shared_links_and_machine_scope",
+      "finding": "Keep unit raw game u_j separate from centered unit dividend J_j and receptive field R_j; empty R_j allows a constant under requirements alone.",
+      "current_shared_proof_ids": [],
+      "current_declarations": [],
+      "implementation_status": "not_started_phase2_not_authorized_to_write_yet"
+    },
+    {
+      "paper_id": "icml2023-harsanyinet",
+      "result_id": "hnet-shapley-dividend",
+      "step_ids": [
+        "hnet-t1-definition",
+        "hnet-t1-weight",
+        "hnet-t1-boundary"
+      ],
+      "english_step_ids": [
+        "hnet-t1-definition",
+        "hnet-t1-weight",
+        "hnet-t1-boundary"
+      ],
+      "reviewed": "read_only_normalized_statement_local_definitions_zh_en_steps_shared_links_and_machine_scope",
+      "finding": "Use φ_g(i) and I_g0 in the normalized conclusion; classical φ_g=φ_g0. Reuse exact shared factorial-to-dividend proof.",
+      "current_shared_proof_ids": [
+        "shared-harsanyi-shapley-dividend"
+      ],
+      "current_declarations": [
+        "Harsanyi.factorialShapley_eq_dividendAllocation",
+        "Harsanyi.factorialShapley"
+      ],
+      "implementation_status": "not_started_phase2_not_authorized_to_write_yet"
+    },
+    {
+      "paper_id": "icml2023-harsanyinet",
+      "result_id": "hnet-unit-interaction",
+      "step_ids": [
+        "hnet-lemma-counterexample",
+        "hnet-lemma-valid-scope",
+        "hnet-lemma-architecture"
+      ],
+      "english_step_ids": [
+        "hnet-lemma-counterexample",
+        "hnet-lemma-valid-scope",
+        "hnet-lemma-architecture"
+      ],
+      "reviewed": "read_only_normalized_statement_local_definitions_zh_en_steps_shared_links_and_machine_scope",
+      "finding": "Keep original false empty-field claim, its centered constant counterexample and additional bias-free architecture facts separate. Normalized J_j must remain a centered unit dividend.",
+      "current_shared_proof_ids": [],
+      "current_declarations": [
+        "Harsanyi.Network.empty_unit_counterexample",
+        "Harsanyi.Network.requirement_unit_interaction",
+        "Harsanyi.Network.unit_interaction"
+      ],
+      "implementation_status": "not_started_phase2_not_authorized_to_write_yet"
+    },
+    {
+      "paper_id": "icml2023-harsanyinet",
+      "result_id": "hnet-readout-linearity",
+      "step_ids": [
+        "hnet-t2-center",
+        "hnet-t2-expand"
+      ],
+      "english_step_ids": [
+        "hnet-t2-center",
+        "hnet-t2-expand"
+      ],
+      "reviewed": "read_only_normalized_statement_local_definitions_zh_en_steps_shared_links_and_machine_scope",
+      "finding": "Clarify unit indexing set versus dividend J_j; shared interaction linearity applies to the explicitly centered weighted readout. No unit baseline-zero hypothesis is needed.",
+      "current_shared_proof_ids": [
+        "shared-harsanyi-linearity"
+      ],
+      "current_declarations": [
+        "PaperHarsanyiNet.centered_readout",
+        "Harsanyi.Network.interaction_weighted_sum"
+      ],
+      "implementation_status": "not_started_phase2_not_authorized_to_write_yet"
+    },
+    {
+      "paper_id": "icml2023-harsanyinet",
+      "result_id": "hnet-forward-shapley",
+      "step_ids": [
+        "hnet-t3-derive",
+        "hnet-t3-unit",
+        "hnet-t3-denominator"
+      ],
+      "english_step_ids": [
+        "hnet-t3-derive",
+        "hnet-t3-unit",
+        "hnet-t3-denominator"
+      ],
+      "reviewed": "read_only_normalized_statement_local_definitions_zh_en_steps_shared_links_and_machine_scope",
+      "finding": "Display guarded contribution rather than evaluating 0/0 times an indicator; scope already explains original boundary. Use φ_g and clearly bind R_j,c_j,w_j.",
+      "current_shared_proof_ids": [
+        "shared-harsanyi-shapley-dividend"
+      ],
+      "current_declarations": [
+        "PaperHarsanyiNet.finite_requirements_attribution",
+        "PaperHarsanyiNet.exact_forward_attribution",
+        "Harsanyi.Network.requirement_forward_shapley",
+        "Harsanyi.Network.forward_shapley"
+      ],
+      "implementation_status": "not_started_phase2_not_authorized_to_write_yet"
+    },
+    {
+      "paper_id": "icml2023-harsanyinet",
+      "result_id": "hnet-runtime",
+      "step_ids": [
+        "hnet-runtime-count",
+        "hnet-runtime-scope"
+      ],
+      "english_step_ids": [
+        "hnet-runtime-count",
+        "hnet-runtime-scope"
+      ],
+      "reviewed": "read_only_normalized_statement_local_definitions_zh_en_steps_shared_links_and_machine_scope",
+      "finding": "Retain the O(nM) pair-count model and preprocessing assumptions; no proof of negligible cost relative to inference. M is number of units, not subset order.",
+      "current_shared_proof_ids": [],
+      "current_declarations": [],
+      "implementation_status": "not_started_phase2_not_authorized_to_write_yet"
+    },
+    {
+      "paper_id": "icml2023-harsanyinet",
+      "result_id": "hnet-architecture",
+      "step_ids": [
+        "hnet-arch-input",
+        "hnet-arch-gate",
+        "hnet-arch-dag"
+      ],
+      "english_step_ids": [
+        "hnet-arch-input",
+        "hnet-arch-gate",
+        "hnet-arch-dag"
+      ],
+      "reviewed": "read_only_normalized_statement_local_definitions_zh_en_steps_shared_links_and_machine_scope",
+      "finding": "Rename local block preactivation g_j to an explicit local alias p_j if convenient; g is reserved for mask game. Preserve hard-gate, no-bias and input increment x−r.",
+      "current_shared_proof_ids": [],
+      "current_declarations": [
+        "Harsanyi.Network.value",
+        "Harsanyi.Network.Expr",
+        "Harsanyi.Network.receptive"
+      ],
+      "implementation_status": "not_started_phase2_not_authorized_to_write_yet"
+    },
+    {
+      "paper_id": "icml2023-harsanyinet",
+      "result_id": "hnet-architecture-r1-r2",
+      "step_ids": [
+        "hnet-t4-r1-base",
+        "hnet-t4-r2-retained",
+        "hnet-t4-r2-missing",
+        "hnet-t4-baseline"
+      ],
+      "english_step_ids": [
+        "hnet-t4-r1-base",
+        "hnet-t4-r2-retained",
+        "hnet-t4-r2-missing",
+        "hnet-t4-baseline"
+      ],
+      "reviewed": "read_only_normalized_statement_local_definitions_zh_en_steps_shared_links_and_machine_scope",
+      "finding": "Keep actual hard-gate induction distinct from training STE/smooth-gate formulas and from generic affine frozen-gate results. No shared theorem identity is asserted.",
+      "current_shared_proof_ids": [],
+      "current_declarations": [
+        "Harsanyi.Network.value_mask",
+        "Harsanyi.Network.value_congr",
+        "Harsanyi.Network.value_baseline",
+        "Harsanyi.Network.value_empty_receptive"
+      ],
+      "implementation_status": "not_started_phase2_not_authorized_to_write_yet"
+    },
+    {
+      "paper_id": "icml2023-harsanyinet",
+      "result_id": "hnet-smooth-gate",
+      "step_ids": [
+        "hnet-smooth-definition",
+        "hnet-smooth-boundary"
+      ],
+      "english_step_ids": [
+        "hnet-smooth-definition",
+        "hnet-smooth-boundary"
+      ],
+      "reviewed": "read_only_normalized_statement_local_definitions_zh_en_steps_shared_links_and_machine_scope",
+      "finding": "γ is a positive smoothing scale, not the AND/OR split parameter. β is STE scale, not output baseline. Preserve empty-selection and signed-input domain issues.",
+      "current_shared_proof_ids": [],
+      "current_declarations": [],
+      "implementation_status": "not_started_phase2_not_authorized_to_write_yet"
+    },
+    {
+      "paper_id": "icml2023-harsanyinet",
+      "result_id": "hnet-sparsity-count",
+      "step_ids": [
+        "hnet-count-support",
+        "hnet-count-card",
+        "hnet-count-eq9"
+      ],
+      "english_step_ids": [
+        "hnet-count-support",
+        "hnet-count-card",
+        "hnet-count-eq9"
+      ],
+      "reviewed": "read_only_normalized_statement_local_definitions_zh_en_steps_shared_links_and_machine_scope",
+      "finding": "Top interaction is I_g0; retain separate raw-output Eq9 error and exact Harsanyi architecture baseline-zero result. Support count is at most M, not exactly M.",
+      "current_shared_proof_ids": [],
+      "current_declarations": [
+        "PaperHarsanyiNet.finite_support_card",
+        "Harsanyi.Network.support_card_le_units",
+        "Harsanyi.Network.support_subset_fields"
+      ],
+      "implementation_status": "not_started_phase2_not_authorized_to_write_yet"
+    },
+    {
+      "paper_id": "icml2023-harsanyinet",
+      "result_id": "hnet-cnn-receptive",
+      "step_ids": [
+        "hnet-cnn-selection",
+        "hnet-cnn-field",
+        "hnet-cnn-not-output"
+      ],
+      "english_step_ids": [
+        "hnet-cnn-selection",
+        "hnet-cnn-field",
+        "hnet-cnn-not-output"
+      ],
+      "reviewed": "read_only_normalized_statement_local_definitions_zh_en_steps_shared_links_and_machine_scope",
+      "finding": "Common field R_p follows shared selection; common gate does not imply simultaneous nonzero ReLU outputs.",
+      "current_shared_proof_ids": [],
+      "current_declarations": [
+        "Harsanyi.Network.receptive_shared_children"
+      ],
+      "implementation_status": "not_started_phase2_not_authorized_to_write_yet"
+    },
+    {
+      "paper_id": "icml2023-harsanyinet",
+      "result_id": "hnet-cnn-regroup",
+      "step_ids": [
+        "hnet-cnn-filter",
+        "hnet-cnn-regroup-finite",
+        "hnet-cnn-group-mask",
+        "hnet-cnn-equivalence-refuted"
+      ],
+      "english_step_ids": [
+        "hnet-cnn-filter",
+        "hnet-cnn-regroup-finite",
+        "hnet-cnn-group-mask",
+        "hnet-cnn-equivalence-refuted"
+      ],
+      "reviewed": "read_only_normalized_statement_local_definitions_zh_en_steps_shared_links_and_machine_scope",
+      "finding": "Keep original unfiltered formula and scalar/group numerical-equivalence errors separate from the valid filtered regrouping. Preserve partial recursive-CNN machine scope.",
+      "current_shared_proof_ids": [],
+      "current_declarations": [
+        "Harsanyi.Network.groupedBlock_mask",
+        "Harsanyi.Network.channel_grouping",
+        "Harsanyi.Network.scalar_grouped_gate_counterexample"
+      ],
+      "implementation_status": "not_started_phase2_not_authorized_to_write_yet"
+    },
+    {
+      "paper_id": "icml2023-harsanyinet",
+      "result_id": "hnet-axiom-linearity",
+      "step_ids": [
+        "hnet-linear-add",
+        "hnet-linear-scale"
+      ],
+      "english_step_ids": [
+        "hnet-linear-add",
+        "hnet-linear-scale"
+      ],
+      "reviewed": "read_only_normalized_statement_local_definitions_zh_en_steps_shared_links_and_machine_scope",
+      "finding": "Use arbitrary game names f,h and scalar c, with explicit φ_f. This is Shapley linearity, not merely dividend linearity; its bridge is already actual.",
+      "current_shared_proof_ids": [],
+      "current_declarations": [
+        "PaperHarsanyiNet.shapley_add",
+        "PaperHarsanyiNet.shapley_scale"
+      ],
+      "implementation_status": "not_started_phase2_not_authorized_to_write_yet"
+    },
+    {
+      "paper_id": "icml2023-harsanyinet",
+      "result_id": "hnet-axiom-dummy",
+      "step_ids": [
+        "hnet-dummy-marginal",
+        "hnet-dummy-total"
+      ],
+      "english_step_ids": [
+        "hnet-dummy-marginal",
+        "hnet-dummy-total"
+      ],
+      "reviewed": "read_only_normalized_statement_local_definitions_zh_en_steps_shared_links_and_machine_scope",
+      "finding": "Rewrite project V as g0. Original additive dummy premise and singleton g0({i}) remain exact; do not use the raw g({i}) without subtracting b.",
+      "current_shared_proof_ids": [],
+      "current_declarations": [
+        "PaperHarsanyiNet.shapley_dummy"
+      ],
+      "implementation_status": "not_started_phase2_not_authorized_to_write_yet"
+    },
+    {
+      "paper_id": "icml2023-harsanyinet",
+      "result_id": "hnet-axiom-symmetry",
+      "step_ids": [
+        "hnet-symmetry-swap",
+        "hnet-symmetry-bijection"
+      ],
+      "english_step_ids": [
+        "hnet-symmetry-swap",
+        "hnet-symmetry-bijection"
+      ],
+      "reviewed": "read_only_normalized_statement_local_definitions_zh_en_steps_shared_links_and_machine_scope",
+      "finding": "Use g0 or arbitrary f consistently; retain i,j∈N and transpose the same game, not an independently chosen decomposition.",
+      "current_shared_proof_ids": [],
+      "current_declarations": [
+        "PaperHarsanyiNet.shapley_symmetry"
+      ],
+      "implementation_status": "not_started_phase2_not_authorized_to_write_yet"
+    },
+    {
+      "paper_id": "icml2023-harsanyinet",
+      "result_id": "hnet-axiom-efficiency",
+      "step_ids": [
+        "hnet-efficiency-exchange",
+        "hnet-efficiency-reconstruct"
+      ],
+      "english_step_ids": [
+        "hnet-efficiency-exchange",
+        "hnet-efficiency-reconstruct"
+      ],
+      "reviewed": "read_only_normalized_statement_local_definitions_zh_en_steps_shared_links_and_machine_scope",
+      "finding": "Use ∑φ_g=g0(N)=g(N)−b; preserve empty-universe branch. Existing shared dividend allocation and reconstruction links are genuine.",
+      "current_shared_proof_ids": [
+        "shared-harsanyi-shapley-dividend",
+        "proof-finite-mobius-reconstruction-v2"
+      ],
+      "current_declarations": [
+        "PaperHarsanyiNet.shapley_efficiency",
+        "Harsanyi.reconstruction"
+      ],
+      "implementation_status": "not_started_phase2_not_authorized_to_write_yet"
+    },
+    {
+      "paper_id": "icml2023-harsanyinet",
+      "result_id": "hnet-conditional-attribution",
+      "step_ids": [
+        "hnet-f8-game",
+        "hnet-f8-field",
+        "hnet-f8-shapley"
+      ],
+      "english_step_ids": [
+        "hnet-f8-game",
+        "hnet-f8-field",
+        "hnet-f8-shapley"
+      ],
+      "reviewed": "read_only_normalized_statement_local_definitions_zh_en_steps_shared_links_and_machine_scope",
+      "finding": "Use g_Q and its own baseline b_Q=g(N\\Q), not global b; qualify φ_gQ. R_j∩Q is the reduced field; fixed outside coordinates stay x.",
+      "current_shared_proof_ids": [],
+      "current_declarations": [
+        "PaperHarsanyiNet.finite_conditional_attribution",
+        "PaperHarsanyiNet.conditional_attribution",
+        "Harsanyi.Network.conditional_receptive",
+        "Harsanyi.Network.conditional_forward_shapley"
+      ],
+      "implementation_status": "not_started_phase2_not_authorized_to_write_yet"
+    },
+    {
+      "paper_id": "icml2023-harsanyinet",
+      "result_id": "hnet-experiments",
+      "step_ids": [
+        "hnet-empirical-scope"
+      ],
+      "english_step_ids": [
+        "hnet-empirical-scope"
+      ],
+      "reviewed": "read_only_normalized_statement_local_definitions_zh_en_steps_shared_links_and_machine_scope",
+      "finding": "Across-input RMSE already uses φ_x; align common fixed-input definitions to indexed g_x,b_x when referred to inside E_x. No new theorem from test error.",
+      "current_shared_proof_ids": [],
+      "current_declarations": [],
+      "implementation_status": "not_started_phase2_not_authorized_to_write_yet"
+    },
+    {
+      "paper_id": "icml2023-harsanyinet",
+      "result_id": "hnet-external-sparsity",
+      "step_ids": [
+        "hnet-external-identity",
+        "hnet-external-source"
+      ],
+      "english_step_ids": [
+        "hnet-external-identity",
+        "hnet-external-source"
+      ],
+      "reviewed": "read_only_normalized_statement_local_definitions_zh_en_steps_shared_links_and_machine_scope",
+      "finding": "Keep exact omitted-tail identity separate from empirical sparse/small claims. Resolve exact formal cited paper links; architecture M bound is not that external result.",
+      "current_shared_proof_ids": [],
+      "current_declarations": [],
+      "implementation_status": "not_started_phase2_not_authorized_to_write_yet"
+    },
+    {
+      "paper_id": "icml2024-layerwise",
+      "result_id": "layer-and-definition",
+      "step_ids": [
+        "layer-and-definition-step-1",
+        "layer-and-definition-step-2"
+      ],
+      "english_step_ids": [
+        "layer-and-definition-step-1",
+        "layer-and-definition-step-2"
+      ],
+      "reviewed": "read_only_normalized_statement_local_definitions_zh_en_steps_shared_links_and_machine_scope",
+      "finding": "Top source-like v(x_T) may be normalized to g(T); raw dividend I_g(∅)=b is distinct from learned component A. No zero baseline.",
+      "current_shared_proof_ids": [],
+      "current_declarations": [],
+      "implementation_status": "not_started_phase2_not_authorized_to_write_yet"
+    },
+    {
+      "paper_id": "icml2024-layerwise",
+      "result_id": "layer-and-reconstruction",
+      "step_ids": [
+        "layer-and-reconstruction-step-1",
+        "layer-and-reconstruction-step-2"
+      ],
+      "english_step_ids": [
+        "layer-and-reconstruction-step-1",
+        "layer-and-reconstruction-step-2"
+      ],
+      "reviewed": "read_only_normalized_statement_local_definitions_zh_en_steps_shared_links_and_machine_scope",
+      "finding": "Already normalized g/I_g with actual raw baseline; reuse one authoritative finite inversion proof and remove redundant full re-proofs only through complete adaptation.",
+      "current_shared_proof_ids": [
+        "proof-finite-mobius-reconstruction-v2"
+      ],
+      "current_declarations": [
+        "Harsanyi.reconstruction"
+      ],
+      "implementation_status": "not_started_phase2_not_authorized_to_write_yet"
+    },
+    {
+      "paper_id": "icml2024-layerwise",
+      "result_id": "layer-decomposition",
+      "step_ids": [
+        "layer-decomposition-step-1",
+        "layer-decomposition-step-2"
+      ],
+      "english_step_ids": [
+        "layer-decomposition-step-1",
+        "layer-decomposition-step-2"
+      ],
+      "reviewed": "read_only_normalized_statement_local_definitions_zh_en_steps_shared_links_and_machine_scope",
+      "finding": "Use canonical g_and,g_or with allowed local a,o aliases; preserve the theorem’s original γ∅=b/2 condition, not optimizer uniqueness.",
+      "current_shared_proof_ids": [],
+      "current_declarations": [
+        "Harsanyi.Layerwise.component_sum",
+        "Harsanyi.Layerwise.component_empty"
+      ],
+      "implementation_status": "not_started_phase2_not_authorized_to_write_yet"
+    },
+    {
+      "paper_id": "icml2024-layerwise",
+      "result_id": "layer-or-definition",
+      "step_ids": [
+        "layer-or-definition-step-1",
+        "layer-or-definition-step-2"
+      ],
+      "english_step_ids": [
+        "layer-or-definition-step-1",
+        "layer-or-definition-step-2"
+      ],
+      "reviewed": "read_only_normalized_statement_local_definitions_zh_en_steps_shared_links_and_machine_scope",
+      "finding": "Preserve nonempty −complement dividend versus specially defined empty OR value. Full-game I_g is not component A or O.",
+      "current_shared_proof_ids": [],
+      "current_declarations": [],
+      "implementation_status": "not_started_phase2_not_authorized_to_write_yet"
+    },
+    {
+      "paper_id": "icml2024-layerwise",
+      "result_id": "layer-universal-matching",
+      "step_ids": [
+        "layer-universal-matching-step-1",
+        "layer-universal-matching-step-2",
+        "layer-universal-matching-step-3",
+        "layer-universal-matching-step-4"
+      ],
+      "english_step_ids": [
+        "layer-universal-matching-step-1",
+        "layer-universal-matching-step-2",
+        "layer-universal-matching-step-3",
+        "layer-universal-matching-step-4"
+      ],
+      "reviewed": "read_only_normalized_statement_local_definitions_zh_en_steps_shared_links_and_machine_scope",
+      "finding": "Actual fixed/remasked source condition γ∅=b/2 and coordinate masks are already proved. Current content has no not_delivered proof_scope; locate stale derived UI metadata before any metadata correction. OR remasked coefficients cannot be replaced by fixed O without a separate argument.",
+      "current_shared_proof_ids": [
+        "proof-finite-mobius-reconstruction-v2",
+        "shared-harsanyi-or-reconstruction"
+      ],
+      "current_declarations": [
+        "PaperLayerwise.actual_matching",
+        "PaperLayerwise.actual_remasked_matching",
+        "PaperLayerwise.repeated_mask",
+        "Harsanyi.Layerwise.restricted_and"
+      ],
+      "implementation_status": "not_started_phase2_not_authorized_to_write_yet"
+    },
+    {
+      "paper_id": "icml2024-layerwise",
+      "result_id": "layer-salient-matching",
+      "step_ids": [
+        "layer-salient-matching-step-1",
+        "layer-salient-matching-step-2",
+        "layer-salient-matching-step-3"
+      ],
+      "english_step_ids": [
+        "layer-salient-matching-step-1",
+        "layer-salient-matching-step-2",
+        "layer-salient-matching-step-3"
+      ],
+      "reviewed": "read_only_normalized_statement_local_definitions_zh_en_steps_shared_links_and_machine_scope",
+      "finding": "Retain full approximation/external scope gap and Eq19 duplicate-baseline counterexample; shared reconstruction/tail bound may be dependencies, not a full sparsity proof. Remove stale exact_declaration_pending_current_report wording only after current evidence check.",
+      "current_shared_proof_ids": [],
+      "current_declarations": [
+        "Harsanyi.Layerwise.duplicated_baseline_counterexample"
+      ],
+      "implementation_status": "not_started_phase2_not_authorized_to_write_yet"
+    },
+    {
+      "paper_id": "icml2024-layerwise",
+      "result_id": "layer-probe-definition",
+      "step_ids": [
+        "layer-probe-definition-step-1",
+        "layer-probe-definition-step-2",
+        "layer-probe-definition-step-3"
+      ],
+      "english_step_ids": [
+        "layer-probe-definition-step-1",
+        "layer-probe-definition-step-2",
+        "layer-probe-definition-step-3"
+      ],
+      "reviewed": "read_only_normalized_statement_local_definitions_zh_en_steps_shared_links_and_machine_scope",
+      "finding": "Qualify g_l,x and b_l,x for each fixed sample. Probe intercept b^(l), input r and output b_l,x are distinct. δ is learned residual, not Gaussian noise.",
+      "current_shared_proof_ids": [],
+      "current_declarations": [],
+      "implementation_status": "not_started_phase2_not_authorized_to_write_yet"
+    },
+    {
+      "paper_id": "icml2024-layerwise",
+      "result_id": "layer-metric-definition",
+      "step_ids": [
+        "layer-metric-definition-step-1",
+        "layer-metric-definition-step-2",
+        "layer-metric-definition-step-3"
+      ],
+      "english_step_ids": [
+        "layer-metric-definition-step-1",
+        "layer-metric-definition-step-2",
+        "layer-metric-definition-step-3"
+      ],
+      "reviewed": "read_only_normalized_statement_local_definitions_zh_en_steps_shared_links_and_machine_scope",
+      "finding": "Index g_l,x,A_l,x,O_l,x,Ω_l,x and b_l,x under E_x; c_l=E_x|g_l,x(N)−b_l,x|. Preserve per-sample versus cross-sample thresholds. Stability uses E/Std, distinct from BNN E/Var.",
+      "current_shared_proof_ids": [],
+      "current_declarations": [],
+      "implementation_status": "not_started_phase2_not_authorized_to_write_yet"
+    },
+    {
+      "paper_id": "icml2024-layerwise",
+      "result_id": "layer-strength-decomposition",
+      "step_ids": [
+        "layer-strength-decomposition-step-1",
+        "layer-strength-decomposition-step-2",
+        "layer-strength-decomposition-step-3"
+      ],
+      "english_step_ids": [
+        "layer-strength-decomposition-step-1",
+        "layer-strength-decomposition-step-2",
+        "layer-strength-decomposition-step-3"
+      ],
+      "reviewed": "read_only_normalized_statement_local_definitions_zh_en_steps_shared_links_and_machine_scope",
+      "finding": "Scalar coefficients a,b in |a|=|s|+|a−s| are local numbers, not the global AND component or output baseline; use p,q as explicit local aliases. Retain thresholded-support/global-L1 counterexample and machine optimizer scope.",
+      "current_shared_proof_ids": [],
+      "current_declarations": [
+        "Harsanyi.Layerwise.normalized_thresholded_counterexample",
+        "Harsanyi.Layerwise.strengthGame_dividends",
+        "Harsanyi.Layerwise.strength_full_outputs",
+        "Harsanyi.Layerwise.strength_supports",
+        "Harsanyi.Layerwise.scalar_strength_decomposition"
+      ],
+      "implementation_status": "not_started_phase2_not_authorized_to_write_yet"
+    },
+    {
+      "paper_id": "icml2024-layerwise",
+      "result_id": "layer-binomial-symmetry",
+      "step_ids": [
+        "layer-binomial-symmetry-step-1"
+      ],
+      "english_step_ids": [
+        "layer-binomial-symmetry-step-1"
+      ],
+      "reviewed": "read_only_normalized_statement_local_definitions_zh_en_steps_shared_links_and_machine_scope",
+      "finding": "Use n=|N| and q=|S| if sharing an exposition with source m context/order ambiguities; complement counting is an exact finite bijection, not empirical strength symmetry.",
+      "current_shared_proof_ids": [],
+      "current_declarations": [
+        "Harsanyi.Layerwise.complementary_order_count"
+      ],
+      "implementation_status": "not_started_phase2_not_authorized_to_write_yet"
+    },
+    {
+      "paper_id": "icml2024-layerwise",
+      "result_id": "layer-shapley-and-or",
+      "step_ids": [
+        "layer-shapley-and-or-step-1",
+        "layer-shapley-and-or-step-2",
+        "layer-shapley-and-or-step-3"
+      ],
+      "english_step_ids": [
+        "layer-shapley-and-or-step-1",
+        "layer-shapley-and-or-step-2",
+        "layer-shapley-and-or-step-3"
+      ],
+      "reviewed": "read_only_normalized_statement_local_definitions_zh_en_steps_shared_links_and_machine_scope",
+      "finding": "Same generic AND/OR Shapley identity as Coalition; actual fixed γ and nonzero denominators need explicit adaptation. Raw baseline cancels rather than being assumed zero.",
+      "current_shared_proof_ids": [
+        "proof-finite-mobius-reconstruction-v2",
+        "shared-harsanyi-or-reconstruction",
+        "shared-harsanyi-shapley-dividend"
+      ],
+      "current_declarations": [
+        "PaperLayerwise.actual_shapley",
+        "Harsanyi.Layerwise.shapley_and_or"
+      ],
+      "implementation_status": "not_started_phase2_not_authorized_to_write_yet"
+    },
+    {
+      "paper_id": "icml2024-layerwise",
+      "result_id": "layer-complement-duality",
+      "step_ids": [
+        "layer-complement-duality-step-1",
+        "layer-complement-duality-step-2",
+        "layer-complement-duality-step-3"
+      ],
+      "english_step_ids": [
+        "layer-complement-duality-step-1",
+        "layer-complement-duality-step-2",
+        "layer-complement-duality-step-3"
+      ],
+      "reviewed": "read_only_normalized_statement_local_definitions_zh_en_steps_shared_links_and_machine_scope",
+      "finding": "Keep exact nonempty algebraic duality separate from false printed coordinate identification. Reversing input and baseline is an auxiliary construction, not a source definition repair.",
+      "current_shared_proof_ids": [
+        "shared-harsanyi-or-reconstruction"
+      ],
+      "current_declarations": [],
+      "implementation_status": "not_started_phase2_not_authorized_to_write_yet"
+    },
+    {
+      "paper_id": "icml2024-layerwise",
+      "result_id": "layer-or-sparsity-inheritance",
+      "step_ids": [
+        "layer-or-sparsity-inheritance-step-1",
+        "layer-or-sparsity-inheritance-step-2"
+      ],
+      "english_step_ids": [
+        "layer-or-sparsity-inheritance-step-1",
+        "layer-or-sparsity-inheritance-step-2"
+      ],
+      "reviewed": "read_only_normalized_statement_local_definitions_zh_en_steps_shared_links_and_machine_scope",
+      "finding": "Link the exact finite complement transform only. Archived sparsity theorem must be separately instantiated on the learned complement component and its actual assumptions.",
+      "current_shared_proof_ids": [],
+      "current_declarations": [],
+      "implementation_status": "not_started_phase2_not_authorized_to_write_yet"
+    },
+    {
+      "paper_id": "icml2024-layerwise",
+      "result_id": "layer-noise-ratio",
+      "step_ids": [
+        "layer-noise-ratio-step-1",
+        "layer-noise-ratio-step-2"
+      ],
+      "english_step_ids": [
+        "layer-noise-ratio-step-1",
+        "layer-noise-ratio-step-2"
+      ],
+      "reviewed": "read_only_normalized_statement_local_definitions_zh_en_steps_shared_links_and_machine_scope",
+      "finding": "Input norm ratio is not interaction moment stability; retain original zero norm boundary and empirical median statement.",
+      "current_shared_proof_ids": [],
+      "current_declarations": [],
+      "implementation_status": "not_started_phase2_not_authorized_to_write_yet"
+    },
+    {
+      "paper_id": "icml2024-layerwise",
+      "result_id": "layer-singleton-merge",
+      "step_ids": [
+        "layer-singleton-merge-step-1",
+        "layer-singleton-merge-step-2"
+      ],
+      "english_step_ids": [
+        "layer-singleton-merge-step-1",
+        "layer-singleton-merge-step-2"
+      ],
+      "reviewed": "read_only_normalized_statement_local_definitions_zh_en_steps_shared_links_and_machine_scope",
+      "finding": "Exact indicator equality is a generic singleton property; it changes representation/saliency but preserves each mask contribution. Do not claim higher-order merge or optimizer invariance.",
+      "current_shared_proof_ids": [],
+      "current_declarations": [
+        "Harsanyi.Layerwise.singleton_merge",
+        "Harsanyi.Layerwise.singleton_activation"
+      ],
+      "implementation_status": "not_started_phase2_not_authorized_to_write_yet"
+    },
+    {
+      "paper_id": "icml2024-layerwise",
+      "result_id": "layer-experiments",
+      "step_ids": [
+        "layer-experiments-step-1",
+        "layer-experiments-step-2"
+      ],
+      "english_step_ids": [
+        "layer-experiments-step-1",
+        "layer-experiments-step-2"
+      ],
+      "reviewed": "read_only_normalized_statement_local_definitions_zh_en_steps_shared_links_and_machine_scope",
+      "finding": "Keep dataset/sample/per-layer indices and threshold conventions explicit; exact universal reconstruction does not prove empirical knowledge interpretation.",
+      "current_shared_proof_ids": [],
+      "current_declarations": [],
+      "implementation_status": "not_started_phase2_not_authorized_to_write_yet"
+    },
+    {
+      "paper_id": "icml2024-layerwise",
+      "result_id": "layer-external-properties",
+      "step_ids": [
+        "layer-external-properties-step-1",
+        "layer-external-properties-step-2"
+      ],
+      "english_step_ids": [
+        "layer-external-properties-step-1",
+        "layer-external-properties-step-2"
+      ],
+      "reviewed": "read_only_normalized_statement_local_definitions_zh_en_steps_shared_links_and_machine_scope",
+      "finding": "Resolve formal citation/theorem links with separate assumption checks. No single merged theorem for algebraic seven properties, empirical transfer and stochastic learning claims.",
+      "current_shared_proof_ids": [],
+      "current_declarations": [],
+      "implementation_status": "not_started_phase2_not_authorized_to_write_yet"
+    },
+    {
+      "paper_id": "icml2025-coalition",
+      "result_id": "coalition-shapley",
+      "step_ids": [
+        "coalition-shapley-step-1",
+        "coalition-shapley-step-2",
+        "coalition-shapley-step-3"
+      ],
+      "english_step_ids": [
+        "coalition-shapley-step-1",
+        "coalition-shapley-step-2",
+        "coalition-shapley-step-3"
+      ],
+      "reviewed": "read_only_normalized_statement_local_definitions_zh_en_steps_shared_links_and_machine_scope",
+      "finding": "Use φ_g and fixed split (a,o) or γ explicitly; ordinary Shapley is split-invariant although coalition attribution generally is not. Existing exact AND/OR shared dependencies are real.",
+      "current_shared_proof_ids": [
+        "proof-finite-mobius-reconstruction-v2",
+        "shared-harsanyi-or-reconstruction",
+        "shared-harsanyi-shapley-dividend"
+      ],
+      "current_declarations": [
+        "PaperCoalition.theorem32",
+        "Harsanyi.Coalition.shapley_and_or"
+      ],
+      "implementation_status": "not_started_phase2_not_authorized_to_write_yet"
+    },
+    {
+      "paper_id": "icml2025-coalition",
+      "result_id": "coalition-banzhaf",
+      "step_ids": [
+        "coalition-banzhaf-step-1",
+        "coalition-banzhaf-step-2"
+      ],
+      "english_step_ids": [
+        "coalition-banzhaf-step-1",
+        "coalition-banzhaf-step-2"
+      ],
+      "reviewed": "read_only_normalized_statement_local_definitions_zh_en_steps_shared_links_and_machine_scope",
+      "finding": "Uniform background count differs from factorial Shapley; shared reconstruction can be reused but do not merge their coefficient proof as the same theorem.",
+      "current_shared_proof_ids": [],
+      "current_declarations": [
+        "PaperCoalition.theorem33",
+        "Harsanyi.Coalition.banzhaf_and_or"
+      ],
+      "implementation_status": "not_started_phase2_not_authorized_to_write_yet"
+    },
+    {
+      "paper_id": "icml2025-coalition",
+      "result_id": "coalition-conflict",
+      "step_ids": [
+        "coalition-conflict-step-1",
+        "coalition-conflict-step-2"
+      ],
+      "english_step_ids": [
+        "coalition-conflict-step-1",
+        "coalition-conflict-step-2"
+      ],
+      "reviewed": "read_only_normalized_statement_local_definitions_zh_en_steps_shared_links_and_machine_scope",
+      "finding": "Top/context must visibly retain S⊆N and S≠∅ domain; φ is split-dependent. Do not hide source empty coalition issue in Lean totalized division.",
+      "current_shared_proof_ids": [],
+      "current_declarations": [
+        "PaperCoalition.theorem34_nonempty",
+        "Harsanyi.Coalition.paper_conflict"
+      ],
+      "implementation_status": "not_started_phase2_not_authorized_to_write_yet"
+    },
+    {
+      "paper_id": "icml2025-coalition",
+      "result_id": "coalition-no-conflict",
+      "step_ids": [
+        "coalition-no-conflict-step-1"
+      ],
+      "english_step_ids": [
+        "coalition-no-conflict-step-1"
+      ],
+      "reviewed": "read_only_normalized_statement_local_definitions_zh_en_steps_shared_links_and_machine_scope",
+      "finding": "Retain source free-i premise issue and explicit intended partial-coverage condition. No change to original quantifiers when displaying valid conditional helper.",
+      "current_shared_proof_ids": [],
+      "current_declarations": [
+        "Harsanyi.Coalition.paper_no_conflict",
+        "Harsanyi.Coalition.paper_individual_no_conflict"
+      ],
+      "implementation_status": "not_started_phase2_not_authorized_to_write_yet"
+    },
+    {
+      "paper_id": "icml2025-coalition",
+      "result_id": "coalition-individual",
+      "step_ids": [
+        "coalition-individual-step-1",
+        "coalition-individual-step-2"
+      ],
+      "english_step_ids": [
+        "coalition-individual-step-1",
+        "coalition-individual-step-2"
+      ],
+      "reviewed": "read_only_normalized_statement_local_definitions_zh_en_steps_shared_links_and_machine_scope",
+      "finding": "Original i∈S ensures positive |S|. Qualify individual conflict and φ_γ(S); source U here is attribution contribution, not Taylor normalization U.",
+      "current_shared_proof_ids": [],
+      "current_declarations": [
+        "PaperCoalition.theorem36",
+        "Harsanyi.Coalition.paper_individual"
+      ],
+      "implementation_status": "not_started_phase2_not_authorized_to_write_yet"
+    },
+    {
+      "paper_id": "icml2025-coalition",
+      "result_id": "coalition-singleton",
+      "step_ids": [
+        "coalition-singleton-step-1"
+      ],
+      "english_step_ids": [
+        "coalition-singleton-step-1"
+      ],
+      "reviewed": "read_only_normalized_statement_local_definitions_zh_en_steps_shared_links_and_machine_scope",
+      "finding": "Qualify φ_γ({i})=φ_g(i); no zero baseline or γ-specific optimizer hypothesis is needed.",
+      "current_shared_proof_ids": [],
+      "current_declarations": [
+        "PaperCoalition.corollary37",
+        "Harsanyi.Coalition.paper_singleton"
+      ],
+      "implementation_status": "not_started_phase2_not_authorized_to_write_yet"
+    },
+    {
+      "paper_id": "icml2025-coalition",
+      "result_id": "coalition-efficiency",
+      "step_ids": [
+        "coalition-efficiency-step-1",
+        "coalition-efficiency-step-2"
+      ],
+      "english_step_ids": [
+        "coalition-efficiency-step-1",
+        "coalition-efficiency-step-2"
+      ],
+      "reviewed": "read_only_normalized_statement_local_definitions_zh_en_steps_shared_links_and_machine_scope",
+      "finding": "Already has g(N)−b; keep nonempty coalition domain and split-dependent φ_γ distinct from φ_g individual values.",
+      "current_shared_proof_ids": [],
+      "current_declarations": [
+        "PaperCoalition.corollary38_nonempty",
+        "Harsanyi.Coalition.paper_efficiency"
+      ],
+      "implementation_status": "not_started_phase2_not_authorized_to_write_yet"
+    },
+    {
+      "paper_id": "icml2025-coalition",
+      "result_id": "coalition-anonymity",
+      "step_ids": [
+        "coalition-anonymity-step-1",
+        "coalition-anonymity-step-2",
+        "coalition-anonymity-step-3"
+      ],
+      "english_step_ids": [
+        "coalition-anonymity-step-1",
+        "coalition-anonymity-step-2",
+        "coalition-anonymity-step-3"
+      ],
+      "reviewed": "read_only_normalized_statement_local_definitions_zh_en_steps_shared_links_and_machine_scope",
+      "finding": "Display transport of a fixed decomposition separately from independent optimizer selection. Symmetric total g does not select a symmetric optimum automatically.",
+      "current_shared_proof_ids": [],
+      "current_declarations": [],
+      "implementation_status": "not_started_phase2_not_authorized_to_write_yet"
+    },
+    {
+      "paper_id": "icml2025-coalition",
+      "result_id": "coalition-symmetry-alpha",
+      "step_ids": [
+        "coalition-symmetry-alpha-step-1",
+        "coalition-symmetry-alpha-step-2",
+        "coalition-symmetry-alpha-step-3"
+      ],
+      "english_step_ids": [
+        "coalition-symmetry-alpha-step-1",
+        "coalition-symmetry-alpha-step-2",
+        "coalition-symmetry-alpha-step-3"
+      ],
+      "reviewed": "read_only_normalized_statement_local_definitions_zh_en_steps_shared_links_and_machine_scope",
+      "finding": "Keep actual optimal split counterexample and its shared optimality argument; qualify φ by chosen split. Do not merge with ordinary Shapley symmetry.",
+      "current_shared_proof_ids": [],
+      "current_declarations": [],
+      "implementation_status": "not_started_phase2_not_authorized_to_write_yet"
+    },
+    {
+      "paper_id": "icml2025-coalition",
+      "result_id": "coalition-symmetry-beta",
+      "step_ids": [
+        "coalition-symmetry-beta-step-1",
+        "coalition-symmetry-beta-step-2",
+        "coalition-symmetry-beta-step-3"
+      ],
+      "english_step_ids": [
+        "coalition-symmetry-beta-step-1",
+        "coalition-symmetry-beta-step-2",
+        "coalition-symmetry-beta-step-3"
+      ],
+      "reviewed": "read_only_normalized_statement_local_definitions_zh_en_steps_shared_links_and_machine_scope",
+      "finding": "Same optimal witness can be one shared counterexample proof with a separate β-premise adaptation; preserve source paired-subset conditions.",
+      "current_shared_proof_ids": [],
+      "current_declarations": [],
+      "implementation_status": "not_started_phase2_not_authorized_to_write_yet"
+    },
+    {
+      "paper_id": "icml2025-coalition",
+      "result_id": "coalition-additivity",
+      "step_ids": [
+        "coalition-additivity-step-1",
+        "coalition-additivity-step-2",
+        "coalition-additivity-step-3"
+      ],
+      "english_step_ids": [
+        "coalition-additivity-step-1",
+        "coalition-additivity-step-2",
+        "coalition-additivity-step-3"
+      ],
+      "reviewed": "read_only_normalized_statement_local_definitions_zh_en_steps_shared_links_and_machine_scope",
+      "finding": "Ordinary total-game additivity does not imply compatibility of independently chosen component splits. Exact optimum counterexample remains a separate target.",
+      "current_shared_proof_ids": [],
+      "current_declarations": [],
+      "implementation_status": "not_started_phase2_not_authorized_to_write_yet"
+    },
+    {
+      "paper_id": "icml2025-coalition",
+      "result_id": "coalition-dummy",
+      "step_ids": [
+        "coalition-dummy-step-1",
+        "coalition-dummy-step-2"
+      ],
+      "english_step_ids": [
+        "coalition-dummy-step-1",
+        "coalition-dummy-step-2"
+      ],
+      "reviewed": "read_only_normalized_statement_local_definitions_zh_en_steps_shared_links_and_machine_scope",
+      "finding": "Displayed-definition counterexample is not globally optimal and therefore only refutes that exact scope; stronger optimum-selection version remains unresolved.",
+      "current_shared_proof_ids": [],
+      "current_declarations": [],
+      "implementation_status": "not_started_phase2_not_authorized_to_write_yet"
+    },
+    {
+      "paper_id": "icml2025-coalition",
+      "result_id": "coalition-shapley-coefficient",
+      "step_ids": [
+        "coalition-shapley-coefficient-step-1"
+      ],
+      "english_step_ids": [
+        "coalition-shapley-coefficient-step-1"
+      ],
+      "reviewed": "read_only_normalized_statement_local_definitions_zh_en_steps_shared_links_and_machine_scope",
+      "finding": "Numeric binomial identity is valid; actual current Lean scope is only equivalent factorial predecessor kernel. Candidate grouping adapter can use DifficultyCounting.superset_context_count plus fiberwise sums; do not upgrade current role without implementing it.",
+      "current_shared_proof_ids": [],
+      "current_declarations": [
+        "Harsanyi.Coalition.shapley_kernel"
+      ],
+      "implementation_status": "not_started_phase2_not_authorized_to_write_yet"
+    },
+    {
+      "paper_id": "icml2025-coalition",
+      "result_id": "coalition-banzhaf-coefficient",
+      "step_ids": [
+        "coalition-banzhaf-coefficient-step-1"
+      ],
+      "english_step_ids": [
+        "coalition-banzhaf-coefficient-step-1"
+      ],
+      "reviewed": "read_only_normalized_statement_local_definitions_zh_en_steps_shared_links_and_machine_scope",
+      "finding": "Exact signed superset identity includes L=∅ and L=R. Candidate shared finite counting core is related to, but different from, Shapley factorial kernel.",
+      "current_shared_proof_ids": [],
+      "current_declarations": [
+        "Harsanyi.Coalition.signed_half_superset"
+      ],
+      "implementation_status": "not_started_phase2_not_authorized_to_write_yet"
+    },
+    {
+      "paper_id": "icml2025-coalition",
+      "result_id": "coalition-matching",
+      "step_ids": [
+        "coalition-matching-step-1"
+      ],
+      "english_step_ids": [
+        "coalition-matching-step-1"
+      ],
+      "reviewed": "read_only_normalized_statement_local_definitions_zh_en_steps_shared_links_and_machine_scope",
+      "finding": "Same arbitrary-baseline AND/OR reconstruction as the general shared theorem, without Layerwise special o∅=0; use common generic proof with distinct instances.",
+      "current_shared_proof_ids": [
+        "proof-finite-mobius-reconstruction-v2",
+        "shared-harsanyi-or-reconstruction"
+      ],
+      "current_declarations": [
+        "Harsanyi.Coalition.universal_matching"
+      ],
+      "implementation_status": "not_started_phase2_not_authorized_to_write_yet"
+    },
+    {
+      "paper_id": "icml2025-coalition",
+      "result_id": "coalition-R",
+      "step_ids": [
+        "coalition-R-step-1"
+      ],
+      "english_step_ids": [
+        "coalition-R-step-1"
+      ],
+      "reviewed": "read_only_normalized_statement_local_definitions_zh_en_steps_shared_links_and_machine_scope",
+      "finding": "R depends on chosen S and split; canonical R_γ,S(i). In step use numerator p and denominator d, not scalar a conflicting with component a.",
+      "current_shared_proof_ids": [],
+      "current_declarations": [
+        "Harsanyi.Coalition.r_bounds"
+      ],
+      "implementation_status": "not_started_phase2_not_authorized_to_write_yet"
+    },
+    {
+      "paper_id": "icml2025-coalition",
+      "result_id": "coalition-Rprime",
+      "step_ids": [
+        "coalition-Rprime-step-1"
+      ],
+      "english_step_ids": [
+        "coalition-Rprime-step-1"
+      ],
+      "reviewed": "read_only_normalized_statement_local_definitions_zh_en_steps_shared_links_and_machine_scope",
+      "finding": "Canonical Rprime_γ,S(i), i∈S and positive denominator need visible binding. Reuse scalar 0≤p≤d⇒0≤p/d≤1 only after proving index inclusion.",
+      "current_shared_proof_ids": [],
+      "current_declarations": [
+        "Harsanyi.Coalition.rprime_bounds"
+      ],
+      "implementation_status": "not_started_phase2_not_authorized_to_write_yet"
+    },
+    {
+      "paper_id": "icml2025-coalition",
+      "result_id": "coalition-Q",
+      "step_ids": [
+        "coalition-Q-step-1"
+      ],
+      "english_step_ids": [
+        "coalition-Q-step-1"
+      ],
+      "reviewed": "read_only_normalized_statement_local_definitions_zh_en_steps_shared_links_and_machine_scope",
+      "finding": "Canonical Q_γ(S), nonempty/positive denominator domain kept. Partial-coverage count is a separate adaptation to the same scalar ratio bound.",
+      "current_shared_proof_ids": [],
+      "current_declarations": [
+        "Harsanyi.Coalition.q_bounds"
+      ],
+      "implementation_status": "not_started_phase2_not_authorized_to_write_yet"
+    },
+    {
+      "paper_id": "icml2025-coalition",
+      "result_id": "coalition-toy-support",
+      "step_ids": [
+        "coalition-toy-support-step-1"
+      ],
+      "english_step_ids": [
+        "coalition-toy-support-step-1"
+      ],
+      "reviewed": "read_only_normalized_statement_local_definitions_zh_en_steps_shared_links_and_machine_scope",
+      "finding": "Normalized conclusion should be I_g, not I_f for an input function. Zero input baseline and fixed binary x are actual conditions; repeated supports are grouped. Reuse finite pure-AND distribution and linearity, not unique learned A/O support.",
+      "current_shared_proof_ids": [
+        "shared-harsanyi-interaction-distribution",
+        "shared-harsanyi-linearity"
+      ],
+      "current_declarations": [
+        "Harsanyi.Coalition.toy_and_support"
+      ],
+      "implementation_status": "not_started_phase2_not_authorized_to_write_yet"
+    },
+    {
+      "paper_id": "icml2025-coalition",
+      "result_id": "coalition-illustration",
+      "step_ids": [],
+      "english_step_ids": [],
+      "reviewed": "read_only_normalized_statement_local_definitions_zh_en_steps_shared_links_and_machine_scope",
+      "finding": "Illustration indexes chosen split and coalition; no new proof target or hidden optimizer uniqueness.",
+      "current_shared_proof_ids": [],
+      "current_declarations": [],
+      "implementation_status": "not_started_phase2_not_authorized_to_write_yet"
+    },
+    {
+      "paper_id": "icml2025-coalition",
+      "result_id": "coalition-logit",
+      "step_ids": [],
+      "english_step_ids": [],
+      "reviewed": "read_only_normalized_statement_local_definitions_zh_en_steps_shared_links_and_machine_scope",
+      "finding": "Definition/source-only entry: future normalization must qualify scalar model output and log-odds domain without inventing a theorem.",
+      "current_shared_proof_ids": [],
+      "current_declarations": [],
+      "implementation_status": "not_started_phase2_not_authorized_to_write_yet"
+    },
+    {
+      "paper_id": "icml2025-coalition",
+      "result_id": "coalition-shapley-definition",
+      "step_ids": [],
+      "english_step_ids": [],
+      "reviewed": "read_only_normalized_statement_local_definitions_zh_en_steps_shared_links_and_machine_scope",
+      "finding": "Definition/source-only entry: connect to existing factorial Shapley authority and centered-baseline cancellation; external uniqueness is a separate cited scope.",
+      "current_shared_proof_ids": [],
+      "current_declarations": [],
+      "implementation_status": "not_started_phase2_not_authorized_to_write_yet"
+    },
+    {
+      "paper_id": "icml2025-coalition",
+      "result_id": "coalition-and-or-definition",
+      "step_ids": [],
+      "english_step_ids": [],
+      "reviewed": "read_only_normalized_statement_local_definitions_zh_en_steps_shared_links_and_machine_scope",
+      "finding": "Definition/source-only entry: same g_and/g_or instances and γ with arbitrary output baseline; preserve source variables in original mappings.",
+      "current_shared_proof_ids": [],
+      "current_declarations": [],
+      "implementation_status": "not_started_phase2_not_authorized_to_write_yet"
+    },
+    {
+      "paper_id": "icml2025-coalition",
+      "result_id": "coalition-sparse-optimization",
+      "step_ids": [],
+      "english_step_ids": [],
+      "reviewed": "read_only_normalized_statement_local_definitions_zh_en_steps_shared_links_and_machine_scope",
+      "finding": "Source-method entry: selection rule/optimizer assumptions stay distinct from exact reconstruction and symmetry/additivity properties.",
+      "current_shared_proof_ids": [],
+      "current_declarations": [],
+      "implementation_status": "not_started_phase2_not_authorized_to_write_yet"
+    },
+    {
+      "paper_id": "icml2025-coalition",
+      "result_id": "coalition-conflict-definition",
+      "step_ids": [],
+      "english_step_ids": [],
+      "reviewed": "read_only_normalized_statement_local_definitions_zh_en_steps_shared_links_and_machine_scope",
+      "finding": "Definition/source-only entry: bind partition, individual versus coalition objects and γ; no mathematical evidence upgrade from terminology.",
+      "current_shared_proof_ids": [],
+      "current_declarations": [],
+      "implementation_status": "not_started_phase2_not_authorized_to_write_yet"
+    },
+    {
+      "paper_id": "icml2025-coalition",
+      "result_id": "coalition-banzhaf-definition",
+      "step_ids": [],
+      "english_step_ids": [],
+      "reviewed": "read_only_normalized_statement_local_definitions_zh_en_steps_shared_links_and_machine_scope",
+      "finding": "Definition/source-only entry: uniform finite-subset averaging, not factorial Shapley or STI weights.",
+      "current_shared_proof_ids": [],
+      "current_declarations": [],
+      "implementation_status": "not_started_phase2_not_authorized_to_write_yet"
+    },
+    {
+      "paper_id": "icml2025-coalition",
+      "result_id": "coalition-coalition-definition",
+      "step_ids": [],
+      "english_step_ids": [],
+      "reviewed": "read_only_normalized_statement_local_definitions_zh_en_steps_shared_links_and_machine_scope",
+      "finding": "Definition/source-only entry: explicit nonempty coalition domain; no new empty attribution convention.",
+      "current_shared_proof_ids": [],
+      "current_declarations": [],
+      "implementation_status": "not_started_phase2_not_authorized_to_write_yet"
+    },
+    {
+      "paper_id": "icml2025-coalition",
+      "result_id": "coalition-empirical",
+      "step_ids": [],
+      "english_step_ids": [],
+      "reviewed": "read_only_normalized_statement_local_definitions_zh_en_steps_shared_links_and_machine_scope",
+      "finding": "Empirical/source-only entry: qualify per-sample games and chosen decompositions where metrics are averaged, no theorem from measured faithfulness.",
+      "current_shared_proof_ids": [],
+      "current_declarations": [],
+      "implementation_status": "not_started_phase2_not_authorized_to_write_yet"
+    },
+    {
+      "paper_id": "icml2025-coalition",
+      "result_id": "coalition-external-comparison",
+      "step_ids": [],
+      "english_step_ids": [],
+      "reviewed": "read_only_normalized_statement_local_definitions_zh_en_steps_shared_links_and_machine_scope",
+      "finding": "External table/source-only entry: exact formal citations and assumptions must be resolved individually; no extra proof from a checkmark.",
+      "current_shared_proof_ids": [],
+      "current_declarations": [],
+      "implementation_status": "not_started_phase2_not_authorized_to_write_yet"
+    }
+  ],
+  "priority_findings": [
+    "centered V aliases must normalize to g0 while original V is preserved",
+    "Layerwise current actual adapters/body are present; not_delivered is not in current content and any stale flag must be traced in derived data",
+    "Coalition exact numeric binomial identity still has only a factorial predecessor-kernel actual declaration",
+    "Layerwise and Coalition many original_definition mappings contain canonical variables; source-author notation and normalized definition need separate fields",
+    "Layerwise across-input g_l,b_l,A_l,Ω_l require explicit x indices when placed under expectation",
+    "Shared candidates must distinguish raw g, centered g0, arbitrary split, fixed/remasked split and optimizer selection"
+  ]
+}

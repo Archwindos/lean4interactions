@@ -1,0 +1,70 @@
+To this end, we only need to prove K(T |x) also satisfies the property in Eq. (21). Specifically, given
+an input sample x ∈ Rn , let us consider the Taylor expansion of the network output v(xS ) of an
+arbitrarily masked sample xS , which is expanded at x∅ = b = [b1 , · · · , bn ]⊤ . Then, we have
+
+                                      ∞             ∞                                                n
+                                      X             X             1     ∂ π1 +···+πn v               Y
+          ∀ S ⊆ N, v(xS ) =                   ···           Qn            π1        πn                   ((xS )i − bi )πi   (22)
+                                      π1 =0         πn =0     i=1 πi ! ∂x1 · · · ∂xn        x=x∅ i=1
+
+
+
+where bi denotes the baseline value to mask the input variable xi .
+
+According to the definition of the masked sample xS , we have that all variables in S keep unchanged
+and other variables are masked to the baseline value. That is, ∀ i ∈ S, (xS )i = xi ; ∀ i ̸∈ S,
+(xS )i = bi . Hence, we obtain ∀i ̸∈ S, ((xS )i − bi )πi = 0 if πi > 0. Then, among all Taylor
+expansion terms, only terms corresponding to degrees π in the set PS = {[π1 , · · · , πn ]⊤ | ∀i ∈
+S, πi ∈ N; ∀i ̸∈ S, πi = 0} may not be zero (we consider the value of ((xS )i − bi )πi to be always
+equal to 1 if πi = 0). Therefore, Eq. (22) can be re-written as
+
+                                                X             1       ∂ π1 +···+πn v               Y
+                 ∀ S ⊆ N,        v(xS ) =                Qn             π1        πn                   (xi − bi )πi .       (23)
+                                               π∈PS         i=1 πi ! ∂x1 · · · ∂xn         x=x∅ i∈S
+
+
+
+We find that the set PS can be divided into multiple disjoint sets as PS = ∪T ⊆S QT , where
+QT = {[π1 , · · · , πn ]⊤ | ∀i ∈ T, πi ∈ N+ ; ∀i ̸∈ T, πi = 0}. Then, we can further write Eq. (23) as
+
+                               X X                   1     ∂ π1 +···+πn v                  Y
+   ∀ S ⊆ N,      v(xS ) =                     Qn             π1        πn                      (xi − bi )πi
+                               T ⊆S π∈QT         i=1 πi ! ∂x1 · · · ∂xn             x=x∅ i∈T
+                                X
+                           =             K(T |x) + v(x∅ ). // according to the definition of K(T |x) in Eq. (20)
+                               ∅̸=T ⊆S
+                                                                                                 (24)
+The last step is obtained as follows. When T = ∅, QT only has one element π = [0, · · · , 0]⊤ , which
+corresponds to the term v(x∅ ).
+
+Thus, K(T |x) satisfies the property in Eq. (21), and this means I(T |x) = K(T |x) =
+       Qn 1      ∂ π1 +···+πn v                  πi
+P                               Q
+  π∈QT      πi ! ∂xπ1 ···∂xπn     ni∈T (xi − bi ) .
+           i=1         1                 x=x∅
+
+
+
+
+Then, let us continue the proof of Eq. (6) and Eq. (7).
+
+
+
+
+Proof. Given a specific sample x̂, let us consider the following function defined in Eq. (6) and
+Eq. (7).
+                                                            X
+                                                f (x) =                      wT JT (x),                                     (25)
+                                                                      T ⊆N
+
+
+where the scalar weight wT    =                             I(T |x              =   x̂),   and the function JT (x)           =
+         1    ∂ π1 +···+πn v                                               πi
+P                            Q
+  π∈QT
+         Qn
+                 πi ! ∂xπ 1    πn                    i∈T (xi      − bi ) /wT .
+           i=1          1 ···∂xn  x=x∅
+
+
+                                                                      19

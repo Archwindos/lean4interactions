@@ -1,0 +1,2424 @@
+{
+  "status": "passed",
+  "scope": "complete_symbol_record_and_source_mapping_accounting_not_mathematical_equivalence",
+  "source_symbol_records": 393,
+  "canonical_concepts": 279,
+  "inputs": [
+    {
+      "path": "corpus/public/reader/cvpr2023-sparse-concepts/symbols.json",
+      "sha256": "9014c90e95fedab799fd7d282509332304a221766c00a6af921778834b315501"
+    },
+    {
+      "path": "corpus/public/reader/iclr2024-sparse/symbols.json",
+      "sha256": "aa8cbf0c200f147103a7898d47e2c0d974d0bc965046dafc13e9a29bba55094b"
+    },
+    {
+      "path": "corpus/public/reader/iclr2024-generalizable/symbols.json",
+      "sha256": "98069432881b3fe4842dc43a75ee9f425e0069c049bfefcd169d27ca0b454a65"
+    },
+    {
+      "path": "corpus/public/reader/icml2023-harsanyinet/symbols.json",
+      "sha256": "d4154758eaa51f4a7b3d515a7b176a21c0b002f9511d2804efb5b083a0a479d6"
+    },
+    {
+      "path": "corpus/public/reader/icml2024-layerwise/symbols.json",
+      "sha256": "50b8df06368f6e0ceda6c2958826a0b6738c31a78e167c5a9044a6b3eaf03acc"
+    },
+    {
+      "path": "corpus/public/reader/icml2025-coalition/symbols.json",
+      "sha256": "aaa406c6c24725a0de87feacc8c012c87918ac2bed165f182881bb84ffbd7dee"
+    },
+    {
+      "path": "corpus/public/reader/neurips2021-robustness/symbols.json",
+      "sha256": "852b461762b466ee3aae434c483e41c41d623dff28d58c54f5046f472a5478ce"
+    },
+    {
+      "path": "corpus/public/reader/neurips2024-dynamics/symbols.json",
+      "sha256": "234059f8064259d03aa39388b95ca4d6e8a8eecfafa8a2b6cc4a30ea14280db5"
+    },
+    {
+      "path": "corpus/public/reader/icml2022-transformation/symbols.json",
+      "sha256": "3860752cf1af6d96c4c46c4d569f63424e93b6429c08012d373a21c7cf615846"
+    },
+    {
+      "path": "corpus/public/reader/icml2023-bayesian/symbols.json",
+      "sha256": "bccba1ebe98b1e9c80001e70466b1d3533237944125c804cbd630bebcd028bb2"
+    },
+    {
+      "path": "corpus/public/reader/neurips2023-difficulty/symbols.json",
+      "sha256": "d3a39a077d1405b9e259fdcaddcd4d64d261bceb89033a934340247b5fea0398"
+    },
+    {
+      "path": "corpus/public/reader/icml2023-decoder/symbols.json",
+      "sha256": "d822c2b7c5a36ed691c83f20cb7ca8fff526baba2e6749cc7917a28785f4726e"
+    }
+  ],
+  "full_content_sha256": "3c032784146e468753cfb5d7a9a69d6f3610226e3eb4961f0b3647e88090944e",
+  "input_hashes": {
+    "reader/check_symbols.py": "f14e7ebb182632e045ca3184352340b70fa6117321ea503241d430e655662384",
+    "reader/input_manifest.py": "a4325ebaf25c5cc2a581adc2b01ca857a5b2a76fe76e73b0277ca464a58984cd",
+    "reader/evidence_paths.py": "0691f8e89020fc256f3edc079070201580230a187a849f674ddc6314341046ae",
+    "reader/data/full-content.json": "3c032784146e468753cfb5d7a9a69d6f3610226e3eb4961f0b3647e88090944e"
+  },
+  "records": [
+    {
+      "paper_id": "cvpr2023-sparse-concepts",
+      "symbol_id": "sym-model",
+      "canonical_id": "sym-model",
+      "source_mapping_count": 1
+    },
+    {
+      "paper_id": "cvpr2023-sparse-concepts",
+      "symbol_id": "sym-input",
+      "canonical_id": "sym-input",
+      "source_mapping_count": 1
+    },
+    {
+      "paper_id": "cvpr2023-sparse-concepts",
+      "symbol_id": "sym-universe",
+      "canonical_id": "sym-universe",
+      "source_mapping_count": 1
+    },
+    {
+      "paper_id": "cvpr2023-sparse-concepts",
+      "symbol_id": "sym-cvpr-input-dimension",
+      "canonical_id": "sym-variable-count",
+      "source_mapping_count": 1
+    },
+    {
+      "paper_id": "cvpr2023-sparse-concepts",
+      "symbol_id": "sym-coalition",
+      "canonical_id": "sym-coalition",
+      "source_mapping_count": 1
+    },
+    {
+      "paper_id": "cvpr2023-sparse-concepts",
+      "symbol_id": "sym-input-baseline",
+      "canonical_id": "sym-input-baseline",
+      "source_mapping_count": 1
+    },
+    {
+      "paper_id": "cvpr2023-sparse-concepts",
+      "symbol_id": "sym-mask",
+      "canonical_id": "sym-mask",
+      "source_mapping_count": 1
+    },
+    {
+      "paper_id": "cvpr2023-sparse-concepts",
+      "symbol_id": "sym-game",
+      "canonical_id": "sym-game",
+      "source_mapping_count": 1
+    },
+    {
+      "paper_id": "cvpr2023-sparse-concepts",
+      "symbol_id": "sym-output-baseline",
+      "canonical_id": "sym-output-baseline",
+      "source_mapping_count": 1
+    },
+    {
+      "paper_id": "cvpr2023-sparse-concepts",
+      "symbol_id": "sym-centered-game",
+      "canonical_id": "sym-centered-game",
+      "source_mapping_count": 1
+    },
+    {
+      "paper_id": "cvpr2023-sparse-concepts",
+      "symbol_id": "sym-and-interaction",
+      "canonical_id": "sym-and-interaction",
+      "source_mapping_count": 1
+    },
+    {
+      "paper_id": "cvpr2023-sparse-concepts",
+      "symbol_id": "sym-order",
+      "canonical_id": "sym-order",
+      "source_mapping_count": 1
+    },
+    {
+      "paper_id": "cvpr2023-sparse-concepts",
+      "symbol_id": "sym-cvpr-source-state",
+      "canonical_id": "sym-cvpr-source-state",
+      "source_mapping_count": 1
+    },
+    {
+      "paper_id": "cvpr2023-sparse-concepts",
+      "symbol_id": "sym-cvpr-trigger",
+      "canonical_id": "sym-cvpr-trigger",
+      "source_mapping_count": 1
+    },
+    {
+      "paper_id": "cvpr2023-sparse-concepts",
+      "symbol_id": "sym-cvpr-causal-output",
+      "canonical_id": "sym-cvpr-causal-output",
+      "source_mapping_count": 1
+    },
+    {
+      "paper_id": "cvpr2023-sparse-concepts",
+      "symbol_id": "sym-cvpr-pattern-set",
+      "canonical_id": "sym-cvpr-pattern-set",
+      "source_mapping_count": 1
+    },
+    {
+      "paper_id": "cvpr2023-sparse-concepts",
+      "symbol_id": "sym-cvpr-alternative-coefficients",
+      "canonical_id": "sym-cvpr-alternative-coefficients",
+      "source_mapping_count": 1
+    },
+    {
+      "paper_id": "cvpr2023-sparse-concepts",
+      "symbol_id": "sym-cvpr-context-interaction",
+      "canonical_id": "sym-cvpr-context-interaction",
+      "source_mapping_count": 1
+    },
+    {
+      "paper_id": "cvpr2023-sparse-concepts",
+      "symbol_id": "sym-cvpr-permutation",
+      "canonical_id": "sym-cvpr-permutation",
+      "source_mapping_count": 1
+    },
+    {
+      "paper_id": "cvpr2023-sparse-concepts",
+      "symbol_id": "sym-cvpr-pure-and-coefficient",
+      "canonical_id": "sym-cvpr-pure-and-coefficient",
+      "source_mapping_count": 1
+    },
+    {
+      "paper_id": "cvpr2023-sparse-concepts",
+      "symbol_id": "sym-cvpr-marginal",
+      "canonical_id": "sym-cvpr-marginal",
+      "source_mapping_count": 1
+    },
+    {
+      "paper_id": "cvpr2023-sparse-concepts",
+      "symbol_id": "sym-shapley",
+      "canonical_id": "sym-shapley",
+      "source_mapping_count": 1
+    },
+    {
+      "paper_id": "cvpr2023-sparse-concepts",
+      "symbol_id": "sym-cvpr-sii",
+      "canonical_id": "sym-cvpr-sii",
+      "source_mapping_count": 1
+    },
+    {
+      "paper_id": "cvpr2023-sparse-concepts",
+      "symbol_id": "sym-cvpr-sti",
+      "canonical_id": "sym-cvpr-sti",
+      "source_mapping_count": 1
+    },
+    {
+      "paper_id": "cvpr2023-sparse-concepts",
+      "symbol_id": "sym-cvpr-sti-order",
+      "canonical_id": "sym-cvpr-sti-order",
+      "source_mapping_count": 1
+    },
+    {
+      "paper_id": "cvpr2023-sparse-concepts",
+      "symbol_id": "sym-cvpr-beta",
+      "canonical_id": "sym-cvpr-beta",
+      "source_mapping_count": 1
+    },
+    {
+      "paper_id": "cvpr2023-sparse-concepts",
+      "symbol_id": "sym-cvpr-coefficient-weight",
+      "canonical_id": "sym-cvpr-coefficient-weight",
+      "source_mapping_count": 1
+    },
+    {
+      "paper_id": "cvpr2023-sparse-concepts",
+      "symbol_id": "sym-cvpr-support-budget",
+      "canonical_id": "sym-cvpr-support-budget",
+      "source_mapping_count": 1
+    },
+    {
+      "paper_id": "cvpr2023-sparse-concepts",
+      "symbol_id": "sym-cvpr-lasso-penalty",
+      "canonical_id": "sym-cvpr-lasso-penalty",
+      "source_mapping_count": 1
+    },
+    {
+      "paper_id": "cvpr2023-sparse-concepts",
+      "symbol_id": "sym-cvpr-unfaithfulness",
+      "canonical_id": "sym-cvpr-unfaithfulness",
+      "source_mapping_count": 1
+    },
+    {
+      "paper_id": "cvpr2023-sparse-concepts",
+      "symbol_id": "sym-cvpr-residual",
+      "canonical_id": "sym-cvpr-residual",
+      "source_mapping_count": 1
+    },
+    {
+      "paper_id": "cvpr2023-sparse-concepts",
+      "symbol_id": "sym-cvpr-explained-ratio",
+      "canonical_id": "sym-cvpr-explained-ratio",
+      "source_mapping_count": 1
+    },
+    {
+      "paper_id": "cvpr2023-sparse-concepts",
+      "symbol_id": "sym-cvpr-aog",
+      "canonical_id": "sym-cvpr-aog",
+      "source_mapping_count": 1
+    },
+    {
+      "paper_id": "cvpr2023-sparse-concepts",
+      "symbol_id": "sym-cvpr-node-set",
+      "canonical_id": "sym-cvpr-node-set",
+      "source_mapping_count": 1
+    },
+    {
+      "paper_id": "cvpr2023-sparse-concepts",
+      "symbol_id": "sym-cvpr-shared-node",
+      "canonical_id": "sym-cvpr-shared-node",
+      "source_mapping_count": 1
+    },
+    {
+      "paper_id": "cvpr2023-sparse-concepts",
+      "symbol_id": "sym-cvpr-children",
+      "canonical_id": "sym-cvpr-children",
+      "source_mapping_count": 1
+    },
+    {
+      "paper_id": "cvpr2023-sparse-concepts",
+      "symbol_id": "sym-cvpr-description-length",
+      "canonical_id": "sym-cvpr-description-length",
+      "source_mapping_count": 1
+    },
+    {
+      "paper_id": "cvpr2023-sparse-concepts",
+      "symbol_id": "sym-cvpr-mdl-efficiency",
+      "canonical_id": "sym-cvpr-mdl-efficiency",
+      "source_mapping_count": 1
+    },
+    {
+      "paper_id": "cvpr2023-sparse-concepts",
+      "symbol_id": "sym-cvpr-baseline-radius",
+      "canonical_id": "sym-cvpr-baseline-radius",
+      "source_mapping_count": 1
+    },
+    {
+      "paper_id": "cvpr2023-sparse-concepts",
+      "symbol_id": "sym-cvpr-label-threshold",
+      "canonical_id": "sym-cvpr-label-threshold",
+      "source_mapping_count": 1
+    },
+    {
+      "paper_id": "iclr2024-sparse",
+      "symbol_id": "model-output",
+      "canonical_id": "sym-model",
+      "source_mapping_count": 1
+    },
+    {
+      "paper_id": "iclr2024-sparse",
+      "symbol_id": "fixed-input",
+      "canonical_id": "sym-input",
+      "source_mapping_count": 1
+    },
+    {
+      "paper_id": "iclr2024-sparse",
+      "symbol_id": "input-baseline-vector",
+      "canonical_id": "sym-input-baseline",
+      "source_mapping_count": 1
+    },
+    {
+      "paper_id": "iclr2024-sparse",
+      "symbol_id": "input-coordinate",
+      "canonical_id": "sym-input-coordinate",
+      "source_mapping_count": 1
+    },
+    {
+      "paper_id": "iclr2024-sparse",
+      "symbol_id": "variable-universe",
+      "canonical_id": "sym-universe",
+      "source_mapping_count": 1
+    },
+    {
+      "paper_id": "iclr2024-sparse",
+      "symbol_id": "variable-count",
+      "canonical_id": "sym-variable-count",
+      "source_mapping_count": 1
+    },
+    {
+      "paper_id": "iclr2024-sparse",
+      "symbol_id": "coalition",
+      "canonical_id": "sym-coalition",
+      "source_mapping_count": 1
+    },
+    {
+      "paper_id": "iclr2024-sparse",
+      "symbol_id": "masked-input",
+      "canonical_id": "sym-mask",
+      "source_mapping_count": 1
+    },
+    {
+      "paper_id": "iclr2024-sparse",
+      "symbol_id": "masked-game",
+      "canonical_id": "sym-game",
+      "source_mapping_count": 1
+    },
+    {
+      "paper_id": "iclr2024-sparse",
+      "symbol_id": "output-baseline",
+      "canonical_id": "sym-output-baseline",
+      "source_mapping_count": 1
+    },
+    {
+      "paper_id": "iclr2024-sparse",
+      "symbol_id": "centered-game",
+      "canonical_id": "sym-centered-game",
+      "source_mapping_count": 1
+    },
+    {
+      "paper_id": "iclr2024-sparse",
+      "symbol_id": "interaction-raw",
+      "canonical_id": "sym-and-interaction",
+      "source_mapping_count": 1
+    },
+    {
+      "paper_id": "iclr2024-sparse",
+      "symbol_id": "interaction-centered",
+      "canonical_id": "sym-centered-interaction",
+      "source_mapping_count": 1
+    },
+    {
+      "paper_id": "iclr2024-sparse",
+      "symbol_id": "interaction-order",
+      "canonical_id": "sym-order",
+      "source_mapping_count": 1
+    },
+    {
+      "paper_id": "iclr2024-sparse",
+      "symbol_id": "cutoff-order",
+      "canonical_id": "cutoff-order",
+      "source_mapping_count": 1
+    },
+    {
+      "paper_id": "iclr2024-sparse",
+      "symbol_id": "mask-order",
+      "canonical_id": "mask-order",
+      "source_mapping_count": 1
+    },
+    {
+      "paper_id": "iclr2024-sparse",
+      "symbol_id": "interaction-order-index",
+      "canonical_id": "interaction-order-index",
+      "source_mapping_count": 1
+    },
+    {
+      "paper_id": "iclr2024-sparse",
+      "symbol_id": "mean-output",
+      "canonical_id": "mean-output",
+      "source_mapping_count": 1
+    },
+    {
+      "paper_id": "iclr2024-sparse",
+      "symbol_id": "robustness-exponent",
+      "canonical_id": "robustness-exponent",
+      "source_mapping_count": 1
+    },
+    {
+      "paper_id": "iclr2024-sparse",
+      "symbol_id": "order-total",
+      "canonical_id": "order-total",
+      "source_mapping_count": 1
+    },
+    {
+      "paper_id": "iclr2024-sparse",
+      "symbol_id": "cancellation-ratio",
+      "canonical_id": "cancellation-ratio",
+      "source_mapping_count": 1
+    },
+    {
+      "paper_id": "iclr2024-sparse",
+      "symbol_id": "salient-count",
+      "canonical_id": "salient-count",
+      "source_mapping_count": 1
+    },
+    {
+      "paper_id": "iclr2024-sparse",
+      "symbol_id": "salience-threshold",
+      "canonical_id": "salience-threshold",
+      "source_mapping_count": 1
+    },
+    {
+      "paper_id": "iclr2024-sparse",
+      "symbol_id": "normalized-interaction",
+      "canonical_id": "normalized-interaction",
+      "source_mapping_count": 1
+    },
+    {
+      "paper_id": "iclr2024-sparse",
+      "symbol_id": "mean-strength",
+      "canonical_id": "mean-strength",
+      "source_mapping_count": 1
+    },
+    {
+      "paper_id": "iclr2024-sparse",
+      "symbol_id": "leading-coefficient",
+      "canonical_id": "leading-coefficient",
+      "source_mapping_count": 1
+    },
+    {
+      "paper_id": "iclr2024-sparse",
+      "symbol_id": "leading-aggregate",
+      "canonical_id": "leading-aggregate",
+      "source_mapping_count": 1
+    },
+    {
+      "paper_id": "iclr2024-sparse",
+      "symbol_id": "growth-offset",
+      "canonical_id": "growth-offset",
+      "source_mapping_count": 1
+    },
+    {
+      "paper_id": "iclr2024-sparse",
+      "symbol_id": "nary-degree",
+      "canonical_id": "nary-degree",
+      "source_mapping_count": 1
+    },
+    {
+      "paper_id": "iclr2024-sparse",
+      "symbol_id": "nary-digit",
+      "canonical_id": "nary-digit",
+      "source_mapping_count": 1
+    },
+    {
+      "paper_id": "iclr2024-sparse",
+      "symbol_id": "nary-aggregate",
+      "canonical_id": "nary-aggregate",
+      "source_mapping_count": 1
+    },
+    {
+      "paper_id": "iclr2024-sparse",
+      "symbol_id": "witness-order",
+      "canonical_id": "witness-order",
+      "source_mapping_count": 1
+    },
+    {
+      "paper_id": "iclr2024-sparse",
+      "symbol_id": "taylor-multiindex",
+      "canonical_id": "taylor-multiindex",
+      "source_mapping_count": 1
+    },
+    {
+      "paper_id": "iclr2024-sparse",
+      "symbol_id": "taylor-support-class",
+      "canonical_id": "taylor-support-class",
+      "source_mapping_count": 1
+    },
+    {
+      "paper_id": "iclr2024-sparse",
+      "symbol_id": "taylor-restricted-class",
+      "canonical_id": "taylor-restricted-class",
+      "source_mapping_count": 1
+    },
+    {
+      "paper_id": "iclr2024-sparse",
+      "symbol_id": "mixed-derivative",
+      "canonical_id": "mixed-derivative",
+      "source_mapping_count": 1
+    },
+    {
+      "paper_id": "iclr2024-sparse",
+      "symbol_id": "marginal-difference",
+      "canonical_id": "sym-cvpr-marginal",
+      "source_mapping_count": 1
+    },
+    {
+      "paper_id": "iclr2024-sparse",
+      "symbol_id": "shapley-value",
+      "canonical_id": "sym-shapley",
+      "source_mapping_count": 1
+    },
+    {
+      "paper_id": "iclr2024-sparse",
+      "symbol_id": "shapley-interaction",
+      "canonical_id": "sym-cvpr-sii",
+      "source_mapping_count": 1
+    },
+    {
+      "paper_id": "iclr2024-sparse",
+      "symbol_id": "shapley-taylor",
+      "canonical_id": "sym-cvpr-sti",
+      "source_mapping_count": 1
+    },
+    {
+      "paper_id": "iclr2024-sparse",
+      "symbol_id": "beta-function",
+      "canonical_id": "sym-cvpr-beta",
+      "source_mapping_count": 1
+    },
+    {
+      "paper_id": "iclr2024-sparse",
+      "symbol_id": "or-interaction",
+      "canonical_id": "sym-centered-or-interaction",
+      "source_mapping_count": 1
+    },
+    {
+      "paper_id": "iclr2024-sparse",
+      "symbol_id": "and-component",
+      "canonical_id": "and-component",
+      "source_mapping_count": 1
+    },
+    {
+      "paper_id": "iclr2024-sparse",
+      "symbol_id": "or-component",
+      "canonical_id": "or-component",
+      "source_mapping_count": 1
+    },
+    {
+      "paper_id": "iclr2024-sparse",
+      "symbol_id": "decomposition-parameter",
+      "canonical_id": "decomposition-parameter",
+      "source_mapping_count": 1
+    },
+    {
+      "paper_id": "iclr2024-sparse",
+      "symbol_id": "output-noise",
+      "canonical_id": "output-noise",
+      "source_mapping_count": 1
+    },
+    {
+      "paper_id": "iclr2024-sparse",
+      "symbol_id": "noise-bound",
+      "canonical_id": "noise-bound",
+      "source_mapping_count": 1
+    },
+    {
+      "paper_id": "iclr2024-sparse",
+      "symbol_id": "output-filter-threshold",
+      "canonical_id": "output-filter-threshold",
+      "source_mapping_count": 1
+    },
+    {
+      "paper_id": "iclr2024-sparse",
+      "symbol_id": "sample-count",
+      "canonical_id": "sample-count",
+      "source_mapping_count": 1
+    },
+    {
+      "paper_id": "iclr2024-sparse",
+      "symbol_id": "sym-coordinate-direction",
+      "canonical_id": "sym-coordinate-direction",
+      "source_mapping_count": 1
+    },
+    {
+      "paper_id": "iclr2024-sparse",
+      "symbol_id": "sym-coordinate-step",
+      "canonical_id": "sym-coordinate-step",
+      "source_mapping_count": 1
+    },
+    {
+      "paper_id": "iclr2024-sparse",
+      "symbol_id": "sym-coordinate-partial",
+      "canonical_id": "sym-coordinate-partial",
+      "source_mapping_count": 1
+    },
+    {
+      "paper_id": "iclr2024-sparse",
+      "symbol_id": "sym-rectangular-difference",
+      "canonical_id": "sym-rectangular-difference",
+      "source_mapping_count": 1
+    },
+    {
+      "paper_id": "iclr2024-generalizable",
+      "symbol_id": "sym-model",
+      "canonical_id": "sym-model",
+      "source_mapping_count": 1
+    },
+    {
+      "paper_id": "iclr2024-generalizable",
+      "symbol_id": "sym-input",
+      "canonical_id": "sym-input",
+      "source_mapping_count": 1
+    },
+    {
+      "paper_id": "iclr2024-generalizable",
+      "symbol_id": "sym-input-coordinate",
+      "canonical_id": "sym-input-coordinate",
+      "source_mapping_count": 1
+    },
+    {
+      "paper_id": "iclr2024-generalizable",
+      "symbol_id": "sym-input-baseline",
+      "canonical_id": "sym-input-baseline",
+      "source_mapping_count": 1
+    },
+    {
+      "paper_id": "iclr2024-generalizable",
+      "symbol_id": "sym-universe",
+      "canonical_id": "sym-universe",
+      "source_mapping_count": 1
+    },
+    {
+      "paper_id": "iclr2024-generalizable",
+      "symbol_id": "sym-variable-count",
+      "canonical_id": "sym-variable-count",
+      "source_mapping_count": 1
+    },
+    {
+      "paper_id": "iclr2024-generalizable",
+      "symbol_id": "sym-coalition",
+      "canonical_id": "sym-coalition",
+      "source_mapping_count": 1
+    },
+    {
+      "paper_id": "iclr2024-generalizable",
+      "symbol_id": "sym-mask",
+      "canonical_id": "sym-mask",
+      "source_mapping_count": 1
+    },
+    {
+      "paper_id": "iclr2024-generalizable",
+      "symbol_id": "sym-game",
+      "canonical_id": "sym-game",
+      "source_mapping_count": 1
+    },
+    {
+      "paper_id": "iclr2024-generalizable",
+      "symbol_id": "sym-output-baseline",
+      "canonical_id": "sym-output-baseline",
+      "source_mapping_count": 1
+    },
+    {
+      "paper_id": "iclr2024-generalizable",
+      "symbol_id": "sym-centered-game",
+      "canonical_id": "sym-centered-game",
+      "source_mapping_count": 1
+    },
+    {
+      "paper_id": "iclr2024-generalizable",
+      "symbol_id": "sym-and-output",
+      "canonical_id": "sym-and-output",
+      "source_mapping_count": 1
+    },
+    {
+      "paper_id": "iclr2024-generalizable",
+      "symbol_id": "sym-or-output",
+      "canonical_id": "sym-or-output",
+      "source_mapping_count": 1
+    },
+    {
+      "paper_id": "iclr2024-generalizable",
+      "symbol_id": "sym-and-interaction",
+      "canonical_id": "sym-and-interaction",
+      "source_mapping_count": 1
+    },
+    {
+      "paper_id": "iclr2024-generalizable",
+      "symbol_id": "sym-and-component-interaction",
+      "canonical_id": "sym-and-component-interaction",
+      "source_mapping_count": 1
+    },
+    {
+      "paper_id": "iclr2024-generalizable",
+      "symbol_id": "sym-or-interaction",
+      "canonical_id": "sym-or-interaction",
+      "source_mapping_count": 1
+    },
+    {
+      "paper_id": "iclr2024-generalizable",
+      "symbol_id": "sym-or-component-interaction",
+      "canonical_id": "sym-or-component-interaction",
+      "source_mapping_count": 1
+    },
+    {
+      "paper_id": "iclr2024-generalizable",
+      "symbol_id": "sym-conditional-interaction",
+      "canonical_id": "sym-conditional-interaction",
+      "source_mapping_count": 1
+    },
+    {
+      "paper_id": "iclr2024-generalizable",
+      "symbol_id": "sym-order",
+      "canonical_id": "sym-order",
+      "source_mapping_count": 1
+    },
+    {
+      "paper_id": "iclr2024-generalizable",
+      "symbol_id": "sym-threshold",
+      "canonical_id": "sym-threshold",
+      "source_mapping_count": 1
+    },
+    {
+      "paper_id": "iclr2024-generalizable",
+      "symbol_id": "sym-significant-set",
+      "canonical_id": "sym-significant-set",
+      "source_mapping_count": 1
+    },
+    {
+      "paper_id": "iclr2024-generalizable",
+      "symbol_id": "sym-model-count",
+      "canonical_id": "sym-model-count",
+      "source_mapping_count": 1
+    },
+    {
+      "paper_id": "iclr2024-generalizable",
+      "symbol_id": "sym-shared-interactions",
+      "canonical_id": "sym-shared-interactions",
+      "source_mapping_count": 1
+    },
+    {
+      "paper_id": "iclr2024-generalizable",
+      "symbol_id": "sym-transferability",
+      "canonical_id": "sym-transferability",
+      "source_mapping_count": 1
+    },
+    {
+      "paper_id": "iclr2024-generalizable",
+      "symbol_id": "sym-decomposition-parameter",
+      "canonical_id": "sym-decomposition-parameter",
+      "source_mapping_count": 1
+    },
+    {
+      "paper_id": "iclr2024-generalizable",
+      "symbol_id": "sym-common-gamma",
+      "canonical_id": "sym-common-gamma",
+      "source_mapping_count": 1
+    },
+    {
+      "paper_id": "iclr2024-generalizable",
+      "symbol_id": "sym-individual-gamma",
+      "canonical_id": "sym-individual-gamma",
+      "source_mapping_count": 1
+    },
+    {
+      "paper_id": "iclr2024-generalizable",
+      "symbol_id": "sym-gamma-threshold",
+      "canonical_id": "sym-gamma-threshold",
+      "source_mapping_count": 1
+    },
+    {
+      "paper_id": "iclr2024-generalizable",
+      "symbol_id": "sym-interaction-matrix",
+      "canonical_id": "sym-interaction-matrix",
+      "source_mapping_count": 1
+    },
+    {
+      "paper_id": "iclr2024-generalizable",
+      "symbol_id": "sym-rowmax",
+      "canonical_id": "sym-rowmax",
+      "source_mapping_count": 1
+    },
+    {
+      "paper_id": "iclr2024-generalizable",
+      "symbol_id": "sym-entrywise-l1",
+      "canonical_id": "sym-entrywise-l1",
+      "source_mapping_count": 1
+    },
+    {
+      "paper_id": "iclr2024-generalizable",
+      "symbol_id": "sym-redundancy-weight",
+      "canonical_id": "sym-redundancy-weight",
+      "source_mapping_count": 1
+    },
+    {
+      "paper_id": "iclr2024-generalizable",
+      "symbol_id": "sym-gaussian-noise",
+      "canonical_id": "sym-gaussian-noise",
+      "source_mapping_count": 1
+    },
+    {
+      "paper_id": "iclr2024-generalizable",
+      "symbol_id": "sym-noise-variance",
+      "canonical_id": "sym-noise-variance",
+      "source_mapping_count": 1
+    },
+    {
+      "paper_id": "iclr2024-generalizable",
+      "symbol_id": "sym-learned-error",
+      "canonical_id": "sym-learned-error",
+      "source_mapping_count": 1
+    },
+    {
+      "paper_id": "iclr2024-generalizable",
+      "symbol_id": "sym-error-threshold",
+      "canonical_id": "sym-error-threshold",
+      "source_mapping_count": 1
+    },
+    {
+      "paper_id": "iclr2024-generalizable",
+      "symbol_id": "sym-shapley",
+      "canonical_id": "sym-shapley",
+      "source_mapping_count": 1
+    },
+    {
+      "paper_id": "iclr2024-generalizable",
+      "symbol_id": "sym-matching-precision",
+      "canonical_id": "sym-matching-precision",
+      "source_mapping_count": 1
+    },
+    {
+      "paper_id": "icml2023-harsanyinet",
+      "symbol_id": "hnet-raw-game",
+      "canonical_id": "sym-game",
+      "source_mapping_count": 1
+    },
+    {
+      "paper_id": "icml2023-harsanyinet",
+      "symbol_id": "hnet-output-baseline",
+      "canonical_id": "sym-output-baseline",
+      "source_mapping_count": 1
+    },
+    {
+      "paper_id": "icml2023-harsanyinet",
+      "symbol_id": "hnet-centered-game",
+      "canonical_id": "sym-centered-game",
+      "source_mapping_count": 1
+    },
+    {
+      "paper_id": "icml2023-harsanyinet",
+      "symbol_id": "hnet-centered-dividend",
+      "canonical_id": "sym-centered-interaction",
+      "source_mapping_count": 1
+    },
+    {
+      "paper_id": "icml2023-harsanyinet",
+      "symbol_id": "hnet-input-baseline",
+      "canonical_id": "sym-input-baseline",
+      "source_mapping_count": 1
+    },
+    {
+      "paper_id": "icml2023-harsanyinet",
+      "symbol_id": "hnet-unit-game",
+      "canonical_id": "hnet-unit-game",
+      "source_mapping_count": 1
+    },
+    {
+      "paper_id": "icml2023-harsanyinet",
+      "symbol_id": "hnet-unit-dividend",
+      "canonical_id": "hnet-unit-dividend",
+      "source_mapping_count": 1
+    },
+    {
+      "paper_id": "icml2023-harsanyinet",
+      "symbol_id": "hnet-receptive-field",
+      "canonical_id": "hnet-receptive-field",
+      "source_mapping_count": 1
+    },
+    {
+      "paper_id": "icml2023-harsanyinet",
+      "symbol_id": "hnet-child-set",
+      "canonical_id": "hnet-child-set",
+      "source_mapping_count": 1
+    },
+    {
+      "paper_id": "icml2023-harsanyinet",
+      "symbol_id": "hnet-shapley",
+      "canonical_id": "sym-shapley",
+      "source_mapping_count": 1
+    },
+    {
+      "paper_id": "icml2023-harsanyinet",
+      "symbol_id": "hnet-selected-universe",
+      "canonical_id": "hnet-selected-universe",
+      "source_mapping_count": 1
+    },
+    {
+      "paper_id": "icml2023-harsanyinet",
+      "symbol_id": "hnet-reduced-field",
+      "canonical_id": "hnet-reduced-field",
+      "source_mapping_count": 1
+    },
+    {
+      "paper_id": "icml2023-harsanyinet",
+      "symbol_id": "hnet-unit-count",
+      "canonical_id": "hnet-unit-count",
+      "source_mapping_count": 1
+    },
+    {
+      "paper_id": "icml2023-harsanyinet",
+      "symbol_id": "hnet-channel-gate",
+      "canonical_id": "hnet-channel-gate",
+      "source_mapping_count": 1
+    },
+    {
+      "paper_id": "icml2023-harsanyinet",
+      "symbol_id": "hnet-population",
+      "canonical_id": "sym-universe",
+      "source_mapping_count": 1
+    },
+    {
+      "paper_id": "icml2023-harsanyinet",
+      "symbol_id": "hnet-input",
+      "canonical_id": "sym-input",
+      "source_mapping_count": 1
+    },
+    {
+      "paper_id": "icml2023-harsanyinet",
+      "symbol_id": "hnet-mask",
+      "canonical_id": "sym-mask",
+      "source_mapping_count": 1
+    },
+    {
+      "paper_id": "icml2023-harsanyinet",
+      "symbol_id": "hnet-unit-output",
+      "canonical_id": "hnet-unit-output",
+      "source_mapping_count": 1
+    },
+    {
+      "paper_id": "icml2023-harsanyinet",
+      "symbol_id": "hnet-linear-value",
+      "canonical_id": "hnet-linear-value",
+      "source_mapping_count": 1
+    },
+    {
+      "paper_id": "icml2023-harsanyinet",
+      "symbol_id": "hnet-gated-value",
+      "canonical_id": "hnet-gated-value",
+      "source_mapping_count": 1
+    },
+    {
+      "paper_id": "icml2023-harsanyinet",
+      "symbol_id": "hnet-kernel-weight",
+      "canonical_id": "hnet-kernel-weight",
+      "source_mapping_count": 2
+    },
+    {
+      "paper_id": "icml2023-harsanyinet",
+      "symbol_id": "hnet-readout-weight",
+      "canonical_id": "hnet-readout-weight",
+      "source_mapping_count": 1
+    },
+    {
+      "paper_id": "icml2023-harsanyinet",
+      "symbol_id": "hnet-selection-matrix",
+      "canonical_id": "hnet-selection-matrix",
+      "source_mapping_count": 1
+    },
+    {
+      "paper_id": "icml2023-harsanyinet",
+      "symbol_id": "hnet-selection-parameter",
+      "canonical_id": "hnet-selection-parameter",
+      "source_mapping_count": 1
+    },
+    {
+      "paper_id": "icml2023-harsanyinet",
+      "symbol_id": "hnet-smooth-scale",
+      "canonical_id": "hnet-smooth-scale",
+      "source_mapping_count": 1
+    },
+    {
+      "paper_id": "icml2023-harsanyinet",
+      "symbol_id": "hnet-ste-scale",
+      "canonical_id": "hnet-ste-scale",
+      "source_mapping_count": 1
+    },
+    {
+      "paper_id": "icml2023-harsanyinet",
+      "symbol_id": "hnet-retained-family",
+      "canonical_id": "hnet-retained-family",
+      "source_mapping_count": 1
+    },
+    {
+      "paper_id": "icml2023-harsanyinet",
+      "symbol_id": "hnet-omitted-tail",
+      "canonical_id": "hnet-omitted-tail",
+      "source_mapping_count": 1
+    },
+    {
+      "paper_id": "icml2023-harsanyinet",
+      "symbol_id": "hnet-channel-count",
+      "canonical_id": "hnet-channel-count",
+      "source_mapping_count": 1
+    },
+    {
+      "paper_id": "icml2023-harsanyinet",
+      "symbol_id": "hnet-spatial-position",
+      "canonical_id": "hnet-spatial-position",
+      "source_mapping_count": 1
+    },
+    {
+      "paper_id": "icml2023-harsanyinet",
+      "symbol_id": "hnet-layer-width",
+      "canonical_id": "hnet-layer-width",
+      "source_mapping_count": 1
+    },
+    {
+      "paper_id": "icml2023-harsanyinet",
+      "symbol_id": "hnet-rmse",
+      "canonical_id": "hnet-rmse",
+      "source_mapping_count": 1
+    },
+    {
+      "paper_id": "icml2024-layerwise",
+      "symbol_id": "model-output",
+      "canonical_id": "sym-model",
+      "source_mapping_count": 1
+    },
+    {
+      "paper_id": "icml2024-layerwise",
+      "symbol_id": "masked-input",
+      "canonical_id": "sym-mask",
+      "source_mapping_count": 1
+    },
+    {
+      "paper_id": "icml2024-layerwise",
+      "symbol_id": "set-game",
+      "canonical_id": "sym-game",
+      "source_mapping_count": 1
+    },
+    {
+      "paper_id": "icml2024-layerwise",
+      "symbol_id": "output-baseline",
+      "canonical_id": "sym-output-baseline",
+      "source_mapping_count": 1
+    },
+    {
+      "paper_id": "icml2024-layerwise",
+      "symbol_id": "input-baseline",
+      "canonical_id": "sym-input-baseline",
+      "source_mapping_count": 1
+    },
+    {
+      "paper_id": "icml2024-layerwise",
+      "symbol_id": "layer-and-component",
+      "canonical_id": "sym-and-output",
+      "source_mapping_count": 1
+    },
+    {
+      "paper_id": "icml2024-layerwise",
+      "symbol_id": "layer-or-component",
+      "canonical_id": "sym-or-output",
+      "source_mapping_count": 1
+    },
+    {
+      "paper_id": "icml2024-layerwise",
+      "symbol_id": "layer-gamma",
+      "canonical_id": "sym-decomposition-parameter",
+      "source_mapping_count": 1
+    },
+    {
+      "paper_id": "icml2024-layerwise",
+      "symbol_id": "layer-and-interaction",
+      "canonical_id": "sym-and-component-interaction",
+      "source_mapping_count": 1
+    },
+    {
+      "paper_id": "icml2024-layerwise",
+      "symbol_id": "layer-or-interaction",
+      "canonical_id": "sym-or-component-interaction",
+      "source_mapping_count": 1
+    },
+    {
+      "paper_id": "icml2024-layerwise",
+      "symbol_id": "layer-conditional-game",
+      "canonical_id": "sym-conditional-interaction",
+      "source_mapping_count": 1
+    },
+    {
+      "paper_id": "icml2024-layerwise",
+      "symbol_id": "layer-probe",
+      "canonical_id": "layer-probe",
+      "source_mapping_count": 1
+    },
+    {
+      "paper_id": "icml2024-layerwise",
+      "symbol_id": "layer-feature",
+      "canonical_id": "layer-feature",
+      "source_mapping_count": 1
+    },
+    {
+      "paper_id": "icml2024-layerwise",
+      "symbol_id": "layer-probe-intercept",
+      "canonical_id": "layer-probe-intercept",
+      "source_mapping_count": 1
+    },
+    {
+      "paper_id": "icml2024-layerwise",
+      "symbol_id": "layer-residual",
+      "canonical_id": "layer-residual",
+      "source_mapping_count": 1
+    },
+    {
+      "paper_id": "icml2024-layerwise",
+      "symbol_id": "layer-residual-bound",
+      "canonical_id": "layer-residual-bound",
+      "source_mapping_count": 1
+    },
+    {
+      "paper_id": "icml2024-layerwise",
+      "symbol_id": "layer-order",
+      "canonical_id": "sym-order",
+      "source_mapping_count": 1
+    },
+    {
+      "paper_id": "icml2024-layerwise",
+      "symbol_id": "layer-threshold",
+      "canonical_id": "layer-threshold",
+      "source_mapping_count": 1
+    },
+    {
+      "paper_id": "icml2024-layerwise",
+      "symbol_id": "layer-salient-family",
+      "canonical_id": "layer-salient-family",
+      "source_mapping_count": 1
+    },
+    {
+      "paper_id": "icml2024-layerwise",
+      "symbol_id": "layer-shared",
+      "canonical_id": "layer-shared",
+      "source_mapping_count": 1
+    },
+    {
+      "paper_id": "icml2024-layerwise",
+      "symbol_id": "layer-all-strength",
+      "canonical_id": "layer-all-strength",
+      "source_mapping_count": 1
+    },
+    {
+      "paper_id": "icml2024-layerwise",
+      "symbol_id": "layer-overlap",
+      "canonical_id": "layer-overlap",
+      "source_mapping_count": 1
+    },
+    {
+      "paper_id": "icml2024-layerwise",
+      "symbol_id": "layer-forget-new",
+      "canonical_id": "layer-forget-new",
+      "source_mapping_count": 1
+    },
+    {
+      "paper_id": "icml2024-layerwise",
+      "symbol_id": "layer-normalization",
+      "canonical_id": "layer-normalization",
+      "source_mapping_count": 1
+    },
+    {
+      "paper_id": "icml2024-layerwise",
+      "symbol_id": "layer-ratios",
+      "canonical_id": "layer-ratios",
+      "source_mapping_count": 1
+    },
+    {
+      "paper_id": "icml2024-layerwise",
+      "symbol_id": "layer-iou",
+      "canonical_id": "layer-iou",
+      "source_mapping_count": 1
+    },
+    {
+      "paper_id": "icml2024-layerwise",
+      "symbol_id": "layer-noise",
+      "canonical_id": "layer-noise",
+      "source_mapping_count": 1
+    },
+    {
+      "paper_id": "icml2024-layerwise",
+      "symbol_id": "layer-moments",
+      "canonical_id": "layer-moments",
+      "source_mapping_count": 1
+    },
+    {
+      "paper_id": "icml2024-layerwise",
+      "symbol_id": "layer-stability",
+      "canonical_id": "layer-stability",
+      "source_mapping_count": 1
+    },
+    {
+      "paper_id": "icml2024-layerwise",
+      "symbol_id": "layer-noise-ratio",
+      "canonical_id": "layer-noise-ratio",
+      "source_mapping_count": 1
+    },
+    {
+      "paper_id": "icml2024-layerwise",
+      "symbol_id": "layer-shapley",
+      "canonical_id": "sym-shapley",
+      "source_mapping_count": 1
+    },
+    {
+      "paper_id": "icml2025-coalition",
+      "symbol_id": "sym-coalition-and-component",
+      "canonical_id": "sym-and-output",
+      "source_mapping_count": 1
+    },
+    {
+      "paper_id": "icml2025-coalition",
+      "symbol_id": "sym-coalition-or-component",
+      "canonical_id": "sym-or-output",
+      "source_mapping_count": 1
+    },
+    {
+      "paper_id": "icml2025-coalition",
+      "symbol_id": "sym-coalition-decomposition-parameter",
+      "canonical_id": "sym-decomposition-parameter",
+      "source_mapping_count": 1
+    },
+    {
+      "paper_id": "icml2025-coalition",
+      "symbol_id": "sym-coalition-and-effect",
+      "canonical_id": "sym-and-component-interaction",
+      "source_mapping_count": 1
+    },
+    {
+      "paper_id": "icml2025-coalition",
+      "symbol_id": "sym-coalition-or-effect",
+      "canonical_id": "sym-or-component-interaction",
+      "source_mapping_count": 1
+    },
+    {
+      "paper_id": "icml2025-coalition",
+      "symbol_id": "sym-coalition-total-effect",
+      "canonical_id": "sym-coalition-total-effect",
+      "source_mapping_count": 1
+    },
+    {
+      "paper_id": "icml2025-coalition",
+      "symbol_id": "sym-coalition-attribution",
+      "canonical_id": "sym-coalition-attribution",
+      "source_mapping_count": 1
+    },
+    {
+      "paper_id": "icml2025-coalition",
+      "symbol_id": "sym-coalition-shapley",
+      "canonical_id": "sym-shapley",
+      "source_mapping_count": 1
+    },
+    {
+      "paper_id": "icml2025-coalition",
+      "symbol_id": "sym-coalition-banzhaf",
+      "canonical_id": "sym-coalition-banzhaf",
+      "source_mapping_count": 1
+    },
+    {
+      "paper_id": "icml2025-coalition",
+      "symbol_id": "sym-coalition-uniform-share",
+      "canonical_id": "sym-coalition-uniform-share",
+      "source_mapping_count": 1
+    },
+    {
+      "paper_id": "icml2025-coalition",
+      "symbol_id": "sym-coalition-individual-conflict",
+      "canonical_id": "sym-coalition-individual-conflict",
+      "source_mapping_count": 1
+    },
+    {
+      "paper_id": "icml2025-coalition",
+      "symbol_id": "sym-coalition-total-conflict",
+      "canonical_id": "sym-coalition-total-conflict",
+      "source_mapping_count": 1
+    },
+    {
+      "paper_id": "icml2025-coalition",
+      "symbol_id": "sym-coalition-metric-R",
+      "canonical_id": "sym-coalition-metric-R",
+      "source_mapping_count": 1
+    },
+    {
+      "paper_id": "icml2025-coalition",
+      "symbol_id": "sym-coalition-metric-Rprime",
+      "canonical_id": "sym-coalition-metric-Rprime",
+      "source_mapping_count": 1
+    },
+    {
+      "paper_id": "icml2025-coalition",
+      "symbol_id": "sym-coalition-metric-Q",
+      "canonical_id": "sym-coalition-metric-Q",
+      "source_mapping_count": 1
+    },
+    {
+      "paper_id": "icml2025-coalition",
+      "symbol_id": "sym-model",
+      "canonical_id": "sym-model",
+      "source_mapping_count": 1
+    },
+    {
+      "paper_id": "icml2025-coalition",
+      "symbol_id": "sym-game",
+      "canonical_id": "sym-game",
+      "source_mapping_count": 1
+    },
+    {
+      "paper_id": "icml2025-coalition",
+      "symbol_id": "sym-output-baseline",
+      "canonical_id": "sym-output-baseline",
+      "source_mapping_count": 1
+    },
+    {
+      "paper_id": "icml2025-coalition",
+      "symbol_id": "sym-universe",
+      "canonical_id": "sym-universe",
+      "source_mapping_count": 1
+    },
+    {
+      "paper_id": "icml2025-coalition",
+      "symbol_id": "sym-mask",
+      "canonical_id": "sym-mask",
+      "source_mapping_count": 1
+    },
+    {
+      "paper_id": "neurips2021-robustness",
+      "symbol_id": "model-output",
+      "canonical_id": "sym-model",
+      "source_mapping_count": 1
+    },
+    {
+      "paper_id": "neurips2021-robustness",
+      "symbol_id": "fixed-input",
+      "canonical_id": "sym-input",
+      "source_mapping_count": 1
+    },
+    {
+      "paper_id": "neurips2021-robustness",
+      "symbol_id": "input-baseline-vector",
+      "canonical_id": "sym-input-baseline",
+      "source_mapping_count": 1
+    },
+    {
+      "paper_id": "neurips2021-robustness",
+      "symbol_id": "variable-universe",
+      "canonical_id": "sym-universe",
+      "source_mapping_count": 1
+    },
+    {
+      "paper_id": "neurips2021-robustness",
+      "symbol_id": "variable-count",
+      "canonical_id": "sym-variable-count",
+      "source_mapping_count": 1
+    },
+    {
+      "paper_id": "neurips2021-robustness",
+      "symbol_id": "coalition",
+      "canonical_id": "sym-coalition",
+      "source_mapping_count": 1
+    },
+    {
+      "paper_id": "neurips2021-robustness",
+      "symbol_id": "masked-input",
+      "canonical_id": "sym-mask",
+      "source_mapping_count": 1
+    },
+    {
+      "paper_id": "neurips2021-robustness",
+      "symbol_id": "masked-game",
+      "canonical_id": "sym-game",
+      "source_mapping_count": 1
+    },
+    {
+      "paper_id": "neurips2021-robustness",
+      "symbol_id": "output-baseline",
+      "canonical_id": "sym-output-baseline",
+      "source_mapping_count": 1
+    },
+    {
+      "paper_id": "neurips2021-robustness",
+      "symbol_id": "centered-game",
+      "canonical_id": "sym-centered-game",
+      "source_mapping_count": 1
+    },
+    {
+      "paper_id": "neurips2021-robustness",
+      "symbol_id": "robustness-context-order",
+      "canonical_id": "robustness-context-order",
+      "source_mapping_count": 1
+    },
+    {
+      "paper_id": "neurips2021-robustness",
+      "symbol_id": "robustness-pair-difference",
+      "canonical_id": "robustness-pair-difference",
+      "source_mapping_count": 1
+    },
+    {
+      "paper_id": "neurips2021-robustness",
+      "symbol_id": "robustness-order-interaction",
+      "canonical_id": "robustness-order-interaction",
+      "source_mapping_count": 1
+    },
+    {
+      "paper_id": "neurips2021-robustness",
+      "symbol_id": "robustness-order-attribution",
+      "canonical_id": "robustness-order-attribution",
+      "source_mapping_count": 1
+    },
+    {
+      "paper_id": "neurips2021-robustness",
+      "symbol_id": "shapley-value",
+      "canonical_id": "sym-shapley",
+      "source_mapping_count": 1
+    },
+    {
+      "paper_id": "neurips2021-robustness",
+      "symbol_id": "shapley-interaction",
+      "canonical_id": "sym-cvpr-sii",
+      "source_mapping_count": 1
+    },
+    {
+      "paper_id": "neurips2021-robustness",
+      "symbol_id": "robustness-entropy-game",
+      "canonical_id": "robustness-entropy-game",
+      "source_mapping_count": 1
+    },
+    {
+      "paper_id": "neurips2021-robustness",
+      "symbol_id": "robustness-label",
+      "canonical_id": "robustness-label",
+      "source_mapping_count": 1
+    },
+    {
+      "paper_id": "neurips2021-robustness",
+      "symbol_id": "robustness-context-random-variable",
+      "canonical_id": "robustness-context-random-variable",
+      "source_mapping_count": 1
+    },
+    {
+      "paper_id": "neurips2021-robustness",
+      "symbol_id": "robustness-conditional-mi",
+      "canonical_id": "robustness-conditional-mi",
+      "source_mapping_count": 1
+    },
+    {
+      "paper_id": "neurips2021-robustness",
+      "symbol_id": "robustness-co-information",
+      "canonical_id": "robustness-co-information",
+      "source_mapping_count": 1
+    },
+    {
+      "paper_id": "neurips2021-robustness",
+      "symbol_id": "robustness-interaction-attack-change",
+      "canonical_id": "robustness-interaction-attack-change",
+      "source_mapping_count": 1
+    },
+    {
+      "paper_id": "neurips2021-robustness",
+      "symbol_id": "robustness-disentanglement",
+      "canonical_id": "robustness-disentanglement",
+      "source_mapping_count": 1
+    },
+    {
+      "paper_id": "neurips2021-robustness",
+      "symbol_id": "robustness-retention-size",
+      "canonical_id": "robustness-retention-size",
+      "source_mapping_count": 1
+    },
+    {
+      "paper_id": "neurips2021-robustness",
+      "symbol_id": "robustness-dropout-rate",
+      "canonical_id": "robustness-dropout-rate",
+      "source_mapping_count": 1
+    },
+    {
+      "paper_id": "neurips2024-dynamics",
+      "symbol_id": "model-output",
+      "canonical_id": "sym-model",
+      "source_mapping_count": 1
+    },
+    {
+      "paper_id": "neurips2024-dynamics",
+      "symbol_id": "masked-input",
+      "canonical_id": "sym-mask",
+      "source_mapping_count": 1
+    },
+    {
+      "paper_id": "neurips2024-dynamics",
+      "symbol_id": "set-game",
+      "canonical_id": "sym-game",
+      "source_mapping_count": 1
+    },
+    {
+      "paper_id": "neurips2024-dynamics",
+      "symbol_id": "output-baseline",
+      "canonical_id": "sym-output-baseline",
+      "source_mapping_count": 1
+    },
+    {
+      "paper_id": "neurips2024-dynamics",
+      "symbol_id": "input-baseline",
+      "canonical_id": "sym-input-baseline",
+      "source_mapping_count": 1
+    },
+    {
+      "paper_id": "neurips2024-dynamics",
+      "symbol_id": "dyn-centered-game",
+      "canonical_id": "sym-centered-game",
+      "source_mapping_count": 1
+    },
+    {
+      "paper_id": "neurips2024-dynamics",
+      "symbol_id": "dyn-dividend",
+      "canonical_id": "sym-and-interaction",
+      "source_mapping_count": 1
+    },
+    {
+      "paper_id": "neurips2024-dynamics",
+      "symbol_id": "dyn-and-component",
+      "canonical_id": "sym-and-output",
+      "source_mapping_count": 1
+    },
+    {
+      "paper_id": "neurips2024-dynamics",
+      "symbol_id": "dyn-or-component",
+      "canonical_id": "sym-or-output",
+      "source_mapping_count": 1
+    },
+    {
+      "paper_id": "neurips2024-dynamics",
+      "symbol_id": "dyn-gamma",
+      "canonical_id": "sym-decomposition-parameter",
+      "source_mapping_count": 1
+    },
+    {
+      "paper_id": "neurips2024-dynamics",
+      "symbol_id": "dyn-and-dividend",
+      "canonical_id": "sym-and-component-interaction",
+      "source_mapping_count": 1
+    },
+    {
+      "paper_id": "neurips2024-dynamics",
+      "symbol_id": "dyn-or-dividend",
+      "canonical_id": "sym-or-component-interaction",
+      "source_mapping_count": 1
+    },
+    {
+      "paper_id": "neurips2024-dynamics",
+      "symbol_id": "dyn-trigger",
+      "canonical_id": "dyn-trigger",
+      "source_mapping_count": 1
+    },
+    {
+      "paper_id": "neurips2024-dynamics",
+      "symbol_id": "dyn-weight",
+      "canonical_id": "dyn-weight",
+      "source_mapping_count": 1
+    },
+    {
+      "paper_id": "neurips2024-dynamics",
+      "symbol_id": "dyn-true-weight",
+      "canonical_id": "dyn-true-weight",
+      "source_mapping_count": 1
+    },
+    {
+      "paper_id": "neurips2024-dynamics",
+      "symbol_id": "dyn-noise",
+      "canonical_id": "dyn-noise",
+      "source_mapping_count": 1
+    },
+    {
+      "paper_id": "neurips2024-dynamics",
+      "symbol_id": "dyn-noise-variance",
+      "canonical_id": "dyn-noise-variance",
+      "source_mapping_count": 1
+    },
+    {
+      "paper_id": "neurips2024-dynamics",
+      "symbol_id": "dyn-design",
+      "canonical_id": "dyn-design",
+      "source_mapping_count": 1
+    },
+    {
+      "paper_id": "neurips2024-dynamics",
+      "symbol_id": "dyn-transfer",
+      "canonical_id": "dyn-transfer",
+      "source_mapping_count": 1
+    },
+    {
+      "paper_id": "neurips2024-dynamics",
+      "symbol_id": "dyn-order",
+      "canonical_id": "sym-order",
+      "source_mapping_count": 1
+    },
+    {
+      "paper_id": "neurips2024-dynamics",
+      "symbol_id": "dyn-taylor-index",
+      "canonical_id": "dyn-taylor-index",
+      "source_mapping_count": 1
+    },
+    {
+      "paper_id": "neurips2024-dynamics",
+      "symbol_id": "dyn-threshold",
+      "canonical_id": "dyn-threshold",
+      "source_mapping_count": 1
+    },
+    {
+      "paper_id": "neurips2024-dynamics",
+      "symbol_id": "dyn-salient",
+      "canonical_id": "dyn-salient",
+      "source_mapping_count": 1
+    },
+    {
+      "paper_id": "neurips2024-dynamics",
+      "symbol_id": "dyn-strength",
+      "canonical_id": "dyn-strength",
+      "source_mapping_count": 1
+    },
+    {
+      "paper_id": "neurips2024-dynamics",
+      "symbol_id": "dyn-cutoff-order",
+      "canonical_id": "dyn-cutoff-order",
+      "source_mapping_count": 1
+    },
+    {
+      "paper_id": "icml2022-transformation",
+      "symbol_id": "transformation-input",
+      "canonical_id": "transformation-input",
+      "source_mapping_count": 1
+    },
+    {
+      "paper_id": "icml2022-transformation",
+      "symbol_id": "transformation-label",
+      "canonical_id": "transformation-label",
+      "source_mapping_count": 1
+    },
+    {
+      "paper_id": "icml2022-transformation",
+      "symbol_id": "transformation-prediction",
+      "canonical_id": "transformation-prediction",
+      "source_mapping_count": 1
+    },
+    {
+      "paper_id": "icml2022-transformation",
+      "symbol_id": "transformation-feature",
+      "canonical_id": "transformation-feature",
+      "source_mapping_count": 1
+    },
+    {
+      "paper_id": "icml2022-transformation",
+      "symbol_id": "transformation-gate-state",
+      "canonical_id": "transformation-gate-state",
+      "source_mapping_count": 1
+    },
+    {
+      "paper_id": "icml2022-transformation",
+      "symbol_id": "transformation-gate-variable",
+      "canonical_id": "transformation-gate-variable",
+      "source_mapping_count": 1
+    },
+    {
+      "paper_id": "icml2022-transformation",
+      "symbol_id": "transformation-all-gates",
+      "canonical_id": "transformation-all-gates",
+      "source_mapping_count": 1
+    },
+    {
+      "paper_id": "icml2022-transformation",
+      "symbol_id": "transformation-entropy",
+      "canonical_id": "transformation-entropy",
+      "source_mapping_count": 1
+    },
+    {
+      "paper_id": "icml2022-transformation",
+      "symbol_id": "transformation-mutual-info",
+      "canonical_id": "transformation-mutual-info",
+      "source_mapping_count": 1
+    },
+    {
+      "paper_id": "icml2022-transformation",
+      "symbol_id": "transformation-co-info",
+      "canonical_id": "transformation-co-info",
+      "source_mapping_count": 1
+    },
+    {
+      "paper_id": "icml2022-transformation",
+      "symbol_id": "transformation-tc",
+      "canonical_id": "transformation-tc",
+      "source_mapping_count": 1
+    },
+    {
+      "paper_id": "icml2022-transformation",
+      "symbol_id": "transformation-marginal-constant",
+      "canonical_id": "transformation-marginal-constant",
+      "source_mapping_count": 1
+    },
+    {
+      "paper_id": "icml2022-transformation",
+      "symbol_id": "transformation-conditional-constant",
+      "canonical_id": "transformation-conditional-constant",
+      "source_mapping_count": 1
+    },
+    {
+      "paper_id": "icml2022-transformation",
+      "symbol_id": "transformation-activation-rate",
+      "canonical_id": "transformation-activation-rate",
+      "source_mapping_count": 1
+    },
+    {
+      "paper_id": "icml2022-transformation",
+      "symbol_id": "transformation-bandwidth",
+      "canonical_id": "transformation-bandwidth",
+      "source_mapping_count": 1
+    },
+    {
+      "paper_id": "icml2022-transformation",
+      "symbol_id": "transformation-variance-constant",
+      "canonical_id": "transformation-variance-constant",
+      "source_mapping_count": 1
+    },
+    {
+      "paper_id": "icml2022-transformation",
+      "symbol_id": "transformation-sample-count",
+      "canonical_id": "transformation-sample-count",
+      "source_mapping_count": 1
+    },
+    {
+      "paper_id": "icml2022-transformation",
+      "symbol_id": "transformation-class-count",
+      "canonical_id": "transformation-class-count",
+      "source_mapping_count": 1
+    },
+    {
+      "paper_id": "icml2022-transformation",
+      "symbol_id": "transformation-class-probability",
+      "canonical_id": "transformation-class-probability",
+      "source_mapping_count": 1
+    },
+    {
+      "paper_id": "icml2022-transformation",
+      "symbol_id": "transformation-weight",
+      "canonical_id": "transformation-weight",
+      "source_mapping_count": 1
+    },
+    {
+      "paper_id": "icml2022-transformation",
+      "symbol_id": "transformation-bias",
+      "canonical_id": "transformation-bias",
+      "source_mapping_count": 1
+    },
+    {
+      "paper_id": "icml2022-transformation",
+      "symbol_id": "transformation-prior",
+      "canonical_id": "transformation-prior",
+      "source_mapping_count": 1
+    },
+    {
+      "paper_id": "icml2022-transformation",
+      "symbol_id": "transformation-score",
+      "canonical_id": "transformation-score",
+      "source_mapping_count": 1
+    },
+    {
+      "paper_id": "icml2022-transformation",
+      "symbol_id": "transformation-partition",
+      "canonical_id": "transformation-partition",
+      "source_mapping_count": 1
+    },
+    {
+      "paper_id": "icml2022-transformation",
+      "symbol_id": "transformation-ebm-law",
+      "canonical_id": "transformation-ebm-law",
+      "source_mapping_count": 1
+    },
+    {
+      "paper_id": "icml2022-transformation",
+      "symbol_id": "transformation-energy",
+      "canonical_id": "transformation-energy",
+      "source_mapping_count": 1
+    },
+    {
+      "paper_id": "icml2022-transformation",
+      "symbol_id": "transformation-parameter",
+      "canonical_id": "transformation-parameter",
+      "source_mapping_count": 1
+    },
+    {
+      "paper_id": "icml2022-transformation",
+      "symbol_id": "transformation-beta",
+      "canonical_id": "transformation-beta",
+      "source_mapping_count": 1
+    },
+    {
+      "paper_id": "icml2022-transformation",
+      "symbol_id": "transformation-relaxed-gate",
+      "canonical_id": "transformation-relaxed-gate",
+      "source_mapping_count": 1
+    },
+    {
+      "paper_id": "icml2022-transformation",
+      "symbol_id": "transformation-network-depth",
+      "canonical_id": "transformation-network-depth",
+      "source_mapping_count": 1
+    },
+    {
+      "paper_id": "icml2022-transformation",
+      "symbol_id": "transformation-prior-rate",
+      "canonical_id": "transformation-prior-rate",
+      "source_mapping_count": 1
+    },
+    {
+      "paper_id": "icml2022-transformation",
+      "symbol_id": "transformation-langevin-step",
+      "canonical_id": "transformation-langevin-step",
+      "source_mapping_count": 1
+    },
+    {
+      "paper_id": "icml2022-transformation",
+      "symbol_id": "transformation-noise",
+      "canonical_id": "transformation-noise",
+      "source_mapping_count": 1
+    },
+    {
+      "paper_id": "icml2023-bayesian",
+      "symbol_id": "bnn-model",
+      "canonical_id": "sym-model",
+      "source_mapping_count": 1
+    },
+    {
+      "paper_id": "icml2023-bayesian",
+      "symbol_id": "bnn-mask",
+      "canonical_id": "sym-mask",
+      "source_mapping_count": 1
+    },
+    {
+      "paper_id": "icml2023-bayesian",
+      "symbol_id": "bnn-game",
+      "canonical_id": "sym-game",
+      "source_mapping_count": 1
+    },
+    {
+      "paper_id": "icml2023-bayesian",
+      "symbol_id": "bnn-baseline",
+      "canonical_id": "sym-output-baseline",
+      "source_mapping_count": 1
+    },
+    {
+      "paper_id": "icml2023-bayesian",
+      "symbol_id": "bnn-reference",
+      "canonical_id": "sym-input-baseline",
+      "source_mapping_count": 1
+    },
+    {
+      "paper_id": "icml2023-bayesian",
+      "symbol_id": "bnn-dividend",
+      "canonical_id": "sym-and-interaction",
+      "source_mapping_count": 1
+    },
+    {
+      "paper_id": "icml2023-bayesian",
+      "symbol_id": "bnn-order",
+      "canonical_id": "sym-order",
+      "source_mapping_count": 1
+    },
+    {
+      "paper_id": "icml2023-bayesian",
+      "symbol_id": "bnn-tau",
+      "canonical_id": "concept-reference-distance",
+      "source_mapping_count": 1
+    },
+    {
+      "paper_id": "icml2023-bayesian",
+      "symbol_id": "bnn-noise",
+      "canonical_id": "concept-coordinate-noise",
+      "source_mapping_count": 1
+    },
+    {
+      "paper_id": "icml2023-bayesian",
+      "symbol_id": "bnn-noise-variance",
+      "canonical_id": "concept-coordinate-variance",
+      "source_mapping_count": 1
+    },
+    {
+      "paper_id": "icml2023-bayesian",
+      "symbol_id": "bnn-degree",
+      "canonical_id": "concept-taylor-multiindex",
+      "source_mapping_count": 1
+    },
+    {
+      "paper_id": "icml2023-bayesian",
+      "symbol_id": "bnn-total-degree",
+      "canonical_id": "concept-taylor-total-degree",
+      "source_mapping_count": 1
+    },
+    {
+      "paper_id": "icml2023-bayesian",
+      "symbol_id": "bnn-sign",
+      "canonical_id": "concept-reference-sign",
+      "source_mapping_count": 1
+    },
+    {
+      "paper_id": "icml2023-bayesian",
+      "symbol_id": "bnn-taylor-coefficient",
+      "canonical_id": "concept-moving-taylor-coefficient",
+      "source_mapping_count": 1
+    },
+    {
+      "paper_id": "icml2023-bayesian",
+      "symbol_id": "bnn-term",
+      "canonical_id": "concept-absolute-expansion-trigger",
+      "source_mapping_count": 1
+    },
+    {
+      "paper_id": "icml2023-bayesian",
+      "symbol_id": "bnn-weight",
+      "canonical_id": "concept-reference-dividend",
+      "source_mapping_count": 1
+    },
+    {
+      "paper_id": "icml2023-bayesian",
+      "symbol_id": "bnn-lowest-reference",
+      "canonical_id": "concept-lowest-reference-coefficient",
+      "source_mapping_count": 1
+    },
+    {
+      "paper_id": "icml2023-bayesian",
+      "symbol_id": "bnn-trigger",
+      "canonical_id": "concept-normalized-trigger",
+      "source_mapping_count": 1
+    },
+    {
+      "paper_id": "icml2023-bayesian",
+      "symbol_id": "bnn-stability",
+      "canonical_id": "sym-relative-stability",
+      "source_mapping_count": 1
+    },
+    {
+      "paper_id": "icml2023-bayesian",
+      "symbol_id": "bnn-variance-metric",
+      "canonical_id": "concept-order-variance-metric",
+      "source_mapping_count": 1
+    },
+    {
+      "paper_id": "icml2023-bayesian",
+      "symbol_id": "bnn-feature-means",
+      "canonical_id": "concept-regression-feature-mean",
+      "source_mapping_count": 1
+    },
+    {
+      "paper_id": "icml2023-bayesian",
+      "symbol_id": "bnn-feature-variances",
+      "canonical_id": "concept-regression-feature-variance",
+      "source_mapping_count": 1
+    },
+    {
+      "paper_id": "icml2023-bayesian",
+      "symbol_id": "bnn-scale-bounds",
+      "canonical_id": "concept-reference-amplitude-bounds",
+      "source_mapping_count": 1
+    },
+    {
+      "paper_id": "icml2023-bayesian",
+      "symbol_id": "bnn-posterior-parameters",
+      "canonical_id": "bnn-posterior-parameters",
+      "source_mapping_count": 1
+    },
+    {
+      "paper_id": "icml2023-bayesian",
+      "symbol_id": "bnn-layer-bias",
+      "canonical_id": "bnn-layer-bias",
+      "source_mapping_count": 1
+    },
+    {
+      "paper_id": "icml2023-bayesian",
+      "symbol_id": "bnn-salient-family",
+      "canonical_id": "concept-salient-support-family",
+      "source_mapping_count": 1
+    },
+    {
+      "paper_id": "icml2023-bayesian",
+      "symbol_id": "bnn-class-split",
+      "canonical_id": "bnn-class-sign-split",
+      "source_mapping_count": 1
+    },
+    {
+      "paper_id": "neurips2023-difficulty",
+      "symbol_id": "diff-game",
+      "canonical_id": "sym-game",
+      "source_mapping_count": 1
+    },
+    {
+      "paper_id": "neurips2023-difficulty",
+      "symbol_id": "diff-baseline",
+      "canonical_id": "sym-output-baseline",
+      "source_mapping_count": 1
+    },
+    {
+      "paper_id": "neurips2023-difficulty",
+      "symbol_id": "diff-reference",
+      "canonical_id": "sym-input-baseline",
+      "source_mapping_count": 1
+    },
+    {
+      "paper_id": "neurips2023-difficulty",
+      "symbol_id": "diff-mask",
+      "canonical_id": "sym-mask",
+      "source_mapping_count": 1
+    },
+    {
+      "paper_id": "neurips2023-difficulty",
+      "symbol_id": "diff-dividend",
+      "canonical_id": "sym-and-interaction",
+      "source_mapping_count": 1
+    },
+    {
+      "paper_id": "neurips2023-difficulty",
+      "symbol_id": "diff-order",
+      "canonical_id": "sym-order",
+      "source_mapping_count": 1
+    },
+    {
+      "paper_id": "neurips2023-difficulty",
+      "symbol_id": "diff-context",
+      "canonical_id": "concept-multiorder-context-cardinality",
+      "source_mapping_count": 1
+    },
+    {
+      "paper_id": "neurips2023-difficulty",
+      "symbol_id": "diff-tau",
+      "canonical_id": "concept-reference-distance",
+      "source_mapping_count": 1
+    },
+    {
+      "paper_id": "neurips2023-difficulty",
+      "symbol_id": "diff-noise",
+      "canonical_id": "concept-coordinate-noise",
+      "source_mapping_count": 1
+    },
+    {
+      "paper_id": "neurips2023-difficulty",
+      "symbol_id": "diff-noise-variance",
+      "canonical_id": "concept-coordinate-variance",
+      "source_mapping_count": 1
+    },
+    {
+      "paper_id": "neurips2023-difficulty",
+      "symbol_id": "diff-degree",
+      "canonical_id": "concept-taylor-multiindex",
+      "source_mapping_count": 1
+    },
+    {
+      "paper_id": "neurips2023-difficulty",
+      "symbol_id": "diff-taylor-coefficient",
+      "canonical_id": "concept-moving-taylor-coefficient",
+      "source_mapping_count": 1
+    },
+    {
+      "paper_id": "neurips2023-difficulty",
+      "symbol_id": "diff-term",
+      "canonical_id": "concept-absolute-expansion-trigger",
+      "source_mapping_count": 1
+    },
+    {
+      "paper_id": "neurips2023-difficulty",
+      "symbol_id": "diff-weight",
+      "canonical_id": "concept-reference-dividend",
+      "source_mapping_count": 1
+    },
+    {
+      "paper_id": "neurips2023-difficulty",
+      "symbol_id": "diff-trigger",
+      "canonical_id": "concept-normalized-trigger",
+      "source_mapping_count": 1
+    },
+    {
+      "paper_id": "neurips2023-difficulty",
+      "symbol_id": "diff-stability",
+      "canonical_id": "concept-standard-deviation-stability",
+      "source_mapping_count": 1
+    },
+    {
+      "paper_id": "neurips2023-difficulty",
+      "symbol_id": "diff-mean-aggregate",
+      "canonical_id": "concept-order-absolute-mean-aggregate",
+      "source_mapping_count": 1
+    },
+    {
+      "paper_id": "neurips2023-difficulty",
+      "symbol_id": "diff-variance-aggregate",
+      "canonical_id": "concept-order-variance-metric",
+      "source_mapping_count": 1
+    },
+    {
+      "paper_id": "neurips2023-difficulty",
+      "symbol_id": "diff-feature-mean",
+      "canonical_id": "concept-regression-feature-mean",
+      "source_mapping_count": 1
+    },
+    {
+      "paper_id": "neurips2023-difficulty",
+      "symbol_id": "diff-feature-variance",
+      "canonical_id": "concept-regression-feature-variance",
+      "source_mapping_count": 1
+    },
+    {
+      "paper_id": "neurips2023-difficulty",
+      "symbol_id": "diff-covariance",
+      "canonical_id": "difficulty-source-covariance-square",
+      "source_mapping_count": 1
+    },
+    {
+      "paper_id": "neurips2023-difficulty",
+      "symbol_id": "diff-gram",
+      "canonical_id": "concept-feature-second-moment-matrix",
+      "source_mapping_count": 1
+    },
+    {
+      "paper_id": "neurips2023-difficulty",
+      "symbol_id": "diff-regression-weight",
+      "canonical_id": "concept-linear-feature-weight",
+      "source_mapping_count": 1
+    },
+    {
+      "paper_id": "neurips2023-difficulty",
+      "symbol_id": "diff-beta",
+      "canonical_id": "difficulty-class-consistency-beta",
+      "source_mapping_count": 1
+    },
+    {
+      "paper_id": "neurips2023-difficulty",
+      "symbol_id": "diff-kappa",
+      "canonical_id": "difficulty-relative-absolute-instability",
+      "source_mapping_count": 1
+    },
+    {
+      "paper_id": "neurips2023-difficulty",
+      "symbol_id": "diff-salient",
+      "canonical_id": "concept-salient-support-family",
+      "source_mapping_count": 1
+    },
+    {
+      "paper_id": "neurips2023-difficulty",
+      "symbol_id": "diff-jaccard",
+      "canonical_id": "difficulty-learning-vector-jaccard",
+      "source_mapping_count": 1
+    },
+    {
+      "paper_id": "neurips2023-difficulty",
+      "symbol_id": "diff-attack",
+      "canonical_id": "difficulty-adversarial-perturbation",
+      "source_mapping_count": 1
+    },
+    {
+      "paper_id": "neurips2023-difficulty",
+      "symbol_id": "diff-alpha",
+      "canonical_id": "difficulty-adversarial-sensitivity-alpha",
+      "source_mapping_count": 1
+    },
+    {
+      "paper_id": "neurips2023-difficulty",
+      "symbol_id": "diff-permutation",
+      "canonical_id": "sym-variable-permutation",
+      "source_mapping_count": 1
+    },
+    {
+      "paper_id": "neurips2023-difficulty",
+      "symbol_id": "diff-unanimity",
+      "canonical_id": "sym-unanimity-game",
+      "source_mapping_count": 1
+    },
+    {
+      "paper_id": "neurips2023-difficulty",
+      "symbol_id": "diff-product-factors",
+      "canonical_id": "concept-independent-product-factors",
+      "source_mapping_count": 1
+    },
+    {
+      "paper_id": "neurips2023-difficulty",
+      "symbol_id": "diff-total-degree",
+      "canonical_id": "concept-taylor-total-degree",
+      "source_mapping_count": 1
+    },
+    {
+      "paper_id": "neurips2023-difficulty",
+      "symbol_id": "diff-moving-sign",
+      "canonical_id": "concept-moving-coordinate-sign",
+      "source_mapping_count": 1
+    },
+    {
+      "paper_id": "neurips2023-difficulty",
+      "symbol_id": "diff-frequency",
+      "canonical_id": "difficulty-sample-space-spectrum",
+      "source_mapping_count": 1
+    },
+    {
+      "paper_id": "icml2023-decoder",
+      "symbol_id": "decoder-grid",
+      "canonical_id": "decoder-grid",
+      "source_mapping_count": 1
+    },
+    {
+      "paper_id": "icml2023-decoder",
+      "symbol_id": "decoder-input-feature",
+      "canonical_id": "decoder-input-feature",
+      "source_mapping_count": 1
+    },
+    {
+      "paper_id": "icml2023-decoder",
+      "symbol_id": "decoder-input-spectrum",
+      "canonical_id": "decoder-input-spectrum",
+      "source_mapping_count": 1
+    },
+    {
+      "paper_id": "icml2023-decoder",
+      "symbol_id": "decoder-target-spectrum",
+      "canonical_id": "decoder-target-spectrum",
+      "source_mapping_count": 1
+    },
+    {
+      "paper_id": "icml2023-decoder",
+      "symbol_id": "decoder-kernel",
+      "canonical_id": "decoder-kernel",
+      "source_mapping_count": 1
+    },
+    {
+      "paper_id": "icml2023-decoder",
+      "symbol_id": "decoder-kernel-response",
+      "canonical_id": "decoder-kernel-response",
+      "source_mapping_count": 1
+    },
+    {
+      "paper_id": "icml2023-decoder",
+      "symbol_id": "decoder-cascade-response",
+      "canonical_id": "decoder-cascade-response",
+      "source_mapping_count": 1
+    },
+    {
+      "paper_id": "icml2023-decoder",
+      "symbol_id": "decoder-bias",
+      "canonical_id": "decoder-bias",
+      "source_mapping_count": 1
+    },
+    {
+      "paper_id": "icml2023-decoder",
+      "symbol_id": "decoder-delta",
+      "canonical_id": "decoder-delta",
+      "source_mapping_count": 1
+    },
+    {
+      "paper_id": "icml2023-decoder",
+      "symbol_id": "decoder-depth",
+      "canonical_id": "decoder-depth",
+      "source_mapping_count": 1
+    },
+    {
+      "paper_id": "icml2023-decoder",
+      "symbol_id": "decoder-channels",
+      "canonical_id": "decoder-channels",
+      "source_mapping_count": 1
+    },
+    {
+      "paper_id": "icml2023-decoder",
+      "symbol_id": "decoder-kernel-size",
+      "canonical_id": "decoder-kernel-size",
+      "source_mapping_count": 1
+    },
+    {
+      "paper_id": "icml2023-decoder",
+      "symbol_id": "decoder-geometric",
+      "canonical_id": "decoder-geometric",
+      "source_mapping_count": 1
+    },
+    {
+      "paper_id": "icml2023-decoder",
+      "symbol_id": "decoder-phase-sum",
+      "canonical_id": "decoder-phase-sum",
+      "source_mapping_count": 1
+    },
+    {
+      "paper_id": "icml2023-decoder",
+      "symbol_id": "decoder-cross-frequency",
+      "canonical_id": "decoder-cross-frequency",
+      "source_mapping_count": 1
+    },
+    {
+      "paper_id": "icml2023-decoder",
+      "symbol_id": "decoder-valid-mixing",
+      "canonical_id": "decoder-valid-mixing",
+      "source_mapping_count": 1
+    },
+    {
+      "paper_id": "icml2023-decoder",
+      "symbol_id": "decoder-inverse-dft",
+      "canonical_id": "decoder-inverse-dft",
+      "source_mapping_count": 1
+    },
+    {
+      "paper_id": "icml2023-decoder",
+      "symbol_id": "decoder-som",
+      "canonical_id": "decoder-som",
+      "source_mapping_count": 1
+    },
+    {
+      "paper_id": "icml2023-decoder",
+      "symbol_id": "decoder-mean",
+      "canonical_id": "decoder-mean",
+      "source_mapping_count": 1
+    },
+    {
+      "paper_id": "icml2023-decoder",
+      "symbol_id": "decoder-variance",
+      "canonical_id": "decoder-variance",
+      "source_mapping_count": 1
+    },
+    {
+      "paper_id": "icml2023-decoder",
+      "symbol_id": "decoder-pseudocovariance",
+      "canonical_id": "decoder-pseudocovariance",
+      "source_mapping_count": 1
+    },
+    {
+      "paper_id": "icml2023-decoder",
+      "symbol_id": "decoder-independence",
+      "canonical_id": "decoder-independence",
+      "source_mapping_count": 1
+    },
+    {
+      "paper_id": "icml2023-decoder",
+      "symbol_id": "decoder-padding",
+      "canonical_id": "decoder-padding",
+      "source_mapping_count": 1
+    },
+    {
+      "paper_id": "icml2023-decoder",
+      "symbol_id": "decoder-padding-factor",
+      "canonical_id": "decoder-padding-factor",
+      "source_mapping_count": 1
+    },
+    {
+      "paper_id": "icml2023-decoder",
+      "symbol_id": "decoder-upsampling",
+      "canonical_id": "decoder-upsampling",
+      "source_mapping_count": 1
+    },
+    {
+      "paper_id": "icml2023-decoder",
+      "symbol_id": "decoder-upsampling-ratio",
+      "canonical_id": "decoder-upsampling-ratio",
+      "source_mapping_count": 1
+    },
+    {
+      "paper_id": "icml2023-decoder",
+      "symbol_id": "decoder-loss",
+      "canonical_id": "decoder-loss",
+      "source_mapping_count": 1
+    },
+    {
+      "paper_id": "icml2023-decoder",
+      "symbol_id": "decoder-gradient",
+      "canonical_id": "decoder-gradient",
+      "source_mapping_count": 1
+    },
+    {
+      "paper_id": "icml2023-decoder",
+      "symbol_id": "decoder-learning-rate",
+      "canonical_id": "decoder-learning-rate",
+      "source_mapping_count": 1
+    },
+    {
+      "paper_id": "icml2023-decoder",
+      "symbol_id": "decoder-shift-amplitude",
+      "canonical_id": "decoder-shift-amplitude",
+      "source_mapping_count": 1
+    },
+    {
+      "paper_id": "icml2023-decoder",
+      "symbol_id": "decoder-shift-phase",
+      "canonical_id": "decoder-shift-phase",
+      "source_mapping_count": 1
+    },
+    {
+      "paper_id": "icml2023-decoder",
+      "symbol_id": "decoder-cosine",
+      "canonical_id": "decoder-cosine",
+      "source_mapping_count": 1
+    },
+    {
+      "paper_id": "icml2023-decoder",
+      "symbol_id": "decoder-pearson",
+      "canonical_id": "decoder-pearson",
+      "source_mapping_count": 1
+    },
+    {
+      "paper_id": "icml2023-decoder",
+      "symbol_id": "decoder-low-frequency",
+      "canonical_id": "decoder-low-frequency",
+      "source_mapping_count": 1
+    }
+  ],
+  "errors": []
+}

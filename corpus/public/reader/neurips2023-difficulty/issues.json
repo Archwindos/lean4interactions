@@ -1,0 +1,666 @@
+{
+  "paper_id": "neurips2023-difficulty",
+  "issues": [
+    {
+      "id": "diff-issue-taylor",
+      "paper_id": "neurips2023-difficulty",
+      "title": "任意 DNN 的全局 Taylor 展开失败",
+      "kind": "unrestricted_taylor_statement",
+      "issue_type": "statement_counterexample",
+      "original_statement_status": "counterexample_verified",
+      "related_result_ids": [
+        "diff-taylor"
+      ],
+      "affected_result_ids": [
+        "diff-taylor"
+      ],
+      "source_refs": [
+        {
+          "source_id": "src-neurips2023-difficulty-formal",
+          "version_id": "ver-neurips2023-difficulty-formal",
+          "pdf_pages": [
+            4,
+            17,
+            18
+          ],
+          "section": ""
+        }
+      ],
+      "original_statement_tex": "I(S\\mid x\\prime)=\\sum_\\pi U_{S,\\pi}J_\\pi",
+      "problem_md": "作者未要求解析性、全局收敛或所有掩码上的合法展开。",
+      "evidence_md": "一维ReLU v(t)=max(t−1/2,0)，r0,x1，全部Taylor系数零而单例交互1/2。人读网络反例完整；Lean只验证真实有限多项式支持子结果。",
+      "impact_md": "不把有限多项式机器类型扩成任意DNN原量词。",
+      "review_status": "agent_checked_pending_independent_review",
+      "translations": {
+        "en": {
+          "title": "Global Taylor expansion fails for arbitrary DNNs",
+          "problem_md": "The author supplies no analyticity, global convergence or legitimate expansion at every mask.",
+          "evidence_md": "The one-dimensional ReLU v(t)=max(t−1/2,0), r0,x1 has zero Taylor coefficients but singleton dividend1/2. The human network counterexample is complete; Lean verifies only the finite-polynomial support component.",
+          "impact_md": "The finite-polynomial machine type is not expanded to the original arbitrary-DNN quantifier."
+        }
+      }
+    },
+    {
+      "id": "diff-issue-lowest-absolute",
+      "paper_id": "neurips2023-difficulty",
+      "title": "最低阶 J 自身的均值和方差错式",
+      "kind": "folded_lowest_moments",
+      "issue_type": "statement_counterexample",
+      "original_statement_status": "counterexample_verified",
+      "related_result_ids": [
+        "diff-moments"
+      ],
+      "affected_result_ids": [
+        "diff-moments"
+      ],
+      "source_refs": [
+        {
+          "source_id": "src-neurips2023-difficulty-formal",
+          "version_id": "ver-neurips2023-difficulty-formal",
+          "pdf_pages": [
+            5,
+            18,
+            19
+          ],
+          "section": ""
+        }
+      ],
+      "original_statement_tex": "EJ=1,\\quad VarJ=(1+q)^{|S|}-1",
+      "problem_md": "原对象J含绝对增量；小Gaussian不会几乎处处保持符号。",
+      "evidence_md": "单支持、τ1、ε~N(0,q),q>0时J=|1+ε|。实际Lean证明EJ>1及VarJ<q，完整原对象、真实法则和两个矩都已绑定。",
+      "impact_md": "与F08及本篇G2显示的有符号最低I矩区分；这里只否定正文J精确子句，不由此否定附录I变体。",
+      "review_status": "agent_checked_pending_independent_review",
+      "translations": {
+        "en": {
+          "title": "Incorrect mean and variance of the lowest J itself",
+          "problem_md": "The original J contains absolute increments; a small Gaussian does not preserve signs almost surely.",
+          "evidence_md": "For one support, τ1 and ε~N(0,q), q>0, J=|1+ε|. Lean proves EJ>1 and VarJ<q, binding the full source object, actual law and both moments.",
+          "impact_md": "Distinguish this from F08 and this paper’s appendix signed-I display. This refutes the main J clauses without thereby refuting the appendix I variant."
+        }
+      }
+    },
+    {
+      "id": "diff-issue-main-appendix-lowest",
+      "paper_id": "neurips2023-difficulty",
+      "title": "最低阶主文 J 与附录 I 的原陈述差异",
+      "kind": "lowest_object_and_coefficient_scope",
+      "issue_type": "statement_alignment_or_scope",
+      "original_statement_status": "scope_under_review",
+      "related_result_ids": [
+        "diff-moments",
+        "diff-lowest-interaction",
+        "diff-taylor"
+      ],
+      "affected_result_ids": [
+        "diff-moments",
+        "diff-lowest-interaction",
+        "diff-taylor"
+      ],
+      "source_refs": [
+        {
+          "source_id": "src-neurips2023-difficulty-formal",
+          "version_id": "ver-neurips2023-difficulty-formal",
+          "pdf_pages": [
+            4,
+            5,
+            18,
+            19
+          ],
+          "section": ""
+        }
+      ],
+      "original_statement_tex": "EJ=1\\quad\\text{versus}\\quad EI=U_{S,\\widehat\\pi}",
+      "problem_md": "正文Eq5写J自身矩；G2重述prose仍说J，显示式却为I并带U。Theorem2定义的U还含随x′变动的符号。",
+      "evidence_md": "原两个版本均完整保留。真实最低单项式的固定参考U矩已用actual maskedLowest及Gaussian法则形式化；空支持的固定输出基线另证均值b、方差0。",
+      "impact_md": "不把主文folded反例扩大为附录signed I错误，也不将最低单项式类型扩大为任意DNN完整I。",
+      "review_status": "agent_checked_pending_independent_review",
+      "translations": {
+        "en": {
+          "title": "Lowest-degree main J and appendix I statements differ",
+          "problem_md": "Main Eq. (5) states J moments; G.2 repeats J in its prose but displays I with U. Theorem2’s U also includes signs varying with x′.",
+          "evidence_md": "Both source versions are retained completely. The actual lowest monomial’s fixed-reference U moments are formalized through maskedLowest and Gaussian laws; the empty-support fixed output baseline separately has mean b and variance0.",
+          "impact_md": "Do not extend the main folded counterexample to the signed-I appendix clause or extend the lowest-monomial type to every complete DNN dividend."
+        }
+      }
+    },
+    {
+      "id": "diff-issue-general-absolute",
+      "paper_id": "neurips2023-difficulty",
+      "title": "一般次数的绝对幂不能全改有符号幂",
+      "kind": "odd_folded_power_transition",
+      "issue_type": "statement_partial_counterexample",
+      "original_statement_status": "compound_clause_counterexample_verified",
+      "related_result_ids": [
+        "diff-general-moments"
+      ],
+      "affected_result_ids": [
+        "diff-general-moments"
+      ],
+      "source_refs": [
+        {
+          "source_id": "src-neurips2023-difficulty-formal",
+          "version_id": "ver-neurips2023-difficulty-formal",
+          "pdf_pages": [
+            5,
+            19
+          ],
+          "section": ""
+        }
+      ],
+      "original_statement_tex": "EJ=E\\prod(1+\\epsilon_i/\\tau)^{\\pi_i}",
+      "problem_md": "奇次幂在越过参考时与绝对幂不同，≪τ只为近似。",
+      "evidence_md": "π1=1复用实际最低J均值/方差反例。正确folded乘积矩有实际Gaussian L2和独立法则证明；偶数幂子域绝对值可消去。",
+      "impact_md": "不将错误奇次子句扩大为所有整数次数错误。",
+      "review_status": "agent_checked_pending_independent_review",
+      "translations": {
+        "en": {
+          "title": "General absolute powers cannot all become signed powers",
+          "problem_md": "Odd powers differ from absolute powers on reference-crossing tails; ≪τ is approximate.",
+          "evidence_md": "Degree1 uses the actual lowest-J mean and variance counterexample. Correct folded-product moments have actual Gaussian L2 and independence proofs; absolute values cancel on the even-degree subdomain.",
+          "impact_md": "The odd-degree error is not extended to every integer degree."
+        }
+      }
+    },
+    {
+      "id": "diff-issue-product-variance-square",
+      "paper_id": "neurips2023-difficulty",
+      "title": "Proposition1 方差项被再次平方",
+      "kind": "squared_variance_in_source",
+      "issue_type": "analysis_subclause_counterexample",
+      "original_statement_status": "compound_clause_counterexample_verified",
+      "related_result_ids": [
+        "diff-product",
+        "diff-moments"
+      ],
+      "affected_result_ids": [
+        "diff-product",
+        "diff-moments"
+      ],
+      "source_refs": [
+        {
+          "source_id": "src-neurips2023-difficulty-formal",
+          "version_id": "ver-neurips2023-difficulty-formal",
+          "pdf_pages": [
+            18
+          ],
+          "section": ""
+        }
+      ],
+      "original_statement_tex": "\\prod_i((EX_i)^2+(VarX_i)^2)-\\prod_i(EX_i)^2",
+      "problem_md": "原声明方差平方，下一Eq12却使用正确方差一次。",
+      "evidence_md": "真实k1 GaussianX~N(0,2)：VarX=2，打印右式4；机器绑定实际积分及方差。原乘积均值仍有效。",
+      "impact_md": "公共正确product_variance不替换原Proposition。",
+      "review_status": "agent_checked_pending_independent_review",
+      "translations": {
+        "en": {
+          "title": "Proposition1 squares the variance again",
+          "problem_md": "The original statement squares variance, while the next Eq. (12) uses variance once.",
+          "evidence_md": "For actual k1 Gaussian X~N(0,2), VarX=2 but printed RHS4. Lean binds the actual integral and variance. The product-mean clause remains valid.",
+          "impact_md": "The correct public product_variance does not replace the original Proposition."
+        }
+      }
+    },
+    {
+      "id": "diff-issue-zero-reference",
+      "paper_id": "neurips2023-difficulty",
+      "title": "零参考交互的触发商无定义",
+      "kind": "undefined_reference_quotient",
+      "issue_type": "definition_or_algorithm_boundary",
+      "original_statement_status": "scope_under_review",
+      "related_result_ids": [
+        "diff-trigger-definition",
+        "diff-binary",
+        "diff-linear-representation",
+        "diff-kappa-conversion"
+      ],
+      "affected_result_ids": [
+        "diff-trigger-definition",
+        "diff-binary",
+        "diff-linear-representation",
+        "diff-kappa-conversion"
+      ],
+      "source_refs": [
+        {
+          "source_id": "src-neurips2023-difficulty-formal",
+          "version_id": "ver-neurips2023-difficulty-formal",
+          "pdf_pages": [
+            5,
+            6,
+            7,
+            20
+          ],
+          "section": ""
+        }
+      ],
+      "original_statement_tex": "C_S=I(S\\mid x\\prime)/U_S",
+      "problem_md": "作者未排U_S=0，二值短证明直接约分。",
+      "evidence_md": "常数网络全部非空参考交互0；原商0/0，若当前交互变非零则不能固定零U表达。κ实际反例两个U非零，避开此域。",
+      "impact_md": "有效非零域的掩码/线性适配已证明，但不隐去源零域。",
+      "review_status": "agent_checked_pending_independent_review",
+      "translations": {
+        "en": {
+          "title": "Trigger quotients are undefined at zero reference dividends",
+          "problem_md": "The author does not exclude U_S=0 before cancellation in the binary proof.",
+          "evidence_md": "A constant network has zero nonempty reference dividends, producing0/0. A nonzero current dividend cannot be represented by a fixed zero U. Both U values in the actual kappa counterexample are nonzero.",
+          "impact_md": "Mask and linear adapters are proved on the nonzero domain; the original zero boundary remains visible."
+        }
+      }
+    },
+    {
+      "id": "diff-issue-binary-inclusion",
+      "paper_id": "neurips2023-difficulty",
+      "title": "G3 不触发分支的包含方向错",
+      "kind": "wrong_inclusion_in_proof",
+      "issue_type": "proof_step_error",
+      "original_statement_status": "scope_under_review",
+      "related_result_ids": [
+        "diff-binary"
+      ],
+      "affected_result_ids": [
+        "diff-binary"
+      ],
+      "source_refs": [
+        {
+          "source_id": "src-neurips2023-difficulty-formal",
+          "version_id": "ver-neurips2023-difficulty-formal",
+          "pdf_pages": [
+            20
+          ],
+          "section": ""
+        }
+      ],
+      "original_statement_tex": "S\\subsetneq T\\quad\\text{then }j\\in S\\setminus T",
+      "problem_md": "严格包含S⊊T不允许找到S\\T元素。",
+      "evidence_md": "正确分支是S不包含于T；真实maskedGame支持律不依赖此错步。",
+      "impact_md": "只修证明步骤，保留Theorem4原陈述及零U范围。",
+      "review_status": "agent_checked_pending_independent_review",
+      "translations": {
+        "en": {
+          "title": "Wrong inclusion direction in the G.3 inactive branch",
+          "problem_md": "Strict inclusion S⊊T cannot supply an element of S\\T.",
+          "evidence_md": "The correct branch is S not contained in T; the actual maskedGame support theorem avoids this erroneous step.",
+          "impact_md": "Repair the proof step while retaining Theorem4 and its zero-U scope."
+        }
+      }
+    },
+    {
+      "id": "diff-issue-reference-notation",
+      "paper_id": "neurips2023-difficulty",
+      "title": "输入 r_i 与 b_i 局部切换",
+      "kind": "input_reference_symbol_switch",
+      "issue_type": "statement_alignment_or_scope",
+      "original_statement_status": "scope_under_review",
+      "related_result_ids": [
+        "diff-binary",
+        "diff-taylor"
+      ],
+      "affected_result_ids": [
+        "diff-binary",
+        "diff-taylor"
+      ],
+      "source_refs": [
+        {
+          "source_id": "src-neurips2023-difficulty-formal",
+          "version_id": "ver-neurips2023-difficulty-formal",
+          "pdf_pages": [
+            17,
+            20
+          ],
+          "section": ""
+        }
+      ],
+      "original_statement_tex": "r_i,\\ b_i",
+      "problem_md": "Eq21/24局部输入参考符号切换，需说明同一基线。",
+      "evidence_md": "原作者式原样保留；重写一致用r_i并与输出基线b区分。",
+      "impact_md": "不由记号笔误单独否定非零域的二值结论。",
+      "review_status": "agent_checked_pending_independent_review",
+      "translations": {
+        "en": {
+          "title": "Local switching between input r_i and b_i",
+          "problem_md": "Eqs. (21)/(24) switch input-reference symbols locally and require an explicit same-baseline interpretation.",
+          "evidence_md": "The original expressions are retained; the rewrite consistently uses r_i and distinguishes output baseline b.",
+          "impact_md": "The notation slip alone does not refute binary behavior on its nonzero domain."
+        }
+      }
+    },
+    {
+      "id": "diff-issue-multiorder-final-index",
+      "paper_id": "neurips2023-difficulty",
+      "title": "原 Eq25 内和错用 |L|=m",
+      "kind": "wrong_final_support_index",
+      "issue_type": "analysis_subclause_counterexample",
+      "original_statement_status": "compound_clause_counterexample_verified",
+      "related_result_ids": [
+        "diff-multiorder"
+      ],
+      "affected_result_ids": [
+        "diff-multiorder"
+      ],
+      "source_refs": [
+        {
+          "source_id": "src-neurips2023-difficulty-formal",
+          "version_id": "ver-neurips2023-difficulty-formal",
+          "pdf_pages": [
+            21
+          ],
+          "section": ""
+        }
+      ],
+      "original_statement_tex": "\\sum_{l=0}^m\\cdots\\sum_{|L|=m}I(Lij)",
+      "problem_md": "按l分组内层应|L|=l，打印最终等式不是正确关系。",
+      "evidence_md": "真实N3, v=z1z2, x1,r0,m1：实际上下文平均1，打印右式0；实际Lean maskedPolynomial反例。",
+      "impact_md": "不得把修过下标的公式标成原等式已证。",
+      "review_status": "agent_checked_pending_independent_review",
+      "translations": {
+        "en": {
+          "title": "Eq. (25) uses the wrong inner support index |L|=m",
+          "problem_md": "The grouped inner index must be |L|=l; the printed final equality is false.",
+          "evidence_md": "Actual N3, v=z1z2,x1,r0,m1 gives context mean1 and printed RHS0, as verified by the maskedPolynomial counterexample.",
+          "impact_md": "A repaired-index formula is not reported as a proof of the original equality."
+        }
+      }
+    },
+    {
+      "id": "diff-issue-multiorder-coefficient",
+      "paper_id": "neurips2023-difficulty",
+      "title": "原 Eq25 包含上下文的计数错误",
+      "kind": "wrong_superset_count",
+      "issue_type": "analysis_subclause_counterexample",
+      "original_statement_status": "compound_clause_counterexample_verified",
+      "related_result_ids": [
+        "diff-multiorder"
+      ],
+      "affected_result_ids": [
+        "diff-multiorder"
+      ],
+      "source_refs": [
+        {
+          "source_id": "src-neurips2023-difficulty-formal",
+          "version_id": "ver-neurips2023-difficulty-formal",
+          "pdf_pages": [
+            21
+          ],
+          "section": ""
+        }
+      ],
+      "original_statement_tex": "\\binom{n-2}{m-l}",
+      "problem_md": "固定l个变量后应从剩余n−2−l变量选m−l。",
+      "evidence_md": "实际N4,v=z1z2z3,m2平均1，修内层但保留原系数时右式2。第二机器反例独立验证。",
+      "impact_md": "公共一般上下文计数与l分组恒等式及论文n−2适配已机器完成，原最后错误式仍由两个反例分别否定。",
+      "review_status": "agent_checked_pending_independent_review",
+      "translations": {
+        "en": {
+          "title": "Eq. (25) miscounts contexts containing a support",
+          "problem_md": "After fixing l variables, choose m−l from the remaining n−2−l variables.",
+          "evidence_md": "For actual N4,v=z1z2z3,m2 the mean is1, but repairing only the inner index leaves RHS2. The second machine counterexample verifies this independently.",
+          "impact_md": "The public general context-counting and l-grouping identities and the paper n−2 adapter are machine-verified, while the two counterexamples separately refute the original final formula."
+        }
+      }
+    },
+    {
+      "id": "diff-issue-regression-mean",
+      "paper_id": "neurips2023-difficulty",
+      "title": "G5 Step3 省掉特征均值",
+      "kind": "omitted_feature_mean_factor",
+      "issue_type": "analysis_subclause_counterexample",
+      "original_statement_status": "compound_clause_counterexample_verified",
+      "related_result_ids": [
+        "diff-regression",
+        "diff-learning-consistency-argument"
+      ],
+      "affected_result_ids": [
+        "diff-regression",
+        "diff-learning-consistency-argument"
+      ],
+      "source_refs": [
+        {
+          "source_id": "src-neurips2023-difficulty-formal",
+          "version_id": "ver-neurips2023-difficulty-formal",
+          "pdf_pages": [
+            21
+          ],
+          "section": ""
+        }
+      ],
+      "original_statement_tex": "|w_i^*|\\propto1/\\sigma_i^2",
+      "problem_md": "Step2含μ_i，不能在跨特征比较无条件删除。",
+      "evidence_md": "真实独立Gaussian μ=(1,2),双方差1,y1，唯一最优(1/6,1/3)，比1/2而逆方差比1。Σ=Σ²=I使记号读法一致。",
+      "impact_md": "保留有效期望损失、正规方程与唯一最优；Step2须按真实方差读法及非零分母限定，主反例专门反驳Step3。",
+      "review_status": "agent_checked_pending_independent_review",
+      "translations": {
+        "en": {
+          "title": "G.5 Step3 drops the feature mean",
+          "problem_md": "Step2 includes μ_i, which cannot be deleted unconditionally across features.",
+          "evidence_md": "Actual independent Gaussians μ=(1,2), both variances1 and y1 have unique optimum(1/6,1/3), ratio1/2 versus inverse-variance ratio1. Σ=Σ²=I removes the notation ambiguity.",
+          "impact_md": "Retain valid expected loss, normal equations and the unique optimum; Step2 is restricted to the true-variance interpretation and nonzero denominator, and the main counterexample specifically refutes Step3."
+        }
+      }
+    },
+    {
+      "id": "diff-issue-covariance-square",
+      "paper_id": "neurips2023-difficulty",
+      "title": "Σ 与 Σ² 的方差记号冲突",
+      "kind": "variance_covariance_square_ambiguity",
+      "issue_type": "statement_alignment_or_scope",
+      "original_statement_status": "scope_under_review",
+      "related_result_ids": [
+        "diff-regression"
+      ],
+      "affected_result_ids": [
+        "diff-regression"
+      ],
+      "source_refs": [
+        {
+          "source_id": "src-neurips2023-difficulty-formal",
+          "version_id": "ver-neurips2023-difficulty-formal",
+          "pdf_pages": [
+            21
+          ],
+          "section": ""
+        }
+      ],
+      "original_statement_tex": "f\\sim N(\\mu,\\Sigma^2),\\quad\\Sigma=diag(\\sigma_i^2)",
+      "problem_md": "字面读法真实方差σ_i^4，后文比例使用σ_i²；故Step2也只能在将σ_i²解释真实方差d_i时与有效公式一致。",
+      "evidence_md": "原式保留；规范真实方差d_i。主反例取两方差1，在两个读法都否定丢μ。",
+      "impact_md": "不无说明将原Σ²替换成diag真实方差。",
+      "review_status": "agent_checked_pending_independent_review",
+      "translations": {
+        "en": {
+          "title": "Variance notation conflicts between Σ and Σ²",
+          "problem_md": "The literal reading gives true variance σ_i^4, whereas later ratios use σ_i². Thus Step2 agrees with the valid formula only when σ_i² is interpreted as the true variance d_i.",
+          "evidence_md": "Retain the original expressions and use canonical true variance d_i. The main counterexample sets both variances1, refuting omission of μ under both readings.",
+          "impact_md": "Do not silently replace original Σ² by a true-variance diagonal."
+        }
+      }
+    },
+    {
+      "id": "diff-issue-kappa-cancellation",
+      "paper_id": "neurips2023-difficulty",
+      "title": "跨数据不能约去变化的 |U_x|",
+      "kind": "sample_dependent_reference_cancellation",
+      "issue_type": "statement_counterexample",
+      "original_statement_status": "counterexample_verified",
+      "related_result_ids": [
+        "diff-kappa-conversion",
+        "diff-training-metrics"
+      ],
+      "affected_result_ids": [
+        "diff-kappa-conversion",
+        "diff-training-metrics"
+      ],
+      "source_refs": [
+        {
+          "source_id": "src-neurips2023-difficulty-formal",
+          "version_id": "ver-neurips2023-difficulty-formal",
+          "pdf_pages": [
+            7
+          ],
+          "section": ""
+        }
+      ],
+      "original_statement_tex": "\\kappa_I=\\kappa_C",
+      "problem_md": "逐样本I=U_xC_x只给加权比值，U_x随参考x变化。",
+      "evidence_md": "标准化数据±1,均值0,τ1,r0,单ReLU max(t+1/2,0),b1/2；完整Gaussian明确σ，实际单例I及literal C积分给κ_I>κ_C。全部前提实际编译。",
+      "impact_md": "原等号被原模型反例否定，指标I定义本身仍保留。",
+      "review_status": "agent_checked_pending_independent_review",
+      "translations": {
+        "en": {
+          "title": "Variable |U_x| cannot cancel across data averages",
+          "problem_md": "Samplewise I=U_xC_x gives a weighted ratio, since U_x varies with reference x.",
+          "evidence_md": "Normalized data±1,mean0,τ1,r0,single ReLU max(t+1/2,0),b1/2 and the explicit full Gaussian sigma give κ_I>κ_C for the actual singleton I and literal C integrals. All premises compile.",
+          "impact_md": "The source equality is refuted in its model, while the I definition of the metric is retained."
+        }
+      }
+    },
+    {
+      "id": "diff-issue-superposition",
+      "paper_id": "neurips2023-difficulty",
+      "title": "chaotic 系数未控制整体协方差",
+      "kind": "missing_covariance_control",
+      "issue_type": "statement_alignment_or_scope",
+      "original_statement_status": "scope_under_review",
+      "related_result_ids": [
+        "diff-order-variance-argument"
+      ],
+      "affected_result_ids": [
+        "diff-order-variance-argument"
+      ],
+      "source_refs": [
+        {
+          "source_id": "src-neurips2023-difficulty-formal",
+          "version_id": "ver-neurips2023-difficulty-formal",
+          "pdf_pages": [
+            5
+          ],
+          "section": ""
+        }
+      ],
+      "original_statement_tex": "VarI\\text{ grows with support order}",
+      "problem_md": "单项J方差增长与加权I增长有额外协方差、幅值与移动系数条件。",
+      "evidence_md": "完整有限和方差有所有交叉协方差；源未给删除它们的定量前提。",
+      "impact_md": "保留roughly近似解释，不伪造精确普遍结论。",
+      "review_status": "agent_checked_pending_independent_review",
+      "translations": {
+        "en": {
+          "title": "Chaotic coefficients do not control total covariance",
+          "problem_md": "Component-J variance growth needs additional covariance, amplitude and moving-coefficient conditions to control weighted I.",
+          "evidence_md": "The finite-sum variance includes every cross-covariance; no quantitative premise removes them here.",
+          "impact_md": "Retain the rough interpretation without inventing an exact universal result."
+        }
+      }
+    },
+    {
+      "id": "diff-issue-external-learning",
+      "paper_id": "neurips2023-difficulty",
+      "title": "条件外引与学习机制解释的缺失桥梁",
+      "kind": "unquantified_learning_bridge",
+      "issue_type": "statement_alignment_or_scope",
+      "original_statement_status": "scope_under_review",
+      "related_result_ids": [
+        "diff-learning-consistency-argument",
+        "diff-fast-learning-inference",
+        "diff-adversarial-inference",
+        "diff-noise-learning-inference",
+        "diff-shallow-learning-inference",
+        "diff-frequency-learning-inference",
+        "diff-adversarial-learning-inference",
+        "diff-sparsity",
+        "diff-salient-reconstruction"
+      ],
+      "affected_result_ids": [
+        "diff-learning-consistency-argument",
+        "diff-fast-learning-inference",
+        "diff-adversarial-inference",
+        "diff-noise-learning-inference",
+        "diff-shallow-learning-inference",
+        "diff-frequency-learning-inference",
+        "diff-adversarial-learning-inference",
+        "diff-sparsity",
+        "diff-salient-reconstruction"
+      ],
+      "source_refs": [
+        {
+          "source_id": "src-neurips2023-difficulty-formal",
+          "version_id": "ver-neurips2023-difficulty-formal",
+          "pdf_pages": [
+            3,
+            4,
+            6,
+            7,
+            8,
+            9,
+            10
+          ],
+          "section": ""
+        }
+      ],
+      "original_statement_tex": "\\text{stability/order implies learning speed}",
+      "problem_md": "完整外引前提、学习率模型与不同频率对象的适配未在本篇给出。",
+      "evidence_md": "每条人读证明明确其实际源前提和所缺桥梁；Xu段为样本空间/损失景观频率，不能套F06中间特征DFT。",
+      "impact_md": "不将经验/未量化解释加强成通用Lean定理，也不宣称完整外引定理被否定。",
+      "review_status": "agent_checked_pending_independent_review",
+      "translations": {
+        "en": {
+          "title": "Missing bridges in cited conditions and learning interpretations",
+          "problem_md": "Complete cited premises, a learning-rate model and adaptations between distinct frequency objects are absent here.",
+          "evidence_md": "Each rewrite identifies its actual source premise and missing bridge. The Xu paragraph concerns sample-space/loss-landscape frequencies, not F06’s intermediate-feature DFT.",
+          "impact_md": "Do not strengthen empirical or unquantified interpretations into generic Lean theorems or claim refutation of a cited theorem with full premises."
+        }
+      }
+    },
+    {
+      "id": "diff-issue-zero-metrics",
+      "paper_id": "neurips2023-difficulty",
+      "title": "标准差、幅值和上下文平均的零域",
+      "kind": "undefined_ratio_domains",
+      "issue_type": "definition_or_algorithm_boundary",
+      "original_statement_status": "scope_under_review",
+      "related_result_ids": [
+        "diff-reference",
+        "diff-order-variance-metrics",
+        "diff-training-metrics",
+        "diff-training-similarity",
+        "diff-adversarial-metric",
+        "diff-regression",
+        "diff-multiorder-definition"
+      ],
+      "affected_result_ids": [
+        "diff-reference",
+        "diff-order-variance-metrics",
+        "diff-training-metrics",
+        "diff-training-similarity",
+        "diff-adversarial-metric",
+        "diff-regression",
+        "diff-multiorder-definition"
+      ],
+      "source_refs": [
+        {
+          "source_id": "src-neurips2023-difficulty-formal",
+          "version_id": "ver-neurips2023-difficulty-formal",
+          "pdf_pages": [
+            5,
+            7,
+            8,
+            9,
+            16,
+            21
+          ],
+          "section": ""
+        }
+      ],
+      "original_statement_tex": "\\operatorname{Std},\\ E|I|,\\ \\binom{n-2}m",
+      "problem_md": "源未统一指定零标准差、零平均幅值、零Jaccard并集及无上下文平均的赋值。",
+      "evidence_md": "常数交互给标准差0；全零概念给幅值0和Jaccard0/0；m>n−2无合法上下文。τ0亦使原J除法无定义。",
+      "impact_md": "所有有效条件范围明确保留，不用Lean的总运算约定替作者补定义。",
+      "review_status": "agent_checked_pending_independent_review",
+      "translations": {
+        "en": {
+          "title": "Zero domains of standard deviations, magnitudes and context averages",
+          "problem_md": "The source has no common value for zero standard deviation, mean magnitude, Jaccard union or an empty context average.",
+          "evidence_md": "Constant dividends have standard deviation0; all-zero concepts have magnitude0 and Jaccard0/0; m>n−2 gives no legal contexts. Tau0 also makes the original J quotient undefined.",
+          "impact_md": "Preserve every valid conditional domain without substituting Lean’s total-operation conventions for author definitions."
+        }
+      }
+    }
+  ]
+}

@@ -1,0 +1,71 @@
+dataset, and the Tiny-ImageNet dataset, trained BERT-Tiny and BERT-Medium on the SST-2 dataset,
+and trained DGCNN on the ShapeNet dataset. Then, we computed the real distribution of interaction
+strength over different orders on each DNN, and tracked the change of the distribution throughout the
+training process. As mentioned in Section 3.2, the real interaction strength of each k-th order was
+               (k)                                                                                           (k)
+                    = Ex [ S:|S|=k,|I(S|x)|≥τ |I(S|x)|] / Z 12 . Accordingly, we defined the metric Itheo =
+                            P
+quantified as Ireal
+    P                                                         (k)
+Ex [ S:|S|=k,|ŵS |≥τtheo |ŵS |] / Ztheo in the same way of Ireal to measure the theoretical distribution of the
+                                                       P
+interaction strength, where Ztheo = E1≤k′ ≤n Ex [ S:|S|=k′ ,|ŵS |≥τtheo |ŵS |], τtheo = 0.03 · |vtheo (x) − ŵ∅ |,
+               def
+and vtheo (x) = S⊆N ŵS . To compute the theoretical solution ŵ = M̂ w∗ in Eq. (10), given an input
+                     P
+sample x, we used the set of salient interactions Ω = {S ⊆ N : |I(S|x)| ≥ τ }) extracted from the
+finally converged DNN to construct the set of true interactions w∗ .
+                                                   (k)                                            (k)
+Figure 4 shows that the theoretical distribution Itheo could well match the real distribution Ireal   at
+                                                                                              (k)
+different training epochs. Particularly, we used a sequence of theoretical distributions of Itheo  with
+                                                          (k)
+decreasing σ 2 values to match the real distribution of Ireal  at different epochs. The σ 2 value was
+                                                (k)      (k)
+determined to achieve the best match between Itheo and Ireal .
+
+3.3.3      Explaining the dynamics in the first phase
+Because the spindle-shaped distribution of interaction strength in a randomly initialized DNN has
+already been proven by [41], in this subsection, let us further explain the DNN’s dynamics in the first
+phase based on Eq. (9). As previously shown in Figure 2, in the first phase, the DNN removes initial
+interactions of medium and high orders, and mainly encodes low-order interactions.
+
+Therefore, the first phase is explained as the process of removing chaotic initial interactions and
+converging to the optimal solution to Eq. (9) under large parameter noise (i.e., large σ 2 ). In sum,
+the first phase is a process of pushing initial random interactions to the optimal solution, while the
+second phase corresponds to the change of the optimal solution as σ 2 gradually decreases.
+
+4        Conclusion and discussion
+In this study, we have proven the two-phase dynamics of a DNN learning interactions of different
+orders. Specifically, we have followed [26, 22] to reformulate the learning of interactions as a linear
+regression problem on a set of interaction triggering functions. In this way, we have successfully
+derived an analytic solution to interaction effects when the DNN was learned with unavoidable
+parameter noises. This analytic solution has successfully predicted a DNN’s two-phase dynamics
+of learning interactions in real experiments. Considering a series of recent theoretical guarantees of
+taking interactions as faithful primitive inference patterns encoded by the DNN [44, 27], our study
+has first mathematically explained why and how the learning process gradually shifts attention from
+generalizable (low-order) inference patterns to probably over-fitted (high-order) inference patterns.
+
+Practical implications. A theoretical understanding of the two-phase dynamics of interactions
+offers a new perspective to monitor the overfitting level of the DNN on different training samples
+throughout training. The two-phase dynamics enables us to evaluate the overfitting level of each
+specific sample, making overfitting no longer a problem w.r.t. the entire dataset. We can track
+the change of the interaction complexity for each training sample, and take the time point when
+high-order interactions increase as a sign of overfitting. In this way, the two-phase dynamics of
+interactions may help people remove overfitted samples from training and guide the early stopping
+on a few "hard samples."
+
+
+Acknowledgements. This work is partially supported by the National Science and Technology Major
+Project (2021ZD0111602), the National Nature Science Foundation of China (92370115, 62276165).
+This work is also partially supported by Huawei Technologies Inc.
+
+    12                                                                   (k)
+    In experiments, the real distribution of interaction strength Ireal was computed using both AND and
+OR interactions. Because the OR interaction was a special AND interaction and had similar dynamics, this
+experiment actually tested the fidelity of our theory to explain the dynamics of all interactions. Nevertheless,
+                                                                       (k)
+Appendix J.4 also reports the fitness of the theoretical distribution Itheo and real distribution of AND interactions.
+
+
+                                                         10

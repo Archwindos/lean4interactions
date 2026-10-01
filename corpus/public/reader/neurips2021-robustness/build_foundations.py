@@ -1,0 +1,46 @@
+from pathlib import Path
+import json,hashlib
+R=Path.cwd()
+PAPERS={p['candidate_id']:p for p in json.load(open('research/paper-survey-20260930/combined-papers.json')) if p.get('candidate_id') in ['F01','F04','F06']}
+IDS={'F01':'neurips2021-robustness','F04':'icml2022-transformation','F06':'icml2023-decoder'}
+def dump(p,o):p.write_text(json.dumps(o,ensure_ascii=False,indent=2)+'\n')
+class Paper:
+ def __init__(self,fid):
+  self.p=PAPERS[fid];self.pid=IDS[fid];self.D=R/'corpus/public/reader'/self.pid;self.rows=[];self.issues=[];self.symbols=[];self.shared=[];self.audit={};self.sources=[]
+  for m in self.p['formal_materials']:
+   key='supplement' if m['role']=='formal_supplement' else 'formal';path=self.D/'sources'/(key+'.pdf');self.sources.append(dict(source_id='src-'+self.pid+'-'+key,version_id='ver-'+self.pid+'-formal',path=str(path.relative_to(R)),local_path=str(path.relative_to(R)),sha256=hashlib.sha256(path.read_bytes()).hexdigest(),page_count=m['total_pages'],pages=m['total_pages'],total_pages=m['total_pages'],url=m['pdf_url'],role=m['role'],kind=key,label='正式补充材料' if key=='supplement' else '正式会议PDF（含文件内附录）',visibility='public',publication_status='published'))
+ def ref(self,key,pages,section):return dict(source_id='src-'+self.pid+'-'+key,version_id='ver-'+self.pid+'-formal',pdf_pages=pages,section=section)
+ def issue(self,id,title,en,kind,original,location,evidence,evidence_en,impact,impact_en,results):
+  row=dict(id=id,paper_id=self.pid,title=title,kind=kind,classification=kind,status='agent_confirmed',original_expression=original,source_location=location,evidence_md=evidence,problem_md=evidence,impact_md=impact,related_result_ids=results,fix_authorization='proof_only_granted',user_confirmation='not_required_for_proof_only_correction',user_review_status='pending',resolution='original_statement_preserved',translations={'en':dict(title=en,problem_md=evidence_en,evidence_md=evidence_en,impact_md=impact_en,source_location=location)})
+  self.issues.append(row);return id
+ def result(self,id,title,en,label,tex,refs,steps,kind='derivation',assumptions=None,definitions=None,original=None,author_math=None,author_pages=None,issues=None,role='proof',assessment='valid',lean=None):
+  assumptions=assumptions or [];definitions=definitions or []
+  ps=[];pe=[]
+  for n,st in enumerate(steps,1):
+   z,e,formula=st[:3];ln=st[3] if len(st)>3 else []
+   ps.append(dict(id=f'{id}-step-{n}',title=z.split('。')[0][:42],body_md=z,formula_tex=formula,justification='理由随本步正文给出；完整审查尚在进行。',lean_refs=ln))
+   pe.append(dict(id=f'{id}-step-{n}',title=e.split('. ')[0][:70],body_md=e,justification='The step states its justification in its body; a complete review is in progress.'))
+  author='';atype='no_local_author_proof'
+  if author_pages:
+   math='\n\n'.join('$$'+t+'$$' for t in (author_math or []))
+   author=math
+   atype='manual_formal_mathematical_transcription_in_progress'
+   (self.D/'original-proofs').mkdir(exist_ok=True);(self.D/'original-proofs'/(id+'.md')).write_text(author)
+  else:author='此条在所选正式文件没有独立作者证明；项目说明与作者原证明分开。'
+  lr=lean or [];status='pending_verification' if lr else 'not_available'
+  row=dict(id=id,paper_id=self.pid,title=title,kind=kind,original_label=label,inventory_ids=[id],source_refs=[self.ref(*r) for r in refs],statement_tex=tex,assumptions=[{'id':f'{id}-assumption-{k}','body_md':a[0]} for k,a in enumerate(assumptions,1)],definitions=[{'id':f'{id}-definition-{k}','body_md':a[0]} for k,a in enumerate(definitions,1)],original_statement_md=original or '$$'+tex+'$$',original_proof_md=author,original_proof_refs=[self.ref(key,pg,label) for key,pg in (author_pages or [])],original_statement_source_type='formal_mathematical_transcription_original_statement_preserved',original_proof_source_type=atype,overview=ps[0]['body_md'] if ps else title,proof_steps=ps,shared_proof_ids=[],symbol_ids=[],notation_map=[],rewrite_status='in_progress',rewrite_role=role,proof_scope='full_original_statement' if role=='proof' else 'counterexample_to_original_clause' if role=='counterexample' else 'full_scope_analysis',statement_assessment=assessment,alignment_status='agent_reviewed_original_statement_preserved',user_review_status='pending',lean=dict(status=status,declarations=lr,compiled=False,evidence_role='partial' if role=='proof' and lr else 'counterexample' if role=='counterexample' and lr else 'none',scope='Development state: the listed declarations currently supply auxiliary finite lemmas; the full paper adapter has not yet been bound.'),related_issue_ids=issues or [],translations={'en':dict(title=en,overview=pe[0]['body_md'] if pe else en,assumptions=[{'id':f'{id}-assumption-{k}','body_md':a[1]} for k,a in enumerate(assumptions,1)],definitions=[{'id':f'{id}-definition-{k}','body_md':a[1]} for k,a in enumerate(definitions,1)],proof_steps=pe,notation_map=[],scope='Full original target.' if role=='proof' else 'The original claim is retained, with the displayed counterexample or scope analysis.')})
+  self.rows.append(row);return row
+ def pages(self,key,spec):
+  for pg,(section,classification,note) in enumerate(spec,1):
+   self.audit[(key,pg)]=dict(source_id='src-'+self.pid+'-'+key,pdf_page=pg,section=section,classification=classification,entry_ids=[],review_status='agent_reviewed',evidence_path=str((self.D/'source-evidence'/f'{key}-page-{pg:02d}.txt').relative_to(R)),note=note)
+ def write(self):
+  for row in self.rows:
+   for ref in row['source_refs']:
+    key='supplement' if ref['source_id'].endswith('supplement') else 'formal'
+    for pg in ref['pdf_pages']:
+     if (key,pg) in self.audit and row['id'] not in self.audit[(key,pg)]['entry_ids']:self.audit[(key,pg)]['entry_ids'].append(row['id'])
+  inv=dict(schema_version=1,paper_id=self.pid,title=self.p['title'],sources=self.sources,review_scope='All physical pages of the selected formal PDF files, including non-proof pages; original occurrences are separate from deduplicated targets.',page_audit=list(self.audit.values()),proof_targets=[r['id'] for r in self.rows if r['kind'] not in ['definition','empirical','external_background']],entries=[dict(id=r['id'],title=r['title'],original_label=r['original_label'],kind=r['kind'],source_refs=r['source_refs'],merge_target_id=r['id'],review_status='agent_reviewed',proof_pages=r['original_proof_refs'],statement_location=r['source_refs'][0],proof_location=(r['original_proof_refs'][0] if r['original_proof_refs'] else {}),appearances=r['source_refs'],has_local_author_proof=r['original_proof_source_type']!='no_local_author_proof',statement_assessment=r['statement_assessment'],proof_target=r['kind'] not in ['definition','empirical','external_background'],non_proof_reason=('Source definitions or explicitly unquantified empirical/background discussion, without a local mathematical proof claim.' if r['kind'] in ['definition','empirical','external_background'] else '')) for r in self.rows],review_status='agent_reviewed',counts=dict(results=len(self.rows),physical_pages=len(self.audit),local_author_proof_targets=sum(r['original_proof_source_type']!='no_local_author_proof' for r in self.rows),valid_proof_targets=sum(r['rewrite_role']=='proof' for r in self.rows),proof_targets=sum(r['kind'] not in ['definition','empirical','external_background'] for r in self.rows),counterexample_targets=sum(r['rewrite_role']=='counterexample' for r in self.rows)))
+  md=dict(id=self.pid,paper_id=self.pid,title=self.p['title'],title_en=self.p['title'],authors=self.p['authors'],year=self.p['publication_year'],venue=self.p['venue'],intro='正式正文、附录及独立补充材料的全部数学范围。',scope='逐页来源审查、数学正确性、双语重写与Lean编译独立记录。',version_id='ver-'+self.pid+'-formal',version_label=self.p['version'],visibility='public',publication_status='published',publication_url=self.p['source_url'],canonical_publication_key=self.p['source_url'],sources=[dict(id=s['source_id'], **{k:v for k,v in s.items() if k!='source_id'}) for s in self.sources],results=[r['id'] for r in self.rows],translations={'en':dict(intro='Complete mathematical scope of the formal main paper, appendices and separate supplement.',scope='Source completeness, mathematical validity, bilingual rewriting and Lean compilation are audited separately.')})
+  if self.pid=='neurips2021-robustness':md.update(published_landing_title=self.p['published_landing_title'],title_identity_note='The official landing/BibTeX title differs from the official PDF title; hash, authors and venue identify the same published source.',publication_aliases=['https://proceedings.nips.cc/paper_files/paper/2021/hash/1f4fe6a4411edc2ff625888b4093e917-Abstract.html'])
+  dump(self.D/'paper-metadata.json',md);dump(self.D/'inventory.json',inv);dump(self.D/'content.json',dict(schema_version=1,paper_id=self.pid,inventory_path=str((self.D/'inventory.json').relative_to(R)),results=self.rows,shared_proofs=self.shared,issues=self.issues,symbols=self.symbols));dump(self.D/'issues.json',self.issues);dump(self.D/'symbols.json',dict(schema_version='symbol-table-1.0',paper_id=self.pid,symbols=self.symbols))
+  (self.D/'inventory.md').write_text('# '+self.p['title']+'\n\n'+'\n'.join(f"- {a['source_id']} PDF {a['pdf_page']}: {a['section']} — {a['classification']}; {', '.join(a['entry_ids']) or 'no local proof target'}" for a in self.audit.values())+'\n')

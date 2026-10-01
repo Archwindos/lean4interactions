@@ -1,0 +1,1 @@
+It is because even if the noisy differences between many pairs of dimensions can be ignored, in the process of calculating the sum of squares, these noisy differences will accumulate. Therefore, the cosine similarity of two extremely high-dimensional vectors will not be particularly large.

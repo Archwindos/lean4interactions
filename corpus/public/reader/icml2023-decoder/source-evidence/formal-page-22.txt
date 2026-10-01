@@ -1,0 +1,100 @@
+                                Defects of Convolutional Decoder Networks in Frequency Representation
+
+Then, we have
+
+  SOM (T(uv)(L:1) )
+   = E[|T(uv)(L:1) |2 ]
+   = E[|T (L,uv) T(uv)(L−1:1) |2 ]
+                          (L,uv)            (uv)(L−1:1)                                         (L,uv)         (uv)(L−1:1) 2
+   = (CL−1 SOM (Tdc    )SOM (Tdc          ) + CL−1 (CL−1 − 1)|E[Tdc                                      ]E[Tdc          ]| )1(CL ×C0 )
+  //According to Assumption 4.1 and Equation (30),
+  //we further Assume ∀d 6= d0 ; c 6= c0 , E[Tdc
+                                                        (uv)(l:1)
+                                                       Td0 c0
+                                                                     (uv)(l:1)
+                                                                ] = E[Tdc        ]E[Td0 c0
+                                                                                           (uv)(l:1)
+                                                                                             ]
+                                                                                                          (uv)(l:1)                         (32)
+
+                      2      2 2           (uv)(L−1:1)      CL−1 − 1      (uv)(L:1) 2
+   = (CL−1 (|µL Ruv | + K σL )SOM (Tdc                 )+            |E[Tdc         ]| )1(CL ×C0 )
+                                                              CL−1
+  //According to Equation (28), Equation (31)
+          L                                 L                   l                 L                              
+        1 Y                                 X   Cl−1 − 1 1 Y                       Y         
+   =          Cl (|µl Ru,v |2 + (Kσl )2 ) +                |       Ck µk Ru,v |2        Cj−1 |µj Ru,v |2 + (Kσj )2 1CL ×C0
+       CL                                         Cl−1 Cl
+            l=1                                      l=2                    k=1                        j=l+1
+
+
+
+
+Therefore, we prove that for the more general case that ∀l, Cl > 1, the second-order moment SOM(T(uv)(L:1) ) also approxi-
+mately exponentially increases along with the depth of the network.
+
+
+
+A.5. Proof of Theorem 4.3
+In this section, we prove Theorem 4.3 in the main paper, as follows.
+
+
+
+Proof.
+                                                       M −1 N −1
+                                                                                   um
+                                                                                        + vn
+                                                       X    X
+                                                                       (c) −i( M
+                                EF (c) [G(c)
+                                         uv ]   = E[                  Fmn e               N )2π    ] //Equation (19)
+                                                        m=0 n=0
+                                                     M −1 N −1
+                                                                                      um
+                                                                                           + vn
+                                                     X    X
+                                                                       (c) −i( M             N )2π
+                                                =                   E[Fmn ]e
+                                                     m=0 n=0
+                                                                                                                                            (33)
+                                                      M −1 N −1
+                                                                           um
+                                                                                 + vn
+                                                      X    X
+                                                =a                   e−i( M        N )2π       //F(c)         2
+                                                                                                  mn ∼ N (a, σ )
+                                                      m=0 n=0
+                                                = aM N δuv ; 0 ≤ u < M, 0 ≤ v < N                          //Equation (15)
+
+
+
+                        (c)
+               EF (c) [Huv  ]
+                              0      0
+                            M   −1 N   −1
+                                                        um    vn
+                            X      X
+                                              (c) −i( M 0 + N 0 )2π
+               = EF (c) [                   F̃mn e                  ] //Equation (19)
+                             m=0 n=0
+                            M −1 N −1
+                                                      um     vn
+                            X    X
+                                         (c) −i( M 0 + N 0 )2π
+               = EF (c) [               Fmn e                  ]
+                                                                                                                                            (34)
+                             m=0 n=0
+                     M −1 N −1
+                                        um      vn
+                     X    X
+               =a                  e−i( M 0 + N 0 )2π      //F(c)         2
+                                                              mn ∼ N (a, σ )
+                     m=0 n=0
+                  sin( M u         Nv
+                       M 0 π) sin( N 0 π) −i( M 0 + N 0 )π
+                                             (M −1)u (N −1)v
+               =a       u           v     e                  ; 0 ≤ u < M 0, 0 ≤ v < N 0                                   //Equation (13)
+                  sin( M 0 π) sin( N 0 π)
+
+                                                                                 22
+

@@ -1,0 +1,119 @@
+                                Bayesian Neural Networks Avoid Encoding Complex and Perturbation-Sensitive Concepts
+
+D. Experiments on the connection between conceptual complexity and adversarial robustness
+We show experimental results in (Ren et al., 2021) to demonstrate that high-order (complex) interactive concepts are more
+vulnerable to adversarial attacks, as illustrated in Figure 5. Although the interaction used in (Ren et al., 2021) was a bit
+different from the interaction used in this paper, we can prove that the Harsanyi dividend interaction in this paper is the
+elementary component of the multi-order interaction in (Ren et al., 2021). Thus, experimental results still reflect adversarial
+vulnerability of high-order interactive concepts. Please see Ren et al. (2021) for more details.
+
+                                       ResNet-18                          ResNet-50                            Wide-                           DenseNet-161                     VGG-16
+                            0.04                           0.06                                              ResNet50-4
+        Standard
+
+
+
+
+                                                                                                                                0.02                             0.06
+                                                                                              0.06                                                                                                       𝑚
+          DNN
+
+
+
+
+                               0
+                                                                                                                                                                                                        𝐼nor
+                        𝑚
+
+
+
+
+                                                                                                                                                                 0.02
+                                                           0.02
+                        𝐼
+
+
+
+
+                            -0.04                                                                 0                             -0.02
+                                                                                                                                                                 -0.02
+
+                            -0.08                          -0.02                              -0.06                             -0.06                            -0.06                                   𝑚
+                                    0.1n   order   0.95n           0.1n
+                                                                            order
+                                                                                     0.95n            0.1n
+                                                                                                               order
+                                                                                                                        0.95n           0.1n
+                                                                                                                                                 order
+                                                                                                                                                         0.95n           0.1n
+                                                                                                                                                                                  order
+                                                                                                                                                                                          0.95n
+                                                                                                                                                                                                        𝐼adv
+        Adversarially
+        trained DNN
+
+
+
+
+                                                           0.02                               0.06                              0.04                             0.04
+                            0.03
+                                                           0.01                                                                                                  0.02
+                                                                                                                                                                                                             (𝑚)   (𝑚)
+                        𝑚
+
+
+
+
+                            0.01
+                                                                                              0.02                                 0
+                                                                                                                                                                                                  Δ𝐼 (𝑚) = 𝐼nor − 𝐼adv
+                        𝐼
+
+
+
+
+                                                              0                                                                                                     0
+
+                            -0.01                          -0.01                              -0.02                             -0.04                            -0.02
+                                    0.1n           0.95n           0.1n               0.95n           0.1n              0.95n           0.1n             0.95n           0.1n             0.95n
+                                           order                             order                              order                            order                            order
+
+Figure 5. Adversarial attacks mainly affect high-order interactive concepts. Please refer to Ren et al. (2021) for more details.
+
+
+
+E. Comparison of adversarial robustness between BNNs and standard DNNs
+This experiment compares the adversarial robustness between BNNs and standard DNNs. Specifically, we train two BNNs
+with 8-layer MLP architecture on tabular datasets, including the Census dataset and the TV news dataset. All MLPs
+contain 100 neurons in each hidden layer. For each trained BNN θ ∗ , we compare this BNN with a standard DNN ψθ∗
+that is constructed by following the experimental setting of Comparison (1) in Section 3. In other words, the standard
+DNN ψθ∗ is constructed by setting its weights to the mean value of the weight distribution of the BNN. Thus, with such
+experimental settings, the main difference between the BNN θ ∗ and the DNN ψθ∗ is the weight uncertainty of BNNs, so
+that our experiment can faithfully reflect the impact of weight uncertainty of BNNs on the adversarial robustness.
+We compare the classification accuracy on adversarial samples in the testing set between the BNN θ ∗ and the standard DNN
+ψθ∗ . To this end, for each pair of BNN and standard DNN, we adopt the untargeted PGD adversarial attack (Madry et al.,
+2018) based on the l∞ norm, and accordingly obtain their accuracies on adversarial samples. In the PGD attack based on
+the l∞ norm, an adversarial sample x̃ is constrained wthin the l∞ -ball around the original sample x, i.e., ∥x̃ − x∥∞ ≤ ϵ.
+We conduct the attack for 20 steps with ϵ = 0.1, and set the step size to 0.01. Table 2 shows that BNNs exhibit higher
+adversarial accuracies than the corresponding DNNs, which indicates that BNNs are more robust to adversarial attacks.
+
+
+                        Table 2. Adversarial accuracies of the BNN θ ∗ and the standard DNN ψθ∗ constructed based on the BNN.
+
+                                                                                                 MLP-8 on Census                                 MLP-8 on TV news
+                                                                    BNN θ ∗                         77.51%                                           53.54%
+                                                                    DNN ψθ∗                         75.22%                                           50.54%
+
+
+
+F. Experiments on the connection between conceptual complexity and generalization power.
+ Zhou et al. (2023) have investigated the connection between the generalization ability of an interactive concept encoded by
+a neural network and the complexity (order) of this concept.
+The generalization ability of a concept S is defined as follows. For a generalizable concept S, if the concept is frequently
+extracted from training samples, then it is supposed to be also frequently extracted from testing samples and to make
+consistently positive (or consistently negative) effects to the classification of a certain category. Otherwise, this concept
+would not be considered generalizable. Thus, the generalization ability of a specific concept can be evaluated by whether
+this concept’s interaction effects over training samples are similar to its interaction effects over testing samples. To this end,
+Zhou et al. (2023) quantified the average generalization ability g (m) over all m-order interactive concepts by the similarity
+
+                                                                                                                           13

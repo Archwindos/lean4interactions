@@ -1,0 +1,63 @@
+adversarial training as the enumeration of all potential adversarial perturbations. Wang et al. [54]
+explained adversarial training from the perspective of min-max optimization. Yin et al. [66], Wang
+et al. [56], Harder et al. [23] discovered adversarial training pushed DNNs to utilize low-frequency
+components in inputs.
+Understanding of the robustness. Szegedy et al. [48], Hein and Andriushchenko [25] computed
+Lipschitz constant to explain the robustness. Ignatiev et al. [27], Boopathy et al. [7] investigated the
+connection between network interpretability and adversarial robustness. Tsipras et al. [50] proved
+the inherent tension between adversarial robustness and standard generalization power. Fawzi et al.
+[18], Gilmer et al. [20], Weng et al. [58] proved lower/upper bounds on the robustness. Pal and Vidal
+[37] proposed a game-theoretic framework to understand the adversarial robustness, by formulating
+the game between attackers and defenders w.r.t. a trained DNN. Under the game-theoretic framework,
+Pal and Vidal [37] theoretically proved that the FGM attack and the random smoothing defense
+formed a Nash Equilibrium under some assumptions.
+Unlike previous explanations of the existence of adversarial examples and adversarial robustness, we
+explain adversarial examples and adversarial training from a new perspective, i.e. the complexity of
+visual concepts that are learned by a DNN.
+
+3    Decomposing attacking utility into interactions of multiple orders
+Preliminaries: using Shapley values [44] and the Shapley interaction index [22] to explain a
+DNN. The Shapley value [44] in game theory is widely considered as an unbiased estimation for
+the importance or contribution of each player in a game. Given a trained DNN and the input with
+n variables (e.g. an image with n pixels, a sentence with n words) N = {1, · · · , n}, we can take
+input variables as players, and consider the network output as the reward. Shapley values can fairly
+divide and assign numerical effects on the network output to each input variable. More specifically,
+        def
+let 2N = {S|S ⊆ N } denote all potential subsets of N , and each subset S represents a specific
+context (e.g. a set of pixels in an image). v(S) ∈ R represents the scalar network output when we
+keep variables in S unchanged and mask variables in N \ S by following settings in [1] (i.e. setting a
+masked variable to the average value over different input samples).4 In particular, v(N ) refers to the
+network output w.r.t. the entire input N (e.g. the whole image), and v(∅) denotes the output when we
+mask all variables. In this way, the Shapley value ϕ(i) unbiasedly measures the importance of the
+variable i to the network output.
+                                                                      def (n − |S| − 1)!|S|!
+                     X
+             ϕ(i) =                p(S) [v(S ∪ {i}) − v(S)] , p(S) =                                  (1)
+                         S⊆N \{i}                                                 n!
+In this way, the network P output can be considered as the sum of elementary importances of input
+variables, i.e. v(N ) = i∈N ϕ(i)+v(∅). The Shapley value has been proved to satisfy four desirable
+properties, i.e. linearity, nullity, symmetry and efficiency properties, thereby being regarded as a fair
+method to allocate the network output to each input variable [57].
+Input variables of a DNN do not contribute to the network output independently. Instead, different
+variables collaborate with each other to affect the network output, and we use the interaction to
+quantify the numerical utility of such collaborations. To this end, the Shapley interaction index [22]
+measures the utility of the collaboration between two input variables (i, j) by examining whether
+the absence/presence of an input variable j will change the importance of the other variable i.
+Their interaction is defined as I(i, j) = ϕ̃(i)j always present − ϕ̃(i)j always absent , where ϕ̃(i)j always present
+and ϕ̃(i)j always absent denote the importance of the variable i when j is always present and when j is
+always absent, respectively (please see [22] for more details about I(i, j)).
+Decomposition of the existing Shapley interaction index into multiple orders. Zhang et al. [70]
+further decomposes the Shapley interaction index I(i, j) [22] into interactions of different orders.
+                          1 Xn−2 (m)            (m)
+              I(i, j) =                I , Iij = ES⊆N \{i,j},|S|=m [∆v(i, j, S)]                   (2)
+                        n−1       m=0 ij
+
+where ∆v(i, j, S) = v(S ∪ {i, j}) − v(S ∪ {i}) − v(S ∪ {j}) + v(S).
+    4
+      For     the      DNN         trained       for       multi-category        classification, we set
+v(S) = log p(y = c|given an input with variables in N \ S masked), where c is selected as either the
+ground-truth category of the input, or the incorrectly classified category after attacks.
+
+
+                                                         4
+

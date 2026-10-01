@@ -1,0 +1,91 @@
+Therefore,
+           Eϵ [I(S|x + ϵ)] = Eϵ [US,π̂ · J(S, π̂|x + ϵ)] = US,π̂
+                                                                                           |S|     
+                                                             2                           2                (13)
+        Varϵ [I(S|x + ϵ)] = Varϵ [US,π̂ · J(S, π̂|x + ϵ)] = US, π̂          1 + (σ/τ )              −1
+
+According to Theorem 2, given an arbitrary input sample x′ , we have
+                                                                       π
+                                                               x ′ − bi i
+                                     Y       
+                      J(S, π|x′ ) =           sign(x′i − bi ) · i                                         (14)
+                                         i∈S                       τ
+Let us add a Gaussian perturbation ϵ ∼ N (0, σ 2 I) to the input sample x. In this way, we have
+                           Y                                       π
+                                                      x i + ϵ i − bi i
+         J(S, π|x + ϵ) =        sign(xi + ϵi − bi ) ·
+                                                            τ
+                          i∈S
+                                                                                         π    (15)
+                           Y                          xi − bi                           ϵi i
+                        =       sign(xi + ϵi − bi ) ·           + sign(xi + ϵi − bi ) ·
+                                                          τ                             τ
+                             i∈S
+
+According to the setting of the baseline value, ∀i ∈ S, xi − bi ∈ {−τ, τ }. We assume that the
+perturbation is small, i.e., ∀i ∈ S, |ϵi | ≪ τ . In this way, sign(xi + ϵi − bi ) = sign(xi − bi ), and we
+can obtain
+                                   Y                                                         π
+                                                            xi − bi                       ϵi i
+               J(S, π|x + ϵ) =             sign(xi − bi ) ·          + sign(xi − bi ) ·
+                                                               τ                          τ
+                                  i∈S
+                                                                     π
+                                                                                                       (16)
+                                   Y                           ϵi    i
+                                =         1 + sign(xi − bi ) ·
+                                                                 τ
+                                  i∈S
+                                                   "                                    #
+                                                     Y                          ϵi πi
+                  ⇒ Eϵ [J(S, π|x + ϵ)] = Eϵ                 1 + sign(xi − bi ) ·
+                                                                                 τ
+                                                     i∈S
+                                                      "                                      #         (17)
+                                                        Y                          ϵi  π i
+                  Varϵ [J(S, π|x + ϵ)] = Varϵ                 1 + sign(xi − bi ) ·
+                                                                                    τ
+                                                      i∈S
+
+Since ∀i ∈ S, ϵi is independent of each other, according to Proposition 1 and Eq. (17), we have
+                         Y      h                     ϵi πi i
+  Eϵ [J(S, π|x + ϵ)] =       Eϵi 1 + sign(xi − bi ) ·
+                                                       τ
+                         i∈S
+                                                               Y
+                         Y                            ϵi 2πi               h                      ϵi πi i2
+Varϵ [J(S, π|x + ϵ)] =       Eϵi 1 + sign(xi − bi ) ·           −       Eϵi 1 + sign(xi − bi ) ·
+                                                       τ                                             τ
+                         i∈S                                      i∈S
+                                                                                                   (18)
+                                             h                            i      h            i
+                                                                        k                   k
+Since sign(xi − bi ) ∈ {−1, 1}, we have Eϵi 1 + sign(xi − bi ) · ϵτi        = Eϵi 1 + ϵτi
+                                                                                         
+                                                                                                , ∀k ∈
+N+ . Therefore, we obtain
+                                      Y         ϵi  π i i
+                                                h
+               Eϵ [J(S, π|x + ϵ)] =       Eϵi        1+
+                                                 τ
+                                    i∈S
+                                       "                 #
+                                         Y     ϵi  π i
+                                  = Eϵ       1+
+                                                τ
+                                        i∈S
+                                                          Y
+                                    Y            ϵi 2πi               h   ϵi πi i2
+             Varϵ [J(S, π|x + ϵ)] =     Eϵi 1 +              −      Eϵi 1 +
+                                                 τ                          τ
+                                    i∈S                         i∈S
+                                         "                  #
+                                           Y      ϵi  π i
+                                  = Varϵ      1+              .
+                                                    τ
+                                             i∈S
+
+
+
+
+                                                      19

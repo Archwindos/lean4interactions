@@ -1,0 +1,1150 @@
+      A Unified Game-Theoretic Interpretation of
+    Adversarial Robustness: Supplementary Material
+
+
+               Jie Rena∗ , Die Zhanga∗ , Yisen Wangb∗, Lu Chena , Zhanpeng Zhoua ,
+        Yiting Chena , Xu Chenga , Xin Wanga , Meng Zhoua,c†, Jie Shid , Quanshi Zhanga‡
+                                     a
+                                     Shanghai Jiao Tong University
+            b
+                Key Lab. of Machine Perception (MoE), School of EECS, Peking University
+                                     c
+                                       Carnegie Mellon University
+                                       d
+                                         Huawei technologies Inc.
+
+
+
+
+A       Preliminaries: Shapley values
+In this section, in order to help readers understand the metric in the paper, we first revisit the definition
+of the Shapley value [14], which is widely considered as an unbiased estimation of the numerical
+importance w.r.t. each input variable. In game theory, the complex system is usually represented as a
+game, where each input variable is taken as a player, and the output of this system is regarded as the
+total reward of all players. Given a game with multiple players (input variables) N = {1, 2, · · · , n},
+some players cooperate to pursue a high reward. Thus, the task is to divide the total reward, and fairly
+assign the divided elementary reward to each individual player. In this way, the elementary reward
+can be considered as the numerical importance of the corresponding variable to the complex system.
+          def
+Let 2N = {S|S ⊆ N } indicate all potential subsets of N . The game v : 2N → R is a function,
+which estimates the overall reward v(S) earned by each specific subset of players S ⊆ N . In this
+way, the Shapley value, denoted by φ(i), represents the numerical importance of the player i to the
+game v.
+                                   X (n − |S| − 1)!|S|! h                        i
+                         φ(i) =                             v(S ∪ {i}) − v(S) .                           (1)
+                                                n!
+                                S⊆N \{i}
+Weber [22] has proven that the Shapley value is a unique method to fairly allocate overall reward to
+each player that satisfies following properties.
+(1) Linearity property: If two independent games can be merged into one game u(S) = v(S) +
+w(S), then the Shapley value of the new game also can be merged, i.e. ∀i ∈ N , φu (i) = φv (i) +
+φw (i); ∀c ∈ R, φc·u (i) = c · φu (i).
+(2) Nullity property: The dummy player i is defined as a player satisfying ∀S ⊆ N \ {i}, v(S ∪
+{i}) = v(S) + v({i}), which indicates that the player i has no interactions with other players in N ,
+φ(i) = v({i}) − v(∅).
+(3) Symmetry property: If ∀S ⊆ N \ {i, j}, v(S ∪ {i}) = v(S ∪ {j}), then φ(i) = φ(j).
+                                                                           P
+(4) Efficiency property: The overall reward can be assigned to all players, i∈N φ(i) = v(N ) −
+v(∅).
+Using Shapley values to explain DNNs. Given a trained DNN and the input with n variables
+N = {1, · · · , n}, we can take the input variables as players, and consider the network output as
+    ∗
+      Equal contribution
+    †
+      This work was done when Meng Zhou was an undergraduate at Shanghai Jiao Tong University.
+    ‡
+      Quanshi Zhang is the corresponding author. zqs1022@sjtu.edu.cn. This work is supervised by Dr.
+Quanshi Zhang. He is with the John Hopcroft Center and the MoE Key Lab of Artificial Intelligence, AI Institute,
+at the Shanghai Jiao Tong University, China.
+
+
+35th Conference on Neural Information Processing Systems (NeurIPS 2021), Sydney, Australia.
+the reward. The Shapley value φ(i) of each input variable i ∈ N is regarded as the importance of
+the variable i to the network output. Each subset of variables S ⊆ N represents a specific context.
+v(S) represents the network output, when we keep variables in S unchanged and mask variables in
+N \ S by following settings in [1]. In particular, v(N ) refers to the network output w.r.t. the entire
+input N , and v(∅) denotes the output when we mask all variables. Note that for the DNN trained for
+multi-category classification, v(S) can be taken as an arbitrary dimension of the network output, so
+as to measure the variable importance to the corresponding category.
+
+B     Multi-order interactions and multi-order Shapley values
+In this section, we first revisit the definition of the Shapley interaction index [6] and multi-order
+interactions [25], in order to improve the readability. Then, we provide proofs of extended properties
+of multi-order interactions, proofs of the relationship between multi-order interactions and multi-order
+Shapley values, and the proof of Proposition 1 in Section 4.1 of the paper.
+
+B.1   Multi-order interactions
+
+Shapley interaction index. Input variables of a DNN do not contribute to the network output inde-
+pendently. Instead, there are interactions/collaborations between different variables. To this end, the
+Shapley interaction index [6] measures the influence of a variable on the Shapley value (importance)
+of another variable. I.e. for two variables (i, j), it examines whether the absence/presence of j can
+change the importance of i. Thus, the Shapley interaction index is defined as the change in the
+Shapley value (importance) of variable i when the variable j is always present w.r.t. the case when j
+is always absent, as follows.
+                             I(i, j) = φ̃(i)j always present − φ̃(i)j always absent                    (2)
+where φ̃(i)j always present denotes the Shapley value of the variable i computed under the specific
+condition that j is always present. φ̃(i)j always absent is computed under the specific condition that j is
+always absent. Note that I(i, j) = I(j, i). If I(i, j) > 0, it indicates that the presence of the variable
+j will increase the importance of the variable i. Thus, we consider variables (i, j) have a positive
+interaction. If I(i, j) < 0, it indicates a negative interaction.
+
+Multi-order interactions. Zhang et al. [25] decomposed the Shapley interaction index into inter-
+actions of different orders, as follows.
+                                  (m)
+                                 Iij    = ES⊆N \{i,j},|S|=m [∆v(i, j, S)],                             (3)
+                   def                                                                (m)
+where ∆v(i, j, S) = v(S ∪ {i, j}) − v(S ∪ {i}) − v(S ∪ {j}) + v(S). Iij denotes the interaction
+of the m-th order, which measures the average interaction between variables (i, j) under all contexts
+                                                                                                  (m)
+consisting of m variables (e.g. a visual context consisting of m pixels). For a low order m, Iij
+reflects the interaction between i and j w.r.t. simple contextual collaborations with a few variables.
+                       (m)
+For a high order m, Iij corresponds to the interaction w.r.t. complex contextual collaborations with
+massive variables.
+Proofs of new properties of multi-order interactions claimed in the paper. In Section 3 of the
+                      (m)
+paper, we claim that Iij satisfies linearity, nullity, commutativity, symmetry, and efficiency properties.
+Proofs are given as follows.
+(1) Linearity property: If we merge outputs of two DNNs, u(S) = w(S) + v(S), then, ∀i, j ∈ N ,
+                 (m)                                                  (m)     (m)     (m)
+the interaction Iij,u w.r.t. the new output u can be decomposed into Iij,u = Iij,w + Iij,v .
+• Proof :
+                          (m)
+                         Iij,u = ES⊆N \{i,j},|S|=m [∆u(S, i, j)]
+                                = ES⊆N \{i,j},|S|=m [∆v(i, j, S) + ∆w(S, i, j)]
+                                   (m)      (m)
+                                = Iij,v + Iij,w
+                                                                                                        
+
+
+                                                       2
+(2) Nullity property: The dummy variable i ∈ N satisfies ∀S ⊆ N \{i}, v(S∪{i}) = v(S)+v({i}).
+                                                                                      (m)
+It means that the variable i has no interactions with other variables, i.e. ∀j ∈ N , Iij = 0.
+• Proof :
+            (m)
+       Iij        = ES⊆N \{i,j},|S|=m [v(S ∪ {i, j}) − v(S ∪ {i}) − v(S ∪ {j}) + v(S)]
+                                                                                       
+                  = ES⊆N \{i,j},|S|=m v(S ∪ {j} ∪ {i}) − v(S ∪ {j}) − v(S ∪ {i}) − v(S)
+                  = ES⊆N \{i,j},|S|=m [v({i}) − v({i})] = 0
+                                                                                                              
+                                                    (m)        (m)
+(3) Commutativity property: ∀i, j ∈ N ,            Iij    =   Iji .
+• Proof :
+                  (m)
+              Iij       = ES⊆N \{i,j},|S|=m [v(S ∪ {i, j}) − v(S ∪ {i}) − v(S ∪ {j}) + v(S)]
+                        = ES⊆N \{i,j},|S|=m [v(S ∪ {i, j}) − v(S ∪ {j}) − v(S ∪ {i}) + v(S)]
+                           (m)
+                        = Iji
+                                                                                                              
+(4) Symmetry property: If input variables i, j ∈ N have same cooperations with other variables
+∀S ⊆ N \{i, j}, v(S ∪ {i}) = v(S ∪ {j}), then they have same interactions, ∀k ∈ N \{i, j},
+ (m)    (m)
+Iik = Ijk .
+• Proof :
+      (m)
+     Iik     = ES⊆N \{i,j}, [∆v(i, k, S)]
+                        |S|=m
+               m!(n − 2 − m)!             X
+             =                                    [∆v(i, k, S)]
+                  (n − 2)!
+                                     S⊆N \{i,k},
+                                       |S|=m
+                                                                                                       
+                  m!(n − 2 − m)!            X                                   X                        
+             =                                      [∆v(i, k, S ∪ {j})] +                   [∆v(i, k, S)]
+                     (n − 2)!                                                                            
+                                         S⊆N \{i,j,k},                       S⊆N \{i,j,k},
+                                          |S|=m−1                              |S|=m
+                                                                                                       
+                  m!(n − 2 − m)!            X                                   X                    
+             =                                      [∆v(j, k, S ∪ {i})] +               [∆v(j, k, S)]
+                     (n − 2)!                                                                        
+                                         S⊆N \{i,j,k},                       S⊆N \{i,j,k},
+                                          |S|=m−1                              |S|=m
+
+             = ES⊆N \{i,j}, [∆v(j, k, S)]
+                        |S|=m
+                   (m)
+             =    Ijk
+                                                                                                              
+(5) Efficiency property: The output of the DNN can be decomposed into interactions of different
+                                                        Pn−2            (m)                   def
+orders, v(N ) = v(∅) + i∈N φ(0) (i) + i∈N j∈N \{i} [ m=0 n−1−m                        (0)
+                        P                P    P
+                                                               n(n−1) Iij ], where φ      (i) =
+v(i) − v(∅).
+• Proof :
+                    1X      Xn−1
+ v(N ) = v(∅) +                      φ(m) (i)
+                    n   i∈N      m=0
+                    1X                 1X        Xn−1 h                Xk=m−1 (k)           i
+           = v(∅) +         φ(0) (i) +                      Ej∈N \{i}          Iij + φ(0) (i)
+                    n   i∈N            n     i∈N     m=1                 k=0
+                    X                    1     X       X              Xn−1 Xk=m−1 (k) 
+                          φ(0) (i) +
+                                                                    
+           = v(∅) +                                                                  Iij
+                      i∈N            n(n − 1)     i∈N      j∈N \{i}     m=1   k=0
+                    X                X      X              Xn−2 n − 1 − m (m)
+           = v(∅) +       φ(0) (i) +                     [                  I ]
+                      i∈N               i∈N     j∈N \{i}     m=0 n(n − 1) ij
+
+
+
+                                                          3
+                                                                                                    
+
+
+
+B.2   Multi-order Shapley values
+
+In Section 4.3 of the paper, we define multi-order Shapley values. In the supplementary material, this
+section provides more details about multi-order Shapley values to help readers understand, and also
+provides proofs of extended properties of multi-order Shapley values.
+We decompose the Shapley value φ(i) into different orders, as follows.
+
+
+                                      1 Xn−1 (m)
+                              φ(i) =            φ (i),                                             (4)
+                                      n   m=0
+
+                           φ(m) (i) = ES⊆N \{i},|S|=m [v(S ∪ i) − v(S)],                           (5)
+
+
+
+where φ(m) (i) denotes the Shapley value of the m-th order. It measures the importance of the input
+variable i to the network output with contexts consisting of m ∈ {0, . . . , n − 1} variables.
+For a low order m, φ(m) (i) denotes the importance of the variable i, when i cooperates with a few
+contextual variables for inference. For a high order m, φ(m) (i) describes the importance of the
+variable i, which cooperates with massive contextual variables. In particular, φ(0) (i) = v(i) − v(∅)
+represents the numerical importance of i without taking into account any contexts.
+In addition, we have proven that φ(m) (i) satisfies following properties.
+(1) Linearity property: If we merge the outputs of two DNNs u(S) = w(S) + v(S), then the
+                                                                    (m)      (m)      (m)
+Shapley values of input variables also can be added, i.e. ∀i ∈ N , φu (i) = φw (i) + φv (i).
+• Proof :
+
+
+        φ(m)
+         u (i) = ES⊆N \{i},|S|=m [u(S ∪ {i}) − u(S)]
+               = ES⊆N \{i},|S|=m [w(S ∪ {i}) + v(S ∪ {i}) − w(S) − v(S)]
+               = ES⊆N \{i},|S|=m [w(S ∪ {i}) − w(S)] + ES⊆N \{i},|S|=m [v(S ∪ {i}) − v(S)]
+                = φ(m)      (m)
+                   w (i) + φv   (i)
+
+
+                                                                                                    
+(2) Nullity property: An input variable i ∈ N is considered as a dummy player if ∀S ⊆ N \ {i},
+v(S ∪ {i}) = v(S) + v({i}). Thus, the variable i has no interactions with other variables, i.e.
+φ(m) (i) = v({i}).
+• Proof :
+
+
+                            φ(m) (i) = ES⊆N \{i},|S|=m [v(S ∪ {i}) − v(S)]
+                                     = ES⊆N \{i},|S|=m [v({i})] = v({i})
+
+
+                                                                                                    
+(3) Symmetry property: Given two input variables i, j ∈ N , if these two variables have same
+cooperations with all other variables ∀S ⊆ N \{i, j}, v(S ∪ {i}) = v(S ∪ {j}), then φ(m) (i) =
+φ(m) (j).
+
+
+                                                  4
+• Proof :
+      φ(m) (i) = ES⊆N \{i},|S|=m [v(S ∪ {i}) − v(S)]
+                 m!(n − 1 − m)! X
+               =                         [v(S ∪ {i}) − v(S)]
+                    (n − 1)!
+                                  S⊆N \{i},
+                                   |S|=m
+                                                                                                                
+                  m!(n − 1 − m)!          X                                        X
+              =                                   [v(S ∪ {i, j}) − v(S, j)] +             [v(S ∪ {i}) − v(S)]
+                     (n − 1)!
+                                       S⊆N \{i,j},                              S⊆N \{i,j},
+                                        |S|=m−1                                   |S|=m
+                                                                                                                
+                  m!(n − 1 − m)!          X                                        X
+              =                                   [v(S ∪ {i, j}) − v(S, i)] +            [v(S ∪ {j}) − v(S)]
+                     (n − 1)!
+                                       S⊆N \{i,j},                           S⊆N \{i,j},
+                                        |S|=m−1                                |S|=m
+
+              = ES⊆N \{j},|S|=m [v(S ∪ {j}) − v(S)]
+              = φ(m) (j)
+                                                                                                                     
+(4) Efficiency        property:     The overall             reward     can   be     assigned        to   all   players,
+ 1
+        Pn−1
+                    φ(m) (i) = v(N ) − v(∅).
+   P
+n      i∈N    m=0
+• Proof :
+                                              X                  1X    Xn−1 (m)
+                           v(N ) − v(∅) =               φ(i) =              φ (i)
+                                                  i∈N            n i∈N  m=0
+
+                                                                                                                     
+
+B.3     Relationship between multi-order Shapley values and multi-order interactions
+
+This section provides proofs of the relationship between multi-order Shapley values and multi-order
+interactions. We have proven that multi-order Shapley values and multi-order interactions satisfy the
+following marginal attribution and accumulation properties.
+(1) Marginal attribution property: The marginal attribution of the (m + 1)-th order Shapley values
+beyond the m-th order is equal to the average interaction of the m-th order between i and all other
+                                                                  (m)
+variables. ∀i, j ∈ N, i 6= j, φ(m+1) (i) − φ(m) (i) = Ej∈N \{i} [Iij ].
+• Proof :
+φ(m+1) (i) − φ(m) (i) = E S0 ⊆N \{i} v(S 0 ∪ {i}) − v(S 0 ) − E S⊆N \{i} v(S ∪ {i}) − v(S)
+                                                                                        
+                             0
+                          |S |=m+1                               |S|=m
+                                    h                                            i                         
+                      = E S⊆N \{i} Ej∈N \(S∪{i}) v(S ∪ {j} ∪ {i}) − v(S ∪ {j}) − E S⊆N \{i} v(S ∪ {i}) − v(S)
+                           |S|=m                                                          |S|=m
+                                    h                                                             i
+                      = E S⊆N \{i} Ej∈N \(S∪{i}) v(S ∪ {j} ∪ {i}) − v(S ∪ {j}) − v(S ∪ {i}) + v(S)
+                           |S|=m
+                                                             
+                      = E S⊆N \{i} Ej∈N \(S∪{i}) ∆v(i, j, S)
+                           |S|=m
+                                                           
+                      = Ej∈N \{i} E S⊆N \{i,j} ∆v(i, j, S)
+                                          |S|=m
+                                       (m)
+                       =   Ej∈N \{i} [Iij ]
+                                                                                                                     
+(2) Accumulation property: The m-th (m > 0) order Shapley value of the variable i ∈ N can be
+                                                                    Pm−1 (k)
+decomposed into interactions of lower orders, φ(m) (i) = Ej∈N \{i} [ k=0 Iij ] + φ(0) (i).
+• Proof :
+             φ(m) (i) = φ(m) (i) − φ(m−1) (i) + φ(m−1) (i) − φ(m−2) (i) + · · · − φ(0) (i) + φ(0) (i)
+                                    (m−1)                      (m−2)                          (0)
+                     = Ej∈N \{i} [Iij ] + Ej∈N \{i} [Iij  ] + · · · + Ej∈N \{i} [Iij ] + φ(0) (i)
+                                 h Xk=m−1       i
+                                            (k)
+                     = Ej∈N \{i}           Iij + φ(0) (i)
+                                         k=0
+
+                                                                                                                     
+
+
+                                                           5
+B.4     Equivalence between the multi-order interaction and the mutual information
+
+
+
+Proposition 1 in Section 4.1 of the paper shows the equivalence between the multi-order interaction
+and the mutual information. In the supplementary material, this section provides the proof of this
+proposition.
+When a DNN outputs a probability distribution, we prove that the interaction between input variables
+can be represented in the form of mutual information. Without loss of generality, let us take the image
+classification task for example. Let x ∈ X ⊆ Rn denote an input image of the DNN. xi denotes the
+i-th pixel, and Xi = {xi }. ∀S ⊆ N , we define XS = {xS |x ∈ X}; each xS represents the image,
+where pixels in S remain unchanged, and other pixels j ∈ N \ S are masked following settings of [1].
+Let y ∈ Y = {y 1 , · · · , y C } denote the network prediction. In this way, given
+                                                                                P xS as the input, p(y|xS )
+denotes the output probability of the DNN. Let us set v(S) = H(Y |XS ) = xS p(xS )H(Y |XS = xS ),
+which measures the entropy of y given the input xS . Then we prove that
+
+
+
+
+                                  (m)
+                                Iij     = ES⊆N \{i,j},|S|=m M I(Xi ; Xj ; Y |XS )                        (6)
+
+
+
+
+• Proof :
+
+
+
+                                h                                                i
+       (m)
+      Iij    = ES⊆N \{i,j},|S|=m v(S ∪ {i, j}) − v(S ∪ {i}) − v(S ∪ {j}) + v(S)
+                                h                                                                    i
+             = ES⊆N \{i,j},|S|=m − H(Y |XS , Xi , Xj ) + H(Y |XS , Xi ) + H(Y |XS , Xj ) − H(H|XS )
+                                h                                                                  i
+             = ES⊆N \{i,j},|S|=m H(Y |XS , Xj ) − H(Y |XS , Xj , Xi ) + H(Y |XS , Xi ) − H(Y |XS )
+                                h                                         i
+             = ES⊆N \{i,j},|S|=m M I(Xi ; Y |XS , Xj ) − M I(Xi ; Y |XS )
+                                h                      i
+             = ES⊆N \{i,j},|S|=m M I(Xi ; Xj ; Y |XS )
+
+
+
+
+                                                                                                         
+The conditional mutual information M I(Xi ; Xj ; Y |XS ) measures the remaining mutual informa-
+tion between Xi , Xj and Y when XS is given. Note that unlike the bivariate mutual informa-
+tion, M I(Xi ; Xj ; Y |XS ) can be negative. When XS (each xS ∈ XS containing m pixels) is
+given, we can roughly understand the conditional mutual information M I(X{i,j} ; Y |XS ) as the
+additional benefits from Xi and Xj to classification. We prove that M I(X{i,j} ; Y |XS ) can be
+decomposed into the exclusive benefits of Xi (i.e. M I(Xi ; Y |Xj , XS )), the exclusive benefits of
+Xj (i.e. M I(Xj ; Y |Xi , XS )), and the benefit shared by Xi and Xj (i.e. M I(Xi ; Xj ; Y |XS )). Thus,
+M I(Xi ; Xj ; Y |XS ) can be considered as the benefits from the interaction between Xi and Xj .
+
+
+
+
+   M I(X{i,j} ; Y |XS ) = M I(Xi ; Y |Xj , XS ) + M I(Xj ; Y |Xi , XS ) + M I(Xi ; Xj ; Y |XS )          (7)
+
+
+                                                         6
+• Proof :
+right = M I(Xi ; Y |Xj , XS ) + M I(Xj ; Y |Xi , XS ) + M I(Xi ; Xj ; Y |XS )
+      = M I(Xi ; Y |Xj , XS ) + M I(Xj ; Y |Xi , XS ) + M I(Xi ; Y |XS ) − M I(Xi ; Y |Xj , XS )
+      = M I(Xi ; Y |Xj , XS ) + M I(Xi ; Y |XS )
+           X                                   p(xj , y|xi , xS )           X                          p(xi , y|xS )
+      =            p(xi , xj , xS , y) log                              +         p(xi , xS , y) log
+                                           p(xj |xi , xS )p(y|xi , xS )                              p(xi |xS )p(y|xS )
+        x ,x ,x ,y
+            i    j    S                                                   x ,x ,y       i       S
+                X                                        p(xj , y|xi , xS )           X                                                p(xi , y|xS )
+       =                     p(xi , xj , xS , y) log                              +                        p(xi , xj , xS , y) log
+                                                     p(xj |xi , xS )p(y|xi , xS )                                                    p(xi |xS )p(y|xS )
+           xi ,xj ,xS     ,y                                                       x ,x ,x
+                                                                                    i       j       S ,y
+                X                                             p(xj , y|xi , xS )p(xi , y|xS )
+       =                    p(xi , xj , xS , y) log
+           xi ,xj ,xS ,y
+                                                      p(xj |xi , xS )p(y|xi , xS )p(xi |xS )p(y|xS )
+                X                                             p(xj , y|xi , xS )p(xi , y|xS )p(xi , xS )p(xS )
+       =                    p(xi , xj , xS , y) log
+           xi ,xj ,xS ,y
+                                                      p(xj |xi , xS )p(y|xi , xS )p(xi |xS )p(y|xS )p(xi , xS )p(xS )
+                X                                                 p(xi , xj , xS , y)p(xi , xS , y)
+       =                    p(xi , xj , xS , y) log
+           xi ,xj ,xS ,y
+                                                      p(xj |xi , xS )p(xi , xS , y)p(xi |xS )p(y|xS )p(xS )
+                X                                                 p(xi , xj , xS , y)
+       =                    p(xi , xj , xS , y) log
+           xi ,xj ,xS ,y
+                                                      p(xj |xi , xS )p(xi |xS )p(y|xS )p(xS )
+                X                                       p(xi , xj , y|xS )
+       =                    p(xi , xj , xS , y) log
+           xi ,xj ,xS ,y
+                                                      p(xi , xj |xS )p(y|xS )
+
+       = M I(X{i,j} ; Y |XS ) = left
+                                                                                                                                                 
+
+C      Related works about interactions
+In Section 2 of the paper, we have discussed related works about understandings of adversarial attacks,
+defense, and robustness. Due to the page limit, we discuss related works about interactions in this
+section of the supplementary material. Unlike previous studies about interactions, we firstly use
+the interaction to explain adversarial perturbations and robustness, and provide a unified view to
+understand existing defense methods.
+Interactions between input variables of a DNN have been widely investigated in recent years. In game
+theory, Grabisch and Roubens [6] and Lundberg et al. [11] proposed and used the Shapley interaction
+index based on Shapley values [14]. Covert et al. [3] investigated the relationship between the Shapley
+value and the mutual information. Sorokina et al. [16] measured the interaction of multiple input
+variables in an additive model. Tsang et al. [19] calculated interactions of weights in a DNN. Wang
+et al. [21] applied the interaction of adversarial perturbations to understand adversarial transferabilitiy.
+Murdoch et al. [13], Singh et al. [15], and Jin et al. [10] used the contextual decomposition (CD)
+technique to extract variable interactions. Cui et al. [4] proposed a non-parametric probabilistic
+method to measure interactions using a Bayesian neural network. Janizek et al. [9] extended the
+Integrated Gradients method [17] to explain pairwise feature interactions in DNNs. Sundararajan et al.
+[18] defined the Shapley-Taylor index to measure interactions over binary features. In comparison,
+we novelly use the multi-order interaction to understand the detailed interaction behaviors w.r.t.
+adversarial attacks, which enables us to explain adversarial examples and adversarial training.
+
+D      Information reflected by ∆I (m)
+                                                                                                                   (m)                          def
+In section 4.1 of the paper, we propose the metric I (m) = Ex∈Ω Ei,j [Iij (x)], and ∆I (m) =
+ (m)            (m)
+Inor − Iadv , which measures the difference in interactions between normal samples and adversarial
+examples. In this section of the supplementary material, we prove the following property of the
+metric ∆I (m) .
+                                                                                 (m)
+                                                  ∆I (m) = Ex∈Ω Ei,j [∆Iij (x)]                                                                 (8)
+
+
+                                                                       7
+            (m)         (m)             (m)
+where ∆Iij (x) = Iij (x) − Iij (xadv ).
+• Proof :
+                                                 (m)
+                      ∆I (m) = Inor
+                                (m)
+                                    − Iadv
+                                                       (m)                              (m)
+                                  = Ex∈Ωnor Ei,j [Iij (x)] − Ex∈Ωadv Ei,j [Iij (x)]
+                                                       (m)                              (m)
+                                  = Ex∈Ωnor Ei,j [Iij (x)] − Ex∈Ωnor Ei,j [Iij (x + ∆x)]
+                                                       (m)           (m)
+                                  = Ex∈Ωnor Ei,j [Iij (x) − Iij (x + ∆x)]
+                                                       (m)           (m)
+                                  = Ex∈Ωnor Ei,j [Iij (x) − Iij (xadv )]
+                                                        (m)
+                                  = Ex∈Ωnor Ei,j [∆Iij (x)]
+                                                                                                                   
+
+E    Relationship between v̂(S) and v(S)
+In Section 4.1 of the main paper, we claim that the trend of v(S) can roughly reflect the negative
+trend of v̂(S). In this section, we discuss the negative correlation between v̂(S) and v(S).
+According to Proposition 1, v̂(S) = H(Y |XS ) denotes the entropy of the classification probability
+given variables in S of the image x. Thus, v̂(S) measures the uncertainty of the prediction. If the
+model prediction is correct and confident, i.e. the value of v(S) = log p(y = y truth |x, S) is large,
+then the uncertainty v̂(S) is very low. In comparison, if the model prediction is correct but with a
+small value of v(S), then the uncertainty is large, yielding a large value of v̂(S). Therefore, the trend
+of v(S) can roughly reflect the negative trend of v̂(S) when the model prediction is correct.
+
+F    More discussions about the disentanglement metric
+This section provides more discussions about the disentanglement metric in Eq. (4) of the main paper.
+The motivation of the disentanglement is to measure the discrimination power of interactions of a
+specific order, as discussed in Section 4.2 of the paper. According to the efficiency property of the
+multi-order interactions, the model output can be decomposed into the weighted sum of massive
+interaction components ∆v(i, j, S|x):
+                                                              n−2
+                            X                       X         X   n−1−m
+ v(N |x) = v(∅|x) +               φ(0) (i|x) +                             ES⊆N \{i,j},|S|=m [∆v(i, j, S)] (9)
+                                                              m=0
+                                                                  n(n − 1)
+                            i∈N                  i,j∈N,i6=j
+
+In this way, if interaction components of a certain order m are all positive (or negative) and do not
+conflict with each other, it indicates that these components jointly promote or suppress the model
+output, showing a strong discrimination power. Otherwise, if some interaction components are
+positive and others are negative, their effects on the model output will be eliminated. In this case, the
+discrimination power of interactions is poor.
+In this way, we design the disentanglement metric D(m) in Eq. (4) to model the above phenomenon.
+The physical meaning of this metric is shown in the following equation.
+                                                        the strength of the average utility of all components
+                                                  z               }|              {
+                      (m)                         |ES⊆N \{i,j},|S|=m ∆v(i, j, S|x)|
+                  D         = Ex∈Ω Ei,j∈N,i6=j                                                                   (10)
+                                               ES⊆N \{i,j},|S|=m     |∆v(i, j, S|x)|
+                                                                     |    {z       }
+                                                                                the strength of each component
+
+The numerator measures the strength of the average utility of all interaction components between
+(i, j) under different contexts S. The dominator represents the average strength of each interaction
+component. If D(m) approximates to 1, then it indicates that almost all interaction components have
+similar effects (either positive or negative) on the model output. If D(m) approximates to 0, then it
+shows that most interaction components conflict with each other and are eliminated. Therefore, the
+disentanglement D(m) measures the discrimination power of interactions.
+
+
+                                                               8
+G    The attribution-based method of detecting adversarial examples
+
+In Section 4.3 of the paper, we claim that the attribution score used in [23] to detect adversarial
+exmaples can be writtern as φ(n−1) (i|x). In the supplementary material, this section provides proofs
+for this claim.
+Yang et al. [23] proposed an attribution-based method to detect adversarial examples, which used the
+attribution score of input variables. The attribution score of the variable i in [23] is defined as
+
+                      φ(x)i := f (x)c − f (x(i) )c , where c = arg max f (x)j                     (11)
+                                                                     j∈C
+
+
+where x denotes the original input sample, and x(i) denotes the input sample with the i-th variable
+masked by 0. f (x)c denotes the network output of the c-th category. Actually, f (x)c can also be
+written as v(N |x), and f (x(i) )c can be written as v(N \ {i}|x). Thus, the attribution score can be
+represented as v(N |x) − v(N \ {i}|x). We prove that v(N |x) − v(N \ {i}|x) = φ(n−1) (i|x).
+• Proof :
+
+       v(N |x) − v(N \ {i}|x) = v((N \ {i}) ∪ {i}|x) − v(N \ {i}|x)
+                                                                      def
+                                 = v(S ∪ {i}|x) − v(S|x)      % S = N \ {i}, |S| = n − 1
+                                 = ES⊆N \{i},|S|=n−1 [v(S ∪ {i}|x) − v(S|x)]
+                                 = φ(n−1) (i|x)
+
+                                                                                                    
+According to the accumulation      i of multi-order Shapley values and interactions, we have
+                         hP property
+                           n−2 (m)
+φ(n−1) (i|x) = Ej∈N \{i}      I
+                           m=0 ij   + φ(0) (i|x). This indicates that φ(n−1) (i|x) contains the
+interaction components with the highest order (m = n − 2), which are not included in Shapley values
+with orders lower than n − 1. Section 4.1 of the paper has pointed that high-order interactions are the
+most sensitive to adversarial perturbations, thereby enabling the detection of adversarial examples.
+
+
+H    Effectiveness of the dropout method to alleviate adversarial utilities
+
+In Section 4.3 of the paper, we claim that the dropout operation mainly hurts high-order interactions,
+rather than low-order interactions. In this section, we theoretically prove such effects of the dropout
+operation.
+Given the input sample x ∈ Rn and the dropout rate α, let K = {K|K ⊂ N, |K| = b(1 −
+α)nc} denote all possible sets of remained variables after the dropout operation. Let v α (N |x) =
+EK∈K [v(K|x)] denote the average network output among all inputs after the dropout operation with
+rate α. According to the efficiency property of the multi-order interaction, we have
+
+                                     X                     X n−2
+                                                             X n − 1 − m (m)
+                v(N |x) = v(∅|x) +         φ(0) (i|x) +                   I    (x)                (12)
+                                                             m=0
+                                                                 n(n − 1) ij,N
+                                     i∈N                  i6=j∈N
+
+
+        (m)
+where Iij,N (x) denotes the m-order interaction between variables (i, j) of the input x with all
+variables N . Similarly,
+
+                                   X                        X k−2
+                                                              X k − 1 − m (m)
+              v(K|x) = v(∅|x) +          φ(0) (i|K, x) +                   I    (x)               (13)
+                                                              m=0
+                                                                  k(k − 1) ij,K
+                                   i∈K                     i6=j∈K
+
+
+                                                    9
+where k = |K| = b(1 − α)nc. Thus,
+v α (N |x) = EK∈K [v(K|x)]
+                                                                                 
+                                                        k−2
+                                 X                 X    X     k − 1 − m (m)
+         = EK∈K v(∅|x) +        φ(0) (i|K, x) +                         Iij,K (x)
+                                                               k(k  − 1)
+                             i∈K                 i6=j∈K m=0
+                           "                        #                                          
+                             X                                      X k−2X k − 1 − m (m)
+         = v(∅|x) + EK∈K         (v(i|x) − v(∅|x)) + EK∈K                              I    (x)
+                                                                              k(k − 1) ij,K
+                            i∈K                                  i6=j∈K m=0
+                                "              #                                                
+                                  X (0)                             X k−2X k − 1 − m (m)
+         = v(∅|x) + E K⊂N             φ (i|x) + E K⊂N                                   I    (x)
+                      k=(1−α)n                        k=(1−α)n                 k(k − 1) ij,K
+                                  i∈K                             i6=j∈K m=0
+                                                                                          
+                             X (0)                           X k−2  X k − 1 − m (m)
+         = v(∅|x) + (1 − α)      φ (i|x) + E K⊂N                                  I    (x)
+                                               k=(1−α)n                  k(k − 1) ij,K
+                            i∈N                            i6=j∈K m=0
+                                                                                                            
+                             X (0)                           X k−2  X k−1−m
+         = v(∅|x) + (1 − α)      φ (i|x) + E K⊂N                                  ES⊆K\{i,j} [∆v(i, j, S|x)]
+                            i∈N
+                                               k=(1−α)n
+                                                                   m=0
+                                                                         k(k − 1)     |S|=m
+                                                                       i6=j∈K
+
+                                                                  k−2
+                                 X                     k(k − 1) X X k − 1 − m
+         = v(∅|x) + (1 − α)             φ(0) (i|x) +                          E K⊂N ES⊆K\{i,j} [∆v(i, j, S|x)]
+                                 i∈N
+                                                       n(n − 1)   m=0
+                                                                      k(k − 1) k=(1−α)n |S|=m
+                                                                  i6=j∈N
+                                                                k−2
+                                 X                      X       X     k−1−m
+         = v(∅|x) + (1 − α)             φ(0) (i|x) +                          E K⊂N ES⊆K\{i,j} [∆v(i, j, S|x)]
+                                                                      n(n − 1) k=(1−α)n |S|=m
+                                 i∈N                   i6=j∈N m=0
+
+                                 X                      X k−2
+                                                          X k−1−m
+         = v(∅|x) + (1 − α)             φ(0) (i|x) +                   ES⊂N \{i,j} [∆v(i, j, S|x)]
+                                 i∈N                      m=0
+                                                              n(n − 1)   |S|=m
+                                                       i6=j∈N
+
+                                 X                      X k−2
+                                                          X k − 1 − m (m)
+         = v(∅|x) + (1 − α)             φ(0) (i|x) +                   I    (x)
+                                 i∈N                      m=0
+                                                              n(n − 1) ij,N
+                                                       i6=j∈N
+                                                                                                 (14)
+Thus, the change in the network output caused by the dropout operation can be represented as follows,
+                                                       " n−2                     k−2
+                                                                                                       #
+          α
+                       X         (0)
+                                                  X      X n − 1 − m (m)         X k − 1 − m (m)
+v(N |x)−v (N |x) = α         φ         (i, x) +                       I    (x) −              I    (x)
+                       i∈N                              m=0
+                                                             n(n − 1) ij,N       m=0
+                                                                                     n(n − 1) ij,N
+                                              i6=j∈N
+
+                       X                          X k−2
+                                                    X        n − k (m)          X             n−2
+                                                                                              X      n − 1 − m (m)
+                  =α         φ(0) (i, x) +                          I     (x) +                                I    (x)
+                                                            n(n − 1) ij,N                             n(n − 1) ij,N
+                       i∈N                    i6=j∈N m=0                            i6=j∈N m=k−1
+                                                                k−2                     n−2
+                       X                           α  X         X      (m)
+                                                                                    X   X      n − 1 − m (m)
+                  =α         φ(0) (i, x) +                            Iij,N (x) +                        I    (x)
+                                                  n−1                                           n(n − 1) ij,N
+                       i∈N                             i6=j∈N m=0               i6=j∈N m=k−1
+                                                                                |                {z             }
+                                                                                         high-order interactions
+                                                                                              (15)
+According to Eq. (15), the dropout operation removes all high-order interactions (m > (1 − α)n− 2),
+while slightly affects low-order interactions. Thus, the dropout operation can remove sensitive
+interaction components of the DNN, thereby reducing the attacking utility of perturbations and
+correcting the network output.
+
+I     More experimental results
+I.1   More visualization results based on ResNet-50
+
+The method in [25] could be directly extended to visualize salient concepts of the multi-order
+                                                                                             (m)
+interaction without much change. For a specific order m, we visualized all contexts {S} of Iij
+for each pair (i, j) with top 10% interaction strengths. We exclusively visualized contexts {S}
+                               (m)                     (m)
+that boosted the strength of Iij , i.e. ∆v(S, i, j) · Iij > 0. Let map(S) ∈ {0, 1}n denote the
+
+
+                                                            10
+                                                                                                                                                                                                                                                        m=0.3n   m=0.4n     m=0.5n    m=0.6n
+                                                  Target category                               Other categories                                              Target Caetgory                                  Other categories
+                                             ResNet-18                    ResNet-50                     ResNet-50                                        ResNet-18                     ResNet-50                     ResNet-50
+                                                                 0.08                          0.05                                                                           0.08                          0.05
+
+
+
+
+   Standard DNN
+
+
+
+
+                                                                                                                              Interactionaaa
+                  Interactionaaa
+                                                                                                                                               0.06
+
+
+
+
+                              𝐼
+                                   0.06
+
+
+
+
+                                                                                                                                          𝐼
+                                                                                                                                 Average
+                     Average
+                                                                 0.04                          0.02                                                                           0.04                          0.02
+                                   0.02                                                                                                        0.02
+
+
+                                   -0.02                           0                           -0.01                                           -0.02                             0                          -0.01
+                                           0.1n           0.95          0.1n            0.95           0.1n           0.95n                            0.1n           0.95           0.1n           0.95            0.1n            0.95n
+                                                  order                        order                          order                                           order                         order                           order
+                                   0.02                       0.02                             0.01                                            0.02                           0.02                          0.01
+Adversarially
+trained DNN
+
+
+
+
+                                                                                                                              Interactionaaa
+                  Interactionaaa
+                              𝐼
+
+
+
+
+                                                                                                                                          𝐼
+                                                                                                                                 Average
+                     Average
+
+
+                                                                                                  0                                                                                                            0
+                                   0.01                       0.01                                                                             0.01                           0.01
+                                                                                               -0.01                                                                                                        -0.01
+
+                                                                                                                                                  0                             0                           -0.02
+                                      0
+                                           0.1n
+                                                  order   0.95n
+                                                                   0
+                                                                        0.1n
+                                                                               order   0.95n
+                                                                                               -0.02
+                                                                                                       0.1n
+                                                                                                              order   0.95n                            0.1n
+                                                                                                                                                              order   0.95n          0.1n
+                                                                                                                                                                                            order   0.95n           0.1n
+                                                                                                                                                                                                                            order   0.95n
+                                                                                                                                                                                                                                               Figure 2: Contexts of the m-order
+                                                           (a) Untargeted attack                                                                                              (b) Targeted attack                                                           (m)
+Figure 1: Interactions w.r.t. the target category and other cate-                                                                                                                                                                              interaction Iij in normal sam-
+gories.                                                                                                                                                                                                                                        ples of standard ResNet-50.
+
+
+Table 1: Interaction behaviors in standard DNNs and adversarially trained DNNs are quite different
+                        (m)
+w.r.t. the metric P |∆I|∆I (m| 0 ) | .
+                                                                                 m0
+                                                  m                                    0.1n                    0.2n                       0.3n                        0.4n                     0.5n                        0.6n             0.7n    0.8n    0.85n         0.9n       0.95n
+                                      |∆I (m) |
+                                             (m0 ) |
+                          P
+                                      m0 |∆I
+                              in standard                                              0.003                  0.005                   0.008                           0.014                   0.021                        0.040            0.066   0.103   0.138         0.219      0.383
+                              ResNet-18
+                               |∆I (m) |
+                  P     in            (m0 ) |
+                               m0 |∆I
+            adversarially                                                              0.016                  0.023                   0.055                           0.082                   0.095                        0.100            0.100   0.108   0.117         0.144      0.160
+         trained ResNet-18
+
+
+
+
+map corresponding to the context S. If the k-th pixel was contained in S, then mapk (S) = 1;
+otherwise,
+   P       mapk (S) = 0. In this way, we visualized the weighted average contexts w.r.t. pixels (i, j)
+as S⊆N,|S|=m |∆v(S, i, j)| · map(S).
+Figure 2 (right) in the paper has shown visualization results on ResNet-18. Here, we presented more
+visualization results of interaction contexts based on ResNet-50 [8] in Figure 2. As Figure 2 shows,
+low-order interactions usually represented simple features of local collaborations, and high-order
+interactions usually reflected complex features of global collaborations.
+
+
+
+I.2                                 More discussions about the difference between standard DNNs and adversarially
+                                    trained DNNs in Figure 3 of the main paper
+
+In Figure 3 of the main paper, it seems that standard DNNs and adversarially trained DNNs were
+similar under the metric ∆I (m) , but Figure 3 does reflect the significant difference of interaction
+behaviors between standard DNNs and adversarially trained DNNs. Figure 3 shows that although
+high-order interactions were penalized in both standard and adversarially trained DNNs, high-order
+interactions in the standard DNN decreased much more than those in the adversarially trained DNN.
+                                       |∆I (m) |
+More specifically, we define the metric       (m0 ) | to compare the change of multi-order interactions
+                                                                                                                                                              P
+                                       m0 |∆I
+                                   (m)     (m)
+in different DNNs, where ∆I (m) = Inor −Iadv measures the difference of the m-th order interaction
+                                                                  0
+between normal samples and adversarial examples. m0 |∆I (m ) | is the total strength of differences
+                                                      P
+of multi-order interactions, which is used for normalization. Table 1 shows that the interaction
+behaviors in standard DNNs and adversarially trained DNNs were quite different. In the standard
+ResNet-18, low-order interactions were penalized slightly, and high-order interactions dropped a
+lot. In comparison, in the adversarially trained ResNet-18, low-order interactions and middle-order
+interactions were penalized more than those in the standard ResNet-18, while high-order interactions
+were less penalized than those in the standard ResNet-18. Therefore, the adversarially trained DNN
+                                                       (m)
+was supposed to exhibit a larger value of P |∆I|∆I (m| 0 ) | for low-order interactions (with small m)
+                                                   m0
+than the standard DNN. In comparison, the adversarially trained DNN exhibited a smaller value of
+    |∆I (m) |
+P
+      |∆I (m0 ) |
+                  for high-order interactions (with large m) than the standard DNN.
+                  m0
+
+
+
+
+                                                                                                                                                                                             11
+                                                                                                                                                                                                           Zero baseline
+                         𝑚                             𝑚                                      (𝑚)            (𝑚)          Standard DNN
+               𝐼nor                              𝐼adv                        Δ𝐼 (𝑚) = 𝐼nor − 𝐼adv                                                                       Standard DNN
+                                                                                                                          Adversarially trained DNN                     Adverarially trained DNN
+                                  Standard DNN                                       Adversarially trained
+                                                                              0.08          DNN                                          ResNet-18                                 ResNet-18
+                                                                                                                         Δ𝐽   𝑚
+
+
+
+
+       Interactionaaa
+          Average 𝑚
+
+
+
+
+                                                                         𝑚
+                                                           Interactionaaa
+                                                                                                                                                                         𝐷   𝑚1
+                        0.05                                                                                                        1𝑒 −5
+
+
+
+
+                  𝐼
+
+
+
+
+                                                                       𝐼
+                                                              Average
+                                                                              0.04
+                                                                                                                              1.5                                            0.8
+                            0
+                                                                                                                                                                             0.6
+
+                        -0.05                                                   0                                                                                            0.4
+                                0.1n           0.95n                                 0.1n            0.95n                    -0.5
+                                       order                                                 order                                0.1n               0.95n                   0.2
+                                                                                                                                            order                                  0.1n           0.95n
+                                                                                                                                                                                          order
+
+             (a)The multi-order interaction
+                                                                                 (𝑚)
+                                                                                𝐼nor        and
+                                                                                                   (𝑚)
+                                                                                                  𝐼adv             (b) Distribution of compositional         (c) The interaction disentanglement 𝐷 (𝑚) .
+             based on ResNet-18.                                                                                   attacking utilities Δ𝐽 𝑚 .
+
+      Figure 3: Experimental results on ResNet-18 when setting the masked variables to zero.
+
+I.3   Discussions about attacking utilities of multi-order interactions.
+
+Figure 4 of the paper shows that low-order interactions in adversarially trained DNNs usually have
+more attacking utilities. Note that the attacking utility on high/middle-order interactions may make
+∆J (m) on low-order interactions negative, as a trade-off. According to Eq. (3), the sum of attacking
+utilities on low-order, middle-order, and high-order interactions is a constant (∆v(N |x)). Therefore,
+the penalization of high-order interactions may also cause the increase of low-order interactions to
+some extent. In this way, there are two effects on low-order interactions. First, adversarial attacks
+penalize low-order interactions. Second, the penalization of high-order interactions also boosts
+low-order interactions as a side effect. In such a trade-off, low-order interactions decrease in most
+DNNs. In this way, low-order interactions are increased in a few special cases, which can be explained
+by the above analysis.
+
+I.4   More details about the approximation method of computing interactions
+
+To reduce the computational cost, we applied the sampling-based approximation method in [25] and
+did not compute interactions at the pixel-wise level. Instead, we split the image into 16 × 16 grids,
+and took each grid as a single input variable, thereby n = 256. Then, we randomly sampled 200
+pairs of grids (i, j), and for each pair of grids and each order m, we sampled contexts S s.t. |S| = m
+for 100 times to approximate the interaction. Then we computed the m-th order interactions based on
+Eq. (2) in the main paper by using the sampled pairs of grids and contexts.
+
+I.5   More details about the setting of masking in the computation of interactions
+
+In the main paper, we measured the interaction I (m) by setting v(S|x) = log p(y =
+y truth |given variables in S in the input x and mask variables in N \ S). Variables not in S were
+set to the average value over different input samples following settings in [1], to represent their
+absence. In this section, we conducted experiments by using setting masked variables to zero, to
+verify that the effects of the choice of masking on the results does not affect our conclusions. Figure 3
+shows that the choice of masking did not affect the conclusion that adversarial attacks mainly affect
+high-order interactions.
+
+I.6   Analysis about interactions w.r.t. the target category and other categories
+
+In the main paper, experimental results on the ground-truth category have verified our conclusions
+that adversarial attacks mainly affect high-order interactions. In this section of the supplementary
+material, we show more results on the target category and other categories, which also verified our
+conclusions.
+In the targeted attack, the target category was referred to as the target label y target 6= y truth . In the
+untargeted attack, we considered the misclassified category y pred 6= y truth as the target category. Given
+each input image, we measured the interaction w.r.t. the output of its target category by setting
+v(S|x) = log p(y = y target |S, x). Besides, we also measured the interactions w.r.t. outputs of other
+categories, except the ground-truth category. Considering the softmax operation p(y = y truth |S, x) =
+  exp(hytruth (S|x))                       P
+P
+    0 exp(h 0 (S|x))
+                     , we set v(S|x) = log y0 6=ytruth exp(hy0 (S|x)) to measure the interaction w.r.t.
+  y                     y
+effects on other categories. hy0 (S|x) denoted the network output of the catagory y 0 before the
+softmax layer, when we took variables in S of x as the input. Figure 1 shows interactions w.r.t.
+outputs of the target category and other categories. We found that high-order interactions w.r.t. other
+categories usually increased. Meanwhile, high-order interactions w.r.t. the target category also
+
+
+                                                                                                                          12
+Table 2: The close relationship between the attacking strength and changes of high-order interactions.
+       Attacking strength (iteration number)                                 ∆I (0.7n)        ∆I (0.8n)       ∆I (0.85n)   ∆I (0.9n)   ∆I (0.95n)
+                         4                                                   0.0518           0.0990           0.1411      0.1944       0.2274
+                         8                                                   0.0789           0.1741           0.2399      0.3118       0.3632
+                        16                                                   0.1113           0.2565           0.3342      0.4157       0.4657
+                        32                                                   0.1512           0.3338           0.4391      0.5480       0.6085
+          Pearson correlation coefficient                                    0.9799           0.9603           0.9635      0.9667       0.9634
+                                                                                                                                                    Random smoothing
+                                                       𝑚                𝑚
+                                                     𝐼nor             𝐼adv
+                                                                                              𝑚
+                                         𝑚
+                                                                                         Δ𝐽
+                   Average Interactionaaa
+
+                                                                                                  1𝑒 −5
+                                       𝐼
+
+                                             0.02
+
+                                                                                              1
+                                                0
+
+
+
+                                             -0.02                                        -0.2
+                                                     0.1n   order   0.9n                      0.1n                0.9n
+                                                                                                          order
+                                                                             (𝑚)    (b) Distribution of compositional attacking
+                 (a) The multi-order interaction 𝐼nor
+                       (𝑚)
+                 and 𝐼adv based on the ResNet-50                                    utilities Δ𝐽 𝑚 on the ResNet-50 trained
+                 trained via randomized smoothing.                                  via randomized smoothing.
+
+        Figure 4: Experimental results on the ResNet-50 trained via randomized smoothing.
+
+
+significantly increased. This indicated that adversarial perturbations adversely affected complex
+features corresponding to the ground-truth category, while encouraging features for other categories,
+especially for the target category.
+
+
+I.7   Extended experiments on the relationship between the strength of attacks and the
+      change of high-order interactions
+
+In Section 4.1 of the paper, we find that adversarial attacks mainly affected high-order interactions in
+DNNs. In this section, we further explore the relationship between the strength of attacks and the
+change of high-order interactions.
+Using the standard ResNet-18 learned on the ImageNet dataset, we conducted untargeted PGD attacks
+on input samples with different attacking strengths, in order to test the effects of attacking strength on
+high-order interactions. The strength of attacks was represented by the iteration numbers of the PGD
+attack. Then, we computed the change in high-order interactions ∆I (m) caused by adversarial attacks
+of different strengths. We also computed the Pearson correlation coefficient between the strength of
+attacks and ∆I (m) . Table 2 shows a close relationship between changes in high-order interactions
+and the strength of adversarial attacks. Besides, for both weak and strong attacks, the highest-order
+(here we set it as 0.95n-order) interactions were much more sensitive than interactions of not-so-high
+orders (e.g., 0.7n-order).
+
+
+I.8   Extended experiments based on models with certified robustness
+
+In the main paper, experimental results on DNNs trained via adversarial training [12] have verified our
+conclusions that adversarial attacks mainly affect high-order interactions, and low-order interactions
+in adversarial examples towards robust DNNs have more attacking utilities. In this section, we
+conducted extended experiments on other defending method [2]. Given the ResNet-50 trained
+via randomized smoothing, which was proved to have certified robustness by [2], we generated
+adversarial examples using the PGD attack on samples from the validation set of the ImageNet
+dataset. We followed experimental settings of the classic PGD attack (see Section 4.1 in the main
+paper). Then, we computed multi-order interactions in normal samples and adversarial examples on
+the pre-trained ResNet-50.
+Figure 4 shows that in the model trained via randomized smoothing, adversarial attacks also mainly
+affected high-order interactions, and low-order interactions had more attacking utilities on the model
+output, which verified our conclusions.
+
+
+                                                                                    13
+Table 3: The distance between normal samples x and adversarial examples xadv , and the distance
+between x and the recovered samples x̂.
+                                          Standard DNN          Adversarially trained DNN
+                                     Ekx − xadv k2 Ekx − x̂k2   Ekx − xadv k2 Ekx − x̂k2
+                       ResNet-18         9.72        13.57         18.69           11.45
+                       ResNet-50         9.56        13.40         18.34           12.68
+                      DenseNet-161       9.67        13.51         18.55           13.26
+
+
+
+I.9    More discussions about the comparison with frequency-based methods
+
+In Section 4.1 of the main paper, we have compared our interaction-based metric with the frequency-
+based metric. This section provides more discussions about the comparative experiment.
+Previous studies [24, 20, 7] explained adversarial perturbations as high-frequency features. In this
+paper, we compared the frequency metric with the interaction metric, and showed that our interaction
+metric could better explain the essential property of adversarial perturbations. In order to measure the
+significance of features of different frequencies in an input image x, we applied the Fourier transform
+to the image to obtain the frequency spectrum F . Then, we shifted the low frequency components
+         qP of the spectrum. The magnitude of the r-frequency component was quantified as
+to the center
+  (r)                              (h,w) k2 . In order to fairly compare these two metrics, we computed
+F =           (h,w):h2 +w2 =r 2 kF        2
+the Fisher’s discriminant ratio [5] using two metrics, which measured the ratio of the variance between
+the classes (between normal samples and adversarial examples) to the variance within the classes.
+Such experimental settings has also been introduced in Figure 6 (left) of the main paper.
+
+I.10    Explaining high recoverability of adversarial examples on adversarially trained DNNs
+
+In Section 4.3 of the paper, we claim that adversarial examples towards adversarially trained DNNs
+usually exhibit higher recoverability than adversarial examples towards standard DNNs. In the
+supplementary material, this section shows experimental results to verify the above claim.
+We generated adversarial examples for normal validation samples in the ImageNet dataset by follow-
+ing settings of the untargeted PGD attack [12], in which  = 16/255, and the attack was conducted
+with 10 steps with the step size 2/255. Adversarial examples were generated based on ResNet-18/50
+and DenseNet-161 trained on the ImageNet dataset. Then, we used same parameters to conduct the
+targeted PGD attack and recover normal samples.
+Table 3 shows that adversarially trained DNNs usually exhibited higher recoverability than standard
+DNNs. This can be explained Proposition 1 in the paper. As we have discussed in Section 4.1 of the
+paper, adversarial perturbations towards adversarially trained DNNs usually pay more attention to
+low-order interactions than perturbations towards standard DNNs. On the other hand, the low-order
+              (m)
+interaction Iij (x) is equivalent to the conditional mutual information M I(Xi ; Xj ; Y |XS ) given
+small contexts XS according to Proposition 1, while the high-order interaction corresponds to such a
+mutual information conditioned on large contexts with massive variables. In general, compared to
+high-order interactions, low-order interactions are conditioned on less contextual variables, thereby
+suffering less from adversarial perturbations, i.e. obviously M I(Xi ; Xj ; Y |XS ) usually suffers less
+from adversarial perturbations, if the condition xS only contains very few variables. In other words,
+low-order interactions are more transferable among different contexts xS , so it is easy to invert
+adversarial perturbations of low-order interactions. In this way, because adversarial perturbations for
+adversarially trained DNNs mainly focus on low-order interactions, such perturbations are easy to be
+recovered.
+
+
+
+
+                                                     14
+References
+ [1] Marco Ancona, Cengiz Oztireli, and Markus Gross. Explaining deep neural networks with a polynomial
+     time algorithm for shapley value approximation. In ICML, 2019.
+ [2] Jeremy Cohen, Elan Rosenfeld, and Zico Kolter. Certified adversarial robustness via randomized smoothing.
+     In ICML, 2019.
+ [3] Ian Covert, Scott Lundberg, and Su-In Lee. Understanding global feature contributions with additive
+     importance measures. NeurIPS, 2020.
+ [4] Tianyu Cui, Pekka Marttinen, and Samuel Kaski. Learning global pairwise interactions with bayesian
+     neural networks. arXiv preprint arXiv:1901.08361, 2019.
+ [5] Ronald A Fisher. The use of multiple measurements in taxonomic problems. Annals of Eugenics, 7(2):
+     179–188, 1936.
+ [6] Michel Grabisch and Marc Roubens. An axiomatic approach to the concept of interaction among players
+     in cooperative games. International Journal of Game Theory, 28(4):547–565, 1999.
+ [7] Paula Harder, Franz-Josef Pfreundt, Margret Keuper, and Janis Keuper. Spectraldefense: Detecting
+     adversarial attacks on cnns in the fourier domain. arXiv preprint arXiv:2103.03000, 2021.
+ [8] Kaiming He, Xiangyu Zhang, Shaoqing Ren, and Jian Sun. Deep residual learning for image recognition.
+     In CVPR, 2016.
+ [9] Joseph D Janizek, Pascal Sturmfels, and Su-In Lee. Explaining explanations: Axiomatic feature interactions
+     for deep networks. arXiv preprint arXiv:2002.04138, 2020.
+[10] Xisen Jin, Zhongyu Wei, Junyi Du, Xiangyang Xue, and Xiang Ren. Towards hierarchical importance
+     attribution: Explaining compositional semantics for neural sequence models. In ICLR, 2019.
+[11] Scott M Lundberg, Gabriel G Erion, and Su-In Lee. Consistent individualized feature attribution for tree
+     ensembles. arXiv preprint arXiv:1802.03888, 2018.
+[12] Aleksander Madry, Aleksandar Makelov, Ludwig Schmidt, Dimitris Tsipras, and Adrian Vladu. Towards
+     deep learning models resistant to adversarial attacks. In ICLR, 2018.
+[13] W James Murdoch, Peter J Liu, and Bin Yu. Beyond word importance: Contextual decomposition to
+     extract interactions from lstms. In ICLR, 2018.
+[14] Lloyd S Shapley. A value for n-person games. Contributions to the Theory of Games, 2(28):307–317,
+     1953.
+[15] Chandan Singh, W James Murdoch, and Bin Yu. Hierarchical interpretations for neural network predictions.
+     In ICLR, 2018.
+[16] Daria Sorokina, Rich Caruana, Mirek Riedewald, and Daniel Fink. Detecting statistical interactions with
+     additive groves of trees. In ICML, 2008.
+[17] Mukund Sundararajan, Ankur Taly, and Qiqi Yan. Axiomatic attribution for deep networks. In ICML,
+     2017.
+[18] Mukund Sundararajan, Kedar Dhamdhere, and Ashish Agarwal. The shapley taylor interaction index. In
+     ICML, 2020.
+[19] Michael Tsang, Dehua Cheng, and Yan Liu. Detecting statistical interactions from neural network weights.
+     In ICLR, 2018.
+[20] Haohan Wang, Xindi Wu, Zeyi Huang, and Eric P Xing. High-frequency component helps explain the
+     generalization of convolutional neural networks. In CVPR, 2020.
+[21] Xin Wang, Jie Ren, Shuyun Lin, Xiangming Zhu, Yisen Wang, and Quanshi Zhang. A unified approach to
+     interpreting and boosting adversarial transferability. arXiv preprint arXiv:2010.04055, 2020.
+[22] Robert J Weber. Probabilistic values for games. The Shapley Value. Essays in Honor of Lloyd S. Shapley,
+     pages 101–119, 1988.
+[23] Puyudi Yang, Jianbo Chen, Cho-Jui Hsieh, Jane-Ling Wang, and Michael I. Jordan. ML-LOO: detecting
+     adversarial examples with feature attribution. arXiv preprint arXiv:1906.03499.
+
+
+                                                     15
+[24] Dong Yin, Raphael Gontijo Lopes, Jonathon Shlens, Ekin D Cubuk, and Justin Gilmer. A fourier perspective
+     on model robustness in computer vision. arXiv preprint arXiv:1906.08988, 2019.
+
+[25] Hao Zhang, Sen Li, Yinchao Ma, Mingjie Li, Yichen Xie, and Quanshi Zhang. Interpreting and boosting
+     dropout from a game-theoretic view. In ICLR, 2021.
+
+
+
+
+                                                     16
+

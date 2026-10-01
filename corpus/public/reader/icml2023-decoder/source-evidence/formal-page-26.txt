@@ -1,0 +1,81 @@
+                            Defects of Convolutional Decoder Networks in Frequency Representation
+
+Then, combining Equation (51) and Equation (54), we can obtain the value of η.
+
+                                                   −a1 A + a2 A
+                  η∝                                                                                                       //Equation (46)
+                        −a1 (Aχu1 v1 u1 v1 − Aχu2 v2 u1 v1 ) − a2 (Aχu1 v1 u2 v2 − Aχu2 v2 u2 v2 )
+                                                       −a1 A + a2 A
+                    =
+                        −a1 A(χu1 v1 u1 v1 − e−i2φ χu2 v2 u1 v1 ) + a2 A(χu2 v2 u2 v2 − ei2φ χu1 v1 u2 v2 )
+                                                                                                                                             (55)
+                        −a1 A + a2 A                                   MN
+                    =                ·            sin(K(u2 −u1 )π/M ) sin(K(v2 −v1 )π/N )
+                        −a1 A + a2 A K 2 −          sin((u2 −u1 )π/M ) sin((v2 −v1 )π/N )
+                                              MN
+                    =          sin(K(u2 −u1 )π/M ) sin(K(v2 −v1 )π/N )
+                        K2 −     sin((u2 −u1 )π/M ) sin((v2 −v1 )π/N )
+
+
+
+      Loss
+And   ∂W     can be computed as follows.
+
+                                              2
+                                       Loss           XX                ∂Loss
+                                                  =     (               (l)[ker=d]
+                                                                                       )2
+                                       ∂W                             ∂Wcts
+                                                      l,d,c t,s
+                                                      XX                ∂Loss                ∂Loss
+                                                  =               (l)[ker=d]
+                                                                                       ·        (l)[ker=d]
+                                                      l,d,c t,s ∂Wcts                  ∂Wcts
+                                                      XX                ∂Loss          X ∂Loss                   ut   vs
+                                                  =               (l)[ker=d]                    (l,uv)
+                                                                                                             e−i( M + N )2π
+                                                      l,d,c t,s ∂Wcts        u,v             ∂T dc
+                                                      X X ∂Loss X                            ∂Loss               ut   vs
+                                                  =                (l,uv)                    (l)[ker=d]
+                                                                                                             e−i( M + N )2π
+                                                      l,d,c u,v ∂T dc     t,s              ∂Wcts
+                                                      X X ∂Loss                    ∂Loss                                                     (56)
+                                                  =                (l,uv)              (l,uv)
+                                                      l,d,c u,v ∂T dc             ∂Tdc
+                                                      X X ∂Loss                    ∂Loss
+                                                  =                (l,uv)              (l,uv)
+                                                      l,d,c u,v ∂T dc             ∂Tdc
+                                                      XX               ∂Loss
+                                                  =               |      (l,uv)
+                                                                                  |2
+                                                      l,d,c u,v       ∂T dc
+                                                      XX
+                                                  ∝               α2
+                                                      l,d,c u,v
+
+                                                  ∝ α2
+
+
+Therefore, the weight change k∆Wk can be computed as follows:
+
+                                 Loss
+                  k∆W k = η ·
+                                 ∂W
+                                q
+                           ∝ η · k∆W k2                                                                                                      (57)
+                                                      MNα
+                           ∝          sin(K(u2 −u1 )π/M ) sin(K(v2 −v1 )π/N )
+                                                                                                //Equation (55) and Equation (56)
+                               K2 −     sin((u2 −u1 )π/M ) sin((v2 −v1 )π/N )
+
+
+
+
+B. Discussions about different factors that weakening high-frequency components
+B.1. Effects of the network depth
+If the decoder network is deep, then the decoder network is less likely to learn high-frequency components. It is because |Ruv |
+is relatively large for low-frequency components. In this way, the large effect of a single layer’s T (l,uv) of low-frequency
+components on log SOM(T(uv)(L:1) ), i.e., log(|µl Ruv |2 + K 2 σl2 ), can be accumulated through different layers according to
+
+                                                                              26
+

@@ -1,0 +1,64 @@
+                          Towards Theoretical Analysis of Transformation Complexity of ReLU DNNs
+
+comparison, in this paper, we apply T C(Σ) to measure the independence between gating states of different dimensions.
+Intuitively, the disentanglement of gating states does not seem related to the complexity. Therefore, our contribution is to
+find out the strong correlation between the two factors which seem not related.
+We consider the complexity of the transformation of a single gating layer, e.g. H(Σl ), I(X; Σl ) and I(X; Σl ; Y ) for the
+l-th gating layer.
+• H(Σl )
+Proof.                                                              Y
+                     H(Σl ) + T C(Σl ) =H(Σl ) + KL(p(σl )||              p(σld ))
+                                                                     d
+                                                                                
+                                                     1                   p(σl )
+                                          =Eσl log          + Eσl log Q         d
+                                                   p(σl )                 d p(σl )
+                                                 "                #                                                               (16)
+                                                      Y
+                                          = − Eσl log      p(σld ) \\ p(σld ) does not depend on the input
+                                                           d
+                                          =Cl
+Let us consider DNNs with similar activation rates adl . Because p(σld ) follows the Bernoulli distribution with the activation
+rate adl , for DNNs with similar activation rates adl , they share similar values of Cl . In this case, there is a negative correlation
+between H(Σl ) and T C(Σl ).
+•I(X; Σl )
+Proof.                                                                                       Y
+                             I(X; Σl ) + T C(Σl ) =H(Σl ) − H(Σl |X) + KL(p(σl )||                 p(σld ))
+                                                                                               d                                  (17)
+                                                       =Cl − H(Σl |X)
+
+If the DNN does not introduce additional information through the layerwise propagation, then the X determines Σl , i.e.
+H(Σl |X) = 0. Thus, for DNNs with similar values of Cl , there is a negative correlation between I(X; Σl ) and T C(Σl ).
+•I(X; Σl ; Y )
+Proof. According to the definition of I(X; Σl ; Y ), we have
+
+                                             I(X; Σl ; Y ) = I(X; Σl ) − I(X; Σl |Y )                                             (18)
+
+We have discussed the first term I(X; Σl ) above, so we focus on the second term I(X; Σl |Y ), which measures the
+complexity of transformations that are unrelated to the inference. Similarly, the entanglement of the inference-irrelevant
+transformations is represented by
+                                                                      Y
+                                     T C(Σl |Y ) = Ey (KL(p(σl |y)||      p(σld |y)))                                 (19)
+                                                                                d
+
+Then, we have
+                                   I(X; Σl |Y ) + T C(Σl |Y )
+                                =H(Σl |Y ) − H(Σl |X, Y ) + T C(Σl |Y )
+                                   "                                      #
+                                                              Y
+                                                                      d
+                                =Ey H(Σl |y) + KL(p(σl |y)||     p(σl |y)) − H(Σl |X, Y )
+                                                                      d
+                                                                                                                                  (20)
+                                                                       
+                                               1             p(σl |y)
+                                =Eσl ,y log          + log Q       d
+                                                                          − H(Σl |X, Y )
+                                            p(σl |y)         d p(σl |y)
+                                          "                #
+                                               Y
+                                                      d
+                                = − Eσl ,y log     p(σl |y) − H(Σl |X, Y )
+                                                   d
+                                =Cl|Y − H(Σl |X, Y )
+

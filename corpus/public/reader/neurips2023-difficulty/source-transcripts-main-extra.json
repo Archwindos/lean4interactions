@@ -1,0 +1,333 @@
+{
+  "diff-universal": {
+    "source_id": "src-neurips2023-difficulty-formal",
+    "source_sha256": "068687d3930191bbb82d95ff2e509fb4f189a5c8c773ca1c616459527420664e",
+    "section": "3.1; Theorem 1",
+    "pdf_pages": [
+      4
+    ],
+    "equation_labels": [
+      "3"
+    ],
+    "original_statement_md": "Theorem 1. Given an input sample $\\mathbf x\\in\\mathbb R^n$ with $n$ variables, there are $2^n$ different masked samples $\\mathbf x_T$ w.r.t. all potential subsets $T\\subseteq N$. Then, [45] has proven that\n\n$$\\forall T\\subseteq N,\\quad v(\\mathbf x_T)=\\sum_{S\\subseteq T}I(S\\mid\\mathbf x)\\approx\\sum_{S\\in\\Omega_{\\mathrm{salient}}\\,\\&\\,S\\subseteq T}I(S\\mid\\mathbf x).\\qquad\\text{(3)}$$",
+    "original_proof_md": "Theorem 1 means that we can use a small number of interactive concepts in $\\Omega_{\\mathrm{salient}}$ to well approximate network outputs on anyone $\\mathbf x_T$ of the $2^n$ masked samples.",
+    "note": "Source-only verbatim author prose with manually transcribed TeX. Project observations stay in transcription_notes; no mathematical correction or added premise is inserted into author fields.",
+    "transcription_notes": [
+      "The source attributes the theorem to [45] and gives this interpretation, not an independent local proof. The approximation sign and unquantified approximation are retained."
+    ],
+    "transcription_status": "complete_author_transcription_pending_independent_review",
+    "source_evidence_sha256": {
+      "corpus/public/reader/neurips2023-difficulty/source-evidence/page-04.txt": "e47bbdb1d7e63536f5173dd9e4e1416652be7e0075344694285b6f03a86e9490"
+    },
+    "visual_review": {
+      "pdf_pages": [
+        4
+      ],
+      "method": "Actual official PDF page images visually checked."
+    }
+  },
+  "diff-sparsity-background": {
+    "source_id": "src-neurips2023-difficulty-formal",
+    "source_sha256": "068687d3930191bbb82d95ff2e509fb4f189a5c8c773ca1c616459527420664e",
+    "section": "3.1; trustworthiness and complexity",
+    "pdf_pages": [
+      4
+    ],
+    "equation_labels": [],
+    "original_statement_md": "We also conduct experiments to illustrate the concept-emergence phenomenon on various DNNs, including multi-layer perceptrons (MLPs), long short-term memory (LSTM), AlexNet [23], ResNet [19], convolutional neural networks (CNNs), and PointNet [41] trained on different types of data, including tabular data (UCI dataset [6]), natural language data (CoLA [61] and SST-2 [56]), image data (MNIST [26] and CelebA [31]), and point cloud data (ShapeNet [65]). We follow experimental settings in [45, 27], and Figure 1(b) shows that interactive concepts encoded by a DNN are usually indeed sparse.\n\nTrustworthiness of interactive concepts. The mathematical proof in [47] makes $I(S)$ become the first concepts whose emergence in DNNs is certificated. Equations (2) and (3) further guarantee that interactive concepts can faithfully explain the output of DNNs. In addition, Li and Zhang [27] have discovered that (i) interactive concepts are transferable across different samples; (ii) interactive concepts are discriminative, i.e., if a concept $S$ has salient interaction effects $I(S)$ on a set of samples, then the concept tends to push these samples to be classified towards the same category. In this way, we can roughly consider such interactive concepts a relatively rigorous definition of concepts.\n\nComplexity (order) of interactive concepts. The complexity of an interactive concept $S$ is defined as the number of input variables involved in $S$, which is also termed the order of the interactive concept, i.e., $\\operatorname{complexity}(S)=\\operatorname{order}(S)=|S|$. Thus, low-order interactive concepts usually represent simple AND relationships among a few input variables. In comparison, high-order interactive concepts often refer to as relatively complex AND relationships among a large number of input variables.",
+    "original_proof_md": "",
+    "note": "Source-only verbatim author prose with manually transcribed TeX. Project observations stay in transcription_notes; no mathematical correction or added premise is inserted into author fields.",
+    "transcription_notes": [
+      "This source record supplements diff-sparsity and diff-interaction background; its key is not an admission or inventory classification. Author citations and empirical wording are retained."
+    ],
+    "transcription_status": "complete_author_transcription_pending_independent_review",
+    "source_evidence_sha256": {
+      "corpus/public/reader/neurips2023-difficulty/source-evidence/page-04.txt": "e47bbdb1d7e63536f5173dd9e4e1416652be7e0075344694285b6f03a86e9490"
+    },
+    "visual_review": {
+      "pdf_pages": [
+        4
+      ],
+      "method": "Actual official PDF page images visually checked."
+    }
+  },
+  "diff-taylor": {
+    "source_id": "src-neurips2023-difficulty-formal",
+    "source_sha256": "068687d3930191bbb82d95ff2e509fb4f189a5c8c773ca1c616459527420664e",
+    "section": "3.2; Theorem 2",
+    "pdf_pages": [
+      4
+    ],
+    "equation_labels": [
+      "4"
+    ],
+    "original_statement_md": "3.2 Simple interactive concepts in data are more stable and easier to learn\n\nUnlike other interaction metrics [16, 32, 57], sparse interactive concepts are certificated to emerge in DNN, and can faithfully represent the inference score of DNNs. Therefore, in this study, we aim to further explore the learning difficulty of these certificated concepts. Specifically, we theoretically explain that a DNN is more likely to encode simple (i.e., low-order) interactive concepts.\n\nIn this subsection, we show that low-order interactive concepts encoded by DNNs are generally more stable to inevitable noises in data, compared to high-order interactive concepts. Specifically, we derive an approximate analytical solution to the variance (instability) of interactive concepts’ effects w.r.t. data noise, and show that the variance (instability) increases along the order of concepts in an exponential manner.\n\nTheorem 2 (proven in the supplementary material). Given a neural network $v$ and an arbitrary input sample $\\mathbf x'\\in\\mathbb R^n$, the network output can be decomposed by using the Taylor expansion i.e., $v(\\mathbf x')=\\sum_{S\\subseteq N}\\sum_{\\boldsymbol\\pi\\in Q_S}U_{S,\\boldsymbol\\pi}\\cdot J(S,\\boldsymbol\\pi\\mid\\mathbf x')$. In this way, according to Equation (1), the Harsanyi interaction effect $I(S\\mid\\mathbf x')$ on the sample $\\mathbf x'$ can be reformulated as follows.\n\n$$I(S\\mid\\mathbf x')=\\sum_{\\boldsymbol\\pi\\in Q_S}U_{S,\\boldsymbol\\pi}\\cdot J(S,\\boldsymbol\\pi\\mid\\mathbf x').\\qquad\\text{(4)}$$\n\nHere, $J(S,\\boldsymbol\\pi\\mid\\mathbf x')=\\prod_{i\\in S}\\left(\\operatorname{sign}(x'_i-b_i)\\cdot\\frac{x'_i-b_i}{\\tau}\\right)^{\\pi_i}$ denotes a Taylor expansion term of the degree $\\boldsymbol\\pi$, where the degree $\\boldsymbol\\pi\\in Q_S=\\{[\\pi_1,\\ldots,\\pi_n]\\mid\\forall i\\in S,\\pi_i\\in\\mathbb N^+;\\forall i\\notin S,\\pi_i=0\\}$ and $b_i$ is the baseline value to mask the input variable $x_i$. In addition, $U_{S,\\boldsymbol\\pi}=\\frac{\\tau^m}{\\prod_{i=1}^n\\pi_i!}\\frac{\\partial^m v(\\mathbf x'_\\varnothing)}{\\partial x_1^{\\pi_1}\\cdots\\partial x_n^{\\pi_n}}\\cdot\\prod_{i\\in S}[\\operatorname{sign}(x'_i-b_i)]^{\\pi_i}$, where $\\mathbf x'_\\varnothing$ denotes the sample whose input variables are all masked. $m=\\sum_{i=1}^n\\pi_i$.",
+    "original_proof_md": "",
+    "note": "Source-only verbatim author prose with manually transcribed TeX. Project observations stay in transcription_notes; no mathematical correction or added premise is inserted into author fields.",
+    "transcription_notes": [
+      "The theorem statement includes the unrestricted source Taylor expansion and source sign depending on x-prime. No convergence or finite-polynomial hypothesis is added. The author proof remains the separately transcribed Appendix G.1."
+    ],
+    "transcription_status": "complete_author_transcription_pending_independent_review",
+    "source_evidence_sha256": {
+      "corpus/public/reader/neurips2023-difficulty/source-evidence/page-04.txt": "e47bbdb1d7e63536f5173dd9e4e1416652be7e0075344694285b6f03a86e9490"
+    },
+    "visual_review": {
+      "pdf_pages": [
+        4
+      ],
+      "method": "Actual official PDF page images visually checked."
+    }
+  },
+  "diff-reference": {
+    "source_id": "src-neurips2023-difficulty-formal",
+    "source_sha256": "068687d3930191bbb82d95ff2e509fb4f189a5c8c773ca1c616459527420664e",
+    "section": "3.2; new baseline and footnote 4",
+    "pdf_pages": [
+      4,
+      5
+    ],
+    "equation_labels": [],
+    "original_statement_md": "Theorem 2 rewrites the Harsanyi interaction effect $I(S\\mid\\mathbf x)$ of each concept from a new perspective, to facilitate the analysis of the instability of interactive concepts. The derivation of Theorem 2 is inspired by [12, 70, 46], in which the Harsanyi interaction effect is re-written as the sum of the Taylor interaction effects. Therefore, in this study, we define a new baseline value $b_i$ to further extend the finding in [12] and obtain Theorem 2, which significantly simplifies the further proof. Specifically, the new baseline value $b_i$ is set as follows to represent the masked state of the $i$-th input variable. i.e., $x_i\\leftarrow b_i$. Previous studies usually set $b_i=\\mu_i=\\mathbb E_x[x_i]$ as the average value over different samples to represent the masked state [4, 12]. However, we consider that pushing the input variable $x_i$ to move a large distance $\\tau\\in\\mathbb R$ towards $\\mu_i$ has been significant enough to remove its information. To this end, we set $b_i=x_i-\\tau$ [footnote 4], if $x_i>\\mu_i$; else, $b_i=x_i+\\tau$ [footnote 4]. The above new setting ensures comparable perturbation magnitudes over different dimensions.\n\nFootnote 4. We need to avoid the case of over-perturbation, by setting $b_i\\leftarrow\\max(b_i,\\mu_i)$ if $x_i>\\mu_i$; $b_i\\leftarrow\\min(b_i,\\mu_i)$, otherwise. Fortunately, such cases are uncommon in real applications, so we ignore such settings in the following theoretical analysis.",
+    "original_proof_md": "",
+    "note": "Source-only verbatim author prose with manually transcribed TeX. Project observations stay in transcription_notes; no mathematical correction or added premise is inserted into author fields.",
+    "transcription_notes": [
+      "The printed superscript 4 at each tau is a footnote call, not tau to the fourth power. Both footnote calls and the complete footnote are retained. The author tau in R and the else branch are not strengthened."
+    ],
+    "transcription_status": "complete_author_transcription_pending_independent_review",
+    "source_evidence_sha256": {
+      "corpus/public/reader/neurips2023-difficulty/source-evidence/page-04.txt": "e47bbdb1d7e63536f5173dd9e4e1416652be7e0075344694285b6f03a86e9490",
+      "corpus/public/reader/neurips2023-difficulty/source-evidence/page-05.txt": "213eb5a2dbdd7e111400a686f56cbf281e2bacfc8ebd64df95a276a171ba4523"
+    },
+    "visual_review": {
+      "pdf_pages": [
+        4,
+        5
+      ],
+      "method": "Actual official PDF page images visually checked."
+    }
+  },
+  "diff-moments": {
+    "source_id": "src-neurips2023-difficulty-formal",
+    "source_sha256": "068687d3930191bbb82d95ff2e509fb4f189a5c8c773ca1c616459527420664e",
+    "section": "3.2; Theorem 3",
+    "pdf_pages": [
+      5
+    ],
+    "equation_labels": [
+      "5",
+      "6"
+    ],
+    "original_statement_md": "Next, we analyze the variance (instability) of the interaction effect $I(S\\mid\\mathbf x'=\\mathbf x+\\boldsymbol\\epsilon)$ when we add a Gaussian perturbation $\\boldsymbol\\epsilon\\sim\\mathcal N(0,\\sigma^2 I)$ to the input sample $\\mathbf x$. Here, the Gaussian perturbation $\\boldsymbol\\epsilon\\in\\mathbb R^n$ is considered as a rough representation of inevitable variations in data, e.g., shape deformation and object rotation variations in image classification. However, such variations are quite difficult to formulate, so we use a Gaussian perturbation as a rough representation. Fortunately, we find that our reformulation of interactions in Theorem 2 enables us to directly apply the finding in [46] to prove the variance (instability) of the interaction effect $I(S\\mid\\mathbf x'=\\mathbf x+\\boldsymbol\\epsilon)$.\n\nTheorem 3. Let us add a Gaussian perturbation $\\boldsymbol\\epsilon\\sim\\mathcal N(0,\\sigma^2 I)$ to the input sample $\\mathbf x$. Let us first consider the case with the lowest degree $\\widehat{\\boldsymbol\\pi}=[\\widehat\\pi_1,\\ldots,\\widehat\\pi_n]\\in Q_S$, satisfying that $\\forall i\\in S,\\widehat\\pi_i=1;\\forall i\\notin S,\\widehat\\pi_i=0$. The mean and variance of $J(S,\\widehat{\\boldsymbol\\pi}\\mid\\mathbf x+\\boldsymbol\\epsilon)$ over the Gaussian perturbation $\\boldsymbol\\epsilon$ are given as\n\n$$\\mathbb E_\\epsilon[J(S,\\widehat{\\boldsymbol\\pi}\\mid\\mathbf x+\\boldsymbol\\epsilon)]=1,\\quad\\operatorname{Var}_\\epsilon[J(S,\\widehat{\\boldsymbol\\pi}\\mid\\mathbf x+\\boldsymbol\\epsilon)]=\\left(1+\\left(\\frac\\sigma\\tau\\right)^2\\right)^{|S|}-1.\\qquad\\text{(5)}$$\n\nFurthermore, for the more general case with an arbitrary degree $\\boldsymbol\\pi\\in Q_S=\\{[\\pi_1,\\ldots,\\pi_n]\\mid\\forall i\\in S,\\pi_i\\in\\mathbb N^+;\\forall i\\notin S,\\pi_i=0\\}$, the mean and variance of $J(S,\\boldsymbol\\pi\\mid\\mathbf x+\\boldsymbol\\epsilon)$ are computed as\n\n$$\\begin{aligned}\n\\mathbb E_\\epsilon[J(S,\\boldsymbol\\pi\\mid\\mathbf x+\\boldsymbol\\epsilon)]&=\\mathbb E_\\epsilon\\left[\\prod_{i\\in S}\\left(1+\\frac{\\epsilon_i}\\tau\\right)^{\\pi_i}\\right],\\\\\n\\operatorname{Var}_\\epsilon[J(S,\\boldsymbol\\pi\\mid\\mathbf x+\\boldsymbol\\epsilon)]&=\\operatorname{Var}_\\epsilon\\left[\\prod_{i\\in S}\\left(1+\\frac{\\epsilon_i}\\tau\\right)^{\\pi_i}\\right].\\quad\\text{(6)}\n\\end{aligned}$$",
+    "original_proof_md": "",
+    "note": "Source-only verbatim author prose with manually transcribed TeX. Project observations stay in transcription_notes; no mathematical correction or added premise is inserted into author fields.",
+    "transcription_notes": [
+      "This is the full main-paper statement and preceding perturbation explanation; Appendix G.2 is preserved separately. The author general-degree equality and Gaussian/unrestricted baseline wording are not repaired."
+    ],
+    "transcription_status": "complete_author_transcription_pending_independent_review",
+    "source_evidence_sha256": {
+      "corpus/public/reader/neurips2023-difficulty/source-evidence/page-05.txt": "213eb5a2dbdd7e111400a686f56cbf281e2bacfc8ebd64df95a276a171ba4523"
+    },
+    "visual_review": {
+      "pdf_pages": [
+        5
+      ],
+      "method": "Actual official PDF page images visually checked."
+    }
+  },
+  "diff-order-variance-argument": {
+    "source_id": "src-neurips2023-difficulty-formal",
+    "source_sha256": "068687d3930191bbb82d95ff2e509fb4f189a5c8c773ca1c616459527420664e",
+    "section": "3.2; unnumbered argument immediately after Theorem 3",
+    "pdf_pages": [
+      5
+    ],
+    "equation_labels": [],
+    "original_statement_md": "Theorem 3 shows the (variance) instability of interactive concepts of different complexities (orders) w.r.t. data variations. It indicates that the variance of $J(S,\\boldsymbol\\pi\\mid\\mathbf x+\\boldsymbol\\epsilon)$ roughly increases along with the $\\operatorname{order}(S)=|S|$ in an exponential manner. Similar conclusions are also introduced in [70].",
+    "original_proof_md": "Furthermore, according to Equation (4), the interaction effect $I(S\\mid\\mathbf x+\\boldsymbol\\epsilon)$ of the concept $S$ can be represented as the weighted sum of $J(S,\\boldsymbol\\pi\\mid\\mathbf x+\\boldsymbol\\epsilon)$, and coefficients $U_{S,\\boldsymbol\\pi}$ w.r.t. different orders $s$ and degrees $\\boldsymbol\\pi$ are usually chaotic. Hence, we can roughly consider that the variance (instability) of the interaction effect $I(S\\mid\\mathbf x+\\boldsymbol\\epsilon)$ increases along with the order $|S|$ exponentially, as well. In other words, compared to high-order concepts, low-order concepts are much more stable to slight input perturbations.",
+    "note": "Source-only verbatim author prose with manually transcribed TeX. Project observations stay in transcription_notes; no mathematical correction or added premise is inserted into author fields.",
+    "transcription_notes": [
+      "This key identifies the distinct source argument and is not an inventory classification or proof-status decision. The author usually-chaotic and roughly-consider steps are copied in full; no coefficient independence or cancellation hypothesis is inserted."
+    ],
+    "transcription_status": "complete_author_transcription_pending_independent_review",
+    "source_evidence_sha256": {
+      "corpus/public/reader/neurips2023-difficulty/source-evidence/page-05.txt": "213eb5a2dbdd7e111400a686f56cbf281e2bacfc8ebd64df95a276a171ba4523"
+    },
+    "visual_review": {
+      "pdf_pages": [
+        5
+      ],
+      "method": "Actual official PDF page images visually checked."
+    }
+  },
+  "diff-order-variance-metrics": {
+    "source_id": "src-neurips2023-difficulty-formal",
+    "source_sha256": "068687d3930191bbb82d95ff2e509fb4f189a5c8c773ca1c616459527420664e",
+    "section": "3.2; experimental verification and Figure 2",
+    "pdf_pages": [
+      5,
+      6
+    ],
+    "equation_labels": [],
+    "original_statement_md": "Experimental verification. Here, we conduct experiments to verify whether the variance (instability) of interaction effects indeed increased along with the order in an approximately exponential manner. Specifically, to mimic variations in the data, we add Gaussian perturbations $\\boldsymbol\\epsilon\\sim\\mathcal N(0,0.02^2I)$ to each training sample. Then, we compute the average mean $E^{(s)}=\\mathbb E_{x\\in X}[\\mathbb E_{S\\subseteq N,|S|=s}[|\\mathbb E_\\epsilon[I(S\\mid\\mathbf x+\\boldsymbol\\epsilon)]|]]$ and the average variance $V^{(s)}=\\mathbb E_{x\\in X}[\\mathbb E_{S\\subseteq N,|S|=s}[\\operatorname{Var}_\\epsilon[I(S\\mid\\mathbf x+\\boldsymbol\\epsilon)]]]$ of interaction effects of the $s$-th order concepts w.r.t. Gaussian perturbations. For verification, we calculate such metrics on DNNs trained for image classification and DNNs trained on tabular data. We train AlexNet [23], VGG-11 [55], ResNet-18/20 [19] on the CIFAR-10 dataset [22] and the Tiny-ImageNet dataset [25], respectively. We also train a five-layer MLP [45] on the UCI census dataset (namely census dataset) and the UCI TV news dataset (namely TV news dataset) [6], respectively. In addition, considering the computational cost of $I(S\\mid\\mathbf x+\\boldsymbol\\epsilon)$ in Equation (1) is intolerable if each pixel is considered as an input variable, we divide images into $8\\times8$ patches [45] to calculate $I(S\\mid\\mathbf x+\\boldsymbol\\epsilon)$. Please see the supplementary material for more implementation details.\n\nFigure 2 shows that the variance (instability) $V^{(s)}$ of interaction effects increases in an exponential manner along with the order $s$ of the interactive concept. In addition, the relative stability $E^{(s)}/\\sqrt{V^{(s)}}$ of interaction effects decreases significantly along with the order $s$. Such phenomenon successfully verifies findings in Theorem 3.\n\nFigure 2: The logarithm of the variance of interaction effects $\\log[V^{(s)}]$ and the stability of interaction effects (measured by $E^{(s)}/\\sqrt{V^{(s)}}$). The variance $V^{(s)}$ of interaction effects increases along with the order of interactive concepts exponentially. The stability of effects decreases along with the order.",
+    "original_proof_md": "",
+    "note": "Source-only verbatim author prose with manually transcribed TeX. Project observations stay in transcription_notes; no mathematical correction or added premise is inserted into author fields.",
+    "transcription_notes": [
+      "PDF 5 prose, PDF 6 figure formula and caption all use E divided by the square root of V, not E divided by V. This differs from the F08 Bayesian source relative-stability quotient; no cross-paper notation substitution is performed.",
+      "This record contains author metric definitions and empirical claims; inventory classification remains with the mathematical author."
+    ],
+    "transcription_status": "complete_author_transcription_pending_independent_review",
+    "source_evidence_sha256": {
+      "corpus/public/reader/neurips2023-difficulty/source-evidence/page-05.txt": "213eb5a2dbdd7e111400a686f56cbf281e2bacfc8ebd64df95a276a171ba4523",
+      "corpus/public/reader/neurips2023-difficulty/source-evidence/page-06.txt": "d5a7588340b62d47e61fb9c4e63fcb5251a2fcaef036d6cc6a7a53c19976d94e"
+    },
+    "visual_review": {
+      "pdf_pages": [
+        5,
+        6
+      ],
+      "method": "Actual official PDF page images visually checked."
+    }
+  },
+  "diff-trigger-definition": {
+    "source_id": "src-neurips2023-difficulty-formal",
+    "source_sha256": "068687d3930191bbb82d95ff2e509fb4f189a5c8c773ca1c616459527420664e",
+    "section": "3.2.1; conceptual learning as a linear regression problem",
+    "pdf_pages": [
+      5,
+      6
+    ],
+    "equation_labels": [
+      "7"
+    ],
+    "original_statement_md": "3.2.1 Formulating the conceptual learning as a linear regression problem\n\nNote that, Li and Zhang [27] have discovered that interactive concepts have high transferability over samples in the same category, i.e., most interactive concepts extracted from different samples may all belong to the same subset $\\Omega_c\\subseteq\\Omega_{\\mathrm{salient}}$. Therefore, we can consider the interactive concepts as common knowledge learned by the DNN, and we aim to analyze the difficulty of learning each interactive concept with different complexity.\n\nTo facilitate the analysis, we first simplify the conceptual learning as a linear regression problem. Specifically, we first rewrite the interaction effect of an interactive concept $S$. Given an input sample $\\mathbf x$, according to Equation (4), the interaction effect of the concept $S$ on the sample $\\mathbf x'$ (obtained by applying some transformations on $\\mathbf x$), $I(S\\mid\\mathbf x')$, can be rewritten as\n\n$$I(S\\mid\\mathbf x')=U_S\\cdot C_S(\\mathbf x').\\qquad\\text{(7)}$$\n\nwhere the constant $U_S=I(S\\mid\\mathbf x)$ denotes the interaction effect on the sample $\\mathbf x$, and the function for the triggering state on the transformed sample $\\mathbf x'$ is given as $C_S(\\mathbf x')=\\sum_{\\boldsymbol\\pi\\in Q_S}U_{S,\\boldsymbol\\pi}J(S,\\boldsymbol\\pi\\mid\\mathbf x')/U_S$.",
+    "original_proof_md": "",
+    "note": "Source-only verbatim author prose with manually transcribed TeX. Project observations stay in transcription_notes; no mathematical correction or added premise is inserted into author fields.",
+    "transcription_notes": [
+      "The source quotient is copied without assigning a value at U_S=0. The source statement fixes an input x before defining its constant U_S."
+    ],
+    "transcription_status": "complete_author_transcription_pending_independent_review",
+    "source_evidence_sha256": {
+      "corpus/public/reader/neurips2023-difficulty/source-evidence/page-05.txt": "213eb5a2dbdd7e111400a686f56cbf281e2bacfc8ebd64df95a276a171ba4523",
+      "corpus/public/reader/neurips2023-difficulty/source-evidence/page-06.txt": "d5a7588340b62d47e61fb9c4e63fcb5251a2fcaef036d6cc6a7a53c19976d94e"
+    },
+    "visual_review": {
+      "pdf_pages": [
+        5,
+        6
+      ],
+      "method": "Actual official PDF page images visually checked."
+    }
+  },
+  "diff-binary": {
+    "source_id": "src-neurips2023-difficulty-formal",
+    "source_sha256": "068687d3930191bbb82d95ff2e509fb4f189a5c8c773ca1c616459527420664e",
+    "section": "3.2.1; Theorem 4 and the ensuing binary-state explanation",
+    "pdf_pages": [
+      6
+    ],
+    "equation_labels": [
+      "8"
+    ],
+    "original_statement_md": "Theorem 4. Given an arbitrarily masked sample $\\mathbf x_T$ ($T\\subseteq N$), the function $C_S(\\mathbf x_T)$ defined above can be computed as the binary triggering state of the concept $S$ in the sample $\\mathbf x_T$.\n\n$$\\forall T\\subseteq N,\\quad C_S(\\mathbf x_T)=\\prod_{i\\in S}A_i(\\mathbf x_T)=\\mathbf1(S\\subseteq T),\\qquad\\text{(8)}$$\n\nwhere $A_i(\\mathbf x_T)\\in\\{0,1\\}$ denotes whether the variable $x_i$ is present $A_i(\\mathbf x_T)=1$ or being masked $A_i(\\mathbf x_T)=0$ in the sample $\\mathbf x_T$.",
+    "original_proof_md": "The function $C_S(\\mathbf x_T)$ represents the triggering state of the concept $S$ under an arbitrarily masking condition $\\forall T\\subseteq N$. Only when all variables in $S$ are present under the masking condition $T$, the concept $S$ is triggered $C_S(\\mathbf x_T)=1$. If any of variables in $S$ is masked, then the concept $S$ will not be triggered $C_S(\\mathbf x_T)=0$, yielding zero interaction effect $I(S\\mid\\mathbf x_T)=0$. Theorem 4 shows that given a masked sample $\\mathbf x_T$, the concept $S$ is only triggered when the sample $\\mathbf x_T$ contains all variables in $S$, i.e., $T\\supseteq S$.",
+    "note": "Source-only verbatim author prose with manually transcribed TeX. Project observations stay in transcription_notes; no mathematical correction or added premise is inserted into author fields.",
+    "transcription_notes": [
+      "The main-paper explanation is distinct from the complete Appendix G.3 proof. No nonzero-coefficient assumption is added to this source statement."
+    ],
+    "transcription_status": "complete_author_transcription_pending_independent_review",
+    "source_evidence_sha256": {
+      "corpus/public/reader/neurips2023-difficulty/source-evidence/page-06.txt": "d5a7588340b62d47e61fb9c4e63fcb5251a2fcaef036d6cc6a7a53c19976d94e"
+    },
+    "visual_review": {
+      "pdf_pages": [
+        6
+      ],
+      "method": "Actual official PDF page images visually checked."
+    }
+  },
+  "diff-linear-representation": {
+    "source_id": "src-neurips2023-difficulty-formal",
+    "source_sha256": "068687d3930191bbb82d95ff2e509fb4f189a5c8c773ca1c616459527420664e",
+    "section": "3.2.1; continuous linear extension, Equation 9",
+    "pdf_pages": [
+      6
+    ],
+    "equation_labels": [
+      "9"
+    ],
+    "original_statement_md": "Thus, inspired by [46], we can extend the conclusion to a continuous version that explains the output of the DNN as a linear regression of very few salient interactive concepts based on Equation (3).\n\n$$v(\\mathbf x')=\\sum_{S\\subseteq N}U_S\\cdot C_S(\\mathbf x')\\approx\\sum_{S\\in\\Omega_{\\mathrm{salient}}}U_S\\cdot C_S(\\mathbf x').\\qquad\\text{(9)}$$",
+    "original_proof_md": "where the triggering state $C_S(\\mathbf x')$ of each interactive concept $S$ can be considered as an input dimension of the linear function, which reflects whether the input sample $\\mathbf x'$ contains the concept $S$.\n\nTherefore, the absolute value of the weight coefficient $U_S$ in Equation (9) can be viewed as the strength of the DNN encoding the interactive concept $S$. Considering the sparsity of interactive concepts discussed in Section 3.1, most interactive concepts have ignorable coefficients $U_S\\approx0$, and not so many concepts $S$ have large absolute value of $|U_S|$. Thus, we can consider that the DNN only learns a small number of salient interactive concepts.",
+    "note": "Source-only verbatim author prose with manually transcribed TeX. Project observations stay in transcription_notes; no mathematical correction or added premise is inserted into author fields.",
+    "transcription_notes": [
+      "The source continuous-extension explanation and approximation are preserved in full. The source key does not decide whether the claimed extension holds or which existing result it should merge into."
+    ],
+    "transcription_status": "complete_author_transcription_pending_independent_review",
+    "source_evidence_sha256": {
+      "corpus/public/reader/neurips2023-difficulty/source-evidence/page-06.txt": "d5a7588340b62d47e61fb9c4e63fcb5251a2fcaef036d6cc6a7a53c19976d94e"
+    },
+    "visual_review": {
+      "pdf_pages": [
+        6
+      ],
+      "method": "Actual official PDF page images visually checked."
+    }
+  },
+  "diff-learning-consistency-argument": {
+    "source_id": "src-neurips2023-difficulty-formal",
+    "source_sha256": "068687d3930191bbb82d95ff2e509fb4f189a5c8c773ca1c616459527420664e",
+    "section": "3.2.2; explaining the learning difficulty of concepts",
+    "pdf_pages": [
+      6,
+      7
+    ],
+    "equation_labels": [],
+    "original_statement_md": "3.2.2 Explaining the learning difficulty of concepts\n\nEquation (9) in the previous subsection enables us to understand a DNN for the classification task as a pseudo-linear function. Then, if an input feature dimension has a stable value (i.e., the triggering state $C_S$ of an interactive concept $S$ stably being present/absent) across all samples in the same category, then we consider this feature dimension (i.e., the concept) is easy to learn. In comparison, when we extract the same concept from different samples in the same category, if this concept exhibits inconsistent interaction effects (e.g., such a concept does not consistently present or absent over different samples), then this feature dimension (i.e., the concept) is hard to learn.",
+    "original_proof_md": "To analyze the consistency/stability of the concept w.r.t data variations, we use small perturbations $\\boldsymbol\\epsilon$ to represent various inevitable variations in the data, such as shape deformation and object rotation variations. Theorem 3 shows that high-order interactive concepts are much more unstable to inevitable variations in the data than low-order interactive concepts. This makes high-order concepts more likely to be influenced by data variations and less likely to be consistently present or absent in samples of the same category, which boosts the learning difficulty.",
+    "note": "Source-only verbatim author prose with manually transcribed TeX. Project observations stay in transcription_notes; no mathematical correction or added premise is inserted into author fields.",
+    "transcription_notes": [
+      "This complete author learning-difficulty argument spans PDF 6 and PDF 7. No mathematical equivalence between the qualitative learning notion and a proved optimization claim is supplied by this transcription."
+    ],
+    "transcription_status": "complete_author_transcription_pending_independent_review",
+    "source_evidence_sha256": {
+      "corpus/public/reader/neurips2023-difficulty/source-evidence/page-06.txt": "d5a7588340b62d47e61fb9c4e63fcb5251a2fcaef036d6cc6a7a53c19976d94e",
+      "corpus/public/reader/neurips2023-difficulty/source-evidence/page-07.txt": "28e376ed62eab685da6442dd56e75ff6cab372b94b06e2a929dd90f793cc6100"
+    },
+    "visual_review": {
+      "pdf_pages": [
+        6,
+        7
+      ],
+      "method": "Actual official PDF page images visually checked."
+    }
+  },
+  "diff-training-metrics": {
+    "source_id": "src-neurips2023-difficulty-formal",
+    "source_sha256": "068687d3930191bbb82d95ff2e509fb4f189a5c8c773ca1c616459527420664e",
+    "section": "3.2.2; beta/kappa definitions, Figures 3 and 4, experimental verification",
+    "pdf_pages": [
+      7,
+      8
+    ],
+    "equation_labels": [],
+    "original_statement_md": "Experimental verification. We conduct experiments to verify the claim that high-order interactive concepts are less stably extracted under data variations than low-order interaction. We use the following two metrics to evaluate the each interactive concept $S$ (i.e., each single input dimension of the above linear function) of a certain order. Specifically, we use the first metric $\\beta(S)=\\mathbb E_c\\left[|\\mathbb E_{x\\in X_c}[I(S\\mid\\mathbf x)]|/\\operatorname{Std}_{x\\in X_c}[I(S\\mid\\mathbf x)]\\right]$ to measure the relative consistency of the interactive concept appearing over different input samples in a certain category $c$. Here, $X_c$ denotes a set of training samples belonging to the category $c$, and $\\operatorname{Std}_{x\\in X_c}[I(S\\mid\\mathbf x)]$ indicates the standard deviation of $I(S\\mid\\mathbf x)$ over different input samples. A large $\\beta(S)$ value means that the interactive concept $S$ in all samples of the category $c$ has similar/consistent effects $I(S\\mid\\mathbf x)$. It is easier for a DNN to learn such a consistent concept $S$.\n\nIn addition, we use another metric $\\kappa(S)$ to verify whether the interaction effect of the high-order interactive concept is usually less stably extracted than those of the low-order interactive concept. To this end, the metric $\\kappa(S)=\\mathbb E_{x\\in X}[\\mathbb E_\\epsilon[|I(S\\mid\\mathbf x+\\boldsymbol\\epsilon)-I(S\\mid\\mathbf x)|]]/\\mathbb E_{x\\in X}[|I(S\\mid\\mathbf x)|]=\\mathbb E_{x\\in X}[\\mathbb E_\\epsilon[|C_S(\\mathbf x+\\boldsymbol\\epsilon)-C_S(\\mathbf x)|]]/\\mathbb E_{x\\in X}[|C_S(\\mathbf x)|]$ measures the relative instability of the interactive concept $S$ to the inevitable slight variations $\\boldsymbol\\epsilon$ in the data. Here, $C_S(\\mathbf x+\\boldsymbol\\epsilon)=I(S\\mid\\mathbf x+\\boldsymbol\\epsilon)/U_S$ computed in Equation (7) denotes the trigger state of the interactive concept $S$ on the sample $\\mathbf x'=\\mathbf x+\\boldsymbol\\epsilon$.\n\nTo this end, we use DNNs and experimental settings in the experimental verification paragraph of Section 3.2 for evaluation. Figure 3 and Figure 4 show the change of the average consistency $\\beta(S)$ and the average instability $\\kappa(S)$ of $s$-order interactive concepts through the learning process, respectively. At each training epoch, low-order concepts usually obtain higher consistency $\\beta(S)$ and lower instability $\\kappa(S)$ than high-order concepts. It means that low-order concepts usually are more consistent and more stable. Thus, this experiment explains the reason why low-order interactive concepts are easier to learn.\n\nFigure 3: Consistency $\\beta(S)$ of $s$-order interactive concepts. The curve shows the mean consistency $\\mathbb E_{S\\subseteq N,|S|=s}[\\beta(S)]$ over different interactive concepts of the $s$-th order, and the shade indicates the standard deviation $\\operatorname{Std}_{S\\subseteq N,|S|=s}[\\beta(S)]$. Effects of low-order concepts are more consistent than those of high-order concepts.\n\nFigure 4: Instability $\\kappa(S)$ of $s$-order interactive concepts to data variations. The curve shows the average instability $\\mathbb E_{S\\subseteq N,|S|=s}[\\kappa(S)]$ over different interactive concepts of the $s$-th order, and the shade represents the standard deviation $\\operatorname{Std}_{S\\subseteq N,|S|=s}[\\kappa(S)]$. Effects of high-order concepts are more sensitive to data variations than those of low-order concepts.",
+    "original_proof_md": "",
+    "note": "Source-only verbatim author prose with manually transcribed TeX. Project observations stay in transcription_notes; no mathematical correction or added premise is inserted into author fields.",
+    "transcription_notes": [
+      "Both original kappa expressions, their equality and all author beta/kappa definitions are retained. No denominator-zero convention or condition allowing a varying U_S to cancel across x is added.",
+      "The experimental conclusion starts at the bottom of PDF 7 and ends with three body lines on PDF 8. Those closing lines are included to avoid a cut sentence; the unrelated Figure 5 and Section 3.2.3 material are outside this record.",
+      "Figure 3 and Figure 4 captions are copied after the complete body paragraph for readable source grouping; their actual appearance is above the body on PDF 7."
+    ],
+    "transcription_status": "complete_author_transcription_pending_independent_review",
+    "source_evidence_sha256": {
+      "corpus/public/reader/neurips2023-difficulty/source-evidence/page-07.txt": "28e376ed62eab685da6442dd56e75ff6cab372b94b06e2a929dd90f793cc6100",
+      "corpus/public/reader/neurips2023-difficulty/source-evidence/page-08.txt": "bb37376391a87b55c240d52947193284db2b4bb3069b1e8c9f0d15c3a5865f85"
+    },
+    "visual_review": {
+      "pdf_pages": [
+        7,
+        8
+      ],
+      "method": "Actual official PDF page images visually checked."
+    }
+  }
+}

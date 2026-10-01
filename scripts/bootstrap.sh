@@ -20,6 +20,10 @@ if [[ ! -x .conda-env/bin/python ]]; then
     _isolated_conda --no-plugins create --yes --no-default-packages --override-channels -c conda-forge --prefix "$ARCHIVE_PROJECT_ROOT/.conda-env" python=3.12 pip
   fi
 fi
+if [[ ! -x .conda-env/bin/pdftoppm ]]; then
+  # Formal source-page rendering belongs to this prefix, never a system install.
+  _isolated_conda --no-plugins install --yes --freeze-installed --override-channels -c conda-forge --prefix "$ARCHIVE_PROJECT_ROOT/.conda-env" poppler
+fi
 if [[ -f locks/python-pip.txt ]]; then
   .conda-env/bin/python -m pip install -r locks/python-pip.txt
   .conda-env/bin/python -m pip install --no-deps --no-build-isolation -e .

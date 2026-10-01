@@ -1,0 +1,74 @@
+                     Bayesian Neural Networks Avoid Encoding Complex and Perturbation-Sensitive Concepts
+
+       (a)                                                                                                    Standard DNN 𝝍𝝍𝜽𝜽∗
+                 MLP-8 on TV news      MLP-8 on Census       MLP-5 on MNIST           LeNet on CIFAR-10
+                                                                                                              BNN 𝜽𝜽∗
+                                                                                                              Standard DNN 𝝍𝝍∗
+                                                                                                              BNN 𝜽𝜽𝝍𝝍∗
+                       order                 order                     order                 order
+       (b)
+                 Acc=60%               Acc=65%               Acc=70%                   Acc=75%
+                                                                                                                           �
+                                                                                                              Standard DNN 𝝍𝝍
+                                                                                                                  �
+                                                                                                              BNN 𝜽𝜽
+
+                      order                  order                     order                 order
+
+Figure 4. (a) Comparison of the strength of interactive concepts (i) between a trained BNN θ ∗ and the constructed standard DNN ψθ∗ ,
+(ii) between a trained standard DNN ψ ∗ and the constructed BNN θψ∗ . (b) We trained a standard DNN ψ̂ and a BNN θ̂ with the LeNet
+architecture on the CIFAR-10 dataset, and compared the strength of interactive concepts between the two networks when the two networks
+were trained to have the same training accuracy.
+
+
+indicates that perturbation-sensitive interactive concepts are by ψθ∗ . Then, we compared the strength of all high-order
+more difficult to learn.           最后第二行用的是lenet cifar10，训     interactive concepts between the BNN θ∗ and the standard
+                                   练acc到同一level的图              DNN ψθ∗ without weight/feature uncertainty.
+Theorem 2.6 (Proof in Appendix G.6). Let Amin =
+minS |US | and Amax = maxS |US | denote the lower bound                 (2) Similarly, given a trained standard DNN ψ ∗ , we con-
+and the upper bound of |US | over all interactive concepts S .          structed a BNN θψ∗ by setting the mean value of its weight
+Then, for any S ⊆ N , we have                                           distribution to the weights of the standard DNN. We set all
+                                                                        weight dimensions in the l-th layer of the BNN to share the
+            |Eϵ [I(S|x + ϵ)]|   |Eϵ [CS (x + ϵ)]|
+   Amin ·                     ≤                                         same variance σl2 , where σl2 was computed as the average
+            Varϵ [I(S|x + ϵ)]   Varϵ [CS (x + ϵ)]
+                                                            (17)        of variances of all weight dimensions in the l-th layer of
+                                       |Eϵ [I(S|x + ϵ)]|                the previous BNN θ∗ . Then, we compared the strength of
+                              ≤ Amax ·
+                                       Varϵ [I(S|x + ϵ)]                high-order interactive concepts between the standard DNN
+                                                                        ψ ∗ and the BNN θψ∗ .
+Theorem 2.6 proves that high-order (complex) interactive
+concepts have low relative stability w.r.t. perturbations ϵ.            (3) We trained a standard DNN and a BNN with the same
+In fact, both Theorem 2.4 and Figure 3 have told us that                architecture. Then, we compared the strength of high-order
+|Eϵ [I(S|x + ϵ)]/Varϵ [I(S|x + ϵ)]| significantly decreases
+                                                                        interactive concepts between each pair of standard DNN
+                                                                        ψ̂ and the BNN θ̂ when these two networks were trained
+along with the order s = |S| of the interactive concept S .
+Therefore, both the lower bound and the upper bound of                  to have the same training accuracy. We used the training
+|Eϵ [CS (x + ϵ)]/Varϵ [CS (x + ϵ)]| in Eq. (17) decrease along
+                                                                        accuracy to align the learning progress of the two networks
+with the order s significantly. In this way, we can approx-             for fair comparison.
+imately consider that the strength of encoding a concept                Specifically, the average strength of the s-order
+|US∗ | ∝ |Eϵ [CS (x+ϵ)]/Varϵ [CS (x+ϵ)]| also decreases along           interactive concepts was measured as Istrength      (s)
+                                                                                                                                    =
+with the order of interactive concepts. In other words, we              Ex [ES⊆N,|S|=s [|I(S|x)|]].  To compute the interaction
+prove that high-order interactive concepts are more difficult                                                    p(y=y ∗ |xS )
+                                                                        effect I(S|x), we set v(xS ) = log 1−p(y=y       ∗ |x )
+                                                                                                                             S
+                                                                                                                                ∈ R,
+to be learned under perturbations ϵ. Combining the conclu-              which reflected the confidence of classifying the masked
+sion in Section 2.2, we also prove that high-order interactive          input sample xS into the ground-truth category y ∗ . For
+concepts are more difficult to be learned by the BNN.                   standard DNNs, p(y = y ∗ |xS ) referred to the classification
+                                                                        probability of the ground-truth category on the masked
+3. Experiments                                                          sample xS . For BNNs, p(y = y ∗ |xS ) was computed
+                                                                        according to Eq. (2), where we sampled ten neural networks
+In this section, we experimentally verified that compared to            from the weight distribution qθ (W ) of the BNN, and
+standard DNNs, BNNs were less likely to encode high-order               computed the average classification probability over all
+(complex) interactive concepts. Specifically, we constructed            these networks.
+three pairs of baseline networks for comparison.
+                                                                        We followed experimental settings in the experiments para-
+(1) Given a trained BNN θ∗ , we constructed a standard                  graph in Section 2.2 to train the networks. Specifically, we
+DNN by setting its weights to the mean value of the weight              trained standard DNNs and BNNs with the MLP architec-
+distribution of the BNN. The standard DNN was denoted
+
+                                                                   8

@@ -1,0 +1,93 @@
+{
+  "status": "browser_samples_observed_not_full_acceptance",
+  "recorded_at": "2026-10-01T08:41:29.458798+00:00",
+  "data_sha256": "6568acbe5d5c3ee3315e21c9a824fa4ad627aeaed8d99d8281b812b984a7c96c",
+  "input_stable": true,
+  "page_errors": [],
+  "results": [
+    {
+      "path": "papers/neurips2021-robustness/results/robustness-entropy-interaction/",
+      "header": [
+        "Proposition1：+条件熵交互等于co-information"
+      ],
+      "math_errors": [],
+      "headings": [
+        "记号与条件",
+        "证明思路",
+        "论文定义与公共证明的对应",
+        "四个条件熵的co-information恒等式",
+        "公共证明的记号与条件",
+        "证明思路",
+        "完整证明"
+      ],
+      "step_count": 5,
+      "document_width": 1440,
+      "viewport": 1440,
+      "start_text": "论文\n/\nA Unified Game-Theoretic Interpretation of Adversarial Robustness\n/\nProposition1\nProposition1：+条件熵交互等于co-information\nNeurIPS 2021\n完整证明 · Lean 对照已编译\n相关符号\n𝐻\n𝑌\nH\nY\n\t​\n\n𝑌\nY\n𝑋\n𝑆\nX\nS\n\t​\n\n𝑀\n𝐼\n(\n𝑋\n𝑖\n;\n𝑌\n∣\n𝑋\n𝑆\n)\nMI(X\ni\n\t​\n\n;Y∣X\nS\n\t​\n\n)\n𝑀\n𝐼\n(\n𝑋\n𝑖\n;\n𝑋\n𝑗\n;\n𝑌\n∣\n𝑋\n𝑆\n)\nMI(X\ni\n\t​\n\n;X\nj\n\t​\n\n;Y∣X\nS\n\t​\n\n)\n𝑁\nN\n𝑛\nn\n𝑆\n,\n𝑇\n,\n𝐴\n,\n𝐿\nS,T,A,L\n𝑚\nm\nΔ\n𝑔\nΔg\n𝐼\n𝑖\n𝑗\n(\n𝑚\n)\nI\nij\n(m)\n\t​\n\n𝐼\n𝑔\nS\nh\na\np\nl\ne\ny\n(\n𝑇\n)\nI\ng\nShapley\n\t​\n\n(T)\n中文证明\n原命题\n原证明\nLean 对照\n\n命题\n\n𝐼\n𝑖\n𝑗\n(\n𝑚\n)\n=\n𝐸\n𝑆\n,\n∣\n𝑆\n∣\n=\n𝑚\n𝑀\n𝐼\n(\n𝑋\n𝑖\n;\n𝑋\n𝑗\n;\n𝑌\n∣\n𝑋\n𝑆\n)\nI\nij\n(m)\n\t​\n\n=E\nS,∣S∣=m\n\t​\n\nMI(X\ni\n\t​\n\n;X\nj\n\t​\n\n;Y∣X\nS\n\t​\n\n)\n记号与条件\n\n原B4的分布平均conditional-entropy游戏、不同i,j∈N及0≤m≤n−2；采用Eq7的co-information约定。X可来自Rⁿ，形式化不添加X有限的假设。\n\n设\n𝑁\nN是有限玩家集，\n𝑛\n=\n∣\n𝑁\n∣\nn=∣N∣；\n𝐶\n(\n𝑅\n,\n𝑚\n)\n=\n{\n𝑆\n⊆\n𝑅\n:\n∣\n𝑆\n∣\n=\n𝑚\n}\nC(R,m)={S⊆R:∣S∣=m}。均匀平均是\n∣\n𝐶\n∣\n−\n1\n∑\n𝑆\n∈\n𝐶\n∣C∣\n−1\n∑\nS∈C\n\t​\n\n，只在m≤|R|时对应原概率平均。\n\n本条的通用四项差取\n𝑔\n=\n𝐻\n𝑌\ng=H\nY\n\t​\n\n，并非\n𝑔\n𝑥\ng\nx\n\t​\n\n。定义\nΔ\n𝐻\n𝑌\n(\n𝑖\n,\n𝑗\n,\n𝑆\n)\n=\n𝐻\n𝑌\n(\n𝑆\n𝑖\n𝑗\n)\n−\n𝐻\n𝑌\n(\n𝑆\n𝑖\n)\n−\n𝐻\n𝑌\n(\n𝑆\n𝑗\n)\n+\n𝐻\n𝑌\n(\n𝑆\n)\nΔH\nY\n\t​\n\n(i,j,S)=H\nY\n\t​\n\n(Sij)−H\nY\n\t​\n\n(Si)−H\nY\n\t​\n\n(Sj)+H\nY\n\t​\n\n(S)与\n𝐼\n𝑖\n𝑗\n,\n𝐻\n𝑌\n(\n𝑚\n)\n=\n𝐸\n𝑆\n∈\n𝐶\n(\n𝑁\n∖\n{\n𝑖\n,\n𝑗\n}\n,\n𝑚\n)\nΔ\n𝐻\n𝑌\nI\nij,H\nY\n\t​\n\n(m)\n\t​\n\n=E\nS∈C(N∖{i,j},m)\n\t​\n\nΔH\nY\n\t​\n\n。Sij表示\n𝑆\n∪\n{\n𝑖\n,\n𝑗\n}\nS∪{i,j}；\n𝑖\n≠\n𝑗\ni\n\n=j，m是上下文大小。\n\n本条改用分布平均熵游戏\n𝐻\n𝑌\n(\n𝑆\n)\n=\n𝐻\n(\n𝑌\n∣\n𝑋\n𝑆\n)\n=\n𝐸\n[\n−\n∑\n𝑦\n𝑝\n(\n𝑦\n∣\n𝑋\n𝑆\n)\nlog\n⁡\n𝑝\n(\n𝑦\n∣\n𝑋\n𝑆\n)\n]\nH\nY\n\t​\n\n(S)=H(Y∣X\nS\n\t​\n\n)=E[−∑\ny\n\t​\n\np(y∣X\nS\n\t​\n\n)logp(y∣X\nS\n\t​\n\n)]。此条件期望对输入分布积分，不要求输入空间有限；原离散数据情形等于\n∑\n𝑥\n𝑆\n𝑝\n(\n𝑥\n𝑆\n)\n[\n−\n∑\n𝑦\n𝑝\n(\n𝑦\n∣\n𝑥\n𝑆\n)\nlog\n⁡\n𝑝\n(\n𝑦\n∣\n𝑥\n𝑆\n)\n]\n∑\nx\nS\n\t​\n\n\t​\n\np(x\nS\n\t​\n\n)[−∑\ny\n\t​\n\np(y∣x\nS\n\t​\n\n)logp(y∣x\nS\n\t​\n\n)]。它不是某个固定x的单次模型输出g_x。零质量项按0log0=0，条件熵须有限。条件MI定义为\n𝐻\n𝑌\n(\n𝑆\n)\n−\n𝐻\n𝑌\n(\n𝑆\n𝑖\n)\nH\nY\n\t​\n\n(S)−H\nY\n\t​\n\n(Si)，co-information定义为该量减去\n𝐻\n𝑌\n(\n𝑆\n𝑗\n)\n−\n𝐻\n𝑌\n(\n𝑆\n𝑖\n𝑗\n)\nH\nY\n\t​\n\n(Sj)−H\nY\n\t​\n\n(Sij)，采用原Eq7约定。\n\n标准Shannon条件信息要求这些条件分布来自同一联合律。原文本把不同mask的DNN概率写作p(y|x_S)，并未另证其联合兼容性。Lean的原等式适配证明任意有限实值条件熵表上的四项恒等式，不构造任意DNN mask输出的共同联合律；本文使用此条件信息语义时保留该原隐含对象要求。\n\n证明思路\n\n本条使用分布平",
+      "screenshot": "reader/evidence/twelve-paper-20261001/root-eight-review-0.png",
+      "english_start_text": "Papers\n/\nA Unified Game-Theoretic Interpretation of Adversarial Robustness\n/\nProposition1\n\nProposition1\n\nProposition 1: positive conditional-entropy interaction equals co-information\nNeurIPS 2021\nComplete proof · Lean comparison compiled\nRelated symbols\n𝐻\n𝑌\nH\nY\n\t​\n\n𝑌\nY\n𝑋\n𝑆\nX\nS\n\t​\n\n𝑀\n𝐼\n(\n𝑋\n𝑖\n;\n𝑌\n∣\n𝑋\n𝑆\n)\nMI(X\ni\n\t​\n\n;Y∣X\nS\n\t​\n\n)\n𝑀\n𝐼\n(\n𝑋\n𝑖\n;\n𝑋\n𝑗\n;\n𝑌\n∣\n𝑋\n𝑆\n)\nMI(X\ni\n\t​\n\n;X\nj\n\t​\n\n;Y∣X\nS\n\t​\n\n)\n𝑁\nN\n𝑛\nn\n𝑆\n,\n𝑇\n,\n𝐴\n,\n𝐿\nS,T,A,L\n𝑚\nm\nΔ\n𝑔\nΔg\n𝐼\n𝑖\n𝑗\n(\n𝑚\n)\nI\nij\n(m)\n\t​\n\n𝐼\n𝑔\nS\nh\na\np\nl\ne\ny\n(\n𝑇\n)\nI\ng\nShapley\n\t​\n\n(T)\nProof\nOriginal statement\nOriginal proof\nLean comparison\n\nStatement\n\n𝐼\n𝑖\n𝑗\n(\n𝑚\n)\n=\n𝐸\n𝑆\n,\n∣\n𝑆\n∣\n=\n𝑚\n𝑀\n𝐼\n(\n𝑋\n𝑖\n;\n𝑋\n𝑗\n;\n𝑌\n∣\n𝑋\n𝑆\n)\nI\nij\n(m)\n\t​\n\n=E\nS,∣S∣=m\n\t​\n\nMI(X\ni\n\t​\n\n;X\nj\n\t​\n\n;Y∣X\nS\n\t​\n\n)\nNotation and conditions\n\nThe population conditional-entropy game in source B.4, distinct i,j∈N and 0≤m≤n−2, using Equation (7)’s co-information convention. X may range in ℝⁿ; no finite-input-type premise is added.\n\nLet N be a finite player set with n=|N|. Write \n𝐶\n(\n𝑅\n,\n𝑚\n)\n=\n{\n𝑆\n⊆\n𝑅\n:\n∣\n𝑆\n∣\n=\n𝑚\n}\nC(R,m)={S⊆R:∣S∣=m}. The uniform average is \n∣\n𝐶\n∣\n−\n1\n∑\n𝑆\n∈\n𝐶\n∣C∣\n−1\n∑\nS∈C\n\t​\n\n; it represents the source probabilistic average only when m≤|R|.\n\nThe generic four-term difference here is instantiated at \n𝑔\n=\n𝐻\n𝑌\ng=H\nY\n\t​\n\n, distinct from \n𝑔\n𝑥\ng\nx\n\t​\n\n. Define \nΔ\n𝐻\n𝑌\n(\n𝑖\n,\n𝑗\n,\n𝑆\n)\n=\n𝐻\n𝑌\n(\n𝑆\n𝑖\n𝑗\n)\n−\n𝐻\n𝑌\n(\n𝑆\n𝑖\n)\n−\n𝐻\n𝑌\n(\n𝑆\n𝑗\n)\n+\n𝐻\n𝑌\n(\n𝑆\n)\nΔH\nY\n\t​\n\n(i,j,S)=H\nY\n\t​\n\n(Sij)−H\nY\n\t​\n\n(Si)−H\nY\n\t​\n\n(Sj)+H\nY\n\t​\n\n(S) and \n𝐼\n𝑖\n𝑗\n,\n𝐻\n𝑌\n(\n𝑚\n)\n=\n𝐸\n𝑆\n∈\n𝐶\n(\n𝑁\n∖\n{\n𝑖\n,\n𝑗\n}\n,\n𝑚\n)\nΔ\n𝐻\n𝑌\nI\nij,H\nY\n\t​\n\n(m)\n\t​\n\n=E\nS∈C(N∖{i,j},m)\n\t​\n\nΔH\nY\n\t​\n\n. Here Sij denotes \n𝑆\n∪\n{\n𝑖\n,\n𝑗\n}\nS∪{i,j}; \n𝑖\n≠\n𝑗\ni\n\n=j and m counts context variables.\n\nThis entry uses the population entropy game \n𝐻\n𝑌\n(\n𝑆\n)\n=\n𝐻\n(\n𝑌\n∣\n𝑋\n𝑆\n)\n=\n𝐸\n[\n−\n∑\n𝑦\n𝑝\n(\n𝑦\n∣\n𝑋\n𝑆\n)\nlog\n⁡\n𝑝\n(\n𝑦\n∣\n𝑋\n𝑆\n)\n]\nH\nY\n\t​\n\n(S)=H(Y∣X\nS\n\t​\n\n)=E[−∑\ny\n\t​\n\np(y∣X\nS\n\t​\n\n)logp(y∣X\nS\n\t​\n\n)]. This conditional e",
+      "english_math_errors": [],
+      "screenshot_sha256": "061d64f5c0511d612eacbffca7550dbafbb73c26362968e51964e4f9961fd136"
+    },
+    {
+      "path": "papers/neurips2024-dynamics/results/dyn-regression/",
+      "header": [
+        "噪声回归的唯一最优权重"
+      ],
+      "math_errors": [],
+      "headings": [
+        "记号与条件",
+        "证明思路",
+        "论文定义与公共证明的对应",
+        "共享证明：独立随机量的乘积矩与平方残差",
+        "公共证明的记号与条件",
+        "证明思路",
+        "完整证明",
+        "共享证明：Möbius 可逆设计与全局回归最优",
+        "公共证明的记号与条件",
+        "证明思路",
+        "完整证明"
+      ],
+      "step_count": 9,
+      "document_width": 1440,
+      "viewport": 1440,
+      "start_text": "论文\n/\nDynamics\n/\nTheorem 3\n\nTheorem 3\n\n噪声回归的唯一最优权重\nNeurIPS 2024\n完整证明 · Lean 对照已编译\n相关符号\n𝑣\nv\n𝑥\n𝑆\nx\nS\n\t​\n\n𝑔\n(\n𝑆\n)\ng(S)\n𝑏\nb\n𝑟\nr\n𝐼\n𝑔\n(\n𝑆\n)\nI\ng\n\t​\n\n(S)\n𝜖\n𝑇\nϵ\nT\n\t​\n\n𝑐\n𝑇\nc\nT\n\t​\n\n𝐽\n𝑆\n𝑇\nJ\nST\n\t​\n\n𝑀\n^\nM\n^\n𝑤\n𝑇\nw\nT\n\t​\n\n𝑤\n𝑇\n∗\nw\nT\n∗\n\t​\n\n中文证明\n原命题\n原证明\nLean 对照\n\n命题\n\n𝑤\n^\n=\n(\n𝐽\n⊤\n𝐽\n+\n2\n𝑛\ndiag\n⁡\n(\n𝑐\n)\n)\n−\n1\n𝐽\n⊤\n𝑦\n=\n(\n𝐽\n⊤\n𝐽\n+\n2\n𝑛\ndiag\n⁡\n(\n𝑐\n)\n)\n−\n1\n𝐽\n⊤\n𝐽\n𝑤\n∗\nw\n^\n=(J\n⊤\nJ+2\nn\ndiag(c))\n−1\nJ\n⊤\ny=(J\n⊤\nJ+2\nn\ndiag(c))\n−1\nJ\n⊤\nJw\n∗\n记号与条件\n\n原 Assumption 1：触发噪声彼此独立、零均值，\n𝑐\n𝑇\n=\nVar\n⁡\n𝜖\n𝑇\n=\n2\n∣\n𝑇\n∣\n𝜎\n2\nc\nT\n\t​\n\n=Varϵ\nT\n\t​\n\n=2\n∣T∣\nσ\n2\n；通常有限二阶矩语义在 Lean 中为 MemLp 2。\n\n所有 \n2\n𝑛\n2\nn\n 个遮罩均匀平均；Lemma 2 的有定义二值设计 \n𝐽\n𝑆\n𝑇\n=\n1\n𝑇\n⊆\n𝑆\nJ\nST\n\t​\n\n=1\nT⊆S\n\t​\n\n，标签 \n𝑦\n=\n𝐽\n𝑤\n∗\ny=Jw\n∗\n，包含空项。\n\n固定有限总体 \n𝑁\nN、输入 \n𝑥\nx、输入基线向量 \n𝑟\nr 与实值模型 \n𝑣\nv。掩码 \n𝑥\n𝑆\nx\nS\n\t​\n\n 在 \n𝑆\nS 内保留 \n𝑥\n𝑖\nx\ni\n\t​\n\n，其余取 \n𝑟\n𝑖\nr\ni\n\t​\n\n；原始游戏 \n𝑔\n(\n𝑆\n)\n=\n𝑣\n(\n𝑥\n𝑆\n)\ng(S)=v(x\nS\n\t​\n\n)，输出基线 \n𝑏\n=\n𝑔\n(\n∅\n)\nb=g(∅)，中心化游戏 \n𝑔\n0\n(\n𝑆\n)\n=\n𝑔\n(\n𝑆\n)\n−\n𝑏\ng\n0\n\t​\n\n(S)=g(S)−b。原输入 \n𝑏\n𝑖\nb\ni\n\t​\n\n 对应 \n𝑟\n𝑖\nr\ni\n\t​\n\n，不将输出标量 \n𝑏\nb 默认零。\n\n令 \n𝐴\n=\n2\n𝑁\nA=2\nN\n，\n𝑚\n=\n∣\n𝐴\n∣\n=\n2\n𝑛\nm=∣A∣=2\nn\n。\n𝑦\n,\n𝑤\n,\n𝑤\n∗\n∈\n𝑅\n𝐴\ny,w,w\n∗\n∈R\nA\n；\n𝑦\n𝑆\n=\n𝑔\n∗\n(\n𝑆\n)\ny\nS\n\t​\n\n=g\n∗\n(S)。矩阵 \n𝐽\n∈\n𝑅\n𝐴\n×\n𝐴\nJ∈R\nA×A\n 的行S是遮罩、列T是概念，\n𝐽\n𝑆\n𝑇\n=\n1\n𝑇\n⊆\n𝑆\nJ\nST\n\t​\n\n=1\nT⊆S\n\t​\n\n。触发噪声 \n𝜖\n=\n(\n𝜖\n𝑇\n)\n𝑇\n∈\n𝐴\nϵ=(ϵ\nT\n\t​\n\n)\nT∈A\n\t​\n\n 定义在概率空间上，方差向量 \n𝑐\n𝑇\n=\n2\n∣\n𝑇\n∣\n𝜎\n2\nc\nT\n\t​\n\n=2\n∣T∣\nσ\n2\n。\n𝐵\n=\n𝐽\n⊤\n𝐽\nB=J\n⊤\nJ，\n𝐷\n=\n𝑚\ndiag\n⁡\n(\n𝑐\n)\nD=mdiag(c)，\n𝐴\n=\n𝐵\n+\n𝐷\nA=B+D，\n𝑀\n^\n=\n𝐴\n−\n1\n𝐵\nM\n^\n=A\n−1\nB；\n𝑚\n^\n𝑇\nm\n^\nT\n\t​\n\n 是 \n𝑀\n^\nM\n^\n 的第T行，欧氏范数为该行平方和的平方根。原损失是 \n𝐿\n~\n(\n𝑤\n)\n=\n𝑚\n−\n1\n∑\n𝑆\n∈\n𝐴\n𝐸\n[\n(\n𝑦\n𝑆\n−\n(\n𝐽\n𝑤\n)\n𝑆\n−\n𝑤\n⊤\n𝜖\n)\n2\n]\nL\n(w)=m\n−1\n∑\nS∈A\n\t​\n\nE[(y\nS\n\t​\n\n−(Jw)\nS\n\t​\n\n−w\n⊤\nϵ)\n2\n]。\n\n证明思路\n\n在论文 Assumption 1 的独立零均值、方差 \n𝑐\n𝑇\n=\n2\n∣\n𝑇\n∣\n𝜎\n2\nc\nT\n\t​\n\n=2\n∣T∣\nσ\n2\n 模型中，对每个遮罩展开平方。交叉期望为零且 \n𝐸\n[\n(\n∑\n𝑇\n𝑤\n𝑇\n𝜖\n𝑇\n)\n2\n]\n=\n∑\n𝑇\n𝑐\n𝑇\n𝑤\n𝑇\n2\nE[(∑\nT\n\t​\n\nw\nT\n\t​\n\nϵ\nT\n\t​\n\n)\n2\n]=∑\nT\n\t​\n\nc\nT\n\t​\n\nw\nT\n2\n\t​\n\n，因此精确有 \n2\n𝑛\n𝐿\n~\n(\n𝑤\n)\n=\n∥\n𝑦\n−\n𝐽\n𝑤\n∥\n2\n+\n2\n𝑛\n∑\n𝑇\n𝑐\n𝑇\n𝑤\n𝑇\n2\n2\nn\nL\n(w)=∥y−Jw∥\n2\n+2\nn\n∑\nT\n\t​\n\nc\nT\n\t​\n\nw\nT\n2\n\t​\n\n。不需要“大样本协方差收敛”。\n\n论文定义与公共证明的对应\n1\n",
+      "screenshot": "reader/evidence/twelve-paper-20261001/root-eight-review-1.png",
+      "english_start_text": "Papers\n/\nDynamics\n/\nTheorem 3\nTheorem 3: unique noisy least-squares optimum\nNeurIPS 2024\nComplete proof · Lean comparison compiled\nRelated symbols\n𝑣\nv\n𝑥\n𝑆\nx\nS\n\t​\n\n𝑔\n(\n𝑆\n)\ng(S)\n𝑏\nb\n𝑟\nr\n𝐼\n𝑔\n(\n𝑆\n)\nI\ng\n\t​\n\n(S)\n𝜖\n𝑇\nϵ\nT\n\t​\n\n𝑐\n𝑇\nc\nT\n\t​\n\n𝐽\n𝑆\n𝑇\nJ\nST\n\t​\n\n𝑀\n^\nM\n^\n𝑤\n𝑇\nw\nT\n\t​\n\n𝑤\n𝑇\n∗\nw\nT\n∗\n\t​\n\nProof\nOriginal statement\nOriginal proof\nLean comparison\n\nStatement\n\n𝑤\n^\n=\n(\n𝐽\n⊤\n𝐽\n+\n2\n𝑛\ndiag\n⁡\n(\n𝑐\n)\n)\n−\n1\n𝐽\n⊤\n𝑦\n=\n(\n𝐽\n⊤\n𝐽\n+\n2\n𝑛\ndiag\n⁡\n(\n𝑐\n)\n)\n−\n1\n𝐽\n⊤\n𝐽\n𝑤\n∗\nw\n^\n=(J\n⊤\nJ+2\nn\ndiag(c))\n−1\nJ\n⊤\ny=(J\n⊤\nJ+2\nn\ndiag(c))\n−1\nJ\n⊤\nJw\n∗\nNotation and conditions\n\nSource Assumption 1: independent centered trigger noise with \n𝑐\n𝑇\n=\nVar\n⁡\n𝜖\n𝑇\n=\n2\n∣\n𝑇\n∣\n𝜎\n2\nc\nT\n\t​\n\n=Varϵ\nT\n\t​\n\n=2\n∣T∣\nσ\n2\n. Its ordinary finite-second-moment meaning is encoded as MemLp 2 in Lean.\n\nAverage uniformly over all \n2\n𝑛\n2\nn\n masks. Use Lemma 2 on its defined binary-design domain, \n𝐽\n𝑆\n𝑇\n=\n1\n𝑇\n⊆\n𝑆\nJ\nST\n\t​\n\n=1\nT⊆S\n\t​\n\n and \n𝑦\n=\n𝐽\n𝑤\n∗\ny=Jw\n∗\n, including the empty coordinate.\n\nFix the finite universe \n𝑁\nN, input \n𝑥\nx, input baseline vector \n𝑟\nr and real-valued model \n𝑣\nv. The mask \n𝑥\n𝑆\nx\nS\n\t​\n\n retains \n𝑥\n𝑖\nx\ni\n\t​\n\n in \n𝑆\nS and uses \n𝑟\n𝑖\nr\ni\n\t​\n\n elsewhere. Set \n𝑔\n(\n𝑆\n)\n=\n𝑣\n(\n𝑥\n𝑆\n)\ng(S)=v(x\nS\n\t​\n\n), output baseline \n𝑏\n=\n𝑔\n(\n∅\n)\nb=g(∅) and centered game \n𝑔\n0\n(\n𝑆\n)\n=\n𝑔\n(\n𝑆\n)\n−\n𝑏\ng\n0\n\t​\n\n(S)=g(S)−b. Source input \n𝑏\n𝑖\nb\ni\n\t​\n\n maps to \n𝑟\n𝑖\nr\ni\n\t​\n\n, and scalar output baseline \n𝑏\nb is not assumed zero.\n\nLet \n𝐴\n=\n2\n𝑁\nA=2\nN\n and \n𝑚\n=\n∣\n𝐴\n∣\n=\n2\n𝑛\nm=∣A∣=2\nn\n. Vectors \n𝑦\n,\n𝑤\n,\n𝑤\n∗\n∈\n𝑅\n𝐴\ny,w,w\n∗\n∈R\nA\n include every coalition, with \n𝑦\n𝑆\n=\n𝑔\n∗\n(\n𝑆\n)\ny\nS\n\t​\n\n=g\n∗\n(S). Matrix \n𝐽\n∈\n𝑅\n𝐴\n×\n𝐴\nJ∈R\nA×A\n has mask rows S, concept columns T, and entries \n𝐽\n𝑆\n𝑇\n=\n1\n𝑇\n⊆\n𝑆\nJ\nST\n\t​\n\n=1\nT⊆S\n\t​\n\n. Trigger noise \n𝜖\n=\n(\n𝜖\n𝑇\n)\n𝑇\n∈\n𝐴\nϵ=(ϵ\nT\n\t​\n\n)\nT∈A\n\t​\n\n lives on a probability space and has variance vector \n𝑐\n𝑇\n=\n2\n∣\n𝑇\n∣\n𝜎\n2\nc\nT\n\t​\n\n=2\n∣T∣\nσ\n2\n. Put \n𝐵\n=\n𝐽\n⊤\n𝐽\nB=J\n⊤\nJ, \n𝐷\n=\n𝑚",
+      "english_math_errors": [],
+      "screenshot_sha256": "520e5a9a1e749058ce21fd0e3ca3ba79eb431ccdfe65fa0eea73db31cdc1beb1"
+    },
+    {
+      "path": "proofs/dyn-shared-positive-regression/",
+      "header": [
+        "共享证明：Möbius 可逆设计与全局回归最优"
+      ],
+      "math_errors": [],
+      "headings": [
+        "记号与条件",
+        "证明思路",
+        "完整证明"
+      ],
+      "step_count": 3,
+      "document_width": 1440,
+      "viewport": 1440,
+      "start_text": "论文\n/\nDynamics\n/\n共享证明\n共享证明：Möbius 可逆设计与全局回归最优\nNeurIPS 2024\n完整证明 · Lean 对照已编译\n完整证明\nLean 对照\n\n命题\n\n𝐴\n=\n𝐽\n⊤\n𝐽\n+\ndiag\n⁡\n𝑑\n,\n𝑑\n≥\n0\n,\n𝑢\n=\n𝐴\n−\n1\n𝐽\n⊤\n𝑦\nA=J\n⊤\nJ+diagd,d≥0,u=A\n−1\nJ\n⊤\ny\n记号与条件\n\n有限完整幂集设计J；非负对角惩罚d，y为任意有限实标签向量。\n\n令 \n𝐴\n=\n2\n𝑁\nA=2\nN\n，\n𝑚\n=\n∣\n𝐴\n∣\n=\n2\n𝑛\nm=∣A∣=2\nn\n。\n𝑦\n,\n𝑤\n,\n𝑤\n∗\n∈\n𝑅\n𝐴\ny,w,w\n∗\n∈R\nA\n；\n𝑦\n𝑆\n=\n𝑔\n∗\n(\n𝑆\n)\ny\nS\n\t​\n\n=g\n∗\n(S)。矩阵 \n𝐽\n∈\n𝑅\n𝐴\n×\n𝐴\nJ∈R\nA×A\n 的行S是遮罩、列T是概念，\n𝐽\n𝑆\n𝑇\n=\n1\n𝑇\n⊆\n𝑆\nJ\nST\n\t​\n\n=1\nT⊆S\n\t​\n\n。触发噪声 \n𝜖\n=\n(\n𝜖\n𝑇\n)\n𝑇\n∈\n𝐴\nϵ=(ϵ\nT\n\t​\n\n)\nT∈A\n\t​\n\n 定义在概率空间上，方差向量 \n𝑐\n𝑇\n=\n2\n∣\n𝑇\n∣\n𝜎\n2\nc\nT\n\t​\n\n=2\n∣T∣\nσ\n2\n。\n𝐵\n=\n𝐽\n⊤\n𝐽\nB=J\n⊤\nJ，\n𝐷\n=\n𝑚\ndiag\n⁡\n(\n𝑐\n)\nD=mdiag(c)，\n𝐴\n=\n𝐵\n+\n𝐷\nA=B+D，\n𝑀\n^\n=\n𝐴\n−\n1\n𝐵\nM\n^\n=A\n−1\nB；\n𝑚\n^\n𝑇\nm\n^\nT\n\t​\n\n 是 \n𝑀\n^\nM\n^\n 的第T行，欧氏范数为该行平方和的平方根。原损失是 \n𝐿\n~\n(\n𝑤\n)\n=\n𝑚\n−\n1\n∑\n𝑆\n∈\n𝐴\n𝐸\n[\n(\n𝑦\n𝑆\n−\n(\n𝐽\n𝑤\n)\n𝑆\n−\n𝑤\n⊤\n𝜖\n)\n2\n]\nL\n(w)=m\n−1\n∑\nS∈A\n\t​\n\nE[(y\nS\n\t​\n\n−(Jw)\nS\n\t​\n\n−w\n⊤\nϵ)\n2\n]。\n\n证明思路\n\n在论文 Assumption 1 的独立零均值、方差 \n𝑐\n𝑇\n=\n2\n∣\n𝑇\n∣\n𝜎\n2\nc\nT\n\t​\n\n=2\n∣T∣\nσ\n2\n 模型中，对每个遮罩展开平方。交叉期望为零且 \n𝐸\n[\n(\n∑\n𝑇\n𝑤\n𝑇\n𝜖\n𝑇\n)\n2\n]\n=\n∑\n𝑇\n𝑐\n𝑇\n𝑤\n𝑇\n2\nE[(∑\nT\n\t​\n\nw\nT\n\t​\n\nϵ\nT\n\t​\n\n)\n2\n]=∑\nT\n\t​\n\nc\nT\n\t​\n\nw\nT\n2\n\t​\n\n，因此精确有 \n2\n𝑛\n𝐿\n~\n(\n𝑤\n)\n=\n∥\n𝑦\n−\n𝐽\n𝑤\n∥\n2\n+\n2\n𝑛\n∑\n𝑇\n𝑐\n𝑇\n𝑤\n𝑇\n2\n2\nn\nL\n(w)=∥y−Jw∥\n2\n+2\nn\n∑\nT\n\t​\n\nc\nT\n\t​\n\nw\nT\n2\n\t​\n\n。不需要“大样本协方差收敛”。\n\n完整证明\n1\n逐行精确展开期望\n\n在论文 Assumption 1 的独立零均值、方差 \n𝑐\n𝑇\n=\n2\n∣\n𝑇\n∣\n𝜎\n2\nc\nT\n\t​\n\n=2\n∣T∣\nσ\n2\n 模型中，对每个遮罩展开平方。交叉期望为零且 \n𝐸\n[\n(\n∑\n𝑇\n𝑤\n𝑇\n𝜖\n𝑇\n)\n2\n]\n=\n∑\n𝑇\n𝑐\n𝑇\n𝑤\n𝑇\n2\nE[(∑\nT\n\t​\n\nw\nT\n\t​\n\nϵ\nT\n\t​\n\n)\n2\n]=∑\nT\n\t​\n\nc\nT\n\t​\n\nw\nT\n2\n\t​\n\n，因此精确有 \n2\n𝑛\n𝐿\n~\n(\n𝑤\n)\n=\n∥\n𝑦\n−\n𝐽\n𝑤\n∥\n2\n+\n2\n𝑛\n∑\n𝑇\n𝑐\n𝑇\n𝑤\n𝑇\n2\n2\nn\nL\n(w)=∥y−Jw∥\n2\n+2\nn\n∑\nT\n\t​\n\nc\nT\n\t​\n\nw\nT\n2\n\t​\n\n。不需要“大样本协方差收敛”。\n\n查看 Lean 对照 ↗\n2\n证明 Gram 正定并完成平方\n\n采用论文二值设计 \n𝐽\n𝑆\n𝑇\n=\n1\n𝑇\n⊆\n𝑆\nJ\nST\n\t​\n\n=1\nT⊆S\n\t​\n\n，\n𝐽\n𝑤\nJw 是 subset sum，Möbius 反演给 \n𝐽\nJ 单射。于是非零 \n𝑢\nu 满足 \n𝑢\n⊤\n𝐽\n⊤\n𝐽\n𝑢\n=\n∥\n𝐽\n𝑢\n∥\n2\n>\n0\nu\n⊤\nJ\n⊤\nJu=∥Ju∥\n2\n>0；\n2\n𝑛\ndiag\n⁡\n(\n𝑐\n)\n2\nn\ndiag(c) 半正定，包括 \n𝜎\n=\n0\nσ=0。\n𝐴\n=\n𝐽\n⊤\n𝐽\n+\n2\n𝑛\ndiag\n⁡\n(\n𝑐\n)\nA=J\n⊤\nJ+2\nn\ndiag(c) 正定可逆。设 \n𝑢\n=\n𝐴\n−\n1\n𝐽\n⊤\n𝑦\nu=A\n−1\nJ\n⊤\ny，精确完成平方得到 \n2\n𝑛\n(\n𝐿\n~\n(\n𝑤\n)\n−\n𝐿\n~\n(\n𝑢\n)\n)\n=\n(\n𝑤\n−\n𝑢\n)\n⊤\n𝐴\n(\n𝑤\n−\n𝑢\n)",
+      "screenshot": "reader/evidence/twelve-paper-20261001/root-eight-review-2.png",
+      "english_start_text": "Papers\n/\nDynamics\n/\nShared proof\nShared proof: invertible Möbius design and global regression optimum\nNeurIPS 2024\nComplete proof · Lean comparison compiled\nComplete proof\nLean comparison\n\nStatement\n\n𝐴\n=\n𝐽\n⊤\n𝐽\n+\ndiag\n⁡\n𝑑\n,\n𝑑\n≥\n0\n,\n𝑢\n=\n𝐴\n−\n1\n𝐽\n⊤\n𝑦\nA=J\n⊤\nJ+diagd,d≥0,u=A\n−1\nJ\n⊤\ny\nNotation and conditions\n\nThe complete finite powerset design J, a nonnegative diagonal penalty d, and any finite real label vector y.\n\nLet \n𝐴\n=\n2\n𝑁\nA=2\nN\n and \n𝑚\n=\n∣\n𝐴\n∣\n=\n2\n𝑛\nm=∣A∣=2\nn\n. Vectors \n𝑦\n,\n𝑤\n,\n𝑤\n∗\n∈\n𝑅\n𝐴\ny,w,w\n∗\n∈R\nA\n include every coalition, with \n𝑦\n𝑆\n=\n𝑔\n∗\n(\n𝑆\n)\ny\nS\n\t​\n\n=g\n∗\n(S). Matrix \n𝐽\n∈\n𝑅\n𝐴\n×\n𝐴\nJ∈R\nA×A\n has mask rows S, concept columns T, and entries \n𝐽\n𝑆\n𝑇\n=\n1\n𝑇\n⊆\n𝑆\nJ\nST\n\t​\n\n=1\nT⊆S\n\t​\n\n. Trigger noise \n𝜖\n=\n(\n𝜖\n𝑇\n)\n𝑇\n∈\n𝐴\nϵ=(ϵ\nT\n\t​\n\n)\nT∈A\n\t​\n\n lives on a probability space and has variance vector \n𝑐\n𝑇\n=\n2\n∣\n𝑇\n∣\n𝜎\n2\nc\nT\n\t​\n\n=2\n∣T∣\nσ\n2\n. Put \n𝐵\n=\n𝐽\n⊤\n𝐽\nB=J\n⊤\nJ, \n𝐷\n=\n𝑚\ndiag\n⁡\n(\n𝑐\n)\nD=mdiag(c), \n𝐴\n=\n𝐵\n+\n𝐷\nA=B+D and \n𝑀\n^\n=\n𝐴\n−\n1\n𝐵\nM\n^\n=A\n−1\nB. Row \n𝑚\n^\n𝑇\nm\n^\nT\n\t​\n\n has Euclidean norm equal to the square root of its squared-entry sum. The source loss is \n𝐿\n~\n(\n𝑤\n)\n=\n𝑚\n−\n1\n∑\n𝑆\n∈\n𝐴\n𝐸\n[\n(\n𝑦\n𝑆\n−\n(\n𝐽\n𝑤\n)\n𝑆\n−\n𝑤\n⊤\n𝜖\n)\n2\n]\nL\n(w)=m\n−1\n∑\nS∈A\n\t​\n\nE[(y\nS\n\t​\n\n−(Jw)\nS\n\t​\n\n−w\n⊤\nϵ)\n2\n].\n\nProof idea\n\nUnder Assumption 1, the trigger noise is independent, centered, and has \n𝑐\n𝑇\n=\n2\n∣\n𝑇\n∣\n𝜎\n2\nc\nT\n\t​\n\n=2\n∣T∣\nσ\n2\n. Expand each masked squared residual: cross expectations vanish and \n𝐸\n[\n(\n∑\n𝑇\n𝑤\n𝑇\n𝜖\n𝑇\n)\n2\n]\n=\n∑\n𝑇\n𝑐\n𝑇\n𝑤\n𝑇\n2\nE[(∑\nT\n\t​\n\nw\nT\n\t​\n\nϵ\nT\n\t​\n\n)\n2\n]=∑\nT\n\t​\n\nc\nT\n\t​\n\nw\nT\n2\n\t​\n\n. Thus \n2\n𝑛\n𝐿\n~\n(\n𝑤\n)\n=\n∥\n𝑦\n−\n𝐽\n𝑤\n∥\n2\n+\n2\n𝑛\n∑\n𝑇\n𝑐\n𝑇\n𝑤\n𝑇\n2\n2\nn\nL\n(w)=∥y−Jw∥\n2\n+2\nn\n∑\nT\n\t​\n\nc\nT\n\t​\n\nw\nT\n2\n\t​\n\n exactly; no large-sample covariance limit is needed.\n\nComplete proof\n1\nExpand row expectations exactly\n\nUnder Assumption 1, the trigger noise is independent, centered, and has \n𝑐\n𝑇\n=\n2\n∣\n𝑇\n∣\n𝜎\n2\nc\nT\n\t​\n\n=2\n∣T∣\nσ\n2\n. Expand each",
+      "english_math_errors": [],
+      "screenshot_sha256": "bc3063279dd18999045b7fa5e04be49dcb98b47651256f0de2daddd72fdb86c9"
+    }
+  ],
+  "visual_review": {
+    "reviewed_screenshots": [
+      0,
+      1
+    ],
+    "findings": [
+      "F01 conditional-entropy game and F07 actual noise conditions visible; no mathematical-rendering or horizontal-layout errors in sampled views.",
+      "F07 paper page repeats conditions/outline/full proof for two inline shared proofs; phase2 should keep the paper argument primary and make full shared proofs accessible by stable links/disclosure.",
+      "Move Lean-specific MemLp spelling from ordinary reader assumptions to machine correspondence while retaining the finite-second-moment condition."
+    ],
+    "scope": "Independent samples only; no whole-twelve-paper or human-usability claim."
+  }
+}

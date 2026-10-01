@@ -1,0 +1,82 @@
+                        Towards Theoretical Analysis of Transformation Complexity of ReLU DNNs
+
+where q(σl ) denotes the prior distribution, which is formulated as follows.
+                                                                      (
+                                               Y                         p̂     σld = 1
+                                      q(σl ) =   q(σld ), q(σld ) =                                                     (32)
+                                               d
+                                                                         1 − p̂ σld = 0
+
+If we write the EBM as pθf (σl ) =     1
+                                     Z(θf )   exp[−E(σl )], then the energy function is as follows.
+
+                                                Eθf (σl ) = − log q(σl ) − f (σl ; θf )                                 (33)
+
+The EBM can be learned via the maximum likelihood estimation (MLE) with the following loss.
+                                                                                   n
+                                                                                1X
+                                     θ̂f = arg max L(θf ) = arg max                   log pθf (σl,i )                   (34)
+                                                θf                         θf   n i=1
+
+where n denotes the number of samples. σl,i is a vector, which represents gating states in the l-th gating layer for the i-th
+sample.
+The loss and gradient of θf can be calculated as follows.
+                                      n                                n
+                                1X                        1X
+                     L(θf ) = −       log pθf (σl,i ) = −       [f (σl,i ; θf ) + log q(σl,i )] + log Z(θf )            (35)
+                                n i=1                     n i=1
+
+                                                                     n
+                                 ∂L(θf )          ∂                 1X ∂
+                                         = Eθf       f (σl ; θf ) −           f (σl,i ; θf )                            (36)
+                                  ∂θf            ∂θf                n i=1 ∂θf
+where    ∂
+        ∂θf log Z(θf ) = Eθf [ ∂θ∂f f (σl ; θf )].
+                   h                i
+The first term Eθf ∂θ∂f f (σl ; θf ) in the above equation is analytically intractable and has to be approximated by MCMC,
+such as the Langevin dynamics.
+                                                  ∆τ ∂               √
+                                σlnew = σl −             Eθf (σl ) + ∆τ ϵ
+                                                   2 ∂σl
+                                                     "                 D
+                                                                                       #
+                                                                                           √                           (37)
+                                                  ∆τ ∂f (σl ; θf ) X 1 ∂q(σld )
+                                       = σl +                       +                    +   ∆τ ϵ
+                                                   2      ∂σl
+                                                                      d=1
+                                                                          q(σld ) ∂σld
+
+where ϵ ∽ N (0, I) is a Gaussian white noise. ∆τ denotes the size of the Langevin step.
+                                              ∂L(θf )
+Then, the Monte Carlo approximation to         ∂θf       is given as follows.
+                                                     n                              n
+                                 ∂L(θf )   1X ∂                       1X ∂
+                                         ≈           f (e
+                                                        σl,i ; θf ) −           f (σl,i ; θf )
+                                  ∂θf      n i=1 ∂θf                  n i=1 ∂θf
+                                               " n                       n
+                                                                                       #                                (38)
+                                            ∂    1X                   1X
+                                         =             Eθ (σl,i ) −         Eθ (e
+                                                                                σl,i )
+                                           ∂θf n i=1 f                n i=1 f
+
+where σ
+      el,i is the sample synthesized via Langevin dynamics.
+Thus, the loss for the learning of the DNN can be rewritten as follows.
+                                                 L
+                                                 X
+                              Lcomplexity = −            Eσl [log pθ̂f (σl )]
+                                                 l=1
+                                                     L       n
+                                               1 XX
+                                          =           [Eθ̂f (σl,i ) + log Z(θ̂f )]                                      (39)
+                                               n  i=1
+                                                  l=1
+                                                         L       n
+                                                 1 XX
+                                          =−            [f (σl,i ; θ̂f ) + log q(σl,i ) − log Z(θ̂f )]
+                                                 n  i=1
+                                                     l=1
+

@@ -1,0 +1,69 @@
+We will then prove that ∀S ⊆ N, f (x̂S ) = v(x̂S ).
+            X
+ f (x̂S ) =     wT JT (x̂S )                                                                              (26)
+             T ⊆N
+             X X              1      ∂ π1 +···+πn v            Y
+         =               Qn            π1        πn                 ((x̂S )i − bi )πi // wT cancels out   (27)
+             T ⊆N π∈QT     i=1 πi ! ∂x1 · · · ∂xn        x=x∅ i∈T
+             X X              1     ∂ π1 +···+πn v            Y
+         =               Qn           π1        πn                  ((x̂S )i − bi )πi                     (28)
+             T ⊆S π∈QT    i=1 πi ! ∂x1 · · · ∂xn        x=x∅ i∈T
+
+           // if T ⊈ S, then ∃j ∈ T \ S, s.t. (x̂S )j − bj = 0, which makes the whole term zero
+                                                                                              (29)
+           X X             1        ∂ π1 +···+πn v        Y
+         =            Qn              π1          πn        (x̂i − bi )πi                     (30)
+                         i=1 π i ! ∂x 1   · · · ∂xn  x=x∅
+             T ⊆S π∈QT                                        i∈T
+
+           // when T ⊆ S, we have ∀i ∈ T, (x̂S )i = x̂i                                      (31)
+             X
+         =        I(T |x = x̂) + v(x∅ ) // the inverse direction of Lemma 3 we have just proven
+             ∅̸=T ⊆S
+                                                                                                          (32)
+         = v(x̂S ) // the inverse direction of universal matching theorem                                 (33)
+
+
+Remark. The function f (x) essentially provides a continuous implementation of Eq. (3) in the
+universal matching theorem (Theorem 2). The weight wT = I(T |x = x̂) is the interaction effect
+w.r.t. to subset T on the unmasked sample x̂, while the function JT (x) is a continuous extension of
+the indicator function 1(x̂S triggers the AND relation T ) (thus we call JT (x) a triggering function
+and the value of this function triggering strength).
+F.3 Proof of Lemma 1
+Proof. Given the inference scores on masked samples {e
+                                                     v (xS ) : S ⊆ N }, the interaction between in-
+                                              e |x) = P            |T |−|S|
+put variables w.r.t. T ⊆ N can be computed as I(T        S⊆T (−1)           ve(xS ) (the computation
+of AND interactions in Eq. (2)).
+Since we assume that ∀S ⊆ N, ve(xS ) = v(xS ) + ∆vS , ∆vS ∼ N (0, σ 2 ), I(T
+                                                                         e |x) can be written as
+                               X
+                   e |x) =
+                   I(T            (−1)|T |−|S| ve(xS )                                         (34)
+                                      S⊆T
+                                      X
+                                  =         (−1)|T |−|S| (v(xS ) + ∆vS )                                  (35)
+                                      S⊆T
+                                      X                             X
+                                  =         (−1)|T |−|S| v(xS ) +         (−1)|T |−|S| ∆vS                (36)
+                                      S⊆T                           S⊆T
+                                  = I(T |x) + ∆IT                                                         (37)
+where I(T |x) = S⊆T (−1)|T |−|S| v(xS ) is a noiseless component (not a random variable), and
+                    P
+
+∆IT = S⊆T (−1)|T |−|S| ∆vS is the noise component on the interaction.
+       P
+
+
+                        P∆vS ∼ N|T
+Since each Gaussian noise          (0, σ 2 ), ∀S ⊆ N , is independent and identically distributed, it
+is easy to see E[∆IT ] = S⊆T (−1) |−|S| E[∆vS ] = 0. The variance of ∆IT is computed as
+                                   X
+                  Var[∆IT ] = Var(     (−1)|T |−|S| ∆vS )                                       (38)
+                                             S⊆T
+                                  = Var(∆vS1 ) + Var(∆vS2 ) + · · · + Var(∆vS2|T | )                      (39)
+                                  = 2|T | · σ 2 ,                                                         (40)
+because there are a total of 2|T | subsets for S ⊆ T .
+
+
+                                                        20

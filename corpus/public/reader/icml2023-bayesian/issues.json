@@ -1,0 +1,431 @@
+{
+  "paper_id": "icml2023-bayesian",
+  "issues": [
+    {
+      "id": "bnn-issue-taylor",
+      "paper_id": "icml2023-bayesian",
+      "title": "任意 DNN 的全局 Taylor 等式错误",
+      "kind": "unrestricted_taylor_statement",
+      "issue_type": "statement_counterexample",
+      "original_statement_status": "counterexample_verified",
+      "related_result_ids": [
+        "bnn-taylor",
+        "bnn-trigger",
+        "bnn-linear-representation"
+      ],
+      "source_refs": [
+        {
+          "source_id": "src-icml2023-bayesian-formal",
+          "version_id": "ver-icml2023-bayesian-formal",
+          "pdf_pages": [
+            5,
+            15,
+            16
+          ]
+        }
+      ],
+      "original_expression": "v(x\\prime)=\\sum_{S,\\pi\\in Q_S}U_{S,\\pi}J(S,\\pi\\mid x\\prime)",
+      "description_md": "原Lemma2.1未给解析、收敛与合法分组条件。",
+      "evidence_md": "允许的ReLU网络 $v(t)=\\max(t-1/2,0)$，参考0输入1：所有基线Taylor系数零而交互1/2。人读反例完整；Lean只验证有效有限多项式子结果。",
+      "impact_md": "不修改原量词；有限多项式支持证明与原错误命题明确分开。",
+      "status": "agent_checked",
+      "user_confirmation": "not_individually_confirmed",
+      "fix_authorization": "proof_only_granted",
+      "proposition_modification_authorized": false,
+      "translations": {
+        "en": {
+          "title": "The global Taylor equality fails for arbitrary DNNs",
+          "description_md": "Lemma 2.1 supplies no analyticity, convergence or legitimate-regrouping conditions.",
+          "evidence_md": "The allowed ReLU network $v(t)=\\max(t-1/2,0)$, baseline zero and input one, has zero Taylor coefficients but dividend 1/2. The human-readable counterexample is complete; Lean verifies the valid finite-polynomial component.",
+          "impact_md": "The source quantifier is unchanged; finite-polynomial support proofs are separate from the false unrestricted claim."
+        }
+      }
+    },
+    {
+      "id": "bnn-issue-folded-moments",
+      "paper_id": "icml2023-bayesian",
+      "title": "奇次绝对触发的精确矩不等于有符号矩",
+      "kind": "absolute_signed_moment_conflict",
+      "issue_type": "statement_counterexample",
+      "original_statement_status": "counterexample_verified",
+      "related_result_ids": [
+        "bnn-general-moments"
+      ],
+      "source_refs": [
+        {
+          "source_id": "src-icml2023-bayesian-formal",
+          "version_id": "ver-icml2023-bayesian-formal",
+          "pdf_pages": [
+            5,
+            6,
+            17,
+            18
+          ]
+        }
+      ],
+      "original_expression": "E|1+\\epsilon/\\tau|=E(1+\\epsilon/\\tau)",
+      "description_md": "原Theorem2.3的J定义为绝对幂，而印出的均值/方差公式使用有符号Gaussian幂；正文虽明确忽略低概率越界，精确未截断等式仍不成立。",
+      "evidence_md": "一坐标$x=1,r=0,\\tau=1,\\pi=1,\\epsilon\\sim N(0,q)$，任意$q>0$：原J均值严格大于1，有符号均值1。PaperBayesian.general_moment_counterexample实际绑定原触发定义与Gaussian积分。平方相同还给真实方差小于q。",
+      "impact_md": "该反例针对J，不否定真实最低交互的符号相消；Theorem2.4下界用独立乘积与绝对矩下界重新证明。",
+      "status": "agent_checked",
+      "user_confirmation": "not_individually_confirmed",
+      "fix_authorization": "proof_only_granted",
+      "proposition_modification_authorized": false,
+      "translations": {
+        "en": {
+          "title": "Exact odd absolute-trigger moments differ from signed moments",
+          "description_md": "J in Theorem 2.3 is an absolute power, but the printed means/variances use signed Gaussian powers. The main text explicitly ignores rare crossings, while the exact untruncated equalities still fail.",
+          "evidence_md": "For x=1,r=0,τ=1,π=1 and ε~N(0,q), every q>0 gives actual trigger mean strictly above one, whereas the signed mean is one. PaperBayesian.general_moment_counterexample binds the original trigger and Gaussian integrals. Equal pointwise squares also make the actual variance smaller than q.",
+          "impact_md": "The counterexample concerns J and does not negate sign cancellation in the actual lowest dividend. Theorem 2.4’s bounds are repaired using independent products and absolute-moment lower bounds."
+        }
+      }
+    },
+    {
+      "id": "bnn-issue-moving-coefficient",
+      "paper_id": "icml2023-bayesian",
+      "title": "移动符号系数与固定参考幅值的记号作用域",
+      "kind": "coefficient_scope_ambiguity",
+      "issue_type": "statement_alignment_or_scope",
+      "original_statement_status": "scope_under_review",
+      "related_result_ids": [
+        "bnn-taylor",
+        "bnn-lowest",
+        "bnn-general-moments",
+        "bnn-trigger"
+      ],
+      "source_refs": [
+        {
+          "source_id": "src-icml2023-bayesian-formal",
+          "version_id": "ver-icml2023-bayesian-formal",
+          "pdf_pages": [
+            5,
+            6,
+            15,
+            16,
+            17
+          ]
+        }
+      ],
+      "original_expression": "U_{S,\\pi}\\text{ contains }sign(x_i\\prime-r_i)^{\\pi_i}",
+      "description_md": "Lemma的U定义含当前x′符号，但最低项矩式与附录证明又把U及δ按参考x取固定系数；二者不能无说明混同。",
+      "evidence_md": "真实最低多项式I=a∏(x_i′−r_i)可以跨符号区精确因式分解为U_ref∏(1+s_iε_i/τ)。这里U_ref=I(x)是固定基点值；U(x′)与J_abs(x′)配对才恢复同一I。",
+      "impact_md": "提供忠实参考系数解释和完整实际交互证明；不将固定U×absJ反例误报成Theorem2.2真实I反例。",
+      "status": "agent_checked",
+      "user_confirmation": "not_individually_confirmed",
+      "fix_authorization": "proof_only_granted",
+      "proposition_modification_authorized": false,
+      "translations": {
+        "en": {
+          "title": "Notation scope of moving signs and fixed reference amplitudes",
+          "description_md": "The Lemma defines U with current x′ signs, whereas lowest-term moments and appendix signs use fixed reference x. The two instances require explicit distinction.",
+          "evidence_md": "The actual lowest polynomial I=a∏(x_i′−r_i) factors exactly across sign regions as U_ref∏(1+s_iε_i/τ), with fixed U_ref=I(x). Moving U(x′) must instead be paired with J_abs(x′) to recover that same dividend.",
+          "impact_md": "Provide the faithful reference-coefficient interpretation and a complete actual-dividend proof; a fixed-U times abs-J example is not reported as a counterexample to the actual I in Theorem 2.2."
+        }
+      }
+    },
+    {
+      "id": "bnn-issue-zero-trigger",
+      "paper_id": "icml2023-bayesian",
+      "title": "零参考交互使触发比值无定义",
+      "kind": "zero_reference_denominator",
+      "issue_type": "definition_or_algorithm_boundary",
+      "original_statement_status": "scope_under_review",
+      "related_result_ids": [
+        "bnn-trigger",
+        "bnn-binary",
+        "bnn-linear-representation",
+        "bnn-objective"
+      ],
+      "source_refs": [
+        {
+          "source_id": "src-icml2023-bayesian-formal",
+          "version_id": "ver-icml2023-bayesian-formal",
+          "pdf_pages": [
+            7
+          ]
+        }
+      ],
+      "original_expression": "C_S=\\sum_\\pi U_{S,\\pi}J/U_S",
+      "description_md": "作者没有排除精确为零的参考交互，定义及二值约去都会使用该分母。",
+      "evidence_md": "允许的常数网络v=1所有非空I=0，原归一化分子也0，得到通常实数中无定义的0/0。实际有限掩码支持律仍成立，但不能除以0。",
+      "impact_md": "保留源定义域缺口；非零域的真实掩码声明只记有效适配，不覆盖原所有零系数。",
+      "status": "agent_checked",
+      "user_confirmation": "not_individually_confirmed",
+      "fix_authorization": "proof_only_granted",
+      "proposition_modification_authorized": false,
+      "translations": {
+        "en": {
+          "title": "Zero reference dividends leave trigger ratios undefined",
+          "description_md": "The author does not exclude exact zero reference dividends, which occur in both the definition and binary cancellation.",
+          "evidence_md": "The allowed constant network v=1 has zero nonempty dividends and zero numerator, producing undefined ordinary-real 0/0. Actual finite-mask support still holds, but division by zero is invalid.",
+          "impact_md": "Retain the source domain gap; the actual mask theorem on nonzero reference coefficients does not cover every zero coefficient."
+        }
+      }
+    },
+    {
+      "id": "bnn-issue-growth-domain",
+      "paper_id": "icml2023-bayesian",
+      "title": "增长比的空支持与零噪声边界",
+      "kind": "empty_or_zero_noise_ratios",
+      "issue_type": "statement_alignment_or_scope",
+      "original_statement_status": "scope_under_review",
+      "related_result_ids": [
+        "bnn-growth"
+      ],
+      "source_refs": [
+        {
+          "source_id": "src-icml2023-bayesian-formal",
+          "version_id": "ver-icml2023-bayesian-formal",
+          "pdf_pages": [
+            6,
+            18,
+            19,
+            20
+          ]
+        }
+      ],
+      "original_expression": "Var(J_{S\\prime})/Var(J_S)",
+      "description_md": "严格包含本身不排空旧支持，原Gaussian参数也未在该条排零噪声；这些比值需要非零方差。",
+      "evidence_md": "S为空时J_S=1；σ=0时全部坐标扰动0、所有J恒1，所以相应方差为0。有效域S非空、σ>0时，Gaussian无原子与整数幂证明方差正，完整增长主干已实际形式化。",
+      "impact_md": "不将边界无定义升级为有效正噪声比较被否定，不把Lean总除法0当作作者约定。",
+      "status": "agent_checked",
+      "user_confirmation": "not_individually_confirmed",
+      "fix_authorization": "proof_only_granted",
+      "proposition_modification_authorized": false,
+      "translations": {
+        "en": {
+          "title": "Empty-support and zero-noise boundaries of growth ratios",
+          "description_md": "Strict inclusion does not exclude an empty old support, and this claim does not explicitly exclude zero noise. The ratios need nonzero variance.",
+          "evidence_md": "If S is empty then J_S=1; if σ=0 every perturbation is zero and every J is constant one, giving zero variances. On the valid domain S nonempty and σ>0, Gaussian non-atomicity and integer powers prove positive variances, and the complete growth comparison is formalized.",
+          "impact_md": "Undefined boundaries do not refute the valid positive-noise comparison, and Lean’s total division is not treated as an author convention."
+        }
+      }
+    },
+    {
+      "id": "bnn-issue-regression-domain",
+      "paper_id": "icml2023-bayesian",
+      "title": "特征方差与交互尺度比值的零域",
+      "kind": "zero_feature_variance",
+      "issue_type": "statement_alignment_or_scope",
+      "original_statement_status": "scope_under_review",
+      "related_result_ids": [
+        "bnn-regression",
+        "bnn-scaling",
+        "bnn-metrics"
+      ],
+      "source_refs": [
+        {
+          "source_id": "src-icml2023-bayesian-formal",
+          "version_id": "ver-icml2023-bayesian-formal",
+          "pdf_pages": [
+            7,
+            8,
+            20,
+            21,
+            22
+          ]
+        }
+      ],
+      "original_expression": "|U_S^*|\\propto|EC_S/Var(C_S)|",
+      "description_md": "原回归比例未排零特征方差，缩放界也未排零U导致的零交互方差。",
+      "evidence_md": "C1=C2=1,y*=1时独立常数特征损失(y*−U1−U2)^2有整条最优直线，而EC/VarC=1/0无定义。缩放若U=0，则I=0且VarI=0。",
+      "impact_md": "真实期望损失的唯一全局最优已在正方差域证明；该条件不被隐藏为无条件原命题的机器证明。",
+      "status": "agent_checked",
+      "user_confirmation": "not_individually_confirmed",
+      "fix_authorization": "proof_only_granted",
+      "proposition_modification_authorized": false,
+      "translations": {
+        "en": {
+          "title": "Zero domains of feature-variance and dividend-scale ratios",
+          "description_md": "The regression proportion does not exclude zero feature variance; the scaling bounds also allow zero U and therefore zero dividend variance.",
+          "evidence_md": "Independent constant features C1=C2=1 with y*=1 have loss (y*−U1−U2)^2 and a line of minimizers, while EC/VarC=1/0 is undefined. For scaling, U=0 makes I=0 and VarI=0.",
+          "impact_md": "The actual expected loss has a proved unique global optimum on the positive-variance domain; that condition is not hidden as a proof of an unrestricted source claim."
+        }
+      }
+    },
+    {
+      "id": "bnn-issue-salient-activation",
+      "paper_id": "icml2023-bayesian",
+      "title": "显著和缺激活条件且小残差未量化",
+      "kind": "missing_activation_and_unquantified_residual",
+      "issue_type": "statement_alignment_or_scope",
+      "original_statement_status": "scope_under_review",
+      "related_result_ids": [
+        "bnn-salient-matching"
+      ],
+      "source_refs": [
+        {
+          "source_id": "src-icml2023-bayesian-formal",
+          "version_id": "ver-icml2023-bayesian-formal",
+          "pdf_pages": [
+            3,
+            4
+          ]
+        }
+      ],
+      "original_expression": "v(x_T)=\\sum_{S\\in\\Omega_{salient}}I(S\\mid x)+\\epsilon",
+      "description_md": "Eq5不同于Eq4，实际未写S⊆T，且“小”没有误差界；原式保留。",
+      "evidence_md": "真实单变量线性掩码得分c>0，空输出0而显著单例交互和c，残差−c。PaperBayesian.salient_empty_mask绑定真实掩码得分和交互和，但只证明该精确代数事实，不冒充未量化近似命题的机器反例。",
+      "impact_md": "正确残差需同时计遗漏激活项与纳入的未激活项；没有统一小尾界时不证明小残差。",
+      "status": "agent_checked",
+      "user_confirmation": "not_individually_confirmed",
+      "fix_authorization": "proof_only_granted",
+      "proposition_modification_authorized": false,
+      "translations": {
+        "en": {
+          "title": "The salient sum lacks activation and has no quantified small residual",
+          "description_md": "Unlike Eq. (4), printed Eq. (5) lacks S⊆T and provides no bound defining “small”. The printed expression is retained.",
+          "evidence_md": "For an actual one-variable linear mask score with c>0, empty output is zero, singleton salient sum c and residual −c. PaperBayesian.salient_empty_mask binds the mask score and dividend sum, proving that exact algebraic fact rather than a machine refutation of an unquantified approximation.",
+          "impact_md": "The correct residual contains both omitted active terms and included inactive terms. No small-residual theorem follows without a uniform tail bound."
+        }
+      }
+    },
+    {
+      "id": "bnn-issue-sparsity-adaptation",
+      "paper_id": "icml2023-bayesian",
+      "title": "外引稀疏与对抗关系未给完整本地适配",
+      "kind": "unverified_external_scope",
+      "issue_type": "statement_alignment_or_scope",
+      "original_statement_status": "scope_under_review",
+      "related_result_ids": [
+        "bnn-sparsity",
+        "bnn-multiorder-link"
+      ],
+      "source_refs": [
+        {
+          "source_id": "src-icml2023-bayesian-formal",
+          "version_id": "ver-icml2023-bayesian-formal",
+          "pdf_pages": [
+            3,
+            12,
+            13
+          ]
+        }
+      ],
+      "original_expression": "\\text{sparse emergence; elementary component of multi-order interaction}",
+      "description_md": "外引技术前提不在本篇完整陈述；Appendix D代数分量关系不能自动转移所有对抗脆弱性结论。",
+      "evidence_md": "有限重构可产生密集游戏；多阶上下文平均混合多种概念阶数。已证明的差分分解仅是准确有限代数适配。",
+      "impact_md": "保留外引与经验角色；不将条件库引理算成整篇无前提原结论。",
+      "status": "agent_checked",
+      "user_confirmation": "not_individually_confirmed",
+      "fix_authorization": "proof_only_granted",
+      "proposition_modification_authorized": false,
+      "translations": {
+        "en": {
+          "title": "Cited sparsity and adversarial links lack complete local adaptations",
+          "description_md": "The complete cited technical premises are not stated here. Appendix D’s algebraic component relation does not automatically transfer every adversarial-vulnerability conclusion.",
+          "evidence_md": "Finite reconstruction can produce dense games, and fixed-size context averages mix several concept orders. The proved difference decomposition is an exact finite algebraic adaptation.",
+          "impact_md": "Retain cited and empirical roles; a conditional library lemma is not counted as the whole unrestricted paper conclusion."
+        }
+      }
+    },
+    {
+      "id": "bnn-issue-order-inference",
+      "paper_id": "icml2023-bayesian",
+      "title": "两端界下降不单独推出中间量阶数单调",
+      "kind": "sandwich_does_not_imply_monotonicity",
+      "issue_type": "statement_alignment_or_scope",
+      "original_statement_status": "scope_under_review",
+      "related_result_ids": [
+        "bnn-order-inference"
+      ],
+      "source_refs": [
+        {
+          "source_id": "src-icml2023-bayesian-formal",
+          "version_id": "ver-icml2023-bayesian-formal",
+          "pdf_pages": [
+            8
+          ]
+        }
+      ],
+      "original_expression": "A_{min}K_I\\le K_C\\le A_{max}K_I",
+      "description_md": "源文保持approximately consider措辞；精确缩放界与后续近似推论是不同证明义务。",
+      "evidence_md": "Amin=.1,Amax=.2，KI为10、9，|U|分别.1、.2时，两端界下降但KC从1升至1.8。该逻辑例未声称完整BNN模型反例。",
+      "impact_md": "整体阶数倾向还依赖近似模型、单项式到任意叠加的适配及经验数据。",
+      "status": "agent_checked",
+      "user_confirmation": "not_individually_confirmed",
+      "fix_authorization": "proof_only_granted",
+      "proposition_modification_authorized": false,
+      "translations": {
+        "en": {
+          "title": "Decreasing sandwich bounds do not alone force order monotonicity",
+          "description_md": "The source says “approximately consider”; exact scaling bounds and the subsequent approximate inference are separate obligations.",
+          "evidence_md": "With A_min=.1,A_max=.2, K_I values 10 and 9, and |U| values .1 and .2, both bounds decrease while K_C rises from 1 to 1.8. This logical example is not claimed as a counterexample to the full BNN model.",
+          "impact_md": "The overall order tendency still depends on approximation, adaptation from monomials to general superpositions and empirical data."
+        }
+      }
+    },
+    {
+      "id": "bnn-issue-zero-degree",
+      "paper_id": "icml2023-bayesian",
+      "title": "掩码零坐标的零次幂不能判为零",
+      "kind": "zero_base_zero_degree_proof_step",
+      "issue_type": "proof_step_error",
+      "original_statement_status": "no_statement_error_recorded",
+      "related_result_ids": [
+        "bnn-taylor"
+      ],
+      "source_refs": [
+        {
+          "source_id": "src-icml2023-bayesian-formal",
+          "version_id": "ver-icml2023-bayesian-formal",
+          "pdf_pages": [
+            15
+          ]
+        }
+      ],
+      "original_expression": "\\forall i\\notin T,\\quad[(x_T\\prime)_i-r_i]^{\\pi_i}=0",
+      "description_md": "原G1在未限制π_i>0时把所有掩码零坐标幂写成0。",
+      "evidence_md": "π_i=0时通常多项式约定0^0=1；正确筛选只删除支持包含某个未保留正次数变量的项。",
+      "impact_md": "有限支持证明按严格正次数消去；不改原式，也不把该步骤修复当作任意DNN全局Taylor成立。",
+      "status": "agent_checked",
+      "user_confirmation": "not_individually_confirmed",
+      "fix_authorization": "proof_only_granted",
+      "proposition_modification_authorized": false,
+      "translations": {
+        "en": {
+          "title": "A masked zero coordinate to degree zero is not zero",
+          "description_md": "G.1 writes every masked-zero coordinate power as zero without requiring π_i>0.",
+          "evidence_md": "For π_i=0 the standard polynomial convention is 0^0=1. Correct filtering removes only terms whose support contains an omitted positive-degree coordinate.",
+          "impact_md": "The finite support proof cancels only positive-degree factors. The printed step is retained, and repairing it does not establish unrestricted global Taylor convergence."
+        }
+      }
+    },
+    {
+      "id": "bnn-issue-superposition",
+      "paper_id": "icml2023-bayesian",
+      "title": "单项方差到整个交互缺少协方差控制",
+      "kind": "unquantified_chaotic_superposition",
+      "issue_type": "statement_alignment_or_scope",
+      "original_statement_status": "scope_under_review",
+      "related_result_ids": [
+        "bnn-superposition-inference"
+      ],
+      "source_refs": [
+        {
+          "source_id": "src-icml2023-bayesian-formal",
+          "version_id": "ver-icml2023-bayesian-formal",
+          "pdf_pages": [
+            6
+          ]
+        }
+      ],
+      "original_expression": "I(S\\mid x+\\epsilon)=\\sum_\\pi U_{S,\\pi}J(S,\\pi\\mid x+\\epsilon)",
+      "description_md": "作者由单个绝对触发的支持增长及系数通常chaotic，粗略推出整个交互随阶数增长；没有系数概率律、交叉协方差或统一幅值前提。",
+      "evidence_md": "有限L2和的真实方差包含 $\\sum_{\\pi,\\rho}c_\\pi c_\\rho\\operatorname{Cov}(J_\\pi,J_\\rho)$；同输入上的重叠次数触发不自动独立，移动符号系数也不能当固定数移出积分。",
+      "impact_md": "保留原近似措辞及其完整论述；有效单项增长证明不升级为任意Taylor和的统一跨阶结论。",
+      "status": "agent_checked",
+      "user_confirmation": "not_individually_confirmed",
+      "fix_authorization": "proof_only_granted",
+      "proposition_modification_authorized": false,
+      "translations": {
+        "en": {
+          "title": "Whole-dividend variance lacks covariance control",
+          "description_md": "The author roughly infers whole-dividend growth from single-trigger support growth and usually chaotic coefficients, without a coefficient law, covariance control or uniform amplitude condition.",
+          "evidence_md": "A finite L2 sum has variance $\\sum_{\\pi,\\rho}c_\\pi c_\\rho\\operatorname{Cov}(J_\\pi,J_\\rho)$. Different-degree triggers at the same input need not be independent, and moving-sign coefficients cannot be treated as fixed scalars outside integrals.",
+          "impact_md": "Retain the original approximation wording and complete argument. Valid single-trigger growth is not upgraded to a universal cross-order theorem for arbitrary Taylor sums."
+        }
+      }
+    }
+  ]
+}

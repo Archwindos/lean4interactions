@@ -1,0 +1,97 @@
+                     Bayesian Neural Networks Avoid Encoding Complex and Perturbation-Sensitive Concepts
+
+where Eϵ [C] = [α1 , · · · , αp ]⊤ , and Vj = [0, · · · , βj2 , · · · , 0]⊤ .
+According to the conclusion in Step 1, we have
+                                  1
+                    |US∗i | = |       | · | det(M1 , · · · , Mi−1 , ρ, Mi+1 , · · · , Mj−1 , Mj , Mj+1 , · · · , Mp )|             (54)
+                                det M
+                                  1
+                    |US∗j | = |       | · | det(M1 , · · · , Mi−1 , Mi , Mi+1 , · · · , Mj−1 , ρ, Mj+1 , · · · , Mp )|             (55)
+                                det M
+
+We know that exchanging the rows or columns of a matrix only changes the sign of the determinant of the matrix, but does
+not change the absolute value of the determinant. Therefore, we have
+                             1
+                 |US∗i | = |     | · | det(Mj , ρ, M1 , · · · , Mi−1 , Mi+1 , · · · , Mj−1 , Mj+1 , · · · , Mp )|
+                           det M
+                             1
+                        =|       | · | det(Mj , ρ, Mothers )| //Let Mothers denote the third to the last column
+                           det M
+                             1
+                        =|       | · | det(αj Eϵ [C] + Vj , y ∗ Eϵ [C], Mothers )| //Eq. (53)
+                           det M
+                             1
+                        =|       | · | det(αj Eϵ [C], y ∗ Eϵ [C], Mothers ) + det(Vj , y ∗ Eϵ [C], Mothers )|
+                           det M       |               {z                }
+                                                                =0
+                         //The determinant is 0 if two columns are linearly dependent
+                             1
+                        =|       | · | det(Vj , y ∗ Eϵ [C], Mothers )|
+                           det M
+                                             0 y ∗ α1 α1 α1 + β12 · · ·
+                                                                                        
+                                                                                α1 αp
+                                            ..                                          
+                                            .                                           
+                                            0 y ∗ αi
+                                                                                        
+                                                             α  i α 1  · · ·    αi αp    
+                             1             
+                                            ..
+                                                                                         
+                        =|       | · | det  .                                           |
+                                                                                         
+                           det M            2       ∗
+                                                                                         
+                                                                                                                                   (56)
+                                           β
+                                            j y αj          αj α1     ···      αj αp   
+                                            .
+                                            ..
+                                                                                         
+                                                                                         
+                                             0 y ∗ αp        αp α1     · · · αp αp + βp2
+                                            βj y ∗ αj
+                                           2                                           
+                                                             αj α1     ···     αj αp
+                                           0 y ∗ αi         αi α1     ···     αi αp 
+                             1             0 y ∗ α1 α1 α1 + β12 · · ·
+                                          
+                                                                               α1 αp 
+                                                                                        
+                        =|       | · |det                                              |                      //Exchange rows
+                           det M           ..                                          
+                                           .                                           
+                                             0 y ∗ αp                    αp α1        ···   αp αp + βp2
+                                            βj y ∗ αj
+                                            2                                                             
+                                                                        αj α1         ···          αj αp
+                                           0     y∗                     α1           ···           αp     
+                             αi                  ∗
+                                                                     α1 α1 + β12      ···
+                                                                                                           
+                        =|       | · | det  0 y α1                                                α1 αp   |   //Extract out αi
+                                                                                                          
+                           det M            ..                                                            
+                                            .                                                             
+                                                   0       y ∗ αp        αp α1        ···    αp αp + βp2
+                                αi βj2
+                        =|             | · | det M ′ |,
+                               det M
+where
+                                                     y∗
+                                                                                                          
+                                                                         α1           ···           αp
+                                                     ∗
+                                                    y α1             α1 α1 + β12      ···          α1 αp
+                                             M′ = 
+                                                                                                          
+                                                                                                           .                      (57)
+                                                   ···                                                    
+                                                   y ∗ αp                αp α1        ···   αp αp + βp2
+
+Similarly, we can prove that
+                                                                         αj βi2
+                                                          |US∗j | = |           | · | det M ′ |.                                   (58)
+                                                                        det M
+                                                                              21

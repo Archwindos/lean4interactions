@@ -1,0 +1,30 @@
+{
+  "recorded_at": "2026-10-01T06:50:32.833083+00:00",
+  "review_kind": "interim independent content review; not final acceptance",
+  "paper_id": "icml2022-transformation",
+  "status": "returned_for_revision",
+  "findings": [
+    {
+      "field": "original_proof_md",
+      "finding": "Page extraction fenced blocks include neighbouring propositions but are labelled as complete proof transcription.",
+      "required_change": "Preserve extraction only as source evidence; transcribe each complete proof boundary with TeX and original wrong equations."
+    },
+    {
+      "field": "assumptions",
+      "finding": "A generic entropy assumption is attached even to the affine gating result.",
+      "required_change": "State actual target-specific hypotheses and distinguish definitions from assumptions."
+    },
+    {
+      "field": "proof_steps / symbols / notation_map",
+      "finding": "Missing step reasons and concept/notation mappings while rewrite status is complete.",
+      "required_change": "Provide readable intermediate justification and actual symbol mappings; keep in_progress until complete."
+    },
+    {
+      "field": "lean.evidence_role",
+      "finding": "A generic mutual-information nonnegativity theorem does not by itself prove the deterministic-gate triple-information source result.",
+      "required_change": "Prove the actual deterministic adaptation, or accurately classify a partial/helper scope."
+    }
+  ],
+  "agent_acknowledgement": "Author acknowledged revisions and will retain in_progress until repaired.",
+  "closure": "pending final content, type and source-boundary recheck"
+}

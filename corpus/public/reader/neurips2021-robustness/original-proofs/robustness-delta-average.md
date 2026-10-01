@@ -1,0 +1,2 @@
+Proof:
+$$\begin{aligned}\Delta I^{(m)}&=I_{\rm nor}^{(m)}-I_{\rm adv}^{(m)}\\&=E_{x\in\Omega_{\rm nor}}E_{i,j}[I_{ij}^{(m)}(x)]-E_{x\in\Omega_{\rm adv}}E_{i,j}[I_{ij}^{(m)}(x)]\\&=E_{x\in\Omega_{\rm nor}}E_{i,j}[I_{ij}^{(m)}(x)]-E_{x\in\Omega_{\rm nor}}E_{i,j}[I_{ij}^{(m)}(x+\Delta x)]\\&=E_{x\in\Omega_{\rm nor}}E_{i,j}[I_{ij}^{(m)}(x)-I_{ij}^{(m)}(x+\Delta x)]\\&=E_{x\in\Omega_{\rm nor}}E_{i,j}[I_{ij}^{(m)}(x)-I_{ij}^{(m)}(x_{\rm adv})]\\&=E_{x\in\Omega_{\rm nor}}E_{i,j}[\Delta I_{ij}^{(m)}(x)].\end{aligned}$$

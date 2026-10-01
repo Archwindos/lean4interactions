@@ -1,0 +1,1279 @@
+{
+  "schema_version": 1,
+  "paper_id": "icml2023-decoder",
+  "reviewer": "twelve_dynamics_math",
+  "date": "2026-10-01",
+  "status": "passed_with_explicit_original_clause_and_model_scopes",
+  "final_admission_ready": true,
+  "formal_pdf": {
+    "path": "corpus/public/reader/icml2023-decoder/sources/formal.pdf",
+    "sha256": "25cf5804c4d93cc1117adf2afb9ad84c96ccb86cba14cc5be3a11d3c420aeb57"
+  },
+  "physical_pages": 34,
+  "visually_inspected_pdf_pages": [
+    4,
+    5,
+    6,
+    7,
+    8,
+    15,
+    16,
+    17,
+    18,
+    19,
+    20,
+    21,
+    22,
+    24,
+    25,
+    26,
+    27,
+    32,
+    33
+  ],
+  "stable_audit": {
+    "command": "source scripts/env.sh && lake -d lean/HarsanyiLib env lean .tmp/f06-dynamics-cross/StableAuditSource.lean",
+    "exit_code": 0,
+    "declaration_count": 19,
+    "axiom_whitelist": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "all_axioms_within_whitelist": true,
+    "forbidden_axioms": [],
+    "declarations": {
+      "Harsanyi.Frequency.dft2_twice": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ],
+      "Harsanyi.Frequency.inverse_dft2": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ],
+      "Harsanyi.Frequency.dft2_parseval_pair": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ],
+      "Harsanyi.Frequency.offset_layer_dft": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ],
+      "Harsanyi.Frequency.actual_grid_cascade": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ],
+      "Harsanyi.Frequency.actual_kernel_mean": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ],
+      "Harsanyi.Frequency.actual_kernel_second_moment": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ],
+      "Harsanyi.Frequency.actual_kernel_pseudocovariance": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ],
+      "Harsanyi.Frequency.actual_kernel_gaussian": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ],
+      "Harsanyi.Frequency.actual_independent_layer_mean": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ],
+      "Harsanyi.Frequency.actual_independent_layer_moments": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ],
+      "Harsanyi.Frequency.actual_independent_layer_log_moments": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ],
+      "Harsanyi.Frequency.spectral_kernel_pullback": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ],
+      "Harsanyi.Frequency.actual_real_layer_loss_hasFDerivAt": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ],
+      "Harsanyi.Frequency.MatrixBackprop.feature_pullback_spectrum": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ],
+      "Harsanyi.Frequency.MatrixBackprop.actual_real_network_spectrum": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ],
+      "Harsanyi.Frequency.MatrixBackprop.actual_suffix_cotangent": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ],
+      "Harsanyi.Frequency.MatrixBackprop.actual_cascade_parameter_loss_hasFDerivAt": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ],
+      "PaperDecoder.actual_corollary_3_4": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ]
+    },
+    "audit_source": {
+      "path": ".tmp/f06-dynamics-cross/StableAuditSource.lean",
+      "sha256": "8e74817101654c85e2cc675cdaca9e30c3cec6246e8431688aba5dc05cba9bec"
+    },
+    "log": {
+      "path": ".tmp/f06-dynamics-cross/stable-types-axioms.log",
+      "sha256": "c1d77685cbdc270a7d55c46863885394bd0d23a02d490af4bb3d670121e57b2c"
+    }
+  },
+  "checks": [
+    {
+      "id": "dft-real-circular-convolution",
+      "status": "passed",
+      "source_pdf_pages": [
+        3,
+        4,
+        13,
+        14,
+        15
+      ],
+      "scope": "Actual negative output phase, positive kernel phase, MN inverse/Parseval factors, heterogeneous cascade and DC biases."
+    },
+    {
+      "id": "actual-gaussian-response",
+      "status": "passed_with_explicit_joint_independence_scope",
+      "source_pdf_pages": [
+        5,
+        19,
+        20
+      ],
+      "scope": "Actual pushforward law and moments. Joint independent Gaussian array reading is distinguished from marginal Gaussianity and covariance zero."
+    },
+    {
+      "id": "actual-independent-single-channel",
+      "status": "passed_with_explicit_independence_and_log_domain",
+      "source_pdf_pages": [
+        5,
+        21
+      ],
+      "scope": "Actual complex product mean and SOM; positive-factor ordinary log. First-moment weak conditions do not supply squared product independence."
+    },
+    {
+      "id": "actual-whole-loss-matrix-gradient",
+      "status": "passed",
+      "source_pdf_pages": [
+        4,
+        15,
+        16,
+        17,
+        18
+      ],
+      "scope": "Same actual prefix/middle/suffix state and Loss, HasFDerivAt and fderiv update in one conjunction; Riesz/DFT/MN normalized suffix cotangent."
+    },
+    {
+      "id": "actual-multichannel-source-closed",
+      "status": "passed_with_explicit_additional_prefix_independence",
+      "source_pdf_pages": [
+        21,
+        22
+      ],
+      "scope": "Actual Gaussian cascade and finite closed forms retain explicit same-column hprefix assumption; no automatic derivation from layers."
+    },
+    {
+      "id": "other-author-actual-network-probability-counterexamples",
+      "status": "passed",
+      "source_pdf_pages": [
+        5,
+        6,
+        7,
+        22,
+        23,
+        24,
+        25,
+        26
+      ],
+      "scope": "Original two-frequency loss and actual coordinate derivatives/real target; original marginal Gaussian padding model; genuine independent Gaussian depth model. Separate DC, product and log clauses retained."
+    }
+  ],
+  "authored_modules_excluded_from_independent_claim": [
+    "lean/HarsanyiLib/Harsanyi/Extensions/DecoderValid.lean",
+    "lean/HarsanyiLib/Harsanyi/Extensions/DecoderParameterCounterexamples.lean",
+    "lean/HarsanyiLib/Harsanyi/Extensions/DecoderWeakIndependence.lean"
+  ],
+  "authored_modules_independent_reviewer": "root",
+  "authored_module_handoff": "docs/reviews/f06-dynamics-module-handoff-20261001.json",
+  "pending": [],
+  "author_owned_files_modified": false,
+  "multichannel_audit": {
+    "exit_code": 0,
+    "declaration_count": 10,
+    "source": {
+      "path": "lean/HarsanyiLib/Harsanyi/Extensions/DecoderMultiChannel.lean",
+      "sha256": "f0a6f44aa3f666946935d553eef6797f9d3771c54732bf81aba5d71456ed3f12"
+    },
+    "declarations": {
+      "Harsanyi.Frequency.MultiChannel.complex_cross_moment": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ],
+      "Harsanyi.Frequency.MultiChannel.row_column_mean": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ],
+      "Harsanyi.Frequency.MultiChannel.row_column_second_moment": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ],
+      "Harsanyi.Frequency.MultiChannel.independent_layer_prefix": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ],
+      "Harsanyi.Frequency.MultiChannel.actual_cascade_uniform_moments": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ],
+      "Harsanyi.Frequency.MultiChannel.finite_affine_expansion": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ],
+      "Harsanyi.Frequency.MultiChannel.mean_sequence_source_closed": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ],
+      "Harsanyi.Frequency.MultiChannel.som_sequence_source_closed": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ],
+      "Harsanyi.Frequency.MultiChannel.actual_cascade_source_closed": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ],
+      "Harsanyi.Frequency.MultiChannel.actual_gaussian_cascade_closed": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ]
+    },
+    "all_axioms_within_whitelist": true,
+    "forbidden_axioms": [],
+    "audit_source": ".tmp/f06-dynamics-cross/MultiChannelAudit.lean",
+    "log": {
+      "path": ".tmp/f06-dynamics-cross/multichannel-types-axioms.log",
+      "sha256": "1b81dbb27813bf883add431fb4d8f37a33423c223250407fb6166c2b7bab0f60"
+    }
+  },
+  "counterexample_audit": {
+    "exit_code": 0,
+    "declaration_count": 6,
+    "sources": [
+      {
+        "path": "lean/HarsanyiLib/Harsanyi/Extensions/DecoderCounterexample.lean",
+        "sha256": "61b9238ba62dd5f6f5858ac8e25b7d0b3d66d75b67f97fb55f271476ad5a22cd"
+      },
+      {
+        "path": "lean/HarsanyiLib/Harsanyi/Extensions/DecoderPadding.lean",
+        "sha256": "bf082a7136b5efab87244bac03dcfdde92399db308a00fbd8c6722290069d8a6"
+      },
+      {
+        "path": "lean/HarsanyiLib/Harsanyi/Extensions/DecoderDepthCounterexample.lean",
+        "sha256": "c330e4980de15ced58f529680341520ba4cf68f801cfd20653fa506cd67d94c1"
+      }
+    ],
+    "declarations": {
+      "Harsanyi.Frequency.actual_real_loss_identity_layer": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ],
+      "Harsanyi.Frequency.actual_gradient01": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ],
+      "Harsanyi.Frequency.actual_spatial_one_step_not_target": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ],
+      "Harsanyi.Frequency.completed_target_image_real": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ],
+      "Harsanyi.Frequency.actual_correlated_padding_counterexample": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ],
+      "Harsanyi.Frequency.actual_gaussian_depth_growth_counterexample": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ]
+    },
+    "all_axioms_within_whitelist": true,
+    "log": {
+      "path": ".tmp/f06-dynamics-cross/counterexample-types-axioms.log",
+      "sha256": "820ce35bd6e2c76049e7ea46a77f3ad6e8594ad89e2769a75878a65789bd0a8e"
+    }
+  },
+  "historical_input_snapshot": [
+    {
+      "path": "corpus/public/reader/icml2023-decoder/sources/formal.pdf",
+      "sha256": "25cf5804c4d93cc1117adf2afb9ad84c96ccb86cba14cc5be3a11d3c420aeb57"
+    },
+    {
+      "path": "corpus/public/reader/icml2023-decoder/lean/PaperDecoder.lean",
+      "sha256": "64e179fa1b56fe0768a06d428cf38f739b41cfa6ba1625c705d631063b104df9"
+    },
+    {
+      "path": "lean/HarsanyiLib/Harsanyi/Extensions/DecoderFourier.lean",
+      "sha256": "001e4c2c2ac7227c7ce130715a7857cfd8de581157e4b7165188255a6f426788"
+    },
+    {
+      "path": "lean/HarsanyiLib/Harsanyi/Extensions/DecoderGrid.lean",
+      "sha256": "41bd469819aa7e7c7e6fd2cf70f61b768f5ccbc4c0d9b89c61d0760398ed45c7"
+    },
+    {
+      "path": "lean/HarsanyiLib/Harsanyi/Extensions/DecoderFrequency.lean",
+      "sha256": "db6b65c5bd5b457ed488bdd91123ebe25859d7ad92636f54a7b6afd02a71a7b0"
+    },
+    {
+      "path": "lean/HarsanyiLib/Harsanyi/Extensions/DecoderMoments.lean",
+      "sha256": "09d58a0327ca5f20ad312a962982cc7a51c1de0b373b82b2e377431d0888e5e7"
+    },
+    {
+      "path": "lean/HarsanyiLib/Harsanyi/Extensions/DecoderKernelMoments.lean",
+      "sha256": "9c2a99de92b39701bfaa3c2556b10e75fe866b5ae0f7366a0bcdcd8ff0f73535"
+    },
+    {
+      "path": "lean/HarsanyiLib/Harsanyi/Extensions/DecoderLayerMoments.lean",
+      "sha256": "e7d759eb234e4ebc3183c3058f3a601ac22006a5fceb38e832510af550272f1e"
+    },
+    {
+      "path": "lean/HarsanyiLib/Harsanyi/Extensions/DecoderCascade.lean",
+      "sha256": "dc0cf6bbaf1c0fd8551af75f62aecf43a0da54a76f5446ce63864ba3f97eece2"
+    },
+    {
+      "path": "lean/HarsanyiLib/Harsanyi/Extensions/DecoderBackprop.lean",
+      "sha256": "6ddf6266c6c037bf75c0b1a0c7df685ea4fd3ccfd84c0512d2413ef837bdf820"
+    },
+    {
+      "path": "lean/HarsanyiLib/Harsanyi/Extensions/DecoderSpectralPullback.lean",
+      "sha256": "cb806b3ab42a5cb00d8f28a793375c942eed5406fa33965121ad3cae963248c6"
+    },
+    {
+      "path": "lean/HarsanyiLib/Harsanyi/Extensions/DecoderMatrixBackprop.lean",
+      "sha256": "45bf526afda97ad59721147bd45986d65626e47fe884e0ef2dd588c265402448"
+    }
+  ],
+  "input_snapshot": [
+    {
+      "path": "corpus/public/reader/icml2023-decoder/content.json",
+      "sha256": "edf8fa8f7de0f254b9ee6e75c70ab24f6ca81aef367983580baba638df704d73"
+    },
+    {
+      "path": "corpus/public/reader/icml2023-decoder/inventory.json",
+      "sha256": "8a8052babc22b3dbb49f364fe4c18d270eb21afa9ad48abc035f7adc71a79d7b"
+    },
+    {
+      "path": "corpus/public/reader/icml2023-decoder/symbols.json",
+      "sha256": "d822c2b7c5a36ed691c83f20cb7ca8fff526baba2e6749cc7917a28785f4726e"
+    },
+    {
+      "path": "corpus/public/reader/icml2023-decoder/issues.json",
+      "sha256": "6d6c2c0294b9cd60f0fc8db177a1f68887b58c4ecc93fc37c470ca9c4ef7b3d2"
+    },
+    {
+      "path": "corpus/public/reader/icml2023-decoder/paper-metadata.json",
+      "sha256": "4220da372429bbee735a95df2a3f99a9cbba7b40b63ea7a6c7f3201058392931"
+    },
+    {
+      "path": "corpus/public/reader/icml2023-decoder/verification/report.json",
+      "sha256": "83716554ba03e8d9e9fe4872aaffade6224360f4208cf4126148524623af3099"
+    },
+    {
+      "path": "corpus/public/reader/icml2023-decoder/lean/PaperDecoder.lean",
+      "sha256": "406ea769f120fa412f0364239e05850b2cbede9ace79120a702b25e1a4c59a5a"
+    },
+    {
+      "path": "corpus/public/reader/icml2023-decoder/sources/formal.pdf",
+      "sha256": "25cf5804c4d93cc1117adf2afb9ad84c96ccb86cba14cc5be3a11d3c420aeb57"
+    }
+  ],
+  "final_adapter_audit": {
+    "exit_code": 0,
+    "declaration_count": 6,
+    "declarations": {
+      "PaperDecoder.actual_corollary_3_4": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ],
+      "PaperDecoder.actual_appendix_equations31_32": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ],
+      "PaperDecoder.finite_moment_ratio": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ],
+      "PaperDecoder.moment_factor_mono": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ],
+      "PaperDecoder.mean_preference_ratio_mono": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ],
+      "PaperDecoder.actual_positive_factor_log_som": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ]
+    },
+    "all_axioms_within_whitelist": true,
+    "input_paper_sha256": "406ea769f120fa412f0364239e05850b2cbede9ace79120a702b25e1a4c59a5a",
+    "audit_source": {
+      "path": ".tmp/f06-dynamics-cross/FinalAdapterAudit.lean",
+      "sha256": "e625c340ca04dbc737eecae418b7ceaa09ed1c7d9c4a14e68c7e99f55d7f6a1a"
+    },
+    "log": {
+      "path": ".tmp/f06-dynamics-cross/final-adapter-types-axioms.log",
+      "sha256": "713cf89a7ace4b5cf79daf8044e97441b603d54eedefa709f997361a96689ac3"
+    },
+    "command": "source scripts/env.sh && lake -d lean/HarsanyiLib env lean .tmp/f06-dynamics-cross/FinalAdapterAudit.lean"
+  },
+  "independently_checked_unique_declarations": 40,
+  "paper_report_freshness": {
+    "status": "passed",
+    "checked_declarations": 296,
+    "source_file_count": 33,
+    "report_sha256": "83716554ba03e8d9e9fe4872aaffade6224360f4208cf4126148524623af3099",
+    "source_fingerprint": "b4c9178db081ce68a8f6a1c3a151b09b401cf10a0e144ab1ad47bc54d5ab1c02",
+    "stale_sources": [],
+    "forbidden_axioms": [],
+    "original_theorem_proof_count_inferred_from_declaration_count": false
+  },
+  "all_result_reviews": [
+    {
+      "result_id": "decoder-preliminaries",
+      "proof_target": false,
+      "chinese_reviewed": true,
+      "english_reviewed": true,
+      "assumptions_definitions_statement_steps_and_scope_reviewed": true,
+      "rewrite_role": "source_material",
+      "proof_scope": "explicit_component_and_source_scope",
+      "statement_assessment": "no_statement_error_recorded",
+      "machine_evidence_role": "none",
+      "machine_status": "not_formalized",
+      "machine_declarations": [],
+      "step_count": 1,
+      "status": "passed_with_recorded_scope",
+      "review_note": "Both languages distinguish real spatial arrays from complex spectra. Source g is a frequency column, not a coalition game. No centering or zero-bias premise is introduced; this is a definition entry."
+    },
+    {
+      "result_id": "decoder-assumption-3-1",
+      "proof_target": false,
+      "chinese_reviewed": true,
+      "english_reviewed": true,
+      "assumptions_definitions_statement_steps_and_scope_reviewed": true,
+      "rewrite_role": "source_material",
+      "proof_scope": "explicit_component_and_source_scope",
+      "statement_assessment": "no_statement_error_recorded",
+      "machine_evidence_role": "none",
+      "machine_status": "not_formalized",
+      "machine_declarations": [],
+      "step_count": 1,
+      "status": "passed_with_recorded_scope",
+      "review_note": "The exact source model retains stride one, circular padding, positive offsets, no activation, and possibly varying channel widths. ReLU/BN/zero-padding experiments do not replace these premises."
+    },
+    {
+      "result_id": "decoder-geometric-sum",
+      "proof_target": true,
+      "chinese_reviewed": true,
+      "english_reviewed": true,
+      "assumptions_definitions_statement_steps_and_scope_reviewed": true,
+      "rewrite_role": "partial_proof_with_refuted_clause",
+      "proof_scope": "explicit_component_and_source_scope",
+      "statement_assessment": "partially_refuted",
+      "machine_evidence_role": "partial_component",
+      "machine_status": "partial_scope_verified",
+      "machine_declarations": [
+        "Harsanyi.Frequency.geometric_telescoping",
+        "Harsanyi.Frequency.geometric_one",
+        "Harsanyi.Frequency.geometric_quotient",
+        "Harsanyi.Frequency.Valid.geometric_real_sine_quotient",
+        "Harsanyi.Frequency.Valid.geometric_sine_quotient"
+      ],
+      "step_count": 2,
+      "status": "passed_with_recorded_scope",
+      "review_note": "The finite sum is defined everywhere. The ordinary sine quotient is proved only on its nonzero-denominator domain; the source arbitrary-angle clause keeps its domain issue. Own-module trig types are independently reviewed by root."
+    },
+    {
+      "result_id": "decoder-orthogonality",
+      "proof_target": true,
+      "chinese_reviewed": true,
+      "english_reviewed": true,
+      "assumptions_definitions_statement_steps_and_scope_reviewed": true,
+      "rewrite_role": "proof",
+      "proof_scope": "full_original_statement",
+      "statement_assessment": "no_statement_error_recorded",
+      "machine_evidence_role": "theorem_proof",
+      "machine_status": "verified",
+      "machine_declarations": [
+        "Harsanyi.Frequency.grid_orthogonality",
+        "Harsanyi.Frequency.grid_character_sum",
+        "Harsanyi.Frequency.inverse_dft2",
+        "Harsanyi.Frequency.dft2_inverse"
+      ],
+      "step_count": 2,
+      "status": "passed_with_recorded_scope",
+      "review_note": "The two cyclic characters multiply to MN times the frequency delta. Both inverse directions preserve MN normalization and arbitrary complex input scope."
+    },
+    {
+      "result_id": "decoder-forward-convolution",
+      "proof_target": true,
+      "chinese_reviewed": true,
+      "english_reviewed": true,
+      "assumptions_definitions_statement_steps_and_scope_reviewed": true,
+      "rewrite_role": "proof",
+      "proof_scope": "full_original_statement",
+      "statement_assessment": "no_statement_error_recorded",
+      "machine_evidence_role": "theorem_proof",
+      "machine_status": "verified",
+      "machine_declarations": [
+        "Harsanyi.Frequency.offset_layer_dft",
+        "Harsanyi.Frequency.square_kernel_response",
+        "Harsanyi.Frequency.dft2_constant"
+      ],
+      "step_count": 3,
+      "status": "passed_with_recorded_scope",
+      "review_note": "Actual positive spatial shifts give positive kernel phases against the negative output DFT. Every finite channel/offset sum and the MN DC bias are retained. Repeated offsets are permitted."
+    },
+    {
+      "result_id": "decoder-valid-convolution",
+      "proof_target": true,
+      "chinese_reviewed": true,
+      "english_reviewed": true,
+      "assumptions_definitions_statement_steps_and_scope_reviewed": true,
+      "rewrite_role": "counterexample",
+      "proof_scope": "counterexample_to_original_clause",
+      "statement_assessment": "counterexample_recorded",
+      "machine_evidence_role": "counterexample",
+      "machine_status": "verified",
+      "machine_declarations": [
+        "Harsanyi.Frequency.Valid.cropped_offset_layer_dft_bias",
+        "Harsanyi.Frequency.Valid.valid_indices_no_wrap",
+        "Harsanyi.Frequency.Valid.valid_layer_dft",
+        "Harsanyi.Frequency.Valid.real_valid_layer_embedding",
+        "Harsanyi.Frequency.Valid.witness_grid_frequency_difference",
+        "Harsanyi.Frequency.Valid.actual_valid_equation17_counterexample"
+      ],
+      "step_count": 2,
+      "status": "passed_with_recorded_scope",
+      "review_note": "The generic operator periodically extends the old grid before output sampling. The valid-size specialization has K bounded by both input dimensions and no wrapping. The actual real constant-input/delta-kernel Eq17 witness refutes the sine count only; the printed phase is correct. Root independently audits the authored module."
+    },
+    {
+      "result_id": "decoder-cascade-forward",
+      "proof_target": true,
+      "chinese_reviewed": true,
+      "english_reviewed": true,
+      "assumptions_definitions_statement_steps_and_scope_reviewed": true,
+      "rewrite_role": "proof",
+      "proof_scope": "full_original_statement",
+      "statement_assessment": "no_statement_error_recorded",
+      "machine_evidence_role": "theorem_proof",
+      "machine_status": "verified",
+      "machine_declarations": [
+        "Harsanyi.Frequency.actual_grid_cascade",
+        "Harsanyi.Frequency.cascade_bias_sum"
+      ],
+      "step_count": 2,
+      "status": "passed_with_recorded_scope",
+      "review_note": "Heterogeneous maps compose in source order. Empty products are identity maps, and every bias propagates through its actual suffix with one complete MN factor. Source intermediate proof slips do not change the correct main statement."
+    },
+    {
+      "result_id": "decoder-backpropagation",
+      "proof_target": true,
+      "chinese_reviewed": true,
+      "english_reviewed": true,
+      "assumptions_definitions_statement_steps_and_scope_reviewed": true,
+      "rewrite_role": "proof",
+      "proof_scope": "full_original_statement_with_finite_sum_domain_repair",
+      "statement_assessment": "partially_refuted",
+      "machine_evidence_role": "theorem_proof",
+      "machine_status": "verified",
+      "machine_declarations": [
+        "Harsanyi.Frequency.MatrixBackprop.actual_cascade_parameter_loss_hasFDerivAt",
+        "Harsanyi.Frequency.MatrixBackprop.real_network_hasFDerivAt",
+        "Harsanyi.Frequency.MatrixBackprop.riesz_pullback",
+        "Harsanyi.Frequency.MatrixBackprop.pullback_spectrum",
+        "Harsanyi.Frequency.MatrixBackprop.conjugate_transpose_comp",
+        "Harsanyi.Frequency.MatrixBackprop.network_pullback_spectrum",
+        "Harsanyi.Frequency.MatrixBackprop.actual_suffix_cotangent",
+        "Harsanyi.Frequency.MatrixBackprop.actual_kernel_spectral_gradient",
+        "Harsanyi.Frequency.MatrixBackprop.actual_real_network_spectrum",
+        "Harsanyi.Frequency.MatrixBackprop.actual_prefix_suffix_response_update",
+        "PaperDecoder.actual_corollary_3_4"
+      ],
+      "step_count": 4,
+      "status": "passed_with_recorded_scope",
+      "review_note": "The same real wholeLoss, weights and network state supply both HasFDerivAt and the fderiv update. Full prefix/suffix channel sums, conjugate transposes, all biases, and normalized Riesz spectrum DFT/MN are explicit. The source sine quotient and intermediate proof errors remain separately assessed."
+    },
+    {
+      "result_id": "decoder-independence-scope",
+      "proof_target": true,
+      "chinese_reviewed": true,
+      "english_reviewed": true,
+      "assumptions_definitions_statement_steps_and_scope_reviewed": true,
+      "rewrite_role": "statement_scope_explanation",
+      "proof_scope": "explicit_component_and_source_scope",
+      "statement_assessment": "scope_under_review",
+      "machine_evidence_role": "counterexample",
+      "machine_status": "verified",
+      "machine_declarations": [
+        "Harsanyi.Frequency.actual_independent_layer_moments",
+        "Harsanyi.Frequency.WeakIndependence.actual_w1_law",
+        "Harsanyi.Frequency.WeakIndependence.actual_w2_law",
+        "Harsanyi.Frequency.WeakIndependence.actual_first_product_factorization",
+        "Harsanyi.Frequency.WeakIndependence.standard_gaussian_fourth_moment",
+        "Harsanyi.Frequency.WeakIndependence.actual_unit_kernel_weak_counterexample",
+        "Harsanyi.Frequency.WeakIndependence.actual_not_independent"
+      ],
+      "step_count": 2,
+      "status": "passed_with_recorded_scope",
+      "review_note": "Both languages preserve the difference between genuine independent initialization and the weak first-product displays. The actual Gaussian U/BU kernel witness only refutes sufficiency of those displays, not the independent model. Root independently audits the authored witness."
+    },
+    {
+      "result_id": "decoder-gaussian-response",
+      "proof_target": true,
+      "chinese_reviewed": true,
+      "english_reviewed": true,
+      "assumptions_definitions_statement_steps_and_scope_reviewed": true,
+      "rewrite_role": "proof",
+      "proof_scope": "full_original_statement",
+      "statement_assessment": "no_statement_error_recorded",
+      "machine_evidence_role": "theorem_proof",
+      "machine_status": "verified",
+      "machine_declarations": [
+        "Harsanyi.Frequency.gaussian_weighted_isGaussian",
+        "Harsanyi.Frequency.real_gaussian_pseudocovariance",
+        "Harsanyi.Frequency.actual_kernel_gaussian",
+        "Harsanyi.Frequency.actual_kernel_mean",
+        "Harsanyi.Frequency.actual_kernel_second_moment",
+        "Harsanyi.Frequency.weighted_response_centered_square",
+        "Harsanyi.Frequency.actual_kernel_pseudocovariance"
+      ],
+      "step_count": 3,
+      "status": "passed_with_recorded_scope",
+      "review_note": "Actual independent real Gaussian laws imply jointly Gaussian weighted responses and derive all moments. The real embedding has nonzero pseudocovariance in general. Mean, complex variance, squared-magnitude moment and nonconjugated square remain distinct."
+    },
+    {
+      "result_id": "decoder-single-channel-moments",
+      "proof_target": true,
+      "chinese_reviewed": true,
+      "english_reviewed": true,
+      "assumptions_definitions_statement_steps_and_scope_reviewed": true,
+      "rewrite_role": "proof",
+      "proof_scope": "full_original_statement",
+      "statement_assessment": "no_statement_error_recorded",
+      "machine_evidence_role": "theorem_proof",
+      "machine_status": "verified",
+      "machine_declarations": [
+        "Harsanyi.Frequency.actual_independent_layer_mean",
+        "Harsanyi.Frequency.independent_complex_product_mean",
+        "Harsanyi.Frequency.actual_independent_layer_moments",
+        "Harsanyi.Frequency.independent_complex_product_second_moment",
+        "PaperDecoder.actual_positive_factor_log_som"
+      ],
+      "step_count": 3,
+      "status": "passed_with_recorded_scope",
+      "review_note": "Actual whole-layer independence is transported through response maps to mean and squared-magnitude product integrals. PaperDecoder.actual_positive_factor_log_som covers the ordinary-log domain where every actual factor is positive, including zero variance with nonzero mean response. Its hpos condition is a domain requirement, and there is no added hK or positive-variance premise."
+    },
+    {
+      "result_id": "decoder-multi-channel-moments",
+      "proof_target": true,
+      "chinese_reviewed": true,
+      "english_reviewed": true,
+      "assumptions_definitions_statement_steps_and_scope_reviewed": true,
+      "rewrite_role": "partial_component",
+      "proof_scope": "explicit_component_and_source_scope",
+      "statement_assessment": "scope_under_review",
+      "machine_evidence_role": "partial_component",
+      "machine_status": "partial_scope_verified",
+      "machine_declarations": [
+        "Harsanyi.Frequency.MultiChannel.independent_layer_prefix",
+        "Harsanyi.Frequency.MultiChannel.actual_gaussian_row_moments",
+        "Harsanyi.Frequency.MultiChannel.kernelMatrices",
+        "Harsanyi.Frequency.actual_kernel_mean",
+        "Harsanyi.Frequency.actual_kernel_second_moment",
+        "Harsanyi.Frequency.MultiChannel.complex_cross_moment",
+        "Harsanyi.Frequency.MultiChannel.row_column_mean",
+        "Harsanyi.Frequency.MultiChannel.row_column_second_moment",
+        "Harsanyi.Frequency.MultiChannel.actual_cascade_uniform_moments",
+        "Harsanyi.Frequency.MultiChannel.finite_affine_expansion",
+        "Harsanyi.Frequency.MultiChannel.mean_sequence_source_closed",
+        "Harsanyi.Frequency.MultiChannel.som_sequence_source_closed",
+        "Harsanyi.Frequency.MultiChannel.actual_gaussian_cascade_closed",
+        "PaperDecoder.actual_appendix_equations31_32",
+        "Harsanyi.Frequency.WeakIndependence.actual_unit_kernel_weak_counterexample"
+      ],
+      "step_count": 4,
+      "status": "passed_with_recorded_scope",
+      "review_note": "Actual layer/past-vector independence is derived. Row independence and same-input-column prefix-output joint independence remain explicit hrows/hprefix premises. The C diagonal and C(C-1) conjugated off-diagonal counts, finite recurrence expansion, and source Eq31/32 indices are correct. The weak displays and automatic deep-iid prefix independence are not substituted for these conditions."
+    },
+    {
+      "result_id": "decoder-moment-parameter-growth",
+      "proof_target": true,
+      "chinese_reviewed": true,
+      "english_reviewed": true,
+      "assumptions_definitions_statement_steps_and_scope_reviewed": true,
+      "rewrite_role": "partial_proof_with_refuted_clause",
+      "proof_scope": "explicit_component_and_source_scope",
+      "statement_assessment": "partially_refuted",
+      "machine_evidence_role": "partial_component",
+      "machine_status": "partial_scope_verified",
+      "machine_declarations": [
+        "PaperDecoder.moment_factor_mono",
+        "Harsanyi.Frequency.Parameters.gaussian_kernel_coordinate_law",
+        "Harsanyi.Frequency.Parameters.gaussian_kernel_independent",
+        "Harsanyi.Frequency.Parameters.actual_kernel_som",
+        "Harsanyi.Frequency.Parameters.actual_kernel_size_growth_counterexample"
+      ],
+      "step_count": 2,
+      "status": "passed_with_recorded_scope",
+      "review_note": "The fixed-quantity factor comparison is non-strict. Actual R changes when K changes; the real independent-Gaussian K1-to-K2 decrease witness refutes that universal source subclause. Partial-component scope does not claim strict growth or learning difficulty."
+    },
+    {
+      "result_id": "decoder-depth-growth",
+      "proof_target": true,
+      "chinese_reviewed": true,
+      "english_reviewed": true,
+      "assumptions_definitions_statement_steps_and_scope_reviewed": true,
+      "rewrite_role": "counterexample",
+      "proof_scope": "counterexample_to_original_clause",
+      "statement_assessment": "counterexample_recorded",
+      "machine_evidence_role": "counterexample",
+      "machine_status": "verified",
+      "machine_declarations": [
+        "Harsanyi.Frequency.quarter_gaussian_coordinate_law",
+        "Harsanyi.Frequency.quarter_gaussian_independent",
+        "Harsanyi.Frequency.actual_unit_kernel_gaussian_depth_moment",
+        "Harsanyi.Frequency.actual_gaussian_depth_growth_counterexample"
+      ],
+      "step_count": 2,
+      "status": "passed_with_recorded_scope",
+      "review_note": "The actual independent N(0,1/4), K1 model has SOM (1/4)^L and strictly decreases from one to two layers. This refutes unconditional increase while preserving the valid finite product/log identity. Multichannel approximate prose remains separately conditional."
+    },
+    {
+      "result_id": "decoder-frequency-preference",
+      "proof_target": true,
+      "chinese_reviewed": true,
+      "english_reviewed": true,
+      "assumptions_definitions_statement_steps_and_scope_reviewed": true,
+      "rewrite_role": "statement_scope_explanation",
+      "proof_scope": "explicit_component_and_source_scope",
+      "statement_assessment": "scope_under_review",
+      "machine_evidence_role": "partial_component",
+      "machine_status": "partial_scope_verified",
+      "machine_declarations": [
+        "PaperDecoder.finite_moment_ratio",
+        "Harsanyi.Frequency.actual_independent_layer_moments"
+      ],
+      "step_count": 1,
+      "status": "passed_with_recorded_scope",
+      "review_note": "A finite positive-denominator SOM ratio can grow with depth when its factor ratio exceeds one. Mu=0 and K1 have no frequency preference. This does not prove almost-sure single-network behavior, weakening below an absolute baseline, or convergence of learning."
+    },
+    {
+      "result_id": "decoder-mean-preference",
+      "proof_target": true,
+      "chinese_reviewed": true,
+      "english_reviewed": true,
+      "assumptions_definitions_statement_steps_and_scope_reviewed": true,
+      "rewrite_role": "statement_scope_explanation",
+      "proof_scope": "explicit_component_and_source_scope",
+      "statement_assessment": "scope_under_review",
+      "machine_evidence_role": "partial_component",
+      "machine_status": "partial_scope_verified",
+      "machine_declarations": [
+        "PaperDecoder.mean_preference_ratio_mono",
+        "Harsanyi.Frequency.actual_kernel_second_moment"
+      ],
+      "step_count": 1,
+      "status": "passed_with_recorded_scope",
+      "review_note": "The ratio comparison states its actual squared phase magnitudes, squared mean parameter, and positive noise term. Cross multiplication proves non-strict monotonicity on that conditional domain. The universal source learning interpretation is not marked theorem-proved."
+    },
+    {
+      "result_id": "decoder-kernel-preference",
+      "proof_target": true,
+      "chinese_reviewed": true,
+      "english_reviewed": true,
+      "assumptions_definitions_statement_steps_and_scope_reviewed": true,
+      "rewrite_role": "counterexample",
+      "proof_scope": "counterexample_to_original_clause",
+      "statement_assessment": "counterexample_recorded",
+      "machine_evidence_role": "counterexample",
+      "machine_status": "verified",
+      "machine_declarations": [
+        "Harsanyi.Frequency.Parameters.phase_sum_dc",
+        "Harsanyi.Frequency.Parameters.phase_sum_two_40",
+        "Harsanyi.Frequency.Parameters.phase_sum_four_40",
+        "Harsanyi.Frequency.Parameters.kernel_size_two_dc_ratio",
+        "Harsanyi.Frequency.Parameters.kernel_size_four_dc_ratio",
+        "Harsanyi.Frequency.Parameters.actual_kernel_dc_ratio_counterexample"
+      ],
+      "step_count": 2,
+      "status": "passed_with_recorded_scope",
+      "review_note": "The actual Gaussian K2-to-K4 DC/high-frequency SOM ratio grows from five to seventeen. This refutes universal large-kernel alleviation, while preserving the correct moment formula and distinguishing its variance from the separate K-growth witness. Root independently audits this authored module."
+    },
+    {
+      "result_id": "decoder-zero-padding",
+      "proof_target": true,
+      "chinese_reviewed": true,
+      "english_reviewed": true,
+      "assumptions_definitions_statement_steps_and_scope_reviewed": true,
+      "rewrite_role": "counterexample",
+      "proof_scope": "counterexample_to_original_clause",
+      "statement_assessment": "partially_refuted",
+      "machine_evidence_role": "counterexample",
+      "machine_status": "verified",
+      "machine_declarations": [
+        "Harsanyi.Frequency.edge_pad_original",
+        "Harsanyi.Frequency.edge_pad_zero",
+        "Harsanyi.Frequency.edge_pad_constant_dft",
+        "Harsanyi.Frequency.padded_phase_normSq_one",
+        "Harsanyi.Frequency.actual_correlated_padding_counterexample"
+      ],
+      "step_count": 3,
+      "status": "passed_with_recorded_scope",
+      "review_note": "The original only states Gaussian pixel marginals; iid is confined to a conditional human derivation. The actual common-U image/padding/DFT integral is a valid non-DC counterexample, with nonzero sine denominators. The DC equality is retained and not refuted."
+    },
+    {
+      "result_id": "decoder-upsampling",
+      "proof_target": true,
+      "chinese_reviewed": true,
+      "english_reviewed": true,
+      "assumptions_definitions_statement_steps_and_scope_reviewed": true,
+      "rewrite_role": "proof",
+      "proof_scope": "full_original_statement",
+      "statement_assessment": "no_statement_error_recorded",
+      "machine_evidence_role": "theorem_proof",
+      "machine_status": "verified",
+      "machine_declarations": [
+        "Harsanyi.Frequency.insert_grid_injective",
+        "Harsanyi.Frequency.zero_insert_original",
+        "Harsanyi.Frequency.zero_insert_elsewhere",
+        "Harsanyi.Frequency.inserted_character",
+        "Harsanyi.Frequency.zero_insert_dft_repeats",
+        "Harsanyi.Frequency.frequency_block_remainder",
+        "Harsanyi.Frequency.actual_zero_insert_frequency_blocks"
+      ],
+      "step_count": 3,
+      "status": "passed_with_recorded_scope",
+      "review_note": "The actual scatter operator, injective insertion positions, character cancellation, remainders and all original frequency blocks are connected. Positive integer ratio and grid sizes give the source bounds; channels are handled without extra probabilistic premises."
+    },
+    {
+      "result_id": "decoder-shift-setup",
+      "proof_target": true,
+      "chinese_reviewed": true,
+      "english_reviewed": true,
+      "assumptions_definitions_statement_steps_and_scope_reviewed": true,
+      "rewrite_role": "counterexample",
+      "proof_scope": "counterexample_to_original_clause",
+      "statement_assessment": "counterexample_recorded",
+      "machine_evidence_role": "none",
+      "machine_status": "not_formalized",
+      "machine_declarations": [],
+      "step_count": 1,
+      "status": "passed_with_recorded_scope",
+      "review_note": "The original alpha>0 and one-sided phase bound are preserved. The alpha=3, phase=0 amplitude counterexample is human evidence only, with machine role none. It is distinct from the actual GD witness at alpha=1/4."
+    },
+    {
+      "result_id": "decoder-one-step-fitting",
+      "proof_target": true,
+      "chinese_reviewed": true,
+      "english_reviewed": true,
+      "assumptions_definitions_statement_steps_and_scope_reviewed": true,
+      "rewrite_role": "counterexample",
+      "proof_scope": "counterexample_to_original_clause",
+      "statement_assessment": "partially_refuted",
+      "machine_evidence_role": "counterexample",
+      "machine_status": "verified",
+      "machine_declarations": [
+        "Harsanyi.Frequency.source_constraint43",
+        "Harsanyi.Frequency.source_constraint44",
+        "Harsanyi.Frequency.source_constraint45",
+        "Harsanyi.Frequency.source_constraint46",
+        "Harsanyi.Frequency.completed_target_image_real",
+        "Harsanyi.Frequency.completed_target_selected_frequencies",
+        "Harsanyi.Frequency.actual_response01",
+        "Harsanyi.Frequency.actual_response10",
+        "Harsanyi.Frequency.actual_real_loss_identity_layer",
+        "Harsanyi.Frequency.actual_gradient00",
+        "Harsanyi.Frequency.actual_gradient01",
+        "Harsanyi.Frequency.actual_gradient10",
+        "Harsanyi.Frequency.actual_gradient11",
+        "Harsanyi.Frequency.actual_real_loss_layer_exchange",
+        "Harsanyi.Frequency.actual_two_layer_spectrum",
+        "Harsanyi.Frequency.actual_spatial_one_step_not_target"
+      ],
+      "step_count": 3,
+      "status": "passed_with_recorded_scope",
+      "review_note": "Actual real kernels, original two-frequency loss, Hermitian-completed real target, source constraints43-46, all four coordinate derivatives, both layer updates and a nonzero residual are linked. No conjugate loss terms or unrelated scalar endpoint replace the original objective."
+    },
+    {
+      "result_id": "decoder-first-order-product",
+      "proof_target": true,
+      "chinese_reviewed": true,
+      "english_reviewed": true,
+      "assumptions_definitions_statement_steps_and_scope_reviewed": true,
+      "rewrite_role": "statement_scope_explanation",
+      "proof_scope": "explicit_component_and_source_scope",
+      "statement_assessment": "scope_under_review",
+      "machine_evidence_role": "partial_component",
+      "machine_status": "partial_scope_verified",
+      "machine_declarations": [
+        "Harsanyi.Frequency.product_update_exact",
+        "Harsanyi.Frequency.dropped_product_counterexample"
+      ],
+      "step_count": 2,
+      "status": "passed_with_recorded_scope",
+      "review_note": "The exact two-factor expansion retains the second-order cross term. It supports analysis of the source approximate-to-exact gap but is not reported as proving the false source one-step claim."
+    },
+    {
+      "result_id": "decoder-shift-other-frequencies",
+      "proof_target": true,
+      "chinese_reviewed": true,
+      "english_reviewed": true,
+      "assumptions_definitions_statement_steps_and_scope_reviewed": true,
+      "rewrite_role": "statement_scope_explanation",
+      "proof_scope": "explicit_component_and_source_scope",
+      "statement_assessment": "scope_under_review",
+      "machine_evidence_role": "none",
+      "machine_status": "not_formalized",
+      "machine_declarations": [],
+      "step_count": 2,
+      "status": "passed_with_recorded_scope",
+      "review_note": "The rewrite distinguishes a frozen-state Jacobian from coefficients constant throughout training and keeps the zero-cancellation domain. No additional conditions are silently used to certify the original all-training exact claim."
+    },
+    {
+      "result_id": "decoder-gradient-norm",
+      "proof_target": true,
+      "chinese_reviewed": true,
+      "english_reviewed": true,
+      "assumptions_definitions_statement_steps_and_scope_reviewed": true,
+      "rewrite_role": "statement_scope_explanation",
+      "proof_scope": "explicit_component_and_source_scope",
+      "statement_assessment": "scope_under_review",
+      "machine_evidence_role": "partial_component",
+      "machine_status": "partial_scope_verified",
+      "machine_declarations": [
+        "Harsanyi.Frequency.dft2_parseval_normSq",
+        "Harsanyi.Frequency.dft2_parseval_pair"
+      ],
+      "step_count": 2,
+      "status": "passed_with_recorded_scope",
+      "review_note": "Correct Parseval uses the explicit real-gradient spectral normalization and its MN factor. The source Eq56 scale omission and Eq57 self-reference remain visible. The verified component does not rescue the source exact one-step cost theorem."
+    },
+    {
+      "result_id": "decoder-padding-interpretation",
+      "proof_target": true,
+      "chinese_reviewed": true,
+      "english_reviewed": true,
+      "assumptions_definitions_statement_steps_and_scope_reviewed": true,
+      "rewrite_role": "statement_scope_explanation",
+      "proof_scope": "explicit_component_and_source_scope",
+      "statement_assessment": "scope_under_review",
+      "machine_evidence_role": "none",
+      "machine_status": "not_formalized",
+      "machine_declarations": [],
+      "step_count": 1,
+      "status": "passed_with_recorded_scope",
+      "review_note": "The conditional iid SOM difference and the original correlated-pixel boundary are explicit. A mean-zero difference or a large finite phase sum does not yield inevitable low-frequency learning in arbitrary subsequent layers. Machine role none matches this scope explanation."
+    },
+    {
+      "result_id": "decoder-upsampling-interpretation",
+      "proof_target": true,
+      "chinese_reviewed": true,
+      "english_reviewed": true,
+      "assumptions_definitions_statement_steps_and_scope_reviewed": true,
+      "rewrite_role": "statement_scope_explanation",
+      "proof_scope": "explicit_component_and_source_scope",
+      "statement_assessment": "scope_under_review",
+      "machine_evidence_role": "none",
+      "machine_status": "not_formalized",
+      "machine_declarations": [],
+      "step_count": 1,
+      "status": "passed_with_recorded_scope",
+      "review_note": "Exact spectral repetition is linked to its separate theorem. Subsequent zero responses can suppress copies; representation harm and possible discrimination clues remain unquantified interpretations rather than machine capacity theorems."
+    },
+    {
+      "result_id": "decoder-shift-difficulty-interpretation",
+      "proof_target": true,
+      "chinese_reviewed": true,
+      "english_reviewed": true,
+      "assumptions_definitions_statement_steps_and_scope_reviewed": true,
+      "rewrite_role": "statement_scope_explanation",
+      "proof_scope": "explicit_component_and_source_scope",
+      "statement_assessment": "scope_under_review",
+      "machine_evidence_role": "none",
+      "machine_status": "not_formalized",
+      "machine_declarations": [],
+      "step_count": 1,
+      "status": "passed_with_recorded_scope",
+      "review_note": "The one-step weight-change metric depends on actual state, step size, loss and the source approximation. The refuted exact fitting premise prevents a universal optimization-difficulty theorem. Experiments remain observations."
+    },
+    {
+      "result_id": "decoder-natural-input",
+      "proof_target": true,
+      "chinese_reviewed": true,
+      "english_reviewed": true,
+      "assumptions_definitions_statement_steps_and_scope_reviewed": true,
+      "rewrite_role": "statement_scope_explanation",
+      "proof_scope": "explicit_component_and_source_scope",
+      "statement_assessment": "scope_under_review",
+      "machine_evidence_role": "none",
+      "machine_status": "not_formalized",
+      "machine_declarations": [],
+      "step_count": 2,
+      "status": "passed_with_recorded_scope",
+      "review_note": "Exact scalar/matrix propagation distinguishes input magnitude from response and direction. A zero response supplies a human boundary example. The Ruderman natural-image power law stays external empirical background, not a proof of learning or output magnitude."
+    },
+    {
+      "result_id": "decoder-layer-placement",
+      "proof_target": true,
+      "chinese_reviewed": true,
+      "english_reviewed": true,
+      "assumptions_definitions_statement_steps_and_scope_reviewed": true,
+      "rewrite_role": "statement_scope_explanation",
+      "proof_scope": "explicit_component_and_source_scope",
+      "statement_assessment": "scope_under_review",
+      "machine_evidence_role": "none",
+      "machine_status": "not_formalized",
+      "machine_declarations": [],
+      "step_count": 2,
+      "status": "passed_with_recorded_scope",
+      "review_note": "Only controlled scalar moment factors are permutation-symmetric. Matrix order and suffix-propagated biases prevent a universal equal-layer-role inference. The five-network C8 comparison remains an experimental observation."
+    },
+    {
+      "result_id": "decoder-cosine-dimension",
+      "proof_target": true,
+      "chinese_reviewed": true,
+      "english_reviewed": true,
+      "assumptions_definitions_statement_steps_and_scope_reviewed": true,
+      "rewrite_role": "statement_scope_explanation",
+      "proof_scope": "explicit_component_and_source_scope",
+      "statement_assessment": "scope_under_review",
+      "machine_evidence_role": "none",
+      "machine_status": "not_formalized",
+      "machine_declarations": [],
+      "step_count": 2,
+      "status": "passed_with_recorded_scope",
+      "review_note": "The nonzero-vector cosine domain is explicit. Proportional vectors in arbitrarily high dimension show why accumulated squared errors alone do not bound angle. The unquantified source explanation is not converted into a probabilistic theorem."
+    },
+    {
+      "result_id": "decoder-trained-independence",
+      "proof_target": true,
+      "chinese_reviewed": true,
+      "english_reviewed": true,
+      "assumptions_definitions_statement_steps_and_scope_reviewed": true,
+      "rewrite_role": "statement_scope_explanation",
+      "proof_scope": "explicit_component_and_source_scope",
+      "statement_assessment": "scope_under_review",
+      "machine_evidence_role": "none",
+      "machine_status": "not_formalized",
+      "machine_declarations": [],
+      "step_count": 2,
+      "status": "passed_with_recorded_scope",
+      "review_note": "The empirical random variable is input-induced magnitude of deltaT in a fixed trained network, not initialized T. Low Pearson correlation is neither independence nor the required conjugated cross-moment factorization. The heading3.1/body4.1 difference and noncircular nonlinear experimental architecture remain visible."
+    },
+    {
+      "result_id": "decoder-external-gaussian-closure",
+      "proof_target": true,
+      "chinese_reviewed": true,
+      "english_reviewed": true,
+      "assumptions_definitions_statement_steps_and_scope_reviewed": true,
+      "rewrite_role": "statement_scope_explanation",
+      "proof_scope": "explicit_component_and_source_scope",
+      "statement_assessment": "scope_under_review",
+      "machine_evidence_role": "partial_component",
+      "machine_status": "partial_scope_verified",
+      "machine_declarations": [
+        "Harsanyi.Frequency.gaussian_weighted_isGaussian"
+      ],
+      "step_count": 2,
+      "status": "passed_with_recorded_scope",
+      "review_note": "The actual independent-Gaussian closure component is verified with its joint-law scope. The LLN reference does not supply omitted random-log conditions or a deterministic/one-network learning theorem."
+    },
+    {
+      "result_id": "decoder-metrics",
+      "proof_target": false,
+      "chinese_reviewed": true,
+      "english_reviewed": true,
+      "assumptions_definitions_statement_steps_and_scope_reviewed": true,
+      "rewrite_role": "source_material",
+      "proof_scope": "explicit_component_and_source_scope",
+      "statement_assessment": "no_statement_error_recorded",
+      "machine_evidence_role": "none",
+      "machine_status": "not_formalized",
+      "machine_declarations": [],
+      "step_count": 1,
+      "status": "passed_with_recorded_scope",
+      "review_note": "Frequency-corner sets, nonzero total-energy domain and display modifications are definitions/reporting conventions. The entry is correctly outside the proof-target denominator."
+    },
+    {
+      "result_id": "decoder-experiments",
+      "proof_target": false,
+      "chinese_reviewed": true,
+      "english_reviewed": true,
+      "assumptions_definitions_statement_steps_and_scope_reviewed": true,
+      "rewrite_role": "source_material",
+      "proof_scope": "explicit_component_and_source_scope",
+      "statement_assessment": "no_statement_error_recorded",
+      "machine_evidence_role": "none",
+      "machine_status": "not_formalized",
+      "machine_declarations": [],
+      "step_count": 2,
+      "status": "passed_with_recorded_scope",
+      "review_note": "Empirical spectra, fitting errors, correlations and settings remain empirical. Their mathematical interpretations have separate target IDs. The source conclusion excludes deterministic specific-network and max-pooling/classification generalizations."
+    }
+  ],
+  "all_shared_reviews": [
+    {
+      "shared_id": "shared-decoder-fourier-grid",
+      "chinese_reviewed": true,
+      "english_reviewed": true,
+      "status": "passed_with_recorded_scope",
+      "evidence_role": "theorem_proof",
+      "declarations": [
+        "Harsanyi.Frequency.grid_orthogonality",
+        "Harsanyi.Frequency.grid_character_sum",
+        "Harsanyi.Frequency.inverse_dft2",
+        "Harsanyi.Frequency.dft2_inverse"
+      ],
+      "statement_tex": "\\sum_{m,n}\\chi_{uv}(m,n)\\overline{\\chi_{u^{\\prime}v^{\\prime}}(m,n)}=MN\\delta_{uu^{\\prime}}\\delta_{vv^{\\prime}}",
+      "scope": "实际二维循环网格的正交和双向逆DFT完整验证。"
+    },
+    {
+      "shared_id": "shared-decoder-circular-correlation",
+      "chinese_reviewed": true,
+      "english_reviewed": true,
+      "status": "passed_with_recorded_scope",
+      "evidence_role": "theorem_proof",
+      "declarations": [
+        "Harsanyi.Frequency.offset_layer_dft",
+        "Harsanyi.Frequency.square_kernel_response",
+        "Harsanyi.Frequency.dft2_constant"
+      ],
+      "statement_tex": "h^{(uv)}=T^{(uv)}g^{(uv)}+\\delta_{uv}MN b",
+      "scope": "实际多通道空间卷积、原相位和MN偏置全部验证。"
+    },
+    {
+      "shared_id": "shared-decoder-real-gaussian-response",
+      "chinese_reviewed": true,
+      "english_reviewed": true,
+      "status": "passed_with_recorded_scope",
+      "evidence_role": "theorem_proof",
+      "declarations": [
+        "Harsanyi.Frequency.gaussian_weighted_isGaussian",
+        "Harsanyi.Frequency.real_gaussian_pseudocovariance",
+        "Harsanyi.Frequency.actual_kernel_gaussian",
+        "Harsanyi.Frequency.actual_kernel_mean",
+        "Harsanyi.Frequency.actual_kernel_second_moment",
+        "Harsanyi.Frequency.weighted_response_centered_square",
+        "Harsanyi.Frequency.actual_kernel_pseudocovariance"
+      ],
+      "statement_tex": "\\mathbb ET=\\mu_lR_{uv},\\quad V(T)=K^2\\sigma_l^2,\\quad C(T)=\\sigma_l^2R_{2u,2v}",
+      "scope": "真正独立实Gaussian核的复Gaussian闭包、实际积分均值/二阶矩/伪协方差已验证；依赖独立prose读取，不仅边缘Gaussian加不相关。R全域以原有限和解释。"
+    },
+    {
+      "shared_id": "shared-decoder-independent-frequency-products",
+      "chinese_reviewed": true,
+      "english_reviewed": true,
+      "status": "passed_with_recorded_scope",
+      "evidence_role": "theorem_proof",
+      "declarations": [
+        "Harsanyi.Frequency.actual_independent_layer_mean",
+        "Harsanyi.Frequency.independent_complex_product_mean",
+        "Harsanyi.Frequency.actual_independent_layer_moments",
+        "Harsanyi.Frequency.independent_complex_product_second_moment",
+        "PaperDecoder.actual_positive_factor_log_som"
+      ],
+      "statement_tex": "SOM(\\mathbb T^{(uv)(L:1)})=\\prod_{l=1}^L(|\\mu_lR_{uv}|^2+K^2\\sigma_l^2)",
+      "scope": "真正独立层模型的实际单通道复均值、乘积SOM及正矩log完整验证；源Eq6–7弱条件与无条件指数增长独立评估。"
+    }
+  ],
+  "human_coverage": {
+    "result_count": 34,
+    "proof_target_count": 30,
+    "result_chinese_steps": 69,
+    "result_english_steps": 69,
+    "shared_count": 4,
+    "all_five_theorem4_2_interpretations_reviewed": true,
+    "appendices_B_C_unnumbered_inferences_reviewed": true
+  },
+  "resolved_findings": [
+    {
+      "id": "positive-factor-log-machine-domain",
+      "finding": "The former log type required positive Gaussian variance, whereas the human scope also included positive actual factors with zero variance.",
+      "resolution": "PaperDecoder.actual_positive_factor_log_som derives the actual Gaussian SOM log identity under positive actual factors, with neither hK nor positive-variance premises. The final single-channel result and shared proof step3 map to it.",
+      "independently_compiled": true,
+      "status": "closed"
+    }
+  ],
+  "development_snapshot_to_frozen_binding": {
+    "from_content_sha256": "169f87fa3294c23c0ad239c2ff4c40e1e6f8febcb066b5c2cae5cb83e60bf91f",
+    "to_content_sha256": "edf8fa8f7de0f254b9ee6e75c70ab24f6ca81aef367983580baba638df704d73",
+    "provenance": "Author message and bind_verification.py operation; prior development JSON was not retained for a byte-for-byte independent diff.",
+    "author_reported_changes": [
+      "Actual report/type/source hashes and step maps bound",
+      "Lean references expanded to actual path/line objects",
+      "rewrite_status completed and proof_target synchronized",
+      "coverage set to actual 296 declarations"
+    ],
+    "human_and_original_text_change_reported": false,
+    "final_role_checked_independently": "Backpropagation rewrite_role proof matches the completed actual real-loss update; partially_refuted and full_original_statement_with_finite_sum_domain_repair preserve the original quotient-domain issue."
+  },
+  "source_and_ui_boundaries": [
+    "All 34 human mathematical entries and four shared proofs were read in both languages.",
+    "Exact source-transcription boundaries and full-page inventory are independently checked by the reader integrator.",
+    "Browser rendering and global manifest admission remain root/integrator checks.",
+    "The three reviewer-authored modules remain excluded from this independent-source-review claim; root independently audited them."
+  ]
+}

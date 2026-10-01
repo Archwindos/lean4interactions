@@ -1,0 +1,108 @@
+                                                                                                                                                                                                           Zero baseline
+                         𝑚                             𝑚                                      (𝑚)            (𝑚)          Standard DNN
+               𝐼nor                              𝐼adv                        Δ𝐼 (𝑚) = 𝐼nor − 𝐼adv                                                                       Standard DNN
+                                                                                                                          Adversarially trained DNN                     Adverarially trained DNN
+                                  Standard DNN                                       Adversarially trained
+                                                                              0.08          DNN                                          ResNet-18                                 ResNet-18
+                                                                                                                         Δ𝐽   𝑚
+
+
+
+
+       Interactionaaa
+          Average 𝑚
+
+
+
+
+                                                                         𝑚
+                                                           Interactionaaa
+                                                                                                                                                                         𝐷   𝑚1
+                        0.05                                                                                                        1𝑒 −5
+
+
+
+
+                  𝐼
+
+
+
+
+                                                                       𝐼
+                                                              Average
+                                                                              0.04
+                                                                                                                              1.5                                            0.8
+                            0
+                                                                                                                                                                             0.6
+
+                        -0.05                                                   0                                                                                            0.4
+                                0.1n           0.95n                                 0.1n            0.95n                    -0.5
+                                       order                                                 order                                0.1n               0.95n                   0.2
+                                                                                                                                            order                                  0.1n           0.95n
+                                                                                                                                                                                          order
+
+             (a)The multi-order interaction
+                                                                                 (𝑚)
+                                                                                𝐼nor        and
+                                                                                                   (𝑚)
+                                                                                                  𝐼adv             (b) Distribution of compositional         (c) The interaction disentanglement 𝐷 (𝑚) .
+             based on ResNet-18.                                                                                   attacking utilities Δ𝐽 𝑚 .
+
+      Figure 3: Experimental results on ResNet-18 when setting the masked variables to zero.
+
+I.3   Discussions about attacking utilities of multi-order interactions.
+
+Figure 4 of the paper shows that low-order interactions in adversarially trained DNNs usually have
+more attacking utilities. Note that the attacking utility on high/middle-order interactions may make
+∆J (m) on low-order interactions negative, as a trade-off. According to Eq. (3), the sum of attacking
+utilities on low-order, middle-order, and high-order interactions is a constant (∆v(N |x)). Therefore,
+the penalization of high-order interactions may also cause the increase of low-order interactions to
+some extent. In this way, there are two effects on low-order interactions. First, adversarial attacks
+penalize low-order interactions. Second, the penalization of high-order interactions also boosts
+low-order interactions as a side effect. In such a trade-off, low-order interactions decrease in most
+DNNs. In this way, low-order interactions are increased in a few special cases, which can be explained
+by the above analysis.
+
+I.4   More details about the approximation method of computing interactions
+
+To reduce the computational cost, we applied the sampling-based approximation method in [25] and
+did not compute interactions at the pixel-wise level. Instead, we split the image into 16 × 16 grids,
+and took each grid as a single input variable, thereby n = 256. Then, we randomly sampled 200
+pairs of grids (i, j), and for each pair of grids and each order m, we sampled contexts S s.t. |S| = m
+for 100 times to approximate the interaction. Then we computed the m-th order interactions based on
+Eq. (2) in the main paper by using the sampled pairs of grids and contexts.
+
+I.5   More details about the setting of masking in the computation of interactions
+
+In the main paper, we measured the interaction I (m) by setting v(S|x) = log p(y =
+y truth |given variables in S in the input x and mask variables in N \ S). Variables not in S were
+set to the average value over different input samples following settings in [1], to represent their
+absence. In this section, we conducted experiments by using setting masked variables to zero, to
+verify that the effects of the choice of masking on the results does not affect our conclusions. Figure 3
+shows that the choice of masking did not affect the conclusion that adversarial attacks mainly affect
+high-order interactions.
+
+I.6   Analysis about interactions w.r.t. the target category and other categories
+
+In the main paper, experimental results on the ground-truth category have verified our conclusions
+that adversarial attacks mainly affect high-order interactions. In this section of the supplementary
+material, we show more results on the target category and other categories, which also verified our
+conclusions.
+In the targeted attack, the target category was referred to as the target label y target 6= y truth . In the
+untargeted attack, we considered the misclassified category y pred 6= y truth as the target category. Given
+each input image, we measured the interaction w.r.t. the output of its target category by setting
+v(S|x) = log p(y = y target |S, x). Besides, we also measured the interactions w.r.t. outputs of other
+categories, except the ground-truth category. Considering the softmax operation p(y = y truth |S, x) =
+  exp(hytruth (S|x))                       P
+P
+    0 exp(h 0 (S|x))
+                     , we set v(S|x) = log y0 6=ytruth exp(hy0 (S|x)) to measure the interaction w.r.t.
+  y                     y
+effects on other categories. hy0 (S|x) denoted the network output of the catagory y 0 before the
+softmax layer, when we took variables in S of x as the input. Figure 1 shows interactions w.r.t.
+outputs of the target category and other categories. We found that high-order interactions w.r.t. other
+categories usually increased. Meanwhile, high-order interactions w.r.t. the target category also
+
+
+                                                                                                                          12
+

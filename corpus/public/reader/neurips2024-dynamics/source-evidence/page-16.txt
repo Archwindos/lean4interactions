@@ -1,0 +1,69 @@
+Therefore, the OR interaction Ior (S|x) in Eq. 2 in main paper can be represented as an AND
+interaction Ior (S|x̃), as follows.
+                                              X
+                                Ior (S|x) = −   (−1)|S|−|T | v(xN \T ),                  (14)
+                                                  T ⊆S
+                                                  X
+                                             =−          (−1)|S|−|T | v(x̃T ),                            (15)
+                                                  T ⊆S
+                                             = −Iand (S|x̃) .                                             (16)
+
+In this way, the proof of the sparsity of AND interactions in [27] can also extend to OR interactions.
+Furthermore, we can simplify our analysis of the DNN’s learning of interactions by only focusing on
+AND interactions.
+
+F    Proof of theorems
+F.1 Proof of Theorem 2
+Proof. (1) Universal matching theorem of AND interactions.
+We will prove that output component vand (xS ) on all 2n masked samples {xS : S ⊆ N } could
+P universally explained by the all interactions in S ⊆ N , i.e., ∀∅ =
+be                                                                                  ̸ S ⊆ N, vand (xS ) =
+   ∅̸=T ⊆S I and (T |x) + v(x ∅ ). In particular, we define v and (x ∅ ) = v(x∅ ) (i.e., we attribute output on
+an empty sample to AND interactions).
+Specifically, the AND interaction is defined as Iand (T |x) = L⊆T (−1)|T |−|L| vand (xL ) in 2. To
+                                                                        P
+
+compute the sum of AND interactions ∅̸=T ⊆S Iand (T |x) = ∅̸=T ⊆S L⊆T (−1)|T |−|L| vand (xL ),
+                                           P                         P          P
+we first exchange the order of summation of the set L ⊆ T ⊆ S and the set T ⊇ L. That is,
+we compute all linear combinations of all sets      PT containing L with respect to the model outputs
+vand (xL ) given a set of input variables L, i.e., T :L⊆T ⊆S (−1)|T |−|L| vand (xL ). Then, we compute
+all summations over the set L ⊆ S.
+In this way, we can compute them separately for different cases of L ⊆ T ⊆ S. In the following, we
+consider the cases (1) L = S = T , and (2) L ⊆ T ⊆ S, L ̸= S, respectively.
+(1) When L = S = T , the linear combination of all subsets T containing L with respect to the model
+output vand (xL ) is (−1)|S|−|S| vand (xL ) = vand (xL ).
+(2) When L ⊆ T ⊆ S, L ̸= S, the    P linear combination of all subsets T containing L with respect
+to the model output vand (xL ) is T :L⊆T ⊆S (−1)|T |−|L| vand (xL ). For all sets T : S ⊇ T ⊇ L, let
+us consider the linear combinations of all sets T with number |T | for the model output vand (xL ),
+                                                                                  m
+respectively. Let m := |T |−|L|, (0 ≤ m ≤ |S|−|L|), then there are a total of C|S|−|L|  combinations
+of all sets T of order |T |. Thus, given L, accumulating the model outputs vand (xL ) corresponding
+                                                                     X|S|−|L|
+                                                                                   m
+to all T ⊇ L, then T :L⊆T ⊆S (−1)|T |−|L| vand (xL ) = vand (xL ) ·                       (−1)m = 0.
+                     P
+                                                                                 C|S|−|L|
+                                                                     | m=0        {z          }
+                                                                                         =0
+Please see the complete derivation of the following formula.
+                X
+                        Iand (T |x)
+                    ∅̸=T ⊆S
+                X       X
+             =                    (−1)|T |−|L| vand (xL )
+                ∅̸=T ⊆S     L⊆T
+               X      X
+             =                      (−1)|T |−|L| vand (xL ) − vand (x∅ )
+                    L⊆S       T :L⊆T ⊆S
+                              X                             X|S|−|L|                                      (17)
+                                                                         m
+             = vand (xS ) +                  vand (xL ) ·              C|S|−|L| (−1)m −vand (x∅ )
+               | {z }             L⊆S,L̸=S                      m=0
+                                                            |           {z          }
+                  L=S                                                   =0
+             =vand (xS ) − vand (x∅ )
+             =vand (xS ) − v(x∅ )
+
+
+                                                         16

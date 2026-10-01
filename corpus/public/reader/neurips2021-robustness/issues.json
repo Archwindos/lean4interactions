@@ -1,0 +1,268 @@
+[
+  {
+    "id": "robustness-entropy-proof-sign",
+    "paper_id": "neurips2021-robustness",
+    "title": "Proposition1原证明的两处熵符号错误",
+    "kind": "proof_error",
+    "classification": "proof_error",
+    "status": "agent_confirmed",
+    "original_expression": "v(S)=+H(Y\\mid X_S)\\quad\\text{but proof substitutes }-H",
+    "source_location": "supplement PDF6 B.4 proof of Eq.(6)",
+    "evidence_md": "原命题定义+H。正确四项差为$H(Y\\mid S,i,j)-H(Y\\mid S,i)-H(Y\\mid S,j)+H(Y\\mid S)$，等于$MI(X_i;Y\\mid S)-MI(X_i;Y\\mid S,X_j)$。原证明用了四项的相反数，再用了与Eq7相反的三元MI定义，最终两错抵消。H(H|XS)另为Y误植。",
+    "problem_md": "原命题定义+H。正确四项差为$H(Y\\mid S,i,j)-H(Y\\mid S,i)-H(Y\\mid S,j)+H(Y\\mid S)$，等于$MI(X_i;Y\\mid S)-MI(X_i;Y\\mid S,X_j)$。原证明用了四项的相反数，再用了与Eq7相反的三元MI定义，最终两错抵消。H(H|XS)另为Y误植。",
+    "impact_md": "只修证明；保留原+H与Eq6。原Eq7采用co-information符号，不能改成enhancement约定。",
+    "related_result_ids": [
+      "robustness-entropy-interaction"
+    ],
+    "fix_authorization": "proof_only_granted",
+    "user_confirmation": "not_required_for_proof_only_correction",
+    "user_review_status": "pending",
+    "resolution": "original_statement_preserved",
+    "translations": {
+      "en": {
+        "title": "Two entropy-sign errors in the proof of Proposition 1",
+        "problem_md": "The statement uses +H. Its four-term difference equals $MI(X_i;Y\\mid S)-MI(X_i;Y\\mid S,X_j)$. The proof first negates this difference, then uses the opposite sign convention from Equation (7) for three-way information. The two errors cancel in the final formula. H(H|XS) is also a Y transcription typo.",
+        "evidence_md": "The statement uses +H. Its four-term difference equals $MI(X_i;Y\\mid S)-MI(X_i;Y\\mid S,X_j)$. The proof first negates this difference, then uses the opposite sign convention from Equation (7) for three-way information. The two errors cancel in the final formula. H(H|XS) is also a Y transcription typo.",
+        "impact_md": "Repair only the proof, retaining +H and Equation (6). Equation (7) uses the co-information convention and is not silently changed to the enhancement convention."
+      }
+    },
+    "source_refs": [
+      {
+        "source_id": "src-neurips2021-robustness-formal",
+        "version_id": "ver-neurips2021-robustness-formal",
+        "pdf_pages": [
+          7
+        ],
+        "section": "Proposition 1"
+      },
+      {
+        "source_id": "src-neurips2021-robustness-supplement",
+        "version_id": "ver-neurips2021-robustness-formal",
+        "pdf_pages": [
+          6
+        ],
+        "section": "B.4 Equation (6) proof"
+      }
+    ],
+    "issue_type": "proof_step_error",
+    "original_statement_status": "original_statement_preserved"
+  },
+  {
+    "id": "robustness-symmetry-context-typo",
+    "paper_id": "neurips2021-robustness",
+    "title": "B.1对称性证明上下文集合误植",
+    "kind": "proof_error",
+    "classification": "proof_error",
+    "status": "agent_confirmed",
+    "original_expression": "E_{S\\subseteq N\\setminus\\{i,j\\}}\\Delta v(i,k,S)",
+    "source_location": "supplement PDF3 B.1 symmetry first/last expectation",
+    "evidence_md": "对象$I_{ik}^{(m)}$的上下文应排除i,k，首/末平均却印成排除i,j。中间求和实际用N\\{i,k}及N\\{i,j,k}，可修为交换i,j的上下文双射证明。",
+    "problem_md": "对象$I_{ik}^{(m)}$的上下文应排除i,k，首/末平均却印成排除i,j。中间求和实际用N\\{i,k}及N\\{i,j,k}，可修为交换i,j的上下文双射证明。",
+    "impact_md": "对称性原陈述与原条件保持。",
+    "related_result_ids": [
+      "robustness-interaction-symmetry"
+    ],
+    "fix_authorization": "proof_only_granted",
+    "user_confirmation": "not_required_for_proof_only_correction",
+    "user_review_status": "pending",
+    "resolution": "original_statement_preserved",
+    "translations": {
+      "en": {
+        "title": "Context-set typo in the interaction symmetry proof",
+        "problem_md": "The contexts of $I_{ik}^{(m)}$ exclude i and k, while the first/last averages print i and j. The intervening sums use the correct exclusions. A context bijection swapping i and j repairs the proof.",
+        "evidence_md": "The contexts of $I_{ik}^{(m)}$ exclude i and k, while the first/last averages print i and j. The intervening sums use the correct exclusions. A context bijection swapping i and j repairs the proof.",
+        "impact_md": "The symmetry claim and its premises are preserved."
+      }
+    },
+    "source_refs": [
+      {
+        "source_id": "src-neurips2021-robustness-supplement",
+        "version_id": "ver-neurips2021-robustness-formal",
+        "pdf_pages": [
+          3
+        ],
+        "section": "B.1 interaction symmetry proof"
+      }
+    ],
+    "issue_type": "proof_step_error",
+    "original_statement_status": "original_statement_preserved"
+  },
+  {
+    "id": "robustness-dropout-floor",
+    "paper_id": "neurips2021-robustness",
+    "title": "Eq14/15把固定大小取整丢弃率换成连续比例",
+    "kind": "false_statement_clause",
+    "classification": "false_statement_clause",
+    "status": "agent_confirmed",
+    "original_expression": "k=\\lfloor(1-\\alpha)n\\rfloor\\quad\\text{but coefficient }1-\\alpha",
+    "source_location": "supplement PDF9 H definition; PDF10 Eqs.(14)–(15)",
+    "evidence_md": "原K均匀取固定大小k，不是Bernoulli dropout。取n=4、α=2/5、k=2、$g(S)=|S|$，所有pair交互0，真实均值2，原Eq14为$(1-α)4=12/5$。正确抽取包含率k/n仅可作为另一个修订推导，不能把它冒充原Eq14证明。",
+    "problem_md": "原K均匀取固定大小k，不是Bernoulli dropout。取n=4、α=2/5、k=2、$g(S)=|S|$，所有pair交互0，真实均值2，原Eq14为$(1-α)4=12/5$。正确抽取包含率k/n仅可作为另一个修订推导，不能把它冒充原Eq14证明。",
+    "impact_md": "固定大小平均的floor子句错误；高阶截断及经验cutout结论另分范围。",
+    "related_result_ids": [
+      "robustness-dropout-expansion"
+    ],
+    "fix_authorization": "proof_only_granted",
+    "user_confirmation": "not_required_for_proof_only_correction",
+    "user_review_status": "pending",
+    "resolution": "original_statement_preserved",
+    "translations": {
+      "en": {
+        "title": "Equations (14)–(15) replace the rounded fixed-size rate",
+        "problem_md": "The source samples a fixed-size subset uniformly, rather than using Bernoulli dropout. For n=4, α=2/5, k=2 and $g(S)=|S|$, all pair interactions vanish and the true mean is 2, whereas Equation (14) gives 12/5. The inclusion probability k/n belongs to a separate corrected derivation and does not prove the original equation.",
+        "evidence_md": "The source samples a fixed-size subset uniformly, rather than using Bernoulli dropout. For n=4, α=2/5, k=2 and $g(S)=|S|$, all pair interactions vanish and the true mean is 2, whereas Equation (14) gives 12/5. The inclusion probability k/n belongs to a separate corrected derivation and does not prove the original equation.",
+        "impact_md": "The rounded-rate clause is false; high-order truncation and empirical cutout conclusions have separate scopes."
+      }
+    },
+    "source_refs": [
+      {
+        "source_id": "src-neurips2021-robustness-formal",
+        "version_id": "ver-neurips2021-robustness-formal",
+        "pdf_pages": [
+          9,
+          10
+        ],
+        "section": "dropout/cutout discussion"
+      },
+      {
+        "source_id": "src-neurips2021-robustness-supplement",
+        "version_id": "ver-neurips2021-robustness-formal",
+        "pdf_pages": [
+          9,
+          10
+        ],
+        "section": "H fixed-size definition and Equations (14)–(15)"
+      }
+    ],
+    "issue_type": "statement_partial_counterexample",
+    "original_statement_status": "compound_clause_counterexample_verified"
+  },
+  {
+    "id": "robustness-disentanglement-zero",
+    "paper_id": "neurips2021-robustness",
+    "title": "D(m)在全零交互上下文未定义",
+    "kind": "domain_issue",
+    "classification": "domain_issue",
+    "status": "agent_confirmed",
+    "original_expression": "\\frac{|E\\Delta g|}{E|\\Delta g|}",
+    "source_location": "formal PDF8 Eq.(4); supplement PDF8 Eq.(10)",
+    "evidence_md": "若全部上下文Δg=0，分母与分子均0，原文未给0/0约定。比值界和同号等号只在分母正的定义域证明；不增加前提后声称全部原定义有效。",
+    "problem_md": "若全部上下文Δg=0，分母与分子均0，原文未给0/0约定。比值界和同号等号只在分母正的定义域证明；不增加前提后声称全部原定义有效。",
+    "impact_md": "单列定义域问题，不等于interaction性质错误。",
+    "related_result_ids": [
+      "robustness-disentanglement"
+    ],
+    "fix_authorization": "proof_only_granted",
+    "user_confirmation": "not_required_for_proof_only_correction",
+    "user_review_status": "pending",
+    "resolution": "original_statement_preserved",
+    "translations": {
+      "en": {
+        "title": "D(m) is undefined for zero interaction contexts",
+        "problem_md": "When all context differences vanish, both numerator and denominator are zero and the source gives no 0/0 convention. Ratio bounds and the same-sign equality apply only on the positive-denominator domain and do not make the original definition total.",
+        "evidence_md": "When all context differences vanish, both numerator and denominator are zero and the source gives no 0/0 convention. Ratio bounds and the same-sign equality apply only on the positive-denominator domain and do not make the original definition total.",
+        "impact_md": "This is a domain issue, separate from the interaction properties."
+      }
+    },
+    "source_refs": [
+      {
+        "source_id": "src-neurips2021-robustness-formal",
+        "version_id": "ver-neurips2021-robustness-formal",
+        "pdf_pages": [
+          8
+        ],
+        "section": "Equation (4)"
+      },
+      {
+        "source_id": "src-neurips2021-robustness-supplement",
+        "version_id": "ver-neurips2021-robustness-formal",
+        "pdf_pages": [
+          8
+        ],
+        "section": "F Equation (10)"
+      }
+    ],
+    "issue_type": "statement_alignment_or_scope",
+    "original_statement_status": "source_scope_under_review"
+  },
+  {
+    "id": "robustness-self-pair-quantifier",
+    "paper_id": "neurips2021-robustness",
+    "title": "Nullity显示量词与双玩家定义域",
+    "kind": "domain_ambiguity",
+    "classification": "domain_ambiguity",
+    "status": "agent_confirmed",
+    "original_expression": "\\forall j\\in N,\\ I_{ij}^{(m)}=0",
+    "source_location": "supplement PDF3 B.1 Nullity statement",
+    "evidence_md": "原文字说other variables，但显示∀j∈N包含j=i。pair的原上下文大小范围n−2及两玩家解释要求i≠j；若硬扩成自配对，Δ(i,i,S)=g(S)−g(Si)，dummy增量非零时不为0。原量词照录，适配的i≠j是双玩家domain，不是补入以救自配对扩张。",
+    "problem_md": "原文字说other variables，但显示∀j∈N包含j=i。pair的原上下文大小范围n−2及两玩家解释要求i≠j；若硬扩成自配对，Δ(i,i,S)=g(S)−g(Si)，dummy增量非零时不为0。原量词照录，适配的i≠j是双玩家domain，不是补入以救自配对扩张。",
+    "impact_md": "仅量词/定义域歧义，双玩家nullity仍有效。",
+    "related_result_ids": [
+      "robustness-interaction-nullity"
+    ],
+    "fix_authorization": "proof_only_granted",
+    "user_confirmation": "not_required_for_proof_only_correction",
+    "user_review_status": "pending",
+    "resolution": "original_statement_preserved",
+    "translations": {
+      "en": {
+        "title": "The displayed nullity quantifier and the two-player domain",
+        "problem_md": "The prose says other variables, while the display includes j=i. The source two-player interpretation and n−2 context range use distinct players. A literal self-pair extension gives Δ(i,i,S)=g(S)−g(Si), which is nonzero for a nonzero dummy increment. The displayed quantifier is retained; the adapter’s distinct-player premise records the pair domain rather than proving the self-pair extension.",
+        "evidence_md": "The prose says other variables, while the display includes j=i. The source two-player interpretation and n−2 context range use distinct players. A literal self-pair extension gives Δ(i,i,S)=g(S)−g(Si), which is nonzero for a nonzero dummy increment. The displayed quantifier is retained; the adapter’s distinct-player premise records the pair domain rather than proving the self-pair extension.",
+        "impact_md": "This is a quantifier/domain ambiguity; two-player nullity remains valid."
+      }
+    },
+    "source_refs": [
+      {
+        "source_id": "src-neurips2021-robustness-supplement",
+        "version_id": "ver-neurips2021-robustness-formal",
+        "pdf_pages": [
+          3
+        ],
+        "section": "B.1 Nullity displayed quantifier"
+      }
+    ],
+    "issue_type": "statement_alignment_or_scope",
+    "original_statement_status": "source_scope_under_review"
+  },
+  {
+    "id": "robustness-benefit-cancellation-typo",
+    "paper_id": "neurips2021-robustness",
+    "title": "Eq7取消后的exclusive变量误植",
+    "kind": "proof_error",
+    "classification": "proof_error",
+    "status": "agent_confirmed",
+    "original_expression": "\\mathrm{right}=MI(X_i;Y\\mid X_j,X_S)+MI(X_i;Y\\mid X_S)",
+    "source_location": "supplement PDF7 Eq7 proof third line",
+    "evidence_md": "取消Xi exclusive后应留下MI(Xj;Y|Xi,XS)，原第三行却仍写Xi。下一行log分子p(xj,y|xi,xS)已经使用正确Xj。重写以四熵恒等式消去该误植，原链照录。",
+    "problem_md": "取消Xi exclusive后应留下MI(Xj;Y|Xi,XS)，原第三行却仍写Xi。下一行log分子p(xj,y|xi,xS)已经使用正确Xj。重写以四熵恒等式消去该误植，原链照录。",
+    "impact_md": "只修作者证明变量，不改Eq7原命题及co-information约定。",
+    "related_result_ids": [
+      "robustness-exclusive-shared-benefits"
+    ],
+    "fix_authorization": "proof_only_granted",
+    "user_confirmation": "not_required_for_proof_only_correction",
+    "user_review_status": "pending",
+    "resolution": "original_statement_preserved",
+    "translations": {
+      "en": {
+        "title": "Wrong exclusive variable after cancellation in Equation (7)",
+        "problem_md": "After cancelling the Xi exclusive term, the remaining exclusive term is MI(Xj;Y|Xi,XS). The third line still prints Xi, while its next logarithm uses Xj correctly. The rewrite uses the four-entropy identity and retains the original chain.",
+        "evidence_md": "After cancelling the Xi exclusive term, the remaining exclusive term is MI(Xj;Y|Xi,XS). The third line still prints Xi, while its next logarithm uses Xj correctly. The rewrite uses the four-entropy identity and retains the original chain.",
+        "impact_md": "Only the proof variable is repaired; Equation (7) and its co-information convention remain intact."
+      }
+    },
+    "source_refs": [
+      {
+        "source_id": "src-neurips2021-robustness-supplement",
+        "version_id": "ver-neurips2021-robustness-formal",
+        "pdf_pages": [
+          7
+        ],
+        "section": "B.4 Equation (7) cancellation chain"
+      }
+    ],
+    "issue_type": "proof_step_error",
+    "original_statement_status": "original_statement_preserved"
+  }
+]

@@ -1,0 +1,29 @@
+                            Defects of Convolutional Decoder Networks in Frequency Representation
+
+
+
+
+                             [u=2,v=63]              [u=3,v=63]                [u=6,v=63]            [u=10,v=63]
+
+                    [u=63,v=3]             [u=62,v=3]               [u=59,v=3]               [u=55,v=3]
+
+
+                           [u,v]            [u+1,v] or [u-1,v]         [u+4,v] or [u-4,v]     [u+8,v] or [u-8,v]
+
+Figure 14. Examples of shifting each salient frequency component [u, v] in the input to [u + ∆u, v] or [u − ∆u, v] towards higher
+frequencies, where ∆u = 1, 4, 8. For clarity, we move low frequencies to the center of the spectrum map, and move high frequencies to
+the corners of the spectrum map.
+
+
+
+
+                            Table 2. Number of epochs for the training of each model and its fitting error.
+                                                                                                       # training epoch   fitting error
+  The model used in verifying that a neural network usually learned low frequent components first             400           9.35e-3
+  The model used in verifying the repeat of certain frequencies.                                               10           6.97e-2
+
+
+
+
+                                                                  34
+

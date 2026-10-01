@@ -1,0 +1,64 @@
+  Towards Theoretical Analysis of Transformation Complexity of ReLU DNNs
+
+
+                      Jie Ren * 1 Mingjie Li * 1 Meng Zhou 2 Shih-Han Chan 3 Quanshi Zhang 4
+
+
+                          Abstract                                             A simple DNN: ℝ2 → ℝ                        A complex DNN: ℝ2 → ℝ
+                                                                                      𝑦 = DNN(𝑥)                               𝑦 = DNN(𝑥)
+      This paper aims to theoretically analyze the com-
+      plexity of feature transformations encoded in
+      piecewise linear DNNs with ReLU layers. We
+      propose metrics to measure three types of com-                                                      𝑥2                                       𝑥2
+
+      plexities of transformations based on the informa-                 𝑥1                                           𝑥1
+      tion theory. We further discover and prove the                 samples
+                                                                                              samples activating
+      strong correlation between the complexity and the              activating
+                                                                     the same                another gating state 𝝈
+                                                                     gating state 𝝈
+      disentanglement of transformations. Based on the                                          linear subspaces
+
+      proposed metrics, we analyze two typical phenom-               Figure 1. The change of gating states in an ReLU DNN divides
+      ena of the change of the transformation complex-               the input space into lots of linear subspaces. In this paper, we aim
+      ity during the training process, and explore the               to quantify the complexity of linear subspaces encoded in ReLU
+      ceiling of a DNN’s complexity. The proposed met-               DNNs.
+      rics can also be used as a loss to learn a DNN with
+      the minimum complexity, which also controls
+      the over-fitting level of the DNN and influences               In fact, there have been many studies (Arora et al., 2016;
+      adversarial robustness, adversarial transferabil-              Zhang et al., 2016; Raghu et al., 2017; Manurangsi & Re-
+      ity, and knowledge consistency. Comprehensive                  ichman, 2018) on the representation complexity of a DNN.
+      comparative studies have provided new perspec-                 However, unlike traditional studies on the theoretic max-
+      tives to understand the DNN. The code is released              imum complexity of a DNN, we investigate this problem
+      at https://github.com/sjtu-XAI-lab/transformation-             from a new perspective, i.e., the complexity of piecewise
+      complexity.                                                    linear representations of a ReLU network. In fact, most
+                                                                     DNNs with ReLU activation functions are piecewise lin-
+                                                                     ear models. As Figure 1 shows, for such piecewise lin-
+                                                                     ear models, the number of piecewise linear subspaces
+1. Introduction
+                                                                     in the model is the distinctive perspective to analyze
+Understanding the black-box of deep neural networks                  the representation complexity of the model. A complex
+(DNNs) has attracted increasing attention in recent years.           DNN usually uses countless linear subspaces for regres-
+Previous studies usually interpret DNNs by either explain-           sion/classification. Such a complexity reveals new insights
+ing DNNs visually/semantically (Lundberg & Lee, 2017;                into typical problems, such as the feature disentanglement,
+Ribeiro et al., 2016), or analyzing the feature representation       over-fitting, adversarial robustness, adversarial transferabil-
+capacity of a DNN (Higgins et al., 2017; Achille & Soatto,           ity, and knowledge consistency.
+2018a;b; Fort et al., 2019). To this end, in this paper, we
+                                                                     Therefore, in this paper, we define three new metrics in
+aim to explain the representation capacity of a DNN by
+                                                                     information theory to quantify the diversity of gating states
+analyzing its complexity of feature representations.
+                                                                     in gating layers (e.g., ReLU, max-Pooling, and Dropout
+  *
+    Equal contribution 1 Shanghai Jiao Tong University. 2 Carnegie   layers). Such gating states directly determine the complexity
+Mellon University. 3 University of California San Diego. 4 Quanshi   of linear subspaces that are encoded by a piecewise linear
+Zhang is the corresponding author. He is with the Department         ReLU network. For example, as Figure 1 shows, the change
+of Computer Science and Engineering, the John Hopcroft Center,       of gating states in a DNN divides the entire input space
+and the MoE Key Lab of Artificial Intelligence, AI Institute, at
+the Shanghai Jiao Tong University, China. Correspondence to:         into lots of linear subspaces. Compared with intermediate-
+Quanshi Zhang <zqs1022@sjtu.edu.cn>.                                 layers neural activations, gating states can better reflect the
+                                                                     diversity of transformations in a piecewise linear DNN.
+Proceedings of the 39 th International Conference on Machine
+Learning, Baltimore, Maryland, USA, PMLR 162, 2022. Copy-            Thus, the first metric is defined as the entropy of the gat-
+right 2022 by the author(s).                                         ing states of nonlinear operations. Specifically, let us con-
+

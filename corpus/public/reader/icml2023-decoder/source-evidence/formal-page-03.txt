@@ -1,0 +1,89 @@
+                               Defects of Convolutional Decoder Networks in Frequency Representation
+                                                                                                         ∀𝑢 + 𝑣 ≠ 0                                   Output spectrums
+nomenon (Nakkiran et al., 2019; Reinhard & Fatih, 2020)                           Input spectrums        𝕋(,-)():+) 𝒈(,-) = 𝒉(,-)
+                                                                                                                                                       𝐇 ∈ ℂ𝑪𝑳 ×#×$
+described the specific training process of DNNs that the loss                      𝐆 ∈ ℂ𝑪𝟎 ×#×$                              ∀𝑚 + 𝑛 ≠ 0
+                                                                                                                            𝕋 (&')():+) 𝒈 (&') =𝒉 (&')
+first declined, then rose, and then declined again. DNNs                                                  ℂ𝑪𝑳 ×𝑪𝟎
+with batch normalization were sometimes conflicted with                         (a)
+                                                                                                                              ℂ𝑪𝑳 ×𝑪𝟎
+                                                                                                                                                                Inverse
+the weight decay (Van Laarhoven, 2017; Li et al., 2020).                              DFT                                                                        DFT
+DNNs were difficult to encode interactions between an in-
+termediate number of input variables (Deng et al., 2022).                       (b)                                    ……
+                                                                                                                   L cascaded
+                                                                                 Input 𝑥 ∈ ℝ𝑪𝟎 ×#×$                                             Output 𝑥' ∈ ℝ𝑪𝑳 ×#×$
+                                                                                                               convolutional layers
+3. Propagation in the frequency domain
+Preliminary 1, convolution operation. Given a con-                              Figure 2. Forward propagation in the frequency domain (a) and
+volutional layer, let W[ker=1] , W[ker=2] , . . ., W[ker=D] de-                 forward propagation in the time domain (b). The cascaded convo-
+note D convolutional kernels of this layer, and let                             lution operations on input x are essentially equivalent to matrix
+b[ker=1] , b[ker=2] , . . . , b[ker=D] ∈ R denote D bias terms. Each            multiplication on spectrums G of the input.
+d-th kernel W[ker=d] ∈ RC×K×K is of the kernel size K × K ,
+and C denotes the channel number. Accordingly, we apply
+these kernels on a feature F ∈ RC×M ×N with C channels,                         circular padding is used to extend the last row and the last
+and obtain the output feature F          e ∈ RD×M 0 ×N 0 , as follows.          column of the feature map in each channel.
+                                                                                Theorem 3.2. (Proof in Appendix A.1). According to As-
+                                                                                                                 e ∈ RD×M ×N has the same
+                                                                                sumption 3.1, the output feature F
+ e = Conv(F), s.t. ∀d, F
+ F                      e(d) = W[ker=d] ⊗ F + b[ker=d] 1M 0 ×N 0 ,
+                                                              (1)               size as the input feature. Let H = [H (1) , H (2) , . . . , H (D) ] ∈
+        e(d) ∈ RM 0 ×N 0 denotes the feature map of the d-th                    CD×M ×N denote a tensor consisting of D spectrums corre-
+ where F
+                                                                                sponding to the D channels of F e . Then, H can be computed
+channel. ⊗ denotes the convolution operation. 1M 0 ×N 0 ∈                       as follows.
+   0   0
+RM ×N is an all-ones matrix.                                                                                                                 (
+Preliminary 2, discrete Fourier transform. Given the c-                               (uv)        (uv) (uv)                                      1, u = v = 0
+                                                                                 h           =T      g        +δuv M N b        s.t. δuv =                    (3)
+th channel of the feature F ∈ RC×M ×N , i.e., F (c) ∈ RM ×N ,                                                                                    0, otherwise
+we use the discrete Fourier transform (DFT) (Sundararajan,                                                    (1)    (2)           (D)
+2001) to compute the frequency spectrum of this channel,                         where h(uv) = [Huv               , Huv , . . . , Huv ]> ∈ CD denotes a
+which is termed G(c) ∈ CM ×N , as follows. C denotes the                        column at the frequency [u, v] in the tensor H; T (uv) ∈
+algebra of complex numbers.                                                     CD×C is a matrix of complex numbers and is exclusively
+                     XM −1 XN −1                                                determined by convolutional kernels W[ker=1] , W[ker=2] , . . .,
+                                                    um + vn )2π                                   (uv)       PK−1 PK−1 [ker=d] i( ut + vs )2π
+   ∀u, v,    G(c)
+              uv =
+                                          (c) −i(
+                                         Fmn e      M    N        .   (2)       W[ker=D] , Tdc           =      t=0      s=0 Wcts       e M N    ; b =
+                         m=0       n=0
+                                                                                [b(1) , b(2) , . . . , b(D) ]> ∈ RD denotes the vector of bias terms.
+  Each frequency component at the frequency [u, v] is
+                                                                                To simplify the further proof, we temporarily investigate the
+represented as a complex number, i.e., G(c)            uv ∈ C. Let
+                                                                                spectrum propagation of a network with L cascaded con-
+G = [G(1) , . . . , G(C) ] ∈ CC×M ×N denote the tensor of fre-
+                                                                                volutional layers, but does not contain activation functions.
+quency spectrums of the C channels of F. We take the
+                                                                                Let us first discuss the trustworthiness of such a simplifica-
+C -dimensional vector at the frequency [u, v] of the tensor G,
+                                                                                tion. We have conducted experiments to show that all our
+i.e., g(uv) = [G(1)       (2)           (C) >
+                    uv , Guv , . . . , Guv ]  ∈ CC , to represent the
+                                                                                findings in all theorems can also well explain the properties
+frequency component [u, v] of the feature F. Frequency com-
+                                                                                of an ordinary cascaded convolutional network with ReLU
+ponents closed to [0, 0], [0, N −1], [M −1, 0], or [M −1, N −1]
+                                                                                layers. As shown in Figure 3, for a network with ReLU
+represent low-frequency signals, whereas frequency compo-
+                                                                                layers, although the value derived from our theory was not
+nents closed to [ M2 , N2 ] represent high-frequency signals.
+                                                                                exactly the same as the real value, experimental results still
+                                                                                verified the conclusions of our theory. More crucially, ex-
+3.1. Propagation in frequency
+                                                                                periments in Figures 1, 3, 4, and 5 were all conducted on
+In this section, we extend the 2D circular convolution theo-                    ReLU networks.
+rem (Jain, 1989) to represent the forward propagation and                       Let a convolutional network contain L cascaded convolu-
+the back-propagation in a cascaded convolutional network.                       tional layers. Each l-th layer contains Cl convolutional ker-
+Assumption 3.1. Let us follow the setting in the 2D circular                    nels, W(l)[ker=1] , W(l)[ker=2] , . . . , W(l)[ker=Cl ] ∈ RCl−1 ×K×K ,
+convolution theorem (Jain, 1989), which adds the circular                       with Cl bias terms b(l,1) , b(l,2) , . . . , b(l,Cl ) ∈ R. Let x ∈
+padding operation assumption (Jain, 1989) to the convolu-                       RC0 ×M ×N denote the input sample. The network generates
+tion operation. The convolution operation is conducted with                     the output sample xb = net(x) ∈ RCL ×M ×N . Then, we derive
+a circular padding and with a stride size of 1, so as to avoid                  the forward propagation of spectrums of x to spectrums of
+the convolution changing the size of the feature map. The                       b in the frequency domain, as follows.
+                                                                                x
+
+                                                                            3
+

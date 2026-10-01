@@ -1,0 +1,97 @@
+G     Proof of Theorems
+G.1    Proof of Theorem 2 in the main paper
+                                                                          ′    n
+Theorem 2. Given a neural network v and an arbitrary input sample    P x ∈PR , the network output can
+be decomposed by using the Taylor expansion [10], i.e., v(x′ ) = S⊆N π∈QS US,π · J(S, π|x′ ). In
+this way, according to Eq. (1), the interaction effect I(S|x′ ) on the sample x′ can be reformulated as
+follows.                                    X
+                                 I(S|x′ ) =           US,π · J(S, π|x′ ).                           (2)
+                                               π∈Q
+                                                    ′
+                                                               πi S
+Here, J(S, π|x′ )= i∈S sign(x′i − bi ) · xi −b
+                     Q                         i
+                                            τ
+                                                    denotes a Taylor expansion term of the degree π,
+where the degree π ∈ QS = {[π1 , . . . , πn ]|∀i ∈ S, πi ∈ N+ ; ∀i ̸∈ S, πi = 0} and bi is the baseline
+                                                                m      ∂ m v(x′ )
+value to mask the input variable xi . In addition, US,π = Qnτ πi ! ∂xπ1 ···∂x∅πn · i∈S [sign(x′i − bi )]πi ,
+                                                                                  Q
+                                                             i=1        1       n
+where x′∅ denotes the sample whose input variables are all masked. m = ni=1 πi .
+                                                                                P
+
+
+                                                             ˜
+Proof. Let us denote the function on the right of Eq. (2) by I(S|x ′
+                                                                     ), i.e.,
+                                           X
+                                ˜
+                               I(S|x  ′
+                                        )=           US,π J(S, π|x′ )                                                    (3)
+                                                                π∈QS
+                                                                ˜
+We need to prove that for any arbitrary input sample ∀x′ ∈ Rn , I(S|x ′
+                                                                        ) = I(S|x′ ).
+Actually, it has been proven in [16] and [45] that the Harsanyi dividend I(S|x′ ) is the unique metric
+satisfying the faithfulness requirement mentioned in the main paper, i.e., satisfying
+                                                    X
+                              ∀ T ⊆ N, v(x′T ) =                I(S|x′ ).                          (4)
+                                                                            S∈Ω,S⊆T
+                                   ˜
+Thus, as long as we can prove that I(S|x ′
+                                           ) also satisfies the above faithfulness requirement, we can
+       ˜    ′         ′
+obtain I(S|x ) = I(S|x ).
+                                     ˜
+To this end, we only need to prove I(S|x  ′
+                                            ) also satisfies the faithfulness requirement in Eq. (4).
+                                       ′
+Specifically, given an input sample ∀x ∈ Rn , let us consider the Taylor expansion of the network
+output v(xT ) of an arbitrarily masked sample x′T (T ⊆ N ), which is expanded at x′∅ = [b1 , . . . , bn ].
+Then, we have
+                                     ∞ X
+                                       ∞                 ∞                                       n
+                                     X                   X             1        ∂ m v(x′∅ )     Y
+         ∀ T ⊆ N,      v(x′T ) =                   ···           Qn             π1         πn ·    [(x′T )i − bi ]πi ,   (5)
+                                     π1 =0 π2 =0         πn =0       i=1 πi ! ∂x1 · · · ∂xn     i=1
+
+wherePπ ∈ {[π1 , . . . , πn ]|∀i ∈ N, πi ∈ N} denotes the degree vector of Taylor expansion terms, and
+m= n  i=1 πi . In addition, bi denotes the reference value to mask the input variable xi .
+
+According to the definition of the masked sample x′T , we have that all variables in T keep unchanged
+and other variables are masked to the reference value. That is, ∀ i ∈ T , (x′T )i = xi ; ∀ i ̸∈ T , (x′T )i = bi .
+Hence, we obtain ∀i ̸∈ T, [(x′T )i − bi ]πi = 0. Then, among all Taylor expansion terms, only terms
+corresponding to degrees π in the set P = {[π1 , . . . , πn ]|∀i ∈ T, πi ∈ N; ∀i ̸∈ T, πi = 0} may not be
+zero. Therefore, Eq. (5) can be rewritten as
+                                               X                 1        ∂ m v(x′∅ )       Y ′
+                   ∀ T ⊆ N,        v(x′T ) =              Qn               π1          πn ·     (xi − bi )πi .           (6)
+                                               π∈P             i=1 πi ! ∂x 1  · · · ∂x n
+                                                                                            i∈T
+
+We find that the set P can be divided into multiple disjoint sets as follows, P = ∪S⊆T QS , where
+QS = {[π1 , . . . , πn ]|∀i ∈ S, πi ∈ N+ ; ∀i ̸∈ S, πi = 0}. Then, we can derive that
+                                      X X                  1         ∂ m v(x′∅ )       Y ′
+          ∀ T ⊆ N,       v(x′T ) =                  Qn                π1          πn ·     (xi − bi )πi
+                                                         i=1 π i ! ∂x 1  · · · ∂x n
+                                     S⊆T π∈QS                                          i∈S
+                                      X X            τm    ∂ m v(x′∅ ) Y             Y x′i − bi π                        (7)
+                                =                   Qn     π1         πn   (δi )πi ·     (δi     ) i,
+                                         π∈Q    i=1 πi ! ∂x1 · · · ∂xn i∈S           i∈S
+                                                                                               τ
+                                     S⊆T    S
+                                              |                {z                } |         {z    }
+                                                                           termed US,π               termed J(S,π|x′ )
+
+where τ ∈ R isP
+              a pre-defined constant and δi = sign(xi − ri ) ∈ {−1, 1} is a sign function satisfying
+δi2m = 1 (m = n i=1 πi ). Then, Eq. (7) can be re-written as
+                                                   X X                                      X
+                     ∀ T ⊆ N, v(x′T ) =                              US,π · J(S, π|x′ ) =         ˜
+                                                                                                  I(S|x ′
+                                                                                                          ).             (8)
+                                               S⊆T π∈QS                                     S⊆T
+
+
+
+                                                                     17

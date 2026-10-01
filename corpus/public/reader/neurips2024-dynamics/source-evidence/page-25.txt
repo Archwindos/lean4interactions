@@ -1,0 +1,59 @@
+Natural language data. We considered the input tokens as input variables for each input sentence.
+Specifically, we randomly selected 10 words that are meaningful (i.e., not including stopwords,
+special characters, and punctuations) as input variables in the set N to calculate interactions. We
+used the “mask” token with the token id 103 to mask the tokens in the set N \ S to obtain the masked
+sample xS .
+
+Point cloud data. We clustered all the points into 30 clusters using K-means clustering, and randomly
+selected 10 clusters as the input variables in the set N to calculate interactions. We used the average
+coordinate of the points in each cluster to mask the corresponding cluster in N \ S and obtained the
+masked sample xS .
+
+For all DNNs and datasets, we randomly selected 50 samples from the testing set to compute
+                                                                                                (k)
+interactions, and averaged the interaction strength of the k-th order on each sample to obtain Ireal .
+
+G.4    Compute resources
+All DNNs can be trained within 12 hours on a single NVIDIA GeForce RTX 3090 GPU (with 24G
+GPU memory). Computing all interactions on a single input sample usually takes 35-40 seconds,
+which is acceptable in real applications.
+
+H     Potential limitations of the theoretical proof
+In this study, we have assumed that during the training process, the noise on the parameters gradually
+decreased (σ 2 gradually became smaller). Although experiments in Figure 4 and Figure 8 have
+verified that the theoretical distribution of interaction strength can well match the real distribution by
+using a set of decreasing σ 2 values, it is not exactly clear how the value of σ 2 is related to the training
+process. The value of σ 2 probably does not decrease linearly along with the training epochs/iterations,
+which needs more precise formulations.
+
+I     More discussions about the two-phase dynamics
+I.1   Does the model re-learn the initial interactions during the second phase?
+Our theory does not claim that in the second phase, a DNN will not re-encode an interaction that is
+removed in the first phase. Instead, Theorem 4 and Proposition 1 collectively indicate the possibility
+of a DNN gradually re-encoding a few higher-order interactions in the second phase along with the
+decrease of the parameter noise.
+
+The key point to this question is that the massive interactions in a fully initialized DNN are all chaotic
+and meaningless patterns caused by randomly initialized network parameters. Therefore, the crux
+of the matter is not whether the DNN re-learns the initially removed interactions, but the fact that
+the DNN mainly removes chaotic and meaningless initial interactions in the first phase, and learns
+potential target interactions in the second phase. In this way, although a few interactions may be
+re-encoded later in the second phase, we do not consider this as a problem with the training of a
+DNN.
+
+I.2   About extending the theoretical analysis to specific network architectures
+Our current analysis is agnostic to the network architecture, and aims to explain the common two-
+phase dynamics of interactions that is shared by different network architectures for various tasks. Fig.
+2 and Fig. 5 demonstrate this shared two-phase dynamics.
+
+On the other hand, although DNNs with different architectures all exhibit the two-phase dynamics of
+interactions, the length of the two phases and the finally converged state of the DNN are influenced
+by the network architecture and can slightly vary among different architectures. Eq. (10) shows that
+our current formulation is to use the finally converged state of a DNN to accurately predict the DNN’s
+learning dynamics of interactions. Therefore, the learning dynamics predicted by our theory also
+exhibits slight differences among different DNN architectures and datasets accordingly, but it still
+matches well with the empirical dynamics of interactions. To this end, studying how the network
+architecture affects the finally converged state of a DNN may be a good future direction.
+
+
+                                                     25

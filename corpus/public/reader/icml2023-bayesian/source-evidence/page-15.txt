@@ -1,0 +1,101 @@
+                    Bayesian Neural Networks Avoid Encoding Complex and Perturbation-Sensitive Concepts
+
+G. Proof of Theorems
+G.1. Proof of Lemma 2.1 in the main paper
+Lemma 2.1. Given a neural network v and an arbitrary input sample x′ ∈ Rn , the network output can be decomposed
+using the Taylor expansion v(x′ ) = S⊆N π∈QS US,π · J(S, π|x′ ). In this way, according to Eq. (3) in the main paper, the
+                                    P       P
+                        ′                 ′
+interaction effect I(S|x ) on the sample x can be reformulated as
+                                                                           X
+                                                         I(S|x′ ) =                           US,π · J(S, π|x′ ),                                                       (20)
+                                                                                π∈QS
+                                                               πi
+                                                     x′i −ri
+                                
+where J(S, π|x′ ) =                 sign(x′i − ri ) ·
+                      Q
+                          i∈S                            τ
+                                                                     denotes an expansion term of the degree π, π ∈ QS = {[π1 , . . . , πn ]|∀i ∈
+          +                                       m        ∂ m v(x∅ )                           ′                       Pn
+                                              Qnτ                                                     − ri )]πi , m =
+                                                                                Q
+S, πi ∈ N ; ∀i ̸∈ S, πi = 0}. US,π =                        π1     πn       ·        i∈S [sign(xi                         i=1   πi .
+                                               i=1 πi ! ∂x1 ···∂xn
+
+
+
+                                                              ˜
+Proof. Let us denote the function on the right of Eq. (20) by I(S|x ′
+                                                                      ), i.e.,
+                                                       X
+                                           ˜
+                                           I(S|x  ′
+                                                    )=          US,π J(S, π|x′ )                                                                                        (21)
+                                                                                     π∈QS
+
+                                                                ˜
+We need to prove that for any arbitrary input sample ∀x′ ∈ Rn , I(S|x ′
+                                                                        ) = I(S|x′ ).
+
+Actually, it has been proven in Grabisch & Roubens (1999) and Ren et al. (2023a) that the Harsanyi dividend I(S|x′ ) is the
+unique metric satisfying the faithfulness requirement mentioned in the main paper, i.e., satisfying
+                                                            X
+                                        ∀ T ⊆ N, v(x′T ) =               I(S|x′ ).                                     (22)
+                                                                                                S∈Ω,S⊆T
+
+                                   ˜
+Thus, as long as we can prove that I(S|x           ′                                                        ˜
+                                         ) also satisfies the above faithfulness requirement, we can obtain I(S|x ′
+                                                                                                                    ) = I(S|x′ ).
+                                     ˜
+To this end, we only need to prove I(S|x   ′
+                                             ) also satisfies the faithfulness requirement in Eq. (22). Specifically, given an
+                 ′    n
+input sample ∀x ∈ R , let us consider the Taylor expansion of the network output v(xT ) of an arbitrarily masked sample
+x′T (T ⊆ N ), which is expanded at x′∅ = [r1 , . . . , rn ]. Then, we have
+                                                        ∞ X
+                                                          ∞                ∞                                           n
+                                                        X                  X               1        ∂ m v(x′∅ )       Y
+                      ∀ T ⊆ N,           v(x′T ) =                   ···             Qn              π1          πn ·    [(x′T )i − ri ]πi ,                            (23)
+                                                       π1 =0 π2 =0         πn =0         i=1 πi ! ∂x 1  · · · ∂x n
+                                                                                                                      i=1
+                                                                                                                                               Pn
+where π ∈ {[π1 , . . . , πn ]|∀i ∈ N, πi ∈ N} denotes the degree vector of Taylor expansion terms, and m =                                      i=1   πi . In addition,
+ri denotes the reference value to mask the input variable xi .
+According to the definition of the masked sample x′T , we have that all variables in T keep unchanged and other variables are
+masked to the reference value. That is, ∀ i ∈ T , (x′T )i = xi ; ∀ i ̸∈ T , (x′T )i = ri . Hence, we obtain ∀i ̸∈ T, [(x′T )i − ri ]πi = 0.
+Then, among all Taylor expansion terms, only terms corresponding to degrees π in the set P = {[π1 , . . . , πn ]|∀i ∈ T, πi ∈
+N; ∀i ̸∈ T, πi = 0} may not be zero. Therefore, Eq. (23) can be re-written as
+                                                                 X                   1        ∂ m v(x′∅ )       Y ′
+                                     ∀ T ⊆ N,        v(x′T ) =              Qn                 π1          πn ·     (xi − ri )πi .                                      (24)
+                                                                 π∈P
+                                                                                       π
+                                                                                    i=1 i ! ∂x 1  · · · ∂x n
+                                                                                                                i∈T
+
+We find that the set P can be divided into multiple disjoint sets as follows, P = ∪S⊆T QS , where QS = {[π1 , . . . , πn ]|∀i ∈
+S, πi ∈ N+ ; ∀i ̸∈ S, πi = 0}. Then, we can derive that
+                                                        X X                     1    ∂ m v(x′∅ )       Y ′
+                       ∀ T ⊆ N,           v(x′T ) =                   Qn              π1          πn ·     (xi − ri )πi
+                                                                              π
+                                                                           i=1 i ! ∂x 1  · · · ∂x n
+                                                        S⊆T π∈QS                                       i∈S
+                                                        X X            τm     ∂ m v(x′∅ ) Y             Y x′i − ri π                                                    (25)
+                                                  =                   Qn      π1         πn   (δi )πi ·     (δi     ) i,
+                                                        S⊆T π∈QS   i=1 πi ! ∂x1 · · · ∂xn i∈S           i∈S
+                                                                                                                  τ
+                                                                 |                {z                } |         {z    }
+                                                                                               termed US,π                 termed J(S,π|x′ )
+
+                                                                                                                                                    Q             2πi
+where τ ∈ R is a pre-defined constant and δi = sign(xi − ri ) ∈ {−1, 1} is a sign function and it satisfies                                           i∈S (δi )         = 1.
+Then, Eq. (25) can be re-written as
+                                                                     X X                                            X
+                                        ∀ T ⊆ N, v(x′T ) =                               US,π · J(S, π|x′ ) =           ˜
+                                                                                                                        I(S|x ′
+                                                                                                                                ).                                      (26)
+                                                                 S⊆T π∈QS                                        S⊆T
+
+
+                                                                                         15

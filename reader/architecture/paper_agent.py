@@ -12,6 +12,18 @@ from pathlib import Path
 ROOT=Path(__file__).resolve().parents[2]
 WORK=Path(__file__).resolve().parents[1]
 
+def public_extension_import(source_path):
+    """Use the audited public source location, never a paper adapter's name."""
+    path=Path(source_path)
+    prefix=Path('lean/HarsanyiLib/Harsanyi/Extensions')
+    if not path.is_relative_to(prefix):return None
+    if path.suffix!='.lean' or any(part in {'.','..'} for part in path.parts):
+        raise ValueError('Invalid public extension source: '+source_path)
+    parts=path.relative_to('lean/HarsanyiLib').with_suffix('').parts
+    if any(not part.isidentifier() for part in parts):
+        raise ValueError('Invalid public extension module: '+source_path)
+    return '.'.join(parts)
+
 class PaperPackage:
     def __init__(self,root=ROOT):
         self.root=Path(root)
@@ -59,7 +71,9 @@ class PaperPackage:
             if not rows:continue
             proof=self._report_evidence(report_path,[d['name'] for d in rows],'direct-import public extension declarations')
             for row in rows:
-                extensions.append({**row,'report_path':report_path,'current_evidence':proof,'api_release':'direct_import_extension_not_unified_release'})
+                extensions.append({**row,'import':public_extension_import(row['source_path']),
+                                   'source_role':'public_library_extension','report_path':report_path,
+                                   'current_evidence':proof,'api_release':'direct_import_extension_not_unified_release'})
                 seen.add(row['name'])
         if isinstance(catalog,dict):catalog['extension_declarations']=extensions
         if not name:return catalog

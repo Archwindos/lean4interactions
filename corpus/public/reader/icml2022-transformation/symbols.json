@@ -1,0 +1,1458 @@
+{
+  "schema_version": "symbol-table-1.0",
+  "paper_id": "icml2022-transformation",
+  "symbols": [
+    {
+      "id": "transformation-input",
+      "canonical_id": "transformation-input",
+      "canonical_tex": "X",
+      "name": "输入随机变量",
+      "description": "输入数据分布；不要求有限类型",
+      "type_or_domain": "任意可测输入空间，常见R^n",
+      "scope": "输入数据分布；不要求有限类型",
+      "assumptions": "见当前条目所列概率/网络/可微条件。",
+      "empty_set_convention": "空门向量只有一个状态，熵为0；其他符号不涉及空集游戏。",
+      "baseline_convention": "本篇是总体门分布，不是固定输入掩码输出游戏；原网络偏置保留。",
+      "paper_mappings": [
+        {
+          "paper_id": "icml2022-transformation",
+          "original_tex": "X",
+          "canonical_tex": "X",
+          "note": "输入数据分布；不要求有限类型",
+          "conflict_note": "保留本篇局部定义，不按同字母合并别篇概念。",
+          "translations": {
+            "en": {
+              "note": "The input data distribution; the type need not be finite",
+              "conflict_note": "Keep this local definition; matching letters alone do not identify concepts across papers."
+            }
+          }
+        }
+      ],
+      "translations": {
+        "en": {
+          "name": "Input random variable",
+          "description": "The input data distribution; the type need not be finite",
+          "type_or_domain": "An arbitrary measurable input space, often real vectors",
+          "scope": "The input data distribution; the type need not be finite",
+          "assumptions": "Use the probability, network or differentiability conditions stated in the current entry.",
+          "empty_set_convention": "The empty gate vector has one state and entropy zero; other symbols are not coalition-game empty values.",
+          "baseline_convention": "This paper uses population gate laws, rather than a fixed-input masked-output game; original network biases are retained.",
+          "paper_mappings": [
+            {
+              "note": "The input data distribution; the type need not be finite",
+              "conflict_note": "Keep this local definition; matching letters alone do not identify concepts across papers."
+            }
+          ]
+        }
+      }
+    },
+    {
+      "id": "transformation-label",
+      "canonical_id": "transformation-label",
+      "canonical_tex": "Y",
+      "name": "分类标签",
+      "description": "与X和门共享同一联合概率模型",
+      "type_or_domain": "有限类别集合",
+      "scope": "与X和门共享同一联合概率模型",
+      "assumptions": "见当前条目所列概率/网络/可微条件。",
+      "empty_set_convention": "空门向量只有一个状态，熵为0；其他符号不涉及空集游戏。",
+      "baseline_convention": "本篇是总体门分布，不是固定输入掩码输出游戏；原网络偏置保留。",
+      "paper_mappings": [
+        {
+          "paper_id": "icml2022-transformation",
+          "original_tex": "Y",
+          "canonical_tex": "Y",
+          "note": "与X和门共享同一联合概率模型",
+          "conflict_note": "保留本篇局部定义，不按同字母合并别篇概念。",
+          "translations": {
+            "en": {
+              "note": "The same joint probability model as the input and gates",
+              "conflict_note": "Keep this local definition; matching letters alone do not identify concepts across papers."
+            }
+          }
+        }
+      ],
+      "translations": {
+        "en": {
+          "name": "Classification label",
+          "description": "The same joint probability model as the input and gates",
+          "type_or_domain": "A finite label set",
+          "scope": "The same joint probability model as the input and gates",
+          "assumptions": "Use the probability, network or differentiability conditions stated in the current entry.",
+          "empty_set_convention": "The empty gate vector has one state and entropy zero; other symbols are not coalition-game empty values.",
+          "baseline_convention": "This paper uses population gate laws, rather than a fixed-input masked-output game; original network biases are retained.",
+          "paper_mappings": [
+            {
+              "note": "The same joint probability model as the input and gates",
+              "conflict_note": "Keep this local definition; matching letters alone do not identify concepts across papers."
+            }
+          ]
+        }
+      }
+    },
+    {
+      "id": "transformation-prediction",
+      "canonical_id": "transformation-prediction",
+      "canonical_tex": "\\widehat Y",
+      "name": "网络预测",
+      "description": "仅IB段的预测读取；不得与真实数据标签Y混同",
+      "type_or_domain": "给定中间特征的确定性输出",
+      "scope": "仅IB段的预测读取；不得与真实数据标签Y混同",
+      "assumptions": "见当前条目所列概率/网络/可微条件。",
+      "empty_set_convention": "空门向量只有一个状态，熵为0；其他符号不涉及空集游戏。",
+      "baseline_convention": "本篇是总体门分布，不是固定输入掩码输出游戏；原网络偏置保留。",
+      "paper_mappings": [
+        {
+          "paper_id": "icml2022-transformation",
+          "original_tex": "Y",
+          "canonical_tex": "\\widehat Y",
+          "note": "仅IB段的预测读取；不得与真实数据标签Y混同",
+          "conflict_note": "保留本篇局部定义，不按同字母合并别篇概念。",
+          "translations": {
+            "en": {
+              "note": "Only the prediction reading of the IB paragraph; distinct from the true data label Y",
+              "conflict_note": "Keep this local definition; matching letters alone do not identify concepts across papers."
+            }
+          }
+        }
+      ],
+      "translations": {
+        "en": {
+          "name": "Network prediction",
+          "description": "Only the prediction reading of the IB paragraph; distinct from the true data label Y",
+          "type_or_domain": "A deterministic output from an intermediate feature",
+          "scope": "Only the prediction reading of the IB paragraph; distinct from the true data label Y",
+          "assumptions": "Use the probability, network or differentiability conditions stated in the current entry.",
+          "empty_set_convention": "The empty gate vector has one state and entropy zero; other symbols are not coalition-game empty values.",
+          "baseline_convention": "This paper uses population gate laws, rather than a fixed-input masked-output game; original network biases are retained.",
+          "paper_mappings": [
+            {
+              "note": "Only the prediction reading of the IB paragraph; distinct from the true data label Y",
+              "conflict_note": "Keep this local definition; matching letters alone do not identify concepts across papers."
+            }
+          ]
+        }
+      }
+    },
+    {
+      "id": "transformation-feature",
+      "canonical_id": "transformation-feature",
+      "canonical_tex": "T_l",
+      "name": "中间特征",
+      "description": "层特征可连续；后继门确定性依赖它",
+      "type_or_domain": "第l层有限维实向量",
+      "scope": "层特征可连续；后继门确定性依赖它",
+      "assumptions": "见当前条目所列概率/网络/可微条件。",
+      "empty_set_convention": "空门向量只有一个状态，熵为0；其他符号不涉及空集游戏。",
+      "baseline_convention": "本篇是总体门分布，不是固定输入掩码输出游戏；原网络偏置保留。",
+      "paper_mappings": [
+        {
+          "paper_id": "icml2022-transformation",
+          "original_tex": "T_l",
+          "canonical_tex": "T_l",
+          "note": "层特征可连续；后继门确定性依赖它",
+          "conflict_note": "保留本篇局部定义，不按同字母合并别篇概念。",
+          "translations": {
+            "en": {
+              "note": "Layer features may be continuous; later gates depend deterministically on them",
+              "conflict_note": "Keep this local definition; matching letters alone do not identify concepts across papers."
+            }
+          }
+        }
+      ],
+      "translations": {
+        "en": {
+          "name": "Intermediate feature",
+          "description": "Layer features may be continuous; later gates depend deterministically on them",
+          "type_or_domain": "A finite-dimensional real vector at layer l",
+          "scope": "Layer features may be continuous; later gates depend deterministically on them",
+          "assumptions": "Use the probability, network or differentiability conditions stated in the current entry.",
+          "empty_set_convention": "The empty gate vector has one state and entropy zero; other symbols are not coalition-game empty values.",
+          "baseline_convention": "This paper uses population gate laws, rather than a fixed-input masked-output game; original network biases are retained.",
+          "paper_mappings": [
+            {
+              "note": "Layer features may be continuous; later gates depend deterministically on them",
+              "conflict_note": "Keep this local definition; matching letters alone do not identify concepts across papers."
+            }
+          ]
+        }
+      }
+    },
+    {
+      "id": "transformation-gate-state",
+      "canonical_id": "transformation-gate-state",
+      "canonical_tex": "\\sigma_l",
+      "name": "单样本门状态",
+      "description": "固定样本或门区域的线性门作用",
+      "type_or_domain": "有限二值/选择矩阵",
+      "scope": "固定样本或门区域的线性门作用",
+      "assumptions": "见当前条目所列概率/网络/可微条件。",
+      "empty_set_convention": "空门向量只有一个状态，熵为0；其他符号不涉及空集游戏。",
+      "baseline_convention": "本篇是总体门分布，不是固定输入掩码输出游戏；原网络偏置保留。",
+      "paper_mappings": [
+        {
+          "paper_id": "icml2022-transformation",
+          "original_tex": "\\sigma_l",
+          "canonical_tex": "\\sigma_l",
+          "note": "固定样本或门区域的线性门作用",
+          "conflict_note": "保留本篇局部定义，不按同字母合并别篇概念。",
+          "translations": {
+            "en": {
+              "note": "The linear gate action at a fixed sample or gate region",
+              "conflict_note": "Keep this local definition; matching letters alone do not identify concepts across papers."
+            }
+          }
+        }
+      ],
+      "translations": {
+        "en": {
+          "name": "Single-sample gate state",
+          "description": "The linear gate action at a fixed sample or gate region",
+          "type_or_domain": "A finite binary/selection matrix",
+          "scope": "The linear gate action at a fixed sample or gate region",
+          "assumptions": "Use the probability, network or differentiability conditions stated in the current entry.",
+          "empty_set_convention": "The empty gate vector has one state and entropy zero; other symbols are not coalition-game empty values.",
+          "baseline_convention": "This paper uses population gate laws, rather than a fixed-input masked-output game; original network biases are retained.",
+          "paper_mappings": [
+            {
+              "note": "The linear gate action at a fixed sample or gate region",
+              "conflict_note": "Keep this local definition; matching letters alone do not identify concepts across papers."
+            }
+          ]
+        }
+      }
+    },
+    {
+      "id": "transformation-gate-variable",
+      "canonical_id": "transformation-gate-variable",
+      "canonical_tex": "\\Sigma_l",
+      "name": "门状态随机变量",
+      "description": "跨样本门分布，与单个sigma区分",
+      "type_or_domain": "有限门模式向量",
+      "scope": "跨样本门分布，与单个sigma区分",
+      "assumptions": "见当前条目所列概率/网络/可微条件。",
+      "empty_set_convention": "空门向量只有一个状态，熵为0；其他符号不涉及空集游戏。",
+      "baseline_convention": "本篇是总体门分布，不是固定输入掩码输出游戏；原网络偏置保留。",
+      "paper_mappings": [
+        {
+          "paper_id": "icml2022-transformation",
+          "original_tex": "\\Sigma_l",
+          "canonical_tex": "\\Sigma_l",
+          "note": "跨样本门分布，与单个sigma区分",
+          "conflict_note": "保留本篇局部定义，不按同字母合并别篇概念。",
+          "translations": {
+            "en": {
+              "note": "The population gate law, distinct from one sample state",
+              "conflict_note": "Keep this local definition; matching letters alone do not identify concepts across papers."
+            }
+          }
+        }
+      ],
+      "translations": {
+        "en": {
+          "name": "Gate-state random variable",
+          "description": "The population gate law, distinct from one sample state",
+          "type_or_domain": "A finite gate-pattern vector",
+          "scope": "The population gate law, distinct from one sample state",
+          "assumptions": "Use the probability, network or differentiability conditions stated in the current entry.",
+          "empty_set_convention": "The empty gate vector has one state and entropy zero; other symbols are not coalition-game empty values.",
+          "baseline_convention": "This paper uses population gate laws, rather than a fixed-input masked-output game; original network biases are retained.",
+          "paper_mappings": [
+            {
+              "note": "The population gate law, distinct from one sample state",
+              "conflict_note": "Keep this local definition; matching letters alone do not identify concepts across papers."
+            }
+          ]
+        }
+      }
+    },
+    {
+      "id": "transformation-all-gates",
+      "canonical_id": "transformation-all-gates",
+      "canonical_tex": "\\Sigma",
+      "name": "全层门向量",
+      "description": "按相同数据分布取前缀/后缀投影",
+      "type_or_domain": "有限层门向量的乘积",
+      "scope": "按相同数据分布取前缀/后缀投影",
+      "assumptions": "见当前条目所列概率/网络/可微条件。",
+      "empty_set_convention": "空门向量只有一个状态，熵为0；其他符号不涉及空集游戏。",
+      "baseline_convention": "本篇是总体门分布，不是固定输入掩码输出游戏；原网络偏置保留。",
+      "paper_mappings": [
+        {
+          "paper_id": "icml2022-transformation",
+          "original_tex": "\\Sigma",
+          "canonical_tex": "\\Sigma",
+          "note": "按相同数据分布取前缀/后缀投影",
+          "conflict_note": "保留本篇局部定义，不按同字母合并别篇概念。",
+          "translations": {
+            "en": {
+              "note": "Prefix/suffix projections under the same data law",
+              "conflict_note": "Keep this local definition; matching letters alone do not identify concepts across papers."
+            }
+          }
+        }
+      ],
+      "translations": {
+        "en": {
+          "name": "All-layer gate vector",
+          "description": "Prefix/suffix projections under the same data law",
+          "type_or_domain": "A finite product of layer gate vectors",
+          "scope": "Prefix/suffix projections under the same data law",
+          "assumptions": "Use the probability, network or differentiability conditions stated in the current entry.",
+          "empty_set_convention": "The empty gate vector has one state and entropy zero; other symbols are not coalition-game empty values.",
+          "baseline_convention": "This paper uses population gate laws, rather than a fixed-input masked-output game; original network biases are retained.",
+          "paper_mappings": [
+            {
+              "note": "Prefix/suffix projections under the same data law",
+              "conflict_note": "Keep this local definition; matching letters alone do not identify concepts across papers."
+            }
+          ]
+        }
+      }
+    },
+    {
+      "id": "transformation-entropy",
+      "canonical_id": "transformation-entropy",
+      "canonical_tex": "H",
+      "name": "Shannon门熵",
+      "description": "仅门/标签取离散熵，连续特征另属加噪模型",
+      "type_or_domain": "有限离散律到实数",
+      "scope": "仅门/标签取离散熵，连续特征另属加噪模型",
+      "assumptions": "见当前条目所列概率/网络/可微条件。",
+      "empty_set_convention": "空门向量只有一个状态，熵为0；其他符号不涉及空集游戏。",
+      "baseline_convention": "本篇是总体门分布，不是固定输入掩码输出游戏；原网络偏置保留。",
+      "paper_mappings": [
+        {
+          "paper_id": "icml2022-transformation",
+          "original_tex": "H",
+          "canonical_tex": "H",
+          "note": "仅门/标签取离散熵，连续特征另属加噪模型",
+          "conflict_note": "保留本篇局部定义，不按同字母合并别篇概念。",
+          "translations": {
+            "en": {
+              "note": "Discrete entropy of gates/labels; continuous features use the separate noisy model",
+              "conflict_note": "Keep this local definition; matching letters alone do not identify concepts across papers."
+            }
+          }
+        }
+      ],
+      "translations": {
+        "en": {
+          "name": "Shannon gate entropy",
+          "description": "Discrete entropy of gates/labels; continuous features use the separate noisy model",
+          "type_or_domain": "A finite discrete law to a real number",
+          "scope": "Discrete entropy of gates/labels; continuous features use the separate noisy model",
+          "assumptions": "Use the probability, network or differentiability conditions stated in the current entry.",
+          "empty_set_convention": "The empty gate vector has one state and entropy zero; other symbols are not coalition-game empty values.",
+          "baseline_convention": "This paper uses population gate laws, rather than a fixed-input masked-output game; original network biases are retained.",
+          "paper_mappings": [
+            {
+              "note": "Discrete entropy of gates/labels; continuous features use the separate noisy model",
+              "conflict_note": "Keep this local definition; matching letters alone do not identify concepts across papers."
+            }
+          ]
+        }
+      }
+    },
+    {
+      "id": "transformation-mutual-info",
+      "canonical_id": "transformation-mutual-info",
+      "canonical_tex": "I(A;B)",
+      "name": "互信息",
+      "description": "不将连续X的离散熵作为必要对象",
+      "type_or_domain": "同一有限联合律或有限输出条件核",
+      "scope": "不将连续X的离散熵作为必要对象",
+      "assumptions": "见当前条目所列概率/网络/可微条件。",
+      "empty_set_convention": "空门向量只有一个状态，熵为0；其他符号不涉及空集游戏。",
+      "baseline_convention": "本篇是总体门分布，不是固定输入掩码输出游戏；原网络偏置保留。",
+      "paper_mappings": [
+        {
+          "paper_id": "icml2022-transformation",
+          "original_tex": "I(A;B)",
+          "canonical_tex": "I(A;B)",
+          "note": "不将连续X的离散熵作为必要对象",
+          "conflict_note": "保留本篇局部定义，不按同字母合并别篇概念。",
+          "translations": {
+            "en": {
+              "note": "A discrete entropy of continuous input is unnecessary",
+              "conflict_note": "Keep this local definition; matching letters alone do not identify concepts across papers."
+            }
+          }
+        }
+      ],
+      "translations": {
+        "en": {
+          "name": "Mutual information",
+          "description": "A discrete entropy of continuous input is unnecessary",
+          "type_or_domain": "A common finite joint law or a finite-output conditional kernel",
+          "scope": "A discrete entropy of continuous input is unnecessary",
+          "assumptions": "Use the probability, network or differentiability conditions stated in the current entry.",
+          "empty_set_convention": "The empty gate vector has one state and entropy zero; other symbols are not coalition-game empty values.",
+          "baseline_convention": "This paper uses population gate laws, rather than a fixed-input masked-output game; original network biases are retained.",
+          "paper_mappings": [
+            {
+              "note": "A discrete entropy of continuous input is unnecessary",
+              "conflict_note": "Keep this local definition; matching letters alone do not identify concepts across papers."
+            }
+          ]
+        }
+      }
+    },
+    {
+      "id": "transformation-co-info",
+      "canonical_id": "transformation-co-info",
+      "canonical_tex": "I(X;\\Sigma;Y)",
+      "name": "三元co-information",
+      "description": "原定义同一条件MI差，确定性门时非负",
+      "type_or_domain": "实数，可正可负",
+      "scope": "原定义同一条件MI差，确定性门时非负",
+      "assumptions": "见当前条目所列概率/网络/可微条件。",
+      "empty_set_convention": "空门向量只有一个状态，熵为0；其他符号不涉及空集游戏。",
+      "baseline_convention": "本篇是总体门分布，不是固定输入掩码输出游戏；原网络偏置保留。",
+      "paper_mappings": [
+        {
+          "paper_id": "icml2022-transformation",
+          "original_tex": "I(X;\\Sigma;Y)",
+          "canonical_tex": "I(X;\\Sigma;Y)",
+          "note": "原定义同一条件MI差，确定性门时非负",
+          "conflict_note": "保留本篇局部定义，不按同字母合并别篇概念。",
+          "translations": {
+            "en": {
+              "note": "The source conditional-MI difference, nonnegative for deterministic gates",
+              "conflict_note": "Keep this local definition; matching letters alone do not identify concepts across papers."
+            }
+          }
+        }
+      ],
+      "translations": {
+        "en": {
+          "name": "Three-way co-information",
+          "description": "The source conditional-MI difference, nonnegative for deterministic gates",
+          "type_or_domain": "A real value that may be positive or negative",
+          "scope": "The source conditional-MI difference, nonnegative for deterministic gates",
+          "assumptions": "Use the probability, network or differentiability conditions stated in the current entry.",
+          "empty_set_convention": "The empty gate vector has one state and entropy zero; other symbols are not coalition-game empty values.",
+          "baseline_convention": "This paper uses population gate laws, rather than a fixed-input masked-output game; original network biases are retained.",
+          "paper_mappings": [
+            {
+              "note": "The source conditional-MI difference, nonnegative for deterministic gates",
+              "conflict_note": "Keep this local definition; matching letters alone do not identify concepts across papers."
+            }
+          ]
+        }
+      }
+    },
+    {
+      "id": "transformation-tc",
+      "canonical_id": "transformation-tc",
+      "canonical_tex": "TC(\\Sigma_l)",
+      "name": "门总相关",
+      "description": "不是pair交互或Harsanyi dividend",
+      "type_or_domain": "联合律对边缘乘积的KL",
+      "scope": "不是pair交互或Harsanyi dividend",
+      "assumptions": "见当前条目所列概率/网络/可微条件。",
+      "empty_set_convention": "空门向量只有一个状态，熵为0；其他符号不涉及空集游戏。",
+      "baseline_convention": "本篇是总体门分布，不是固定输入掩码输出游戏；原网络偏置保留。",
+      "paper_mappings": [
+        {
+          "paper_id": "icml2022-transformation",
+          "original_tex": "TC(\\Sigma_l)",
+          "canonical_tex": "TC(\\Sigma_l)",
+          "note": "不是pair交互或Harsanyi dividend",
+          "conflict_note": "保留本篇局部定义，不按同字母合并别篇概念。",
+          "translations": {
+            "en": {
+              "note": "Distinct from pair interaction or a Harsanyi dividend",
+              "conflict_note": "Keep this local definition; matching letters alone do not identify concepts across papers."
+            }
+          }
+        }
+      ],
+      "translations": {
+        "en": {
+          "name": "Gate total correlation",
+          "description": "Distinct from pair interaction or a Harsanyi dividend",
+          "type_or_domain": "KL from the joint law to the marginal product",
+          "scope": "Distinct from pair interaction or a Harsanyi dividend",
+          "assumptions": "Use the probability, network or differentiability conditions stated in the current entry.",
+          "empty_set_convention": "The empty gate vector has one state and entropy zero; other symbols are not coalition-game empty values.",
+          "baseline_convention": "This paper uses population gate laws, rather than a fixed-input masked-output game; original network biases are retained.",
+          "paper_mappings": [
+            {
+              "note": "Distinct from pair interaction or a Harsanyi dividend",
+              "conflict_note": "Keep this local definition; matching letters alone do not identify concepts across papers."
+            }
+          ]
+        }
+      }
+    },
+    {
+      "id": "transformation-marginal-constant",
+      "canonical_id": "transformation-marginal-constant",
+      "canonical_tex": "C_l",
+      "name": "边缘熵总和",
+      "description": "依赖各坐标激活率，均值不足确定它",
+      "type_or_domain": "有限坐标熵求和",
+      "scope": "依赖各坐标激活率，均值不足确定它",
+      "assumptions": "见当前条目所列概率/网络/可微条件。",
+      "empty_set_convention": "空门向量只有一个状态，熵为0；其他符号不涉及空集游戏。",
+      "baseline_convention": "本篇是总体门分布，不是固定输入掩码输出游戏；原网络偏置保留。",
+      "paper_mappings": [
+        {
+          "paper_id": "icml2022-transformation",
+          "original_tex": "C_l",
+          "canonical_tex": "C_l",
+          "note": "依赖各坐标激活率，均值不足确定它",
+          "conflict_note": "保留本篇局部定义，不按同字母合并别篇概念。",
+          "translations": {
+            "en": {
+              "note": "Depends on coordinate activation rates; their average does not determine it",
+              "conflict_note": "Keep this local definition; matching letters alone do not identify concepts across papers."
+            }
+          }
+        }
+      ],
+      "translations": {
+        "en": {
+          "name": "Marginal entropy sum",
+          "description": "Depends on coordinate activation rates; their average does not determine it",
+          "type_or_domain": "A finite sum of coordinate entropies",
+          "scope": "Depends on coordinate activation rates; their average does not determine it",
+          "assumptions": "Use the probability, network or differentiability conditions stated in the current entry.",
+          "empty_set_convention": "The empty gate vector has one state and entropy zero; other symbols are not coalition-game empty values.",
+          "baseline_convention": "This paper uses population gate laws, rather than a fixed-input masked-output game; original network biases are retained.",
+          "paper_mappings": [
+            {
+              "note": "Depends on coordinate activation rates; their average does not determine it",
+              "conflict_note": "Keep this local definition; matching letters alone do not identify concepts across papers."
+            }
+          ]
+        }
+      }
+    },
+    {
+      "id": "transformation-conditional-constant",
+      "canonical_id": "transformation-conditional-constant",
+      "canonical_tex": "C_{l\\mid Y}",
+      "name": "条件边缘熵总和",
+      "description": "同一联合标签门律，零概率类贡献0",
+      "type_or_domain": "按类概率加权边缘熵",
+      "scope": "同一联合标签门律，零概率类贡献0",
+      "assumptions": "见当前条目所列概率/网络/可微条件。",
+      "empty_set_convention": "空门向量只有一个状态，熵为0；其他符号不涉及空集游戏。",
+      "baseline_convention": "本篇是总体门分布，不是固定输入掩码输出游戏；原网络偏置保留。",
+      "paper_mappings": [
+        {
+          "paper_id": "icml2022-transformation",
+          "original_tex": "C_{l\\mid Y}",
+          "canonical_tex": "C_{l\\mid Y}",
+          "note": "同一联合标签门律，零概率类贡献0",
+          "conflict_note": "保留本篇局部定义，不按同字母合并别篇概念。",
+          "translations": {
+            "en": {
+              "note": "A common label/gate law, with zero-mass classes contributing zero",
+              "conflict_note": "Keep this local definition; matching letters alone do not identify concepts across papers."
+            }
+          }
+        }
+      ],
+      "translations": {
+        "en": {
+          "name": "Conditional marginal entropy sum",
+          "description": "A common label/gate law, with zero-mass classes contributing zero",
+          "type_or_domain": "Marginal entropies weighted by class probabilities",
+          "scope": "A common label/gate law, with zero-mass classes contributing zero",
+          "assumptions": "Use the probability, network or differentiability conditions stated in the current entry.",
+          "empty_set_convention": "The empty gate vector has one state and entropy zero; other symbols are not coalition-game empty values.",
+          "baseline_convention": "This paper uses population gate laws, rather than a fixed-input masked-output game; original network biases are retained.",
+          "paper_mappings": [
+            {
+              "note": "A common label/gate law, with zero-mass classes contributing zero",
+              "conflict_note": "Keep this local definition; matching letters alone do not identify concepts across papers."
+            }
+          ]
+        }
+      }
+    },
+    {
+      "id": "transformation-activation-rate",
+      "canonical_id": "transformation-activation-rate",
+      "canonical_tex": "a_l^d",
+      "name": "逐坐标激活率",
+      "description": "逐坐标与跨维平均不得混同",
+      "type_or_domain": "[0,1]中的边缘Bernoulli参数",
+      "scope": "逐坐标与跨维平均不得混同",
+      "assumptions": "见当前条目所列概率/网络/可微条件。",
+      "empty_set_convention": "空门向量只有一个状态，熵为0；其他符号不涉及空集游戏。",
+      "baseline_convention": "本篇是总体门分布，不是固定输入掩码输出游戏；原网络偏置保留。",
+      "paper_mappings": [
+        {
+          "paper_id": "icml2022-transformation",
+          "original_tex": "a_l^d",
+          "canonical_tex": "a_l^d",
+          "note": "逐坐标与跨维平均不得混同",
+          "conflict_note": "保留本篇局部定义，不按同字母合并别篇概念。",
+          "translations": {
+            "en": {
+              "note": "Coordinate rates and their average are distinct",
+              "conflict_note": "Keep this local definition; matching letters alone do not identify concepts across papers."
+            }
+          }
+        }
+      ],
+      "translations": {
+        "en": {
+          "name": "Coordinate activation rate",
+          "description": "Coordinate rates and their average are distinct",
+          "type_or_domain": "A Bernoulli marginal parameter in [0,1]",
+          "scope": "Coordinate rates and their average are distinct",
+          "assumptions": "Use the probability, network or differentiability conditions stated in the current entry.",
+          "empty_set_convention": "The empty gate vector has one state and entropy zero; other symbols are not coalition-game empty values.",
+          "baseline_convention": "This paper uses population gate laws, rather than a fixed-input masked-output game; original network biases are retained.",
+          "paper_mappings": [
+            {
+              "note": "Coordinate rates and their average are distinct",
+              "conflict_note": "Keep this local definition; matching letters alone do not identify concepts across papers."
+            }
+          ]
+        }
+      }
+    },
+    {
+      "id": "transformation-bandwidth",
+      "canonical_id": "transformation-bandwidth",
+      "canonical_tex": "\\sigma_0^2",
+      "name": "Gaussian核方差",
+      "description": "门段为κVar，连续特征段为加噪方差",
+      "type_or_domain": "正实数",
+      "scope": "门段为κVar，连续特征段为加噪方差",
+      "assumptions": "见当前条目所列概率/网络/可微条件。",
+      "empty_set_convention": "空门向量只有一个状态，熵为0；其他符号不涉及空集游戏。",
+      "baseline_convention": "本篇是总体门分布，不是固定输入掩码输出游戏；原网络偏置保留。",
+      "paper_mappings": [
+        {
+          "paper_id": "icml2022-transformation",
+          "original_tex": "\\sigma_0^2",
+          "canonical_tex": "\\sigma_0^2",
+          "note": "门段为κVar，连续特征段为加噪方差",
+          "conflict_note": "保留本篇局部定义，不按同字母合并别篇概念。",
+          "translations": {
+            "en": {
+              "note": "κVar in the gate section and noise variance in the continuous-feature section",
+              "conflict_note": "Keep this local definition; matching letters alone do not identify concepts across papers."
+            }
+          }
+        }
+      ],
+      "translations": {
+        "en": {
+          "name": "Gaussian kernel variance",
+          "description": "κVar in the gate section and noise variance in the continuous-feature section",
+          "type_or_domain": "A positive real number",
+          "scope": "κVar in the gate section and noise variance in the continuous-feature section",
+          "assumptions": "Use the probability, network or differentiability conditions stated in the current entry.",
+          "empty_set_convention": "The empty gate vector has one state and entropy zero; other symbols are not coalition-game empty values.",
+          "baseline_convention": "This paper uses population gate laws, rather than a fixed-input masked-output game; original network biases are retained.",
+          "paper_mappings": [
+            {
+              "note": "κVar in the gate section and noise variance in the continuous-feature section",
+              "conflict_note": "Keep this local definition; matching letters alone do not identify concepts across papers."
+            }
+          ]
+        }
+      }
+    },
+    {
+      "id": "transformation-variance-constant",
+      "canonical_id": "transformation-variance-constant",
+      "canonical_tex": "\\kappa",
+      "name": "门核比例常数",
+      "description": "所有门界反例代入真实方差带宽",
+      "type_or_domain": "正实数",
+      "scope": "所有门界反例代入真实方差带宽",
+      "assumptions": "见当前条目所列概率/网络/可微条件。",
+      "empty_set_convention": "空门向量只有一个状态，熵为0；其他符号不涉及空集游戏。",
+      "baseline_convention": "本篇是总体门分布，不是固定输入掩码输出游戏；原网络偏置保留。",
+      "paper_mappings": [
+        {
+          "paper_id": "icml2022-transformation",
+          "original_tex": "\\kappa",
+          "canonical_tex": "\\kappa",
+          "note": "所有门界反例代入真实方差带宽",
+          "conflict_note": "保留本篇局部定义，不按同字母合并别篇概念。",
+          "translations": {
+            "en": {
+              "note": "Counterexamples substitute the actual variance bandwidth",
+              "conflict_note": "Keep this local definition; matching letters alone do not identify concepts across papers."
+            }
+          }
+        }
+      ],
+      "translations": {
+        "en": {
+          "name": "Gate-kernel scaling constant",
+          "description": "Counterexamples substitute the actual variance bandwidth",
+          "type_or_domain": "A positive real number",
+          "scope": "Counterexamples substitute the actual variance bandwidth",
+          "assumptions": "Use the probability, network or differentiability conditions stated in the current entry.",
+          "empty_set_convention": "The empty gate vector has one state and entropy zero; other symbols are not coalition-game empty values.",
+          "baseline_convention": "This paper uses population gate laws, rather than a fixed-input masked-output game; original network biases are retained.",
+          "paper_mappings": [
+            {
+              "note": "Counterexamples substitute the actual variance bandwidth",
+              "conflict_note": "Keep this local definition; matching letters alone do not identify concepts across papers."
+            }
+          ]
+        }
+      }
+    },
+    {
+      "id": "transformation-sample-count",
+      "canonical_id": "transformation-sample-count",
+      "canonical_tex": "n,P",
+      "name": "训练样本数",
+      "description": "n用于门估计、P用于特征/TC核估计",
+      "type_or_domain": "正整数",
+      "scope": "n用于门估计、P用于特征/TC核估计",
+      "assumptions": "见当前条目所列概率/网络/可微条件。",
+      "empty_set_convention": "空门向量只有一个状态，熵为0；其他符号不涉及空集游戏。",
+      "baseline_convention": "本篇是总体门分布，不是固定输入掩码输出游戏；原网络偏置保留。",
+      "paper_mappings": [
+        {
+          "paper_id": "icml2022-transformation",
+          "original_tex": "n,P",
+          "canonical_tex": "n,P",
+          "note": "n用于门估计、P用于特征/TC核估计",
+          "conflict_note": "保留本篇局部定义，不按同字母合并别篇概念。",
+          "translations": {
+            "en": {
+              "note": "n is used for gate estimates and P for feature/TC kernel estimates",
+              "conflict_note": "Keep this local definition; matching letters alone do not identify concepts across papers."
+            }
+          }
+        }
+      ],
+      "translations": {
+        "en": {
+          "name": "Training sample count",
+          "description": "n is used for gate estimates and P for feature/TC kernel estimates",
+          "type_or_domain": "A positive integer",
+          "scope": "n is used for gate estimates and P for feature/TC kernel estimates",
+          "assumptions": "Use the probability, network or differentiability conditions stated in the current entry.",
+          "empty_set_convention": "The empty gate vector has one state and entropy zero; other symbols are not coalition-game empty values.",
+          "baseline_convention": "This paper uses population gate laws, rather than a fixed-input masked-output game; original network biases are retained.",
+          "paper_mappings": [
+            {
+              "note": "n is used for gate estimates and P for feature/TC kernel estimates",
+              "conflict_note": "Keep this local definition; matching letters alone do not identify concepts across papers."
+            }
+          ]
+        }
+      }
+    },
+    {
+      "id": "transformation-class-count",
+      "canonical_id": "transformation-class-count",
+      "canonical_tex": "M,L",
+      "name": "类别数",
+      "description": "KDE段L是类别数，网络段L是深度",
+      "type_or_domain": "正整数",
+      "scope": "KDE段L是类别数，网络段L是深度",
+      "assumptions": "见当前条目所列概率/网络/可微条件。",
+      "empty_set_convention": "空门向量只有一个状态，熵为0；其他符号不涉及空集游戏。",
+      "baseline_convention": "本篇是总体门分布，不是固定输入掩码输出游戏；原网络偏置保留。",
+      "paper_mappings": [
+        {
+          "paper_id": "icml2022-transformation",
+          "original_tex": "M,L",
+          "canonical_tex": "M,L",
+          "note": "KDE段L是类别数，网络段L是深度",
+          "conflict_note": "保留本篇局部定义，不按同字母合并别篇概念。",
+          "translations": {
+            "en": {
+              "note": "L counts classes in the KDE passage and layers in the network passage",
+              "conflict_note": "Keep this local definition; matching letters alone do not identify concepts across papers."
+            }
+          }
+        }
+      ],
+      "translations": {
+        "en": {
+          "name": "Number of classes",
+          "description": "L counts classes in the KDE passage and layers in the network passage",
+          "type_or_domain": "A positive integer",
+          "scope": "L counts classes in the KDE passage and layers in the network passage",
+          "assumptions": "Use the probability, network or differentiability conditions stated in the current entry.",
+          "empty_set_convention": "The empty gate vector has one state and entropy zero; other symbols are not coalition-game empty values.",
+          "baseline_convention": "This paper uses population gate laws, rather than a fixed-input masked-output game; original network biases are retained.",
+          "paper_mappings": [
+            {
+              "note": "L counts classes in the KDE passage and layers in the network passage",
+              "conflict_note": "Keep this local definition; matching letters alone do not identify concepts across papers."
+            }
+          ]
+        }
+      }
+    },
+    {
+      "id": "transformation-class-probability",
+      "canonical_id": "transformation-class-probability",
+      "canonical_tex": "p_m,p_l",
+      "name": "类别权重",
+      "description": "原Eq27写n_m/M，保持原错误另列",
+      "type_or_domain": "正规类概率应n_m/n或P_l/P",
+      "scope": "原Eq27写n_m/M，保持原错误另列",
+      "assumptions": "见当前条目所列概率/网络/可微条件。",
+      "empty_set_convention": "空门向量只有一个状态，熵为0；其他符号不涉及空集游戏。",
+      "baseline_convention": "本篇是总体门分布，不是固定输入掩码输出游戏；原网络偏置保留。",
+      "paper_mappings": [
+        {
+          "paper_id": "icml2022-transformation",
+          "original_tex": "p_m,p_l",
+          "canonical_tex": "p_m,p_l",
+          "note": "原Eq27写n_m/M，保持原错误另列",
+          "conflict_note": "保留本篇局部定义，不按同字母合并别篇概念。",
+          "translations": {
+            "en": {
+              "note": "Equation (27) prints n_m/M; preserve and flag that error",
+              "conflict_note": "Keep this local definition; matching letters alone do not identify concepts across papers."
+            }
+          }
+        }
+      ],
+      "translations": {
+        "en": {
+          "name": "Class weight",
+          "description": "Equation (27) prints n_m/M; preserve and flag that error",
+          "type_or_domain": "Normalized class probability should be n_m/n or P_l/P",
+          "scope": "Equation (27) prints n_m/M; preserve and flag that error",
+          "assumptions": "Use the probability, network or differentiability conditions stated in the current entry.",
+          "empty_set_convention": "The empty gate vector has one state and entropy zero; other symbols are not coalition-game empty values.",
+          "baseline_convention": "This paper uses population gate laws, rather than a fixed-input masked-output game; original network biases are retained.",
+          "paper_mappings": [
+            {
+              "note": "Equation (27) prints n_m/M; preserve and flag that error",
+              "conflict_note": "Keep this local definition; matching letters alone do not identify concepts across papers."
+            }
+          ]
+        }
+      }
+    },
+    {
+      "id": "transformation-weight",
+      "canonical_id": "transformation-weight",
+      "canonical_tex": "W_l",
+      "name": "层权重算子",
+      "description": "固定门吸收后复合；原可选顶层另算",
+      "type_or_domain": "维度相容实线性算子",
+      "scope": "固定门吸收后复合；原可选顶层另算",
+      "assumptions": "见当前条目所列概率/网络/可微条件。",
+      "empty_set_convention": "空门向量只有一个状态，熵为0；其他符号不涉及空集游戏。",
+      "baseline_convention": "本篇是总体门分布，不是固定输入掩码输出游戏；原网络偏置保留。",
+      "paper_mappings": [
+        {
+          "paper_id": "icml2022-transformation",
+          "original_tex": "W_l",
+          "canonical_tex": "W_l",
+          "note": "固定门吸收后复合；原可选顶层另算",
+          "conflict_note": "保留本篇局部定义，不按同字母合并别篇概念。",
+          "translations": {
+            "en": {
+              "note": "Composed after absorbing fixed gates; the optional top layer is separate",
+              "conflict_note": "Keep this local definition; matching letters alone do not identify concepts across papers."
+            }
+          }
+        }
+      ],
+      "translations": {
+        "en": {
+          "name": "Layer weight map",
+          "description": "Composed after absorbing fixed gates; the optional top layer is separate",
+          "type_or_domain": "A compatible real linear map",
+          "scope": "Composed after absorbing fixed gates; the optional top layer is separate",
+          "assumptions": "Use the probability, network or differentiability conditions stated in the current entry.",
+          "empty_set_convention": "The empty gate vector has one state and entropy zero; other symbols are not coalition-game empty values.",
+          "baseline_convention": "This paper uses population gate laws, rather than a fixed-input masked-output game; original network biases are retained.",
+          "paper_mappings": [
+            {
+              "note": "Composed after absorbing fixed gates; the optional top layer is separate",
+              "conflict_note": "Keep this local definition; matching letters alone do not identify concepts across papers."
+            }
+          ]
+        }
+      }
+    },
+    {
+      "id": "transformation-bias",
+      "canonical_id": "transformation-bias",
+      "canonical_tex": "b_l,b",
+      "name": "层偏置与等效偏置",
+      "description": "不设为0；等效偏置等于固定门网络F(0)",
+      "type_or_domain": "输出空间实向量",
+      "scope": "不设为0；等效偏置等于固定门网络F(0)",
+      "assumptions": "见当前条目所列概率/网络/可微条件。",
+      "empty_set_convention": "空门向量只有一个状态，熵为0；其他符号不涉及空集游戏。",
+      "baseline_convention": "本篇是总体门分布，不是固定输入掩码输出游戏；原网络偏置保留。",
+      "paper_mappings": [
+        {
+          "paper_id": "icml2022-transformation",
+          "original_tex": "b_l,b",
+          "canonical_tex": "b_l,b",
+          "note": "不设为0；等效偏置等于固定门网络F(0)",
+          "conflict_note": "保留本篇局部定义，不按同字母合并别篇概念。",
+          "translations": {
+            "en": {
+              "note": "Retained rather than set to zero; equivalent bias is fixed-gate F(0)",
+              "conflict_note": "Keep this local definition; matching letters alone do not identify concepts across papers."
+            }
+          }
+        }
+      ],
+      "translations": {
+        "en": {
+          "name": "Layer and equivalent bias",
+          "description": "Retained rather than set to zero; equivalent bias is fixed-gate F(0)",
+          "type_or_domain": "A real vector in the output space",
+          "scope": "Retained rather than set to zero; equivalent bias is fixed-gate F(0)",
+          "assumptions": "Use the probability, network or differentiability conditions stated in the current entry.",
+          "empty_set_convention": "The empty gate vector has one state and entropy zero; other symbols are not coalition-game empty values.",
+          "baseline_convention": "This paper uses population gate laws, rather than a fixed-input masked-output game; original network biases are retained.",
+          "paper_mappings": [
+            {
+              "note": "Retained rather than set to zero; equivalent bias is fixed-gate F(0)",
+              "conflict_note": "Keep this local definition; matching letters alone do not identify concepts across papers."
+            }
+          ]
+        }
+      }
+    },
+    {
+      "id": "transformation-prior",
+      "canonical_id": "transformation-prior",
+      "canonical_tex": "q",
+      "name": "EBM先验",
+      "description": "离散先验与连续松弛须区分",
+      "type_or_domain": "有限正规门律或明说的连续线性近似",
+      "scope": "离散先验与连续松弛须区分",
+      "assumptions": "见当前条目所列概率/网络/可微条件。",
+      "empty_set_convention": "空门向量只有一个状态，熵为0；其他符号不涉及空集游戏。",
+      "baseline_convention": "本篇是总体门分布，不是固定输入掩码输出游戏；原网络偏置保留。",
+      "paper_mappings": [
+        {
+          "paper_id": "icml2022-transformation",
+          "original_tex": "q",
+          "canonical_tex": "q",
+          "note": "离散先验与连续松弛须区分",
+          "conflict_note": "保留本篇局部定义，不按同字母合并别篇概念。",
+          "translations": {
+            "en": {
+              "note": "The discrete prior and continuous relaxation are distinct",
+              "conflict_note": "Keep this local definition; matching letters alone do not identify concepts across papers."
+            }
+          }
+        }
+      ],
+      "translations": {
+        "en": {
+          "name": "EBM prior",
+          "description": "The discrete prior and continuous relaxation are distinct",
+          "type_or_domain": "A normalized finite gate law or the stated continuous linear approximation",
+          "scope": "The discrete prior and continuous relaxation are distinct",
+          "assumptions": "Use the probability, network or differentiability conditions stated in the current entry.",
+          "empty_set_convention": "The empty gate vector has one state and entropy zero; other symbols are not coalition-game empty values.",
+          "baseline_convention": "This paper uses population gate laws, rather than a fixed-input masked-output game; original network biases are retained.",
+          "paper_mappings": [
+            {
+              "note": "The discrete prior and continuous relaxation are distinct",
+              "conflict_note": "Keep this local definition; matching letters alone do not identify concepts across papers."
+            }
+          ]
+        }
+      }
+    },
+    {
+      "id": "transformation-score",
+      "canonical_id": "transformation-score",
+      "canonical_tex": "f(\\cdot;\\theta_f)",
+      "name": "EBM分数",
+      "description": "参数学习时可微；DNN更新时冻结",
+      "type_or_domain": "门状态到实数",
+      "scope": "参数学习时可微；DNN更新时冻结",
+      "assumptions": "见当前条目所列概率/网络/可微条件。",
+      "empty_set_convention": "空门向量只有一个状态，熵为0；其他符号不涉及空集游戏。",
+      "baseline_convention": "本篇是总体门分布，不是固定输入掩码输出游戏；原网络偏置保留。",
+      "paper_mappings": [
+        {
+          "paper_id": "icml2022-transformation",
+          "original_tex": "f(\\cdot;\\theta_f)",
+          "canonical_tex": "f(\\cdot;\\theta_f)",
+          "note": "参数学习时可微；DNN更新时冻结",
+          "conflict_note": "保留本篇局部定义，不按同字母合并别篇概念。",
+          "translations": {
+            "en": {
+              "note": "Differentiable during parameter learning and frozen during the DNN update",
+              "conflict_note": "Keep this local definition; matching letters alone do not identify concepts across papers."
+            }
+          }
+        }
+      ],
+      "translations": {
+        "en": {
+          "name": "EBM score",
+          "description": "Differentiable during parameter learning and frozen during the DNN update",
+          "type_or_domain": "A real function of gate state",
+          "scope": "Differentiable during parameter learning and frozen during the DNN update",
+          "assumptions": "Use the probability, network or differentiability conditions stated in the current entry.",
+          "empty_set_convention": "The empty gate vector has one state and entropy zero; other symbols are not coalition-game empty values.",
+          "baseline_convention": "This paper uses population gate laws, rather than a fixed-input masked-output game; original network biases are retained.",
+          "paper_mappings": [
+            {
+              "note": "Differentiable during parameter learning and frozen during the DNN update",
+              "conflict_note": "Keep this local definition; matching letters alone do not identify concepts across papers."
+            }
+          ]
+        }
+      }
+    },
+    {
+      "id": "transformation-partition",
+      "canonical_id": "transformation-partition",
+      "canonical_tex": "Z",
+      "name": "配分函数",
+      "description": "由正规q推出正，不当待证假设",
+      "type_or_domain": "正加权指数有限和",
+      "scope": "由正规q推出正，不当待证假设",
+      "assumptions": "见当前条目所列概率/网络/可微条件。",
+      "empty_set_convention": "空门向量只有一个状态，熵为0；其他符号不涉及空集游戏。",
+      "baseline_convention": "本篇是总体门分布，不是固定输入掩码输出游戏；原网络偏置保留。",
+      "paper_mappings": [
+        {
+          "paper_id": "icml2022-transformation",
+          "original_tex": "Z",
+          "canonical_tex": "Z",
+          "note": "由正规q推出正，不当待证假设",
+          "conflict_note": "保留本篇局部定义，不按同字母合并别篇概念。",
+          "translations": {
+            "en": {
+              "note": "Positivity follows from normalized q, rather than being assumed",
+              "conflict_note": "Keep this local definition; matching letters alone do not identify concepts across papers."
+            }
+          }
+        }
+      ],
+      "translations": {
+        "en": {
+          "name": "Partition function",
+          "description": "Positivity follows from normalized q, rather than being assumed",
+          "type_or_domain": "A positive finite weighted exponential sum",
+          "scope": "Positivity follows from normalized q, rather than being assumed",
+          "assumptions": "Use the probability, network or differentiability conditions stated in the current entry.",
+          "empty_set_convention": "The empty gate vector has one state and entropy zero; other symbols are not coalition-game empty values.",
+          "baseline_convention": "This paper uses population gate laws, rather than a fixed-input masked-output game; original network biases are retained.",
+          "paper_mappings": [
+            {
+              "note": "Positivity follows from normalized q, rather than being assumed",
+              "conflict_note": "Keep this local definition; matching letters alone do not identify concepts across papers."
+            }
+          ]
+        }
+      }
+    },
+    {
+      "id": "transformation-ebm-law",
+      "canonical_id": "transformation-ebm-law",
+      "canonical_tex": "p_{\\theta_f}",
+      "name": "EBM门律",
+      "description": "未证明拟合律等于真实门分布",
+      "type_or_domain": "有限状态正规概率律",
+      "scope": "未证明拟合律等于真实门分布",
+      "assumptions": "见当前条目所列概率/网络/可微条件。",
+      "empty_set_convention": "空门向量只有一个状态，熵为0；其他符号不涉及空集游戏。",
+      "baseline_convention": "本篇是总体门分布，不是固定输入掩码输出游戏；原网络偏置保留。",
+      "paper_mappings": [
+        {
+          "paper_id": "icml2022-transformation",
+          "original_tex": "p_{\\theta_f}",
+          "canonical_tex": "p_{\\theta_f}",
+          "note": "未证明拟合律等于真实门分布",
+          "conflict_note": "保留本篇局部定义，不按同字母合并别篇概念。",
+          "translations": {
+            "en": {
+              "note": "Equality of the fitted and true gate laws is not proved",
+              "conflict_note": "Keep this local definition; matching letters alone do not identify concepts across papers."
+            }
+          }
+        }
+      ],
+      "translations": {
+        "en": {
+          "name": "EBM gate law",
+          "description": "Equality of the fitted and true gate laws is not proved",
+          "type_or_domain": "A normalized finite-state law",
+          "scope": "Equality of the fitted and true gate laws is not proved",
+          "assumptions": "Use the probability, network or differentiability conditions stated in the current entry.",
+          "empty_set_convention": "The empty gate vector has one state and entropy zero; other symbols are not coalition-game empty values.",
+          "baseline_convention": "This paper uses population gate laws, rather than a fixed-input masked-output game; original network biases are retained.",
+          "paper_mappings": [
+            {
+              "note": "Equality of the fitted and true gate laws is not proved",
+              "conflict_note": "Keep this local definition; matching letters alone do not identify concepts across papers."
+            }
+          ]
+        }
+      }
+    },
+    {
+      "id": "transformation-energy",
+      "canonical_id": "transformation-energy",
+      "canonical_tex": "\\mathcal E",
+      "name": "EBM能量",
+      "description": "连续导数要求所选松弛域内q正",
+      "type_or_domain": "q正支撑上−logq−f",
+      "scope": "连续导数要求所选松弛域内q正",
+      "assumptions": "见当前条目所列概率/网络/可微条件。",
+      "empty_set_convention": "空门向量只有一个状态，熵为0；其他符号不涉及空集游戏。",
+      "baseline_convention": "本篇是总体门分布，不是固定输入掩码输出游戏；原网络偏置保留。",
+      "paper_mappings": [
+        {
+          "paper_id": "icml2022-transformation",
+          "original_tex": "\\mathcal E",
+          "canonical_tex": "\\mathcal E",
+          "note": "连续导数要求所选松弛域内q正",
+          "conflict_note": "保留本篇局部定义，不按同字母合并别篇概念。",
+          "translations": {
+            "en": {
+              "note": "Continuous derivatives require a positive prior in the chosen relaxation domain",
+              "conflict_note": "Keep this local definition; matching letters alone do not identify concepts across papers."
+            }
+          }
+        }
+      ],
+      "translations": {
+        "en": {
+          "name": "EBM energy",
+          "description": "Continuous derivatives require a positive prior in the chosen relaxation domain",
+          "type_or_domain": "−logq−f on the positive support of q",
+          "scope": "Continuous derivatives require a positive prior in the chosen relaxation domain",
+          "assumptions": "Use the probability, network or differentiability conditions stated in the current entry.",
+          "empty_set_convention": "The empty gate vector has one state and entropy zero; other symbols are not coalition-game empty values.",
+          "baseline_convention": "This paper uses population gate laws, rather than a fixed-input masked-output game; original network biases are retained.",
+          "paper_mappings": [
+            {
+              "note": "Continuous derivatives require a positive prior in the chosen relaxation domain",
+              "conflict_note": "Keep this local definition; matching letters alone do not identify concepts across papers."
+            }
+          ]
+        }
+      }
+    },
+    {
+      "id": "transformation-parameter",
+      "canonical_id": "transformation-parameter",
+      "canonical_tex": "\\theta_f,\\theta_{DNN}",
+      "name": "交替学习参数",
+      "description": "分别更新时冻结另一套参数",
+      "type_or_domain": "有限维或实赋范参数空间",
+      "scope": "分别更新时冻结另一套参数",
+      "assumptions": "见当前条目所列概率/网络/可微条件。",
+      "empty_set_convention": "空门向量只有一个状态，熵为0；其他符号不涉及空集游戏。",
+      "baseline_convention": "本篇是总体门分布，不是固定输入掩码输出游戏；原网络偏置保留。",
+      "paper_mappings": [
+        {
+          "paper_id": "icml2022-transformation",
+          "original_tex": "\\theta_f,\\theta_{DNN}",
+          "canonical_tex": "\\theta_f,\\theta_{DNN}",
+          "note": "分别更新时冻结另一套参数",
+          "conflict_note": "保留本篇局部定义，不按同字母合并别篇概念。",
+          "translations": {
+            "en": {
+              "note": "Freeze the other parameter set during each update",
+              "conflict_note": "Keep this local definition; matching letters alone do not identify concepts across papers."
+            }
+          }
+        }
+      ],
+      "translations": {
+        "en": {
+          "name": "Alternating model parameters",
+          "description": "Freeze the other parameter set during each update",
+          "type_or_domain": "A finite-dimensional or real normed parameter space",
+          "scope": "Freeze the other parameter set during each update",
+          "assumptions": "Use the probability, network or differentiability conditions stated in the current entry.",
+          "empty_set_convention": "The empty gate vector has one state and entropy zero; other symbols are not coalition-game empty values.",
+          "baseline_convention": "This paper uses population gate laws, rather than a fixed-input masked-output game; original network biases are retained.",
+          "paper_mappings": [
+            {
+              "note": "Freeze the other parameter set during each update",
+              "conflict_note": "Keep this local definition; matching letters alone do not identify concepts across papers."
+            }
+          ]
+        }
+      }
+    },
+    {
+      "id": "transformation-beta",
+      "canonical_id": "transformation-beta",
+      "canonical_tex": "\\beta",
+      "name": "sigmoid/Swish尺度",
+      "description": "有限β的平滑门不是硬ReLU门",
+      "type_or_domain": "实数",
+      "scope": "有限β的平滑门不是硬ReLU门",
+      "assumptions": "见当前条目所列概率/网络/可微条件。",
+      "empty_set_convention": "空门向量只有一个状态，熵为0；其他符号不涉及空集游戏。",
+      "baseline_convention": "本篇是总体门分布，不是固定输入掩码输出游戏；原网络偏置保留。",
+      "paper_mappings": [
+        {
+          "paper_id": "icml2022-transformation",
+          "original_tex": "\\beta",
+          "canonical_tex": "\\beta",
+          "note": "有限β的平滑门不是硬ReLU门",
+          "conflict_note": "保留本篇局部定义，不按同字母合并别篇概念。",
+          "translations": {
+            "en": {
+              "note": "A finite-β smooth gate is not the hard ReLU gate",
+              "conflict_note": "Keep this local definition; matching letters alone do not identify concepts across papers."
+            }
+          }
+        }
+      ],
+      "translations": {
+        "en": {
+          "name": "Sigmoid/Swish scale",
+          "description": "A finite-β smooth gate is not the hard ReLU gate",
+          "type_or_domain": "A real number",
+          "scope": "A finite-β smooth gate is not the hard ReLU gate",
+          "assumptions": "Use the probability, network or differentiability conditions stated in the current entry.",
+          "empty_set_convention": "The empty gate vector has one state and entropy zero; other symbols are not coalition-game empty values.",
+          "baseline_convention": "This paper uses population gate laws, rather than a fixed-input masked-output game; original network biases are retained.",
+          "paper_mappings": [
+            {
+              "note": "A finite-β smooth gate is not the hard ReLU gate",
+              "conflict_note": "Keep this local definition; matching letters alone do not identify concepts across papers."
+            }
+          ]
+        }
+      }
+    },
+    {
+      "id": "transformation-relaxed-gate",
+      "canonical_id": "transformation-relaxed-gate",
+      "canonical_tex": "\\widetilde\\sigma",
+      "name": "连续门松弛",
+      "description": "作者Eq41≈，原文保留≈",
+      "type_or_domain": "(0,1)中的sigmoid值",
+      "scope": "作者Eq41≈，原文保留≈",
+      "assumptions": "见当前条目所列概率/网络/可微条件。",
+      "empty_set_convention": "空门向量只有一个状态，熵为0；其他符号不涉及空集游戏。",
+      "baseline_convention": "本篇是总体门分布，不是固定输入掩码输出游戏；原网络偏置保留。",
+      "paper_mappings": [
+        {
+          "paper_id": "icml2022-transformation",
+          "original_tex": "\\widetilde\\sigma",
+          "canonical_tex": "\\widetilde\\sigma",
+          "note": "作者Eq41≈，原文保留≈",
+          "conflict_note": "保留本篇局部定义，不按同字母合并别篇概念。",
+          "translations": {
+            "en": {
+              "note": "The author Equation (41) uses ≈, which is preserved",
+              "conflict_note": "Keep this local definition; matching letters alone do not identify concepts across papers."
+            }
+          }
+        }
+      ],
+      "translations": {
+        "en": {
+          "name": "Continuous gate relaxation",
+          "description": "The author Equation (41) uses ≈, which is preserved",
+          "type_or_domain": "A sigmoid value in (0,1)",
+          "scope": "The author Equation (41) uses ≈, which is preserved",
+          "assumptions": "Use the probability, network or differentiability conditions stated in the current entry.",
+          "empty_set_convention": "The empty gate vector has one state and entropy zero; other symbols are not coalition-game empty values.",
+          "baseline_convention": "This paper uses population gate laws, rather than a fixed-input masked-output game; original network biases are retained.",
+          "paper_mappings": [
+            {
+              "note": "The author Equation (41) uses ≈, which is preserved",
+              "conflict_note": "Keep this local definition; matching letters alone do not identify concepts across papers."
+            }
+          ]
+        }
+      }
+    },
+    {
+      "id": "transformation-network-depth",
+      "canonical_id": "transformation-network-depth",
+      "canonical_tex": "L",
+      "name": "网络门层数",
+      "description": "网络深度的L不同于Eq24类别数L",
+      "type_or_domain": "有限非负整数",
+      "scope": "网络深度的L不同于Eq24类别数L",
+      "assumptions": "见当前条目所列概率/网络/可微条件。",
+      "empty_set_convention": "空门向量只有一个状态，熵为0；其他符号不涉及空集游戏。",
+      "baseline_convention": "本篇是总体门分布，不是固定输入掩码输出游戏；原网络偏置保留。",
+      "paper_mappings": [
+        {
+          "paper_id": "icml2022-transformation",
+          "original_tex": "L",
+          "canonical_tex": "L",
+          "note": "网络深度的L不同于Eq24类别数L",
+          "conflict_note": "保留本篇局部定义，不按同字母合并别篇概念。",
+          "translations": {
+            "en": {
+              "note": "Network-depth L is distinct from class-count L in Equation (24)",
+              "conflict_note": "Keep this local definition; matching letters alone do not identify concepts across papers."
+            }
+          }
+        }
+      ],
+      "translations": {
+        "en": {
+          "name": "Number of gate layers",
+          "description": "Network-depth L is distinct from class-count L in Equation (24)",
+          "type_or_domain": "A finite nonnegative integer",
+          "scope": "Network-depth L is distinct from class-count L in Equation (24)",
+          "assumptions": "Use the probability, network or differentiability conditions stated in the current entry.",
+          "empty_set_convention": "The empty gate vector has one state and entropy zero; other symbols are not coalition-game empty values.",
+          "baseline_convention": "This paper uses population gate laws, rather than a fixed-input masked-output game; original network biases are retained.",
+          "paper_mappings": [
+            {
+              "note": "Network-depth L is distinct from class-count L in Equation (24)",
+              "conflict_note": "Keep this local definition; matching letters alone do not identify concepts across papers."
+            }
+          ]
+        }
+      }
+    },
+    {
+      "id": "transformation-prior-rate",
+      "canonical_id": "transformation-prior-rate",
+      "canonical_tex": "\\widehat p",
+      "name": "估计prior激活率",
+      "description": "Eq32二值prior系数，Eq42连续线性延拓时冻结",
+      "type_or_domain": "[0,1]中的Bernoulli参数",
+      "scope": "Eq32二值prior系数，Eq42连续线性延拓时冻结",
+      "assumptions": "见当前条目所列概率/网络/可微条件。",
+      "empty_set_convention": "空门向量只有一个状态，熵为0；其他符号不涉及空集游戏。",
+      "baseline_convention": "本篇是总体门分布，不是固定输入掩码输出游戏；原网络偏置保留。",
+      "paper_mappings": [
+        {
+          "paper_id": "icml2022-transformation",
+          "original_tex": "\\widehat p",
+          "canonical_tex": "\\widehat p",
+          "note": "Eq32二值prior系数，Eq42连续线性延拓时冻结",
+          "conflict_note": "保留本篇局部定义，不按同字母合并别篇概念。",
+          "translations": {
+            "en": {
+              "note": "The binary prior coefficient in Equation (32), frozen in the linear extension of Equation (42)",
+              "conflict_note": "Keep this local definition; matching letters alone do not identify concepts across papers."
+            }
+          }
+        }
+      ],
+      "translations": {
+        "en": {
+          "name": "Estimated prior activation rate",
+          "description": "The binary prior coefficient in Equation (32), frozen in the linear extension of Equation (42)",
+          "type_or_domain": "A Bernoulli parameter in [0,1]",
+          "scope": "The binary prior coefficient in Equation (32), frozen in the linear extension of Equation (42)",
+          "assumptions": "Use the probability, network or differentiability conditions stated in the current entry.",
+          "empty_set_convention": "The empty gate vector has one state and entropy zero; other symbols are not coalition-game empty values.",
+          "baseline_convention": "This paper uses population gate laws, rather than a fixed-input masked-output game; original network biases are retained.",
+          "paper_mappings": [
+            {
+              "note": "The binary prior coefficient in Equation (32), frozen in the linear extension of Equation (42)",
+              "conflict_note": "Keep this local definition; matching letters alone do not identify concepts across papers."
+            }
+          ]
+        }
+      }
+    },
+    {
+      "id": "transformation-langevin-step",
+      "canonical_id": "transformation-langevin-step",
+      "canonical_tex": "\\Delta\\tau",
+      "name": "Langevin步长",
+      "description": "源连续近似更新算法的离散时间步",
+      "type_or_domain": "正实数",
+      "scope": "源连续近似更新算法的离散时间步",
+      "assumptions": "见当前条目所列概率/网络/可微条件。",
+      "empty_set_convention": "空门向量只有一个状态，熵为0；其他符号不涉及空集游戏。",
+      "baseline_convention": "本篇是总体门分布，不是固定输入掩码输出游戏；原网络偏置保留。",
+      "paper_mappings": [
+        {
+          "paper_id": "icml2022-transformation",
+          "original_tex": "\\Delta\\tau",
+          "canonical_tex": "\\Delta\\tau",
+          "note": "源连续近似更新算法的离散时间步",
+          "conflict_note": "保留本篇局部定义，不按同字母合并别篇概念。",
+          "translations": {
+            "en": {
+              "note": "The discrete time step of the source continuous-relaxation update algorithm",
+              "conflict_note": "Keep this local definition; matching letters alone do not identify concepts across papers."
+            }
+          }
+        }
+      ],
+      "translations": {
+        "en": {
+          "name": "Langevin step size",
+          "description": "The discrete time step of the source continuous-relaxation update algorithm",
+          "type_or_domain": "A positive real number",
+          "scope": "The discrete time step of the source continuous-relaxation update algorithm",
+          "assumptions": "Use the probability, network or differentiability conditions stated in the current entry.",
+          "empty_set_convention": "The empty gate vector has one state and entropy zero; other symbols are not coalition-game empty values.",
+          "baseline_convention": "This paper uses population gate laws, rather than a fixed-input masked-output game; original network biases are retained.",
+          "paper_mappings": [
+            {
+              "note": "The discrete time step of the source continuous-relaxation update algorithm",
+              "conflict_note": "Keep this local definition; matching letters alone do not identify concepts across papers."
+            }
+          ]
+        }
+      }
+    },
+    {
+      "id": "transformation-noise",
+      "canonical_id": "transformation-noise",
+      "canonical_tex": "\\epsilon",
+      "name": "Gaussian采样噪声",
+      "description": "连续Langevin噪声；特征KDE加噪另按σ0²I",
+      "type_or_domain": "状态维度上的N(0,I)",
+      "scope": "连续Langevin噪声；特征KDE加噪另按σ0²I",
+      "assumptions": "见当前条目所列概率/网络/可微条件。",
+      "empty_set_convention": "空门向量只有一个状态，熵为0；其他符号不涉及空集游戏。",
+      "baseline_convention": "本篇是总体门分布，不是固定输入掩码输出游戏；原网络偏置保留。",
+      "paper_mappings": [
+        {
+          "paper_id": "icml2022-transformation",
+          "original_tex": "\\epsilon",
+          "canonical_tex": "\\epsilon",
+          "note": "连续Langevin噪声；特征KDE加噪另按σ0²I",
+          "conflict_note": "保留本篇局部定义，不按同字母合并别篇概念。",
+          "translations": {
+            "en": {
+              "note": "Continuous Langevin noise; feature-KDE noise instead has covariance σ0²I",
+              "conflict_note": "Keep this local definition; matching letters alone do not identify concepts across papers."
+            }
+          }
+        }
+      ],
+      "translations": {
+        "en": {
+          "name": "Gaussian sampling noise",
+          "description": "Continuous Langevin noise; feature-KDE noise instead has covariance σ0²I",
+          "type_or_domain": "N(0,I) in the state dimension",
+          "scope": "Continuous Langevin noise; feature-KDE noise instead has covariance σ0²I",
+          "assumptions": "Use the probability, network or differentiability conditions stated in the current entry.",
+          "empty_set_convention": "The empty gate vector has one state and entropy zero; other symbols are not coalition-game empty values.",
+          "baseline_convention": "This paper uses population gate laws, rather than a fixed-input masked-output game; original network biases are retained.",
+          "paper_mappings": [
+            {
+              "note": "Continuous Langevin noise; feature-KDE noise instead has covariance σ0²I",
+              "conflict_note": "Keep this local definition; matching letters alone do not identify concepts across papers."
+            }
+          ]
+        }
+      }
+    }
+  ]
+}

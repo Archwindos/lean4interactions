@@ -1,0 +1,58 @@
+Table 3: The distance between normal samples x and adversarial examples xadv , and the distance
+between x and the recovered samples x̂.
+                                          Standard DNN          Adversarially trained DNN
+                                     Ekx − xadv k2 Ekx − x̂k2   Ekx − xadv k2 Ekx − x̂k2
+                       ResNet-18         9.72        13.57         18.69           11.45
+                       ResNet-50         9.56        13.40         18.34           12.68
+                      DenseNet-161       9.67        13.51         18.55           13.26
+
+
+
+I.9    More discussions about the comparison with frequency-based methods
+
+In Section 4.1 of the main paper, we have compared our interaction-based metric with the frequency-
+based metric. This section provides more discussions about the comparative experiment.
+Previous studies [24, 20, 7] explained adversarial perturbations as high-frequency features. In this
+paper, we compared the frequency metric with the interaction metric, and showed that our interaction
+metric could better explain the essential property of adversarial perturbations. In order to measure the
+significance of features of different frequencies in an input image x, we applied the Fourier transform
+to the image to obtain the frequency spectrum F . Then, we shifted the low frequency components
+         qP of the spectrum. The magnitude of the r-frequency component was quantified as
+to the center
+  (r)                              (h,w) k2 . In order to fairly compare these two metrics, we computed
+F =           (h,w):h2 +w2 =r 2 kF        2
+the Fisher’s discriminant ratio [5] using two metrics, which measured the ratio of the variance between
+the classes (between normal samples and adversarial examples) to the variance within the classes.
+Such experimental settings has also been introduced in Figure 6 (left) of the main paper.
+
+I.10    Explaining high recoverability of adversarial examples on adversarially trained DNNs
+
+In Section 4.3 of the paper, we claim that adversarial examples towards adversarially trained DNNs
+usually exhibit higher recoverability than adversarial examples towards standard DNNs. In the
+supplementary material, this section shows experimental results to verify the above claim.
+We generated adversarial examples for normal validation samples in the ImageNet dataset by follow-
+ing settings of the untargeted PGD attack [12], in which  = 16/255, and the attack was conducted
+with 10 steps with the step size 2/255. Adversarial examples were generated based on ResNet-18/50
+and DenseNet-161 trained on the ImageNet dataset. Then, we used same parameters to conduct the
+targeted PGD attack and recover normal samples.
+Table 3 shows that adversarially trained DNNs usually exhibited higher recoverability than standard
+DNNs. This can be explained Proposition 1 in the paper. As we have discussed in Section 4.1 of the
+paper, adversarial perturbations towards adversarially trained DNNs usually pay more attention to
+low-order interactions than perturbations towards standard DNNs. On the other hand, the low-order
+              (m)
+interaction Iij (x) is equivalent to the conditional mutual information M I(Xi ; Xj ; Y |XS ) given
+small contexts XS according to Proposition 1, while the high-order interaction corresponds to such a
+mutual information conditioned on large contexts with massive variables. In general, compared to
+high-order interactions, low-order interactions are conditioned on less contextual variables, thereby
+suffering less from adversarial perturbations, i.e. obviously M I(Xi ; Xj ; Y |XS ) usually suffers less
+from adversarial perturbations, if the condition xS only contains very few variables. In other words,
+low-order interactions are more transferable among different contexts xS , so it is easy to invert
+adversarial perturbations of low-order interactions. In this way, because adversarial perturbations for
+adversarially trained DNNs mainly focus on low-order interactions, such perturbations are easy to be
+recovered.
+
+
+
+
+                                                     14
+

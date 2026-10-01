@@ -1,0 +1,1 @@
+The information bottleneck reflects the trade-off between $I(X;Z)$ and $I(Z;Y)$, which leads to the approximate minimal sufficient statistics. In the forward propagation, the feature $Z$ contains all information encoded in the DNN, thereby forming a Markov process $X\to Z\to Y$. Thus, given the feature $Z$, $X$ and $Y$ are conditional independent, i.e., $I(X;Y\mid Z)=0$.

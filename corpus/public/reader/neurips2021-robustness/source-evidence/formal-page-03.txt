@@ -1,0 +1,61 @@
+Then, we further explain the reason for the high robustness of adversarially trained DNNs. For
+interactions of each order, we define the disentanglement metric to identify whether interactions
+of this order are discriminative for the classification of a specific category, or represent common
+knowledge shared by different categories. For example, in Figure 1 (left), interactions representing
+the blue water may be shared by different categories, while interactions corresponding to the head
+of the red-breasted merganser are discriminative for this category. Based on the disentanglement
+metric, we discover that compared with standard DNNs, adversarially trained DNNs usually
+encode more discriminative low-order interactions. Discriminative low-order interactions make
+high-order interactions of adversarially trained DNNs robust to attacks, because contexts of
+high-order interactions are composed of many small contexts of low-order interactions. For example,
+if the simple (low-order) interactions for the red-breasted merganser are learned to be discriminative,
+instead of being shared by the bicycle category, then it is difficult to attack this image towards the
+bicycle category. It is because it is difficult to use the low-order interactions of the red-breasted
+merganser’s head to construct high-order interactions of bicycles.
+(3) Our research provides a unified understanding for the success of several existing adver-
+sarial defense methods, including the attribution-based detection of adversarial examples [65], the
+recoverability of adversarial examples to normal samples, the cutout method [15], and the rank-based
+method [30] (which is proved by [30] to be related to frequency-based methods [66, 51, 61]).
+Above findings also slightly revise the previous explanation of adversarially learned features [21,
+50, 16, 73]. They claimed that adversarial training learned more information about foreground shapes.
+We discover that these adversarially learned features are actually low-order interactions (usually local
+shapes), instead of modeling the global shape of the foreground.
+Explainable AI system based on game-theoretic interactions. In fact, our research group led by
+Dr. Quanshi Zhang have proposed game-theoretic interactions, including interactions of different
+orders [69] and multivariate interactions [71]. The interaction can be used as an typical metric to
+explain signal processing in DNNs from different perspectives. For example, the game-theoretic
+metric can be used to guide the learning of baseline values of Shapley values [41]. Furthermore,
+we have built up a tree structure to explain the hierarchical interactions between words encoded by
+NLP models [68]. We have also used interactions to explain the generalization power of DNNs [70].
+The interaction can also explain how adversarial perturbations contribute to the attacking task [53],
+and explain the transferability of adversarial perturbations [52]. Furthermore, we have also used the
+interaction to formulate the visual aesthetics [12] and signal-processing properties of different types
+of visual concepts [11] in DNNs. As an extension of the system of game-theoretic interactions, in
+this study, we explain the adversarial robustness based on interactions.
+
+
+2    Related work
+
+Attacking methods can be roughly summarized into white-box attacks [48, 21, 31, 38, 8] and black-
+box attacks [32, 39, 10, 6, 28, 59, 4]. For defense, adversarial training is one of the most effective
+and widely-used defense methods [34, 72, 54, 55, 60]. Other defense methods include masking
+gradients [39, 36], modifying networks [13, 19], and applying pre-processing on input images for
+testing [14, 35, 62, 3].
+Explanations for adversarial examples. Some previous studies focused on the reason for the existence
+of adversarial examples. Goodfellow et al. [21] explained adversarial examples as a result of the high
+linearity of feature representations. Gilmer et al. [20], Ma et al. [33] proved that the existence of
+adversarial examples was due to the geometry of the high-dimensional manifold. Xie et al. [62], Xu
+et al. [63, 64], Bai et al. [5] discovered that adversarial perturbations usually activated substantial
+“noise” and semantically irrelevant features. Engstrom et al. [17] investigated the vulnerability of
+DNNs to rotations and translations. Tsipras et al. [50], Ilyas et al. [29] demonstrated that adversarial
+examples were attributed to non-robust yet discriminative features.
+Understandings of adversarial training. Athalye et al. [2] suggested that adversarial training did
+not cause the obfuscated gradients phenomenon, which boosted the robustness. Goodfellow et al.
+[21], Dong et al. [16], Tsipras et al. [50], Zhang and Zhu [73] found that adversarially trained DNNs
+learned more shape-biased features than standard DNNs. Chalasani et al. [9] proved that adversarially
+trained DNNs w.r.t. the ℓ∞ attack exhibited more sparse attributions. Tian et al. [49] showed that
+there is robustness imbalance among classes in adversarial training. Song et al. [46] considered the
+
+
+                                                   3
+

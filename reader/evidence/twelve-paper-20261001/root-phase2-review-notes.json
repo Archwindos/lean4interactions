@@ -1,0 +1,108 @@
+{
+  "status": "read_only_review_before_phase1_checkpoint",
+  "items": [
+    {
+      "id": "canonical-entropy-game",
+      "scope": "new and existing entropy arguments",
+      "finding": "Population conditional-entropy games must be H_Y(S), not silently the fixed-input g_x(S)=v(x_S). Check definitions, steps and shared instances together.",
+      "status": "pending_second_phase",
+      "sample_review": {
+        "result_id": "robustness-entropy-interaction",
+        "finding": "The actual page defines the conditional-entropy instance H_Y and its I_(ij,H_Y) correctly in local definitions; the top conclusion still uses an unqualified I_ij^(m) alias. Check that the alias is explicit or use the same qualified symbol in the canonical conclusion, proof and registry. Original author formula remains unchanged.",
+        "evidence": "reader/evidence/twelve-paper-20261001/root-eight-page-samples.json"
+      }
+    },
+    {
+      "id": "canonical-baseline-r",
+      "scope": "all rewritten proofs and shared library explanations",
+      "finding": "Reserve r for input baseline; use q for cardinalities and rho/e for residual scalars where the same exposition includes masking. Preserve original source symbols.",
+      "status": "pending_second_phase"
+    },
+    {
+      "id": "source-symbol-definitions",
+      "scope": "all new paper_mappings",
+      "finding": "original_definition must retain original source variables and actual location; do not copy canonical definitions under an original-source label. Split ordinary full-game and optimized component mappings by source scope.",
+      "status": "pending_second_phase"
+    },
+    {
+      "id": "public-shapley-dependencies",
+      "scope": "F01 and existing Shapley pages",
+      "finding": "F01 actual Lean already uses existing Shapley/dividend library. Reader should expose genuine shared dependencies/adaptation rather than omit those links. Pair-interaction linearity is not identical to individual dividend linearity.",
+      "status": "pending_second_phase"
+    },
+    {
+      "id": "multi-shared-navigation",
+      "scope": "reader relatedPapers/currentShared",
+      "finding": "Support all shared_proof_ids for cross-paper links and adaptation headings, not only singular shared_proof_id.",
+      "status": "pending_second_phase"
+    },
+    {
+      "id": "source-project-comment-boundary",
+      "scope": "old f11-matching-metric",
+      "finding": "Check official source before separating project m-variable collision comment from original statement; current formula m/v(N), definitions and mappings need source-aware normalization. Phase1 preserve old accepted semantics.",
+      "status": "pending_second_phase",
+      "source_review": {
+        "pdf_path": "reader/preview/files/papers/src-iclr2024-generalizable-main.pdf",
+        "sha256": "9690fc5c8043ca7f7a583297833588696276efc8324da4ed0dcaa5685c4390ed",
+        "pdf_page": 21,
+        "section": "Appendix M",
+        "finding": "Formal source defines an experimental matching metric using m and v(N), v(empty). The Chinese variable-collision sentence is a project note, not author text. Distinct local m usage is a normalization issue, not by itself a false mathematical claim.",
+        "proposed_scope": "Keep source formula verbatim in original panel; normalized metric rho_k uses g(N), output baseline b and explicit selected-interaction indices retaining AND/OR tags. No invented zero-denominator value."
+      }
+    },
+    {
+      "id": "conditional-theorem-status-display",
+      "scope": "Existing Sparse Theorems2/3 and Layerwise universal matching",
+      "finding": "Eight-paper counts distinguish 102 target theorem-proof roles and 99 full-proof-text targets because three older targets are scoped statement explanations with real proofs of their explicitly stated domains. Do not infer correctness from count alignment; clarify the proved domain in UI. Inspect layer-universal-matching legacy proof_scope=not_delivered against its actual existing adapter/body and correct the metadata only after source-aligned review.",
+      "status": "pending_second_phase"
+    },
+    {
+      "id": "f01-classical-canonical-conclusions",
+      "scope": "robustness-classical-* conclusions and their bilingual definitions/proofs",
+      "finding": "The dummy and efficiency canonical statement_tex still use v(empty),v(N), while actual local definitions and proof bodies consistently define g(S)=v(x_S), b=v(x_empty). Normalize rewritten conclusion symbols to g/b (or explicit v(x_S)), preserving original_statement_md, the source special dummy premise and its derived b=0. Review all classical conclusions, not only regex hits. This is notation alignment, not a theorem modification.",
+      "evidence": "reader/evidence/twelve-paper-20261001/root-phase2-notation-scan.json",
+      "status": "pending_second_phase"
+    },
+    {
+      "id": "frequency-domains-not-identical",
+      "scope": "F06 spatial decoder DFT versus F10 Section4.2 cited frequency interpretation",
+      "finding": "F06 transforms the spatial coordinates of intermediate feature maps on a finite 2D grid. F10 cites sample/loss-landscape frequency arguments in an explanatory passage. Preserve separate concept/domain IDs and source mappings; similar frequency terminology does not establish an equivalent theorem or shared proof.",
+      "status": "pending_second_phase"
+    },
+    {
+      "id": "sample-dependent-normalization",
+      "scope": "Across-sample metrics and fixed-reference trigger proofs in F08/F10 and related older papers",
+      "finding": "Within a fixed input proof g_x(S)=v(x_S), b=v(x_empty) and U_S=I(S|x) may use local aliases. Across an expectation over x, reference coefficients U_{S,x} and any input-dependent mask baseline r(x) must stay indexed; do not silently cancel them as a constant. F10 kappa counterexample makes this distinction essential. Mathematical source expressions remain unchanged.",
+      "status": "pending_second_phase"
+    },
+    {
+      "id": "external-results-already-in-archive",
+      "scope": "F08/F10 externally cited sparsity/reconstruction and existing ICLR2024/CVPR2023 results",
+      "finding": "An external proof need not remain a dead end when the cited formal paper is already archived. Resolve exact citation/version/theorem and expose a cross-paper proof link with its actual assumptions. This is navigation/dependency reuse, not evidence that the citing paper has discharged those assumptions for every DNN. Preserve no_local_author_proof in the citing source and keep truly external unresolved results distinct.",
+      "status": "pending_second_phase"
+    },
+    {
+      "id": "lean-reading-bridge",
+      "scope": "Lean panel and proof-step mapping",
+      "finding": "Prefer an actual source theorem header or verified concise signature plus the current step assumptions and conclusion as the reading entry. The fully elaborated Eq/HMul/universe-heavy type remains available as audit evidence; do not rewrite the verified type by unsafe display substitutions. Existing public API source/signature lookup can support this. Keep the distinction between a human proof step, the encoded mathematical object and the compiled declaration explicit.",
+      "status": "pending_second_phase"
+    },
+    {
+      "id": "reader-prose-vs-engineering-notes",
+      "scope": "All twelve rewritten proof bodies and scope labels, especially newer F06/F10 drafts",
+      "finding": "Proof bodies should state the mathematical objects, actual hypotheses and inferential steps in readable Chinese or English. Development words such as source/prose/adapter/scope, pending module names, concatenated ASCII formulas and agent instructions should not replace the mathematical explanation. Keep precise verification limitations in the visible machine-scope area, use rendered formulas, and retain detailed engineering provenance in reports/docs. Source quotations and identifiers remain unchanged. This is a readability pass, not permission to omit hypotheses or shorten a proof into an unsupported sketch.",
+      "status": "pending_second_phase",
+      "concrete_observations": [
+        "F06 first-package overviews often copy the entire first proof step, repeating the same argument before it starts. Use a short explanation of the proof strategy rather than a duplicate paragraph.",
+        "F06 shared proofs currently copy full result proof bodies with fresh step IDs. The existing UI dedup key includes step ID, so both copies render. Replace duplicates with actual paper-to-shared adaptations and stable references, preserving conditions and verification paths.",
+        "Root actual twelve-paper screenshot root-twelve-sample-3.png: diff-kappa-conversion assumptions include unrendered U_x and C_x(x\\prime), ASCII m0 and sigma descriptions; KaTeX zero errors alone does not establish that all mathematical prose uses math delimiters. Include manual CN/EN formula readability review."
+      ]
+    },
+    {
+      "id": "old-shapley-canonical-and-counting-adapter",
+      "scope": "hnet-shapley-definition, coalition-shapley-coefficient and equivalent Shapley coefficient proofs across papers",
+      "finding": "HarsanyiNet uses V(T)=g(T)-b in the rewritten classical Shapley definition; normalize this centered-game notation to the chosen g0 convention while retaining the original V source. Coalition has a valid exact numeric binomial-coefficient identity but its machine scope still stops at an equivalent factorial predecessor kernel with human cardinality grouping. In the second phase, review whether the now available shared context-counting framework can provide the explicit numeric-index adapter and reuse that one exact result across papers. Do not relabel the existing partial adapter as a full numeric theorem before implementing and checking the actual grouping. Preserve all current IDs and source fields.",
+      "status": "pending_second_phase"
+    }
+  ]
+}

@@ -1,0 +1,63 @@
+                             Defects of Convolutional Decoder Networks in Frequency Representation
+
+(1) the Law of Large Numbers, and (2) the independent effects log(|µl Ruv |2 + K 2 σl2 ) between different layers’ T (l,uv) on
+log SOM(T(uv)(L:1) ) = L                 2   2 2
+                      P
+                        l=1 log(|µl Ruv | + K σl ).
+                                                                                                        low low
+Therefore, the large |Rulow vlow | value for a low-frequency component [ulow , v low ] makes T(u v )(L:1) more likely to have
+                                                                                                                high high
+a large norm, whereas the small |Ruhigh vhigh | value for a high-frequency component [uhigh , v high ] makes T(u v )(L:1) less
+likely to have a large norm. This indicates that a deep decoder network will almost certainly strengthen the encoding
+of low-frequency components of the input sample, while weaken the encoding of high-frequency components.
+
+B.2. Effects of the initialization of network parameters
+If the expectation µl of convolutional weights in each l-th layer has a large absolute value |µl |, then the decoder network
+is less likely to learn high-frequency components. It is because according to Theorem 4.2, a large absolute value |µl |
+boosts the imbalance effects |µl Ruv |2 among different frequency components, thereby strengthening the trend of encoding
+low-frequency components of the input sample.
+
+B.3. Effects of the convolutional kernel size
+If the convolutional kernel size K is small, then the decoder network is less likely to learn high-frequency components. It
+is because according to Theorem 4.2, a large K value alleviates imbalance of the second-order moment SOM(T(uv)(L:1) )
+between low frequencies and high frequencies caused by the imbalance of |Ruv |. Thus, a small K value strengthens the
+trend of encoding low-frequency components of the input sample.
+
+B.4. Effects of the distribution of the training data
+If the cascaded convolutional decoder network is trained on natural images, then the decoder network is less likely to learn
+high-frequency components. Previous studies (Ruderman, 1994) have empirically found that natural images were dominated
+by low-frequency components. Specifically, frequency spectrums of natural images follow a Power-law distribution. I.e.,
+low-frequency components (e.g., the frequency
+                                     q         component [u, v] closed to [0, 0], [0, N − 1], [M − 1, 0], and [M − 1, N − 1])
+                                               (c) 2
+have much larger length kg(uv) k2 =
+                                             P
+                                           c |Guv | than other frequency components. Besides, according to rules of the
+forward propagation in Equation (4) and the change of T (l,uv) in Equation (5), if the frequency component g(uv) of the input
+image has a large magnitude, then h(uv) of the output image also has a large magnitude. This means that using natural
+images as the input strengthens the trend of encoding low-frequency components.
+
+C. More experimental results
+C.1. Verifying that a neural network usually learned low-frequent components first.
+In section, we provide more experimental results to verify that a neural network usually learned low-frequent components
+first, which had already been shown in Figure 1(a) in the main paper. Here, we also constructed a cascaded convolutional auto-
+encoder by using the VGG-16 as the encoder network. The decoder network contained three upconvolutional layers for the
+CIFAR-10 dataset, and contained three upconvolutional layers for the Broden dataset. Each convolutional/upconvolutional
+layer in the auto-encoder applied zero-paddings and was followed by a batch normalization layer and an ReLU layer. The
+auto-encoder was trained using the mean squared error (MSE) loss for image reconstruction. Results in Figure 6 verified that
+the auto-encoder usually learned low-frequent components first and gradually learned higher frequecies. We also attached
+the generated image below its spectrum map in Figure 7, in order to help people understand the learning process of the
+auto-encoder.
+
+C.2. Verifying that the upsampling operation made a decoder network repeat strong signals at certain frequencies
+     of the generated image.
+In section, we provide more experimental results to verify that the upsampling operation in the decoder repeats strong
+frequency components of the input to generate spectrums of upper layers.
+First, we conducted experiments to verify Theorem 4.4 in the main paper, which claims that the upsampling operation
+repeats the strong magnitude of the fundamental frequency G(c)          00 of the lower layer to different frequency components
+      (c)
+∀c, Hu∗ v∗ of the higher layer, where u∗ = 0, M0 , 2M0 , 3M0 , . . . ; v ∗ = 0, N0 , 2N0 , 3N0 , . . .. To verify this, given an image, let
+
+
+                                                                    27
+

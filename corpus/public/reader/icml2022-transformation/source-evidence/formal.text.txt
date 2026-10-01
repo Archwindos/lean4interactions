@@ -1,0 +1,1839 @@
+  Towards Theoretical Analysis of Transformation Complexity of ReLU DNNs
+
+
+                      Jie Ren * 1 Mingjie Li * 1 Meng Zhou 2 Shih-Han Chan 3 Quanshi Zhang 4
+
+
+                          Abstract                                             A simple DNN: ℝ2 → ℝ                        A complex DNN: ℝ2 → ℝ
+                                                                                      𝑦 = DNN(𝑥)                               𝑦 = DNN(𝑥)
+      This paper aims to theoretically analyze the com-
+      plexity of feature transformations encoded in
+      piecewise linear DNNs with ReLU layers. We
+      propose metrics to measure three types of com-                                                      𝑥2                                       𝑥2
+
+      plexities of transformations based on the informa-                 𝑥1                                           𝑥1
+      tion theory. We further discover and prove the                 samples
+                                                                                              samples activating
+      strong correlation between the complexity and the              activating
+                                                                     the same                another gating state 𝝈
+                                                                     gating state 𝝈
+      disentanglement of transformations. Based on the                                          linear subspaces
+
+      proposed metrics, we analyze two typical phenom-               Figure 1. The change of gating states in an ReLU DNN divides
+      ena of the change of the transformation complex-               the input space into lots of linear subspaces. In this paper, we aim
+      ity during the training process, and explore the               to quantify the complexity of linear subspaces encoded in ReLU
+      ceiling of a DNN’s complexity. The proposed met-               DNNs.
+      rics can also be used as a loss to learn a DNN with
+      the minimum complexity, which also controls
+      the over-fitting level of the DNN and influences               In fact, there have been many studies (Arora et al., 2016;
+      adversarial robustness, adversarial transferabil-              Zhang et al., 2016; Raghu et al., 2017; Manurangsi & Re-
+      ity, and knowledge consistency. Comprehensive                  ichman, 2018) on the representation complexity of a DNN.
+      comparative studies have provided new perspec-                 However, unlike traditional studies on the theoretic max-
+      tives to understand the DNN. The code is released              imum complexity of a DNN, we investigate this problem
+      at https://github.com/sjtu-XAI-lab/transformation-             from a new perspective, i.e., the complexity of piecewise
+      complexity.                                                    linear representations of a ReLU network. In fact, most
+                                                                     DNNs with ReLU activation functions are piecewise lin-
+                                                                     ear models. As Figure 1 shows, for such piecewise lin-
+                                                                     ear models, the number of piecewise linear subspaces
+1. Introduction
+                                                                     in the model is the distinctive perspective to analyze
+Understanding the black-box of deep neural networks                  the representation complexity of the model. A complex
+(DNNs) has attracted increasing attention in recent years.           DNN usually uses countless linear subspaces for regres-
+Previous studies usually interpret DNNs by either explain-           sion/classification. Such a complexity reveals new insights
+ing DNNs visually/semantically (Lundberg & Lee, 2017;                into typical problems, such as the feature disentanglement,
+Ribeiro et al., 2016), or analyzing the feature representation       over-fitting, adversarial robustness, adversarial transferabil-
+capacity of a DNN (Higgins et al., 2017; Achille & Soatto,           ity, and knowledge consistency.
+2018a;b; Fort et al., 2019). To this end, in this paper, we
+                                                                     Therefore, in this paper, we define three new metrics in
+aim to explain the representation capacity of a DNN by
+                                                                     information theory to quantify the diversity of gating states
+analyzing its complexity of feature representations.
+                                                                     in gating layers (e.g., ReLU, max-Pooling, and Dropout
+  *
+    Equal contribution 1 Shanghai Jiao Tong University. 2 Carnegie   layers). Such gating states directly determine the complexity
+Mellon University. 3 University of California San Diego. 4 Quanshi   of linear subspaces that are encoded by a piecewise linear
+Zhang is the corresponding author. He is with the Department         ReLU network. For example, as Figure 1 shows, the change
+of Computer Science and Engineering, the John Hopcroft Center,       of gating states in a DNN divides the entire input space
+and the MoE Key Lab of Artificial Intelligence, AI Institute, at
+the Shanghai Jiao Tong University, China. Correspondence to:         into lots of linear subspaces. Compared with intermediate-
+Quanshi Zhang <zqs1022@sjtu.edu.cn>.                                 layers neural activations, gating states can better reflect the
+                                                                     diversity of transformations in a piecewise linear DNN.
+Proceedings of the 39 th International Conference on Machine
+Learning, Baltimore, Maryland, USA, PMLR 162, 2022. Copy-            Thus, the first metric is defined as the entropy of the gat-
+right 2022 by the author(s).                                         ing states of nonlinear operations. Specifically, let us con-
+                           Towards Theoretical Analysis of Transformation Complexity of ReLU DNNs
+
+sider the task (X, Y ), where X denotes all input samples              In this study, we conduct the following theoretic explo-
+and Y denotes corresponding labels. Given a DNN, the                   rations based on the complexity metrics.
+complexity of transformations represents the diversity of
+                                                                       (1) Disentanglement: we prove the strong correlation be-
+transformations that map each input x to the corresponding
+                                                                       tween the complexity and the disentanglement of trans-
+y ∈ Y over all inputs x ∈ X , i.e., the number of linear
+                                                                       formations. Let us consider DNNs with similar activation
+subspaces in piecewise linear transformations. From this
+                                                                       rates in a certain layer. If the complexity of the transforma-
+perspective, the simplest model is a linear transformation
+                                                                       tion encoded in a specific layer is larger, then gating states
+y = f (wT x + b) = wT x + b, where the nonlinear operation
+                                                                       of different feature dimensions tend to be more independent
+f (·) is by-passed as an all-passing gating layer. In this case,
+                                                                       with each other.
+the entropy of its gating states is zero. In comparison, as
+Figure 1 shows, a DNN usually generates various gating                 (2) Minimum complexity and the gap between the train-
+states for different inputs, thereby dividing all training sam-        ing loss and the testing loss: we use the complexity as
+ples into different subspaces. The complexity of such a                a loss to learn a DNN with the minimum complexity. A
+piecewise linear representation is quantified as the entropy           DNN usually learns over-complex transformations w.r.t. the
+of gating states of all gating layers. Let the binary vector           task. Thus, we propose a complexity loss, which penal-
+σl = [σl,1 , σl,2 , . . . , σl,D ] ∈ {0, 1}D denote gating states of   izes unnecessary transformations to learn a DNN with the
+the gating layer. Let Σ represent the random variable of               minimum complexity. Given the DNN learned using the
+all gating states in all layers of the DNN. In this way, the           complexity loss, we find that the gap between the training
+entropy H(Σ) among all inputs measures the complexity of               loss and the testing loss decreases, when we reduce the
+the overall transformation complexity in the DNN.                      complexity of transformations. Furthermore, we find that
+                                                                       the complexity loss also influences adversarial robustness,
+Based on the entropy H(Σ), we further propose I(X; Σ) and
+                                                                       adversarial transferability, and knowledge consisitency.
+I(X; Σ; Y ) as two additional metrics to further disentangle
+specific components of the overall transformation complex-             (3) Maximum complexity: we explore the ceiling of a
+ity H(Σ) in a fine-grained manner. The mutual information              DNN’s complexity. First, the complexity of a DNN does
+I(X; Σ) measures the complexity of transformations that                not monotonously increase with the network depth. In con-
+are caused by the input. The mutual information I(X; Σ; Y )            trast, the traditional stacked DNN with a deep architecture
+represents the complexity of transformations that are caused           may encode simpler transformations than shallow DNNs
+by the input and are directly used for inference. For exam-            in some cases. Whereas, the transformation complexity of
+ple, in the task of object classification, not all transforma-         residual networks is saturated when we use more gating
+tions in the DNN are category-specific. I(X; Σ; Y ) reflects           layers. Second, the complexity of transformations does not
+category-specific components of transformations. Notice                increase monotonously along with the increase of the com-
+that I(X; Σ) = H(Σ) in most cases. However, for other                  plexity of tasks. In contrast, if the task complexity exceeds a
+cases when the DNN uses additional transformations (ran-               certain limit, the complexity of transformations encoded in
+domness) beyond transformations caused by the input X ,                the DNN will decrease along with the increase of the task
+we have I(X; Σ) ̸= H(Σ). For example, sampling operations              complexity.
+in the VAE (Kingma & Welling, 2013) and the dropout
+                                                                       Theorectial contributions of this study can be summarized
+operation bring additional transformations.
+                                                                       as follows. (1) We define three metrics to evaluate the com-
+Analysis and explanations. In this paper, we prove various             plexity of transformations in piecewise linear DNNs, which
+properties of the complexity metrics. Let us focus on the              have a great theoretical extensibility. (2) We prove the strong
+complexity of transforming the feature in an intermediate              correlation between the complexity and the disentanglement
+layer to the output of the DNN. The transformation complex-            of transformations. (3) We further use the transformation
+ity decreases through the layerwise propagation. In other              complexity as a loss to learn a minimum-complexity DNN,
+words, deep features usually require simpler transformations           which also reduces the gap between the training loss and
+to conduct inference than shallow features. Then, we use               the testing loss. (4) Comparative studies reveal the ceiling
+the proposed complexity metrics to analyze the knowledge               of a DNN’s complexity.
+representation of DNNs. We can summarize the change of
+the complexity during the training process into two types.             2. Related Work
+In traditional stacked DNNs without skip-connections, the
+complexity usually decreases first, and increases later. This          We limit our discussion within the literature of understand-
+indicates that DNNs may drop noisy features in early stages,           ing representations of DNNs. In general, previous studies
+and learn useful information later. Whereas, in residual               can be roughly summarized into the following two types.
+networks, the transformation complexity does not decrease
+                                                                       • The first type is the semantic explanations for DNNs.
+during the learning process.
+                         Towards Theoretical Analysis of Transformation Complexity of ReLU DNNs
+
+Some studies directly visualized knowledge representations        analyzed the complexity of features in a DNN by comparing
+encoded in the DNN (Zeiler & Fergus, 2014; Mahendran &            them with features learned by a linear classifier.
+Vedaldi, 2015; Yosinski et al., 2015; Dosovitskiy & Brox,
+                                                                  Unlike analyzing the complexity of the DNN based on its
+2016; Simonyan et al., 2017). Other methods estimated the
+                                                                  architecture, we aim to measure the complexity of feature
+pixel-wise attribution to the network output (Zhou et al.,
+                                                                  transformations learned by the DNN. We define three types
+2015; Selvaraju et al., 2017; Fong & Vedaldi, 2017; Kinder-
+                                                                  of transformation complexity, which provide new perspec-
+mans et al., 2017; Zhou et al., 2016). The LIME (Ribeiro
+                                                                  tives to understand the DNN.
+et al., 2016) and SHAP (Lundberg & Lee, 2017) extracted
+important input units that directly contributed to the output.
+Some visual explanations reveal certain insightful properties     3. Transformation Complexity
+of DNNs. Fong & Vedaldi (2017) analyzed how multiple
+                                                                  Strong connection between gating states and the trans-
+filters jointly represented a certain semantic concept. In
+                                                                  formation complexity. Given the input x ∈ X and the
+contrast, in this paper, we propose to investigate the repre-
+                                                                  target label y ∈ Y , the DNN is learned to map x to y . Lay-
+sentation capacity from the perspective of transformation
+                                                                  erwise transformations of mapping x to y can be roughly
+complexity encoded in DNNs.
+                                                                  represented by
+• The second type is to analyze the feature representation        y = g(z), z = WL+1 . . . σ 2 (W2 σ 1 (W1 x+b1 )+b2 ) · · ·+bL+1
+capacity of DNNs. The stiffness (Fort et al., 2019) was                                                                        (1)
+proposed to diagnose the generalization capacity of DNNs.          where g denotes the optional layer on the top, e.g., the
+Xu (2018) applied the Fourier analysis to explain the gen-        softmax layer. z denotes the output feature before the top
+eralization capacity of DNNs. The CLEVER score (Weng              layer. The network module z = WL+1 . . . σ 2 (W2 σ 1 (W1 x +
+et al., 2018) was used to estimate the robustness of DNNs.        b1 ) + b2 ) · · · + bL+1 is a piecewise linear model.
+Wolchover (2017); Shwartz-Ziv & Tishby (2017) proposed
+the information bottleneck theory and used mutual informa-        Specifically, Wl and bl denote the weight and the bias
+tion to quantify the information encoded in DNNs. Xu &            of the l-th linear layer. Let σl = [σl,1 , σl,2 , . . . , σl,D ] ∈
+Raginsky (2017); Achille & Soatto (2018b); Goldfeld et al.        {0, 1}D denote gating states of the l-th gating layer.
+(2019) further extended the information bottleneck theory         σ l = diag(σl,1 , σl,2 , . . . , σl,D ) is a diagonal matrix with
+to constrain the feature representation to learn more disen-      (σl,1 , σl,2 , . . . , σl,D ) as its main diagonal. Gating layers in-
+tangled features. Chen et al. (2018) selected instance-wise       clude the ReLU, max-Pooling, and Dropout layer. Take
+features based on mutual information to interpret DNNs.           the ReLU layer as an example1 . If the d-th dimension of
+Kornblith et al. (2019) used the canonical correlation analy-     the input feature is larger than 0, then we have σl,d = 1;
+sis to compare features from the perspective of similarity.       otherwise, σl,d = 0. Let Σl = {σ l } denote the random vari-
+                                                                  able of gating states of the l-th gating layer. Given a certain
+Unlike previous studies, we focus on the complexity of            input x, σ = [σ 1 , σ 2 , . . . , σ L ] represents concatenated and
+transformations encoded in DNNs. Previous methods on              vectorized gating states of all gating layers. Accordingly,
+the complexity of DNNs can be summarized as follows:              Σ = [Σ1 , Σ2 , . . . , ΣL ] denotes the set of gating states of all
+• Computational complexity and difficulty of learning a           L gating layers over all samples2 .
+DNN: Blum & Rivest (1989) proved that learning a one-             Therefore, the layerwise transformation of mapping x to y
+layer network with a sign activation function was NP-hard.        can be represented as y = g(z) and z = Wx + b, where
+Livni et al. (2014) further discussed the computational com-      W = WL+1 σ L WL · · · σ 2 W2 σ 1 W1 is the equivalent weight
+plexity when the DNN used other activation functions. Boob        matrix, and b is the equivalent bias term. The piecewise
+et al. (2018); Manurangsi & Reichman (2018) proved learn-         linear module z = Wx + b generates different gating states
+ing a two-layer ReLU network was also NP-hard. Arora              σ 1 , · · · , σ L for different inputs x, which lead to different
+et al. (2016) showed that it was possible to learn a ReLU         values of W and b. Therefore, we can roughly use the
+network with one hidden layer in polynomial time, when            diversity of gating states to approximate the diversity of
+the dimension of input was constant.                              transformations. Thus, the entropy of gating states H(Σ)
+• Architectural complexity and representation complexity:         can represent the transformation complexity.
+Raghu et al. (2017) proved that the maximal complexity of         Note that not all small perturbations of the input x change
+features grew exponentially along with the increase of the        the gating states, so gating states can be considered more
+DNN depth. Pascanu et al. (2013); Zhang et al. (2016) pro-        directly related to the transformation complexity than the
+posed three metrics to measure the architectural complexity
+                                                                      1
+of recurrent neural networks. To estimate the maximal rep-              Please see Appendix A for more details about other types of
+resentation capacity, (Liang et al., 2017; Cortes et al., 2017)   gating layers.
+                                                                      2
+                                                                        Please see Appendix G.1 for details about samples that are
+applied the Rademacher complexity. (Kalimeris et al., 2019)       considered in implementations.
+                             Towards Theoretical Analysis of Transformation Complexity of ReLU DNNs
+
+   10                                                                                         7.5
+                           MLP-𝛼 [3]            2.0          LeNet-5 and MLP-β [3]                                    LeNet-5                6.6                       ResNet-20
+    8                                                                                         7.0
+                                                                             l=3                                            l=4              6.4
+                                                                                                                                                                            l=3
+                                                1.5
+
+
+
+
+                                                                                                                                    TC(Σl)
+    6
+
+
+
+
+                                       TC(Σl)
+
+
+
+
+                                                                                         TC(Σl)
+                                                                                              6.5
+    4                                                                                                                                        6.2
+                                                1.0
+                                                                                              6.0
+    2                                                                                                                                        6.0
+                                                0.5                                           5.5
+    0
+        1 2 3 4 5 6 7 8 9 10                          6.0   6.5      7.0   7.5     8.0            0.4   0.8   1.2     1.6     2.0                  0.1   0.3     0.5       0.7
+                 layer 𝑙                                          H(Σl)                                       H(Σl)                                            H(Σl)
+
+Figure 2. (left) The complexity of transforming feature Tl to the output, i.e., H(Σl , . . . , ΣL ). The complexity decreases as we use features
+of higher layers. (right) The negative correlation between the transformation complexity H(Σl ) and the entanglement T C(Σl ) of DNNs
+with similar activation rates.
+
+input. In this way, we focus on gating layers in the DNN                                  Please see Appendix B.2 and B.3 for formulations and
+and define the following metrics to measure three types of                                proofs of Properties 2 and 3.
+complexities of transformations from x to y .
+                                                                                          Verification of the decrease of the complexity through
+Definition of the transformation complexity. In this sec-                                 layerwise propagation. Figure 2(left) shows the change
+tion, we define three types of complexities of transforma-                                of the complexity of transforming the l-th layer feature Tl
+tions in DNNs based on the information theory.                                            to the output, i.e., the entropy of gating states after the l-th
+                                                                                          layer H(Σ′ = [Σl , . . . , Σ10 ]) encoded in the DNN during the
+• H(Σ): the entropy of gating states among all inputs. H(Σ)
+                                                                                          training process on the MNIST dataset, which verified the
+measures the complexity of transformations that are en-
+                                                                                          decrease of the complexity through layerwise propagation.
+coded in gating layers. A larger H(Σ) indicates the DNN
+                                                                                          Experimental settings in Figure 2(left) are introduced in
+learns more complex transformations. The complexity H(Σ)
+                                                                                          Section 4.
+can be decomposed as H(Σ) = H(Σ1 ) + H(Σ2 |Σ1 ) + · · · +
+H(ΣL |Σ1 , . . . , ΣL−1 ).                                                                The quantification of the transformation complexity.
+                                                                                          There are three classic and widely-used non-parametric
+• I(X; Σ): the complexity of transformations that are
+                                                                                          methods to estimate the entropy and mutual information
+caused by the input. If the DNN does not use the random
+                                                                                          of features, including the binning method (Shwartz-Ziv &
+sampling operation or the dropout operation to introduce ad-
+                                                                                          Tishby, 2017), the ensemble dependency graph estimator
+ditional uncertainty that is not caused by the input in gating
+                                                                                          (EDGE) (Noshad et al., 2019) and the kernel densitiy estima-
+states Σ, then Σ is fully determined by X , i.e., H(Σ|X) = 0
+                                                                                          tion (KDE) (Kolchinsky & Tracey, 2017). Both the binning
+and I(X; Σ) = H(Σ) − H(Σ|X) = H(Σ).
+                                                                                          and the EDGE methods reduce the computational cost by
+• I(X; Σ; Y ): the complexity of transformations that are                                 discretizing the continuous features. However, the gating
+caused by inputs and used for inference, which is defined as                              state Σ is a discrete random variable, which cannot bene-
+I(X; Σ; Y ) = I(X; Y )−I(X; Y |Σ). I(X; Y |Σ) = H(X|Σ)−                                   fit from such methods. Thus, we apply the KDE method
+H(X|Σ, Y ) measures the mutual information between X                                      to estimate the complexity H(Σ), I(X; Σ) and I(X; Σ; Y ).
+and Y that is irrelevant to gating layers.                                                Please see Appendix E for details about the KDE method of
+                                                                                          estimating H(Σ), I(X; Σ) and I(X; Σ; Y ). In Appendix G.2,
+Our definition of the complexity satisfies the following sim-
+                                                                                          we have also verified the high accuracy and the stability of
+ple properties in DNNs, which ensures the trustworthiness
+                                                                                          using KDE to estimate H(Σ), I(X; Σ) and I(X; Σ; Y ).
+of the complexity metric.
+                                                                                          The difference between the transformation complexity
+Property 1. (Proof in Appendix B.1) If the DNN does not
+                                                                                          and the information bottleneck. Note that the transforma-
+introduce additional information that is not contained by
+                                                                                          tion complexity I(X; Σ) has essential difference from the
+the input X (e.g., there are no operations of randomly
+                                                                                          I(X; Z) term in the information bottleneck theory (Tishby
+sampling or dropout throughout the DNN), then we have
+                                                                                          et al., 2000; Wolchover, 2017; Shwartz-Ziv & Tishby, 2017),
+I(X; Σ; Y ) ≥ 0.
+                                                                                          where Z denotes the feature of an intermediate layer in
+Property 2. If the DNN does not introduce additional com-                                 DNNs. The information bottleneck reflects the trade-off be-
+plexity that is not caused by the input, then the complexity                              tween I(X; Z) and I(Z; Y ), which leads to the approximate
+increases along with the number of gating layers.                                         minimal sufficient statistics. In the forward propagation,
+                                                                                          the feature Z contains all information encoded in the DNN,
+Property 3. If the DNN does not introduce additional com-
+                                                                                          thereby forming a Markov process X → Z → Y . Thus, given
+plexity that is not caused by the input, then the complexity
+                                                                                          the feature Z , X and Y are conditional independent, i.e.,
+decreases when we use features of shallow layers for infer-
+                                                                                          I(X; Y |Z) = 0.
+ence. This property shows that the transformation complex-
+ity decreases through the layerwise propagation.                                          However, the gating state Σ does not contain all information
+                         Towards Theoretical Analysis of Transformation Complexity of ReLU DNNs
+
+of the feature Z . Let us take the ReLU layer for an instance.    us assume that p(σl,d ) ∼ Bernoulli(al,d ), where al,d is the
+In ReLU layers, the gating state Σ only represents whether        activation rate of the d-th dimension in the l-th gating layer
+the elements in feature Z are positive. The information           over all samples. In particular, T C(Σl ) is zero if and only
+encoded in Σ cannot be directly used to infer Y , which           if all dimensions of σl are independent with each other. In
+makes the transformation complexity I(X; Σ) essentially           this case, we say all dimensions in Σl are disentangled.
+different from I(X; Z) in mathematics.
+                                                                  For DNNs with similar activation rates, we prove the neg-
+Advantages of investigating gating states over studying           ative correlation between the complexity H(Σl ) and the
+neural activations. I(X; Σ) based on gating states Σ is sub-      entanglement T C(Σl ) (proof in Appendix B.4).
+stantially more related to the transformation complexity than                                             X
+I(X; Z) based on neural activations Z . Theoretically speak-              H(Σl ) + T C(Σl ) = Cl , Cl =       Hl,d ,    (2)
+                                                                                                                                     d
+ing, the entropy/mutual information of neural activations         where Hl,d = −al,d log al,d − (1 − al,d ) log(1 − al,d ). We
+Z in an intermediate layer is affected by two aspects, i.e.,      can roughly consider Cl as a constant if the average acti-
+the diversity of transformations and the continuous changes       vation rate over all dimensions {al,d |1 ≤ d ≤ D} in the
+of input samples. We have proven that gating states more          l-th layer converges to a certain number. Furthermore, we
+directly reflect the transformation complexity in DNNs than       extend conclusions in Eq. (2) and prove that the negative
+neural activations z .                                            correlation between the complexity and the entanglement
+To be precise, any intermediate-layer neural activation z can     of transformations in the DNN still holds true for I(X; Σl )
+be represented as a linear transformation on the input x, i.e.,   and I(X; Σl ; Y ).
+z = Wx + b, where W and b are determined by gating
+states in nonlinear layers directly. Therefore, gating states         I(X; Σl ) + T C(Σl ) = Cl − H(Σl |X)
+are the most direct factor that determines and reflects the         I(X; Σl ; Y ) + (T C(Σl ) − T C(Σl |Y ))
+diversity of linear subspaces in piecewise linear transforma-                        |         {z          }                             (3)
+                                                                                  multi-variate mutual information used to infer Y
+tions, and are directly related to the representation power of
+                                                                                = Cl − Cl|Y − (H(Σl |X) − H(Σl |X, Y ))
+a DNN. Whereas, the complexity of neural activations z are
+also affected by noisy signals in x, instead of purely being      Whether the entanglement of features is good for classi-
+affected by the division of linear subspaces.                     fication or not? As is shown above, given a fixed activation
+Therefore, in this study, we exclusively focus on the com-        rate in a DNN, the decrease of complexity leads to the in-
+plexity of transformations (W, b), which can be considered        crease of entanglement. The entangled representations (or
+as a more purified metric for a DNN’s representation than         gating states) are supposed to occur in the following two
+the feature complexity.                                           cases. One case is good for the classification, but the other
+                                                                  is not.
+4. Analysis of DNNs Based on the                                  (1) The first case is when the DNN fails to extract mean-
+   Transformation Complexity                                      ingful patterns from the input. Many pixels in an input
+                                                                  image are actually entangled with each other to represent
+4.1. Strong correlation between the complexity and the            a certain concept. The successful extraction of features for
+     disentanglement                                              meaningful concepts is to summarize all information of such
+The disentanglement is a property of a DNN that measures          pixel-wise entanglement into a certain intermediate-layer
+the independence of different feature dimensions in the           filter, which makes the intermediate-layer feature more dis-
+DNN. Stronger disentanglement sometimes leads to more             entangled. The lack of the transformation complexity of a
+interpretable features (Burgess et al., 2017), though the         DNN usually will lead to high entanglement and hurt the
+disentanglement is not necessarily equivalent to the discrim-     classification performance.
+ination power of features (which will be analyzed later).         (2) The second case is when the DNN has successfully
+Although intuitively, the disentanglement of gating states        selected a few discriminative and reliable features from
+seems not related to the complexity, in this section, we prove    input images in high convolutional layers for classification.
+a clear correlation between these two terms.                      Sometimes, the number of reliable features is much less than
+For gating states of the l-th gating layer Σl , the entangle-     the filter number. In other words, there exists a significant
+ment of transformations T C(Σl ) measures the dependence          redundancy of feature representations, i.e., multiple filters
+between gating states σl,d in different dimensions (Achille       may represent similar features in high convolutional layers,
+& Soatto, 2018a; Ver Steeg & Galstyan, 2015). Specifically,       which leads to high entanglement. Such an entanglement
+T C(Σl ) = KL(p(σl )∥ d p(σl,d )), where p(σl,d ) denotes the
+                      Q                                           (redundancy) of reliable features is good for classification.
+marginal distribution of the state of the d-th gate in σl . Let   More intuitive examples for these two cases are shown in
+                                                                  Appendix D.
+                                      Towards Theoretical Analysis of Transformation Complexity of ReLU DNNs
+
+                    MLP         LeNet                revised VGG11 on MNIST                                          8.0                                                3.2
+        10.5
+                                                                 3.0                                                                                                    2.8
+                                                                                                                     6.0
+
+
+
+
+                                                                                                                                                          H (Σ )
+                                                                                                     H (Σ )
+         9.5
+
+
+
+
+                                                      I(X;Σ;Y)
+                                                                 2.5                                                                                     2.4                          RN18-CelebA
+  H(Σ)
+
+
+
+                                                                                                                                     RN20-MNIST                                       RN18-VOC
+         8.5                                                     2.0                                                 4.0             RN20-CIFAR10                                     RN34-CelebA
+                                                                                                                                                         2.0
+                                                                                                                                     RN32-CIFAR10                                     RN34-VOC
+         7.5                                                     1.5
+              0       epoch         500                         0        epoch           500                               0       epoch          500         0                    epoch        500
+         (a) The change of H(Σ) in DNNs.                  (b) The change of I(X;Σ;Y) in DNNs.                                         (a) The change of H(Σ) in DNNs.
+                                                    A: epoch 0           B: epoch 55 C: epoch 500                    1.2                                                0.9
+ 10.5     A
+                            C                 0.2                      0.5          0.3                                                                                 0.7           RN18-CelebA
+
+
+
+
+                                                                                                     I ( X ; Σ; Y)
+
+
+
+
+                                                                                                                                                        I ( X ; Σ; Y)
+                                                                                                                                                                                      RN18-VOC
+                                  frequency
+                                                                                                                     0.8
+ H(Σ)
+
+
+
+
+                                                                       0.3          0.2
+                                              0.1                                                                                    RN20-MNIST                         0.5           RN34-CelebA
+                                                                                    0.1                              0.4             RN20-CIFAR10                                     RN34-VOC
+                                                                       0.1                                                           RN32-CIFAR10           0.3
+  7.5      B                       0.0
+                                       0.0 0.5 1.0 0.0 0.5 1.0 0.0 0.5 1.0                                                 0       epoch         500              0          epoch             500
+       0      epoch        500                      activation rate                                                                 (b) The change of I ( X ; Σ ;Y) in DNNs.
+ (c) The change of the frequency histogram of different neurons’ activation rates.
+                                                                                                    Figure 4. The change of the transformation complexity in residual
+Figure 3. The change of the transformation complexity and the                                       networks. Both H(Σ) and I(X; Σ; Y ) increased monotonously
+activation rates in traditional stacked DNNs. In most cases, both                                   during the training process in most residual networks.
+H(Σ) and I(X; Σ; Y ) decreased first, and increased later.
+                                                                                                                       MNIST_l=1       MNIST_l=2                    CIFAR-10_l=1     CIFAR-10_l=2
+Verification of the strong correlation between the com-                                                          3.5                                                    3.0
+plexity and the disentanglement (Eq. (2)). We learned                                                            3.0
+
+
+
+
+                                                                                                                                                        I ( X ; Σ l)
+                                                                                                                                                                        2.0
+
+
+                                                                                                    H ( Σ l)
+21 LeNet-5 models and 21 MLP-β 3 models with different                                                           2.5
+initialized parameters on the MNIST dataset. These models                                                        2.0                                                    1.0
+
+shared similar activation rates on each dimension in the l-th                                                              0       epoch          500                         0    epoch        500
+gating layer (we used l = 3, 4). Thus, we quantified H(Σl )
+                                                                                                    Figure 5. The change of H(Σl ) and I(X; Σl ) in VAEs learned
+and T C(Σl ) (Please see Appendix E for the quantification of
+                                                                                                    on the MNIST dataset and the CIFAR-10 dataset. The differ-
+T C(Σl )) over the 42 models. We also conducted such an ex-
+                                                                                                    ence between H(Σl ) and I(X; Σl ) gradually decreased during
+periment on 21 ResNet-20 (RN-20) models with l = 3. Fig-                                            the training process.
+ure 2(right) shows the negative correlation between H(Σl )
+and T C(Σl ), which was verified using different layers of
+                                                                                                    drop of noisy features in very early iterations has also been
+DNNs with different architectures.
+                                                                                                    supported by observations in other studies (Liu et al., 2021).
+                                                                                                    In very early iterations, initial weights irrelevant to the task
+4.2. Comparative studies to diagnose the representation
+                                                                                                    were usually removed, which reduces the transformation
+     capacity of DNNs
+                                                                                                    complexity. Besides, Liu et al. (2021) also showed that
+The change of the transformation complexity during                                                  the decrease of the model diversity in very early iterations
+the learning of DNNs. Figure 3 and Figure 4 shows the                                               exactly aligned with the first stage in the epoch-wise double
+change of three types of transformation complexities en-                                            descent.
+coded in DNNs during the training process. Note that                                                Phenomenon 2. For residual DNNs with skip-connections
+H(Σ) = I(X; Σ). We found three phenomena in the change                                              and a few traditional DNNs (like the VGG-16 trained on
+of complexity:                                                                                      the Pascal VOC dataset; see Appendix G.4), the complexity
+Phenomenon 1. For most traditional stacked DNNs (like                                               increased monotonously during the early stage of the train-
+MLPs3 and LeNets), both H(Σ) and I(X; Σ; Y ) decreased                                              ing process, and saturated later. This indicated that noisy
+first, and increased later. Figure 3(c) shows the frequency                                         features had little effect on DNNs with skip-connections in
+histogram of different neurons’ activation rates of gating                                          early stages of the learning process, which implied the tem-
+states in Epoch 0, 55, and 500. In Epoch 0, gating states                                           poral double-descent phenomenon (Nakkiran et al., 2019;
+were usually randomly activated, which led to a large value                                         Heckel & Yilmaz, 2020).
+of H(Σ). The learning process gradually removed noisy                                               Phenomenon 3. In particular, let us focus on DNNs, which
+activations, which reduced H(Σ) and achieved the minimum                                            introduce additional uncertainty that is not caused by the
+complexity in Epoch 55. Then, the DNN mainly learned                                                input. As introduced in Section 1, a typical case is the
+complex transformations to boost the performance, which                                             VAE (Kingma & Welling, 2013). VAEs use randomly sam-
+made H(Σ) begin to increase. This indicated that DNNs                                               pling of the latent code, and make H(Σ) ̸= I(X, Σ). Thus, in
+dropped noisy features in early stages of the training process,                                     this experiment, we studied the change of H(Σ) and I(X; Σ)
+then learned useful information for the inference. In fact, the                                     in VAEs. We were given a VAE3 , in which both the encoder
+   3
+     Please see the paragraph Experimental settings, Section 4 for                                  and the decoder had two FC layers. We added a classifier
+network architectures and experimental settings.                                                    with two FC layers and two ReLU layers after the encoder.
+                               Towards Theoretical Analysis of Transformation Complexity of ReLU DNNs
+
+   10                                   10                                     complexity of transformations encoded in shallow MLPs
+    8                                    8
+    6                                    6
+                                                                               was usually higher than that encoded in deep MLPs.
+H(Σ)
+
+
+
+
+                                     H(Σ)
+    4                                    4                                     In other words, the transformation complexity did not
+    2         MLP-6      MLP-12                  res MLP-6       res MLP-12
+                                         2                                     monotonously increase along with the depth of the DNN.
+    0         MLP-18     MLP-24          0       res MLP-18      res MLP-24
+        0     10       20        30         0        10         20        30   This phenomenon shows the ceiling of a DNN’s complexity.
+                (a)  the order of the task complexity, n    (b)
+                                                                               Findings from residual networks. Besides above target
+Figure 6. The change of target MLPs’ transformation complexity
+                                                                               MLPs, we further designed new target MLPs with skip-
+along with the increase of task complexity n. We used MLPs with
+                                                                               connections, which were termed residual MLPs. We added
+(a) traditional stacked architectures and (b) residual architectures.
+                                                                               a skip-connection to each FC layer in each of above target
+                                                                               MLPs. The complexity of transformations encoded in resid-
+The VAE was trained on the MNIST dataset and the CIFAR-                        ual MLPs was shown in Figure 6(b).
+10 dataset, respectively. Figure 5 shows the complexity of                     (1) Deep residual MLPs always encoded higher transforma-
+transformations encoded in each gating layer of the classi-                    tion complexity than shallow residual MLPs.
+fier. The difference between H(Σl ) and I(X; Σl ) gradually                    (2) We also found that when we gradually increased the
+decreased during the training process. This indicated that                     task complexity to train target MLPs, the transformation
+the impact of inputs on the transformation complexity kept                     complexity encoded in target MLPs increased along with
+increasing. At the same time, the noisy features encoded in                    the increase of the task complexity in the beginning.
+the DNN kept decreasing.                                                       (3) However, when the task complexity exceeded a certain
+Maximum complexity: exploring the ceiling of a DNN’s                           limit, the transformation complexity saturated and started to
+complexity. In order to examine whether a DNN always                           decrease.
+encoded more complex transformations when it dealt with                        I.e., the transformation complexity did not keep increasing
+more complex tasks, we first constructed a set of different                    when the DNN was forced to handle more and more complex
+tasks with various complexities. Specifically, we designed a                   tasks. This phenomenon indicated the ceiling of a DNN’s
+set of knowledge-distillation tasks with different complexity                  complexity from another perspective.
+levels. In other words, we defined different task MLPs with
+various complexities and distilled the knowledge of the task                   4.3. Learning a DNN with the minimum complexity
+MLP to a target MLP. We explored whether a target MLP                          Minimum complexity. A DNN may use over-complex
+would learn more complex transformations, when it distilled                    transformations for prediction, i.e., the complexity
+knowledge from a more complex task MLP.                                        I(X; Σ; Y ) does not always represent the real complexity
+Each of the task MLPs was assigned with randomly ini-                          of the task. In this section, we develop a method to avoid
+tialized parameters without further training. A task MLP                       learning an over-complex DNN. The basic idea is to use the
+consisted of n ReLU layers and FC layers with the width of                     following loss to quantify and penalize the complexity of
+1024. The task MLP took gray-scale CIFAR-10 images as                          transformations during the training process.
+input, and generated a 1024-dimensional vector as output.
+                                                                                          L =Ltask + λLcomplexity ,
+We learned the target MLP to reconstruct this output vector                                    XL               XL                               (4)
+with an MSE loss.                                                                 Lcomplexity =     H(Σl ) =        {−Eσl [log p(σl )]}
+                                                                                                   l=1                 l=1
+Since the task MLP was randomly parameterized, the task
+complexity would be high, when the number of ReLU layers                       The first term Ltask denotes the task loss, e.g., the cross-
+n in the task MLP was large. Therefore, we considered that                     entropy loss for object classification. The second term
+the complexity of distilling knowledge of this task MLP                        Lcomplexity penalizes the complexity of transformations en-
+into the target MLP was at the n-th level. We conducted                        coded in the DNN. λ is a positive scalar. To simplify
+multiple experiments to train different target MLPs. Each                      the computation of p(σl ), we use an energy-based model
+target MLP had a specific depth with 6, 12, 18 or 24 ReLU                      (EBM) (LeCun et al., 2006; Gao et al., 2018) with param-
+layers and FC layers, and each layer had 1024 neurons. We                      eters θf . The EBM is a widely-used method to model a
+trained these target MLPs to regress task MLPs of different                    high-dimensional distribution (Du & Mordatch, 2019; Pang
+complexities, n = 0, 1, . . . , 31.                                            et al., 2020), e.g., pθf (σl ) in this paper.
+
+Findings from stacked networks. Figure 6(a) compares the                                                   1
+complexity of transformations encoded in target MLPs (with                               pθf (σl ) =            exp[f (σl ; θf )] · q(σl ),      (5)
+                                                                                                         Z(θf )
+the traditional stacked architecture) for different tasks.
+(1) For the task of low complexity, deep MLPs learned more                     where q(σl ) is a prior distribution defined as q(σl ) =
+complex transformations than shallow MLPs.                                       d q(σl,d ) and q(σl,d )∼Bernoulli(al,d ). f (σl ; θf ) ∈ R is imple-
+                                                                               Q
+
+(2) However, as the complexity of the task increased, the                      mented as the scalar output of a ConvNet with parameters
+                                                           Towards Theoretical Analysis of Transformation Complexity of ReLU DNNs
+
+        ResMLP-CIFAR10            RN20-CIFAR10              RN32-CIFAR10    RN18-TinyImagenet          RN34-TinyImagenet
+           10                                         3                                    1.5                             Table 1. Transformation complexity H(Σ) in each layer of nor-
+
+
+
+
+                                                                                L train
+I(X;Σ)=H(Σ)
+
+
+
+                                                                                                                           mally trained DNNs (termed normal) and adversarially trained
+
+
+
+                                           I(X;Σ;Y)
+              6                                       2                                    1.0
+                                                                                                                           DNNs (termed AT), which were trained on the CIFAR-10 dataset.
+                                                      1                                    0.5
+
+
+
+
+                                                                                L test
+              2                                                                                                            Adversarially trained DNNs usually exhibited lower transforma-
+                                                      0                                    0.0
+                     0 10-5 10-3 10-1 101 λ               0 10-5 10-3 10-1 101 λ                 0 10-5 10-3 10-1 101 λ    tion complexity.
+                                                                                                                                                     RN-20                        RN-32                                       RN-44                                     LeNet
+Figure 7. The complexity of transformations and the gap between                                                                  Model
+                                                                                                                                                 Normal    AT                 Normal    AT                                Normal    AT                             Normal     AT
+the training loss and the testing loss of the learned minimum-                                                                Layer 1             3.845  2.979                 2.718  2.507                                3.938  1.600                             7.624   5.358
+                                                                                                                              Layer 2             6.079  4.485                 5.660  4.370                                5.426  3.374                             7.417   1.216
+complexity DNNs. The left-most point in each subfigure at λ = 0                                                               Layer 3            6.671   6.573                 6.817 6.786                                 6.395  6.828                            10.966 10.949
+refers to DNNs learned by only using the task loss.
+                                                                                                                              ResMLP-CIFAR10 RN20-CIFAR10                   RN34-TinyImageNet                                 λ for target RN20                               λ for target RN32
+                                                                                                                                                                                                                              0 10-5 10-3 10-1 101                              0 10-5 10-3 10-1 101
+
+
+
+
+                                                                                                                                                                                                                                                        λ for source RN32
+                                                                                                                                                                                                    λ for source RN20
+                                                                                                                           ×10-2 𝜀 2        ×10-2 𝜀 2                       ×10-1 𝜀 2
+                                                                                           ResMLP-CIFAR10                                                                                                                 0                       1.0                       0                       1.0
+                1.8                                   1.8                                                                  8.6                     6.4                                                              10-5                                                10-5
+                                                                                           RN34-TinyImageNet
+      Ltest-Ltrain
+
+
+
+
+                                                                                                                                                                            1.8
+loss gap
+
+
+
+
+                                                                                                                           8.4                     6.0                                                              10-3                                                10-3
+                1.4
+                                              Ltest
+
+
+
+
+                                                      1.4                            The dashed lines         and          8.2                     5.6                      1.6                                     10-1                                                10-1
+                                                                                                                                             λ                        λ                       λ
+                                                                                          are the Ltest of ResMLP                                                                                                       101                                             101
+                1.0                                                                  and RN34 trained without                    0   10-4   10-2         0   10-4    10-2         0   10-4   10-2                                                 0.5                                               0.0
+                                                                                                                                                               (a)                                                                                 (b)
+                      10-5 10-3 10-1 101              1.0                            using Lcomplexity .
+                model complexity I(X;Σ;Y)                    10-5 10-4 10-3 10-2 λ                                         Figure 9. (a) Increase of the minimum L2 norm of the adversarial
+                                                                                                                           perturbations along with the increase of the weight of the complex-
+Figure 8. (left) The positive correlation between transformation
+                                                                                                                           ity loss λ. (b) Adversarial transferability between DNNs learned
+complexity and the loss gap. (right) Decrease of the testing loss
+                                                                                                                           with different weights of the complexity loss λ.
+along with the increase of the weight of the complexity loss.
+       (a)                                                                           (b)
+
+                                                                                                                           the increase of λ. I(X; Σ; Y ) also decreased along with
+ θf and on the input σl (Gao et al., 2018). The constant                                                                   the increase of λ, which verified that the complexity effec-
+ Z(θf ) = σ q(σl ) exp[f (σl ; θf )]dσl is for normalization.                                                              tively reduced the model’s complexity. We also found that
+         R
+                              l
+
+The EBM is learned via the maximum likelihood estima-                                                                      the decrease of transformation complexity reduced the gap
+tion (MLE), θ̂f = argmaxθf Ex [log pθf (σl )given x ], where σl                                                            between the testing loss and the training loss.
+is the vector of gating states in the l-th gating layer for                                                                Figure 8(left) demonstrated the positive correlation between
+input sample x. We follow (Gao et al., 2018) to opti-                                                                      the transformation complexity and the gap between the train-
+mize the EBM parameters θf with Markov Chain Monte                                                                         ing loss and the testing loss. We assigned different weights λ
+Carlo. Note that the gating state σl is not differentiable                                                                 of the complexity loss to learn residual MLPs with different
+w.r.t. the network parameters. To this end, the ReLU                                                                       transformation complexities, using the CIFAR-10 dataset.
+operation can be approximated using the Swish function                                                                     We found that when the transformation complexity was high,
+ReLU(x) = x ⊙ σl = x ⊙ sigmoid(βx) (Ramachandran et al.,                                                                   the positive correlation was significant. This positive corre-
+2017), where ⊙ denotes the element-wise multiplication.                                                                    lation further validated the effectiveness of the complexity
+This enables us to use Lcomplexity to learn network parameters.                                                            loss on reducing the gap between the training loss and the
+During the training process, the EBM and the original DNN                                                                  testing loss. Moreover, Figure 8(right) shows that the testing
+are trained alternatively. We discuss the computational cost                                                               loss dropped significantly when we increased the weight λ
+of training DNNs with the complexity loss in Appendix G.8.                                                                 of the complexity loss. Appendix G.6 also shows that the
+Validation of the utility of the complexity loss. The com-                                                                 complexity loss was superior to traditional L1 and L2 regu-
+plexity loss reduced the transformation complexity and the                                                                 larization methods, in terms of maintaining the classification
+gap between the training loss and the testing loss. We added                                                               accuracy and decreasing the model complexity.
+the complexity loss to the last four gating layers in each                                                                 Note that during the training process with the complexity
+DNN to train the residual MLP4 , ResNet-20/32 (He et al.,                                                                  loss, the activation rate al,d of the l-th gating layer would
+2016a) (RN-20/32) on the CIFAR-10 dataset, and to train                                                                    change (Cl in Eq. (2) may change), thus the entanglement of
+ResNet-18/34 (RN-18/34) on the first ten classes in the Tiny                                                               gating states T C(Σl ) would not necessarily increase along
+ImageNet dataset. We repeatedly trained these DNNs with                                                                    with the decrease of the complexity. The more entangled
+different values of λ. In particular, when λ = 0, DNNs were                                                                representations usually indicate more redundant features.
+learned only with Ltask , which can be taken as baselines.
+                                                                                                                           The transformation complexity had a close relationship
+ Figure 7 shows the complexity and the gap between the train-                                                              with adversarial robustness, adversarial transferability,
+ ing loss and the testing loss of DNNs learned with different                                                              and knowledge consistency. We set different values of
+ λ values. We found that H(Σ) usually decreased along with                                                                 the weight λ in Eq. (4) to learn DNNs with different trans-
+    4                                                                                                                      formation complexities. For each λ value, we repeatedly
+      The residual MLP had the similar architecture to the one in
+the Findings from residual networks paragraph in Section 4.2, with                                                         trained six residual MLPs on the CIFAR-10 dataset, six
+10 FC layers and 9 ReLU layers. Both inputs and features were                                                              RN-20/32’s on the CIFAR-10 dataset, and six RN-34’s on
+3072-d vectors.                                                                                                            the Tiny ImageNet dataset, with different random initial-
+                         Towards Theoretical Analysis of Transformation Complexity of ReLU DNNs
+
+izations. We followed (Wang et al., 2020) to measure the          the CIFAR-10 dataset, the architecture of the MLP was
+minimum L2 norm of adversarial perturbations computed             set as 3072-1024-256-128-64-10 (termed MLP-CIFAR10).
+w.r.t. a certain attacking utility to quantify the adversarial    For the CelebA, Pascal VOC 2012, and Tiny ImageNet
+robustness of DNNs. Figure 9(a) shows the minimum L2              datasets, we learned VGG-16 (Simonyan et al., 2017) and
+norm of adversarial perturbations towards each DNN. We            the pre-activation version of ResNet-18/34. We used images
+found that DNNs with low transformation complexity usu-           cropped by bounding boxes for both training and testing.
+ally exhibited high adversarial robustness, while DNNs with       Please see Appendix G.3 for these DNNs’ classification
+high transformation complexity were usually sensitive to          accuracy. We analyzed the transformation complexity of
+adversarial perturbations. Besides, Table 1 compares the          ReLU layers.
+transformation complexity in normally trained DNNs and
+adversarially trained DNNs. Results show that adversari-          5. Conclusion
+ally trained DNNs, which were more robust than normally
+trained DNNs, usually exhibited lower complexity. This            In this paper, we have proposed three complexity measures
+also verifies the negative correlation between transforma-        for feature transformations encoded in DNNs. We further
+tion complexity and adversarial robustness.                       prove the decrease of the transformation complexity through
+                                                                  layerwise propagation. We also prove the strong correlation
+Following settings in (Wang et al., 2020), we also measured
+                                                                  between the complexity and the disentanglement of trans-
+the adversarial transferability between DNNs with different
+                                                                  formations. Based on the proposed metrics, we develop
+transformation complexities. Figure 9(b) shows the adver-
+                                                                  a generic method to learn a minimum-complexity DNN,
+sarial transferability between ResNet-20/32’s with different
+                                                                  which also reduces the gap between the training loss and the
+transformation complexities. We found that adversarial per-
+                                                                  testing loss, and influences adversarial robustness, adversar-
+turbations for complex DNNs could not be well transferred
+                                                                  ial transferability, and knowledge consistency. Comparative
+to simple DNNs. However, adversarial perturbations for
+                                                                  studies reveal the ceiling of a DNN’s complexity. Further-
+simple DNNs could be transferred to complex DNNs. This
+                                                                  more, we summarize the change of the transformation com-
+reflected that simple DNNs encoded common knowledge
+                                                                  plexity during the training process into two typical cases.
+that could be transferred to DNNs learned for the same task.
+                                                                  As a generic tool, the transformation complexity enables us
+Furthermore, we followed (Liang et al., 2019) to explore the      to understand DNNs from new perspectives.
+knowledge consistency between DNNs with different trans-
+                                                                  Acknowledgments. This work is partially supported by
+formation complexities. We found that each pair of simple
+                                                                  National Key R&D Program of China (2021ZD0111602),
+DNNs usually encoded similar knowledge representations
+                                                                  the National Nature Science Foundation of China
+(exhibiting high knowledge consistency), while complex
+                                                                  (No. 61906120, U19B2043), Shanghai Natural Sci-
+DNNs are more likely to encode diverse knowledge. This
+                                                                  ence Foundation (21JC1403800, 21ZR1434600), Shang-
+demonstrated the reliability of features learned by simple
+                                                                  hai Municipal Science and Technology Major Project
+DNNs. Please refer to Appendix G.7 for experimental re-
+                                                                  (2021SHZDZX0102). This work is also partially supported
+sults on knowledge consistency.
+                                                                  by Huawei Technologies Inc.
+Experimental settings. We conducted a set of comparative
+studies on the task of classification using the MNIST (Le-        References
+Cun et al., 1998), CIFAR-10 (Krizhevsky et al., 2009),
+CelebA (Liu et al., 2015), Pascal VOC 2012 (Evering-              Achille, A. and Soatto, S. Emergence of invariance and
+ham et al., 2015), and Tiny ImageNet (Le & Yang, 2015)              disentanglement in deep representations. The Journal of
+datasets. For the MNIST dataset and the CIFAR-10 dataset,          Machine Learning Research, 19(1):1947–1980, 2018a.
+we learned LeNet-5 (LeCun et al., 1998), the revised VGG-
+11 (Jastrzebski et al., 2017), the pre-activation version of      Achille, A. and Soatto, S. Information dropout: Learning
+ResNet-20/32 (He et al., 2016a;b), and the MLP. In particu-         optimal representations through noisy computation. IEEE
+lar, for the MNIST dataset, we learned three MLP models:            transactions on pattern analysis and machine intelligence,
+MLP-MNIST contained 5 fully connected (FC) layers with              40(12):2897–2905, 2018b.
+the width of 784-1024-256-128-64-10, MLP-α contained
+11 FC layers with the width of 784-1024-1024-512-512-             Arora, R., Basu, A., Mianjy, P., and Mukherjee, A. Under-
+256-256-128-128-64-16-10, and MLP-β contained 5 FC                  standing deep neural networks with rectified linear units.
+layers with the width of 784-1024-256-120-84-105 . For              arXiv preprint arXiv:1611.01491, 2016.
+    5
+      For comparison, we modified the architecture of MLP-MNIST   Blum, A. and Rivest, R. L. Training a 3-node neural net-
+and made the width of the last three FC layers be the same with
+the fully connected layers in the LeNet-5 network.
+                                                                    work is np-complete. In Advances in neural information
+                                                                    processing systems, pp. 494–501, 1989.
+                         Towards Theoretical Analysis of Transformation Complexity of ReLU DNNs
+
+Boob, D., Dey, S. S., and Lan, G. Complexity of training          conference on computer vision and pattern recognition,
+  relu neural network. arXiv preprint arXiv:1809.10787,           pp. 770–778, 2016a.
+  2018.
+                                                                He, K., Zhang, X., Ren, S., and Sun, J. Identity mappings
+Burgess, C. P., Higgins, I., Pal, A., Matthey, L., Watters,       in deep residual networks. In European conference on
+  N., Desjardins, G., and Lerchner, A. Understanding dis-         computer vision, pp. 630–645. Springer, 2016b.
+  entangling in β-vae. In Advances in Neural Information
+  Processing Systems, volume 31, 2017.                          Heckel, R. and Yilmaz, F. F. Early stopping in deep net-
+                                                                  works: Double descent and how to eliminate it. arXiv
+Chen, J., Song, L., Wainwright, M., and Jordan, M. Learn-         preprint arXiv:2007.10099, 2020.
+  ing to explain: An information-theoretic perspective on
+  model interpretation. In International Conference on          Higgins, I., Matthey, L., Pal, A., Burgess, C., Glorot, X.,
+  Machine Learning, pp. 882–891, 2018.                            Botvinick, M., Mohamed, S., and Lerchner, A. beta-
+                                                                  vae: Learning basic visual concepts with a constrained
+Cortes, C., Gonzalvo, X., Kuznetsov, V., Mohri, M., and           variational framework. ICLR, 2(5):6, 2017.
+  Yang, S. Adanet: Adaptive structural learning of artificial
+  neural networks. In Proceedings of the 34th International     Jastrzebski, S., Kenton, Z., Arpit, D., Ballas, N., Fischer, A.,
+  Conference on Machine Learning-Volume 70, pp. 874–              Bengio, Y., and Storkey, A. J. Three factors influencing
+  883. JMLR. org, 2017.                                           minima in sgd. arXiv preprint arXiv:1711.04623, 2017.
+
+Dosovitskiy, A. and Brox, T. Inverting visual representations   Kalimeris, D., Kaplun, G., Nakkiran, P., Edelman, B., Yang,
+  with convolutional networks. In Proceedings of the IEEE         T., Barak, B., and Zhang, H. Sgd on neural networks
+  Conference on Computer Vision and Pattern Recognition,          learns functions of increasing complexity. In Advances
+  pp. 4829–4837, 2016.                                            in Neural Information Processing Systems 32, pp. 3496–
+                                                                  3506. Curran Associates, Inc., 2019.
+Du, Y. and Mordatch, I. Implicit generation and modeling
+ with energy based models. In Advances in Neural Infor-         Kindermans, P.-J., Schütt, K. T., Alber, M., Müller, K.-
+  mation Processing Systems, volume 32, pp. 3608–3618.            R., Erhan, D., Kim, B., and Dähne, S. Learning how to
+  Curran Associates, Inc., 2019.                                  explain neural networks: Patternnet and patternattribution.
+                                                                  arXiv preprint arXiv:1705.05598, 2017.
+Everingham, M., Eslami, S. A., Van Gool, L., Williams,
+  C. K., Winn, J., and Zisserman, A. The pascal visual          Kingma, D. P. and Welling, M. Auto-encoding variational
+  object classes challenge: A retrospective. International        bayes. arXiv preprint arXiv:1312.6114, 2013.
+  journal of computer vision, 111(1):98–136, 2015.
+                                                                Kolchinsky, A. and Tracey, B. D. Estimating mixture en-
+Fong, R. C. and Vedaldi, A. Interpretable explanations of         tropy with pairwise distances. Entropy, 19(7):361, 2017.
+  black boxes by meaningful perturbation. In Proceed-
+  ings of the IEEE International Conference on Computer         Kolchinsky, A., Tracey, B. D., and Wolpert, D. H. Nonlinear
+  Vision, pp. 3429–3437, 2017.                                    information bottleneck. Entropy, 21(12):1181, 2019.
+
+Fort, S., Nowak, P. K., and Narayanan, S. Stiffness: A new      Kornblith, S., Norouzi, M., Lee, H., and Hinton, G. Simi-
+  perspective on generalization in neural networks. arXiv         larity of neural network representations revisited. arXiv
+  preprint arXiv:1901.09491, 2019.                                preprint arXiv:1905.00414, 2019.
+Gao, R., Lu, Y., Zhou, J., Zhu, S.-C., and Nian Wu, Y.          Krizhevsky, A., Hinton, G., et al. Learning multiple layers
+  Learning generative convnets via multi-grid modeling            of features from tiny images. Technical report, Citeseer,
+  and sampling. In Proceedings of the IEEE Conference             2009.
+  on Computer Vision and Pattern Recognition, pp. 9155–
+  9164, 2018.                                                   Le, Y. and Yang, X. Tiny imagenet visual recognition chal-
+                                                                  lenge. CS 231N, 7, 2015.
+Goldfeld, Z., Van Den Berg, E., Greenewald, K., Melnyk,
+  I., Nguyen, N., Kingsbury, B., and Polyanskiy, Y. Es-         LeCun, Y., Bottou, L., Bengio, Y., and Haffner, P. Gradient-
+  timating information flow in deep neural networks. In           based learning applied to document recognition. Proceed-
+ International Conference on Machine Learning, pp. 2299–          ings of the IEEE, 86(11):2278–2324, 1998.
+  2308, 2019.
+                                                                LeCun, Y., Chopra, S., Hadsell, R., Ranzato, M., and Huang,
+He, K., Zhang, X., Ren, S., and Sun, J. Deep residual learn-      F. A tutorial on energy-based learning. Predicting struc-
+  ing for image recognition. In Proceedings of the IEEE           tured data, 1(0), 2006.
+                        Towards Theoretical Analysis of Transformation Complexity of ReLU DNNs
+
+Liang, R., Li, T., Li, L., and Zhang, Q. Knowledge consis-     Paszke, A., Gross, S., Massa, F., Lerer, A., Bradbury, J.,
+  tency between neural networks and beyond. In Interna-          Chanan, G., Killeen, T., Lin, Z., Gimelshein, N., Antiga,
+  tional Conference on Learning Representations, 2019.           L., Desmaison, A., Kopf, A., Yang, E., DeVito, Z., Raison,
+                                                                 M., Tejani, A., Chilamkurthy, S., Steiner, B., Fang, L.,
+Liang, T., Poggio, T., Rakhlin, A., and Stokes, J. Fisher-       Bai, J., and Chintala, S. Pytorch: An imperative style,
+  rao metric, geometry, and complexity of neural networks.       high-performance deep learning library. In Wallach, H.,
+  arXiv preprint arXiv:1711.01530, 2017.                         Larochelle, H., Beygelzimer, A., d'Alché-Buc, F., Fox, E.,
+Liu, D., Wang, S., Ren, J., Wang, K., Yin, S., and Zhang, Q.     and Garnett, R. (eds.), Advances in Neural Information
+  Trap of feature diversity in the learning of mlps. arXiv       Processing Systems, volume 32, pp. 8026–8037. Curran
+  preprint arXiv:2112.00980, 2021.                               Associates, Inc., 2019.
+
+Liu, Z., Luo, P., Wang, X., and Tang, X. Deep learning         Raghu, M., Poole, B., Kleinberg, J., Ganguli, S., and Dick-
+  face attributes in the wild. In Proceedings of the IEEE        stein, J. S. On the expressive power of deep neural net-
+  international conference on computer vision, pp. 3730–         works. In Proceedings of the 34th International Confer-
+  3738, 2015.                                                    ence on Machine Learning-Volume 70, pp. 2847–2854.
+                                                                 JMLR. org, 2017.
+Livni, R., Shalev-Shwartz, S., and Shamir, O. On the com-
+  putational efficiency of training neural networks. In Ad-    Ramachandran, P., Zoph, B., and Le, Q. V. Searching for
+  vances in neural information processing systems, pp. 855–      activation functions. arXiv preprint arXiv:1710.05941,
+  863, 2014.                                                     2017.
+Lundberg, S. M. and Lee, S.-I. A unified approach to in-
+  terpreting model predictions. In Advances in Neural          Ribeiro, M. T., Singh, S., and Guestrin, C. ”why should I
+  Information Processing Systems, pp. 4765–4774, 2017.           trust you?”: Explaining the predictions of any classifier.
+                                                                 In Proceedings of the 22nd ACM SIGKDD international
+Madry, A., Makelov, A., Schmidt, L., Tsipras, D., and            conference on knowledge discovery and data mining, pp.
+ Vladu, A. Towards deep learning models resistant to             1135–1144. ACM, 2016.
+ adversarial attacks. arXiv preprint arXiv:1706.06083,
+ 2017.                                                         Saxe, A. M., Bansal, Y., Dapello, J., Advani, M., Kolchinsky,
+                                                                 A., Tracey, B. D., and Cox, D. D. On the information
+Mahendran, A. and Vedaldi, A. Understanding deep im-
+                                                                 bottleneck theory of deep learning. Journal of Statistical
+ age representations by inverting them. In Proceedings
+                                                                 Mechanics: Theory and Experiment, 2019(12):124020,
+ of the IEEE conference on computer vision and pattern
+                                                                 2019.
+ recognition, pp. 5188–5196, 2015.
+Manurangsi, P. and Reichman, D.          The computa-          Selvaraju, R. R., Cogswell, M., Das, A., Vedantam, R.,
+ tional complexity of training relu (s). arXiv preprint          Parikh, D., and Batra, D. Grad-cam: Visual explanations
+ arXiv:1810.04207, 2018.                                         from deep networks via gradient-based localization. In
+                                                                 Proceedings of the IEEE International Conference on
+Nakkiran, P., Kaplun, G., Bansal, Y., Yang, T., Barak,           Computer Vision, pp. 618–626, 2017.
+  B., and Sutskever, I. Deep double descent: Where
+  bigger models and more data hurt. arXiv preprint             Shwartz-Ziv, R. and Tishby, N. Opening the black box of
+  arXiv:1912.02292, 2019.                                        deep neural networks via information. arXiv preprint
+                                                                 arXiv:1703.00810, 2017.
+Noshad, M., Zeng, Y., and Hero, A. O. Scalable mutual
+  information estimation using dependence graphs. In           Simonyan, K., Vedaldi, A., and Zisserman, A. Deep
+ ICASSP 2019-2019 IEEE International Conference on               inside convolutional networks: visualising image clas-
+ Acoustics, Speech and Signal Processing (ICASSP), pp.           sification models and saliency maps. arXiv preprint
+  2962–2966. IEEE, 2019.                                         arXiv:1312.6034, 2017.
+Pang, B., Han, T., Nijkamp, E., Zhu, S.-C., and Wu, Y. N.
+  Learning latent space energy-based prior model. In Ad-       Tishby, N., Pereira, F. C., and Bialek, W. The informa-
+  vances in Neural Information Processing Systems, vol-          tion bottleneck method. arXiv preprint physics/0004057,
+  ume 33, 2020.                                                  2000.
+
+Pascanu, R., Gulcehre, C., Cho, K., and Bengio, Y. How to      Ver Steeg, G. and Galstyan, A. Maximally informative hier-
+  construct deep recurrent neural networks. arXiv preprint       archical representations of high-dimensional data. In Ar-
+  arXiv:1312.6026, 2013.                                         tificial Intelligence and Statistics, pp. 1004–1012, 2015.
+                         Towards Theoretical Analysis of Transformation Complexity of ReLU DNNs
+
+Wang, X., Ren, J., Lin, S., Zhu, X., Wang, Y., and Zhang,
+ Q. A unified approach to interpreting and boosting adver-
+ sarial transferability. arXiv preprint arXiv:2010.04055,
+ 2020.
+Weng, T.-W., Zhang, H., Chen, P.-Y., Yi, J., Su, D., Gao,
+ Y., Hsieh, C.-J., and Daniel, L. Evaluating the robustness
+ of neural networks: An extreme value theory approach.
+ arXiv preprint arXiv:1801.10578, 2018.
+Wolchover, N. New theory cracks open the black box of
+ deep learning. In Quanta Magazine, 2017.
+Xu, A. and Raginsky, M. Information-theoretic analysis
+  of generalization capability of learning algorithms. In
+ Advances in Neural Information Processing Systems, pp.
+  2524–2533, 2017.
+Xu, Z. J. Understanding training and generalization
+  in deep learning by fourier analysis. arXiv preprint
+  arXiv:1808.04295, 2018.
+
+Yosinski, J., Clune, J., Nguyen, A., Fuchs, T., and Lipson,
+  H. Understanding neural networks through deep visual-
+  ization. arXiv preprint arXiv:1506.06579, 2015.
+Zeiler, M. D. and Fergus, R. Visualizing and understand-
+  ing convolutional networks. In European conference on
+  computer vision, pp. 818–833. Springer, 2014.
+Zhang, S., Wu, Y., Che, T., Lin, Z., Memisevic, R., Salakhut-
+  dinov, R. R., and Bengio, Y. Architectural complexity
+  measures of recurrent neural networks. In Advances in
+  neural information processing systems, pp. 1822–1830,
+  2016.
+Zhou, B., Khosla, A., Lapedriza, A., Oliva, A., and Torralba,
+  A. Object detectors emerge in deep scene cnns. In ICLR,
+  2015.
+
+Zhou, B., Khosla, A., Lapedriza, A., Oliva, A., and Torralba,
+  A. Learning deep features for discriminative localiza-
+  tion. In Proceedings of the IEEE conference on computer
+  vision and pattern recognition, pp. 2921–2929, 2016.
+                            Towards Theoretical Analysis of Transformation Complexity of ReLU DNNs
+
+A. Gating States in Gating Layers
+In this section, we further discuss gating states of different gating layers, which is mentioned in Section 3 of the paper. Let
+hl ≜ Wl (σ l−1 (Wl−1 . . . (W2 σ 1 (W1 x + b1 ) + b2 ) · · · + bl−1 )) + bl denote the input of the l-th gating layer. We consider
+the vectorized form of hl . Given hl ∈ RD , the formulation of σ l in different gating layers is given as follows.
+(1) ReLU layer. In this case, σ l = diag(σl1 , σl2 , . . . , σlD ) ∈ {0, 1}D , which is a diagonal matrix. If the d-th dimension of hl
+is larger than 0, then we have σld = 1; otherwise, σld = 0.
+(2) Dropout layer. In this case, σ l = diag(σl1 , σl2 , . . . , σlD ) ∈ {0, 1}D , which is a diagonal matrix. If the d-th dimension of
+hl is not dropped, then we have σld = 1; otherwise, σld = 0.
+(3) Max-Pooling layer. Since a pooling layer may change the size of the input, σ l is not necessarily a square matrix. Let
+                                                         ′
+the output of the max-pooling layer be σ l hl ∈ RD , i.e. the input hl is divided into D′ regions. In this case, we have
+             ′
+σ l ∈ {0, 1}D ×D . If (hl )d′ is the largest element in the d′ -th region, then we have (σ l )d′ d = 1; otherwise, (σ l )d′ d = 0.
+
+B. Proofs of Important Conclusions
+This section proves the three properties mentioned in Section 3 of the paper, and also gives detailed proofs for other important
+conclusions in the paper.
+
+B.1. Non-negativity of the complexity I(X; Σ; Y )
+Property 1. If the DNN does not introduce information besides the input X (e.g. there is no sampling operations or
+dropout operations throughout the DNN), we have I(X; Σ; Y ) ≥ 0.
+Proof. Recall that the mutual information is defined as
+
+                                  I(X; Σ; Y ) =I(X; Y ) − I(X; Y |Σ)
+                                                =(H(Y ) − H(Y |X)) − (H(Y |Σ) − H(Y |X, Σ))                                       (6)
+                                                =(H(Y ) − H(Y |Σ)) − (H(Y |X) − H(Y |X, Σ))
+
+If the DNN does not introduce additional information besides X, which means that Σ is determined by X, then we have
+H(Y |X) − H(Y |X, Σ) = I(Σ; Y |X) = 0. Therefore,
+
+                                                 I(X; Σ; Y ) = H(Y ) − H(Y |Σ) ≥ 0                                                (7)
+
+B.2. Increase of the complexity along with the increase of gating layers
+Property 2.      The complexity of transforming the input x increases when we consider more gating layers.
+• H(Σ1 , . . . , Σl ) ≤ H(Σ1 , . . . , Σl+1 )
+Proof.
+                                                   H(Σ1 , . . . , Σl ) − H(Σ1 , . . . , Σl+1 )
+                                                 = − H(Σl+1 |Σ1 , . . . , Σl )
+                                                                                                                                  (8)
+                                                 =Eσ1 ,...,σl+1 [log p(σl+1 |σ1 , . . . , σl )]
+                                                 ≤0
+
+• I(X; {Σ1 , . . . , Σ1 }) ≤ I(X; {Σ1 , . . . , Σl+1 })
+Proof. If the DNN does not introduce additional information besides the input during the forward propagation, then
+Σ1 , . . . , Σl , Σl+1 are all determined by X, thereby H(Σ1 , . . . , Σl |X) = H(Σ1 , . . . , Σl+1 |X) = 0. Therefore,
+
+                       I(X; {Σ1 , . . . , Σl }) − I(X; {Σ1 , . . . , Σl+1 })
+                    =(H(Σ1 , . . . , Σl ) − H(Σ1 , . . . , Σl |X)) − (H(Σ1 , . . . , Σl+1 ) − H(Σ1 , . . . , Σl+1 |X))
+                                                                                                                                  (9)
+                    =H(Σ1 , . . . , Σl ) − H(Σ1 , . . . , Σl+1 )
+                    ≤0
+                             Towards Theoretical Analysis of Transformation Complexity of ReLU DNNs
+
+• I(X; {Σ1 , . . . , Σl }; Y ) ≥ I(X; {Σ1 , . . . , Σl+1 }; Y )
+Proof. According to Eq. (7), if there is no additional information besides the input throughout the DNN, then
+
+                                       I(X; {Σ1 , . . . , Σl }; Y ) = H(Y ) − H(Y |{Σ1 , . . . , Σl })                       (10)
+
+We can obtain the following inequality:
+
+                                 I(X; {Σ1 , . . . , Σl }; Y ) − I(X; {Σ1 , . . . , Σl+1 }; Y )
+                              =(H(Y ) − H(Y |{Σ1 , . . . , Σl })) − (H(Y ) − H(Y |{Σ1 , . . . , Σl+1 }))
+                              =H(Y |{Σ1 , . . . , Σl+1 }) − H(Y |{Σ1 , . . . , Σl })                                         (11)
+                              = − I(Σl+1 ; Y |{Σ1 , . . . , Σl })
+                              ≤0
+
+B.3. Decrease of the complexity through layerwise propagation
+Property 3. The complexity of transforming the intermediate-layer feature tl to the output y decreases, when we use the
+feature of higher layers.
+• H(Σl , . . . , ΣL ) ≥ H(Σl+1 , . . . , ΣL )
+Proof.
+                                                    H(Σl , . . . , ΣL ) − H(Σl+1 , . . . , ΣL )
+                                                  =H(Σl |Σl+1 , . . . , ΣL )
+                                                                                                                             (12)
+                                                  = − Eσl ,...,σL [log p(σl |σl+1 , . . . , σL )]
+                                                  ≥0
+
+• I(Tl−1 ; {Σl , . . . , ΣL }) ≥ I(Tl ; {Σl+1 , . . . , ΣL })
+Proof. If the DNN does not introduce additional information besides the input during the forward propagation, then
+Σl , Σl+1 , . . . , ΣL are all determined by Tl−1 , thereby H(Σl , . . . , ΣL |Tl−1 ) = 0. Therefore,
+
+                     I(Tl−1 ; {Σl , . . . , ΣL }) − I(Tl ; {Σl+1 , . . . , ΣL })
+                  =(H(Σl , . . . , ΣL ) − H(Σl , . . . , ΣL |Tl−1 )) − (H(Σl+1 , . . . , ΣL ) − H(Σl+1 , . . . , ΣL |Tl ))
+                                                                                                                             (13)
+                  =H(Σl , . . . , ΣL ) − H(Σl+1 , . . . , ΣL )
+                  ≥0
+
+• I(Tl−1 ; {Σl , . . . , ΣL }; Y ) ≥ I(Tl ; {Σl+1 , . . . , ΣL }; Y )
+Proof. According to Eq. (7), if there is no additional information besides the input throughout the DNN, then
+
+                                     I(Tl−1 ; {Σl , . . . , ΣL }; Y ) = H(Y ) − H(Y |{Σl , . . . , ΣL })                     (14)
+
+We can obtain the following inequality:
+
+                                I(Tl−1 ; {Σl , . . . , ΣL }; Y ) − I(Tl ; {Σl+1 , . . . , ΣL }; Y )
+                              =(H(Y ) − H(Y |{Σl , . . . , ΣL })) − (H(Y ) − H(Y |{Σl+1 , . . . , ΣL }))
+                              =H(Y |{Σl+1 , . . . , ΣL }) − H(Y |{Σl , . . . , ΣL })                                         (15)
+                              =I(Σl ; Y |{Σl+1 , . . . , ΣL })
+                              ≥0
+
+B.4. Strong correlations between the complexity and the disentanglement of transformations
+Some previous studies used the entanglement (the multi-variate mutual information) to analyze the information encoded
+in DNNs. (Ver Steeg & Galstyan, 2015) used T C(X) to measure the correlation between different input samples. In
+                          Towards Theoretical Analysis of Transformation Complexity of ReLU DNNs
+
+comparison, in this paper, we apply T C(Σ) to measure the independence between gating states of different dimensions.
+Intuitively, the disentanglement of gating states does not seem related to the complexity. Therefore, our contribution is to
+find out the strong correlation between the two factors which seem not related.
+We consider the complexity of the transformation of a single gating layer, e.g. H(Σl ), I(X; Σl ) and I(X; Σl ; Y ) for the
+l-th gating layer.
+• H(Σl )
+Proof.                                                              Y
+                     H(Σl ) + T C(Σl ) =H(Σl ) + KL(p(σl )||              p(σld ))
+                                                                     d
+                                                                                
+                                                     1                   p(σl )
+                                          =Eσl log          + Eσl log Q         d
+                                                   p(σl )                 d p(σl )
+                                                 "                #                                                               (16)
+                                                      Y
+                                          = − Eσl log      p(σld ) \\ p(σld ) does not depend on the input
+                                                           d
+                                          =Cl
+Let us consider DNNs with similar activation rates adl . Because p(σld ) follows the Bernoulli distribution with the activation
+rate adl , for DNNs with similar activation rates adl , they share similar values of Cl . In this case, there is a negative correlation
+between H(Σl ) and T C(Σl ).
+•I(X; Σl )
+Proof.                                                                                       Y
+                             I(X; Σl ) + T C(Σl ) =H(Σl ) − H(Σl |X) + KL(p(σl )||                 p(σld ))
+                                                                                               d                                  (17)
+                                                       =Cl − H(Σl |X)
+
+If the DNN does not introduce additional information through the layerwise propagation, then the X determines Σl , i.e.
+H(Σl |X) = 0. Thus, for DNNs with similar values of Cl , there is a negative correlation between I(X; Σl ) and T C(Σl ).
+•I(X; Σl ; Y )
+Proof. According to the definition of I(X; Σl ; Y ), we have
+
+                                             I(X; Σl ; Y ) = I(X; Σl ) − I(X; Σl |Y )                                             (18)
+
+We have discussed the first term I(X; Σl ) above, so we focus on the second term I(X; Σl |Y ), which measures the
+complexity of transformations that are unrelated to the inference. Similarly, the entanglement of the inference-irrelevant
+transformations is represented by
+                                                                      Y
+                                     T C(Σl |Y ) = Ey (KL(p(σl |y)||      p(σld |y)))                                 (19)
+                                                                                d
+
+Then, we have
+                                   I(X; Σl |Y ) + T C(Σl |Y )
+                                =H(Σl |Y ) − H(Σl |X, Y ) + T C(Σl |Y )
+                                   "                                      #
+                                                              Y
+                                                                      d
+                                =Ey H(Σl |y) + KL(p(σl |y)||     p(σl |y)) − H(Σl |X, Y )
+                                                                      d
+                                                                                                                                  (20)
+                                                                       
+                                               1             p(σl |y)
+                                =Eσl ,y log          + log Q       d
+                                                                          − H(Σl |X, Y )
+                                            p(σl |y)         d p(σl |y)
+                                          "                #
+                                               Y
+                                                      d
+                                = − Eσl ,y log     p(σl |y) − H(Σl |X, Y )
+                                                   d
+                                =Cl|Y − H(Σl |X, Y )
+                         Towards Theoretical Analysis of Transformation Complexity of ReLU DNNs
+
+If there is no additional information besides the input in the DNN, then H(Σl |X, Y ) = 0. Thus, we have
+
+                                 I(X; Σl ) + T C(Σl ) = Cl − H(Σl |X) = Cl
+                                                                                                                          (21)
+                                 I(X; Σl |Y ) + T C(Σl |Y ) = Cl|Y − H(Σl |X, Y ) = Cl|Y
+
+Therefore,
+                                  I(X; Σl ; Y ) = I(X; Σl ) − I(X; Σl |Y )
+                                                = (Cl − T C(Σl )) − (Cl|Y − T C(Σl |Y ))
+                                                                                                                          (22)
+                                                = (Cl − Cl|Y ) − (T C(Σl ) − T C(Σl |Y ))
+                                                                 |          {z          }
+                                                                   multi-variate mutual information
+                                                                            used to infer Y
+
+where the difference between T C(Σl ) and T C(Σl |Y ) represents the entanglement of the transformations that are used to
+infer Y . For DNNs with similar activation rates, we can also roughly consider that these DNNs share similar values of Cl
+and Cl|Y . Thus, we can conclude that the higher complexity makes the DNN use more disentangled transformation for
+inference.
+
+C. About Values of Cl|Y
+In experiments, we found that in most cases, for DNNs with similar activation rates adl in their corresponding layers, these
+DNNs usually shared similar values of Cl|Y . However, in some extreme cases, e.g. when the DNN was learned from very
+few training samples, or when the target layer was very close to the input layer or the output layer, values of Cl|Y of these
+DNNs were different from those values of other DNNs.
+
+D. Intuitive Examples for the Entanglement of Features
+This section introduces intuitive examples for the two cases of feature entanglement mentioned in Section 4.1 of the paper.
+For the first case, if we use an extremely simple DNN (e.g. a two-layer neural network) to classify complex images, it is
+likely that the network fails to extract features for meaningful concepts. The lack of representation power (transformation
+complexity) of a DNN usually leads to high entanglement of features and hurts the classification performance. In other
+words, the intermediate-layer features in the DNN are still highly entangled, just like the entanglement of pixel colors in the
+image.
+For the second case, if we use a sophisticated enough DNN (e.g. a VGG-16) to classify very simple digits in the MNIST
+dataset. Then, features in high layers (e.g. the conv5-3 layer) are redundant to represent the simple knowledge in the
+digits, thus leading to entanglement of features. In this case, due to the feature redundancy, features in some channels of
+the conv5-3 layer may be similar to each other, which can be considered as feature entanglement. Such an entanglement
+(redundancy) of reliable features is good for classification.
+
+E. Detailed Explanation of the KDE Method
+The kernel density estimation (KDE) method was proposed by (Kolchinsky & Tracey, 2017), and has been considered as a
+standard method to estimate the entropy and the mutual information. In this section, we briefly summarize key techniques of
+the KDE method, which are used to quantify the transformation complexity.
+The KDE approach was proposed to estimate the mutual information between the input X and the feature of an intermediate
+layer T in a DNN (Kolchinsky & Tracey, 2017; Kolchinsky et al., 2019). The KDE approach assumes that the intermediate-
+layer feature is distributed as a mixture of Gaussians. Since T is a continuous variable, H(T ) can be negative. The KDE
+method transforms each feature point into a local Gaussian distribution to approximate the accurate feature distribution. Let
+T̂ = T + ϵ where ϵ ∼ N (0, σ02 I). Then, the distribution of T̂ can be considered as a mixture of Gaussians, with a Gaussian
+centered on T . In this setting, previous studies (Kolchinsky & Tracey, 2017; Kolchinsky et al., 2019; Saxe et al., 2019)
+shows that an upper bound for the mutual information with the input is
+
+                                                                            1 ||ti − tj ||2
+                                                                                           
+                                                  1 X        1 X
+                                   I(T̂ ; X) ≤ −        log        exp −                                                 (23)
+                                                 P i        P j             2      σ02
+                           Towards Theoretical Analysis of Transformation Complexity of ReLU DNNs
+
+where P is the number of training samples, and ti denotes the intermediate-layer feature of the input sample i. Similarly, the
+upper bound for the mutual information w.r.t the output Y can be calculated as
+
+
+                             I(T̂ ; Y ) =H(T̂ ) − H(T̂ |Y )
+                                                                   1 ||ti − tj ||2
+                                                                                  
+                                            1 X         1 X
+                                        =−         log      exp −
+                                           P i         P j         2      σ02
+                                                                                                                                   (24)
+                                            L                                                       2
+                                                                                                       
+                                           X           1  X      1 X                1 ||t i −  t j ||
+                                         −      pl −        log          exp −                          
+                                                       P         P                  2       σ02
+                                                  l=1                i:Yi =l           j:Yj =l
+
+
+
+where L is the number of categories. Pl denotes the number of samples belonging to the l-th category. pl = Pl /P denotes
+the probability of the category l.
+We use the KDE method to quantify the transformation complexity H(Σ), I(X; Σ) and I(X; Σ; Y ). The entropy of gating
+states H(Σl ) is quantified as follows.
+
+                                                            n        n
+                                                                             1 ∥σl,j − σl,k ∥22
+                                                                                               
+                                                         1X        1X
+                                          H(Σl ) ≤ −           log     exp −                                                         (25)
+                                                         n j=1     n         2       σ02
+                                                                              k=1
+
+
+
+where n denotes the number of training samples. σl,j and σl,k denote the vectorized gating states of the l-th gating
+layer for the j-th sample and the k-th sample, respectively. σ02 is quantified as σ02 = κ · V ar(Σl ), where V ar(Σl ) =
+Ex [∥σl − µ∥2 ], µ = Ex [σl ]. V ar(Σl ) measures the variance of gating states of the l-th gating layer. κ is a positive constant.
+The above equation can also be used to quantify H(Σ), when we simply replace Σl with Σ. Figure 10 shows the complexity
+I(X; Σ) and I(Σ; Y ), which were calculated on MLP-α networks learned with different κ values on the MNIST dataset.
+The κ value affected the scale of the complexity value, but it did not affect the trend of the complexity change during the
+training process. Thus, given a fixed κ value, the complexity of different DNNs could be fairly compared.
+
+
+                                 11
+
+                                 10                                                  3.0
+
+                                  9                                                  2.5
+                                  8
+                                                                                     2.0
+                                  7
+                                                                                     1.5
+                                  6
+                                                                κ=0.005                                             κ=0.005
+                                  5                                                  1.0
+                                                                κ=0.01                                              κ=0.01
+                                  4                             κ=0.02               0.5                            κ=0.02
+                                      0     100    200   300   400      500                0     100   200   300   400   500
+                                                    epoch                                               epoch
+
+Figure 10. The complexity calculated with different values of κ. The κ value only affected the scale of I(X; Σ), but it did not affect the
+trend of the complexity change. Thus, given a fixed κ value, the complexity of different DNNs can be fairly compared.
+
+
+If the DNN does not introduce additional complexity besides the input X, we have H(Σl |X) = 0, I(X; Σl ) = H(Σl ) −
+H(Σl |X) = H(Σl ). If the DNN introduces additional complexity (e.g. using the sampling operation in VAE, or the dropout
+operation), then I(X; Σl ) can be quantified as follows.
+
+                                                       n        n
+                                                                        1 ∥σ̂l,j − σ̂l,k ∥22
+                                                                                            
+                                                    1X        1X
+                                      I(X; Σl ) ≤ −       log     exp −                                                              (26)
+                                                    n j=1     n         2        σ02
+                                                                               k=1
+
+
+
+where σ̂l,j and σ̂l,k represent the vectorized gating states when sampling operations are removed (in this way, we can use
+the method of measuring H(Σl ) to quantify I(X; Σl )).
+                          Towards Theoretical Analysis of Transformation Complexity of ReLU DNNs
+
+Similarly, the complexity I(X; Σl ; Y ) can be estimated by its upper bound:
+
+                         I(X; Σl ; Y ) = I(Σl ; Y ) − I(Σl ; Y |X)
+                                       = H(Σl ) − H(Σl |Y ) − I(Σl ; Y |X)
+                                             n         n
+                                                                  1 ∥σl,j − σl,k ∥22
+                                                                                    
+                                          1X         1X
+                                       ≤−        log      exp −
+                                          n j=1      n            2        σ02
+                                                             k=1
+                                                                                                                               (27)
+                                               M
+                                                                         1 ∥σl,j − σl,k ∥22
+                                                                                          
+                                               X     1 X       1 X
+                                          −    pm −       log      exp −
+                                            m=1
+                                                    nm j,     nm         2       σ02
+                                                                                  k,
+                                                              Yj =m             Yk =m
+
+                                          − I(Σl ; Y |X)
+
+For the task of multi-category classification, M denotes the number of categories. nm is the number of training samples
+belonging to the m-th category, and pm = nm /M . If the DNN does not introduce additional complexity besides the input,
+we have I(Σl ; Y |X) = 0.
+The entanglement of transformations is formulated as
+                                                                                              
+                                                             Y                        p(σl )
+                                 T C(Σl ) =KL(p(σl )||            p(σld )) = Eσl log Q       d                                 (28)
+                                                              d                       d p(σl )
+
+
+where p(σld ) denotes the marginal distribution of the d-th element in σl . To enable fair comparisons between I(T̂ , X)
+computed by the KDE method in Eq. (23) and T C(Σl ), we also apply the Q         KDE method to approximate T C(Σl ). To this
+end, we synthesize a new distribution p(σ̂l ) to represent the distribution of d p(σld ). In σ̂l , σ̂ld in each dimension follows
+the Bernoulli distribution with the same activation  rate adl with the original σld . Gating states σ̂ld in different dimensions are
+independent with each other. In this way, d p(σl ) can be approximated by p(σ̂l ).
+                                                    d
+                                           Q
+
+Inspired by (Kolchinsky & Tracey, 2017; Kolchinsky et al., 2019), T C(Σl ) is quantified as the following upper bound.
+                                                                 
+                                                          p(σl )
+                                       T C(Σl ) = Eσl log
+                                                          p(σ̂l )
+                                                                                          2
+                                                                                                                               (29)
+                                                                                           
+                                                                          1 ∥σl,i −σl,j ∥2
+                                                            P
+                                                  1 X          j  exp   − 2        2
+                                                                                  σ0
+                                                ≤       log P                            2
+                                                                                            
+                                                  P i             exp −   1 ∥σl,i −σ̂l,j ∥2
+                                                                                   2
+                                                                      j            2    σ0
+
+
+where P denotes the number of samples. σ̂l,i denotes the synthesized gating states, which have the same activation rates
+with the gating states of the sample i.
+
+F. Learning a Minimum-Complexity DNN
+This section introduces more details about the learning of a minimum-complexity DNN in Section 4.3 of the paper. In
+Section 4.3, the complexity loss is defined as
+
+                                                       L
+                                                       X                  L
+                                                                          X
+                                       Lcomplexity =         H(Σl ) =       {−Eσl [log p(σl )]}                                (30)
+                                                       l=1                l=1
+
+The exact value of p(σl ) is difficult to calculate. Thus, inspired by (Gao et al., 2018), we design an energy-based model
+(EBM) pθf (σl ) to approximate it, as follows.
+
+                                             1
+                                 pθf (σl ) =      exp[f (σl ; θf )] · q(σl )
+                                           Z(θf )
+                                                                    Z                                                          (31)
+                                  Z(θf ) = Eq [exp[f (σl ; θf )]] =     q(σl ) exp[f (σl ; θf )]dσl
+                                                                           σl
+                        Towards Theoretical Analysis of Transformation Complexity of ReLU DNNs
+
+where q(σl ) denotes the prior distribution, which is formulated as follows.
+                                                                      (
+                                               Y                         p̂     σld = 1
+                                      q(σl ) =   q(σld ), q(σld ) =                                                     (32)
+                                               d
+                                                                         1 − p̂ σld = 0
+
+If we write the EBM as pθf (σl ) =     1
+                                     Z(θf )   exp[−E(σl )], then the energy function is as follows.
+
+                                                Eθf (σl ) = − log q(σl ) − f (σl ; θf )                                 (33)
+
+The EBM can be learned via the maximum likelihood estimation (MLE) with the following loss.
+                                                                                   n
+                                                                                1X
+                                     θ̂f = arg max L(θf ) = arg max                   log pθf (σl,i )                   (34)
+                                                θf                         θf   n i=1
+
+where n denotes the number of samples. σl,i is a vector, which represents gating states in the l-th gating layer for the i-th
+sample.
+The loss and gradient of θf can be calculated as follows.
+                                      n                                n
+                                1X                        1X
+                     L(θf ) = −       log pθf (σl,i ) = −       [f (σl,i ; θf ) + log q(σl,i )] + log Z(θf )            (35)
+                                n i=1                     n i=1
+
+                                                                     n
+                                 ∂L(θf )          ∂                 1X ∂
+                                         = Eθf       f (σl ; θf ) −           f (σl,i ; θf )                            (36)
+                                  ∂θf            ∂θf                n i=1 ∂θf
+where    ∂
+        ∂θf log Z(θf ) = Eθf [ ∂θ∂f f (σl ; θf )].
+                   h                i
+The first term Eθf ∂θ∂f f (σl ; θf ) in the above equation is analytically intractable and has to be approximated by MCMC,
+such as the Langevin dynamics.
+                                                  ∆τ ∂               √
+                                σlnew = σl −             Eθf (σl ) + ∆τ ϵ
+                                                   2 ∂σl
+                                                     "                 D
+                                                                                       #
+                                                                                           √                           (37)
+                                                  ∆τ ∂f (σl ; θf ) X 1 ∂q(σld )
+                                       = σl +                       +                    +   ∆τ ϵ
+                                                   2      ∂σl
+                                                                      d=1
+                                                                          q(σld ) ∂σld
+
+where ϵ ∽ N (0, I) is a Gaussian white noise. ∆τ denotes the size of the Langevin step.
+                                              ∂L(θf )
+Then, the Monte Carlo approximation to         ∂θf       is given as follows.
+                                                     n                              n
+                                 ∂L(θf )   1X ∂                       1X ∂
+                                         ≈           f (e
+                                                        σl,i ; θf ) −           f (σl,i ; θf )
+                                  ∂θf      n i=1 ∂θf                  n i=1 ∂θf
+                                               " n                       n
+                                                                                       #                                (38)
+                                            ∂    1X                   1X
+                                         =             Eθ (σl,i ) −         Eθ (e
+                                                                                σl,i )
+                                           ∂θf n i=1 f                n i=1 f
+
+where σ
+      el,i is the sample synthesized via Langevin dynamics.
+Thus, the loss for the learning of the DNN can be rewritten as follows.
+                                                 L
+                                                 X
+                              Lcomplexity = −            Eσl [log pθ̂f (σl )]
+                                                 l=1
+                                                     L       n
+                                               1 XX
+                                          =           [Eθ̂f (σl,i ) + log Z(θ̂f )]                                      (39)
+                                               n  i=1
+                                                  l=1
+                                                         L       n
+                                                 1 XX
+                                          =−            [f (σl,i ; θ̂f ) + log q(σl,i ) − log Z(θ̂f )]
+                                                 n  i=1
+                                                     l=1
+                         Towards Theoretical Analysis of Transformation Complexity of ReLU DNNs
+
+Let θDNN denote parameters in the DNN. The gradient of θDNN can be calculated as follows.
+
+                                           L     n
+                                                     (                      D
+                                                                                                )
+                                                                                     d
+                          ∂Loss    1 XX                  ∂f (σl ; θ̂f ) X 1 ∂q(σl,i     )             ∂σl,i
+                                =−                                     +    d       d
+                                                                                                                                   (40)
+                          ∂θDNN    n  i=1
+                                                            ∂σl,i        q(σl,i ) ∂σl,i              ∂θDNN
+                                          l=1                               d
+
+
+We consider Z(θf ) as a constant in the computation of          ∂Loss
+                                                                ∂ θ̂DNN
+                                                                        .
+                                                    d
+                                 ∂σl,i         ∂q(σl,i )
+To enable the computation of    ∂θDN N   and       d
+                                                ∂σl,i
+                                                         ,   we can approximate the ReLU operation using the following Swish
+function (Ramachandran et al., 2017).
+
+                                                     σl ≈ sigmoid(βx)
+                                                                                                                                   (41)
+                                          ReLU(x) = x ⊙ σl ≈ x ⊙ sigmoid(βx)
+
+where ⊙ denotes the element-wise multiplication.
+According to Eq. (32), the prior distribution q(σl ) is approximated as follows.
+
+                                                                                ∂q(σld )
+                                    q(σld ) ≈ 1 − p̂ + σld (2p̂ − 1),                    ≈ 2p̂ − 1                                 (42)
+                                                                                 ∂σld
+
+In implementation, the EBM is a bottom-up ConvNet with six convolutional layers, which takes σl as an input and outputs a
+scalar. During the training phase, we firstly train the EBM using Eq. (38) for every batch of training data. The EBM and the
+original DNN are trained separately. I.e. when training the EBM, parameters in the original DNN are fixed, and vice versa.
+
+G. More Experimental Details, Results, and Discussions
+G.1. More experimental details
+Recall that Σl = {σl } denotes the set of gating states σl among all samples X. In this paper, we randomly sample 2000
+images from the training set of the each dataset for the calculation of the transformation complexity. Thus, X denotes the
+set of 2000 randomly sampled images that are used for analysis.
+
+G.2. The value of κ used in the KDE approach
+In this section, we discuss about the value of the hyper-parameter κ used in the KDE approach. Note that the features of
+convolutional layers usually contain far more dimensions than features of fully-connected layers. Therefore, we set κ = 0.04
+for gating layers following each convolutional layer, and κ = 0.01 for gating layers following each FC layer.
+We also tested the effects of different κ values to the quantification of the complexity. Figure 10 shows the complexity
+I(X; Σ) and I(Σ; Y ), which were calculated on MLP-α networks learned with different κ values on the MNIST dataset.
+The κ value affected the scale of the complexity value, but it did not affect the trend of the complexity change during the
+training process. Thus, given a fixed κ value, the complexity of different DNNs could be fairly compared.
+
+G.3. The classification accuracy of DNNs in comparative studies
+This section contains more details of DNNs in comparative studies of the paper. We trained five types of DNNs on the
+MNIST dataset and the CIFAR-10 dataset, and trained three types of DNNs on the CelebA dataset and the Pascal VOC 2012
+dataset. Table 2 reports the testing accuracy of the trained DNNs.
+
+                              Table 2. The classification accuracy of DNNs on different datasets.
+                (a) On the MNIST and CIFAR-10 datasets.                      (b) On the CelebA and Pascal VOC 2012 datasets.
+              MLP     LeNet-5   revised VGG-11       ResNet-20        ResNet-32                        ResNet-18   ResNet-34   VGG-16
+  MNIST      96.52%   97.41%         99.00%           98.70%           98.24%            CelebA         80.25%      80.91%     89.70%
+ CIFAR-10    52.52%    61.5%         84.53%           81.75%           79.76%        Pascal VOC 2012    67.99%      64.27%     62.50%
+ velty.        Q5: Ask for more supports for the drop of noisy features
+ tivation)                               Towards Theoretical Analysis of Transformation Complexity of ReLU DNNs
+               in early stages for models           w/ and w/o skip connections.
+ure com-       “... may indeed be related to double-descent, ...” A5: In
+               G.4. The change of the transformation complexity in VGG-16
+etrics for     fact, the drop of noisy features in very early iterations
+  omplex-      This  section
+               has also      shows
+                           been     more results
+                                  supported      by of   the change ofintransformation
+                                                     observations            other studiescomplexity in Section 4.2. Figure 11 shows the change
+the most       of transformation   complexity     in VGG-16      trained
+               [arXiv:2112.00980]. In very early iterations, initial       on  the Pascal   VOC dataset and the CelebA dataset. In these cases, the
+                                                                                      weights
+               complexity increased monotonously during the early stage of the training process, and saturated later.
+ h ReLU        irrelevant to the task are usually removed, which reduces the
+  nsibility.   transformation complexity. Besides, [arXiv:2112.00980]
+                                             2.8                                            0.7
+  ersity of    also shows that the decrease               of the model diversity 0.6in
+                                             2.6
+ s, which      very early iterations exactly          aligns with       the first stage 0.5in
+                                                                    VGG16-VOC                               VGG16-VOC
+
+
+
+
+                                                                                                                                                                             I(X;Σ;Y)
+                                             2.4                    VGG16-CelebA                            VGG16-CelebA(x10)
+                                                                                            H(Σ)
+
+ ar DNN,       the double-descent. This      2.2
+                                                 paper also implies that this phe-          0.4
+
+ s are the     nomenon only appears 2.0      in deep cascaded models, but skip              0.3
+
+diversity      connections lower the equivalent
+                                             1.8
+                                                            depth    of  information      pro-
+                                                                                            0.2
+
+ tions. In     cessing in the model.              0    100   200    300
+                                                                epoch
+                                                                           400   500             0   100  200   300
+                                                                                                            epoch
+                                                                                                                     400   500
+
+
+ s due to      Q6: Ask for more explanationFigure     about11.theTheMaximum         complex- complexity in VGGs.
+                                                                       change of transformation
+ bspaces,      ity paragraph. A6: Thank you. Please see answers to Q3.
+mplexity       Q7: More
+               G.5.  Ask for    error bars result
+                            experimental    in experimental
+                                                     of learning DNNsresults.with
+                                                                                A7:minimum
+                                                                                       Thank complexity
+  paper.       you.   We   conducted   new    experiments,        in  which    we    repeated
+               In this section, we provide more experimental result to verify the stability of learning DNNs with minimum complexity
+ s the en-     experiments
+               in Section 4.3.inSpecifically,
+                                  Fig. 6 and Fig.      8(b) forexperiments
+                                                 we repeated       six times with       differ-7 and Figure 9(b) for six times with different random
+                                                                                  in Figure
+ left) and     ent random initializations.
+               initializations. Results in Figure The    following
+                                                     12 with            resultsdeviation
+                                                               the standard      with errorstill verify our conclusions.
+ement in       bars (standard deviation) still verify our conclusions.
+ he other                     ResMLP-CIFAR10
+                              ResMLP-CIFAR10                       RN20-CIFAR10
+                                                                   RN20-CIFAR10                     RN32-CIFAR10
+                                                                                                    RN32-CIFAR10                         RN18-TinyImagenet
+                                                                                                                                         RN18-TinyImagenet          RN34-TinyImagenet
+                                                                                                                                                                    RN34-TinyImagenet
+                I(X;Σ)=H(Σ)
+
+
+
+
+                                                                                                             1.6
+                                                                                                                         train
+               I(X;Σ)=H(Σ)
+
+
+
+
+                                                                      3                                      1.6
+                                                                                                                 test LLtrain
+
+
+
+
+                                10
+                                10                                    3                                                                                   The transformation
+                                                                                                                                                          The     transformation                                                  𝐿1 regularization
+  omplex-
+                                                                     I(X;Σ;Y)
+                                                                    I(X;Σ;Y)
+
+
+
+
+                                                                                2                                            1.0
+                                                                                                                                                          complexity and
+                                                                                                                                                          complexity     and the  the
+                                         6                                      2                                            1.0                                                              2.0                                 𝐿2 regularization
+                                         6                                                                                                                      gap LL test
+                                                                                                                                                          loss gap          − LL train
+t similar                                                                       1
+                                                                                1                                            0.4
+                                                                                                                                                          loss         test −    train
+                                                                                                                                                                                                                                  complexity loss
+                                                                                                              LLtest
+
+
+
+
+                                         2
+                                         2                                                                                   0.4                          of DNNs learned using
+                                                                                0
+  h an en-                               10-5
+                                         10
+                                           -5     10-2
+                                                  10
+                                                     -2       1011 λλ
+                                                              10
+                                                                                0
+                                                                                 10-5
+                                                                                10
+                                                                                   -5    10-2
+                                                                                         10
+                                                                                            -2   1011 λλ
+                                                                                                 10                              10-5
+                                                                                                                                 10
+                                                                                                                                    -5     10-2
+                                                                                                                                           10
+                                                                                                                                              -2     101λ
+                                                                                                                                                     10 λ
+                                                                                                                                                       1
+                                                                                                                                                          different values of 𝜆.              1.5
+
+ together,                                            −5
+                                                   10−5             −4
+                                                                 10−4
+                                                                                      for target
+                                                                                   λ for
+                                                                                   λ
+                                                                                      10−3
+                                                                                          target RN32
+                                                                                         −3
+                                                                                                 RN32
+                                                                                                      −2
+                                                                                                   10−2              −1
+                                                                                                                  10−1                 1000           1011
+                                  RN32
+
+
+
+
+                                                   10            10                   10           10             10                   10             10                                      1.0
+                            sourceRN32
+
+
+
+
+                                         10
+                                            −5
+                                         10−5    1.00±0.00
+                                                 1.00 ±0.00    0.99±0.01
+                                                               0.99 ±0.01           0.99±0.00
+                                                                                    0.99 ±0.00   0.97±0.02
+                                                                                                 0.97 ±0.02     0.68±0.31
+                                                                                                                0.68 ±0.31          0.51±0.24
+                                                                                                                                    0.51 ±0.24     0.18±0.09
+                                                                                                                                                   0.18 ±0.09   Adversarial transfer-
+                                         10
+                                            −4
+                                         10−4    0.99±0.01
+                                                 0.99 ±0.01    1.00±0.00
+                                                               1.00 ±0.00           0.99±0.01
+                                                                                    0.99 ±0.01   0.95±0.02
+                                                                                                 0.95 ±0.02     0.64±0.30
+                                                                                                                0.64 ±0.30          0.52±0.23
+                                                                                                                                    0.52 ±0.23     0.19±0.08
+                                                                                                                                                   0.19 ±0.08
+                                            −3
+                                                 0.99±0.00     0.98±0.02            1.00±0.00    0.96±0.03      0.64±0.32           0.48           0.19
+                                                                                                                                                                ability between RN-
+                       for source
+
+
+
+
+                                         10
+  mplexity                                       0.99          0.98                 1.00         0.96           0.64                0.48±0.22      0.19±0.10
+                                            −3        ±0.00         ±0.02                ±0.00        ±0.03          ±0.32               ±0.22          ±0.10
+                                         10                                                                                                                                                   0.5
+                                            −2
+                                         10−2    0.96±0.02     0.94±0.03            0.96±0.01    1.00±0.00      0.62±0.30           0.48±0.24      0.19±0.12    32's learned with
+                                         10      0.96 ±0.02    0.94 ±0.03           0.96 ±0.01   1.00 ±0.00     0.62 ±0.30          0.48 ±0.24     0.19 ±0.12
+                                         10 −1
+                                            −1   0.83
+                                                 0.83±0.17
+                                                      ±0.17    0.83
+                                                               0.83±0.17
+                                                                    ±0.17           0.85
+                                                                                    0.85±0.16
+                                                                                         ±0.16   0.85
+                                                                                                 0.85±0.16
+                                                                                                      ±0.16     1.00
+                                                                                                                1.00±0.00
+                                                                                                                     ±0.00          0.62
+                                                                                                                                    0.62±0.27
+                                                                                                                                         ±0.27     0.38
+                                                                                                                                                   0.38±0.21
+                                                                                                                                                        ±0.21   different weights of
+ e DNN’s
+                                         10
+                   λλ for
+
+
+
+
+                                          1000
+                                          10     0.80±0.12
+                                                 0.80 ±0.12    0.81±0.13
+                                                               0.81 ±0.13           0.80±0.11
+                                                                                    0.80 ±0.11   0.81±0.08
+                                                                                                 0.81 ±0.08     0.69±0.24
+                                                                                                                0.69 ±0.24          1.00±0.00
+                                                                                                                                    1.00 ±0.00     0.56±0.27
+                                                                                                                                                   0.56 ±0.27
+                                                                                                                                                                the complexity loss 𝜆.
+                                          10
+                                          101
+                                             1
+                                                 0.63
+                                                 0.63±0.10
+                                                      ±0.10    0.63
+                                                               0.63±0.12
+                                                                    ±0.12           0.63
+                                                                                    0.63±0.13
+                                                                                         ±0.13   0.67
+                                                                                                 0.67±0.09
+                                                                                                      ±0.09     0.58
+                                                                                                                0.58±0.10
+                                                                                                                     ±0.10          0.72
+                                                                                                                                    0.72±0.13
+                                                                                                                                         ±0.13     1.00
+                                                                                                                                                   1.00±0.00
+                                                                                                                                                        ±0.00                                        10−1              100
+ mplexity                                                                                                                                                                                           model complexity 𝐼(𝑋; Σ; 𝑌)
+               Q8: Many
+               Figure         constructive
+                      12. (Top) The complexity suggestions     on presentation
+                                                  of transformation  complexity andand   ty-
+                                                                                     the gap
+ the MLP       pos.   A8:   Thank    you.    We    will  follow    your  suggestions      to
+                                                                                                                                                                                         Figure 13. Comparisons of the classification loss between
+               between the training loss and the testing loss of the learned minimum                                                                                                     different baselines. The complexity loss was superior to
+  mplexity     complexity  DNNs,   with  the standard  deviation in shaded colors. (Bottom)
+               correct typos and improve the readability.                                                                                                                                them in terms of maintaining the classification accuracy
+  with the     Adversarial transferability between DNNs learned with different weights of                                                                                                and decreasing the model complexity.
+               Q9: Ask for citation of the original VAE paper. A9: Thank
+ ght), the     the complexity loss λ, with standard deviations.
+               you. We will follow your suggestions to cite this paper.
+ layers in
+               To R6:
+               G.6.         Thank you
+                     Comparisons       with for   your appreciation
+                                             traditional                 of the novelty.
+                                                            L1 and L2 regularization     methods
+ e a MLP       Q10: About presentation issues. “... not presented in an
+ n. Never-     In this section,  we compare     the proposed
+               easily    understandable       way.”   “... hardcomplexity
+                                                                 to focus onlossthe
+                                                                                  with traditional L1 and L2 regularization methods. Specifically,
+                                                                                    main
+ tting.        we trained 20 residual MLPs with L = Ltask + λL1 l ∥Wl ∥1 and 20 residual MLPs with L = Ltask + λL2 l ∥Wl ∥22 .
+                                                                            P                                                          P
+               stream.” “... refine the presentation ...” A10: Thank you.
+planation      For the L1 regularization, we set different values of λL1 ranging from 10−5 to 10−1 in different experiments. For the L2
+               We will follow your suggestions to polish the presentation
+ structive     regularization, we set different values of λL2 ranging from 10−5 to 101 in different experiments. Figure 13 compares the
+               and clarify loss
+               classification  the Lmainstream        of this paper, as follows. We
+                                      task between different baselines. We found that the complexity loss was superior to traditional L1 and L2
+  the page
+               use  the   diversity  of   gating   states  to define athe
+               regularization methods, in terms of maintaining         new   complexityaccuracy and decreasing the model complexity.
+                                                                          classification
+  ons.
+               metric that is specific for piecewise linear DNNs (see an-
+ ng to the
+               swers
+               G.7.     to Q1) analysis
+                     Detailed    and prove of its
+                                              thedistinctive
+                                                   adversarialproperties.
+                                                                 robustness,Such    a new transferability and knowledge consistency
+                                                                              adversarial
+  ing acti-    complexity metric enables us to explain different aspects of
+  els with     In this section, we provide more detailed analysis of the adversarial robustness, adversarial transferability and knowledge
+               a DNN from
+               consistency,  in aSection
+                                   novel4.3 view,   including
+                                               of the  paper. the transformation en-
+Quantify-
+               tanglement, the ceiling of a DNN’s complexity, over-fitting,
+   states in   In Section 4.3 robustness,
+               adversarial      of the paper, weandhave  found that transferability.
+                                                      adversarial   DNNs with low transformation
+                                                                                        In           complexity usually exhibited high adversarial
+ nsforma-      robustness; vice versa. To this end, we defined the attacking utility in untargeted attacks as Uuntarget (x) = maxy′ ̸=y hy′ (x +
+               this  way,   we demonstrate both the theoretical foundation
+ ally, it is   ϵ) −h   y (x + ϵ), where y is the ground-truth label of the sample x, and hy (x) is the output logit of the DNN in the y-th
+               and   broad
+               category givenapplicability
+                                  an input x. of   the complexity
+                                                Then,   we measuredmetric.
+                                                                       the L2 norm of the minimum adversarial perturbation ϵ for each image,
+final soft-
+               Q11: “The
+               which          reason
+                       has similar      for involving
+                                     attacking   utility of‘gates’
+                                                             40. Wedoes  not seem
+                                                                    conducted    the clear
+                                                                                     PGD attack (Madry et al., 2017), with the step size of each
+   specific
+               to me.” A11: Please see answers to Q1.
+ s a great     Q12: Minor issues about some notations and terms. A12:
+ tribution
+               Thank you. We will explain b, “additional complexity,” and
+               H(Σ1 , ..., Σ10 ) in the paper.
+                           Towards Theoretical Analysis of Transformation Complexity of ReLU DNNs
+
+single-step attack as 0.5/255. Other experimental settings remained the same as in (Wang et al., 2020).
+We have also found in Section 4.3 that adversarial perturbations for complex DNNs could not be well transferred to simple
+DNNs. However, adversarial perturbations for simple DNNs could be transferred to complex DNNs. We conducted the
+PGD attack for each image using DNNs with different transformation complexities, and following the experimental settings
+in (Wang et al., 2020) to measure the adversarial transferability between DNNs.
+Following settings in (Liang et al., 2019), we explored the knowledge consistency between DNNs with different transforma-
+tion complexities. Specifically, we used the intermediate-layer feature xA of a DNN (Net-A) trained with a specific value
+of λ, to reconstruct the intermediate-layer feature xB of another DNN (Net-B) also trained with λ. Net-A and Net-B had
+the same architecture and were trained on the same dataset, but with different initialization parameters. xA and xB denote
+intermediate-layer features of Net-A and Net-B in the same layer, respectively.
+We followed the experimental settings in (Liang et al., 2019) to diagnose the feature representation in the residual MLP
+trained on the CIFAR-10 dataset and ResNet-34 trained on the Tiny-ImageNet dataset. We diagnosed the output feature of
+the last layer (3072 dimensional) in the residual MLP and the output feature of the last convolutional layer (7 × 7 × 512
+dimensional) in ResNet-34. We disentangled 0-order, 1-order, and 2-order consistent features x(0) , x(1) , and x(2) from xA .
+For the fair comparison between DNNs learned with different λ values, we computed the strength of the k-order consistent
+feature as V ar(x(k) )/V ar(xA ). V ar(xA ) ≜ EI,i [(xA,I,i − EI ′ ,i′ [xA,I ′ ,i′ ])2 ], where xA,I,i denotes the i-th element of xA
+given the image I.
+
+                                  0.4
+                                                                                   0.2
+
+                                  0.3
+
+
+
+                                  0.2
+                                                                                   0.1
+                                                          𝑉𝑎𝑟 𝑥   0   Τ𝑉𝑎𝑟 𝑥𝐴                            𝑉𝑎𝑟 𝑥   0   Τ𝑉𝑎𝑟 𝑥𝐴
+                                  0.1                     𝑉𝑎𝑟 𝑥   1   Τ𝑉𝑎𝑟 𝑥𝐴                            𝑉𝑎𝑟 𝑥   1   Τ𝑉𝑎𝑟 𝑥𝐴
+
+                                                          𝑉𝑎𝑟 𝑥   2   Τ𝑉𝑎𝑟 𝑥𝐴                            𝑉𝑎𝑟 𝑥   2   Τ𝑉𝑎𝑟 𝑥𝐴
+
+                                  0.0                                              0.0
+                                        10−5   10−4         10−3           10−2          10−5         10−4                10−3
+                                                      𝜆                                                𝜆
+
+Figure 14. The strength of consistent features with different orders in (left) residual MLP trained on the CIFAR-10 dataset, and (right)
+ResNet-34 trained on the Tiny ImageNet dataset.
+
+Figure 14 shows the strength of consistent features with different orders. We found that pairs of simple DNNs usually
+encoded similar knowledge representations (exhibiting high knowledge consistency), while complex DNNs are more likely
+to encode diverse knowledge. This demonstrated the reliability of features learned by simple DNNs.
+
+G.8. Computational cost of the proposed method
+This section reports the computational cost of training DNNs with the complexity loss. We compare the time cost of training
+for an epoch with and without the complexity loss. The time cost was measured using PyTorch 1.6 (Paszke et al., 2019) on
+Ubuntu 18.04, with the Intel(R) Core(TM) i9-10900X CPU @ 3.70GHz and one NVIDIA(R) TITAN RTX(TM) GPU.
+                       Table 3. Time cost of training DNNs for an epoch with and without the complexity loss.
+                          model               dataset                 batch size         time w/o Lcomplexity         time w/ Lcomplexity
+                      residual MLP          CIFAR-10                     128                 21 s/epoch                   85 s/epoch
+                        ResNet-20           CIFAR-10                     128                 64 s/epoch                  218 s/epoch
+                        ResNet-32           CIFAR-10                     128                101 s/epoch                  296 s/epoch
+                        ResNet 18         Tiny-ImageNet                  128                 41 s/epoch                   83 s/epoch
+                        ResNet-34         Tiny-ImageNet                  128                 68 s/epoch                  105 s/epoch
+

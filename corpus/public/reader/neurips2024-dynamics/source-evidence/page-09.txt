@@ -1,0 +1,86 @@
+                                                                                                                                                   𝑘=1
+                                                                                                                                                   𝑘=2
+ 𝑟 (𝑘)                                                                                                                                             𝑘=3
+
+
+
+
+                                                                                                                                             …
+                   𝑛=6                      𝑛=8                           𝑛 = 10                      𝑛 = 12                𝑛 = 14
+                                                                                                                                                   𝑘=𝑛-2
+                         2                         2                             2                           2                     2               𝑘=𝑛-1
+                     𝜎                         𝜎                             𝜎                           𝜎                     𝜎
+                                                             (k)                       2
+Figure 3: Monotonic increase of r along with σ mentioned in Proposition 1. We show the curves
+of r(k) when we set different numbers of input variables n and different orders k = 1, · · · , n − 1.
+
+                      Early in the 2nd phase                       Intermediate time in the 2nd phase                   Late in the 2nd phase
+                             (𝑘)                       (𝑘)                       (𝑘)                     (𝑘)                   (𝑘)                    (𝑘)
+               Real Distr. 𝐼real    Theo. Distr. 𝐼theo             Real Distr. 𝐼real       Theo. Distr. 𝐼theo    Real Distr. 𝐼real     Theo. Distr. 𝐼theo
+ AlexNet
+   CUB
+
+
+
+
+                   order 𝑘              order 𝑘                       order 𝑘                  order 𝑘               order 𝑘                order 𝑘
+ CIFAR-10
+ VGG-11
+
+
+
+
+                   order 𝑘              order 𝑘                       order 𝑘                  order 𝑘               order 𝑘                order 𝑘
+ BERT-Medium
+    SST-2
+
+
+
+
+                   order 𝑘              order 𝑘                       order 𝑘                  order 𝑘               order 𝑘                order 𝑘
+
+                                                                                        (k)
+Figure 4: Comparison between the theoretical distribution of interaction strength Itheo     and the
+                                           (k)
+real distribution of interaction strength Ireal in the second phase. Please see Appendix J.3 for the
+comparison on the other six DNNs trained for 3D point cloud/image/sentiment classification.
+
+Theorem 4 (Proven in Appendix F.6). According to Theorem 3, we can write the             analytic solution of
+                                                                               1×2n
+the interaction effect ŵT w.r.t. a subset T as ŵT = m̂⊤      ∗          ⊤
+                                                           T w , where m̂T ∈ R        denotes a row vector
+of the matrix M̂ = [m̂T1 , m̂T2 · · · , m̂T2n ]⊤ , indexed by T . Combining with Lemma 2, for any two
+subsets T, T ′ ⊆ N of the same order, i.e., |T | = |T ′ |, we have ∥m̂T ∥2 = ∥m̂T ′ ∥2 .
+Proposition 1. For any two subsets T, T ′ ⊆ N with |T | < |T ′ |, ∥m̂T ∥2 /∥m̂T ′ ∥2 is greater than 1 and
+decreases monotonically as σ 2 decreases throughout training. The norm ∥m̂T ∥2 is only determined
+by n, σ 2 , and the order |T |, but is agnostic to finally-converged interactions {wT∗ : T ⊆ N }.
+Proposition 1 shows a monotonic decrease of ∥m̂T ∥2 /∥m̂T ′ ∥2 along with the decrease of σ 2 . The
+physical meaning of ∥m̂T ∥2 /∥m̂T ′ ∥2 can be understood as follows. According to ŵT = m̂⊤    Tw ,
+                                                                                                   ∗
+
+∥m̂T ∥2 reflects the strength of the DNN encoding the interaction T . In this way, ∥m̂T ∥2 /∥m̂T ∥2
+                                                                                                 ′
+
+measures the relative strength of encoding a low-order interaction T w.r.t. that of encoding a high-
+order interaction T ′ .
+Conclusions from Theorem 4 and Proposition 1: Because the second phase is viewed as a process
+of gradually reducing the noise level σ 2 , Theorem 4 and Proposition 1 explain why the DNN
+mainly encodes low-order interactions and suppresses high-order interactions at the start of
+the second phase (when σ 2 is large). They also explain why the DNN learns interactions of
+increasing orders during the second phase (when σ 2 gradually decreases).
+                                                                                                                                def
+Experimental verification of Proposition 1: We measured the relative strength r(k) = ∥m̂T ∥2 /∥m̂T ′ ∥2
+subject to |T | = k and |T ′ | = k + 1, for k = 1, · · · , n − 1, under different values of σ 2 . Figure 3
+shows that when σ 2 decreased, r(k) monotonically decreased for all orders k = 1, · · · , n − 1, which
+verified the proposition. The experiment was conducted using different numbers of input variables n.
+                                                                 ̸ T ⊆ N, ŵT = wT∗ .
+Theorem 5 (Proven in Appendix F.7). When σ = 0, ŵ satisfies ∀ ∅ =
+Theorem 5 shows a special case when there is no noise on the network parameters. Then, the DNN
+learns the finally converged interactions {wT∗ : T ⊆ N }. Note that the finally converged DNN
+probably encodes some interactions of high orders, which correspond to over-fitted patterns.
+• Experiments on real datasets. We conducted experiments to examine whether our theory could
+predict the real dynamics of interaction strength of different orders when we trained DNNs in practice.
+We trained AlexNet and VGG on the MNIST dataset, the CIFAR-10 dataset, the CUB-200-2011
+
+
+                                                                                       9

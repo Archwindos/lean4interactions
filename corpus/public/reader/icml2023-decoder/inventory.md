@@ -1,0 +1,36 @@
+# Defects of Convolutional Decoder Networks in Frequency Representation
+
+- src-icml2023-decoder-formal PDF 1: Abstract/introduction — background; no local proof target
+- src-icml2023-decoder-formal PDF 2: Related work/introduction — external_background; no local proof target
+- src-icml2023-decoder-formal PDF 3: Preliminaries/3.1 — definitions_and_theorem; decoder-preliminaries, decoder-assumption-3-1, decoder-forward-convolution
+- src-icml2023-decoder-formal PDF 4: 3.1/3.2 — corollaries_and_experiments; decoder-cascade-forward, decoder-backpropagation, decoder-metrics
+- src-icml2023-decoder-formal PDF 5: 4.1 — theorem_and_interpretations; decoder-independence-scope, decoder-single-channel-moments, decoder-moment-parameter-growth, decoder-depth-growth, decoder-external-gaussian-closure, decoder-metrics
+- src-icml2023-decoder-formal PDF 6: 4.1–4.4 — theorems_and_interpretations; decoder-frequency-preference, decoder-mean-preference, decoder-kernel-preference, decoder-zero-padding, decoder-upsampling, decoder-shift-setup, decoder-padding-interpretation, decoder-upsampling-interpretation
+- src-icml2023-decoder-formal PDF 7: 4.4/5.1 — theorem_and_experiments; decoder-shift-setup, decoder-one-step-fitting, decoder-gradient-norm, decoder-shift-difficulty-interpretation
+- src-icml2023-decoder-formal PDF 8: 5.1/5.2 — analysis_and_experiments; decoder-depth-growth, decoder-natural-input, decoder-layer-placement, decoder-metrics
+- src-icml2023-decoder-formal PDF 9: 5.2/5.3/6/references — empirical_and_background; decoder-metrics, decoder-experiments
+- src-icml2023-decoder-formal PDF 10: References — references; no local proof target
+- src-icml2023-decoder-formal PDF 11: References/A LemmaA.1 — lemma; decoder-geometric-sum
+- src-icml2023-decoder-formal PDF 12: A LemmaA.1/A.1 — lemma_and_derivations; decoder-geometric-sum, decoder-orthogonality, decoder-forward-convolution, decoder-valid-convolution
+- src-icml2023-decoder-formal PDF 13: A.1 — derivations; decoder-forward-convolution, decoder-valid-convolution
+- src-icml2023-decoder-formal PDF 14: A.1/A.2 — derivations; decoder-forward-convolution, decoder-cascade-forward
+- src-icml2023-decoder-formal PDF 15: A.3 — derivations; decoder-orthogonality, decoder-backpropagation
+- src-icml2023-decoder-formal PDF 16: A.3 — derivations; decoder-backpropagation
+- src-icml2023-decoder-formal PDF 17: A.3 — derivations; decoder-backpropagation
+- src-icml2023-decoder-formal PDF 18: A.3/A.4 — derivations; decoder-backpropagation, decoder-independence-scope
+- src-icml2023-decoder-formal PDF 19: A.4 — derivations; decoder-independence-scope, decoder-gaussian-response, decoder-external-gaussian-closure
+- src-icml2023-decoder-formal PDF 20: A.4 — derivations; decoder-gaussian-response, decoder-single-channel-moments
+- src-icml2023-decoder-formal PDF 21: A.4 — derivations; decoder-single-channel-moments, decoder-multi-channel-moments, decoder-depth-growth
+- src-icml2023-decoder-formal PDF 22: A.4/A.5 — derivations; decoder-multi-channel-moments, decoder-depth-growth, decoder-zero-padding
+- src-icml2023-decoder-formal PDF 23: A.5/A.6 — derivations; decoder-zero-padding, decoder-upsampling
+- src-icml2023-decoder-formal PDF 24: A.6/A.7 — derivations; decoder-upsampling, decoder-one-step-fitting, decoder-first-order-product
+- src-icml2023-decoder-formal PDF 25: A.7 — derivations; decoder-one-step-fitting, decoder-first-order-product, decoder-shift-other-frequencies, decoder-gradient-norm
+- src-icml2023-decoder-formal PDF 26: A.7/B.1 — derivations_and_analysis; decoder-frequency-preference, decoder-shift-other-frequencies, decoder-gradient-norm, decoder-external-gaussian-closure
+- src-icml2023-decoder-formal PDF 27: B.1–B.4/C.1–C.2 — analysis_and_experiments; decoder-frequency-preference, decoder-mean-preference, decoder-kernel-preference, decoder-natural-input, decoder-external-gaussian-closure, decoder-experiments
+- src-icml2023-decoder-formal PDF 28: C.1–C.5 — experiments; decoder-experiments
+- src-icml2023-decoder-formal PDF 29: C.2–C.3 — experiments; decoder-experiments
+- src-icml2023-decoder-formal PDF 30: C.3–C.4 — experiments; decoder-experiments
+- src-icml2023-decoder-formal PDF 31: C.4 — experiments; decoder-experiments
+- src-icml2023-decoder-formal PDF 32: C.5/C.6/C.7 — experiments_and_analysis; decoder-cosine-dimension, decoder-trained-independence, decoder-experiments
+- src-icml2023-decoder-formal PDF 33: C.7/C.8/C.9/C.10 — analysis_and_experiments; decoder-trained-independence, decoder-metrics, decoder-experiments
+- src-icml2023-decoder-formal PDF 34: C.9/C.10 — experiments; decoder-metrics, decoder-experiments

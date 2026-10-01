@@ -1,0 +1,86 @@
+                  Bayesian Neural Networks Avoid Encoding Complex and Perturbation-Sensitive Concepts
+
+Therefore,
+                      Eϵ [I(S|x + ϵ)] = Eϵ [US,π̂ · J(S, π̂|x + ϵ)] = US,π̂
+                                                                                                                                          (32)
+                                                                                                               |S|        
+                                                                                  2                          2
+                    Varϵ [I(S|x + ϵ)] = Varϵ [US,π̂ · J(S, π̂|x + ϵ)] =          US, π̂        1 + (σ/τ )               −1
+
+
+
+
+G.3. Proof of Theorem 2.3 in the main paper
+Theorem 2.3. Let π ∈ QS = {[π1 , . . . , πn ]|∀i ∈ S, πi ∈ N+ ; ∀i ̸∈ S, πi = 0} denote an arbitrary degree. Then, the mean and
+the variance of J(S, π|x + ϵ) over perturbations ϵ are
+                                                                        Y     ϵ i πi
+                                          Eϵ [J(S, π|x + ϵ)] = Eϵ [             (1 +
+                                                                                 ) ],
+                                                                          i∈S τ                                                           (33)
+                                                                      Y          ϵi
+                                        Varϵ [J(S, π|x + ϵ)] = Varϵ [      (1 + )πi ]
+                                                                       i∈S        τ
+
+Proof. According to Lemma 2.1, given an arbitrary input sample x′ , we have
+                                                                                 π
+                                                                          x′ − ri i
+                                                Y      
+                                 J(S, π|x′ ) =           sign(x′i − ri ) · i                                                              (34)
+                                                   i∈S                       τ
+
+Let us add a Gaussian perturbation ϵ ∼ N (0, σ 2 I) to the input sample x. In this way, we have
+                                      Y                                      π
+                                                                  xi + ϵi − ri i
+                    J(S, π|x + ϵ) =        sign(xi + ϵi − ri ) ·
+                                                                       τ
+                                     i∈S
+                                                                                                   π                                    (35)
+                                      Y                           xi − ri                         ϵi i
+                                   =       sign(xi + ϵi − ri ) ·          + sign(xi + ϵi − ri ) ·
+                                                                     τ                            τ
+                                       i∈S
+
+
+According to the setting of the reference value in Section 2.3, ∀i ∈ S, xi − ri ∈ {−τ, τ }. Also, in Section 2.3, we have
+assumed that the variance of the perturbation ϵ is small, so that we can ignore the extremely low probability that the
+perturbation is large such that |ϵi | ≥ τ . In this way, sign(xi + ϵi − ri ) = sign(xi − ri ), and we can obtain
+                                                Y                                                  π
+                                                                      xi − ri                     ϵi i
+                          J(S, π|x + ϵ) =            sign(xi − ri ) ·          + sign(xi − ri ) ·
+                                                                         τ                        τ
+                                                i∈S
+                                                                              π
+                                                                                                                      (36)
+                                                Y                        ϵi   i
+                                             =       1 + sign(xi − ri ) ·
+                                                                           τ
+                                             i∈S
+                                                            "                                            #
+                                                                Y                         ϵi  π i
+                             ⇒ Eϵ [J(S, π|x + ϵ)] = Eϵ                1 + sign(xi − ri ) ·
+                                                                                           τ
+                                                                i∈S
+                                                                "                                            #                            (37)
+                                                                    Y                        ϵi  π i
+                              Varϵ [J(S, π|x + ϵ)] = Varϵ                1 + sign(xi − ri ) ·
+                                                                                              τ
+                                                                  i∈S
+
+Since ∀i ∈ S, ϵi is independent of each other, according to Proposition G.1 and Eq. (37), we have
+                             Y       h                      ϵi  π i i
+       Eϵ [J(S, π|x + ϵ)] =      Eϵi 1 + sign(xi − ri ) ·
+                                                             τ
+                             i∈S
+                                                                       Y                                                               (38)
+                             Y                              ϵi 2πi            h                    ϵi πi i2
+     Varϵ [J(S, π|x + ϵ)] =      Eϵi 1 + sign(xi − ri ) ·               −    Eϵi 1 + sign(xi − ri ) ·
+                                                             τ                                        τ
+                               i∈S                                              i∈S
+
+                                                h                                  i            h                i
+                                                                            ϵi k                         ϵi k
+                                                                                                          
+Since sign(xi − ri ) ∈ {−1, 1}, we have Eϵi         1 + sign(xi − ri ) ·    τ          = Eϵi        1+   τ           , ∀k ∈ N+ . Therefore, we
+obtain
+
+                                                                17

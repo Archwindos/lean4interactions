@@ -1,0 +1,98 @@
+                             Defects of Convolutional Decoder Networks in Frequency Representation
+
+When θ = 0, we have
+                                                          N −1
+                                                          X                          sin( N2θ )          (N −1)θ
+                                                    lim           einθ = lim                        ei      2
+                                                   θ→0                       θ→0 sin( θ )
+                                                           n=0                         2
+
+                                                                                 sin( N2θ )
+                                                                         =   lim
+                                                                             θ→0 sin( θ )
+                                                                                       2
+                                                                         =N
+
+When θ 6= 0, and N θ = 2kπ, k ∈ Z, −N < k < N , we have
+                                                          N −1
+                                                          X                  sin( N2θ )          (N −1)θ
+                                                                  einθ =                    ei      2
+
+                                                          n=0
+                                                                                sin( θ2 )
+                                                                             sin(kπ) i (N −1)kπ
+                                                                         =            e   N
+                                                                             sin( kπ
+                                                                                  N )
+                                                                         =0
+
+
+
+In the following proofs, the following two equations are widely used, which are derived based on Lemma A.1.
+
+                   M −1 N −1                               M −1                      N −1
+                                        um
+                                             + vn                            u2π                     v2π
+                   X    X                                  X                         X
+                                   e−i( M      N )2π   =           eim(−      M )           ein(−     N )
+
+                   m=0 n=0                                 m=0                       n=0
+                                                       = (M δ− u2π
+                                                                M
+                                                                   )(N δ− v2π
+                                                                           N
+                                                                              ) //According to Equation (14)
+                                                         (
+                                                           M N, u = v = 0
+                                                       =
+                                                           0,       otherwise
+
+To simplify the representation, let δuv be the simplification of δ− u2π
+                                                                     M
+                                                                        δ− v2π
+                                                                            N
+                                                                               in the following proofs. Therefore, we have
+                                 −1 N −1
+                               M
+                                                                        (
+                               X     X
+                                           −i( um + vn
+                                                       )2π                M N, u = v = 0
+                                         e     M    N      = M N δuv =                                                 (15)
+                               m=0 n=0
+                                                                          0,       otherwise
+
+Similarly, we derive the second equation as follows.
+
+                 M −1 N −1                                        M −1                        N −1
+                 X    X            (u−u0 )m   (v−v 0 )n           X             (u−u0 )2π     X             (v−v 0 )2π
+                             ei(      M
+                                            +    N
+                                                        )2π
+                                                              =          eim(      M
+                                                                                          )
+                                                                                                     ein(      N
+                                                                                                                       )
+
+                 m=0 n=0                                          m=0                         n=0
+                                                              = M N δ (u−u0 )2π δ (v−v0 )2π                //According to Equation (14)
+                                                                              M               N                                           (16)
+                                                              = M N δu−u0 δv−v0
+                                                                (
+                                                                  M N, u0 = u; v 0 = v
+                                                              =
+                                                                  0,     otherwise
+
+
+A.1. Proof of Theorem 3.2
+In this section, we prove Theorem 3.2 in Section 3 of the main paper, as follows.
+
+Proof. Given each c-th channel of the feature spectrum G(c) , the corresponding feature F (c) in the time domain can be
+computed as follows.
+                                                     M −1 N −1
+                                         (c)     1 X X (c) i( um + vn )2π
+                                       Fmn   =                 G e M N
+                                               M N u=0 v=0 uv
+
+                                                                                12
+

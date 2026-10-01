@@ -1,0 +1,65 @@
+The above studies indicated that salient interactions could be considered primitive inference patterns
+encoded by a DNN, which served as the theoretical foundation of this study. Based on interactions,
+we also defined and learned the optimal baseline value for the Shapley value [25], and explained the
+encoding of different types of visual patterns in DNNs for image classification [5, 6].
+• Using interactions to explain the representation power of DNNs. Our recent studies showed
+that interactions well explained the hidden factors that determine the adversarial robustness [24],
+adversarial transferability [37], and generalization power [44] of a DNN. We also discovered and
+proved the representation bottleneck of a DNN in encoding middle-complexity interactions [7]. In
+addition, we proved that compared to a standard DNN, a Bayesian neural network (BNN) tended to
+avoid encoding complex interactions [26], thus explaining the good adversarial robustness of BNNs.
+We discovered and explained the phenomenon that DNNs tended to learn simple interactions more
+easily than complex interactions [22]. We found that complex interactions were less generalizable
+than simple interactions [44], and further discovered the two-phase dynamics of a DNN learning
+interactions of different complexities [41]. To this end, this study aims to theoretically prove the
+discovery in [41] to better understand the two-phase dynamics of interactions.
+• Using interactions to unify the common mechanism of various empirical deep learning methods.
+We proved that fourteen attribution methods could all be explained as a re-allocation of interaction
+effects [8]. We proved that twelve existing methods to improve adversarial transferability all shared
+the common utility of suppressing the interactions between adversarial perturbation units [42].
+
+3    Dynamics of interactions
+3.1 Preliminary: interactions
+Let us consider a DNN v and an input sample x = [x1 , · · · , xn ]⊤ with n input variables indexed by
+N = {1, · · · , n}. In different tasks, one can define different input variables, e.g., each input variable
+may represent an image patch for image classification or a word/token for text classification. Let
+us consider a scalar output5 of a DNN, denoted by v(x) ∈ R. Previous studies [4, 43] show that the
+output score v(x) can be decomposed into the sum of AND interactions and OR interactions.
+                                         X                        X
+                      v(x) = v(x∅ ) +               Iand (S|x) +             Ior (S|x),                 (1)
+                                              ∅̸=S⊆N                      ∅̸=S⊆N
+
+where the computation of Iand (S|x) and Ior (S|x) will be introduced later in Eq. (2).
+How to understand the physical meaning of AND-OR interactions. Suppose that we are given an
+input sample x. According to Theorem 2, a non-zero interaction effect Iand (S|x) indicates that the
+entire function of the DNN must equivalently encode an AND relationship between input variables in
+the set S ⊆ N , although the DNN does not use an explicit neuron to model such an AND relationship.
+As Figure 1 shows, when the image patchs in the set S2 = {x1 = nose, x2 = tongue, x3 = cheek} are all
+present (i.e., not masked), the three regions form a dog-snout pattern, and make a numerical effect
+Iand (S2 |x) to push the output score v(x) towards the dog category. Masking any image patch in
+S2 will deactivate the AND interaction and remove Iand (S2 |x) from v(x). This will be shown by
+Theorem 2. Likewise, Ior (S|x) can be considered as the numerical effect of the OR relationship
+encoded by the DNN between input variables in the set S. As Figure 1 shows, when one of the
+patches in S1 = {x4 = spotty region1, x5 = spotty region2} is present, a speckles pattern is used by the
+DNN to make a numerical effect Ior (S1 |x) on the network output v(x).
+Definition and computation. Given a DNN and an input x, the AND-OR interactions between each
+specific set of input variables S ⊆ N (S ̸= ∅) are computed as follows [4, 43].
+                X                                               X
+                        (−1)|S|−|T | vand (xT ) , Ior (S|x) = −         (−1)|S|−|T | vor xN \T , (2)
+                                                                                              
+ Iand (S|x) =
+                     T ⊆S                                                    T ⊆S
+
+where xT denotes the sample in which input variables in N \ T are masked6 , while input variables in
+T are unchanged. The network output on each masked sample v(xT ), T ⊆ N , is decomposed into two
+    5
+      For example, one may set v(x) as the loss value on sample x. For a multi-category classification task, one
+usually either set v(x) to be the output score for the ground-truth category before the softmax operation, or
+                              p(y truth |x)
+follow[7] to set v(x) = log 1−p(y    truth |x) . See Table 1 for a summary of mathematical settings for interactions.
+    6
+      The masked states of input variables are represented by specific baseline values b = [b1 , · · · , bn ]⊤ by
+following [41]. See Appendix G.3 for the detailed setting of baseline values.
+
+
+                                                         3

@@ -1,0 +1,336 @@
+ velty.        Q5: Ask for more supports for the drop of noisy features
+ tivation)                               Towards Theoretical Analysis of Transformation Complexity of ReLU DNNs
+               in early stages for models           w/ and w/o skip connections.
+ure com-       “... may indeed be related to double-descent, ...” A5: In
+               G.4. The change of the transformation complexity in VGG-16
+etrics for     fact, the drop of noisy features in very early iterations
+  omplex-      This  section
+               has also      shows
+                           been     more results
+                                  supported      by of   the change ofintransformation
+                                                     observations            other studiescomplexity in Section 4.2. Figure 11 shows the change
+the most       of transformation   complexity     in VGG-16      trained
+               [arXiv:2112.00980]. In very early iterations, initial       on  the Pascal   VOC dataset and the CelebA dataset. In these cases, the
+                                                                                      weights
+               complexity increased monotonously during the early stage of the training process, and saturated later.
+ h ReLU        irrelevant to the task are usually removed, which reduces the
+  nsibility.   transformation complexity. Besides, [arXiv:2112.00980]
+                                             2.8                                            0.7
+  ersity of    also shows that the decrease               of the model diversity 0.6in
+                                             2.6
+ s, which      very early iterations exactly          aligns with       the first stage 0.5in
+                                                                    VGG16-VOC                               VGG16-VOC
+
+
+
+
+                                                                                                                                                                             I(X;Σ;Y)
+                                             2.4                    VGG16-CelebA                            VGG16-CelebA(x10)
+                                                                                            H(Σ)
+
+ ar DNN,       the double-descent. This      2.2
+                                                 paper also implies that this phe-          0.4
+
+ s are the     nomenon only appears 2.0      in deep cascaded models, but skip              0.3
+
+diversity      connections lower the equivalent
+                                             1.8
+                                                            depth    of  information      pro-
+                                                                                            0.2
+
+ tions. In     cessing in the model.              0    100   200    300
+                                                                epoch
+                                                                           400   500             0   100  200   300
+                                                                                                            epoch
+                                                                                                                     400   500
+
+
+ s due to      Q6: Ask for more explanationFigure     about11.theTheMaximum         complex- complexity in VGGs.
+                                                                       change of transformation
+ bspaces,      ity paragraph. A6: Thank you. Please see answers to Q3.
+mplexity       Q7: More
+               G.5.  Ask for    error bars result
+                            experimental    in experimental
+                                                     of learning DNNsresults.with
+                                                                                A7:minimum
+                                                                                       Thank complexity
+  paper.       you.   We   conducted   new    experiments,        in  which    we    repeated
+               In this section, we provide more experimental result to verify the stability of learning DNNs with minimum complexity
+ s the en-     experiments
+               in Section 4.3.inSpecifically,
+                                  Fig. 6 and Fig.      8(b) forexperiments
+                                                 we repeated       six times with       differ-7 and Figure 9(b) for six times with different random
+                                                                                  in Figure
+ left) and     ent random initializations.
+               initializations. Results in Figure The    following
+                                                     12 with            resultsdeviation
+                                                               the standard      with errorstill verify our conclusions.
+ement in       bars (standard deviation) still verify our conclusions.
+ he other                     ResMLP-CIFAR10
+                              ResMLP-CIFAR10                       RN20-CIFAR10
+                                                                   RN20-CIFAR10                     RN32-CIFAR10
+                                                                                                    RN32-CIFAR10                         RN18-TinyImagenet
+                                                                                                                                         RN18-TinyImagenet          RN34-TinyImagenet
+                                                                                                                                                                    RN34-TinyImagenet
+                I(X;Σ)=H(Σ)
+
+
+
+
+                                                                                                             1.6
+                                                                                                                         train
+               I(X;Σ)=H(Σ)
+
+
+
+
+                                                                      3                                      1.6
+                                                                                                                 test LLtrain
+
+
+
+
+                                10
+                                10                                    3                                                                                   The transformation
+                                                                                                                                                          The     transformation                                                  𝐿1 regularization
+  omplex-
+                                                                     I(X;Σ;Y)
+                                                                    I(X;Σ;Y)
+
+
+
+
+                                                                                2                                            1.0
+                                                                                                                                                          complexity and
+                                                                                                                                                          complexity     and the  the
+                                         6                                      2                                            1.0                                                              2.0                                 𝐿2 regularization
+                                         6                                                                                                                      gap LL test
+                                                                                                                                                          loss gap          − LL train
+t similar                                                                       1
+                                                                                1                                            0.4
+                                                                                                                                                          loss         test −    train
+                                                                                                                                                                                                                                  complexity loss
+                                                                                                              LLtest
+
+
+
+
+                                         2
+                                         2                                                                                   0.4                          of DNNs learned using
+                                                                                0
+  h an en-                               10-5
+                                         10
+                                           -5     10-2
+                                                  10
+                                                     -2       1011 λλ
+                                                              10
+                                                                                0
+                                                                                 10-5
+                                                                                10
+                                                                                   -5    10-2
+                                                                                         10
+                                                                                            -2   1011 λλ
+                                                                                                 10                              10-5
+                                                                                                                                 10
+                                                                                                                                    -5     10-2
+                                                                                                                                           10
+                                                                                                                                              -2     101λ
+                                                                                                                                                     10 λ
+                                                                                                                                                       1
+                                                                                                                                                          different values of 𝜆.              1.5
+
+ together,                                            −5
+                                                   10−5             −4
+                                                                 10−4
+                                                                                      for target
+                                                                                   λ for
+                                                                                   λ
+                                                                                      10−3
+                                                                                          target RN32
+                                                                                         −3
+                                                                                                 RN32
+                                                                                                      −2
+                                                                                                   10−2              −1
+                                                                                                                  10−1                 1000           1011
+                                  RN32
+
+
+
+
+                                                   10            10                   10           10             10                   10             10                                      1.0
+                            sourceRN32
+
+
+
+
+                                         10
+                                            −5
+                                         10−5    1.00±0.00
+                                                 1.00 ±0.00    0.99±0.01
+                                                               0.99 ±0.01           0.99±0.00
+                                                                                    0.99 ±0.00   0.97±0.02
+                                                                                                 0.97 ±0.02     0.68±0.31
+                                                                                                                0.68 ±0.31          0.51±0.24
+                                                                                                                                    0.51 ±0.24     0.18±0.09
+                                                                                                                                                   0.18 ±0.09   Adversarial transfer-
+                                         10
+                                            −4
+                                         10−4    0.99±0.01
+                                                 0.99 ±0.01    1.00±0.00
+                                                               1.00 ±0.00           0.99±0.01
+                                                                                    0.99 ±0.01   0.95±0.02
+                                                                                                 0.95 ±0.02     0.64±0.30
+                                                                                                                0.64 ±0.30          0.52±0.23
+                                                                                                                                    0.52 ±0.23     0.19±0.08
+                                                                                                                                                   0.19 ±0.08
+                                            −3
+                                                 0.99±0.00     0.98±0.02            1.00±0.00    0.96±0.03      0.64±0.32           0.48           0.19
+                                                                                                                                                                ability between RN-
+                       for source
+
+
+
+
+                                         10
+  mplexity                                       0.99          0.98                 1.00         0.96           0.64                0.48±0.22      0.19±0.10
+                                            −3        ±0.00         ±0.02                ±0.00        ±0.03          ±0.32               ±0.22          ±0.10
+                                         10                                                                                                                                                   0.5
+                                            −2
+                                         10−2    0.96±0.02     0.94±0.03            0.96±0.01    1.00±0.00      0.62±0.30           0.48±0.24      0.19±0.12    32's learned with
+                                         10      0.96 ±0.02    0.94 ±0.03           0.96 ±0.01   1.00 ±0.00     0.62 ±0.30          0.48 ±0.24     0.19 ±0.12
+                                         10 −1
+                                            −1   0.83
+                                                 0.83±0.17
+                                                      ±0.17    0.83
+                                                               0.83±0.17
+                                                                    ±0.17           0.85
+                                                                                    0.85±0.16
+                                                                                         ±0.16   0.85
+                                                                                                 0.85±0.16
+                                                                                                      ±0.16     1.00
+                                                                                                                1.00±0.00
+                                                                                                                     ±0.00          0.62
+                                                                                                                                    0.62±0.27
+                                                                                                                                         ±0.27     0.38
+                                                                                                                                                   0.38±0.21
+                                                                                                                                                        ±0.21   different weights of
+ e DNN’s
+                                         10
+                   λλ for
+
+
+
+
+                                          1000
+                                          10     0.80±0.12
+                                                 0.80 ±0.12    0.81±0.13
+                                                               0.81 ±0.13           0.80±0.11
+                                                                                    0.80 ±0.11   0.81±0.08
+                                                                                                 0.81 ±0.08     0.69±0.24
+                                                                                                                0.69 ±0.24          1.00±0.00
+                                                                                                                                    1.00 ±0.00     0.56±0.27
+                                                                                                                                                   0.56 ±0.27
+                                                                                                                                                                the complexity loss 𝜆.
+                                          10
+                                          101
+                                             1
+                                                 0.63
+                                                 0.63±0.10
+                                                      ±0.10    0.63
+                                                               0.63±0.12
+                                                                    ±0.12           0.63
+                                                                                    0.63±0.13
+                                                                                         ±0.13   0.67
+                                                                                                 0.67±0.09
+                                                                                                      ±0.09     0.58
+                                                                                                                0.58±0.10
+                                                                                                                     ±0.10          0.72
+                                                                                                                                    0.72±0.13
+                                                                                                                                         ±0.13     1.00
+                                                                                                                                                   1.00±0.00
+                                                                                                                                                        ±0.00                                        10−1              100
+ mplexity                                                                                                                                                                                           model complexity 𝐼(𝑋; Σ; 𝑌)
+               Q8: Many
+               Figure         constructive
+                      12. (Top) The complexity suggestions     on presentation
+                                                  of transformation  complexity andand   ty-
+                                                                                     the gap
+ the MLP       pos.   A8:   Thank    you.    We    will  follow    your  suggestions      to
+                                                                                                                                                                                         Figure 13. Comparisons of the classification loss between
+               between the training loss and the testing loss of the learned minimum                                                                                                     different baselines. The complexity loss was superior to
+  mplexity     complexity  DNNs,   with  the standard  deviation in shaded colors. (Bottom)
+               correct typos and improve the readability.                                                                                                                                them in terms of maintaining the classification accuracy
+  with the     Adversarial transferability between DNNs learned with different weights of                                                                                                and decreasing the model complexity.
+               Q9: Ask for citation of the original VAE paper. A9: Thank
+ ght), the     the complexity loss λ, with standard deviations.
+               you. We will follow your suggestions to cite this paper.
+ layers in
+               To R6:
+               G.6.         Thank you
+                     Comparisons       with for   your appreciation
+                                             traditional                 of the novelty.
+                                                            L1 and L2 regularization     methods
+ e a MLP       Q10: About presentation issues. “... not presented in an
+ n. Never-     In this section,  we compare     the proposed
+               easily    understandable       way.”   “... hardcomplexity
+                                                                 to focus onlossthe
+                                                                                  with traditional L1 and L2 regularization methods. Specifically,
+                                                                                    main
+ tting.        we trained 20 residual MLPs with L = Ltask + λL1 l ∥Wl ∥1 and 20 residual MLPs with L = Ltask + λL2 l ∥Wl ∥22 .
+                                                                            P                                                          P
+               stream.” “... refine the presentation ...” A10: Thank you.
+planation      For the L1 regularization, we set different values of λL1 ranging from 10−5 to 10−1 in different experiments. For the L2
+               We will follow your suggestions to polish the presentation
+ structive     regularization, we set different values of λL2 ranging from 10−5 to 101 in different experiments. Figure 13 compares the
+               and clarify loss
+               classification  the Lmainstream        of this paper, as follows. We
+                                      task between different baselines. We found that the complexity loss was superior to traditional L1 and L2
+  the page
+               use  the   diversity  of   gating   states  to define athe
+               regularization methods, in terms of maintaining         new   complexityaccuracy and decreasing the model complexity.
+                                                                          classification
+  ons.
+               metric that is specific for piecewise linear DNNs (see an-
+ ng to the
+               swers
+               G.7.     to Q1) analysis
+                     Detailed    and prove of its
+                                              thedistinctive
+                                                   adversarialproperties.
+                                                                 robustness,Such    a new transferability and knowledge consistency
+                                                                              adversarial
+  ing acti-    complexity metric enables us to explain different aspects of
+  els with     In this section, we provide more detailed analysis of the adversarial robustness, adversarial transferability and knowledge
+               a DNN from
+               consistency,  in aSection
+                                   novel4.3 view,   including
+                                               of the  paper. the transformation en-
+Quantify-
+               tanglement, the ceiling of a DNN’s complexity, over-fitting,
+   states in   In Section 4.3 robustness,
+               adversarial      of the paper, weandhave  found that transferability.
+                                                      adversarial   DNNs with low transformation
+                                                                                        In           complexity usually exhibited high adversarial
+ nsforma-      robustness; vice versa. To this end, we defined the attacking utility in untargeted attacks as Uuntarget (x) = maxy′ ̸=y hy′ (x +
+               this  way,   we demonstrate both the theoretical foundation
+ ally, it is   ϵ) −h   y (x + ϵ), where y is the ground-truth label of the sample x, and hy (x) is the output logit of the DNN in the y-th
+               and   broad
+               category givenapplicability
+                                  an input x. of   the complexity
+                                                Then,   we measuredmetric.
+                                                                       the L2 norm of the minimum adversarial perturbation ϵ for each image,
+final soft-
+               Q11: “The
+               which          reason
+                       has similar      for involving
+                                     attacking   utility of‘gates’
+                                                             40. Wedoes  not seem
+                                                                    conducted    the clear
+                                                                                     PGD attack (Madry et al., 2017), with the step size of each
+   specific
+               to me.” A11: Please see answers to Q1.
+ s a great     Q12: Minor issues about some notations and terms. A12:
+ tribution
+               Thank you. We will explain b, “additional complexity,” and
+               H(Σ1 , ..., Σ10 ) in the paper.
+

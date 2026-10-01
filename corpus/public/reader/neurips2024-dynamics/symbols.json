@@ -1,0 +1,1368 @@
+{
+  "paper_id": "neurips2024-dynamics",
+  "symbols": [
+    {
+      "id": "model-output",
+      "canonical_id": "sym-model",
+      "canonical_tex": "v",
+      "definition_tex": "g(S)=v(x_S)",
+      "name_zh": "实值网络输出",
+      "description_md": "固定参数网络的分类实数分数。",
+      "type_or_domain": "输入空间到实数的函数",
+      "scope": "本篇固定输入、基线、分解或回归设置；依相关条目的局部量词。",
+      "assumptions": [],
+      "empty_set_convention": "空集保留原输出基线；原特殊分量和触发约定按相关条目明示。",
+      "baseline_convention": "规范输出基线b=g(empty)不默认零；原输入b_i统一映为r_i。",
+      "aliases": [
+        "v"
+      ],
+      "paper_mappings": [
+        {
+          "paper_id": "neurips2024-dynamics",
+          "version_id": "ver-neurips2024-dynamics-formal",
+          "source_id": "src-neurips2024-dynamics-formal",
+          "original_tex": "v",
+          "original_definition": "g(S)=v(x_S)",
+          "pdf_pages": [
+            3,
+            4,
+            5,
+            7
+          ],
+          "canonical_concept": "sym-model",
+          "relationship": "renaming_or_explicit_local_instance",
+          "note": "按此符号的局部定义映射；不把总输出、分量、触发和回归向量混同。",
+          "conflict_note": "规范输出基线b=g(empty)不默认零；原输入b_i统一映为r_i。",
+          "translations": {
+            "en": {
+              "note": "Map by this local definition; total outputs, components, triggers and regression vectors are distinguished.",
+              "conflict_note": "The canonical output baseline b=g(empty) is not assumed zero; source input b_i maps to r_i."
+            }
+          }
+        }
+      ],
+      "lean_names": [],
+      "version": "1.0",
+      "translations": {
+        "en": {
+          "name_zh": "Real-valued network output",
+          "name": "Real-valued network output",
+          "description_md": "A real classification score from a network with fixed parameters.",
+          "type_or_domain": "A function from the input space to the reals",
+          "scope": "This paper at a fixed input, baseline, split or regression setting, according to each entry’s local quantifiers.",
+          "assumptions": [],
+          "empty_set_convention": "The empty set retains the raw output baseline; special component and trigger conventions are stated in their entries.",
+          "baseline_convention": "The canonical output baseline b=g(empty) is not assumed zero; source input b_i maps to r_i."
+        }
+      }
+    },
+    {
+      "id": "masked-input",
+      "canonical_id": "sym-mask",
+      "canonical_tex": "x_S",
+      "definition_tex": "(x_S)_i=x_i\\ (i\\in S),\\ r_i\\ (i\\notin S)",
+      "name_zh": "掩码输入",
+      "description_md": "保留集内输入，其余为同一输入基线。",
+      "type_or_domain": "有限坐标实向量",
+      "scope": "本篇固定输入、基线、分解或回归设置；依相关条目的局部量词。",
+      "assumptions": [],
+      "empty_set_convention": "空集保留原输出基线；原特殊分量和触发约定按相关条目明示。",
+      "baseline_convention": "规范输出基线b=g(empty)不默认零；原输入b_i统一映为r_i。",
+      "aliases": [
+        "x_S"
+      ],
+      "paper_mappings": [
+        {
+          "paper_id": "neurips2024-dynamics",
+          "version_id": "ver-neurips2024-dynamics-formal",
+          "source_id": "src-neurips2024-dynamics-formal",
+          "original_tex": "x_S",
+          "original_definition": "(x_S)_i=x_i\\ (i\\in S),\\ r_i\\ (i\\notin S)",
+          "pdf_pages": [
+            3,
+            15
+          ],
+          "canonical_concept": "sym-mask",
+          "relationship": "renaming_or_explicit_local_instance",
+          "note": "按此符号的局部定义映射；不把总输出、分量、触发和回归向量混同。",
+          "conflict_note": "规范输出基线b=g(empty)不默认零；原输入b_i统一映为r_i。",
+          "translations": {
+            "en": {
+              "note": "Map by this local definition; total outputs, components, triggers and regression vectors are distinguished.",
+              "conflict_note": "The canonical output baseline b=g(empty) is not assumed zero; source input b_i maps to r_i."
+            }
+          }
+        }
+      ],
+      "lean_names": [],
+      "version": "1.0",
+      "translations": {
+        "en": {
+          "name_zh": "Masked input",
+          "name": "Masked input",
+          "description_md": "Retain coordinates in the coalition and use the same input baseline elsewhere.",
+          "type_or_domain": "Real vectors indexed by a finite universe",
+          "scope": "This paper at a fixed input, baseline, split or regression setting, according to each entry’s local quantifiers.",
+          "assumptions": [],
+          "empty_set_convention": "The empty set retains the raw output baseline; special component and trigger conventions are stated in their entries.",
+          "baseline_convention": "The canonical output baseline b=g(empty) is not assumed zero; source input b_i maps to r_i."
+        }
+      }
+    },
+    {
+      "id": "set-game",
+      "canonical_id": "sym-game",
+      "canonical_tex": "g",
+      "definition_tex": "g(S)=v(x_S)",
+      "name_zh": "原始掩码游戏",
+      "description_md": "同一个输入和基线的全部掩码输出。",
+      "type_or_domain": "幂集到实数的函数",
+      "scope": "本篇固定输入、基线、分解或回归设置；依相关条目的局部量词。",
+      "assumptions": [],
+      "empty_set_convention": "空集保留原输出基线；原特殊分量和触发约定按相关条目明示。",
+      "baseline_convention": "规范输出基线b=g(empty)不默认零；原输入b_i统一映为r_i。",
+      "aliases": [
+        "v(x_S)"
+      ],
+      "paper_mappings": [
+        {
+          "paper_id": "neurips2024-dynamics",
+          "version_id": "ver-neurips2024-dynamics-formal",
+          "source_id": "src-neurips2024-dynamics-formal",
+          "original_tex": "v(x_S)",
+          "original_definition": "g(S)=v(x_S)",
+          "pdf_pages": [
+            3,
+            4
+          ],
+          "canonical_concept": "sym-game",
+          "relationship": "renaming_or_explicit_local_instance",
+          "note": "按此符号的局部定义映射；不把总输出、分量、触发和回归向量混同。",
+          "conflict_note": "规范输出基线b=g(empty)不默认零；原输入b_i统一映为r_i。",
+          "translations": {
+            "en": {
+              "note": "Map by this local definition; total outputs, components, triggers and regression vectors are distinguished.",
+              "conflict_note": "The canonical output baseline b=g(empty) is not assumed zero; source input b_i maps to r_i."
+            }
+          }
+        }
+      ],
+      "lean_names": [],
+      "version": "1.0",
+      "translations": {
+        "en": {
+          "name_zh": "Raw masked game",
+          "name": "Raw masked game",
+          "description_md": "All masked outputs for the same input and baseline.",
+          "type_or_domain": "A function from the powerset to the reals",
+          "scope": "This paper at a fixed input, baseline, split or regression setting, according to each entry’s local quantifiers.",
+          "assumptions": [],
+          "empty_set_convention": "The empty set retains the raw output baseline; special component and trigger conventions are stated in their entries.",
+          "baseline_convention": "The canonical output baseline b=g(empty) is not assumed zero; source input b_i maps to r_i."
+        }
+      }
+    },
+    {
+      "id": "output-baseline",
+      "canonical_id": "sym-output-baseline",
+      "canonical_tex": "b",
+      "definition_tex": "b=g(\\varnothing)",
+      "name_zh": "输出基线",
+      "description_md": "全遮罩输出的标量，原文记作v(x_empty)。",
+      "type_or_domain": "实数标量",
+      "scope": "本篇固定输入、基线、分解或回归设置；依相关条目的局部量词。",
+      "assumptions": [],
+      "empty_set_convention": "空集保留原输出基线；原特殊分量和触发约定按相关条目明示。",
+      "baseline_convention": "规范输出基线b=g(empty)不默认零；原输入b_i统一映为r_i。",
+      "aliases": [
+        "v(x_\\varnothing)"
+      ],
+      "paper_mappings": [
+        {
+          "paper_id": "neurips2024-dynamics",
+          "version_id": "ver-neurips2024-dynamics-formal",
+          "source_id": "src-neurips2024-dynamics-formal",
+          "original_tex": "v(x_\\varnothing)",
+          "original_definition": "b=g(\\varnothing)",
+          "pdf_pages": [
+            4,
+            7,
+            16
+          ],
+          "canonical_concept": "sym-output-baseline",
+          "relationship": "renaming_or_explicit_local_instance",
+          "note": "按此符号的局部定义映射；不把总输出、分量、触发和回归向量混同。",
+          "conflict_note": "规范输出基线b=g(empty)不默认零；原输入b_i统一映为r_i。",
+          "translations": {
+            "en": {
+              "note": "Map by this local definition; total outputs, components, triggers and regression vectors are distinguished.",
+              "conflict_note": "The canonical output baseline b=g(empty) is not assumed zero; source input b_i maps to r_i."
+            }
+          }
+        }
+      ],
+      "lean_names": [],
+      "version": "1.0",
+      "translations": {
+        "en": {
+          "name_zh": "Output baseline",
+          "name": "Output baseline",
+          "description_md": "The scalar output on the fully masked input, written v(x_empty) in the source.",
+          "type_or_domain": "A real scalar",
+          "scope": "This paper at a fixed input, baseline, split or regression setting, according to each entry’s local quantifiers.",
+          "assumptions": [],
+          "empty_set_convention": "The empty set retains the raw output baseline; special component and trigger conventions are stated in their entries.",
+          "baseline_convention": "The canonical output baseline b=g(empty) is not assumed zero; source input b_i maps to r_i."
+        }
+      }
+    },
+    {
+      "id": "input-baseline",
+      "canonical_id": "sym-input-baseline",
+      "canonical_tex": "r_i",
+      "definition_tex": "r_i=b_i\\text{ (source)}",
+      "name_zh": "输入基线向量",
+      "description_md": "原b_i是坐标遮罩值，与标量输出基线不同。",
+      "type_or_domain": "有限坐标实向量",
+      "scope": "本篇固定输入、基线、分解或回归设置；依相关条目的局部量词。",
+      "assumptions": [],
+      "empty_set_convention": "空集保留原输出基线；原特殊分量和触发约定按相关条目明示。",
+      "baseline_convention": "规范输出基线b=g(empty)不默认零；原输入b_i统一映为r_i。",
+      "aliases": [
+        "b_i"
+      ],
+      "paper_mappings": [
+        {
+          "paper_id": "neurips2024-dynamics",
+          "version_id": "ver-neurips2024-dynamics-formal",
+          "source_id": "src-neurips2024-dynamics-formal",
+          "original_tex": "b_i",
+          "original_definition": "r_i=b_i\\text{ (source)}",
+          "pdf_pages": [
+            3,
+            7,
+            15,
+            18
+          ],
+          "canonical_concept": "sym-input-baseline",
+          "relationship": "renaming_or_explicit_local_instance",
+          "note": "按此符号的局部定义映射；不把总输出、分量、触发和回归向量混同。",
+          "conflict_note": "规范输出基线b=g(empty)不默认零；原输入b_i统一映为r_i。",
+          "translations": {
+            "en": {
+              "note": "Map by this local definition; total outputs, components, triggers and regression vectors are distinguished.",
+              "conflict_note": "The canonical output baseline b=g(empty) is not assumed zero; source input b_i maps to r_i."
+            }
+          }
+        }
+      ],
+      "lean_names": [],
+      "version": "1.0",
+      "translations": {
+        "en": {
+          "name_zh": "Input baseline vector",
+          "name": "Input baseline vector",
+          "description_md": "Source b_i is a coordinate masking value and differs from the scalar output baseline.",
+          "type_or_domain": "Real vectors indexed by a finite universe",
+          "scope": "This paper at a fixed input, baseline, split or regression setting, according to each entry’s local quantifiers.",
+          "assumptions": [],
+          "empty_set_convention": "The empty set retains the raw output baseline; special component and trigger conventions are stated in their entries.",
+          "baseline_convention": "The canonical output baseline b=g(empty) is not assumed zero; source input b_i maps to r_i."
+        }
+      }
+    },
+    {
+      "id": "dyn-centered-game",
+      "canonical_id": "sym-centered-game",
+      "canonical_tex": "g_0",
+      "definition_tex": "g_0(S)=g(S)-b",
+      "name_zh": "中心化游戏",
+      "description_md": "仅用于明确移除同一输出基线，非替换原始交互定义。",
+      "type_or_domain": "幂集到实数的函数",
+      "scope": "本篇固定输入、基线、分解或回归设置；依相关条目的局部量词。",
+      "assumptions": [],
+      "empty_set_convention": "中心化游戏在空集严格为零。",
+      "baseline_convention": "规范输出基线b=g(empty)不默认零；原输入b_i统一映为r_i。",
+      "aliases": [
+        "g_0"
+      ],
+      "paper_mappings": [
+        {
+          "paper_id": "neurips2024-dynamics",
+          "version_id": "ver-neurips2024-dynamics-formal",
+          "source_id": "src-neurips2024-dynamics-formal",
+          "original_tex": "g_0",
+          "original_definition": "g_0(S)=g(S)-b",
+          "pdf_pages": [
+            14
+          ],
+          "canonical_concept": "sym-centered-game",
+          "relationship": "renaming_or_explicit_local_instance",
+          "note": "按此符号的局部定义映射；不把总输出、分量、触发和回归向量混同。",
+          "conflict_note": "规范输出基线b=g(empty)不默认零；原输入b_i统一映为r_i。",
+          "translations": {
+            "en": {
+              "note": "Map by this local definition; total outputs, components, triggers and regression vectors are distinguished.",
+              "conflict_note": "The canonical output baseline b=g(empty) is not assumed zero; source input b_i maps to r_i."
+            }
+          }
+        }
+      ],
+      "lean_names": [],
+      "version": "1.0",
+      "translations": {
+        "en": {
+          "name_zh": "Centered game",
+          "name": "Centered game",
+          "description_md": "Explicitly removes the common output baseline; it does not replace the raw source dividend definition.",
+          "type_or_domain": "A function from the powerset to the reals",
+          "scope": "This paper at a fixed input, baseline, split or regression setting, according to each entry’s local quantifiers.",
+          "assumptions": [],
+          "empty_set_convention": "The centered game is exactly zero on the empty set.",
+          "baseline_convention": "The canonical output baseline b=g(empty) is not assumed zero; source input b_i maps to r_i."
+        }
+      }
+    },
+    {
+      "id": "dyn-dividend",
+      "canonical_id": "sym-and-interaction",
+      "canonical_tex": "I_g",
+      "definition_tex": "I_g(S)=\\sum_{T\\subseteq S}(-1)^{|S|-|T|}g(T)",
+      "name_zh": "原始游戏交互",
+      "description_md": "总模型游戏的Möbius交互，区别于分量交互。",
+      "type_or_domain": "幂集到实数的函数",
+      "scope": "本篇固定输入、基线、分解或回归设置；依相关条目的局部量词。",
+      "assumptions": [],
+      "empty_set_convention": "空集保留原输出基线；原特殊分量和触发约定按相关条目明示。",
+      "baseline_convention": "规范输出基线b=g(empty)不默认零；原输入b_i统一映为r_i。",
+      "aliases": [
+        "I_{and}(S\\mid x)\\text{ (Appendix A)}"
+      ],
+      "paper_mappings": [
+        {
+          "paper_id": "neurips2024-dynamics",
+          "version_id": "ver-neurips2024-dynamics-formal",
+          "source_id": "src-neurips2024-dynamics-formal",
+          "original_tex": "I_{and}(S\\mid x)\\text{ (Appendix A)}",
+          "original_definition": "I_g(S)=\\sum_{T\\subseteq S}(-1)^{|S|-|T|}g(T)",
+          "pdf_pages": [
+            14
+          ],
+          "canonical_concept": "sym-and-interaction",
+          "relationship": "renaming_or_explicit_local_instance",
+          "note": "按此符号的局部定义映射；不把总输出、分量、触发和回归向量混同。",
+          "conflict_note": "规范输出基线b=g(empty)不默认零；原输入b_i统一映为r_i。",
+          "translations": {
+            "en": {
+              "note": "Map by this local definition; total outputs, components, triggers and regression vectors are distinguished.",
+              "conflict_note": "The canonical output baseline b=g(empty) is not assumed zero; source input b_i maps to r_i."
+            }
+          }
+        }
+      ],
+      "lean_names": [],
+      "version": "1.0",
+      "translations": {
+        "en": {
+          "name_zh": "Raw-game dividend",
+          "name": "Raw-game dividend",
+          "description_md": "The Möbius dividend of the total model game, distinct from component dividends.",
+          "type_or_domain": "A function from the powerset to the reals",
+          "scope": "This paper at a fixed input, baseline, split or regression setting, according to each entry’s local quantifiers.",
+          "assumptions": [],
+          "empty_set_convention": "The empty set retains the raw output baseline; special component and trigger conventions are stated in their entries.",
+          "baseline_convention": "The canonical output baseline b=g(empty) is not assumed zero; source input b_i maps to r_i."
+        }
+      }
+    },
+    {
+      "id": "dyn-and-component",
+      "canonical_id": "sym-and-output",
+      "canonical_tex": "a",
+      "definition_tex": "a(S)=g(S)/2+\\gamma_S",
+      "name_zh": "AND 分量输出",
+      "description_md": "原vand，仅对固定分解定义。",
+      "type_or_domain": "幂集到实数的函数",
+      "scope": "本篇固定输入、基线、分解或回归设置；依相关条目的局部量词。",
+      "assumptions": [],
+      "empty_set_convention": "空集保留原输出基线；原特殊分量和触发约定按相关条目明示。",
+      "baseline_convention": "规范输出基线b=g(empty)不默认零；原输入b_i统一映为r_i。",
+      "aliases": [
+        "v_{and}(x_S)"
+      ],
+      "paper_mappings": [
+        {
+          "paper_id": "neurips2024-dynamics",
+          "version_id": "ver-neurips2024-dynamics-formal",
+          "source_id": "src-neurips2024-dynamics-formal",
+          "original_tex": "v_{and}(x_S)",
+          "original_definition": "a(S)=g(S)/2+\\gamma_S",
+          "pdf_pages": [
+            3,
+            4,
+            15,
+            16
+          ],
+          "canonical_concept": "sym-and-output",
+          "relationship": "renaming_or_explicit_local_instance",
+          "note": "按此符号的局部定义映射；不把总输出、分量、触发和回归向量混同。",
+          "conflict_note": "规范输出基线b=g(empty)不默认零；原输入b_i统一映为r_i。",
+          "translations": {
+            "en": {
+              "note": "Map by this local definition; total outputs, components, triggers and regression vectors are distinguished.",
+              "conflict_note": "The canonical output baseline b=g(empty) is not assumed zero; source input b_i maps to r_i."
+            }
+          }
+        }
+      ],
+      "lean_names": [],
+      "version": "1.0",
+      "translations": {
+        "en": {
+          "name_zh": "AND component output",
+          "name": "AND component output",
+          "description_md": "Source vand for a fixed decomposition.",
+          "type_or_domain": "A function from the powerset to the reals",
+          "scope": "This paper at a fixed input, baseline, split or regression setting, according to each entry’s local quantifiers.",
+          "assumptions": [],
+          "empty_set_convention": "The empty set retains the raw output baseline; special component and trigger conventions are stated in their entries.",
+          "baseline_convention": "The canonical output baseline b=g(empty) is not assumed zero; source input b_i maps to r_i."
+        }
+      }
+    },
+    {
+      "id": "dyn-or-component",
+      "canonical_id": "sym-or-output",
+      "canonical_tex": "o",
+      "definition_tex": "o(S)=g(S)/2-\\gamma_S",
+      "name_zh": "OR 分量输出",
+      "description_md": "原vor，与AND分量合成原游戏。",
+      "type_or_domain": "幂集到实数的函数",
+      "scope": "本篇固定输入、基线、分解或回归设置；依相关条目的局部量词。",
+      "assumptions": [],
+      "empty_set_convention": "空集保留原输出基线；原特殊分量和触发约定按相关条目明示。",
+      "baseline_convention": "规范输出基线b=g(empty)不默认零；原输入b_i统一映为r_i。",
+      "aliases": [
+        "v_{or}(x_S)"
+      ],
+      "paper_mappings": [
+        {
+          "paper_id": "neurips2024-dynamics",
+          "version_id": "ver-neurips2024-dynamics-formal",
+          "source_id": "src-neurips2024-dynamics-formal",
+          "original_tex": "v_{or}(x_S)",
+          "original_definition": "o(S)=g(S)/2-\\gamma_S",
+          "pdf_pages": [
+            3,
+            4,
+            15,
+            17
+          ],
+          "canonical_concept": "sym-or-output",
+          "relationship": "renaming_or_explicit_local_instance",
+          "note": "按此符号的局部定义映射；不把总输出、分量、触发和回归向量混同。",
+          "conflict_note": "规范输出基线b=g(empty)不默认零；原输入b_i统一映为r_i。",
+          "translations": {
+            "en": {
+              "note": "Map by this local definition; total outputs, components, triggers and regression vectors are distinguished.",
+              "conflict_note": "The canonical output baseline b=g(empty) is not assumed zero; source input b_i maps to r_i."
+            }
+          }
+        }
+      ],
+      "lean_names": [],
+      "version": "1.0",
+      "translations": {
+        "en": {
+          "name_zh": "OR component output",
+          "name": "OR component output",
+          "description_md": "Source vor, which sums with the AND component to the raw game.",
+          "type_or_domain": "A function from the powerset to the reals",
+          "scope": "This paper at a fixed input, baseline, split or regression setting, according to each entry’s local quantifiers.",
+          "assumptions": [],
+          "empty_set_convention": "The empty set retains the raw output baseline; special component and trigger conventions are stated in their entries.",
+          "baseline_convention": "The canonical output baseline b=g(empty) is not assumed zero; source input b_i maps to r_i."
+        }
+      }
+    },
+    {
+      "id": "dyn-gamma",
+      "canonical_id": "sym-decomposition-parameter",
+      "canonical_tex": "\\gamma_S",
+      "definition_tex": "a+o=g",
+      "name_zh": "分解参数",
+      "description_md": "每个遮罩的L1提取优化变量。",
+      "type_or_domain": "幂集索引的实向量",
+      "scope": "本篇固定输入、基线、分解或回归设置；依相关条目的局部量词。",
+      "assumptions": [],
+      "empty_set_convention": "空集保留原输出基线；原特殊分量和触发约定按相关条目明示。",
+      "baseline_convention": "规范输出基线b=g(empty)不默认零；原输入b_i统一映为r_i。",
+      "aliases": [
+        "\\gamma_S"
+      ],
+      "paper_mappings": [
+        {
+          "paper_id": "neurips2024-dynamics",
+          "version_id": "ver-neurips2024-dynamics-formal",
+          "source_id": "src-neurips2024-dynamics-formal",
+          "original_tex": "\\gamma_S",
+          "original_definition": "a+o=g",
+          "pdf_pages": [
+            4,
+            15
+          ],
+          "canonical_concept": "sym-decomposition-parameter",
+          "relationship": "renaming_or_explicit_local_instance",
+          "note": "按此符号的局部定义映射；不把总输出、分量、触发和回归向量混同。",
+          "conflict_note": "规范输出基线b=g(empty)不默认零；原输入b_i统一映为r_i。",
+          "translations": {
+            "en": {
+              "note": "Map by this local definition; total outputs, components, triggers and regression vectors are distinguished.",
+              "conflict_note": "The canonical output baseline b=g(empty) is not assumed zero; source input b_i maps to r_i."
+            }
+          }
+        }
+      ],
+      "lean_names": [],
+      "version": "1.0",
+      "translations": {
+        "en": {
+          "name_zh": "Decomposition parameter",
+          "name": "Decomposition parameter",
+          "description_md": "An L1 extraction variable for each mask.",
+          "type_or_domain": "Real vectors indexed by the powerset",
+          "scope": "This paper at a fixed input, baseline, split or regression setting, according to each entry’s local quantifiers.",
+          "assumptions": [],
+          "empty_set_convention": "The empty set retains the raw output baseline; special component and trigger conventions are stated in their entries.",
+          "baseline_convention": "The canonical output baseline b=g(empty) is not assumed zero; source input b_i maps to r_i."
+        }
+      }
+    },
+    {
+      "id": "dyn-and-dividend",
+      "canonical_id": "sym-and-component-interaction",
+      "canonical_tex": "A(S)",
+      "definition_tex": "A(S)=I_a(S)\\ (S\\ne\\varnothing)",
+      "name_zh": "AND 分量交互",
+      "description_md": "原Iand在分量定义中作用于a，不等于总模型I_g。",
+      "type_or_domain": "幂集到实数的函数",
+      "scope": "本篇固定输入、基线、分解或回归设置；依相关条目的局部量词。",
+      "assumptions": [],
+      "empty_set_convention": "主文Eq.(2)只定义非空分量AND；机器辅助完整Möbius扩展的空项为a(empty)，不冒充原文约定。",
+      "baseline_convention": "规范输出基线b=g(empty)不默认零；原输入b_i统一映为r_i。",
+      "aliases": [
+        "I_{and}(S\\mid x)"
+      ],
+      "paper_mappings": [
+        {
+          "paper_id": "neurips2024-dynamics",
+          "version_id": "ver-neurips2024-dynamics-formal",
+          "source_id": "src-neurips2024-dynamics-formal",
+          "original_tex": "I_{and}(S\\mid x)",
+          "original_definition": "A(S)=I_a(S)\\ (S\\ne\\varnothing)",
+          "pdf_pages": [
+            3,
+            4,
+            14,
+            16
+          ],
+          "canonical_concept": "sym-and-component-interaction",
+          "relationship": "renaming_or_explicit_local_instance",
+          "note": "按此符号的局部定义映射；不把总输出、分量、触发和回归向量混同。",
+          "conflict_note": "规范输出基线b=g(empty)不默认零；原输入b_i统一映为r_i。",
+          "translations": {
+            "en": {
+              "note": "Map by this local definition; total outputs, components, triggers and regression vectors are distinguished.",
+              "conflict_note": "The canonical output baseline b=g(empty) is not assumed zero; source input b_i maps to r_i."
+            }
+          }
+        }
+      ],
+      "lean_names": [],
+      "version": "1.0",
+      "translations": {
+        "en": {
+          "name_zh": "AND component dividend",
+          "name": "AND component dividend",
+          "description_md": "Source Iand applies to a in the component definition, rather than automatically to the total game.",
+          "type_or_domain": "A function from the powerset to the reals",
+          "scope": "This paper at a fixed input, baseline, split or regression setting, according to each entry’s local quantifiers.",
+          "assumptions": [],
+          "empty_set_convention": "Main Eq.(2) defines only nonempty component AND dividends. The auxiliary full Möbius extension has empty value a(empty), which is not claimed to be the source convention.",
+          "baseline_convention": "The canonical output baseline b=g(empty) is not assumed zero; source input b_i maps to r_i."
+        }
+      }
+    },
+    {
+      "id": "dyn-or-dividend",
+      "canonical_id": "sym-or-component-interaction",
+      "canonical_tex": "O(S)",
+      "definition_tex": "O(S)=-I_{L\\mapsto o(N\\setminus L)}(S)\\ (S\\ne\\varnothing)",
+      "name_zh": "OR 分量交互",
+      "description_md": "原Ior是补集游戏的负交互，非空时由与遮罩相交激活。",
+      "type_or_domain": "非空幂集到实数的函数",
+      "scope": "本篇固定输入、基线、分解或回归设置；依相关条目的局部量词。",
+      "assumptions": [],
+      "empty_set_convention": "仅非空系数使用负补集公式；原F.1设OR空输出为零。",
+      "baseline_convention": "规范输出基线b=g(empty)不默认零；原输入b_i统一映为r_i。",
+      "aliases": [
+        "I_{or}(S\\mid x)"
+      ],
+      "paper_mappings": [
+        {
+          "paper_id": "neurips2024-dynamics",
+          "version_id": "ver-neurips2024-dynamics-formal",
+          "source_id": "src-neurips2024-dynamics-formal",
+          "original_tex": "I_{or}(S\\mid x)",
+          "original_definition": "O(S)=-I_{L\\mapsto o(N\\setminus L)}(S)\\ (S\\ne\\varnothing)",
+          "pdf_pages": [
+            3,
+            4,
+            15,
+            16,
+            17
+          ],
+          "canonical_concept": "sym-or-component-interaction",
+          "relationship": "renaming_or_explicit_local_instance",
+          "note": "按此符号的局部定义映射；不把总输出、分量、触发和回归向量混同。",
+          "conflict_note": "规范输出基线b=g(empty)不默认零；原输入b_i统一映为r_i。",
+          "translations": {
+            "en": {
+              "note": "Map by this local definition; total outputs, components, triggers and regression vectors are distinguished.",
+              "conflict_note": "The canonical output baseline b=g(empty) is not assumed zero; source input b_i maps to r_i."
+            }
+          }
+        }
+      ],
+      "lean_names": [],
+      "version": "1.0",
+      "translations": {
+        "en": {
+          "name_zh": "OR component dividend",
+          "name": "OR component dividend",
+          "description_md": "Source Ior is the negative dividend of the complementary game; a nonempty coalition activates by intersecting the mask.",
+          "type_or_domain": "A function from nonempty coalitions to the reals",
+          "scope": "This paper at a fixed input, baseline, split or regression setting, according to each entry’s local quantifiers.",
+          "assumptions": [],
+          "empty_set_convention": "The negative-complement formula is used for nonempty coefficients; F.1 sets the empty OR output to zero.",
+          "baseline_convention": "The canonical output baseline b=g(empty) is not assumed zero; source input b_i maps to r_i."
+        }
+      }
+    },
+    {
+      "id": "dyn-trigger",
+      "canonical_id": "dyn-trigger",
+      "canonical_tex": "J_T",
+      "definition_tex": "J_T(x_S)=\\mathbf1_{T\\subseteq S}",
+      "name_zh": "归一化概念触发",
+      "description_md": "Taylor支持贡献除以固定参考交互；零分母域单列。",
+      "type_or_domain": "输入到实数的函数；二值遮罩子域",
+      "scope": "本篇固定输入、基线、分解或回归设置；依相关条目的局部量词。",
+      "assumptions": [],
+      "empty_set_convention": "原w_empty=v(x_empty)，J_empty=1。",
+      "baseline_convention": "规范输出基线b=g(empty)不默认零；原输入b_i统一映为r_i。",
+      "aliases": [
+        "J_T"
+      ],
+      "paper_mappings": [
+        {
+          "paper_id": "neurips2024-dynamics",
+          "version_id": "ver-neurips2024-dynamics-formal",
+          "source_id": "src-neurips2024-dynamics-formal",
+          "original_tex": "J_T",
+          "original_definition": "J_T(x_S)=\\mathbf1_{T\\subseteq S}",
+          "pdf_pages": [
+            6,
+            7,
+            8,
+            19,
+            20,
+            22
+          ],
+          "canonical_concept": "dyn-trigger",
+          "relationship": "renaming_or_explicit_local_instance",
+          "note": "按此符号的局部定义映射；不把总输出、分量、触发和回归向量混同。",
+          "conflict_note": "规范输出基线b=g(empty)不默认零；原输入b_i统一映为r_i。",
+          "translations": {
+            "en": {
+              "note": "Map by this local definition; total outputs, components, triggers and regression vectors are distinguished.",
+              "conflict_note": "The canonical output baseline b=g(empty) is not assumed zero; source input b_i maps to r_i."
+            }
+          }
+        }
+      ],
+      "lean_names": [],
+      "version": "1.0",
+      "translations": {
+        "en": {
+          "name_zh": "Normalized concept trigger",
+          "name": "Normalized concept trigger",
+          "description_md": "A support contribution divided by its fixed reference dividend; the zero denominator is recorded separately.",
+          "type_or_domain": "Real functions of input, with a binary masked subdomain",
+          "scope": "This paper at a fixed input, baseline, split or regression setting, according to each entry’s local quantifiers.",
+          "assumptions": [],
+          "empty_set_convention": "The source sets w_empty=v(x_empty) and J_empty=1.",
+          "baseline_convention": "The canonical output baseline b=g(empty) is not assumed zero; source input b_i maps to r_i."
+        }
+      }
+    },
+    {
+      "id": "dyn-weight",
+      "canonical_id": "dyn-weight",
+      "canonical_tex": "w_T",
+      "definition_tex": "w_T=I(T\\mid\\hat x)",
+      "name_zh": "回归概念权重",
+      "description_md": "参考样本的原始交互，回归中是优化变量。",
+      "type_or_domain": "幂集索引的实向量",
+      "scope": "本篇固定输入、基线、分解或回归设置；依相关条目的局部量词。",
+      "assumptions": [],
+      "empty_set_convention": "原w_empty=v(x_empty)，J_empty=1。",
+      "baseline_convention": "规范输出基线b=g(empty)不默认零；原输入b_i统一映为r_i。",
+      "aliases": [
+        "w_T"
+      ],
+      "paper_mappings": [
+        {
+          "paper_id": "neurips2024-dynamics",
+          "version_id": "ver-neurips2024-dynamics-formal",
+          "source_id": "src-neurips2024-dynamics-formal",
+          "original_tex": "w_T",
+          "original_definition": "w_T=I(T\\mid\\hat x)",
+          "pdf_pages": [
+            6,
+            7,
+            8,
+            19,
+            20
+          ],
+          "canonical_concept": "dyn-weight",
+          "relationship": "renaming_or_explicit_local_instance",
+          "note": "按此符号的局部定义映射；不把总输出、分量、触发和回归向量混同。",
+          "conflict_note": "规范输出基线b=g(empty)不默认零；原输入b_i统一映为r_i。",
+          "translations": {
+            "en": {
+              "note": "Map by this local definition; total outputs, components, triggers and regression vectors are distinguished.",
+              "conflict_note": "The canonical output baseline b=g(empty) is not assumed zero; source input b_i maps to r_i."
+            }
+          }
+        }
+      ],
+      "lean_names": [],
+      "version": "1.0",
+      "translations": {
+        "en": {
+          "name_zh": "Regression concept weight",
+          "name": "Regression concept weight",
+          "description_md": "The reference-sample dividend, treated as an optimization variable in regression.",
+          "type_or_domain": "Real vectors indexed by the powerset",
+          "scope": "This paper at a fixed input, baseline, split or regression setting, according to each entry’s local quantifiers.",
+          "assumptions": [],
+          "empty_set_convention": "The source sets w_empty=v(x_empty) and J_empty=1.",
+          "baseline_convention": "The canonical output baseline b=g(empty) is not assumed zero; source input b_i maps to r_i."
+        }
+      }
+    },
+    {
+      "id": "dyn-true-weight",
+      "canonical_id": "dyn-true-weight",
+      "canonical_tex": "w_T^*",
+      "definition_tex": "y=Jw^*",
+      "name_zh": "收敛交互目标",
+      "description_md": "最终收敛DNN的交互，不定义为理想任务表征。",
+      "type_or_domain": "幂集索引的实向量",
+      "scope": "本篇固定输入、基线、分解或回归设置；依相关条目的局部量词。",
+      "assumptions": [],
+      "empty_set_convention": "原w_empty=v(x_empty)，J_empty=1。",
+      "baseline_convention": "规范输出基线b=g(empty)不默认零；原输入b_i统一映为r_i。",
+      "aliases": [
+        "w_T^*"
+      ],
+      "paper_mappings": [
+        {
+          "paper_id": "neurips2024-dynamics",
+          "version_id": "ver-neurips2024-dynamics-formal",
+          "source_id": "src-neurips2024-dynamics-formal",
+          "original_tex": "w_T^*",
+          "original_definition": "y=Jw^*",
+          "pdf_pages": [
+            7,
+            8,
+            9,
+            24
+          ],
+          "canonical_concept": "dyn-true-weight",
+          "relationship": "renaming_or_explicit_local_instance",
+          "note": "按此符号的局部定义映射；不把总输出、分量、触发和回归向量混同。",
+          "conflict_note": "规范输出基线b=g(empty)不默认零；原输入b_i统一映为r_i。",
+          "translations": {
+            "en": {
+              "note": "Map by this local definition; total outputs, components, triggers and regression vectors are distinguished.",
+              "conflict_note": "The canonical output baseline b=g(empty) is not assumed zero; source input b_i maps to r_i."
+            }
+          }
+        }
+      ],
+      "lean_names": [],
+      "version": "1.0",
+      "translations": {
+        "en": {
+          "name_zh": "Converged dividend target",
+          "name": "Converged dividend target",
+          "description_md": "The finally converged DNN dividends, not necessarily an ideal task representation.",
+          "type_or_domain": "Real vectors indexed by the powerset",
+          "scope": "This paper at a fixed input, baseline, split or regression setting, according to each entry’s local quantifiers.",
+          "assumptions": [],
+          "empty_set_convention": "The source sets w_empty=v(x_empty) and J_empty=1.",
+          "baseline_convention": "The canonical output baseline b=g(empty) is not assumed zero; source input b_i maps to r_i."
+        }
+      }
+    },
+    {
+      "id": "dyn-noise",
+      "canonical_id": "dyn-noise",
+      "canonical_tex": "\\epsilon_T",
+      "definition_tex": "E\\epsilon_T=0,\\quad c_T=\\operatorname{Var}\\epsilon_T",
+      "name_zh": "触发噪声",
+      "description_md": "Lemma1的缩放噪声与Assumption1的独立替代噪声区分。",
+      "type_or_domain": "概率空间上的实随机变量族",
+      "scope": "本篇固定输入、基线、分解或回归设置；依相关条目的局部量词。",
+      "assumptions": [],
+      "empty_set_convention": "空集保留原输出基线；原特殊分量和触发约定按相关条目明示。",
+      "baseline_convention": "规范输出基线b=g(empty)不默认零；原输入b_i统一映为r_i。",
+      "aliases": [
+        "\\epsilon_T"
+      ],
+      "paper_mappings": [
+        {
+          "paper_id": "neurips2024-dynamics",
+          "version_id": "ver-neurips2024-dynamics-formal",
+          "source_id": "src-neurips2024-dynamics-formal",
+          "original_tex": "\\epsilon_T",
+          "original_definition": "E\\epsilon_T=0,\\quad c_T=\\operatorname{Var}\\epsilon_T",
+          "pdf_pages": [
+            7,
+            8,
+            20,
+            21
+          ],
+          "canonical_concept": "dyn-noise",
+          "relationship": "renaming_or_explicit_local_instance",
+          "note": "按此符号的局部定义映射；不把总输出、分量、触发和回归向量混同。",
+          "conflict_note": "规范输出基线b=g(empty)不默认零；原输入b_i统一映为r_i。",
+          "translations": {
+            "en": {
+              "note": "Map by this local definition; total outputs, components, triggers and regression vectors are distinguished.",
+              "conflict_note": "The canonical output baseline b=g(empty) is not assumed zero; source input b_i maps to r_i."
+            }
+          }
+        }
+      ],
+      "lean_names": [],
+      "version": "1.0",
+      "translations": {
+        "en": {
+          "name_zh": "Trigger noise",
+          "name": "Trigger noise",
+          "description_md": "Distinguish scaled noise in Lemma 1 from independently imposed surrogate noise in Assumption 1.",
+          "type_or_domain": "Families of real random variables on a probability space",
+          "scope": "This paper at a fixed input, baseline, split or regression setting, according to each entry’s local quantifiers.",
+          "assumptions": [],
+          "empty_set_convention": "The empty set retains the raw output baseline; special component and trigger conventions are stated in their entries.",
+          "baseline_convention": "The canonical output baseline b=g(empty) is not assumed zero; source input b_i maps to r_i."
+        }
+      }
+    },
+    {
+      "id": "dyn-noise-variance",
+      "canonical_id": "dyn-noise-variance",
+      "canonical_tex": "c_T",
+      "definition_tex": "c_T=2^{|T|}\\sigma^2\\text{ in Assumption 1}",
+      "name_zh": "独立触发方差",
+      "description_md": "原Assumption1重设的方差，不由除w自动推出。",
+      "type_or_domain": "非负实数向量",
+      "scope": "本篇固定输入、基线、分解或回归设置；依相关条目的局部量词。",
+      "assumptions": [],
+      "empty_set_convention": "空集保留原输出基线；原特殊分量和触发约定按相关条目明示。",
+      "baseline_convention": "规范输出基线b=g(empty)不默认零；原输入b_i统一映为r_i。",
+      "aliases": [
+        "c_T"
+      ],
+      "paper_mappings": [
+        {
+          "paper_id": "neurips2024-dynamics",
+          "version_id": "ver-neurips2024-dynamics-formal",
+          "source_id": "src-neurips2024-dynamics-formal",
+          "original_tex": "c_T",
+          "original_definition": "c_T=2^{|T|}\\sigma^2\\text{ in Assumption 1}",
+          "pdf_pages": [
+            8,
+            21,
+            22
+          ],
+          "canonical_concept": "dyn-noise-variance",
+          "relationship": "renaming_or_explicit_local_instance",
+          "note": "按此符号的局部定义映射；不把总输出、分量、触发和回归向量混同。",
+          "conflict_note": "规范输出基线b=g(empty)不默认零；原输入b_i统一映为r_i。",
+          "translations": {
+            "en": {
+              "note": "Map by this local definition; total outputs, components, triggers and regression vectors are distinguished.",
+              "conflict_note": "The canonical output baseline b=g(empty) is not assumed zero; source input b_i maps to r_i."
+            }
+          }
+        }
+      ],
+      "lean_names": [],
+      "version": "1.0",
+      "translations": {
+        "en": {
+          "name_zh": "Independent trigger variance",
+          "name": "Independent trigger variance",
+          "description_md": "The variance reset by Assumption 1, not automatically obtained by dividing by w.",
+          "type_or_domain": "Vectors of nonnegative reals",
+          "scope": "This paper at a fixed input, baseline, split or regression setting, according to each entry’s local quantifiers.",
+          "assumptions": [],
+          "empty_set_convention": "The empty set retains the raw output baseline; special component and trigger conventions are stated in their entries.",
+          "baseline_convention": "The canonical output baseline b=g(empty) is not assumed zero; source input b_i maps to r_i."
+        }
+      }
+    },
+    {
+      "id": "dyn-design",
+      "canonical_id": "dyn-design",
+      "canonical_tex": "J_{ST}",
+      "definition_tex": "J_{ST}=\\mathbf1_{T\\subseteq S}",
+      "name_zh": "完整幂集设计",
+      "description_md": "行是遮罩S，列是概念T；含空行与空列。",
+      "type_or_domain": "2^n乘2^n实矩阵",
+      "scope": "本篇固定输入、基线、分解或回归设置；依相关条目的局部量词。",
+      "assumptions": [],
+      "empty_set_convention": "空集保留原输出基线；原特殊分量和触发约定按相关条目明示。",
+      "baseline_convention": "规范输出基线b=g(empty)不默认零；原输入b_i统一映为r_i。",
+      "aliases": [
+        "J_{ST}"
+      ],
+      "paper_mappings": [
+        {
+          "paper_id": "neurips2024-dynamics",
+          "version_id": "ver-neurips2024-dynamics-formal",
+          "source_id": "src-neurips2024-dynamics-formal",
+          "original_tex": "J_{ST}",
+          "original_definition": "J_{ST}=\\mathbf1_{T\\subseteq S}",
+          "pdf_pages": [
+            8,
+            21,
+            22,
+            23
+          ],
+          "canonical_concept": "dyn-design",
+          "relationship": "renaming_or_explicit_local_instance",
+          "note": "按此符号的局部定义映射；不把总输出、分量、触发和回归向量混同。",
+          "conflict_note": "规范输出基线b=g(empty)不默认零；原输入b_i统一映为r_i。",
+          "translations": {
+            "en": {
+              "note": "Map by this local definition; total outputs, components, triggers and regression vectors are distinguished.",
+              "conflict_note": "The canonical output baseline b=g(empty) is not assumed zero; source input b_i maps to r_i."
+            }
+          }
+        }
+      ],
+      "lean_names": [],
+      "version": "1.0",
+      "translations": {
+        "en": {
+          "name_zh": "Complete powerset design",
+          "name": "Complete powerset design",
+          "description_md": "Rows are masks S and columns are concepts T, including the empty row and column.",
+          "type_or_domain": "Real matrices of size 2^n by 2^n",
+          "scope": "This paper at a fixed input, baseline, split or regression setting, according to each entry’s local quantifiers.",
+          "assumptions": [],
+          "empty_set_convention": "The empty set retains the raw output baseline; special component and trigger conventions are stated in their entries.",
+          "baseline_convention": "The canonical output baseline b=g(empty) is not assumed zero; source input b_i maps to r_i."
+        }
+      }
+    },
+    {
+      "id": "dyn-transfer",
+      "canonical_id": "dyn-transfer",
+      "canonical_tex": "\\hat M",
+      "definition_tex": "\\hat M=(J^\\top J+2^n\\operatorname{diag}c)^{-1}J^\\top J",
+      "name_zh": "噪声回归转移矩阵",
+      "description_md": "把真交互目标变成同噪声水平的最优交互。",
+      "type_or_domain": "2^n乘2^n实矩阵",
+      "scope": "本篇固定输入、基线、分解或回归设置；依相关条目的局部量词。",
+      "assumptions": [],
+      "empty_set_convention": "空集保留原输出基线；原特殊分量和触发约定按相关条目明示。",
+      "baseline_convention": "规范输出基线b=g(empty)不默认零；原输入b_i统一映为r_i。",
+      "aliases": [
+        "\\hat M"
+      ],
+      "paper_mappings": [
+        {
+          "paper_id": "neurips2024-dynamics",
+          "version_id": "ver-neurips2024-dynamics-formal",
+          "source_id": "src-neurips2024-dynamics-formal",
+          "original_tex": "\\hat M",
+          "original_definition": "\\hat M=(J^\\top J+2^n\\operatorname{diag}c)^{-1}J^\\top J",
+          "pdf_pages": [
+            8,
+            9,
+            22,
+            23,
+            24
+          ],
+          "canonical_concept": "dyn-transfer",
+          "relationship": "renaming_or_explicit_local_instance",
+          "note": "按此符号的局部定义映射；不把总输出、分量、触发和回归向量混同。",
+          "conflict_note": "规范输出基线b=g(empty)不默认零；原输入b_i统一映为r_i。",
+          "translations": {
+            "en": {
+              "note": "Map by this local definition; total outputs, components, triggers and regression vectors are distinguished.",
+              "conflict_note": "The canonical output baseline b=g(empty) is not assumed zero; source input b_i maps to r_i."
+            }
+          }
+        }
+      ],
+      "lean_names": [],
+      "version": "1.0",
+      "translations": {
+        "en": {
+          "name_zh": "Noisy-regression transfer matrix",
+          "name": "Noisy-regression transfer matrix",
+          "description_md": "Maps true target dividends to optimal dividends at the fixed noise level.",
+          "type_or_domain": "Real matrices of size 2^n by 2^n",
+          "scope": "This paper at a fixed input, baseline, split or regression setting, according to each entry’s local quantifiers.",
+          "assumptions": [],
+          "empty_set_convention": "The empty set retains the raw output baseline; special component and trigger conventions are stated in their entries.",
+          "baseline_convention": "The canonical output baseline b=g(empty) is not assumed zero; source input b_i maps to r_i."
+        }
+      }
+    },
+    {
+      "id": "dyn-order",
+      "canonical_id": "sym-order",
+      "canonical_tex": "k",
+      "definition_tex": "k=|S|",
+      "name_zh": "概念阶数",
+      "description_md": "概念内参与变量数，区别于训练epoch与Taylor总次数。",
+      "type_or_domain": "0到n的自然数",
+      "scope": "本篇固定输入、基线、分解或回归设置；依相关条目的局部量词。",
+      "assumptions": [],
+      "empty_set_convention": "空集保留原输出基线；原特殊分量和触发约定按相关条目明示。",
+      "baseline_convention": "规范输出基线b=g(empty)不默认零；原输入b_i统一映为r_i。",
+      "aliases": [
+        "k"
+      ],
+      "paper_mappings": [
+        {
+          "paper_id": "neurips2024-dynamics",
+          "version_id": "ver-neurips2024-dynamics-formal",
+          "source_id": "src-neurips2024-dynamics-formal",
+          "original_tex": "k",
+          "original_definition": "k=|S|",
+          "pdf_pages": [
+            5,
+            9,
+            14
+          ],
+          "canonical_concept": "sym-order",
+          "relationship": "renaming_or_explicit_local_instance",
+          "note": "按此符号的局部定义映射；不把总输出、分量、触发和回归向量混同。",
+          "conflict_note": "规范输出基线b=g(empty)不默认零；原输入b_i统一映为r_i。",
+          "translations": {
+            "en": {
+              "note": "Map by this local definition; total outputs, components, triggers and regression vectors are distinguished.",
+              "conflict_note": "The canonical output baseline b=g(empty) is not assumed zero; source input b_i maps to r_i."
+            }
+          }
+        }
+      ],
+      "lean_names": [],
+      "version": "1.0",
+      "translations": {
+        "en": {
+          "name_zh": "Concept order",
+          "name": "Concept order",
+          "description_md": "The number of variables in a concept, distinct from epochs and total Taylor degree.",
+          "type_or_domain": "Natural numbers between zero and n",
+          "scope": "This paper at a fixed input, baseline, split or regression setting, according to each entry’s local quantifiers.",
+          "assumptions": [],
+          "empty_set_convention": "The empty set retains the raw output baseline; special component and trigger conventions are stated in their entries.",
+          "baseline_convention": "The canonical output baseline b=g(empty) is not assumed zero; source input b_i maps to r_i."
+        }
+      }
+    },
+    {
+      "id": "dyn-taylor-index",
+      "canonical_id": "dyn-taylor-index",
+      "canonical_tex": "\\pi\\in Q_T",
+      "definition_tex": "\\pi_i>0\\ (i\\in T),\\quad\\pi_i=0\\ (i\\notin T)",
+      "name_zh": "Taylor 支持多重指标",
+      "description_md": "Q_T规定严格正次数支持恰为T。",
+      "type_or_domain": "有限坐标自然数向量",
+      "scope": "本篇固定输入、基线、分解或回归设置；依相关条目的局部量词。",
+      "assumptions": [],
+      "empty_set_convention": "空集保留原输出基线；原特殊分量和触发约定按相关条目明示。",
+      "baseline_convention": "规范输出基线b=g(empty)不默认零；原输入b_i统一映为r_i。",
+      "aliases": [
+        "\\pi\\in Q_T"
+      ],
+      "paper_mappings": [
+        {
+          "paper_id": "neurips2024-dynamics",
+          "version_id": "ver-neurips2024-dynamics-formal",
+          "source_id": "src-neurips2024-dynamics-formal",
+          "original_tex": "\\pi\\in Q_T",
+          "original_definition": "\\pi_i>0\\ (i\\in T),\\quad\\pi_i=0\\ (i\\notin T)",
+          "pdf_pages": [
+            7,
+            18,
+            19
+          ],
+          "canonical_concept": "dyn-taylor-index",
+          "relationship": "renaming_or_explicit_local_instance",
+          "note": "按此符号的局部定义映射；不把总输出、分量、触发和回归向量混同。",
+          "conflict_note": "规范输出基线b=g(empty)不默认零；原输入b_i统一映为r_i。",
+          "translations": {
+            "en": {
+              "note": "Map by this local definition; total outputs, components, triggers and regression vectors are distinguished.",
+              "conflict_note": "The canonical output baseline b=g(empty) is not assumed zero; source input b_i maps to r_i."
+            }
+          }
+        }
+      ],
+      "lean_names": [],
+      "version": "1.0",
+      "translations": {
+        "en": {
+          "name_zh": "Taylor support multi-index",
+          "name": "Taylor support multi-index",
+          "description_md": "Q_T specifies that the positive-degree support is exactly T.",
+          "type_or_domain": "Natural-number vectors indexed by the finite universe",
+          "scope": "This paper at a fixed input, baseline, split or regression setting, according to each entry’s local quantifiers.",
+          "assumptions": [],
+          "empty_set_convention": "The empty set retains the raw output baseline; special component and trigger conventions are stated in their entries.",
+          "baseline_convention": "The canonical output baseline b=g(empty) is not assumed zero; source input b_i maps to r_i."
+        }
+      }
+    },
+    {
+      "id": "dyn-threshold",
+      "canonical_id": "dyn-threshold",
+      "canonical_tex": "\\tau",
+      "definition_tex": "\\tau=0.03E_x|v(x)-v(x_\\varnothing)|",
+      "name_zh": "显著交互阈值",
+      "description_md": "经验阈值与理论回归阈值分别使用原作用域。",
+      "type_or_domain": "非负实数",
+      "scope": "本篇固定输入、基线、分解或回归设置；依相关条目的局部量词。",
+      "assumptions": [],
+      "empty_set_convention": "空集保留原输出基线；原特殊分量和触发约定按相关条目明示。",
+      "baseline_convention": "规范输出基线b=g(empty)不默认零；原输入b_i统一映为r_i。",
+      "aliases": [
+        "\\tau"
+      ],
+      "paper_mappings": [
+        {
+          "paper_id": "neurips2024-dynamics",
+          "version_id": "ver-neurips2024-dynamics-formal",
+          "source_id": "src-neurips2024-dynamics-formal",
+          "original_tex": "\\tau",
+          "original_definition": "\\tau=0.03E_x|v(x)-v(x_\\varnothing)|",
+          "pdf_pages": [
+            4,
+            5,
+            24,
+            27,
+            28
+          ],
+          "canonical_concept": "dyn-threshold",
+          "relationship": "renaming_or_explicit_local_instance",
+          "note": "按此符号的局部定义映射；不把总输出、分量、触发和回归向量混同。",
+          "conflict_note": "规范输出基线b=g(empty)不默认零；原输入b_i统一映为r_i。",
+          "translations": {
+            "en": {
+              "note": "Map by this local definition; total outputs, components, triggers and regression vectors are distinguished.",
+              "conflict_note": "The canonical output baseline b=g(empty) is not assumed zero; source input b_i maps to r_i."
+            }
+          }
+        }
+      ],
+      "lean_names": [],
+      "version": "1.0",
+      "translations": {
+        "en": {
+          "name_zh": "Salient-dividend threshold",
+          "name": "Salient-dividend threshold",
+          "description_md": "Empirical and theoretical-regression thresholds retain their separate source scopes.",
+          "type_or_domain": "A nonnegative real",
+          "scope": "This paper at a fixed input, baseline, split or regression setting, according to each entry’s local quantifiers.",
+          "assumptions": [],
+          "empty_set_convention": "The empty set retains the raw output baseline; special component and trigger conventions are stated in their entries.",
+          "baseline_convention": "The canonical output baseline b=g(empty) is not assumed zero; source input b_i maps to r_i."
+        }
+      }
+    },
+    {
+      "id": "dyn-salient",
+      "canonical_id": "dyn-salient",
+      "canonical_tex": "\\Omega",
+      "definition_tex": "\\Omega=\\{S:|I(S)|\\ge\\tau\\}",
+      "name_zh": "显著支持族",
+      "description_md": "由指定分量和指定阈值筛选的集合族。",
+      "type_or_domain": "幂集的子族",
+      "scope": "本篇固定输入、基线、分解或回归设置；依相关条目的局部量词。",
+      "assumptions": [],
+      "empty_set_convention": "空集保留原输出基线；原特殊分量和触发约定按相关条目明示。",
+      "baseline_convention": "规范输出基线b=g(empty)不默认零；原输入b_i统一映为r_i。",
+      "aliases": [
+        "\\Omega"
+      ],
+      "paper_mappings": [
+        {
+          "paper_id": "neurips2024-dynamics",
+          "version_id": "ver-neurips2024-dynamics-formal",
+          "source_id": "src-neurips2024-dynamics-formal",
+          "original_tex": "\\Omega",
+          "original_definition": "\\Omega=\\{S:|I(S)|\\ge\\tau\\}",
+          "pdf_pages": [
+            4,
+            5,
+            14,
+            27
+          ],
+          "canonical_concept": "dyn-salient",
+          "relationship": "renaming_or_explicit_local_instance",
+          "note": "按此符号的局部定义映射；不把总输出、分量、触发和回归向量混同。",
+          "conflict_note": "规范输出基线b=g(empty)不默认零；原输入b_i统一映为r_i。",
+          "translations": {
+            "en": {
+              "note": "Map by this local definition; total outputs, components, triggers and regression vectors are distinguished.",
+              "conflict_note": "The canonical output baseline b=g(empty) is not assumed zero; source input b_i maps to r_i."
+            }
+          }
+        }
+      ],
+      "lean_names": [],
+      "version": "1.0",
+      "translations": {
+        "en": {
+          "name_zh": "Salient support family",
+          "name": "Salient support family",
+          "description_md": "A coalition family selected for the stated component and threshold.",
+          "type_or_domain": "Subfamilies of the powerset",
+          "scope": "This paper at a fixed input, baseline, split or regression setting, according to each entry’s local quantifiers.",
+          "assumptions": [],
+          "empty_set_convention": "The empty set retains the raw output baseline; special component and trigger conventions are stated in their entries.",
+          "baseline_convention": "The canonical output baseline b=g(empty) is not assumed zero; source input b_i maps to r_i."
+        }
+      }
+    },
+    {
+      "id": "dyn-strength",
+      "canonical_id": "dyn-strength",
+      "canonical_tex": "I_{real}^{(k)}",
+      "definition_tex": "I_{real}^{(k)}=\\text{salient order strength}/Z",
+      "name_zh": "归一化阶数强度",
+      "description_md": "同阶显著交互的绝对值和按原Z归一化。",
+      "type_or_domain": "Z非零域的非负实数",
+      "scope": "本篇固定输入、基线、分解或回归设置；依相关条目的局部量词。",
+      "assumptions": [],
+      "empty_set_convention": "空集保留原输出基线；原特殊分量和触发约定按相关条目明示。",
+      "baseline_convention": "规范输出基线b=g(empty)不默认零；原输入b_i统一映为r_i。",
+      "aliases": [
+        "I_{real}^{(k)}"
+      ],
+      "paper_mappings": [
+        {
+          "paper_id": "neurips2024-dynamics",
+          "version_id": "ver-neurips2024-dynamics-formal",
+          "source_id": "src-neurips2024-dynamics-formal",
+          "original_tex": "I_{real}^{(k)}",
+          "original_definition": "I_{real}^{(k)}=\\text{salient order strength}/Z",
+          "pdf_pages": [
+            5,
+            9,
+            24,
+            27,
+            28
+          ],
+          "canonical_concept": "dyn-strength",
+          "relationship": "renaming_or_explicit_local_instance",
+          "note": "按此符号的局部定义映射；不把总输出、分量、触发和回归向量混同。",
+          "conflict_note": "规范输出基线b=g(empty)不默认零；原输入b_i统一映为r_i。",
+          "translations": {
+            "en": {
+              "note": "Map by this local definition; total outputs, components, triggers and regression vectors are distinguished.",
+              "conflict_note": "The canonical output baseline b=g(empty) is not assumed zero; source input b_i maps to r_i."
+            }
+          }
+        }
+      ],
+      "lean_names": [],
+      "version": "1.0",
+      "translations": {
+        "en": {
+          "name_zh": "Normalized order strength",
+          "name": "Normalized order strength",
+          "description_md": "The sum of magnitudes of same-order salient dividends normalized by source Z.",
+          "type_or_domain": "Nonnegative reals on the domain Z nonzero",
+          "scope": "This paper at a fixed input, baseline, split or regression setting, according to each entry’s local quantifiers.",
+          "assumptions": [],
+          "empty_set_convention": "The empty set retains the raw output baseline; special component and trigger conventions are stated in their entries.",
+          "baseline_convention": "The canonical output baseline b=g(empty) is not assumed zero; source input b_i maps to r_i."
+        }
+      }
+    },
+    {
+      "id": "dyn-cutoff-order",
+      "canonical_id": "dyn-cutoff-order",
+      "canonical_tex": "M",
+      "definition_tex": "|S|>M\\Longrightarrow I(S)=0",
+      "name_zh": "最高非零交互阶数",
+      "description_md": "外引稀疏条件1的严格最高阶，不是经验几乎为零。",
+      "type_or_domain": "自然数",
+      "scope": "本篇固定输入、基线、分解或回归设置；依相关条目的局部量词。",
+      "assumptions": [],
+      "empty_set_convention": "空集保留原输出基线；原特殊分量和触发约定按相关条目明示。",
+      "baseline_convention": "规范输出基线b=g(empty)不默认零；原输入b_i统一映为r_i。",
+      "aliases": [
+        "M"
+      ],
+      "paper_mappings": [
+        {
+          "paper_id": "neurips2024-dynamics",
+          "version_id": "ver-neurips2024-dynamics-formal",
+          "source_id": "src-neurips2024-dynamics-formal",
+          "original_tex": "M",
+          "original_definition": "|S|>M\\Longrightarrow I(S)=0",
+          "pdf_pages": [
+            14
+          ],
+          "canonical_concept": "dyn-cutoff-order",
+          "relationship": "renaming_or_explicit_local_instance",
+          "note": "按此符号的局部定义映射；不把总输出、分量、触发和回归向量混同。",
+          "conflict_note": "规范输出基线b=g(empty)不默认零；原输入b_i统一映为r_i。",
+          "translations": {
+            "en": {
+              "note": "Map by this local definition; total outputs, components, triggers and regression vectors are distinguished.",
+              "conflict_note": "The canonical output baseline b=g(empty) is not assumed zero; source input b_i maps to r_i."
+            }
+          }
+        }
+      ],
+      "lean_names": [],
+      "version": "1.0",
+      "translations": {
+        "en": {
+          "name_zh": "Maximum nonzero interaction order",
+          "name": "Maximum nonzero interaction order",
+          "description_md": "The exact cutoff in cited sparsity Condition 1, rather than empirical near-zero values.",
+          "type_or_domain": "A natural number",
+          "scope": "This paper at a fixed input, baseline, split or regression setting, according to each entry’s local quantifiers.",
+          "assumptions": [],
+          "empty_set_convention": "The empty set retains the raw output baseline; special component and trigger conventions are stated in their entries.",
+          "baseline_convention": "The canonical output baseline b=g(empty) is not assumed zero; source input b_i maps to r_i."
+        }
+      }
+    }
+  ]
+}

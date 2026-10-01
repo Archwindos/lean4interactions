@@ -1,0 +1,127 @@
+{
+  "source_ids": [
+    "src-neurips2021-robustness-formal",
+    "src-neurips2021-robustness-supplement"
+  ],
+  "result_id": "robustness-inference-heuristics",
+  "transcription_status": "complete_author_transcription_pending_independent_review",
+  "transcription_scope": "Five exact author paragraph boundaries: formal PDF5/7 and supplement PDF8/9/10; no experiment synopsis or mathematical repair.",
+  "transcripts": [
+    {
+      "key": "main-low-high-concepts",
+      "result_id": "robustness-inference-heuristics",
+      "source_id": "src-neurips2021-robustness-formal",
+      "source_sha256": "bb6761a34e1175bebeef66cadb0f3d49f4f1793fa8e1c64e33bb776209bbc70f",
+      "pdf_pages": [
+        5
+      ],
+      "section": "Section3; low/high-order contextual complexity",
+      "equation_labels": [],
+      "original_statement_md": "The $m$-order interaction between two input variables $(i,j)$ measures the average interaction between $(i,j)$ when we consider their collaborations with $m$ contextual variables ($m$ pixels). From another perspective, the order $m$ measures the number of contextual variables that influence the interaction between $i$ and $j$. For a low order $m$, $I_{ij}^{(m)}$ reflects the interaction between $i$ and $j$ w.r.t. simple contexts of a few variables. For a high order $m$, $I_{ij}^{(m)}$ corresponds to the interaction w.r.t. complex contexts with massive variables. Figure 2 (right) visualizes the contexts $S$ corresponding to strong low-order interactions and strong high-order interactions, respectively.",
+      "original_proof_md": "Cheng et al. [11] has also proven that low-order interactions (local collaborations) mainly reflect simple and common concepts (features), and high-order interactions (global collaborations) usually represent complex and global features.",
+      "transcription_notes": [
+        "The source explicitly attributes the final claim to Cheng et al. [11]. This record supplies the complete surrounding author paragraph, not an invented local proof."
+      ],
+      "source_evidence_sha256": {
+        "corpus/public/reader/neurips2021-robustness/source-evidence/formal-page-05.txt": "2cf058df7a4b4e99063cd5cc9b9edb667270b3e2711fda6a0f486a3a667bc4f4"
+      },
+      "transcription_status": "complete_author_transcription_pending_independent_review"
+    },
+    {
+      "key": "main-proposition-one-sensitivity",
+      "result_id": "robustness-inference-heuristics",
+      "source_id": "src-neurips2021-robustness-formal",
+      "source_sha256": "bb6761a34e1175bebeef66cadb0f3d49f4f1793fa8e1c64e33bb776209bbc70f",
+      "pdf_pages": [
+        7
+      ],
+      "section": "Section4.1; immediately after Proposition1",
+      "equation_labels": [],
+      "original_statement_md": "Proposition 1 indicates that compared to low-order interactions, high-order interactions are conditioned on larger contexts $S$, i.e. conditioned on more contextual perturbations, thereby suffering more from adversarial perturbations.",
+      "original_proof_md": "Note that in Proposition 1, we set $\\widehat v(S)=H(Y\\mid X_S)$, which is slightly different from setting $v(S)=\\log p(y=y^{\\mathrm{truth}}\\mid S,x)$ in Section 4.1. Nevertheless, the trend of $v(S)$ can roughly reflect the negative trend of $\\widehat v(S)$, which is discussed in the supplementary material.",
+      "transcription_notes": [
+        "These are the two complete author paragraphs following Proposition1. The main-paper conditional argument order is S,x. No condition making a larger context imply larger adversarial sensitivity is supplied by this transcription."
+      ],
+      "source_evidence_sha256": {
+        "corpus/public/reader/neurips2021-robustness/source-evidence/formal-page-07.txt": "0decd9e2b1a520da66a2657237f3fc7e48f14a75cd4ef96e7fa5d5a5706ab32e"
+      },
+      "transcription_status": "complete_author_transcription_pending_independent_review"
+    },
+    {
+      "key": "supplement-entropy-trend",
+      "result_id": "robustness-inference-heuristics",
+      "source_id": "src-neurips2021-robustness-supplement",
+      "source_sha256": "95938634ace8a0ff3762f1ee74292d0af234487e3a61faf832c59a3d94a5d89b",
+      "pdf_pages": [
+        8
+      ],
+      "section": "E. Relationship between v-hat(S) and v(S)",
+      "equation_labels": [],
+      "original_statement_md": "In Section 4.1 of the main paper, we claim that the trend of $v(S)$ can roughly reflect the negative trend of $\\widehat v(S)$. In this section, we discuss the negative correlation between $\\widehat v(S)$ and $v(S)$.",
+      "original_proof_md": "According to Proposition 1, $\\widehat v(S)=H(Y\\mid X_S)$ denotes the entropy of the classification probability given variables in $S$ of the image $x$. Thus, $\\widehat v(S)$ measures the uncertainty of the prediction. If the model prediction is correct and confident, i.e. the value of $v(S)=\\log p(y=y^{\\mathrm{truth}}\\mid x,S)$ is large, then the uncertainty $\\widehat v(S)$ is very low. In comparison, if the model prediction is correct but with a small value of $v(S)$, then the uncertainty is large, yielding a large value of $\\widehat v(S)$. Therefore, the trend of $v(S)$ can roughly reflect the negative trend of $\\widehat v(S)$ when the model prediction is correct.",
+      "transcription_notes": [
+        "Section E is fully transcribed, including both correct-prediction qualifications and the author roughly-reflect wording. The supplementary conditional argument order is x,S. No binary-label assumption or monotonicity theorem is inserted."
+      ],
+      "source_evidence_sha256": {
+        "corpus/public/reader/neurips2021-robustness/source-evidence/supplement-page-08.txt": "7282f2435dc449e1541a1ca08ca4477853f1dfd1920e339f5bf0340f509f7762"
+      },
+      "transcription_status": "complete_author_transcription_pending_independent_review"
+    },
+    {
+      "key": "supplement-attribution-detection",
+      "result_id": "robustness-inference-heuristics",
+      "source_id": "src-neurips2021-robustness-supplement",
+      "source_sha256": "95938634ace8a0ff3762f1ee74292d0af234487e3a61faf832c59a3d94a5d89b",
+      "pdf_pages": [
+        9
+      ],
+      "section": "G. Final accumulation-to-detection argument",
+      "equation_labels": [],
+      "original_statement_md": "According to the accumulation property of multi-order Shapley values and interactions, we have $\\phi^{(n-1)}(i\\mid x)=\\mathbb E_{j\\in N\\setminus\\{i\\}}\\left[\\sum_{m=0}^{n-2}I_{ij}^{(m)}\\right]+\\phi^{(0)}(i\\mid x)$.",
+      "original_proof_md": "This indicates that $\\phi^{(n-1)}(i\\mid x)$ contains the interaction components with the highest order ($m=n-2$), which are not included in Shapley values with orders lower than $n-1$. Section 4.1 of the paper has pointed that high-order interactions are the most sensitive to adversarial perturbations, thereby enabling the detection of adversarial examples.",
+      "transcription_notes": [
+        "This is the complete concluding author paragraph of G, after its separate attribution-equality proof. The source unnumbered accumulation formula and its detection inference are retained; no guarantee for every detector/model is added. The preceding Eq11/equality chain belongs to robustness-detector-attribution and is not duplicated here."
+      ],
+      "source_evidence_sha256": {
+        "corpus/public/reader/neurips2021-robustness/source-evidence/supplement-page-09.txt": "685308d58528cd52d586277d81fc343df0c2ad1b432a9e10bd1bbdf4a8cc9038"
+      },
+      "transcription_status": "complete_author_transcription_pending_independent_review"
+    },
+    {
+      "key": "supplement-dropout-sensitivity",
+      "result_id": "robustness-inference-heuristics",
+      "source_id": "src-neurips2021-robustness-supplement",
+      "source_sha256": "95938634ace8a0ff3762f1ee74292d0af234487e3a61faf832c59a3d94a5d89b",
+      "pdf_pages": [
+        10
+      ],
+      "section": "H. Explanation immediately after Equation15",
+      "equation_labels": [],
+      "original_statement_md": "According to Eq. (15), the dropout operation removes all high-order interactions ($m>(1-\\alpha)n-2$), while slightly affects low-order interactions.",
+      "original_proof_md": "Thus, the dropout operation can remove sensitive interaction components of the DNN, thereby reducing the attacking utility of perturbations and correcting the network output.",
+      "transcription_notes": [
+        "This is the complete author paragraph after Eq15. The literal m>(1-alpha)n-2 threshold and unqualified author output-correction inference are preserved. The existing floor/finite-average issue is project analysis and is not inserted into the original author fields. Eq14/15 derivations remain in the separate dropout result."
+      ],
+      "source_evidence_sha256": {
+        "corpus/public/reader/neurips2021-robustness/source-evidence/supplement-page-10.txt": "71e251e884a8359a25ce43feb196ac167cd5d1f30eafa6626d019e3029777481"
+      },
+      "transcription_status": "complete_author_transcription_pending_independent_review"
+    }
+  ],
+  "project_notes": [
+    "The old entry mixed these author claims with project source-location and experiment summaries. Such summaries belong in project notes, not original fields. This source package neither changes mathematical judgments nor adds proof targets.",
+    "The Main PDF8–10 and Supplement I experiment synopsis is deliberately outside these author fields. The requested source boundary is the actual mathematical/heuristic argument paragraphs, not all experimental narrative."
+  ],
+  "visual_review": {
+    "formal_pdf_pages": [
+      5,
+      7
+    ],
+    "supplement_pdf_pages": [
+      8,
+      9,
+      10
+    ],
+    "method": "Actual official page images visually reviewed; mathematical prose boundaries, conditional argument order and literal dropout threshold retained."
+  }
+}

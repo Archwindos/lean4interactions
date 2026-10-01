@@ -1,0 +1,115 @@
+                                    Defects of Convolutional Decoder Networks in Frequency Representation
+
+                                (l,uv)
+optimization step of Tdc                 in real implementations can be computed as follows.
+
+
+
+
+           ∂Loss
+              (l,uv)
+         ∂T dc
+                  K−1 K−1
+               1 X X        ∂Loss           ut  vs
+          =                             ei( M + N )2π                         //Equation (20)
+              M N t=0 s=0 ∂W (l)[ker=d]
+                             cts
+                                           −1 N −1
+                  K−1 K−1                M
+                                                                                     !
+               1 X X                     X    X           ∂Loss        (l−1,c)               ut    vs
+          =                                          (l,d)
+                                                                    · F m+t,n+s          ei( M + N )2π      //Equation (21)
+              M N t=0 s=0                 m=0 n=0 ∂F mn
+           //Equation (19)
+                                           −1 N −1                       M −1 N −1
+                K−1 K−1                  M
+                                                                                                                                !
+             1 X X                       X    X           ∂Loss        1 X X (l−1,c) −i( u0 (m+t) +
+                                                                                                    v 0 (n+s)
+                                                                                                              )2π                      ut   vs
+          =                                          (l,d)
+                                                                    ·              Gu0 v0 e  M           N                          ei( M + N )2π
+            M N t=0 s=0                   m=0 n=0 ∂F mn
+                                                                      MN 0     0
+                                                                             u =0 v =0
+                                           −1 N −1                                               M −1 N −1
+                K−1 K−1                  M
+                                                                                                                                            !
+                                                                          0    0                                    0m    0
+             1 X X                       X    X          (l−1,c)    −i( uMt + vNs )2π         1 X X ∂Loss −i( uM       + vNn )2π                   ut   vs
+          =                                             Gu0 v0 e                           ·                      e                             ei( M + N )2π
+            M N t=0 s=0                                                                      M N m=0 n=0 ∂F (l,d)
+                                         u0 =0 v 0 =0                                                       mn
+                                           −1 N −1
+                       K−1
+                                                                                                 !
+               1       X K−1
+                           X             M
+                                         X    X           (l−1,c)   ∂Loss             u0 t + v 0 s )2π      ut   vs
+          =                                             Gu0 v0        (l,d)
+                                                                              e−i( M          N          ei( M + N )2π   //Equation (20)
+              MN                                                    ∂Gu0 v0
+                        t=0 s=0          u0 =0 v 0 =0
+                  K−1 K−1 M −1 N −1                    0 )t
+               1 X X X X (l−1,c) ∂Loss i( (u−u                (v−v 0 )s
+                                                            +           )2π
+          =                         Gu0 v0   (l,d)
+                                                   e M           N
+              M N t=0 s=0 0     0          ∂G 0 0
+                                        u =0 v =0                    u v
+              M −1 N −1                                            K−1
+                                                                   X K−1
+              X    X             (l−1,c)   ∂Loss           1           X            (u−u0 )t   (v−v 0 )s
+          =                    Gu0 v0        (l,d)
+                                                      ·                       ei(     M
+                                                                                             +    N
+                                                                                                         )2π
+
+                                           ∂Gu0 v0        MN
+              u0 =0 v 0 =0                                         t=0 s=0
+                                             K−1
+                                             X K−1
+                                      1          X              (u−u0 )t   (v−v 0 )s
+                                                             i(          +           )2π
+         // Let χu0 v0 uv =                                e      M           N
+                                     MN      t=0 s=0
+              M −1 N −1
+              X    X                       (l−1,c)      ∂Loss
+          =                    χu0 v0 uv Gu0 v0            (l,d)
+              u0 =0   v 0 =0                          ∂Gu0 v0
+
+
+
+
+where χu0 v0 uv can be rewritten as follows.
+
+
+
+
+                            K−1 K−1     0 )t
+                         1 X X i( (u−u         (v−v 0 )s
+                                             +           )2π
+        χu0 v0 uv =                 e M           N
+                        M N t=0 s=0
+                            K−1     0 )2π K−1
+                                           X i (v−v0 )2π s
+                         1 X i (u−u      t
+                  =             e M            e  N
+                        M N t=0            s=0
+                                                  0                   0
+                                K(u−u )π
+                         1 sin(    M
+                                            ) sin( K(v−v
+                                                       N
+                                                            )π
+                                                               ) i( (K−1)(u−u0 ) + (K−1)(v−v0 ) )π
+                  =              (u−u 0 )π          (v−v 0 )π   ·e      M              N                                 //According to Equation (13)
+                        M N sin(           ) sin( N )
+                                   M
+
+
+
+
+                                                                                          16
+

@@ -1,0 +1,533 @@
+{
+  "scope": "Development-package structure and language only; no source/math/Lean acceptance or manifest mutation",
+  "paper_id": "neurips2023-difficulty",
+  "status": "structural_checks_passed_pending_mathematical_review",
+  "result_count": 37,
+  "target_entries": 27,
+  "target_result_ids": [
+    "diff-adversarial-inference",
+    "diff-adversarial-learning-inference",
+    "diff-anonymity",
+    "diff-binary",
+    "diff-distribution",
+    "diff-dummy",
+    "diff-efficiency",
+    "diff-fast-learning-inference",
+    "diff-frequency-learning-inference",
+    "diff-general-moments",
+    "diff-kappa-conversion",
+    "diff-learning-consistency-argument",
+    "diff-linear-representation",
+    "diff-linearity",
+    "diff-moments",
+    "diff-multiorder",
+    "diff-noise-learning-inference",
+    "diff-order-variance-argument",
+    "diff-product",
+    "diff-recursion",
+    "diff-regression",
+    "diff-salient-reconstruction",
+    "diff-shallow-learning-inference",
+    "diff-sparsity",
+    "diff-symmetry",
+    "diff-taylor",
+    "diff-universal"
+  ],
+  "non_target_entries": [
+    {
+      "id": "diff-interaction",
+      "kind": "definition",
+      "reason": "Eq.(1) defines the dividend of a fixed masked-input game; it does not assert a separate theorem.",
+      "requires_source_and_content_review": true
+    },
+    {
+      "id": "diff-concept-order",
+      "kind": "definition",
+      "reason": "This paragraph defines complexity/order as support cardinality and illustrates the terminology.",
+      "requires_source_and_content_review": true
+    },
+    {
+      "id": "diff-reference",
+      "kind": "definition",
+      "reason": "The reference rule, its clipping footnote and the Gaussian approximation specify a model rather than a proved identity.",
+      "requires_source_and_content_review": true
+    },
+    {
+      "id": "diff-order-variance-metrics",
+      "kind": "empirical",
+      "reason": "These displayed formulas define finite experimental aggregates; Figure2 is an observation, not an algebraic order theorem.",
+      "requires_source_and_content_review": true
+    },
+    {
+      "id": "diff-trigger-definition",
+      "kind": "definition",
+      "reason": "Eq.(7) defines a quotient trigger. Its zero-coefficient boundary is recorded separately; the quotient definition is not a separate theorem.",
+      "requires_source_and_content_review": true
+    },
+    {
+      "id": "diff-training-metrics",
+      "kind": "empirical",
+      "reason": "Beta and kappa introduce experimental metrics and plots. The asserted equality between the two kappa expressions is a separate true proof target diff-kappa-conversion.",
+      "requires_source_and_content_review": true
+    },
+    {
+      "id": "diff-multiorder-definition",
+      "kind": "definition",
+      "reason": "Appendix F defines a context-size average. Context size m and concept support size |S| are distinct notions; the G.4 relation is separately targeted.",
+      "requires_source_and_content_review": true
+    },
+    {
+      "id": "diff-experiments",
+      "kind": "empirical",
+      "reason": "These pages give empirical configurations, plots, limitations and literature interpretations. No new local formal proof is present; all displayed mathematical claims elsewhere have individual targets.",
+      "requires_source_and_content_review": true
+    },
+    {
+      "id": "diff-training-similarity",
+      "kind": "definition",
+      "reason": "The unnumbered formulas define sign-split vectors and weighted Jaccard similarity; Figure5 is a finite observation.",
+      "requires_source_and_content_review": true
+    },
+    {
+      "id": "diff-adversarial-metric",
+      "kind": "empirical",
+      "reason": "Alpha and A^(s) define experimental attack sensitivity aggregates; their numerical order trend is empirical.",
+      "requires_source_and_content_review": true
+    }
+  ],
+  "errors": [],
+  "bilingual_errors": [],
+  "inline_math_differences": [
+    {
+      "id": "diff-salient-reconstruction",
+      "step_id": "diff-salient-reconstruction-step-1",
+      "classification": "inline_tex_text_difference_requires_semantic_review",
+      "zh": [
+        [
+          "S\\in\\Omega",
+          "",
+          ""
+        ],
+        [
+          "S\\notin\\Omega",
+          "",
+          ""
+        ],
+        [
+          "|R_T|\\le\\sum_{S\\subseteq T,S\\notin\\Omega}|I_g(S)|",
+          "",
+          ""
+        ],
+        [
+          "I_g(\\varnothing)=b",
+          "",
+          ""
+        ]
+      ],
+      "en": [
+        [
+          "|R_T|\\le\\sum_{S\\subseteq T,S\\notin\\Omega}|I_g(S)|",
+          "",
+          ""
+        ]
+      ]
+    },
+    {
+      "id": "diff-taylor",
+      "step_id": "diff-taylor-step-2",
+      "classification": "inline_tex_text_difference_requires_semantic_review",
+      "zh": [
+        [
+          "m_\\pi(z^T)",
+          "",
+          ""
+        ],
+        [
+          "\\operatorname{supp}\\pi\\subseteq T",
+          "",
+          ""
+        ],
+        [
+          "m_\\pi(z)",
+          "",
+          ""
+        ],
+        [
+          "g(T)=\\sum_{S\\subseteq T}K_S",
+          "",
+          ""
+        ],
+        [
+          "K_S=I_g(S)",
+          "",
+          ""
+        ]
+      ],
+      "en": [
+        [
+          "m_\\pi(z^T)",
+          "",
+          ""
+        ],
+        [
+          "m_\\pi(z)",
+          "",
+          ""
+        ],
+        [
+          "\\operatorname{supp}\\pi\\subseteq T",
+          "",
+          ""
+        ],
+        [
+          "g(T)=\\sum_{S\\subseteq T}K_S",
+          "",
+          ""
+        ],
+        [
+          "K_S=I_g(S)",
+          "",
+          ""
+        ]
+      ]
+    },
+    {
+      "id": "diff-moments",
+      "step_id": "diff-moments-step-1",
+      "classification": "inline_tex_text_difference_requires_semantic_review",
+      "zh": [
+        [
+          "Z\\sim\\mathcal N(1,q)",
+          "",
+          ""
+        ],
+        [
+          "E Z=1",
+          "",
+          ""
+        ],
+        [
+          "|Z|-Z\\ge0",
+          "",
+          ""
+        ],
+        [
+          "Z<0",
+          "",
+          ""
+        ],
+        [
+          "E|Z|=1+E(|Z|-Z)>1",
+          "",
+          ""
+        ]
+      ],
+      "en": []
+    },
+    {
+      "id": "diff-moments",
+      "step_id": "diff-moments-step-2",
+      "classification": "inline_tex_text_difference_requires_semantic_review",
+      "zh": [
+        [
+          "|Z|^2=Z^2",
+          "",
+          ""
+        ],
+        [
+          "EZ^2=1+q",
+          "",
+          ""
+        ],
+        [
+          "\\operatorname{Var}|Z|=1+q-(E|Z|)^2<q",
+          "",
+          ""
+        ],
+        [
+          "Z",
+          "",
+          ""
+        ]
+      ],
+      "en": []
+    },
+    {
+      "id": "diff-general-moments",
+      "step_id": "diff-general-moments-step-1",
+      "classification": "inline_tex_text_difference_requires_semantic_review",
+      "zh": [
+        [
+          "1+s_i\\epsilon_i/\\tau",
+          "",
+          ""
+        ]
+      ],
+      "en": []
+    },
+    {
+      "id": "diff-general-moments",
+      "step_id": "diff-general-moments-step-2",
+      "classification": "inline_tex_text_difference_requires_semantic_review",
+      "zh": [
+        [
+          "|1+s\\epsilon/\\tau|^{\\pi_i}",
+          "",
+          ""
+        ],
+        [
+          "(1+\\epsilon/\\tau)^{\\pi_i}",
+          "",
+          ""
+        ]
+      ],
+      "en": []
+    },
+    {
+      "id": "diff-product",
+      "step_id": "diff-product-step-1",
+      "classification": "inline_tex_text_difference_requires_semantic_review",
+      "zh": [
+        [
+          "E\\prod X_i=\\prod EX_i",
+          "",
+          ""
+        ],
+        [
+          "E(\\prod X_i)^2=\\prod EX_i^2",
+          "",
+          ""
+        ],
+        [
+          "EX_i^2=(EX_i)^2+\\operatorname{Var}X_i",
+          "",
+          ""
+        ]
+      ],
+      "en": []
+    },
+    {
+      "id": "diff-binary",
+      "step_id": "diff-binary-step-1",
+      "classification": "inline_tex_text_difference_requires_semantic_review",
+      "zh": [
+        [
+          "S\\subseteq T",
+          "",
+          ""
+        ],
+        [
+          "I(S)",
+          "",
+          ""
+        ],
+        [
+          "L\\subseteq S",
+          "",
+          ""
+        ],
+        [
+          "L\\cap T=L",
+          "",
+          ""
+        ],
+        [
+          "i\\in S\\setminus T",
+          "",
+          ""
+        ],
+        [
+          "i",
+          "",
+          ""
+        ],
+        [
+          "I_{g_T}(S)=0",
+          "",
+          ""
+        ],
+        [
+          "I_{g_T}(S)=\\mathbf1_{S\\subseteq T}I_g(S)",
+          "",
+          ""
+        ]
+      ],
+      "en": [
+        [
+          "S\\subseteq T",
+          "",
+          ""
+        ],
+        [
+          "L\\subseteq S",
+          "",
+          ""
+        ],
+        [
+          "L\\cap T=L",
+          "",
+          ""
+        ],
+        [
+          "i\\in S\\setminus T",
+          "",
+          ""
+        ],
+        [
+          "i",
+          "",
+          ""
+        ],
+        [
+          "I_{g_T}(S)=0",
+          "",
+          ""
+        ],
+        [
+          "I_{g_T}(S)=\\mathbf1_{S\\subseteq T}I_g(S)",
+          "",
+          ""
+        ]
+      ]
+    },
+    {
+      "id": "diff-binary",
+      "step_id": "diff-binary-step-3",
+      "classification": "inline_tex_text_difference_requires_semantic_review",
+      "zh": [
+        [
+          "S\\not\\subseteq T",
+          "",
+          ""
+        ],
+        [
+          "j\\in S\\setminus T",
+          "",
+          ""
+        ],
+        [
+          "S\\subsetneq T",
+          "",
+          ""
+        ],
+        [
+          "r_i/b_i",
+          "",
+          ""
+        ]
+      ],
+      "en": [
+        [
+          "S\\not\\subseteq T",
+          "",
+          ""
+        ]
+      ]
+    },
+    {
+      "id": "diff-linear-representation",
+      "step_id": "diff-linear-representation-step-2",
+      "classification": "inline_tex_text_difference_requires_semantic_review",
+      "zh": [
+        [
+          "U_S\\ne0",
+          "",
+          ""
+        ],
+        [
+          "C_S(x\\prime)=I_h(S)/U_S",
+          "",
+          ""
+        ],
+        [
+          "U_SC_S=I_h(S)",
+          "",
+          ""
+        ],
+        [
+          "C_S",
+          "",
+          ""
+        ],
+        [
+          "U_S",
+          "",
+          ""
+        ]
+      ],
+      "en": [
+        [
+          "U_S",
+          "",
+          ""
+        ],
+        [
+          "C_S(x\\prime)=I_h(S)/U_S",
+          "",
+          ""
+        ],
+        [
+          "U_SC_S=I_h(S)",
+          "",
+          ""
+        ],
+        [
+          "C_S",
+          "",
+          ""
+        ],
+        [
+          "U_S",
+          "",
+          ""
+        ]
+      ]
+    },
+    {
+      "id": "diff-multiorder",
+      "step_id": "diff-multiorder-step-1",
+      "classification": "inline_tex_text_difference_requires_semantic_review",
+      "zh": [
+        [
+          "\\Delta g(i,j,S)=\\sum_{L\\subseteq S}I_g(L\\cup\\{i,j\\})",
+          "",
+          ""
+        ]
+      ],
+      "en": []
+    },
+    {
+      "id": "diff-regression",
+      "step_id": "diff-regression-step-1",
+      "classification": "inline_tex_text_difference_requires_semantic_review",
+      "zh": [
+        [
+          "L(w)=E(y^*-w^\\top f)^2=(y^*-\\mu^\\top w)^2+\\sum_i d_iw_i^2",
+          "",
+          ""
+        ],
+        [
+          "2(Kw-y^*\\mu)",
+          "",
+          ""
+        ]
+      ],
+      "en": []
+    }
+  ],
+  "input_hashes": {
+    "corpus/public/reader/neurips2023-difficulty/paper-metadata.json": "381083cfc958a2d63149a470d70619e256c6716196ff9dbec2ea6c8a36e3067c",
+    "corpus/public/reader/neurips2023-difficulty/inventory.json": "6ca6c7779f6cd8f1f2e888cad6f37919ac70ca55e8416acbb8d29256320928fc",
+    "corpus/public/reader/neurips2023-difficulty/content.json": "5bdc6266dccf59826fcd7145e02329495ae65f150382ac1fbda08242fbae1b32",
+    "corpus/public/reader/neurips2023-difficulty/symbols.json": "c958eb1c25618c1a8b5b56794e789ff52b66bafc99f5bee44a0550b617c71fe2",
+    "corpus/public/reader/neurips2023-difficulty/issues.json": "dda703189fcd5b7d53c977c74f3a2c52069d7fca761dda463b03807ea9123167",
+    "reader/check_draft_admission.py": "cf98e56c12173858353bac810a20752884ab6ac4f266975ff269630107947648",
+    "reader/architecture/admission-contract.json": "29dfffdc33d3463989cb6485e72265e0d5c53e0122d7d1f70952530336f5010f",
+    "reader/inventory_contract.py": "e942198bd0e61da3144d3f19d0dba2a611df7eb3ea748359b1b96a9ba47033f2",
+    "reader/bilingual.py": "aeec1605b4d57cec38a3fc7215215ace4b686153e5910493f3daa11595f7bc88",
+    "reader/symbols_english.py": "cc75b9f100874e2310c3f12365de5a2b79d9f79e96757c89459ad2f5ce680a96",
+    "reader/symbol_context_english.py": "0faf107350cb6e7617963f75ff48301a7e8a78f3c28bf07ed11e5d1e957f5654",
+    "reader/evidence_paths.py": "0691f8e89020fc256f3edc079070201580230a187a849f674ddc6314341046ae"
+  },
+  "machine_role_status_reviews": []
+}

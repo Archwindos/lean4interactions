@@ -1,0 +1,32 @@
+# A Unified Game-Theoretic Interpretation of Adversarial Robustness
+
+- src-neurips2021-robustness-formal PDF 1: Abstract;1 — empirical_background; robustness-inference-heuristics
+- src-neurips2021-robustness-formal PDF 2: 1;2 — empirical_background; robustness-inference-heuristics
+- src-neurips2021-robustness-formal PDF 3: 2 — empirical_background; robustness-inference-heuristics
+- src-neurips2021-robustness-formal PDF 4: 3 definitions — definitions_statements_and_derivations; robustness-multiorder-definitions, robustness-inference-heuristics
+- src-neurips2021-robustness-formal PDF 5: 3 efficiency and Eq3 — definitions_statements_and_derivations; robustness-multiorder-definitions, robustness-interaction-efficiency, robustness-attacking-decomposition, robustness-inference-heuristics
+- src-neurips2021-robustness-formal PDF 6: 4.1 experiments — empirical_background; robustness-inference-heuristics
+- src-neurips2021-robustness-formal PDF 7: 4.1 Prop1 — definitions_statements_and_derivations; robustness-entropy-interaction, robustness-inference-heuristics
+- src-neurips2021-robustness-formal PDF 8: 4.2;4.3 Eq5 — definitions_statements_and_derivations; robustness-multiorder-definitions, robustness-shapley-efficiency, robustness-accumulation, robustness-disentanglement, robustness-detector-attribution, robustness-inference-heuristics
+- src-neurips2021-robustness-formal PDF 9: 4.3 detector/rank/cutout — empirical_background; robustness-dropout-expansion, robustness-inference-heuristics
+- src-neurips2021-robustness-formal PDF 10: 4.3;5;Acknowledgments — empirical_background; robustness-dropout-expansion, robustness-inference-heuristics
+- src-neurips2021-robustness-formal PDF 11: References — references_or_checklist; no local proof target
+- src-neurips2021-robustness-formal PDF 12: References — references_or_checklist; no local proof target
+- src-neurips2021-robustness-formal PDF 13: References — references_or_checklist; no local proof target
+- src-neurips2021-robustness-formal PDF 14: Checklist — references_or_checklist; no local proof target
+- src-neurips2021-robustness-supplement PDF 1: A Shapley preliminary — empirical_or_external_scope; robustness-shapley-orders, robustness-inference-heuristics, robustness-classical-linearity, robustness-classical-dummy, robustness-classical-symmetry, robustness-classical-efficiency, robustness-classical-uniqueness
+- src-neurips2021-robustness-supplement PDF 2: B.1 interaction linearity — local_proofs_and_derivations; robustness-multiorder-definitions, robustness-interaction-linearity, robustness-shapley-interaction-orders
+- src-neurips2021-robustness-supplement PDF 3: B.1 null/comm/sym/eff — local_proofs_and_derivations; robustness-interaction-nullity, robustness-interaction-commutativity, robustness-interaction-symmetry, robustness-interaction-efficiency
+- src-neurips2021-robustness-supplement PDF 4: B.1;B.2 — local_proofs_and_derivations; robustness-multiorder-definitions, robustness-shapley-linearity, robustness-shapley-nullity, robustness-shapley-symmetry, robustness-shapley-orders, robustness-interaction-efficiency
+- src-neurips2021-robustness-supplement PDF 5: B.2;B.3 — local_proofs_and_derivations; robustness-shapley-symmetry, robustness-shapley-efficiency, robustness-marginal-attribution, robustness-accumulation
+- src-neurips2021-robustness-supplement PDF 6: B.4 Prop1/benefit — local_proofs_and_derivations; robustness-entropy-interaction, robustness-exclusive-shared-benefits
+- src-neurips2021-robustness-supplement PDF 7: B.4 benefit;C;D — local_proofs_and_derivations; robustness-exclusive-shared-benefits, robustness-delta-average, robustness-inference-heuristics
+- src-neurips2021-robustness-supplement PDF 8: D;E;F — local_proofs_and_derivations; robustness-interaction-efficiency, robustness-delta-average, robustness-disentanglement, robustness-inference-heuristics
+- src-neurips2021-robustness-supplement PDF 9: G;H — local_proofs_and_derivations; robustness-accumulation, robustness-detector-attribution, robustness-dropout-expansion, robustness-inference-heuristics
+- src-neurips2021-robustness-supplement PDF 10: H;I.1 — local_proofs_and_derivations; robustness-dropout-expansion, robustness-inference-heuristics
+- src-neurips2021-robustness-supplement PDF 11: I.1–I.2 — empirical_or_external_scope; robustness-inference-heuristics
+- src-neurips2021-robustness-supplement PDF 12: I.3–I.6 — empirical_or_external_scope; robustness-inference-heuristics
+- src-neurips2021-robustness-supplement PDF 13: I.6–I.8 — empirical_or_external_scope; robustness-inference-heuristics
+- src-neurips2021-robustness-supplement PDF 14: I.9–I.10 — empirical_or_external_scope; robustness-inference-heuristics
+- src-neurips2021-robustness-supplement PDF 15: References — references; robustness-inference-heuristics
+- src-neurips2021-robustness-supplement PDF 16: References — references; robustness-inference-heuristics, robustness-classical-uniqueness

@@ -1,0 +1,124 @@
+                                                                                                             ( )                   ( )        ( )                                                                                                                                                                      ( )       ( )
+                                                                                                        Δ               =                −                                                                                                                                                  Δ    ( )
+                                                                                                                                                                                                                                                                                                           =                 −
+                              ResNet-18                          ResNet-50                          Wide-                     DenseNet-161                          VGG-16                                           ResNet-18                       ResNet-50                          Wide-                      DenseNet-161                         VGG-16                           PointNet++
+                    0.04                                                                                                                                                                               0.04
+                                                  0.06                                            ResNet50-4                                                                                                                           0.06                                           ResNet50-4                                         0.08
+
+
+
+
+Standard
+
+
+
+
+                                                                                                                                                                                      Standard
+                                                                                                                    0.02                             0.06
+                                                                                   0.06
+
+
+
+
+  DNN
+
+
+
+
+                                                                                                                                                                                        DNN
+                      0                                                                                                                                                                                                                                                                                  0.02                            0.04                             0.02
+                                                                                                                                                     0.02                                                                                                               0.04
+                                                  0.02                                                                                                                                                    0                            0.03
+                -0.04                                                                  0                            -0.02
+                                                                                                                                                     -0.02                                                                                                                 0                                                                 0
+
+                -0.08                             -0.02                            -0.06                            -0.06                            -0.06                                            -0.04                              0                             -0.04                            -0.02                            -0.04
+                           0.1n           0.95n           0.1n             0.95n           0.1n             0.95n           0.1n             0.95n           0.1n             0.95n                                                           0.1n             0.95n           0.1n             0.95n           0.1n             0.95n           0.1n             0.95n
+                                  order                            order                            order                           order                             order                                   0.1n     order   0.95n
+                                                                                                                                                                                                                                                       order                            order                            order                            order
+Adversarially
+trained DNN
+
+
+
+
+                                                                                                                                                                                      Adversarially
+                                                                                                                                                                                      trained DNN
+                                                  0.02                             0.06                             0.04                             0.04                                                                                                                                               0.04                                                              -0.08
+                    0.03                                                                                                                                                                                                                                               0.05                                                                                                       0.1n     order   0.95n
+                                                                                                                                                                                                      0.03                         0.014                                                                                                 0.02
+                                                  0.01                                                                                               0.02                                                                                                                                               0.02
+                                                                                   0.02                                0
+                    0.01
+                                                     0                                                                                                  0                                             0.01                         0.004                               0.02
+                                                                                                                                                                                                                                                                                                           0
+                                                                                                                                                                                                                                                                                                                                            0                              (c) The standard
+                -0.01                             -0.01                            -0.02                            -0.04                            -0.02                                            -0.01                        -0.006                              -0.01                            -0.02                            -0.02
+                                                                                                                                                                                                                                                                                                                                                                            PointNet++ learned
+                           0.1n           0.95n           0.1n             0.95n           0.1n             0.95n           0.1n             0.95n           0.1n             0.95n                                                       0.1n                 0.95n           0.1n             0.95n           0.1n             0.95n           0.1n             0.95n
+                                  order                            order                            order                           order                             order                                   0.1n             0.95n
+                                                                                                                                                                                                                       order                           order                            order                            order                            order             on the ModelNet10
+                                                                           (a) Untargeted attack                                                                                                                                                                (b) Targeted attack                                                                                         dataset.
+                                                                                                                                                                          (m)                                        (m)
+Figure 3: The multi-order interaction Inor and Iadv of standard DNNs and adversarially trained
+DNNs. Adversarial perturbations mainly affected high-order interactions.
+
+4                   Explaining adversarial attacks and defense using interactions
+To simplify the story, we only study the simplest and widely-used untargeted and targeted ℓ∞ PGD
+attacks [34].
+
+4.1                        Attacks mainly affect high-order interactions
+
+Attacking utility of m-order interactions. According to Eq. (3), effects of adversarial attacks
+                                                 (m)            (m)
+mainly depend on changes of interactions ∆Iij        (x) (or ∆Jij (x)). Thus, in this section, we further
+                                                                             (m)
+conduct experiments to show that adversarial attacks mainly affect ∆Iij          (x) of high orders. In
+order to compare the multi-order interactions in normal samples and those in adversarial examples,
+we measure the average interaction of a specific order m among different pairs of variables in
+                                                  (m)
+different input images, i.e. I (m) = Ex∈Ω Ei,j [Iij   (x)], where Ω ⊆ Rn denotes the set of all samples.
+                                                    (m)
+We use the normal samples Ωnor to compute Inor and use adversarial examples Ωadv to compute
+ (m)                       def (m)     (m)
+Iadv . In this way, ∆I (m) = Inor − Iadv represents effects of attacks on the m-order interactions.
+                   def
+Similarly, ∆J (m) = Ex∈Ω Ei,j [∆Jij(m) (x)] = n−1−m
+                                                n(n−1)
+                                                         ∆I (m) measures the attacking utility of the m-
+order interactions according to Eq. (3).
+Comparing attacking utilities between interactions of different orders (in terms of I (m) ).
+                             (m)        (m)
+In order to measure Inor          and Iadv  , we conducted experiments on ResNet-18/34/50 [24], Wide-
+ResNet50-4 [67], DenseNet-161 [26], and VGG-16 [45]. For each DNN, we obtained both the
+standardly trained version and the adversarially trained version on the ImageNet dataset [42]5 .
+We also conducted experiments on PointNet++ [40] learned on the ModelNet10 dataset [61],
+which is a 3D dataset. We measured the interaction I (m) by setting v(S|x) = log p(y =
+y truth |given variables in S in the input x and mask variables in N \ S), and x ∈ Ω was sampled from the
+validation set. By following settings in [1], the masked variables in N \ S were set to the average
+value over different input samples. However, the computational cost of I (m) was intolerable. To
+reduce the computational cost, we applied the sampling-based approximation method in [70] and
+computed interactions at the grid level, rather than the pixel level. Please see the supplementary
+material for more discussions.
+We considered both untargeted and targeted6 PGD attacks [34] with the ℓ∞ constraint ∥∆x∥ℓ∞ ≤ ϵ to
+generate adversarial examples. We set ϵ = 32/255 by following the setting in [62]. The step size
+was set to 2/255. For fair comparisons, we controlled the perturbation generated for each image
+to have similar attacking utility of 8. The attacking utility in untargeted attacks was defined as
+Uuntarget (x) = hytruth (N |x) − hytruth (N |xadv ), where hytruth (N |x) and hytruth (N |xadv ) denote network outputs
+of the ground-truth category y truth before the softmax layer, when taking the normal sample and the
+adversarial example as input, respectively. The attacking utility in targeted attacks was defined as
+Utarget (x) = (hytarget (N |xadv ) − hytruth (N |xadv )) − (hytarget (N |x) − hytruth (N |x)), where hytarget (·) denote the
+network output of the target category6 y target .
+Results. Figure 3 shows the multi-order interactions within normal samples and adversarial examples.
+We found that adversarial perturbations significantly decreased high-order interactions, in both
+adversarially trained DNNs and standard DNNs. For example, in Figure 3 (a), low-order interactions
+                5
+      We used pretrained models released by Salman et al. [43].
+                6
+      In the untargeted attack, we considered the misclassified category as the target category. In the targeted
+attack, the target label was set as the misclassified category in the untarget attack. When we consider interaction
+w.r.t. the target category, we set v(S) = log p(y = y target |given variables in S and mask variables in N \ S).
+
+
+                                                                                                                                                                                                               6
+

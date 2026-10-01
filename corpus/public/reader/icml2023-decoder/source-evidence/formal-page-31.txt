@@ -1,0 +1,43 @@
+                                                                      Defects of Convolutional Decoder Networks in Frequency Representation
+
+
+
+
+                               Input                               zero     circular mirror       Input           zero   circular mirror         Input        zero    circular mirror
+   (a) CIFAR-10 dataset
+   (b) Tiny-ImageNet dataset
+
+
+
+
+Figure 10. A network with zero-padding operations usually strengthened more low-frequency components than a network with circular
+padding operations and a network with mirror padding operations. Here, each magnitude map of the feature spectrum was averaged over
+all channels. For clarity, we move low frequencies to the center of the spectrum map, move high frequencies to corners of the spectrum
+map, and set the magnitude of the fundamental frequency to be the same with the frequency that has the second large magnitude.
+
+
+
+
+                                                                          Input        Layer 1 Layer 3 Layer 10            Input           Layer 1 Layer 3 Layer 10
+                                       (a) CIFAR-10 dataset
+
+
+
+
+                                                                          Input        Layer 1 Layer 3 Layer 10            Input           Layer 1 Layer 3 Layer 10
+                                       (b) Tiny-ImageNet dataset
+
+
+
+
+Figure 11. Comparing feature spectrums of different layers. Results show that higher layers of a network usually generated features with
+more low-frequency components. For clarity, we move low frequencies to the center of the spectrum map, move high frequencies to
+corners of the spectrum map, and set the magnitude of the fundamental frequency to be the same with the frequency that has the second
+large magnitude. For resutls in (b), we only visualized components in the center of the spectrum map with the range of relatively low
+frequencies u ∈ {u|0 ≤ u < M/6} ∪ {u|5M/6 ≤ u < M }; v ∈ {v|0 ≤ v < N/6} ∪ {v|5N/6 ≤ v < N } for clarity.
+
+
+
+
+                                                                                                             31
+

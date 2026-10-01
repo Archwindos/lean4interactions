@@ -1,0 +1,67 @@
+G    The attribution-based method of detecting adversarial examples
+
+In Section 4.3 of the paper, we claim that the attribution score used in [23] to detect adversarial
+exmaples can be writtern as φ(n−1) (i|x). In the supplementary material, this section provides proofs
+for this claim.
+Yang et al. [23] proposed an attribution-based method to detect adversarial examples, which used the
+attribution score of input variables. The attribution score of the variable i in [23] is defined as
+
+                      φ(x)i := f (x)c − f (x(i) )c , where c = arg max f (x)j                     (11)
+                                                                     j∈C
+
+
+where x denotes the original input sample, and x(i) denotes the input sample with the i-th variable
+masked by 0. f (x)c denotes the network output of the c-th category. Actually, f (x)c can also be
+written as v(N |x), and f (x(i) )c can be written as v(N \ {i}|x). Thus, the attribution score can be
+represented as v(N |x) − v(N \ {i}|x). We prove that v(N |x) − v(N \ {i}|x) = φ(n−1) (i|x).
+• Proof :
+
+       v(N |x) − v(N \ {i}|x) = v((N \ {i}) ∪ {i}|x) − v(N \ {i}|x)
+                                                                      def
+                                 = v(S ∪ {i}|x) − v(S|x)      % S = N \ {i}, |S| = n − 1
+                                 = ES⊆N \{i},|S|=n−1 [v(S ∪ {i}|x) − v(S|x)]
+                                 = φ(n−1) (i|x)
+
+                                                                                                    
+According to the accumulation      i of multi-order Shapley values and interactions, we have
+                         hP property
+                           n−2 (m)
+φ(n−1) (i|x) = Ej∈N \{i}      I
+                           m=0 ij   + φ(0) (i|x). This indicates that φ(n−1) (i|x) contains the
+interaction components with the highest order (m = n − 2), which are not included in Shapley values
+with orders lower than n − 1. Section 4.1 of the paper has pointed that high-order interactions are the
+most sensitive to adversarial perturbations, thereby enabling the detection of adversarial examples.
+
+
+H    Effectiveness of the dropout method to alleviate adversarial utilities
+
+In Section 4.3 of the paper, we claim that the dropout operation mainly hurts high-order interactions,
+rather than low-order interactions. In this section, we theoretically prove such effects of the dropout
+operation.
+Given the input sample x ∈ Rn and the dropout rate α, let K = {K|K ⊂ N, |K| = b(1 −
+α)nc} denote all possible sets of remained variables after the dropout operation. Let v α (N |x) =
+EK∈K [v(K|x)] denote the average network output among all inputs after the dropout operation with
+rate α. According to the efficiency property of the multi-order interaction, we have
+
+                                     X                     X n−2
+                                                             X n − 1 − m (m)
+                v(N |x) = v(∅|x) +         φ(0) (i|x) +                   I    (x)                (12)
+                                                             m=0
+                                                                 n(n − 1) ij,N
+                                     i∈N                  i6=j∈N
+
+
+        (m)
+where Iij,N (x) denotes the m-order interaction between variables (i, j) of the input x with all
+variables N . Similarly,
+
+                                   X                        X k−2
+                                                              X k − 1 − m (m)
+              v(K|x) = v(∅|x) +          φ(0) (i|K, x) +                   I    (x)               (13)
+                                                              m=0
+                                                                  k(k − 1) ij,K
+                                   i∈K                     i6=j∈K
+
+
+                                                    9
+

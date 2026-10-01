@@ -1,0 +1,333 @@
+{
+  "schema_version": 1,
+  "build_id": "direct-import-consumer-20261001",
+  "generated_at": "2026-10-01T14:16:57.125066+00:00",
+  "status": "passed",
+  "verification_scope": "independent_downstream_proof_using_one_current_public_extension",
+  "meaning": "Verifies this finite-game consumer proof, not completion of any original paper theorem.",
+  "import": "Harsanyi.Extensions.RobustnessFinite",
+  "library_declarations": [
+    "Harsanyi.Robustness.pairDelta_baseline",
+    "Harsanyi.Robustness.pairDelta_smul",
+    "Harsanyi.Robustness.average_smul"
+  ],
+  "definition_adapter": "g(S)=v(mask(S)); the empty-set output may be nonzero.",
+  "assumptions": [
+    "A finite player set N and decidable equality on the player type.",
+    "A masking function on finite player sets and a real-valued model output.",
+    "The library finite-context average has value zero for an empty context family."
+  ],
+  "not_covered": [
+    "An original context quotient whose denominator is zero.",
+    "A source claim about asymptotic sparsity or a neural-network training procedure."
+  ],
+  "toolchain": "Lean (version 4.24.0, x86_64-unknown-linux-gnu, commit 797c613eb9b6d4ec95db23e3e00af9ac6657f24b, Release)",
+  "lean_version": "4.24.0",
+  "mathlib_revision": "f897ebcf72cd16f89ab4577d0c826cd14afaafc7",
+  "axiom_whitelist": [
+    "Classical.choice",
+    "Quot.sound",
+    "propext"
+  ],
+  "source_files": [
+    {
+      "path": "examples/library-consumer/ExtensionConsumer.lean",
+      "sha256": "3afe9dcefa5f6b0c814efe8cd018b3f0208a59f0f8be828b64c2bb8287e3e49f"
+    },
+    {
+      "path": "examples/library-consumer/lake-manifest.json",
+      "sha256": "a5df03dd221e7b612d8b9761eb278ce3edfc95997016b5bd93c19a46a8639200"
+    },
+    {
+      "path": "examples/library-consumer/lakefile.toml",
+      "sha256": "44cfcbb4d33ad20ddf4d8fa824ded6600282d0659136158ae18b839438094ec9"
+    },
+    {
+      "path": "examples/library-consumer/lean-toolchain",
+      "sha256": "42779d67b81608af8a12aa4328d2ab47ca201925b3b2bd68369587b5340bb434"
+    },
+    {
+      "path": "lean/HarsanyiLib/Harsanyi/Core/Basic.lean",
+      "sha256": "a578c7134739fb375ad725cf9b27c035a2584481975e176fcd4a4cb5789b431a"
+    },
+    {
+      "path": "lean/HarsanyiLib/Harsanyi/Core/Mobius.lean",
+      "sha256": "1edd8f7b7f8ca6487122361a970532872f61c3d649308b109d1d3f882dbe91d9"
+    },
+    {
+      "path": "lean/HarsanyiLib/Harsanyi/Core/Properties.lean",
+      "sha256": "5f0ab5acf2d0e5039fa55eee64d638e5e657f6d57f96075314244dc99e8ac57c"
+    },
+    {
+      "path": "lean/HarsanyiLib/Harsanyi/Core/Shapley.lean",
+      "sha256": "36ab99636124c4427a2e8b76729b2f02ad1c34127f8620bf0d36a021cfe98a82"
+    },
+    {
+      "path": "lean/HarsanyiLib/Harsanyi/Extensions/Attribution.lean",
+      "sha256": "5c08a2e9b5c1e307ed1da3171d47ad9d05802eeda58af78bf1a8e1a2fa41220a"
+    },
+    {
+      "path": "lean/HarsanyiLib/Harsanyi/Extensions/RobustnessFinite.lean",
+      "sha256": "4618fe66a5e20d2542cbcf34a1398f7a2bd062272ff49b2e4c6d3ac0777f51e7"
+    },
+    {
+      "path": "lean/HarsanyiLib/lake-manifest.json",
+      "sha256": "15530a48dc2a100f79aa805876b097388ace6afe1cae57b0e162cd71195f681c"
+    },
+    {
+      "path": "lean/HarsanyiLib/lakefile.toml",
+      "sha256": "50cc9923bd5123f934d889fb5de03787d6de944a4e243cf71e18eb342caaef8f"
+    },
+    {
+      "path": "lean/HarsanyiLib/lean-toolchain",
+      "sha256": "42779d67b81608af8a12aa4328d2ab47ca201925b3b2bd68369587b5340bb434"
+    },
+    {
+      "path": "locks/lean-dependencies.json",
+      "sha256": "a63213e8dd95acb9a139bb2ab5b02efe8bed54467e95ed9cb5e735203795eecb"
+    },
+    {
+      "path": "reader/check_library_consumer.py",
+      "sha256": "5bfb46b475836445ebc20f6af1a29b23174995228f599fb11800adbb0f30da10"
+    },
+    {
+      "path": "reader/evidence_paths.py",
+      "sha256": "0691f8e89020fc256f3edc079070201580230a187a849f674ddc6314341046ae"
+    },
+    {
+      "path": "scripts/env.sh",
+      "sha256": "961fdd064b2b2c0ab3ee7b21c4cd44bea35347bdd621baa5185c6f9ad59d2445"
+    },
+    {
+      "path": "scripts/verify-lean.py",
+      "sha256": "489f0ea366738182f3d07486239c460e4a51519a45a43bc983eceb635772a915"
+    }
+  ],
+  "source_fingerprint": "87e6f55b48defb56436f0db339a7ddb6e2260dc5fb245c2f2b9b5c6a88c42b07",
+  "snapshot_hashes": {
+    "before": {
+      "examples/library-consumer/ExtensionConsumer.lean": "3afe9dcefa5f6b0c814efe8cd018b3f0208a59f0f8be828b64c2bb8287e3e49f",
+      "examples/library-consumer/lake-manifest.json": "a5df03dd221e7b612d8b9761eb278ce3edfc95997016b5bd93c19a46a8639200",
+      "examples/library-consumer/lakefile.toml": "44cfcbb4d33ad20ddf4d8fa824ded6600282d0659136158ae18b839438094ec9",
+      "examples/library-consumer/lean-toolchain": "42779d67b81608af8a12aa4328d2ab47ca201925b3b2bd68369587b5340bb434",
+      "lean/HarsanyiLib/Harsanyi/Core/Basic.lean": "a578c7134739fb375ad725cf9b27c035a2584481975e176fcd4a4cb5789b431a",
+      "lean/HarsanyiLib/Harsanyi/Core/Mobius.lean": "1edd8f7b7f8ca6487122361a970532872f61c3d649308b109d1d3f882dbe91d9",
+      "lean/HarsanyiLib/Harsanyi/Core/Properties.lean": "5f0ab5acf2d0e5039fa55eee64d638e5e657f6d57f96075314244dc99e8ac57c",
+      "lean/HarsanyiLib/Harsanyi/Core/Shapley.lean": "36ab99636124c4427a2e8b76729b2f02ad1c34127f8620bf0d36a021cfe98a82",
+      "lean/HarsanyiLib/Harsanyi/Extensions/Attribution.lean": "5c08a2e9b5c1e307ed1da3171d47ad9d05802eeda58af78bf1a8e1a2fa41220a",
+      "lean/HarsanyiLib/Harsanyi/Extensions/RobustnessFinite.lean": "4618fe66a5e20d2542cbcf34a1398f7a2bd062272ff49b2e4c6d3ac0777f51e7",
+      "lean/HarsanyiLib/lake-manifest.json": "15530a48dc2a100f79aa805876b097388ace6afe1cae57b0e162cd71195f681c",
+      "lean/HarsanyiLib/lakefile.toml": "50cc9923bd5123f934d889fb5de03787d6de944a4e243cf71e18eb342caaef8f",
+      "lean/HarsanyiLib/lean-toolchain": "42779d67b81608af8a12aa4328d2ab47ca201925b3b2bd68369587b5340bb434",
+      "locks/lean-dependencies.json": "a63213e8dd95acb9a139bb2ab5b02efe8bed54467e95ed9cb5e735203795eecb",
+      "reader/check_library_consumer.py": "5bfb46b475836445ebc20f6af1a29b23174995228f599fb11800adbb0f30da10",
+      "reader/evidence_paths.py": "0691f8e89020fc256f3edc079070201580230a187a849f674ddc6314341046ae",
+      "scripts/env.sh": "961fdd064b2b2c0ab3ee7b21c4cd44bea35347bdd621baa5185c6f9ad59d2445",
+      "scripts/verify-lean.py": "489f0ea366738182f3d07486239c460e4a51519a45a43bc983eceb635772a915"
+    },
+    "after": {
+      "examples/library-consumer/ExtensionConsumer.lean": "3afe9dcefa5f6b0c814efe8cd018b3f0208a59f0f8be828b64c2bb8287e3e49f",
+      "examples/library-consumer/lake-manifest.json": "a5df03dd221e7b612d8b9761eb278ce3edfc95997016b5bd93c19a46a8639200",
+      "examples/library-consumer/lakefile.toml": "44cfcbb4d33ad20ddf4d8fa824ded6600282d0659136158ae18b839438094ec9",
+      "examples/library-consumer/lean-toolchain": "42779d67b81608af8a12aa4328d2ab47ca201925b3b2bd68369587b5340bb434",
+      "lean/HarsanyiLib/Harsanyi/Core/Basic.lean": "a578c7134739fb375ad725cf9b27c035a2584481975e176fcd4a4cb5789b431a",
+      "lean/HarsanyiLib/Harsanyi/Core/Mobius.lean": "1edd8f7b7f8ca6487122361a970532872f61c3d649308b109d1d3f882dbe91d9",
+      "lean/HarsanyiLib/Harsanyi/Core/Properties.lean": "5f0ab5acf2d0e5039fa55eee64d638e5e657f6d57f96075314244dc99e8ac57c",
+      "lean/HarsanyiLib/Harsanyi/Core/Shapley.lean": "36ab99636124c4427a2e8b76729b2f02ad1c34127f8620bf0d36a021cfe98a82",
+      "lean/HarsanyiLib/Harsanyi/Extensions/Attribution.lean": "5c08a2e9b5c1e307ed1da3171d47ad9d05802eeda58af78bf1a8e1a2fa41220a",
+      "lean/HarsanyiLib/Harsanyi/Extensions/RobustnessFinite.lean": "4618fe66a5e20d2542cbcf34a1398f7a2bd062272ff49b2e4c6d3ac0777f51e7",
+      "lean/HarsanyiLib/lake-manifest.json": "15530a48dc2a100f79aa805876b097388ace6afe1cae57b0e162cd71195f681c",
+      "lean/HarsanyiLib/lakefile.toml": "50cc9923bd5123f934d889fb5de03787d6de944a4e243cf71e18eb342caaef8f",
+      "lean/HarsanyiLib/lean-toolchain": "42779d67b81608af8a12aa4328d2ab47ca201925b3b2bd68369587b5340bb434",
+      "locks/lean-dependencies.json": "a63213e8dd95acb9a139bb2ab5b02efe8bed54467e95ed9cb5e735203795eecb",
+      "reader/check_library_consumer.py": "5bfb46b475836445ebc20f6af1a29b23174995228f599fb11800adbb0f30da10",
+      "reader/evidence_paths.py": "0691f8e89020fc256f3edc079070201580230a187a849f674ddc6314341046ae",
+      "scripts/env.sh": "961fdd064b2b2c0ab3ee7b21c4cd44bea35347bdd621baa5185c6f9ad59d2445",
+      "scripts/verify-lean.py": "489f0ea366738182f3d07486239c460e4a51519a45a43bc983eceb635772a915"
+    }
+  },
+  "api_input_hashes": {
+    "corpus/public/reader/neurips2021-robustness/verification/report.json": "37e24ab1713f3f3af62c9b0874f0f2ce70a5d9fef437ce220baf8c91e486431b",
+    "reader/architecture/paper_agent.py": "980cdf7249e01d069e9077599d5b78f5dce9e690b1bb580e130a48ee421ffa95",
+    "reader/data/full-content.json": "3c032784146e468753cfb5d7a9a69d6f3610226e3eb4961f0b3647e88090944e"
+  },
+  "generated_audit_hashes": {
+    ".tmp/direct-import-consumer/Audit.lean": "1a270a884045712a540b869d2a2bc56d4e65428a1f1ec62f0a30e208ec06fe43"
+  },
+  "output_hashes": {
+    "reader/evidence/twelve-paper-20261001/direct-import-consumer-toolchain.log": "36c0bbaf090c97bc8217c6ff497ff9144fd83d9003f12cd505162b943aaaee77",
+    "reader/evidence/twelve-paper-20261001/direct-import-consumer-public-module-build.log": "8a26bef415a3fab709f4e1ed5fe81e2d1549fe79dd564d5e5d181b89b63b407e",
+    "reader/evidence/twelve-paper-20261001/direct-import-consumer-compile.log": "52ceb3c54dd2d5cbd1479f9ada359824490935e2665af6d55fb674c3b581472d",
+    "reader/evidence/twelve-paper-20261001/direct-import-consumer-actual-type-and-axioms.log": "c43284e568840228db60b9f473fa71c273dec311a8d24caddf2a1c513870f7e3"
+  },
+  "commands": [
+    {
+      "cwd": ".",
+      "argv": [
+        "lean",
+        "--version"
+      ],
+      "exit_code": 0,
+      "log_path": "reader/evidence/twelve-paper-20261001/direct-import-consumer-toolchain.log"
+    },
+    {
+      "cwd": "lean/HarsanyiLib",
+      "argv": [
+        "lake",
+        "build",
+        "Harsanyi.Extensions.RobustnessFinite"
+      ],
+      "exit_code": 0,
+      "log_path": "reader/evidence/twelve-paper-20261001/direct-import-consumer-public-module-build.log"
+    },
+    {
+      "cwd": "examples/library-consumer",
+      "argv": [
+        "lake",
+        "env",
+        "lean",
+        "ExtensionConsumer.lean"
+      ],
+      "exit_code": 0,
+      "log_path": "reader/evidence/twelve-paper-20261001/direct-import-consumer-compile.log"
+    },
+    {
+      "cwd": "examples/library-consumer",
+      "argv": [
+        "lake",
+        "env",
+        "lean",
+        "/mnt/data2/wyh/lean4project/.tmp/direct-import-consumer/Audit.lean"
+      ],
+      "exit_code": 0,
+      "log_path": "reader/evidence/twelve-paper-20261001/direct-import-consumer-actual-type-and-axioms.log"
+    }
+  ],
+  "declarations": [
+    {
+      "axioms": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ],
+      "dependencies": [
+        "DecidableEq",
+        "Real",
+        "Finset",
+        "Nat",
+        "Eq",
+        "Harsanyi.Robustness.multiOrderInteraction",
+        "HAdd.hAdd",
+        "instHAdd",
+        "Real.instAdd",
+        "HMul.hMul",
+        "instHMul",
+        "Real.instMul",
+        "DecidableEq",
+        "Real",
+        "Finset",
+        "Nat",
+        "id",
+        "Eq",
+        "Harsanyi.Robustness.multiOrderInteraction",
+        "HAdd.hAdd",
+        "instHAdd",
+        "Real.instAdd",
+        "HMul.hMul",
+        "instHMul",
+        "Real.instMul",
+        "Harsanyi.Robustness.contextAverage",
+        "SDiff.sdiff",
+        "Finset.instSDiff",
+        "Insert.insert",
+        "Finset.instInsert",
+        "Singleton.singleton",
+        "Finset.instSingleton",
+        "Harsanyi.Robustness.pairDelta",
+        "funext",
+        "Trans.trans",
+        "instTransEq",
+        "Eq.mp",
+        "HSub.hSub",
+        "instHSub",
+        "Real.instSub",
+        "Neg.neg",
+        "Real.instNeg",
+        "AddZero.toAdd",
+        "AddZeroClass.toAddZero",
+        "AddMonoid.toAddZeroClass",
+        "SubNegMonoid.toAddMonoid",
+        "SubtractionMonoid.toSubNegMonoid",
+        "SubtractionCommMonoid.toSubtractionMonoid",
+        "AddCommGroup.toDivisionAddCommMonoid",
+        "Real.instAddCommGroup",
+        "congrArg",
+        "Harsanyi.Robustness.pairDelta.congr_simp",
+        "SubNegMonoid.toSub",
+        "NegZeroClass.toNeg",
+        "SubNegZeroMonoid.toNegZeroClass",
+        "SubtractionMonoid.toSubNegZeroMonoid",
+        "sub_neg_eq_add",
+        "Eq.refl",
+        "Harsanyi.Robustness.pairDelta_baseline",
+        "Harsanyi.Robustness.pairDelta_smul",
+        "Eq.mpr",
+        "Harsanyi.Robustness.average",
+        "Finset.powersetCard",
+        "Harsanyi.Robustness.average_smul"
+      ],
+      "kind": "theorem",
+      "name": "DirectImportConsumer.affine_masked_pair_interaction",
+      "signature": "∀ {α : Type u_1} {X : Type u_2} [inst : DecidableEq.{u_1 + 1} α] (v : X → Real) (mask : Finset.{u_1} α → X)\n  (N : Finset.{u_1} α) (i j : α) (m : Nat) (a b : Real),\n  Eq.{1}\n    (Harsanyi.Robustness.multiOrderInteraction.{u_1}\n      (fun (S : Finset.{u_1} α) => HAdd.hAdd.{0, 0, 0} (HMul.hMul.{0, 0, 0} a (v (mask S))) b) N i j m)\n    (HMul.hMul.{0, 0, 0} a\n      (Harsanyi.Robustness.multiOrderInteraction.{u_1} (fun (S : Finset.{u_1} α) => v (mask S)) N i j m))",
+      "universe_parameters": [
+        "u_1",
+        "u_2"
+      ],
+      "source_path": "examples/library-consumer/ExtensionConsumer.lean",
+      "line": 15,
+      "status": "passed"
+    }
+  ],
+  "checks": [
+    {
+      "name": "current-public-import:Harsanyi.Robustness.pairDelta_baseline",
+      "passed": true
+    },
+    {
+      "name": "current-public-import:Harsanyi.Robustness.pairDelta_smul",
+      "passed": true
+    },
+    {
+      "name": "current-public-import:Harsanyi.Robustness.average_smul",
+      "passed": true
+    },
+    {
+      "name": "toolchain",
+      "passed": true
+    },
+    {
+      "name": "public-module-build",
+      "passed": true
+    },
+    {
+      "name": "compile",
+      "passed": true
+    },
+    {
+      "name": "actual-type-and-axioms",
+      "passed": true
+    },
+    {
+      "name": "exact-declaration-exported-by-Lean",
+      "passed": true
+    },
+    {
+      "name": "actual-proof-and-transitive-axioms",
+      "passed": true
+    },
+    {
+      "name": "all-consumed-inputs-unchanged",
+      "passed": true
+    }
+  ]
+}

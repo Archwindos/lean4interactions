@@ -1,0 +1,28 @@
+{
+  "status": "passed",
+  "scope": "Targeted admission/language/source/PDF/library/mapping regressions; includes production preservation of reviewed machine roles, not mathematical acceptance",
+  "recorded_at": "2026-10-01T10:41:50.204902+00:00",
+  "command": "python -m pytest tests/test_reader_inventory_contract.py tests/test_reader_library_imports.py tests/test_reader_inputs.py tests/test_reader_expansion.py tests/test_reader_completion.py tests/test_reader_bilingual.py -q",
+  "exit_code": 0,
+  "stdout": "......................................................................   [100%]\n70 passed in 2.03s\n",
+  "passed": 70,
+  "role_regression_observed_before_rebuild": {
+    "status": "expected_production_failure_detected",
+    "command": "python -m pytest tests/test_reader_expansion.py -q",
+    "exit_code": 1,
+    "stdout": "...F...                                                                  [100%]\n=================================== FAILURES ===================================\n_____ test_new_admitted_results_preserve_reviewed_machine_roles_and_scope ______\n\n    def test_new_admitted_results_preserve_reviewed_machine_roles_and_scope():\n        current={row['id']:row for row in load('reader/data/full-content.json')['results']}\n        baseline=set(load('reader/evidence/six-paper-preservation-baseline.json')['paper_ids'])\n        checked=0\n        for paper in load('corpus/public/reader/input-manifest.json')['papers']:\n            if paper['paper_id'] in baseline:continue\n            for source in load(paper['content_path'])['results']:\n>               assert current[source['id']]['lean']['evidence_role']==source['lean']['evidence_role']\nE               AssertionError: assert 'partial_component' == 'counterexample'\nE                 \nE                 - counterexample\nE                 + partial_component\n\ntests/test_reader_expansion.py:37: AssertionError\n=========================== short test summary info ============================\nFAILED tests/test_reader_expansion.py::test_new_admitted_results_preserve_reviewed_machine_roles_and_scope\n1 failed, 6 passed in 0.75s\n"
+  },
+  "input_hashes": {
+    "tests/test_reader_inventory_contract.py": "c0b262a4c611effb4c7fd9f5ef921dbbd56fcb7ea9b58580b03487435a2824d4",
+    "tests/test_reader_library_imports.py": "4664dbaa80c79eb8b3708d1434b3ee1aa01536a81eae5b2bf41b3a3ed945e7d0",
+    "tests/test_reader_inputs.py": "3819db2fdb7746d0541348498f87323822e7933697116f86fac77be146621eb2",
+    "tests/test_reader_expansion.py": "76e9f912fcb178db5382e39dc24e00fbafb572a21d66fc2cf3b7d25318e3ebb8",
+    "tests/test_reader_completion.py": "1204f06c78287cc27dad001c77449018917bd8beced4ef79684c5c8c4eca0211",
+    "tests/test_reader_bilingual.py": "62808b158d0fcc19dbf78c55d1d706bac806a71c6dff8d2af13ceb49dc2e7af8",
+    "reader/aggregate.py": "4cad7efae80f20c285f946ea515776bd4b410bea04493f650a3e47521e8832be",
+    "reader/inventory_contract.py": "e942198bd0e61da3144d3f19d0dba2a611df7eb3ea748359b1b96a9ba47033f2",
+    "reader/check_draft_admission.py": "cf98e56c12173858353bac810a20752884ab6ac4f266975ff269630107947648",
+    "reader/architecture/admission-contract.json": "29dfffdc33d3463989cb6485e72265e0d5c53e0122d7d1f70952530336f5010f",
+    "reader/data/full-content.json": "04efe9d7663184080926637f2805ea5fb57ab2fe50b28cd46289b4e14f2c4b08"
+  }
+}

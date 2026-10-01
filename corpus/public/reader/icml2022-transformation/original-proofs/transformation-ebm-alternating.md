@@ -1,0 +1,1 @@
+In implementation, the EBM is a bottom-up ConvNet with six convolutional layers, which takes $\sigma_l$ as an input and outputs a scalar. During the training phase, we firstly train the EBM using Eq. (38) for every batch of training data. The EBM and the original DNN are trained separately. I.e. when training the EBM, parameters in the original DNN are fixed, and vice versa.

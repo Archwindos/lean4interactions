@@ -1,0 +1,83 @@
+{
+  "scope": "Development-package structure and language only; no source/math/Lean acceptance or manifest mutation",
+  "paper_id": "icml2023-decoder",
+  "status": "structural_checks_passed_pending_mathematical_review",
+  "result_count": 34,
+  "target_entries": 30,
+  "target_result_ids": [
+    "decoder-backpropagation",
+    "decoder-cascade-forward",
+    "decoder-cosine-dimension",
+    "decoder-depth-growth",
+    "decoder-external-gaussian-closure",
+    "decoder-first-order-product",
+    "decoder-forward-convolution",
+    "decoder-frequency-preference",
+    "decoder-gaussian-response",
+    "decoder-geometric-sum",
+    "decoder-gradient-norm",
+    "decoder-independence-scope",
+    "decoder-kernel-preference",
+    "decoder-layer-placement",
+    "decoder-mean-preference",
+    "decoder-moment-parameter-growth",
+    "decoder-multi-channel-moments",
+    "decoder-natural-input",
+    "decoder-one-step-fitting",
+    "decoder-orthogonality",
+    "decoder-padding-interpretation",
+    "decoder-shift-difficulty-interpretation",
+    "decoder-shift-other-frequencies",
+    "decoder-shift-setup",
+    "decoder-single-channel-moments",
+    "decoder-trained-independence",
+    "decoder-upsampling",
+    "decoder-upsampling-interpretation",
+    "decoder-valid-convolution",
+    "decoder-zero-padding"
+  ],
+  "non_target_entries": [
+    {
+      "id": "decoder-preliminaries",
+      "kind": "definition",
+      "reason": "This source occurrence defines the DFT, convolution or reporting metrics; proved and inferential claims have separate targets.",
+      "requires_source_and_content_review": true
+    },
+    {
+      "id": "decoder-assumption-3-1",
+      "kind": "assumption",
+      "reason": "Assumption3.1 defines the exact circular, stride-one, activation-free model rather than asserting a proved conclusion.",
+      "requires_source_and_content_review": true
+    },
+    {
+      "id": "decoder-metrics",
+      "kind": "definition",
+      "reason": "This source occurrence defines the DFT, convolution or reporting metrics; proved and inferential claims have separate targets.",
+      "requires_source_and_content_review": true
+    },
+    {
+      "id": "decoder-experiments",
+      "kind": "empirical",
+      "reason": "These passages report measured spectra, reconstruction errors, figures and settings; their substantive mathematical inferences are separately indexed.",
+      "requires_source_and_content_review": true
+    }
+  ],
+  "errors": [],
+  "bilingual_errors": [],
+  "inline_math_differences": [],
+  "input_hashes": {
+    "corpus/public/reader/icml2023-decoder/paper-metadata.json": "4220da372429bbee735a95df2a3f99a9cbba7b40b63ea7a6c7f3201058392931",
+    "corpus/public/reader/icml2023-decoder/inventory.json": "8a8052babc22b3dbb49f364fe4c18d270eb21afa9ad48abc035f7adc71a79d7b",
+    "corpus/public/reader/icml2023-decoder/content.json": "edf8fa8f7de0f254b9ee6e75c70ab24f6ca81aef367983580baba638df704d73",
+    "corpus/public/reader/icml2023-decoder/symbols.json": "d822c2b7c5a36ed691c83f20cb7ca8fff526baba2e6749cc7917a28785f4726e",
+    "corpus/public/reader/icml2023-decoder/issues.json": "6d6c2c0294b9cd60f0fc8db177a1f68887b58c4ecc93fc37c470ca9c4ef7b3d2",
+    "reader/check_draft_admission.py": "933c4634c2302560fe4030943d02491a24b3aaf7fdd4d6bbd1222ea7c61738b2",
+    "reader/architecture/admission-contract.json": "8320da63fdea7ed2d4bdadf003fde9230252cd6ad8881e507bc2f9aa8b8681ff",
+    "reader/inventory_contract.py": "bab2fa12c588b6a85f8881d16ffbca605ec22acc8fafecb978e584040faec009",
+    "reader/bilingual.py": "aeec1605b4d57cec38a3fc7215215ace4b686153e5910493f3daa11595f7bc88",
+    "reader/symbols_english.py": "cc75b9f100874e2310c3f12365de5a2b79d9f79e96757c89459ad2f5ce680a96",
+    "reader/symbol_context_english.py": "0faf107350cb6e7617963f75ff48301a7e8a78f3c28bf07ed11e5d1e957f5654",
+    "reader/evidence_paths.py": "0691f8e89020fc256f3edc079070201580230a187a849f674ddc6314341046ae"
+  },
+  "machine_role_status_reviews": []
+}

@@ -1,0 +1,62 @@
+xi ← bi . Previous studies usually set bi = µi = Ex [xi ] as the average value over different samples to
+represent the masked state [4, 12]. However, we consider that pushing the input variable xi to move
+a large distance τ ∈ R towards µi has been significant enough to remove its information. To this
+end, we set bi = xi − τ 4 , if xi > µi ; else, bi = xi + τ 4 . The above new setting ensures comparable
+perturbation magnitudes over different dimensions.
+Next, we analyze the variance (instability) of the interaction effect I(S|x′ = x + ϵ) when we add a
+Gaussian perturbation ϵ ∼ N (0, σ 2 I) to the input sample x. Here, the Gaussian perturbation ϵ ∈ Rn
+is considered as a rough representation of inevitable variations in data, e.g., shape deformation and
+object rotation variations in image classification. However, such variations are quite difficult to
+formulate, so we use a Gaussian perturbation as a rough representation. Fortunately, we find that our
+reformulation of interactions in Theorem 2 enables us to directly apply the finding in [46] to prove
+the variance (instability) of the interaction effect I(S|x′ = x + ϵ).
+Theorem 3. Let us add a Gaussian perturbation ϵ ∼ N (0, σ 2 I) to the input sample x. Let us first
+consider the case with the lowest degree π̂ = [π̂1 , . . . , π̂n ] ∈ QS , satisfying that ∀i ∈ S, π̂i = 1; ∀i ∈
+                                                                                                              /
+S, π̂i = 0. The mean and variance of J(S, π̂|x + ϵ) over the Gaussian perturbation ϵ are given as
+                                                                                σ 2 |S|
+              Eϵ [J(S, π̂|x + ϵ)] = 1, Varϵ [J(S, π̂|x + ϵ)] = 1 +                          − 1.            (5)
+                                                                                  τ
+Furthermore, for the more general case with an arbitrary degree π ∈ QS = {[π1 , · · · , πn ]|∀i ∈ S, πi ∈
+N+ ; ∀i ∈
+        / S, πi = 0}, the mean and variance of J(S, π|x + ϵ) are computed as
+                            Y          ϵi                                   Y                 ϵi
+ Eϵ [J(S, π|x + ϵ)] = Eϵ [         (1 + )πi ], Varϵ [J(S, π|x + ϵ)] = Varϵ [           (1 + )πi ]. (6)
+                               i∈S      τ                                        i∈S          τ
+Theorem 3 shows the (variance) instability of interactive concepts of different complexities (orders)
+w.r.t. data variations. It indicates that the variance of J(S, π|x + ϵ) roughly increases along with the
+order(S) = |S| in an exponential manner. Similar conclusions are also introduced in [70]. Furthermore,
+according to Equation (4), the interaction effect I(S|x + ϵ) of the concept S can be represented as
+the weighted sum of J(S, π|x + ϵ), and coefficients US,π w.r.t. different orders s and degrees π are
+usually chaotic. Hence, we can roughly consider that the variance (instability) of the interaction
+effect I(S|x + ϵ) increases along with the order |S| exponentially, as well. In other words, compared
+to high-order concepts, low-order concepts are much more stable to slight input perturbations.
+Experimental verification. Here, we conduct experiments to verify whether the variance (instability)
+of interaction effects indeed increased along with the order in an approximately exponential manner.
+Specifically, to mimic variations in the data, we add Gaussian perturbations ϵ ∼ N (0, 0.022 I) to each
+training sample. Then, we compute the average mean E (s) =Ex∈X [ES⊆N,|S|=s [|Eϵ [I(S|x + ϵ)]|]] and
+the average variance V (s) =Ex∈X [ES⊆N,|S|=s [Varϵ [I(S|x + ϵ)]]] of interaction effects of the s-th order
+concepts w.r.t. Gaussian perturbations. For verification, we calculate such metrics on DNNs trained
+for image classification and DNNs trained on tabular data. We train AlexNet [23], VGG-11 [55],
+ResNet-18/20 [19] on the CIFAR-10 dataset [22] and the Tiny-ImageNet dataset [25], respectively.
+We also train a five-layer MLP [45] on the UCI census dataset (namely census dataset) and the
+UCI TV news dataset (namely TV news dataset) [6], respectively. In addition, considering the
+computational cost of I(S|x + ϵ) in Equation (1) is intolerable if each pixel is considered as an input
+variable, we divide images into 8×8 patches [45] to calculate I(S|x+ϵ). Please see the supplementary
+material for more implementation details.
+Figure 2 shows that the variance (instability) V (s) of interaction effects increases in an exponential
+                                                                                                     √
+manner along with the order s of the interactive concept. In addition, the relative stability E (s) / V (s)
+of interaction effects decreases significantly along with the order s. Such phenomenon successfully
+verifies findings in Theorem 3.
+
+3.2.1   Formulating the conceptual learning as a linear regression problem
+Note that, Li and Zhang [27] have discovered that interactive concepts have high transferability over
+samples in the same category, i.e., most interactive concepts extracted from different samples may
+   4
+     We need to avoid the case of over-perturbation, by setting bi ← max(bi , µi ) if xi > µi ; bi ← min(bi , µi ),
+otherwise. Fortunately, such cases are uncommon in real applications, so we ignore such settings in the following
+theoretical analysis.
+
+
+                                                        5

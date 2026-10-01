@@ -1,0 +1,76 @@
+(2) Nullity property: The dummy variable i ∈ N satisfies ∀S ⊆ N \{i}, v(S∪{i}) = v(S)+v({i}).
+                                                                                      (m)
+It means that the variable i has no interactions with other variables, i.e. ∀j ∈ N , Iij = 0.
+• Proof :
+            (m)
+       Iij        = ES⊆N \{i,j},|S|=m [v(S ∪ {i, j}) − v(S ∪ {i}) − v(S ∪ {j}) + v(S)]
+                                                                                       
+                  = ES⊆N \{i,j},|S|=m v(S ∪ {j} ∪ {i}) − v(S ∪ {j}) − v(S ∪ {i}) − v(S)
+                  = ES⊆N \{i,j},|S|=m [v({i}) − v({i})] = 0
+                                                                                                              
+                                                    (m)        (m)
+(3) Commutativity property: ∀i, j ∈ N ,            Iij    =   Iji .
+• Proof :
+                  (m)
+              Iij       = ES⊆N \{i,j},|S|=m [v(S ∪ {i, j}) − v(S ∪ {i}) − v(S ∪ {j}) + v(S)]
+                        = ES⊆N \{i,j},|S|=m [v(S ∪ {i, j}) − v(S ∪ {j}) − v(S ∪ {i}) + v(S)]
+                           (m)
+                        = Iji
+                                                                                                              
+(4) Symmetry property: If input variables i, j ∈ N have same cooperations with other variables
+∀S ⊆ N \{i, j}, v(S ∪ {i}) = v(S ∪ {j}), then they have same interactions, ∀k ∈ N \{i, j},
+ (m)    (m)
+Iik = Ijk .
+• Proof :
+      (m)
+     Iik     = ES⊆N \{i,j}, [∆v(i, k, S)]
+                        |S|=m
+               m!(n − 2 − m)!             X
+             =                                    [∆v(i, k, S)]
+                  (n − 2)!
+                                     S⊆N \{i,k},
+                                       |S|=m
+                                                                                                       
+                  m!(n − 2 − m)!            X                                   X                        
+             =                                      [∆v(i, k, S ∪ {j})] +                   [∆v(i, k, S)]
+                     (n − 2)!                                                                            
+                                         S⊆N \{i,j,k},                       S⊆N \{i,j,k},
+                                          |S|=m−1                              |S|=m
+                                                                                                       
+                  m!(n − 2 − m)!            X                                   X                    
+             =                                      [∆v(j, k, S ∪ {i})] +               [∆v(j, k, S)]
+                     (n − 2)!                                                                        
+                                         S⊆N \{i,j,k},                       S⊆N \{i,j,k},
+                                          |S|=m−1                              |S|=m
+
+             = ES⊆N \{i,j}, [∆v(j, k, S)]
+                        |S|=m
+                   (m)
+             =    Ijk
+                                                                                                              
+(5) Efficiency property: The output of the DNN can be decomposed into interactions of different
+                                                        Pn−2            (m)                   def
+orders, v(N ) = v(∅) + i∈N φ(0) (i) + i∈N j∈N \{i} [ m=0 n−1−m                        (0)
+                        P                P    P
+                                                               n(n−1) Iij ], where φ      (i) =
+v(i) − v(∅).
+• Proof :
+                    1X      Xn−1
+ v(N ) = v(∅) +                      φ(m) (i)
+                    n   i∈N      m=0
+                    1X                 1X        Xn−1 h                Xk=m−1 (k)           i
+           = v(∅) +         φ(0) (i) +                      Ej∈N \{i}          Iij + φ(0) (i)
+                    n   i∈N            n     i∈N     m=1                 k=0
+                    X                    1     X       X              Xn−1 Xk=m−1 (k) 
+                          φ(0) (i) +
+                                                                    
+           = v(∅) +                                                                  Iij
+                      i∈N            n(n − 1)     i∈N      j∈N \{i}     m=1   k=0
+                    X                X      X              Xn−2 n − 1 − m (m)
+           = v(∅) +       φ(0) (i) +                     [                  I ]
+                      i∈N               i∈N     j∈N \{i}     m=0 n(n − 1) ij
+
+
+
+                                                          3
+

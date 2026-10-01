@@ -1,0 +1,104 @@
+                             Towards Theoretical Analysis of Transformation Complexity of ReLU DNNs
+
+   10                                                                                         7.5
+                           MLP-𝛼 [3]            2.0          LeNet-5 and MLP-β [3]                                    LeNet-5                6.6                       ResNet-20
+    8                                                                                         7.0
+                                                                             l=3                                            l=4              6.4
+                                                                                                                                                                            l=3
+                                                1.5
+
+
+
+
+                                                                                                                                    TC(Σl)
+    6
+
+
+
+
+                                       TC(Σl)
+
+
+
+
+                                                                                         TC(Σl)
+                                                                                              6.5
+    4                                                                                                                                        6.2
+                                                1.0
+                                                                                              6.0
+    2                                                                                                                                        6.0
+                                                0.5                                           5.5
+    0
+        1 2 3 4 5 6 7 8 9 10                          6.0   6.5      7.0   7.5     8.0            0.4   0.8   1.2     1.6     2.0                  0.1   0.3     0.5       0.7
+                 layer 𝑙                                          H(Σl)                                       H(Σl)                                            H(Σl)
+
+Figure 2. (left) The complexity of transforming feature Tl to the output, i.e., H(Σl , . . . , ΣL ). The complexity decreases as we use features
+of higher layers. (right) The negative correlation between the transformation complexity H(Σl ) and the entanglement T C(Σl ) of DNNs
+with similar activation rates.
+
+input. In this way, we focus on gating layers in the DNN                                  Please see Appendix B.2 and B.3 for formulations and
+and define the following metrics to measure three types of                                proofs of Properties 2 and 3.
+complexities of transformations from x to y .
+                                                                                          Verification of the decrease of the complexity through
+Definition of the transformation complexity. In this sec-                                 layerwise propagation. Figure 2(left) shows the change
+tion, we define three types of complexities of transforma-                                of the complexity of transforming the l-th layer feature Tl
+tions in DNNs based on the information theory.                                            to the output, i.e., the entropy of gating states after the l-th
+                                                                                          layer H(Σ′ = [Σl , . . . , Σ10 ]) encoded in the DNN during the
+• H(Σ): the entropy of gating states among all inputs. H(Σ)
+                                                                                          training process on the MNIST dataset, which verified the
+measures the complexity of transformations that are en-
+                                                                                          decrease of the complexity through layerwise propagation.
+coded in gating layers. A larger H(Σ) indicates the DNN
+                                                                                          Experimental settings in Figure 2(left) are introduced in
+learns more complex transformations. The complexity H(Σ)
+                                                                                          Section 4.
+can be decomposed as H(Σ) = H(Σ1 ) + H(Σ2 |Σ1 ) + · · · +
+H(ΣL |Σ1 , . . . , ΣL−1 ).                                                                The quantification of the transformation complexity.
+                                                                                          There are three classic and widely-used non-parametric
+• I(X; Σ): the complexity of transformations that are
+                                                                                          methods to estimate the entropy and mutual information
+caused by the input. If the DNN does not use the random
+                                                                                          of features, including the binning method (Shwartz-Ziv &
+sampling operation or the dropout operation to introduce ad-
+                                                                                          Tishby, 2017), the ensemble dependency graph estimator
+ditional uncertainty that is not caused by the input in gating
+                                                                                          (EDGE) (Noshad et al., 2019) and the kernel densitiy estima-
+states Σ, then Σ is fully determined by X , i.e., H(Σ|X) = 0
+                                                                                          tion (KDE) (Kolchinsky & Tracey, 2017). Both the binning
+and I(X; Σ) = H(Σ) − H(Σ|X) = H(Σ).
+                                                                                          and the EDGE methods reduce the computational cost by
+• I(X; Σ; Y ): the complexity of transformations that are                                 discretizing the continuous features. However, the gating
+caused by inputs and used for inference, which is defined as                              state Σ is a discrete random variable, which cannot bene-
+I(X; Σ; Y ) = I(X; Y )−I(X; Y |Σ). I(X; Y |Σ) = H(X|Σ)−                                   fit from such methods. Thus, we apply the KDE method
+H(X|Σ, Y ) measures the mutual information between X                                      to estimate the complexity H(Σ), I(X; Σ) and I(X; Σ; Y ).
+and Y that is irrelevant to gating layers.                                                Please see Appendix E for details about the KDE method of
+                                                                                          estimating H(Σ), I(X; Σ) and I(X; Σ; Y ). In Appendix G.2,
+Our definition of the complexity satisfies the following sim-
+                                                                                          we have also verified the high accuracy and the stability of
+ple properties in DNNs, which ensures the trustworthiness
+                                                                                          using KDE to estimate H(Σ), I(X; Σ) and I(X; Σ; Y ).
+of the complexity metric.
+                                                                                          The difference between the transformation complexity
+Property 1. (Proof in Appendix B.1) If the DNN does not
+                                                                                          and the information bottleneck. Note that the transforma-
+introduce additional information that is not contained by
+                                                                                          tion complexity I(X; Σ) has essential difference from the
+the input X (e.g., there are no operations of randomly
+                                                                                          I(X; Z) term in the information bottleneck theory (Tishby
+sampling or dropout throughout the DNN), then we have
+                                                                                          et al., 2000; Wolchover, 2017; Shwartz-Ziv & Tishby, 2017),
+I(X; Σ; Y ) ≥ 0.
+                                                                                          where Z denotes the feature of an intermediate layer in
+Property 2. If the DNN does not introduce additional com-                                 DNNs. The information bottleneck reflects the trade-off be-
+plexity that is not caused by the input, then the complexity                              tween I(X; Z) and I(Z; Y ), which leads to the approximate
+increases along with the number of gating layers.                                         minimal sufficient statistics. In the forward propagation,
+                                                                                          the feature Z contains all information encoded in the DNN,
+Property 3. If the DNN does not introduce additional com-
+                                                                                          thereby forming a Markov process X → Z → Y . Thus, given
+plexity that is not caused by the input, then the complexity
+                                                                                          the feature Z , X and Y are conditional independent, i.e.,
+decreases when we use features of shallow layers for infer-
+                                                                                          I(X; Y |Z) = 0.
+ence. This property shows that the transformation complex-
+ity decreases through the layerwise propagation.                                          However, the gating state Σ does not contain all information
+

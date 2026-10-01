@@ -1,0 +1,61 @@
+A    Properties of the AND interaction
+The Harsanyi interaction [14] (i.e., the AND interaction in this paper) was a standard metric to
+measure the AND relationship between input variables encoded by the network. In this section, we
+present several desirable properties/axioms that the Harsanyi AND interaction Iand (S|x) satisfies.
+These properties further demonstrate the faithfulness of using Harsanyi AND interaction to explain
+the inference score of a DNN.
+(1) Efficiency axiom (proven by [14]). ThePoutput score of a model can be decomposed into interaction
+effects of different patterns, i.e. v(x) = S⊆N Iand (S|x).
+(2) Linearity axiom. If we merge output scores of two models v1 and v2 as the output of model v, i.e.
+                                                                      v1             v2
+∀S ⊆ N, v(xS ) = v1 (xS ) + v2 (xS ), then their interaction effects Iand (S|x) and Iand (S|x) can also be
+                     v           v1           v2
+merged as ∀S ⊆ N, Iand (S|x) = Iand (S|x) + Iand (S|x).
+(3) Dummy axiom. If a variable i ∈ N is a dummy variable, i.e. ∀S ⊆ N \ {i}, v(xS∪{i} ) =
+v(xS ) + v(x{i} ), then it has no interaction with other variables, ∀ ∅ ̸= S ⊆ N \ {i}, Iand (S ∪ {i}|x) = 0.
+(4) Symmetry axiom. If input variables i, j ∈ N cooperate with other variables in the same way,
+∀S ⊆ N \ {i, j}, v(xS∪{i} ) = v(xS∪{j} ), then they have same interaction effects with other variables,
+∀S ⊆ N \ {i, j}, Iand (S ∪ {i}|x) = Iand (S ∪ {j}|x).
+                                                                    v            πv
+(5) Anonymity axiom. For any permutations π on N , we have ∀S ⊆ N, Iand (S|x) = Iand (πS|x), where
+    def
+πS = {π(i)|i ∈ S}, and the new model πv is defined by (πv)(xπS ) = v(xS ). This indicates that
+interaction effects are not changed by permutation.
+(6) Recursive axiom. The interaction effects can be computed recursively. For i ∈ N and S ⊆
+N \ {i}, the interaction effect of the pattern S ∪ {i} is equal to the interaction effect of S with the
+presence of i minus the interaction effect of S with the absence of i, i.e. ∀S ⊆ N \ {i}, Iand (S ∪
+{i}|x) = Iand (S|x, i is always present) − Iand (S|x). Iand (S|x, i is always present) denotes the interaction
+effect when the variable i is always present as a constant context, i.e. Iand (S|x, i is always present) =
+P          |S|−|L|
+   L⊆S (−1)        · v(xL∪{i} ).
+(7) Interaction distribution axiom. This axiom characterizes how interactions are distributed for
+“interaction functions” [33]. An interaction function vT parameterized by a subset of variables T is
+defined as follows. ∀S ⊆ N , if T ⊆ S , vT (xS ) = c ; otherwise, vT (xS ) = 0. The function vT models
+pure interaction among the variables in T , because only if all variables in T are present, the output
+value will be increased by c. The interactions encoded in the function vT satisfies Iand (T |x) = c, and
+∀S ̸= T , Iand (S|x) = 0.
+
+B    Common conditions for sparse interactions
+Ren et al. [27] have formulated three mathematical conditions for the sparsity of AND interactions,
+as follows.
+Condition 1. The DNN does not encode interactions higher than the M -th order: ∀ S ∈ {S ⊆ N |
+|S| ≥ M + 1}, Iand (S|x) = 0.
+Condition 1 implies that the DNN does not encode extremely high-order interactions. This is because
+extremely high-order interactions usually represent very complex and over-fitted patterns, which are
+unnecessary and unlikely to be learned by the DNN in real applications.
+                                                                        def
+Condition 2. Let us consider the average network output ū(k) = E|S|=k [v(xS ) − v(x∅ )] over all
+masked samples xS with k unmasked input variables. This average network output monotonically
+                                                   ′
+increases when k increases: ∀ k ′ ≤ k, we have ū(k ) ≤ ū(k) .
+Condition 2 implies that a well-trained DNN is likely to have higher classification confidence for
+input samples that are less masked.
+Condition 3. Given the average network output ū(k) of samples with k unmasked input variables,
+there is a polynomial lower bound for the average network output of samples with k ′ (k ′ ≤ k)
+                                        ′        ′
+unmasked input variables: ∀ k′ ≤ k, ū(k ) ≥ ( kk )p ū(k) , where p > 0 is a positive constant.
+Condition 3 implies that the classification confidence of the DNN does not significantly degrade on
+masked input samples. The classification/detection of masked/occluded samples is common in real
+
+
+                                                     14

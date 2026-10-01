@@ -1,0 +1,60 @@
+                                                                                                    
+
+
+
+B.2   Multi-order Shapley values
+
+In Section 4.3 of the paper, we define multi-order Shapley values. In the supplementary material, this
+section provides more details about multi-order Shapley values to help readers understand, and also
+provides proofs of extended properties of multi-order Shapley values.
+We decompose the Shapley value φ(i) into different orders, as follows.
+
+
+                                      1 Xn−1 (m)
+                              φ(i) =            φ (i),                                             (4)
+                                      n   m=0
+
+                           φ(m) (i) = ES⊆N \{i},|S|=m [v(S ∪ i) − v(S)],                           (5)
+
+
+
+where φ(m) (i) denotes the Shapley value of the m-th order. It measures the importance of the input
+variable i to the network output with contexts consisting of m ∈ {0, . . . , n − 1} variables.
+For a low order m, φ(m) (i) denotes the importance of the variable i, when i cooperates with a few
+contextual variables for inference. For a high order m, φ(m) (i) describes the importance of the
+variable i, which cooperates with massive contextual variables. In particular, φ(0) (i) = v(i) − v(∅)
+represents the numerical importance of i without taking into account any contexts.
+In addition, we have proven that φ(m) (i) satisfies following properties.
+(1) Linearity property: If we merge the outputs of two DNNs u(S) = w(S) + v(S), then the
+                                                                    (m)      (m)      (m)
+Shapley values of input variables also can be added, i.e. ∀i ∈ N , φu (i) = φw (i) + φv (i).
+• Proof :
+
+
+        φ(m)
+         u (i) = ES⊆N \{i},|S|=m [u(S ∪ {i}) − u(S)]
+               = ES⊆N \{i},|S|=m [w(S ∪ {i}) + v(S ∪ {i}) − w(S) − v(S)]
+               = ES⊆N \{i},|S|=m [w(S ∪ {i}) − w(S)] + ES⊆N \{i},|S|=m [v(S ∪ {i}) − v(S)]
+                = φ(m)      (m)
+                   w (i) + φv   (i)
+
+
+                                                                                                    
+(2) Nullity property: An input variable i ∈ N is considered as a dummy player if ∀S ⊆ N \ {i},
+v(S ∪ {i}) = v(S) + v({i}). Thus, the variable i has no interactions with other variables, i.e.
+φ(m) (i) = v({i}).
+• Proof :
+
+
+                            φ(m) (i) = ES⊆N \{i},|S|=m [v(S ∪ {i}) − v(S)]
+                                     = ES⊆N \{i},|S|=m [v({i})] = v({i})
+
+
+                                                                                                    
+(3) Symmetry property: Given two input variables i, j ∈ N , if these two variables have same
+cooperations with all other variables ∀S ⊆ N \{i, j}, v(S ∪ {i}) = v(S ∪ {j}), then φ(m) (i) =
+φ(m) (j).
+
+
+                                                  4
+

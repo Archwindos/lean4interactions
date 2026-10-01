@@ -1,0 +1,1869 @@
+{
+  "paper_id": "neurips2023-difficulty",
+  "symbols": [
+    {
+      "id": "diff-game",
+      "canonical_id": "sym-game",
+      "canonical_tex": "g",
+      "definition_tex": "g(T)=v(\\mathbf x_T)",
+      "name_zh": "固定掩码奖励",
+      "description_md": "同一样本与参考下的实值集合游戏",
+      "type_or_domain": "同一样本与参考下的实值集合游戏",
+      "scope": "同一样本与参考下的实值集合游戏",
+      "assumptions": [],
+      "empty_set_convention": "空支持仍有I_g(∅)=b；次数/上下文/比值各自按所列定义域。",
+      "baseline_convention": "规范 g(T)=v(x_T)、b=g(∅)、g0=g−b；输入原b_i映射r_i。此局部对象的域和来源按本行保留。",
+      "aliases": [
+        "v(\\mathbf x_T)"
+      ],
+      "paper_mappings": [
+        {
+          "paper_id": "neurips2023-difficulty",
+          "source_id": "src-neurips2023-difficulty-formal",
+          "version_id": "ver-neurips2023-difficulty-formal",
+          "original_tex": "v(\\mathbf x_T)",
+          "original_definition": "g(T)=v(\\mathbf x_T)",
+          "pdf_pages": [
+            3,
+            4,
+            15
+          ],
+          "canonical_concept": "sym-game",
+          "relationship": "explicit_local_instance",
+          "note": "同一样本与参考下的实值集合游戏",
+          "conflict_note": "规范 g(T)=v(x_T)、b=g(∅)、g0=g−b；输入原b_i映射r_i。此局部对象的域和来源按本行保留。",
+          "translations": {
+            "en": {
+              "note": "A real set game at one fixed sample/reference",
+              "conflict_note": "Canonical g(T)=v(x_T), b=g(empty), g0=g−b; source input b_i maps to r_i. Preserve this object’s local domain and source scope."
+            }
+          }
+        }
+      ],
+      "lean_names": [],
+      "version": "1.0",
+      "translations": {
+        "en": {
+          "name_zh": "Fixed masked reward",
+          "name": "Fixed masked reward",
+          "description_md": "A real set game at one fixed sample/reference",
+          "type_or_domain": "A real set game at one fixed sample/reference",
+          "scope": "A real set game at one fixed sample/reference",
+          "assumptions": [],
+          "empty_set_convention": "Empty support has I_g(empty)=b; degrees, contexts and ratios retain their own stated domains.",
+          "baseline_convention": "Canonical g(T)=v(x_T), b=g(empty), g0=g−b; source input b_i maps to r_i. Preserve this object’s local domain and source scope."
+        }
+      }
+    },
+    {
+      "id": "diff-baseline",
+      "canonical_id": "sym-output-baseline",
+      "canonical_tex": "b",
+      "definition_tex": "v(\\mathbf x_\\varnothing)",
+      "name_zh": "输出基线",
+      "description_md": "标量，等于空掩码输出，不默认零",
+      "type_or_domain": "标量，等于空掩码输出，不默认零",
+      "scope": "标量，等于空掩码输出，不默认零",
+      "assumptions": [],
+      "empty_set_convention": "空支持仍有I_g(∅)=b；次数/上下文/比值各自按所列定义域。",
+      "baseline_convention": "规范 g(T)=v(x_T)、b=g(∅)、g0=g−b；输入原b_i映射r_i。此局部对象的域和来源按本行保留。",
+      "aliases": [
+        "v(\\mathbf x_\\varnothing)"
+      ],
+      "paper_mappings": [
+        {
+          "paper_id": "neurips2023-difficulty",
+          "source_id": "src-neurips2023-difficulty-formal",
+          "version_id": "ver-neurips2023-difficulty-formal",
+          "original_tex": "v(\\mathbf x_\\varnothing)",
+          "original_definition": "v(\\mathbf x_\\varnothing)",
+          "pdf_pages": [
+            3,
+            4,
+            15
+          ],
+          "canonical_concept": "sym-output-baseline",
+          "relationship": "explicit_local_instance",
+          "note": "标量，等于空掩码输出，不默认零",
+          "conflict_note": "规范 g(T)=v(x_T)、b=g(∅)、g0=g−b；输入原b_i映射r_i。此局部对象的域和来源按本行保留。",
+          "translations": {
+            "en": {
+              "note": "The scalar empty-mask output, with no zero convention",
+              "conflict_note": "Canonical g(T)=v(x_T), b=g(empty), g0=g−b; source input b_i maps to r_i. Preserve this object’s local domain and source scope."
+            }
+          }
+        }
+      ],
+      "lean_names": [],
+      "version": "1.0",
+      "translations": {
+        "en": {
+          "name_zh": "Output baseline",
+          "name": "Output baseline",
+          "description_md": "The scalar empty-mask output, with no zero convention",
+          "type_or_domain": "The scalar empty-mask output, with no zero convention",
+          "scope": "The scalar empty-mask output, with no zero convention",
+          "assumptions": [],
+          "empty_set_convention": "Empty support has I_g(empty)=b; degrees, contexts and ratios retain their own stated domains.",
+          "baseline_convention": "Canonical g(T)=v(x_T), b=g(empty), g0=g−b; source input b_i maps to r_i. Preserve this object’s local domain and source scope."
+        }
+      }
+    },
+    {
+      "id": "diff-reference",
+      "canonical_id": "sym-input-baseline",
+      "canonical_tex": "r_i",
+      "definition_tex": "b_i=x_i-\\tau\\text{ if }x_i>\\mu_i;\\ b_i=x_i+\\tau\\text{ otherwise}",
+      "name_zh": "输入参考",
+      "description_md": "输入向量坐标，原b_i规范映射r_i",
+      "type_or_domain": "输入向量坐标，原b_i规范映射r_i",
+      "scope": "输入向量坐标，原b_i规范映射r_i",
+      "assumptions": [],
+      "empty_set_convention": "空支持仍有I_g(∅)=b；次数/上下文/比值各自按所列定义域。",
+      "baseline_convention": "规范 g(T)=v(x_T)、b=g(∅)、g0=g−b；输入原b_i映射r_i。此局部对象的域和来源按本行保留。",
+      "aliases": [
+        "b_i"
+      ],
+      "paper_mappings": [
+        {
+          "paper_id": "neurips2023-difficulty",
+          "source_id": "src-neurips2023-difficulty-formal",
+          "version_id": "ver-neurips2023-difficulty-formal",
+          "original_tex": "b_i",
+          "original_definition": "b_i=x_i-\\tau\\text{ if }x_i>\\mu_i;\\ b_i=x_i+\\tau\\text{ otherwise}",
+          "pdf_pages": [
+            4,
+            5,
+            17,
+            20
+          ],
+          "canonical_concept": "sym-input-baseline",
+          "relationship": "explicit_local_instance",
+          "note": "输入向量坐标，原b_i规范映射r_i",
+          "conflict_note": "规范 g(T)=v(x_T)、b=g(∅)、g0=g−b；输入原b_i映射r_i。此局部对象的域和来源按本行保留。",
+          "translations": {
+            "en": {
+              "note": "An input-vector coordinate; source b_i maps to canonical r_i",
+              "conflict_note": "Canonical g(T)=v(x_T), b=g(empty), g0=g−b; source input b_i maps to r_i. Preserve this object’s local domain and source scope."
+            }
+          }
+        }
+      ],
+      "lean_names": [],
+      "version": "1.0",
+      "translations": {
+        "en": {
+          "name_zh": "Input reference",
+          "name": "Input reference",
+          "description_md": "An input-vector coordinate; source b_i maps to canonical r_i",
+          "type_or_domain": "An input-vector coordinate; source b_i maps to canonical r_i",
+          "scope": "An input-vector coordinate; source b_i maps to canonical r_i",
+          "assumptions": [],
+          "empty_set_convention": "Empty support has I_g(empty)=b; degrees, contexts and ratios retain their own stated domains.",
+          "baseline_convention": "Canonical g(T)=v(x_T), b=g(empty), g0=g−b; source input b_i maps to r_i. Preserve this object’s local domain and source scope."
+        }
+      }
+    },
+    {
+      "id": "diff-mask",
+      "canonical_id": "sym-mask",
+      "canonical_tex": "\\mathbf x_T",
+      "definition_tex": "(\\mathbf x_T)_i=x_i\\text{ for }i\\in T;\\ b_i\\text{ otherwise}",
+      "name_zh": "掩码输入",
+      "description_md": "输入向量，保留T坐标并替换其他坐标",
+      "type_or_domain": "输入向量，保留T坐标并替换其他坐标",
+      "scope": "输入向量，保留T坐标并替换其他坐标",
+      "assumptions": [],
+      "empty_set_convention": "空支持仍有I_g(∅)=b；次数/上下文/比值各自按所列定义域。",
+      "baseline_convention": "规范 g(T)=v(x_T)、b=g(∅)、g0=g−b；输入原b_i映射r_i。此局部对象的域和来源按本行保留。",
+      "aliases": [
+        "\\mathbf x_T"
+      ],
+      "paper_mappings": [
+        {
+          "paper_id": "neurips2023-difficulty",
+          "source_id": "src-neurips2023-difficulty-formal",
+          "version_id": "ver-neurips2023-difficulty-formal",
+          "original_tex": "\\mathbf x_T",
+          "original_definition": "(\\mathbf x_T)_i=x_i\\text{ for }i\\in T;\\ b_i\\text{ otherwise}",
+          "pdf_pages": [
+            3,
+            4,
+            20
+          ],
+          "canonical_concept": "sym-mask",
+          "relationship": "explicit_local_instance",
+          "note": "输入向量，保留T坐标并替换其他坐标",
+          "conflict_note": "规范 g(T)=v(x_T)、b=g(∅)、g0=g−b；输入原b_i映射r_i。此局部对象的域和来源按本行保留。",
+          "translations": {
+            "en": {
+              "note": "An input vector retaining T coordinates and replacing the rest",
+              "conflict_note": "Canonical g(T)=v(x_T), b=g(empty), g0=g−b; source input b_i maps to r_i. Preserve this object’s local domain and source scope."
+            }
+          }
+        }
+      ],
+      "lean_names": [],
+      "version": "1.0",
+      "translations": {
+        "en": {
+          "name_zh": "Masked input",
+          "name": "Masked input",
+          "description_md": "An input vector retaining T coordinates and replacing the rest",
+          "type_or_domain": "An input vector retaining T coordinates and replacing the rest",
+          "scope": "An input vector retaining T coordinates and replacing the rest",
+          "assumptions": [],
+          "empty_set_convention": "Empty support has I_g(empty)=b; degrees, contexts and ratios retain their own stated domains.",
+          "baseline_convention": "Canonical g(T)=v(x_T), b=g(empty), g0=g−b; source input b_i maps to r_i. Preserve this object’s local domain and source scope."
+        }
+      }
+    },
+    {
+      "id": "diff-dividend",
+      "canonical_id": "sym-and-interaction",
+      "canonical_tex": "I(S\\mid\\mathbf x)",
+      "definition_tex": "I(S\\mid\\mathbf x)=\\sum_{T\\subseteq S}(-1)^{|S|-|T|}v(\\mathbf x_T)",
+      "name_zh": "普通 AND 交互",
+      "description_md": "支持索引实数，包括空交互",
+      "type_or_domain": "支持索引实数，包括空交互",
+      "scope": "支持索引实数，包括空交互",
+      "assumptions": [],
+      "empty_set_convention": "空支持仍有I_g(∅)=b；次数/上下文/比值各自按所列定义域。",
+      "baseline_convention": "规范 g(T)=v(x_T)、b=g(∅)、g0=g−b；输入原b_i映射r_i。此局部对象的域和来源按本行保留。",
+      "aliases": [
+        "I(S\\mid\\mathbf x)"
+      ],
+      "paper_mappings": [
+        {
+          "paper_id": "neurips2023-difficulty",
+          "source_id": "src-neurips2023-difficulty-formal",
+          "version_id": "ver-neurips2023-difficulty-formal",
+          "original_tex": "I(S\\mid\\mathbf x)",
+          "original_definition": "I(S\\mid\\mathbf x)=\\sum_{T\\subseteq S}(-1)^{|S|-|T|}v(\\mathbf x_T)",
+          "pdf_pages": [
+            3,
+            4,
+            15,
+            16
+          ],
+          "canonical_concept": "sym-and-interaction",
+          "relationship": "explicit_local_instance",
+          "note": "支持索引实数，包括空交互",
+          "conflict_note": "规范 g(T)=v(x_T)、b=g(∅)、g0=g−b；输入原b_i映射r_i。此局部对象的域和来源按本行保留。",
+          "translations": {
+            "en": {
+              "note": "A support-indexed real including the empty dividend",
+              "conflict_note": "Canonical g(T)=v(x_T), b=g(empty), g0=g−b; source input b_i maps to r_i. Preserve this object’s local domain and source scope."
+            }
+          }
+        }
+      ],
+      "lean_names": [],
+      "version": "1.0",
+      "translations": {
+        "en": {
+          "name_zh": "Ordinary AND dividend",
+          "name": "Ordinary AND dividend",
+          "description_md": "A support-indexed real including the empty dividend",
+          "type_or_domain": "A support-indexed real including the empty dividend",
+          "scope": "A support-indexed real including the empty dividend",
+          "assumptions": [],
+          "empty_set_convention": "Empty support has I_g(empty)=b; degrees, contexts and ratios retain their own stated domains.",
+          "baseline_convention": "Canonical g(T)=v(x_T), b=g(empty), g0=g−b; source input b_i maps to r_i. Preserve this object’s local domain and source scope."
+        }
+      }
+    },
+    {
+      "id": "diff-order",
+      "canonical_id": "sym-order",
+      "canonical_tex": "\\operatorname{order}(S)",
+      "definition_tex": "\\operatorname{complexity}(S)=\\operatorname{order}(S)=|S|",
+      "name_zh": "概念支持阶数",
+      "description_md": "非负整数，支持基数而非上下文m",
+      "type_or_domain": "非负整数，支持基数而非上下文m",
+      "scope": "非负整数，支持基数而非上下文m",
+      "assumptions": [],
+      "empty_set_convention": "空支持仍有I_g(∅)=b；次数/上下文/比值各自按所列定义域。",
+      "baseline_convention": "规范 g(T)=v(x_T)、b=g(∅)、g0=g−b；输入原b_i映射r_i。此局部对象的域和来源按本行保留。",
+      "aliases": [
+        "\\operatorname{order}(S)"
+      ],
+      "paper_mappings": [
+        {
+          "paper_id": "neurips2023-difficulty",
+          "source_id": "src-neurips2023-difficulty-formal",
+          "version_id": "ver-neurips2023-difficulty-formal",
+          "original_tex": "\\operatorname{order}(S)",
+          "original_definition": "\\operatorname{complexity}(S)=\\operatorname{order}(S)=|S|",
+          "pdf_pages": [
+            4,
+            5,
+            16
+          ],
+          "canonical_concept": "sym-order",
+          "relationship": "explicit_local_instance",
+          "note": "非负整数，支持基数而非上下文m",
+          "conflict_note": "规范 g(T)=v(x_T)、b=g(∅)、g0=g−b；输入原b_i映射r_i。此局部对象的域和来源按本行保留。",
+          "translations": {
+            "en": {
+              "note": "A natural support cardinality, distinct from context m",
+              "conflict_note": "Canonical g(T)=v(x_T), b=g(empty), g0=g−b; source input b_i maps to r_i. Preserve this object’s local domain and source scope."
+            }
+          }
+        }
+      ],
+      "lean_names": [],
+      "version": "1.0",
+      "translations": {
+        "en": {
+          "name_zh": "Concept support order",
+          "name": "Concept support order",
+          "description_md": "A natural support cardinality, distinct from context m",
+          "type_or_domain": "A natural support cardinality, distinct from context m",
+          "scope": "A natural support cardinality, distinct from context m",
+          "assumptions": [],
+          "empty_set_convention": "Empty support has I_g(empty)=b; degrees, contexts and ratios retain their own stated domains.",
+          "baseline_convention": "Canonical g(T)=v(x_T), b=g(empty), g0=g−b; source input b_i maps to r_i. Preserve this object’s local domain and source scope."
+        }
+      }
+    },
+    {
+      "id": "diff-context",
+      "canonical_id": "concept-multiorder-context-cardinality",
+      "canonical_tex": "m",
+      "definition_tex": "I^{(m)}(i,j)=E_{S\\subseteq N\\setminus\\{i,j\\},|S|=m}\\Delta v(i,j,S)",
+      "name_zh": "上下文基数",
+      "description_md": "0到n−2的整数，平均上下文大小",
+      "type_or_domain": "0到n−2的整数，平均上下文大小",
+      "scope": "0到n−2的整数，平均上下文大小",
+      "assumptions": [],
+      "empty_set_convention": "空支持仍有I_g(∅)=b；次数/上下文/比值各自按所列定义域。",
+      "baseline_convention": "规范 g(T)=v(x_T)、b=g(∅)、g0=g−b；输入原b_i映射r_i。此局部对象的域和来源按本行保留。",
+      "aliases": [
+        "m"
+      ],
+      "paper_mappings": [
+        {
+          "paper_id": "neurips2023-difficulty",
+          "source_id": "src-neurips2023-difficulty-formal",
+          "version_id": "ver-neurips2023-difficulty-formal",
+          "original_tex": "m",
+          "original_definition": "I^{(m)}(i,j)=E_{S\\subseteq N\\setminus\\{i,j\\},|S|=m}\\Delta v(i,j,S)",
+          "pdf_pages": [
+            16,
+            20,
+            21
+          ],
+          "canonical_concept": "concept-multiorder-context-cardinality",
+          "relationship": "explicit_local_instance",
+          "note": "0到n−2的整数，平均上下文大小",
+          "conflict_note": "规范 g(T)=v(x_T)、b=g(∅)、g0=g−b；输入原b_i映射r_i。此局部对象的域和来源按本行保留。",
+          "translations": {
+            "en": {
+              "note": "An integer from0 to n−2 giving the averaged context size",
+              "conflict_note": "Canonical g(T)=v(x_T), b=g(empty), g0=g−b; source input b_i maps to r_i. Preserve this object’s local domain and source scope."
+            }
+          }
+        }
+      ],
+      "lean_names": [],
+      "version": "1.0",
+      "translations": {
+        "en": {
+          "name_zh": "Context cardinality",
+          "name": "Context cardinality",
+          "description_md": "An integer from0 to n−2 giving the averaged context size",
+          "type_or_domain": "An integer from0 to n−2 giving the averaged context size",
+          "scope": "An integer from0 to n−2 giving the averaged context size",
+          "assumptions": [],
+          "empty_set_convention": "Empty support has I_g(empty)=b; degrees, contexts and ratios retain their own stated domains.",
+          "baseline_convention": "Canonical g(T)=v(x_T), b=g(empty), g0=g−b; source input b_i maps to r_i. Preserve this object’s local domain and source scope."
+        }
+      }
+    },
+    {
+      "id": "diff-tau",
+      "canonical_id": "concept-reference-distance",
+      "canonical_tex": "\\tau",
+      "definition_tex": "x_i-b_i\\in\\{-\\tau,\\tau\\}",
+      "name_zh": "参考距离",
+      "description_md": "严格正实数的有定义理论域；裁剪另有范围",
+      "type_or_domain": "严格正实数的有定义理论域；裁剪另有范围",
+      "scope": "严格正实数的有定义理论域；裁剪另有范围",
+      "assumptions": [],
+      "empty_set_convention": "空支持仍有I_g(∅)=b；次数/上下文/比值各自按所列定义域。",
+      "baseline_convention": "规范 g(T)=v(x_T)、b=g(∅)、g0=g−b；输入原b_i映射r_i。此局部对象的域和来源按本行保留。",
+      "aliases": [
+        "\\tau"
+      ],
+      "paper_mappings": [
+        {
+          "paper_id": "neurips2023-difficulty",
+          "source_id": "src-neurips2023-difficulty-formal",
+          "version_id": "ver-neurips2023-difficulty-formal",
+          "original_tex": "\\tau",
+          "original_definition": "x_i-b_i\\in\\{-\\tau,\\tau\\}",
+          "pdf_pages": [
+            4,
+            5,
+            17,
+            18,
+            19
+          ],
+          "canonical_concept": "concept-reference-distance",
+          "relationship": "explicit_local_instance",
+          "note": "严格正实数的有定义理论域；裁剪另有范围",
+          "conflict_note": "规范 g(T)=v(x_T)、b=g(∅)、g0=g−b；输入原b_i映射r_i。此局部对象的域和来源按本行保留。",
+          "translations": {
+            "en": {
+              "note": "A positive real on the defined theoretical domain; clipping is separate",
+              "conflict_note": "Canonical g(T)=v(x_T), b=g(empty), g0=g−b; source input b_i maps to r_i. Preserve this object’s local domain and source scope."
+            }
+          }
+        }
+      ],
+      "lean_names": [],
+      "version": "1.0",
+      "translations": {
+        "en": {
+          "name_zh": "Reference distance",
+          "name": "Reference distance",
+          "description_md": "A positive real on the defined theoretical domain; clipping is separate",
+          "type_or_domain": "A positive real on the defined theoretical domain; clipping is separate",
+          "scope": "A positive real on the defined theoretical domain; clipping is separate",
+          "assumptions": [],
+          "empty_set_convention": "Empty support has I_g(empty)=b; degrees, contexts and ratios retain their own stated domains.",
+          "baseline_convention": "Canonical g(T)=v(x_T), b=g(empty), g0=g−b; source input b_i maps to r_i. Preserve this object’s local domain and source scope."
+        }
+      }
+    },
+    {
+      "id": "diff-noise",
+      "canonical_id": "concept-coordinate-noise",
+      "canonical_tex": "\\boldsymbol\\epsilon",
+      "definition_tex": "\\boldsymbol\\epsilon\\sim\\mathcal N(0,\\sigma^2I)",
+      "name_zh": "输入 Gaussian 扰动",
+      "description_md": "独立坐标Gaussian随机向量",
+      "type_or_domain": "独立坐标Gaussian随机向量",
+      "scope": "独立坐标Gaussian随机向量",
+      "assumptions": [],
+      "empty_set_convention": "空支持仍有I_g(∅)=b；次数/上下文/比值各自按所列定义域。",
+      "baseline_convention": "规范 g(T)=v(x_T)、b=g(∅)、g0=g−b；输入原b_i映射r_i。此局部对象的域和来源按本行保留。",
+      "aliases": [
+        "\\boldsymbol\\epsilon"
+      ],
+      "paper_mappings": [
+        {
+          "paper_id": "neurips2023-difficulty",
+          "source_id": "src-neurips2023-difficulty-formal",
+          "version_id": "ver-neurips2023-difficulty-formal",
+          "original_tex": "\\boldsymbol\\epsilon",
+          "original_definition": "\\boldsymbol\\epsilon\\sim\\mathcal N(0,\\sigma^2I)",
+          "pdf_pages": [
+            5,
+            18,
+            19
+          ],
+          "canonical_concept": "concept-coordinate-noise",
+          "relationship": "explicit_local_instance",
+          "note": "独立坐标Gaussian随机向量",
+          "conflict_note": "规范 g(T)=v(x_T)、b=g(∅)、g0=g−b；输入原b_i映射r_i。此局部对象的域和来源按本行保留。",
+          "translations": {
+            "en": {
+              "note": "A Gaussian random vector with independent coordinates",
+              "conflict_note": "Canonical g(T)=v(x_T), b=g(empty), g0=g−b; source input b_i maps to r_i. Preserve this object’s local domain and source scope."
+            }
+          }
+        }
+      ],
+      "lean_names": [],
+      "version": "1.0",
+      "translations": {
+        "en": {
+          "name_zh": "Input Gaussian perturbation",
+          "name": "Input Gaussian perturbation",
+          "description_md": "A Gaussian random vector with independent coordinates",
+          "type_or_domain": "A Gaussian random vector with independent coordinates",
+          "scope": "A Gaussian random vector with independent coordinates",
+          "assumptions": [],
+          "empty_set_convention": "Empty support has I_g(empty)=b; degrees, contexts and ratios retain their own stated domains.",
+          "baseline_convention": "Canonical g(T)=v(x_T), b=g(empty), g0=g−b; source input b_i maps to r_i. Preserve this object’s local domain and source scope."
+        }
+      }
+    },
+    {
+      "id": "diff-noise-variance",
+      "canonical_id": "concept-coordinate-variance",
+      "canonical_tex": "\\sigma^2",
+      "definition_tex": "\\epsilon_i\\sim\\mathcal N(0,\\sigma^2)",
+      "name_zh": "输入噪声方差",
+      "description_md": "非负实数，严格反例取正方差",
+      "type_or_domain": "非负实数，严格反例取正方差",
+      "scope": "非负实数，严格反例取正方差",
+      "assumptions": [],
+      "empty_set_convention": "空支持仍有I_g(∅)=b；次数/上下文/比值各自按所列定义域。",
+      "baseline_convention": "规范 g(T)=v(x_T)、b=g(∅)、g0=g−b；输入原b_i映射r_i。此局部对象的域和来源按本行保留。",
+      "aliases": [
+        "\\sigma^2"
+      ],
+      "paper_mappings": [
+        {
+          "paper_id": "neurips2023-difficulty",
+          "source_id": "src-neurips2023-difficulty-formal",
+          "version_id": "ver-neurips2023-difficulty-formal",
+          "original_tex": "\\sigma^2",
+          "original_definition": "\\epsilon_i\\sim\\mathcal N(0,\\sigma^2)",
+          "pdf_pages": [
+            5,
+            18,
+            19
+          ],
+          "canonical_concept": "concept-coordinate-variance",
+          "relationship": "explicit_local_instance",
+          "note": "非负实数，严格反例取正方差",
+          "conflict_note": "规范 g(T)=v(x_T)、b=g(∅)、g0=g−b；输入原b_i映射r_i。此局部对象的域和来源按本行保留。",
+          "translations": {
+            "en": {
+              "note": "A nonnegative real, positive in the strict counterexamples",
+              "conflict_note": "Canonical g(T)=v(x_T), b=g(empty), g0=g−b; source input b_i maps to r_i. Preserve this object’s local domain and source scope."
+            }
+          }
+        }
+      ],
+      "lean_names": [],
+      "version": "1.0",
+      "translations": {
+        "en": {
+          "name_zh": "Input-noise variance",
+          "name": "Input-noise variance",
+          "description_md": "A nonnegative real, positive in the strict counterexamples",
+          "type_or_domain": "A nonnegative real, positive in the strict counterexamples",
+          "scope": "A nonnegative real, positive in the strict counterexamples",
+          "assumptions": [],
+          "empty_set_convention": "Empty support has I_g(empty)=b; degrees, contexts and ratios retain their own stated domains.",
+          "baseline_convention": "Canonical g(T)=v(x_T), b=g(empty), g0=g−b; source input b_i maps to r_i. Preserve this object’s local domain and source scope."
+        }
+      }
+    },
+    {
+      "id": "diff-degree",
+      "canonical_id": "concept-taylor-multiindex",
+      "canonical_tex": "\\boldsymbol\\pi\\in Q_S",
+      "definition_tex": "Q_S=\\{[\\pi_1,\\ldots,\\pi_n]:\\pi_i\\in\\mathbb N^+\\ (i\\in S),\\ \\pi_i=0\\ (i\\notin S)\\}",
+      "name_zh": "Taylor 次数向量",
+      "description_md": "自然次数向量，正次数支持为S",
+      "type_or_domain": "自然次数向量，正次数支持为S",
+      "scope": "自然次数向量，正次数支持为S",
+      "assumptions": [],
+      "empty_set_convention": "空支持仍有I_g(∅)=b；次数/上下文/比值各自按所列定义域。",
+      "baseline_convention": "规范 g(T)=v(x_T)、b=g(∅)、g0=g−b；输入原b_i映射r_i。此局部对象的域和来源按本行保留。",
+      "aliases": [
+        "\\boldsymbol\\pi\\in Q_S"
+      ],
+      "paper_mappings": [
+        {
+          "paper_id": "neurips2023-difficulty",
+          "source_id": "src-neurips2023-difficulty-formal",
+          "version_id": "ver-neurips2023-difficulty-formal",
+          "original_tex": "\\boldsymbol\\pi\\in Q_S",
+          "original_definition": "Q_S=\\{[\\pi_1,\\ldots,\\pi_n]:\\pi_i\\in\\mathbb N^+\\ (i\\in S),\\ \\pi_i=0\\ (i\\notin S)\\}",
+          "pdf_pages": [
+            4,
+            17,
+            19
+          ],
+          "canonical_concept": "concept-taylor-multiindex",
+          "relationship": "explicit_local_instance",
+          "note": "自然次数向量，正次数支持为S",
+          "conflict_note": "规范 g(T)=v(x_T)、b=g(∅)、g0=g−b；输入原b_i映射r_i。此局部对象的域和来源按本行保留。",
+          "translations": {
+            "en": {
+              "note": "A natural-degree vector with positive-degree support S",
+              "conflict_note": "Canonical g(T)=v(x_T), b=g(empty), g0=g−b; source input b_i maps to r_i. Preserve this object’s local domain and source scope."
+            }
+          }
+        }
+      ],
+      "lean_names": [],
+      "version": "1.0",
+      "translations": {
+        "en": {
+          "name_zh": "Taylor multiindex",
+          "name": "Taylor multiindex",
+          "description_md": "A natural-degree vector with positive-degree support S",
+          "type_or_domain": "A natural-degree vector with positive-degree support S",
+          "scope": "A natural-degree vector with positive-degree support S",
+          "assumptions": [],
+          "empty_set_convention": "Empty support has I_g(empty)=b; degrees, contexts and ratios retain their own stated domains.",
+          "baseline_convention": "Canonical g(T)=v(x_T), b=g(empty), g0=g−b; source input b_i maps to r_i. Preserve this object’s local domain and source scope."
+        }
+      }
+    },
+    {
+      "id": "diff-taylor-coefficient",
+      "canonical_id": "concept-moving-taylor-coefficient",
+      "canonical_tex": "U_{S,\\boldsymbol\\pi}",
+      "definition_tex": "U_{S,\\boldsymbol\\pi}=\\frac{\\tau^m}{\\prod_{i=1}^n\\pi_i!}\\frac{\\partial^m v(\\mathbf x\\prime_\\varnothing)}{\\partial x_1^{\\pi_1}\\cdots\\partial x_n^{\\pi_n}}\\cdot\\prod_{i\\in S}[\\operatorname{sign}(x_i\\prime-b_i)]^{\\pi_i}",
+      "name_zh": "含移动符号的系数",
+      "description_md": "实值次数项系数，随当前x′的符号可变",
+      "type_or_domain": "实值次数项系数，随当前x′的符号可变",
+      "scope": "实值次数项系数，随当前x′的符号可变",
+      "assumptions": [],
+      "empty_set_convention": "空支持仍有I_g(∅)=b；次数/上下文/比值各自按所列定义域。",
+      "baseline_convention": "规范 g(T)=v(x_T)、b=g(∅)、g0=g−b；输入原b_i映射r_i。此局部对象的域和来源按本行保留。",
+      "aliases": [
+        "U_{S,\\boldsymbol\\pi}"
+      ],
+      "paper_mappings": [
+        {
+          "paper_id": "neurips2023-difficulty",
+          "source_id": "src-neurips2023-difficulty-formal",
+          "version_id": "ver-neurips2023-difficulty-formal",
+          "original_tex": "U_{S,\\boldsymbol\\pi}",
+          "original_definition": "U_{S,\\boldsymbol\\pi}=\\frac{\\tau^m}{\\prod_{i=1}^n\\pi_i!}\\frac{\\partial^m v(\\mathbf x\\prime_\\varnothing)}{\\partial x_1^{\\pi_1}\\cdots\\partial x_n^{\\pi_n}}\\cdot\\prod_{i\\in S}[\\operatorname{sign}(x_i\\prime-b_i)]^{\\pi_i}",
+          "pdf_pages": [
+            4,
+            17,
+            18
+          ],
+          "canonical_concept": "concept-moving-taylor-coefficient",
+          "relationship": "explicit_local_instance",
+          "note": "实值次数项系数，随当前x′的符号可变",
+          "conflict_note": "规范 g(T)=v(x_T)、b=g(∅)、g0=g−b；输入原b_i映射r_i。此局部对象的域和来源按本行保留。",
+          "translations": {
+            "en": {
+              "note": "A real term coefficient that can vary with the current x′ signs",
+              "conflict_note": "Canonical g(T)=v(x_T), b=g(empty), g0=g−b; source input b_i maps to r_i. Preserve this object’s local domain and source scope."
+            }
+          }
+        }
+      ],
+      "lean_names": [],
+      "version": "1.0",
+      "translations": {
+        "en": {
+          "name_zh": "Coefficient with moving signs",
+          "name": "Coefficient with moving signs",
+          "description_md": "A real term coefficient that can vary with the current x′ signs",
+          "type_or_domain": "A real term coefficient that can vary with the current x′ signs",
+          "scope": "A real term coefficient that can vary with the current x′ signs",
+          "assumptions": [],
+          "empty_set_convention": "Empty support has I_g(empty)=b; degrees, contexts and ratios retain their own stated domains.",
+          "baseline_convention": "Canonical g(T)=v(x_T), b=g(empty), g0=g−b; source input b_i maps to r_i. Preserve this object’s local domain and source scope."
+        }
+      }
+    },
+    {
+      "id": "diff-term",
+      "canonical_id": "concept-absolute-expansion-trigger",
+      "canonical_tex": "J(S,\\boldsymbol\\pi\\mid\\mathbf x\\prime)",
+      "definition_tex": "J(S,\\boldsymbol\\pi\\mid\\mathbf x\\prime)=\\prod_{i\\in S}(\\operatorname{sign}(x_i\\prime-b_i)(x_i\\prime-b_i)/\\tau)^{\\pi_i}",
+      "name_zh": "绝对增量触发",
+      "description_md": "非负单项式随机函数，不能换有符号I",
+      "type_or_domain": "非负单项式随机函数，不能换有符号I",
+      "scope": "非负单项式随机函数，不能换有符号I",
+      "assumptions": [],
+      "empty_set_convention": "空支持仍有I_g(∅)=b；次数/上下文/比值各自按所列定义域。",
+      "baseline_convention": "规范 g(T)=v(x_T)、b=g(∅)、g0=g−b；输入原b_i映射r_i。此局部对象的域和来源按本行保留。",
+      "aliases": [
+        "J(S,\\boldsymbol\\pi\\mid\\mathbf x\\prime)"
+      ],
+      "paper_mappings": [
+        {
+          "paper_id": "neurips2023-difficulty",
+          "source_id": "src-neurips2023-difficulty-formal",
+          "version_id": "ver-neurips2023-difficulty-formal",
+          "original_tex": "J(S,\\boldsymbol\\pi\\mid\\mathbf x\\prime)",
+          "original_definition": "J(S,\\boldsymbol\\pi\\mid\\mathbf x\\prime)=\\prod_{i\\in S}(\\operatorname{sign}(x_i\\prime-b_i)(x_i\\prime-b_i)/\\tau)^{\\pi_i}",
+          "pdf_pages": [
+            4,
+            5,
+            17,
+            18,
+            19
+          ],
+          "canonical_concept": "concept-absolute-expansion-trigger",
+          "relationship": "explicit_local_instance",
+          "note": "非负单项式随机函数，不能换有符号I",
+          "conflict_note": "规范 g(T)=v(x_T)、b=g(∅)、g0=g−b；输入原b_i映射r_i。此局部对象的域和来源按本行保留。",
+          "translations": {
+            "en": {
+              "note": "A nonnegative monomial random function, distinct from signed I",
+              "conflict_note": "Canonical g(T)=v(x_T), b=g(empty), g0=g−b; source input b_i maps to r_i. Preserve this object’s local domain and source scope."
+            }
+          }
+        }
+      ],
+      "lean_names": [],
+      "version": "1.0",
+      "translations": {
+        "en": {
+          "name_zh": "Absolute-increment trigger",
+          "name": "Absolute-increment trigger",
+          "description_md": "A nonnegative monomial random function, distinct from signed I",
+          "type_or_domain": "A nonnegative monomial random function, distinct from signed I",
+          "scope": "A nonnegative monomial random function, distinct from signed I",
+          "assumptions": [],
+          "empty_set_convention": "Empty support has I_g(empty)=b; degrees, contexts and ratios retain their own stated domains.",
+          "baseline_convention": "Canonical g(T)=v(x_T), b=g(empty), g0=g−b; source input b_i maps to r_i. Preserve this object’s local domain and source scope."
+        }
+      }
+    },
+    {
+      "id": "diff-weight",
+      "canonical_id": "concept-reference-dividend",
+      "canonical_tex": "U_S",
+      "definition_tex": "U_S=I(S\\mid\\mathbf x)",
+      "name_zh": "固定参考交互系数",
+      "description_md": "参考样本索引实数，跨噪声固定但跨数据可变",
+      "type_or_domain": "参考样本索引实数，跨噪声固定但跨数据可变",
+      "scope": "参考样本索引实数，跨噪声固定但跨数据可变",
+      "assumptions": [],
+      "empty_set_convention": "空支持仍有I_g(∅)=b；次数/上下文/比值各自按所列定义域。",
+      "baseline_convention": "规范 g(T)=v(x_T)、b=g(∅)、g0=g−b；输入原b_i映射r_i。此局部对象的域和来源按本行保留。",
+      "aliases": [
+        "U_S"
+      ],
+      "paper_mappings": [
+        {
+          "paper_id": "neurips2023-difficulty",
+          "source_id": "src-neurips2023-difficulty-formal",
+          "version_id": "ver-neurips2023-difficulty-formal",
+          "original_tex": "U_S",
+          "original_definition": "U_S=I(S\\mid\\mathbf x)",
+          "pdf_pages": [
+            5,
+            6,
+            7
+          ],
+          "canonical_concept": "concept-reference-dividend",
+          "relationship": "explicit_local_instance",
+          "note": "参考样本索引实数，跨噪声固定但跨数据可变",
+          "conflict_note": "规范 g(T)=v(x_T)、b=g(∅)、g0=g−b；输入原b_i映射r_i。此局部对象的域和来源按本行保留。",
+          "translations": {
+            "en": {
+              "note": "A reference-sample real, fixed across noise but variable across data",
+              "conflict_note": "Canonical g(T)=v(x_T), b=g(empty), g0=g−b; source input b_i maps to r_i. Preserve this object’s local domain and source scope."
+            }
+          }
+        }
+      ],
+      "lean_names": [],
+      "version": "1.0",
+      "translations": {
+        "en": {
+          "name_zh": "Fixed reference dividend coefficient",
+          "name": "Fixed reference dividend coefficient",
+          "description_md": "A reference-sample real, fixed across noise but variable across data",
+          "type_or_domain": "A reference-sample real, fixed across noise but variable across data",
+          "scope": "A reference-sample real, fixed across noise but variable across data",
+          "assumptions": [],
+          "empty_set_convention": "Empty support has I_g(empty)=b; degrees, contexts and ratios retain their own stated domains.",
+          "baseline_convention": "Canonical g(T)=v(x_T), b=g(empty), g0=g−b; source input b_i maps to r_i. Preserve this object’s local domain and source scope."
+        }
+      }
+    },
+    {
+      "id": "diff-trigger",
+      "canonical_id": "concept-normalized-trigger",
+      "canonical_tex": "C_S(\\mathbf x\\prime)",
+      "definition_tex": "C_S(\\mathbf x\\prime)=\\sum_{\\boldsymbol\\pi\\in Q_S}U_{S,\\boldsymbol\\pi}J(S,\\boldsymbol\\pi\\mid\\mathbf x\\prime)/U_S",
+      "name_zh": "连续归一化触发",
+      "description_md": "非零U_S域的实随机函数；只对参考掩码二值",
+      "type_or_domain": "非零U_S域的实随机函数；只对参考掩码二值",
+      "scope": "非零U_S域的实随机函数；只对参考掩码二值",
+      "assumptions": [],
+      "empty_set_convention": "空支持仍有I_g(∅)=b；次数/上下文/比值各自按所列定义域。",
+      "baseline_convention": "规范 g(T)=v(x_T)、b=g(∅)、g0=g−b；输入原b_i映射r_i。此局部对象的域和来源按本行保留。",
+      "aliases": [
+        "C_S(\\mathbf x\\prime)"
+      ],
+      "paper_mappings": [
+        {
+          "paper_id": "neurips2023-difficulty",
+          "source_id": "src-neurips2023-difficulty-formal",
+          "version_id": "ver-neurips2023-difficulty-formal",
+          "original_tex": "C_S(\\mathbf x\\prime)",
+          "original_definition": "C_S(\\mathbf x\\prime)=\\sum_{\\boldsymbol\\pi\\in Q_S}U_{S,\\boldsymbol\\pi}J(S,\\boldsymbol\\pi\\mid\\mathbf x\\prime)/U_S",
+          "pdf_pages": [
+            6,
+            7,
+            20
+          ],
+          "canonical_concept": "concept-normalized-trigger",
+          "relationship": "explicit_local_instance",
+          "note": "非零U_S域的实随机函数；只对参考掩码二值",
+          "conflict_note": "规范 g(T)=v(x_T)、b=g(∅)、g0=g−b；输入原b_i映射r_i。此局部对象的域和来源按本行保留。",
+          "translations": {
+            "en": {
+              "note": "A real random function on U_S≠0; binary only on reference masks",
+              "conflict_note": "Canonical g(T)=v(x_T), b=g(empty), g0=g−b; source input b_i maps to r_i. Preserve this object’s local domain and source scope."
+            }
+          }
+        }
+      ],
+      "lean_names": [],
+      "version": "1.0",
+      "translations": {
+        "en": {
+          "name_zh": "Continuous normalized trigger",
+          "name": "Continuous normalized trigger",
+          "description_md": "A real random function on U_S≠0; binary only on reference masks",
+          "type_or_domain": "A real random function on U_S≠0; binary only on reference masks",
+          "scope": "A real random function on U_S≠0; binary only on reference masks",
+          "assumptions": [],
+          "empty_set_convention": "Empty support has I_g(empty)=b; degrees, contexts and ratios retain their own stated domains.",
+          "baseline_convention": "Canonical g(T)=v(x_T), b=g(empty), g0=g−b; source input b_i maps to r_i. Preserve this object’s local domain and source scope."
+        }
+      }
+    },
+    {
+      "id": "diff-stability",
+      "canonical_id": "concept-standard-deviation-stability",
+      "canonical_tex": "E^{(s)}/\\sqrt{V^{(s)}}",
+      "definition_tex": "E^{(s)}/\\sqrt{V^{(s)}}",
+      "name_zh": "标准差相对稳定度",
+      "description_md": "正V域的非负实数，区别F08的E/Var",
+      "type_or_domain": "正V域的非负实数，区别F08的E/Var",
+      "scope": "正V域的非负实数，区别F08的E/Var",
+      "assumptions": [],
+      "empty_set_convention": "空支持仍有I_g(∅)=b；次数/上下文/比值各自按所列定义域。",
+      "baseline_convention": "规范 g(T)=v(x_T)、b=g(∅)、g0=g−b；输入原b_i映射r_i。此局部对象的域和来源按本行保留。",
+      "aliases": [
+        "E^{(s)}/\\sqrt{V^{(s)}}"
+      ],
+      "paper_mappings": [
+        {
+          "paper_id": "neurips2023-difficulty",
+          "source_id": "src-neurips2023-difficulty-formal",
+          "version_id": "ver-neurips2023-difficulty-formal",
+          "original_tex": "E^{(s)}/\\sqrt{V^{(s)}}",
+          "original_definition": "E^{(s)}/\\sqrt{V^{(s)}}",
+          "pdf_pages": [
+            5,
+            6
+          ],
+          "canonical_concept": "concept-standard-deviation-stability",
+          "relationship": "explicit_local_instance",
+          "note": "正V域的非负实数，区别F08的E/Var",
+          "conflict_note": "规范 g(T)=v(x_T)、b=g(∅)、g0=g−b；输入原b_i映射r_i。此局部对象的域和来源按本行保留。",
+          "translations": {
+            "en": {
+              "note": "A nonnegative real on V>0, distinct from F08’s E/Var",
+              "conflict_note": "Canonical g(T)=v(x_T), b=g(empty), g0=g−b; source input b_i maps to r_i. Preserve this object’s local domain and source scope."
+            }
+          }
+        }
+      ],
+      "lean_names": [],
+      "version": "1.0",
+      "translations": {
+        "en": {
+          "name_zh": "Relative stability using standard deviation",
+          "name": "Relative stability using standard deviation",
+          "description_md": "A nonnegative real on V>0, distinct from F08’s E/Var",
+          "type_or_domain": "A nonnegative real on V>0, distinct from F08’s E/Var",
+          "scope": "A nonnegative real on V>0, distinct from F08’s E/Var",
+          "assumptions": [],
+          "empty_set_convention": "Empty support has I_g(empty)=b; degrees, contexts and ratios retain their own stated domains.",
+          "baseline_convention": "Canonical g(T)=v(x_T), b=g(empty), g0=g−b; source input b_i maps to r_i. Preserve this object’s local domain and source scope."
+        }
+      }
+    },
+    {
+      "id": "diff-mean-aggregate",
+      "canonical_id": "concept-order-absolute-mean-aggregate",
+      "canonical_tex": "E^{(s)}",
+      "definition_tex": "E^{(s)}=E_xE_{|S|=s}|E_\\epsilon I(S\\mid\\mathbf x+\\boldsymbol\\epsilon)|",
+      "name_zh": "同阶绝对均值平均",
+      "description_md": "非负实数，先噪声均值后绝对值后数据平均",
+      "type_or_domain": "非负实数，先噪声均值后绝对值后数据平均",
+      "scope": "非负实数，先噪声均值后绝对值后数据平均",
+      "assumptions": [],
+      "empty_set_convention": "空支持仍有I_g(∅)=b；次数/上下文/比值各自按所列定义域。",
+      "baseline_convention": "规范 g(T)=v(x_T)、b=g(∅)、g0=g−b；输入原b_i映射r_i。此局部对象的域和来源按本行保留。",
+      "aliases": [
+        "E^{(s)}"
+      ],
+      "paper_mappings": [
+        {
+          "paper_id": "neurips2023-difficulty",
+          "source_id": "src-neurips2023-difficulty-formal",
+          "version_id": "ver-neurips2023-difficulty-formal",
+          "original_tex": "E^{(s)}",
+          "original_definition": "E^{(s)}=E_xE_{|S|=s}|E_\\epsilon I(S\\mid\\mathbf x+\\boldsymbol\\epsilon)|",
+          "pdf_pages": [
+            5,
+            6
+          ],
+          "canonical_concept": "concept-order-absolute-mean-aggregate",
+          "relationship": "explicit_local_instance",
+          "note": "非负实数，先噪声均值后绝对值后数据平均",
+          "conflict_note": "规范 g(T)=v(x_T)、b=g(∅)、g0=g−b；输入原b_i映射r_i。此局部对象的域和来源按本行保留。",
+          "translations": {
+            "en": {
+              "note": "A nonnegative real: noise mean, absolute value, then data average",
+              "conflict_note": "Canonical g(T)=v(x_T), b=g(empty), g0=g−b; source input b_i maps to r_i. Preserve this object’s local domain and source scope."
+            }
+          }
+        }
+      ],
+      "lean_names": [],
+      "version": "1.0",
+      "translations": {
+        "en": {
+          "name_zh": "Order-averaged absolute mean",
+          "name": "Order-averaged absolute mean",
+          "description_md": "A nonnegative real: noise mean, absolute value, then data average",
+          "type_or_domain": "A nonnegative real: noise mean, absolute value, then data average",
+          "scope": "A nonnegative real: noise mean, absolute value, then data average",
+          "assumptions": [],
+          "empty_set_convention": "Empty support has I_g(empty)=b; degrees, contexts and ratios retain their own stated domains.",
+          "baseline_convention": "Canonical g(T)=v(x_T), b=g(empty), g0=g−b; source input b_i maps to r_i. Preserve this object’s local domain and source scope."
+        }
+      }
+    },
+    {
+      "id": "diff-variance-aggregate",
+      "canonical_id": "concept-order-variance-metric",
+      "canonical_tex": "V^{(s)}",
+      "definition_tex": "V^{(s)}=E_xE_{|S|=s}\\operatorname{Var}_\\epsilon I(S\\mid\\mathbf x+\\boldsymbol\\epsilon)",
+      "name_zh": "同阶方差平均",
+      "description_md": "非负实数，噪声随机源",
+      "type_or_domain": "非负实数，噪声随机源",
+      "scope": "非负实数，噪声随机源",
+      "assumptions": [],
+      "empty_set_convention": "空支持仍有I_g(∅)=b；次数/上下文/比值各自按所列定义域。",
+      "baseline_convention": "规范 g(T)=v(x_T)、b=g(∅)、g0=g−b；输入原b_i映射r_i。此局部对象的域和来源按本行保留。",
+      "aliases": [
+        "V^{(s)}"
+      ],
+      "paper_mappings": [
+        {
+          "paper_id": "neurips2023-difficulty",
+          "source_id": "src-neurips2023-difficulty-formal",
+          "version_id": "ver-neurips2023-difficulty-formal",
+          "original_tex": "V^{(s)}",
+          "original_definition": "V^{(s)}=E_xE_{|S|=s}\\operatorname{Var}_\\epsilon I(S\\mid\\mathbf x+\\boldsymbol\\epsilon)",
+          "pdf_pages": [
+            5,
+            6
+          ],
+          "canonical_concept": "concept-order-variance-metric",
+          "relationship": "explicit_local_instance",
+          "note": "非负实数，噪声随机源",
+          "conflict_note": "规范 g(T)=v(x_T)、b=g(∅)、g0=g−b；输入原b_i映射r_i。此局部对象的域和来源按本行保留。",
+          "translations": {
+            "en": {
+              "note": "A nonnegative real with noise as the random source",
+              "conflict_note": "Canonical g(T)=v(x_T), b=g(empty), g0=g−b; source input b_i maps to r_i. Preserve this object’s local domain and source scope."
+            }
+          }
+        }
+      ],
+      "lean_names": [],
+      "version": "1.0",
+      "translations": {
+        "en": {
+          "name_zh": "Order-averaged variance",
+          "name": "Order-averaged variance",
+          "description_md": "A nonnegative real with noise as the random source",
+          "type_or_domain": "A nonnegative real with noise as the random source",
+          "scope": "A nonnegative real with noise as the random source",
+          "assumptions": [],
+          "empty_set_convention": "Empty support has I_g(empty)=b; degrees, contexts and ratios retain their own stated domains.",
+          "baseline_convention": "Canonical g(T)=v(x_T), b=g(empty), g0=g−b; source input b_i maps to r_i. Preserve this object’s local domain and source scope."
+        }
+      }
+    },
+    {
+      "id": "diff-feature-mean",
+      "canonical_id": "concept-regression-feature-mean",
+      "canonical_tex": "\\mu_i",
+      "definition_tex": "\\mu=E_{\\mathbf f}[\\mathbf f]",
+      "name_zh": "回归特征均值",
+      "description_md": "G5特征均值向量，非数据均值",
+      "type_or_domain": "G5特征均值向量，非数据均值",
+      "scope": "G5特征均值向量，非数据均值",
+      "assumptions": [],
+      "empty_set_convention": "空支持仍有I_g(∅)=b；次数/上下文/比值各自按所列定义域。",
+      "baseline_convention": "规范 g(T)=v(x_T)、b=g(∅)、g0=g−b；输入原b_i映射r_i。此局部对象的域和来源按本行保留。",
+      "aliases": [
+        "\\mu_i"
+      ],
+      "paper_mappings": [
+        {
+          "paper_id": "neurips2023-difficulty",
+          "source_id": "src-neurips2023-difficulty-formal",
+          "version_id": "ver-neurips2023-difficulty-formal",
+          "original_tex": "\\mu_i",
+          "original_definition": "\\mu=E_{\\mathbf f}[\\mathbf f]",
+          "pdf_pages": [
+            21
+          ],
+          "canonical_concept": "concept-regression-feature-mean",
+          "relationship": "explicit_local_instance",
+          "note": "G5特征均值向量，非数据均值",
+          "conflict_note": "规范 g(T)=v(x_T)、b=g(∅)、g0=g−b；输入原b_i映射r_i。此局部对象的域和来源按本行保留。",
+          "translations": {
+            "en": {
+              "note": "A G.5 feature-mean vector, distinct from data means",
+              "conflict_note": "Canonical g(T)=v(x_T), b=g(empty), g0=g−b; source input b_i maps to r_i. Preserve this object’s local domain and source scope."
+            }
+          }
+        }
+      ],
+      "lean_names": [],
+      "version": "1.0",
+      "translations": {
+        "en": {
+          "name_zh": "Regression feature mean",
+          "name": "Regression feature mean",
+          "description_md": "A G.5 feature-mean vector, distinct from data means",
+          "type_or_domain": "A G.5 feature-mean vector, distinct from data means",
+          "scope": "A G.5 feature-mean vector, distinct from data means",
+          "assumptions": [],
+          "empty_set_convention": "Empty support has I_g(empty)=b; degrees, contexts and ratios retain their own stated domains.",
+          "baseline_convention": "Canonical g(T)=v(x_T), b=g(empty), g0=g−b; source input b_i maps to r_i. Preserve this object’s local domain and source scope."
+        }
+      }
+    },
+    {
+      "id": "diff-feature-variance",
+      "canonical_id": "concept-regression-feature-variance",
+      "canonical_tex": "d_i",
+      "definition_tex": "\\Sigma=\\operatorname{diag}(\\sigma_1^2,\\ldots,\\sigma_k^2)",
+      "name_zh": "回归方差记号",
+      "description_md": "原σ²/Σ²有读法冲突；真实方差规范d_i",
+      "type_or_domain": "原σ²/Σ²有读法冲突；真实方差规范d_i",
+      "scope": "原σ²/Σ²有读法冲突；真实方差规范d_i",
+      "assumptions": [],
+      "empty_set_convention": "空支持仍有I_g(∅)=b；次数/上下文/比值各自按所列定义域。",
+      "baseline_convention": "规范 g(T)=v(x_T)、b=g(∅)、g0=g−b；输入原b_i映射r_i。此局部对象的域和来源按本行保留。",
+      "aliases": [
+        "\\sigma_i^2"
+      ],
+      "paper_mappings": [
+        {
+          "paper_id": "neurips2023-difficulty",
+          "source_id": "src-neurips2023-difficulty-formal",
+          "version_id": "ver-neurips2023-difficulty-formal",
+          "original_tex": "\\sigma_i^2",
+          "original_definition": "\\Sigma=\\operatorname{diag}(\\sigma_1^2,\\ldots,\\sigma_k^2)",
+          "pdf_pages": [
+            21
+          ],
+          "canonical_concept": "concept-regression-feature-variance",
+          "relationship": "explicit_local_instance",
+          "note": "原σ²/Σ²有读法冲突；真实方差规范d_i",
+          "conflict_note": "规范 g(T)=v(x_T)、b=g(∅)、g0=g−b；输入原b_i映射r_i。此局部对象的域和来源按本行保留。",
+          "translations": {
+            "en": {
+              "note": "Source σ²/Σ² is ambiguous; true variance is canonical d_i",
+              "conflict_note": "Canonical g(T)=v(x_T), b=g(empty), g0=g−b; source input b_i maps to r_i. Preserve this object’s local domain and source scope."
+            }
+          }
+        }
+      ],
+      "lean_names": [],
+      "version": "1.0",
+      "translations": {
+        "en": {
+          "name_zh": "Regression variance notation",
+          "name": "Regression variance notation",
+          "description_md": "Source σ²/Σ² is ambiguous; true variance is canonical d_i",
+          "type_or_domain": "Source σ²/Σ² is ambiguous; true variance is canonical d_i",
+          "scope": "Source σ²/Σ² is ambiguous; true variance is canonical d_i",
+          "assumptions": [],
+          "empty_set_convention": "Empty support has I_g(empty)=b; degrees, contexts and ratios retain their own stated domains.",
+          "baseline_convention": "Canonical g(T)=v(x_T), b=g(empty), g0=g−b; source input b_i maps to r_i. Preserve this object’s local domain and source scope."
+        }
+      }
+    },
+    {
+      "id": "diff-covariance",
+      "canonical_id": "difficulty-source-covariance-square",
+      "canonical_tex": "\\Sigma^2",
+      "definition_tex": "\\mathbf f\\sim\\mathcal N(\\mu,\\Sigma^2)",
+      "name_zh": "原平方协方差记号",
+      "description_md": "k维矩阵，保留Σ和Σ²区别",
+      "type_or_domain": "k维矩阵，保留Σ和Σ²区别",
+      "scope": "k维矩阵，保留Σ和Σ²区别",
+      "assumptions": [],
+      "empty_set_convention": "空支持仍有I_g(∅)=b；次数/上下文/比值各自按所列定义域。",
+      "baseline_convention": "规范 g(T)=v(x_T)、b=g(∅)、g0=g−b；输入原b_i映射r_i。此局部对象的域和来源按本行保留。",
+      "aliases": [
+        "\\Sigma^2"
+      ],
+      "paper_mappings": [
+        {
+          "paper_id": "neurips2023-difficulty",
+          "source_id": "src-neurips2023-difficulty-formal",
+          "version_id": "ver-neurips2023-difficulty-formal",
+          "original_tex": "\\Sigma^2",
+          "original_definition": "\\mathbf f\\sim\\mathcal N(\\mu,\\Sigma^2)",
+          "pdf_pages": [
+            21
+          ],
+          "canonical_concept": "difficulty-source-covariance-square",
+          "relationship": "explicit_local_instance",
+          "note": "k维矩阵，保留Σ和Σ²区别",
+          "conflict_note": "规范 g(T)=v(x_T)、b=g(∅)、g0=g−b；输入原b_i映射r_i。此局部对象的域和来源按本行保留。",
+          "translations": {
+            "en": {
+              "note": "A k-dimensional matrix preserving the distinction between Σ and Σ²",
+              "conflict_note": "Canonical g(T)=v(x_T), b=g(empty), g0=g−b; source input b_i maps to r_i. Preserve this object’s local domain and source scope."
+            }
+          }
+        }
+      ],
+      "lean_names": [],
+      "version": "1.0",
+      "translations": {
+        "en": {
+          "name_zh": "Source squared-covariance notation",
+          "name": "Source squared-covariance notation",
+          "description_md": "A k-dimensional matrix preserving the distinction between Σ and Σ²",
+          "type_or_domain": "A k-dimensional matrix preserving the distinction between Σ and Σ²",
+          "scope": "A k-dimensional matrix preserving the distinction between Σ and Σ²",
+          "assumptions": [],
+          "empty_set_convention": "Empty support has I_g(empty)=b; degrees, contexts and ratios retain their own stated domains.",
+          "baseline_convention": "Canonical g(T)=v(x_T), b=g(empty), g0=g−b; source input b_i maps to r_i. Preserve this object’s local domain and source scope."
+        }
+      }
+    },
+    {
+      "id": "diff-gram",
+      "canonical_id": "concept-feature-second-moment-matrix",
+      "canonical_tex": "K",
+      "definition_tex": "K=E_{\\mathbf f}[\\mathbf f\\mathbf f^\\top]=\\mu\\mu^\\top+\\Sigma^2",
+      "name_zh": "特征二阶矩矩阵",
+      "description_md": "k×k实对称矩阵",
+      "type_or_domain": "k×k实对称矩阵",
+      "scope": "k×k实对称矩阵",
+      "assumptions": [],
+      "empty_set_convention": "空支持仍有I_g(∅)=b；次数/上下文/比值各自按所列定义域。",
+      "baseline_convention": "规范 g(T)=v(x_T)、b=g(∅)、g0=g−b；输入原b_i映射r_i。此局部对象的域和来源按本行保留。",
+      "aliases": [
+        "K"
+      ],
+      "paper_mappings": [
+        {
+          "paper_id": "neurips2023-difficulty",
+          "source_id": "src-neurips2023-difficulty-formal",
+          "version_id": "ver-neurips2023-difficulty-formal",
+          "original_tex": "K",
+          "original_definition": "K=E_{\\mathbf f}[\\mathbf f\\mathbf f^\\top]=\\mu\\mu^\\top+\\Sigma^2",
+          "pdf_pages": [
+            21
+          ],
+          "canonical_concept": "concept-feature-second-moment-matrix",
+          "relationship": "explicit_local_instance",
+          "note": "k×k实对称矩阵",
+          "conflict_note": "规范 g(T)=v(x_T)、b=g(∅)、g0=g−b；输入原b_i映射r_i。此局部对象的域和来源按本行保留。",
+          "translations": {
+            "en": {
+              "note": "A real symmetric k×k matrix",
+              "conflict_note": "Canonical g(T)=v(x_T), b=g(empty), g0=g−b; source input b_i maps to r_i. Preserve this object’s local domain and source scope."
+            }
+          }
+        }
+      ],
+      "lean_names": [],
+      "version": "1.0",
+      "translations": {
+        "en": {
+          "name_zh": "Feature second-moment matrix",
+          "name": "Feature second-moment matrix",
+          "description_md": "A real symmetric k×k matrix",
+          "type_or_domain": "A real symmetric k×k matrix",
+          "scope": "A real symmetric k×k matrix",
+          "assumptions": [],
+          "empty_set_convention": "Empty support has I_g(empty)=b; degrees, contexts and ratios retain their own stated domains.",
+          "baseline_convention": "Canonical g(T)=v(x_T), b=g(empty), g0=g−b; source input b_i maps to r_i. Preserve this object’s local domain and source scope."
+        }
+      }
+    },
+    {
+      "id": "diff-regression-weight",
+      "canonical_id": "concept-linear-feature-weight",
+      "canonical_tex": "\\mathbf w",
+      "definition_tex": "y^*\\approx\\mathbf w^\\top\\mathbf f",
+      "name_zh": "可优化线性权重",
+      "description_md": "k维实向量，固定f的平方回归权重",
+      "type_or_domain": "k维实向量，固定f的平方回归权重",
+      "scope": "k维实向量，固定f的平方回归权重",
+      "assumptions": [],
+      "empty_set_convention": "空支持仍有I_g(∅)=b；次数/上下文/比值各自按所列定义域。",
+      "baseline_convention": "规范 g(T)=v(x_T)、b=g(∅)、g0=g−b；输入原b_i映射r_i。此局部对象的域和来源按本行保留。",
+      "aliases": [
+        "\\mathbf w"
+      ],
+      "paper_mappings": [
+        {
+          "paper_id": "neurips2023-difficulty",
+          "source_id": "src-neurips2023-difficulty-formal",
+          "version_id": "ver-neurips2023-difficulty-formal",
+          "original_tex": "\\mathbf w",
+          "original_definition": "y^*\\approx\\mathbf w^\\top\\mathbf f",
+          "pdf_pages": [
+            21
+          ],
+          "canonical_concept": "concept-linear-feature-weight",
+          "relationship": "explicit_local_instance",
+          "note": "k维实向量，固定f的平方回归权重",
+          "conflict_note": "规范 g(T)=v(x_T)、b=g(∅)、g0=g−b；输入原b_i映射r_i。此局部对象的域和来源按本行保留。",
+          "translations": {
+            "en": {
+              "note": "A real k-vector in squared regression with fixed f",
+              "conflict_note": "Canonical g(T)=v(x_T), b=g(empty), g0=g−b; source input b_i maps to r_i. Preserve this object’s local domain and source scope."
+            }
+          }
+        }
+      ],
+      "lean_names": [],
+      "version": "1.0",
+      "translations": {
+        "en": {
+          "name_zh": "Optimized linear weight",
+          "name": "Optimized linear weight",
+          "description_md": "A real k-vector in squared regression with fixed f",
+          "type_or_domain": "A real k-vector in squared regression with fixed f",
+          "scope": "A real k-vector in squared regression with fixed f",
+          "assumptions": [],
+          "empty_set_convention": "Empty support has I_g(empty)=b; degrees, contexts and ratios retain their own stated domains.",
+          "baseline_convention": "Canonical g(T)=v(x_T), b=g(empty), g0=g−b; source input b_i maps to r_i. Preserve this object’s local domain and source scope."
+        }
+      }
+    },
+    {
+      "id": "diff-beta",
+      "canonical_id": "difficulty-class-consistency-beta",
+      "canonical_tex": "\\beta(S)",
+      "definition_tex": "\\beta(S)=E_c[|E_{x\\in X_c}I(S\\mid\\mathbf x)|/\\operatorname{Std}_{x\\in X_c}I(S\\mid\\mathbf x)]",
+      "name_zh": "类别相对一致性",
+      "description_md": "非零类内标准差域的非负实数",
+      "type_or_domain": "非零类内标准差域的非负实数",
+      "scope": "非零类内标准差域的非负实数",
+      "assumptions": [],
+      "empty_set_convention": "空支持仍有I_g(∅)=b；次数/上下文/比值各自按所列定义域。",
+      "baseline_convention": "规范 g(T)=v(x_T)、b=g(∅)、g0=g−b；输入原b_i映射r_i。此局部对象的域和来源按本行保留。",
+      "aliases": [
+        "\\beta(S)"
+      ],
+      "paper_mappings": [
+        {
+          "paper_id": "neurips2023-difficulty",
+          "source_id": "src-neurips2023-difficulty-formal",
+          "version_id": "ver-neurips2023-difficulty-formal",
+          "original_tex": "\\beta(S)",
+          "original_definition": "\\beta(S)=E_c[|E_{x\\in X_c}I(S\\mid\\mathbf x)|/\\operatorname{Std}_{x\\in X_c}I(S\\mid\\mathbf x)]",
+          "pdf_pages": [
+            7
+          ],
+          "canonical_concept": "difficulty-class-consistency-beta",
+          "relationship": "explicit_local_instance",
+          "note": "非零类内标准差域的非负实数",
+          "conflict_note": "规范 g(T)=v(x_T)、b=g(∅)、g0=g−b；输入原b_i映射r_i。此局部对象的域和来源按本行保留。",
+          "translations": {
+            "en": {
+              "note": "A nonnegative real on nonzero within-class standard deviations",
+              "conflict_note": "Canonical g(T)=v(x_T), b=g(empty), g0=g−b; source input b_i maps to r_i. Preserve this object’s local domain and source scope."
+            }
+          }
+        }
+      ],
+      "lean_names": [],
+      "version": "1.0",
+      "translations": {
+        "en": {
+          "name_zh": "Class relative consistency",
+          "name": "Class relative consistency",
+          "description_md": "A nonnegative real on nonzero within-class standard deviations",
+          "type_or_domain": "A nonnegative real on nonzero within-class standard deviations",
+          "scope": "A nonnegative real on nonzero within-class standard deviations",
+          "assumptions": [],
+          "empty_set_convention": "Empty support has I_g(empty)=b; degrees, contexts and ratios retain their own stated domains.",
+          "baseline_convention": "Canonical g(T)=v(x_T), b=g(empty), g0=g−b; source input b_i maps to r_i. Preserve this object’s local domain and source scope."
+        }
+      }
+    },
+    {
+      "id": "diff-kappa",
+      "canonical_id": "difficulty-relative-absolute-instability",
+      "canonical_tex": "\\kappa(S)",
+      "definition_tex": "\\kappa(S)=E_xE_\\epsilon|I(S\\mid\\mathbf x+\\boldsymbol\\epsilon)-I(S\\mid\\mathbf x)|/E_x|I(S\\mid\\mathbf x)|",
+      "name_zh": "相对绝对扰动敏感度",
+      "description_md": "正平均幅值域的非负实数，打印C转换另审",
+      "type_or_domain": "正平均幅值域的非负实数，打印C转换另审",
+      "scope": "正平均幅值域的非负实数，打印C转换另审",
+      "assumptions": [],
+      "empty_set_convention": "空支持仍有I_g(∅)=b；次数/上下文/比值各自按所列定义域。",
+      "baseline_convention": "规范 g(T)=v(x_T)、b=g(∅)、g0=g−b；输入原b_i映射r_i。此局部对象的域和来源按本行保留。",
+      "aliases": [
+        "\\kappa(S)"
+      ],
+      "paper_mappings": [
+        {
+          "paper_id": "neurips2023-difficulty",
+          "source_id": "src-neurips2023-difficulty-formal",
+          "version_id": "ver-neurips2023-difficulty-formal",
+          "original_tex": "\\kappa(S)",
+          "original_definition": "\\kappa(S)=E_xE_\\epsilon|I(S\\mid\\mathbf x+\\boldsymbol\\epsilon)-I(S\\mid\\mathbf x)|/E_x|I(S\\mid\\mathbf x)|",
+          "pdf_pages": [
+            7
+          ],
+          "canonical_concept": "difficulty-relative-absolute-instability",
+          "relationship": "explicit_local_instance",
+          "note": "正平均幅值域的非负实数，打印C转换另审",
+          "conflict_note": "规范 g(T)=v(x_T)、b=g(∅)、g0=g−b；输入原b_i映射r_i。此局部对象的域和来源按本行保留。",
+          "translations": {
+            "en": {
+              "note": "A nonnegative real on positive mean magnitude; the printed C conversion is separately audited",
+              "conflict_note": "Canonical g(T)=v(x_T), b=g(empty), g0=g−b; source input b_i maps to r_i. Preserve this object’s local domain and source scope."
+            }
+          }
+        }
+      ],
+      "lean_names": [],
+      "version": "1.0",
+      "translations": {
+        "en": {
+          "name_zh": "Relative absolute perturbation sensitivity",
+          "name": "Relative absolute perturbation sensitivity",
+          "description_md": "A nonnegative real on positive mean magnitude; the printed C conversion is separately audited",
+          "type_or_domain": "A nonnegative real on positive mean magnitude; the printed C conversion is separately audited",
+          "scope": "A nonnegative real on positive mean magnitude; the printed C conversion is separately audited",
+          "assumptions": [],
+          "empty_set_convention": "Empty support has I_g(empty)=b; degrees, contexts and ratios retain their own stated domains.",
+          "baseline_convention": "Canonical g(T)=v(x_T), b=g(empty), g0=g−b; source input b_i maps to r_i. Preserve this object’s local domain and source scope."
+        }
+      }
+    },
+    {
+      "id": "diff-salient",
+      "canonical_id": "concept-salient-support-family",
+      "canonical_tex": "\\Omega_{salient}",
+      "definition_tex": "\\Omega_{salient}\\subseteq2^N",
+      "name_zh": "显著支持族",
+      "description_md": "有限powerset子族，无统一尾和界",
+      "type_or_domain": "有限powerset子族，无统一尾和界",
+      "scope": "有限powerset子族，无统一尾和界",
+      "assumptions": [],
+      "empty_set_convention": "空支持仍有I_g(∅)=b；次数/上下文/比值各自按所列定义域。",
+      "baseline_convention": "规范 g(T)=v(x_T)、b=g(∅)、g0=g−b；输入原b_i映射r_i。此局部对象的域和来源按本行保留。",
+      "aliases": [
+        "\\Omega_{salient}"
+      ],
+      "paper_mappings": [
+        {
+          "paper_id": "neurips2023-difficulty",
+          "source_id": "src-neurips2023-difficulty-formal",
+          "version_id": "ver-neurips2023-difficulty-formal",
+          "original_tex": "\\Omega_{salient}",
+          "original_definition": "\\Omega_{salient}\\subseteq2^N",
+          "pdf_pages": [
+            3,
+            4,
+            6
+          ],
+          "canonical_concept": "concept-salient-support-family",
+          "relationship": "explicit_local_instance",
+          "note": "有限powerset子族，无统一尾和界",
+          "conflict_note": "规范 g(T)=v(x_T)、b=g(∅)、g0=g−b；输入原b_i映射r_i。此局部对象的域和来源按本行保留。",
+          "translations": {
+            "en": {
+              "note": "A finite powerset subfamily without a uniform tail-sum bound",
+              "conflict_note": "Canonical g(T)=v(x_T), b=g(empty), g0=g−b; source input b_i maps to r_i. Preserve this object’s local domain and source scope."
+            }
+          }
+        }
+      ],
+      "lean_names": [],
+      "version": "1.0",
+      "translations": {
+        "en": {
+          "name_zh": "Salient support family",
+          "name": "Salient support family",
+          "description_md": "A finite powerset subfamily without a uniform tail-sum bound",
+          "type_or_domain": "A finite powerset subfamily without a uniform tail-sum bound",
+          "scope": "A finite powerset subfamily without a uniform tail-sum bound",
+          "assumptions": [],
+          "empty_set_convention": "Empty support has I_g(empty)=b; degrees, contexts and ratios retain their own stated domains.",
+          "baseline_convention": "Canonical g(T)=v(x_T), b=g(empty), g0=g−b; source input b_i maps to r_i. Preserve this object’s local domain and source scope."
+        }
+      }
+    },
+    {
+      "id": "diff-jaccard",
+      "canonical_id": "difficulty-learning-vector-jaccard",
+      "canonical_tex": "\\operatorname{sim}(I_t^{(s)},I_{final}^{(s)})",
+      "definition_tex": "\\operatorname{sim}=\\|\\min(\\widetilde I_t^{(s)},\\widetilde I_{final}^{(s)})\\|_1/\\|\\max(\\widetilde I_t^{(s)},\\widetilde I_{final}^{(s)})\\|_1",
+      "name_zh": "训练向量 Jaccard",
+      "description_md": "分母非零域上的[0,1]相似度",
+      "type_or_domain": "分母非零域上的[0,1]相似度",
+      "scope": "分母非零域上的[0,1]相似度",
+      "assumptions": [],
+      "empty_set_convention": "空支持仍有I_g(∅)=b；次数/上下文/比值各自按所列定义域。",
+      "baseline_convention": "规范 g(T)=v(x_T)、b=g(∅)、g0=g−b；输入原b_i映射r_i。此局部对象的域和来源按本行保留。",
+      "aliases": [
+        "\\operatorname{sim}(I_t^{(s)},I_{final}^{(s)})"
+      ],
+      "paper_mappings": [
+        {
+          "paper_id": "neurips2023-difficulty",
+          "source_id": "src-neurips2023-difficulty-formal",
+          "version_id": "ver-neurips2023-difficulty-formal",
+          "original_tex": "\\operatorname{sim}(I_t^{(s)},I_{final}^{(s)})",
+          "original_definition": "\\operatorname{sim}=\\|\\min(\\widetilde I_t^{(s)},\\widetilde I_{final}^{(s)})\\|_1/\\|\\max(\\widetilde I_t^{(s)},\\widetilde I_{final}^{(s)})\\|_1",
+          "pdf_pages": [
+            8
+          ],
+          "canonical_concept": "difficulty-learning-vector-jaccard",
+          "relationship": "explicit_local_instance",
+          "note": "分母非零域上的[0,1]相似度",
+          "conflict_note": "规范 g(T)=v(x_T)、b=g(∅)、g0=g−b；输入原b_i映射r_i。此局部对象的域和来源按本行保留。",
+          "translations": {
+            "en": {
+              "note": "A similarity in[0,1] where the denominator is nonzero",
+              "conflict_note": "Canonical g(T)=v(x_T), b=g(empty), g0=g−b; source input b_i maps to r_i. Preserve this object’s local domain and source scope."
+            }
+          }
+        }
+      ],
+      "lean_names": [],
+      "version": "1.0",
+      "translations": {
+        "en": {
+          "name_zh": "Training-vector Jaccard",
+          "name": "Training-vector Jaccard",
+          "description_md": "A similarity in[0,1] where the denominator is nonzero",
+          "type_or_domain": "A similarity in[0,1] where the denominator is nonzero",
+          "scope": "A similarity in[0,1] where the denominator is nonzero",
+          "assumptions": [],
+          "empty_set_convention": "Empty support has I_g(empty)=b; degrees, contexts and ratios retain their own stated domains.",
+          "baseline_convention": "Canonical g(T)=v(x_T), b=g(empty), g0=g−b; source input b_i maps to r_i. Preserve this object’s local domain and source scope."
+        }
+      }
+    },
+    {
+      "id": "diff-attack",
+      "canonical_id": "difficulty-adversarial-perturbation",
+      "canonical_tex": "\\delta",
+      "definition_tex": "\\delta\\text{ generated by }\\ell_\\infty\\text{ attack [33]}",
+      "name_zh": "对抗攻击扰动",
+      "description_md": "依赖输入和攻击的向量，非Gaussianε",
+      "type_or_domain": "依赖输入和攻击的向量，非Gaussianε",
+      "scope": "依赖输入和攻击的向量，非Gaussianε",
+      "assumptions": [],
+      "empty_set_convention": "空支持仍有I_g(∅)=b；次数/上下文/比值各自按所列定义域。",
+      "baseline_convention": "规范 g(T)=v(x_T)、b=g(∅)、g0=g−b；输入原b_i映射r_i。此局部对象的域和来源按本行保留。",
+      "aliases": [
+        "\\delta"
+      ],
+      "paper_mappings": [
+        {
+          "paper_id": "neurips2023-difficulty",
+          "source_id": "src-neurips2023-difficulty-formal",
+          "version_id": "ver-neurips2023-difficulty-formal",
+          "original_tex": "\\delta",
+          "original_definition": "\\delta\\text{ generated by }\\ell_\\infty\\text{ attack [33]}",
+          "pdf_pages": [
+            9
+          ],
+          "canonical_concept": "difficulty-adversarial-perturbation",
+          "relationship": "explicit_local_instance",
+          "note": "依赖输入和攻击的向量，非Gaussianε",
+          "conflict_note": "规范 g(T)=v(x_T)、b=g(∅)、g0=g−b；输入原b_i映射r_i。此局部对象的域和来源按本行保留。",
+          "translations": {
+            "en": {
+              "note": "An input/attack-dependent vector, distinct from Gaussian ε",
+              "conflict_note": "Canonical g(T)=v(x_T), b=g(empty), g0=g−b; source input b_i maps to r_i. Preserve this object’s local domain and source scope."
+            }
+          }
+        }
+      ],
+      "lean_names": [],
+      "version": "1.0",
+      "translations": {
+        "en": {
+          "name_zh": "Adversarial attack perturbation",
+          "name": "Adversarial attack perturbation",
+          "description_md": "An input/attack-dependent vector, distinct from Gaussian ε",
+          "type_or_domain": "An input/attack-dependent vector, distinct from Gaussian ε",
+          "scope": "An input/attack-dependent vector, distinct from Gaussian ε",
+          "assumptions": [],
+          "empty_set_convention": "Empty support has I_g(empty)=b; degrees, contexts and ratios retain their own stated domains.",
+          "baseline_convention": "Canonical g(T)=v(x_T), b=g(empty), g0=g−b; source input b_i maps to r_i. Preserve this object’s local domain and source scope."
+        }
+      }
+    },
+    {
+      "id": "diff-alpha",
+      "canonical_id": "difficulty-adversarial-sensitivity-alpha",
+      "canonical_tex": "\\alpha(S),A^{(s)}",
+      "definition_tex": "\\alpha(S)=E_x|I(S\\mid\\mathbf x+\\delta)-I(S\\mid\\mathbf x)|/E_x|I(S\\mid\\mathbf x)|,\\quad A^{(s)}=E_{|S|=s}\\alpha(S)",
+      "name_zh": "对抗敏感度及阶数平均",
+      "description_md": "正平均幅值域的非负实数",
+      "type_or_domain": "正平均幅值域的非负实数",
+      "scope": "正平均幅值域的非负实数",
+      "assumptions": [],
+      "empty_set_convention": "空支持仍有I_g(∅)=b；次数/上下文/比值各自按所列定义域。",
+      "baseline_convention": "规范 g(T)=v(x_T)、b=g(∅)、g0=g−b；输入原b_i映射r_i。此局部对象的域和来源按本行保留。",
+      "aliases": [
+        "\\alpha(S),A^{(s)}"
+      ],
+      "paper_mappings": [
+        {
+          "paper_id": "neurips2023-difficulty",
+          "source_id": "src-neurips2023-difficulty-formal",
+          "version_id": "ver-neurips2023-difficulty-formal",
+          "original_tex": "\\alpha(S),A^{(s)}",
+          "original_definition": "\\alpha(S)=E_x|I(S\\mid\\mathbf x+\\delta)-I(S\\mid\\mathbf x)|/E_x|I(S\\mid\\mathbf x)|,\\quad A^{(s)}=E_{|S|=s}\\alpha(S)",
+          "pdf_pages": [
+            9
+          ],
+          "canonical_concept": "difficulty-adversarial-sensitivity-alpha",
+          "relationship": "explicit_local_instance",
+          "note": "正平均幅值域的非负实数",
+          "conflict_note": "规范 g(T)=v(x_T)、b=g(∅)、g0=g−b；输入原b_i映射r_i。此局部对象的域和来源按本行保留。",
+          "translations": {
+            "en": {
+              "note": "A nonnegative real on a positive mean-magnitude domain",
+              "conflict_note": "Canonical g(T)=v(x_T), b=g(empty), g0=g−b; source input b_i maps to r_i. Preserve this object’s local domain and source scope."
+            }
+          }
+        }
+      ],
+      "lean_names": [],
+      "version": "1.0",
+      "translations": {
+        "en": {
+          "name_zh": "Adversarial sensitivity and order average",
+          "name": "Adversarial sensitivity and order average",
+          "description_md": "A nonnegative real on a positive mean-magnitude domain",
+          "type_or_domain": "A nonnegative real on a positive mean-magnitude domain",
+          "scope": "A nonnegative real on a positive mean-magnitude domain",
+          "assumptions": [],
+          "empty_set_convention": "Empty support has I_g(empty)=b; degrees, contexts and ratios retain their own stated domains.",
+          "baseline_convention": "Canonical g(T)=v(x_T), b=g(empty), g0=g−b; source input b_i maps to r_i. Preserve this object’s local domain and source scope."
+        }
+      }
+    },
+    {
+      "id": "diff-permutation",
+      "canonical_id": "sym-variable-permutation",
+      "canonical_tex": "\\pi",
+      "definition_tex": "v^\\pi(\\pi S)=v(S)",
+      "name_zh": "变量重命名双射",
+      "description_md": "变量集合双射，区别Taylor粗体π次数",
+      "type_or_domain": "变量集合双射，区别Taylor粗体π次数",
+      "scope": "变量集合双射，区别Taylor粗体π次数",
+      "assumptions": [],
+      "empty_set_convention": "空支持仍有I_g(∅)=b；次数/上下文/比值各自按所列定义域。",
+      "baseline_convention": "规范 g(T)=v(x_T)、b=g(∅)、g0=g−b；输入原b_i映射r_i。此局部对象的域和来源按本行保留。",
+      "aliases": [
+        "\\pi"
+      ],
+      "paper_mappings": [
+        {
+          "paper_id": "neurips2023-difficulty",
+          "source_id": "src-neurips2023-difficulty-formal",
+          "version_id": "ver-neurips2023-difficulty-formal",
+          "original_tex": "\\pi",
+          "original_definition": "v^\\pi(\\pi S)=v(S)",
+          "pdf_pages": [
+            16
+          ],
+          "canonical_concept": "sym-variable-permutation",
+          "relationship": "explicit_local_instance",
+          "note": "变量集合双射，区别Taylor粗体π次数",
+          "conflict_note": "规范 g(T)=v(x_T)、b=g(∅)、g0=g−b；输入原b_i映射r_i。此局部对象的域和来源按本行保留。",
+          "translations": {
+            "en": {
+              "note": "A variable-set bijection, distinct from the bold Taylor multiindex",
+              "conflict_note": "Canonical g(T)=v(x_T), b=g(empty), g0=g−b; source input b_i maps to r_i. Preserve this object’s local domain and source scope."
+            }
+          }
+        }
+      ],
+      "lean_names": [],
+      "version": "1.0",
+      "translations": {
+        "en": {
+          "name_zh": "Variable relabeling bijection",
+          "name": "Variable relabeling bijection",
+          "description_md": "A variable-set bijection, distinct from the bold Taylor multiindex",
+          "type_or_domain": "A variable-set bijection, distinct from the bold Taylor multiindex",
+          "scope": "A variable-set bijection, distinct from the bold Taylor multiindex",
+          "assumptions": [],
+          "empty_set_convention": "Empty support has I_g(empty)=b; degrees, contexts and ratios retain their own stated domains.",
+          "baseline_convention": "Canonical g(T)=v(x_T), b=g(empty), g0=g−b; source input b_i maps to r_i. Preserve this object’s local domain and source scope."
+        }
+      }
+    },
+    {
+      "id": "diff-unanimity",
+      "canonical_id": "sym-unanimity-game",
+      "canonical_tex": "v_T",
+      "definition_tex": "v_T(S)=c\\text{ if }T\\subseteq S;\\ 0\\text{ otherwise}",
+      "name_zh": "纯 AND 奖励",
+      "description_md": "支持T与实幅值c确定的集合游戏",
+      "type_or_domain": "支持T与实幅值c确定的集合游戏",
+      "scope": "支持T与实幅值c确定的集合游戏",
+      "assumptions": [],
+      "empty_set_convention": "空支持仍有I_g(∅)=b；次数/上下文/比值各自按所列定义域。",
+      "baseline_convention": "规范 g(T)=v(x_T)、b=g(∅)、g0=g−b；输入原b_i映射r_i。此局部对象的域和来源按本行保留。",
+      "aliases": [
+        "v_T"
+      ],
+      "paper_mappings": [
+        {
+          "paper_id": "neurips2023-difficulty",
+          "source_id": "src-neurips2023-difficulty-formal",
+          "version_id": "ver-neurips2023-difficulty-formal",
+          "original_tex": "v_T",
+          "original_definition": "v_T(S)=c\\text{ if }T\\subseteq S;\\ 0\\text{ otherwise}",
+          "pdf_pages": [
+            16
+          ],
+          "canonical_concept": "sym-unanimity-game",
+          "relationship": "explicit_local_instance",
+          "note": "支持T与实幅值c确定的集合游戏",
+          "conflict_note": "规范 g(T)=v(x_T)、b=g(∅)、g0=g−b；输入原b_i映射r_i。此局部对象的域和来源按本行保留。",
+          "translations": {
+            "en": {
+              "note": "A set game determined by support T and real amplitude c",
+              "conflict_note": "Canonical g(T)=v(x_T), b=g(empty), g0=g−b; source input b_i maps to r_i. Preserve this object’s local domain and source scope."
+            }
+          }
+        }
+      ],
+      "lean_names": [],
+      "version": "1.0",
+      "translations": {
+        "en": {
+          "name_zh": "Pure AND reward",
+          "name": "Pure AND reward",
+          "description_md": "A set game determined by support T and real amplitude c",
+          "type_or_domain": "A set game determined by support T and real amplitude c",
+          "scope": "A set game determined by support T and real amplitude c",
+          "assumptions": [],
+          "empty_set_convention": "Empty support has I_g(empty)=b; degrees, contexts and ratios retain their own stated domains.",
+          "baseline_convention": "Canonical g(T)=v(x_T), b=g(empty), g0=g−b; source input b_i maps to r_i. Preserve this object’s local domain and source scope."
+        }
+      }
+    },
+    {
+      "id": "diff-product-factors",
+      "canonical_id": "concept-independent-product-factors",
+      "canonical_tex": "X_1,\\ldots,X_k",
+      "definition_tex": "X_1,\\ldots,X_k\\text{ independent}",
+      "name_zh": "独立乘积因子",
+      "description_md": "有限独立实随机变量，正确方差式需有限二阶矩",
+      "type_or_domain": "有限独立实随机变量，正确方差式需有限二阶矩",
+      "scope": "有限独立实随机变量，正确方差式需有限二阶矩",
+      "assumptions": [],
+      "empty_set_convention": "空支持仍有I_g(∅)=b；次数/上下文/比值各自按所列定义域。",
+      "baseline_convention": "规范 g(T)=v(x_T)、b=g(∅)、g0=g−b；输入原b_i映射r_i。此局部对象的域和来源按本行保留。",
+      "aliases": [
+        "X_1,\\ldots,X_k"
+      ],
+      "paper_mappings": [
+        {
+          "paper_id": "neurips2023-difficulty",
+          "source_id": "src-neurips2023-difficulty-formal",
+          "version_id": "ver-neurips2023-difficulty-formal",
+          "original_tex": "X_1,\\ldots,X_k",
+          "original_definition": "X_1,\\ldots,X_k\\text{ independent}",
+          "pdf_pages": [
+            18
+          ],
+          "canonical_concept": "concept-independent-product-factors",
+          "relationship": "explicit_local_instance",
+          "note": "有限独立实随机变量，正确方差式需有限二阶矩",
+          "conflict_note": "规范 g(T)=v(x_T)、b=g(∅)、g0=g−b；输入原b_i映射r_i。此局部对象的域和来源按本行保留。",
+          "translations": {
+            "en": {
+              "note": "Finite independent real random variables; the correct variance formula needs finite second moments",
+              "conflict_note": "Canonical g(T)=v(x_T), b=g(empty), g0=g−b; source input b_i maps to r_i. Preserve this object’s local domain and source scope."
+            }
+          }
+        }
+      ],
+      "lean_names": [],
+      "version": "1.0",
+      "translations": {
+        "en": {
+          "name_zh": "Independent product factors",
+          "name": "Independent product factors",
+          "description_md": "Finite independent real random variables; the correct variance formula needs finite second moments",
+          "type_or_domain": "Finite independent real random variables; the correct variance formula needs finite second moments",
+          "scope": "Finite independent real random variables; the correct variance formula needs finite second moments",
+          "assumptions": [],
+          "empty_set_convention": "Empty support has I_g(empty)=b; degrees, contexts and ratios retain their own stated domains.",
+          "baseline_convention": "Canonical g(T)=v(x_T), b=g(empty), g0=g−b; source input b_i maps to r_i. Preserve this object’s local domain and source scope."
+        }
+      }
+    },
+    {
+      "id": "diff-total-degree",
+      "canonical_id": "concept-taylor-total-degree",
+      "canonical_tex": "m=\\sum_i\\pi_i",
+      "definition_tex": "m=\\sum_{i=1}^n\\pi_i",
+      "name_zh": "Taylor 局部总次数",
+      "description_md": "G1局部m是次数之和；规范|π|1，区别F上下文m",
+      "type_or_domain": "G1局部m是次数之和；规范|π|1，区别F上下文m",
+      "scope": "G1局部m是次数之和；规范|π|1，区别F上下文m",
+      "assumptions": [],
+      "empty_set_convention": "空支持仍有I_g(∅)=b；次数/上下文/比值各自按所列定义域。",
+      "baseline_convention": "规范 g(T)=v(x_T)、b=g(∅)、g0=g−b；输入原b_i映射r_i。此局部对象的域和来源按本行保留。",
+      "aliases": [
+        "m=\\sum_i\\pi_i"
+      ],
+      "paper_mappings": [
+        {
+          "paper_id": "neurips2023-difficulty",
+          "source_id": "src-neurips2023-difficulty-formal",
+          "version_id": "ver-neurips2023-difficulty-formal",
+          "original_tex": "m=\\sum_i\\pi_i",
+          "original_definition": "m=\\sum_{i=1}^n\\pi_i",
+          "pdf_pages": [
+            17
+          ],
+          "canonical_concept": "concept-taylor-total-degree",
+          "relationship": "explicit_local_instance",
+          "note": "G1局部m是次数之和；规范|π|1，区别F上下文m",
+          "conflict_note": "规范 g(T)=v(x_T)、b=g(∅)、g0=g−b；输入原b_i映射r_i。此局部对象的域和来源按本行保留。",
+          "translations": {
+            "en": {
+              "note": "G.1 local m sums degrees; canonical ||π||₁ differs from Section F context m",
+              "conflict_note": "Canonical g(T)=v(x_T), b=g(empty), g0=g−b; source input b_i maps to r_i. Preserve this object’s local domain and source scope."
+            }
+          }
+        }
+      ],
+      "lean_names": [],
+      "version": "1.0",
+      "translations": {
+        "en": {
+          "name_zh": "Local Taylor total degree",
+          "name": "Local Taylor total degree",
+          "description_md": "G.1 local m sums degrees; canonical ||π||₁ differs from Section F context m",
+          "type_or_domain": "G.1 local m sums degrees; canonical ||π||₁ differs from Section F context m",
+          "scope": "G.1 local m sums degrees; canonical ||π||₁ differs from Section F context m",
+          "assumptions": [],
+          "empty_set_convention": "Empty support has I_g(empty)=b; degrees, contexts and ratios retain their own stated domains.",
+          "baseline_convention": "Canonical g(T)=v(x_T), b=g(empty), g0=g−b; source input b_i maps to r_i. Preserve this object’s local domain and source scope."
+        }
+      }
+    },
+    {
+      "id": "diff-moving-sign",
+      "canonical_id": "concept-moving-coordinate-sign",
+      "canonical_tex": "\\operatorname{sign}(x_i\\prime-b_i)",
+      "definition_tex": "\\operatorname{sign}(x_i\\prime-b_i)",
+      "name_zh": "当前增量符号",
+      "description_md": "{-1,0,1}值，随当前输入可变；参考非零时±1",
+      "type_or_domain": "{-1,0,1}值，随当前输入可变；参考非零时±1",
+      "scope": "{-1,0,1}值，随当前输入可变；参考非零时±1",
+      "assumptions": [],
+      "empty_set_convention": "空支持仍有I_g(∅)=b；次数/上下文/比值各自按所列定义域。",
+      "baseline_convention": "规范 g(T)=v(x_T)、b=g(∅)、g0=g−b；输入原b_i映射r_i。此局部对象的域和来源按本行保留。",
+      "aliases": [
+        "\\operatorname{sign}(x_i\\prime-b_i)"
+      ],
+      "paper_mappings": [
+        {
+          "paper_id": "neurips2023-difficulty",
+          "source_id": "src-neurips2023-difficulty-formal",
+          "version_id": "ver-neurips2023-difficulty-formal",
+          "original_tex": "\\operatorname{sign}(x_i\\prime-b_i)",
+          "original_definition": "\\operatorname{sign}(x_i\\prime-b_i)",
+          "pdf_pages": [
+            4,
+            17,
+            18,
+            19
+          ],
+          "canonical_concept": "concept-moving-coordinate-sign",
+          "relationship": "explicit_local_instance",
+          "note": "{-1,0,1}值，随当前输入可变；参考非零时±1",
+          "conflict_note": "规范 g(T)=v(x_T)、b=g(∅)、g0=g−b；输入原b_i映射r_i。此局部对象的域和来源按本行保留。",
+          "translations": {
+            "en": {
+              "note": "Values in{-1,0,1}, varying with the current input; nonzero reference signs are±1",
+              "conflict_note": "Canonical g(T)=v(x_T), b=g(empty), g0=g−b; source input b_i maps to r_i. Preserve this object’s local domain and source scope."
+            }
+          }
+        }
+      ],
+      "lean_names": [],
+      "version": "1.0",
+      "translations": {
+        "en": {
+          "name_zh": "Current-increment sign",
+          "name": "Current-increment sign",
+          "description_md": "Values in{-1,0,1}, varying with the current input; nonzero reference signs are±1",
+          "type_or_domain": "Values in{-1,0,1}, varying with the current input; nonzero reference signs are±1",
+          "scope": "Values in{-1,0,1}, varying with the current input; nonzero reference signs are±1",
+          "assumptions": [],
+          "empty_set_convention": "Empty support has I_g(empty)=b; degrees, contexts and ratios retain their own stated domains.",
+          "baseline_convention": "Canonical g(T)=v(x_T), b=g(empty), g0=g−b; source input b_i maps to r_i. Preserve this object’s local domain and source scope."
+        }
+      }
+    },
+    {
+      "id": "diff-frequency",
+      "canonical_id": "difficulty-sample-space-spectrum",
+      "canonical_tex": "\\text{low/high frequencies}",
+      "definition_tex": "\\text{low/high frequencies in the loss landscape in [63]}",
+      "name_zh": "样本空间频谱解释",
+      "description_md": "外引损失景观频率，未给定量域，不是中间特征二维DFT",
+      "type_or_domain": "外引损失景观频率，未给定量域，不是中间特征二维DFT",
+      "scope": "外引损失景观频率，未给定量域，不是中间特征二维DFT",
+      "assumptions": [],
+      "empty_set_convention": "空支持仍有I_g(∅)=b；次数/上下文/比值各自按所列定义域。",
+      "baseline_convention": "规范 g(T)=v(x_T)、b=g(∅)、g0=g−b；输入原b_i映射r_i。此局部对象的域和来源按本行保留。",
+      "aliases": [
+        "\\text{low/high frequencies}"
+      ],
+      "paper_mappings": [
+        {
+          "paper_id": "neurips2023-difficulty",
+          "source_id": "src-neurips2023-difficulty-formal",
+          "version_id": "ver-neurips2023-difficulty-formal",
+          "original_tex": "\\text{low/high frequencies}",
+          "original_definition": "\\text{low/high frequencies in the loss landscape in [63]}",
+          "pdf_pages": [
+            10
+          ],
+          "canonical_concept": "difficulty-sample-space-spectrum",
+          "relationship": "explicit_local_instance",
+          "note": "外引损失景观频率，未给定量域，不是中间特征二维DFT",
+          "conflict_note": "规范 g(T)=v(x_T)、b=g(∅)、g0=g−b；输入原b_i映射r_i。此局部对象的域和来源按本行保留。",
+          "translations": {
+            "en": {
+              "note": "Cited loss-landscape frequencies with no quantitative domain, distinct from intermediate-feature two-dimensional DFT",
+              "conflict_note": "Canonical g(T)=v(x_T), b=g(empty), g0=g−b; source input b_i maps to r_i. Preserve this object’s local domain and source scope."
+            }
+          }
+        }
+      ],
+      "lean_names": [],
+      "version": "1.0",
+      "translations": {
+        "en": {
+          "name_zh": "Sample-space spectrum interpretation",
+          "name": "Sample-space spectrum interpretation",
+          "description_md": "Cited loss-landscape frequencies with no quantitative domain, distinct from intermediate-feature two-dimensional DFT",
+          "type_or_domain": "Cited loss-landscape frequencies with no quantitative domain, distinct from intermediate-feature two-dimensional DFT",
+          "scope": "Cited loss-landscape frequencies with no quantitative domain, distinct from intermediate-feature two-dimensional DFT",
+          "assumptions": [],
+          "empty_set_convention": "Empty support has I_g(empty)=b; degrees, contexts and ratios retain their own stated domains.",
+          "baseline_convention": "Canonical g(T)=v(x_T), b=g(empty), g0=g−b; source input b_i maps to r_i. Preserve this object’s local domain and source scope."
+        }
+      }
+    }
+  ]
+}

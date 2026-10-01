@@ -1,0 +1,802 @@
+{
+  "scope": "Development-package structure and language only; no source/math/Lean acceptance or manifest mutation",
+  "paper_id": "icml2023-bayesian",
+  "status": "structural_checks_passed_pending_mathematical_review",
+  "result_count": 22,
+  "target_entries": 15,
+  "target_result_ids": [
+    "bnn-binary",
+    "bnn-general-moments",
+    "bnn-growth",
+    "bnn-interaction",
+    "bnn-linear-representation",
+    "bnn-lowest",
+    "bnn-multiorder-link",
+    "bnn-order-inference",
+    "bnn-product",
+    "bnn-regression",
+    "bnn-salient-matching",
+    "bnn-scaling",
+    "bnn-sparsity",
+    "bnn-superposition-inference",
+    "bnn-taylor"
+  ],
+  "non_target_entries": [
+    {
+      "id": "bnn-posterior",
+      "kind": "definition",
+      "reason": "均场变分目标、后验预测及逐层替代模型是作者设定的方法定义；分布拟合的优化问题不声称所有网络精确同律。",
+      "requires_source_and_content_review": true
+    },
+    {
+      "id": "bnn-reference",
+      "kind": "definition",
+      "reason": "作者定义输入基线距离、符号及明确忽略小概率越界尾部的近似模型；这些是设置与建模约定。",
+      "requires_source_and_content_review": true
+    },
+    {
+      "id": "bnn-trigger",
+      "kind": "definition",
+      "reason": "固定参考系数与归一化触发在Eq.(12)定义；随后二值性及线性重构已拆成独立数学目标。",
+      "requires_source_and_content_review": true
+    },
+    {
+      "id": "bnn-objective",
+      "kind": "definition",
+      "reason": "Eq.(15)规定简化回归优化目标；关于其最优解的数学断言在Theorem2.5独立登记。",
+      "requires_source_and_content_review": true
+    },
+    {
+      "id": "bnn-metrics",
+      "kind": "definition",
+      "reason": "按样本/同阶子集平均的强度、方差、稳定度与Eq.(6)–(7)逐层KL拟合定义为测量方法，不是经验趋势的普遍定理。",
+      "requires_source_and_content_review": true
+    },
+    {
+      "id": "bnn-generalization",
+      "kind": "definition",
+      "reason": "Appendix F的训练/测试类别交互均值、符号拆分和Jaccard相似度是经验泛化指标定义；未给任意测试分布的数学界。",
+      "requires_source_and_content_review": true
+    },
+    {
+      "id": "bnn-experiments",
+      "kind": "empirical",
+      "reason": "这些页记录图表、模型配置、噪声采样与观测趋势，未从有限实验推出普遍定理。",
+      "requires_source_and_content_review": true
+    }
+  ],
+  "errors": [],
+  "bilingual_errors": [],
+  "inline_math_differences": [
+    {
+      "id": "bnn-taylor",
+      "step_id": "bnn-taylor-step-2",
+      "classification": "inline_tex_text_difference_requires_semantic_review",
+      "zh": [
+        [
+          "m_\\pi(z^T)",
+          "",
+          ""
+        ],
+        [
+          "\\operatorname{supp}\\pi\\subseteq T",
+          "",
+          ""
+        ],
+        [
+          "m_\\pi(z)",
+          "",
+          ""
+        ],
+        [
+          "g(T)=\\sum_{S\\subseteq T}K_S",
+          "",
+          ""
+        ],
+        [
+          "K_S=I_g(S)",
+          "",
+          ""
+        ]
+      ],
+      "en": [
+        [
+          "m_\\pi(z^T)",
+          "",
+          ""
+        ],
+        [
+          "m_\\pi(z)",
+          "",
+          ""
+        ],
+        [
+          "\\operatorname{supp}\\pi\\subseteq T",
+          "",
+          ""
+        ],
+        [
+          "g(T)=\\sum_{S\\subseteq T}K_S",
+          "",
+          ""
+        ],
+        [
+          "K_S=I_g(S)",
+          "",
+          ""
+        ]
+      ]
+    },
+    {
+      "id": "bnn-lowest",
+      "step_id": "bnn-lowest-step-1",
+      "classification": "inline_tex_text_difference_requires_semantic_review",
+      "zh": [
+        [
+          "v(x_T\\prime)=b+a\\prod_{i\\in S}(x_i\\prime-r_i)\\mathbf1_{i\\in T}",
+          "",
+          ""
+        ],
+        [
+          "a\\prod_{i\\in S}(x_i\\prime-r_i)",
+          "",
+          ""
+        ],
+        [
+          "U(x\\prime)",
+          "",
+          ""
+        ],
+        [
+          "J_{abs}(x\\prime)",
+          "",
+          ""
+        ]
+      ],
+      "en": [
+        [
+          "v(x_T\\prime)=b+a\\prod_{i\\in S}(x_i\\prime-r_i)\\mathbf1_{i\\in T}",
+          "",
+          ""
+        ],
+        [
+          "a\\prod_{i\\in S}(x_i\\prime-r_i)",
+          "",
+          ""
+        ],
+        [
+          "U(x\\prime)J_{abs}(x\\prime)",
+          "",
+          ""
+        ]
+      ]
+    },
+    {
+      "id": "bnn-general-moments",
+      "step_id": "bnn-general-moments-step-2",
+      "classification": "inline_tex_text_difference_requires_semantic_review",
+      "zh": [
+        [
+          "x=1,r=0,\\tau=1,\\pi=1,\\epsilon\\sim\\mathcal N(0,q)",
+          "",
+          ""
+        ],
+        [
+          "q>0",
+          "",
+          ""
+        ],
+        [
+          "J=|1+\\epsilon|",
+          "",
+          ""
+        ],
+        [
+          "E(1+\\epsilon)=1",
+          "",
+          ""
+        ],
+        [
+          "E|1+\\epsilon|=1+2E[-(1+\\epsilon)\\mathbf1_{\\epsilon<-1}]>1",
+          "",
+          ""
+        ],
+        [
+          "|z|-z",
+          "",
+          ""
+        ],
+        [
+          "1+q-(E|1+\\epsilon|)^2<q",
+          "",
+          ""
+        ]
+      ],
+      "en": [
+        [
+          "x=1,r=0,\\tau=1,\\pi=1",
+          "",
+          ""
+        ],
+        [
+          "\\epsilon\\sim\\mathcal N(0,q)",
+          "",
+          ""
+        ],
+        [
+          "q>0",
+          "",
+          ""
+        ],
+        [
+          "J=|1+\\epsilon|",
+          "",
+          ""
+        ],
+        [
+          "E(1+\\epsilon)=1",
+          "",
+          ""
+        ],
+        [
+          "E|1+\\epsilon|=1+2E[-(1+\\epsilon)\\mathbf1_{\\epsilon<-1}]>1",
+          "",
+          ""
+        ],
+        [
+          "|z|-z",
+          "",
+          ""
+        ],
+        [
+          "1+q-(E|1+\\epsilon|)^2<q",
+          "",
+          ""
+        ]
+      ]
+    },
+    {
+      "id": "bnn-trigger",
+      "step_id": "bnn-trigger-step-1",
+      "classification": "inline_tex_text_difference_requires_semantic_review",
+      "zh": [
+        [
+          "I(S\\mid x\\prime)=U_SC_S(x\\prime)",
+          "",
+          ""
+        ],
+        [
+          "U_S",
+          "",
+          ""
+        ]
+      ],
+      "en": [
+        [
+          "I(S\\mid x\\prime)=U_SC_S(x\\prime)",
+          "",
+          ""
+        ]
+      ]
+    },
+    {
+      "id": "bnn-regression",
+      "step_id": "bnn-regression-step-3",
+      "classification": "inline_tex_text_difference_requires_semantic_review",
+      "zh": [
+        [
+          "L(w)-L(w^*)=(w-w^*)^\\top K(w-w^*)>0",
+          "",
+          ""
+        ],
+        [
+          "w\\ne w^*",
+          "",
+          ""
+        ],
+        [
+          "|w_i^*|=|\\lambda||a_i/d_i|",
+          "",
+          ""
+        ],
+        [
+          "y^*=1",
+          "",
+          ""
+        ],
+        [
+          "(1-w_1-w_2)^2",
+          "",
+          ""
+        ],
+        [
+          "a_i/d_i",
+          "",
+          ""
+        ]
+      ],
+      "en": [
+        [
+          "w\\ne w^*",
+          "",
+          ""
+        ],
+        [
+          "L(w)-L(w^*)=(w-w^*)^\\top K(w-w^*)>0",
+          "",
+          ""
+        ],
+        [
+          "|w_i^*|=|\\lambda||a_i/d_i|",
+          "",
+          ""
+        ],
+        [
+          "y^*=1",
+          "",
+          ""
+        ],
+        [
+          "L(w)=(1-w_1-w_2)^2",
+          "",
+          ""
+        ],
+        [
+          "a_i/d_i",
+          "",
+          ""
+        ]
+      ]
+    },
+    {
+      "id": "bnn-scaling",
+      "step_id": "bnn-scaling-step-1",
+      "classification": "inline_tex_text_difference_requires_semantic_review",
+      "zh": [
+        [
+          "EI=U EC",
+          "",
+          ""
+        ],
+        [
+          "\\operatorname{Var}I=U^2\\operatorname{Var}C",
+          "",
+          ""
+        ],
+        [
+          "|U|",
+          "",
+          ""
+        ],
+        [
+          "|EC|/\\operatorname{Var}C=|U|\\,|EI|/\\operatorname{Var}I",
+          "",
+          ""
+        ],
+        [
+          "U",
+          "",
+          ""
+        ]
+      ],
+      "en": [
+        [
+          "EI=U EC",
+          "",
+          ""
+        ],
+        [
+          "\\operatorname{Var}I=U^2\\operatorname{Var}C",
+          "",
+          ""
+        ],
+        [
+          "|EC|/\\operatorname{Var}C=|U|\\,|EI|/\\operatorname{Var}I",
+          "",
+          ""
+        ],
+        [
+          "U",
+          "",
+          ""
+        ]
+      ]
+    },
+    {
+      "id": "bnn-scaling",
+      "step_id": "bnn-scaling-step-2",
+      "classification": "inline_tex_text_difference_requires_semantic_review",
+      "zh": [
+        [
+          "|EI|/\\operatorname{Var}I\\ge0",
+          "",
+          ""
+        ],
+        [
+          "A_{\\min}\\le|U|\\le A_{\\max}",
+          "",
+          ""
+        ],
+        [
+          "U=0",
+          "",
+          ""
+        ],
+        [
+          "I",
+          "",
+          ""
+        ]
+      ],
+      "en": [
+        [
+          "|EI|/\\operatorname{Var}I",
+          "",
+          ""
+        ],
+        [
+          "A_{\\min}\\le|U|\\le A_{\\max}",
+          "",
+          ""
+        ],
+        [
+          "U=0",
+          "",
+          ""
+        ]
+      ]
+    },
+    {
+      "id": "bnn-binary",
+      "step_id": "bnn-binary-step-1",
+      "classification": "inline_tex_text_difference_requires_semantic_review",
+      "zh": [
+        [
+          "S\\subseteq T",
+          "",
+          ""
+        ],
+        [
+          "I(S)",
+          "",
+          ""
+        ],
+        [
+          "L\\subseteq S",
+          "",
+          ""
+        ],
+        [
+          "L\\cap T=L",
+          "",
+          ""
+        ],
+        [
+          "i\\in S\\setminus T",
+          "",
+          ""
+        ],
+        [
+          "i",
+          "",
+          ""
+        ],
+        [
+          "I_{g_T}(S)=0",
+          "",
+          ""
+        ],
+        [
+          "I_{g_T}(S)=\\mathbf1_{S\\subseteq T}I_g(S)",
+          "",
+          ""
+        ]
+      ],
+      "en": [
+        [
+          "S\\subseteq T",
+          "",
+          ""
+        ],
+        [
+          "L\\subseteq S",
+          "",
+          ""
+        ],
+        [
+          "L\\cap T=L",
+          "",
+          ""
+        ],
+        [
+          "i\\in S\\setminus T",
+          "",
+          ""
+        ],
+        [
+          "i",
+          "",
+          ""
+        ],
+        [
+          "I_{g_T}(S)=0",
+          "",
+          ""
+        ],
+        [
+          "I_{g_T}(S)=\\mathbf1_{S\\subseteq T}I_g(S)",
+          "",
+          ""
+        ]
+      ]
+    },
+    {
+      "id": "bnn-binary",
+      "step_id": "bnn-binary-step-2",
+      "classification": "inline_tex_text_difference_requires_semantic_review",
+      "zh": [
+        [
+          "U_S\\ne0",
+          "",
+          ""
+        ],
+        [
+          "U_S",
+          "",
+          ""
+        ],
+        [
+          "U_S=0",
+          "",
+          ""
+        ]
+      ],
+      "en": [
+        [
+          "U_S\\ne0",
+          "",
+          ""
+        ]
+      ]
+    },
+    {
+      "id": "bnn-linear-representation",
+      "step_id": "bnn-linear-representation-step-2",
+      "classification": "inline_tex_text_difference_requires_semantic_review",
+      "zh": [
+        [
+          "U_S\\ne0",
+          "",
+          ""
+        ],
+        [
+          "C_S(x\\prime)=I_h(S)/U_S",
+          "",
+          ""
+        ],
+        [
+          "U_SC_S=I_h(S)",
+          "",
+          ""
+        ],
+        [
+          "C_S",
+          "",
+          ""
+        ],
+        [
+          "U_S",
+          "",
+          ""
+        ]
+      ],
+      "en": [
+        [
+          "U_S",
+          "",
+          ""
+        ],
+        [
+          "C_S(x\\prime)=I_h(S)/U_S",
+          "",
+          ""
+        ],
+        [
+          "U_SC_S=I_h(S)",
+          "",
+          ""
+        ],
+        [
+          "C_S",
+          "",
+          ""
+        ],
+        [
+          "U_S",
+          "",
+          ""
+        ]
+      ]
+    },
+    {
+      "id": "bnn-salient-matching",
+      "step_id": "bnn-salient-matching-step-1",
+      "classification": "inline_tex_text_difference_requires_semantic_review",
+      "zh": [
+        [
+          "S\\in\\Omega_{salient}",
+          "",
+          ""
+        ],
+        [
+          "S\\subseteq T",
+          "",
+          ""
+        ]
+      ],
+      "en": [
+        [
+          "\\Omega_{salient}",
+          "",
+          ""
+        ],
+        [
+          "S\\subseteq T",
+          "",
+          ""
+        ]
+      ]
+    },
+    {
+      "id": "bnn-multiorder-link",
+      "step_id": "bnn-multiorder-link-step-1",
+      "classification": "inline_tex_text_difference_requires_semantic_review",
+      "zh": [
+        [
+          "L\\cup\\{i,j\\}",
+          "",
+          ""
+        ],
+        [
+          "L\\subseteq T",
+          "",
+          ""
+        ]
+      ],
+      "en": [
+        [
+          "L\\cup\\{i,j\\}",
+          "",
+          ""
+        ]
+      ]
+    },
+    {
+      "id": "bnn-shared-feature-regression",
+      "step_id": "bnn-shared-feature-regression-step-3",
+      "classification": "inline_tex_text_difference_requires_semantic_review",
+      "zh": [
+        [
+          "Kw^*=y^*a",
+          "",
+          ""
+        ],
+        [
+          "L(w)-L(w^*)=(w-w^*)^\\top K(w-w^*)>0",
+          "",
+          ""
+        ],
+        [
+          "C_i\\sim N(a_i,d_i)",
+          "",
+          ""
+        ]
+      ],
+      "en": [
+        [
+          "L(w)-L(w^*)=(w-w^*)^\\top K(w-w^*)>0",
+          "",
+          ""
+        ]
+      ]
+    },
+    {
+      "id": "bnn-shared-mask-support",
+      "step_id": "bnn-shared-mask-support-step-1",
+      "classification": "inline_tex_text_difference_requires_semantic_review",
+      "zh": [
+        [
+          "S\\subseteq T",
+          "",
+          ""
+        ],
+        [
+          "I(S)",
+          "",
+          ""
+        ],
+        [
+          "L\\subseteq S",
+          "",
+          ""
+        ],
+        [
+          "L\\cap T=L",
+          "",
+          ""
+        ],
+        [
+          "i\\in S\\setminus T",
+          "",
+          ""
+        ],
+        [
+          "i",
+          "",
+          ""
+        ],
+        [
+          "I_{g_T}(S)=0",
+          "",
+          ""
+        ],
+        [
+          "I_{g_T}(S)=\\mathbf1_{S\\subseteq T}I_g(S)",
+          "",
+          ""
+        ]
+      ],
+      "en": [
+        [
+          "S\\subseteq T",
+          "",
+          ""
+        ],
+        [
+          "L\\subseteq S",
+          "",
+          ""
+        ],
+        [
+          "L\\cap T=L",
+          "",
+          ""
+        ],
+        [
+          "i\\in S\\setminus T",
+          "",
+          ""
+        ],
+        [
+          "i",
+          "",
+          ""
+        ],
+        [
+          "I_{g_T}(S)=0",
+          "",
+          ""
+        ],
+        [
+          "I_{g_T}(S)=\\mathbf1_{S\\subseteq T}I_g(S)",
+          "",
+          ""
+        ]
+      ]
+    }
+  ],
+  "input_hashes": {
+    "corpus/public/reader/icml2023-bayesian/paper-metadata.json": "8250899fe3090a4a7ff287b5bb29e33f7676b87d3a49a7f86ad14ed8d1d1e5b5",
+    "corpus/public/reader/icml2023-bayesian/inventory.json": "234187806470daf8410c98e65d7414f378512932a6312602ae76e15f46352afb",
+    "corpus/public/reader/icml2023-bayesian/content.json": "657e7290ef39424f1b3dea66d0aca0b43ec1f5036c43e9ffd41c219b52e171ba",
+    "corpus/public/reader/icml2023-bayesian/symbols.json": "bccba1ebe98b1e9c80001e70466b1d3533237944125c804cbd630bebcd028bb2",
+    "corpus/public/reader/icml2023-bayesian/issues.json": "184c38e9bfee0b22c3c3481d611919c48c1157696856c8a5bd6420b0fb80a874",
+    "reader/check_draft_admission.py": "a161a2c782dbe305e55aa3a85a626c82617ff45953fd98553d07bc152d3ff9af",
+    "reader/architecture/admission-contract.json": "d37b4b99d30e64326090c8557020fcae72a518ac98323f34d0ea1abbb9c997f1",
+    "reader/inventory_contract.py": "942ce26830c587fa5fdee10c82879809f290d52beaea64da012854fa5993fd58",
+    "reader/bilingual.py": "aeec1605b4d57cec38a3fc7215215ace4b686153e5910493f3daa11595f7bc88",
+    "reader/symbols_english.py": "cc75b9f100874e2310c3f12365de5a2b79d9f79e96757c89459ad2f5ce680a96",
+    "reader/symbol_context_english.py": "0faf107350cb6e7617963f75ff48301a7e8a78f3c28bf07ed11e5d1e957f5654",
+    "reader/evidence_paths.py": "0691f8e89020fc256f3edc079070201580230a187a849f674ddc6314341046ae"
+  }
+}

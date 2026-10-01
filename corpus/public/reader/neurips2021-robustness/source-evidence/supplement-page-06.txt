@@ -1,0 +1,63 @@
+B.4     Equivalence between the multi-order interaction and the mutual information
+
+
+
+Proposition 1 in Section 4.1 of the paper shows the equivalence between the multi-order interaction
+and the mutual information. In the supplementary material, this section provides the proof of this
+proposition.
+When a DNN outputs a probability distribution, we prove that the interaction between input variables
+can be represented in the form of mutual information. Without loss of generality, let us take the image
+classification task for example. Let x ∈ X ⊆ Rn denote an input image of the DNN. xi denotes the
+i-th pixel, and Xi = {xi }. ∀S ⊆ N , we define XS = {xS |x ∈ X}; each xS represents the image,
+where pixels in S remain unchanged, and other pixels j ∈ N \ S are masked following settings of [1].
+Let y ∈ Y = {y 1 , · · · , y C } denote the network prediction. In this way, given
+                                                                                P xS as the input, p(y|xS )
+denotes the output probability of the DNN. Let us set v(S) = H(Y |XS ) = xS p(xS )H(Y |XS = xS ),
+which measures the entropy of y given the input xS . Then we prove that
+
+
+
+
+                                  (m)
+                                Iij     = ES⊆N \{i,j},|S|=m M I(Xi ; Xj ; Y |XS )                        (6)
+
+
+
+
+• Proof :
+
+
+
+                                h                                                i
+       (m)
+      Iij    = ES⊆N \{i,j},|S|=m v(S ∪ {i, j}) − v(S ∪ {i}) − v(S ∪ {j}) + v(S)
+                                h                                                                    i
+             = ES⊆N \{i,j},|S|=m − H(Y |XS , Xi , Xj ) + H(Y |XS , Xi ) + H(Y |XS , Xj ) − H(H|XS )
+                                h                                                                  i
+             = ES⊆N \{i,j},|S|=m H(Y |XS , Xj ) − H(Y |XS , Xj , Xi ) + H(Y |XS , Xi ) − H(Y |XS )
+                                h                                         i
+             = ES⊆N \{i,j},|S|=m M I(Xi ; Y |XS , Xj ) − M I(Xi ; Y |XS )
+                                h                      i
+             = ES⊆N \{i,j},|S|=m M I(Xi ; Xj ; Y |XS )
+
+
+
+
+                                                                                                         
+The conditional mutual information M I(Xi ; Xj ; Y |XS ) measures the remaining mutual informa-
+tion between Xi , Xj and Y when XS is given. Note that unlike the bivariate mutual informa-
+tion, M I(Xi ; Xj ; Y |XS ) can be negative. When XS (each xS ∈ XS containing m pixels) is
+given, we can roughly understand the conditional mutual information M I(X{i,j} ; Y |XS ) as the
+additional benefits from Xi and Xj to classification. We prove that M I(X{i,j} ; Y |XS ) can be
+decomposed into the exclusive benefits of Xi (i.e. M I(Xi ; Y |Xj , XS )), the exclusive benefits of
+Xj (i.e. M I(Xj ; Y |Xi , XS )), and the benefit shared by Xi and Xj (i.e. M I(Xi ; Xj ; Y |XS )). Thus,
+M I(Xi ; Xj ; Y |XS ) can be considered as the benefits from the interaction between Xi and Xj .
+
+
+
+
+   M I(X{i,j} ; Y |XS ) = M I(Xi ; Y |Xj , XS ) + M I(Xj ; Y |Xi , XS ) + M I(Xi ; Xj ; Y |XS )          (7)
+
+
+                                                         6
+

@@ -1,0 +1,24 @@
+# Towards Theoretical Analysis of Transformation Complexity of ReLU DNNs
+
+- src-icml2022-transformation-formal PDF 1: Abstract;1 — empirical_background_or_setup; transformation-external-and-experiments
+- src-icml2022-transformation-formal PDF 2: 1;2 — empirical_background_or_setup; transformation-external-and-experiments, transformation-external-theorems, transformation-ib-label-scope
+- src-icml2022-transformation-formal PDF 3: 2;3 — mathematics_and_scope; transformation-gating-affine, transformation-external-and-experiments, transformation-external-theorems, transformation-ib-label-scope
+- src-icml2022-transformation-formal PDF 4: 3 Properties1–3; IB comparison — mathematics_and_scope; transformation-entropy-chain, transformation-deterministic-input, transformation-coinfo-nonnegative, transformation-prefix-entropy, transformation-prefix-input, transformation-suffix-entropy, transformation-suffix-input, transformation-suffix-coinfo, transformation-prefix-coinfo-main, transformation-ib-label-scope
+- src-icml2022-transformation-formal PDF 5: 4.1 Eqs2–3 — mathematics_and_scope; transformation-total-correlation, transformation-input-correlation, transformation-conditional-correlation, transformation-activation-heuristics, transformation-tc-zero-independence
+- src-icml2022-transformation-formal PDF 6: 4.1–4.2 experiments — empirical_background_or_setup; transformation-external-and-experiments
+- src-icml2022-transformation-formal PDF 7: 4.2–4.3 — empirical_background_or_setup; transformation-ebm-normalization, transformation-external-and-experiments, transformation-regularizer-definition
+- src-icml2022-transformation-formal PDF 8: 4.3–4.4 — empirical_background_or_setup; transformation-ebm-normalization, transformation-external-and-experiments, transformation-ebm-relaxation
+- src-icml2022-transformation-formal PDF 9: 4.4;5 — empirical_background_or_setup; transformation-external-and-experiments
+- src-icml2022-transformation-formal PDF 10: References — references; transformation-external-and-experiments
+- src-icml2022-transformation-formal PDF 11: References — references; transformation-external-and-experiments
+- src-icml2022-transformation-formal PDF 12: References — references; transformation-external-and-experiments
+- src-icml2022-transformation-formal PDF 13: A;B.1;B.2 — mathematics_and_scope; transformation-gating-affine, transformation-deterministic-input, transformation-coinfo-nonnegative, transformation-prefix-entropy, transformation-prefix-input
+- src-icml2022-transformation-formal PDF 14: B.2;B.3 — mathematics_and_scope; transformation-suffix-entropy, transformation-suffix-input, transformation-suffix-coinfo, transformation-prefix-coinfo, transformation-prefix-coinfo-main
+- src-icml2022-transformation-formal PDF 15: B.4 — mathematics_and_scope; transformation-total-correlation, transformation-input-correlation, transformation-conditional-correlation, transformation-activation-heuristics
+- src-icml2022-transformation-formal PDF 16: B.4;C;D;E — mathematics_and_scope; transformation-conditional-correlation, transformation-kde-input, transformation-external-and-experiments, transformation-activation-heuristics
+- src-icml2022-transformation-formal PDF 17: E Eqs24–26 — mathematics_and_scope; transformation-kde-input, transformation-kde-labels, transformation-kde-gates, transformation-kde-randomness
+- src-icml2022-transformation-formal PDF 18: E Eqs27–29;F — mathematics_and_scope; transformation-kde-coinfo, transformation-kde-tc, transformation-ebm-normalization, transformation-regularizer-definition
+- src-icml2022-transformation-formal PDF 19: F Eqs32–39 — mathematics_and_scope; transformation-ebm-normalization, transformation-ebm-mle, transformation-ebm-langevin, transformation-ebm-sampling-loss, transformation-ebm-cross-entropy
+- src-icml2022-transformation-formal PDF 20: F Eqs40–42 and alternating training; G.1–G.3 — empirical_background_or_setup; transformation-external-and-experiments, transformation-ebm-cross-entropy, transformation-ebm-dnn-gradient, transformation-ebm-relaxation, transformation-ebm-alternating
+- src-icml2022-transformation-formal PDF 21: G.4–G.7 — empirical_background_or_setup; transformation-external-and-experiments
+- src-icml2022-transformation-formal PDF 22: G.7 knowledge consistency; G.8 computational cost — empirical_background_or_setup; transformation-external-and-experiments

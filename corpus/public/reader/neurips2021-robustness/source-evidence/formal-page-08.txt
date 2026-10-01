@@ -1,0 +1,68 @@
+We noticed that for standard DNNs, adversarial attacks mainly affected high-order interactions.
+For adversarially trained DNNs, although high-order interactions were usually sensitive to attacks,
+low/middle-order interactions took up more attacking utilities. This phenomenon actually can also be
+observed in Figure 3, which is discussed in the supplementary material. Considering Eq. (3), this
+indicated that adversarial perturbations towards adversarially trained DNNs penalized both complex
+features of global collaborations and simple features of local collaborations.
+Explanation. We further explain the above phenomena, i.e. why high-order interactions in adversari-
+ally trained DNNs are more robust to attacks than those in standard DNNs. To this end, we propose
+the following disentanglement metric for the interaction of a specific order.
+                                   (m)
+                                 |Iij (x)|                             |ES⊆N \{i,j},|S|=m ∆v(i, j, S|x)|
+D(m)= Ex∈Ω Ei,j∈N                                       = Ex∈Ω Ei,j∈N                                    (4)
+               i̸=j   ES⊆N \{i,j},|S|=m |∆v(i, j, S|x)|           i̸=j ES⊆N \{i,j},|S|=m |∆v(i, j, S|x)|
+
+The above disentanglement metric examines whether or not the m-order interactions represent
+discriminative information for a specific category. The high value of D(m) indicates that the m-order
+interactions relatively purely describe specific categories. In other words, the interactions between
+(i, j) under different contexts S consistently have the same effects (either positive or negative) on
+the inference of a specific category. Let us consider the following toy example. When the pair of
+(i, j) consistently have positive interactions towards a specific category under different contexts, i.e.
+∀S ⊆ N \ {i, j}, |S| = m, ∆v(i, j, S|x) > 0, then we have D(m) = 1. This means that the m-th
+interactions between i and j stably promote the output probability of this category. In contrast, a
+low value of D(m) indicates that interactions between (i, j) represent diverse categories. I.e. given
+different contexts S, interactions between (i, j) sometimes have positive effects on a specific category,
+and sometimes have negative effects. Please see the supplementary material for more discussions.
+Experiments. Figure 5 compares the interaction disentanglement D(m) of standard DNNs and the
+disentanglement of adversarially trained DNNs. Interactions of adversarially trained DNNs were
+more disentangled than those of standard DNNs, especially for low-order interactions. This indicated
+that low-order interactions in adversarially trained DNNs encoded more category-specific information
+for inference than low-order interactions in standard DNNs.
+Based on this observation, we could explain the robustness of high-order interactions to attacks in
+adversarially trained DNNs. Adversarial training learned more category-specific low-order interac-
+tions, which boosted the difficulty of attacking high-order interactions. This was because high-order
+interactions (usually global features) were usually constructed by low-order interactions (usually
+local features). Let us take the peacock in Figure 2 (right) for example. In this image, low-order
+interactions (simple features) represented the body of the peacock and the green garden. In this case,
+it was difficult to attack this image to other categories (e.g. the bicycle category) by constructing
+high-order interactions of the bicycle category using these peacock low-order features. Due to the
+difficulty of attacking high-order interactions, the adversarial examples towards the adversarially
+trained DNN had to attack low-order interactions, instead.
+
+4.3   Unifying four existing adversarial defense methods
+
+• Explaining the attribution-based method of detecting adversarial examples. Yang et al. [65]
+proposed a method to use the attribution score of input variables to detect adversarial examples. In
+order to prove the effectiveness of this method, we define the multi-order Shapley value just like
+                                                    def
+the multi-order interaction, as follows. ϕ(m) (i|x) = ES⊆N \{i},|S|=m [v(S ∪ {i}|x) − v(S|x)], where m
+denotes the order of the Shapley value. Then, we can prove that the attribution score which was used
+in [65] to detect adversarial exmaples, can be writtern as ϕ(n−1) (i|x) = v(N |x) − v(N \ {i}|x). We
+further prove that ϕ(m) (i|x) can be decomposed into interactions of different orders.
+                               n−1
+                                                                       "m−1          #
+                       1 X X (m)                  (m)
+                                                                         X (k)
+   v(N |x)−v(∅|x) =                 ϕ (i|x), ϕ (i|x) = Ej∈N \{i}             Iij (x) + ϕ(0) (i|x) (5)
+                       n      m=0
+                           i∈N                                             k=0
+
+According to the above equation, the overall adversarial effects can also be decomposed into ele-
+mentary effects on ϕ(m) (i|x). ϕ(0) (i|x) = v(i|x) − v(∅|x) is usually small and can be ignored, as
+discussed below Eq. (3). Among Shapley values of all orders, only the (n − 1)-order component
+ϕ(n−1) (i|x) contains the interactions of the highest order, which are the most sensitive interactions,
+according to Section 4.1. Therefore, the Shapley value component ϕ(n−1) (i|x) is supposed to be
+
+
+                                                      8
+

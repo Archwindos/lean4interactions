@@ -1,0 +1,95 @@
+                                          Defects of Convolutional Decoder Networks in Frequency Representation
+
+         CIFAR-10 dataset           Tiny-ImageNet dataset               Broden dataset                 CIFAR-10 dataset   Tiny-ImageNet dataset   Broden dataset
+
+
+
+
+                                              (a)                                                                                  (b)
+
+Figure 3. (a) Fitness between the derived feature spectrums H in Corollary 3.3 and the real feature spectrums H∗ measured in a real
+DNN. (b) Fitness between the derived change of T (l,uv) in Corollary 3.4 and the real T (l,uv) measured in a real DNN. The shaded area
+represents the standard deviation.
+
+
+Corollary 3.3. (Proof in Appendix A.2) Let G =                                                              3.2. Experimental verification of Corollaries 3.3 and 3.4
+[G(1) , G(2) , . . . , G(C0 ) ] ∈ CC0 ×M ×N denote frequency spec-
+trums of the C0 channels of the input x. Then, based                                                        To verify the correctness of Corollary 3.3, we computed the
+on Assumption 3.1, spectrums of the image xb gener-                                                         similarity between real spectrums H∗ = [H ∗(1) , H ∗(2) , · · · ]
+ated by L cascaded convolutional layers, i.e., H =                                                          measured by applying the DFT to the real network out-
+[H (1) , H (2) , . . . , H (CL ) ] ∈ CCL ×M ×N , are given as                                               put, and spectrums H = [H (1) , H (2) , · · · ] derived in Corol-
+                                                                                                            lary 3.3. Specifically, we measured the cosine similar-
+                     h(uv) = T(uv)(L:1) g(uv) + δuv β                                            (4)        ity sim(H∗ , H) = Ec [cos(vec(mag(H ∗(c) )), vec(mag(H (c) )))],
+                                                                                                            where vec(·) represented the vectorization of a matrix, and
+  where g(uv) = [G(1)          (2)         (C0 ) >
+                       uv , Guv , . . . , Guv ]     ∈ CC0 and
+ (uv)         (1)  (2)          (CL ) >          CL
+                                                                                                            mag(·) transferred a complex-valued matrix to a real-valued
+h      = [Huv , Huv , . . . , Huv ]        ∈ C       denote vec-
+                                                                                                            magnitude matrix2 .
+tors at the frequency [u, v] in tensors G and H, respec-
+tively. T(uv)(L:1) = T (L,uv) · · · T (2,uv) T(1,uv) ∈ CCL ×C0 .                                           To this end, we constructed the following three baseline
+β = M N b(L) + L                         (00)(L:j) (j−1)
+                                                         ∈ CCL . b(l) =                                     networks to verify whether Corollary 3.3 derived from spe-
+                               P
+                                   j=2 T          b
+[b(l,1) , b(l,2) , . . . , b(l,Cl ) ]> ∈ RCl denotes the vector of bias                                     cific assumptions could also objectively reflect real forward
+terms of Cl convolutional kernels in the l-th layer.                                                        propagations in real neural networks. The first baseline net-
+                                                                                                            work contained 10 convolutional layers. Each convolutional
+Understanding the cascaded convolution operations in the                                                    layer applied zero-paddings and was followed by an ReLU
+frequency domain. Corollary 3.3 means that conducting                                                       layer. Each convolutional layer contained 16 convolutional
+multiple cascaded convolution operations on an input x is                                                   kernels (kernel size was 3 × 3) with 16 bias terms. We set
+essentially equivalent to conducting matrix multiplication                                                  the stride size of the convolution operation to 1. The second
+on spectrums of x. As Figure 2 shows, for all frequencies                                                   baseline network was constructed by removing all ReLU
+except for the fundamental frequency, we have the output                                                    layers from the first baseline network, which was closer to
+spectrum h(uv) = T(uv)(L:1) g(uv) .                                                                         the assumption in Corollary 3.3. The third baseline network
+                                                                                                            was revised from the second baseline network by replacing
+Besides, the learning of parameters W(l) affects the matrix
+                                                                                                            all zero-paddings with circular paddings. The third baseline
+T (l,uv) . Therefore, we further reformulate the change of
+                                                                                                            network followed the exact assumption in Corollary 3.3.
+T (l,uv) during the learning process, as follows.
+                                                                                                            Figure 3(a) reports sim(H∗ , H) that was measured on spec-
+Corollary 3.4. (Proof in Appendix A.3) Based on Assump-
+                                                                                                            trums in different layers and averaged over all samples. The
+tion 3.1, the change of each frequency component T (l,uv)
+during the learning process is reformulated, as follows.                                                    similarity between real spectrums and derived spectrums
+                                                                                                            was large for all the three baseline networks, which verified
+                                      M
+                                      X −1 N
+                                           X −1                    (u0 v0 )(l−1:1) 0 0                     Corollary 3.3. Note that the cosine similarity was computed
+(∆T (l,uv) )> = −ηM N                                    χu0 v0 uv T               g(u v )                  based on high-dimensional vectors with as many as 322 , 642
+                                      u0 =0 v 0 =0
+                                                                                                            or 2242 dimensions (determined by the dataset). For such
+                            0
+                                       ∂Loss                (u0 v 0 )(L:l+1)
+               + δu0 v0 β               (u0 v 0 )
+                                                         T                      ;                           high-dimensional vectors, a similarity greater than 0.8 was
+                                    ∂(h             )>                                                      already significant enough to verify the practicality of our
+                                                                                                 (5)        theory3 .
+                                                             K(u−u0 )π              K(v−v 0 )π
+                                             1 sin(            ) sin(           )
+  where χu0 v0 uv                   =                   M               N
+                                            M N sin( (u−u0 )π ) sin( (v−v0 )π )
+                                                                                                   ·
+                                                        M               N                                   Besides, in order to verify Corollary 3.4, we also mea-
+   (K−1)(u−u0 )       (K−1)(v−v 0 )
+ei(         M
+                   +      N
+                                 )π
+                                          ∈      C is a coefficient;                                        sured the similarity between the real change of T (l,uv)
+    0 0                     0 0              0 0          0 0
+T(u v )(l−1:1) = T (l−1,u v ) · · · T (2,u v ) T (1,u v ) ∈ CCl−1 ×C0 ;                                        2
+                                                                                                                 The function B = mag(A) returns a matrix, where each
+  (u0 v 0 )(L:l+1)          (L,u0 v 0 )      (l+1,u0 v 0 )
+T                     = T P             ···T                  ∈ CCL ×Cl ;                                   element Bij ∈ R represents the magnitude of Aij ∈ C.
+  0                 (l−1)       l−1 (00)(l−1:j) (j−1) 
+β = MN b                  +     j=2 T               b          ∈ CCl−1 ;                                       3
+                                                                                                                 Please see Appendix C.6 for the curse of dimension.
+   0 0                                                   0 0
+g(u   v )
+            denotes the conjugate of g(u                  v )
+                                                                ; η is the learning rate.
+
+                                                                                                        4
+

@@ -1,0 +1,3340 @@
+{
+  "status": "counted",
+  "scope": "data_and_current_evidence_accounting_not_mathematical_acceptance",
+  "snapshot_sha256": "543a4f76540af9c7bf941abc6ef3b1711de32652492f8422407c8ed8256b6838",
+  "count_semantics": {
+    "complete_proof_text": "Complete rewritten proof text in its recorded scope; not a blanket assertion that every source statement is true.",
+    "theorem_proof": "Current Lean theorem evidence in the explicitly recorded Lean scope; the actual type and source assumptions remain authoritative.",
+    "partial_component": "Only a stated component, conditional domain, or component/counterexample combination is formalized.",
+    "counterexample": "A current formal counterexample as the primary role; never counted as a proof of the source statement. Partial-component targets can also contain formal counterexamples, so this exclusive role count is not the total number of formal counterexamples.",
+    "none": "No current mapped formal evidence for this target; delivered text and human counterexamples may still exist."
+  },
+  "role_count_note": "These mutually exclusive counts describe the primary evidence role of each target. Mixed partial proofs retain their counterexample declarations in target_records; a zero primary counterexample count does not mean no formal counterexample exists.",
+  "paper_count": 12,
+  "inventory_entries": 358,
+  "result_pages": 355,
+  "proof_targets": 256,
+  "shared_proofs": 37,
+  "canonical_concepts": 279,
+  "complete_proof_text": 132,
+  "other_delivered_scope_or_counterexample_targets": 124,
+  "current_lean_evidence_roles": {
+    "theorem_proof": 136,
+    "partial_component": 54,
+    "counterexample": 20,
+    "none": 46
+  },
+  "papers": [
+    {
+      "paper_id": "cvpr2023-sparse-concepts",
+      "result_pages": 28,
+      "proof_targets": 16,
+      "complete_proof_text": 14,
+      "other_delivered_scope_or_counterexample_targets": 2,
+      "current_lean_evidence_roles": {
+        "theorem_proof": 14,
+        "partial_component": 1,
+        "counterexample": 1,
+        "none": 0
+      },
+      "target_records": [
+        {
+          "id": "cvpr2023-reconstruction",
+          "rewrite_role": "proof",
+          "rewrite_status": "complete",
+          "reading_status": "complete",
+          "statement_assessment": "no_statement_error_recorded",
+          "current_lean_evidence_role": "theorem_proof",
+          "current_mapped_declarations": [
+            "Harsanyi.reconstruction",
+            "FullCvpr.reconstruction"
+          ]
+        },
+        {
+          "id": "cvpr2023-uniqueness",
+          "rewrite_role": "proof",
+          "rewrite_status": "complete",
+          "reading_status": "complete",
+          "statement_assessment": "no_statement_error_recorded",
+          "current_lean_evidence_role": "theorem_proof",
+          "current_mapped_declarations": [
+            "Harsanyi.reconstruction_unique",
+            "FullCvpr.uniqueness"
+          ]
+        },
+        {
+          "id": "cvpr2023-linearity",
+          "rewrite_role": "proof",
+          "rewrite_status": "complete",
+          "reading_status": "complete",
+          "statement_assessment": "no_statement_error_recorded",
+          "current_lean_evidence_role": "theorem_proof",
+          "current_mapped_declarations": [
+            "Harsanyi.interaction_add",
+            "FullCvpr.linearity"
+          ]
+        },
+        {
+          "id": "cvpr2023-dummy",
+          "rewrite_role": "counterexample",
+          "rewrite_status": "blocked_by_source_issue",
+          "reading_status": "pending",
+          "statement_assessment": "refuted",
+          "current_lean_evidence_role": "counterexample",
+          "current_mapped_declarations": [
+            "FullCvpr.dummy_statement_counterexample"
+          ]
+        },
+        {
+          "id": "cvpr2023-symmetry",
+          "rewrite_role": "proof",
+          "rewrite_status": "complete",
+          "reading_status": "complete",
+          "statement_assessment": "no_statement_error_recorded",
+          "current_lean_evidence_role": "theorem_proof",
+          "current_mapped_declarations": [
+            "Harsanyi.interaction_symmetry",
+            "FullCvpr.symmetry"
+          ]
+        },
+        {
+          "id": "cvpr2023-anonymity",
+          "rewrite_role": "proof",
+          "rewrite_status": "complete",
+          "reading_status": "complete",
+          "statement_assessment": "no_statement_error_recorded",
+          "current_lean_evidence_role": "theorem_proof",
+          "current_mapped_declarations": [
+            "Harsanyi.interaction_relabel",
+            "FullCvpr.anonymity"
+          ]
+        },
+        {
+          "id": "cvpr2023-recursive",
+          "rewrite_role": "proof",
+          "rewrite_status": "complete",
+          "reading_status": "complete",
+          "statement_assessment": "no_statement_error_recorded",
+          "current_lean_evidence_role": "theorem_proof",
+          "current_mapped_declarations": [
+            "Harsanyi.interaction_context_difference",
+            "FullCvpr.recursive"
+          ]
+        },
+        {
+          "id": "cvpr2023-interaction-distribution",
+          "rewrite_role": "proof",
+          "rewrite_status": "complete",
+          "reading_status": "complete",
+          "statement_assessment": "no_statement_error_recorded",
+          "current_lean_evidence_role": "theorem_proof",
+          "current_mapped_declarations": [
+            "Harsanyi.interaction_unanimity",
+            "FullCvpr.interaction_distribution"
+          ]
+        },
+        {
+          "id": "cvpr2023-marginal-decomposition",
+          "rewrite_role": "proof",
+          "rewrite_status": "complete",
+          "reading_status": "complete",
+          "statement_assessment": "no_statement_error_recorded",
+          "current_lean_evidence_role": "theorem_proof",
+          "current_mapped_declarations": [
+            "Harsanyi.higherMarginal_eq_sum_interaction",
+            "FullCvpr.marginal_decomposition"
+          ]
+        },
+        {
+          "id": "cvpr2023-shapley",
+          "rewrite_role": "proof",
+          "rewrite_status": "complete",
+          "reading_status": "complete",
+          "statement_assessment": "no_statement_error_recorded",
+          "current_lean_evidence_role": "theorem_proof",
+          "current_mapped_declarations": [
+            "Harsanyi.factorialShapley_eq_dividends",
+            "FullCvpr.shapley"
+          ]
+        },
+        {
+          "id": "cvpr2023-shapley-interaction",
+          "rewrite_role": "proof",
+          "rewrite_status": "complete",
+          "reading_status": "complete",
+          "statement_assessment": "no_statement_error_recorded",
+          "current_lean_evidence_role": "theorem_proof",
+          "current_mapped_declarations": [
+            "Harsanyi.factorialShapleyInteraction_eq_dividends",
+            "FullCvpr.shapley_interaction"
+          ]
+        },
+        {
+          "id": "cvpr2023-shapley-taylor",
+          "rewrite_role": "proof",
+          "rewrite_status": "complete",
+          "reading_status": "complete",
+          "statement_assessment": "no_statement_error_recorded",
+          "current_lean_evidence_role": "theorem_proof",
+          "current_mapped_declarations": [
+            "Harsanyi.shapleyTaylor_eq_dividends",
+            "FullCvpr.shapley_taylor"
+          ]
+        },
+        {
+          "id": "cvpr2023-scm-subset-sum",
+          "rewrite_role": "proof",
+          "rewrite_status": "complete",
+          "reading_status": "complete",
+          "statement_assessment": "no_statement_error_recorded",
+          "current_lean_evidence_role": "theorem_proof",
+          "current_mapped_declarations": [
+            "FullCvpr.andTrigger_product",
+            "FullCvpr.causalOutput_eq_sum_subset",
+            "FullCvpr.causalOutput_full"
+          ]
+        },
+        {
+          "id": "cvpr2023-baseline-faithfulness",
+          "rewrite_role": "partial_proof_with_refuted_clause",
+          "rewrite_status": "blocked_by_source_issue",
+          "reading_status": "pending",
+          "statement_assessment": "partially_refuted",
+          "current_lean_evidence_role": "partial_component",
+          "current_mapped_declarations": [
+            "FullCvpr.complete_unfaithfulness_zero",
+            "FullCvpr.baseline_truncated_loss_counterexample"
+          ]
+        },
+        {
+          "id": "cvpr2023-aog-regrouping",
+          "rewrite_role": "proof",
+          "rewrite_status": "complete",
+          "reading_status": "complete",
+          "statement_assessment": "no_statement_error_recorded",
+          "current_lean_evidence_role": "theorem_proof",
+          "current_mapped_declarations": [
+            "FullCvpr.andTrigger_children",
+            "FullCvpr.causalOutput_regrouped"
+          ]
+        },
+        {
+          "id": "cvpr2023-addmul-coefficients",
+          "rewrite_role": "proof",
+          "rewrite_status": "complete",
+          "reading_status": "complete",
+          "statement_assessment": "no_statement_error_recorded",
+          "current_lean_evidence_role": "theorem_proof",
+          "current_mapped_declarations": [
+            "FullCvpr.masked_monomial",
+            "FullCvpr.addmul_coordinate_adapter"
+          ]
+        }
+      ]
+    },
+    {
+      "paper_id": "iclr2024-sparse",
+      "result_pages": 42,
+      "proof_targets": 27,
+      "complete_proof_text": 19,
+      "other_delivered_scope_or_counterexample_targets": 8,
+      "current_lean_evidence_roles": {
+        "theorem_proof": 21,
+        "partial_component": 0,
+        "counterexample": 0,
+        "none": 6
+      },
+      "target_records": [
+        {
+          "id": "iclr2024-sparse-reconstruction",
+          "rewrite_role": "proof",
+          "rewrite_status": "complete",
+          "reading_status": "complete",
+          "statement_assessment": "no_statement_error_recorded",
+          "current_lean_evidence_role": "theorem_proof",
+          "current_mapped_declarations": [
+            "FullSparse.theorem1"
+          ]
+        },
+        {
+          "id": "iclr2024-sparse-salient-approximation",
+          "rewrite_role": "statement_scope_explanation",
+          "rewrite_status": "complete",
+          "reading_status": "scope_explanation_complete",
+          "statement_assessment": "no_statement_error_recorded",
+          "current_lean_evidence_role": "none",
+          "current_mapped_declarations": []
+        },
+        {
+          "id": "iclr2024-sparse-lemma1",
+          "rewrite_role": "statement_scope_explanation",
+          "rewrite_status": "blocked_by_source_issue",
+          "reading_status": "pending",
+          "statement_assessment": "counterexample_recorded",
+          "current_lean_evidence_role": "none",
+          "current_mapped_declarations": []
+        },
+        {
+          "id": "iclr2024-sparse-derivative-cutoff",
+          "rewrite_role": "proof",
+          "rewrite_status": "complete",
+          "reading_status": "complete",
+          "statement_assessment": "no_statement_error_recorded",
+          "current_lean_evidence_role": "theorem_proof",
+          "current_mapped_declarations": [
+            "FullSparseDerivative.assumption1beta_implies1alpha",
+            "Harsanyi.interaction_zero_of_classicalMixedDerivativeCutoff",
+            "Harsanyi.centered_interaction_zero_of_classicalMixedDerivativeCutoff"
+          ]
+        },
+        {
+          "id": "iclr2024-sparse-lemma2",
+          "rewrite_role": "proof",
+          "rewrite_status": "complete",
+          "reading_status": "complete",
+          "statement_assessment": "no_statement_error_recorded",
+          "current_lean_evidence_role": "theorem_proof",
+          "current_mapped_declarations": [
+            "FullSparse.lemma2",
+            "Harsanyi.Sparsity.mean_centered_cutoff"
+          ]
+        },
+        {
+          "id": "iclr2024-sparse-lemma3",
+          "rewrite_role": "proof",
+          "rewrite_status": "complete",
+          "reading_status": "complete",
+          "statement_assessment": "no_statement_error_recorded",
+          "current_lean_evidence_role": "theorem_proof",
+          "current_mapped_declarations": [
+            "Harsanyi.Sparsity.binomial_matrix_kernel"
+          ]
+        },
+        {
+          "id": "iclr2024-sparse-theorem2",
+          "rewrite_role": "statement_scope_explanation",
+          "rewrite_status": "complete",
+          "reading_status": "scope_explanation_complete",
+          "statement_assessment": "scope_under_review",
+          "current_lean_evidence_role": "theorem_proof",
+          "current_mapped_declarations": [
+            "FullSparse.theorem2",
+            "Harsanyi.Sparsity.sparse_original_coefficient_witness",
+            "Harsanyi.Sparsity.sparse_coefficient_existence",
+            "Harsanyi.Sparsity.coefficient_normalization"
+          ]
+        },
+        {
+          "id": "iclr2024-sparse-asymptotic-claim",
+          "rewrite_role": "counterexample",
+          "rewrite_status": "blocked_by_source_issue",
+          "reading_status": "pending",
+          "statement_assessment": "partially_refuted",
+          "current_lean_evidence_role": "none",
+          "current_mapped_declarations": []
+        },
+        {
+          "id": "iclr2024-sparse-theorem3",
+          "rewrite_role": "statement_scope_explanation",
+          "rewrite_status": "complete",
+          "reading_status": "scope_explanation_complete",
+          "statement_assessment": "scope_under_review",
+          "current_lean_evidence_role": "theorem_proof",
+          "current_mapped_declarations": [
+            "FullSparse.theorem3",
+            "Harsanyi.Sparsity.sparse_original_T2_T3",
+            "Harsanyi.Sparsity.salient_bound_original_coefficients",
+            "Harsanyi.Sparsity.salient_count_bound"
+          ]
+        },
+        {
+          "id": "iclr2024-sparse-axiom-linearity",
+          "rewrite_role": "proof",
+          "rewrite_status": "complete",
+          "reading_status": "complete",
+          "statement_assessment": "no_statement_error_recorded",
+          "current_lean_evidence_role": "theorem_proof",
+          "current_mapped_declarations": [
+            "FullSparse.linearity"
+          ]
+        },
+        {
+          "id": "iclr2024-sparse-axiom-dummy",
+          "rewrite_role": "proof",
+          "rewrite_status": "complete",
+          "reading_status": "complete",
+          "statement_assessment": "no_statement_error_recorded",
+          "current_lean_evidence_role": "theorem_proof",
+          "current_mapped_declarations": [
+            "FullSparse.dummy"
+          ]
+        },
+        {
+          "id": "iclr2024-sparse-axiom-symmetry",
+          "rewrite_role": "proof",
+          "rewrite_status": "complete",
+          "reading_status": "complete",
+          "statement_assessment": "no_statement_error_recorded",
+          "current_lean_evidence_role": "theorem_proof",
+          "current_mapped_declarations": [
+            "FullSparse.symmetry"
+          ]
+        },
+        {
+          "id": "iclr2024-sparse-axiom-anonymity",
+          "rewrite_role": "proof",
+          "rewrite_status": "complete",
+          "reading_status": "complete",
+          "statement_assessment": "no_statement_error_recorded",
+          "current_lean_evidence_role": "theorem_proof",
+          "current_mapped_declarations": [
+            "FullSparse.anonymity"
+          ]
+        },
+        {
+          "id": "iclr2024-sparse-axiom-recursive",
+          "rewrite_role": "proof",
+          "rewrite_status": "complete",
+          "reading_status": "complete",
+          "statement_assessment": "no_statement_error_recorded",
+          "current_lean_evidence_role": "theorem_proof",
+          "current_mapped_declarations": [
+            "FullSparse.recursive"
+          ]
+        },
+        {
+          "id": "iclr2024-sparse-axiom-distribution",
+          "rewrite_role": "proof",
+          "rewrite_status": "complete",
+          "reading_status": "complete",
+          "statement_assessment": "no_statement_error_recorded",
+          "current_lean_evidence_role": "theorem_proof",
+          "current_mapped_declarations": [
+            "FullSparse.distribution"
+          ]
+        },
+        {
+          "id": "iclr2024-sparse-lemma4",
+          "rewrite_role": "proof",
+          "rewrite_status": "complete",
+          "reading_status": "complete",
+          "statement_assessment": "no_statement_error_recorded",
+          "current_lean_evidence_role": "theorem_proof",
+          "current_mapped_declarations": [
+            "FullSparse.lemma4"
+          ]
+        },
+        {
+          "id": "iclr2024-sparse-theorem4",
+          "rewrite_role": "proof",
+          "rewrite_status": "complete",
+          "reading_status": "complete",
+          "statement_assessment": "no_statement_error_recorded",
+          "current_lean_evidence_role": "theorem_proof",
+          "current_mapped_declarations": [
+            "FullSparse.theorem4"
+          ]
+        },
+        {
+          "id": "iclr2024-sparse-theorem5",
+          "rewrite_role": "proof",
+          "rewrite_status": "complete",
+          "reading_status": "complete",
+          "statement_assessment": "no_statement_error_recorded",
+          "current_lean_evidence_role": "theorem_proof",
+          "current_mapped_declarations": [
+            "FullSparse.theorem5"
+          ]
+        },
+        {
+          "id": "iclr2024-sparse-theorem6",
+          "rewrite_role": "proof",
+          "rewrite_status": "complete",
+          "reading_status": "complete",
+          "statement_assessment": "no_statement_error_recorded",
+          "current_lean_evidence_role": "theorem_proof",
+          "current_mapped_declarations": [
+            "FullSparse.theorem6"
+          ]
+        },
+        {
+          "id": "iclr2024-sparse-noise-linearity",
+          "rewrite_role": "proof",
+          "rewrite_status": "complete",
+          "reading_status": "complete",
+          "statement_assessment": "no_statement_error_recorded",
+          "current_lean_evidence_role": "theorem_proof",
+          "current_mapped_declarations": [
+            "FullSparse.noise_linearity"
+          ]
+        },
+        {
+          "id": "iclr2024-sparse-noise-variance",
+          "rewrite_role": "statement_scope_explanation",
+          "rewrite_status": "blocked_by_source_issue",
+          "reading_status": "pending",
+          "statement_assessment": "scope_under_review",
+          "current_lean_evidence_role": "none",
+          "current_mapped_declarations": []
+        },
+        {
+          "id": "iclr2024-sparse-parity-mask",
+          "rewrite_role": "statement_scope_explanation",
+          "rewrite_status": "blocked_by_source_issue",
+          "reading_status": "pending",
+          "statement_assessment": "scope_under_review",
+          "current_lean_evidence_role": "none",
+          "current_mapped_declarations": []
+        },
+        {
+          "id": "iclr2024-sparse-transfer-inference",
+          "rewrite_role": "counterexample",
+          "rewrite_status": "blocked_by_source_issue",
+          "reading_status": "pending",
+          "statement_assessment": "counterexample_recorded",
+          "current_lean_evidence_role": "none",
+          "current_mapped_declarations": []
+        },
+        {
+          "id": "iclr2024-sparse-or-reverse",
+          "rewrite_role": "proof",
+          "rewrite_status": "complete",
+          "reading_status": "complete",
+          "statement_assessment": "no_statement_error_recorded",
+          "current_lean_evidence_role": "theorem_proof",
+          "current_mapped_declarations": [
+            "FullSparse.or_reverse"
+          ]
+        },
+        {
+          "id": "iclr2024-sparse-and-or-matching",
+          "rewrite_role": "proof",
+          "rewrite_status": "complete",
+          "reading_status": "complete",
+          "statement_assessment": "no_statement_error_recorded",
+          "current_lean_evidence_role": "theorem_proof",
+          "current_mapped_declarations": [
+            "FullSparse.and_or_matching_eq62",
+            "FullSparse.and_matching_zero_baseline",
+            "FullSparse.or_matching_zero_baseline",
+            "FullSparse.and_or_matching"
+          ]
+        },
+        {
+          "id": "iclr2024-sparse-monotonicity-example",
+          "rewrite_role": "proof",
+          "rewrite_status": "complete",
+          "reading_status": "complete",
+          "statement_assessment": "no_statement_error_recorded",
+          "current_lean_evidence_role": "theorem_proof",
+          "current_mapped_declarations": [
+            "FullSparse.example_mean_two",
+            "FullSparse.example_mean_three",
+            "FullSparse.example_mean_monotone_comparison"
+          ]
+        },
+        {
+          "id": "iclr2024-sparse-sampling-complexity",
+          "rewrite_role": "proof",
+          "rewrite_status": "complete",
+          "reading_status": "complete",
+          "statement_assessment": "no_statement_error_recorded",
+          "current_lean_evidence_role": "theorem_proof",
+          "current_mapped_declarations": [
+            "FullSparse.sampling_evaluation_count"
+          ]
+        }
+      ]
+    },
+    {
+      "paper_id": "iclr2024-generalizable",
+      "result_pages": 30,
+      "proof_targets": 18,
+      "complete_proof_text": 13,
+      "other_delivered_scope_or_counterexample_targets": 5,
+      "current_lean_evidence_roles": {
+        "theorem_proof": 13,
+        "partial_component": 1,
+        "counterexample": 1,
+        "none": 3
+      },
+      "target_records": [
+        {
+          "id": "f11-and-mask-zero",
+          "rewrite_role": "proof",
+          "rewrite_status": "complete",
+          "reading_status": "complete",
+          "statement_assessment": "no_statement_error_recorded",
+          "current_lean_evidence_role": "theorem_proof",
+          "current_mapped_declarations": [
+            "Harsanyi.maskCoordinates_comp",
+            "Harsanyi.and_mask_interaction_zero",
+            "FullGeneralizable.and_mask_zero"
+          ]
+        },
+        {
+          "id": "f11-or-duality",
+          "rewrite_role": "proof",
+          "rewrite_status": "complete",
+          "reading_status": "complete",
+          "statement_assessment": "no_statement_error_recorded",
+          "current_lean_evidence_role": "theorem_proof",
+          "current_mapped_declarations": [
+            "Harsanyi.or_dual",
+            "FullGeneralizable.or_duality"
+          ]
+        },
+        {
+          "id": "f11-external-sparsity",
+          "rewrite_role": "statement_scope_explanation",
+          "rewrite_status": "complete",
+          "reading_status": "scope_explanation_complete",
+          "statement_assessment": "no_statement_error_recorded",
+          "current_lean_evidence_role": "none",
+          "current_mapped_declarations": []
+        },
+        {
+          "id": "iclr2024-generalizable-theorem1",
+          "rewrite_role": "proof",
+          "rewrite_status": "complete",
+          "reading_status": "complete",
+          "statement_assessment": "no_statement_error_recorded",
+          "current_lean_evidence_role": "theorem_proof",
+          "current_mapped_declarations": [
+            "FullGeneralizable.exact_and_reconstruction"
+          ]
+        },
+        {
+          "id": "f11-theorem1-approx",
+          "rewrite_role": "statement_scope_explanation",
+          "rewrite_status": "complete",
+          "reading_status": "scope_explanation_complete",
+          "statement_assessment": "no_statement_error_recorded",
+          "current_lean_evidence_role": "none",
+          "current_mapped_declarations": []
+        },
+        {
+          "id": "iclr2024-generalizable-andor",
+          "rewrite_role": "proof",
+          "rewrite_status": "complete",
+          "reading_status": "complete",
+          "statement_assessment": "no_statement_error_recorded",
+          "current_lean_evidence_role": "theorem_proof",
+          "current_mapped_declarations": [
+            "FullGeneralizable.literal_and_or_reconstruction",
+            "FullGeneralizable.label_and_or_reconstruction"
+          ]
+        },
+        {
+          "id": "iclr2024-generalizable-and",
+          "rewrite_role": "proof",
+          "rewrite_status": "complete",
+          "reading_status": "complete",
+          "statement_assessment": "no_statement_error_recorded",
+          "current_lean_evidence_role": "theorem_proof",
+          "current_mapped_declarations": [
+            "FullGeneralizable.literal_and_coefficient_eq",
+            "FullGeneralizable.literal_and_reconstruction",
+            "FullGeneralizable.label_and_coefficient_eq",
+            "FullGeneralizable.label_and_reconstruction"
+          ]
+        },
+        {
+          "id": "iclr2024-generalizable-or",
+          "rewrite_role": "proof",
+          "rewrite_status": "complete",
+          "reading_status": "complete",
+          "statement_assessment": "no_statement_error_recorded",
+          "current_lean_evidence_role": "theorem_proof",
+          "current_mapped_declarations": [
+            "Harsanyi.activated_subset_sum",
+            "Harsanyi.or_reconstruction",
+            "FullGeneralizable.literal_or_reconstruction",
+            "FullGeneralizable.literal_or_nonempty_sum",
+            "FullGeneralizable.label_or_nonempty_sum",
+            "FullGeneralizable.label_or_reconstruction"
+          ]
+        },
+        {
+          "id": "f11-proposition1",
+          "rewrite_role": "statement_scope_explanation",
+          "rewrite_status": "complete",
+          "reading_status": "scope_explanation_complete",
+          "statement_assessment": "no_statement_error_recorded",
+          "current_lean_evidence_role": "none",
+          "current_mapped_declarations": []
+        },
+        {
+          "id": "f11-boolean-decomposition",
+          "rewrite_role": "proof",
+          "rewrite_status": "complete",
+          "reading_status": "complete",
+          "statement_assessment": "no_statement_error_recorded",
+          "current_lean_evidence_role": "theorem_proof",
+          "current_mapped_declarations": [
+            "FullGeneralizable.boolean_or_additive",
+            "FullGeneralizable.boolean_decomposition",
+            "Harsanyi.orInteraction_unanimity",
+            "FullCvpr.addmul_coordinate_adapter"
+          ]
+        },
+        {
+          "id": "f11-reparameterization",
+          "rewrite_role": "proof",
+          "rewrite_status": "complete",
+          "reading_status": "complete",
+          "statement_assessment": "no_statement_error_recorded",
+          "current_lean_evidence_role": "theorem_proof",
+          "current_mapped_declarations": [
+            "FullGeneralizableAnalysis.masked_model_decomposition",
+            "FullGeneralizableAnalysis.decomposition_iff_unique_gamma"
+          ]
+        },
+        {
+          "id": "f11-rowmax-penalty",
+          "rewrite_role": "proof",
+          "rewrite_status": "complete",
+          "reading_status": "complete",
+          "statement_assessment": "no_statement_error_recorded",
+          "current_lean_evidence_role": "theorem_proof",
+          "current_mapped_declarations": [
+            "FullGeneralizableAnalysis.rowStrength_plateau"
+          ]
+        },
+        {
+          "id": "f11-and-variance",
+          "rewrite_role": "proof",
+          "rewrite_status": "complete",
+          "reading_status": "complete",
+          "statement_assessment": "no_statement_error_recorded",
+          "current_lean_evidence_role": "theorem_proof",
+          "current_mapped_declarations": [
+            "FullGeneralizableAnalysis.masked_model_and_variance",
+            "Harsanyi.noisy_masked_and_variance"
+          ]
+        },
+        {
+          "id": "f11-or-variance",
+          "rewrite_role": "proof",
+          "rewrite_status": "complete",
+          "reading_status": "complete",
+          "statement_assessment": "no_statement_error_recorded",
+          "current_lean_evidence_role": "theorem_proof",
+          "current_mapped_declarations": [
+            "FullGeneralizableAnalysis.masked_model_or_variance",
+            "Harsanyi.noisy_masked_or_variance"
+          ]
+        },
+        {
+          "id": "f11-shapley",
+          "rewrite_role": "proof",
+          "rewrite_status": "complete",
+          "reading_status": "complete",
+          "statement_assessment": "no_statement_error_recorded",
+          "current_lean_evidence_role": "theorem_proof",
+          "current_mapped_declarations": [
+            "Harsanyi.factorialShapley_eq_dividendAllocation",
+            "FullGeneralizable.shapley"
+          ]
+        },
+        {
+          "id": "f11-equation10",
+          "rewrite_role": "counterexample",
+          "rewrite_status": "blocked_by_source_issue",
+          "reading_status": "pending",
+          "statement_assessment": "scope_under_review",
+          "current_lean_evidence_role": "counterexample",
+          "current_mapped_declarations": [
+            "FullGeneralizableAnalysis.signed_max_counterexample"
+          ]
+        },
+        {
+          "id": "f11-mask-complexity",
+          "rewrite_role": "partial_component",
+          "rewrite_status": "complete",
+          "reading_status": "scope_explanation_complete",
+          "statement_assessment": "no_statement_error_recorded",
+          "current_lean_evidence_role": "partial_component",
+          "current_mapped_declarations": [
+            "FullGeneralizable.mask_count"
+          ]
+        },
+        {
+          "id": "f11-alpha-zero",
+          "rewrite_role": "proof",
+          "rewrite_status": "complete",
+          "reading_status": "complete",
+          "statement_assessment": "no_statement_error_recorded",
+          "current_lean_evidence_role": "theorem_proof",
+          "current_mapped_declarations": [
+            "FullGeneralizableAnalysis.alpha_zero"
+          ]
+        }
+      ]
+    },
+    {
+      "paper_id": "icml2023-harsanyinet",
+      "result_pages": 22,
+      "proof_targets": 15,
+      "complete_proof_text": 10,
+      "other_delivered_scope_or_counterexample_targets": 5,
+      "current_lean_evidence_roles": {
+        "theorem_proof": 10,
+        "partial_component": 4,
+        "counterexample": 0,
+        "none": 1
+      },
+      "target_records": [
+        {
+          "id": "hnet-reconstruction",
+          "rewrite_role": "proof",
+          "rewrite_status": "complete",
+          "reading_status": "complete",
+          "statement_assessment": "no_statement_error_recorded",
+          "current_lean_evidence_role": "theorem_proof",
+          "current_mapped_declarations": [
+            "Harsanyi.reconstruction"
+          ]
+        },
+        {
+          "id": "hnet-shapley-dividend",
+          "rewrite_role": "proof",
+          "rewrite_status": "complete",
+          "reading_status": "complete",
+          "statement_assessment": "no_statement_error_recorded",
+          "current_lean_evidence_role": "theorem_proof",
+          "current_mapped_declarations": [
+            "Harsanyi.factorialShapley_eq_dividendAllocation",
+            "Harsanyi.factorialShapley"
+          ]
+        },
+        {
+          "id": "hnet-unit-interaction",
+          "rewrite_role": "counterexample",
+          "rewrite_status": "blocked_by_source_issue",
+          "reading_status": "pending",
+          "statement_assessment": "refuted",
+          "current_lean_evidence_role": "partial_component",
+          "current_mapped_declarations": [
+            "Harsanyi.Network.empty_unit_counterexample",
+            "Harsanyi.Network.requirement_unit_interaction",
+            "Harsanyi.Network.unit_interaction"
+          ]
+        },
+        {
+          "id": "hnet-readout-linearity",
+          "rewrite_role": "proof",
+          "rewrite_status": "complete",
+          "reading_status": "complete",
+          "statement_assessment": "no_statement_error_recorded",
+          "current_lean_evidence_role": "theorem_proof",
+          "current_mapped_declarations": [
+            "PaperHarsanyiNet.centered_readout",
+            "Harsanyi.Network.interaction_weighted_sum"
+          ]
+        },
+        {
+          "id": "hnet-forward-shapley",
+          "rewrite_role": "statement_scope_explanation",
+          "rewrite_status": "complete_with_original_domain_issue",
+          "reading_status": "scope_explanation_complete",
+          "statement_assessment": "scope_under_review",
+          "current_lean_evidence_role": "partial_component",
+          "current_mapped_declarations": [
+            "PaperHarsanyiNet.finite_requirements_attribution",
+            "PaperHarsanyiNet.exact_forward_attribution",
+            "Harsanyi.Network.requirement_forward_shapley",
+            "Harsanyi.Network.forward_shapley"
+          ]
+        },
+        {
+          "id": "hnet-runtime",
+          "rewrite_role": "statement_scope_explanation",
+          "rewrite_status": "complete",
+          "reading_status": "scope_explanation_complete",
+          "statement_assessment": "no_statement_error_recorded",
+          "current_lean_evidence_role": "none",
+          "current_mapped_declarations": []
+        },
+        {
+          "id": "hnet-architecture-r1-r2",
+          "rewrite_role": "proof",
+          "rewrite_status": "complete",
+          "reading_status": "complete",
+          "statement_assessment": "no_statement_error_recorded",
+          "current_lean_evidence_role": "theorem_proof",
+          "current_mapped_declarations": [
+            "Harsanyi.Network.value_mask",
+            "Harsanyi.Network.value_congr",
+            "Harsanyi.Network.value_baseline",
+            "Harsanyi.Network.value_empty_receptive"
+          ]
+        },
+        {
+          "id": "hnet-sparsity-count",
+          "rewrite_role": "partial_proof_with_refuted_clause",
+          "rewrite_status": "complete",
+          "reading_status": "scope_explanation_complete",
+          "statement_assessment": "partially_refuted",
+          "current_lean_evidence_role": "partial_component",
+          "current_mapped_declarations": [
+            "PaperHarsanyiNet.finite_support_card",
+            "Harsanyi.Network.support_card_le_units",
+            "Harsanyi.Network.support_subset_fields"
+          ]
+        },
+        {
+          "id": "hnet-cnn-receptive",
+          "rewrite_role": "proof",
+          "rewrite_status": "complete",
+          "reading_status": "complete",
+          "statement_assessment": "no_statement_error_recorded",
+          "current_lean_evidence_role": "theorem_proof",
+          "current_mapped_declarations": [
+            "Harsanyi.Network.receptive_shared_children"
+          ]
+        },
+        {
+          "id": "hnet-cnn-regroup",
+          "rewrite_role": "partial_proof_with_refuted_clause",
+          "rewrite_status": "complete",
+          "reading_status": "scope_explanation_complete",
+          "statement_assessment": "partially_refuted",
+          "current_lean_evidence_role": "partial_component",
+          "current_mapped_declarations": [
+            "Harsanyi.Network.groupedBlock_mask",
+            "Harsanyi.Network.channel_grouping",
+            "Harsanyi.Network.scalar_grouped_gate_counterexample"
+          ]
+        },
+        {
+          "id": "hnet-axiom-linearity",
+          "rewrite_role": "proof",
+          "rewrite_status": "complete",
+          "reading_status": "complete",
+          "statement_assessment": "no_statement_error_recorded",
+          "current_lean_evidence_role": "theorem_proof",
+          "current_mapped_declarations": [
+            "PaperHarsanyiNet.shapley_add",
+            "PaperHarsanyiNet.shapley_scale"
+          ]
+        },
+        {
+          "id": "hnet-axiom-dummy",
+          "rewrite_role": "proof",
+          "rewrite_status": "complete",
+          "reading_status": "complete",
+          "statement_assessment": "no_statement_error_recorded",
+          "current_lean_evidence_role": "theorem_proof",
+          "current_mapped_declarations": [
+            "PaperHarsanyiNet.shapley_dummy"
+          ]
+        },
+        {
+          "id": "hnet-axiom-symmetry",
+          "rewrite_role": "proof",
+          "rewrite_status": "complete",
+          "reading_status": "complete",
+          "statement_assessment": "no_statement_error_recorded",
+          "current_lean_evidence_role": "theorem_proof",
+          "current_mapped_declarations": [
+            "PaperHarsanyiNet.shapley_symmetry"
+          ]
+        },
+        {
+          "id": "hnet-axiom-efficiency",
+          "rewrite_role": "proof",
+          "rewrite_status": "complete",
+          "reading_status": "complete",
+          "statement_assessment": "no_statement_error_recorded",
+          "current_lean_evidence_role": "theorem_proof",
+          "current_mapped_declarations": [
+            "PaperHarsanyiNet.shapley_efficiency",
+            "Harsanyi.reconstruction"
+          ]
+        },
+        {
+          "id": "hnet-conditional-attribution",
+          "rewrite_role": "proof",
+          "rewrite_status": "complete",
+          "reading_status": "complete",
+          "statement_assessment": "no_statement_error_recorded",
+          "current_lean_evidence_role": "theorem_proof",
+          "current_mapped_declarations": [
+            "PaperHarsanyiNet.finite_conditional_attribution",
+            "PaperHarsanyiNet.conditional_attribution",
+            "Harsanyi.Network.conditional_receptive",
+            "Harsanyi.Network.conditional_forward_shapley"
+          ]
+        }
+      ]
+    },
+    {
+      "paper_id": "icml2024-layerwise",
+      "result_pages": 17,
+      "proof_targets": 9,
+      "complete_proof_text": 4,
+      "other_delivered_scope_or_counterexample_targets": 5,
+      "current_lean_evidence_roles": {
+        "theorem_proof": 5,
+        "partial_component": 2,
+        "counterexample": 0,
+        "none": 2
+      },
+      "target_records": [
+        {
+          "id": "layer-and-reconstruction",
+          "rewrite_role": "proof",
+          "rewrite_status": "complete",
+          "reading_status": "complete",
+          "statement_assessment": "no_statement_error_recorded",
+          "current_lean_evidence_role": "theorem_proof",
+          "current_mapped_declarations": [
+            "Harsanyi.reconstruction"
+          ]
+        },
+        {
+          "id": "layer-universal-matching",
+          "rewrite_role": "statement_scope_explanation",
+          "rewrite_status": "complete",
+          "reading_status": "scope_explanation_complete",
+          "statement_assessment": "scope_under_review",
+          "current_lean_evidence_role": "theorem_proof",
+          "current_mapped_declarations": [
+            "PaperLayerwise.actual_matching",
+            "PaperLayerwise.actual_remasked_matching",
+            "PaperLayerwise.repeated_mask",
+            "Harsanyi.Layerwise.restricted_and"
+          ]
+        },
+        {
+          "id": "layer-salient-matching",
+          "rewrite_role": "statement_scope_explanation",
+          "rewrite_status": "complete_with_scope_issue",
+          "reading_status": "scope_explanation_complete",
+          "statement_assessment": "scope_under_review",
+          "current_lean_evidence_role": "partial_component",
+          "current_mapped_declarations": [
+            "Harsanyi.Layerwise.duplicated_baseline_counterexample"
+          ]
+        },
+        {
+          "id": "layer-strength-decomposition",
+          "rewrite_role": "counterexample",
+          "rewrite_status": "blocked_by_source_issue",
+          "reading_status": "pending",
+          "statement_assessment": "refuted",
+          "current_lean_evidence_role": "partial_component",
+          "current_mapped_declarations": [
+            "Harsanyi.Layerwise.normalized_thresholded_counterexample",
+            "Harsanyi.Layerwise.strengthGame_dividends",
+            "Harsanyi.Layerwise.strength_full_outputs",
+            "Harsanyi.Layerwise.strength_supports",
+            "Harsanyi.Layerwise.scalar_strength_decomposition"
+          ]
+        },
+        {
+          "id": "layer-binomial-symmetry",
+          "rewrite_role": "proof",
+          "rewrite_status": "complete",
+          "reading_status": "complete",
+          "statement_assessment": "no_statement_error_recorded",
+          "current_lean_evidence_role": "theorem_proof",
+          "current_mapped_declarations": [
+            "Harsanyi.Layerwise.complementary_order_count"
+          ]
+        },
+        {
+          "id": "layer-shapley-and-or",
+          "rewrite_role": "proof",
+          "rewrite_status": "complete",
+          "reading_status": "complete",
+          "statement_assessment": "no_statement_error_recorded",
+          "current_lean_evidence_role": "theorem_proof",
+          "current_mapped_declarations": [
+            "PaperLayerwise.actual_shapley",
+            "Harsanyi.Layerwise.shapley_and_or"
+          ]
+        },
+        {
+          "id": "layer-complement-duality",
+          "rewrite_role": "statement_scope_explanation",
+          "rewrite_status": "complete_with_scope_issue",
+          "reading_status": "scope_explanation_complete",
+          "statement_assessment": "scope_under_review",
+          "current_lean_evidence_role": "none",
+          "current_mapped_declarations": []
+        },
+        {
+          "id": "layer-or-sparsity-inheritance",
+          "rewrite_role": "statement_scope_explanation",
+          "rewrite_status": "complete_with_scope_issue",
+          "reading_status": "scope_explanation_complete",
+          "statement_assessment": "scope_under_review",
+          "current_lean_evidence_role": "none",
+          "current_mapped_declarations": []
+        },
+        {
+          "id": "layer-singleton-merge",
+          "rewrite_role": "proof",
+          "rewrite_status": "complete",
+          "reading_status": "complete",
+          "statement_assessment": "no_statement_error_recorded",
+          "current_lean_evidence_role": "theorem_proof",
+          "current_mapped_declarations": [
+            "Harsanyi.Layerwise.singleton_merge",
+            "Harsanyi.Layerwise.singleton_activation"
+          ]
+        }
+      ]
+    },
+    {
+      "paper_id": "icml2025-coalition",
+      "result_pages": 29,
+      "proof_targets": 19,
+      "complete_proof_text": 6,
+      "other_delivered_scope_or_counterexample_targets": 13,
+      "current_lean_evidence_roles": {
+        "theorem_proof": 6,
+        "partial_component": 8,
+        "counterexample": 0,
+        "none": 5
+      },
+      "target_records": [
+        {
+          "id": "coalition-shapley",
+          "rewrite_role": "proof",
+          "rewrite_status": "complete",
+          "reading_status": "complete",
+          "statement_assessment": "no_statement_error_recorded",
+          "current_lean_evidence_role": "theorem_proof",
+          "current_mapped_declarations": [
+            "PaperCoalition.theorem32",
+            "Harsanyi.Coalition.shapley_and_or"
+          ]
+        },
+        {
+          "id": "coalition-banzhaf",
+          "rewrite_role": "proof",
+          "rewrite_status": "complete",
+          "reading_status": "complete",
+          "statement_assessment": "no_statement_error_recorded",
+          "current_lean_evidence_role": "theorem_proof",
+          "current_mapped_declarations": [
+            "PaperCoalition.theorem33",
+            "Harsanyi.Coalition.banzhaf_and_or"
+          ]
+        },
+        {
+          "id": "coalition-conflict",
+          "rewrite_role": "statement_scope_explanation",
+          "rewrite_status": "complete",
+          "reading_status": "scope_explanation_complete",
+          "statement_assessment": "scope_under_review",
+          "current_lean_evidence_role": "partial_component",
+          "current_mapped_declarations": [
+            "PaperCoalition.theorem34_nonempty",
+            "Harsanyi.Coalition.paper_conflict"
+          ]
+        },
+        {
+          "id": "coalition-no-conflict",
+          "rewrite_role": "statement_scope_explanation",
+          "rewrite_status": "complete",
+          "reading_status": "scope_explanation_complete",
+          "statement_assessment": "scope_under_review",
+          "current_lean_evidence_role": "partial_component",
+          "current_mapped_declarations": [
+            "Harsanyi.Coalition.paper_no_conflict",
+            "Harsanyi.Coalition.paper_individual_no_conflict"
+          ]
+        },
+        {
+          "id": "coalition-individual",
+          "rewrite_role": "proof",
+          "rewrite_status": "complete",
+          "reading_status": "complete",
+          "statement_assessment": "no_statement_error_recorded",
+          "current_lean_evidence_role": "theorem_proof",
+          "current_mapped_declarations": [
+            "PaperCoalition.theorem36",
+            "Harsanyi.Coalition.paper_individual"
+          ]
+        },
+        {
+          "id": "coalition-singleton",
+          "rewrite_role": "proof",
+          "rewrite_status": "complete",
+          "reading_status": "complete",
+          "statement_assessment": "no_statement_error_recorded",
+          "current_lean_evidence_role": "theorem_proof",
+          "current_mapped_declarations": [
+            "PaperCoalition.corollary37",
+            "Harsanyi.Coalition.paper_singleton"
+          ]
+        },
+        {
+          "id": "coalition-efficiency",
+          "rewrite_role": "statement_scope_explanation",
+          "rewrite_status": "complete",
+          "reading_status": "scope_explanation_complete",
+          "statement_assessment": "scope_under_review",
+          "current_lean_evidence_role": "partial_component",
+          "current_mapped_declarations": [
+            "PaperCoalition.corollary38_nonempty",
+            "Harsanyi.Coalition.paper_efficiency"
+          ]
+        },
+        {
+          "id": "coalition-anonymity",
+          "rewrite_role": "statement_scope_explanation",
+          "rewrite_status": "complete_with_scope_issue",
+          "reading_status": "scope_explanation_complete",
+          "statement_assessment": "scope_under_review",
+          "current_lean_evidence_role": "none",
+          "current_mapped_declarations": []
+        },
+        {
+          "id": "coalition-symmetry-alpha",
+          "rewrite_role": "counterexample",
+          "rewrite_status": "blocked_by_source_issue",
+          "reading_status": "pending",
+          "statement_assessment": "refuted",
+          "current_lean_evidence_role": "none",
+          "current_mapped_declarations": []
+        },
+        {
+          "id": "coalition-symmetry-beta",
+          "rewrite_role": "counterexample",
+          "rewrite_status": "blocked_by_source_issue",
+          "reading_status": "pending",
+          "statement_assessment": "refuted",
+          "current_lean_evidence_role": "none",
+          "current_mapped_declarations": []
+        },
+        {
+          "id": "coalition-additivity",
+          "rewrite_role": "counterexample",
+          "rewrite_status": "blocked_by_source_issue",
+          "reading_status": "pending",
+          "statement_assessment": "refuted",
+          "current_lean_evidence_role": "none",
+          "current_mapped_declarations": []
+        },
+        {
+          "id": "coalition-dummy",
+          "rewrite_role": "partial_proof_with_refuted_clause",
+          "rewrite_status": "complete_with_definition_only_counterexample",
+          "reading_status": "scope_explanation_complete",
+          "statement_assessment": "partially_refuted",
+          "current_lean_evidence_role": "none",
+          "current_mapped_declarations": []
+        },
+        {
+          "id": "coalition-shapley-coefficient",
+          "rewrite_role": "partial_component",
+          "rewrite_status": "complete",
+          "reading_status": "scope_explanation_complete",
+          "statement_assessment": "no_statement_error_recorded",
+          "current_lean_evidence_role": "partial_component",
+          "current_mapped_declarations": [
+            "Harsanyi.Coalition.shapley_kernel"
+          ]
+        },
+        {
+          "id": "coalition-banzhaf-coefficient",
+          "rewrite_role": "proof",
+          "rewrite_status": "complete",
+          "reading_status": "complete",
+          "statement_assessment": "no_statement_error_recorded",
+          "current_lean_evidence_role": "theorem_proof",
+          "current_mapped_declarations": [
+            "Harsanyi.Coalition.signed_half_superset"
+          ]
+        },
+        {
+          "id": "coalition-matching",
+          "rewrite_role": "proof",
+          "rewrite_status": "complete",
+          "reading_status": "complete",
+          "statement_assessment": "no_statement_error_recorded",
+          "current_lean_evidence_role": "theorem_proof",
+          "current_mapped_declarations": [
+            "Harsanyi.Coalition.universal_matching"
+          ]
+        },
+        {
+          "id": "coalition-R",
+          "rewrite_role": "statement_scope_explanation",
+          "rewrite_status": "complete_with_original_domain_issue",
+          "reading_status": "scope_explanation_complete",
+          "statement_assessment": "scope_under_review",
+          "current_lean_evidence_role": "partial_component",
+          "current_mapped_declarations": [
+            "Harsanyi.Coalition.r_bounds"
+          ]
+        },
+        {
+          "id": "coalition-Rprime",
+          "rewrite_role": "statement_scope_explanation",
+          "rewrite_status": "complete_with_original_domain_issue",
+          "reading_status": "scope_explanation_complete",
+          "statement_assessment": "scope_under_review",
+          "current_lean_evidence_role": "partial_component",
+          "current_mapped_declarations": [
+            "Harsanyi.Coalition.rprime_bounds"
+          ]
+        },
+        {
+          "id": "coalition-Q",
+          "rewrite_role": "statement_scope_explanation",
+          "rewrite_status": "complete_with_original_domain_issue",
+          "reading_status": "scope_explanation_complete",
+          "statement_assessment": "scope_under_review",
+          "current_lean_evidence_role": "partial_component",
+          "current_mapped_declarations": [
+            "Harsanyi.Coalition.q_bounds"
+          ]
+        },
+        {
+          "id": "coalition-toy-support",
+          "rewrite_role": "partial_component",
+          "rewrite_status": "complete",
+          "reading_status": "scope_explanation_complete",
+          "statement_assessment": "no_statement_error_recorded",
+          "current_lean_evidence_role": "partial_component",
+          "current_mapped_declarations": [
+            "Harsanyi.Coalition.toy_and_support"
+          ]
+        }
+      ]
+    },
+    {
+      "paper_id": "neurips2021-robustness",
+      "result_pages": 27,
+      "proof_targets": 26,
+      "complete_proof_text": 22,
+      "other_delivered_scope_or_counterexample_targets": 4,
+      "current_lean_evidence_roles": {
+        "theorem_proof": 22,
+        "partial_component": 1,
+        "counterexample": 1,
+        "none": 2
+      },
+      "target_records": [
+        {
+          "id": "robustness-interaction-linearity",
+          "rewrite_role": "proof",
+          "rewrite_status": "complete",
+          "reading_status": "complete",
+          "statement_assessment": "no_statement_error_recorded",
+          "current_lean_evidence_role": "theorem_proof",
+          "current_mapped_declarations": [
+            "Harsanyi.Robustness.interaction_linearity",
+            "Harsanyi.Robustness.interaction_homogeneity"
+          ]
+        },
+        {
+          "id": "robustness-interaction-nullity",
+          "rewrite_role": "proof",
+          "rewrite_status": "complete",
+          "reading_status": "complete",
+          "statement_assessment": "scope_under_review",
+          "current_lean_evidence_role": "theorem_proof",
+          "current_mapped_declarations": [
+            "Harsanyi.Robustness.interaction_dummy",
+            "Harsanyi.Robustness.source_dummy_baseline"
+          ]
+        },
+        {
+          "id": "robustness-interaction-commutativity",
+          "rewrite_role": "proof",
+          "rewrite_status": "complete",
+          "reading_status": "complete",
+          "statement_assessment": "no_statement_error_recorded",
+          "current_lean_evidence_role": "theorem_proof",
+          "current_mapped_declarations": [
+            "Harsanyi.Robustness.interaction_commutativity"
+          ]
+        },
+        {
+          "id": "robustness-interaction-symmetry",
+          "rewrite_role": "proof",
+          "rewrite_status": "complete",
+          "reading_status": "complete",
+          "statement_assessment": "no_statement_error_recorded",
+          "current_lean_evidence_role": "theorem_proof",
+          "current_mapped_declarations": [
+            "Harsanyi.Robustness.interaction_symmetry"
+          ]
+        },
+        {
+          "id": "robustness-shapley-linearity",
+          "rewrite_role": "proof",
+          "rewrite_status": "complete",
+          "reading_status": "complete",
+          "statement_assessment": "no_statement_error_recorded",
+          "current_lean_evidence_role": "theorem_proof",
+          "current_mapped_declarations": [
+            "Harsanyi.Robustness.attribution_linearity"
+          ]
+        },
+        {
+          "id": "robustness-shapley-nullity",
+          "rewrite_role": "proof",
+          "rewrite_status": "complete",
+          "reading_status": "complete",
+          "statement_assessment": "no_statement_error_recorded",
+          "current_lean_evidence_role": "theorem_proof",
+          "current_mapped_declarations": [
+            "Harsanyi.Robustness.attribution_dummy",
+            "Harsanyi.Robustness.source_dummy_baseline"
+          ]
+        },
+        {
+          "id": "robustness-shapley-symmetry",
+          "rewrite_role": "proof",
+          "rewrite_status": "complete",
+          "reading_status": "complete",
+          "statement_assessment": "no_statement_error_recorded",
+          "current_lean_evidence_role": "theorem_proof",
+          "current_mapped_declarations": [
+            "Harsanyi.Robustness.attribution_symmetry"
+          ]
+        },
+        {
+          "id": "robustness-shapley-orders",
+          "rewrite_role": "proof",
+          "rewrite_status": "complete",
+          "reading_status": "complete",
+          "statement_assessment": "no_statement_error_recorded",
+          "current_lean_evidence_role": "theorem_proof",
+          "current_mapped_declarations": [
+            "Harsanyi.Robustness.shapley_orders"
+          ]
+        },
+        {
+          "id": "robustness-shapley-efficiency",
+          "rewrite_role": "proof",
+          "rewrite_status": "complete",
+          "reading_status": "complete",
+          "statement_assessment": "no_statement_error_recorded",
+          "current_lean_evidence_role": "theorem_proof",
+          "current_mapped_declarations": [
+            "Harsanyi.Robustness.attribution_efficiency"
+          ]
+        },
+        {
+          "id": "robustness-marginal-attribution",
+          "rewrite_role": "proof",
+          "rewrite_status": "complete",
+          "reading_status": "complete",
+          "statement_assessment": "no_statement_error_recorded",
+          "current_lean_evidence_role": "theorem_proof",
+          "current_mapped_declarations": [
+            "Harsanyi.Robustness.attribution_recurrence"
+          ]
+        },
+        {
+          "id": "robustness-accumulation",
+          "rewrite_role": "proof",
+          "rewrite_status": "complete",
+          "reading_status": "complete",
+          "statement_assessment": "no_statement_error_recorded",
+          "current_lean_evidence_role": "theorem_proof",
+          "current_mapped_declarations": [
+            "Harsanyi.Robustness.attribution_accumulation"
+          ]
+        },
+        {
+          "id": "robustness-interaction-efficiency",
+          "rewrite_role": "proof",
+          "rewrite_status": "complete",
+          "reading_status": "complete",
+          "statement_assessment": "no_statement_error_recorded",
+          "current_lean_evidence_role": "theorem_proof",
+          "current_mapped_declarations": [
+            "Harsanyi.Robustness.interaction_efficiency"
+          ]
+        },
+        {
+          "id": "robustness-attacking-decomposition",
+          "rewrite_role": "proof",
+          "rewrite_status": "complete",
+          "reading_status": "complete",
+          "statement_assessment": "no_statement_error_recorded",
+          "current_lean_evidence_role": "theorem_proof",
+          "current_mapped_declarations": [
+            "Harsanyi.Robustness.source_attack_decomposition"
+          ]
+        },
+        {
+          "id": "robustness-entropy-interaction",
+          "rewrite_role": "proof",
+          "rewrite_status": "complete",
+          "reading_status": "complete",
+          "statement_assessment": "no_statement_error_recorded",
+          "current_lean_evidence_role": "theorem_proof",
+          "current_mapped_declarations": [
+            "Harsanyi.Robustness.entropy_interaction"
+          ]
+        },
+        {
+          "id": "robustness-exclusive-shared-benefits",
+          "rewrite_role": "proof",
+          "rewrite_status": "complete",
+          "reading_status": "complete",
+          "statement_assessment": "no_statement_error_recorded",
+          "current_lean_evidence_role": "theorem_proof",
+          "current_mapped_declarations": [
+            "Harsanyi.Robustness.entropy_shared_benefit"
+          ]
+        },
+        {
+          "id": "robustness-delta-average",
+          "rewrite_role": "proof",
+          "rewrite_status": "complete",
+          "reading_status": "complete",
+          "statement_assessment": "no_statement_error_recorded",
+          "current_lean_evidence_role": "theorem_proof",
+          "current_mapped_declarations": [
+            "Harsanyi.Robustness.average_sub"
+          ]
+        },
+        {
+          "id": "robustness-disentanglement",
+          "rewrite_role": "partial_proof_with_refuted_clause",
+          "rewrite_status": "complete",
+          "reading_status": "scope_explanation_complete",
+          "statement_assessment": "partially_refuted",
+          "current_lean_evidence_role": "partial_component",
+          "current_mapped_declarations": [
+            "Harsanyi.Robustness.disentanglement_bounds",
+            "Harsanyi.Robustness.disentanglement_zero_domain",
+            "Harsanyi.Robustness.disentanglement_same_sign_nonneg",
+            "Harsanyi.Robustness.disentanglement_same_sign_nonpos"
+          ]
+        },
+        {
+          "id": "robustness-detector-attribution",
+          "rewrite_role": "proof",
+          "rewrite_status": "complete",
+          "reading_status": "complete",
+          "statement_assessment": "no_statement_error_recorded",
+          "current_lean_evidence_role": "theorem_proof",
+          "current_mapped_declarations": [
+            "Harsanyi.Robustness.attribution_top"
+          ]
+        },
+        {
+          "id": "robustness-dropout-expansion",
+          "rewrite_role": "counterexample",
+          "rewrite_status": "in_progress",
+          "reading_status": "pending",
+          "statement_assessment": "refuted",
+          "current_lean_evidence_role": "counterexample",
+          "current_mapped_declarations": [
+            "Harsanyi.Robustness.fixed_size_floor_counterexample",
+            "Harsanyi.Robustness.fixed_size_cardinal_mean",
+            "Harsanyi.Robustness.cardinal_game_interaction",
+            "Harsanyi.Robustness.linear_masked_sum_cardinal"
+          ]
+        },
+        {
+          "id": "robustness-inference-heuristics",
+          "rewrite_role": "statement_scope_explanation",
+          "rewrite_status": "complete",
+          "reading_status": "scope_explanation_complete",
+          "statement_assessment": "scope_under_review",
+          "current_lean_evidence_role": "none",
+          "current_mapped_declarations": []
+        },
+        {
+          "id": "robustness-classical-linearity",
+          "rewrite_role": "proof",
+          "rewrite_status": "complete",
+          "reading_status": "complete",
+          "statement_assessment": "no_statement_error_recorded",
+          "current_lean_evidence_role": "theorem_proof",
+          "current_mapped_declarations": [
+            "Harsanyi.Robustness.shapley_linearity",
+            "Harsanyi.Robustness.shapley_homogeneity"
+          ]
+        },
+        {
+          "id": "robustness-classical-dummy",
+          "rewrite_role": "proof",
+          "rewrite_status": "complete",
+          "reading_status": "complete",
+          "statement_assessment": "no_statement_error_recorded",
+          "current_lean_evidence_role": "theorem_proof",
+          "current_mapped_declarations": [
+            "Harsanyi.Robustness.source_shapley_dummy"
+          ]
+        },
+        {
+          "id": "robustness-classical-symmetry",
+          "rewrite_role": "proof",
+          "rewrite_status": "complete",
+          "reading_status": "complete",
+          "statement_assessment": "no_statement_error_recorded",
+          "current_lean_evidence_role": "theorem_proof",
+          "current_mapped_declarations": [
+            "Harsanyi.Robustness.shapley_symmetry"
+          ]
+        },
+        {
+          "id": "robustness-classical-efficiency",
+          "rewrite_role": "proof",
+          "rewrite_status": "complete",
+          "reading_status": "complete",
+          "statement_assessment": "no_statement_error_recorded",
+          "current_lean_evidence_role": "theorem_proof",
+          "current_mapped_declarations": [
+            "Harsanyi.Robustness.shapley_efficiency"
+          ]
+        },
+        {
+          "id": "robustness-classical-uniqueness",
+          "rewrite_role": "statement_scope_explanation",
+          "rewrite_status": "complete",
+          "reading_status": "scope_explanation_complete",
+          "statement_assessment": "scope_under_review",
+          "current_lean_evidence_role": "none",
+          "current_mapped_declarations": []
+        },
+        {
+          "id": "robustness-shapley-interaction-orders",
+          "rewrite_role": "proof",
+          "rewrite_status": "complete",
+          "reading_status": "complete",
+          "statement_assessment": "no_statement_error_recorded",
+          "current_lean_evidence_role": "theorem_proof",
+          "current_mapped_declarations": [
+            "Harsanyi.Robustness.shapley_interaction_orders",
+            "Harsanyi.Robustness.shapley_interaction_commutativity"
+          ]
+        }
+      ]
+    },
+    {
+      "paper_id": "neurips2024-dynamics",
+      "result_pages": 32,
+      "proof_targets": 22,
+      "complete_proof_text": 11,
+      "other_delivered_scope_or_counterexample_targets": 11,
+      "current_lean_evidence_roles": {
+        "theorem_proof": 11,
+        "partial_component": 7,
+        "counterexample": 1,
+        "none": 3
+      },
+      "target_records": [
+        {
+          "id": "dyn-sparsity",
+          "rewrite_role": "statement_scope_explanation",
+          "rewrite_status": "complete",
+          "reading_status": "scope_explanation_complete",
+          "statement_assessment": "scope_under_review",
+          "current_lean_evidence_role": "none",
+          "current_mapped_declarations": []
+        },
+        {
+          "id": "dyn-universal",
+          "rewrite_role": "partial_component",
+          "rewrite_status": "complete",
+          "reading_status": "scope_explanation_complete",
+          "statement_assessment": "scope_under_review",
+          "current_lean_evidence_role": "partial_component",
+          "current_mapped_declarations": [
+            "Harsanyi.reconstruction",
+            "Harsanyi.or_reconstruction",
+            "Harsanyi.Layerwise.and_or_matching"
+          ]
+        },
+        {
+          "id": "dyn-taylor",
+          "rewrite_role": "counterexample",
+          "rewrite_status": "in_progress",
+          "reading_status": "pending",
+          "statement_assessment": "refuted",
+          "current_lean_evidence_role": "partial_component",
+          "current_mapped_declarations": [
+            "Harsanyi.TaylorMoments.monomial_mask",
+            "Harsanyi.PolynomialSupport.mask_terms",
+            "Harsanyi.PolynomialSupport.support_reconstruct",
+            "Harsanyi.PolynomialSupport.interaction_eq_supportCoefficient"
+          ]
+        },
+        {
+          "id": "dyn-trigger-representation",
+          "rewrite_role": "partial_component",
+          "rewrite_status": "complete",
+          "reading_status": "scope_explanation_complete",
+          "statement_assessment": "scope_under_review",
+          "current_lean_evidence_role": "partial_component",
+          "current_mapped_declarations": [
+            "Harsanyi.TaylorMoments.normalized_trigger"
+          ]
+        },
+        {
+          "id": "dyn-noisy-output",
+          "rewrite_role": "partial_proof_with_refuted_clause",
+          "rewrite_status": "complete",
+          "reading_status": "scope_explanation_complete",
+          "statement_assessment": "partially_refuted",
+          "current_lean_evidence_role": "partial_component",
+          "current_mapped_declarations": [
+            "Harsanyi.interaction_add",
+            "PaperDynamics.correlated_noise_counterexample",
+            "Harsanyi.and_gaussian_variance"
+          ]
+        },
+        {
+          "id": "dyn-regression",
+          "rewrite_role": "proof",
+          "rewrite_status": "complete",
+          "reading_status": "complete",
+          "statement_assessment": "no_statement_error_recorded",
+          "current_lean_evidence_role": "theorem_proof",
+          "current_mapped_declarations": [
+            "Harsanyi.GaussianRegression.independent_residual",
+            "PaperDynamics.noisyLoss_expansion",
+            "Harsanyi.NoisyRegression.zeta_injective",
+            "Harsanyi.NoisyRegression.normal_posDef",
+            "Harsanyi.NoisyRegression.quadratic_unique_min",
+            "PaperDynamics.meanNoisyLoss_unique_min"
+          ]
+        },
+        {
+          "id": "dyn-binary-trigger",
+          "rewrite_role": "partial_component",
+          "rewrite_status": "complete",
+          "reading_status": "scope_explanation_complete",
+          "statement_assessment": "scope_under_review",
+          "current_lean_evidence_role": "partial_component",
+          "current_mapped_declarations": [
+            "Harsanyi.TaylorMoments.normalized_trigger"
+          ]
+        },
+        {
+          "id": "dyn-equal-order",
+          "rewrite_role": "proof",
+          "rewrite_status": "complete",
+          "reading_status": "complete",
+          "statement_assessment": "no_statement_error_recorded",
+          "current_lean_evidence_role": "theorem_proof",
+          "current_mapped_declarations": [
+            "Harsanyi.NoisyRegression.transfer_permutation",
+            "Harsanyi.NoisyRegression.exists_coalition_permutation",
+            "PaperDynamics.equal_order_norm"
+          ]
+        },
+        {
+          "id": "dyn-order-monotonic",
+          "rewrite_role": "partial_proof_with_refuted_clause",
+          "rewrite_status": "complete",
+          "reading_status": "scope_explanation_complete",
+          "statement_assessment": "partially_refuted",
+          "current_lean_evidence_role": "partial_component",
+          "current_mapped_declarations": [
+            "PaperDynamics.zero_noise_row_ratio",
+            "PaperDynamics.equal_order_norm"
+          ]
+        },
+        {
+          "id": "dyn-zero-noise",
+          "rewrite_role": "proof",
+          "rewrite_status": "complete",
+          "reading_status": "complete",
+          "statement_assessment": "no_statement_error_recorded",
+          "current_lean_evidence_role": "theorem_proof",
+          "current_mapped_declarations": [
+            "PaperDynamics.zero_noise_recovery"
+          ]
+        },
+        {
+          "id": "dyn-first-phase",
+          "rewrite_role": "statement_scope_explanation",
+          "rewrite_status": "complete",
+          "reading_status": "scope_explanation_complete",
+          "statement_assessment": "scope_under_review",
+          "current_lean_evidence_role": "none",
+          "current_mapped_declarations": []
+        },
+        {
+          "id": "dyn-complement",
+          "rewrite_role": "partial_component",
+          "rewrite_status": "complete",
+          "reading_status": "scope_explanation_complete",
+          "statement_assessment": "scope_under_review",
+          "current_lean_evidence_role": "partial_component",
+          "current_mapped_declarations": [
+            "Harsanyi.maskCoordinates_complement",
+            "Harsanyi.or_dual"
+          ]
+        },
+        {
+          "id": "dyn-efficiency",
+          "rewrite_role": "proof",
+          "rewrite_status": "complete",
+          "reading_status": "complete",
+          "statement_assessment": "no_statement_error_recorded",
+          "current_lean_evidence_role": "theorem_proof",
+          "current_mapped_declarations": [
+            "PaperDynamics.efficiency"
+          ]
+        },
+        {
+          "id": "dyn-linearity",
+          "rewrite_role": "proof",
+          "rewrite_status": "complete",
+          "reading_status": "complete",
+          "statement_assessment": "no_statement_error_recorded",
+          "current_lean_evidence_role": "theorem_proof",
+          "current_mapped_declarations": [
+            "Harsanyi.interaction_add"
+          ]
+        },
+        {
+          "id": "dyn-dummy",
+          "rewrite_role": "proof",
+          "rewrite_status": "complete",
+          "reading_status": "complete",
+          "statement_assessment": "no_statement_error_recorded",
+          "current_lean_evidence_role": "theorem_proof",
+          "current_mapped_declarations": [
+            "PaperDynamics.dummy"
+          ]
+        },
+        {
+          "id": "dyn-symmetry",
+          "rewrite_role": "proof",
+          "rewrite_status": "complete",
+          "reading_status": "complete",
+          "statement_assessment": "no_statement_error_recorded",
+          "current_lean_evidence_role": "theorem_proof",
+          "current_mapped_declarations": [
+            "PaperDynamics.symmetry"
+          ]
+        },
+        {
+          "id": "dyn-anonymity",
+          "rewrite_role": "proof",
+          "rewrite_status": "complete",
+          "reading_status": "complete",
+          "statement_assessment": "no_statement_error_recorded",
+          "current_lean_evidence_role": "theorem_proof",
+          "current_mapped_declarations": [
+            "Harsanyi.interaction_relabel"
+          ]
+        },
+        {
+          "id": "dyn-recursion",
+          "rewrite_role": "proof",
+          "rewrite_status": "complete",
+          "reading_status": "complete",
+          "statement_assessment": "no_statement_error_recorded",
+          "current_lean_evidence_role": "theorem_proof",
+          "current_mapped_declarations": [
+            "Harsanyi.interaction_recursive"
+          ]
+        },
+        {
+          "id": "dyn-distribution",
+          "rewrite_role": "proof",
+          "rewrite_status": "complete",
+          "reading_status": "complete",
+          "statement_assessment": "no_statement_error_recorded",
+          "current_lean_evidence_role": "theorem_proof",
+          "current_mapped_declarations": [
+            "Harsanyi.interaction_unanimity"
+          ]
+        },
+        {
+          "id": "dyn-uniqueness",
+          "rewrite_role": "proof",
+          "rewrite_status": "complete",
+          "reading_status": "complete",
+          "statement_assessment": "no_statement_error_recorded",
+          "current_lean_evidence_role": "theorem_proof",
+          "current_mapped_declarations": [
+            "Harsanyi.reconstruction_unique",
+            "PaperDynamics.transform_coefficients_unique"
+          ]
+        },
+        {
+          "id": "dyn-split-labels",
+          "rewrite_role": "counterexample",
+          "rewrite_status": "in_progress",
+          "reading_status": "pending",
+          "statement_assessment": "refuted",
+          "current_lean_evidence_role": "none",
+          "current_mapped_declarations": []
+        },
+        {
+          "id": "dyn-noise-split",
+          "rewrite_role": "counterexample",
+          "rewrite_status": "in_progress",
+          "reading_status": "pending",
+          "statement_assessment": "refuted",
+          "current_lean_evidence_role": "counterexample",
+          "current_mapped_declarations": [
+            "PaperDynamics.noise_split_counterexample"
+          ]
+        }
+      ]
+    },
+    {
+      "paper_id": "icml2022-transformation",
+      "result_pages": 34,
+      "proof_targets": 31,
+      "complete_proof_text": 17,
+      "other_delivered_scope_or_counterexample_targets": 14,
+      "current_lean_evidence_roles": {
+        "theorem_proof": 17,
+        "partial_component": 4,
+        "counterexample": 7,
+        "none": 3
+      },
+      "target_records": [
+        {
+          "id": "transformation-gating-affine",
+          "rewrite_role": "proof",
+          "rewrite_status": "complete",
+          "reading_status": "complete",
+          "statement_assessment": "no_statement_error_recorded",
+          "current_lean_evidence_role": "theorem_proof",
+          "current_mapped_declarations": [
+            "Harsanyi.GatedAffine.layer_comp",
+            "Harsanyi.GatedAffine.network_output_affine",
+            "Harsanyi.GatedAffine.network_output_linear_bias",
+            "PaperTransformation.relu_scalar_fixed_gate",
+            "PaperTransformation.actual_relu_agrees_fixed_gate",
+            "PaperTransformation.actual_relu_region_affine",
+            "PaperTransformation.actual_relu_module_affine",
+            "Harsanyi.GatedAffine.dropoutLinear",
+            "Harsanyi.GatedAffine.fixed_dropout_layer_affine",
+            "PaperTransformation.actual_dropout_module_affine",
+            "Harsanyi.GatedAffine.selectedPoolLinear",
+            "Harsanyi.GatedAffine.finiteMaxPool",
+            "Harsanyi.GatedAffine.maximizingSelector_spec",
+            "Harsanyi.GatedAffine.finite_max_pool_selected",
+            "Harsanyi.GatedAffine.fixed_maximizer_pool",
+            "Harsanyi.GatedAffine.fixed_pool_layer_affine",
+            "PaperTransformation.actual_pool_module_affine"
+          ]
+        },
+        {
+          "id": "transformation-entropy-chain",
+          "rewrite_role": "proof",
+          "rewrite_status": "complete",
+          "reading_status": "complete",
+          "statement_assessment": "no_statement_error_recorded",
+          "current_lean_evidence_role": "theorem_proof",
+          "current_mapped_declarations": [
+            "Harsanyi.Entropy.entropy_chain",
+            "Harsanyi.Entropy.mass_zero_of_marginal_zero",
+            "Harsanyi.Entropy.conditional_entropy_nonneg",
+            "Harsanyi.Entropy.layer_chain_entropy"
+          ]
+        },
+        {
+          "id": "transformation-deterministic-input",
+          "rewrite_role": "proof",
+          "rewrite_status": "complete",
+          "reading_status": "complete",
+          "statement_assessment": "no_statement_error_recorded",
+          "current_lean_evidence_role": "theorem_proof",
+          "current_mapped_declarations": [
+            "Harsanyi.Entropy.gate_label_entropy_zero",
+            "Harsanyi.Entropy.conditional_gate_entropy_zero",
+            "Harsanyi.Entropy.deterministic_input_information_eq_entropy"
+          ]
+        },
+        {
+          "id": "transformation-coinfo-nonnegative",
+          "rewrite_role": "proof",
+          "rewrite_status": "complete",
+          "reading_status": "complete",
+          "statement_assessment": "no_statement_error_recorded",
+          "current_lean_evidence_role": "theorem_proof",
+          "current_mapped_declarations": [
+            "Harsanyi.Entropy.gateLabelLaw",
+            "Harsanyi.Entropy.gate_label_conditional_information_zero",
+            "Harsanyi.Entropy.deterministic_gate_co_information_eq",
+            "Harsanyi.Entropy.mutual_information_nonneg",
+            "Harsanyi.Entropy.deterministic_gate_co_information_nonneg"
+          ]
+        },
+        {
+          "id": "transformation-prefix-entropy",
+          "rewrite_role": "proof",
+          "rewrite_status": "complete",
+          "reading_status": "complete",
+          "statement_assessment": "no_statement_error_recorded",
+          "current_lean_evidence_role": "theorem_proof",
+          "current_mapped_declarations": [
+            "Harsanyi.Entropy.entropy_chain",
+            "Harsanyi.Entropy.entropy_marginal_le"
+          ]
+        },
+        {
+          "id": "transformation-prefix-input",
+          "rewrite_role": "proof",
+          "rewrite_status": "complete",
+          "reading_status": "complete",
+          "statement_assessment": "no_statement_error_recorded",
+          "current_lean_evidence_role": "theorem_proof",
+          "current_mapped_declarations": [
+            "Harsanyi.Entropy.gate_label_entropy_zero",
+            "Harsanyi.Entropy.conditional_gate_entropy_zero",
+            "Harsanyi.Entropy.entropy_marginal_le",
+            "Harsanyi.Entropy.actual_gate_projection_mass",
+            "Harsanyi.Entropy.deterministic_input_gate_refinement"
+          ]
+        },
+        {
+          "id": "transformation-suffix-entropy",
+          "rewrite_role": "proof",
+          "rewrite_status": "complete",
+          "reading_status": "complete",
+          "statement_assessment": "no_statement_error_recorded",
+          "current_lean_evidence_role": "theorem_proof",
+          "current_mapped_declarations": [
+            "Harsanyi.Entropy.entropy_chain",
+            "Harsanyi.Entropy.entropy_marginal_le"
+          ]
+        },
+        {
+          "id": "transformation-suffix-input",
+          "rewrite_role": "proof",
+          "rewrite_status": "complete",
+          "reading_status": "complete",
+          "statement_assessment": "no_statement_error_recorded",
+          "current_lean_evidence_role": "theorem_proof",
+          "current_mapped_declarations": [
+            "Harsanyi.Entropy.gate_label_entropy_zero",
+            "Harsanyi.Entropy.conditional_gate_entropy_zero",
+            "Harsanyi.Entropy.entropy_marginal_le",
+            "Harsanyi.Entropy.gate_label_law_pushforward",
+            "Harsanyi.Entropy.deterministic_input_suffix"
+          ]
+        },
+        {
+          "id": "transformation-suffix-coinfo",
+          "rewrite_role": "proof",
+          "rewrite_status": "complete",
+          "reading_status": "complete",
+          "statement_assessment": "no_statement_error_recorded",
+          "current_lean_evidence_role": "theorem_proof",
+          "current_mapped_declarations": [
+            "Harsanyi.Entropy.gate_label_conditional_information_zero",
+            "Harsanyi.Entropy.deterministic_gate_co_information_eq",
+            "Harsanyi.Entropy.kernel_disintegration",
+            "Harsanyi.Entropy.refined_information_difference",
+            "Harsanyi.Entropy.actual_projection_information_monotone",
+            "Harsanyi.Entropy.deterministic_gate_refinement_information"
+          ]
+        },
+        {
+          "id": "transformation-prefix-coinfo",
+          "rewrite_role": "counterexample",
+          "rewrite_status": "in_progress",
+          "reading_status": "pending",
+          "statement_assessment": "refuted",
+          "current_lean_evidence_role": "counterexample",
+          "current_mapped_declarations": [
+            "Harsanyi.Entropy.first_relu_gate_constant",
+            "Harsanyi.Entropy.second_relu_gate_label",
+            "Harsanyi.Entropy.constant_gate_information",
+            "Harsanyi.Entropy.extended_relu_gate_information",
+            "Harsanyi.Entropy.relu_prefix_clause_counterexample"
+          ]
+        },
+        {
+          "id": "transformation-total-correlation",
+          "rewrite_role": "proof",
+          "rewrite_status": "complete",
+          "reading_status": "complete",
+          "statement_assessment": "no_statement_error_recorded",
+          "current_lean_evidence_role": "theorem_proof",
+          "current_mapped_declarations": [
+            "Harsanyi.Entropy.push_expectation",
+            "Harsanyi.Entropy.total_correlation_entropy_identity"
+          ]
+        },
+        {
+          "id": "transformation-input-correlation",
+          "rewrite_role": "proof",
+          "rewrite_status": "complete",
+          "reading_status": "complete",
+          "statement_assessment": "no_statement_error_recorded",
+          "current_lean_evidence_role": "theorem_proof",
+          "current_mapped_declarations": [
+            "Harsanyi.Entropy.information_correlation_identity",
+            "Harsanyi.Entropy.gate_label_entropy_zero",
+            "Harsanyi.Entropy.conditional_gate_entropy_zero",
+            "Harsanyi.Entropy.random_input_correlation_identity"
+          ]
+        },
+        {
+          "id": "transformation-conditional-correlation",
+          "rewrite_role": "proof",
+          "rewrite_status": "complete",
+          "reading_status": "complete",
+          "statement_assessment": "no_statement_error_recorded",
+          "current_lean_evidence_role": "theorem_proof",
+          "current_mapped_declarations": [
+            "Harsanyi.Entropy.actual_conditional_entropy",
+            "Harsanyi.Entropy.conditional_correlation_identity",
+            "Harsanyi.Entropy.label_information_correlation_identity",
+            "Harsanyi.Entropy.deterministic_gate_co_information_eq",
+            "Harsanyi.Entropy.mixtureLaw",
+            "Harsanyi.Entropy.kernel_entropy_integrable",
+            "Harsanyi.Entropy.integral_conditional_information",
+            "Harsanyi.Entropy.random_gate_correlation_identity"
+          ]
+        },
+        {
+          "id": "transformation-kde-input",
+          "rewrite_role": "statement_scope_explanation",
+          "rewrite_status": "complete",
+          "reading_status": "scope_explanation_complete",
+          "statement_assessment": "scope_under_review",
+          "current_lean_evidence_role": "none",
+          "current_mapped_declarations": []
+        },
+        {
+          "id": "transformation-kde-labels",
+          "rewrite_role": "counterexample",
+          "rewrite_status": "in_progress",
+          "reading_status": "pending",
+          "statement_assessment": "refuted",
+          "current_lean_evidence_role": "counterexample",
+          "current_mapped_declarations": [
+            "Harsanyi.Entropy.balanced_label_mass",
+            "Harsanyi.Entropy.constant_relu_feature",
+            "Harsanyi.Entropy.gaussian_feature_noise_law",
+            "Harsanyi.Entropy.noisy_constant_relu_law",
+            "Harsanyi.Entropy.gaussian_feature_independent",
+            "Harsanyi.Entropy.gaussian_feature_joint_kernel",
+            "Harsanyi.Entropy.gaussian_label_kernel_mass",
+            "Harsanyi.Entropy.actual_gaussian_feature_information_zero",
+            "Harsanyi.Entropy.printed_constant_feature_estimator_negative",
+            "Harsanyi.Entropy.constantFeatureKernel",
+            "Harsanyi.Entropy.actual_constant_feature_kernel",
+            "Harsanyi.Entropy.actualConstantFeatureEstimator",
+            "Harsanyi.Entropy.actual_constant_feature_estimator_negative",
+            "Harsanyi.Entropy.actual_gaussian_eq24_counterexample",
+            "PaperTransformation.actual_gaussian_eq24_model"
+          ]
+        },
+        {
+          "id": "transformation-kde-gates",
+          "rewrite_role": "counterexample",
+          "rewrite_status": "in_progress",
+          "reading_status": "pending",
+          "statement_assessment": "refuted",
+          "current_lean_evidence_role": "counterexample",
+          "current_mapped_declarations": [
+            "Harsanyi.Entropy.scalar_gate_mean",
+            "Harsanyi.Entropy.scalar_gate_variance",
+            "Harsanyi.Entropy.bit_entropy",
+            "Harsanyi.Entropy.binary_gate_kde_formula",
+            "Harsanyi.Entropy.variance_bandwidth_kde_counterexample"
+          ]
+        },
+        {
+          "id": "transformation-kde-randomness",
+          "rewrite_role": "counterexample",
+          "rewrite_status": "in_progress",
+          "reading_status": "pending",
+          "statement_assessment": "refuted",
+          "current_lean_evidence_role": "counterexample",
+          "current_mapped_declarations": [
+            "Harsanyi.Entropy.dropout_relu_gate",
+            "Harsanyi.Entropy.removed_dropout_gate",
+            "Harsanyi.Entropy.dropout_relu_actual_law",
+            "Harsanyi.Entropy.dropout_relu_variance",
+            "Harsanyi.Entropy.dropout_relu_information",
+            "Harsanyi.Entropy.binary_kde_three_upper",
+            "Harsanyi.Entropy.additional_randomness_kde_counterexample"
+          ]
+        },
+        {
+          "id": "transformation-kde-coinfo",
+          "rewrite_role": "counterexample",
+          "rewrite_status": "in_progress",
+          "reading_status": "pending",
+          "statement_assessment": "refuted",
+          "current_lean_evidence_role": "counterexample",
+          "current_mapped_declarations": [
+            "Harsanyi.Entropy.scalar_gate_mean",
+            "Harsanyi.Entropy.scalar_gate_variance",
+            "Harsanyi.Entropy.bit_entropy",
+            "Harsanyi.Entropy.singleton_class_kernel_zero",
+            "Harsanyi.Entropy.same_bit_information",
+            "Harsanyi.Entropy.normalized_class_co_information_bound_counterexample"
+          ]
+        },
+        {
+          "id": "transformation-kde-tc",
+          "rewrite_role": "counterexample",
+          "rewrite_status": "in_progress",
+          "reading_status": "pending",
+          "statement_assessment": "refuted",
+          "current_lean_evidence_role": "counterexample",
+          "current_mapped_declarations": [
+            "Harsanyi.Entropy.same_bit_information",
+            "Harsanyi.Entropy.same_bit_vector_variance",
+            "Harsanyi.Entropy.gate_kernel_sums",
+            "Harsanyi.Entropy.four_point_tc_formula",
+            "Harsanyi.Entropy.exact_synthesis_tc_counterexample",
+            "Harsanyi.Entropy.source_bandwidth_tc_counterexample"
+          ]
+        },
+        {
+          "id": "transformation-ebm-normalization",
+          "rewrite_role": "proof",
+          "rewrite_status": "complete",
+          "reading_status": "complete",
+          "statement_assessment": "no_statement_error_recorded",
+          "current_lean_evidence_role": "theorem_proof",
+          "current_mapped_declarations": [
+            "Harsanyi.Entropy.law_has_positive_mass",
+            "Harsanyi.Entropy.partition_pos",
+            "Harsanyi.Entropy.ebmLaw",
+            "Harsanyi.Entropy.ebm_log_mass"
+          ]
+        },
+        {
+          "id": "transformation-ebm-mle",
+          "rewrite_role": "proof",
+          "rewrite_status": "complete",
+          "reading_status": "complete",
+          "statement_assessment": "no_statement_error_recorded",
+          "current_lean_evidence_role": "theorem_proof",
+          "current_mapped_declarations": [
+            "Harsanyi.Entropy.product_coordinate_support",
+            "Harsanyi.Entropy.ebm_nll_eq_negative_log_probability",
+            "Harsanyi.Entropy.empirical_marginal_prior_nll",
+            "Harsanyi.Entropy.partition_hasFDerivAt",
+            "Harsanyi.Entropy.log_partition_hasFDerivAt",
+            "Harsanyi.Entropy.ebm_nll_hasFDerivAt"
+          ]
+        },
+        {
+          "id": "transformation-ebm-langevin",
+          "rewrite_role": "partial_component",
+          "rewrite_status": "complete",
+          "reading_status": "scope_explanation_complete",
+          "statement_assessment": "scope_under_review",
+          "current_lean_evidence_role": "partial_component",
+          "current_mapped_declarations": [
+            "Harsanyi.Entropy.frozen_state_loss_hasFDerivAt",
+            "Harsanyi.Entropy.relaxed_prior_positive",
+            "Harsanyi.Entropy.relaxed_prior_outside_domain"
+          ]
+        },
+        {
+          "id": "transformation-ebm-sampling-loss",
+          "rewrite_role": "partial_component",
+          "rewrite_status": "complete",
+          "reading_status": "scope_explanation_complete",
+          "statement_assessment": "scope_under_review",
+          "current_lean_evidence_role": "partial_component",
+          "current_mapped_declarations": [
+            "Harsanyi.Entropy.frozen_monte_carlo_derivative"
+          ]
+        },
+        {
+          "id": "transformation-prefix-coinfo-main",
+          "rewrite_role": "proof",
+          "rewrite_status": "complete",
+          "reading_status": "complete",
+          "statement_assessment": "no_statement_error_recorded",
+          "current_lean_evidence_role": "theorem_proof",
+          "current_mapped_declarations": [
+            "Harsanyi.Entropy.gate_label_conditional_information_zero",
+            "Harsanyi.Entropy.deterministic_gate_co_information_eq",
+            "Harsanyi.Entropy.kernel_disintegration",
+            "Harsanyi.Entropy.refined_information_difference",
+            "Harsanyi.Entropy.actual_projection_information_monotone",
+            "Harsanyi.Entropy.deterministic_gate_refinement_information"
+          ]
+        },
+        {
+          "id": "transformation-ebm-cross-entropy",
+          "rewrite_role": "partial_component",
+          "rewrite_status": "complete",
+          "reading_status": "scope_explanation_complete",
+          "statement_assessment": "scope_under_review",
+          "current_lean_evidence_role": "partial_component",
+          "current_mapped_declarations": [
+            "Harsanyi.Entropy.ebm_nll_eq_negative_log_probability",
+            "Harsanyi.Entropy.cross_entropy_decomposition"
+          ]
+        },
+        {
+          "id": "transformation-ebm-dnn-gradient",
+          "rewrite_role": "proof",
+          "rewrite_status": "complete",
+          "reading_status": "complete",
+          "statement_assessment": "no_statement_error_recorded",
+          "current_lean_evidence_role": "theorem_proof",
+          "current_mapped_declarations": [
+            "Harsanyi.Entropy.frozen_state_loss_hasFDerivAt",
+            "Harsanyi.Entropy.frozen_batch_state_loss_hasFDerivAt"
+          ]
+        },
+        {
+          "id": "transformation-ebm-relaxation",
+          "rewrite_role": "partial_component",
+          "rewrite_status": "complete",
+          "reading_status": "scope_explanation_complete",
+          "statement_assessment": "scope_under_review",
+          "current_lean_evidence_role": "partial_component",
+          "current_mapped_declarations": [
+            "Harsanyi.Entropy.sigmoid_gate_hasDerivAt",
+            "Harsanyi.Entropy.swish_hasDerivAt",
+            "Harsanyi.Entropy.relaxed_prior_endpoints",
+            "Harsanyi.Entropy.relaxed_prior_hasDerivAt",
+            "Harsanyi.Entropy.relaxed_prior_sigmoid_positive",
+            "Harsanyi.Entropy.relaxed_prior_outside_domain"
+          ]
+        },
+        {
+          "id": "transformation-activation-heuristics",
+          "rewrite_role": "statement_scope_explanation",
+          "rewrite_status": "complete",
+          "reading_status": "scope_explanation_complete",
+          "statement_assessment": "scope_under_review",
+          "current_lean_evidence_role": "none",
+          "current_mapped_declarations": []
+        },
+        {
+          "id": "transformation-external-theorems",
+          "rewrite_role": "statement_scope_explanation",
+          "rewrite_status": "complete",
+          "reading_status": "scope_explanation_complete",
+          "statement_assessment": "scope_under_review",
+          "current_lean_evidence_role": "none",
+          "current_mapped_declarations": []
+        },
+        {
+          "id": "transformation-tc-zero-independence",
+          "rewrite_role": "proof",
+          "rewrite_status": "complete",
+          "reading_status": "complete",
+          "statement_assessment": "no_statement_error_recorded",
+          "current_lean_evidence_role": "theorem_proof",
+          "current_mapped_declarations": [
+            "Harsanyi.Entropy.gibbs_term_strict",
+            "Harsanyi.Entropy.divergence_zero_iff",
+            "Harsanyi.Entropy.productCoordinateLaw",
+            "Harsanyi.Entropy.product_coordinate_support",
+            "Harsanyi.Entropy.total_correlation_zero_iff_independent"
+          ]
+        },
+        {
+          "id": "transformation-ib-label-scope",
+          "rewrite_role": "counterexample",
+          "rewrite_status": "in_progress",
+          "reading_status": "pending",
+          "statement_assessment": "counterexample_recorded",
+          "current_lean_evidence_role": "counterexample",
+          "current_mapped_declarations": [
+            "PaperTransformation.ib_actual_constant_relu",
+            "PaperTransformation.ib_label_conditioning_law",
+            "PaperTransformation.ib_data_label_conditional_information",
+            "PaperTransformation.ib_data_label_not_screened_off"
+          ]
+        }
+      ]
+    },
+    {
+      "paper_id": "icml2023-bayesian",
+      "result_pages": 22,
+      "proof_targets": 15,
+      "complete_proof_text": 2,
+      "other_delivered_scope_or_counterexample_targets": 13,
+      "current_lean_evidence_roles": {
+        "theorem_proof": 2,
+        "partial_component": 9,
+        "counterexample": 1,
+        "none": 3
+      },
+      "target_records": [
+        {
+          "id": "bnn-interaction",
+          "rewrite_role": "proof",
+          "rewrite_status": "complete",
+          "reading_status": "complete",
+          "statement_assessment": "no_statement_error_recorded",
+          "current_lean_evidence_role": "theorem_proof",
+          "current_mapped_declarations": [
+            "Harsanyi.reconstruction"
+          ]
+        },
+        {
+          "id": "bnn-sparsity",
+          "rewrite_role": "statement_scope_explanation",
+          "rewrite_status": "complete_with_scope_issue",
+          "reading_status": "scope_explanation_complete",
+          "statement_assessment": "scope_under_review",
+          "current_lean_evidence_role": "none",
+          "current_mapped_declarations": []
+        },
+        {
+          "id": "bnn-taylor",
+          "rewrite_role": "counterexample",
+          "rewrite_status": "in_progress",
+          "reading_status": "pending",
+          "statement_assessment": "refuted",
+          "current_lean_evidence_role": "partial_component",
+          "current_mapped_declarations": [
+            "Harsanyi.PolynomialSupport.mask_terms",
+            "Harsanyi.PolynomialSupport.support_reconstruct",
+            "Harsanyi.PolynomialSupport.interaction_eq_supportCoefficient"
+          ]
+        },
+        {
+          "id": "bnn-lowest",
+          "rewrite_role": "statement_scope_explanation",
+          "rewrite_status": "complete_with_scope_issue",
+          "reading_status": "scope_explanation_complete",
+          "statement_assessment": "scope_under_review",
+          "current_lean_evidence_role": "partial_component",
+          "current_mapped_declarations": [
+            "PaperBayesian.maskedLowest",
+            "PaperBayesian.lowest_dividend",
+            "Harsanyi.ConceptGaussian.signed_scaled_law",
+            "Harsanyi.ConceptGaussian.lowest_polynomial_identity",
+            "PaperBayesian.lowest_actual_moments"
+          ]
+        },
+        {
+          "id": "bnn-product",
+          "rewrite_role": "proof",
+          "rewrite_status": "complete",
+          "reading_status": "complete",
+          "statement_assessment": "no_statement_error_recorded",
+          "current_lean_evidence_role": "theorem_proof",
+          "current_mapped_declarations": [
+            "Harsanyi.TaylorMoments.product_memLp",
+            "Harsanyi.TaylorMoments.product_mean",
+            "Harsanyi.TaylorMoments.product_variance",
+            "Harsanyi.ConceptGaussian.gaussian_memLp_any",
+            "Harsanyi.ConceptGaussian.folded_power_memLp",
+            "Harsanyi.ConceptGaussian.folded_product_moments"
+          ]
+        },
+        {
+          "id": "bnn-general-moments",
+          "rewrite_role": "counterexample",
+          "rewrite_status": "in_progress",
+          "reading_status": "pending",
+          "statement_assessment": "refuted",
+          "current_lean_evidence_role": "counterexample",
+          "current_mapped_declarations": [
+            "Harsanyi.ConceptGaussian.folded_product_moments",
+            "Harsanyi.ConceptGaussian.folded_first_moment_gt_one",
+            "PaperBayesian.oneCoordinateTrigger",
+            "PaperBayesian.general_moment_counterexample"
+          ]
+        },
+        {
+          "id": "bnn-growth",
+          "rewrite_role": "statement_scope_explanation",
+          "rewrite_status": "complete_with_scope_issue",
+          "reading_status": "scope_explanation_complete",
+          "statement_assessment": "scope_under_review",
+          "current_lean_evidence_role": "partial_component",
+          "current_mapped_declarations": [
+            "Harsanyi.ConceptGaussian.reflection_power_bound",
+            "Harsanyi.ConceptGaussian.signed_gaussian_moment_ge_one",
+            "Harsanyi.ConceptGaussian.unit_gaussian_power_bounds",
+            "Harsanyi.ConceptGaussian.folded_gaussian_variance_pos",
+            "Harsanyi.ConceptGaussian.folded_subset_positive",
+            "Harsanyi.ConceptGaussian.folded_disjoint_moments",
+            "Harsanyi.ConceptGaussian.folded_subset_growth",
+            "PaperBayesian.absoluteTrigger",
+            "PaperBayesian.absolute_trigger_growth"
+          ]
+        },
+        {
+          "id": "bnn-regression",
+          "rewrite_role": "statement_scope_explanation",
+          "rewrite_status": "complete_with_scope_issue",
+          "reading_status": "scope_explanation_complete",
+          "statement_assessment": "scope_under_review",
+          "current_lean_evidence_role": "partial_component",
+          "current_mapped_declarations": [
+            "Harsanyi.ConceptGaussian.pairwise_feature_expected_loss",
+            "Harsanyi.ConceptGaussian.featureMatrix_posDef",
+            "Harsanyi.ConceptGaussian.featureOpt_normal",
+            "PaperBayesian.independent_features_optimum",
+            "Harsanyi.ConceptGaussian.pairwise_feature_expected_unique_min",
+            "Harsanyi.ConceptGaussian.gaussian_feature_unique_min"
+          ]
+        },
+        {
+          "id": "bnn-scaling",
+          "rewrite_role": "statement_scope_explanation",
+          "rewrite_status": "complete_with_scope_issue",
+          "reading_status": "scope_explanation_complete",
+          "statement_assessment": "scope_under_review",
+          "current_lean_evidence_role": "partial_component",
+          "current_mapped_declarations": [
+            "PaperBayesian.scaling_ratio",
+            "PaperBayesian.scaling_bounds"
+          ]
+        },
+        {
+          "id": "bnn-binary",
+          "rewrite_role": "statement_scope_explanation",
+          "rewrite_status": "complete_with_scope_issue",
+          "reading_status": "scope_explanation_complete",
+          "statement_assessment": "scope_under_review",
+          "current_lean_evidence_role": "partial_component",
+          "current_mapped_declarations": [
+            "Harsanyi.ConceptMasks.maskedGame",
+            "Harsanyi.ConceptMasks.masked_dividend",
+            "Harsanyi.ConceptMasks.normalizedMaskedTrigger",
+            "Harsanyi.ConceptMasks.binary_trigger"
+          ]
+        },
+        {
+          "id": "bnn-linear-representation",
+          "rewrite_role": "statement_scope_explanation",
+          "rewrite_status": "complete_with_scope_issue",
+          "reading_status": "scope_explanation_complete",
+          "statement_assessment": "scope_under_review",
+          "current_lean_evidence_role": "partial_component",
+          "current_mapped_declarations": [
+            "Harsanyi.reconstruction",
+            "Harsanyi.ConceptMasks.linear_representation"
+          ]
+        },
+        {
+          "id": "bnn-salient-matching",
+          "rewrite_role": "statement_scope_explanation",
+          "rewrite_status": "complete_with_scope_issue",
+          "reading_status": "scope_explanation_complete",
+          "statement_assessment": "scope_under_review",
+          "current_lean_evidence_role": "partial_component",
+          "current_mapped_declarations": [
+            "PaperBayesian.oneVariableMaskedScore",
+            "PaperBayesian.salient_empty_mask"
+          ]
+        },
+        {
+          "id": "bnn-multiorder-link",
+          "rewrite_role": "statement_scope_explanation",
+          "rewrite_status": "complete_with_scope_issue",
+          "reading_status": "scope_explanation_complete",
+          "statement_assessment": "scope_under_review",
+          "current_lean_evidence_role": "partial_component",
+          "current_mapped_declarations": [
+            "Harsanyi.higherMarginal_eq_sum_interaction"
+          ]
+        },
+        {
+          "id": "bnn-order-inference",
+          "rewrite_role": "statement_scope_explanation",
+          "rewrite_status": "complete_with_scope_issue",
+          "reading_status": "scope_explanation_complete",
+          "statement_assessment": "scope_under_review",
+          "current_lean_evidence_role": "none",
+          "current_mapped_declarations": []
+        },
+        {
+          "id": "bnn-superposition-inference",
+          "rewrite_role": "statement_scope_explanation",
+          "rewrite_status": "complete_with_scope_issue",
+          "reading_status": "scope_explanation_complete",
+          "statement_assessment": "scope_under_review",
+          "current_lean_evidence_role": "none",
+          "current_mapped_declarations": []
+        }
+      ]
+    },
+    {
+      "paper_id": "neurips2023-difficulty",
+      "result_pages": 38,
+      "proof_targets": 28,
+      "complete_proof_text": 8,
+      "other_delivered_scope_or_counterexample_targets": 20,
+      "current_lean_evidence_roles": {
+        "theorem_proof": 8,
+        "partial_component": 9,
+        "counterexample": 2,
+        "none": 9
+      },
+      "target_records": [
+        {
+          "id": "diff-universal",
+          "rewrite_role": "proof",
+          "rewrite_status": "complete",
+          "reading_status": "complete",
+          "statement_assessment": "no_statement_error_recorded",
+          "current_lean_evidence_role": "theorem_proof",
+          "current_mapped_declarations": [
+            "Harsanyi.reconstruction"
+          ]
+        },
+        {
+          "id": "diff-salient-reconstruction",
+          "rewrite_role": "statement_scope_explanation",
+          "rewrite_status": "complete_with_scope_issue",
+          "reading_status": "scope_explanation_complete",
+          "statement_assessment": "scope_under_review",
+          "current_lean_evidence_role": "partial_component",
+          "current_mapped_declarations": [
+            "Harsanyi.reconstruction"
+          ]
+        },
+        {
+          "id": "diff-sparsity",
+          "rewrite_role": "statement_scope_explanation",
+          "rewrite_status": "complete_with_scope_issue",
+          "reading_status": "scope_explanation_complete",
+          "statement_assessment": "scope_under_review",
+          "current_lean_evidence_role": "none",
+          "current_mapped_declarations": []
+        },
+        {
+          "id": "diff-taylor",
+          "rewrite_role": "counterexample",
+          "rewrite_status": "in_progress",
+          "reading_status": "pending",
+          "statement_assessment": "refuted",
+          "current_lean_evidence_role": "partial_component",
+          "current_mapped_declarations": [
+            "Harsanyi.PolynomialSupport.mask_terms",
+            "Harsanyi.PolynomialSupport.support_reconstruct",
+            "Harsanyi.PolynomialSupport.interaction_eq_supportCoefficient"
+          ]
+        },
+        {
+          "id": "diff-moments",
+          "rewrite_role": "counterexample",
+          "rewrite_status": "in_progress",
+          "reading_status": "pending",
+          "statement_assessment": "refuted",
+          "current_lean_evidence_role": "counterexample",
+          "current_mapped_declarations": [
+            "PaperDifficulty.sourceTrigger",
+            "PaperDifficulty.lowest_trigger_mean_counterexample",
+            "PaperDifficulty.lowest_trigger_variance_counterexample"
+          ]
+        },
+        {
+          "id": "diff-lowest-interaction",
+          "rewrite_role": "statement_scope_explanation",
+          "rewrite_status": "complete_with_scope_issue",
+          "reading_status": "scope_explanation_complete",
+          "statement_assessment": "scope_under_review",
+          "current_lean_evidence_role": "partial_component",
+          "current_mapped_declarations": [
+            "PaperDifficulty.maskedLowest",
+            "PaperDifficulty.maskedLowest_eq",
+            "PaperDifficulty.lowest_actual_dividend",
+            "Harsanyi.ConceptGaussian.lowest_polynomial_identity",
+            "PaperDifficulty.appendix_lowest_actual_moments",
+            "PaperDifficulty.empty_interaction_moments"
+          ]
+        },
+        {
+          "id": "diff-general-moments",
+          "rewrite_role": "partial_proof_with_refuted_clause",
+          "rewrite_status": "complete",
+          "reading_status": "scope_explanation_complete",
+          "statement_assessment": "partially_refuted",
+          "current_lean_evidence_role": "partial_component",
+          "current_mapped_declarations": [
+            "Harsanyi.ConceptGaussian.signed_scaled_law",
+            "Harsanyi.ConceptGaussian.folded_power_memLp",
+            "Harsanyi.ConceptGaussian.folded_product_moments",
+            "PaperDifficulty.lowest_trigger_mean_counterexample",
+            "PaperDifficulty.lowest_trigger_variance_counterexample"
+          ]
+        },
+        {
+          "id": "diff-product",
+          "rewrite_role": "partial_proof_with_refuted_clause",
+          "rewrite_status": "complete",
+          "reading_status": "scope_explanation_complete",
+          "statement_assessment": "partially_refuted",
+          "current_lean_evidence_role": "partial_component",
+          "current_mapped_declarations": [
+            "Harsanyi.TaylorMoments.product_memLp",
+            "Harsanyi.TaylorMoments.product_mean",
+            "Harsanyi.TaylorMoments.product_variance",
+            "PaperDifficulty.product_variance_counterexample"
+          ]
+        },
+        {
+          "id": "diff-order-variance-argument",
+          "rewrite_role": "statement_scope_explanation",
+          "rewrite_status": "complete_with_scope_issue",
+          "reading_status": "scope_explanation_complete",
+          "statement_assessment": "scope_under_review",
+          "current_lean_evidence_role": "none",
+          "current_mapped_declarations": []
+        },
+        {
+          "id": "diff-binary",
+          "rewrite_role": "statement_scope_explanation",
+          "rewrite_status": "complete_with_scope_issue",
+          "reading_status": "scope_explanation_complete",
+          "statement_assessment": "scope_under_review",
+          "current_lean_evidence_role": "partial_component",
+          "current_mapped_declarations": [
+            "Harsanyi.ConceptMasks.maskedGame",
+            "Harsanyi.ConceptMasks.masked_dividend",
+            "Harsanyi.ConceptMasks.binary_trigger"
+          ]
+        },
+        {
+          "id": "diff-linear-representation",
+          "rewrite_role": "statement_scope_explanation",
+          "rewrite_status": "complete_with_scope_issue",
+          "reading_status": "scope_explanation_complete",
+          "statement_assessment": "scope_under_review",
+          "current_lean_evidence_role": "partial_component",
+          "current_mapped_declarations": [
+            "Harsanyi.reconstruction",
+            "Harsanyi.ConceptMasks.linear_representation"
+          ]
+        },
+        {
+          "id": "diff-learning-consistency-argument",
+          "rewrite_role": "statement_scope_explanation",
+          "rewrite_status": "complete_with_scope_issue",
+          "reading_status": "scope_explanation_complete",
+          "statement_assessment": "scope_under_review",
+          "current_lean_evidence_role": "none",
+          "current_mapped_declarations": []
+        },
+        {
+          "id": "diff-kappa-conversion",
+          "rewrite_role": "counterexample",
+          "rewrite_status": "in_progress",
+          "reading_status": "pending",
+          "statement_assessment": "refuted",
+          "current_lean_evidence_role": "counterexample",
+          "current_mapped_declarations": [
+            "Harsanyi.DifficultyKappa.singletonGame",
+            "Harsanyi.DifficultyKappa.singleton_dividend",
+            "Harsanyi.DifficultyKappa.actual_references",
+            "Harsanyi.DifficultyKappa.perturbation_law",
+            "Harsanyi.DifficultyKappa.perturbation_moments",
+            "Harsanyi.DifficultyKappa.actual_variation_bounds",
+            "Harsanyi.DifficultyKappa.chosenScale_pos",
+            "Harsanyi.DifficultyKappa.chosenScale_small",
+            "Harsanyi.DifficultyKappa.literal_coefficient_kappa_eq",
+            "Harsanyi.DifficultyKappa.literal_gaussian_relu_kappa_counterexample"
+          ]
+        },
+        {
+          "id": "diff-efficiency",
+          "rewrite_role": "proof",
+          "rewrite_status": "complete",
+          "reading_status": "complete",
+          "statement_assessment": "no_statement_error_recorded",
+          "current_lean_evidence_role": "theorem_proof",
+          "current_mapped_declarations": [
+            "Harsanyi.reconstruction"
+          ]
+        },
+        {
+          "id": "diff-linearity",
+          "rewrite_role": "proof",
+          "rewrite_status": "complete",
+          "reading_status": "complete",
+          "statement_assessment": "no_statement_error_recorded",
+          "current_lean_evidence_role": "theorem_proof",
+          "current_mapped_declarations": [
+            "Harsanyi.interaction_add"
+          ]
+        },
+        {
+          "id": "diff-dummy",
+          "rewrite_role": "proof",
+          "rewrite_status": "complete",
+          "reading_status": "complete",
+          "statement_assessment": "no_statement_error_recorded",
+          "current_lean_evidence_role": "theorem_proof",
+          "current_mapped_declarations": [
+            "PaperDifficulty.source_dummy",
+            "Harsanyi.interaction_additive_dummy_nonempty"
+          ]
+        },
+        {
+          "id": "diff-symmetry",
+          "rewrite_role": "proof",
+          "rewrite_status": "complete",
+          "reading_status": "complete",
+          "statement_assessment": "no_statement_error_recorded",
+          "current_lean_evidence_role": "theorem_proof",
+          "current_mapped_declarations": [
+            "Harsanyi.interaction_symmetry"
+          ]
+        },
+        {
+          "id": "diff-anonymity",
+          "rewrite_role": "proof",
+          "rewrite_status": "complete",
+          "reading_status": "complete",
+          "statement_assessment": "no_statement_error_recorded",
+          "current_lean_evidence_role": "theorem_proof",
+          "current_mapped_declarations": [
+            "Harsanyi.interaction_relabel"
+          ]
+        },
+        {
+          "id": "diff-recursion",
+          "rewrite_role": "proof",
+          "rewrite_status": "complete",
+          "reading_status": "complete",
+          "statement_assessment": "no_statement_error_recorded",
+          "current_lean_evidence_role": "theorem_proof",
+          "current_mapped_declarations": [
+            "Harsanyi.interaction_context_difference"
+          ]
+        },
+        {
+          "id": "diff-distribution",
+          "rewrite_role": "proof",
+          "rewrite_status": "complete",
+          "reading_status": "complete",
+          "statement_assessment": "no_statement_error_recorded",
+          "current_lean_evidence_role": "theorem_proof",
+          "current_mapped_declarations": [
+            "Harsanyi.interaction_unanimity"
+          ]
+        },
+        {
+          "id": "diff-multiorder",
+          "rewrite_role": "partial_proof_with_refuted_clause",
+          "rewrite_status": "complete",
+          "reading_status": "scope_explanation_complete",
+          "statement_assessment": "partially_refuted",
+          "current_lean_evidence_role": "partial_component",
+          "current_mapped_declarations": [
+            "PaperDifficulty.pairDelta_eq_dividend_sum",
+            "PaperDifficulty.multiorder_context_identity",
+            "Harsanyi.DifficultyCounting.superset_context_count",
+            "Harsanyi.DifficultyCounting.superset_context_count_all",
+            "Harsanyi.DifficultyCounting.context_double_sum",
+            "Harsanyi.DifficultyCounting.context_grouped_sum",
+            "Harsanyi.DifficultyCounting.context_grouped_average",
+            "PaperDifficulty.multiorder_grouped_identity",
+            "PaperDifficulty.maskedPolynomial_eq_unanimity",
+            "PaperDifficulty.multiorder_index_counterexample",
+            "PaperDifficulty.multiorder_coefficient_counterexample"
+          ]
+        },
+        {
+          "id": "diff-regression",
+          "rewrite_role": "partial_proof_with_refuted_clause",
+          "rewrite_status": "complete",
+          "reading_status": "scope_explanation_complete",
+          "statement_assessment": "partially_refuted",
+          "current_lean_evidence_role": "partial_component",
+          "current_mapped_declarations": [
+            "Harsanyi.ConceptGaussian.pairwise_feature_expected_loss",
+            "Harsanyi.ConceptGaussian.gaussian_feature_moments",
+            "PaperDifficulty.half_loss_strict_iff",
+            "Harsanyi.ConceptGaussian.featureMatrix_posDef",
+            "Harsanyi.ConceptGaussian.featureOpt_normal",
+            "Harsanyi.ConceptGaussian.pairwise_feature_expected_unique_min",
+            "PaperDifficulty.feature_opt_cramer",
+            "PaperDifficulty.feature_model",
+            "PaperDifficulty.featureOpt_values",
+            "PaperDifficulty.regression_step_three_counterexample"
+          ]
+        },
+        {
+          "id": "diff-fast-learning-inference",
+          "rewrite_role": "statement_scope_explanation",
+          "rewrite_status": "complete_with_scope_issue",
+          "reading_status": "scope_explanation_complete",
+          "statement_assessment": "scope_under_review",
+          "current_lean_evidence_role": "none",
+          "current_mapped_declarations": []
+        },
+        {
+          "id": "diff-adversarial-inference",
+          "rewrite_role": "statement_scope_explanation",
+          "rewrite_status": "complete_with_scope_issue",
+          "reading_status": "scope_explanation_complete",
+          "statement_assessment": "scope_under_review",
+          "current_lean_evidence_role": "none",
+          "current_mapped_declarations": []
+        },
+        {
+          "id": "diff-noise-learning-inference",
+          "rewrite_role": "statement_scope_explanation",
+          "rewrite_status": "complete_with_scope_issue",
+          "reading_status": "scope_explanation_complete",
+          "statement_assessment": "scope_under_review",
+          "current_lean_evidence_role": "none",
+          "current_mapped_declarations": []
+        },
+        {
+          "id": "diff-shallow-learning-inference",
+          "rewrite_role": "statement_scope_explanation",
+          "rewrite_status": "complete_with_scope_issue",
+          "reading_status": "scope_explanation_complete",
+          "statement_assessment": "scope_under_review",
+          "current_lean_evidence_role": "none",
+          "current_mapped_declarations": []
+        },
+        {
+          "id": "diff-frequency-learning-inference",
+          "rewrite_role": "statement_scope_explanation",
+          "rewrite_status": "complete_with_scope_issue",
+          "reading_status": "scope_explanation_complete",
+          "statement_assessment": "scope_under_review",
+          "current_lean_evidence_role": "none",
+          "current_mapped_declarations": []
+        },
+        {
+          "id": "diff-adversarial-learning-inference",
+          "rewrite_role": "statement_scope_explanation",
+          "rewrite_status": "complete_with_scope_issue",
+          "reading_status": "scope_explanation_complete",
+          "statement_assessment": "scope_under_review",
+          "current_lean_evidence_role": "none",
+          "current_mapped_declarations": []
+        }
+      ]
+    },
+    {
+      "paper_id": "icml2023-decoder",
+      "result_pages": 34,
+      "proof_targets": 30,
+      "complete_proof_text": 6,
+      "other_delivered_scope_or_counterexample_targets": 24,
+      "current_lean_evidence_roles": {
+        "theorem_proof": 7,
+        "partial_component": 8,
+        "counterexample": 6,
+        "none": 9
+      },
+      "target_records": [
+        {
+          "id": "decoder-geometric-sum",
+          "rewrite_role": "statement_scope_explanation",
+          "rewrite_status": "complete_with_original_domain_issue",
+          "reading_status": "scope_explanation_complete",
+          "statement_assessment": "scope_under_review",
+          "current_lean_evidence_role": "partial_component",
+          "current_mapped_declarations": [
+            "Harsanyi.Frequency.geometric_telescoping",
+            "Harsanyi.Frequency.geometric_one",
+            "Harsanyi.Frequency.geometric_quotient",
+            "Harsanyi.Frequency.Valid.geometric_real_sine_quotient",
+            "Harsanyi.Frequency.Valid.geometric_sine_quotient"
+          ]
+        },
+        {
+          "id": "decoder-orthogonality",
+          "rewrite_role": "proof",
+          "rewrite_status": "complete",
+          "reading_status": "complete",
+          "statement_assessment": "no_statement_error_recorded",
+          "current_lean_evidence_role": "theorem_proof",
+          "current_mapped_declarations": [
+            "Harsanyi.Frequency.grid_orthogonality",
+            "Harsanyi.Frequency.grid_character_sum",
+            "Harsanyi.Frequency.inverse_dft2",
+            "Harsanyi.Frequency.dft2_inverse"
+          ]
+        },
+        {
+          "id": "decoder-forward-convolution",
+          "rewrite_role": "proof",
+          "rewrite_status": "complete",
+          "reading_status": "complete",
+          "statement_assessment": "no_statement_error_recorded",
+          "current_lean_evidence_role": "theorem_proof",
+          "current_mapped_declarations": [
+            "Harsanyi.Frequency.offset_layer_dft",
+            "Harsanyi.Frequency.square_kernel_response",
+            "Harsanyi.Frequency.dft2_constant"
+          ]
+        },
+        {
+          "id": "decoder-valid-convolution",
+          "rewrite_role": "counterexample",
+          "rewrite_status": "in_progress",
+          "reading_status": "pending",
+          "statement_assessment": "counterexample_recorded",
+          "current_lean_evidence_role": "counterexample",
+          "current_mapped_declarations": [
+            "Harsanyi.Frequency.Valid.cropped_offset_layer_dft_bias",
+            "Harsanyi.Frequency.Valid.valid_indices_no_wrap",
+            "Harsanyi.Frequency.Valid.valid_layer_dft",
+            "Harsanyi.Frequency.Valid.real_valid_layer_embedding",
+            "Harsanyi.Frequency.Valid.witness_grid_frequency_difference",
+            "Harsanyi.Frequency.Valid.actual_valid_equation17_counterexample"
+          ]
+        },
+        {
+          "id": "decoder-cascade-forward",
+          "rewrite_role": "proof",
+          "rewrite_status": "complete",
+          "reading_status": "complete",
+          "statement_assessment": "no_statement_error_recorded",
+          "current_lean_evidence_role": "theorem_proof",
+          "current_mapped_declarations": [
+            "Harsanyi.Frequency.actual_grid_cascade",
+            "Harsanyi.Frequency.cascade_bias_sum"
+          ]
+        },
+        {
+          "id": "decoder-backpropagation",
+          "rewrite_role": "statement_scope_explanation",
+          "rewrite_status": "complete_with_original_domain_issue",
+          "reading_status": "scope_explanation_complete",
+          "statement_assessment": "scope_under_review",
+          "current_lean_evidence_role": "theorem_proof",
+          "current_mapped_declarations": [
+            "Harsanyi.Frequency.MatrixBackprop.actual_cascade_parameter_loss_hasFDerivAt",
+            "Harsanyi.Frequency.MatrixBackprop.real_network_hasFDerivAt",
+            "Harsanyi.Frequency.MatrixBackprop.riesz_pullback",
+            "Harsanyi.Frequency.MatrixBackprop.pullback_spectrum",
+            "Harsanyi.Frequency.MatrixBackprop.conjugate_transpose_comp",
+            "Harsanyi.Frequency.MatrixBackprop.network_pullback_spectrum",
+            "Harsanyi.Frequency.MatrixBackprop.actual_suffix_cotangent",
+            "Harsanyi.Frequency.MatrixBackprop.actual_kernel_spectral_gradient",
+            "Harsanyi.Frequency.MatrixBackprop.actual_real_network_spectrum",
+            "Harsanyi.Frequency.MatrixBackprop.actual_prefix_suffix_response_update",
+            "PaperDecoder.actual_corollary_3_4"
+          ]
+        },
+        {
+          "id": "decoder-independence-scope",
+          "rewrite_role": "counterexample",
+          "rewrite_status": "in_progress",
+          "reading_status": "pending",
+          "statement_assessment": "scope_under_review",
+          "current_lean_evidence_role": "counterexample",
+          "current_mapped_declarations": [
+            "Harsanyi.Frequency.actual_independent_layer_moments",
+            "Harsanyi.Frequency.WeakIndependence.actual_w1_law",
+            "Harsanyi.Frequency.WeakIndependence.actual_w2_law",
+            "Harsanyi.Frequency.WeakIndependence.actual_first_product_factorization",
+            "Harsanyi.Frequency.WeakIndependence.standard_gaussian_fourth_moment",
+            "Harsanyi.Frequency.WeakIndependence.actual_unit_kernel_weak_counterexample",
+            "Harsanyi.Frequency.WeakIndependence.actual_not_independent"
+          ]
+        },
+        {
+          "id": "decoder-gaussian-response",
+          "rewrite_role": "proof",
+          "rewrite_status": "complete",
+          "reading_status": "complete",
+          "statement_assessment": "no_statement_error_recorded",
+          "current_lean_evidence_role": "theorem_proof",
+          "current_mapped_declarations": [
+            "Harsanyi.Frequency.gaussian_weighted_isGaussian",
+            "Harsanyi.Frequency.real_gaussian_pseudocovariance",
+            "Harsanyi.Frequency.actual_kernel_gaussian",
+            "Harsanyi.Frequency.actual_kernel_mean",
+            "Harsanyi.Frequency.actual_kernel_second_moment",
+            "Harsanyi.Frequency.weighted_response_centered_square",
+            "Harsanyi.Frequency.actual_kernel_pseudocovariance"
+          ]
+        },
+        {
+          "id": "decoder-single-channel-moments",
+          "rewrite_role": "proof",
+          "rewrite_status": "complete",
+          "reading_status": "complete",
+          "statement_assessment": "no_statement_error_recorded",
+          "current_lean_evidence_role": "theorem_proof",
+          "current_mapped_declarations": [
+            "Harsanyi.Frequency.actual_independent_layer_mean",
+            "Harsanyi.Frequency.independent_complex_product_mean",
+            "Harsanyi.Frequency.actual_independent_layer_moments",
+            "Harsanyi.Frequency.independent_complex_product_second_moment",
+            "PaperDecoder.actual_positive_factor_log_som"
+          ]
+        },
+        {
+          "id": "decoder-multi-channel-moments",
+          "rewrite_role": "partial_component",
+          "rewrite_status": "complete",
+          "reading_status": "scope_explanation_complete",
+          "statement_assessment": "scope_under_review",
+          "current_lean_evidence_role": "partial_component",
+          "current_mapped_declarations": [
+            "Harsanyi.Frequency.MultiChannel.independent_layer_prefix",
+            "Harsanyi.Frequency.MultiChannel.actual_gaussian_row_moments",
+            "Harsanyi.Frequency.MultiChannel.kernelMatrices",
+            "Harsanyi.Frequency.actual_kernel_mean",
+            "Harsanyi.Frequency.actual_kernel_second_moment",
+            "Harsanyi.Frequency.MultiChannel.complex_cross_moment",
+            "Harsanyi.Frequency.MultiChannel.row_column_mean",
+            "Harsanyi.Frequency.MultiChannel.row_column_second_moment",
+            "Harsanyi.Frequency.MultiChannel.actual_cascade_uniform_moments",
+            "Harsanyi.Frequency.MultiChannel.finite_affine_expansion",
+            "Harsanyi.Frequency.MultiChannel.mean_sequence_source_closed",
+            "Harsanyi.Frequency.MultiChannel.som_sequence_source_closed",
+            "Harsanyi.Frequency.MultiChannel.actual_gaussian_cascade_closed",
+            "PaperDecoder.actual_appendix_equations31_32",
+            "Harsanyi.Frequency.WeakIndependence.actual_unit_kernel_weak_counterexample"
+          ]
+        },
+        {
+          "id": "decoder-moment-parameter-growth",
+          "rewrite_role": "partial_proof_with_refuted_clause",
+          "rewrite_status": "complete",
+          "reading_status": "scope_explanation_complete",
+          "statement_assessment": "partially_refuted",
+          "current_lean_evidence_role": "partial_component",
+          "current_mapped_declarations": [
+            "PaperDecoder.moment_factor_mono",
+            "Harsanyi.Frequency.Parameters.gaussian_kernel_coordinate_law",
+            "Harsanyi.Frequency.Parameters.gaussian_kernel_independent",
+            "Harsanyi.Frequency.Parameters.actual_kernel_som",
+            "Harsanyi.Frequency.Parameters.actual_kernel_size_growth_counterexample"
+          ]
+        },
+        {
+          "id": "decoder-depth-growth",
+          "rewrite_role": "counterexample",
+          "rewrite_status": "in_progress",
+          "reading_status": "pending",
+          "statement_assessment": "counterexample_recorded",
+          "current_lean_evidence_role": "counterexample",
+          "current_mapped_declarations": [
+            "Harsanyi.Frequency.quarter_gaussian_coordinate_law",
+            "Harsanyi.Frequency.quarter_gaussian_independent",
+            "Harsanyi.Frequency.actual_unit_kernel_gaussian_depth_moment",
+            "Harsanyi.Frequency.actual_gaussian_depth_growth_counterexample"
+          ]
+        },
+        {
+          "id": "decoder-frequency-preference",
+          "rewrite_role": "statement_scope_explanation",
+          "rewrite_status": "complete",
+          "reading_status": "scope_explanation_complete",
+          "statement_assessment": "scope_under_review",
+          "current_lean_evidence_role": "partial_component",
+          "current_mapped_declarations": [
+            "PaperDecoder.finite_moment_ratio",
+            "Harsanyi.Frequency.actual_independent_layer_moments"
+          ]
+        },
+        {
+          "id": "decoder-mean-preference",
+          "rewrite_role": "statement_scope_explanation",
+          "rewrite_status": "complete",
+          "reading_status": "scope_explanation_complete",
+          "statement_assessment": "scope_under_review",
+          "current_lean_evidence_role": "partial_component",
+          "current_mapped_declarations": [
+            "PaperDecoder.mean_preference_ratio_mono",
+            "Harsanyi.Frequency.actual_kernel_second_moment"
+          ]
+        },
+        {
+          "id": "decoder-kernel-preference",
+          "rewrite_role": "counterexample",
+          "rewrite_status": "in_progress",
+          "reading_status": "pending",
+          "statement_assessment": "counterexample_recorded",
+          "current_lean_evidence_role": "counterexample",
+          "current_mapped_declarations": [
+            "Harsanyi.Frequency.Parameters.phase_sum_dc",
+            "Harsanyi.Frequency.Parameters.phase_sum_two_40",
+            "Harsanyi.Frequency.Parameters.phase_sum_four_40",
+            "Harsanyi.Frequency.Parameters.kernel_size_two_dc_ratio",
+            "Harsanyi.Frequency.Parameters.kernel_size_four_dc_ratio",
+            "Harsanyi.Frequency.Parameters.actual_kernel_dc_ratio_counterexample"
+          ]
+        },
+        {
+          "id": "decoder-zero-padding",
+          "rewrite_role": "partial_proof_with_refuted_clause",
+          "rewrite_status": "complete",
+          "reading_status": "scope_explanation_complete",
+          "statement_assessment": "partially_refuted",
+          "current_lean_evidence_role": "counterexample",
+          "current_mapped_declarations": [
+            "Harsanyi.Frequency.edge_pad_original",
+            "Harsanyi.Frequency.edge_pad_zero",
+            "Harsanyi.Frequency.edge_pad_constant_dft",
+            "Harsanyi.Frequency.padded_phase_normSq_one",
+            "Harsanyi.Frequency.actual_correlated_padding_counterexample"
+          ]
+        },
+        {
+          "id": "decoder-upsampling",
+          "rewrite_role": "proof",
+          "rewrite_status": "complete",
+          "reading_status": "complete",
+          "statement_assessment": "no_statement_error_recorded",
+          "current_lean_evidence_role": "theorem_proof",
+          "current_mapped_declarations": [
+            "Harsanyi.Frequency.insert_grid_injective",
+            "Harsanyi.Frequency.zero_insert_original",
+            "Harsanyi.Frequency.zero_insert_elsewhere",
+            "Harsanyi.Frequency.inserted_character",
+            "Harsanyi.Frequency.zero_insert_dft_repeats",
+            "Harsanyi.Frequency.frequency_block_remainder",
+            "Harsanyi.Frequency.actual_zero_insert_frequency_blocks"
+          ]
+        },
+        {
+          "id": "decoder-shift-setup",
+          "rewrite_role": "counterexample",
+          "rewrite_status": "in_progress",
+          "reading_status": "pending",
+          "statement_assessment": "counterexample_recorded",
+          "current_lean_evidence_role": "none",
+          "current_mapped_declarations": []
+        },
+        {
+          "id": "decoder-one-step-fitting",
+          "rewrite_role": "partial_proof_with_refuted_clause",
+          "rewrite_status": "complete",
+          "reading_status": "scope_explanation_complete",
+          "statement_assessment": "partially_refuted",
+          "current_lean_evidence_role": "counterexample",
+          "current_mapped_declarations": [
+            "Harsanyi.Frequency.source_constraint43",
+            "Harsanyi.Frequency.source_constraint44",
+            "Harsanyi.Frequency.source_constraint45",
+            "Harsanyi.Frequency.source_constraint46",
+            "Harsanyi.Frequency.completed_target_image_real",
+            "Harsanyi.Frequency.completed_target_selected_frequencies",
+            "Harsanyi.Frequency.actual_response01",
+            "Harsanyi.Frequency.actual_response10",
+            "Harsanyi.Frequency.actual_real_loss_identity_layer",
+            "Harsanyi.Frequency.actual_gradient00",
+            "Harsanyi.Frequency.actual_gradient01",
+            "Harsanyi.Frequency.actual_gradient10",
+            "Harsanyi.Frequency.actual_gradient11",
+            "Harsanyi.Frequency.actual_real_loss_layer_exchange",
+            "Harsanyi.Frequency.actual_two_layer_spectrum",
+            "Harsanyi.Frequency.actual_spatial_one_step_not_target"
+          ]
+        },
+        {
+          "id": "decoder-first-order-product",
+          "rewrite_role": "statement_scope_explanation",
+          "rewrite_status": "complete",
+          "reading_status": "scope_explanation_complete",
+          "statement_assessment": "scope_under_review",
+          "current_lean_evidence_role": "partial_component",
+          "current_mapped_declarations": [
+            "Harsanyi.Frequency.product_update_exact",
+            "Harsanyi.Frequency.dropped_product_counterexample"
+          ]
+        },
+        {
+          "id": "decoder-shift-other-frequencies",
+          "rewrite_role": "statement_scope_explanation",
+          "rewrite_status": "complete",
+          "reading_status": "scope_explanation_complete",
+          "statement_assessment": "scope_under_review",
+          "current_lean_evidence_role": "none",
+          "current_mapped_declarations": []
+        },
+        {
+          "id": "decoder-gradient-norm",
+          "rewrite_role": "statement_scope_explanation",
+          "rewrite_status": "complete",
+          "reading_status": "scope_explanation_complete",
+          "statement_assessment": "scope_under_review",
+          "current_lean_evidence_role": "partial_component",
+          "current_mapped_declarations": [
+            "Harsanyi.Frequency.dft2_parseval_normSq",
+            "Harsanyi.Frequency.dft2_parseval_pair"
+          ]
+        },
+        {
+          "id": "decoder-padding-interpretation",
+          "rewrite_role": "statement_scope_explanation",
+          "rewrite_status": "complete",
+          "reading_status": "scope_explanation_complete",
+          "statement_assessment": "scope_under_review",
+          "current_lean_evidence_role": "none",
+          "current_mapped_declarations": []
+        },
+        {
+          "id": "decoder-upsampling-interpretation",
+          "rewrite_role": "statement_scope_explanation",
+          "rewrite_status": "complete",
+          "reading_status": "scope_explanation_complete",
+          "statement_assessment": "scope_under_review",
+          "current_lean_evidence_role": "none",
+          "current_mapped_declarations": []
+        },
+        {
+          "id": "decoder-shift-difficulty-interpretation",
+          "rewrite_role": "statement_scope_explanation",
+          "rewrite_status": "complete",
+          "reading_status": "scope_explanation_complete",
+          "statement_assessment": "scope_under_review",
+          "current_lean_evidence_role": "none",
+          "current_mapped_declarations": []
+        },
+        {
+          "id": "decoder-natural-input",
+          "rewrite_role": "statement_scope_explanation",
+          "rewrite_status": "complete",
+          "reading_status": "scope_explanation_complete",
+          "statement_assessment": "scope_under_review",
+          "current_lean_evidence_role": "none",
+          "current_mapped_declarations": []
+        },
+        {
+          "id": "decoder-layer-placement",
+          "rewrite_role": "statement_scope_explanation",
+          "rewrite_status": "complete",
+          "reading_status": "scope_explanation_complete",
+          "statement_assessment": "scope_under_review",
+          "current_lean_evidence_role": "none",
+          "current_mapped_declarations": []
+        },
+        {
+          "id": "decoder-cosine-dimension",
+          "rewrite_role": "statement_scope_explanation",
+          "rewrite_status": "complete",
+          "reading_status": "scope_explanation_complete",
+          "statement_assessment": "scope_under_review",
+          "current_lean_evidence_role": "none",
+          "current_mapped_declarations": []
+        },
+        {
+          "id": "decoder-trained-independence",
+          "rewrite_role": "statement_scope_explanation",
+          "rewrite_status": "complete",
+          "reading_status": "scope_explanation_complete",
+          "statement_assessment": "scope_under_review",
+          "current_lean_evidence_role": "none",
+          "current_mapped_declarations": []
+        },
+        {
+          "id": "decoder-external-gaussian-closure",
+          "rewrite_role": "statement_scope_explanation",
+          "rewrite_status": "complete",
+          "reading_status": "scope_explanation_complete",
+          "statement_assessment": "scope_under_review",
+          "current_lean_evidence_role": "partial_component",
+          "current_mapped_declarations": [
+            "Harsanyi.Frequency.gaussian_weighted_isGaussian"
+          ]
+        }
+      ]
+    }
+  ]
+}

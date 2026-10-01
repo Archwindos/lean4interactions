@@ -1,0 +1,56 @@
+In this section, we prove Theorem 3.2 in Section 3 of the main paper, as follows.
+
+Proof. Given each $c$-th channel of the feature spectrum $G^{(c)}$, the corresponding feature $F^{(c)}$ in the time domain can be computed as follows.
+
+$$F^{(c)}_{mn}=\frac1{MN}\sum_{u=0}^{M-1}\sum_{v=0}^{N-1}G^{(c)}_{uv}e^{i(um/M+vn/N)2\pi}.$$
+
+Then, let us conduct the convolution operation (in Equation (1) in the main paper) on feature $\mathbf F=[F^{(1)},F^{(2)},\ldots,F^{(C)}]$, in order to obtain output feature $\widetilde{\mathbf F}\in\mathbb R^{D\times M'\times N'}$.
+
+$$\begin{gathered}
+\forall d=1,2,\ldots,D;\quad0\le m<M';\quad0\le n<N';\\
+\begin{aligned}
+\widetilde F^{(d)}_{mn}
+&=b^{(d)}+\sum_{c=1}^{C}\sum_{t=0}^{K-1}\sum_{s=0}^{K-1}W^{[\mathrm{ker}=d]}_{cts}F^{(c)}_{m+t,n+s}\\
+&=b^{(d)}+\sum_{c=1}^{C}\sum_{t=0}^{K-1}\sum_{s=0}^{K-1}W^{[\mathrm{ker}=d]}_{cts}\frac1{MN}\sum_{u=0}^{M-1}\sum_{v=0}^{N-1}G^{(c)}_{uv}e^{i(u(m+t)/M+v(n+s)/N)2\pi}\\
+&=b^{(d)}+\sum_{c=1}^{C}\frac1{MN}\sum_{u=0}^{M-1}\sum_{v=0}^{N-1}G^{(c)}_{uv}e^{i(um/M+vn/N)2\pi}\sum_{t=0}^{K-1}\sum_{s=0}^{K-1}W^{[\mathrm{ker}=d]}_{cts}e^{i(ut/M+vs/N)2\pi}\\
+&=b^{(d)}+\sum_{c=1}^{C}\frac1{MN}\sum_{u=0}^{M-1}\sum_{v=0}^{N-1}T^{(uv)}_{dc}G^{(c)}_{uv}e^{i(um/M+vn/N)2\pi}.
+\end{aligned}
+\end{gathered}$$
+
+Then, let us conduct the DFT on each channel of $\widetilde{\mathbf F}$, in order to obtain feature spectrums $H^{(d)}_{u'v'}$ of $\widetilde{\mathbf F}$.
+
+$$\begin{gathered}
+\forall d=1,2,\ldots,D;\quad0\le u'<M';\quad0\le v'<N';\\
+\begin{aligned}
+H^{(d)}_{u'v'}
+&=\sum_{m=0}^{M'-1}\sum_{n=0}^{N'-1}\widetilde F^{(l,d)}_{mn}e^{-i(u'm/M'+v'n/N')2\pi}\\
+&=\sum_{m=0}^{M'-1}\sum_{n=0}^{N'-1}e^{-i(u'm/M'+v'n/N')2\pi}
+\left(b^{(d)}+\sum_{c=1}^{C}\frac1{MN}\sum_{u=0}^{M-1}\sum_{v=0}^{N-1}T^{(uv)}_{dc}G^{(c)}_{uv}e^{i(um/M+vn/N)2\pi}\right)\quad\text{//Equation (15)}\\
+&=M'N'b^{(d)}\delta_{u'v'}+\sum_{c=1}^{C}\sum_{u=0}^{M-1}\sum_{v=0}^{N-1}T^{(uv)}_{dc}G^{(c)}_{uv}\frac1{MN}\sum_{m=0}^{M'-1}\sum_{n=0}^{N'-1}e^{i((u/M-u'/M')m+(v/N-v'/N')n)2\pi}\\
+&\quad\text{//Let }\alpha_{u'v'uv}=\frac1{MN}\sum_{m=0}^{M'-1}\sum_{n=0}^{N'-1}e^{i((u/M-u'/M')m+(v/N-v'/N')n)2\pi}\\
+&=M'N'b^{(d)}\delta_{u'v'}+\sum_{u=0}^{M-1}\sum_{v=0}^{N-1}\alpha_{u'v'uv}\sum_{c=1}^{C}T^{(uv)}_{dc}G^{(c)}_{uv}.
+\end{aligned}
+\end{gathered}$$
+
+When the convlution operation does not apply paddings, and its stride size is 1, $M'=M-K+1$, $N'=N-K+1$. In this way, $\alpha_{u'v'uv}$ can be rewritten as follows.
+
+$$\begin{aligned}
+\alpha_{u'v'uv}
+&=\frac1{MN}\sum_{m=0}^{M'-1}\sum_{n=0}^{N'-1}e^{i((u/M-u'/M')m+(v/N-v'/N')n)2\pi}\\
+&\quad\text{//}M'=M-K+1,\ N'=N-K+1\\
+&=\frac1{MN}\sum_{m=0}^{M-K}\sum_{n=0}^{N-K}e^{i((u/M-u'/(M-K+1))m+(v/N-v'/(N-K+1))n)2\pi}\\
+&=\frac1{MN}\sum_{m=0}^{M-K}e^{i(u/M-u'/(M-K+1))2\pi m}\sum_{n=0}^{N-K}e^{i(v/N-v'/(N-K+1))2\pi n}\\
+&\quad\text{//According to Equation (13)}\\
+&=\frac1{MN}\frac{\sin((M-K)\lambda_{uu'}\pi)}{\sin(\lambda_{uu'}\pi)}
+\frac{\sin((N-K)\gamma_{vv'}\pi)}{\sin(\gamma_{vv'}\pi)}
+e^{i((M-K)\lambda_{uu'}+(N-K)\gamma_{vv'})\pi}.
+\end{aligned}\tag{17}$$
+
+where $\lambda_{uu'}=((u-u')M-u(K-1))/(M(M-K+1))$, $\gamma_{vv'}=((v-v')N-v(K-1))/(N(N-K+1))$.
+
+Therefore, we prove that the vector $\mathbf h^{(u'v')}=[H^{(1)}_{u'v'},H^{(2)}_{u'v'},\ldots,H^{(D)}_{u'v'}]^\top\in\mathbb C^D$ can be computed as follows.
+
+$$\forall d=1,2,\ldots,D;\qquad
+\mathbf h^{(u'v')}=\delta_{u'v'}M'N'\mathbf b+\sum_{u=0}^{M-1}\sum_{v=0}^{N-1}\alpha_{u'v'uv}T^{(uv)}\mathbf g^{(uv)}.$$
+
+

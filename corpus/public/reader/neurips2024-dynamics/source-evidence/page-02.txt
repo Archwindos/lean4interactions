@@ -1,0 +1,77 @@
+ (a)                                                    Interaction-based                                    𝒙 triggers              (b) A DNN usually only encodes a small
+        Network output 𝑣(𝒙)
+                                                          logical model          +    𝑓 𝒙 =෍
+                                                                                                  𝑆⊆𝑁
+                                                                                                        𝟏
+                                                                                                            interaction 𝑆
+                                                                                                                          ⋅ 𝐼(𝑆|𝒙)
+                                                                                                                                                   number of salient interactions
+                              Model equivalence                                               …                                              1.0
+               …                                         𝐼or 𝑆1|𝒙 =0.2      𝐼and 𝑆2 |𝒙 =0.4       𝐼or 𝑆3|𝒙 =−0.1                                               VGG-16 on MNIST
+                                                                                                                                                        A few interactions with
+                                                                                                                                                             salient effects
+                                                                                                                                         |𝐼 𝑆|𝒙 |
+                                                                                                                                                              Most interactions have
+                         The AND-OR logical model always                                                                                                        negligible effects
+                         accurately mimicks outputs of the
+                          DNN on all 2𝑛 masked samples                                                                                        0
+                                                                                                                                                    1     index of interaction 𝑆   2𝑛
+ (c)
+         Distribution of                    Change of the distribution of interaction strength throughout the training process
+           interaction
+                 (𝑘)
+       strength 𝐼real over
+        different orders 1    order    10         1    order    10       1       order    10            1       order     10         1      order        10         1     order        10
+
+                                                               1st phase                                                                 2nd phase
+
+
+Figure 1: (a) It is proven that the DNN’s inference on a certain sample is equivalent to a logical model
+              1   order 10
+that uses a small    number of AND-OR interactions for inference. Each interaction corresponds to a
+non-linear (AND or OR) relationship between a set S of input variables (e.g., image patches). (b)
+Sparsity of interactions. We show the strength |I(S|x)| of all 2n interactions sorted in descending
+order. (c) Illustration of the two-phase dynamics of a DNN learning interactions of different orders.
+
+the change in the complexity of interactions during training, so as to explain the change of the DNN’s
+generalization power during training. In particular, the time when the DNN starts to learn high-order
+(complex) interactions indicates the starting point of over-fitting.
+Specifically, we focus on the two-phase dynamics of interaction complexity which was empiri-
+cally observed by [41], and we aim to mathematically prove this dynamics. First, before training,
+a DNN with randomly initialized parameters mainly encodes interactions of medium complexities.
+As Figure 2 shows, the distribution of interactions appears spindle-shaped. Then, in the first phase,
+the DNN eliminates interactions of medium and high complexities, thereby mainly encoding interac-
+tions of low complexity. In the second phase, the DNN gradually learns interactions of increasing
+complexities. We have conducted experiments to train DNNs with various architectures for different
+tasks. It shows that our theory can well predict the learning dynamics of interactions in real DNNs.
+The proven two-phase dynamics explain hidden factors that push the DNN from under-fitting
+to over-fitting. (1) In the first phase, the DNN mainly removes noise interactions, (2) In the second
+phase, the DNN gradually learns more complex and non-generalizable interactions toward over-fitting.
+
+2       Related work
+Long-standing disappointment on the faithfulness of existing post-hoc explanation of DNNs.
+Many studies [30, 40, 29, 2, 15] have explained the inference score of a DNN, but how to mathemati-
+cally formulate and guarantee the faithfulness of the explanation is still an open problem. For example,
+using an interpretable surrogate model to approximate the output of a DNN [3, 11, 35, 34] is a classic
+explanation technique. However, the good matching between the DNN’s output and the surrogate
+model’s output cannot fully guarantee that the two models use exactly the same inference patterns
+and/or use the same attention. Therefore, many studies [28, 12, 1] have unanimously and empirically
+arrived at a disappointing view of the faithfulness of current explanation methods. Rudin [28] pointed
+out that inaccurate post-hoc explanations of DNNs would be harmful to high-stakes applications.
+Ghassemi et al. [12] showed various failure cases of current explanation methods in the healthcare
+field and argued that using these methods to aid medical decisions was a false hope.
+New progress towards proving the faithfulness of symbolic explanation of a DNN. Despite
+the disappointing view of post-hoc explanation methods, we have established a theory system of
+interactions within three years, which includes more than 30 papers, to quantify the symbolic
+concepts encoded by a DNN and explain the hidden factors that determine the generalization power
+and robustness of a DNN. We revisit this theory system as follows.
+• Proving interactions act as faithful primitives inference patterns encoded by the DNN. Recent
+achievements in the theory system of interactions have provided a new perspective to formulate
+primitive inference patterns encoded by a DNN. We discovered [23] and proved [27] that a DNN’s
+inference logic on a certain sample can be explained by only a small number of interactions. Further-
+more, we discovered that salient interactions usually represented common inference patterns shared by
+different samples (sample-wise transferability of interactions) [21], and proposed a method to extract
+generalizable interactions shared by different DNNs (model-wise transferability of interactions) [4].
+
+
+                                                                                     2

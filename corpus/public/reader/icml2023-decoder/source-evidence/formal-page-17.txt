@@ -1,0 +1,123 @@
+                                    Defects of Convolutional Decoder Networks in Frequency Representation
+
+                                                                                                                             (l−1,c)
+Similarly, we computed the gradient of the loss function w.r.t. the spectrum map G                                                     as follows.
+
+               ∂Loss
+                   (l−1,c)
+             ∂Gu0 v0
+                       M −1 N −1            0m    0
+                    1 X X ∂Loss −i( uM         + vNn )2π
+             =                    (l−1,c)
+                                          e                                        //Equation (20)
+                   M N m=0 n=0 ∂F
+                                  mn
+                   M −1 N −1                 K−1
+                                                                                              !
+                1 X X                        X K−1
+                                                 X           (l)[ker=d]         ∂Loss                    u0 m + v 0 n )2π
+             =                                             W cts          ·      (l,d)
+                                                                                                  e−i(    M      N           //Equation (21)
+               M N m=0 n=0                   t=0 s=0                          ∂F m−t,n−s
+             //According to Equation (20)
+                   M −1 N −1                                                    −1 N −1
+                                             K−1
+                                                                                                                                  !
+                1 X X                        X K−1
+                                                 X           (l)[ker=d]
+                                                                              M
+                                                                              X    X      ∂Loss             u(m−t)   v(n−s)                   u0 m + v 0 n )2π
+             =                                             W cts          ·             (l,d)
+                                                                                                     e i(     M
+                                                                                                                   +   N
+                                                                                                                            )2π
+                                                                                                                                       e−i(    M      N
+               M N m=0 n=0                   t=0 s=0                          u=0 v=0 ∂Guv
+                           −1 N −1             −1 N −1
+                         M                   M                                                K−1
+                                                                                                                                           !
+                1        X    X              X    X         ∂Loss    i( um + vn
+                                                                                              X K−1
+                                                                                                  X           (l)[ker=d] −i( ut + vs )2π               u0 m + v 0 n )2π
+             =                                         (l,d)
+                                                                    e   M    N
+                                                                                )2π
+                                                                                          ·                 W cts       e M N                   e−i(    M      N
+               MN        m=0 n=0             u=0 v=0 ∂Guv                                     t=0 s=0
+                           −1 N −1             −1 N −1
+                         M                   M
+                                                                                                   !
+                1        X    X              X    X         ∂Loss     (l,uv) i( um + vn )2π                    u0 m + v 0 n )2π
+             =                                                      T
+                                                               (l,d) dc
+                                                                            e M N                      e−i(     M      N          //Equation (19)
+               MN        m=0 n=0             u=0 v=0       ∂Guv
+                   M −1 N −1                                   M −1 N −1    0 )m
+                   X    X      ∂Loss          (l,uv)        1 X X i( (u−u          (v−v 0 )n
+                                                                                 +           )2π
+             =               (l,d)
+                                             T dc      ·                 e M          N
+
+                   u=0 v=0 ∂Guv
+                                                           M N m=0 n=0
+                   M −1 N −1
+                   X    X      ∂Loss          (l,uv)
+             =               (l,d)
+                                             T dc      · δu−u0 δv−v0          //Equation (16)
+                   u=0 v=0 ∂Guv
+                   ∂Loss       (l,u0 v 0 )
+             =       (l,d)
+                             T dc
+                   ∂Gu0 v0
+
+
+                                ∂Loss                           ∂Loss                                                                              ∂Loss
+Based on the derived              (l,uv)      ∈ C and            (l−1,c)       ∈ C, we can further compute gradients                                 (l,uv) >     ∈ CD×C and
+                               ∂T dc                           ∂Gu0 v0                                                                           ∂(T       )
+     ∂Loss
+         0 0
+∂(g(l−1,u v ) )>
+                   ∈ CC as follows.
+
+
+                                                                        M −1 N −1
+                                                      ∂Loss             X    X                                0 0      ∂Loss
+                                                        (l,uv) >
+                                                                    =                  χu0 v0 uv g(l−1,u      v )
+                                                                                                                           0 0                                            (22)
+                                                    ∂(T       )         u0 =0 v 0 =0
+                                                                                                                    ∂(g(l,u v ) )>
+
+
+
+                                                                   ∂Loss                     ∂Loss           (l,u0 v 0 )
+                                                                       0 0          =        (l,u0 v 0 ) >
+                                                                                                           T                                                              (23)
+                                                              ∂(g(l−1,u v ) )>            ∂(g           )
+
+
+
+Furthermore, we extend the above proof of a single convolutional layer to a network with L cascaded convolutional
+                 0 0
+layers. Let g(l,u v ) denote the frequency component at the frequency [u0 , v 0 ] of the l-th layer’s output feature, and let T (l,uv)
+                                                                                                                                   0 0
+the matrix computed by the l-th layer’s convolutional weights. Then, according to Equation (23), the gradient w.r.t. g(l,u v )
+can be computed as follows.
+
+
+                                                        ∂Loss              ∂Loss           (L,u0 v 0 )      (l+1,u0 v 0 )
+                                                        (l,u0 v 0 ) T
+                                                                      =    (L,u0 v 0 ) T
+                                                                                         T             ···T
+                                                     ∂(g           )    ∂(g           )
+                                                                                                                                                                          (24)
+                                                                           ∂Loss           (u0 v 0 )(L:l+1)
+                                                                      =    (L,u0 v 0 ) T
+                                                                                         T
+                                                                        ∂(g           )
+
+
+
+
+                                                                                        17
+

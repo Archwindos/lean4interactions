@@ -1,0 +1,85 @@
+                   Bayesian Neural Networks Avoid Encoding Complex and Perturbation-Sensitive Concepts
+
+Experimental verification. We trained BNNs on image                    output features of the l-th layer can be considered as per-
+datasets and tabular datasets to verify the quality of using           turbing input variables of the (l + 1)-th layer. Hence, in this
+the surrogate DNN model to approximate the feature dis-                subsection, we just analyze interactive concepts in a simple
+tribution of the BNN. For image datasets, we tested BNNs               case where we perturb input variables in a certain layer,
+with two architectures. For the MNIST dataset (LeCun                   instead of analyzing the complex case of simultaneously
+et al., 1998), we constructed a BNN with the architecture              perturbing features of different layers.
+of a 5-layer MLP. We also tested a BNN with the LeNet
+                                                                       To prove that high-order interactive concepts are more sen-
+architecture (LeCun et al., 1998), which was trained on the
+                                                                       sitive to input perturbations than low-order interactive con-
+CIFAR-10 dataset (Krizhevsky et al., 2009). We used two
+                                                                       cepts, let us first derive the analytical form of the interaction
+tabular datasets, including the UCI TV news dataset (termed
+                                                                       effect I(S) of an interactive concept.
+TV news) and the UCI census income dataset (termed Cen-
+sus) (Dua & Graff, 2017). We constructed BNNs with an                  Lemma 2.1. Given a neural network v and an arbitrary in-
+8-layer MLP architecture for these tabular datasets. All               put sample x′ ∈ Rn , the network output can be decomposed
+                                                                       using the Taylor expansion v(x′ ) = S⊆N π∈QS US,π ·
+                                                                                                               P       P
+MLPs contained 100 neurons in each hidden layer. For
+each BNN, we constructed a corresponding surrogate DNN                 J(S, π|x′ ). In this way, according to Eq. (3), the interaction
+model. Please see Appendix H for implementation details.               effect I(S|x′ ) on the sample x′ can be reformulated as
+                                                                                                 X
+Figure 2 shows that the feature distribution of the                                 I(S|x′ ) =             US,π · J(S, π|x′ ),             (8)
+                                                                                                    π∈QS
+surrogate DNN model well matched the feature dis-
+                                                                                                                                     πi
+tribution of the BNN. Furthermore, we used the KL                                                                              ′
+                                                                                                          
+                                                                                                                               xi −ri
+                                                                       where J(S, π|x′ ) =                          ′
+                                                                                                   Q
+                                                                                                       i∈S sign(xi − ri ) ·       τ
+                                                                                                                                           de-
+divergence KL(pBNN (h(l) )∥pDNN (h̃(l) |∆)) in Eq. (7) to
+                                                                       notes an expansion term of the degree π, π ∈ QS =
+measure the approximation error. To compare with
+                                                                       {[π1 , . . . , πn ]|∀i ∈ S, πi ∈ N+ ; ∀i ̸∈ S, πi = 0}. US,π =
+KL(pBNN (h(l) )∥pDNN (h̃(l) |∆)), we further constructed a sim-            m          ∂ m v(x∅ )
+                                                                       Qnτ                       · i∈S [sign(x′i − ri )]πi , m = n
+                                                                                                  Q                                P
+                                                                              πi ! ∂xπ1 ···∂xπn                                       i=1 πi .
+ple baseline distribution of the features pbase (h(l) ) =                i=1       1      n
+
+N (µ̂1, σ̂ 2 I), where µ̂ and σ̂ 2 denote the mean and the vari-
+                                                                       Lemma 2.1 provides a new perspective to analyze the sensi-
+ance over all feature dimensions of the BNN, respectively.
+                                                                       tivity of the interaction effect I(S). In particular, just like
+We computed KL(pBNN (h(l) )∥pbase (h(l) )) for comparison. Ta-
+                                                                       in Ren et al. (2023a) and Ren et al. (2023b), we mask the
+ble 1 shows that the approximation error of the surrogate
+                                                                       input variable xi by setting it to its reference value xi ← ri .
+DNN model was significantly smaller than the approxima-
+                                                                       The reference value ri is designed as follows. Let Ex [xi ]
+tion error of the baseline distribution.
+                                                                       denote the average value of the input variable xi over all in-
+Experimental results showed that the weight uncertainty                put samples, which is usually regarded as a no-information
+in a BNN could be well approximated by adding random                   state of this input variable (Ancona et al., 2019). In this
+perturbations to both input variables and low-layer features.          paper, we remove the information from the input variable
+                                                                       xi by pushing xi by a large enough distance τ towards its
+2.3. High-order concepts are sensitive to perturbations                mean value. In other words, if xi > Ex [xi ], we set the ref-
+                                                                       erence value ri = xi − τ 1 ; otherwise, ri = xi + τ . Here,
+In the previous subsection, we have demonstrated that                  τ ∈ R is a pre-defined constant. In this way, compared to
+adding random perturbations to input variables and low-                setting ri = Ex [xi ], the above setting ensures comparable
+layer features can successfully approximate the feature dis-           perturbation magnitudes over different input dimensions.
+tribution in a BNN with weight uncertainty. In this way,
+proving the difficulty of BNNs in encoding high-order in-              Furthermore, in order to simplify the proof, when we add
+teractive concepts can be converted into the proof of the              a small Gaussian perturbation ϵ ∼ N (0, σ 2 I) to the sample
+following two steps. First, in this subsection, we prove               x, we ignore the extremely low possibility of large perturba-
+that high-order interactive concepts are more sensitive to             tions |ϵi | ≥ τ because the variance σ 2 is small.
+perturbations than low-order interactive concepts, which is            Let us start with a simple case in Lemma 2.1. Since people
+inspired by the proof in Zhou et al. (2023). Then, in the              usually adopt low-order Taylor expansion for approximation
+next subsection, we will prove that perturbation-sensitive             in real implementations, we first approximate the interaction
+concepts are difficult to be learned by a neural network.              effect I(S|x′ ) using the expansion term of the lowest degree,
+Note that according to Section 2.2, introducing the weight             and analyze the influence of input perturbations on I(S|x′ ).
+uncertainty in a BNN can be approximated by adding ran-                Theorem 2.2. Let π̂ denote the lowest degree of the expan-
+dom perturbations to both input variables and features of                  1
+different layers. However, simultaneously adding perturba-                   We need to avoid the case of over-perturbation, by setting
+                                                                       ri ← max(ri , Ex [xi ]), if xi > Ex [xi ]; ri ← min(ri , Ex [xi ]),
+tions to features of multiple layers significantly boosts the          otherwise. However, such cases are not common in real applica-
+difficulty of analysis. Fortunately, adding perturbations to           tions, so we ignore such settings in the following analysis.
+
+                                                                   5

@@ -1,6 +1,6 @@
 # 分维度审校与问题确认
 
-当前三篇正式论文适用用户的最新授权：**直接修正证明、标出原错误，不得修改命题及其假设；错误命题单列。** `fix_authorization: proof_only_granted`、`statement_change_authorization: not_granted`；技术判断仍不等于用户逐条确认。当前范围见[全篇执行契约](full-paper-integration-20260930.md)。以下未授权示例适用于尚无修正许可的其他材料，不能用它重复阻塞已授权工作。
+当前十二篇正式论文适用用户的最新授权：**直接修正证明、标出原错误，不得修改命题及其假设；错误命题单列。** `fix_authorization: proof_only_granted`、`statement_change_authorization: not_granted`；技术判断仍不等于用户逐条确认。当前范围见[十二篇执行契约](twelve-paper-release-20261001.md)。以下未授权示例适用于尚无修正许可的其他材料，不能用它重复阻塞已授权工作。
 
 完整性、可读性、原文命题对齐和 Lean 验证独立记录。登记论文、提取候选或完成基础引理不能成为整篇完成的依据。
 

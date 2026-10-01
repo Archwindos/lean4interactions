@@ -1,0 +1,90 @@
+                  Bayesian Neural Networks Avoid Encoding Complex and Perturbation-Sensitive Concepts
+
+Therefore, we can prove the first equality as follows.
+
+                       Varϵ [J(S ′ , π ′ |x + ϵ)]   Varϵ [AB]
+                                                  =
+                       Varϵ [J(S, π|x + ϵ)]          Varϵ [A]
+                                                    > E2ϵ [B] + Varϵ [B]
+                                                    > E2ϵ [B]
+                                                                                 
+                                                                         ϵ   πi′
+                                                                 Y        i                                             (41)
+                                                    = E2ϵ            1+          
+                                                                         τ
+                                                            i∈S ′ \S
+                                                                               ′
+                                                       Y
+                                                                2        ϵi πi
+                                                    =         Eϵi 1 +
+                                                          ′
+                                                                          τ
+                                                       i∈S \S
+
+                                                       //ϵi is independent of each other; Proposition G.1
+
+Furthermore, we have
+                                                "                             #
+                                                                          ′
+                          ′   ′
+                                                    Y         ϵi  π i
+                  Eϵ [J(S , π |x + ϵ)] = Eϵ                 1+
+                                                               τ
+                                                    i∈S ′
+                                                                                
+                                                     ϵ
+                                                    Y   πi′ Y       ϵ    πi′
+                                                      i                   i
+                                        = Eϵ     1+                1+                              //S ⊊ S ′
+                                                     τ           ′
+                                                                        τ                                                (42)
+                                              i∈S            i∈S \S
+                                                                                
+                                               Y    ϵ   π i Y       ϵ    πi′
+                                                       i                 i
+                                        = Eϵ     1+                1+                             //∀i ∈ S, πi′ = πi
+                                                     τ          ′
+                                                                       τ
+                                                    i∈S                   i∈S \S
+
+                                        = Eϵ [AB]
+
+and also                                                              "                     #
+                                                                          Y         ϵi πi
+                                   Eϵ [J(S, π|x + ϵ)] = Eϵ                        1+          = Eϵ [A].                  (43)
+                                                                                     τ
+                                                                      i∈S
+
+Therefore, we have
+                                        Eϵ [J(S ′ , π ′ |x + ϵ)]   Eϵ [AB]
+                                                                 =         = Eϵ [B].                                     (44)
+                                        Eϵ [J(S, π|x + ϵ)]          Eϵ [A]
+
+Then, we can prove the second inequality as follows.
+
+                                        Eϵ [J(S ′ , π ′ |x + ϵ)]/Varϵ [J(S ′ , π ′ |x + ϵ)]
+                                         Eϵ [J(S, π|x + ϵ)]/Varϵ [J(S, π|x + ϵ)]
+                                               Eϵ [B]
+                                      =
+                                        Varϵ [AB]/Varϵ [A]
+                                        Eϵ [B]
+                                      < 2
+                                        Eϵ [B]
+                                          1                                                                              (45)
+                                      =
+                                        Eϵ [B]
+                                                        1
+                                      = hQ                        ′i
+                                                               ϵi πi
+                                        Eϵ          ′
+                                               i∈S \S      1 + τ
+                                                             1
+                                      =Q                     h            ′      i
+                                                                      ϵ i πi
+                                           i∈S ′ \S    Eϵi       1+   τ
+
+
+                                        ϵi k
+Moreover, we can prove that Eϵi [(1 +   τ ) ]   ≥ 1, ∀k ∈ N+ , i.e., E[X k ] ≥ 1, where X ∼ N (1, (σ/τ )2 ).
+
+                                                                      19

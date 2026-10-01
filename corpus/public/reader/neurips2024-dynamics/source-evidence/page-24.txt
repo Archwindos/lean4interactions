@@ -1,0 +1,62 @@
+                                             truth
+                                           p(y    |x)
+      Output function v(·)   v(x) = log 1−p(y  truth |x)
+
+         Threshold τ         τ = 0.03 Ex [|v(x) − v(x∅ )|]
+                            Image data: using the zero baseline on the feature map after ReLU
+       Baseline value b     Text data: using the [MASK] token
+                            Point cloud data: using the cluster center of each point cluster
+                 Table 1: Mathematical setting of hyper-parameters for interactions.
+
+
+
+F.7    Proof of Theorem 5
+Proof. From Eq. (10), when there is no noise (i.e., σ = 0), it is obvious that ŵ =
+(J ⊤ J )−1 J ⊤ J w∗ = w∗ , which means that the optimal weights ŵ are the same as the true weights
+w∗ . So ∀ ∅ ≠ T ⊆ N, ŵT = wT∗ .
+
+
+G      Experimental details
+G.1    Models and datasets
+We trained various DNNs on different datasets. Specifically, for image data, we trained VGG-11
+on the MNIST dataset (Creative Commons Attribution-Share Alike 3.0 license), VGG-11/VGG-16
+on the CIFAR-10 dataset (MIT license), AlexNet/VGG-16 on the CUB-200-2011 dataset (license
+unknown), and VGG-16 on the Tiny ImageNet dataset (license unknown). For natural language data,
+we trained BERT-Tiny and BERT-Medium on the SST-2 dataset (license unknown). For point cloud
+data, we trained DGCNN on the ShapeNet dataset (Custom (non-commerical) license).
+For the CUB-200-2011 dataset, we cropped the images to remove the background regions, using
+the bounding box provided by the dataset. These cropped images were resized to 224×224 and
+fed into the DNN. For the Tiny ImageNet dataset, due to the computational cost, we selected 50
+classes from the total 200 classes at equal intervals (i.e., the 4th, 8th,..., 196th, 200th classes). All
+these images were resized to 224×224. For the MNIST dataset, all images were resized to 32×32
+for classification. To better demonstrate that the learning of higher-order interactions in the second
+phase was closely related to overfitting, we added a small ratio of label noise to the MNIST dataset,
+the CIFAR-10 dataset, and the CUB-200-2011 dataset to boost the significance of over-fitting of
+the DNNs. Specifically, we randomly selected 1% training samples in the MNIST dataset and the
+CIFAR-10 dataset, and randomly reset their labels. We randomly selected 5% training samples in the
+CUB-200-2011 dataset and randomly reset their labels.
+
+G.2    Training settings
+We trained all DNNs using the SGD optimizer with a learning rate of 0.01 and a momentum of 0.9.
+No learning rate decay was used. We trained VGG models, AlexNet models, and BERT models for
+256 epochs, and trained the DGCNN model for 512 epochs. The batchsize was set to 128 for all
+DNNs on all datasets.
+
+G.3    Details on computing interactions
+First, we provide a summary of the mathematical settings of the hyper-parameters for interactions
+in Table 1, including the scalar output function of the DNN v(·), the baseline value b for masking,
+and the threshold τ . These settings are uniformly applied to all DNNs. More detailed settings for
+different datasets can be found below.
+Image data. For image data, we considered image patches as input variables to the DNN. To generate
+a masked sample xS , we followed [41] to mask the patch on the intermediate-layer feature map
+corresponding to each image patch in the set N \ S. Specifically, we considered the feature map
+after the second ReLU layer for VGG-11/VGG-16 and the feature map after the first ReLU layer for
+AlexNet. For the VGG models and the AlexNet model, we uniformly partitioned the feature map
+into 8×8 patches, randomly selected 10 patches from the central 6×6 region (i.e., we did not select
+patches that were on the edges), and considered each of the 10 patches as an input variable in the set
+N to calculate interactions. We considered each of the 10 patches as an input variable in the set N to
+calculate interactions. We used a zero baseline value to mask the input variables in the set N \ S to
+obtain the masked sample xS .
+
+
+                                                     24

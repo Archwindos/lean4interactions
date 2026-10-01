@@ -1,0 +1,56 @@
+input variables, and thus are difficult to be classified by shallow models (e.g., the SVM and the RF).
+In this way, the fast learning of low-order concepts is another understanding of the finding in [34].
+• Xu et al. [63] discovered that during the training process, DNNs usually first learned samples of
+low frequencies (e.g., robust to noises), and then encoded samples of high frequencies (e.g., sensitive
+to noises). However, the original design of DNNs is not towards learning specific spectrums, and
+techniques of deep learning are not developed by assuming a periodic loss landscape of training
+samples. Therefore, we believe there should be a more direct explanation for the spectrum-learning
+phenomenon discovered by [63]. To this end, our research explains this phenomenon as the difficulty
+of learning high-order concepts. According to Section 4.1, low-order concepts usually are less
+sensitive to input perturbations, thereby corresponding to low-frequency components defined in the
+loss landscape in [63]. Accordingly, high-order concepts correspond to high-frequency components.
+• Liu et al. [28] discovered that during adversarial training, the training loss of the DNN trained on
+easy samples decreased faster than that of the DNN trained on hard samples. To this end, we consider
+easy samples in adversarial training mentioned by [28] may mainly contain low-order interactive
+concepts. It is because, as discussed in Section 4.1, [43] discovered that low-order interactions were
+robust to adversarial perturbations. Thus, the fast learning of easy samples in adversarial training can
+be roughly owing to the learning of low-order concepts.
+
+5   Conclusion and discussion
+In this paper, we theoretically explain the trend of DNNs learning simple concepts. Since the
+emergence of interactive concepts of DNNs has been observed [45, 27] and proved [47], we aim
+to theoretically explain the explicit theoretical connection between the conceptual complexity and
+the difficulty of learning concepts. In this way, we prove that low-order interactive concepts in the
+data are much more stable than high-order interactive concepts, which makes low-order interactive
+concepts more likely to be encoded. Besides, our research can also provide new insights into several
+previous empirical understandings [5, 34, 63, 28] w.r.t. the conceptual representation of DNNs.
+There are very few ways to define and examine what is a “concept.” In this paper, we only use the
+following three properties to support the faithfulness of using sparse salient interactions as concepts
+encoded by the DNN.
+• Ren et al. [47] have proved that a well-trained DNN can encode just a small number of salient
+interactions for inference under some common conditions.
+• Ren et al. [45] have proved that, such a small number of salient interactions extracted from a sample
+can well mimic DNN’s outputs on numerous masked samples.
+• Li and Zhang [27] have discovered that salient interactions have considerable transferability and
+strong discrimination power.
+However, the above properties cannot guarantee a clear correspondence between an interactive
+concept and a concept in human cognition. Up to now, we cannot mathematically formulate what is a
+concept in cognitive science. Thus, there is still a long way to unify the learning difficulty of a DNN
+and the cognitive difficulty of human beings.
+
+Acknowledgments
+This work is partially supported by the National Nature Science Foundation of China (62276165),
+National Key R&D Program of China (2021ZD0111602), Shanghai Natural Science Foundation
+(21JC1403800,21ZR1434600), National Nature Science Foundation of China (U19B2043). This
+paper is also partially supported by Huawei Technologies Inc.
+
+References
+ [1] Alessandro Achille and Stefano Soatto. Information dropout: Learning optimal representations
+     through noisy computation. IEEE transactions on pattern analysis and machine intelligence,
+     40(12):2897–2905, 2018.
+ [2] Sravanti Addepalli, Anshul Nasery, Venkatesh Babu Radhakrishnan, Praneeth Netrapalli, and
+     Prateek Jain. Feature reconstruction from outputs can mitigate simplicity bias in neural networks.
+     2022.
+
+
+                                                  10

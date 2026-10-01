@@ -1,0 +1,198 @@
+{
+  "status": "agent_semantic_reviewed",
+  "content_sha256": "0dde248321876c533894e257e0517e98fd1379374704e70d08b3cae772b78b21",
+  "reviewed_differences": 27,
+  "rows": [
+    {
+      "id": "dyn-interaction-definition",
+      "step_id": "dyn-interaction-definition-step-1",
+      "status": "reviewed",
+      "finding": "The remaining difference is inline markup or a variable already named in English prose; every condition, equality and proof inference is retained.",
+      "english_body_md": "Source $I_{and},I_{or}$ transform the component games, denoted locally by $A,O$; the total-game dividend $I_g$ is not automatically $A$. Eq.(2) defines OR only for nonempty $T$. F.1 separately imposes $a(\\varnothing)=b,o(\\varnothing)=0$, hence $\\gamma_\\varnothing=b/2$. The empty baseline must follow this constraint."
+    },
+    {
+      "id": "dyn-universal",
+      "step_id": "dyn-universal-step-2",
+      "status": "reviewed",
+      "finding": "Restored both intermediate reversed-game h differences.",
+      "english_body_md": "Put $h(L)=o(N\\setminus L)$. Nonempty OR coefficients are $O(T)=-I_h(T)$. Their full sum is $h(\\varnothing)-h(N)=o(N)-o(\\varnothing)$, while the sum inactive on $S$ is $h(\\varnothing)-h(N\\setminus S)=o(N)-o(S)$. Subtract to obtain $o(S)-o(\\varnothing)=o(S)$ and add the AND component. The second OR grouping in F.1 does not correctly exclude disjoint activations; the full-minus-inactive proof repairs the same theorem."
+    },
+    {
+      "id": "dyn-salience",
+      "step_id": "dyn-salience-step-1",
+      "status": "reviewed",
+      "finding": "The remaining difference is inline markup or a variable already named in English prose; every condition, equality and proof inference is retained.",
+      "english_body_md": "The threshold uses output magnitude relative to the empty mask, without assuming a zero baseline. $Z$ averages unnormalized strength across orders to compare relative distributions between epochs; the ratio is undefined when $Z=0$. The theoretical weights use a distinct threshold $\\tau_{theo}=0.03|v_{theo}(x)-\\hat w_\\varnothing|$, which is not silently identified with the empirical one."
+    },
+    {
+      "id": "dyn-trigger-representation",
+      "step_id": "dyn-trigger-representation-step-1",
+      "status": "reviewed",
+      "finding": "The remaining difference is inline markup or a variable already named in English prose; every condition, equality and proof inference is retained.",
+      "english_body_md": "The cancellation in Eq.(27) requires both $w_T\\ne0$ and a valid Taylor expansion. A constant network is allowed and has every nonempty $w_T=0$, making the printed $J_T$ contain $0/0$. This is a domain issue, and a binary value cannot be silently assigned to zero coefficients."
+    },
+    {
+      "id": "dyn-trigger-representation",
+      "step_id": "dyn-trigger-representation-step-2",
+      "status": "reviewed",
+      "finding": "Restored the displayed normalized J indicator.",
+      "english_body_md": "Where the printed expression is defined, write its numerator as $K_T$. The support mask identity gives $K_T(\\hat x_S)=\\mathbf1_{T\\subseteq S}K_T(\\hat x)$ and $K_T(\\hat x)=w_T$. Nonzero normalization yields $J_T(\\hat x_S)=\\mathbf1_{T\\subseteq S}$. Consequently $f(\\hat x_S)=\\sum_{T\\subseteq S}w_T=v(\\hat x_S)$, with $w_\\varnothing=b,J_\\varnothing=1$. An independently defined binary model does not repair the zero denominator in the source Taylor definition."
+    },
+    {
+      "id": "dyn-noisy-output",
+      "step_id": "dyn-noisy-output-step-2",
+      "status": "reviewed",
+      "finding": "Restored every marginal law and the explicit shared-mask noise assignment.",
+      "english_body_md": "The main statement specifies only Gaussian marginals $\\Delta v_L\\sim\\mathcal N(0,\\sigma^2)$.  For one variable use the same $Z\\sim\\mathcal N(0,\\sigma^2)$ for both masks, $\\Delta v_\\varnothing=\\Delta v_{\\{1\\}}=Z$. All stated marginal conditions hold, but $\\Delta I_{\\{1\\}}=Z-Z=0$ has variance zero rather than $2\\sigma^2$ when $\\sigma>0$. F.3 adds iid noise to eliminate covariance."
+    },
+    {
+      "id": "dyn-noisy-output",
+      "step_id": "dyn-noisy-output-step-3",
+      "status": "reviewed",
+      "finding": "Made the sign square one explicit.",
+      "english_body_md": "The separate independent model has a real probability proof: every sign has square $1$, so the variance is $\\sum_{L\\subseteq T}\\sigma^2=2^{|T|}\\sigma^2$. For $w_T\\ne0$, scaling gives trigger variance $2^{|T|}\\sigma^2/w_T^2$; its proportionality factor depends on $T$. Assumption 1 introduces another model and does not follow automatically."
+    },
+    {
+      "id": "dyn-regression-definition",
+      "step_id": "dyn-regression-definition-step-1",
+      "status": "reviewed",
+      "finding": "The remaining difference is inline markup or a variable already named in English prose; every condition, equality and proof inference is retained.",
+      "english_body_md": "The source averages uniformly over all $2^n$ masks. Vectors $w,J,y$ include the empty coordinate, with $J_\\varnothing=1,w_\\varnothing=b$. Assumption 1 separately imposes independent trigger noises and variance $2^{|T|}\\sigma^2$. This is not the joint law automatically generated by Lemma 1, since dividends generally share and correlate through output noises."
+    },
+    {
+      "id": "dyn-regression",
+      "step_id": "dyn-regression-step-2",
+      "status": "reviewed",
+      "finding": "Restored the complete diagonal penalty and definition of A.",
+      "english_body_md": "For the source binary design $J_{ST}=\\mathbf1_{T\\subseteq S}$, $Jw$ is the subset-sum operator and Möbius inversion proves injectivity. Hence $u^\\top J^\\top Ju=\\|Ju\\|^2>0$ for nonzero $u$. The diagonal penalty $2^n\\operatorname{diag}(c)$ is positive semidefinite even at $\\sigma=0$, so $A=J^\\top J+2^n\\operatorname{diag}(c)$ is positive definite and invertible. For $u=A^{-1}J^\\top y$, completing the square gives $2^n(\\widetilde L(w)-\\widetilde L(u))=(w-u)^\\top A(w-u)>0$ when $w\\ne u$, proving unique global minimality."
+    },
+    {
+      "id": "dyn-regression",
+      "step_id": "dyn-regression-step-3",
+      "status": "reviewed",
+      "finding": "Restored the erroneous source transpose being diagnosed.",
+      "english_body_md": "Rowwise labels satisfy $y_S=\\sum_{T\\subseteq S}w_T^*$, so $y=Jw^*$; F.4 prints the erroneous transpose $J^\\top w^*$. Substitution proves the original Theorem 3. The domain issue in Eq.(7) remains separate, without assigning unrequested values to zero weights."
+    },
+    {
+      "id": "dyn-binary-trigger",
+      "step_id": "dyn-binary-trigger-step-1",
+      "status": "reviewed",
+      "finding": "The remaining difference is inline markup or a variable already named in English prose; every condition, equality and proof inference is retained.",
+      "english_body_md": "The cancellation in Eq.(27) requires both $w_T\\ne0$ and a valid Taylor expansion. A constant network is allowed and has every nonempty $w_T=0$, making the printed $J_T$ contain $0/0$. This is a domain issue, and a binary value cannot be silently assigned to zero coefficients."
+    },
+    {
+      "id": "dyn-binary-trigger",
+      "step_id": "dyn-binary-trigger-step-2",
+      "status": "reviewed",
+      "finding": "Restored the displayed normalized J indicator.",
+      "english_body_md": "Where the printed expression is defined, write its numerator as $K_T$. The support mask identity gives $K_T(\\hat x_S)=\\mathbf1_{T\\subseteq S}K_T(\\hat x)$ and $K_T(\\hat x)=w_T$. Nonzero normalization yields $J_T(\\hat x_S)=\\mathbf1_{T\\subseteq S}$. Consequently $f(\\hat x_S)=\\sum_{T\\subseteq S}w_T=v(\\hat x_S)$, with $w_\\varnothing=b,J_\\varnothing=1$. An independently defined binary model does not repair the zero denominator in the source Taylor definition."
+    },
+    {
+      "id": "dyn-equal-order",
+      "step_id": "dyn-equal-order-step-2",
+      "status": "reviewed",
+      "finding": "The remaining difference is inline markup or a variable already named in English prose; every condition, equality and proof inference is retained.",
+      "english_body_md": "Invertibility of $A=B+D$ has already been proved. Conjugating the full equation $A\\hat M=B$ yields $A(P\\hat MP^{-1})=B$, and uniqueness gives $P\\hat MP^{-1}=\\hat M$. If $|T|=|T'|$, combine bijections between these finite sets and their complements to obtain a variable permutation. The matrix identity carries one row to the other while permuting columns, preserving squared sums and Euclidean norms. This includes $\\sigma=0$."
+    },
+    {
+      "id": "dyn-order-monotonic",
+      "step_id": "dyn-order-monotonic-step-1",
+      "status": "reviewed",
+      "finding": "The remaining difference is inline markup or a variable already named in English prose; every condition, equality and proof inference is retained.",
+      "english_body_md": "The strict $>1$ clause does not exclude $\\sigma=0$. For any nonempty universe at zero noise, $\\hat M=(J^\\top J)^{-1}J^\\top J=I$. Every row has norm one, so ratios across different orders equal one. This refutes strictness but not equal-order invariance or independence from $w^*$."
+    },
+    {
+      "id": "dyn-order-monotonic",
+      "step_id": "dyn-order-monotonic-step-2",
+      "status": "reviewed",
+      "finding": "The remaining difference is inline markup or a variable already named in English prose; every condition, equality and proof inference is retained.",
+      "english_body_md": "Those latter clauses follow from the definition and permutation invariance: $\\hat M$ depends only on $n,\\sigma^2$ and the powerset design, and row norms are constant on equal-order orbits. A general positive-noise monotonicity proof is absent from the source; finite matrix checks and Figure 3 support it only empirically. The valid clause remains a formalization task, and adding $\\sigma>0$ would not repair the original proposition unchanged."
+    },
+    {
+      "id": "dyn-zero-noise",
+      "step_id": "dyn-zero-noise-step-1",
+      "status": "reviewed",
+      "finding": "The remaining difference is inline markup or a variable already named in English prose; every condition, equality and proof inference is retained.",
+      "english_body_md": "The shared proof establishes injectivity of the finite binary design, hence invertibility of its square matrix and positive definiteness of $B=J^\\top J$. At $\\sigma=0$ the diagonal penalty vanishes, giving $B^{-1}Bw^*=w^*$. This also recovers the empty weight $w_\\varnothing^*=b$ without a zero output baseline. Completing the square makes the optimum unique."
+    },
+    {
+      "id": "dyn-complement",
+      "step_id": "dyn-complement-step-1",
+      "status": "reviewed",
+      "finding": "Restored the displayed coordinate identity; canonical baseline is r_i in both rewritten languages.",
+      "english_body_md": "The source reversed mask has $(\\tilde x_T)_i=x_i$ for $i\\notin T$ and uses $r_i$ for $i\\in T$, so $\\tilde x_T=x_{N\\setminus T}$ coordinatewise. Applying the same component function identifies the negative OR Möbius sum with a negative AND dividend of the reversed game."
+    },
+    {
+      "id": "dyn-dummy",
+      "step_id": "dyn-dummy-step-1",
+      "status": "reviewed",
+      "finding": "Restored the actual constant marginal value g({i}).",
+      "english_body_md": "Pair subsets according to whether they contain $i$, giving $I_g(S\\cup\\{i\\})=I_{h_i}(S)$ with $h_i(U)=g(U\\cup\\{i\\})-g(U)$. The source dummy premise makes $h_i$ equal the constant $g(\\{i\\})$ on every $U\\subseteq S$. A constant game has zero nonempty dividends. The source premise at $U=\\varnothing$ also forces $g(\\varnothing)=0$; this is a consequence of that premise, not a default convention."
+    },
+    {
+      "id": "dyn-anonymity",
+      "step_id": "dyn-anonymity-step-1",
+      "status": "reviewed",
+      "finding": "Restored the explicit alternating sign.",
+      "english_body_md": "A variable permutation induces a bijection between $U\\subseteq S$ and $\\pi U\\subseteq\\pi S$, preserving cardinalities, inclusion and model values. Each sign $(-1)^{|S|-|U|}$ is preserved, so changing variables in the finite sum proves the source equality."
+    },
+    {
+      "id": "dyn-recursion",
+      "step_id": "dyn-recursion-step-1",
+      "status": "reviewed",
+      "finding": "The remaining difference is inline markup or a variable already named in English prose; every condition, equality and proof inference is retained.",
+      "english_body_md": "Partition subsets into $U$ and $U\\cup\\{i\\}$ for $U\\subseteq S$. The absent-$i$ sign is the negative of the present-$i$ sign. Pairing yields $\\sum_{U\\subseteq S}(-1)^{|S|-|U|}[g(U\\cup\\{i\\})-g(U)]$; linearity gives the difference between the present-context and absent-context dividends."
+    },
+    {
+      "id": "dyn-distribution",
+      "step_id": "dyn-distribution-step-1",
+      "status": "reviewed",
+      "finding": "Restored the actual subset sum before its evaluation.",
+      "english_body_md": "Let $d(A)=c$ and all other coefficients be zero. Its subset sum is $\\sum_{T\\subseteq S}d(T)=c\\mathbf1_{A\\subseteq S}=g_A(S)$. Möbius inversion or uniqueness identifies $I_{g_A}=d$. If $A=\\varnothing$, the game is constant and its baseline resides solely in the empty term."
+    },
+    {
+      "id": "dyn-uniqueness",
+      "step_id": "dyn-uniqueness-step-1",
+      "status": "reviewed",
+      "finding": "The remaining difference is inline markup or a variable already named in English prose; every condition, equality and proof inference is retained.",
+      "english_body_md": "Apply the Möbius transform to the source reconstruction identity at every mask. Inversion gives $I_{\\operatorname{reconstruct}d}(S)=d(S)$, while the premise identifies the reconstructed game with $g$. Thus $d(S)=I_g(S)$. This proves uniqueness of AND dividends for one fixed game, not uniqueness of an arbitrary joint AND/OR split."
+    },
+    {
+      "id": "dyn-split-labels",
+      "step_id": "dyn-split-labels-step-1",
+      "status": "reviewed",
+      "finding": "The remaining difference is inline markup or a variable already named in English prose; every condition, equality and proof inference is retained.",
+      "english_body_md": "Appendix C labels both opposite-sign components $v_{and}$. Taken literally as two definitions of the same function, subtraction forces $2\\gamma_T=0$, contradicting an arbitrary learnable parameter. For the constant network $v=1$ and $\\gamma_T=1$, the same $v_{and}(x_T)$ must equal both $3/2$ and $-1/2$. This is a printed label conflict; the distinct main-text AND/OR definitions are unaffected."
+    },
+    {
+      "id": "dyn-shared-polynomial-support",
+      "step_id": "dyn-shared-polynomial-support-step-2",
+      "status": "reviewed",
+      "finding": "Restored the displayed normalization identity.",
+      "english_body_md": "Apply this identity to every term in a finite polynomial and group equal supports into $K_A$. All mask outputs equal $\\sum_{A\\subseteq S}K_A$, so finite Möbius uniqueness identifies $K_A=I_g(A)$, including the constant empty support. If $u=K_A(x)\\ne0$, normalization gives $K_A(x_S)/u=\\mathbf1_{A\\subseteq S}$. No convergence of an infinite Taylor series for an arbitrary network is claimed."
+    },
+    {
+      "id": "dyn-shared-independent-residual",
+      "step_id": "dyn-shared-independent-residual-step-1",
+      "status": "reviewed",
+      "finding": "Restored the resulting product-variance formula.",
+      "english_body_md": "Under a probability measure, measurable independent $X_i$ with finite second moments have an integrable product with finite second moment. Factor the integrals for $X_i$ and $X_i^2$: $E\\prod_iX_i=\\prod_iEX_i$ and $E(\\prod_iX_i)^2=\\prod_iEX_i^2$. Substitute $EX_i^2=(EX_i)^2+\\operatorname{Var}X_i$ and subtract the mean square to obtain the product-variance formula $\\prod_i[(EX_i)^2+\\operatorname{Var}X_i]-\\prod_i(EX_i)^2$."
+    },
+    {
+      "id": "dyn-shared-positive-regression",
+      "step_id": "dyn-shared-positive-regression-step-2",
+      "status": "reviewed",
+      "finding": "Restored the complete diagonal penalty and definition of A.",
+      "english_body_md": "For the source binary design $J_{ST}=\\mathbf1_{T\\subseteq S}$, $Jw$ is the subset-sum operator and Möbius inversion proves injectivity. Hence $u^\\top J^\\top Ju=\\|Ju\\|^2>0$ for nonzero $u$. The diagonal penalty $2^n\\operatorname{diag}(c)$ is positive semidefinite even at $\\sigma=0$, so $A=J^\\top J+2^n\\operatorname{diag}(c)$ is positive definite and invertible. For $u=A^{-1}J^\\top y$, completing the square gives $2^n(\\widetilde L(w)-\\widetilde L(u))=(w-u)^\\top A(w-u)>0$ when $w\\ne u$, proving unique global minimality."
+    },
+    {
+      "id": "dyn-shared-positive-regression",
+      "step_id": "dyn-shared-positive-regression-step-3",
+      "status": "reviewed",
+      "finding": "Restored the erroneous source transpose being diagnosed.",
+      "english_body_md": "Rowwise labels satisfy $y_S=\\sum_{T\\subseteq S}w_T^*$, so $y=Jw^*$; F.4 prints the erroneous transpose $J^\\top w^*$. Substitution proves the original Theorem 3. The domain issue in Eq.(7) remains separate, without assigning unrequested values to zero weights."
+    }
+  ],
+  "additional_review": "The new second uniqueness step retains the same basis game and isolated sign coefficient in both languages.",
+  "post_review_change": "Added stable issue_type/original_statement_status and reciprocal issue/result links only; all mathematical prose, formulas, translations and Lean files unchanged."
+}

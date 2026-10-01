@@ -1,0 +1,63 @@
+                 Bayesian Neural Networks Avoid Encoding Complex and Perturbation-Sensitive Concepts
+
+Therefore, we have
+                                          |US∗i |   |αi /βi2 |   |Eϵ [CSi (x + ϵ)]/Varϵ [CSi (x + ϵ)]|
+                      ∀1 ≤ i, j ≤ p,         ∗    =            =                                       .
+                                          |USj |    |αj /βj2 |   |Eϵ [CSj (x + ϵ)]/Varϵ [CSj (x + ϵ)]|
+
+Step 3. Based on Step 2, we can directly prove that for the optimal solution U ∗ , we have
+
+                                    ∀S ∈ Ω,    |US∗ | ∝ |Eϵ [CS (x + ϵ)]/Varϵ [CS (x + ϵ)]|                           (59)
+
+
+
+
+G.6. Proof of Theorem 2.6 in the main paper
+Theorem 2.6. Let Amin = minS |US | and Amax = maxS |US | denote the lower bound and the upper bound of |US | over all
+interactive concepts S . Then, for any S ⊆ N , we have
+                                   |Eϵ [I(S|x + ϵ)]|   |Eϵ [CS (x + ϵ)]|          |Eϵ [I(S|x + ϵ)]|
+                          Amin ·                     ≤                   ≤ Amax ·                                     (60)
+                                   Varϵ [I(S|x + ϵ)]   Varϵ [CS (x + ϵ)]          Varϵ [I(S|x + ϵ)]
+
+Proof. According to Eq. (12) in the main paper, we have I(S|x′ ) = US · CS (x′ ). Hence, we have
+
+               |Eϵ [I(S|x + ϵ)]| = |US | · |Eϵ [CS (x + ϵ)]|,        Varϵ [I(S|x + ϵ)] = US2 · Varϵ [CS (x + ϵ)],
+
+Therefore,
+                                        |Eϵ [CS (x + ϵ)]|           |Eϵ [I(S|x + ϵ)]|
+                                                          = |US | ·
+                                        Varϵ [CS (x + ϵ)]           Varϵ [I(S|x + ϵ)]
+Then, let Amin                     max
+             S = minS |US | and AS = maxS |US | denote the lower bound and the upper bound of the absolute value |US |
+over all interactive concepts S , we have
+
+                              |Eϵ [I(S|x + ϵ)]|   |Eϵ [CS (x + ϵ)]|        |Eϵ [I(S|x + ϵ)]|
+                       Amin
+                        S ·                     ≤                   ≤ Amax
+                                                                       S ·
+                              Varϵ [I(S|x + ϵ)]   Varϵ [CS (x + ϵ)]        Varϵ [I(S|x + ϵ)]
+
+
+
+
+H. Experimental details
+Training settings. We trained standard DNNs and BNNs with the same architectures on two image datasets and two tabular
+datasets. For image datasets, we trained standard DNNs and BNNs with two architectures. On the MNIST dataset, we
+trained a standard DNN and a BNN with the 5-layer MLP architecture. On the CIFAR-10 dataset, we trained a standard
+DNN and a BNN with the LeNet architecture. On the two tabular datasets, including the UCI TV news dataset (termed TV
+news) and the UCI census income dataset (termed census), we trained standard DNNs and BNNs with the 8-layer MLP
+architecture. All MLPs contained 100 neurons in each hidden layer. For the training of BNNs, the prior distribution of
+network weights was set to N (W ; 0, I), and the number of Monte Carlo sampling of network weights was set to 1. All
+standard DNNs and BNNs were trained using the Adam optimizer (Kingma & Ba, 2015) with learning rate 0.001. The
+5-layer MLPs (standard DNN and BNN) on the MNIST dataset was trained for 50 epochs. The LeNet (standard DNN and
+BNN) on the CIFAR-10 dataset was trained for 300 epochs. The 8-layer MLPs (standard DNN and BNN) on tabular datasets
+were trained for 200 epochs.
+Implementation details for the calculation of I(S). Since the computational cost of I(S) was intolerable for image
+datasets, we applied a sampling-based approximation method to calculate US . For the CIFAR-10 dataset (32 × 32 pixels on
+each image), we uniformly split each input image into 8 × 8 patches. Furthermore, we random sampled 12 patches from the
+central 6 × 6 region (i.e., we did not sample patches that were on the edges of an image), and considered these patches as
+input variables for each image. The remaining 52 patches were set to the reference value. Similarly, for the MNIST dataset
+(28 × 28 pixels on each image), we uniformly split each input image into 7 × 7 patches, and randomly sampled 12 patches
+from the central 5 × 5 region.
+
+                                                                22

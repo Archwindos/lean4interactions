@@ -1,0 +1,89 @@
+                                            长宽比是 (8,7)的版本
+
+
+
+                    Bayesian Neural Networks Avoid Encoding Complex and Perturbation-Sensitive Concepts
+
+                                                                                           (𝑠𝑠)
+         (𝑠𝑠)
+       𝑉𝑉noise     (a)                2000
+                                     (𝑠𝑠)
+                                   𝐾𝐾noise           (b)     (𝑠𝑠)
+                                                           𝑉𝑉BNN            (c)           𝐾𝐾BNN          (d)               MLP-8 on TV news
+                                                                                                                           MLP-8 on Census
+                                      1000
+                                                                                                                            MLP-5 on MNIST
+                                                                                                                            LeNet on CIFAR-10
+
+                   order                           order                   order                        order
+
+                                                                     (s)
+Figure 3. (a) The exponential increase of the average variance Vnoise and (b) the roughly exponential decrease of the average relative
+            (s)
+stability Knoise along with the order s, under perturbations from a distribution ϵ ∼ N (0, 0.052 · I). (c) The exponential increase of the
+                     (s)                                                                                (s)
+average variance VBNN and (d) the roughly exponential decrease of the average relative stability KBNN along with the order s, under
+weight uncertainty in the BNN.
+
+
+2.4. Perturbation-sensitive concepts are difficult to learn                 explains the output as a linear regression problem.
+In this subsection, we prove that high-order interactive con-
+                                                                                                             X
+                                                                                                  v(x′ ) =            US · CS (x′ ),            (14)
+                                                                                                                S∈Ω
+cepts, which are sensitive to input perturbations and weight
+uncertainty, are difficult to be learned by a BNN in a regres-             where the activation state CS (x′ ) can be considered as an in-
+sion task. Specifically, we measure the learning effects of                put dimension of the linear function, which reflects whether
+interactive concepts (denoted by US ), and Theorems 2.5 and                the input sample x′ contains the concept S .
+2.6 prove the small learning effects of perturbation-sensitive
+concepts.                                                                  Therefore, the absolute value of the coefficient US can be
+                                                                           considered as the strength of the neural network in learning
+To facilitate the analysis, we first simplify the conceptual               the interactive concept S . According to Section 2.1 and Ren
+learning as a linear problem. Specifically, we first rewrite               et al. (2023a), most interactive concepts have negligible
+the interaction effect of an interactive concept S . Given an              coefficients |US | ≈ 0, so we can consider that the neural
+input sample x, according to Eq. (8), the interaction effect               network only encodes a few interactive concepts S with
+of the concept S on the sample x′ (obtained by applying                    large absolute values |US |.
+some transformations on x), I(S|x′ ), can be rewritten as
+                                                                            Let us facilitate the poof on a regression task. Based on
+                           ′
+                    I(S|x ) = US · CS (x ),    ′
+                                                              (12)          the conclusion in Section 2.2, we can roughly consider
+                                                                            that training a BNN on normal samples is equivalent to
+                                                                            training a surrogate DNN model on perturbed input samples
+where the constant US = I(S|x) denotes the interaction
+                                                                            x′ = x + ϵ. Then, according to Eq. (14), the learning of the
+effect of the concept S , and the function for the activation
+                                                                            BNN on a certain input sample can be roughly represented
+state is given as CS (x′ ) = π∈QS US,π J(S, π|x′ )/US .
+                            P
+                                                                            as min{US |S∈Ω} L({US }), and the loss is given by
+Understanding of CS (x′ ). Let us consider a sample x′
+                                                                                   L({US }) = Eϵ (y ∗ − v(x′ ))2
+                                                                                                                
+where each input variable x′i is either masked by the refer-
+ence value ri or kept unchanged as xi . Then, the function
+                                                                                                         X                                      (15)
+                                                                                            = Eϵ [(y ∗ −        US · CS (x + ϵ))2 ]
+                                                                                                                 S∈Ω
+CS (x′ ) defined above represents the binary activation state
+of the concept S in the sample x′ , which is an AND rela-                  where x and y ∗ denote the input sample and the ground-
+tionship between all variables in S :                                      truth output, respectively, and x′ = x + ϵ.
+                               ^                                           Theorem 2.5 (Proof in Appendix G.5). Given two random
+                 CS (x′ ) =           unmask(x′i ),           (13)         interactive concepts S and S ′ , we can roughly assume that
+                               i∈S
+                                                                           CS (x + ϵ) is independent of CS ′ (x + ϵ), because the two
+where the binary function unmask(x′i ) ∈ {0, 1} checks                     concepts S and S ′ usually have little overlap in most cases.
+whether the i-th variable x′i is masked in the sample x′ . If              Let Eϵ [CS (x + ϵ)] and Varϵ [CS (x + ϵ)] denote the mean and
+the i-th variable is masked, then unmask(x′i ) = 0; otherwise,             the variance of CS (x + ϵ) w.r.t. ϵ, respectively. Then, the
+unmask(x′i ) = 1.                                                          solution to Eq. (15) satisfies the following property:
+Only when all input variables in S are not masked in the                      ∀ S ∈ Ω,     |US∗ | ∝ |Eϵ [CS (x + ϵ)]/Varϵ [CS (x + ϵ)]| (16)
+sample x′ , the concept S is activated, and CS (x′ ) = 1. If any
+input variable in S is masked, then the concept S will not
+                                                                           Theorem 2.5 proves that the learning effect of an interactive
+be activated (CS (x′ ) = 0), yielding zero interaction effect
+                                                                           concept S , measured by |US∗ |, is proportional to the relative
+I(S|x′ ) = 0.
+                                                                           stability of the activation state of the interactive concept
+Thus, we can extend Eq. (4) to a continuous version that                   |Eϵ [CS (x + ϵ)]/Varϵ [CS (x + ϵ)]| w.r.t. perturbations ϵ. This
+
+                                                                      7

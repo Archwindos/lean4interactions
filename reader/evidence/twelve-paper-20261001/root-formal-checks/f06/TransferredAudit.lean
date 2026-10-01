@@ -1,0 +1,23 @@
+import Harsanyi.Extensions.DecoderValid
+import Harsanyi.Extensions.DecoderParameterCounterexamples
+import Harsanyi.Extensions.DecoderWeakIndependence
+#print Harsanyi.Frequency.Valid.valid_indices_no_wrap
+#print axioms Harsanyi.Frequency.Valid.valid_indices_no_wrap
+#print Harsanyi.Frequency.Valid.valid_layer_dft
+#print axioms Harsanyi.Frequency.Valid.valid_layer_dft
+#print Harsanyi.Frequency.Valid.actual_valid_equation17_counterexample
+#print axioms Harsanyi.Frequency.Valid.actual_valid_equation17_counterexample
+#print Harsanyi.Frequency.Valid.geometric_real_sine_quotient
+#print axioms Harsanyi.Frequency.Valid.geometric_real_sine_quotient
+#print Harsanyi.Frequency.Parameters.actual_kernel_size_growth_counterexample
+#print axioms Harsanyi.Frequency.Parameters.actual_kernel_size_growth_counterexample
+#print Harsanyi.Frequency.Parameters.actual_kernel_dc_ratio_counterexample
+#print axioms Harsanyi.Frequency.Parameters.actual_kernel_dc_ratio_counterexample
+#print Harsanyi.Frequency.WeakIndependence.standard_gaussian_fourth_moment
+#print axioms Harsanyi.Frequency.WeakIndependence.standard_gaussian_fourth_moment
+#print Harsanyi.Frequency.WeakIndependence.actual_w2_law
+#print axioms Harsanyi.Frequency.WeakIndependence.actual_w2_law
+#print Harsanyi.Frequency.WeakIndependence.actual_not_independent
+#print axioms Harsanyi.Frequency.WeakIndependence.actual_not_independent
+#print Harsanyi.Frequency.WeakIndependence.actual_unit_kernel_weak_counterexample
+#print axioms Harsanyi.Frequency.WeakIndependence.actual_unit_kernel_weak_counterexample

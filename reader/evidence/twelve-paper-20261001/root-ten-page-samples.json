@@ -1,0 +1,167 @@
+{
+  "status": "five_page_sample_completed",
+  "scope": "Actual Chromium visits CN/EN rewrite and source/Lean tabs on five newly admitted result pages. This sample is not the full twelve-paper browser gate. Mathematical/source alignment is reviewed separately. Subsequent UI-label-only changes require their own checks; this remains an intermediate historical sample.",
+  "created_at": "2026-10-01T10:28:57.939307+00:00",
+  "input_sha256": "b32f2c9d9bbfb9a8212f3fc52c5984f46d548abdc344ae98c607ebbea2d85937",
+  "inputs_unchanged": true,
+  "javascript_errors": [],
+  "samples": [
+    {
+      "id": "transformation-gating-affine",
+      "url": "http://127.0.0.1:8004/papers/icml2022-transformation/results/transformation-gating-affine/",
+      "title": "固定门控下的仿射变换",
+      "zh_characters": 1183,
+      "en_characters": 2221,
+      "actual_role": "theorem_proof",
+      "math_errors": [],
+      "tabs": {
+        "statement": {
+          "characters": 971,
+          "math_errors": []
+        },
+        "original-proof": {
+          "characters": 2265,
+          "math_errors": []
+        },
+        "lean": {
+          "characters": 13284,
+          "math_errors": []
+        }
+      },
+      "overflow": false,
+      "screenshot": "reader/evidence/twelve-paper-20261001/root-ten-sample-0.png",
+      "screenshot_sha256": "a3212befedf80216a9974a900bfb0541590c8c84ffdde95cfee1fc9f41b16e48",
+      "english_excerpt": "Statement\n\n𝑧\n=\n𝑊\n𝐿\n+\n1\n𝜎\n𝐿\n𝑊\n𝐿\n⋯\n𝜎\n1\n𝑊\n1\n𝑥\n+\n𝑏\nz=W\nL+1\n\t​\n\nσ\nL\n\t​\n\nW\nL\n\t​\n\n⋯σ\n1\n\t​\n\nW\n1\n\t​\n\nx+b\nNotation and conditions\n\nA finite chain may have different layer widths. Fix the ReLU/dropout/pooling selection matrices actually triggered by the input, with compatible linear maps and biases. The optional softmax \n𝑔\ng is outside the affine-module conclusion.\n\nAbsorb fixed gates into the adjacent linear maps \n𝐴\n𝑗\nA\nj\n\t​\n\n and write \n𝑡\n𝑗\n+\n1\n=\n𝐴\n𝑗\n𝑡\n𝑗\n+\n𝑏\n𝑗\nt\nj+1\n\t​\n\n=A\nj\n\t​\n\nt\nj\n\t​\n\n+b\nj\n\t​\n\n. Let \n𝐹\n𝑗\nF\nj\n\t​\n\n be the first j affine layers, with \n𝐹\n0\n(\n𝑥\n)\n=\n𝑥\nF\n0\n\t​\n\n(x)=x.\n\nProof idea\n\nThe coordinate identity \nmax\n⁡\n(\n0\n,\nℎ\n𝑑\n)\n=\n1\nℎ\n𝑑\n>\n0\nℎ\n𝑑\nmax(0,h\nd\n\t​\n\n)=1\nh\nd\n\t​\n\n>0\n\t​\n\nh\nd\n\t​\n\n gives a d"
+    },
+    {
+      "id": "transformation-kde-gates",
+      "url": "http://127.0.0.1:8004/papers/icml2022-transformation/results/transformation-kde-gates/",
+      "title": "Eq25：离散门熵上界反例",
+      "zh_characters": 1228,
+      "en_characters": 2058,
+      "actual_role": "counterexample",
+      "math_errors": [],
+      "tabs": {
+        "statement": {
+          "characters": 2494,
+          "math_errors": []
+        },
+        "original-proof": {
+          "characters": 2508,
+          "math_errors": []
+        },
+        "lean": {
+          "characters": 6547,
+          "math_errors": []
+        }
+      },
+      "overflow": false,
+      "screenshot": "reader/evidence/twelve-paper-20261001/root-ten-sample-1.png",
+      "screenshot_sha256": "d8b3682de901fbb663d69c7a8e28e841317a07945513ffb8ee26a8bd0a73f0f4",
+      "english_excerpt": "Statement\n\n𝐻\n(\nΣ\n𝑙\n)\n≤\n−\n1\n𝑛\n∑\n𝑗\nlog\n⁡\n1\n𝑛\n∑\n𝑘\n𝑒\n−\n∥\n𝜎\n𝑗\n−\n𝜎\n𝑘\n∥\n2\n/\n(\n2\n𝜎\n0\n2\n)\nH(Σ\nl\n\t​\n\n)≤−\nn\n1\n\t​\n\nj\n∑\n\t​\n\nlog\nn\n1\n\t​\n\nk\n∑\n\t​\n\ne\n−∥σ\nj\n\t​\n\n−σ\nk\n\t​\n\n∥\n2\n/(2σ\n0\n2\n\t​\n\n)\nNotation and conditions\n\nThe actual ReLU gate is \nΣ\n=\n1\n𝑋\n>\n0\nΣ=1\nX>0\n\t​\n\n for equiprobable \n𝑋\n=\n±\n1\nX=±1. Its mean is one half, variance one quarter, and source bandwidth \nℎ\n=\n𝜅\n/\n4\n>\n0\nh=κ/4>0.\n\nA finite gate/label joint law satisfies \n𝑝\n≥\n0\np≥0 and \n∑\n𝑝\n=\n1\n∑p=1. Define \n𝐻\n(\n𝑝\n)\n=\n−\n∑\n𝑎\n𝑝\n𝑎\nlog\n⁡\n𝑝\n𝑎\nH(p)=−∑\na\n\t​\n\np\na\n\t​\n\nlogp\na\n\t​\n\n and \n𝐻\n(\n𝐵\n∣\n𝐴\n)\n=\n∑\n𝑎\n𝑝\n𝑎\n𝐻\n(\n𝑝\n(\n⋅\n∣\n𝑎\n)\n)\nH(B∣A)=∑\na\n\t​\n\np\na\n\t​\n\nH(p(⋅∣a)). A zero-mass conditioning row contributes zero; full positive support is unnecessary.\n\nThe sample kernel is \n𝐾\nℎ"
+    },
+    {
+      "id": "transformation-ebm-dnn-gradient",
+      "url": "http://127.0.0.1:8004/papers/icml2022-transformation/results/transformation-ebm-dnn-gradient/",
+      "title": "冻结EBM后的DNN梯度",
+      "zh_characters": 1057,
+      "en_characters": 2231,
+      "actual_role": "theorem_proof",
+      "math_errors": [],
+      "tabs": {
+        "statement": {
+          "characters": 781,
+          "math_errors": []
+        },
+        "original-proof": {
+          "characters": 801,
+          "math_errors": []
+        },
+        "lean": {
+          "characters": 6221,
+          "math_errors": []
+        }
+      },
+      "overflow": false,
+      "screenshot": "reader/evidence/twelve-paper-20261001/root-ten-sample-2.png",
+      "screenshot_sha256": "7689b691d2cdd944907afa46c066797de453b31427f21c0de2247c66e5bfa9de",
+      "english_excerpt": "Statement\n\n∂\n𝜃\n𝐿\n=\n−\n𝑛\n−\n1\n∑\n𝑙\n,\n𝑖\n(\n∂\n𝜎\n𝑓\n+\n∂\n𝜎\nlog\n⁡\n𝑞\n)\n∂\n𝜃\n𝜎\n𝑙\n,\n𝑖\n∂\nθ\n\t​\n\nL=−n\n−1\nl,i\n∑\n\t​\n\n(∂\nσ\n\t​\n\nf+∂\nσ\n\t​\n\nlogq)∂\nθ\n\t​\n\nσ\nl,i\n\t​\n\nNotation and conditions\n\nUse the author continuous relaxation in Equations (41)–(42), without treating the exact binary gate as differentiable. The EBM, Z and prior coefficients are frozen during the DNN update. The local state score and state map are differentiable and each prior factor is positive at the differentiation point.\n\nThe source has n samples with n>0 and finitely many L layers. State dimensions and prior-factor counts may vary by layer; each source mean weight is 1/n.\n\nThe gate state space \n𝑆\nS is finite, the prior \n𝑞\nq is normalized and the "
+    },
+    {
+      "id": "bnn-regression",
+      "url": "http://127.0.0.1:8004/papers/icml2023-bayesian/results/bnn-regression/",
+      "title": "独立特征回归的真实全局最优",
+      "zh_characters": 5979,
+      "en_characters": 9419,
+      "actual_role": "partial_component",
+      "math_errors": [],
+      "tabs": {
+        "statement": {
+          "characters": 1196,
+          "math_errors": []
+        },
+        "original-proof": {
+          "characters": 8723,
+          "math_errors": []
+        },
+        "lean": {
+          "characters": 41361,
+          "math_errors": []
+        }
+      },
+      "overflow": false,
+      "screenshot": "reader/evidence/twelve-paper-20261001/root-ten-sample-3.png",
+      "screenshot_sha256": "eba443ea5fc8e2e069d5d2eecd5d225b5d5dfb841535daf88e8789db147257d6",
+      "english_excerpt": "Statement\n\n𝑤\n𝑖\n∗\n=\n𝑦\n∗\n1\n+\n∑\n𝑗\n𝑎\n𝑗\n2\n/\n𝑑\n𝑗\n𝑎\n𝑖\n𝑑\n𝑖\n,\n𝑎\n𝑖\n=\n𝐸\n𝐶\n𝑖\n,\n𝑑\n𝑖\n=\nVar\n⁡\n𝐶\n𝑖\nw\ni\n∗\n\t​\n\n=\n1+∑\nj\n\t​\n\na\nj\n2\n\t​\n\n/d\nj\n\t​\n\ny\n∗\n\t​\n\nd\ni\n\t​\n\na\ni\n\t​\n\n\t​\n\n,a\ni\n\t​\n\n=EC\ni\n\t​\n\n,d\ni\n\t​\n\n=VarC\ni\n\t​\n\nNotation and conditions\n\nRetain the explicitly assumed pairwise feature independence and the defined first and second moments. The ordinary ratio domain requires \n𝑑\n𝑖\n>\n0\nd\ni\n\t​\n\n>0. Small typical concept overlap does not prove independence. Features remain fixed during this analysis; their Taylor coefficients are not reoptimized together with the weights.\n\nThe finite index \n𝑖\ni corresponds to a source concept \n𝑆\nS. Each \n𝐶\n𝑖\nC\ni\n\t​\n\n is a fixed random feature, \n𝑤\n𝑖\nw\ni\n\t​\n\n is source optimization varia"
+    },
+    {
+      "id": "bnn-general-moments",
+      "url": "http://127.0.0.1:8004/papers/icml2023-bayesian/results/bnn-general-moments/",
+      "title": "绝对触发与有符号矩的区别",
+      "zh_characters": 4493,
+      "en_characters": 7915,
+      "actual_role": "counterexample",
+      "math_errors": [],
+      "tabs": {
+        "statement": {
+          "characters": 1291,
+          "math_errors": []
+        },
+        "original-proof": {
+          "characters": 4292,
+          "math_errors": []
+        },
+        "lean": {
+          "characters": 43673,
+          "math_errors": []
+        }
+      },
+      "overflow": false,
+      "screenshot": "reader/evidence/twelve-paper-20261001/root-ten-sample-4.png",
+      "screenshot_sha256": "6c8709cbd11651db7f546a6247940296f89f9b6ddbc1ad8adf76999e46c61587",
+      "english_excerpt": "Statement\n\n𝐽\n=\n∏\n𝑖\n∈\n𝑆\n∣\n1\n+\n𝑠\n𝑖\n𝜖\n𝑖\n/\n𝜏\n∣\n𝜋\n𝑖\n,\n𝐸\n𝐽\n=\n∏\n𝑖\n𝐸\n∣\n1\n+\n𝑠\n𝑖\n𝜖\n𝑖\n/\n𝜏\n∣\n𝜋\n𝑖\nJ=\ni∈S\n∏\n\t​\n\n∣1+s\ni\n\t​\n\nϵ\ni\n\t​\n\n/τ∣\nπ\ni\n\t​\n\n,EJ=\ni\n∏\n\t​\n\nE∣1+s\ni\n\t​\n\nϵ\ni\n\t​\n\n/τ∣\nπ\ni\n\t​\n\nNotation and conditions\n\nUse independent untruncated Gaussian noise and a fixed nonzero reference distance. Retain arbitrary positive integer degrees. The author explicitly neglects low-probability baseline crossing, without an exact tail-error bound.\n\nThe nonempty concept has positive integer degrees on its support. Source \n𝐽\nJ contains \nsign\n⁡\n(\n𝑥\n𝑖\n′\n−\n𝑟\n𝑖\n)\n(\n𝑥\n𝑖\n′\n−\n𝑟\n𝑖\n)\n=\n∣\n𝑥\n𝑖\n′\n−\n𝑟\n𝑖\n∣\nsign(x\ni\n\t​\n\n′−r\ni\n\t​\n\n)(x\ni\n\t​\n\n′−r\ni\n\t​\n\n)=∣x\ni\n\t​\n\n′−r\ni\n\t​\n\n∣, while its signed comparison factor is \n𝑍\n𝑖\n=\n1\n+\n𝑠\n𝑖\n𝜖\n𝑖\n/\n𝜏\n"
+    }
+  ],
+  "ui_snapshot_context": "Sample ran on the same ten-paper UI as the finite-browser report before the source-default-label translation correction. It did not scan residual Chinese in English source text. Later translation-panel rechecks are separate.",
+  "ui_snapshot_report": "reader/evidence/twelve-paper-20261001/ten-paper-browser-before-source-label-fix.json",
+  "ui_snapshot_hashes": {
+    "before": {
+      "reader/preview/data.public.json": "b32f2c9d9bbfb9a8212f3fc52c5984f46d548abdc344ae98c607ebbea2d85937",
+      "reader/preview/data.public.js": "3f0a393b913e7998dd07a2ad73f67c95f7eb9c7d7bbaa3c768e10d35a0bdfa19",
+      "reader/preview/reader.js": "d5e225800cf941ce2d249fbf59dfc759879f4b28c7e9ae8decb0089aff67fa4f",
+      "reader/preview/reader.css": "9edf40c05c8b102f5620ca7025b5d57fc43c3808f2ea343512541ac5ec24eb2a",
+      "reader/evidence/twelve-paper-20261001/build-manifest.json": "3b1420e22f2f6d287cfe26efab49a3b02c3d0f071ddd72a01bb39dc8b122023e",
+      "reader/check_admitted_preview.py": "c1d41c166b1cc2ad4fb7d1b35466a729ed3478b0cec037129e712391022cf12d",
+      "corpus/public/reader/input-manifest.json": "214f446526150551003a5d17507dce20b89e0fddf34be76607a7cf1f8968559a"
+    },
+    "after": {
+      "reader/preview/data.public.json": "b32f2c9d9bbfb9a8212f3fc52c5984f46d548abdc344ae98c607ebbea2d85937",
+      "reader/preview/data.public.js": "3f0a393b913e7998dd07a2ad73f67c95f7eb9c7d7bbaa3c768e10d35a0bdfa19",
+      "reader/preview/reader.js": "d5e225800cf941ce2d249fbf59dfc759879f4b28c7e9ae8decb0089aff67fa4f",
+      "reader/preview/reader.css": "9edf40c05c8b102f5620ca7025b5d57fc43c3808f2ea343512541ac5ec24eb2a",
+      "reader/evidence/twelve-paper-20261001/build-manifest.json": "3b1420e22f2f6d287cfe26efab49a3b02c3d0f071ddd72a01bb39dc8b122023e",
+      "reader/check_admitted_preview.py": "c1d41c166b1cc2ad4fb7d1b35466a729ed3478b0cec037129e712391022cf12d",
+      "corpus/public/reader/input-manifest.json": "214f446526150551003a5d17507dce20b89e0fddf34be76607a7cf1f8968559a"
+    }
+  }
+}

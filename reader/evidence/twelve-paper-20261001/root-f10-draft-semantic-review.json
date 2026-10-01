@@ -1,0 +1,74 @@
+{
+  "status": "draft_review_returned_for_revision",
+  "reviewed_at": "2026-10-01T11:00:27.798290+00:00",
+  "not_final_admission": true,
+  "input_hashes": {
+    "lean/HarsanyiLib/Harsanyi/Extensions/DifficultyKappa.lean": "ac6ddfc01c2080a218aa762c09ea49e7cfa722059b2055113344681214483955",
+    "corpus/public/reader/neurips2023-difficulty/lean/PaperDifficulty.lean": "84b6908489677c6dfcf342a5389890298568f9c3a481cdc58728b340abce7aae",
+    "corpus/public/reader/neurips2023-difficulty/content.json": "d9e02145105ecee4d9bd1dfab2fb7de9aa3888fbbb36222683d2fa1d9fe60118"
+  },
+  "source_image_review": [
+    {
+      "pdf_page": 18,
+      "image": ".tmp/twelve-root-audit/difficulty-p18.png",
+      "finding": "The appendix Theorem3 prose says J but the lowest displayed clause is I with U/U-squared; the main J statement is a different occurrence. Proposition1 actually squares Var, while Eq12 uses the usual unsquared variance term."
+    },
+    {
+      "pdf_page": 6,
+      "image": ".tmp/f10-main-author-transcription/page-06.png",
+      "finding": "Main Eq7 is I=U*C, Eq8 is the binary-mask theorem, Eq9 is the linear representation based on Eq3. Correct cross-paper stale references in rewritten prose."
+    },
+    {
+      "pdf_page": 7,
+      "image": ".tmp/f10-main-author-transcription/page-07.png",
+      "finding": "The unnumbered kappa equality explicitly defines C_x as I/U with reference input x; equal-data actual singleton-game counterexample addresses this ratio."
+    },
+    {
+      "pdf_page": 21,
+      "image": ".tmp/f10-author-transcription/formal-21.png",
+      "finding": "G4 printed coefficient and final support-size index are both different from actual context counting. G5 uses half expected squared loss and conflicting Sigma/Sigma-squared notation; normalizing loss and identifying true variances must be explicit."
+    }
+  ],
+  "machine_source_reading": [
+    {
+      "module": "lean/HarsanyiLib/Harsanyi/Extensions/DifficultyKappa.lean",
+      "assessment": "Actual nonzero-baseline one-ReLU singleton game, actual Gaussian map law, positive explicit noise scale, full-tail integral bounds, literal normalized C integral and strict kappa_I > kappa_C are connected. No final root compile claimed here."
+    },
+    {
+      "module": "corpus/public/reader/neurips2023-difficulty/lean/PaperDifficulty.lean",
+      "assessment": "Actual one-factor Gaussian Var2-vs4 witness, actual folded-trigger expectation and variance, independent Gaussian regression unique optimizer with unit variances and two actual masked polynomial G4 witnesses read. Generic context grouping still being implemented at this snapshot."
+    }
+  ],
+  "open_requirements": [
+    "root-f10-readable-local-premises",
+    "root-f10-original-vs-valid-component",
+    "root-f10-general-context-count",
+    "root-f10-main-appendix-lowest-variants",
+    "root-f10-regression-mean"
+  ],
+  "followup_source_reading": [
+    {
+      "reviewed_at": "2026-10-01T11:06:22.608062+00:00",
+      "path": "lean/HarsanyiLib/Harsanyi/Extensions/DifficultyCounting.lean",
+      "sha256": "c1d0a7b72914a0d10f8bd39411ce05cb7e1e971cbab3ea230414f5e3f6b8151f",
+      "finding": "Read complete general residual-subset bijection, explicit |L|>m zero case, double sum, cardinality grouping and uniform-average formulas. Paper multiorder_grouped_identity states i,j in N, i != j and m <= |N|-2, so source average has a nonempty context family. Final compile/report/consumer checks remain delegated and final-source binding pending."
+    }
+  ],
+  "followup_independent_validation": {
+    "reviewed_at": "2026-10-01T11:29:10.983112+00:00",
+    "status": "compiler_and_report_integrity_passed_pending_source_and_math_cross_review",
+    "independent_adapter_compile_exit_code": 0,
+    "compile_log": ".tmp/twelve-root-audit/f10-root-adapter-final-compile.log",
+    "compile_log_sha256": "0fd1964bf90c3e0f2d892fdc1a3d3e23d20b8edbbbc206951786c3b0966b2a5f",
+    "checked_declarations": 170,
+    "checked_source_files": 23,
+    "source_hash_mismatches": [],
+    "invalid_declarations": [],
+    "input_hashes": {
+      "corpus/public/reader/neurips2023-difficulty/content.json": "836d7abc277c4b6b6e1e7adc43cf40a3dd514402e8342c9e00bd06295b5c27fc",
+      "corpus/public/reader/neurips2023-difficulty/verification/report.json": "d337368c937611dcf31c22862a33be7d08b58f90377b7f93d5da405cf332bf51",
+      "corpus/public/reader/neurips2023-difficulty/lean/PaperDifficulty.lean": "a63b017113c224ac6945dd92b62a513299eca53478faf05b34efd80aa0bb8e36"
+    },
+    "scope": "Independent adapter compilation and report/source/axiom verification. Admission still requires final source-boundary review, mathematical cross-review and human cross-reference fixes."
+  }
+}

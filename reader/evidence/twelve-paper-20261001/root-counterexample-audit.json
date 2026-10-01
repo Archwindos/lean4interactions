@@ -1,0 +1,243 @@
+{
+  "status": "independently_checked_examples",
+  "recorded_at": "2026-10-01T09:04:08.919404+00:00",
+  "scope": "Exact rational algebra where noted; Shannon log evaluations are numerical checks alongside stated analytic inequalities; no general theorem completion asserted.",
+  "examples": [
+    {
+      "paper": "icml2022-transformation",
+      "source": "PDF14 B.2 third bullet",
+      "model": "X uniform {-1,1}; first preactivation X+2, second preactivation ReLU(X+2)-2; Y=1[X=1]",
+      "original_direction": ">=",
+      "prefix_co_information": 0,
+      "extended_co_information": 0.6931471805599453,
+      "analytic_values": [
+        "0",
+        "log 2 > 0"
+      ]
+    },
+    {
+      "paper": "icml2022-transformation",
+      "source": "PDF17 Eq25; PDF18 Eq27",
+      "model": "Two equally likely distinct scalar binary gates; for Eq27 one gate state per class so original class weights also normalize.",
+      "kappa": 1.0,
+      "gate_variance": 0.25,
+      "bandwidth_squared": 0.25,
+      "true_entropy": 0.6931471805599453,
+      "claimed_upper_bound": 0.5662191695169728,
+      "analytic_gap": "log(1+exp(-2/kappa)) > 0 for every kappa>0"
+    },
+    {
+      "paper": "icml2022-transformation",
+      "source": "PDF17 Eq26",
+      "review_status": "candidate under stochastic-gate interpretation; author must confirm source estimator setup",
+      "model": "X uniform +/-1, independent dropout B Bernoulli(1/2), gate Sigma=1[B*X>0]; removing dropout leaves 1[X>0].",
+      "actual_mutual_information": 0.21576155433883565,
+      "kappa": 10,
+      "bounds_with_original_or_removed_gate_variance": [
+        0.1244706577039707,
+        0.09500831117835351
+      ],
+      "both_bounds_less_than_true": true
+    },
+    {
+      "paper": "neurips2021-robustness",
+      "source": "supplement PDF9-10 H Eq14",
+      "network": "v(x)=sum_i x_i; x=(1,1,1,1), baseline=0; all pair differences vanish.",
+      "n": 4,
+      "alpha": "2/5",
+      "retained_k": 2,
+      "enumerated_mask_count": 6,
+      "actual_expected_output": "2",
+      "printed_formula_output": "12/5",
+      "exact_mismatch": true
+    },
+    {
+      "paper": "icml2023-decoder",
+      "source": "Theorem4.5; A.7 Eqs43-48",
+      "model": "M=N=4,K=2,L=2, real delta kernels and input, frequencies (0,1)/(1,0), targets 1-alpha/1+alpha with conjugate target frequencies; lambda1=lambda2=1.",
+      "gradient_each_layer": "(0,-2*alpha,2*alpha,0)",
+      "all_positive_step_analytic_obstruction": "Im H_(1,0)=-2*c*(1+c)<0, c=2*eta*alpha>0, whereas target 1+alpha is real.",
+      "numeric_example_scope": "Specific alpha=eta=1/4 illustrates the exact residual; the analytic imaginary-part obstruction applies to all positive step sizes under the listed original constraints.",
+      "alpha": "1/4",
+      "eta": "1/4",
+      "response_01": [
+        "3/4",
+        "7/32"
+      ],
+      "response_10": [
+        "5/4",
+        "-9/32"
+      ],
+      "positive_exact_loss": "65/512",
+      "source_constraint_alignment": {
+        "Eq43": "Both input DFT coefficients equal 1, so both lambda=1.",
+        "Eq44": "phi=((K-1)*(1-0)/4+(K-1)*(0-1)/4)*pi/2=0 < pi/2.",
+        "Eq45": "Both frequency transfer products of the two identity layers equal 1.",
+        "Eq46": "Each of the two layer sums is 2 at both frequencies.",
+        "real_parameters_and_target": "Real identity kernels; conjugate completion makes the target spectrum correspond to a real image. The objective remains the original two-frequency objective.",
+        "source_statement": "Main PDF7 expressly asserts a single gradient step can attain zero; appendix PDF24 gives these constraints."
+      }
+    },
+    {
+      "paper": "icml2023-decoder",
+      "source": "PDF5 Theorem4.2 derived conclusion (2)",
+      "model": "K=1, independent zero-mean real Gaussian weights in each single-channel layer, variance=1/4. Each frequency has the same scalar response.",
+      "second_moments_first_two_depths": [
+        "1/4",
+        "1/16"
+      ],
+      "analytic_statement": "The valid product identity gives SOM=(1/4)^L, strictly decreasing with depth. This addresses the unqualified increase claim, not the product identity.",
+      "formalization_status": "human/source algebra audit; source-model Lean counterexample adapter remains to be checked"
+    },
+    {
+      "paper": "neurips2023-difficulty",
+      "source": "G5 PDF21 Step3 after Eq28",
+      "model": "Independent Gaussian features with means(1,2), actual variances(1,2), constant target1.",
+      "scope": "Variance interpretation used by Step2. Original Sigma/Sigma-squared notation conflict must be independently retained; this does not silently resolve it.",
+      "normal_matrix": [
+        [
+          "2",
+          "2"
+        ],
+        [
+          "2",
+          "6"
+        ]
+      ],
+      "positive_determinant": "8",
+      "optimal_weights": [
+        "1/4",
+        "1/4"
+      ],
+      "weight_ratio": "1",
+      "reciprocal_variance_ratio": "2",
+      "conclusion": "Step2 retains means. Its Step3 inverse-variance-only conclusion does not follow for unequal feature means.",
+      "formalization_status": "exact rational normal-equation/positive-definiteness check; original-objective adapter remains to be checked",
+      "primary_unambiguous_equal_variance_witness": {
+        "model": "Two independent Gaussian features with means (1,2), both variances1; constant target1. The printed Sigma and Sigma-squared interpretations coincide at identity.",
+        "normal_matrix": [
+          [
+            2,
+            2
+          ],
+          [
+            2,
+            5
+          ]
+        ],
+        "determinant": 6,
+        "unique_optimal_weights": [
+          "1/6",
+          "1/3"
+        ],
+        "actual_weight_ratio": "1/2",
+        "printed_inverse_variance_ratio": "1",
+        "scope": "Step2 mean/variance ratio remains valid in this example. Step3 common inverse-variance proportionality fails without any covariance-notation repair. Earlier unequal-variance example retained as secondary."
+      }
+    },
+    {
+      "paper": "icml2023-decoder",
+      "source": "Assumption4.1 displayed Eqs6-7 versus Theorem4.2 second moment",
+      "review_status": "human-checked scope counterexample to the displayed moment conditions alone; not a refutation under actual independence",
+      "model": "K=1,L=2,single channel; U standard normal and independent symmetric sign B. W1=U, W2=B*U. Both marginal laws standard normal.",
+      "displayed_assumption_check": "Within-layer distinct channel conditions vacuous; E[W2*W1]=E[B]*E[U^2]=0=E[W2]*E[W1].",
+      "actual_second_moment": "E[|W2*W1|^2]=E[U^4]=3",
+      "factorized_formula": "E[|W1|^2]*E[|W2|^2]=1",
+      "interpretation_boundary": "The prose term irrelevant may intend full independence. Full independence gives the expected factorization; the displayed first-product equations do not.",
+      "machine_verification": "not claimed"
+    },
+    {
+      "id": "f04-eq24-negative-kernel-label-estimate",
+      "source": "Appendix E Eq.(24), PDF16-17",
+      "model": "Equiprobable x=0,1, Y=x, ReLU feature T=ReLU(x+1)=1,2; independent Gaussian feature-noise variance 1/(2 log2)>0. P=2, both class counts one.",
+      "exact_check": "Cross-kernel exp(-1/(2 sigma0^2))=1/2. Printed H estimate log2-log(3/2); printed weighted conditional term (1/2)log2. RHS=(1/2)log2-log(3/2)=log(2 sqrt2/3)<0 because 8<9. Actual I(T+epsilon;Y)>=0.",
+      "scope": "Refutes printed Eq24 equality/claimed bound with its actual 1/P normalization; does not refute Eq23 or silently substitute within-class normalization.",
+      "paper": "icml2022-transformation",
+      "source_path": "corpus/public/reader/icml2022-transformation/sources/formal.pdf",
+      "source_sha256": "ff0cdc30b3dd59c6a0e33a711fefa9db54a060b4b87fa1d5ae03a242474bc361",
+      "formalization_status": "Independent source/algebra check, not machine verification; author final package pending"
+    },
+    {
+      "id": "f04-eq29-total-correlation-upper-bound",
+      "source": "Appendix E Eq.(29), PDF17-18",
+      "model": "Equiprobable inputs -2,-1,1,2 and two identical ReLU neurons give gate samples 00,00,11,11. Synthesized samples 00,01,10,11 exactly realize independent Bernoulli(1/2) product with equal marginal rates. Var(Sigma)=1/2; sigma0^2=kappa/2>0.",
+      "exact_check": "True TC=log2. t=exp(-1/(2 sigma0^2)) is in (0,1). At each original sample, kernel numerator=2(1+t^2), denominator=(1+t)^2. Printed average=log[2(1+t^2)/(1+t)^2]<log2 because 2t>0.",
+      "scope": "Refutes the discrete-gate TC upper bound even with exact product-law sampling; not Monte Carlo error; exact TC identity Eq28 remains valid.",
+      "paper": "icml2022-transformation",
+      "source_path": "corpus/public/reader/icml2022-transformation/sources/formal.pdf",
+      "source_sha256": "ff0cdc30b3dd59c6a0e33a711fefa9db54a060b4b87fa1d5ae03a242474bc361",
+      "formalization_status": "Independent source/algebra check, not machine verification; author final package pending"
+    },
+    {
+      "id": "f10-g4-printed-multiorder-formula",
+      "paper": "neurips2023-difficulty",
+      "source": "Appendix G.4 PDF20-21, final display and preceding fixed-subset coefficient",
+      "source_path": "corpus/public/reader/neurips2023-difficulty/sources/formal.pdf",
+      "source_sha256": "068687d3930191bbb82d95ff2e509fb4f189a5c8c773ca1c616459527420664e",
+      "model": "All-ones input, zero input baseline, actual real multilinear networks, distinct pair i=1,j=2.",
+      "printed_final_witness": "N={1,2,3}, m=1, v(z)=z1*z2. The sole context {3} has mixed marginal 1. Printed final inner |L|=m only uses L={3}, whose triple dividend is zero, so printed RHS=0 while LHS=1.",
+      "coefficient_witness": "Even after changing only the final inner cardinality to |L|=l: N={1,2,3,4},m=2,v(z)=z1*z2*z3. Sole size-two context {3,4} gives LHS=1. Only dividend {1,2,3} is nonzero; wrong coefficient choose(2,1)/choose(2,2)=2, correct choose(1,1)/choose(2,2)=1.",
+      "scope": "Separate the printed equality from the valid qualitative decomposition and corrected combinatorial identity. Do not silently alter a displayed conclusion then label the original completely proved.",
+      "formalization_status": "Exact independent algebra; author final adapters pending"
+    },
+    {
+      "id": "f10-product-variance-extra-square",
+      "paper": "neurips2023-difficulty",
+      "source": "PDF18 Proposition1 in Appendix G2",
+      "source_path": "corpus/public/reader/neurips2023-difficulty/sources/formal.pdf",
+      "source_sha256": "068687d3930191bbb82d95ff2e509fb4f189a5c8c773ca1c616459527420664e",
+      "model": "One random variable X with actual Gaussian law N(0,2). Single-variable independence is vacuous and all moments exist.",
+      "exact_check": "Original formula has product_i(E[X_i]^2 + Var[X_i]^2) - product_i E[X_i]^2. For k=1 it equals Var(X)^2=4, while Var(product_i X_i)=Var(X)=2.",
+      "scope": "Only the printed variance clause is refuted. Product means remain valid; the following Eq12 uses the usual correct unsquared variance term. Preserve this distinction and the source difference from F08 PropositionG1. The public correct product-variance lemma is not a replacement for the original proposition.",
+      "formalization_status": "Root viewed official PDF18 and checked algebra; actual Gaussian adapter assigned to mathematical author."
+    },
+    {
+      "id": "f10-cross-sample-kappa-cancellation",
+      "paper": "neurips2023-difficulty",
+      "source": "Formal PDF7 Section3.2.2, unnumbered displayed definition of kappa; Eq7 on PDF6 defines U_S=I(S|x).",
+      "source_path": "corpus/public/reader/neurips2023-difficulty/sources/formal.pdf",
+      "source_sha256": "068687d3930191bbb82d95ff2e509fb4f189a5c8c773ca1c616459527420664e",
+      "model": {
+        "network": "v(t)=t^2",
+        "data": "x=1 and x=3, equally likely; population mean 2",
+        "baseline": "tau=1, r=2 for both x, exactly the source toward-mean baseline rule; clipping changes neither endpoint",
+        "interaction": "For singleton S: I_x(x)=U_x=x^2-4, so U_1=-3, U_3=5; I_x(x+epsilon)-I_x(x)=2*x*epsilon+epsilon^2. C_x(z)=I_x(z)/U_x and C_x(x)=1.",
+        "noise": "Independent epsilon~N(0,sigma^2), sigma=1/10, untruncated."
+      },
+      "exact_check": {
+        "definitions": "A_x=E|2*x*epsilon+epsilon^2|, m=E|epsilon|=sigma*sqrt(2/pi), q=E(epsilon^2)=sigma^2.",
+        "bounds": "2*x*m-q <= A_x <= 2*x*m+q by triangle and reverse triangle inequalities.",
+        "left": "(A_1+A_3)/8",
+        "printed_right": "A_1/6+A_3/10",
+        "difference": "(3*A_3-5*A_1)/120 >= (m-q)/15 > 0, since sigma=1/10 and pi<4 imply sqrt(2/pi)>sigma.",
+        "numeric_sanity_only": {
+          "left": 0.07978845608028655,
+          "right": 0.07446922567493412,
+          "positive_lower_bound": 0.00465256373868577,
+          "actual_difference": 0.005319230405352426
+        }
+      },
+      "scope": "Refutes only the cross-sample unweighted cancellation equality. Per-sample I_x=U_x*C_x is correct; the properly |U_x|-weighted formula is a distinct identity. Does not refute the definition of kappa itself or the empirical plots.",
+      "formalization_status": "Root human proof and numerical sanity check; agent independent source review and actual Gaussian Lean adapter pending.",
+      "preferred_literal_relu_witness": {
+        "network": "v(t)=max(t-3/2,0), one actual ReLU; same data x=1,3 and reference r=2, with arbitrary nonzero output baseline v(r)=1/2.",
+        "reference_interactions": "U_1=-1/2, U_3=1; C_x(x)=1 for both samples.",
+        "noise": "Independent untruncated N(0,1/100).",
+        "actual_changes": "A_1=E(epsilon-1/2)_+; A_3=E|max(3/2+epsilon,0)-3/2|=m-E(-epsilon-3/2)_+.",
+        "bound_proof": "For a>0, (z-a)_+ <= z^2/(4a), from (z-2a)^2>=0 when z>a. Hence A_1<=q/2 and A_3>=m-q/6.",
+        "left": "2*(A_1+A_3)/3",
+        "printed_right": "A_1+A_3/2",
+        "difference": "(A_3-2*A_1)/6 >= (m-7*q/6)/6 >0 for sigma=1/10 (pi<4 suffices).",
+        "numeric_sanity_only": {
+          "left": 0.05319230761763472,
+          "right": 0.039894233386308806,
+          "positive_lower_bound": 0.011353631568936646
+        },
+        "status": "Root human derivation complete; author review and actual Gaussian machine binding pending. Prefer this witness so no question about exact quadratic representability arises.",
+        "equivalent_normalized_input_version": "Translate inputs by -2: data x=-1,+1 equally likely have mean0 and variance1; tau=1, r=0, v(t)=max(t+1/2,0). Then v(r)=1/2, U=(-1/2,1), and all A_1/A_3, ratio and Gaussian bounds above are identical. Prefer this presentation in the final package.",
+        "difference_direction": "The displayed difference is LEFT minus RIGHT, kappa_I-kappa_C=(A_high-2*A_low)/6>0. A root coordination message reversed its verbal label; independent mathematical-author review caught that label error before final packaging.",
+        "machine_parameter_plan": "For the normalized-input ReLU witness, use sigma=m0/[8(1+m0)] where m0=E|Z| for actual standard Gaussian Z and m0>0. Then 0<sigma<1/8, m=sigma*m0, q=sigma² and m>7q/6. The actual Gaussian scale and moment laws must be proved, not supplied as assumptions. The numerical sigma=1/10 human illustration is separate from this chosen machine instance."
+      }
+    }
+  ]
+}

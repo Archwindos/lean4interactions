@@ -10,19 +10,25 @@ from datetime import datetime, timezone
 from pathlib import Path
 from urllib.parse import urlparse
 from urllib.request import urlopen
+from evidence_paths import EVIDENCE
 ROOT=Path(__file__).resolve().parents[1];WORK=Path(__file__).resolve().parent
 TOOLS=ROOT/'research/reader-redesign-20260930/browser-tools'
 sys.path.insert(0,str(TOOLS/'python'));os.environ['PLAYWRIGHT_BROWSERS_PATH']=str(TOOLS/'browsers')
 from playwright.sync_api import sync_playwright
 
-def main(base):
+def main(base,report_name='browser-checks.json',prefix=''):
+ if Path(report_name).name!=report_name or not report_name.endswith('.json') or report_name.startswith('root-'):
+  raise ValueError('Expected a local non-root JSON report name')
+ if prefix and not prefix.replace('-','').isalnum():raise ValueError('Expected a simple screenshot prefix')
  started=datetime.now(timezone.utc).isoformat()
- bound_paths=[WORK/'preview/data.public.json',WORK/'preview/data.public.js',WORK/'evidence/build-manifest.json',WORK/'preview/reader.js',WORK/'preview/reader.css',Path(__file__).resolve()]
+ bound_paths=[WORK/'preview/data.public.json',WORK/'preview/data.public.js',EVIDENCE/'build-manifest.json',WORK/'preview/reader.js',WORK/'preview/reader.css',Path(__file__).resolve(),WORK/'evidence_paths.py',ROOT/'corpus/public/reader/input-manifest.json']
  def hashes():return {str(p.relative_to(ROOT)):hashlib.sha256(p.read_bytes()).hexdigest() for p in bound_paths}
  before=hashes()
- data=json.loads((WORK/'preview/data.public.json').read_text());manifest=json.loads((WORK/'evidence/build-manifest.json').read_text())
+ data=json.loads((WORK/'preview/data.public.json').read_text());manifest=json.loads((EVIDENCE/'build-manifest.json').read_text())
  checks=[];errors=[];external=[];screenshots=[]
  def check(name,value,detail=None):checks.append({'name':name,'passed':bool(value),'detail':detail})
+ configured=json.loads(bound_paths[-1].read_text())
+ check('explicit-paper-manifest',{p['id'] for p in data['papers']}=={p['paper_id'] for p in configured['papers']})
  for path in bound_paths:
   if path.is_relative_to(WORK/'preview'):
    relative=path.relative_to(WORK/'preview').as_posix()
@@ -40,8 +46,30 @@ def main(base):
    check('math:'+label,not page.evaluate('window.READER_MATH_ERRORS||[]'),page.evaluate('window.READER_MATH_ERRORS||[]'))
    check('layout:'+label,page.evaluate('document.documentElement.scrollWidth<=innerWidth'))
   def screenshot(name):
-   path=WORK/'evidence'/name;page.screenshot(path=str(path));screenshots.append({'path':str(path.relative_to(WORK)),'url':page.url,'sha256':hashlib.sha256(path.read_bytes()).hexdigest(),'viewport':page.viewport_size})
+   if prefix:name=prefix+'-'+name
+   path=EVIDENCE/name;page.screenshot(path=str(path));screenshots.append({'path':str(path.relative_to(WORK)),'url':page.url,'sha256':hashlib.sha256(path.read_bytes()).hexdigest(),'viewport':page.viewport_size})
   page.goto(base,wait_until='networkidle');page.evaluate("localStorage.setItem('proof-reader-language','zh')");page.reload(wait_until='networkidle');inspect('home');screenshot('01-full-directory-home.png')
+  # Every source page is fetched from the actual server, bound to the build's
+  # byte hash, and decoded by Chromium. This checks all pages rather than a few
+  # proof screenshots; interpretation of their mathematics remains separate.
+  assets={entry['path']:entry['sha256'] for entry in manifest['public_file_allowlist']}
+  image_rows=[]
+  for paper in data['papers']:
+   for source in paper['sources']:
+    check('all-source-page-images:'+source['id'],set(source['page_images'])=={str(i) for i in range(1,source['total_pages']+1)})
+    response=page.request.get(base+source['public_path'].lstrip('/'))
+    check('source-pdf-bytes:'+source['id'],response.ok and hashlib.sha256(response.body()).hexdigest()==source['sha256'])
+    response.dispose()
+    for number,path in source['page_images'].items():
+     response=page.request.get(base+path.lstrip('/'))
+     check('source-image-bytes:'+source['id']+':'+number,response.ok and hashlib.sha256(response.body()).hexdigest()==assets[path.lstrip('/')])
+     response.dispose();image_rows.append({'source_id':source['id'],'pdf_page':number,'url':base+path.lstrip('/')})
+  decoded=page.evaluate('''async rows=>{
+   const output=[];let next=0;
+   async function worker(){while(next<rows.length){const row=rows[next++],img=new Image();img.src=row.url;try{await img.decode();output.push({...row,width:img.naturalWidth,height:img.naturalHeight,decoded:true});}catch(e){output.push({...row,decoded:false,error:String(e)});}img.remove();}}
+   await Promise.all(Array.from({length:4},worker));return output;
+  }''',image_rows)
+  for row in decoded:check('source-image-decodes:'+row['source_id']+':'+row['pdf_page'],row['decoded'] and row['width']>0 and row['height']>0)
   page.locator('.paper-search input').fill('Shapley');check('search-shapley-cross-paper',len(set(page.locator('[data-search-result]').evaluate_all('xs=>xs.map(x=>x.href.split("/")[4])')))>=3)
   screenshot('02-cross-paper-search.png')
   for paper in data['papers']:
@@ -83,7 +111,7 @@ def main(base):
   english_pages=0
   page.locator('#language-select').select_option('en');page.wait_for_function("window.READER_LANGUAGE==='en'")
   def core_cjk(selectors):
-   return page.locator(selectors).evaluate_all("xs=>xs.map(x=>{const y=x.cloneNode(true);y.querySelectorAll('.katex,code,pre,#language-select').forEach(z=>z.remove());return y.textContent}).filter(x=>/[\u3400-\u9fff]/.test(x))")
+   return page.locator(selectors).evaluate_all("xs=>xs.map(x=>{const y=x.cloneNode(true);y.querySelectorAll('.katex,code,pre,.raw-source,#language-select').forEach(z=>z.remove());return y.textContent}).filter(x=>/[\u3400-\u9fff]/.test(x))")
   for r in data['math']['results']+data['math']['shared_proofs']:
    shared=r in data['math']['shared_proofs']
    path=('proofs/'+r['id']+'/') if shared else f"papers/{r['paper_id']}/results/{r['id']}/"
@@ -95,12 +123,19 @@ def main(base):
    check('language-persists:'+r['id'],page.evaluate("window.READER_LANGUAGE==='en' && localStorage.getItem('proof-reader-language')==='en'"))
    if page.locator('#tab-rewrite').count():
     page.locator('#tab-rewrite').click();inspect('english-rewrite:'+r['id'])
-    cjk=core_cjk('.proof-step,.condition,.definition-item,.proof-idea');check('english-proof-body:'+r['id'],not cjk,cjk)
+    cjk=core_cjk('.statement-block,.proof-step,.condition,.definition-item,.proof-idea,.shared-intro,.caveat-body');check('english-proof-body:'+r['id'],not cjk,cjk)
     check('english-real-proof-steps:'+r['id'],page.locator('.proof-step').count()>0 or not r.get('proof_steps'))
    if page.locator('#tab-lean').count():
     page.locator('#tab-lean').click();inspect('english-lean:'+r['id']);cjk=core_cjk('.lean-intro,.lean-map');check('english-lean-display:'+r['id'],not cjk,cjk)
    for tab in ('statement','original-proof'):
-    if page.locator('#tab-'+tab).count():page.locator('#tab-'+tab).click();inspect('english-source:'+r['id']+':'+tab)
+    if page.locator('#tab-'+tab).count():
+     page.locator('#tab-'+tab).click()
+     page.locator('#reader-panel details').evaluate_all('xs=>xs.forEach(x=>x.open=true)')
+     inspect('english-source:'+r['id']+':'+tab)
+     labels=core_cjk('#reader-panel .source-links,#reader-panel .source-notes,#reader-panel details>summary,#reader-panel figcaption,#reader-panel .error-message,#reader-panel .original-section>h2:first-child')
+     check('english-source-labels:'+r['id']+':'+tab,not labels,labels)
+     alternatives=page.locator('#reader-panel img[alt]').evaluate_all("xs=>xs.map(x=>x.alt).filter(x=>/[\u3400-\u9fff]/.test(x))")
+     check('english-source-image-alt:'+r['id']+':'+tab,not alternatives,alternatives)
    if page.locator('#tab-rewrite').count():page.locator('#tab-rewrite').click();check('return-from-original-keeps-language:'+r['id'],page.evaluate("window.READER_LANGUAGE==='en'"))
   check('all-english-proof-pages',english_pages==len(data['math']['results'])+len(data['math']['shared_proofs']),english_pages)
   for path,label in [('', 'home'),('about/', 'about'),('symbols/', 'symbols')]+[(f"papers/{p['id']}/",p['id']) for p in data['papers']]:
@@ -124,6 +159,17 @@ def main(base):
   page.goto(base+'symbols/',wait_until='networkidle');check('symbols-compact-default',page.locator('.symbol-card[open]').count()==0);inspect('symbols');screenshot('05-symbol-table.png')
   page.locator('.symbol-controls select').select_option('iclr2024-sparse');page.locator('.symbol-controls input').fill('中心化');check('symbol-filter-search',page.locator('.symbol-card').count()>0)
   page.goto(base+'symbols/?paper=iclr2024-generalizable#sym-output-baseline',wait_until='networkidle');check('symbol-deeplink-open',page.locator('#sym-output-baseline').get_attribute('open') is not None);inspect('symbol-deeplink')
+  page.locator('#language-select').select_option('en');page.wait_for_function("window.READER_LANGUAGE==='en'")
+  for paper in data['papers']:
+   page.goto(base+'symbols/?paper='+paper['id'],wait_until='networkidle')
+   page.locator('.symbol-card').evaluate_all('xs=>xs.forEach(x=>x.open=true)')
+   for symbol in data['symbols']:
+    if not any(mapping['paper_id']==paper['id'] for mapping in symbol.get('paper_mappings',[])):continue
+    card=page.locator('[id="'+symbol['id']+'"]')
+    leftovers=card.evaluate("x=>{const y=x.cloneNode(true);y.querySelectorAll('.katex,code,pre,.raw-source').forEach(z=>z.remove());return /[\u3400-\u9fff]/.test(y.textContent)?y.textContent:null}")
+    check('english-symbol-expanded:'+paper['id']+':'+symbol['id'],not leftovers,leftovers)
+   inspect('english-symbol-details:'+paper['id'])
+  page.locator('#language-select').select_option('zh');page.wait_for_function("window.READER_LANGUAGE==='zh'")
   for rec in data.get('review_records',[]):
    page.goto(base+'reviews/'+rec['id']+'/',wait_until='load');page.wait_for_selector('h1');inspect('review:'+rec['id'])
   page.set_viewport_size({'width':390,'height':844})
@@ -133,9 +179,14 @@ def main(base):
  after=hashes();check('bound-inputs-unchanged-during-browser-run',before==after,{'before':before,'after':after})
  for entry in manifest['inputs']:
   path=ROOT/entry['path'];check('build-input-current:'+entry['path'],path.is_file() and hashlib.sha256(path.read_bytes()).hexdigest()==entry['sha256'])
- report={'status':'passed' if all(c['passed'] for c in checks) else 'failed','scope':'browser_software_and_navigation_only','started_at':started,'finished_at':datetime.now(timezone.utc).isoformat(),'snapshot_hashes':{'before':before,'after':after},'build_generated_at':manifest['generated_at'],'checks':checks,'screenshots':screenshots,'js_errors':errors,'external_requests':external,'browser':'Chromium actual local installation'}
- (WORK/'evidence/browser-checks.json').write_text(json.dumps(report,ensure_ascii=False,indent=2)+'\n')
+ report={'status':'passed' if all(c['passed'] for c in checks) else 'failed','scope':'browser_software_and_navigation_only','started_at':started,'finished_at':datetime.now(timezone.utc).isoformat(),'snapshot_hashes':{'before':before,'after':after},'build_generated_at':manifest['generated_at'],
+         'paper_count':len(data['papers']),'result_count':len(data['math']['results']),'shared_proof_count':len(data['math']['shared_proofs']),
+         'source_file_count':sum(len(p['sources']) for p in data['papers']),'source_pages_decoded':len(decoded),
+         'matrix':{'chinese_result_pages':len(data['math']['results']),'chinese_shared_pages':len(data['math']['shared_proofs']),'english_result_and_shared_pages':english_pages,'source_tabs':'Every available source statement/proof tab, including expanded English labels and image alternative text','symbol_details':'All admitted papers and all their actual symbol mappings expanded'},
+         'checks':checks,'screenshots':screenshots,'js_errors':errors,'external_requests':external,'browser':'Chromium actual local installation'}
+ (EVIDENCE/report_name).write_text(json.dumps(report,ensure_ascii=False,indent=2)+'\n')
  print(json.dumps({'status':report['status'],'checks':len(checks),'failure_count':sum(not c['passed'] for c in checks),'failures':[{'name':c['name'],'detail':str(c.get('detail',''))[:300]} for c in checks if not c['passed']][:30],'screenshots':len(screenshots)},ensure_ascii=False))
  return 0 if report['status']=='passed' else 1
 if __name__=='__main__':
- a=argparse.ArgumentParser();a.add_argument('--base',default='http://127.0.0.1:8001/');raise SystemExit(main(a.parse_args().base))
+ a=argparse.ArgumentParser();a.add_argument('--base',default='http://127.0.0.1:8001/');a.add_argument('--report-name',default='browser-checks.json');a.add_argument('--screenshot-prefix',default='')
+ args=a.parse_args();raise SystemExit(main(args.base,args.report_name,args.screenshot_prefix))

@@ -1,0 +1,40 @@
+                  Bayesian Neural Networks Avoid Encoding Complex and Perturbation-Sensitive Concepts
+
+A. Discussion on literature in representation capacities of BNNs
+Many studies investigated the representation capacity of BNNs from different perspectives. Gal & Smith (2018) and Carbone
+et al. (2020) proved that BNNs were robust to adversarial attacks. Kristiadi et al. (2020) proved that BNNs could mitigate the
+over-confidence problem in standard ReLU networks. Wenzel et al. (2020) considered that the poor performance of BNNs
+was due to the inappropriate prior distribution of weights in the BNN, and a series of studies (Wu et al., 2019; Krishnan et al.,
+2020; Fortuin et al., 2022) found that using carefully-designed prior distributions of weights could improve the performance
+of the BNN. Zhang et al. (2022) also showed that adding adversarial perturbations to weights during training could improve
+the performance of the BNN. Besides, Foong et al. (2020) proved that using either fully-factorized Gaussian distributions or
+dropout operations to approximate the posterior distribution of a BNN would lead to inaccurate uncertainty estimation of the
+network prediction. Unlike previous studies, we focus on the conceptual representation of BNNs, and theoretically prove
+that mean-field variational BNNs are less likely to encode complex interactive concepts than standard DNNs.
+
+B. Discussion on literature in interactions in neural networks
+Interactions in game theory are often used to explain neural networks and are closely related to the quantification of
+concepts. Grabisch & Roubens (1999) first proposed the Shapley interaction index, and Lundberg et al. (2018) later used this
+index to explain tree ensembles. Janizek et al. (2021) explained the pairwise feature interaction in DNNs, while Sundararajan
+et al. (2020) proposed the Shapley Taylor interaction index to quantify interactions among multiple input variables. Ren
+et al. (2023a) used game-theoretic interactions to analyze the emergence of concepts in the training of neural networks, and
+proved the faithfulness and sparsity of such formulation of concepts. In this paper, we follow the definition of concepts
+in Ren et al. (2023a), and prove BNNs’ tendency to avoid encoding high-order (complex) concepts.
+
+C. Discussion on literature in the connection between adversarial robustness and interpretability
+Recent studies have shown that adversarial robustness is closely related to the interpretability of neural networks. Etmann
+et al. (2019) discovered and explained the phenomenon that adversarially robust models exhibit simpler and more human-
+interpretable saliency maps. Engstrom et al. (2019) demonstrated that adversarially robust models showed clear human-
+recognizable features when using the optimization-based feature visualization method (Olah et al., 2017), and the mapping
+from input images to intermediate features of the model is approximately invertible. Ilyas et al. (2019) demonstrated that
+adversarial samples can be attributed to the existence of non-robust features (features that are noisy and not interpretable
+to humans, but are highly predictive). Ren et al. (2021) showed that high-order (complex) interactive concepts encoded
+by neural networks are vulnerable to adversarial attacks, and that adversarially-trained DNNs encode more discriminative
+low-order (simple) interactive concepts than standard DNNs. In this paper, we prove that BNNs tend to avoid encoding
+high-order (complex) interactive concepts, which implies that BNNs may exhibit good adversarial robustness, from the
+perspective of conceptual representations.
+
+
+
+
+                                                              12

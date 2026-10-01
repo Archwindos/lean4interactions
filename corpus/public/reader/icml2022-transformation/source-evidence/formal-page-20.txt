@@ -1,0 +1,67 @@
+                         Towards Theoretical Analysis of Transformation Complexity of ReLU DNNs
+
+Let θDNN denote parameters in the DNN. The gradient of θDNN can be calculated as follows.
+
+                                           L     n
+                                                     (                      D
+                                                                                                )
+                                                                                     d
+                          ∂Loss    1 XX                  ∂f (σl ; θ̂f ) X 1 ∂q(σl,i     )             ∂σl,i
+                                =−                                     +    d       d
+                                                                                                                                   (40)
+                          ∂θDNN    n  i=1
+                                                            ∂σl,i        q(σl,i ) ∂σl,i              ∂θDNN
+                                          l=1                               d
+
+
+We consider Z(θf ) as a constant in the computation of          ∂Loss
+                                                                ∂ θ̂DNN
+                                                                        .
+                                                    d
+                                 ∂σl,i         ∂q(σl,i )
+To enable the computation of    ∂θDN N   and       d
+                                                ∂σl,i
+                                                         ,   we can approximate the ReLU operation using the following Swish
+function (Ramachandran et al., 2017).
+
+                                                     σl ≈ sigmoid(βx)
+                                                                                                                                   (41)
+                                          ReLU(x) = x ⊙ σl ≈ x ⊙ sigmoid(βx)
+
+where ⊙ denotes the element-wise multiplication.
+According to Eq. (32), the prior distribution q(σl ) is approximated as follows.
+
+                                                                                ∂q(σld )
+                                    q(σld ) ≈ 1 − p̂ + σld (2p̂ − 1),                    ≈ 2p̂ − 1                                 (42)
+                                                                                 ∂σld
+
+In implementation, the EBM is a bottom-up ConvNet with six convolutional layers, which takes σl as an input and outputs a
+scalar. During the training phase, we firstly train the EBM using Eq. (38) for every batch of training data. The EBM and the
+original DNN are trained separately. I.e. when training the EBM, parameters in the original DNN are fixed, and vice versa.
+
+G. More Experimental Details, Results, and Discussions
+G.1. More experimental details
+Recall that Σl = {σl } denotes the set of gating states σl among all samples X. In this paper, we randomly sample 2000
+images from the training set of the each dataset for the calculation of the transformation complexity. Thus, X denotes the
+set of 2000 randomly sampled images that are used for analysis.
+
+G.2. The value of κ used in the KDE approach
+In this section, we discuss about the value of the hyper-parameter κ used in the KDE approach. Note that the features of
+convolutional layers usually contain far more dimensions than features of fully-connected layers. Therefore, we set κ = 0.04
+for gating layers following each convolutional layer, and κ = 0.01 for gating layers following each FC layer.
+We also tested the effects of different κ values to the quantification of the complexity. Figure 10 shows the complexity
+I(X; Σ) and I(Σ; Y ), which were calculated on MLP-α networks learned with different κ values on the MNIST dataset.
+The κ value affected the scale of the complexity value, but it did not affect the trend of the complexity change during the
+training process. Thus, given a fixed κ value, the complexity of different DNNs could be fairly compared.
+
+G.3. The classification accuracy of DNNs in comparative studies
+This section contains more details of DNNs in comparative studies of the paper. We trained five types of DNNs on the
+MNIST dataset and the CIFAR-10 dataset, and trained three types of DNNs on the CelebA dataset and the Pascal VOC 2012
+dataset. Table 2 reports the testing accuracy of the trained DNNs.
+
+                              Table 2. The classification accuracy of DNNs on different datasets.
+                (a) On the MNIST and CIFAR-10 datasets.                      (b) On the CelebA and Pascal VOC 2012 datasets.
+              MLP     LeNet-5   revised VGG-11       ResNet-20        ResNet-32                        ResNet-18   ResNet-34   VGG-16
+  MNIST      96.52%   97.41%         99.00%           98.70%           98.24%            CelebA         80.25%      80.91%     89.70%
+ CIFAR-10    52.52%    61.5%         84.53%           81.75%           79.76%        Pascal VOC 2012    67.99%      64.27%     62.50%
+

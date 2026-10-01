@@ -1,0 +1,610 @@
+{
+  "status": "passed",
+  "scope": "Three transferred public modules only; actual-model declarations/types and transitive axiom audit, not complete F06 admission.",
+  "source_hashes": {
+    "lean/HarsanyiLib/Harsanyi/Extensions/DecoderValid.lean": "542fc9dcfd7f73000018e42af4aa2eedae646ff7c34318d6b0a94d4560e0892f",
+    "lean/HarsanyiLib/Harsanyi/Extensions/DecoderParameterCounterexamples.lean": "069193f4098858083765aacb585991b4f479d758c010a9500cd9bb58300c4b81",
+    "lean/HarsanyiLib/Harsanyi/Extensions/DecoderWeakIndependence.lean": "4bc4ca82421923171e4f43c6a2093d5bfe76ef541043a32e01299b6d55f2aa46",
+    ".tmp/decoder-transfer/Audit.lean": "5def877ed0c8e3d9aa196627cf2e903d045cc54025732bf9f79054a3adc8bd5f",
+    ".tmp/decoder-transfer/types-and-axioms.log": "b8079602247f841b275e214c4a9fc14cebf0a380f986419d568ca6cdcc7c556f",
+    ".tmp/decoder-valid-parameters-lake-build.log": "e7c6f0356d61498c1cb51f7e0e86b7cb75f625322253ea0eafee2c27cc679927",
+    ".tmp/decoder-weak-lake-build.log": "1ceb8f2104893ce88948d2b829816f69f0ebaab5aabe7225794e15bbf96443ae"
+  },
+  "build_commands": [
+    {
+      "command": "lake -d lean/HarsanyiLib build Harsanyi.Extensions.DecoderValid Harsanyi.Extensions.DecoderParameterCounterexamples",
+      "exit_code": 0
+    },
+    {
+      "command": "lake -d lean/HarsanyiLib build Harsanyi.Extensions.DecoderWeakIndependence",
+      "exit_code": 0
+    },
+    {
+      "command": "lake -d lean/HarsanyiLib env lean .tmp/decoder-transfer/Audit.lean",
+      "exit_code": 0
+    }
+  ],
+  "actual_declarations": 71,
+  "declarations": [
+    {
+      "name": "Harsanyi.Frequency.Valid.cropIndex",
+      "axioms": [
+        "propext",
+        "Quot.sound"
+      ]
+    },
+    {
+      "name": "Harsanyi.Frequency.Valid.crop",
+      "axioms": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ]
+    },
+    {
+      "name": "Harsanyi.Frequency.Valid.mixingAlpha",
+      "axioms": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ]
+    },
+    {
+      "name": "Harsanyi.Frequency.Valid.inverse_dft2_character",
+      "axioms": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ]
+    },
+    {
+      "name": "Harsanyi.Frequency.Valid.crop_dft",
+      "axioms": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ]
+    },
+    {
+      "name": "Harsanyi.Frequency.Valid.croppedOffsetLayer",
+      "axioms": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ]
+    },
+    {
+      "name": "Harsanyi.Frequency.Valid.cropped_offset_layer_dft",
+      "axioms": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ]
+    },
+    {
+      "name": "Harsanyi.Frequency.Valid.validLayer",
+      "axioms": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ]
+    },
+    {
+      "name": "Harsanyi.Frequency.Valid.valid_layer_eq_crop",
+      "axioms": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ]
+    },
+    {
+      "name": "Harsanyi.Frequency.Valid.valid_index_bounds",
+      "axioms": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ]
+    },
+    {
+      "name": "Harsanyi.Frequency.Valid.valid_indices_no_wrap",
+      "axioms": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ]
+    },
+    {
+      "name": "Harsanyi.Frequency.Valid.valid_layer_dft",
+      "axioms": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ]
+    },
+    {
+      "name": "Harsanyi.Frequency.Valid.cropped_offset_layer_dft_bias",
+      "axioms": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ]
+    },
+    {
+      "name": "Harsanyi.Frequency.Valid.realValidLayer",
+      "axioms": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ]
+    },
+    {
+      "name": "Harsanyi.Frequency.Valid.real_valid_layer_embedding",
+      "axioms": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ]
+    },
+    {
+      "name": "Harsanyi.Frequency.Valid.deltaKernel",
+      "axioms": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ]
+    },
+    {
+      "name": "Harsanyi.Frequency.Valid.real_valid_constant_delta",
+      "axioms": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ]
+    },
+    {
+      "name": "Harsanyi.Frequency.Valid.actual_valid_output_frequency_zero",
+      "axioms": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ]
+    },
+    {
+      "name": "Harsanyi.Frequency.Valid.original_constant_spectrum",
+      "axioms": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ]
+    },
+    {
+      "name": "Harsanyi.Frequency.Valid.actual_mixing_alpha_zero",
+      "axioms": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ]
+    },
+    {
+      "name": "Harsanyi.Frequency.Valid.printedValidAlpha",
+      "axioms": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ]
+    },
+    {
+      "name": "Harsanyi.Frequency.Valid.frequencyDifference",
+      "axioms": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ]
+    },
+    {
+      "name": "Harsanyi.Frequency.Valid.witness_frequency_difference",
+      "axioms": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ]
+    },
+    {
+      "name": "Harsanyi.Frequency.Valid.witness_grid_frequency_difference",
+      "axioms": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ]
+    },
+    {
+      "name": "Harsanyi.Frequency.Valid.printed_valid_alpha_value",
+      "axioms": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ]
+    },
+    {
+      "name": "Harsanyi.Frequency.Valid.actual_valid_equation17_counterexample",
+      "axioms": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ]
+    },
+    {
+      "name": "Harsanyi.Frequency.Valid.exponential_sine_factor",
+      "axioms": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ]
+    },
+    {
+      "name": "Harsanyi.Frequency.Valid.geometric_sine_quotient",
+      "axioms": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ]
+    },
+    {
+      "name": "Harsanyi.Frequency.Valid.geometric_real_sine_quotient",
+      "axioms": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ]
+    },
+    {
+      "name": "Harsanyi.Frequency.Parameters.gaussianKernelSpace",
+      "axioms": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ]
+    },
+    {
+      "name": "Harsanyi.Frequency.Parameters.gaussian_kernel_coordinate_law",
+      "axioms": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ]
+    },
+    {
+      "name": "Harsanyi.Frequency.Parameters.gaussian_kernel_independent",
+      "axioms": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ]
+    },
+    {
+      "name": "Harsanyi.Frequency.Parameters.kernelSOM",
+      "axioms": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ]
+    },
+    {
+      "name": "Harsanyi.Frequency.Parameters.actual_kernel_som",
+      "axioms": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ]
+    },
+    {
+      "name": "Harsanyi.Frequency.Parameters.std_character_eight_four",
+      "axioms": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ]
+    },
+    {
+      "name": "Harsanyi.Frequency.Parameters.phase_sum_one",
+      "axioms": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ]
+    },
+    {
+      "name": "Harsanyi.Frequency.Parameters.phase_sum_two_40",
+      "axioms": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ]
+    },
+    {
+      "name": "Harsanyi.Frequency.Parameters.phase_sum_four_40",
+      "axioms": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ]
+    },
+    {
+      "name": "Harsanyi.Frequency.Parameters.phase_sum_dc",
+      "axioms": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ]
+    },
+    {
+      "name": "Harsanyi.Frequency.Parameters.kernel_size_one_som",
+      "axioms": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ]
+    },
+    {
+      "name": "Harsanyi.Frequency.Parameters.kernel_size_two_som",
+      "axioms": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ]
+    },
+    {
+      "name": "Harsanyi.Frequency.Parameters.actual_kernel_size_growth_counterexample",
+      "axioms": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ]
+    },
+    {
+      "name": "Harsanyi.Frequency.Parameters.kernel_size_two_dc_ratio",
+      "axioms": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ]
+    },
+    {
+      "name": "Harsanyi.Frequency.Parameters.kernel_size_four_dc_ratio",
+      "axioms": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ]
+    },
+    {
+      "name": "Harsanyi.Frequency.Parameters.actual_kernel_dc_ratio_counterexample",
+      "axioms": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ]
+    },
+    {
+      "name": "Harsanyi.Frequency.WeakIndependence.fairSignLaw",
+      "axioms": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ]
+    },
+    {
+      "name": "Harsanyi.Frequency.WeakIndependence.signGaussianSpace",
+      "axioms": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ]
+    },
+    {
+      "name": "Harsanyi.Frequency.WeakIndependence.signValue",
+      "axioms": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ]
+    },
+    {
+      "name": "Harsanyi.Frequency.WeakIndependence.W1",
+      "axioms": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ]
+    },
+    {
+      "name": "Harsanyi.Frequency.WeakIndependence.W2",
+      "axioms": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ]
+    },
+    {
+      "name": "Harsanyi.Frequency.WeakIndependence.measurable_w1",
+      "axioms": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ]
+    },
+    {
+      "name": "Harsanyi.Frequency.WeakIndependence.measurable_w2",
+      "axioms": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ]
+    },
+    {
+      "name": "Harsanyi.Frequency.WeakIndependence.actual_sign_gaussian_independence",
+      "axioms": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ]
+    },
+    {
+      "name": "Harsanyi.Frequency.WeakIndependence.joint_map_split",
+      "axioms": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ]
+    },
+    {
+      "name": "Harsanyi.Frequency.WeakIndependence.actual_w1_law",
+      "axioms": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ]
+    },
+    {
+      "name": "Harsanyi.Frequency.WeakIndependence.actual_w2_law",
+      "axioms": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ]
+    },
+    {
+      "name": "Harsanyi.Frequency.WeakIndependence.standard_gaussian_fourth_moment",
+      "axioms": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ]
+    },
+    {
+      "name": "Harsanyi.Frequency.WeakIndependence.actual_sign_mean_zero",
+      "axioms": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ]
+    },
+    {
+      "name": "Harsanyi.Frequency.WeakIndependence.actual_w1_mean_zero",
+      "axioms": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ]
+    },
+    {
+      "name": "Harsanyi.Frequency.WeakIndependence.actual_w2_mean_zero",
+      "axioms": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ]
+    },
+    {
+      "name": "Harsanyi.Frequency.WeakIndependence.actual_first_product_zero",
+      "axioms": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ]
+    },
+    {
+      "name": "Harsanyi.Frequency.WeakIndependence.actual_first_product_factorization",
+      "axioms": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ]
+    },
+    {
+      "name": "Harsanyi.Frequency.WeakIndependence.actual_product_second_moment",
+      "axioms": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ]
+    },
+    {
+      "name": "Harsanyi.Frequency.WeakIndependence.actual_each_second_moment",
+      "axioms": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ]
+    },
+    {
+      "name": "Harsanyi.Frequency.WeakIndependence.actual_weak_first_moment_counterexample",
+      "axioms": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ]
+    },
+    {
+      "name": "Harsanyi.Frequency.WeakIndependence.actual_not_independent",
+      "axioms": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ]
+    },
+    {
+      "name": "Harsanyi.Frequency.WeakIndependence.actual_unit_kernel_response",
+      "axioms": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ]
+    },
+    {
+      "name": "Harsanyi.Frequency.WeakIndependence.actual_unit_kernel_product_som",
+      "axioms": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ]
+    },
+    {
+      "name": "Harsanyi.Frequency.WeakIndependence.actual_unit_kernel_each_som",
+      "axioms": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ]
+    },
+    {
+      "name": "Harsanyi.Frequency.WeakIndependence.actual_unit_kernel_first_factorization",
+      "axioms": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ]
+    },
+    {
+      "name": "Harsanyi.Frequency.WeakIndependence.actual_unit_kernel_weak_counterexample",
+      "axioms": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ]
+    }
+  ],
+  "axiom_whitelist": [
+    "Classical.choice",
+    "Quot.sound",
+    "propext"
+  ],
+  "frozen_modules": [
+    "DecoderValid",
+    "DecoderParameterCounterexamples",
+    "DecoderWeakIndependence"
+  ],
+  "paper_adapter_and_report_owner": "twelve_foundations_math",
+  "previous_public_files_modified": [],
+  "handoff_proof_document": "docs/reviews/f06-dynamics-module-handoff-20261001.md"
+}

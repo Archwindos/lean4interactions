@@ -1,0 +1,66 @@
+Therefore, the learned interactions under unavoidable parameter noises can be represented
+                                                                                   n
+                                                                                           as mini-
+mizing the following loss, where we vectorize the noise ϵ = vec({ϵT : T ⊆ N }) ∈ R2 for simplicity.
+
+          L(w)
+          e    = Eϵ ES⊆N [(yS − w⊤ Je(xS ))2 ] = Eϵ ES⊆N [(yS − w⊤ (J (xS ) + ϵ))2 ].                (9)
+
+Remark. The minimizer to Eq. (9) does not represent the end of training, but represents the
+intermediate state of interactions after a certain epoch in the training process. We formulate the
+training process as a process of gradually reducing the noise on the DNN’s parameters, and the
+minimizer ŵ to Eq. (9) represents the optimal interaction state when the training is subject to certain
+parameter noises. We will show later that the minimizer ŵ computed under different noise levels can
+accurately predict the dynamics of interactions during the training process (see Figures 4 and 8).
+Assumption 1. To simplify the proof, we assume that different noise terms ϵT on the triggering
+function are independent, and uniformly set the variance as ∀ T ⊆ N , Var[ϵT ] = 2|T | σ 2 .
+Assumption 1 is made according to two findings in Lemma 1: (1) the interaction triggering function
+JeT (x) is real-valued subject to the noise on the DNN’s parameters, (2) the variance of the interaction
+triggering function JeT (x) increases exponentially along with the order |T |. More importantly, the
+assumed exponential increase of the variance in the above finding (2) has been widely observed in
+various DNNs trained for different tasks in previous experiments [26, 22].
+Theorem 3 (Proven in Appendix F.4). Let ŵ = arg minw L(w)
+                                                      e    denote the optimal solution to the
+minimization of the loss function L(w). Then, we have
+                                  e
+
+          ŵ = (J ⊤ J + 2n diag(c))−1 J ⊤ y = (J ⊤ J + 2n diag(c))−1 J ⊤ J w∗ = M̂ w∗ ,             (10)
+         def                                       n   n
+where J = [J (xS1 ), J (xS2 ), · · · , J (xS2n )]⊤ ∈ R2 ×2 is a matrix to represent the triggering values
+of 2n interactions (w.r.t. 2n columns) on 2n masked samples (w.r.t. 2n rows). xS1 , xS2 , · · · , xS2n
+                                         def                                   n
+enumerate all masked samples. y = [y(xS1 ), y(xS2 ), · · · , y(xS2n )]⊤ ∈ R2 enumerates the finally-
+                                                    def
+converged outputs on 2n masked samples. c = vec({Var[ϵT ] : T ⊆ N }) = vec({2|T | σ 2 : T ⊆ N }) ∈
+   n
+R2 denotes the vector of variances of the triggering values of 2n interactions. The matrix M̂ is
+              def                                         def
+defined as M̂ = (J ⊤ J + 2n diag(c))−1 J ⊤ J , and w∗ = vec({wT∗ : T ⊆ N }).
+In this way, Theorem 3 provides an analytic solution to the minimization of L(w) e     under parameter
+noises. Experiments in Figure 4 will show that the learning dynamics of interactions derived from
+our simplifying assumption can still predict the real distribution of interactions over different orders.
+3.3.2 Explaining the dynamics in the second phase
+Based on the above analytic solution, this subsection aims to prove that in the second phase, the DNN
+first encodes interactions of low orders and then gradually encodes interactions of higher orders.
+• The second phase can be viewed as a process of gradually reducing the noise level σ 2 . The
+analytic solution ŵ in Theorem 3 under different noise levels σ 2 enables us to analyze the dynamics
+of interactions during the second phase. This is because the noise on the network parameters can
+be considered to gradually diminish during the training process, as we assume in Section 3.3.1.
+Then accordingly, the noise level σ 2 of the noise term ϵT on the interaction triggering function also
+gradually diminishes during training. At the start of the second phase, the noise level σ 2 is large,
+and the interaction triggering function JeT (x) is dominated by the noise term ϵT . Later, as training
+proceeds in the second phase, the noise level σ 2 gradually decreases, making less effect on the
+interaction triggering function.
+• The change of the analytic solution ŵ along with the decreasing noises σ 2 explains the
+dynamics in the second phase. We prove that as σ 2 decreases, the ratio of low-order interaction
+strength to high-order interaction strength in the analytic solution ŵ decreases. This means that the
+DNN gradually learns higher-order interactions in the second phase, which can be verified by our
+observation in Figure 2. The detailed results are derived as follows.
+Lemma 2 (Proven in Appendix F.5). The compositional term JT (x) in the Taylor expansion in Eq. (7)
+always has fixed values on 2n masked samples {xS : S ⊆ N }, i.e., ∀S ⊆           N, JT (xS ) = 1(T ⊆ S).
+                                                                               n  n
+It means that the matrix J = [J (xS1 ), J (xS2 ), · · · , J (xS2n )]⊤ ∈ {0, 1}2 ×2 in Eq. (10) is a fixed
+binary matrix, no matter how we change the DNN v(·) or the input sample x.
+
+
+                                                   8

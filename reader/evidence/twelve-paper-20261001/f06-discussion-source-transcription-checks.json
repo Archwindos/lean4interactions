@@ -1,0 +1,35 @@
+{
+  "status": "passed",
+  "scope": "formal_author_transcription_format_and_actual_katex_only_not_mathematical_acceptance",
+  "source_id": "src-icml2023-decoder-formal",
+  "input_sha256": "22f4210477ccab696f2698e2a6738dc9706e1c3b541c8a59ba529ede68047ece",
+  "source_sha256": "25cf5804c4d93cc1117adf2afb9ad84c96ccb86cba14cc5be3a11d3c420aeb57",
+  "segments": 9,
+  "author_characters": 11404,
+  "checked": 67,
+  "errors": [],
+  "source_evidence_sha256": {
+    "corpus/public/reader/icml2023-decoder/source-evidence/formal-page-04.txt": "554635dc3f13ab23d1bc9b7867e2a8b4566b114ea24708ee475626c76d2e6ccb",
+    "corpus/public/reader/icml2023-decoder/source-evidence/formal-page-05.txt": "7fb4ebbc4e07b7c1dbfa83382d705e6e48bd416bb8d564c39ed3bfbada87d63f",
+    "corpus/public/reader/icml2023-decoder/source-evidence/formal-page-08.txt": "f8986388520e9388a8eebbffc1d7814bb7bf9414d0c24ebb7b004258f4275ffc",
+    "corpus/public/reader/icml2023-decoder/source-evidence/formal-page-09.txt": "de3eb7fb3cf9f4f32cd69e07e51fbd8b8bc207850ed40c7a5fcc8d50e58851f4",
+    "corpus/public/reader/icml2023-decoder/source-evidence/formal-page-32.txt": "822099d9f6ec4e90915b64efdbb0f8d6c74874594cc97c7f27f35600312a38cf",
+    "corpus/public/reader/icml2023-decoder/source-evidence/formal-page-33.txt": "70da34bc7555e30d734ab94a6dc85faab22dce76cb0ffee0a41c839516d2e63c",
+    "corpus/public/reader/icml2023-decoder/source-evidence/formal-page-34.txt": "3f833669c2c6d45ab70d3c2799ef184bbee511b5703ec5f915244028a54808d6"
+  },
+  "visual_review": {
+    "source_pages": [
+      4,
+      5,
+      8,
+      9,
+      32,
+      33,
+      34
+    ],
+    "status": "rendered_formal_source_pages_inspected",
+    "note": "Formula shapes, bars, indices, footnote roles and table objects were checked against source page images."
+  },
+  "validator_source": "const fs=require('fs'),crypto=require('crypto');\nconst katex=require(process.cwd()+'/web/static/vendor/katex/katex.min.js');\nconst input='corpus/public/reader/icml2023-decoder/author-transcripts-discussion-extra.json';\nconst x=JSON.parse(fs.readFileSync(input,'utf8'));let checked=0;const errors=[];\nconst rx=/\\$\\$[\\s\\S]*?\\$\\$|(?<!\\$)\\$(?!\\$)[^\\n$]+\\$/g;\nfor(const row of x.transcripts)for(const field of ['original_statement_md','original_proof_md']){\n let m;rx.lastIndex=0;while((m=rx.exec(row[field]))!==null){const count=m[0].startsWith('$$')?2:1;const tex=m[0].slice(count,-count);checked++;\n  try{katex.renderToString(tex,{throwOnError:true,strict:'ignore',trust:false,displayMode:true});}\n  catch(error){errors.push({key:row.key,field,tex,error:String(error)});}\n }\n}\nconst fingerprint=p=>crypto.createHash('sha256').update(fs.readFileSync(p)).digest('hex');\nconst report={status:errors.length?'failed':'passed',scope:'formal_author_transcription_format_and_actual_katex_only_not_mathematical_acceptance',source_id:x.source_id,input_sha256:fingerprint(input),source_sha256:x.source_sha256,segments:x.transcripts.length,author_characters:x.transcripts.reduce((n,r)=>n+r.original_statement_md.length+r.original_proof_md.length,0),checked,errors,source_evidence_sha256:x.source_evidence_sha256,visual_review:x.visual_review,validator_source:fs.readFileSync(__filename,'utf8'),katex_sha256:fingerprint('web/static/vendor/katex/katex.min.js')};\nfs.writeFileSync('reader/evidence/twelve-paper-20261001/f06-discussion-source-transcription-checks.json',JSON.stringify(report,null,2)+'\\n');\nconsole.log(JSON.stringify({status:report.status,checked,errors}));process.exitCode=errors.length?1:0;\n",
+  "katex_sha256": "e8d885505949f3a5f4abdd5dd0d53696bd1371ad26ffbf4f310dcd77c8cdae89"
+}

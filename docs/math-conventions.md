@@ -6,7 +6,7 @@
 g(S)=v(x_S),\qquad b=v(x_\varnothing),\qquad g_0(S)=g(S)-b.
 \]
 
-三者不能仅靠替换字母互换。论文原符号仍原样保留；例如 Sparse 的输入基线 \(b\) 对应规范向量 \(r\)，不是规范输出基线标量 \(b\)。完整定义、原页码、作用域及差异见 `research/full-proof-integration-20260930/data/full-content.json` 的 `symbols` 与阅读器符号表。
+三者不能仅靠替换字母互换。论文原符号仍原样保留；例如 Sparse 的输入基线 \(b\) 对应规范向量 \(r\)，不是规范输出基线标量 \(b\)。完整定义、原页码、作用域及差异见 `reader/data/full-content.json` 的 `symbols` 与阅读器符号表；活动输入以 `corpus/public/reader/input-manifest.json` 为准。
 
 对任意集合函数 \(f\)，通用 Möbius 变换为
 
@@ -24,4 +24,4 @@ Lean 的 `Harsanyi.Game α` 使用 `Finset α → ℝ`。变量类型可以无�
 
 当前工作区公共库版本为 0.2.0。实际可调用声明、类型、公理和源指纹以 `catalog/library.json` 及其绑定的报告为准；版本号或名称存在不代表当前验证。阅读器的文字完整性、原命题判断、代理对齐、用户审核、Lean 证据范围分别记录。
 
-当前三篇已获 `proof_only_granted`：保留原错式，直接修正同一命题的证明；原假设与结论不得改动。原命题不成立时单列反例。`research/reader-v2-20260930/` 是此前选定结果的历史证据，当前全篇输入在 `research/full-proof-integration-20260930/`。
+当前十二篇已获 `proof_only_granted`：保留原错式，直接修正同一命题的证明；原假设与结论不得改动。原命题不成立时单列反例。`research/reader-v2-20260930/` 与 `research/full-proof-integration-20260930/` 是历史证据，活动输入在 `corpus/public/reader/`，当前维护入口为 `reader/`。新增独立扩展以各篇实际 direct-import 报告查类型及当前状态，不默认受基础 barrel 或统一 0.2.0 报告覆盖。

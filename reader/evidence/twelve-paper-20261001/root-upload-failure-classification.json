@@ -1,0 +1,25 @@
+{
+  "scope": "Isolated failure-classification fixtures only; no Git network call, no credentials and no current-project Git mutations. The local-only upload script remains ignored.",
+  "recorded_at": "2026-10-01T11:53:11.500923+00:00",
+  "script_sha256": "e1c2a1d72dd0bbae98c163f120829c27e0e837c067419843d48d5af1a0e94e4a",
+  "checks": [
+    {
+      "case": "permission_rejected",
+      "exit_code": 4,
+      "expected_message": "Authentication failed.",
+      "passed": true
+    },
+    {
+      "case": "non_fast_forward",
+      "exit_code": 4,
+      "expected_message": "Remote rejected a non-fast-forward update.",
+      "passed": true
+    },
+    {
+      "case": "server_hook_rejected",
+      "exit_code": 4,
+      "expected_message": "Git synchronization failed.",
+      "passed": true
+    }
+  ]
+}

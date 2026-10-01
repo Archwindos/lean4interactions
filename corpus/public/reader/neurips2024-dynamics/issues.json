@@ -1,0 +1,613 @@
+{
+  "paper_id": "neurips2024-dynamics",
+  "issues": [
+    {
+      "id": "dyn-issue-taylor",
+      "paper_id": "neurips2024-dynamics",
+      "title": "任意 DNN 的全局 Taylor 等式不成立",
+      "kind": "statement_error",
+      "source_refs": [
+        {
+          "source_id": "src-neurips2024-dynamics-formal",
+          "version_id": "ver-neurips2024-dynamics-formal",
+          "pdf_pages": [
+            18,
+            19
+          ]
+        }
+      ],
+      "original_expression": "v(x_S)=\\sum_\\pi D^\\pi v(x_\\varnothing)(x_S-b)^\\pi/\\pi!",
+      "description_md": "原 Lemma 3 没有解析或收敛前提。",
+      "evidence_md": "$v(t)=\\max(t-1/2,0)$、基线0、输入1，是一层 ReLU 网络；在0邻域恒零，全部 Taylor 系数0，而单变量交互为1/2。",
+      "impact_md": "原无条件命题被反驳；有限多项式支持分组是另列的有效子结果。",
+      "user_confirmation": "not_individually_confirmed",
+      "fix_authorization": "proof_only_granted",
+      "proposition_modification_authorized": false,
+      "status": "agent_checked",
+      "translations": {
+        "en": {
+          "title": "The global Taylor equality fails for arbitrary DNNs",
+          "description_md": "Lemma 3 has no analyticity or convergence premise.",
+          "evidence_md": "The one-layer ReLU network $v(t)=\\max(t-1/2,0)$ is zero near baseline 0, so every Taylor coefficient vanishes, while the dividend at input 1 is 1/2.",
+          "impact_md": "The unrestricted claim is refuted; finite-polynomial support grouping is a separate valid subresult."
+        }
+      },
+      "issue_type": "statement_counterexample",
+      "original_statement_status": "counterexample_verified",
+      "related_result_ids": [
+        "dyn-taylor",
+        "dyn-trigger-representation",
+        "dyn-regression"
+      ]
+    },
+    {
+      "id": "dyn-issue-zero-trigger",
+      "paper_id": "neurips2024-dynamics",
+      "title": "零交互使归一化触发无定义",
+      "kind": "undefined_boundary",
+      "source_refs": [
+        {
+          "source_id": "src-neurips2024-dynamics-formal",
+          "version_id": "ver-neurips2024-dynamics-formal",
+          "pdf_pages": [
+            7,
+            19,
+            20,
+            22
+          ]
+        }
+      ],
+      "original_expression": "J_T=K_T/w_T,\\quad w_T=I(T\\mid\\hat x)",
+      "description_md": "原 Eq.(7) 与 Lemma 2 对所有子集使用除法而未排非空零交互。",
+      "evidence_md": "恒定模型 $v=1$ 满足原 DNN 设置，所有非空 $I(T)=K_T=0$；对 $T\\subseteq S$ 的触发是通常实数中无定义的0/0，不能约去得到1。",
+      "impact_md": "保留原定义域问题，非零域的归一化证明不冒充原无条件命题。",
+      "user_confirmation": "not_individually_confirmed",
+      "fix_authorization": "proof_only_granted",
+      "proposition_modification_authorized": false,
+      "status": "agent_checked",
+      "translations": {
+        "en": {
+          "title": "A zero dividend leaves the normalized trigger undefined",
+          "description_md": "Eq.(7) and Lemma 2 divide by every coefficient without excluding zero nonempty dividends.",
+          "evidence_md": "The allowed constant model $v=1$ has $I(T)=K_T=0$ for every nonempty $T$. Its triggered ratio is the undefined ordinary-real expression 0/0, which cannot be canceled to one.",
+          "impact_md": "Retain the domain issue; the normalization proof on the nonzero domain does not replace the unrestricted claim."
+        }
+      },
+      "issue_type": "definition_or_algorithm_boundary",
+      "original_statement_status": "scope_under_review",
+      "related_result_ids": [
+        "dyn-trigger-representation",
+        "dyn-regression",
+        "dyn-binary-trigger"
+      ]
+    },
+    {
+      "id": "dyn-issue-marginal-independence",
+      "paper_id": "neurips2024-dynamics",
+      "title": "Lemma 1 的边缘律不足以给方差和",
+      "kind": "statement_error",
+      "source_refs": [
+        {
+          "source_id": "src-neurips2024-dynamics-formal",
+          "version_id": "ver-neurips2024-dynamics-formal",
+          "pdf_pages": [
+            7,
+            20,
+            21
+          ]
+        }
+      ],
+      "original_expression": "\\operatorname{Var}\\Delta I_T=2^{|T|}\\sigma^2",
+      "description_md": "正文只有 Gaussian 边缘，附录才新增 iid。",
+      "evidence_md": "一变量两个输出噪声共用 $Z\\sim\\mathcal N(0,\\sigma^2)$，$\\sigma>0$；全部边缘满足原条件而 $\\Delta I_{\\{1\\}}=Z-Z=0$。PaperDynamics 的反例实际绑定 Gaussian map-law 与原交互。",
+      "impact_md": "均值与线性恒等式有效；iid 方差另作为带明确原附录前提的子结果。",
+      "user_confirmation": "not_individually_confirmed",
+      "fix_authorization": "proof_only_granted",
+      "proposition_modification_authorized": false,
+      "status": "agent_checked",
+      "translations": {
+        "en": {
+          "title": "Lemma 1 marginals do not justify summing variances",
+          "description_md": "Only Gaussian marginals occur in the main statement; iid is introduced in the appendix.",
+          "evidence_md": "For one variable, both output noises equal the same $Z\\sim\\mathcal N(0,\\sigma^2)$ with $\\sigma>0$. Every marginal satisfies the source law, but the dividend noise is zero. The PaperDynamics counterexample binds the Gaussian map-law and actual dividend.",
+          "impact_md": "The mean and linear identity remain valid; the iid variance is a separate subresult with the explicit appendix premise."
+        }
+      },
+      "issue_type": "statement_partial_counterexample",
+      "original_statement_status": "compound_clause_counterexample_verified",
+      "related_result_ids": [
+        "dyn-noisy-output"
+      ]
+    },
+    {
+      "id": "dyn-issue-trigger-variance",
+      "paper_id": "neurips2024-dynamics",
+      "title": "触发缩放与 Assumption 1 是不同模型",
+      "kind": "scope_mismatch",
+      "source_refs": [
+        {
+          "source_id": "src-neurips2024-dynamics-formal",
+          "version_id": "ver-neurips2024-dynamics-formal",
+          "pdf_pages": [
+            7,
+            8,
+            21
+          ]
+        }
+      ],
+      "original_expression": "\\operatorname{Var}\\epsilon_T=2^{|T|}\\sigma^2/w_T^2",
+      "description_md": "Lemma 1 的除以权重会引入逐概念比例；输出噪声也使多个交互相关。",
+      "evidence_md": "若 $w_{T_1}=1,w_{T_2}=2$，同一阶数的方差比例为1和1/4；不能使用同一个比例常数。",
+      "impact_md": "Theorem 3 可在另外明确规定的 Assumption 1 下证明；不宣称该假设由 Lemma 1 推出。",
+      "user_confirmation": "not_individually_confirmed",
+      "fix_authorization": "proof_only_granted",
+      "proposition_modification_authorized": false,
+      "status": "agent_checked",
+      "translations": {
+        "en": {
+          "title": "Trigger scaling and Assumption 1 describe different models",
+          "description_md": "Dividing by weights introduces a concept-dependent scale, and shared output noise correlates dividends.",
+          "evidence_md": "If equal-order weights are 1 and 2, the scaling factors are 1 and 1/4; one common proportionality constant does not apply.",
+          "impact_md": "Theorem 3 is proved under separately imposed Assumption 1, which is not claimed to follow from Lemma 1."
+        }
+      },
+      "issue_type": "statement_alignment_or_scope",
+      "original_statement_status": "scope_under_review",
+      "related_result_ids": [
+        "dyn-noisy-output",
+        "dyn-regression"
+      ]
+    },
+    {
+      "id": "dyn-issue-gram-determinant",
+      "paper_id": "neurips2024-dynamics",
+      "title": "Gram 行列式不是对角项乘积",
+      "kind": "proof_error",
+      "source_refs": [
+        {
+          "source_id": "src-neurips2024-dynamics-formal",
+          "version_id": "ver-neurips2024-dynamics-formal",
+          "pdf_pages": [
+            22
+          ]
+        }
+      ],
+      "original_expression": "\\det(J^\\top J)=\\prod_k\\lambda_k=\\prod_k(J^\\top J)_{kk}",
+      "description_md": "原 F.4 把特征值乘积误等同对角项乘积，并把零噪声对角罚项误称正定。",
+      "evidence_md": "一变量 zeta Gram 为 $\\begin{pmatrix}2&1\\\\1&1\\end{pmatrix}$，行列式1而对角积2；$\\sigma=0$ 罚项为零。",
+      "impact_md": "用 Möbius 单射证明 Gram 正定，再加半正定罚项；原最优命题无需新条件。",
+      "user_confirmation": "not_individually_confirmed",
+      "fix_authorization": "proof_only_granted",
+      "proposition_modification_authorized": false,
+      "status": "agent_checked",
+      "translations": {
+        "en": {
+          "title": "A Gram determinant is not the product of its diagonal entries",
+          "description_md": "F.4 identifies the eigenvalue product with the diagonal product and calls the penalty positive definite even at zero noise.",
+          "evidence_md": "The one-variable zeta Gram is $\\begin{pmatrix}2&1\\\\1&1\\end{pmatrix}$, with determinant 1 and diagonal product 2. At zero noise the penalty is zero.",
+          "impact_md": "Möbius injectivity proves Gram positive definiteness, then a positive-semidefinite penalty is added; the source optimum needs no new condition."
+        }
+      },
+      "issue_type": "proof_step_error",
+      "original_statement_status": "no_statement_error_recorded",
+      "related_result_ids": [
+        "dyn-regression"
+      ]
+    },
+    {
+      "id": "dyn-issue-expectation",
+      "paper_id": "neurips2024-dynamics",
+      "title": "大样本协方差不能替代精确期望",
+      "kind": "proof_error",
+      "source_refs": [
+        {
+          "source_id": "src-neurips2024-dynamics-formal",
+          "version_id": "ver-neurips2024-dynamics-formal",
+          "pdf_pages": [
+            21,
+            22
+          ]
+        }
+      ],
+      "original_expression": "E[E^\\top E]=2^n\\operatorname{diag}(c)",
+      "description_md": "原证明把样本数足够大的近似收敛作为固定样本数的等式理由。",
+      "evidence_md": "逐行有 $E[\\epsilon_T\\epsilon_U]=0$（$T\\ne U$）和 $E[\\epsilon_T^2]=c_T$，求和恰为 $2^n\\operatorname{diag}(c)$，无需行间独立或渐近。",
+      "impact_md": "逐行精确期望补正同一证明，Lean 直接积分平方残差。",
+      "user_confirmation": "not_individually_confirmed",
+      "fix_authorization": "proof_only_granted",
+      "proposition_modification_authorized": false,
+      "status": "agent_checked",
+      "translations": {
+        "en": {
+          "title": "A sample-covariance limit does not establish the exact expectation",
+          "description_md": "The proof uses large-sample approximate convergence to justify an equality at a fixed sample size.",
+          "evidence_md": "Each row has $E[\\epsilon_T\\epsilon_U]=0$ for $T\\ne U$ and $E[\\epsilon_T^2]=c_T$. Summing gives exactly $2^n\\operatorname{diag}(c)$, without independence across rows or asymptotics.",
+          "impact_md": "The same proof is repaired by exact rowwise expectations; Lean integrates the squared residual directly."
+        }
+      },
+      "issue_type": "proof_step_error",
+      "original_statement_status": "no_statement_error_recorded",
+      "related_result_ids": [
+        "dyn-regression"
+      ]
+    },
+    {
+      "id": "dyn-issue-label-transpose",
+      "paper_id": "neurips2024-dynamics",
+      "title": "标签向量转置错误",
+      "kind": "proof_error",
+      "source_refs": [
+        {
+          "source_id": "src-neurips2024-dynamics-formal",
+          "version_id": "ver-neurips2024-dynamics-formal",
+          "pdf_pages": [
+            22
+          ]
+        }
+      ],
+      "original_expression": "y=J^\\top w^*",
+      "description_md": "原矩阵行是遮罩、列是概念，所以标签应用 J 而非其转置。",
+      "evidence_md": "$y_S=\\sum_{T\\subseteq S}w_T^*$ 正是 $(Jw^*)_S$；一变量取 $w^*=(1,2)$，$Jw^*=(1,3)$ 而 $J^\\top w^*=(3,2)$。",
+      "impact_md": "正文 Theorem 3 的末式正确，用正确标签补正证明。",
+      "user_confirmation": "not_individually_confirmed",
+      "fix_authorization": "proof_only_granted",
+      "proposition_modification_authorized": false,
+      "status": "agent_checked",
+      "translations": {
+        "en": {
+          "title": "The label-vector transpose is incorrect",
+          "description_md": "Rows index masks and columns index concepts, so labels use J rather than its transpose.",
+          "evidence_md": "The source rowwise labels are exactly $(Jw^*)_S$. For one variable and $w^*=(1,2)$, $Jw^*=(1,3)$ while $J^\\top w^*=(3,2)$.",
+          "impact_md": "The final main-text formula is correct; its proof uses the correct label vector."
+        }
+      },
+      "issue_type": "proof_step_error",
+      "original_statement_status": "no_statement_error_recorded",
+      "related_result_ids": [
+        "dyn-regression"
+      ]
+    },
+    {
+      "id": "dyn-issue-or-grouping",
+      "paper_id": "neurips2024-dynamics",
+      "title": "OR 证明的激活分组边界",
+      "kind": "proof_error",
+      "source_refs": [
+        {
+          "source_id": "src-neurips2024-dynamics-formal",
+          "version_id": "ver-neurips2024-dynamics-formal",
+          "pdf_pages": [
+            17,
+            18
+          ]
+        }
+      ],
+      "original_expression": "\\sum_{|T^{\\prime\\prime}|=0}^{|S|}\\binom{|S|}{|T^{\\prime\\prime}|}(-1)^{|T^{\\prime\\prime}|}=0",
+      "description_md": "L 与 S 不交时，T 必须仍与 S 相交，不能把空激活项放入内和。另当 L 包含 S 但 L≠N 时，原声称内和零也无效。",
+      "evidence_md": "$N=\\{1,2\\},S=\\{1\\},L=\\varnothing$：合法超集T为{1},{1,2}，激活块只取{1}，不是包括空块的二项式和。$L=S=\\{1\\}\\ne N$ 时原内和仅一项1。",
+      "impact_md": "全 OR 和减去不激活和给完整同命题证明。",
+      "user_confirmation": "not_individually_confirmed",
+      "fix_authorization": "proof_only_granted",
+      "proposition_modification_authorized": false,
+      "status": "agent_checked",
+      "translations": {
+        "en": {
+          "title": "Activation-grouping boundary in the OR proof",
+          "description_md": "When L is disjoint from S, T must still intersect S; the empty activation cannot be included. If L contains S but differs from N, the printed inner-zero assertion also fails.",
+          "evidence_md": "For $N=\\{1,2\\},S=\\{1\\},L=\\varnothing$, the admissible supersets are {1} and {1,2}; the activation block is {1}, not the full binomial family including the empty block. If $L=S=\\{1\\}\\ne N$, the printed inner sum has only the term one.",
+          "impact_md": "Subtracting the inactive OR sum from the full OR sum proves the same theorem."
+        }
+      },
+      "issue_type": "proof_step_error",
+      "original_statement_status": "no_statement_error_recorded",
+      "related_result_ids": [
+        "dyn-universal"
+      ]
+    },
+    {
+      "id": "dyn-issue-eq3-empty",
+      "paper_id": "neurips2024-dynamics",
+      "title": "Eq.(3) 使用未定义空 AND 项",
+      "kind": "undefined_boundary",
+      "source_refs": [
+        {
+          "source_id": "src-neurips2024-dynamics-formal",
+          "version_id": "ver-neurips2024-dynamics-formal",
+          "pdf_pages": [
+            3,
+            4,
+            16
+          ]
+        }
+      ],
+      "original_expression": "f(x_S)=v(x_\\varnothing)+\\sum_{T\\subseteq N}I_{and}(T)\\mathbf1_{T\\subseteq S}+\\cdots",
+      "description_md": "主文 Eq.(2) 只定义非空分量交互，Eq.(3) 却包含空 AND 系数。F.1 规定的是空分量输出，不是主文空交互定义。",
+      "evidence_md": "若按通常 Möbius 公式补扩展 $I_a(\\varnothing)=a(\\varnothing)=b$，取常数网络 $v=1,a=1,o=0$，扩展后的 Eq.(3) 给2而原输出1；该例严格依赖此显式扩展。若约定空 AND 为0，重复消失，但主文 Eq.(2) 未给该约定。Eq.(4) 非空和正确。",
+      "impact_md": "记录定义域/约定缺口及条件性反例，不能无说明把辅助扩展当作原定义再宣称原式已否定。",
+      "user_confirmation": "not_individually_confirmed",
+      "fix_authorization": "proof_only_granted",
+      "proposition_modification_authorized": false,
+      "status": "agent_checked",
+      "translations": {
+        "en": {
+          "title": "Eq.(3) uses an unspecified empty AND coefficient",
+          "description_md": "Main Eq.(2) defines only nonempty component dividends, while Eq.(3) includes the empty AND coefficient. F.1 specifies empty component outputs, rather than the missing main-text empty-dividend definition.",
+          "evidence_md": "Under the explicitly stated ordinary Möbius extension $I_a(\\varnothing)=a(\\varnothing)=b$, the constant network $v=1,a=1,o=0$ makes extended Eq.(3) equal two while the output is one. This witness depends on that extension. An empty-AND convention of zero avoids duplication but is absent from Eq.(2). Eq.(4) uses the correct nonempty sum.",
+          "impact_md": "Record the domain/convention gap and conditional witness; an auxiliary extension is not silently treated as the source definition to refute the source expression."
+        }
+      },
+      "issue_type": "statement_alignment_or_scope",
+      "original_statement_status": "scope_under_review",
+      "related_result_ids": [
+        "dyn-universal"
+      ]
+    },
+    {
+      "id": "dyn-issue-and-scope",
+      "paper_id": "neurips2024-dynamics",
+      "title": "普通交互与分量交互同名作用域",
+      "kind": "notation_scope_ambiguity",
+      "source_refs": [
+        {
+          "source_id": "src-neurips2024-dynamics-formal",
+          "version_id": "ver-neurips2024-dynamics-formal",
+          "pdf_pages": [
+            3,
+            14
+          ]
+        }
+      ],
+      "original_expression": "I_{and}(S\\mid x)",
+      "description_md": "Appendix A 七性质以完整模型 v 的普通交互使用该符号，主文 Eq.(2) 以 v_and 分量且只对非空S定义。",
+      "evidence_md": "两实例分别是 $I_g$ 与 $I_a$；任意拆分参数不能使 $I_a$ 单独重构完整 $g$，也不能从 $g=g_1+g_2$ 自动推出任意分量间同样关系。",
+      "impact_md": "七性质按普通全模型实例保留原前提并证明；符号表明确记录两个局部映射。",
+      "user_confirmation": "not_individually_confirmed",
+      "fix_authorization": "proof_only_granted",
+      "proposition_modification_authorized": false,
+      "status": "agent_checked",
+      "translations": {
+        "en": {
+          "title": "Ordinary and component dividends share a source name",
+          "description_md": "Appendix A uses ordinary dividends of the full model v, while main Eq.(2) applies the name to the v_and component and only nonempty S.",
+          "evidence_md": "The instances are $I_g$ and $I_a$. An arbitrary split does not make $I_a$ alone reconstruct g, nor does $g=g_1+g_2$ imply the same relation among arbitrary components.",
+          "impact_md": "Prove the seven properties with their ordinary full-model instance and source premises; record the two local mappings separately."
+        }
+      },
+      "issue_type": "statement_alignment_or_scope",
+      "original_statement_status": "scope_under_review",
+      "related_result_ids": [
+        "dyn-efficiency",
+        "dyn-linearity",
+        "dyn-dummy",
+        "dyn-symmetry",
+        "dyn-anonymity",
+        "dyn-recursion",
+        "dyn-distribution"
+      ]
+    },
+    {
+      "id": "dyn-issue-complement-half",
+      "paper_id": "neurips2024-dynamics",
+      "title": "Appendix E 半模型与裸 v 记号不一致",
+      "kind": "notation_scope_ambiguity",
+      "source_refs": [
+        {
+          "source_id": "src-neurips2024-dynamics-formal",
+          "version_id": "ver-neurips2024-dynamics-formal",
+          "pdf_pages": [
+            15,
+            16
+          ]
+        }
+      ],
+      "original_expression": "v_{and}=v_{or}=0.5v;\\quad I_{or}=-\\sum_T(-1)^{|S|-|T|}v(x_{N\\setminus T})",
+      "description_md": "原先明确两个分量等于0.5v，随后 Eq.(14)–(16) 用裸v写变换，未交代是否重新命名分量模型。",
+      "evidence_md": "若裸v仍是同一总模型，取一变量 $v(x)=x$、基线0、输入1，原分量 OR 为1/2，Eq.(14) 裸v右端为1。若裸v指固定分量o，则负补集恒等式准确，实际Lean验证此忠实局部解释。",
+      "impact_md": "保留原全部式与半模型前提；精确分量补集适配是有效子结果，不无说明宣称原每行缩放一致。",
+      "user_confirmation": "not_individually_confirmed",
+      "fix_authorization": "proof_only_granted",
+      "proposition_modification_authorized": false,
+      "status": "agent_checked",
+      "translations": {
+        "en": {
+          "title": "Appendix E mixes half-model and bare-v notation",
+          "description_md": "The source first sets both components to 0.5v, then uses bare v in Eq.(14)–(16) without specifying a local renaming.",
+          "evidence_md": "If bare v remains the total model, the one-variable model $v(x)=x$ at baseline zero and input one has component OR value 1/2, whereas bare-v Eq.(14) gives one. If v denotes the fixed component o locally, the negative-complement identity is exact; Lean verifies that explicit local interpretation.",
+          "impact_md": "Retain every source equation and half-model premise. Exact component duality is a valid subresult, without claiming that every printed scaling is consistent."
+        }
+      },
+      "issue_type": "statement_alignment_or_scope",
+      "original_statement_status": "scope_under_review",
+      "related_result_ids": [
+        "dyn-complement"
+      ]
+    },
+    {
+      "id": "dyn-issue-split-sign",
+      "paper_id": "neurips2024-dynamics",
+      "title": "Appendix C 的分量标签和噪声拆分符号",
+      "kind": "definition_equation_error",
+      "source_refs": [
+        {
+          "source_id": "src-neurips2024-dynamics-formal",
+          "version_id": "ver-neurips2024-dynamics-formal",
+          "pdf_pages": [
+            15
+          ]
+        }
+      ],
+      "original_expression": "v_{and}=\\tfrac12(v-\\delta)+\\gamma,\\quad v_{or}=\\tfrac12(v-\\delta)+\\gamma",
+      "description_md": "原第一段把第二个分量也标为 AND，噪声段两个分量都加 gamma。",
+      "evidence_md": "取 $v(x_T)=1,\\delta_T=0,\\gamma_T=1$，两个原噪声分量均为3/2，总和3而目标输出1。",
+      "impact_md": "保存原录文与精确反例；不把修改过的优化定义冒充原式。",
+      "user_confirmation": "not_individually_confirmed",
+      "fix_authorization": "proof_only_granted",
+      "proposition_modification_authorized": false,
+      "status": "agent_checked",
+      "translations": {
+        "en": {
+          "title": "Component labels and the noise-split sign in Appendix C",
+          "description_md": "The first paragraph labels both components AND, and the noise paragraph adds gamma in both branches.",
+          "evidence_md": "For $v(x_T)=1,\\delta_T=0,\\gamma_T=1$, both printed noise components are 3/2 and their sum is three rather than one.",
+          "impact_md": "Preserve the transcription and precise counterexample; an altered optimization definition is not substituted for the printed one."
+        }
+      },
+      "issue_type": "definition_or_algorithm_boundary",
+      "original_statement_status": "counterexample_verified",
+      "related_result_ids": [
+        "dyn-extraction",
+        "dyn-split-labels",
+        "dyn-noise-split"
+      ]
+    },
+    {
+      "id": "dyn-issue-proposition1",
+      "paper_id": "neurips2024-dynamics",
+      "title": "Proposition 1 严格子句失败，一般单调性未决",
+      "kind": "statement_error_and_unresolved_clause",
+      "source_refs": [
+        {
+          "source_id": "src-neurips2024-dynamics-formal",
+          "version_id": "ver-neurips2024-dynamics-formal",
+          "pdf_pages": [
+            9,
+            23
+          ]
+        }
+      ],
+      "original_expression": "|T|<|T^\\prime|\\Longrightarrow\\|\\hat m_T\\|_2/\\|\\hat m_{T^\\prime}\\|_2>1",
+      "description_md": "原命题未排零噪声，且原文仅给 Figure 3 数值验证，没有一般解析证明。",
+      "evidence_md": "$\\sigma=0$ 时 $\\hat M=I$，全部行范数1；例如一变量 $T=\\varnothing,T\\prime=\\{1\\}$ 的比为1而非大于1。Lean 给所有有限总体完整矩阵证明。",
+      "impact_md": "仅严格原子句被反驳；同阶不变与真权重独立有效，正噪声一般阶数比及噪声单调子句保留未决，有限数值不替代。",
+      "user_confirmation": "not_individually_confirmed",
+      "fix_authorization": "proof_only_granted",
+      "proposition_modification_authorized": false,
+      "status": "agent_checked",
+      "translations": {
+        "en": {
+          "title": "Proposition 1 strictness fails; general monotonicity remains unresolved",
+          "description_md": "The source does not exclude zero noise and gives only Figure 3 numerical verification, without a general analytic proof.",
+          "evidence_md": "At $\\sigma=0$, $\\hat M=I$ and all row norms are one. For example, in a one-variable universe, the empty/singleton ratio is one rather than strictly greater. Lean proves the complete matrix boundary for every finite universe.",
+          "impact_md": "Only the unconditional strict clause is refuted. Equal-order invariance and independence from true weights remain valid; general positive-noise order ratios and noise monotonicity remain unresolved, without replacing them by finite numerical checks."
+        }
+      },
+      "issue_type": "statement_partial_counterexample",
+      "original_statement_status": "compound_clause_counterexample_verified",
+      "related_result_ids": [
+        "dyn-order-monotonic"
+      ]
+    },
+    {
+      "id": "dyn-issue-sparsity-transfer",
+      "paper_id": "neurips2024-dynamics",
+      "title": "补集恒等式不足以传递稀疏定理前提",
+      "kind": "unverified_external_adaptation",
+      "source_refs": [
+        {
+          "source_id": "src-neurips2024-dynamics-formal",
+          "version_id": "ver-neurips2024-dynamics-formal",
+          "pdf_pages": [
+            4,
+            14,
+            15,
+            16
+          ]
+        }
+      ],
+      "original_expression": "I_{or}(S\\mid x)=-I_{and}(S\\mid\\tilde x)",
+      "description_md": "外引稀疏界有三个游戏条件，分量分解或反向输入尚未核实这些条件。",
+      "evidence_md": "精确的有限反演及补集变换只控制重构，不自动给最高阶零、平均单调与多项式界。",
+      "impact_md": "外引适配保持范围审查，不冒称原渐近界机器已证。",
+      "user_confirmation": "not_individually_confirmed",
+      "fix_authorization": "proof_only_granted",
+      "proposition_modification_authorized": false,
+      "status": "agent_checked",
+      "translations": {
+        "en": {
+          "title": "Complement duality does not transfer the sparsity premises",
+          "description_md": "The cited sparsity bound has three game-level conditions, not established for split components or reversed inputs.",
+          "evidence_md": "Exact inversion and complement transforms control reconstruction, but do not automatically imply a cutoff, monotone averages or a polynomial bound.",
+          "impact_md": "The external adaptation remains a scope review, without claiming a machine proof of the original asymptotic bound."
+        }
+      },
+      "issue_type": "statement_alignment_or_scope",
+      "original_statement_status": "scope_under_review",
+      "related_result_ids": [
+        "dyn-sparsity",
+        "dyn-complement"
+      ]
+    },
+    {
+      "id": "dyn-issue-derivative-scale",
+      "paper_id": "neurips2024-dynamics",
+      "title": "Eq.(46) 导数漏公共归一化",
+      "kind": "proof_error",
+      "source_refs": [
+        {
+          "source_id": "src-neurips2024-dynamics-formal",
+          "version_id": "ver-neurips2024-dynamics-formal",
+          "pdf_pages": [
+            21
+          ]
+        }
+      ],
+      "original_expression": "\\partial\\widetilde L/\\partial w=-2E[(J+E)^\\top]y+2E[(J+E)^\\top(J+E)]w",
+      "description_md": "Eq.(45)损失有2^{-n}，Eq.(46)导数未带该公共因子。",
+      "evidence_md": "真实梯度是原Eq.(46)右端乘 $2^{-n}$。该因子严格正，所以设梯度为0时得到同一正规方程；不改变唯一最优结论。",
+      "impact_md": "保留原导数式，重写直接精确期望和完成平方，不依赖该漏因子。",
+      "user_confirmation": "not_individually_confirmed",
+      "fix_authorization": "proof_only_granted",
+      "proposition_modification_authorized": false,
+      "status": "agent_checked",
+      "translations": {
+        "en": {
+          "title": "Eq.(46) omits the common normalization in the derivative",
+          "description_md": "Loss Eq.(45) has the common factor 2^{-n}, which is absent from its derivative in Eq.(46).",
+          "evidence_md": "The actual gradient is the printed right side of Eq.(46) multiplied by $2^{-n}$. This factor is strictly positive, so setting the gradient to zero yields the same normal equations and optimum.",
+          "impact_md": "Retain the printed derivative; exact expectations and completing the square prove the same conclusion without that omission."
+        }
+      },
+      "issue_type": "proof_step_error",
+      "original_statement_status": "no_statement_error_recorded",
+      "related_result_ids": [
+        "dyn-regression"
+      ]
+    },
+    {
+      "id": "dyn-issue-permutation-involution",
+      "paper_id": "neurips2024-dynamics",
+      "title": "原排列构造未说明每步为换位",
+      "kind": "missing_proof_construction",
+      "source_refs": [
+        {
+          "source_id": "src-neurips2024-dynamics-formal",
+          "version_id": "ver-neurips2024-dynamics-formal",
+          "pdf_pages": [
+            23
+          ]
+        }
+      ],
+      "original_expression": "P_i^2=I\\quad\\text{for permutation matrices }P_i",
+      "description_md": "Eq.(63)之后用P_i平方为单位，但此前只称每个P_i是permutation matrix，未说明是换位矩阵。",
+      "evidence_md": "三循环排列的平方不为单位。可以把所需有限变量排列分解为换位，各因子才满足该性质；也可直接对整体P用 $P^{-1}$ 共轭。实际Lean与重写使用正确的逆和置换。",
+      "impact_md": "这是缺少构造说明的证明缺口，Theorem4同阶范数结论未被否定。",
+      "user_confirmation": "not_individually_confirmed",
+      "fix_authorization": "proof_only_granted",
+      "proposition_modification_authorized": false,
+      "status": "agent_checked",
+      "translations": {
+        "en": {
+          "title": "The permutation construction does not specify involutive factors",
+          "description_md": "After Eq.(63), the proof uses P_i squared equal to the identity, although each P_i was described only as a permutation matrix rather than a transposition matrix.",
+          "evidence_md": "A three-cycle does not square to the identity. Decomposing a finite variable permutation into transpositions makes the claim valid for its factors; alternatively conjugate by the inverse $P^{-1}$ of the whole permutation. Lean and the rewritten proof use the correct inverse and permutation.",
+          "impact_md": "This is a missing construction detail in the proof, not a refutation of the equal-order norm conclusion of Theorem 4."
+        }
+      },
+      "issue_type": "proof_step_error",
+      "original_statement_status": "no_statement_error_recorded",
+      "related_result_ids": [
+        "dyn-equal-order"
+      ]
+    }
+  ]
+}

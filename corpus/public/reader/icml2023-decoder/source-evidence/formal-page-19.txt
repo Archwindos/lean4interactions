@@ -1,0 +1,74 @@
+                            Defects of Convolutional Decoder Networks in Frequency Representation
+
+                                                             (l)[ker=d]
+determined by the c-th channel of the d-th kenel Wc,1:K,1:K             ∈ RK×K according to Theorem 3.2. Because parameters in W (l)
+in the decoder network are set to random noises, we can consider that all elements in T (l,uv) irrelevant to each other, i.e.,
+                      (l,uv)
+∀d 6= d0 , c 6= c0 , Tdc     is irrelevant to Td(l,uv)
+                                                 0 c0  . Similarly, since different layers’ parameters W (l) are irrelevant to each other
+in the initialized decoder network, we can consider that elements in different layers’ T (l,uv) irrelevant to each other, i.e.,
+                                                          0
+∀l 6= l0 , elements in T (l,uv) and elements in T (l ,uv) are irrelevant to each other. Moreover, since the early training of a DNN
+mainly modifies a few parameters according to the lottery ticket hypothesis (Frankle & Carbin, 2018), we can still assume
+such irrelevant relationships in early epochs, as follows.
+
+
+
+
+Then, we prove Theorem 4.2, as follows.
+
+
+
+
+                                  (l,uv)
+Proof. We first prove that Tdc             follows a Gaussian distribution of complex numbers.
+                                                                                               ker=d
+According to Assumption 4.1, each convolutional weight follows a Gaussian distribution, i.e., Wcts   ∼ N (µl , σl2 ). For the
+                                       ker=d                                         ker=d
+convenience of proving, let us extend Wcts into an complex number. In this way, Wcts follows a Gaussian distribution
+                             ker=d
+of complex numbers, i.e., Wcts      ∼ ComplexN (µl , σl2 , 0).
+Previous studies (Tse & Viswanath, 2005) proved that given N complex numbers, if each complex number follows a
+Gaussian distribution, then the linear summation of these N complex numbers also follows a Gaussian distribution of
+                          (l,uv)                                    (l)[ker=d]    (l,uv)
+complex numbers. Since Tdc       is a linear combination of ∀t, s, Wcts        , Tdc     also follows a Gaussian distribution of
+complex numbers as follows.
+
+
+
+                                                             (l,uv)
+                                                ∀d, c      Tdc        ∼ ComplexN (µ̂, σ̂ 2 , r)
+
+
+
+where
+
+
+                                   (l,uv)
+                         µ = E[Tdc          ] //By definetion of µ
+                                  K−1
+                                  X K−1         (l)[ker=d] i( ut  vs
+                                      X
+                           = E[               Wcts           eM + N )2π       ] //Equation (19)
+                                  t=0 s=0
+                                                             (l)[ker=d]     (l)[ker=d]             (l)[ker=d]         (l)[ker=d]
+                          //∀t 6= t0 or s 6= s0 : E[Wcts                  Wct0 s0        ] = E[Wcts             ]E[Wct0 s0         ]
+                               K−1
+                               X K−1            (l)[ker=d]       ut   vs
+                                   X
+                           =                E[Wcts           ]ei( M + N )2π
+                               t=0 s=0
+                                  K−1
+                                  X K−1          ut   vs                     (l)[ker=d]
+                                      X
+                           = µl               ei( M + N )2π      //E[Wcts                 ] = µl
+                                  t=0 s=0
+                                               K−1
+                                               X K−1             ut   vs
+                                                   X
+                             //Let Ruv =                     ei( M + N )2π
+                                                t=0 s=0
+                           = µl Ruv
+
+                                                                           19
+

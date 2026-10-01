@@ -1,0 +1,62 @@
+increased. In the second phase (from the 3rd column to the 6th column in the figure), the DNN
+learned interactions of increasing orders (complexities).
+How to understand the two-phase phenomenon. Previous studies [44, 26] have observed and
+partially proved that the complexity/order of an interaction can reflect the generalization ability10 of
+the interaction. Let us consider an interaction that is frequently extracted by a DNN from training
+samples (see the transferability property in Section 3.2). If this interaction also frequently appears in
+testing samples, then this interaction is considered generalizable10 ; otherwise, non-generalizable. To
+this end, Zhou et al. [44] have discovered that high-order (complex) interactions are less generalizable
+between training and testing samples than low-order (simple) interactions. Furthermore, Ren et
+al. [26] have proved that high-order (complex) interactions are more unstable than low-order (simple)
+interactions when input variables or network parameters are perturbed by random noises.
+Therefore, the two-phase dynamics enable us to revisit the change of generalization power of a DNN:
+1. Before training, the interactions extracted from an initialized DNN exhibited a spindle-shaped
+   distribution of interaction strength over different orders. These interactions could be considered
+   random patterns irrelevant to the task, and such patterns were mostly of medium orders.
+2. In the first phase, the DNN mainly removed the irrelevant patterns caused by the randomly
+   initialized parameters. At the same time, the DNN shifted its attention to low-order interactions
+   between very few input variables. These low-order interactions usually represented relatively
+   simple and generalizable10 inference patterns, without encoding complex inference patterns.
+3. In the second phase, the DNN gradually learned interactions of increasing orders (increasing
+   complexities). Although there was no clear boundary between under-fitting and over-fitting
+   in mathematics, the learning of very complex interactions had been widely considered as a
+   typical sign of over-fitting10 [44].
+3.3 Proving of the two-phase dynamics
+3.3.1 Analytic solution to interaction effects
+As the foundation of proving the dynamics of the two phases, let us first derive the analytic solution
+to interaction effects at a specific time point during the training process. Then, Sections 3.3.2 and
+3.3.3 will use this analytic solution to further explain detailed dynamics in the second phase and the
+first phase, respectively. Later experiments show that our theory can well predict the true dynamics
+of all AND-OR interactions during the learning of real DNNs.
+The proof in this subsection can be divided into three steps. (1) We first rewrite a DNN’s inference on
+an input sample as a weighted sum of triggering functions of different interactions. (2) Then, we can
+reformulate the learning of the DNN on an input sample as a linear regression problem. (3) Thus, the
+interactions at an intermediate time point during training can be obtained as the optimal solution to
+the linear regression problem under a certain level of parameter noises.
+• Step 1: Rewriting a DNN’s inference on an input sample as a weighted sum of triggering
+functions of different interactions. For simplicity, let us only focus on the dynamics of AND
+interactions, because OR interactions can also be represented as a specific kind of AND interactions8
+(see Appendix E for details). In this way, withoutP loss of generality, let us just analyze the learning
+of AND interactions
+          P           w.r.t. v and (x) = v(x∅ ) +  ∅̸=S⊆N Iand (S|x), and simplify the notation as v(x) =
+v(x∅ ) + ∅̸=S⊆N I(S|x) in the following proof. Our conclusions can also be extended to OR
+interactions, as mentioned above.
+Given a DNN, we follow [26, 22] to rewrite the inference function of the network v(x). This is
+inspired by the universal matching property of interactions in Theorem 2, i.e., given any arbitrarily
+masked input sample x̂S w.r.t. a random subset S ⊆ N , the network
+                                                                P output can always be represented
+as a linear sum of different interaction effects v(x = x̂S ) = T ⊆S I(T |x = x̂). In this way, the
+following equation rewrites the inference function of the DNN v(x = x̂S ) as the weighted sum of
+triggering functions of interactions (see Appendix F.2 for proof).
+                                                                   def
+                                                                       X
+            ∀ S ⊆ N, v(x = x̂S ) = f (x = x̂S ), subject to f (x) =          wT JT (x),           (6)
+                                                                                     T ⊆N
+
+   10
+      Unlike the traditional definition of the over-fitting/generalization power on the entire model over the entire
+dataset, the interaction first enables us to explicitly identify detailed over-fitted/generalizable inference patterns
+(interactions) on a specific sample.
+
+
+                                                          6

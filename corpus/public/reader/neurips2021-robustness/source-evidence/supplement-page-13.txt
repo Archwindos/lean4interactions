@@ -1,0 +1,77 @@
+Table 2: The close relationship between the attacking strength and changes of high-order interactions.
+       Attacking strength (iteration number)                                 ∆I (0.7n)        ∆I (0.8n)       ∆I (0.85n)   ∆I (0.9n)   ∆I (0.95n)
+                         4                                                   0.0518           0.0990           0.1411      0.1944       0.2274
+                         8                                                   0.0789           0.1741           0.2399      0.3118       0.3632
+                        16                                                   0.1113           0.2565           0.3342      0.4157       0.4657
+                        32                                                   0.1512           0.3338           0.4391      0.5480       0.6085
+          Pearson correlation coefficient                                    0.9799           0.9603           0.9635      0.9667       0.9634
+                                                                                                                                                    Random smoothing
+                                                       𝑚                𝑚
+                                                     𝐼nor             𝐼adv
+                                                                                              𝑚
+                                         𝑚
+                                                                                         Δ𝐽
+                   Average Interactionaaa
+
+                                                                                                  1𝑒 −5
+                                       𝐼
+
+                                             0.02
+
+                                                                                              1
+                                                0
+
+
+
+                                             -0.02                                        -0.2
+                                                     0.1n   order   0.9n                      0.1n                0.9n
+                                                                                                          order
+                                                                             (𝑚)    (b) Distribution of compositional attacking
+                 (a) The multi-order interaction 𝐼nor
+                       (𝑚)
+                 and 𝐼adv based on the ResNet-50                                    utilities Δ𝐽 𝑚 on the ResNet-50 trained
+                 trained via randomized smoothing.                                  via randomized smoothing.
+
+        Figure 4: Experimental results on the ResNet-50 trained via randomized smoothing.
+
+
+significantly increased. This indicated that adversarial perturbations adversely affected complex
+features corresponding to the ground-truth category, while encouraging features for other categories,
+especially for the target category.
+
+
+I.7   Extended experiments on the relationship between the strength of attacks and the
+      change of high-order interactions
+
+In Section 4.1 of the paper, we find that adversarial attacks mainly affected high-order interactions in
+DNNs. In this section, we further explore the relationship between the strength of attacks and the
+change of high-order interactions.
+Using the standard ResNet-18 learned on the ImageNet dataset, we conducted untargeted PGD attacks
+on input samples with different attacking strengths, in order to test the effects of attacking strength on
+high-order interactions. The strength of attacks was represented by the iteration numbers of the PGD
+attack. Then, we computed the change in high-order interactions ∆I (m) caused by adversarial attacks
+of different strengths. We also computed the Pearson correlation coefficient between the strength of
+attacks and ∆I (m) . Table 2 shows a close relationship between changes in high-order interactions
+and the strength of adversarial attacks. Besides, for both weak and strong attacks, the highest-order
+(here we set it as 0.95n-order) interactions were much more sensitive than interactions of not-so-high
+orders (e.g., 0.7n-order).
+
+
+I.8   Extended experiments based on models with certified robustness
+
+In the main paper, experimental results on DNNs trained via adversarial training [12] have verified our
+conclusions that adversarial attacks mainly affect high-order interactions, and low-order interactions
+in adversarial examples towards robust DNNs have more attacking utilities. In this section, we
+conducted extended experiments on other defending method [2]. Given the ResNet-50 trained
+via randomized smoothing, which was proved to have certified robustness by [2], we generated
+adversarial examples using the PGD attack on samples from the validation set of the ImageNet
+dataset. We followed experimental settings of the classic PGD attack (see Section 4.1 in the main
+paper). Then, we computed multi-order interactions in normal samples and adversarial examples on
+the pre-trained ResNet-50.
+Figure 4 shows that in the model trained via randomized smoothing, adversarial attacks also mainly
+affected high-order interactions, and low-order interactions had more attacking utilities on the model
+output, which verified our conclusions.
+
+
+                                                                                    13
+

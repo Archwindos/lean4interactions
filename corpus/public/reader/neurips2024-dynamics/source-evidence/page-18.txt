@@ -1,0 +1,84 @@
+Please see the complete derivation of the following formula.
+ X                              X         h X                                        i
+                 Ior (T |x) =              −                (−1)|T |−|L| vor (xN \L )
+    T :T ∩S̸=∅                T :T ∩S̸=∅           L⊆T
+                             X         X
+                          =−                                   (−1)|T |−|L| vor (xN \L )
+                                 L⊆N         T :T ∩S̸=∅,T ⊇L
+                                                           
+                                 |S|
+                                            ′           ′
+                                         |T   |
+                                X                    |T   |
+                          = −        C|S| (−1)  · vor (xS ) − vor (x∅ )
+                                  ′
+                                                              | {z } | {z }
+                                      |T |=1                                           L=N
+                                                                     L=N \S
+                                                                                                                    
+                                                                        |S|−|S∩L|
+                                                                                       |T ′′ |         ′    ′′
+                                        X                  X                X
+                                −                                                   C|S|−|S∩L| (−1)|T |+|T |           · vor (xN \L )
+                                    L∩S̸=∅,L̸=N       T ′ ⊆N \S\L        |T ′′ |=0
+                                                                                                              
+                                                                             |S|
+                                                                                       |T ′′ |   ′    ′′
+                                          X                   X              X
+                                −                                                   C|S| (−1)|T |+|T |           · vor (xN \L )
+                                    L∩S=∅,L̸=N \S         T ′ ⊆N \S\L     |T ′′ |=0
+                                                                                                           
+                                                                              X                 X
+                          = −(−1) · vor (xS ) − vor (x∅ ) −                                               0 · vor (xN \L )
+                                                                         L∩S̸=∅,L̸=N         T ′ ⊆N \S\L
+                                                                        
+                                          X                   X
+                                −                                      0 · vor (xN \L )
+                                    L∩S=∅,L̸=N \S         T ′ ⊆N \S\L
+
+                          = vor (xS ) − vor (x∅ )
+                          = vor (xS )
+                                                                                                                                      (18)
+(3) Universal matching theorem of AND-OR interactions.
+With the universal matching theorem of AND interactions and the universalP    matching theorem of
+OR interactions, we can easily get v(xS ) = vand (xS ) + vor (xS ) = v(x∅ ) + ∅̸=T ⊆S Iand (T |x) +
+P
+  T :T ∩S̸=∅ Ior (T |x), thus, we obtain the universal matching theorem of AND-OR interactions.
+
+
+
+
+F.2 Proof of Eq. (6) and Eq. (7)
+Before we give the derivation of Eq. (6) and Eq. (7), we first prove the following lemma.
+Lemma 3. The effect I(T |x) of an AND interaction w.r.t. subset T on sample x can be rewritten as
+                                      X                1        ∂ π1 +···+πn v                   Y
+                    I(T |x) =                    Qn               π1        πn                       (xi − bi )πi ,                   (19)
+                                                      i=1 πi ! ∂x1 · · · ∂xn
+                                          π∈QT
+                                                                                         x=x∅ i∈T
+
+where QT = {[π1 , . . . , πn ]⊤ | ∀ i ∈ T, πi ∈ N+ ; ∀ i ̸∈ T, πi = 0}.
+Note that a similar proof was first introduced in [26].
+
+Proof. Let us denote the function on the right of Eq. (19) by K(T |x), i.e., for S ̸= ∅,
+
+                                def
+                                      X                   1     ∂ π1 +···+πn v                   Y
+                   K(T |x) =                      Qn              π1        πn                       (xi − bi )πi .                   (20)
+                                                      i=1 πi ! ∂x1 · · · ∂xn
+                                          π∈QT
+                                                                                         x=x∅ i∈T
+
+
+Actually, it has been proven in [13] and [23] that the AND interaction I(T |x) (see definition in
+Eq. (2)) is the unique metric satisfying the following property (an extension of the property for
+AND-OR interactions is mentioned in Theorem 2), i.e.,
+                                             X
+                         ∀ S ⊆ N, v(xS ) =              I(T |x) + v(x∅ ).                    (21)
+                                                                    ∅̸=T ⊆S
+
+Thus, as long as we can prove that K(T |x) also satisfies the above universal matching property, we
+can obtain I(T |x) = K(T |x).
+
+
+                                                                    18

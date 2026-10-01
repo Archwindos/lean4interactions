@@ -1,0 +1,71 @@
+                                 Defects of Convolutional Decoder Networks in Frequency Representation
+
+Furthermore, based on Assumption 3.1, the convolution operation does not change the size of the feature map, i.e., M 0 = M ,
+N 0 = N . In this case, αu0 v0 uv can be computed as follows.
+
+                                               0         0
+                                       M −1 N −1
+                                    1 X X i(( u − u00 )m+( v − v00 )n)2π
+                     αu0 v0 uv   =               e M M     N   N
+                                   M N m=0 n=0
+                                         M −1 N −1
+                                      1 X X i( (u−u0 )m + (v−v0 )n )2π
+                                 =                 e M       N                                   //M 0 = M, N 0 = N
+                                     M N m=0 n=0                                                                                                (18)
+                                         M −1             N −1
+                                      1 X i( (u−u0 )2π )m X i( (v−v0 )2π )n
+                                 =            e M              e  N                                     //According to Equation (16)
+                                     M N m=0              n=0
+                         = δu−u0 δv−v0
+                (                       (
+                     0
+                 1, u = u                1, v 0 = v
+where δu−u0   =               ; δv−v0 =               .
+                 0, otherwise            0, otherwise
+               0 0
+Therefore, h(u v ) can be computed as follows.
+                                                           0      0
+                                                         M   −1 N   −1
+                                         (u0 v 0 )                                       0 0         0 0
+                                                         X      X
+                                       h             =                      αu0 v0 uv T (u v ) g(u v ) + δu0 v0 M 0 N 0 b
+                                                             u=0     v=0
+                                                         M −1 N −1
+                                                         X    X                                0 0         0 0
+                                                     =                  δu−u0 δv−v0 T (u v ) g(u v ) + δu0 v0 M N b
+                                                         u=0 v=0
+                                                               0 0         0 0
+                                                     = T (u v ) g(u v ) + M N bδu0 v0
+
+Then, we prove that h(uv) = T (uv) g(uv) + M N bδuv .
+
+A.2. Proof of Corollary 3.3
+In this section, we prove Corollary 3.3 in Section 3 of the main paper, as follows.
+
+Proof. Let G(l) = [G(l,1) , G(l,2) , · · · , G(l,Cl ) ] ∈ CCl ×M ×N denote feature spectrums of the l-th layer. Let g(l,uv) =
+   (l,1)  (l,2)       (l,C )
+[Guv , Guv , · · · , Guv l ]> ∈ CCl denote the frequency component at the frequency [u, v]. When l = 0, g(0,uv) denotes
+the frequency component of the input sample. When l = L, g(L,uv) denotes the frequency component of the network output.
+Based on Theorem 3.2, g(l,uv) can be computed as follows.
+                                     ∀l = 1, 2, . . . , L,            g(l,uv) = T (l,uv) g(l−1,uv) + δuv M N b(l)
+
+Then, the frequency component g(L,uv) of the network output can be computed as follows.
+                       g(L,uv) = T (L,uv) g(L−1,uv) + δuv M N b(L)
+                                 = T (L,uv) (T (L−1,uv) g(L−2,uv) + δuv M N b(L−1) ) + δuv M N b(L)
+                                 = T (L,uv) T (L−1,uv) g(L−2,uv) + T (L,uv) δuv M N b(L−1) + δuv M N b(L)
+                                 = ···
+                                      (l,uv)                                         (l,uv)
+                                 = Tdc         · · · T (1,uv) g(0,uv) + M N Tdc               · · · T (2,uv) b(1) δuv + · · · + M N b(L) δuv
+                                      (l,uv)                                               (l,uv)
+                                 = Tdc         · · · T (1,uv) g(0,uv) + δuv M N (Tdc                 · · · T (2,uv) b(1) + · · · + M N b(L) )
+
+                  (l,uv)                                           PL
+                         · · · T (2,uv) T (1,uv) and β = M N b(L) + j=2 T(00)(L:j) b(j−1) . Let h(uv) = g(L,uv) denote the
+                                                                                         
+Let T(uv)(L:1) = Tdc
+frequency component of the network output, and let g(uv) = g(0,uv) denote the frequency component of the input sample.
+Then, we prove that h(uv) can be computed as follows.
+                                                               h(uv) = T(uv)(L:1) g(uv) + δuv β
+
+                                                                                    14
+

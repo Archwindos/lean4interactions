@@ -1,0 +1,68 @@
+                           Towards Theoretical Analysis of Transformation Complexity of ReLU DNNs
+
+sider the task (X, Y ), where X denotes all input samples              In this study, we conduct the following theoretic explo-
+and Y denotes corresponding labels. Given a DNN, the                   rations based on the complexity metrics.
+complexity of transformations represents the diversity of
+                                                                       (1) Disentanglement: we prove the strong correlation be-
+transformations that map each input x to the corresponding
+                                                                       tween the complexity and the disentanglement of trans-
+y ∈ Y over all inputs x ∈ X , i.e., the number of linear
+                                                                       formations. Let us consider DNNs with similar activation
+subspaces in piecewise linear transformations. From this
+                                                                       rates in a certain layer. If the complexity of the transforma-
+perspective, the simplest model is a linear transformation
+                                                                       tion encoded in a specific layer is larger, then gating states
+y = f (wT x + b) = wT x + b, where the nonlinear operation
+                                                                       of different feature dimensions tend to be more independent
+f (·) is by-passed as an all-passing gating layer. In this case,
+                                                                       with each other.
+the entropy of its gating states is zero. In comparison, as
+Figure 1 shows, a DNN usually generates various gating                 (2) Minimum complexity and the gap between the train-
+states for different inputs, thereby dividing all training sam-        ing loss and the testing loss: we use the complexity as
+ples into different subspaces. The complexity of such a                a loss to learn a DNN with the minimum complexity. A
+piecewise linear representation is quantified as the entropy           DNN usually learns over-complex transformations w.r.t. the
+of gating states of all gating layers. Let the binary vector           task. Thus, we propose a complexity loss, which penal-
+σl = [σl,1 , σl,2 , . . . , σl,D ] ∈ {0, 1}D denote gating states of   izes unnecessary transformations to learn a DNN with the
+the gating layer. Let Σ represent the random variable of               minimum complexity. Given the DNN learned using the
+all gating states in all layers of the DNN. In this way, the           complexity loss, we find that the gap between the training
+entropy H(Σ) among all inputs measures the complexity of               loss and the testing loss decreases, when we reduce the
+the overall transformation complexity in the DNN.                      complexity of transformations. Furthermore, we find that
+                                                                       the complexity loss also influences adversarial robustness,
+Based on the entropy H(Σ), we further propose I(X; Σ) and
+                                                                       adversarial transferability, and knowledge consisitency.
+I(X; Σ; Y ) as two additional metrics to further disentangle
+specific components of the overall transformation complex-             (3) Maximum complexity: we explore the ceiling of a
+ity H(Σ) in a fine-grained manner. The mutual information              DNN’s complexity. First, the complexity of a DNN does
+I(X; Σ) measures the complexity of transformations that                not monotonously increase with the network depth. In con-
+are caused by the input. The mutual information I(X; Σ; Y )            trast, the traditional stacked DNN with a deep architecture
+represents the complexity of transformations that are caused           may encode simpler transformations than shallow DNNs
+by the input and are directly used for inference. For exam-            in some cases. Whereas, the transformation complexity of
+ple, in the task of object classification, not all transforma-         residual networks is saturated when we use more gating
+tions in the DNN are category-specific. I(X; Σ; Y ) reflects           layers. Second, the complexity of transformations does not
+category-specific components of transformations. Notice                increase monotonously along with the increase of the com-
+that I(X; Σ) = H(Σ) in most cases. However, for other                  plexity of tasks. In contrast, if the task complexity exceeds a
+cases when the DNN uses additional transformations (ran-               certain limit, the complexity of transformations encoded in
+domness) beyond transformations caused by the input X ,                the DNN will decrease along with the increase of the task
+we have I(X; Σ) ̸= H(Σ). For example, sampling operations              complexity.
+in the VAE (Kingma & Welling, 2013) and the dropout
+                                                                       Theorectial contributions of this study can be summarized
+operation bring additional transformations.
+                                                                       as follows. (1) We define three metrics to evaluate the com-
+Analysis and explanations. In this paper, we prove various             plexity of transformations in piecewise linear DNNs, which
+properties of the complexity metrics. Let us focus on the              have a great theoretical extensibility. (2) We prove the strong
+complexity of transforming the feature in an intermediate              correlation between the complexity and the disentanglement
+layer to the output of the DNN. The transformation complex-            of transformations. (3) We further use the transformation
+ity decreases through the layerwise propagation. In other              complexity as a loss to learn a minimum-complexity DNN,
+words, deep features usually require simpler transformations           which also reduces the gap between the training loss and
+to conduct inference than shallow features. Then, we use               the testing loss. (4) Comparative studies reveal the ceiling
+the proposed complexity metrics to analyze the knowledge               of a DNN’s complexity.
+representation of DNNs. We can summarize the change of
+the complexity during the training process into two types.             2. Related Work
+In traditional stacked DNNs without skip-connections, the
+complexity usually decreases first, and increases later. This          We limit our discussion within the literature of understand-
+indicates that DNNs may drop noisy features in early stages,           ing representations of DNNs. In general, previous studies
+and learn useful information later. Whereas, in residual               can be roughly summarized into the following two types.
+networks, the transformation complexity does not decrease
+                                                                       • The first type is the semantic explanations for DNNs.
+during the learning process.
+

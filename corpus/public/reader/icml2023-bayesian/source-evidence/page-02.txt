@@ -1,0 +1,74 @@
+                         Bayesian Neural Networks Avoid Encoding Complex and Perturbation-Sensitive Concepts
+
+          (a)                                           (b)                MLP on                          MLP on                   CNN on                    CNN on
+                                              𝐶𝑆1 = 1         30         Census dataset        40
+                                                                                                        TV news dataset    25     CoLA dataset       50     SST-2 dataset
+                                                                            salient                         salient                 salient                   salient
+                                    3-order             |𝐼(𝑆)|
+                                    concept                                      noise                          noise                    noise                      noise
+                                              𝐶𝑆2 = 0            0                             0                           0                         0
+                                                                     1                    2𝑛        1                 2𝑛  1             2𝑛  1              2𝑛
+                    𝒙𝟑 𝒙𝟏
+                                                                          ResMLP on                      ResMLP on          LSTM on           ResNet-32 on
+                    𝒙𝟐                                        50         Census dataset        80       TV news dataset 12 CoLA dataset    7 MNIST dataset
+                                                                            salient                         salient           salient           salient
+                                              𝐶𝑆3 = 0   |𝐼(𝑆)|
+                                                                                noise                           noise                    noise                      noise
+                               𝒙𝟔
+                                                                 0                              0                          0                         0
+                                    7-order
+                Masked sample 𝑥𝑆                                     1               2𝑛             1                 2𝑛        0               2𝑛        1               2𝑛
+                                    concept
+                                                                     index of concepts               index of concepts           index of concepts         index of concepts
+
+
+Figure 1. (a) Illustration of interactive concepts encoded by a neural network. Each interactive concept S corresponds to an AND
+relationship among a specific set S of input variables (image patches). CS represents the activation state of the concept S. The patch x1 is
+masked (unmask(x1 ) = 0), so the concept S2 is deactivated, i.e., CS2 = 3i=1 unmask(xi ) = 0. Similarly, x6 is masked, so that the
+                                                                             V
+concept S3 is deactivated, and CS3 = 0. (b) Experiments demonstrate the common concept-emerging phenomenon. Neural networks
+with various architectures all encode sparse interactive concepts. In other words, most interactive concepts have near-zero effects, i.e.,
+I(S) ≈ 0, and can be considered as noises; only a relatively small number of interactive concepts have significant effects. For better
+visualization, the interactive concepts are sorted by strengths in descending order.
+
+
+complexity of an interactive concept S is defined as the                                 then our research indicates that the BNN must reduce its
+number of variables in the set S , i.e., complexity(S) = |S|.                            weight uncertainty, to some extent.
+Here, |S| is also termed the order of the interactive concept.
+                                                                                         Practical values and advantages of avoiding encoding
+We prove the above conclusion through three steps. First, it                             complex concepts. Although we prove that BNNs tend
+is difficult to theoretically analyze interactive concepts en-                           to avoid encoding complex concepts, it is not necessarily
+coded by BNNs, because BNNs represent network weights                                    a disadvantage of the BNN, compared to standard DNNs.
+as probability distributions. To this end, we find that we can                           On the contrary, it has been found that compared to sim-
+usually use a surrogate DNN model, which is constructed                                  ple (low-order) concepts, complex (high-order) concepts
+by adding perturbations to both the input and low-layer                                  encoded by a neural network usually have poorer generaliza-
+features of a standard DNN, to approximate feature repre-                                tion ability (Lengerich et al., 2022) and are more vulnerable
+sentations of a BNN. In this way, we can directly analyze                                to adversarial attacks (Ren et al., 2021). Thus, encoding less
+the surrogate DNN model with feature uncertainty, instead                                complex concepts might be an advantage.
+of investigating the BNN with weight uncertainty.
+Second, we prove that in the surrogate DNN model, high-                                  2. BNNs ignore complex and perturbation-
+order interactive concepts are more sensitive to random                                     sensitive concepts
+perturbations than low-order interactive concepts.
+                                                                                         Unlike standard DNNs, a BNN represents each weight in
+Third, we prove that the sensitivity makes high-order in-                                the network as a probability distribution, instead of a scalar.
+teractive concepts difficult to be learned when features are                             In this paper, we limit the scope of our study to mean-field
+perturbed. In this way, we can conclude that high-order                                  variational BNNs (Blundell et al., 2015), where all weights
+interactive concepts are also less likely to be learned by the                           W are formulated as a Gaussian distribution N (W ; µ, Σ),
+BNN when its weights are perturbed.                                                      and the covariance matrix Σ is diagonal. Other types of
+In addition, experiments showed that the strength of high-                               BNNs (e.g., BNNs based on the Monte Carlo Dropout (Gal
+order (complex) interactive concepts encoded by BNNs                                     & Ghahramani, 2016)) are not discussed. The BNN learns
+was weaker than those encoded by standard DNNs, which                                    parameters θ = (µ, Σ), and we use qθ (W ) to represent the
+verified the above theoretical conclusion.                                               weight distribution. Let us consider a classification task
+                                                                                         with the training data D = {(x(1) , y (1) ), . . . , (x(n) , y (n) )}.
+Note that our proof does NOT mean that a BNN has                                         Training a BNN is to minimize the Kullback-Leibler (KL)
+limited representation capacity. Instead, we just demon-                                 divergence between the distribution qθ (W ) and the posterior
+strate the distinctive tendency of avoiding encoding complex                             distribution p(W |D).
+(high-order) interactive concepts, when weight uncertainty
+is introduced into the neural network. This does not mean
+that BNNs have weaker representation power than standard                                 θ ∗= argmin KL[qθ (W )∥p(W |D)]                                                       (1)
+                                                                                                            θ
+DNNs. If the task loss requires to encode complex concepts,                                    = argmin −EW ∼qθ (W ) [log p(D|W )]+KL[qθ (W )∥p(W )],
+                                                                                                            θ
+
+
+                                                                                  2

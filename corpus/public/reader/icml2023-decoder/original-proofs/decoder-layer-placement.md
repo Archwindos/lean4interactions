@@ -1,0 +1,1 @@
+It was because different convolutional layers, including both shallow and deep layers, theoretically had similar roles in affecting the frequency representation of the entire network, according to Corollary 3.3.

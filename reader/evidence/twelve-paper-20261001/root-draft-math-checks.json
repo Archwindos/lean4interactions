@@ -1,0 +1,70 @@
+{
+  "scope": "actual KaTeX parsing of draft fields only; not mathematical/source acceptance",
+  "reports": [
+    {
+      "paper": "neurips2024-dynamics",
+      "input_sha256": "40a10a4295a72111682b756726647c9bd6cf00c95b10d818b8703e4055da4a20",
+      "checked": 2877,
+      "errors": [
+        {
+          "path": "/results/2/original_statement_md@33",
+          "tex": "\\forall S\\subseteq N,\\ f(\\hat x_S)=v(\\hat x_S),\\quad f(\\hat x_S)=v(\\hat x_\\varnothing)+\\sum_{T\\subseteq N}I_{and}(T\\mid\\hat x)\\mathbf1(\\hat x_S\\text{ triggers AND }T)+\\sum_{T\\subseteq N}I_{or}(T\\mid\\hat x)\\mathbf1(\\hat x_S\\text{ triggers OR }T)\\tag{3}\\\\=v(x=\\hat x_\\varnothing)+\\sum_{\\varnothing\\ne T\\subseteq S}I_{and}(T\\mid x=\\hat x)+\\sum_{T\\subseteq N:T\\cap S\\ne\\varnothing}I_{or}(T\\mid x=\\hat x)\\tag{4}\\\\\\approx v(x=\\hat x_\\varnothing)+\\sum_{T\\in\\Omega_{and}:\\varnothing\\ne T\\subseteq S}I_{and}(T\\mid x=\\hat x)+\\sum_{T\\in\\Omega_{or}:T\\cap S\\ne\\varnothing}I_{or}(T\\mid x=\\hat x)\\tag{5}",
+          "error": "KaTeX parse error: Multiple \\tag"
+        },
+        {
+          "path": "/results/2/translations/en/original_statement_md@34",
+          "tex": "\\forall S\\subseteq N,\\ f(\\hat x_S)=v(\\hat x_S),\\quad f(\\hat x_S)=v(\\hat x_\\varnothing)+\\sum_{T\\subseteq N}I_{and}(T\\mid\\hat x)\\mathbf1(\\hat x_S\\text{ triggers AND }T)+\\sum_{T\\subseteq N}I_{or}(T\\mid\\hat x)\\mathbf1(\\hat x_S\\text{ triggers OR }T)\\tag{3}\\\\=v(x=\\hat x_\\varnothing)+\\sum_{\\varnothing\\ne T\\subseteq S}I_{and}(T\\mid x=\\hat x)+\\sum_{T\\subseteq N:T\\cap S\\ne\\varnothing}I_{or}(T\\mid x=\\hat x)\\tag{4}\\\\\\approx v(x=\\hat x_\\varnothing)+\\sum_{T\\in\\Omega_{and}:\\varnothing\\ne T\\subseteq S}I_{and}(T\\mid x=\\hat x)+\\sum_{T\\in\\Omega_{or}:T\\cap S\\ne\\varnothing}I_{or}(T\\mid x=\\hat x)\\tag{5}",
+          "error": "KaTeX parse error: Multiple \\tag"
+        },
+        {
+          "path": "/results/5/original_proof_md@357",
+          "tex": "\\begin{aligned}\nf(\\hat x_S)&=\\sum_{T\\subseteq N}w_TJ_T(\\hat x_S)\\tag{26}\\\\\n&=\\sum_{T\\subseteq N}\\sum_{\\pi\\in Q_T}\\frac1{\\prod_{i=1}^n\\pi_i!}\\left.\\frac{\\partial^{\\pi_1+\\cdots+\\pi_n}v}{\\partial x_1^{\\pi_1}\\cdots\\partial x_n^{\\pi_n}}\\right|_{x=x_\\varnothing}\\prod_{i\\in T}((\\hat x_S)_i-b_i)^{\\pi_i}\\tag{27}\\\\\n&=\\sum_{T\\subseteq S}\\sum_{\\pi\\in Q_T}\\frac1{\\prod_{i=1}^n\\pi_i!}\\left.\\frac{\\partial^{\\pi_1+\\cdots+\\pi_n}v}{\\partial x_1^{\\pi_1}\\cdots\\partial x_n^{\\pi_n}}\\right|_{x=x_\\varnothing}\\prod_{i\\in T}((\\hat x_S)_i-b_i)^{\\pi_i}\\tag{28}\\\\\n&=\\sum_{T\\subseteq S}\\sum_{\\pi\\in Q_T}\\frac1{\\prod_{i=1}^n\\pi_i!}\\left.\\frac{\\partial^{\\pi_1+\\cdots+\\pi_n}v}{\\partial x_1^{\\pi_1}\\cdots\\partial x_n^{\\pi_n}}\\right|_{x=x_\\varnothing}\\prod_{i\\in T}(\\hat x_i-b_i)^{\\pi_i}\\tag{30}\\\\\n&=\\sum_{\\varnothing\\ne T\\subseteq S}I(T\\mid x=\\hat x)+v(x_\\varnothing)\\tag{32}\\\\\n&=v(\\hat x_S).\\tag{33}\n\\end{aligned}",
+          "error": "KaTeX parse error: Multiple \\tag"
+        },
+        {
+          "path": "/results/6/original_proof_md@198",
+          "tex": "\\begin{aligned}\n\\widetilde I(T\\mid x)&=\\sum_{S\\subseteq T}(-1)^{|T|-|S|}\\widetilde v(x_S)\\tag{34}\\\\\n&=\\sum_{S\\subseteq T}(-1)^{|T|-|S|}(v(x_S)+\\Delta v_S)\\tag{35}\\\\\n&=\\sum_{S\\subseteq T}(-1)^{|T|-|S|}v(x_S)+\\sum_{S\\subseteq T}(-1)^{|T|-|S|}\\Delta v_S\\tag{36}\\\\\n&=I(T\\mid x)+\\Delta I_T.\\tag{37}\n\\end{aligned}",
+          "error": "KaTeX parse error: Multiple \\tag"
+        },
+        {
+          "path": "/results/6/original_proof_md@673",
+          "tex": "\\begin{aligned}\\operatorname{Var}\\Delta I_T&=\\operatorname{Var}\\left(\\sum_{S\\subseteq T}(-1)^{|T|-|S|}\\Delta v_S\\right)\\tag{38}\\\\&=\\operatorname{Var}\\Delta v_{S_1}+\\operatorname{Var}\\Delta v_{S_2}+\\cdots+\\operatorname{Var}\\Delta v_{S_{2^{|T|}}}\\tag{39}\\\\&=2^{|T|}\\sigma^2.\\tag{40}\\end{aligned}",
+          "error": "KaTeX parse error: Multiple \\tag"
+        },
+        {
+          "path": "/results/8/original_proof_md@91",
+          "tex": "\\begin{aligned}\\hat w&=\\arg\\min_w\\widetilde L(w)\\tag{41}\\\\\\widetilde L(w)&=E_\\epsilon E_{S\\subseteq N}(y_S-w^\\top(J(x_S)+\\epsilon))^2\\tag{42}\\\\&=E_E\\left[2^{-n}\\|y-(J+E)w\\|_2^2\\right]\\tag{43}\\\\&=2^{-n}E_E[(y-(J+E)w)^\\top(y-(J+E)w)]\\tag{44}\\\\&=2^{-n}\\{y^\\top y-2y^\\top E_E[J+E]w+w^\\top E_E[(J+E)^\\top(J+E)]w\\}.\\tag{45}\\end{aligned}",
+          "error": "KaTeX parse error: Multiple \\tag"
+        },
+        {
+          "path": "/results/8/original_proof_md@529",
+          "tex": "\\begin{aligned}E_E[(J+E)^\\top(J+E)]w&=E_E[(J+E)^\\top]y\\tag{47}\\\\(J^\\top J+E_E[E^\\top J]+J^\\top E_E[E]+E_E[E^\\top E])w&=J^\\top y\\tag{48}\\\\(J^\\top J+E_E[E^\\top E])w&=J^\\top y.\\tag{49}\\end{aligned}",
+          "error": "KaTeX parse error: Multiple \\tag"
+        },
+        {
+          "path": "/results/9/original_proof_md@946",
+          "tex": "\\begin{aligned}\nJ_T(\\hat x_S)&=\\sum_{\\pi\\in Q_T}\\frac1{\\prod_{i=1}^n\\pi_i!}\\left.\\frac{\\partial^{\\pi_1+\\cdots+\\pi_n}v}{\\partial x_1^{\\pi_1}\\cdots\\partial x_n^{\\pi_n}}\\right|_{x=x_\\varnothing}\\prod_{i\\in T}((\\hat x_S)_i-b_i)^{\\pi_i}/w_T\\tag{55}\\\\\n&=\\frac{\\displaystyle\\sum_{\\pi\\in Q_T}\\frac1{\\prod_{i=1}^n\\pi_i!}\\left.\\frac{\\partial^{\\pi_1+\\cdots+\\pi_n}v}{\\partial x_1^{\\pi_1}\\cdots\\partial x_n^{\\pi_n}}\\right|_{x=x_\\varnothing}\\prod_{i\\in T}((\\hat x_S)_i-b_i)^{\\pi_i}}{\\displaystyle\\sum_{\\pi\\in Q_T}\\frac1{\\prod_{i=1}^n\\pi_i!}\\left.\\frac{\\partial^{\\pi_1+\\cdots+\\pi_n}v}{\\partial x_1^{\\pi_1}\\cdots\\partial x_n^{\\pi_n}}\\right|_{x=x_\\varnothing}\\prod_{i\\in T}(\\hat x_i-b_i)^{\\pi_i}}\\tag{56}\\\\\n&=\\frac{\\displaystyle\\sum_{\\pi\\in Q_T}\\frac1{\\prod_{i=1}^n\\pi_i!}\\left.\\frac{\\partial^{\\pi_1+\\cdots+\\pi_n}v}{\\partial x_1^{\\pi_1}\\cdots\\partial x_n^{\\pi_n}}\\right|_{x=x_\\varnothing}\\prod_{i\\in T}(\\hat x_i-b_i)^{\\pi_i}}{\\displaystyle\\sum_{\\pi\\in Q_T}\\frac1{\\prod_{i=1}^n\\pi_i!}\\left.\\frac{\\partial^{\\pi_1+\\cdots+\\pi_n}v}{\\partial x_1^{\\pi_1}\\cdots\\partial x_n^{\\pi_n}}\\right|_{x=x_\\varnothing}\\prod_{i\\in T}(\\hat x_i-b_i)^{\\pi_i}}\\tag{57}\\\\\n&=1.\\tag{59}\n\\end{aligned}",
+          "error": "KaTeX parse error: Multiple \\tag"
+        },
+        {
+          "path": "/results/10/original_proof_md@143",
+          "tex": "(J^\\top J+2^n\\operatorname{diag}(c))\\hat M=J^\\top J\\tag{60},\\qquad (B+D)\\hat M=B.\\tag{61}",
+          "error": "KaTeX parse error: Multiple \\tag"
+        },
+        {
+          "path": "/results/14/original_proof_md@496",
+          "tex": "\\begin{aligned}I_{or}(S\\mid x)&=-\\sum_{T\\subseteq S}(-1)^{|S|-|T|}v(x_{N\\setminus T})\\tag{14}\\\\&=-\\sum_{T\\subseteq S}(-1)^{|S|-|T|}v(\\widetilde x_T)\\tag{15}\\\\&=-I_{and}(S\\mid\\widetilde x).\\tag{16}\\end{aligned}",
+          "error": "KaTeX parse error: Multiple \\tag"
+        }
+      ],
+      "status": "failed"
+    },
+    {
+      "paper": "neurips2021-robustness",
+      "input_sha256": "78f72ac7181163d17ff4580a307c2f1c55aa41ba95034e3506c9f8a95901f1f0",
+      "checked": 2640,
+      "errors": [],
+      "status": "passed"
+    }
+  ]
+}

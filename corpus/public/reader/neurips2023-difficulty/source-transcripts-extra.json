@@ -1,0 +1,460 @@
+{
+  "diff-efficiency": {
+    "source_id": "src-neurips2023-difficulty-formal",
+    "source_sha256": "068687d3930191bbb82d95ff2e509fb4f189a5c8c773ca1c616459527420664e",
+    "section": "D. Axioms and theorems for the Harsanyi dividend interaction",
+    "original_statement_md": "In this section, we introduce that the Harsanyi dividend interaction $I(S)$ satisfies several desirable axioms and theorems.\n\nThe Harsanyi dividend interactions $I(S)$ satisfies the efficiency, linearity, dummy, symmetry, anonymity, recursive and interaction distribution axioms, as follows.\n\n(1) Efficiency axiom (proved by [18]). The reward of a neural network can be decomposed into interaction effects of different contexts, i.e. $v(N)=\\sum_{S\\subseteq N}I(S)$.",
+    "original_proof_md": "",
+    "pdf_pages": [
+      15
+    ],
+    "equation_labels": [],
+    "note": "Source-only author transcription. Project observations are separate transcription_notes; no mathematical correction, extra assumption or formalization is inserted in the author fields.",
+    "transcription_notes": [
+      "Section D states this mathematical property and does not supply an independent local author proof. The empty original_proof_md records that source boundary; it is not a placeholder for an invented proof.",
+      "The source explicitly attributes the efficiency proof to reference [18]; the Section D introduction is retained here before the first axiom."
+    ],
+    "transcription_status": "complete_author_transcription_pending_independent_review",
+    "visual_review": {
+      "pdf_pages": [
+        15
+      ],
+      "method": "Actual official PDF page images visually checked."
+    },
+    "source_evidence_sha256": {
+      "corpus/public/reader/neurips2023-difficulty/source-evidence/page-15.txt": "ee917bfbf7645f7c526b0bfce0edf7116657da46169b091127cc108d11627f1b"
+    },
+    "format_validation": {
+      "status": "passed",
+      "engine": "actual local KaTeX",
+      "math_expressions": 3,
+      "scope": "source transcription display only; no mathematical validity claim"
+    }
+  },
+  "diff-linearity": {
+    "source_id": "src-neurips2023-difficulty-formal",
+    "source_sha256": "068687d3930191bbb82d95ff2e509fb4f189a5c8c773ca1c616459527420664e",
+    "section": "D. Axioms and theorems for the Harsanyi dividend interaction",
+    "original_statement_md": "(2) Linearity axiom. If we merge rewards of two neural networks $w$ and $v$ as the reward of model $u$, i.e. $\\forall S\\subseteq N,u(S)=w(S)+v(S)$, then their interaction effects $I_v(S)$ and $I_w(S)$ can be represented as $\\forall S\\subseteq N,I_u(S)=I_v(S)+I_w(S)$.",
+    "original_proof_md": "",
+    "pdf_pages": [
+      15
+    ],
+    "equation_labels": [],
+    "note": "Source-only author transcription. Project observations are separate transcription_notes; no mathematical correction, extra assumption or formalization is inserted in the author fields.",
+    "transcription_notes": [
+      "Section D states this mathematical property and does not supply an independent local author proof. The empty original_proof_md records that source boundary; it is not a placeholder for an invented proof."
+    ],
+    "transcription_status": "complete_author_transcription_pending_independent_review",
+    "visual_review": {
+      "pdf_pages": [
+        15
+      ],
+      "method": "Actual official PDF page images visually checked."
+    },
+    "source_evidence_sha256": {
+      "corpus/public/reader/neurips2023-difficulty/source-evidence/page-15.txt": "ee917bfbf7645f7c526b0bfce0edf7116657da46169b091127cc108d11627f1b"
+    },
+    "format_validation": {
+      "status": "passed",
+      "engine": "actual local KaTeX",
+      "math_expressions": 7,
+      "scope": "source transcription display only; no mathematical validity claim"
+    }
+  },
+  "diff-dummy": {
+    "source_id": "src-neurips2023-difficulty-formal",
+    "source_sha256": "068687d3930191bbb82d95ff2e509fb4f189a5c8c773ca1c616459527420664e",
+    "section": "D. Axioms and theorems for the Harsanyi dividend interaction",
+    "original_statement_md": "(3) Dummy axiom. If a variable $i\\in N$ is a dummy variable, i.e. $\\forall S\\subseteq N\\setminus\\{i\\},v(S\\cup\\{i\\})=v(S)+v(\\{i\\})$, then it does not interact with other variables, $\\forall\\varnothing\\ne S\\subset N\\setminus\\{i\\},I(S\\cup\\{i\\})=0$.",
+    "original_proof_md": "",
+    "pdf_pages": [
+      15
+    ],
+    "equation_labels": [],
+    "note": "Source-only author transcription. Project observations are separate transcription_notes; no mathematical correction, extra assumption or formalization is inserted in the author fields.",
+    "transcription_notes": [
+      "Section D states this mathematical property and does not supply an independent local author proof. The empty original_proof_md records that source boundary; it is not a placeholder for an invented proof.",
+      "The source conclusion explicitly excludes the empty S and uses a strict subset glyph in this conclusion; both are retained."
+    ],
+    "transcription_status": "complete_author_transcription_pending_independent_review",
+    "visual_review": {
+      "pdf_pages": [
+        15
+      ],
+      "method": "Actual official PDF page images visually checked."
+    },
+    "source_evidence_sha256": {
+      "corpus/public/reader/neurips2023-difficulty/source-evidence/page-15.txt": "ee917bfbf7645f7c526b0bfce0edf7116657da46169b091127cc108d11627f1b"
+    },
+    "format_validation": {
+      "status": "passed",
+      "engine": "actual local KaTeX",
+      "math_expressions": 3,
+      "scope": "source transcription display only; no mathematical validity claim"
+    }
+  },
+  "diff-symmetry": {
+    "source_id": "src-neurips2023-difficulty-formal",
+    "source_sha256": "068687d3930191bbb82d95ff2e509fb4f189a5c8c773ca1c616459527420664e",
+    "section": "D. Axioms and theorems for the Harsanyi dividend interaction",
+    "original_statement_md": "(4) Symmetry axiom. Given two input variables $i,j\\in N$, if $\\forall S\\subseteq N\\setminus\\{i,j\\},v(S\\cup\\{i\\})=v(S\\cup\\{j\\})$, then $\\forall S\\subseteq N\\setminus\\{i,j\\},I(S\\cup\\{i\\})=I(S\\cup\\{j\\})$.",
+    "original_proof_md": "",
+    "pdf_pages": [
+      16
+    ],
+    "equation_labels": [],
+    "note": "Source-only author transcription. Project observations are separate transcription_notes; no mathematical correction, extra assumption or formalization is inserted in the author fields.",
+    "transcription_notes": [
+      "Section D states this mathematical property and does not supply an independent local author proof. The empty original_proof_md records that source boundary; it is not a placeholder for an invented proof."
+    ],
+    "transcription_status": "complete_author_transcription_pending_independent_review",
+    "visual_review": {
+      "pdf_pages": [
+        16
+      ],
+      "method": "Actual official PDF page images visually checked."
+    },
+    "source_evidence_sha256": {
+      "corpus/public/reader/neurips2023-difficulty/source-evidence/page-16.txt": "6c52870b013d793c2920c70a477f5b13f1c15ce5fdbd9bb57c177fc013f4d28c"
+    },
+    "format_validation": {
+      "status": "passed",
+      "engine": "actual local KaTeX",
+      "math_expressions": 3,
+      "scope": "source transcription display only; no mathematical validity claim"
+    }
+  },
+  "diff-anonymity": {
+    "source_id": "src-neurips2023-difficulty-formal",
+    "source_sha256": "068687d3930191bbb82d95ff2e509fb4f189a5c8c773ca1c616459527420664e",
+    "section": "D. Axioms and theorems for the Harsanyi dividend interaction",
+    "original_statement_md": "(5) Anonymity axiom. For any permutations $\\pi$ on $N$, we have $\\forall S\\subseteq N,I_v(S)=I_{\\pi v}(\\pi S)$, where $\\pi S\\{\\pi(i)\\mid i\\in S\\}$, and the new model $\\pi v$ is defined by $(\\pi v)(\\pi S)=v(S)$. This indicates that interaction effects are not changed by permutation.",
+    "original_proof_md": "",
+    "pdf_pages": [
+      16
+    ],
+    "equation_labels": [],
+    "note": "Source-only author transcription. Project observations are separate transcription_notes; no mathematical correction, extra assumption or formalization is inserted in the author fields.",
+    "transcription_notes": [
+      "Section D states this mathematical property and does not supply an independent local author proof. The empty original_proof_md records that source boundary; it is not a placeholder for an invented proof.",
+      "The printed shorthand pi-S{pi(i)|i in S} omits an equality sign; no equality sign is supplied in the author field."
+    ],
+    "transcription_status": "complete_author_transcription_pending_independent_review",
+    "visual_review": {
+      "pdf_pages": [
+        16
+      ],
+      "method": "Actual official PDF page images visually checked."
+    },
+    "source_evidence_sha256": {
+      "corpus/public/reader/neurips2023-difficulty/source-evidence/page-16.txt": "6c52870b013d793c2920c70a477f5b13f1c15ce5fdbd9bb57c177fc013f4d28c"
+    },
+    "format_validation": {
+      "status": "passed",
+      "engine": "actual local KaTeX",
+      "math_expressions": 6,
+      "scope": "source transcription display only; no mathematical validity claim"
+    }
+  },
+  "diff-recursion": {
+    "source_id": "src-neurips2023-difficulty-formal",
+    "source_sha256": "068687d3930191bbb82d95ff2e509fb4f189a5c8c773ca1c616459527420664e",
+    "section": "D. Axioms and theorems for the Harsanyi dividend interaction",
+    "original_statement_md": "(6) Recursive axiom. The interaction effects can be calculated recursively. Given $i\\in N$ and $S\\subseteq N\\setminus\\{i\\}$, the interaction effect of the pattern $S\\cup\\{i\\}$ can be represented as the interaction effect of $S$ with $i$ minus the interaction effect of $S$ without $i$, i.e. $\\forall S\\subseteq N\\setminus\\{i\\},I(S\\cup\\{i\\})=I(S\\mid i\\text{ is always present})-I(S)$. $I(S\\mid i\\text{ is always present})$ denotes the interaction effect when the variable $i$ is always present as a constant context, i.e. $I(S\\mid i\\text{ is always present})=\\sum_{L\\subseteq S}(-1)^{|S|-|L|}\\cdot v(L\\cup\\{i\\})$.",
+    "original_proof_md": "",
+    "pdf_pages": [
+      16
+    ],
+    "equation_labels": [],
+    "note": "Source-only author transcription. Project observations are separate transcription_notes; no mathematical correction, extra assumption or formalization is inserted in the author fields.",
+    "transcription_notes": [
+      "Section D states this mathematical property and does not supply an independent local author proof. The empty original_proof_md records that source boundary; it is not a placeholder for an invented proof."
+    ],
+    "transcription_status": "complete_author_transcription_pending_independent_review",
+    "visual_review": {
+      "pdf_pages": [
+        16
+      ],
+      "method": "Actual official PDF page images visually checked."
+    },
+    "source_evidence_sha256": {
+      "corpus/public/reader/neurips2023-difficulty/source-evidence/page-16.txt": "6c52870b013d793c2920c70a477f5b13f1c15ce5fdbd9bb57c177fc013f4d28c"
+    },
+    "format_validation": {
+      "status": "passed",
+      "engine": "actual local KaTeX",
+      "math_expressions": 11,
+      "scope": "source transcription display only; no mathematical validity claim"
+    }
+  },
+  "diff-distribution": {
+    "source_id": "src-neurips2023-difficulty-formal",
+    "source_sha256": "068687d3930191bbb82d95ff2e509fb4f189a5c8c773ca1c616459527420664e",
+    "section": "D. Axioms and theorems for the Harsanyi dividend interaction",
+    "original_statement_md": "(7) Interaction distribution axiom. This axiom shows how interactions are distributed for “interaction functions” [57]. The definition of the interaction function $v_T$ parameterized by a subset of variables $T$ is given as follows. $\\forall S\\subseteq N$, if $T\\subseteq S$, $v_T(S)=c$; otherwise, $v_T(S)=0$. The function $v_T$ models pure interaction among the variables in $T$, because only if all variables in $T$ are present, the output value will be increased by $c$. The interactions encoded in the function $v_T$ satisfies $I(T)=c$, and $\\forall S\\ne T,I(S)=0$.",
+    "original_proof_md": "",
+    "pdf_pages": [
+      16
+    ],
+    "equation_labels": [],
+    "note": "Source-only author transcription. Project observations are separate transcription_notes; no mathematical correction, extra assumption or formalization is inserted in the author fields.",
+    "transcription_notes": [
+      "Section D states this mathematical property and does not supply an independent local author proof. The empty original_proof_md records that source boundary; it is not a placeholder for an invented proof."
+    ],
+    "transcription_status": "complete_author_transcription_pending_independent_review",
+    "visual_review": {
+      "pdf_pages": [
+        16
+      ],
+      "method": "Actual official PDF page images visually checked."
+    },
+    "source_evidence_sha256": {
+      "corpus/public/reader/neurips2023-difficulty/source-evidence/page-16.txt": "6c52870b013d793c2920c70a477f5b13f1c15ce5fdbd9bb57c177fc013f4d28c"
+    },
+    "format_validation": {
+      "status": "passed",
+      "engine": "actual local KaTeX",
+      "math_expressions": 13,
+      "scope": "source transcription display only; no mathematical validity claim"
+    }
+  },
+  "diff-taylor": {
+    "source_id": "src-neurips2023-difficulty-formal",
+    "source_sha256": "068687d3930191bbb82d95ff2e509fb4f189a5c8c773ca1c616459527420664e",
+    "section": "G.1. Proof of Theorem 2 in the main paper",
+    "original_statement_md": "Theorem 2. Given a neural network $v$ and an arbitrary input sample $\\mathbf x'\\in\\mathbb R^n$, the network output can be decomposed by using the Taylor expansion [10], i.e., $v(\\mathbf x')=\\sum_{S\\subseteq N}\\sum_{\\boldsymbol\\pi\\in Q_S}U_{S,\\boldsymbol\\pi}\\cdot J(S,\\boldsymbol\\pi\\mid\\mathbf x')$. In this way, according to Eq. (1), the interaction effect $I(S\\mid\\mathbf x')$ on the sample $\\mathbf x'$ can be reformulated as follows.\n\n$$I(S\\mid\\mathbf x')=\\sum_{\\boldsymbol\\pi\\in Q_S}U_{S,\\boldsymbol\\pi}\\cdot J(S,\\boldsymbol\\pi\\mid\\mathbf x').\\qquad\\text{(2)}$$\n\nHere, $J(S,\\boldsymbol\\pi\\mid\\mathbf x')=\\prod_{i\\in S}(\\operatorname{sign}(x'_i-b_i)\\cdot\\frac{x'_i-b_i}\\tau)^{\\pi_i}$ denotes a Taylor expansion term of the degree $\\boldsymbol\\pi$, where the degree $\\boldsymbol\\pi\\in Q_S=\\{[\\pi_1,\\ldots,\\pi_n]\\mid\\forall i\\in S,\\pi_i\\in\\mathbb N^+;\\forall i\\notin S,\\pi_i=0\\}$ and $b_i$ is the baseline value to mask the input variable $x_i$. In addition, $U_{S,\\boldsymbol\\pi}=\\frac{\\tau^m}{\\prod_{i=1}^n\\pi_i!}\\frac{\\partial^m v(\\mathbf x'_\\varnothing)}{\\partial x_1^{\\pi_1}\\cdots\\partial x_n^{\\pi_n}}\\cdot\\prod_{i\\in S}[\\operatorname{sign}(x'_i-b_i)]^{\\pi_i}$, where $\\mathbf x'_\\varnothing$ denotes the sample whose input variables are all masked. $m=\\sum_{i=1}^n\\pi_i$.",
+    "original_proof_md": "Proof. Let us denote the function on the right of Eq. (2) by $\\widetilde I(S\\mid\\mathbf x')$, i.e.,\n\n$$\\widetilde I(S\\mid\\mathbf x')=\\sum_{\\boldsymbol\\pi\\in Q_S}U_{S,\\boldsymbol\\pi}J(S,\\boldsymbol\\pi\\mid\\mathbf x').\\qquad\\text{(3)}$$\n\nWe need to prove that for any arbitrary input sample $\\forall\\mathbf x'\\in\\mathbb R^n,\\widetilde I(S\\mid\\mathbf x')=I(S\\mid\\mathbf x')$.\n\nActually, it has been proven in [16] and [45] that the Harsanyi dividend $I(S\\mid\\mathbf x')$ is the unique metric satisfying the faithfulness requirement mentioned in the main paper, i.e., satisfying\n\n$$\\forall T\\subseteq N,\\quad v(\\mathbf x'_T)=\\sum_{S\\in\\Omega,S\\subseteq T}I(S\\mid\\mathbf x').\\qquad\\text{(4)}$$\n\nThus, as long as we can prove that $\\widetilde I(S\\mid\\mathbf x')$ also satisfies the above faithfulness requirement, we can obtain $\\widetilde I(S\\mid\\mathbf x')=I(S\\mid\\mathbf x')$.\n\nTo this end, we only need to prove $\\widetilde I(S\\mid\\mathbf x')$ also satisfies the faithfulness requirement in Eq. (4). Specifically, given an input sample $\\forall\\mathbf x'\\in\\mathbb R^n$, let us consider the Taylor expansion of the network output $v(\\mathbf x_T)$ of an arbitrarily masked sample $\\mathbf x'_T$ ($T\\subseteq N$), which is expanded at $\\mathbf x'_\\varnothing=[b_1,\\ldots,b_n]$.\n\nThen, we have\n\n$$\\forall T\\subseteq N,\\quad v(\\mathbf x'_T)=\\sum_{\\pi_1=0}^{\\infty}\\sum_{\\pi_2=0}^{\\infty}\\cdots\\sum_{\\pi_n=0}^{\\infty}\\frac1{\\prod_{i=1}^n\\pi_i!}\\frac{\\partial^m v(\\mathbf x'_\\varnothing)}{\\partial x_1^{\\pi_1}\\cdots\\partial x_n^{\\pi_n}}\\cdot\\prod_{i=1}^n[(\\mathbf x'_T)_i-b_i]^{\\pi_i}.\\qquad\\text{(5)}$$\n\nwhere $\\boldsymbol\\pi\\in\\{[\\pi_1,\\ldots,\\pi_n]\\mid\\forall i\\in N,\\pi_i\\in\\mathbb N\\}$ denotes the degree vector of Taylor expansion terms, and $m=\\sum_{i=1}^n\\pi_i$. In addition, $b_i$ denotes the reference value to mask the input variable $x_i$.\n\nAccording to the definition of the masked sample $\\mathbf x'_T$, we have that all variables in $T$ keep unchanged and other variables are masked to the reference value. That is, $\\forall i\\in T,(\\mathbf x'_T)_i=x_i;\\forall i\\notin T,(\\mathbf x'_T)_i=b_i$. Hence, we obtain $\\forall i\\notin T,[(\\mathbf x'_T)_i-b_i]^{\\pi_i}=0$. Then, among all Taylor expansion terms, only terms corresponding to degrees $\\boldsymbol\\pi$ in the set $P=\\{[\\pi_1,\\ldots,\\pi_n]\\mid\\forall i\\in T,\\pi_i\\in\\mathbb N;\\forall i\\notin T,\\pi_i=0\\}$ may not be zero. Therefore, Eq. (5) can be rewritten as\n\n$$\\forall T\\subseteq N,\\quad v(\\mathbf x'_T)=\\sum_{\\boldsymbol\\pi\\in P}\\frac1{\\prod_{i=1}^n\\pi_i!}\\frac{\\partial^m v(\\mathbf x'_\\varnothing)}{\\partial x_1^{\\pi_1}\\cdots\\partial x_n^{\\pi_n}}\\cdot\\prod_{i\\in T}(x'_i-b_i)^{\\pi_i}.\\qquad\\text{(6)}$$\n\nWe find that the set $P$ can be divided into multiple disjoint sets as follows, $P=\\bigcup_{S\\subseteq T}Q_S$, where $Q_S=\\{[\\pi_1,\\ldots,\\pi_n]\\mid\\forall i\\in S,\\pi_i\\in\\mathbb N^+;\\forall i\\notin S,\\pi_i=0\\}$. Then, we can derive that\n\n$$\\begin{aligned}\n\\forall T\\subseteq N,\\quad v(\\mathbf x'_T)&=\\sum_{S\\subseteq T}\\sum_{\\boldsymbol\\pi\\in Q_S}\\frac1{\\prod_{i=1}^n\\pi_i!}\\frac{\\partial^m v(\\mathbf x'_\\varnothing)}{\\partial x_1^{\\pi_1}\\cdots\\partial x_n^{\\pi_n}}\\cdot\\prod_{i\\in S}(x'_i-b_i)^{\\pi_i}\\\\\n&=\\sum_{S\\subseteq T}\\sum_{\\boldsymbol\\pi\\in Q_S}\\underbrace{\\frac{\\tau^m}{\\prod_{i=1}^n\\pi_i!}\\frac{\\partial^m v(\\mathbf x'_\\varnothing)}{\\partial x_1^{\\pi_1}\\cdots\\partial x_n^{\\pi_n}}\\prod_{i\\in S}(\\delta_i)^{\\pi_i}}_{\\text{termed }U_{S,\\boldsymbol\\pi}}\\cdot\\underbrace{\\prod_{i\\in S}\\left(\\delta_i\\frac{x'_i-b_i}\\tau\\right)^{\\pi_i}}_{\\text{termed }J(S,\\boldsymbol\\pi\\mid\\mathbf x')}.\\quad\\text{(7)}\n\\end{aligned}$$\n\nwhere $\\tau\\in\\mathbb R$ is a pre-defined constant and $\\delta_i=\\operatorname{sign}(x_i-r_i)\\in\\{-1,1\\}$ is a sign function satisfying $\\delta_i^{2m}=1$ ($m=\\sum_{i=1}^n\\pi_i$). Then, Eq. (7) can be re-written as\n\n$$\\forall T\\subseteq N,\\quad v(\\mathbf x'_T)=\\sum_{S\\subseteq T}\\sum_{\\boldsymbol\\pi\\in Q_S}U_{S,\\boldsymbol\\pi}\\cdot J(S,\\boldsymbol\\pi\\mid\\mathbf x')=\\sum_{S\\subseteq T}\\widetilde I(S\\mid\\mathbf x').\\qquad\\text{(8)}$$\n\nThus, $\\widetilde I(S\\mid\\mathbf x')$ satisfies the faithfulness requirement in Eq. (4) when $\\Omega=2^N$.\n\nTherefore, Theorem 2 holds.",
+    "pdf_pages": [
+      17,
+      18
+    ],
+    "equation_labels": [
+      "2",
+      "3",
+      "4",
+      "5",
+      "6",
+      "7",
+      "8"
+    ],
+    "note": "Source-only author transcription. Project observations are separate transcription_notes; no mathematical correction, extra assumption or formalization is inserted in the author fields.",
+    "transcription_notes": [
+      "The full Taylor/faithfulness chain (2)–(8) and its PDF 18 closing paragraph are retained. No finite-support or analytic convergence assumption is silently inserted into the author statement.",
+      "The source uses unprimed x-i in the masking prose and x-prime elsewhere, and introduces delta-i using r-i although the baseline elsewhere is b-i. These original symbol switches are retained.",
+      "The source claim that a masked zero raised to pi-i is zero is retained even though pi-i can equal zero. The sign assumption delta-i in {-1,1}, the source unrestricted tau in R, and the family Omega are not repaired in these author fields."
+    ],
+    "transcription_status": "complete_author_transcription_pending_independent_review",
+    "visual_review": {
+      "pdf_pages": [
+        17,
+        18
+      ],
+      "method": "Actual official PDF page images visually checked."
+    },
+    "source_evidence_sha256": {
+      "corpus/public/reader/neurips2023-difficulty/source-evidence/page-17.txt": "167c03a4e343a284cb90321764128040cf594294b67743aab5d86e56fe93937e",
+      "corpus/public/reader/neurips2023-difficulty/source-evidence/page-18.txt": "423d36d06479c4e469dbfde43a5e52dda80a0620f8e8aa89dc1eeadd16d7b86d"
+    },
+    "format_validation": {
+      "status": "passed",
+      "engine": "actual local KaTeX",
+      "math_expressions": 50,
+      "scope": "source transcription display only; no mathematical validity claim"
+    }
+  },
+  "diff-moments": {
+    "source_id": "src-neurips2023-difficulty-formal",
+    "source_sha256": "068687d3930191bbb82d95ff2e509fb4f189a5c8c773ca1c616459527420664e",
+    "note": "Source-only author transcription. Project observations are separate transcription_notes; no mathematical correction, extra assumption or formalization is inserted in the author fields.",
+    "transcription_status": "complete_author_transcription_pending_independent_review",
+    "section": "G.2. Proof of Theorem 3 in the main paper",
+    "original_statement_md": "Theorem 3. Let us add a Gaussian perturbation $\\boldsymbol\\epsilon\\sim\\mathcal N(0,\\sigma^2I)$ to the input sample $\\mathbf x$. Let us first consider the case with the lowest degree $\\widehat{\\boldsymbol\\pi}=[\\hat\\pi_1,\\ldots,\\hat\\pi_n]\\in Q_S$, satisfying that $\\forall i\\in S,\\hat\\pi_i=1;\\forall i\\notin S,\\hat\\pi_i=0$. The mean and variance of $J(S,\\widehat{\\boldsymbol\\pi}\\mid\\mathbf x+\\boldsymbol\\epsilon)$ over the Gaussian perturbation $\\boldsymbol\\epsilon$ are given as\n\n$$\\mathbb E_\\epsilon[I(S\\mid\\mathbf x+\\boldsymbol\\epsilon)]=U_{S,\\widehat{\\boldsymbol\\pi}},\\qquad\\operatorname{Var}_\\epsilon[I(S\\mid\\mathbf x+\\boldsymbol\\epsilon)]=U_{S,\\widehat{\\boldsymbol\\pi}}^2\\left[\\left(1+(\\sigma/\\tau)^2\\right)^s-1\\right].$$\n\nFurthermore, for the more general case with an arbitrary degree $\\boldsymbol\\pi\\in Q_S=\\{[\\pi_1,\\ldots,\\pi_n]\\mid\\forall i\\in S,\\pi_i\\in\\mathbb N^+;\\forall i\\notin S,\\pi_i=0\\}$, the mean and variance of $J(S,\\boldsymbol\\pi\\mid\\mathbf x+\\boldsymbol\\epsilon)$ are computed as\n\n$$\\mathbb E_\\epsilon[J(S,\\boldsymbol\\pi\\mid\\mathbf x+\\boldsymbol\\epsilon)]=\\mathbb E_\\epsilon\\left[\\prod_{i\\in S}(1+\\epsilon_i/\\tau)^{\\pi_i}\\right],\\qquad\\operatorname{Var}_\\epsilon[J(S,\\boldsymbol\\pi\\mid\\mathbf x+\\boldsymbol\\epsilon)]=\\operatorname{Var}_\\epsilon\\left[\\prod_{i\\in S}(1+\\epsilon_i/\\tau)^{\\pi_i}\\right].$$",
+    "original_proof_md": "Proof. If we only consider Taylor expansion term of the lowest degree, then $I(S\\mid\\mathbf x')\\approx U_{S,\\widehat{\\boldsymbol\\pi}}\\cdot J(S,\\widehat{\\boldsymbol\\pi}\\mid\\mathbf x')$, where $J(S,\\widehat{\\boldsymbol\\pi}\\mid\\mathbf x')=\\prod_{i\\in S}\\operatorname{sign}(x'_i-b_i)\\cdot\\frac{x'_i-b_i}\\tau$.\n\nLet us add a Gaussian perturbation $\\boldsymbol\\epsilon\\sim\\mathcal N(0,\\sigma^2I)$ to the input sample $\\mathbf x$. Then, we have\n\n$$\\begin{aligned}\nI(S\\mid\\mathbf x+\\boldsymbol\\epsilon)&\\approx U_{S,\\widehat{\\boldsymbol\\pi}}\\cdot J(S,\\widehat{\\boldsymbol\\pi}\\mid\\mathbf x+\\boldsymbol\\epsilon)\\\\\nJ(S,\\widehat{\\boldsymbol\\pi}\\mid\\mathbf x+\\boldsymbol\\epsilon)&=\\prod_{i\\in S}\\operatorname{sign}(x_i+\\epsilon_i-b_i)\\cdot\\frac{x_i+\\epsilon_i-b_i}\\tau\\\\\n&=\\prod_{i\\in S}\\left(\\operatorname{sign}(x_i+\\epsilon_i-b_i)\\cdot\\frac{x_i-b_i}\\tau+\\operatorname{sign}(x_i+\\epsilon_i-b_i)\\cdot\\frac{\\epsilon_i}\\tau\\right).\\quad\\text{(9)}\n\\end{aligned}$$\n\nAccording to the setting of the baseline value, we have $\\forall i\\in S,x_i-b_i\\in\\{-\\tau,\\tau\\}$. In Section 2.2, we have assumed that the perturbation is small, i.e., $\\forall i\\in S,|\\epsilon_i|\\le\\tau$. In this way, we have $\\operatorname{sign}(x_i+\\epsilon_i-b_i)=\\operatorname{sign}(x_i-b_i)$, and we can obtain\n\n$$\\begin{aligned}\nJ(S,\\widehat{\\boldsymbol\\pi}\\mid\\mathbf x+\\boldsymbol\\epsilon)&=\\prod_{i\\in S}\\left(\\operatorname{sign}(x_i-b_i)\\cdot\\frac{x_i-b_i}\\tau+\\operatorname{sign}(x_i-b_i)\\cdot\\frac{\\epsilon_i}\\tau\\right)\\\\\n&=\\prod_{i\\in S}\\left(1+\\operatorname{sign}(x_i-b_i)\\cdot\\frac{\\epsilon_i}\\tau\\right).\\quad\\text{(10)}\n\\end{aligned}$$\n\n$$\\begin{aligned}\n\\Rightarrow\\mathbb E_\\epsilon[J(S,\\widehat{\\boldsymbol\\pi}\\mid\\mathbf x+\\boldsymbol\\epsilon)]&=\\mathbb E_\\epsilon\\left[\\prod_{i\\in S}\\left(1+\\operatorname{sign}(x_i-b_i)\\cdot\\frac{\\epsilon_i}\\tau\\right)\\right]\\\\\n\\operatorname{Var}_\\epsilon[J(S,\\widehat{\\boldsymbol\\pi}\\mid\\mathbf x+\\boldsymbol\\epsilon)]&=\\operatorname{Var}_\\epsilon\\left[\\prod_{i\\in S}\\left(1+\\operatorname{sign}(x_i-b_i)\\cdot\\frac{\\epsilon_i}\\tau\\right)\\right].\\quad\\text{(11)}\n\\end{aligned}$$\n\nSince $\\operatorname{sign}(x_i-b_i)\\in\\{-1,1\\}$, we have $1+\\operatorname{sign}(x_i-b_i)\\cdot\\frac{\\epsilon_i}\\tau\\sim\\mathcal N(1,(\\sigma/\\tau)^2),\\forall i\\in S$.\n\nProposition 1. If random variables $X_1,X_2,\\ldots,X_k$ are independent of each other, then $\\mathbb E[X_1X_2\\cdots X_k]=\\prod_{i=1}^k\\mathbb E[X_i]$, and $\\operatorname{Var}[X_1X_2\\cdots X_k]=\\prod_{i=1}^k(\\mathbb E[X_i]^2+\\operatorname{Var}[X_i]^2)-\\prod_{i=1}^k\\mathbb E[X_i]^2$.\n\nAccording to the above proposition, we have\n\n$$\\begin{aligned}\n\\mathbb E_\\epsilon[J(S,\\widehat{\\boldsymbol\\pi}\\mid\\mathbf x+\\boldsymbol\\epsilon)]&=\\prod_{i\\in S}1=1\\\\\n\\operatorname{Var}_\\epsilon[J(S,\\widehat{\\boldsymbol\\pi}\\mid\\mathbf x+\\boldsymbol\\epsilon)]&=\\prod_{i\\in S}(1^2+(\\sigma/\\tau)^2)-\\prod_{i\\in S}1^2\\\\\n&=\\left(1+(\\sigma/\\tau)^2\\right)^{|S|}-1.\\quad\\text{(12)}\n\\end{aligned}$$\n\nTherefore,\n\n$$\\begin{aligned}\n\\mathbb E_\\epsilon[I(S\\mid\\mathbf x+\\boldsymbol\\epsilon)]&=\\mathbb E_\\epsilon[U_{S,\\widehat{\\boldsymbol\\pi}}\\cdot J(S,\\widehat{\\boldsymbol\\pi}\\mid\\mathbf x+\\boldsymbol\\epsilon)]=U_{S,\\widehat{\\boldsymbol\\pi}}\\\\\n\\operatorname{Var}_\\epsilon[I(S\\mid\\mathbf x+\\boldsymbol\\epsilon)]&=\\operatorname{Var}_\\epsilon[U_{S,\\widehat{\\boldsymbol\\pi}}\\cdot J(S,\\widehat{\\boldsymbol\\pi}\\mid\\mathbf x+\\boldsymbol\\epsilon)]=U_{S,\\widehat{\\boldsymbol\\pi}}^2\\left[\\left(1+(\\sigma/\\tau)^2\\right)^{|S|}-1\\right].\\quad\\text{(13)}\n\\end{aligned}$$\n\nAccording to Theorem 2, given an arbitrary input sample $\\mathbf x'$, we have\n\n$$J(S,\\boldsymbol\\pi\\mid\\mathbf x')=\\prod_{i\\in S}\\left(\\operatorname{sign}(x'_i-b_i)\\cdot\\frac{x'_i-b_i}\\tau\\right)^{\\pi_i}.\\qquad\\text{(14)}$$\n\nLet us add a Gaussian perturbation $\\boldsymbol\\epsilon\\sim\\mathcal N(0,\\sigma^2I)$ to the input sample $\\mathbf x$. In this way, we have\n\n$$\\begin{aligned}\nJ(S,\\boldsymbol\\pi\\mid\\mathbf x+\\boldsymbol\\epsilon)&=\\prod_{i\\in S}\\left(\\operatorname{sign}(x_i+\\epsilon_i-b_i)\\cdot\\frac{x_i+\\epsilon_i-b_i}\\tau\\right)^{\\pi_i}\\\\\n&=\\prod_{i\\in S}\\left(\\operatorname{sign}(x_i+\\epsilon_i-b_i)\\cdot\\frac{x_i-b_i}\\tau+\\operatorname{sign}(x_i+\\epsilon_i-b_i)\\cdot\\frac{\\epsilon_i}\\tau\\right)^{\\pi_i}.\\quad\\text{(15)}\n\\end{aligned}$$\n\nAccording to the setting of the baseline value, $\\forall i\\in S,x_i-b_i\\in\\{-\\tau,\\tau\\}$. We assume that the perturbation is small, i.e., $\\forall i\\in S,|\\epsilon_i|\\ll\\tau$. In this way, $\\operatorname{sign}(x_i+\\epsilon_i-b_i)=\\operatorname{sign}(x_i-b_i)$, and we can obtain\n\n$$\\begin{aligned}\nJ(S,\\boldsymbol\\pi\\mid\\mathbf x+\\boldsymbol\\epsilon)&=\\prod_{i\\in S}\\left(\\operatorname{sign}(x_i-b_i)\\cdot\\frac{x_i-b_i}\\tau+\\operatorname{sign}(x_i-b_i)\\cdot\\frac{\\epsilon_i}\\tau\\right)^{\\pi_i}\\\\\n&=\\prod_{i\\in S}\\left(1+\\operatorname{sign}(x_i-b_i)\\cdot\\frac{\\epsilon_i}\\tau\\right)^{\\pi_i}.\\quad\\text{(16)}\n\\end{aligned}$$\n\n$$\\begin{aligned}\n\\Rightarrow\\mathbb E_\\epsilon[J(S,\\boldsymbol\\pi\\mid\\mathbf x+\\boldsymbol\\epsilon)]&=\\mathbb E_\\epsilon\\left[\\prod_{i\\in S}\\left(1+\\operatorname{sign}(x_i-b_i)\\cdot\\frac{\\epsilon_i}\\tau\\right)^{\\pi_i}\\right]\\\\\n\\operatorname{Var}_\\epsilon[J(S,\\boldsymbol\\pi\\mid\\mathbf x+\\boldsymbol\\epsilon)]&=\\operatorname{Var}_\\epsilon\\left[\\prod_{i\\in S}\\left(1+\\operatorname{sign}(x_i-b_i)\\cdot\\frac{\\epsilon_i}\\tau\\right)^{\\pi_i}\\right].\\quad\\text{(17)}\n\\end{aligned}$$\n\nSince $\\forall i\\in S,\\epsilon_i$ is independent of each other, according to Proposition 1 and Eq. (17), we have\n\n$$\\begin{aligned}\n\\mathbb E_\\epsilon[J(S,\\boldsymbol\\pi\\mid\\mathbf x+\\boldsymbol\\epsilon)]&=\\prod_{i\\in S}\\mathbb E_{\\epsilon_i}\\left[\\left(1+\\operatorname{sign}(x_i-b_i)\\cdot\\frac{\\epsilon_i}\\tau\\right)^{\\pi_i}\\right]\\\\\n\\operatorname{Var}_\\epsilon[J(S,\\boldsymbol\\pi\\mid\\mathbf x+\\boldsymbol\\epsilon)]&=\\prod_{i\\in S}\\mathbb E_{\\epsilon_i}\\left[\\left(1+\\operatorname{sign}(x_i-b_i)\\cdot\\frac{\\epsilon_i}\\tau\\right)^{2\\pi_i}\\right]-\\prod_{i\\in S}\\left(\\mathbb E_{\\epsilon_i}\\left[\\left(1+\\operatorname{sign}(x_i-b_i)\\cdot\\frac{\\epsilon_i}\\tau\\right)^{\\pi_i}\\right]\\right)^2.\\quad\\text{(18)}\n\\end{aligned}$$\n\nSince $\\operatorname{sign}(x_i-b_i)\\in\\{-1,1\\}$, we have $\\mathbb E_{\\epsilon_i}[(1+\\operatorname{sign}(x_i-b_i)\\cdot\\frac{\\epsilon_i}\\tau)^k]=\\mathbb E_{\\epsilon_i}[(1+\\frac{\\epsilon_i}\\tau)^k],\\forall k\\in\\mathbb N^+$. Therefore, we obtain\n\n$$\\begin{aligned}\n\\mathbb E_\\epsilon[J(S,\\boldsymbol\\pi\\mid\\mathbf x+\\boldsymbol\\epsilon)]&=\\prod_{i\\in S}\\mathbb E_{\\epsilon_i}\\left[\\left(1+\\frac{\\epsilon_i}\\tau\\right)^{\\pi_i}\\right]\\\\\n&=\\mathbb E_\\epsilon\\left[\\prod_{i\\in S}\\left(1+\\frac{\\epsilon_i}\\tau\\right)^{\\pi_i}\\right]\\\\\n\\operatorname{Var}_\\epsilon[J(S,\\boldsymbol\\pi\\mid\\mathbf x+\\boldsymbol\\epsilon)]&=\\prod_{i\\in S}\\mathbb E_{\\epsilon_i}\\left[\\left(1+\\frac{\\epsilon_i}\\tau\\right)^{2\\pi_i}\\right]-\\prod_{i\\in S}\\left(\\mathbb E_{\\epsilon_i}\\left[\\left(1+\\frac{\\epsilon_i}\\tau\\right)^{\\pi_i}\\right]\\right)^2\\\\\n&=\\operatorname{Var}_\\epsilon\\left[\\prod_{i\\in S}\\left(1+\\frac{\\epsilon_i}\\tau\\right)^{\\pi_i}\\right].\n\\end{aligned}$$",
+    "pdf_pages": [
+      18,
+      19
+    ],
+    "equation_labels": [
+      "9",
+      "10",
+      "11",
+      "12",
+      "13",
+      "14",
+      "15",
+      "16",
+      "17",
+      "18"
+    ],
+    "transcription_notes": [
+      "Complete G.2 is transcribed, including the low-degree approximation, the inserted Proposition 1, its application, the general-degree factorization and the final unnumbered mean/variance chain.",
+      "The source says moments of J but initially displays I; its initial variance exponent is lowercase s while the proof uses |S|. These original choices are retained.",
+      "The source low-degree noise condition is |epsilon-i| <= tau on PDF 18; the general-degree condition is |epsilon-i| << tau on PDF 19. Gaussian tails, endpoint signs and the approximation-to-equality transition are not repaired.",
+      "The printed Proposition 1 squares Var[X-i]. This is preserved here and in diff-product, even though the following Equation (12) applies an unsquared variance term. Project mathematical assessment belongs outside these author fields."
+    ],
+    "visual_review": {
+      "pdf_pages": [
+        18,
+        19
+      ],
+      "method": "Actual official PDF page images visually checked."
+    },
+    "source_evidence_sha256": {
+      "corpus/public/reader/neurips2023-difficulty/source-evidence/page-18.txt": "423d36d06479c4e469dbfde43a5e52dda80a0620f8e8aa89dc1eeadd16d7b86d",
+      "corpus/public/reader/neurips2023-difficulty/source-evidence/page-19.txt": "e1b0a4cc1bf4a86ac4fee38f5c8b8c90f572b92f19582c04aeea09fd2b00ed37"
+    },
+    "format_validation": {
+      "status": "passed",
+      "engine": "actual local KaTeX",
+      "math_expressions": 42,
+      "scope": "source transcription display only; no mathematical validity claim"
+    }
+  },
+  "diff-product": {
+    "source_id": "src-neurips2023-difficulty-formal",
+    "source_sha256": "068687d3930191bbb82d95ff2e509fb4f189a5c8c773ca1c616459527420664e",
+    "note": "Source-only author transcription. Project observations are separate transcription_notes; no mathematical correction, extra assumption or formalization is inserted in the author fields.",
+    "transcription_status": "complete_author_transcription_pending_independent_review",
+    "section": "G.2. Proposition 1",
+    "original_statement_md": "Proposition 1. If random variables $X_1,X_2,\\ldots,X_k$ are independent of each other, then $\\mathbb E[X_1X_2\\cdots X_k]=\\prod_{i=1}^k\\mathbb E[X_i]$, and $\\operatorname{Var}[X_1X_2\\cdots X_k]=\\prod_{i=1}^k(\\mathbb E[X_i]^2+\\operatorname{Var}[X_i]^2)-\\prod_{i=1}^k\\mathbb E[X_i]^2$.",
+    "original_proof_md": "",
+    "pdf_pages": [
+      18
+    ],
+    "equation_labels": [],
+    "transcription_notes": [
+      "The author states this proposition without an independent local proof; Equation (12) is an application retained in diff-moments rather than an invented proof.",
+      "The original display squares Var[X-i]. The original expression is not replaced by the mathematically correct unsquared formula from another paper or public proof."
+    ],
+    "visual_review": {
+      "pdf_pages": [
+        18
+      ],
+      "method": "Actual official PDF page images visually checked."
+    },
+    "source_evidence_sha256": {
+      "corpus/public/reader/neurips2023-difficulty/source-evidence/page-18.txt": "423d36d06479c4e469dbfde43a5e52dda80a0620f8e8aa89dc1eeadd16d7b86d"
+    },
+    "format_validation": {
+      "status": "passed",
+      "engine": "actual local KaTeX",
+      "math_expressions": 3,
+      "scope": "source transcription display only; no mathematical validity claim"
+    }
+  },
+  "diff-binary": {
+    "source_id": "src-neurips2023-difficulty-formal",
+    "source_sha256": "068687d3930191bbb82d95ff2e509fb4f189a5c8c773ca1c616459527420664e",
+    "note": "Source-only author transcription. Project observations are separate transcription_notes; no mathematical correction, extra assumption or formalization is inserted in the author fields.",
+    "transcription_status": "complete_author_transcription_pending_independent_review",
+    "section": "G.3. Proof of Theorem 4 in the main paper",
+    "original_statement_md": "Theorem 4. Given an arbitrarily masked sample $\\mathbf x_T$ ($\\forall T\\subseteq N$), the function $C_S(\\mathbf x_T)$ defined above can well fit the binary activation state of the concept $S$ in the sample $\\mathbf x_T$.\n\n$$\\forall T\\subseteq N,\\quad C(S\\mid\\mathbf x_T)=\\prod_{i\\in S}A_i(\\mathbf x_T)=\\mathbf1(S\\subseteq T).\\qquad\\text{(19)}$$\n\nwhere $A_i(\\mathbf x_T)\\in\\{0,1\\}$ denotes whether the variable $x_i$ is present $A_i(\\mathbf x_T)=1$ or being masked $A_i(\\mathbf x_T)=0$ in the sample $\\mathbf x_T$.",
+    "original_proof_md": "Proof. We know that the function of the activation state on an arbitrary sample $\\mathbf x'$ is given by\n\n$$\\begin{aligned}\nC_S(\\mathbf x')&=\\sum_{\\boldsymbol\\pi\\in Q_S}U_{S,\\boldsymbol\\pi}J(S,\\boldsymbol\\pi\\mid\\mathbf x')/U_S,\\\\\n\\text{where }J(S,\\boldsymbol\\pi\\mid\\mathbf x')&=\\prod_{i\\in S}\\left(\\operatorname{sign}(x'_i-b_i)\\cdot\\frac{x'_i-b_i}\\tau\\right)^{\\pi_i}.\\quad\\text{(20)}\n\\end{aligned}$$\n\nSpecifically, now we consider a masked sample $\\mathbf x_T$, and we will prove that $C_S(\\mathbf x_T)=\\mathbf1(S\\subseteq T)$. We consider the following two cases.\n\nCase 1: $S\\subsetneq T$. Then there exists some $j\\in S\\setminus T$. Since $j\\notin T$, according to the masking rule of the sample $\\mathbf x_T$, we have $(\\mathbf x_T)_j-b_j=0$. Since $j\\in S$, we have\n\n$$\\forall\\boldsymbol\\pi\\in Q_S,\\quad J(S,\\boldsymbol\\pi\\mid\\mathbf x_T)=\\prod_{i\\in S}\\left(\\operatorname{sign}((\\mathbf x_T)_i-r_i)\\cdot\\frac{(\\mathbf x_T)_i-b_i}\\tau\\right)^{\\pi_i}=0.\\qquad\\text{(21)}$$\n\nIn this way, we have $C_S(\\mathbf x_T)=\\sum_{\\boldsymbol\\pi\\in Q_S}U_{S,\\boldsymbol\\pi}J(S,\\boldsymbol\\pi\\mid\\mathbf x_T)/U_S=0$.\n\nCase 2: $S\\subseteq T$. In this case, $\\forall i\\in S$, we have $i\\in T$. According to the setting of the reference value in Section 2.3 of the main paper, we have $(\\mathbf x_T)_i-b_i\\in\\{\\tau,-\\tau\\}$. Then we have $\\operatorname{sign}((\\mathbf x_T)_i-b_i)\\cdot\\frac{(\\mathbf x_T)_i-b_i}\\tau=1,\\forall i\\in S$. This further implies that\n\n$$\\forall\\boldsymbol\\pi\\in Q_S,\\quad J(S,\\boldsymbol\\pi\\mid\\mathbf x_T)=\\prod_{i\\in S}\\left(\\operatorname{sign}((\\mathbf x_T)_i-b_i)\\cdot\\frac{(\\mathbf x_T)_i-b_i}\\tau\\right)^{\\pi_i}=1.\\qquad\\text{(22)}$$\n\nTherefore, we can derive\n\n$$C_S(\\mathbf x_T)=\\sum_{\\boldsymbol\\pi\\in Q_S}U_{S,\\boldsymbol\\pi}/U_S.\\qquad\\text{(23)}$$\n\nRecall that $U_S=I(S\\mid\\mathbf x)=\\sum_{\\boldsymbol\\pi\\in Q_S}U_{S,\\boldsymbol\\pi}J(S,\\boldsymbol\\pi\\mid\\mathbf x)$, in which $J(S,\\boldsymbol\\pi\\mid\\mathbf x)=\\prod_{i\\in S}(\\operatorname{sign}(x_i-r_i)\\cdot\\frac{x_i-b_i}\\tau)^{\\pi_i}=1$, because $x_i-b_i\\in\\{\\tau,-\\tau\\}$. So actually, we have\n\n$$U_S=\\sum_{\\boldsymbol\\pi\\in Q_S}U_{S,\\boldsymbol\\pi}.\\qquad\\text{(24)}$$\n\nTherefore, $C_S(\\mathbf x_T)=\\sum_{\\boldsymbol\\pi\\in Q_S}U_{S,\\boldsymbol\\pi}/U_S=1$.\n\nCombining the two cases, we can conclude that $C_S(\\mathbf x_T)=\\mathbf1(S\\subseteq T)=\\prod_{i\\in S}A_i(\\mathbf x_T)$.",
+    "pdf_pages": [
+      20
+    ],
+    "equation_labels": [
+      "19",
+      "20",
+      "21",
+      "22",
+      "23",
+      "24"
+    ],
+    "transcription_notes": [
+      "The Case 1 symbol is visually checked in a 300-dpi PDF crop and is proper inclusion S subsetneq T, followed by the author claim that some j is in S minus T. That printed error is retained, not changed to non-inclusion.",
+      "The source uses C(S|x-T) in Equation (19) and C-S(x-T) elsewhere. Equation (21) and the later J(S,pi|x) use r-i inside sign while the difference uses b-i; these original choices are retained.",
+      "No nonzero-U-S requirement or zero-quotient convention is inserted into the author fields."
+    ],
+    "visual_review": {
+      "pdf_pages": [
+        20
+      ],
+      "method": "Actual official PDF page images visually checked; the G.3 Case 1 relation additionally checked in a 300-dpi source crop."
+    },
+    "source_evidence_sha256": {
+      "corpus/public/reader/neurips2023-difficulty/source-evidence/page-20.txt": "d1a695bdceeadf7efb25e58b2e63374c186ef7eb889a5b0d348a9fbf4d88efbb"
+    },
+    "format_validation": {
+      "status": "passed",
+      "engine": "actual local KaTeX",
+      "math_expressions": 36,
+      "scope": "source transcription display only; no mathematical validity claim"
+    }
+  },
+  "diff-multiorder": {
+    "source_id": "src-neurips2023-difficulty-formal",
+    "source_sha256": "068687d3930191bbb82d95ff2e509fb4f189a5c8c773ca1c616459527420664e",
+    "note": "Source-only author transcription. Project observations are separate transcription_notes; no mathematical correction, extra assumption or formalization is inserted in the author fields.",
+    "transcription_status": "complete_author_transcription_pending_independent_review",
+    "section": "G.4. Relation between interactive concepts and multi-order interactions",
+    "original_statement_md": "In this section, we derive that high-order interactive concepts (computed via the Harsanyi dividend [18]) can be considered as elementary components for high-order interactions used in [43].\n\nGiven a pre-trained DNN $v$ and a masked sample $\\mathbf x_S$, the multi-order interaction $I^{(m)}(i,j)$ used in [43] is given as follows:\n\n$$I^{(m)}(i,j)=\\mathbb E_{S\\subseteq N\\setminus\\{i,j\\},|S|=m}[\\Delta v(i,j,S)].\\qquad\\text{(25)}$$\n\nwhere $\\Delta v(i,j,S)=v(\\mathbf x_{S\\cup\\{i,j\\}})-v(\\mathbf x_{S\\cup\\{i\\}})-v(\\mathbf x_{S\\cup\\{j\\}})+v(\\mathbf x_S)$.",
+    "original_proof_md": "Let $\\Delta v_T(S)=\\sum_{L\\subseteq T}(-1)^{|T|-|L|}v(\\mathbf x_{L\\cup S})$ denote the marginal benefit of variables in $T\\subseteq N\\setminus S$, given the environment $S$. In this way, $\\Delta v_T(S)$ can be represented as the sum of interaction effects inside $T$ and sub-environments of $S$, i.e. $\\Delta v_T(S)=\\sum_{S'\\subseteq S}I(T\\cup S')$ [45].\n\nThus, the $I^{(m)}(i,j)$ can be represented as follows,\n\n$$\\begin{aligned}\nI^{(m)}(i,j)&=\\mathbb E_{S\\subseteq N\\setminus\\{i,j\\},|S|=m}[\\Delta v(i,j,S)]\\\\\n&=\\mathbb E_{S\\subseteq N\\setminus\\{i,j\\},|S|=m}\\left[\\sum_{L\\subseteq S}I(L\\cup\\{i,j\\})\\right]\\\\\n&=\\frac1{\\binom{n-2}{m}}\\sum_{\\substack{S\\subseteq N\\setminus\\{i,j\\}\\\\|S|=m}}\\left[\\sum_{L\\subseteq S}I(L\\cup\\{i,j\\})\\right]\\\\\n&=\\sum_{\\substack{L\\subseteq N\\setminus\\{i,j\\}\\\\|L|\\le m}}I(L\\cup\\{i,j\\})\\sum_{\\substack{L\\subseteq S\\subseteq N\\setminus\\{i,j\\}\\\\|S|=m}}\\frac1{\\binom{n-2}{m}}\\\\\n&=\\sum_{\\substack{L\\subseteq N\\setminus\\{i,j\\}\\\\|L|\\le m}}I(L\\cup\\{i,j\\})\\frac{\\binom{n-2}{m-l}}{\\binom{n-2}{m}}\\\\\n&=\\sum_{l=0}^m\\sum_{\\substack{L\\subseteq N\\setminus\\{i,j\\}\\\\|L|=m}}\\frac{\\binom{n-2}{m-l}}{\\binom{n-2}{m}}I(L\\cup\\{i,j\\}).\n\\end{aligned}$$\n\nTherefore, we prove that $I^{(m)}(i,j)=\\sum_{l=0}^m\\sum_{\\substack{L\\subseteq N\\setminus\\{i,j\\}\\\\|L|=m}}\\frac{\\binom{n-2}{m-l}}{\\binom{n-2}{m}}I(L\\cup\\{i,j\\})$.",
+    "pdf_pages": [
+      20,
+      21
+    ],
+    "equation_labels": [
+      "25"
+    ],
+    "transcription_notes": [
+      "Complete G.4 is transcribed, including the externally cited marginal-dividend relation, all six rows of the unnumbered chain and the final repeated formula.",
+      "The printed binomial numerator is choose(n-2,m-l), and the final inner sum has |L|=m rather than l. The preceding row uses l without its explicit local definition. These original formulas are retained rather than silently corrected."
+    ],
+    "visual_review": {
+      "pdf_pages": [
+        20,
+        21
+      ],
+      "method": "Actual official PDF page images visually checked."
+    },
+    "source_evidence_sha256": {
+      "corpus/public/reader/neurips2023-difficulty/source-evidence/page-20.txt": "d1a695bdceeadf7efb25e58b2e63374c186ef7eb889a5b0d348a9fbf4d88efbb",
+      "corpus/public/reader/neurips2023-difficulty/source-evidence/page-21.txt": "8da4837e27f6ecbbd4a753d0c53744f5144eadc4ffb33f8ca18b33a90d5c6cbe"
+    },
+    "format_validation": {
+      "status": "passed",
+      "engine": "actual local KaTeX",
+      "math_expressions": 15,
+      "scope": "source transcription display only; no mathematical validity claim"
+    }
+  },
+  "diff-regression": {
+    "source_id": "src-neurips2023-difficulty-formal",
+    "source_sha256": "068687d3930191bbb82d95ff2e509fb4f189a5c8c773ca1c616459527420664e",
+    "note": "Source-only author transcription. Project observations are separate transcription_notes; no mathematical correction, extra assumption or formalization is inserted in the author fields.",
+    "transcription_status": "complete_author_transcription_pending_independent_review",
+    "section": "G.5. Theoretical connection between variance and learning difficulty",
+    "original_statement_md": "There is a close connection between the variance of interactive concepts and the learning difficulty. In fact, a similar connection has been discovered by [46]. The theoretical connection is proved as follows. Specifically, we simplify the learning of a DNN into a linear regression problem. In this very simple setting, we assume each $i$-th concept encoded by the DNN to be a specific feature, and use $f_i$ to represent the triggering (presence) state of the $i$-th concept in a training sample. Because according to Eq. (9) in the main paper, the network output $v(\\cdot)$ is the sum of a small number of salient interactive concepts, we roughly simplify and rewrite the inference output of the DNN as the following linear function\n\n$$y=\\mathbf w^\\top\\mathbf f=w_1f_1+\\cdots+w_df_d,$$\n\nwhere $\\mathbf f=[f_1,\\ldots,f_d]^\\top$. Then, $w_i$ can be viewed as the strength of the DNN encoding the $i$-th interactive concept. In this way, if $w_i\\approx0$, the DNN does not learn the $i$-th interactive concept.\n\nWe suppose that training samples are sampled from $\\mathbf f\\sim P(\\mathbf f)=\\mathcal N(\\boldsymbol\\mu,\\Sigma^2)$ and $y^*$ denotes the ground truth label. Specifically, $\\boldsymbol\\mu=[\\mu_1,\\mu_2,\\ldots,\\mu_d]^\\top$ and $\\Sigma=\\operatorname{diag}(\\sigma_1^2,\\sigma_2^2,\\ldots,\\sigma_d^2)$.\n\nThe toy regression problem can be formulated as follows,\n\n$$\\mathcal L=\\mathbb E_{P(\\mathbf f)}\\left[\\frac12(\\mathbf w^\\top\\mathbf f-y^*)^2\\right].\\qquad\\text{(26)}$$",
+    "original_proof_md": "We derive the optimal weights to the above regression task in three steps.\n\nStep 1. The optimal weight $w_i$ for the regression problem in Eq. (26) is computed by\n\n$$\\forall1\\le i\\le d,\\quad w_i=\\frac1{\\det K}\\det(\\mathbf K_1,\\ldots,\\mathbf K_{i-1},\\boldsymbol\\zeta,\\mathbf K_{i+1},\\ldots,\\mathbf K_d).\\qquad\\text{(27)}$$\n\nwhere $K=\\boldsymbol\\mu\\boldsymbol\\mu^\\top+\\Sigma^2$, $\\boldsymbol\\zeta=y^*\\boldsymbol\\mu$, and $\\mathbf K_j$ denotes the $j$-th column of the matrix $K$.\n\nStep 2. We further prove that for the optimal $\\mathbf w$, we have\n\n$$\\forall1\\le i,j\\le d,\\quad\\frac{|w_i|}{|w_j|}=\\frac{|\\mu_i/\\sigma_i^2|}{|\\mu_j/\\sigma_j^2|}.\\qquad\\text{(28)}$$\n\nStep 3. Based on Step 2, we can derive $|w_i|\\propto|1/\\sigma_i^2|$, where $w_i$ denotes the strength of the DNN encoding the $i$-th interactive concept. $|w_i|\\propto|1/\\sigma_i^2|$ indicates that the learning effect of the $i$-th interactive concept is inversely proportional to the variance of the $i$-th interactive concept. Therefore, interactive concepts with high variances (high-order interactive concepts) are more difficult to learn.",
+    "pdf_pages": [
+      21
+    ],
+    "equation_labels": [
+      "26",
+      "27",
+      "28"
+    ],
+    "transcription_notes": [
+      "The complete G.5 setting and all three author steps are retained. The source prints equations (26), (27) and (28), but does not provide a local gradient/Cramer/determinant derivation of those steps; none is fabricated as author prose.",
+      "The source Gaussian covariance is Sigma squared while Sigma is defined as diag(sigma-i squared); Step 2 uses sigma-i squared in the ratios. These source powers are retained.",
+      "The final Step 3 drops the mean factor mu-i from the preceding ratio. No equal-means hypothesis, positivity condition or nonzero-determinant/ratio convention is inserted into the author fields."
+    ],
+    "visual_review": {
+      "pdf_pages": [
+        21
+      ],
+      "method": "Actual official PDF page images visually checked."
+    },
+    "source_evidence_sha256": {
+      "corpus/public/reader/neurips2023-difficulty/source-evidence/page-21.txt": "8da4837e27f6ecbbd4a753d0c53744f5144eadc4ffb33f8ca18b33a90d5c6cbe"
+    },
+    "format_validation": {
+      "status": "passed",
+      "engine": "actual local KaTeX",
+      "math_expressions": 30,
+      "scope": "source transcription display only; no mathematical validity claim"
+    }
+  }
+}

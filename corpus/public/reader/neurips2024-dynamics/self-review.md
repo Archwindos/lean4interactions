@@ -1,0 +1,17 @@
+# F07 单篇自审（2026-10-01）
+
+正式36页PDF及逐物理页证据与 SHA256 保全。当前32入口、22显式数学目标：Appendix A七性质、B三条件、D唯一性各可独立检索；C的优化问题作为非目标定义，其重复标签与去噪分解和分别拆为两个数学目标。初始dyn-shapley错误标签已核销：原C是稀疏提取，D是系数唯一性，并无当地Shapley证明。
+
+original字段保留作者符号、范围、求和顺序、原错式。连接prose为显式项目中文译文；整页pdftotext仅source-evidence，不作为作者TeX证明。F.1 Eq17按作者交换求和的原链重录，Eq18保留作者四分组及错误零项。F.2 Eq19完整Q_T、Eq22–24和Eq25–33/编号文字注，F.3 Eq34–40、F.5 Eq52–59均逐式重录。F.4 Eq41–51、F.6 Eq60–64、F.7零噪声完整数学链保留；项目归一化、Gram行列式、转置和定义域评论只放重写或issues。
+
+主文Eq2仅定义非空分量交互，Appendix A的普通完整模型Harsanyi实例另映为I_g。Eq3首先是空系数约定缺口；常数模型的重复基线例明确依赖普通Möbius扩展，不能无说明当作原空交互定义。Appendix E先设半模型而Eq14–16用裸v，完整保留原式及缩放歧义；实际Lean精确分量补集恒等式是有效子结果。
+
+真实Lean报告passed，75声明，实际类型和传递公理白名单保全。新增PolynomialSupport允许任意有限项索引、同支持不同次数，机器证明遮罩、支持分组和真实交互等于分组。GaussianRegression/TaylorMoments为真实积分、Gaussian映射律及L2，并非把关键矩作为目标前提。
+
+Theorem3的原均匀平均由meanNoisyLoss定义并绑定唯一全局argmin；zeta可逆由Möbius单射，Gram正定及非负罚项包括sigma=0。同一噪声函数表示逐行共同边缘，期望和无跨行独立要求。Theorem4已证明任意同阶集合的实际powerset置换及Euclidean行范数。上述完整适配以原给定且有定义的Boolean设计与Assumption1回归模型为范围，不解决任意DNN上游Taylor不收敛或零w触发问题。
+
+原Lemma1边缘Gaussian方差子句由真实原交互反例否定，iid附录子模型另证。原任意DNN Taylor的ReLU反例为完整人读反例，机器仅验证有限多项式有效子结果，不标整个反例机器验证。零触发仅scalar辅助及原常数网络定义域分析，未标整个原命题机器反例。
+
+Proposition1零噪声严格不等子句由任意有限powerset矩阵反例否定；同阶范数与目标权重无关已证。正噪声一般阶数比和随sigma单调性仍未完成解析证明。作者仅Figure3数值验证；root24格点和作者图不替代一般证明。外引渐近稀疏适配与第一阶段一般SGD轨迹亦保留明确未决范围，不以scope文字冒充完整数学证明。
+
+D系数唯一性现在包括全游戏线性变换的第二层：固定游戏重构确定dividend，再取basis game g_U(L)=1[L=U]隔离每个系数a(S,U)。PaperDynamics.transform_coefficients_unique已真实编译并在报告/步骤中绑定，未把固定游戏系数值唯一冒充算子系数唯一。

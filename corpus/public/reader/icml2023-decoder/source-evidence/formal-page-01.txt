@@ -1,0 +1,68 @@
+      Defects of Convolutional Decoder Networks in Frequency Representation
+
+
+                   Ling Tang * 1 Wen Shen * 1 Zhanpeng Zhou 1 Yuefeng Chen 2 Quanshi Zhang 1 3
+
+
+                          Abstract                                       We extend the 2D circular convolution theorem to refor-
+                                                                         mulate the forward propagation through multiple convolu-
+      In this paper, we prove the representation defects
+                                                                         tional layers in the frequency domain. We find that both
+      of a cascaded convolutional decoder1 network,
+                                                                         the forward propagation and the backward propagation in
+      considering the capacity of representing different
+                                                                         a convolutional network can be represented as the matrix
+      frequency components of an input sample. We
+                                                                         multiplication on spectrums of the feature. Specifically, we
+      conduct the discrete Fourier transform on each
+                                                                         mainly analyze a convolutional decoder, which only con-
+      channel of the feature map in an intermediate
+                                                                         tains convolution operations without changing the size of
+      layer of the decoder network. Then, we extend the
+                                                                         feature maps. Then, based on the propagation in the fre-
+      2D circular convolution theorem to represent the
+                                                                         quency domain, we prove the following conclusions.
+      forward and backward propagations through con-
+      volutional layers in the frequency domain. Based                   • Problem in representing high-frequency components. We
+      on this, we prove three defects in representing                    prove that both the convolution operation and the zero-
+      feature spectrums. First, we prove that the con-                   padding operation make a cascaded convolutional decoder
+      volution operation, the zero-padding operation,                    network more likely to weaken the high-frequency compo-
+      and a set of other settings all make a convolu-                    nents of the input sample, if the convolution operation with
+      tional decoder network more likely to weaken                       a padding operation does not change the size of the feature
+      high-frequency components. Second, we prove                        map in a channel, as shown in Figure 1(a). Besides, we also
+      that the upsampling operation generates a feature                  prove that the following three conditions further strengthen
+      spectrum, in which strong signals repetitively ap-                 the above representation problem, including (1) a deep net-
+      pear at certain frequencies. Third, we prove that                  work architecture; (2) a small convolutional kernel size; and
+      if the frequency components in the input sample                    (3) a large absolute value of the mean value of convolutional
+      and frequency components in the target output                      weights.
+      for regression have a small shift, then the decoder
+                                                                         • Problem in mistakenly repeating certain frequencies. We
+      usually cannot be effectively learned.
+                                                                         find that the upsampling operation makes a cascaded con-
+                                                                         volutional decoder network generate a feature spectrum, in
+                                                                         which strong signals repetitively appear at certain frequen-
+1. Introduction                                                          cies, as shown in Figure 1(b).
+In this study, we investigate the representation defect of               • Problem in fitting specific frequency components. More
+a cascaded convolutional decoder1 in generating features                 crucially, we discover and prove that it is usually difficult
+at different frequencies. That is, when we apply the dis-                to train an auto-encoder to fit the target image, if salient
+crete Fourier transform (DFT) to each channel of the feature             frequency components of the target output and those of
+map or the input sample, we try to prove which frequency                 the input have a small shift in the spectrum. Considering
+components of each input channel are usually strength-                   the continuous success of the auto-encoder in recent years,
+ened/weakened by the network.                                            such a phenomenon is quite contrary to intuition. As Fig-
+  *
+    Equal contribution 1 Shanghai Jiao Tong University. 2 Alibaba
+                                                                         ure 1(c) shows, a smaller shift between the input spectrum
+Group. 3 Quanshi Zhang is the corresponding author. He is with           and the output spectrum usually leads to a higher difficulty
+the Department of Computer Science and Engineering, the John             in training the auto-encoder.
+Hopcroft Center, at the Shanghai Jiao Tong University, China.
+Correspondence to: Quanshi Zhang <zqs1022@sjtu.edu.cn>.                  The above three problems just explain general trends to-
+                                                                         wards generic problems of neural networks with convolu-
+Proceedings of the 40 th International Conference on Machine             tion, zero-padding, and upsampling operations, instead of
+Learning, Honolulu, Hawaii, USA. PMLR 202, 2023. Copyright               deriving a deterministic property of a specific network.
+2023 by the author(s).
+   1
+     Here, the decoder represents a typical network, whose feature       Although most conclusions are derived by ignoring ReLU
+map size is non-decreasing during the forward propagation.
+
+                                                                     1
+

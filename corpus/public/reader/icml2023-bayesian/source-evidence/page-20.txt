@@ -1,0 +1,57 @@
+                  Bayesian Neural Networks Avoid Encoding Complex and Perturbation-Sensitive Concepts
+
+For a random variable following a Gaussian distribution X̃ ∼ N (µ̃, σ̃ 2 ), Willink (2005) proved the following property:
+                                         h       i       h i               h      i
+                                       E X̃ k+1 = µ̃E X̃ k + kσ̃ 2 E X̃ k−1                                            (46)
+                                                                              
+Now let us consider X ∼ N (1, (σ/τ )2 ). We have E X k+1 = E X k + k(σ/τ )2 E X k−1 . By induction, it is easy to
+prove that E[X k ] ≥ E[X] = 1.
+
+G.5. Proof of Theorem 2.5 in the main paper
+Theorem 2.5. Given two random interactive concepts S and S ′ , we can roughly assume that CS (x + ϵ) is independent
+of CS ′ (x + ϵ), because the two concepts S and S ′ usually have little overlap in most cases. Let Eϵ [CS (x + ϵ)] and
+Varϵ [CS (x + ϵ)] denote the mean and the variance of CS (x + ϵ) w.r.t. ϵ, respectively. Then, the solution to Eq. (15) in the
+main paper satisfies the following property:
+
+                                     ∀ S ∈ Ω,    |US∗ | ∝ |Eϵ [CS (x + ϵ)]/Varϵ [CS (x + ϵ)]|                              (47)
+
+Proof. Let p = |Ω|. Let C(x + ϵ) = [CS1 (x + ϵ), · · · , CSp (x + ϵ)]⊤ denote the vector of all CS (x + ϵ), S ∈ Ω, and let
+U = [US1 , · · · , USp ]⊤ denote the vector of all coefficients US , S ∈ Ω. To further simplify the notation, we simply use C to
+denote the random vector C(x + ϵ). Besides, since we assume that each dimension of the vector C(x + ϵ) is independent
+of each other, we can use Eϵ [C] = [α1 , · · · , αp ]⊤ ∈ Rp and Varϵ [C] = diag(β12 , · · · , βp2 ) ∈ Rp×p to denote the mean
+vector and covariance matrix of the random vector C(x + ϵ), respectively. We prove this theorem in three steps.
+Step 1. We first prove that the optimal solution to Eq. (15) in the main paper is given by
+                                                     1
+                          ∀1 ≤ i ≤ p,     US∗i =         det(M1 , · · · , Mi−1 , ρ, Mi+1 , · · · , Mp )                    (48)
+                                                   det M
+where M = Eϵ [C]Eϵ [C]⊤ + Varϵ [C], ρ = y ∗ Eϵ [C], and Mj denotes the j-th column of the matrix M .
+We can rewrite the objective function in Eq. (15) in the main paper as
+
+                                                min Eϵ [(y ∗ − U ⊤ C(x + ϵ))2 ]                                            (49)
+                                                 U
+
+To minimize the loss L = Eϵ [(y ∗ − U ⊤ C)2 ], we set the gradient of the loss w.r.t U to zero, i.e.,
+
+                                 ∇U L = Eϵ [2C(U ⊤ C − y ∗ )]
+                                        = 2Eϵ [CC ⊤ U − y ∗ C]
+                                                                                                                           (50)
+                                        = 2Eϵ [CC ⊤ ]U − 2y ∗ Eϵ [C]
+                                        = 2(Eϵ [C]Eϵ [C]⊤ + Varϵ [C])U − 2y ∗ Eϵ [C] = 0
+
+                                        ⇒ (Eϵ [C]Eϵ [C]⊤ + Varϵ [C])U = y ∗ Eϵ [C]                                         (51)
+
+Let M = Eϵ [C]Eϵ [C]⊤ + Varϵ [C], and ρ = y ∗ Eϵ [C]. By Cramer’s rule, we can obtain the solution to Eq. (51):
+                                                     1
+                          ∀1 ≤ i ≤ p,     US∗i =         det(M1 , · · · , Mi−1 , ρ, Mi+1 , · · · , Mp )
+                                                   det M
+where Mj denotes the j-th column of the matrix M .
+Step 2. We prove that for the optimal solution U ∗ , we have
+                                                 |US∗i |   |Eϵ [CSi (x + ϵ)]/Varϵ [CSi (x + ϵ)]|
+                              ∀1 ≤ i, j ≤ p,        ∗    =                                                                 (52)
+                                                 |USj |    |Eϵ [CSj (x + ϵ)]/Varϵ [CSj (x + ϵ)]|
+
+Since M = Eϵ [C]Eϵ [C]⊤ + Varϵ [C], we can obtain the j-th column of M as
+
+                                                     Mj = αj Eϵ [C] + Vj                                                   (53)
+
+                                                               20

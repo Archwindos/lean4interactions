@@ -1,0 +1,98 @@
+                     Bayesian Neural Networks Avoid Encoding Complex and Perturbation-Sensitive Concepts
+
+Complexity of a neural network representing a concept.                                      10000 Layer2            Layer3        Layer4
+
+
+
+
+                                                                                 MLP-5 on
+                                                                                  MNIST
+                                                                                                                                                     Feature
+In many previous studies (Deng et al., 2022; Wang et al.,                                                                                            distribution of
+2021; Zhang et al., 2021), the complexity of an interactive                                                                                          the BNN
+                                                                                                0
+                                                                                                  -15 -10 -5         -10     0      -10    0
+concept S was measured by the number of variables in the                                    10000 Conv2             FC1           FC2                Feature
+
+
+
+
+                                                                                 CIFAR-10
+                                                                                 LeNet on
+set S (also termed the order of the interactive concept),                                                                                            distribution of
+                                                                                                                                                     the surrogate
+i.e., complexity(S) = order(S) = |S|. Then, a low-order                                                                                              DNN model
+                                                                                                0
+concept represents a simple collaboration among a few input                                         -3     -2         20     30     -40        -20
+variables, while a high-order concept represents a complex
+collaboration among many input variables.                                      Figure 2. Comparison between the feature distribution of the BNN
+                                                                               and the feature distribution of the surrogate DNN model. We
+                                                                               randomly selected a feature dimension from each layer of the
+2.2. Approximating weight uncertainty by adding input
+                                                                               network. Each sub-figure compares feature distributions between
+     perturbations
+                                                                               the BNN and the surrogate DNN model in the selected dimension.
+In this paper, we aim to prove that compared to standard                       Please see Appendix I for results on tabular datasets.
+DNNs, it is more difficult to encode high-order (complex)                                                   这个是icml修改的，把
+interactive concepts as long as the network has weight un-                                                  图例的字改小了一些，
+                                                                               Table 1. Approximation error of the surrogate model and approxi-
+                                                                                                            然后图改宽了一些
+certainty. Note that previous studies (Lengerich et al., 2022;                 mation error of the baseline distribution. The approximation error
+Ren et al., 2021) found that a DNN encoding less com-                          was measured using features of the last layer of the network.
+plex concepts was NOT necessarily equivalent to a weak
+                                                                                                     MLP-5 on LeNet on MLP-8 on MLP-8 on
+representation capacity. Instead, it usually boosts the gen-                                          MNIST CIFAR-10 Census     TV news
+eralization power and adversarial robustness. In addition,                      surrogate             0.16      0.06    0.11     0.16
+as discussed in the last two paragraphs of the introduction,                    baseline              21.38    19.68    4.79     4.50
+the BNN can still encode complex concepts when it learns
+small variances.
+Unlike standard DNNs, a BNN formulates each weight as                          model ψ are set as the mean of the weight distribution
+a probability distribution, which boosts the difficulty of                     and the mean of the bias distribution in the BNN, i.e., ψ =
+theoretically analyzing interactive concepts encoded in a                      {µW (l) , µb(l) }L
+                                                                                                l=1 . Given an input sample x, we add pertur-
+
+BNN. Therefore, in this subsection, we first discover that                     bations ∆x ∼ N (0, Σ∆x ) to input variables and perturba-
+                                                                                            ′
+
+introducing uncertainty to weights in the BNN can be ap-                       tions ∆h(l ) ∼ N (0, Σ∆h(l′ ) ) to features between the first
+proximated by adding perturbations to input variables and                      layer and the (l − 1)-th layer in the surrogate DNN model
+low-layer features in experiments. In other words, we add                      (1 ≤ l′ ≤ l − 1). In this way, we can obtain the distribution
+random perturbations to both input variables and low-layer                     of the l-th layer feature h̃(l) in the surrogate DNN model,
+                                                                                                      (l)
+features of a standard DNN, and we demonstrate that such a                     denoted as pDNN (h̃ |∆ = {Σ∆x , Σ∆h(1) , · · · , Σ∆h(l−1) }),
+                                                                                                      (l)
+perturbed DNN performs as a surrogate DNN model, which                         and we use pDNN (h̃ |∆) to mimic the feature distribution
+well approximates feature representations of a BNN.                            pBNN (h(l) ) in the BNN. Thus, the objective function is for-
+                                                                               mulated as minimizing the following KL divergence.
+Let us consider a feed-forward BNN, which has L cascaded
+linear layers and ReLU layers. Given an input sample x ∈                                                                                             (l)
+RD0 (D0 = n), the feature of the l-th layer h(l) ∈ RDl                            ∀ 1 ≤ l ≤ L,              min KL(pBNN (h(l) )∥pDNN (h̃ |∆)), (7)
+                                                                                                                ∆
+(1 ≤ l ≤ L) is computed as follows.
+                                                                               where we set Σ∆x , Σ∆h(l′ ) ∈ ∆ as diagonal matrices.
+       h(l) = W (l) (· · · Φ(1) (W (1) x + b(1) ) · · · ) + b(l) ,   (6)
+                                                                               However, it is difficult to directly optimize Eq. (7). In-
+           (l)      Dl ×Dl−1          (l)     Dl                               stead, we learn the covariance matrices in a layer-wise
+where W ∈ R                  and b ∈ R denote the weight
+                                                                               manner, as follows. First, we learn the covariance ma-
+matrix and bias of the l-th linear layer, respectively. In the
+                         (l)                                                   trix Σ∆x on input variables to match the first-layer fea-
+BNN, Wij(l) ∼ N (W ij , (σij  (l) 2
+                                 ) ) is independently sampled
+                                                               (l)
+                                                                               ture of the surrogate DNN model to the first-layer feature
+from Gaussian distributions. We use µW (l) = [W ij ] ∈                                                                             (1)
+                                                                               of the BNN, i.e., minΣ∆x KL(pBNN (h(1) )∥pDNN (h̃ |Σ∆x )).
+RDl ×Dl−1 to denote the mean of the weight matrix. Besides,                    Then, we fix the learned covariance matrix Σ∆x (note
+b(l) ∼ N (µb(l) , Σb(l) ), where Σb(l) is a diagonal matrix. The               that it is not to fix the perturbation ∆x), and learn the
+diagonal matrix Φ(l) = diag(ϕ(l)                 (l)
+                                    1 , · · · , ϕDl ) ∈ {0, 1}
+                                                               Dl ×Dl
+                                                                               covariance matrix Σ∆h(1) on the first-layer feature to fit
+denotes binary gating states of the l-th ReLU layer.                           feature distributions of the second layer by minimizing
+                                                                                                       (2)
+Then, we construct the surrogate DNN model with the                            KL(pBNN (h(2) )∥pDNN (h̃ |Σ∆x , Σ∆h(1) )). We recursively
+same architecture as the BNN, to approximate the BNN’s                         learn the covariance matrix of an upper layer by fixing the
+feature distribution. Parameters of this surrogate DNN                         covariance matrices in all lower layers, until the last layer.
+
+                                                                           4

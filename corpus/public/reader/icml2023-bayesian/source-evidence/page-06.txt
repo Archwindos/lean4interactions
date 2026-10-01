@@ -1,0 +1,86 @@
+                    Bayesian Neural Networks Avoid Encoding Complex and Perturbation-Sensitive Concepts
+
+sion terms of the interaction effect I(S|x′ ), i.e., ∀i ∈ S, π̂i =         Since coefficients US,π w.r.t. different S and π are usu-
+1; ∀i ̸∈ S, π̂i = 0. Let us consider the interaction effect                ally chaotic, we can roughly consider that the sensitiv-
+I(S|x′ ) only containing the expansion term of the lowest                  ity of I(S|x + ϵ) also grows exponentially along with
+degree, i.e., I(S|x′ ) = US,π̂ · J(S, π̂|x′ ). In this way, the            the order |S| of the interactive concept S . In addition,
+mean and variance of the interaction effect I(S|x′ = x + ϵ)                Theorem 2.4 also proves the approximately exponential
+                                                                                                   ′
+                                                                                                     ,π ′ |x+ϵ)]/Varϵ [J(S ′ ,π ′ |x+ϵ)]
+over different perturbations ϵ are given as                                decrease of EϵE[J(Sϵ [J(S,π|x+ϵ)]/Varϵ [J(S,π|x+ϵ)]
+                                                                                                                                         along with
+         Eϵ [I(S|x + ϵ)] = US,π̂ ,                                         |S ′ | − |S|. Similarly, we can obtain that the relative stability
+                                                                 (9)       Eϵ [I(S|x + ϵ)]/Varϵ [I(S|x + ϵ)] decreases along with the
+                            2
+       Varϵ [I(S|x + ϵ)] = US,π̂ ((1 + (σ/τ )2 )|S| − 1).                  order |S|.
+
+Theorem 2.2 proves that the variance Varϵ [I(S|x + ϵ)] in-                 Conclusions. Both Theorem 2.2 and Theorem 2.4 tell us
+creases along with the order |S| of the interactive concept in             that high-order interactive concepts are much more sensitive
+an exponential manner. It indicates that high-order interac-               to input perturbations. Furthermore, combined with the
+tive concepts are much more sensitive to input perturbations               conclusion in Section 2.2, we can conclude that high-order
+than low-order concepts. Furthermore, as mentioned in                      interactive concepts encoded by the BNN are much more
+Section 2.2, since we can add perturbations to a surrogate                 sensitive to the weight uncertainty in the BNN than low-
+DNN model to well mimic feature representations of a BNN,                  order concepts.
+we can consider that high-order interactive concepts en-                   Experimental verification. We conducted experiments
+coded by the BNN are much more sensitive to weight                         to verify the above conclusions. To verify the sensitiv-
+uncertainty in the BNN than low-order concepts.                            ity to input perturbations, we added a random perturba-
+Theorem 2.3 (Proof in Appendix G.3). Let π ∈ QS =                          tion ϵ ∼ N (0, σ 2 I) to a given input sample x, where
+{[π1 , . . . , πn ]|∀i ∈ S, πi ∈ N+ ; ∀i ̸∈ S, πi = 0} denote an           σ 2 = 0.052 . Then, we used the following two metrics,
+                                                                              (s)                                                   (s)
+arbitrary degree. Then, the mean and the variance of                       Vnoise = Ex [E|S|=s [Varϵ∼N (0,σ2 I) [I(S|x + ϵ)]]] and Knoise =
+                                                                                        |E            2 I) [I(S|x+ϵ)]|
+J(S, π|x + ϵ) over perturbations ϵ are                                     Ex [E|S|=s [ Varϵ∼N (0,σ                       ]], to measure the average
+                                                                                             ϵ∼N (0,σ 2 I)
+                                                                                                             [I(S|x+ϵ)]
+                                    Y      ϵi πi                           variance and the average relative stability of the s-order
+        Eϵ [J(S, π|x + ϵ)] = Eϵ [            ) ],
+                                             (1 +
+                                       i∈S τ                    (10)       interactive concepts w.r.t. the input perturbation ϵ. Then, a
+                                   Y         ϵi                                    (s)
+                                                                           large Vnoise             (s)
+                                                                                        or a small Knoise indicated that the s-order inter-
+     Varϵ [J(S, π|x + ϵ)] = Varϵ [      (1 + )πi ]
+                                    i∈S       τ                            active concepts were sensitive to input perturbations.
+Theorem 2.3 extends Theorem 2.2 to a general case, where                   Similarly, to verify the sensitivity to the weight un-
+we use a higher-order Taylor expansion to represent I(S|x′ ).              certainty, we sampled different weights W from the
+Theorem 2.4 (Proof in Appendix G.4). Let S and S ′ be                      weight distribution qθ (W ) of the BNN. Then, we used
+                                                                             (s)                                                        (s)
+                                                                           VBNN = Ex [E|S|=s [VarW ∼qθ (W ) [I(S|x, W )]]] and KBNN =
+two interactive concepts, such that S ⊊ S ′ . Let us con-                               |EW ∼q (W ) [I(S|x,W )]|
+sider expansion terms J(S, π) and J(S ′ , π ′ ), where the term            Ex [E|S|=s [ Var θ                     ]] to measure the average
+                                                                                           W ∼qθ (W ) [I(S|x,W )]
+J(S ′ , π ′ ) is extended from the term J(S, π) with π ≺ π ′ .             variance and the average relative stability of the s-order
+I.e., (1) ∀i ∈ S ′ , πi′ ∈ N+ ; otherwise, πi′ = 0. (2) Given π ′ ,        interactive concepts w.r.t. the weight uncertainty in the
+                                                                                                                       (s)
+∀j ∈ S, πj = πj′ ; otherwise, πj = 0. Then, we have                        BNN. Therefore, a large value of VBNN           or a small value of
+                                                                             (s)
+                                                                           KBNN indicated that the s-order interactive concepts were
+   Varϵ [J(S ′ , π ′ |x + ϵ)]   Y                      ϵi ′                sensitive to the weight uncertainty. We followed experimen-
+                              >            E2ϵi [(1 + )πi ],
+   Varϵ [J(S, π|x + ϵ)]           i∈S ′ \S             τ                   tal settings in the experiments paragraph in Section 2.2 to
+          ′     ′                    ′   ′
+   Eϵ [J(S , π |x + ϵ)]/Varϵ [J(S , π |x + ϵ)]                             train BNNs. Specifically, we trained BNNs with the MLP
+    Eϵ [J(S, π|x + ϵ)]/Varϵ [J(S, π|x + ϵ)]
+                                                                (11)
+                                                                           architecture on the MNIST dataset, the TV news dataset,
+                                             1                             and the Census dataset. We trained BNNs with the LeNet ar-
+                             < Q                     ϵi π ′
+                                                            ,
+                                            i [(1 + τ )
+                                    ′    E ϵ             i]                chitecture on the CIFAR-10 dataset. Appendix H introduces
+                                i∈S \S
+                                                                           how to efficiently compute I(S|x) on images.
+                                      ϵi πi′
+and we can also obtain Eϵi [(1 +      τ
+                                        ) ]    ≥ 1.                                                                        (s)       (s)
+                                                                           Figure 3 shows that the average variance Vnoise     and VBNN
+Theorem 2.4 indicates that for an arbitrary degree π of the in-            increased exponentially along with the order s, while the
+                                                                                               (s)        (s)
+teractive concept S , Varϵ [J(S ′ , π ′ |x + ϵ)]/Varϵ [J(S, π|x +          relative stability Knoise and KBNN both decreased along with
+ϵ)] increases in an exponential manner along with |S ′ \                   the order. This demonstrated that high-order interactive
+S| = |S ′ | − |S|. Therefore, we can roughly consider that                 concepts were much more sensitive to input perturbations
+Varϵ [J(S, π|x + ϵ)] increases exponentially w.r.t. the or-                and the weight uncertainty in the BNN, thereby verifying
+der |S|. Furthermore, according to Lemma 2.1, I(S|x + ϵ)                   Theorem 2.2 and Theorem 2.4.
+can be re-written as the weighted sum of J(S, π|x + ϵ).
+
+                                                                       6

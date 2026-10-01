@@ -1,0 +1,73 @@
+                            Five-layer MLP on Census      AlexNet on CIFAR-10        VGG-11 on CIFAR-10         ResNet-20 on CIFAR-10
+
+
+𝔼𝔼𝑆𝑆⊆𝑁𝑁, 𝑆𝑆 =𝑠𝑠 [𝛽𝛽(𝑆𝑆)]
+                                                                                                                                            𝑠𝑠 = 0.1𝑛𝑛
+
+                                                                                                                                            𝑠𝑠 = 0.2𝑛𝑛
+
+                            Five-layer MLP on TV news    AlexNet on Tiny-ImageNet   VGG-11 on Tiny-ImageNet   ResNet-18 on Tiny-ImageNet    𝑠𝑠 = 0.8𝑛𝑛
+
+                                                                                                                                            𝑠𝑠 = 0.9𝑛𝑛
+𝔼𝔼𝑆𝑆⊆𝑁𝑁, 𝑆𝑆 =𝑠𝑠 [𝛽𝛽(𝑆𝑆)]
+
+
+
+
+                                    Epoch                         Epoch                      Epoch                       Epoch
+
+Figure 3: Consistency β(S) of s-order interactive concepts. The curve shows the mean consistency
+ES⊆N,|S|=s [β(S)] over different interactive concepts of the s-th order, and the shade indicates the
+standard deviation StdS⊆N,|S|=s [β(S)]. Effects of low-order concepts are more consistent than those
+of high-order concepts.
+
+                              Five-layer MLP on Census    AlexNet on CIFAR-10        VGG-11 on CIFAR-10       ResNet-20 on CIFAR-10
+
+
+𝔼𝔼𝑆𝑆⊆𝑁𝑁, 𝑆𝑆 =𝑠𝑠 [𝜅𝜅(𝑆𝑆)]
+                                                                                                                                           𝑠𝑠 = 0.1𝑛𝑛
+
+                                                                                                                                           𝑠𝑠 = 0.2𝑛𝑛
+                             Five-layer MLP on TV news   AlexNet on Tiny-ImageNet   VGG-11 on Tiny-ImageNet   ResNet-18 on Tiny-ImageNet   𝑠𝑠 = 0.8𝑛𝑛
+
+ 𝔼𝔼𝑆𝑆⊆𝑁𝑁, 𝑆𝑆 =𝑠𝑠 [𝜅𝜅(𝑆𝑆)]                                                                                                                  𝑠𝑠 = 0.9𝑛𝑛
+
+
+
+
+                                      Epoch                       Epoch                     Epoch                       Epoch
+
+Figure 4: Instability κ(S) of s-order interactive concepts to data variations. The curve shows the
+average instability ES⊆N,|S|=s [κ(S)] over different interactive concepts of the s-th order, and the
+shade represents the standard deviation StdS⊆N,|S|=s [κ(S)]. Effects of high-order concepts are more
+sensitive to data variations than those of low-order concepts.
+
+To analyze the consistency/stability of the concept w.r.t data variations, we use small perturbations ϵ
+to represent various inevitable variations in the data, such as shape deformation and object rotation
+variations. Theorem 3 shows that high-order interactive concepts are much more unstable to inevitable
+variations in the data than low-order interactive concepts. This makes high-order concepts more likely
+to be influenced by data variations and less likely to be consistently present or absent in samples of
+the same category, which boosts the learning difficulty.
+Experimental verification. We conduct experiments to verify the claim that high-order interac-
+tive concepts are less stably extracted under data variations than low-order interaction. We use
+the following two metrics to evaluate the each interactive concept S (i.e., each single input di-
+mension of  the above linear function) of a certain order. Specifically, we use the first metric
+β(S) = Ec |Ex∈Xc [I(S|x)]|/Stdx∈Xc [I(S|x)] to measure the relative consistency of the interactive
+concept appearing over different input samples in a certain category c. Here, Xc denotes a set of
+training samples belonging to the category c, and Stdx∈Xc [I(S|x)] indicates the standard deviation of
+I(S|x) over different input samples. A large β(S) value means that the interactive concept S in all
+samples of the category c has similar/consistent effects I(S|x). It is easier for a DNN to learn such a
+consistent concept S .
+In addition, we use another metric κ(S) to verify whether the interaction effect of the high-
+order interactive concept is usually less stably extracted than those of the low-order         interac-
+tive concept. To this end, the metric κ(S) =Ex∈X [Eϵ [|I(S|x + ϵ) − I(S|x)|]]/Ex∈X |I(S|x)|] =
+Ex∈X [Eϵ [|CS (x + ϵ) − CS (x)|]]/Ex∈X |CS (x)|] measures the relative instability of the interactive
+concept S to the inevitable slight variations ϵ in the data. Here, CS (x + ϵ) = I(S|x + ϵ)/US computed
+in Equation (7) denotes the trigger state of the interactive concept S on the sample x′ = x + ϵ.
+To this end, we use DNNs and experimental settings in the experimental verification paragraph
+of Section 3.2 for evaluation. Figure 3 and Figure 4 show the change of the average consistency
+β(S) and the average instability κ(S) of s-order interactive concepts through the learning process,
+respectively. At each training epoch, low-order concepts usually obtain higher consistency β(S) and
+
+
+                                                                                7

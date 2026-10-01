@@ -1,0 +1,71 @@
+• Proof :
+right = M I(Xi ; Y |Xj , XS ) + M I(Xj ; Y |Xi , XS ) + M I(Xi ; Xj ; Y |XS )
+      = M I(Xi ; Y |Xj , XS ) + M I(Xj ; Y |Xi , XS ) + M I(Xi ; Y |XS ) − M I(Xi ; Y |Xj , XS )
+      = M I(Xi ; Y |Xj , XS ) + M I(Xi ; Y |XS )
+           X                                   p(xj , y|xi , xS )           X                          p(xi , y|xS )
+      =            p(xi , xj , xS , y) log                              +         p(xi , xS , y) log
+                                           p(xj |xi , xS )p(y|xi , xS )                              p(xi |xS )p(y|xS )
+        x ,x ,x ,y
+            i    j    S                                                   x ,x ,y       i       S
+                X                                        p(xj , y|xi , xS )           X                                                p(xi , y|xS )
+       =                     p(xi , xj , xS , y) log                              +                        p(xi , xj , xS , y) log
+                                                     p(xj |xi , xS )p(y|xi , xS )                                                    p(xi |xS )p(y|xS )
+           xi ,xj ,xS     ,y                                                       x ,x ,x
+                                                                                    i       j       S ,y
+                X                                             p(xj , y|xi , xS )p(xi , y|xS )
+       =                    p(xi , xj , xS , y) log
+           xi ,xj ,xS ,y
+                                                      p(xj |xi , xS )p(y|xi , xS )p(xi |xS )p(y|xS )
+                X                                             p(xj , y|xi , xS )p(xi , y|xS )p(xi , xS )p(xS )
+       =                    p(xi , xj , xS , y) log
+           xi ,xj ,xS ,y
+                                                      p(xj |xi , xS )p(y|xi , xS )p(xi |xS )p(y|xS )p(xi , xS )p(xS )
+                X                                                 p(xi , xj , xS , y)p(xi , xS , y)
+       =                    p(xi , xj , xS , y) log
+           xi ,xj ,xS ,y
+                                                      p(xj |xi , xS )p(xi , xS , y)p(xi |xS )p(y|xS )p(xS )
+                X                                                 p(xi , xj , xS , y)
+       =                    p(xi , xj , xS , y) log
+           xi ,xj ,xS ,y
+                                                      p(xj |xi , xS )p(xi |xS )p(y|xS )p(xS )
+                X                                       p(xi , xj , y|xS )
+       =                    p(xi , xj , xS , y) log
+           xi ,xj ,xS ,y
+                                                      p(xi , xj |xS )p(y|xS )
+
+       = M I(X{i,j} ; Y |XS ) = left
+                                                                                                                                                 
+
+C      Related works about interactions
+In Section 2 of the paper, we have discussed related works about understandings of adversarial attacks,
+defense, and robustness. Due to the page limit, we discuss related works about interactions in this
+section of the supplementary material. Unlike previous studies about interactions, we firstly use
+the interaction to explain adversarial perturbations and robustness, and provide a unified view to
+understand existing defense methods.
+Interactions between input variables of a DNN have been widely investigated in recent years. In game
+theory, Grabisch and Roubens [6] and Lundberg et al. [11] proposed and used the Shapley interaction
+index based on Shapley values [14]. Covert et al. [3] investigated the relationship between the Shapley
+value and the mutual information. Sorokina et al. [16] measured the interaction of multiple input
+variables in an additive model. Tsang et al. [19] calculated interactions of weights in a DNN. Wang
+et al. [21] applied the interaction of adversarial perturbations to understand adversarial transferabilitiy.
+Murdoch et al. [13], Singh et al. [15], and Jin et al. [10] used the contextual decomposition (CD)
+technique to extract variable interactions. Cui et al. [4] proposed a non-parametric probabilistic
+method to measure interactions using a Bayesian neural network. Janizek et al. [9] extended the
+Integrated Gradients method [17] to explain pairwise feature interactions in DNNs. Sundararajan et al.
+[18] defined the Shapley-Taylor index to measure interactions over binary features. In comparison,
+we novelly use the multi-order interaction to understand the detailed interaction behaviors w.r.t.
+adversarial attacks, which enables us to explain adversarial examples and adversarial training.
+
+D      Information reflected by ∆I (m)
+                                                                                                                   (m)                          def
+In section 4.1 of the paper, we propose the metric I (m) = Ex∈Ω Ei,j [Iij (x)], and ∆I (m) =
+ (m)            (m)
+Inor − Iadv , which measures the difference in interactions between normal samples and adversarial
+examples. In this section of the supplementary material, we prove the following property of the
+metric ∆I (m) .
+                                                                                 (m)
+                                                  ∆I (m) = Ex∈Ω Ei,j [∆Iij (x)]                                                                 (8)
+
+
+                                                                       7
+

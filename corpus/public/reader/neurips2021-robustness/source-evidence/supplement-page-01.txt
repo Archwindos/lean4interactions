@@ -1,0 +1,62 @@
+      A Unified Game-Theoretic Interpretation of
+    Adversarial Robustness: Supplementary Material
+
+
+               Jie Rena∗ , Die Zhanga∗ , Yisen Wangb∗, Lu Chena , Zhanpeng Zhoua ,
+        Yiting Chena , Xu Chenga , Xin Wanga , Meng Zhoua,c†, Jie Shid , Quanshi Zhanga‡
+                                     a
+                                     Shanghai Jiao Tong University
+            b
+                Key Lab. of Machine Perception (MoE), School of EECS, Peking University
+                                     c
+                                       Carnegie Mellon University
+                                       d
+                                         Huawei technologies Inc.
+
+
+
+
+A       Preliminaries: Shapley values
+In this section, in order to help readers understand the metric in the paper, we first revisit the definition
+of the Shapley value [14], which is widely considered as an unbiased estimation of the numerical
+importance w.r.t. each input variable. In game theory, the complex system is usually represented as a
+game, where each input variable is taken as a player, and the output of this system is regarded as the
+total reward of all players. Given a game with multiple players (input variables) N = {1, 2, · · · , n},
+some players cooperate to pursue a high reward. Thus, the task is to divide the total reward, and fairly
+assign the divided elementary reward to each individual player. In this way, the elementary reward
+can be considered as the numerical importance of the corresponding variable to the complex system.
+          def
+Let 2N = {S|S ⊆ N } indicate all potential subsets of N . The game v : 2N → R is a function,
+which estimates the overall reward v(S) earned by each specific subset of players S ⊆ N . In this
+way, the Shapley value, denoted by φ(i), represents the numerical importance of the player i to the
+game v.
+                                   X (n − |S| − 1)!|S|! h                        i
+                         φ(i) =                             v(S ∪ {i}) − v(S) .                           (1)
+                                                n!
+                                S⊆N \{i}
+Weber [22] has proven that the Shapley value is a unique method to fairly allocate overall reward to
+each player that satisfies following properties.
+(1) Linearity property: If two independent games can be merged into one game u(S) = v(S) +
+w(S), then the Shapley value of the new game also can be merged, i.e. ∀i ∈ N , φu (i) = φv (i) +
+φw (i); ∀c ∈ R, φc·u (i) = c · φu (i).
+(2) Nullity property: The dummy player i is defined as a player satisfying ∀S ⊆ N \ {i}, v(S ∪
+{i}) = v(S) + v({i}), which indicates that the player i has no interactions with other players in N ,
+φ(i) = v({i}) − v(∅).
+(3) Symmetry property: If ∀S ⊆ N \ {i, j}, v(S ∪ {i}) = v(S ∪ {j}), then φ(i) = φ(j).
+                                                                           P
+(4) Efficiency property: The overall reward can be assigned to all players, i∈N φ(i) = v(N ) −
+v(∅).
+Using Shapley values to explain DNNs. Given a trained DNN and the input with n variables
+N = {1, · · · , n}, we can take the input variables as players, and consider the network output as
+    ∗
+      Equal contribution
+    †
+      This work was done when Meng Zhou was an undergraduate at Shanghai Jiao Tong University.
+    ‡
+      Quanshi Zhang is the corresponding author. zqs1022@sjtu.edu.cn. This work is supervised by Dr.
+Quanshi Zhang. He is with the John Hopcroft Center and the MoE Key Lab of Artificial Intelligence, AI Institute,
+at the Shanghai Jiao Tong University, China.
+
+
+35th Conference on Neural Information Processing Systems (NeurIPS 2021), Sydney, Australia.
+

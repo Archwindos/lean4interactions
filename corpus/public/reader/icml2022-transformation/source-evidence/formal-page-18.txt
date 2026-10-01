@@ -1,0 +1,86 @@
+                          Towards Theoretical Analysis of Transformation Complexity of ReLU DNNs
+
+Similarly, the complexity I(X; Σl ; Y ) can be estimated by its upper bound:
+
+                         I(X; Σl ; Y ) = I(Σl ; Y ) − I(Σl ; Y |X)
+                                       = H(Σl ) − H(Σl |Y ) − I(Σl ; Y |X)
+                                             n         n
+                                                                  1 ∥σl,j − σl,k ∥22
+                                                                                    
+                                          1X         1X
+                                       ≤−        log      exp −
+                                          n j=1      n            2        σ02
+                                                             k=1
+                                                                                                                               (27)
+                                               M
+                                                                         1 ∥σl,j − σl,k ∥22
+                                                                                          
+                                               X     1 X       1 X
+                                          −    pm −       log      exp −
+                                            m=1
+                                                    nm j,     nm         2       σ02
+                                                                                  k,
+                                                              Yj =m             Yk =m
+
+                                          − I(Σl ; Y |X)
+
+For the task of multi-category classification, M denotes the number of categories. nm is the number of training samples
+belonging to the m-th category, and pm = nm /M . If the DNN does not introduce additional complexity besides the input,
+we have I(Σl ; Y |X) = 0.
+The entanglement of transformations is formulated as
+                                                                                              
+                                                             Y                        p(σl )
+                                 T C(Σl ) =KL(p(σl )||            p(σld )) = Eσl log Q       d                                 (28)
+                                                              d                       d p(σl )
+
+
+where p(σld ) denotes the marginal distribution of the d-th element in σl . To enable fair comparisons between I(T̂ , X)
+computed by the KDE method in Eq. (23) and T C(Σl ), we also apply the Q         KDE method to approximate T C(Σl ). To this
+end, we synthesize a new distribution p(σ̂l ) to represent the distribution of d p(σld ). In σ̂l , σ̂ld in each dimension follows
+the Bernoulli distribution with the same activation  rate adl with the original σld . Gating states σ̂ld in different dimensions are
+independent with each other. In this way, d p(σl ) can be approximated by p(σ̂l ).
+                                                    d
+                                           Q
+
+Inspired by (Kolchinsky & Tracey, 2017; Kolchinsky et al., 2019), T C(Σl ) is quantified as the following upper bound.
+                                                                 
+                                                          p(σl )
+                                       T C(Σl ) = Eσl log
+                                                          p(σ̂l )
+                                                                                          2
+                                                                                                                               (29)
+                                                                                           
+                                                                          1 ∥σl,i −σl,j ∥2
+                                                            P
+                                                  1 X          j  exp   − 2        2
+                                                                                  σ0
+                                                ≤       log P                            2
+                                                                                            
+                                                  P i             exp −   1 ∥σl,i −σ̂l,j ∥2
+                                                                                   2
+                                                                      j            2    σ0
+
+
+where P denotes the number of samples. σ̂l,i denotes the synthesized gating states, which have the same activation rates
+with the gating states of the sample i.
+
+F. Learning a Minimum-Complexity DNN
+This section introduces more details about the learning of a minimum-complexity DNN in Section 4.3 of the paper. In
+Section 4.3, the complexity loss is defined as
+
+                                                       L
+                                                       X                  L
+                                                                          X
+                                       Lcomplexity =         H(Σl ) =       {−Eσl [log p(σl )]}                                (30)
+                                                       l=1                l=1
+
+The exact value of p(σl ) is difficult to calculate. Thus, inspired by (Gao et al., 2018), we design an energy-based model
+(EBM) pθf (σl ) to approximate it, as follows.
+
+                                             1
+                                 pθf (σl ) =      exp[f (σl ; θf )] · q(σl )
+                                           Z(θf )
+                                                                    Z                                                          (31)
+                                  Z(θf ) = Eq [exp[f (σl ; θf )]] =     q(σl ) exp[f (σl ; θf )]dσl
+                                                                           σl
+

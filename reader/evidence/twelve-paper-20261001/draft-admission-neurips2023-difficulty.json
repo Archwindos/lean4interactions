@@ -1,0 +1,117 @@
+{
+  "scope": "Development-package structure and language only; no source/math/Lean acceptance or manifest mutation",
+  "paper_id": "neurips2023-difficulty",
+  "status": "structural_checks_passed_pending_mathematical_review",
+  "result_count": 38,
+  "target_entries": 28,
+  "target_result_ids": [
+    "diff-adversarial-inference",
+    "diff-adversarial-learning-inference",
+    "diff-anonymity",
+    "diff-binary",
+    "diff-distribution",
+    "diff-dummy",
+    "diff-efficiency",
+    "diff-fast-learning-inference",
+    "diff-frequency-learning-inference",
+    "diff-general-moments",
+    "diff-kappa-conversion",
+    "diff-learning-consistency-argument",
+    "diff-linear-representation",
+    "diff-linearity",
+    "diff-lowest-interaction",
+    "diff-moments",
+    "diff-multiorder",
+    "diff-noise-learning-inference",
+    "diff-order-variance-argument",
+    "diff-product",
+    "diff-recursion",
+    "diff-regression",
+    "diff-salient-reconstruction",
+    "diff-shallow-learning-inference",
+    "diff-sparsity",
+    "diff-symmetry",
+    "diff-taylor",
+    "diff-universal"
+  ],
+  "non_target_entries": [
+    {
+      "id": "diff-interaction",
+      "kind": "definition",
+      "reason": "Eq.(1) defines the dividend of a fixed masked-input game; it does not assert a separate theorem.",
+      "requires_source_and_content_review": true
+    },
+    {
+      "id": "diff-concept-order",
+      "kind": "definition",
+      "reason": "This paragraph defines complexity/order as support cardinality and illustrates the terminology.",
+      "requires_source_and_content_review": true
+    },
+    {
+      "id": "diff-reference",
+      "kind": "definition",
+      "reason": "The reference rule, its clipping footnote and the Gaussian approximation specify a model rather than a proved identity.",
+      "requires_source_and_content_review": true
+    },
+    {
+      "id": "diff-order-variance-metrics",
+      "kind": "empirical",
+      "reason": "These displayed formulas define finite experimental aggregates; Figure2 is an observation, not an algebraic order theorem.",
+      "requires_source_and_content_review": true
+    },
+    {
+      "id": "diff-trigger-definition",
+      "kind": "definition",
+      "reason": "Eq.(7) defines a quotient trigger. Its zero-coefficient boundary is recorded separately; the quotient definition is not a separate theorem.",
+      "requires_source_and_content_review": true
+    },
+    {
+      "id": "diff-training-metrics",
+      "kind": "empirical",
+      "reason": "Beta and kappa introduce experimental metrics and plots. The asserted equality between the two kappa expressions is a separate true proof target diff-kappa-conversion.",
+      "requires_source_and_content_review": true
+    },
+    {
+      "id": "diff-multiorder-definition",
+      "kind": "definition",
+      "reason": "Appendix F defines a context-size average. Context size m and concept support size |S| are distinct notions; the G.4 relation is separately targeted.",
+      "requires_source_and_content_review": true
+    },
+    {
+      "id": "diff-experiments",
+      "kind": "empirical",
+      "reason": "Appendix H specifies architectures, training, sampling, perturbation and attack implementations. These configurations do not assert an additional mathematical theorem; the separate formula and inference targets remain explicit.",
+      "requires_source_and_content_review": true
+    },
+    {
+      "id": "diff-training-similarity",
+      "kind": "definition",
+      "reason": "The unnumbered formulas define sign-split vectors and weighted Jaccard similarity; Figure5 is a finite observation.",
+      "requires_source_and_content_review": true
+    },
+    {
+      "id": "diff-adversarial-metric",
+      "kind": "empirical",
+      "reason": "Alpha and A^(s) define experimental attack sensitivity aggregates; their numerical order trend is empirical.",
+      "requires_source_and_content_review": true
+    }
+  ],
+  "errors": [],
+  "bilingual_errors": [],
+  "inline_math_differences": [],
+  "input_hashes": {
+    "corpus/public/reader/neurips2023-difficulty/paper-metadata.json": "8df961b371cfc9ef2600ee7f57b9f2e0aad696ffd33e323581a02b54ab6d8711",
+    "corpus/public/reader/neurips2023-difficulty/inventory.json": "8d0affef55352b4a9ce18863d97407c303fd028f55ea2246c4ed8452b957ac71",
+    "corpus/public/reader/neurips2023-difficulty/content.json": "d3bf2f80d215006ab0039bff6cb7dd28f00fbafcfbc264cb0b4bdb1b0fc9f28f",
+    "corpus/public/reader/neurips2023-difficulty/symbols.json": "d3a39a077d1405b9e259fdcaddcd4d64d261bceb89033a934340247b5fea0398",
+    "corpus/public/reader/neurips2023-difficulty/issues.json": "c7a57cb884bcca4c66ef0818f25c94d3fc62a95355886d88f20c86ba582abb1d",
+    "reader/check_draft_admission.py": "933c4634c2302560fe4030943d02491a24b3aaf7fdd4d6bbd1222ea7c61738b2",
+    "reader/architecture/admission-contract.json": "1b22e4cd579f03de1ce9ae3f3c272a0de4d776ac25f63628fd68371002a127b5",
+    "reader/inventory_contract.py": "45a2c6b8d2915f6f4e2abe7a6c3dee90a97ee489700285fd14bdfa3dd9cde47d",
+    "reader/bilingual.py": "aeec1605b4d57cec38a3fc7215215ace4b686153e5910493f3daa11595f7bc88",
+    "reader/symbols_english.py": "cc75b9f100874e2310c3f12365de5a2b79d9f79e96757c89459ad2f5ce680a96",
+    "reader/symbol_context_english.py": "0faf107350cb6e7617963f75ff48301a7e8a78f3c28bf07ed11e5d1e957f5654",
+    "reader/evidence_paths.py": "0691f8e89020fc256f3edc079070201580230a187a849f674ddc6314341046ae"
+  },
+  "machine_role_status_reviews": []
+}

@@ -1,0 +1,103 @@
+                         Defects of Convolutional Decoder Networks in Frequency Representation
+
+
+                                                    M −1 N −1
+                                     (c)
+                                                    X    X       (c) −i(     um + vn )2π
+                          VarF (c) [Guv  ] = Var[               Fmn e        M    N        ]
+                                                    m=0 n=0
+                                             M −1 N −1
+                                             X    X            (c) −i(       um + vn )2π               (c)
+                                         =                Var[Fmn e          M    N        ] //∀m, n; Fmn  is i.i.d
+                                             m=0 n=0
+                                             M
+                                             X −1 N
+                                                  X −1                                                                  (35)
+                                                               (c)
+                                         =                Var[Fmn  ]
+                                             m=0 n=0
+                                             M
+                                             X −1 N
+                                                  X −1
+                                         =                σ2       (c)
+                                                                //Fmn  ∼ N (a, σ 2 )
+                                             m=0 n=0
+                                                  2
+                                         = MNσ
+
+
+                                                      0      0
+                                                    M   −1 N   −1
+                                     (c)
+                                                    X      X                  um    vn
+                                                                      (c) −i( 0 + 0 )2π
+                          VarF (c) [Huv  ] = Var[                   F̃mn e M N          ]
+                                                    m=0 n=0
+                                                    M −1 N −1
+                                                    X    X                   um
+                                                                 (c) −i( 0 + 0 )2π vn
+                                         = Var[                 Fmn e M N          ]
+                                                    m=0 n=0
+                                             M −1 N −1
+                                             X    X                          um
+                                                               (c) −i( 0 + 0 )2π   vn                    (c)
+                                         =                Var[Fmn e M N          ]             //∀m, n; Fmn  is i.i.d
+                                             m=0 n=0
+                                                                                                                        (36)
+                                             M
+                                             X −1 N
+                                                  X −1
+                                                               (c)
+                                         =                Var[Fmn  ]
+                                             m=0 n=0
+                                             M
+                                             X −1 N
+                                                  X −1
+                                         =                σ2       (c)
+                                                                //Fmn  ∼ N (a, σ 2 )
+                                             m=0 n=0
+
+                                         = M N σ ; 0 ≤ u < M 0, 0 ≤ v < N 0
+                                                  2
+
+
+
+When 0 ≤ u < M, 0 ≤ v < N :
+
+                  (c)          (c)         (c) 2        (c)          (c) 2        (c)
+             SOM(Huv  ) − SOM(Guv  ) = |E[Huv ]| + Var(Huv  ) − (|E[Guv ]| + Var(Guv  ))
+                                         = (aτuv )2 + M N σ 2 − (aM N )2 δuv − M N σ 2
+                                                                                                                        (37)
+                                        //According to Equation (33),Equation (34),Equation (35) and Equation (36)
+                                        = (aτuv )2 − (aM N )2 δuv
+
+Therefore, We prove that ∀0 ≤ u < M, 0 ≤ v < N, u + v 6= 0
+                                                   (c)
+                                              SOM(Huv  ) − SOM(G(c)
+                                                                uv ) = (aτuv )
+                                                                               2
+                                                                                                                        (38)
+
+
+When u = v = 0:
+                                                            (c)
+                                                       SOM(Huv  ) = SOM(G(c)
+                                                                         uv )                                           (39)
+
+
+
+
+A.6. Proof of Theorem 4.4
+In this section, we prove Theorem 4.4 in the main paper, as follows.
+
+Proof.
+                                         M 0 −1 N 0 −1
+                                                                        um    vn
+                                                           (c) −i( M0 + N0 )2π
+                                         X      X
+                                G(c)
+                                 uv =                     Fmn e                            //Equation (19)              (40)
+                                          m=0 n=0
+
+                                                                       23
+

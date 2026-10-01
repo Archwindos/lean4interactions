@@ -1,0 +1,68 @@
+                   Bayesian Neural Networks Avoid Encoding Complex and Perturbation-Sensitive Concepts
+
+where the first term is the classification loss, and the second         If I(S|x) has a significant value, then the neural network is
+term is the KL divergence between qθ (W ) and the prior dis-            considered to encode an interactive concept S ; otherwise, if
+tribution p(W ), which is usually formulated as a Gaussian              I(S|x) ≈ 0, the concept S does not exist. Here, xT denotes
+distribution N (W ; 0, I). In addition, given a testing sample          the masked input sample, where variables in N \ T are
+x, the inference of the BNN is conducted as follows. First,             masked and variables in T are kept unchanged. Besides,
+network weights are sampled from the weight distribution                v(xT ) ∈ R can be computed as a scalar output of the neural
+qθ (W ) to construct multiple neural networks. Then, each               network on the masked sample xT (e.g., the confidence
+network is used to conduct inference on the sample x, and               score of classifying the input sample xT to the ground-truth
+                                                                                                p(y=ytruth |xT )
+the final inference result p(y|x) is computed as the average            category v(xT ) = log 1−p(y=y   truth |xT )
+                                                                                                                    ).
+classification probability of all the networks,
+                                                                        Faithfulness of interactive concepts. Given an input sam-
+            p(y|x) = EW ∼qθ (W ) [p(y|x, W )].               (2)        ple x with n variables, we have 2n different ways to mask
+                                                                        the sample x and obtain the masked sample xT w.r.t. all
+2.1. Preliminaries: emergence of sparse concepts                        subsets T ⊆ N . To this end, Ren et al. (2021) proved that
+The learning of neural networks is usually regarded as
+                                                                                                                 X
+                                                                         ∃ Ω ⊆ 2N , s.t. ∀ T ⊆ N, v(xT ) =                        I(S|x), (4)
+                                                                                                                        S∈Ω,S⊆T
+a fitting problem between the ground-truth label and the
+model prediction, without explicit learning of specific con-            where 2N = {S|S ⊆ N }. The equation indicates that inter-
+cepts. However, recent studies have empirically discov-                 active concepts in Ω can well mimic network outputs on all
+ered (Ren et al., 2023a; Li & Zhang, 2023) and theoretically            the 2n masked samples. Thus, we can consider that all in-
+proved (Ren et al., 2023c) that sparse AND relationships                teractive concepts in the set Ω as faithful inference patterns
+between input variables were usually implicitly encoded by              encoded by the neural network.
+a neural network when it was sufficiently trained. As shown
+in Figure 1(a), these AND relationships can be viewed as                Sparsity of interactive concepts. More crucially, exten-
+specific types of interactive concepts, which will be intro-            sive experiments (Ren et al., 2023a; Li & Zhang, 2023)
+duced in the interactive concepts paragraph.                            discovered that interactive concepts emerging in a neural
+                                                                        network are usually very sparse. Figure 1(b) shows that
+Although counter-intuitive, this concept-emerging phe-                  most interactive concepts have near-zero interaction effects
+nomenon does exist in various neural networks. Further-                 (|I(S|x)| ≈ 0), thus having negligible influence on the net-
+more, such interactive concepts have been used to prove                 work output. Only a few salient interactive concepts have
+the representation bottleneck of the neural network (Deng               significant effects I(S|x) on the network output. In this way,
+et al., 2022) and obtain optimal masking states for attribution         the network output can be mimicked by only a few salient
+methods (Ren et al., 2023b). We also verify the trustwor-               interactive concepts in Ωsalient .
+thiness of using interactive concepts to explain neural
+networks in experiments (see the end of this section).
+                                                                                                       X
+                                                                                ∀ T ⊆ N, v(xT ) =                       I(S|x) + ϵ        (5)
+                                                                                                           S∈Ωsalient
+Interactive concepts. Ren et al. (2021) proposed the in-
+teraction effect I(S) to study the emergence of concepts.               The above equation decomposes the output v(xT ) into two
+Let us consider a pre-trained neural network v and an input             parts: (1) effects of all salient interactive concepts in Ωsalient ,
+sample x = [x1 , . . . , xn ] with n input variables indexed by         and (2) a small residual term ϵ containing negligible effects
+N = {1, . . . , n}. Let Ω denote a set of interactive con-              of all non-salient interactive concepts.
+cepts extracted from the network. Each interactive concept              Empirically verifying the sparsity of concepts. Based
+S ∈ Ω corresponds to the collaboration (AND relation-                   on Eq. (5), in the following analysis, only salient inter-
+ship) between input variables in a specific set S ⊆ N , thus            active concepts in Ωsalient are regarded as valid concepts
+Ω ⊆ 2N = {S|S ⊆ N }. For instance, as Figure 1(a) shows, a              encoded by a neural network. We empirically verify the
+concept S = {x1 , x2 , x3 } is formed due to the co-occurrence          emergence of sparse concepts in various neural networks,
+of the three image patches. The concept will be activated               including multi-layer perceptrons (MLPs), residual multi-
+and make a certain interaction effect I(S) on the network               layer perceptrons (ResMLPs) (Touvron et al., 2022), long
+output, only if the patches x1 , x2 , x3 are all present. In con-       short-term memory (LSTM) (Hochreiter & Schmidhuber,
+trast, the absence (masking) of any patch among x1 , x2 , and           1997), and convolutional neural networks (CNNs), and on
+x3 will deactivate the concept and remove the interaction               different datasets, including tabular data (Census dataset
+effect, i.e., I(S|xmask ) = 0.                                          and TV news dataset (Dua & Graff, 2017)), language data
+Specifically, the interaction effect I(S|x) on the sample x is          (CoLA (Warstadt et al., 2019) and SST-2 (Socher et al.,
+computed by the Harsanyi dividend (Harsanyi, 1963).                     2013)), and image data (MNIST (LeCun et al., 1998)). Fig-
+                       X                                                ure 1(b) verifies that concepts encoded by various neural
+            I(S|x) =             (−1)|S|−|T | · v(xT ).      (3)        networks are all sparse.
+                          T ⊆S
+
+
+                                                                    3

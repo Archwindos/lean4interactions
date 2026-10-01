@@ -1,0 +1,188 @@
+{
+  "source_id": "src-icml2023-decoder-formal",
+  "source_sha256": "25cf5804c4d93cc1117adf2afb9ad84c96ccb86cba14cc5be3a11d3c420aeb57",
+  "transcription_status": "complete_author_transcription_pending_independent_review",
+  "transcription_scope": "Source-only manual transcription of complete main author definitions, assumptions, theorem/corollary statements and adjoining short reasoning on official PDF 3–7; no mathematical correction and no duplication of the appendix proofs in author-transcripts-extra.json.",
+  "transcripts": [
+    {
+      "key": "main-preliminaries",
+      "section": "3. Propagation in the frequency domain",
+      "source_pages": [
+        3
+      ],
+      "equation_labels": [
+        "1",
+        "2"
+      ],
+      "original_statement_md": "Preliminary 1, convolution operation. Given a convolutional layer, let $\\mathbf W^{[\\mathrm{ker}=1]},\\mathbf W^{[\\mathrm{ker}=2]},\\ldots,\\mathbf W^{[\\mathrm{ker}=D]}$ denote $D$ convolutional kernels of this layer, and let $b^{[\\mathrm{ker}=1]},b^{[\\mathrm{ker}=2]},\\ldots,b^{[\\mathrm{ker}=D]}\\in\\mathbb R$ denote $D$ bias terms. Each $d$-th kernel $\\mathbf W^{[\\mathrm{ker}=d]}\\in\\mathbb R^{C\\times K\\times K}$ is of the kernel size $K\\times K$, and $C$ denotes the channel number. Accordingly, we apply these kernels on a feature $\\mathbf F\\in\\mathbb R^{C\\times M\\times N}$ with $C$ channels, and obtain the output feature $\\widetilde{\\mathbf F}\\in\\mathbb R^{D\\times M'\\times N'}$, as follows.\n\n$$\\widetilde{\\mathbf F}=Conv(\\mathbf F),\\quad\\text{s.t. }\\forall d,\\ \\widetilde F^{(d)}=\\mathbf W^{[\\mathrm{ker}=d]}\\otimes\\mathbf F+b^{[\\mathrm{ker}=d]}\\mathbf 1_{M'\\times N'}.\\tag{1}$$\n\nwhere $\\widetilde F^{(d)}\\in\\mathbb R^{M'\\times N'}$ denotes the feature map of the $d$-th channel. $\\otimes$ denotes the convolution operation. $\\mathbf 1_{M'\\times N'}\\in\\mathbb R^{M'\\times N'}$ is an all-ones matrix.\n\nPreliminary 2, discrete Fourier transform. Given the $c$-th channel of the feature $\\mathbf F\\in\\mathbb R^{C\\times M\\times N}$, i.e., $F^{(c)}\\in\\mathbb R^{M\\times N}$, we use the discrete Fourier transform (DFT) (Sundararajan, 2001) to compute the frequency spectrum of this channel, which is termed $G^{(c)}\\in\\mathbb C^{M\\times N}$, as follows. $\\mathbb C$ denotes the algebra of complex numbers.\n\n$$\\forall u,v,\\quad G^{(c)}_{uv}=\\sum_{m=0}^{M-1}\\sum_{n=0}^{N-1}F^{(c)}_{mn}e^{-i(um/M+vn/N)2\\pi}.\\tag{2}$$\n\nEach frequency component at the frequency $[u,v]$ is represented as a complex number, i.e., $G^{(c)}_{uv}\\in\\mathbb C$. Let $\\mathbf G=[G^{(1)},\\ldots,G^{(C)}]\\in\\mathbb C^{C\\times M\\times N}$ denote the tensor of frequency spectrums of the $C$ channels of $\\mathbf F$. We take the $C$-dimensional vector at the frequency $[u,v]$ of the tensor $\\mathbf G$, i.e., $\\mathbf g^{(uv)}=[G^{(1)}_{uv},G^{(2)}_{uv},\\ldots,G^{(C)}_{uv}]^\\top\\in\\mathbb C^C$, to represent the frequency component $[u,v]$ of the feature $\\mathbf F$. Frequency components closed to $[0,0]$, $[0,N-1]$, $[M-1,0]$, or $[M-1,N-1]$ represent low-frequency signals, whereas frequency components closed to $[\\frac M2,\\frac N2]$ represent high-frequency signals.",
+      "original_proof_md": "",
+      "transcription_notes": [
+        "Complete local definitions preceding Assumption 3.1; no appendix proof is duplicated."
+      ]
+    },
+    {
+      "key": "main-assumption-3.1",
+      "section": "3.1. Propagation in frequency",
+      "source_pages": [
+        3
+      ],
+      "equation_labels": [],
+      "original_statement_md": "In this section, we extend the 2D circular convolution theorem (Jain, 1989) to represent the forward propagation and the back-propagation in a cascaded convolutional network.\n\nAssumption 3.1. Let us follow the setting in the 2D circular convolution theorem (Jain, 1989), which adds the circular padding operation assumption (Jain, 1989) to the convolution operation. The convolution operation is conducted with a circular padding and with a stride size of 1, so as to avoid the convolution changing the size of the feature map. The circular padding is used to extend the last row and the last column of the feature map in each channel.",
+      "original_proof_md": "",
+      "transcription_notes": [
+        "The last sentence continues in the right column of PDF 3. No zero-padding or ReLU assumption is substituted."
+      ]
+    },
+    {
+      "key": "main-theorem-3.2",
+      "section": "3.1. Propagation in frequency",
+      "source_pages": [
+        3
+      ],
+      "equation_labels": [
+        "3"
+      ],
+      "original_statement_md": "Theorem 3.2. (Proof in Appendix A.1). According to Assumption 3.1, the output feature $\\widetilde{\\mathbf F}\\in\\mathbb R^{D\\times M\\times N}$ has the same size as the input feature. Let $\\mathbf H=[H^{(1)},H^{(2)},\\ldots,H^{(D)}]\\in\\mathbb C^{D\\times M\\times N}$ denote a tensor consisting of $D$ spectrums corresponding to the $D$ channels of $\\widetilde{\\mathbf F}$. Then, $\\mathbf H$ can be computed as follows.\n\n$$\\mathbf h^{(uv)}=T^{(uv)}\\mathbf g^{(uv)}+\\delta_{uv}MN\\mathbf b\\quad\\text{s.t. }\\delta_{uv}=\\begin{cases}1,&u=v=0,\\\\0,&\\text{otherwise}.\\end{cases}\\tag{3}$$\n\nwhere $\\mathbf h^{(uv)}=[H^{(1)}_{uv},H^{(2)}_{uv},\\ldots,H^{(D)}_{uv}]^\\top\\in\\mathbb C^D$ denotes a column at the frequency $[u,v]$ in the tensor $\\mathbf H$; $T^{(uv)}\\in\\mathbb C^{D\\times C}$ is a matrix of complex numbers and is exclusively determined by convolutional kernels $\\mathbf W^{[\\mathrm{ker}=1]},\\mathbf W^{[\\mathrm{ker}=2]},\\ldots,\\mathbf W^{[\\mathrm{ker}=D]}$, $T^{(uv)}_{dc}=\\sum_{t=0}^{K-1}\\sum_{s=0}^{K-1}W^{[\\mathrm{ker}=d]}_{cts}e^{i(ut/M+vs/N)2\\pi}$; $\\mathbf b=[b^{(1)},b^{(2)},\\ldots,b^{(D)}]^\\top\\in\\mathbb R^D$ denotes the vector of bias terms.",
+      "original_proof_md": "",
+      "transcription_notes": [
+        "This source-main statement has no local proof; the author points to A.1. Kernel indexing and the positive exponential are retained."
+      ]
+    },
+    {
+      "key": "main-linear-network-setting",
+      "section": "3.1. Propagation in frequency",
+      "source_pages": [
+        3
+      ],
+      "equation_labels": [],
+      "original_statement_md": "To simplify the further proof, we temporarily investigate the spectrum propagation of a network with $L$ cascaded convolutional layers, but does not contain activation functions. Let us first discuss the trustworthiness of such a simplification. We have conducted experiments to show that all our findings in all theorems can also well explain the properties of an ordinary cascaded convolutional network with ReLU layers. As shown in Figure 3, for a network with ReLU layers, although the value derived from our theory was not exactly the same as the real value, experimental results still verified the conclusions of our theory. More crucially, experiments in Figures 1, 3, 4, and 5 were all conducted on ReLU networks.\n\nLet a convolutional network contain $L$ cascaded convolutional layers. Each $l$-th layer contains $C_l$ convolutional kernels, $\\mathbf W^{(l)[\\mathrm{ker}=1]},\\mathbf W^{(l)[\\mathrm{ker}=2]},\\ldots,\\mathbf W^{(l)[\\mathrm{ker}=C_l]}\\in\\mathbb R^{C_{l-1}\\times K\\times K}$, with $C_l$ bias terms $b^{(l,1)},b^{(l,2)},\\ldots,b^{(l,C_l)}\\in\\mathbb R$. Let $x\\in\\mathbb R^{C_0\\times M\\times N}$ denote the input sample. The network generates the output sample $\\hat x=net(x)\\in\\mathbb R^{C_L\\times M\\times N}$. Then, we derive the forward propagation of spectrums of $x$ to spectrums of $\\hat x$ in the frequency domain, as follows.",
+      "original_proof_md": "",
+      "transcription_notes": [
+        "Full author simplification and empirical qualification, separate from a theorem proof."
+      ]
+    },
+    {
+      "key": "main-corollary-3.3",
+      "section": "3.1. Propagation in frequency",
+      "source_pages": [
+        4
+      ],
+      "equation_labels": [
+        "4"
+      ],
+      "original_statement_md": "Corollary 3.3. (Proof in Appendix A.2) Let $\\mathbf G=[G^{(1)},G^{(2)},\\ldots,G^{(C_0)}]\\in\\mathbb C^{C_0\\times M\\times N}$ denote frequency spectrums of the $C_0$ channels of the input $x$. Then, based on Assumption 3.1, spectrums of the image $\\hat x$ generated by $L$ cascaded convolutional layers, i.e., $\\mathbf H=[H^{(1)},H^{(2)},\\ldots,H^{(C_L)}]\\in\\mathbb C^{C_L\\times M\\times N}$, are given as\n\n$$\\mathbf h^{(uv)}=\\mathbb T^{(uv)(L:1)}\\mathbf g^{(uv)}+\\delta_{uv}\\boldsymbol\\beta.\\tag{4}$$\n\nwhere $\\mathbf g^{(uv)}=[G^{(1)}_{uv},G^{(2)}_{uv},\\ldots,G^{(C_0)}_{uv}]^\\top\\in\\mathbb C^{C_0}$ and $\\mathbf h^{(uv)}=[H^{(1)}_{uv},H^{(2)}_{uv},\\ldots,H^{(C_L)}_{uv}]^\\top\\in\\mathbb C^{C_L}$ denote vectors at the frequency $[u,v]$ in tensors $\\mathbf G$ and $\\mathbf H$, respectively. $\\mathbb T^{(uv)(L:1)}=T^{(L,uv)}\\cdots T^{(2,uv)}T^{(1,uv)}\\in\\mathbb C^{C_L\\times C_0}$. $\\boldsymbol\\beta=MN\\left(\\mathbf b^{(L)}+\\sum_{j=2}^L\\mathbb T^{(00)(L:j)}\\mathbf b^{(j-1)}\\right)\\in\\mathbb C^{C_L}$. $\\mathbf b^{(l)}=[b^{(l,1)},b^{(l,2)},\\ldots,b^{(l,C_l)}]^\\top\\in\\mathbb R^{C_l}$ denotes the vector of bias terms of $C_l$ convolutional kernels in the $l$-th layer.",
+      "original_proof_md": "Understanding the cascaded convolution operations in the frequency domain. Corollary 3.3 means that conducting multiple cascaded convolution operations on an input $x$ is essentially equivalent to conducting matrix multiplication on spectrums of $x$. As Figure 2 shows, for all frequencies except for the fundamental frequency, we have the output spectrum $\\mathbf h^{(uv)}=\\mathbb T^{(uv)(L:1)}\\mathbf g^{(uv)}$.\n\nBesides, the learning of parameters $\\mathbf W^{(l)}$ affects the matrix $T^{(l,uv)}$. Therefore, we further reformulate the change of $T^{(l,uv)}$ during the learning process, as follows.",
+      "transcription_notes": [
+        "Main short interpretation only; the complete author A.2 proof is already in author-transcripts-extra.json."
+      ]
+    },
+    {
+      "key": "main-corollary-3.4",
+      "section": "3.1. Propagation in frequency",
+      "source_pages": [
+        4
+      ],
+      "equation_labels": [
+        "5"
+      ],
+      "original_statement_md": "Corollary 3.4. (Proof in Appendix A.3) Based on Assumption 3.1, the change of each frequency component $T^{(l,uv)}$ during the learning process is reformulated, as follows.\n\n$$\\begin{aligned}\n(\\Delta T^{(l,uv)})^\\top={}&-\\eta MN\\sum_{u'=0}^{M-1}\\sum_{v'=0}^{N-1}\\chi_{u'v'uv}\\left(\\overline{\\mathbb T}^{(u'v')(l-1:1)}\\overline{\\mathbf g}^{(u'v')}\\right.\\\\\n&\\left.{}+\\delta_{u'v'}\\overline{\\boldsymbol\\beta}'\\right)\\frac{\\partial Loss}{\\partial(\\overline{\\mathbf h}^{(u'v')})^\\top}\\overline{\\mathbb T}^{(u'v')(L:l+1)};\\quad\\text{(5)}\n\\end{aligned}$$\n\nwhere $\\chi_{u'v'uv}=\\frac1{MN}\\frac{\\sin(K(u-u')\\pi/M)}{\\sin((u-u')\\pi/M)}\\frac{\\sin(K(v-v')\\pi/N)}{\\sin((v-v')\\pi/N)}\\cdot e^{i((K-1)(u-u')/M+(K-1)(v-v')/N)\\pi}\\in\\mathbb C$ is a coefficient; $\\mathbb T^{(u'v')(l-1:1)}=T^{(l-1,u'v')}\\cdots T^{(2,u'v')}T^{(1,u'v')}\\in\\mathbb C^{C_{l-1}\\times C_0}$; $\\mathbb T^{(u'v')(L:l+1)}=T^{(L,u'v')}\\cdots T^{(l+1,u'v')}\\in\\mathbb C^{C_L\\times C_l}$; $\\boldsymbol\\beta'=MN\\left(\\mathbf b^{(l-1)}+\\sum_{j=2}^{l-1}\\mathbb T^{(00)(l-1:j)}\\mathbf b^{(j-1)}\\right)\\in\\mathbb C^{C_{l-1}}$; $\\overline{\\mathbf g}^{(u'v')}$ denotes the conjugate of $\\mathbf g^{(u'v')}$; $\\eta$ is the learning rate.",
+      "original_proof_md": "",
+      "transcription_notes": [
+        "Equation (5) checked on the actual high-resolution PDF 4 image: conjugation bars are printed on the prefix product, g, beta prime, h in the loss derivative, and suffix product. All five are retained; transpose is not silently turned into conjugate transpose.",
+        "Source quotients have no added zero-sine convention. Complete A.3 proof remains in the appendix extra, not repeated here."
+      ]
+    },
+    {
+      "key": "main-assumption-4.1",
+      "section": "4.1. Effects of the convolution operation",
+      "source_pages": [
+        5
+      ],
+      "equation_labels": [
+        "6",
+        "7"
+      ],
+      "original_statement_md": "Given an initialized, cascaded, convolutional decoder network with $L$ convolutional layers, let us focus on the behavior of the decoder network in the early epochs of training. We notice that each element in the matrix $T^{(l,uv)}$, i.e., $T^{(l,uv)}_{dc}$, is exclusively determined by the $c$-th channel of the $d$-th kenel $W^{(l)[\\mathrm{ker}=d]}_{c,0:K-1,0:K-1}\\in\\mathbb R^{K\\times K}$, according to Theorem 3.2. Because parameters in $\\mathbf W^{(l)}$ in the decoder network are initialized to random noises, we can consider that all elements in $T^{(l,uv)}$ are irrelevant to each other, i.e., $\\forall d\\ne d',c\\ne c',T^{(l,uv)}_{dc}$ is irrelevant to $T^{(l,uv)}_{d'c'}$. Similarly, since different layers' parameters $\\mathbf W^{(l)}$ are irrelevant to each other in the initialized decoder, we can consider that elements in different layers' $T^{(l,uv)}$ are irrelevant to each other, i.e., $\\forall l\\ne l'$, elements in $T^{(l,uv)}$ and elements in $T^{(l',uv)}$ are irrelevant to each other. Moreover, since the early training of a DNN mainly modifies a few parameters according to the lottery ticket hypothesis (Frankle & Carbin, 2018), we can still assume such irrelevant relationships in early epochs, as follows.\n\nAssumption 4.1. (Proof in Appendix A.4) We assume that all elements in $T^{(l,uv)}$ are irrelevant to each other, and $\\forall l\\ne l'$, elements in $T^{(l,uv)}$ and $T^{(l',uv)}$ are irrelevant to each other in early epochs.\n\n$$\\begin{gathered}\\forall d\\ne d';\\ \\forall c\\ne c',\\\\\n\\mathbb E_{\\mathbf W^{(l)}}[T^{(l,uv)}_{dc}T^{(l,uv)}_{d'c'}]=\\mathbb E_{\\mathbf W^{(l)}}[T^{(l,uv)}_{dc}]\\mathbb E_{\\mathbf W^{(l)}}[T^{(l,uv)}_{d'c'}].\\end{gathered}\\tag{6}$$\n\n$$\\begin{aligned}\n&\\forall l,d,c,d',c',\\ \\mathbb E_{\\mathbf W^{(l)},\\ldots,\\mathbf W^{(1)}}[T^{(l,uv)}_{dc}\\mathbb T^{(uv)(l-1:1)}_{d'c'}]=\\\\\n&\\hspace{2em}\\mathbb E_{\\mathbf W^{(l)}}[T^{(l,uv)}_{dc})]\\mathbb E_{\\mathbf W^{(l-1)},\\ldots,\\mathbf W^{(1)}}[\\mathbb T^{(uv)(l-1:1)}_{d'c'}].\\quad\\text{(7)}\n\\end{aligned}$$\n\nBesides, according to experimental experience, the mean value of all parameters in $\\mathbf W^{(l)}$ usually has a small bias during the training process, instead of being exactly zero. Therefore, let us assume that in early epochs, each parameter in $\\mathbf W^{(l)}$ is sampled from a Gaussian distribution $\\mathcal N(\\mu_l,\\sigma_l^2)$.\n\nNote that we also experimentally verify that Assumption 4.1 can be also applied to fully trained DNNs, besides DNNs trained after early epochs. Please see Appendix C.7 for details.",
+      "original_proof_md": "",
+      "transcription_notes": [
+        "Author uses irrelevant and factored un-conjugated expectations, not an independently strengthened mathematical premise. Eq (6) retains both unequal-index quantifiers; Eq (7) retains its printed stray closing parenthesis. Lottery-ticket and experimental statements are author prose, not project endorsements."
+      ]
+    },
+    {
+      "key": "main-theorem-4.2",
+      "section": "4.1. Effects of the convolution operation",
+      "source_pages": [
+        5
+      ],
+      "equation_labels": [],
+      "original_statement_md": "According to $\\mathbf h^{(uv)}=\\mathbb T^{(uv)(L:1)}\\mathbf g^{(uv)}+\\delta_{uv}MN\\mathbf b$ in Corollary 3.3, we investigate the magnitude of $\\mathbb T^{(uv)(L:1)}$ as an indicator to measure the strength of the network encoding this specific frequency component $\\mathbf g^{(uv)}$.\n\nTheorem 4.2. (Proof in Appendix A.4) Let us focus on the simplest case that each convolutional layer only contains a feature map with a single channel, i.e., $\\forall l,C_l=1$. Based on Assumption 4.1, $\\mathbb T^{(uv)(L:1)}\\in\\mathbb C$ is computed as $T^{(L,uv)}\\cdots T^{(2,uv)}T^{(1,uv)}$, which is the product of $L$ complex numbers. Because each complex number $T^{(l,uv)}$ follows a Gaussian distribution, the mean value of $\\mathbb T^{(uv)(L:1)}$ is $\\prod_{l=1}^L\\mu_lR_{uv}\\in\\mathbb C$, where $R_{uv}=\\frac{\\sin(uK\\pi/M)}{\\sin(u\\pi/M)}\\frac{\\sin(vK\\pi/N)}{\\sin(v\\pi/N)}e^{i((K-1)u/M+(K-1)v/N)\\pi}\\in\\mathbb C$ is a complex coefficient; $0\\le|R_{uv}|\\le K^2$. The logarithm of the second-order moment is given as $\\log SOM(\\mathbb T^{(uv)(L:1)})=\\sum_{l=1}^L\\log(|\\mu_lR_{uv}|^2+K^2\\sigma_l^2)\\in\\mathbb R$.\n\nThe Gaussian distribution of complex numbers has three parameters $\\mu\\in\\mathbb C$, $\\sigma^2\\in\\mathbb R$ and $r\\in\\mathbb C$, which control the mean value, the variance, and the diversity of the phase of the sampled complex number, respectively.",
+      "original_proof_md": "",
+      "transcription_notes": [
+        "Footnote 4 is placed after the statement as author prose, not an exponent or extra assumption. The pre-statement sentence literally prints delta MN b even though Corollary 3.3 uses beta. No positivity condition for the real logarithm or zero-frequency quotient convention is added."
+      ]
+    },
+    {
+      "key": "main-theorem-4.2-five-conclusions",
+      "section": "4.1. Effects of the convolution operation",
+      "source_pages": [
+        5,
+        6
+      ],
+      "equation_labels": [],
+      "original_statement_md": "Theorem 4.2 tells us the following five conclusions.\n\n(1) The magnitude of $\\mathbb T^{(uv)(L:1)}$, which is measured using the second-order moment $SOM(\\mathbb T^{(uv)(L:1)})$, increases along with the following four terms, including the absolute value of the expectation $|\\mu_l|$, the magnitude of the complex coefficient $|R_{uv}|$, the kernel size $K$, and the variance $\\sigma_l^2$.\n\n(2) For each frequency component $[u,v]$, the magnitude of $\\mathbb T^{(uv)(L:1)}$ will exponentially increase along with the depth $L$ of the network. We can consider that each layer' $T^{(l,uv)}$ has independent effects $\\log(|\\mu_lR_{uv}|^2+K^2\\sigma_l^2)$ on $\\log SOM(\\mathbb T^{(uv)(L:1)})=\\sum_{l=1}^L\\log(|\\mu_lR_{uv}|^2+K^2\\sigma_l^2)$. We admit that such an conclusion is derived from the second-order moment of $\\mathbb T^{(uv)(L:1)}$, instead of a deterministic claim for a specific neural network. Nevertheless, according to the Law of Large Numbers, $SOM(\\mathbb T^{(uv)(L:1)})$ is still a convincing metric to reflect the average significance of $\\mathbb T^{(uv)(L:1)}$.\n\nFor the general case that each convolutional kernel contains more than one channel, i.e., $\\forall l,C_l>1$, the magnitude of $\\mathbb T^{(uv)(L:1)}$ also approximately exponentially increases along with the network depth with a quite complicated analytic solution. Please see Appendix A.4 for the proof.\n\n(3) The convolution operation makes a cascaded convolutional decoder network more likely to weaken the high-frequency components of the input sample, if the convolution operation does not change the feature map size. Especially, when the decoder network is deep, such a problem is more significant. See Appendix B.1 for more discussions.\n\n(4) If the expectation $\\mu_l$ of convolutional weights in each $l$-th layer has a large absolute value $|\\mu_l|$, then the decoder network is less likely to learn high-frequency components. Please see Appendix B.2 for more discussions.\n\n(5) If the convolutional kernel size $K$ is small, then the decoder network is less likely to learn high-frequency components. Please see Appendix B.3 for more discussions.\n\nExperiments in Section 5.1 have verified the above conclusions in the general case that each convolutional layer contains more than one feature map.",
+      "original_proof_md": "",
+      "transcription_notes": [
+        "All five literal author claims and qualifications are kept; no claim is converted into a corrected theorem. The complete A.4 and B.1–B.3 author proofs are already in the appendix extra."
+      ]
+    },
+    {
+      "key": "main-theorem-4.3",
+      "section": "4.2. Effects of the zero-padding operation",
+      "source_pages": [
+        6
+      ],
+      "equation_labels": [
+        "8",
+        "9"
+      ],
+      "original_statement_md": "To simplify the proof, let us consider the following one-side zero-padding. Given each $c$-th channel $F^{(c)}\\in\\mathbb R^{M\\times N}$ of the feature map, the zero-padding puts zero values at the edge of $F^{(c)}$, so as to obtain a new feature $\\widetilde F^{(c)}\\in\\mathbb R^{M'\\times N'}$.\n\n$$\\forall m,n,\\quad\\widetilde F^{(c)}_{mn}=\\begin{cases}F^{(c)}_{mn},&0\\le m<M,\\ 0\\le n<N,\\\\0,&M\\le m<M',\\ N\\le n<N'.\\end{cases}\\tag{8}$$\n\nWe have proven that the zero-padding operation boosts magnitudes of low-frequency components of feature spectrums of the feature map, as shown in Theorem 4.3.\n\nTheorem 4.3. (Proof in Appendix A.5) Let each element in each $c$-th channel $F^{(c)}$ of the feature map follows the Gaussian distribution $\\mathcal N(a,\\sigma^2)$. $G^{(c)}\\in\\mathbb C^{M\\times N}$ denotes the frequency spectrum of $F^{(c)}$, and $H^{(c)}\\in\\mathbb C^{M'\\times N'}$ denotes the frequency spectrum of the output feature $\\widetilde F^{(c)}$ after applying zero-padding on $F^{(c)}$. Then, the zero-padding on $F^{(c)}$ boosts the second-order moment (SOM) of each frequency component at $[u,v]$ as follows, whose strength is measured by averaging over different sampled features.\n\n$$\\begin{gathered}\\forall0\\le u<M,\\ 0\\le v<N,\\ u+v\\ne0,\\\\SOM(H^{(c)}_{uv})-SOM(G^{(c)}_{uv})=a^2\\tau_{uv}^2.\\end{gathered}\\tag{9}$$\n\nwhere $SOM(H^{(c)}_{uv})=\\mathbb E[H^{(c)}_{uv}\\overline H^{(c)}_{uv}]$ denotes the second-order moment of $H^{(c)}_{uv}$; $\\tau_{uv}=\\frac{\\sin(Mu\\pi/M')}{\\sin(u\\pi/M')}\\frac{\\sin(Nv\\pi/N')}{\\sin(v\\pi/N')}\\in\\mathbb R$. Note that for the fundamental frequency $u=v=0$, $SOM(H^{(c)}_{00})=SOM(G^{(c)}_{00})$.",
+      "original_proof_md": "(Conclusion) According to the rule of the forward propagation in Equation (4) and the change of $T^{(l,uv)}$ in Equation (5), the zero-padding operation boosts the SOM of low-frequency components, because $\\tau_{uv}^2$ is large for low frequencies. This exhibits the trend of encoding low-frequency components of the input sample.",
+      "transcription_notes": [
+        "Equation (8) retains the printed conjunction in its second case. No independence condition from the appendix proof is silently moved into the main statement. The following conclusion is author prose, not an added proof."
+      ]
+    },
+    {
+      "key": "main-theorem-4.4",
+      "section": "4.3. Effects of the upsampling operation",
+      "source_pages": [
+        6
+      ],
+      "equation_labels": [
+        "10",
+        "11"
+      ],
+      "original_statement_md": "Let the $l$-th intermediate-layer feature map $\\mathbf F\\in\\mathbb R^{C_l\\times M_0\\times N_0}$ pass through an upsampling layer to extend its width and height to $M\\times N$, subject to $M=M_0\\cdot ratio,N=N_0\\cdot ratio$ as follows.\n\n$$\\begin{gathered}\\forall c,m^*,n^*,\\\\\\widetilde F^{(c)}_{m^*n^*}=\\begin{cases}F^{(c)}_{mn},&mod(m^*,ratio)=mod(n^*,ratio)=0,\\\\0,&\\text{otherwise},\\end{cases}\\\\\\text{s.t. }m=\\frac{m^*}{ratio};\\ n=\\frac{n^*}{ratio}.\\end{gathered}\\tag{10}$$\n\nTheorem 4.4. (Proof in Appendix A.6) Let $\\mathbf G=[G^{(1)},G^{(2)},\\ldots,G^{(C_l)}]\\in\\mathbb C^{C_l\\times M_0\\times N_0}$ denote spectrums of the $C_l$ channels of feature $\\mathbf F$. Then, spectrums $\\mathbf H=[H^{(1)},H^{(2)},\\ldots,H^{(C_l)}]\\in\\mathbb C^{C_l\\times M\\times N}$ of the output feature $\\widetilde{\\mathbf F}$ can be computed as follows.\n\n$$\\begin{gathered}\\forall c,u,v,\\quad H^{(c)}_{u+(s-1)M_0,v+(t-1)N_0}=G^{(c)}_{uv},\\\\\\text{s.t. }s=1,\\ldots,\\frac M{M_0};\\ t=1,\\ldots,\\frac N{N_0}.\\end{gathered}\\tag{11}$$",
+      "original_proof_md": "Theorem 4.4 shows that the upsampling operation repeats the strong magnitude of the fundamental frequency $G^{(c)}_{00}$ of the lower layer to different frequency components $\\forall c,H^{(c)}_{u^*v^*}$ of the higher layer, where $u^*=0,M_0,2M_0,\\ldots$; $v^*=0,N_0,2N_0,\\ldots$. Besides Figure 1(b), Appendix C.2 shows such a phenomenon on more datasets.\n\n(Conclusion) The upsampling operation makes the upconvolution operation generate a feature spectrum, in which strong signals of the input periodically appear at certain frequencies. Such strong periodic signals hurt the representation capacity of the network.\n\nMore crucially, according to the spectrum propagation in Corollary 3.3, such periodic frequency components can be further propagated to upper layers. Thus, Corollary 3.3 may provide some clues to differentiate real samples and the generated samples.",
+      "transcription_notes": [
+        "The author zero-insertion operation is preserved; it is not substituted with nearest-neighbor interpolation. No unprinted range on u/v or ratio is inserted."
+      ]
+    },
+    {
+      "key": "main-theorem-4.5",
+      "section": "4.4. Difficulty of representing specific frequencies",
+      "source_pages": [
+        6,
+        7
+      ],
+      "equation_labels": [
+        "12"
+      ],
+      "original_statement_md": "Based on the propagation rule in frequency in Section 3, we discover a further counter-intuitive phenomenon, i.e., in the scenario of an auto-encoder, if salient frequency components in the input sample and salient frequency components in the target output for regression have a small shift, then the decoder usually cannot be effectively learned.\n\nLet us consider the input $x\\in\\mathbb R^{M\\times N}$ with a single channel to simplify the proof. Then, $G\\in\\mathbb C^{M\\times N}$, $H\\in\\mathbb C^{M\\times N}$, and $H^*\\in\\mathbb C^{M\\times N}$ denote spectrums of the input, the output, and the target image to fit, respectively. In a traditional auto-encoder, people usually set the target image the same as the input image, thereby $H^*=G$. Whereas, let us slightly shift a salient frequency component $[u_1,v_1]$, which is denoted by $G_{u_1v_1}\\in\\mathbb C$, to its neighboring frequency $[u_2,v_2]$ to construct $H^*$ and obtain the target image. Because the frequency component $G_{u_1v_1}$ is salient, we can consider there is a significant increase of $|H^*_{u_2v_2}|$ and a significance decrease of $|H^*_{u_1v_1}|$, compared with the traditional setting of $H^*=G$. Thus, we apply the following setting as a typical case, which simplifies the analysis of the representation problem. That is, $H^*_{u_1v_1}=(1-A)G^{(u_1v_1)}$, and $H^*_{u_2v_2}=(1+\\overline A)G^{(u_2v_2)}$, where $A=\\alpha e^{i\\varphi}$, and $\\overline A$ denotes the conjugate of $A$; $\\alpha>0$; $\\varphi<\\frac\\pi2$. In this way, we can decrease the significance of $H^*_{u_1v_1}$ and increase the significance of $H^*_{u_2v_2}$.\n\nAccording to Corollary 3.3, learning an identify function $H=G$ is not difficult for an auto-encoder, because we can just make $\\forall u,v,\\mathbb T^{(uv)(L:1)}=I$. Thus, to investigate the extreme difficulty of learning specific frequencies, let us take the auto-encoder that models the identify function as the baseline network. Then, we further tune the auto-encoder to fit the image with a shifted spectrum $H^*$ and compute the weight changes $\\Delta\\mathbf W$ as the cost of network training. A large weight change $\\|\\Delta\\mathbf W\\|$ indicates the high difficulty of fitting $H^*$. Note that we must ensure that parameters $\\mathbf W$ are real-valued, instead of being complex-valued, when we train the auto-encoder. Theorem 4.5 proves a case that $\\mathbf W$ is optimized to satisfy $H_{u_1v_1}=H^*_{u_1v_1}$ and $H_{u_2v_2}=H^*_{u_2v_2}$ simultaneously.\n\nTheorem 4.5. (Proof in Appendix A.7) Let us consider the objective function in the form $\\lambda_1|H_{u_1v_1}-H^*_{u_1v_1}|^2+\\lambda_2|H_{u_2v_2}-H^*_{u_2v_2}|^2$. We prove specific constrains of $\\lambda_1,\\lambda_2$, and $A$ that make the auto-encoder learnable (i.e., ensuring $\\Delta\\mathbf W$ is real-valued) and make the objective function can reach zero by a single step of gradient descent, which are shown in Equations (43) and (44) in Appendix A.7. Then, we prove the significance of the weight change $\\Delta\\mathbf W$, as follows.\n\n$$\\|\\Delta\\mathbf W\\|\\propto\\frac{\\alpha MN}{K^2-\\frac{\\sin(K(u_2-u_1)\\pi/M)}{\\sin((u_2-u_1)\\pi/M)}\\frac{\\sin(K(v_2-v_1)\\pi/N)}{\\sin((v_2-v_1)\\pi/N)}}.\\tag{12}$$\n\nWe represent parameters of multiple layers as a vector.",
+      "original_proof_md": "We use the norm of $\\Delta\\mathbf W$ to measure the optimization cost (difficulty) to push the auto-encoder to fit a target image, one of whose frequency component is slightly shifted. Theorem 4.5 shows that the learning difficulty is significantly boosted (i.e., $\\|\\Delta\\mathbf W\\|$ is much larger) when we shift the target frequency components by a smaller distance $\\|[u_1,v_1]-[u_2,v_2]\\|$.",
+      "transcription_notes": [
+        "Complete section 4.4 from PDF 6 through the final inference preceding section 5 on PDF 7. Both H* target settings and the conjugation on A are retained. No absolute value or small-phase lower bound is added to (12) or the statement.",
+        "Footnote 5 is placed as separate author prose. Appendix A.7 already supplies the full (43)/(44) constraints and author proof; those are not duplicated or summarized here."
+      ]
+    }
+  ]
+}

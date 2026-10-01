@@ -1,0 +1,119 @@
+                                      Towards Theoretical Analysis of Transformation Complexity of ReLU DNNs
+
+                    MLP         LeNet                revised VGG11 on MNIST                                          8.0                                                3.2
+        10.5
+                                                                 3.0                                                                                                    2.8
+                                                                                                                     6.0
+
+
+
+
+                                                                                                                                                          H (Σ )
+                                                                                                     H (Σ )
+         9.5
+
+
+
+
+                                                      I(X;Σ;Y)
+                                                                 2.5                                                                                     2.4                          RN18-CelebA
+  H(Σ)
+
+
+
+                                                                                                                                     RN20-MNIST                                       RN18-VOC
+         8.5                                                     2.0                                                 4.0             RN20-CIFAR10                                     RN34-CelebA
+                                                                                                                                                         2.0
+                                                                                                                                     RN32-CIFAR10                                     RN34-VOC
+         7.5                                                     1.5
+              0       epoch         500                         0        epoch           500                               0       epoch          500         0                    epoch        500
+         (a) The change of H(Σ) in DNNs.                  (b) The change of I(X;Σ;Y) in DNNs.                                         (a) The change of H(Σ) in DNNs.
+                                                    A: epoch 0           B: epoch 55 C: epoch 500                    1.2                                                0.9
+ 10.5     A
+                            C                 0.2                      0.5          0.3                                                                                 0.7           RN18-CelebA
+
+
+
+
+                                                                                                     I ( X ; Σ; Y)
+
+
+
+
+                                                                                                                                                        I ( X ; Σ; Y)
+                                                                                                                                                                                      RN18-VOC
+                                  frequency
+                                                                                                                     0.8
+ H(Σ)
+
+
+
+
+                                                                       0.3          0.2
+                                              0.1                                                                                    RN20-MNIST                         0.5           RN34-CelebA
+                                                                                    0.1                              0.4             RN20-CIFAR10                                     RN34-VOC
+                                                                       0.1                                                           RN32-CIFAR10           0.3
+  7.5      B                       0.0
+                                       0.0 0.5 1.0 0.0 0.5 1.0 0.0 0.5 1.0                                                 0       epoch         500              0          epoch             500
+       0      epoch        500                      activation rate                                                                 (b) The change of I ( X ; Σ ;Y) in DNNs.
+ (c) The change of the frequency histogram of different neurons’ activation rates.
+                                                                                                    Figure 4. The change of the transformation complexity in residual
+Figure 3. The change of the transformation complexity and the                                       networks. Both H(Σ) and I(X; Σ; Y ) increased monotonously
+activation rates in traditional stacked DNNs. In most cases, both                                   during the training process in most residual networks.
+H(Σ) and I(X; Σ; Y ) decreased first, and increased later.
+                                                                                                                       MNIST_l=1       MNIST_l=2                    CIFAR-10_l=1     CIFAR-10_l=2
+Verification of the strong correlation between the com-                                                          3.5                                                    3.0
+plexity and the disentanglement (Eq. (2)). We learned                                                            3.0
+
+
+
+
+                                                                                                                                                        I ( X ; Σ l)
+                                                                                                                                                                        2.0
+
+
+                                                                                                    H ( Σ l)
+21 LeNet-5 models and 21 MLP-β 3 models with different                                                           2.5
+initialized parameters on the MNIST dataset. These models                                                        2.0                                                    1.0
+
+shared similar activation rates on each dimension in the l-th                                                              0       epoch          500                         0    epoch        500
+gating layer (we used l = 3, 4). Thus, we quantified H(Σl )
+                                                                                                    Figure 5. The change of H(Σl ) and I(X; Σl ) in VAEs learned
+and T C(Σl ) (Please see Appendix E for the quantification of
+                                                                                                    on the MNIST dataset and the CIFAR-10 dataset. The differ-
+T C(Σl )) over the 42 models. We also conducted such an ex-
+                                                                                                    ence between H(Σl ) and I(X; Σl ) gradually decreased during
+periment on 21 ResNet-20 (RN-20) models with l = 3. Fig-                                            the training process.
+ure 2(right) shows the negative correlation between H(Σl )
+and T C(Σl ), which was verified using different layers of
+                                                                                                    drop of noisy features in very early iterations has also been
+DNNs with different architectures.
+                                                                                                    supported by observations in other studies (Liu et al., 2021).
+                                                                                                    In very early iterations, initial weights irrelevant to the task
+4.2. Comparative studies to diagnose the representation
+                                                                                                    were usually removed, which reduces the transformation
+     capacity of DNNs
+                                                                                                    complexity. Besides, Liu et al. (2021) also showed that
+The change of the transformation complexity during                                                  the decrease of the model diversity in very early iterations
+the learning of DNNs. Figure 3 and Figure 4 shows the                                               exactly aligned with the first stage in the epoch-wise double
+change of three types of transformation complexities en-                                            descent.
+coded in DNNs during the training process. Note that                                                Phenomenon 2. For residual DNNs with skip-connections
+H(Σ) = I(X; Σ). We found three phenomena in the change                                              and a few traditional DNNs (like the VGG-16 trained on
+of complexity:                                                                                      the Pascal VOC dataset; see Appendix G.4), the complexity
+Phenomenon 1. For most traditional stacked DNNs (like                                               increased monotonously during the early stage of the train-
+MLPs3 and LeNets), both H(Σ) and I(X; Σ; Y ) decreased                                              ing process, and saturated later. This indicated that noisy
+first, and increased later. Figure 3(c) shows the frequency                                         features had little effect on DNNs with skip-connections in
+histogram of different neurons’ activation rates of gating                                          early stages of the learning process, which implied the tem-
+states in Epoch 0, 55, and 500. In Epoch 0, gating states                                           poral double-descent phenomenon (Nakkiran et al., 2019;
+were usually randomly activated, which led to a large value                                         Heckel & Yilmaz, 2020).
+of H(Σ). The learning process gradually removed noisy                                               Phenomenon 3. In particular, let us focus on DNNs, which
+activations, which reduced H(Σ) and achieved the minimum                                            introduce additional uncertainty that is not caused by the
+complexity in Epoch 55. Then, the DNN mainly learned                                                input. As introduced in Section 1, a typical case is the
+complex transformations to boost the performance, which                                             VAE (Kingma & Welling, 2013). VAEs use randomly sam-
+made H(Σ) begin to increase. This indicated that DNNs                                               pling of the latent code, and make H(Σ) ̸= I(X, Σ). Thus, in
+dropped noisy features in early stages of the training process,                                     this experiment, we studied the change of H(Σ) and I(X; Σ)
+then learned useful information for the inference. In fact, the                                     in VAEs. We were given a VAE3 , in which both the encoder
+   3
+     Please see the paragraph Experimental settings, Section 4 for                                  and the decoder had two FC layers. We added a classifier
+network architectures and experimental settings.                                                    with two FC layers and two ReLU layers after the encoder.
+

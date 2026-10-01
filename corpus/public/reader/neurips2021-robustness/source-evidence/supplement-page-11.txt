@@ -1,0 +1,147 @@
+                                                                                                                                                                                                                                                        m=0.3n   m=0.4n     m=0.5n    m=0.6n
+                                                  Target category                               Other categories                                              Target Caetgory                                  Other categories
+                                             ResNet-18                    ResNet-50                     ResNet-50                                        ResNet-18                     ResNet-50                     ResNet-50
+                                                                 0.08                          0.05                                                                           0.08                          0.05
+
+
+
+
+   Standard DNN
+
+
+
+
+                                                                                                                              Interactionaaa
+                  Interactionaaa
+                                                                                                                                               0.06
+
+
+
+
+                              𝐼
+                                   0.06
+
+
+
+
+                                                                                                                                          𝐼
+                                                                                                                                 Average
+                     Average
+                                                                 0.04                          0.02                                                                           0.04                          0.02
+                                   0.02                                                                                                        0.02
+
+
+                                   -0.02                           0                           -0.01                                           -0.02                             0                          -0.01
+                                           0.1n           0.95          0.1n            0.95           0.1n           0.95n                            0.1n           0.95           0.1n           0.95            0.1n            0.95n
+                                                  order                        order                          order                                           order                         order                           order
+                                   0.02                       0.02                             0.01                                            0.02                           0.02                          0.01
+Adversarially
+trained DNN
+
+
+
+
+                                                                                                                              Interactionaaa
+                  Interactionaaa
+                              𝐼
+
+
+
+
+                                                                                                                                          𝐼
+                                                                                                                                 Average
+                     Average
+
+
+                                                                                                  0                                                                                                            0
+                                   0.01                       0.01                                                                             0.01                           0.01
+                                                                                               -0.01                                                                                                        -0.01
+
+                                                                                                                                                  0                             0                           -0.02
+                                      0
+                                           0.1n
+                                                  order   0.95n
+                                                                   0
+                                                                        0.1n
+                                                                               order   0.95n
+                                                                                               -0.02
+                                                                                                       0.1n
+                                                                                                              order   0.95n                            0.1n
+                                                                                                                                                              order   0.95n          0.1n
+                                                                                                                                                                                            order   0.95n           0.1n
+                                                                                                                                                                                                                            order   0.95n
+                                                                                                                                                                                                                                               Figure 2: Contexts of the m-order
+                                                           (a) Untargeted attack                                                                                              (b) Targeted attack                                                           (m)
+Figure 1: Interactions w.r.t. the target category and other cate-                                                                                                                                                                              interaction Iij in normal sam-
+gories.                                                                                                                                                                                                                                        ples of standard ResNet-50.
+
+
+Table 1: Interaction behaviors in standard DNNs and adversarially trained DNNs are quite different
+                        (m)
+w.r.t. the metric P |∆I|∆I (m| 0 ) | .
+                                                                                 m0
+                                                  m                                    0.1n                    0.2n                       0.3n                        0.4n                     0.5n                        0.6n             0.7n    0.8n    0.85n         0.9n       0.95n
+                                      |∆I (m) |
+                                             (m0 ) |
+                          P
+                                      m0 |∆I
+                              in standard                                              0.003                  0.005                   0.008                           0.014                   0.021                        0.040            0.066   0.103   0.138         0.219      0.383
+                              ResNet-18
+                               |∆I (m) |
+                  P     in            (m0 ) |
+                               m0 |∆I
+            adversarially                                                              0.016                  0.023                   0.055                           0.082                   0.095                        0.100            0.100   0.108   0.117         0.144      0.160
+         trained ResNet-18
+
+
+
+
+map corresponding to the context S. If the k-th pixel was contained in S, then mapk (S) = 1;
+otherwise,
+   P       mapk (S) = 0. In this way, we visualized the weighted average contexts w.r.t. pixels (i, j)
+as S⊆N,|S|=m |∆v(S, i, j)| · map(S).
+Figure 2 (right) in the paper has shown visualization results on ResNet-18. Here, we presented more
+visualization results of interaction contexts based on ResNet-50 [8] in Figure 2. As Figure 2 shows,
+low-order interactions usually represented simple features of local collaborations, and high-order
+interactions usually reflected complex features of global collaborations.
+
+
+
+I.2                                 More discussions about the difference between standard DNNs and adversarially
+                                    trained DNNs in Figure 3 of the main paper
+
+In Figure 3 of the main paper, it seems that standard DNNs and adversarially trained DNNs were
+similar under the metric ∆I (m) , but Figure 3 does reflect the significant difference of interaction
+behaviors between standard DNNs and adversarially trained DNNs. Figure 3 shows that although
+high-order interactions were penalized in both standard and adversarially trained DNNs, high-order
+interactions in the standard DNN decreased much more than those in the adversarially trained DNN.
+                                       |∆I (m) |
+More specifically, we define the metric       (m0 ) | to compare the change of multi-order interactions
+                                                                                                                                                              P
+                                       m0 |∆I
+                                   (m)     (m)
+in different DNNs, where ∆I (m) = Inor −Iadv measures the difference of the m-th order interaction
+                                                                  0
+between normal samples and adversarial examples. m0 |∆I (m ) | is the total strength of differences
+                                                      P
+of multi-order interactions, which is used for normalization. Table 1 shows that the interaction
+behaviors in standard DNNs and adversarially trained DNNs were quite different. In the standard
+ResNet-18, low-order interactions were penalized slightly, and high-order interactions dropped a
+lot. In comparison, in the adversarially trained ResNet-18, low-order interactions and middle-order
+interactions were penalized more than those in the standard ResNet-18, while high-order interactions
+were less penalized than those in the standard ResNet-18. Therefore, the adversarially trained DNN
+                                                       (m)
+was supposed to exhibit a larger value of P |∆I|∆I (m| 0 ) | for low-order interactions (with small m)
+                                                   m0
+than the standard DNN. In comparison, the adversarially trained DNN exhibited a smaller value of
+    |∆I (m) |
+P
+      |∆I (m0 ) |
+                  for high-order interactions (with large m) than the standard DNN.
+                  m0
+
+
+
+
+                                                                                                                                                                                             11
+

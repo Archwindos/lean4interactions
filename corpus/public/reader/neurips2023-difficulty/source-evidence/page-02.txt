@@ -1,0 +1,72 @@
+                                             Trigger S3 =
+            Trigger(S2 ) = 1          13
+                                                                                 Training an MLP on Training a PointNet on Training a ResNet-18 on Training a LSTM on
+                                      � 𝑢𝑢𝑢𝑢𝑢𝑢𝑢𝑢𝑢𝑢𝑢𝑢 𝑥𝑥𝑖𝑖 = 0                                                                                     16
+                                                                              50   tic-tac-toe dataset 5 ShapeNet dataset 8 CelebA dataset             CoLA dataset
+                                      𝑖𝑖=7                                          salient                                     salient
+                                                                                                         salient                                      salient
+                                                                        |𝐼𝐼 𝑆𝑆 |
+                                                                                          noise                noise                  noise                 noise
+                                                                               0                          0                        0                      0
+                                                                                    0                2n           0           2n       0             2n       0            2n
+    (a)                                                                 (b)
+             𝒙𝒙𝟐𝟐 𝒙𝒙𝟑𝟑                         𝑢𝑢𝑢𝑢𝑢𝑢𝑢𝑢𝑢𝑢𝑢𝑢(𝑥𝑥8 ) = 1              Training an MLP on         Training a AlexNet on Training a ResNet-32 on Training a CNN on
+                                                                              40     TV news dataset          5                    7    MNIST dataset 25       SST-2 dataset
+                    𝒙𝒙𝟏𝟏                        𝒙𝒙𝟖𝟖    7-order                                                   CelebA dataset
+    3-order                                                                          salient                      salient
+                                                                                                                                         salient
+                                                                                                                                                             salient
+    concept                                             concept         |𝐼𝐼 𝑆𝑆 |
+                             𝒙𝒙𝟏𝟏𝟏𝟏             𝒙𝒙𝟕𝟕                                       noise                      noise                  noise                noise
+    𝑢𝑢𝑢𝑢𝑢𝑢𝑢𝑢𝑢𝑢𝑢𝑢(𝑥𝑥1 ) = 0
+                                                                              0                               0                    0                      0
+                                     𝑢𝑢𝑢𝑢𝑢𝑢𝑢𝑢𝑢𝑢𝑢𝑢(𝑥𝑥7 ) = 0                         0                2n     0                2n   0                2n    0                 2n
+                         masked image 𝑥𝑥𝑇𝑇                                         Different interactions Different interactions Different interactions Different interactions
+
+
+Figure 1: (a) Interactive concepts encoded by a DNN. Each interactive concept S represents an
+AND relationship between input variables (image patches) in S . Masking any input variables in S
+will deactivate the concept S . (b) Extensive experiments illustrate the common concept-emergence
+phenomenon. Various DNNs all encode very sparse interactive concepts for inference. Only a
+small number of interactions have salient effects I(S) and are termed interactive concepts. Other
+interactions w.r.t. other S ⊆ N all have almost zero effect I(S) ≈ 0, thus being termed noisy patterns.
+For clarity, we sort the strength of interaction effects in a descending order.
+concept, and removes the numerical effect I(S), i.e., making I(S) = 0. More crucially, it proved in
+[47] that the network output y on each input samplePcan be represented as the sum of numerical
+effects of such a few interactive concepts, i.e., y = S∈ConceptSet I(S).
+The mathematical proof in [47] makes the interactive concept the first concept whose emergence in
+DNNs is certificated. Furthermore, Li and Zhang [27] have discovered that the interactive concepts
+have considerable transferability over different samples and strong discrimination power for
+classification. In this way, we can roughly consider such interactive concepts a rigorous definition of
+concepts encoded by DNNs.
+Explaining the difficulty of learning complex interactive concepts. Therefore, in this study, given
+the above interactive concepts, we aim to further explore the learning difficulty of these concepts, and
+explain that a DNN is more likely to encode simple interactive concepts. Here, we use the number
+of variables in an interactive concept S to represent the complexity of the concept, which is also
+termed the order of the concept. Thus, low-order interactive concepts usually represent simple AND
+interactions among a few input variables.
+Specifically, we find that low-order interactive concepts encoded by DNNs are generally more stable
+to inevitable noises in data. In this way, low-order interactive concepts usually exhibit consistently
+positive (or negative) effects on the inference score of different samples in the same category. In
+comparison, a high-order interactive concept is more likely to have significantly diverse effects
+on inference scores of different samples. This explains the reason why DNNs easily learn simple
+interactive concepts.
+In addition, we discover that our research may provide a new perspective to explain previous find-
+ings/understandings of the conceptual complexity [5, 34, 63, 28]. Besides, the conceptual complexity
+can directly explain the adversarial robustness of a DNN. Thus, our study is of considerable value in
+explaining the representation capacity of a DNN.
+Interactive concepts vs. cognitive concepts. Although the Harsanyi interactive concepts visualized
+by [27] seem partially aligned with cognitive concepts to some extent, we do not think such interactive
+concepts fit humans’ cognition [24, 53]. For example, the recognition of a big ball concept and that
+of a small ball concept have almost the same cognitive complexity for humans. In comparison, it is
+more difficult for the DNN to recognize a large ball, because it has to use a high-order interaction
+that contains a lot of pixels to examine whether all pixels within the ball have the same color. Thus,
+this study clarifies the exact formulation for the conceptual complexity on interactive concepts that
+boosts the learning difficulty, which is different from the cognitive difficulty.
+
+2     Explainable AI (XAI) theories based on game-theoretic interactions
+Explaining DNNs based on a system of game-theoretic interactions becomes an emerging direction
+in recent years. Specifically, such a system aims to tackle the following challenges in XAI.
+
+
+                                                                                             2
