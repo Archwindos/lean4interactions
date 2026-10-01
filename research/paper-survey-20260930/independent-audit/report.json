@@ -1,0 +1,140 @@
+{
+  "as_of": "2026-09-30",
+  "generated_at_utc": "2026-09-30T08:21:52.862389+00:00",
+  "status": "passed_with_stated_limits",
+  "scope": "offline independent audit of 35 frozen rows:17 candidates,15 material gaps,3 manually screened low-priority formal papers; discovery-only automatic prescreening outside the formal-material count",
+  "network_search_performed": false,
+  "math_correctness_review_performed": false,
+  "full_proof_recount_performed": false,
+  "mathematical_statements_modified": false,
+  "src_web_corpus_lean_modified": false,
+  "counts": {
+    "formal_candidates": 17,
+    "recommended": 11,
+    "secondary": 6,
+    "formal_material_pending": 15,
+    "candidate_formal_pdf_materials": 19,
+    "formal_papers_with_acquired_main_pdf": 26,
+    "formal_pdf_materials_verified": 28,
+    "distinct_formal_pdf_sha256_verified": 28
+  },
+  "input_collections": [
+    {
+      "path": "research/paper-survey-20260930/earlier/formal-candidates.json",
+      "rows": 7
+    },
+    {
+      "path": "research/paper-survey-20260930/earlier/formal-pending.json",
+      "rows": 10
+    },
+    {
+      "path": "research/paper-survey-20260930/recent/formal-candidates.json",
+      "rows": 10
+    },
+    {
+      "path": "research/paper-survey-20260930/recent/formal-pending.json",
+      "rows": 5
+    },
+    {
+      "path": "research/paper-survey-20260930/recent/formal-screened-low-priority.json",
+      "rows": 3
+    }
+  ],
+  "physical_pdf_files_checked": 29,
+  "nonduplicate_formal_materials_checked": 28,
+  "direct_title_author_order_checks": 17,
+  "recent_candidate_title_author_order_checks": 10,
+  "cached_landing_identity_checks": 13,
+  "official_pdf_imprint_identity_checks_without_cached_landing": 4,
+  "all_candidate_user_decisions_pending": true,
+  "resolved_findings": [
+    {
+      "id": "IA-01",
+      "issue": "two multi-file rows originally paired aggregate page counts with primary PDF path",
+      "resolution": "primary total_pages10/14; total_material_pages37/30; separate formal_materials remain10+27/14+16; table/CSV display per-file sizes",
+      "status": "resolved_by_owner_rechecked"
+    },
+    {
+      "id": "IA-02",
+      "issue": "W14 acquired official10-page main PDF was absent from materials and rendered as not acquired",
+      "resolution": "formal main artifact included; table/CSV state正文10页；补充待取得/核实; whole-paper proof_count remains null",
+      "status": "resolved_by_owner_rechecked"
+    }
+  ],
+  "counting_scope_checks": {
+    "main_supplement_physical_page_scopes_distinguished": true,
+    "duplicate_neurips2023_main_supplement_counted_once": true,
+    "formal_active_candidate_fields_do_not_select_arxiv": true,
+    "fittee_reference_zero_local_units_separated": true,
+    "aaai_generalization_approximate_derivation_labeled": true,
+    "missing_material_rows_whole_paper_count_unknown": true,
+    "arxiv_keys_and_nested_discovery_records_are_identity_history_only": true
+  },
+  "limits": [
+    "Formal source provenance was checked from existing acquisition records, cached official landing metadata where available, and PDF publication imprints; no fresh network verification was performed.",
+    "Independent proof check covered file scopes/page bounds, displayed count conventions, and recent proof-start samples. It did not reproduce every manual proof inventory or establish mathematical correctness.",
+    "Two additional earlier PDFs with only automatic prescreening remain discovery_only and are excluded from the35-row formal audit set."
+  ],
+  "errors": [],
+  "warnings": [],
+  "input_snapshots": [
+    {
+      "path": "research/paper-survey-20260930/earlier/formal-candidates.json",
+      "sha256": "c576bce10dbd8fe918ca185017d355c186434f79a147ac8986df4c845732e825",
+      "rows": 7
+    },
+    {
+      "path": "research/paper-survey-20260930/earlier/formal-pending.json",
+      "sha256": "f544bf05a03898752c90157f8d8d43a67bc273171fa32c5a6912767f451c4042",
+      "rows": 10
+    },
+    {
+      "path": "research/paper-survey-20260930/recent/formal-candidates.json",
+      "sha256": "fb42faa5057e8ddbe78d0553176db598fe7e6b91ecb9894b2adf6957079c3349",
+      "rows": 10
+    },
+    {
+      "path": "research/paper-survey-20260930/recent/formal-pending.json",
+      "sha256": "b46aeb4bf3e879c17d1452cb7c67c3189e5c6b87c7e731802e2cfb36c5ee793c",
+      "rows": 5
+    },
+    {
+      "path": "research/paper-survey-20260930/recent/formal-screened-low-priority.json",
+      "sha256": "75c9694e15e85a6515a4762416ea7339c1c9d6b800ddcd0e27c38edb470844fd",
+      "rows": 3
+    }
+  ],
+  "artifact_snapshots": [
+    {
+      "path": "docs/paper-candidates-20260930.md",
+      "sha256": "c42d32ba85950af035cd60e6e7668ab243227aa652e5cd0195f10f4208728225"
+    },
+    {
+      "path": "research/paper-survey-20260930/combined-papers.json",
+      "sha256": "1a9586a7fa818bc014d6490edd7e461621a75fd6dbfb51301bbb3c774fd3175b"
+    },
+    {
+      "path": "research/paper-survey-20260930/candidate-selection.csv",
+      "sha256": "21916e6f095dfcfcfe35cfe7ef1f2a4c90778e3ecb4388482355b630690174ff"
+    },
+    {
+      "path": "research/paper-survey-20260930/summary.json",
+      "sha256": "3abc5df36a6390c7288dbf7076b23d9f5b91578266307c67d05e3b7450de6e68"
+    },
+    {
+      "path": "research/paper-survey-20260930/validation.json",
+      "sha256": "c30d1e05cc54ea17adc54cb6a2d7dfc60118f5b4ed64a33b8bb0f1885417076c"
+    },
+    {
+      "path": "research/paper-survey-20260930/full-ledger.md",
+      "sha256": "b28b09ab5f8437d5f1d14ad3795c5d1672beb14c034499cebebbd4be893bfdc8"
+    }
+  ],
+  "evidence_files": [
+    "input-file-checks.json",
+    "title-author-checks.json",
+    "publication-source-checks.json",
+    "proof-scope-samples.json",
+    "selection-consistency.json"
+  ]
+}

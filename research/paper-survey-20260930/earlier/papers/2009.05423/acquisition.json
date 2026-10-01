@@ -1,0 +1,68 @@
+{
+  "arxiv_id": "2009.05423",
+  "version": "v1",
+  "title": "Achieving Adversarial Robustness via Sparsity",
+  "authors": [
+    "Shufan Wang",
+    "Ningyi Liao",
+    "Liyao Xiang",
+    "Nanyang Ye",
+    "Quanshi Zhang"
+  ],
+  "first_public_date": "2020-09-11T13:15:43Z",
+  "updated": "2020-09-11T13:15:43Z",
+  "journal_ref": null,
+  "source_url": "https://arxiv.org/abs/2009.05423v1",
+  "pdf_url": "https://arxiv.org/pdf/2009.05423v1",
+  "retrieved_at": "2026-09-30T07:03:03.374127+00:00",
+  "attempts": [
+    {
+      "url": "https://arxiv.org/pdf/2009.05423v1",
+      "status": "ok",
+      "bytes": 527148
+    }
+  ],
+  "download_url": "https://arxiv.org/pdf/2009.05423v1",
+  "response_headers": {
+    "Connection": "close",
+    "Content-Length": "527148",
+    "via": "1.1 google, 1.1 varnish, 1.1 varnish, 1.1 varnish",
+    "link": "<https://arxiv.org/pdf/2009.05423>; rel='canonical'",
+    "content-disposition": "inline; filename=\"2009.05423v1.pdf\"",
+    "server": "Google Frontend",
+    "access-control-allow-origin": "*",
+    "x-cloud-trace-context": "e903b6e7663b7150681f70ada96d4c95",
+    "last-modified": "Mon, 23 Jan 2023 06:40:48 GMT",
+    "etag": "CO+bt++K3fwCEAE=",
+    "content-type": "application/pdf",
+    "Accept-Ranges": "bytes",
+    "Age": "194503",
+    "Date": "Wed, 30 Sep 2026 07:03:04 GMT",
+    "X-Served-By": "cache-lga-kjfk8660030-LGA, cache-lga-kjfk8660030-LGA, cache-lga-kjfk8660047-LGA, cache-qpg1253-QPG",
+    "X-Cache": "MISS, HIT, MISS",
+    "X-Timer": "S1790751784.543979,VS0,VE1320"
+  },
+  "local_pdf": "research/paper-survey-20260930/earlier/papers/2009.05423/2009.05423v1.pdf",
+  "sha256": "325dd0278b7da84c139354bf98f75737df843ce7478c2657e92d415183b16b18",
+  "total_pages": 9,
+  "first_page": "                                                                           Achieving Adversarial Robustness via Sparsity\n                                                               Shufan Wang∗ , Ningyi Liao∗ , Liyao Xiang† , Nanyang Ye† , Quanshi Zhang\n                                                                                              Shanghai Jiao Tong University\n                                                                   {wsf2146, liaoningyi, xiangliyao08, qs1022}@sjtu.edu.cn, yn272@alumni.cam.ac.uk\narXiv:2009.05423v1 [cs.LG] 11 Sep 2020\n\n\n\n\n                                                                        Abstract                                 Despite some adversarial pruning methods that have been\n                                                                                                             proposed, there is still a lack of theoretical foundation to ex-\n                                           Network pruning has been known to produce compact models\n                                           without much accuracy degradation. However, how the prun-         plain the working mechanism behind those methods. In fact,\n                                           ing process affects a network’s robustness and the working        there are seemingly contradictory opinions on the robustness\n                                           mechanism behind remain unresolved. In this work, we theo-        of pruned networks: Madry et al. (2018) suggests network\n                                           retically prove that the sparsity of network weights is closely   capacity is crucial to robustness, and a wider network is more\n                                           associated with model robustness. Through experiments on a        likely to obtain higher accuracy and robustness than a simple\n                                           variety of adversarial pruning methods, we find that weights      network. In contrast, Guo et al. (2018) theoretically proves\n                                           sparsity will not hurt but improve robustness, where both         that an appropriately higher weight sparsity implies stronger\n                                           weights inheritance from the lottery ticket and adversarial       robustness on naturally trained models. Other theories such\n                                           training improve model robustness in network pruning. Based       as the ‘Lottery Ticket Hypothesis’ (Frankle and Carbin 2019)\n                                           on these findings, we propose a novel adversarial training\n                                                                                                             point out that, a subnetwork extracted from a large network\n                                           method called inverse weights inheritance, which imposes\n                                           sparse weights distribution on a large network by inheriting      can always achieve comparable performance with the origi-\n                                           weights from a small network, thereby improving the robust-       nal one in the natural setting. However, it remains unknown\n                                           ness of the large network.                                        if the hypothesis holds true for adversarially robust networks.\n                                                                               ",
+  "status": "downloaded_extracted_requires_manual_review",
+  "automatic_heading_hits": [
+    {
+      "page": 3,
+      "text": "Theorem 1 (Hein and Andriushchenko 2017; Guo et al.                2016), and DenseNet (Huang et al. 2017) as the base large"
+    },
+    {
+      "page": 3,
+      "text": "Theorem 2 (The robustness and weights distribution of              that removes the parameters at one step, followed by post"
+    },
+    {
+      "page": 3,
+      "text": "leading to a higher level of robustness. The proof of Thm. 2       Adversarial Training and Evaluation. We employ the"
+    },
+    {
+      "page": 3,
+      "text": "to the supplementary document for the detailed proof.              2/255 in our experiments. Following recent works (Guo et al."
+    }
+  ]
+}

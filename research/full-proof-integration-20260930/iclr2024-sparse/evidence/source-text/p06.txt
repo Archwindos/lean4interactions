@@ -1,0 +1,111 @@
+    原本的：
+
+                        OPT-1.3B                         OPT-1.3B                    LLaMA-7B                      LLaMA-7B                         Aquila-7B                  Aquila-7B
+Published
+   0.4    as a 1conference
+         Sample    0.6     paper
+                          Sample 2 at0.8ICLRSample
+                                             2024  1                                                                Sample 2                        Sample 1                    Sample 2
+
+
+
+
+ 𝑚
+  𝐼str
+                                                                                                         1.0                             0.4                         0.8
+                                                                                                         0.0                                                         0.0
+                                                                           0.0                                                           0.0
+         0.0                            0.0
+               1         order 𝑚   10          1         order 𝑚     10          1    order 𝑚       10         1    order 𝑚         10          1    order 𝑚    10         1    order 𝑚    10
+
+
+ box and whisker plot（without outlier）—— 最后用这个
+                                                                          2.0                                                            1.0
+                       OPT-1.3B                     OPT-1.3B              1.5
+                                                                                     LLaMA-7B                      LLaMA-7B                         Aquila-7B                  Aquila-7B
+
+
+|𝐼 𝑆 |
+                       Sample 1                     Sample 2              1.0         Sample 1                      Sample 2              0.5
+                                                                                                                                                    Sample 1                   Sample 2
+                                                                          0.5
+                                                                          0.0                                                             0.0
+                       order 𝑚                       order 𝑚                          order 𝑚                        order 𝑚                          order 𝑚                   order 𝑚
+
+Figure 4: Box-and-whisker diagram for the strength of interactions |I(S)| of each order m. We tested
+different LLMs
+      Camera
+        样本1
+                 (OPT-1.3B,  LLaMA-7B,样本3 and Aquila-7B)样本19
+             ready版本：可视化还是用原来的，p值改了（用了更新之后的stop
+                         样本33
+                                                         on the SQuADword dataset.
+                                                                          list）
+                                                                        样本3
+                                                                                   Experiments show
+                                                                                         样本18
+that high-order interactions on these networks were usually close to zero. Please see Appendix D.1
+for experimental details and Appendix E.1 for results on more samples.
+    (a)                                                                                                                       (b)
+                   OPT-1.3B                               LLaMA-7B                        5.0 Aquila-7B
+             5.0                                   5.0
+    𝑢ത (𝑚)
+
+
+
+
+                                                                                                                                                    OPT-1.3B    LLaMA-7B         Aquila-7B
+
+                                                                                          0.0
+                                                                                                                               Average 𝑝            1.18±0.22    1.18±0.42       1.11±0.39
+             0.0                                   0.0
+                   0       order 𝑚            10         0         order 𝑚           10         0        order 𝑚      10
+
+
+Figure 5: (a) Visualization of the monotonicity. Each curve shows the monotonic increase of the
+average output of the m-th order ū(m) with the order m on a sample. The shaded area indicates
+the standard deviation of all m-order outputs on a sample, i.e., Std|S|=m [u(S)]. Note that the value
+of standard deviation does not affect our proof, because the proof only relies on the average output
+ū(m) . (b) The average value of p over different input samples, along with the standard deviation.
+
+interactions usually represent extremely complex patterns and are usually unnecessary in real ap-
+plications. For example, let us consider an interaction with a nonzero effect I(S) corresponding
+to the AND relationship between M ′ = 100 > M input variables. This indicates that if any of
+the 100 input variables is masked, then the interaction will be deactivated. Such an elaborate in-
+teraction is usually considered as an over-fitted pattern in real applications and it is not commonly
+learned by a DNN. In addition, ignoring very high-order interactions is common in the literature on
+game-theoretic interactions (Sundararajan et al., 2020; Tsai et al., 2022). In spite of that, we admit
+that there are a few special cases where high-order interactions may appear in real applications, but
+in those cases, extensive high-order interactions can be summarized as a simple effect, thereby not
+hurting the proof of the sparsity of interactions. Please see Section 3.3 for further discussion.
+Second, let us consider a classification task in a real-world application, where some input samples
+may be partially occluded or masked. In fact, the classification of occluded samples is quite com-
+mon, and a well-trained DNN is supposed to yield higher classification confidence for samples that
+are less masked. Therefore, we make the following monotonicity assumption:
+Assumption 2 (Monotonicity). The average network output is assumed to monotonically increase
+                                                                                        ′
+with the size of the unmasked set S of the input variables, i.e., ∀ m′ ≤ m, we have ū(m ) ≤ ū(m) ,
+             def
+where ū(m) = E|S|=m [u(S)], u(S) = v(xS ) − v(x∅ ).
+This assumption indicates that the average classification confidence of the DNN increases when the
+input sample is less occluded. Specifically, ū(m) = E|S|=m [v(xS ) − v(x∅ )] ≥ 0 represents the
+average network output over all masked samples xS with |S| = m. We refer to ū(m) as the average
+output of the m-th order in the following discussion.
+Justification of the monotonicity assumption. Assumption 2 commonly holds on different samples
+and DNNs. We justify this assumption through both theoretical analysis and experiments. Theoreti-
+cally speaking, if we limit our discussion to two specific masked samples S and S ′ s.t. S ⊊ S ′ , we
+cannot always ensure u(S) < u(S ′ ), because some variables in S ′ \ S may be unrelated to the clas-
+sification, and may even have negative contributions to the classification. However, Assumption 2
+focuses on the average output over all m-order masked states, ū(m) = E|S|=m [u(S)], which is much
+stabler and more robust than the output on a specific masked state u(S). Thus, the monotonicity
+assumption is common for an input sample. Please see Appendix H for an example.
+For experimental justification of Assumption 2, we conducted experiments on three Large Lan-
+guage Models (LLMs), including the OPT-1.3B model (Zhang et al., 2022b), the BAAI Aquila-7B
+model (FlagAI, 2023), and the LLaMA-7B model (Touvron et al., 2023). We tested these networks
+on 1000 sentences from the SQuAD dataset (Rajpurkar et al., 2016). For each input sentence, we
+followed Shen et al. (2023) to select n = 10 words from the sentence as input variables to reduce the
+computational cost. Please see Appendix D.1 for details on the input sentences, how to determine
+
+
+                                                                                                         6
+

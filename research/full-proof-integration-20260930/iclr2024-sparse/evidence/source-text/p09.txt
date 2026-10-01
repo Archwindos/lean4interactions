@@ -1,0 +1,63 @@
+Published as a conference paper at ICLR 2024
+
+
+
+
+In fact, this scenario does not satisfy Assumptions 1-α and 1-β. In this case, we can simply ignore
+small noises in v ′ (xS ) to obtain sparse interactions. To this end, Li & Zhang (2023a) proposed a
+method to estimate and remove potential small noises from the network output and boost the sparsity.
+Scenario 2. Let us consider the second scenario, in which the network output on a masked sample
+xS is purely dependent on the number of variables in S. We consider an example in which the sign
+of u(S) is decided by the parity of the number of variables in S, i.e., if |S| is odd, then u(S) = +1;
+otherwise, u(S) = −1. In this case, I(S) is always positive if |S| is odd, and always negative if |S|
+is even, which is not sparse. In fact, this scenario does not satisfy Assumption 2 (the monotonicity
+assumption). In addition, the classification of the parity does not represent the typical paradigm for
+classification because there are no inference patterns for classification.
+Scenario 3. In this scenario, the network encodes high-order OR relationships between the in-
+put variables. For example, the network may encode an OR relationship “blue patch 1” ∨ · · · ∨
+“blue patch m” to recognize the sky. Such an OR relationship will be explained as a large number
+of lower-order Harsanyi interactions. However, in real applications, such high-order interactions,
+e.g., the detection of the sky, can actually be taken as a single concept. If we disentangle and remove
+such high-order interactions from the network output, the remaining output is likely to generate
+sparse Harsanyi interactions. In addition, this scenario does not satisfy Assumptions 1-α and 1-β.
+Scenario 4. Let us consider Pthe scenario in which the network output is in the form of a periodic
+function, e.g., v(xS ) = sin( i∈S xi ). In this case, interactions encoded by the network are not
+sparse. This scenario does not satisfy Assumptions 1-α, 1-β, and Assumption 2.
+Scenario 5. Let us consider the special task that heavily relies on the information of all input vari-
+ables, e.g., judging whether the number of 1’s in a binary sequence (e.g., the sequence [0, 0, 1, 0, 1])
+is odd or even. In this task, the value of p may be large, and the monotonicity assumption is not
+satisfied. As a result, the interactions may not be sparse. See Appendix E.3 for experiments.
+
+4       S IGNIFICANCE OF THE EMERGENCE OF INTERACTION PRIMITIVES
+• The emergence of symbolic interaction primitives can be considered as a theoretical foundation
+for the field of explainable AI. Many studies have attempted to explain the feature representation of
+DNNs as the encoding of different concepts with clear meanings. For example, Bau et al. (2017;
+2020) examined how each convolutional filter was related to its encoded fuzzy concept. Kim et al.
+(2018) attempted to find a certain feature direction in the intermediate layer corresponding to a
+specific manually-defined concept. However, the fundamental issue behind these explanations, i.e.,
+whether a DNN can be faithfully explained as symbolic concepts, has not been studied.
+• The proof of the emergence of interaction primitives may provide a new perspective to analyze the
+generalization power and robustness of a DNN. In fact, game-theoretic interactions have been used
+to explain overfitting (Zhang et al., 2020), adversarial robustness (Ren et al., 2021), and adversarial
+transferability (Wang et al., 2021), although these studies used multi-order interactions (Zhang et al.,
+2020) for analysis5 , rather than the Harsanyi interaction.
+• Given the sparsity property and the universal matching property, the sample-wise transferability
+property can be obtained by contradiction. If interactions are not transferable across samples, then
+it means that the DNN activates different sets of salient interactions on different samples, and this
+indicates that the number of interaction patterns encoded by the DNN will be explosively large.
+
+5       C ONCLUSION AND FUTURE WORK
+This study provided a set of conditions for the emergence of symbolic interaction primitives for
+inference. Under these conditions, we proved that a DNN encoded very sparse interactions between
+input variables. The commonness of these conditions indicated that the emergence of symbolic
+(sparse) interactions was not unusual, but might be a universal phenomenon for various well-trained
+AI models, because the proof does not rely on the network architecture. In future work, we will
+attempt to derive a tighter upper bound for the number of valid interactions R(k) encoded by the
+network. Additionally, we will further quantify the precise conditions that prevent the emergence of
+symbolic interaction primitives from occurring in a DNN.
+    5
+        Harsanyi interactions are compositional elements of multi-order interactions (Ren et al., 2023a).
+
+
+                                                          9
+

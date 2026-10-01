@@ -1,0 +1,74 @@
+\section{The proof of Theorem \ref{th:app-harsanyi-faithful} in the main paper}
+\label{sec:app-proof-harsanyi-faithful}
+
+\begin{manualtheorem}{1}[Theorem 1]\label{th:app-harsanyi-faithful}
+Given a certain input {\small$\boldsymbol{x}$}, let the causal graph in Fig. 1 (in the main paper) encode {\small$2^n$} causal patterns, \emph{i.e.}, {\small$\Omega=2^{\mathcal{N}}=\{\mathcal{S}: \mathcal{S}\subseteq\mathcal{N}\}$}.
+If the causal effect {\small$w_{\mathcal{S}}$} of each causal pattern {\small$\mathcal{S}\in\Omega$} is measured by the Harsanyi dividend~\cite{harsanyi1963simplified}, \emph{i.e.} {\small$w_{\mathcal{S}} \triangleq {\sum}_{\mathcal{S}'\subseteq \mathcal{S}}(-1)^{|\mathcal{S}|-|\mathcal{S}'|}\cdot v(\boldsymbol{x}_{\mathcal{S}'})$}, then the causal graph faithfully encodes the inference logic of the DNN, as follows.
+
+
+\vspace{-5pt}
+\begin{small}
+\begin{equation}
+    \forall \mathcal{S}\subseteq \mathcal{N},\ \ 
+    Y(\boldsymbol{x}_{\mathcal{S}}) = v(\boldsymbol{x}_{\mathcal{S}})
+\end{equation}
+\end{small}
+More crucially, the Harsanyi dividend is the unique metric that satisfies the faithfulness requirement.
+\end{manualtheorem}
+
+$\bullet$~\textit{Proof:} We only need to prove the following two statements. (1) Necessity: the causal graph based on Harsanyi dividends {\small$w_{\mathcal{S}}$} satisfies the faithfulness requirement {\small$\forall \mathcal{S}\subseteq \mathcal{N}, Y(\boldsymbol{x}_{\mathcal{S}})\!=\! v(\boldsymbol{x}_{\mathcal{S}})$}.
+(2) Sufficiency: if there exists another metric {\small$\tilde{w}_{\mathcal{S}}$} that also satisfies the faithfulness requirement, then, it is equivalent to the Harsanyi dividend, \emph{i.e.} {\small$\forall \mathcal{S}\subseteq \mathcal{N}, \tilde{w}_{\mathcal{S}}=w_{\mathcal{S}}$}.
+
+According to the SCM in Eq. (2) of the main paper, we have {\small$Y(\boldsymbol{x}_{\mathcal{S}})=\sum_{\mathcal{S}'\in\Omega}w_{\mathcal{S}'}\cdot C_{\mathcal{S}'}(\boldsymbol{x}_{\mathcal{S}})=\sum_{\mathcal{S}'\subseteq\mathcal{S}}w_{\mathcal{S}'}$}.
+Therefore, the faithfulness requirement can be equivalently re-written as {\small$\forall \mathcal{S}\subseteq \mathcal{N}, v(\boldsymbol{x}_{\mathcal{S}})=\sum_{\mathcal{S}'\subseteq\mathcal{S}}w_{\mathcal{S}'}$}.
+
+\textit{Proof for necessity.}
+According to the definition of the Harsanyi dividend, we have {\small$\forall \mathcal{S}\subseteq \mathcal{N}$}, 
+
+\begin{small}
+\begin{align*}
+\sum_{\mathcal{S}'\subseteq \mathcal{S}}  w_{\mathcal{S}'}  =& \sum_{\mathcal{S}'\subseteq \mathcal{S}} \sum_{\mathcal{L}\subseteq \mathcal{S}'} (-1)^{|\mathcal{S}'|-|\mathcal{L}|}  v(\boldsymbol{x}_{\mathcal{L}}) \\
+=& \sum_{\mathcal{L}\subseteq \mathcal{S}} \sum_{\mathcal{S}'\subseteq \mathcal{S}: \mathcal{S}'\supseteq \mathcal{L}} (-1)^{|\mathcal{S}'|-|\mathcal{L}|} v(\boldsymbol{x}_{\mathcal{L}}) \\
+=& \sum_{\mathcal{L}\subseteq \mathcal{S}} \sum_{s'=|\mathcal{L}|}^{|\mathcal{S}|} \sum_{\scriptsize\substack{\mathcal{S}'\subseteq \mathcal{S}: \mathcal{S}'\supseteq \mathcal{L}\\
+|\mathcal{S}'|=s'}} (-1)^{s'-|\mathcal{L}|} v(\boldsymbol{x}_{\mathcal{L}}) \\
+=& \sum_{\mathcal{L}\subseteq \mathcal{S}} v(\boldsymbol{x}_{\mathcal{L}})  \sum_{m=0}^{|\mathcal{S}|-|\mathcal{L}|} \binom{|\mathcal{S}|-|\mathcal{L}|}{m} (-1)^{m}= v(\boldsymbol{x}_{\mathcal{S}}) 
+\end{align*}
+\end{small}
+
+
+
+\textit{Proof for sufficiency.}
+Suppose there exists another metric {\small$\tilde{w}_{\mathcal{S}}$} that satisfies {\small$\forall \mathcal{S}\subseteq \mathcal{N}, v(\boldsymbol{x}_{\mathcal{S}})  = {\sum}_{\mathcal{S}'\subseteq \mathcal{S}} \tilde{w}_{\mathcal{S}'} $}.
+Then, we prove {\small$\tilde{w}_{\mathcal{S}} = w_{\mathcal{S}} $} by induction on the number of variables {\small$|\mathcal{S}|$} in the causal pattern.
+
+
+
+\textit{(Basis step)}
+When {\small$|\mathcal{S}|=0$}, \emph{i.e.} {\small$\mathcal{S}=\emptyset$}, we have {\small$\tilde{w}_{\emptyset} = v(\boldsymbol{x}_{\emptyset}) = w_{\emptyset}$}.
+Similarly, it can be directly derived that when {\small$|\mathcal{S}|=1$}, \emph{i.e.} {\small$\mathcal{S}=\{i\}$}, {\small$\tilde{w}_{\{i\}} = v(\boldsymbol{x}_{\{i\}}) - v(\boldsymbol{x}_{\emptyset}) = w_{\{i\}}$}; 
+when {\small$|\mathcal{S}|=2$}, \emph{i.e.} {\small$\mathcal{S}=\{i,j\}$}, {\small$\tilde{w}_{\{i,j\}} = v(\boldsymbol{x}_{\{i,j\}}) - v(\boldsymbol{x}_{\{i\}}) - v(\boldsymbol{x}_{\{j\}}) + v(\boldsymbol{x}_{\emptyset}) = w_{\{i, j\}}$}.
+
+
+\textit{(Induction step)} Suppose {\small$\tilde{w}_{\mathcal{S}} = w_{\mathcal{S}} $} holds for any {\small$\mathcal{S}$} with {\small$|\mathcal{S}|=s\geq 2$}. 
+Then, for {\small$|\mathcal{S}|=s+1$}, we have
+
+\begin{small}
+\begin{align*}
+ v(\boldsymbol{x}_{\mathcal{S}})  =& \sum_{\mathcal{S}'\subseteq \mathcal{S}} \tilde{w}_{\mathcal{S}'}  =  \tilde{w}_{\mathcal{S}}  + \sum_{\mathcal{S}'\subsetneq \mathcal{S}} \tilde{w}_{\mathcal{S}'} \\
+=&  \tilde{w}_{\mathcal{S}}  + \sum_{\mathcal{S}'\subsetneq \mathcal{S}}\sum_{\mathcal{L}\subseteq \mathcal{S}'}(-1)^{|\mathcal{S}'|-|\mathcal{L}|} v(\boldsymbol{x}_{\mathcal{L}}) \qquad\text{// by the induction assumption}\\
+=&  \tilde{w}_{\mathcal{S}}  + \sum_{\mathcal{L}\subsetneq \mathcal{S}}\sum_{\mathcal{S}'\subsetneq \mathcal{S}:\mathcal{L}\subseteq \mathcal{S}'} (-1)^{|\mathcal{S}'|-|\mathcal{L}|}\cdot  v(\boldsymbol{x}_{\mathcal{L}}) \\
+=&  \tilde{w}_{\mathcal{S}}  + \sum_{\mathcal{L}\subsetneq \mathcal{S}}\sum_{s'=|\mathcal{L}|}^{|\mathcal{S}|-1}\sum_{\scriptsize\substack{\mathcal{S}'\subsetneq \mathcal{S}: \mathcal{L}\subseteq \mathcal{S}'\\|\mathcal{S}'|=s'}} (-1)^{s'-|\mathcal{L}|}\cdot  v(\boldsymbol{x}_{\mathcal{L}}) \\
+=&  \tilde{w}_{\mathcal{S}}  + \sum_{\mathcal{L}\subsetneq \mathcal{S}}  v(\boldsymbol{x}_{\mathcal{L}})  \sum_{s'=|\mathcal{L}|}^{|\mathcal{S}|-1} \binom{|\mathcal{S}|-|\mathcal{L}|}{s'-|\mathcal{L}|} (-1)^{s'-|\mathcal{L}|}\\
+=&  \tilde{w}_{\mathcal{S}}  + \sum_{\mathcal{L}\subsetneq \mathcal{S}}  v(\boldsymbol{x}_{\mathcal{L}})  \underbrace{\sum_{m=0}^{|\mathcal{S}|-|\mathcal{L}|-1} \binom{|\mathcal{S}|-|\mathcal{L}|}{m} (-1)^{m}}_{0-(-1)^{|\mathcal{S}|-|\mathcal{L}|}}\\
+=&  \tilde{w}_{\mathcal{S}}  - \sum_{\mathcal{L}\subsetneq \mathcal{S}}(-1)^{|\mathcal{S}|-|\mathcal{L}|}  v(\boldsymbol{x}_{\mathcal{L}}) .
+\end{align*}
+\end{small}
+
+In this way, we have 
+\begin{small}
+\begin{equation*}
+     \tilde{w}_{\mathcal{S}}  =  v(\boldsymbol{x}_{\mathcal{S}})  + \sum_{\mathcal{L}\subsetneq \mathcal{S}}(-1)^{|\mathcal{S}|-|\mathcal{L}|}  v(\boldsymbol{x}_{\mathcal{L}})  = \sum_{\mathcal{L}\subseteq \mathcal{S}}(-1)^{|\mathcal{S}|-|\mathcal{L}|} v(\boldsymbol{x}_{\mathcal{L}})  =  w_{\mathcal{S}} .
+\end{equation*}
+\end{small}
+
+Therefore, the Harsanyi dividend is \textbf{the unique metric} that satisfies the faithfulness requirement.

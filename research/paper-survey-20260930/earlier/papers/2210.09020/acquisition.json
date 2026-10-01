@@ -1,0 +1,334 @@
+{
+  "arxiv_id": "2210.09020",
+  "version": "v2",
+  "title": "Defects of Convolutional Decoder Networks in Frequency Representation",
+  "authors": [
+    "Ling Tang",
+    "Wen Shen",
+    "Zhanpeng Zhou",
+    "Yuefeng Chen",
+    "Quanshi Zhang"
+  ],
+  "first_public_date": "2022-10-17T12:42:29Z",
+  "updated": "2023-12-01T12:39:01Z",
+  "journal_ref": null,
+  "source_url": "https://arxiv.org/abs/2210.09020v2",
+  "pdf_url": "https://arxiv.org/pdf/2210.09020v2",
+  "retrieved_at": "2026-09-30T07:02:45.921928+00:00",
+  "attempts": [],
+  "local_pdf": "research/paper-survey-20260930/earlier/papers/2210.09020/2210.09020v2.pdf",
+  "sha256": "39ebd0f3435fc01a7b008bff02603b8b95bcff9100b884deb103ebad468fd49a",
+  "total_pages": 34,
+  "first_page": "                                              Defects of Convolutional Decoder Networks in Frequency Representation\n\n\n                                                           Ling Tang * 1 Wen Shen * 1 Zhanpeng Zhou 1 Yuefeng Chen 2 Quanshi Zhang 1 3\n\n\n                                                                  Abstract                                       We extend the 2D circular convolution theorem to refor-\n                                                                                                                 mulate the forward propagation through multiple convolu-\n                                              In this paper, we prove the representation defects\n                                                                                                                 tional layers in the frequency domain. We find that both\n                                              of a cascaded convolutional decoder1 network,\n                                                                                                                 the forward propagation and the backward propagation in\narXiv:2210.09020v2 [cs.LG] 1 Dec 2023\n\n\n\n\n                                              considering the capacity of representing different\n                                                                                                                 a convolutional network can be represented as the matrix\n                                              frequency components of an input sample. We\n                                                                                                                 multiplication on spectrums of the feature. Specifically, we\n                                              conduct the discrete Fourier transform on each\n                                                                                                                 mainly analyze a convolutional decoder, which only con-\n                                              channel of the feature map in an intermediate\n                                                                                                                 tains convolution operations without changing the size of\n                                              layer of the decoder network. Then, we extend the\n                                                                                                                 feature maps. Then, based on the propagation in the fre-\n                                              2D circular convolution theorem to represent the\n                                                                                                                 quency domain, we prove the following conclusions.\n                                              forward and backward propagations through con-\n                                              volutional layers in the frequency domain. Based                   • Problem in representing high-frequency components. We\n                                              on this, we prove three defects in representing                    prove that both the convolution operation and the zero-\n                                              feature spectrums. First, we prove that the con-                   padding operation make a cascaded convolutional decoder\n                                              volution operation, the zero-padding operation,                    network more likely to weaken the high-fre",
+  "status": "downloaded_extracted_requires_manual_review",
+  "automatic_heading_hits": [
+    {
+      "page": 3,
+      "text": "Theorem 3.2. (Proof in Appendix A.1). According to As-"
+    },
+    {
+      "page": 3,
+      "text": "To simplify the further proof, we temporarily investigate the"
+    },
+    {
+      "page": 4,
+      "text": "Figure 3. (a) Fitness between the derived feature spectrums H in Corollary 3.3 and the real feature spectrums H∗ measured in a real"
+    },
+    {
+      "page": 4,
+      "text": "DNN. (b) Fitness between the derived change of T (l,uv) in Corollary 3.4 and the real T (l,uv) measured in a real DNN. The shaded area"
+    },
+    {
+      "page": 4,
+      "text": "Corollary 3.3. (Proof in Appendix A.2) Let G =                                                              3.2. Experimental verification of Corollaries 3.3 and 3.4"
+    },
+    {
+      "page": 4,
+      "text": "trums of the C0 channels of the input x. Then, based                                                        To verify the correctness of Corollary 3.3, we computed the"
+    },
+    {
+      "page": 4,
+      "text": "∈ CCL . b(l) =                                     networks to verify whether Corollary 3.3 derived from spe-"
+    },
+    {
+      "page": 4,
+      "text": "frequency domain. Corollary 3.3 means that conducting                                                       layer. Each convolutional layer contained 16 convolutional"
+    },
+    {
+      "page": 4,
+      "text": "spectrum h(uv) = T(uv)(L:1) g(uv) .                                                                         the assumption in Corollary 3.3. The third baseline network"
+    },
+    {
+      "page": 4,
+      "text": "network followed the exact assumption in Corollary 3.3."
+    },
+    {
+      "page": 4,
+      "text": "Corollary 3.4. (Proof in Appendix A.3) Based on Assump-"
+    },
+    {
+      "page": 4,
+      "text": "X −1                   \u0010 (u′ v′ )(l−1:1) ′ ′                     Corollary 3.3. Note that the cosine similarity was computed"
+    },
+    {
+      "page": 4,
+      "text": "M               N                                   Besides, in order to verify Corollary 3.4, we also mea-"
+    },
+    {
+      "page": 5,
+      "text": "sumptions in Corollary 3.4, termed ∆T (l,uv) . The sim-                                        W(l) is sampled from a Gaussian distribution N (µl , σl2 )."
+    },
+    {
+      "page": 5,
+      "text": "verify Corollary 3.4."
+    },
+    {
+      "page": 5,
+      "text": "In this section, we aim to prove three defects in the fre-                                     Theorem 4.2. (Proof in Appendix A.4) Let us focus on"
+    },
+    {
+      "page": 5,
+      "text": "i.e., Tdc      , is exclusively determined by the c-th channel                                 Theorem 4.2 tells us the following five conclusions."
+    },
+    {
+      "page": 5,
+      "text": "Theorem 3.2. Because parameters in W (l) in the decoder                                        second-order moment SOM(T(uv)(L:1) ), increases along with"
+    },
+    {
+      "page": 5,
+      "text": "Assumption 4.1. (Proof in Appendix A.4) We assume that                                         metric to reflect the average significance of T(uv)(L:1) ."
+    },
+    {
+      "page": 5,
+      "text": "EW(l) [Tdc         Td′ c′ ] = EW(l) [Tdc                ]EW(l) [Td′ c′ ]                 solution. Please see Appendix A.4 for the proof."
+    },
+    {
+      "page": 6,
+      "text": "Theorem 4.4. (Proof in Appendix A.6) Let G ="
+    },
+    {
+      "page": 6,
+      "text": "To simplify the proof, let us consider the following one-side                                     s.t. s = 1, . . . ,      ; t = 1, . . . ,"
+    },
+    {
+      "page": 6,
+      "text": "′  ′                      Theorem 4.4 shows that the upsampling operation repeats"
+    },
+    {
+      "page": 6,
+      "text": "of the feature map, as shown in Theorem 4.3.                                 volution operation generate a feature spectrum, in which"
+    },
+    {
+      "page": 6,
+      "text": "Theorem 4.3. (Proof in Appendix A.5) Let each element                        strong signals of the input periodically appear at certain"
+    },
+    {
+      "page": 6,
+      "text": "frequency spectrum of the output feature Fe after apply-                     Corollary 3.3, such periodic frequency components can be"
+    },
+    {
+      "page": 6,
+      "text": "ing zero-padding on F (c) . Then, the zero-padding on F (c)                  further propagated to upper layers. Thus, Corollary 3.3 may"
+    },
+    {
+      "page": 6,
+      "text": "(Conclusion) According to the rule of the forward propa-                     to simplify the proof. Then, G ∈ CM ×N , H ∈ CM ×N , and"
+    },
+    {
+      "page": 7,
+      "text": "where A = αeiϕ , and A denotes the conjugate of A; α > 0;                    Theorem 4.5 shows that the learning difficulty is signifi-"
+    },
+    {
+      "page": 7,
+      "text": "According to Corollary 3.3, learning an identify function"
+    },
+    {
+      "page": 7,
+      "text": "train the auto-encoder. Theorem 4.5 proves a case that W                     low-frequency components in early epochs and then shifted"
+    },
+    {
+      "page": 7,
+      "text": "Theorem 4.5. (Proof in Appendix A.7) Let us consider"
+    },
+    {
+      "page": 8,
+      "text": "frequency components. Therefore, according to Corollar-              sentation of the entire network, according to Corollary 3.3."
+    },
+    {
+      "page": 11,
+      "text": "Lemma A.1. Given N complex numbers, einθ , n = 0, 1, . . . , N − 1, the sum of these N complex numbers is given as"
+    },
+    {
+      "page": 11,
+      "text": "We prove Lemma A.1 as follows."
+    },
+    {
+      "page": 11,
+      "text": "Proof. First, let us use the letter S ∈ C to denote the term of                    n=0    einθ ."
+    },
+    {
+      "page": 12,
+      "text": "In the following proofs, the following two equations are widely used, which are derived based on Lemma A.1."
+    },
+    {
+      "page": 12,
+      "text": "A.1. Proof of Theorem 3.2"
+    },
+    {
+      "page": 12,
+      "text": "In this section, we prove Theorem 3.2 in Section 3 of the main paper, as follows."
+    },
+    {
+      "page": 12,
+      "text": "Proof. Given each c-th channel of the feature spectrum G(c) , the corresponding feature F (c) in the time domain can be"
+    },
+    {
+      "page": 14,
+      "text": "A.2. Proof of Corollary 3.3"
+    },
+    {
+      "page": 14,
+      "text": "In this section, we prove Corollary 3.3 in Section 3 of the main paper, as follows."
+    },
+    {
+      "page": 14,
+      "text": "Proof. Let G(l) = [G(l,1) , G(l,2) , · · · , G(l,Cl ) ] ∈ CCl ×M ×N denote feature spectrums of the l-th layer. Let g(l,uv) ="
+    },
+    {
+      "page": 14,
+      "text": "Based on Theorem 3.2, g(l,uv) can be computed as follows."
+    },
+    {
+      "page": 15,
+      "text": "A.3. Proof of Corollary 3.4"
+    },
+    {
+      "page": 15,
+      "text": "In this section, we prove Corollary 3.4 in Section 3 of the main paper, as follows."
+    },
+    {
+      "page": 15,
+      "text": "Proof. First, we focus on a single convolutional layer."
+    },
+    {
+      "page": 15,
+      "text": "Based on Equation (19) and the derivation rule for complex numbers (Kreutz-Delgado, 2009), we can obtain the mathematical"
+    },
+    {
+      "page": 15,
+      "text": "Based on Equation (19) and Equation (20), and the derivation rule for complex numbers (Kreutz-Delgado, 2009), the exact"
+    },
+    {
+      "page": 17,
+      "text": "Furthermore, we extend the above proof of a single convolutional layer to a network with L cascaded convolutional"
+    },
+    {
+      "page": 18,
+      "text": "T                 //Corollary 3.3"
+    },
+    {
+      "page": 18,
+      "text": "A.4. Proofs of Assumption 4.1 and Theorem 4.2"
+    },
+    {
+      "page": 18,
+      "text": "Proof. Given an initialized, cascaded, convolutional decoder network with L convolutional layers, let us focus on the"
+    },
+    {
+      "page": 18,
+      "text": "determined by the c-th channel of the d-th kenel Wc,1:K,1:K  ∈ RK×K according to Theorem 3.2. Because parameters in W (l)"
+    },
+    {
+      "page": 19,
+      "text": "Then, we prove Theorem 4.2, as follows."
+    },
+    {
+      "page": 19,
+      "text": "Proof. We first prove that Tdc             follows a Gaussian distribution of complex numbers."
+    },
+    {
+      "page": 21,
+      "text": "Then, we prove Theorem 4.2 as follows."
+    },
+    {
+      "page": 21,
+      "text": "cated analytic solution, as proved below. Note that the following proof is based Assumption 4.1. Besides, we further"
+    },
+    {
+      "page": 21,
+      "text": "Proof. According to Equation (27), all elements in T (l,uv) follow the same Gaussian distribution. Therefore, we have"
+    },
+    {
+      "page": 22,
+      "text": "A.5. Proof of Theorem 4.3"
+    },
+    {
+      "page": 22,
+      "text": "In this section, we prove Theorem 4.3 in the main paper, as follows."
+    },
+    {
+      "page": 22,
+      "text": "Proof."
+    },
+    {
+      "page": 23,
+      "text": "A.6. Proof of Theorem 4.4"
+    },
+    {
+      "page": 23,
+      "text": "In this section, we prove Theorem 4.4 in the main paper, as follows."
+    },
+    {
+      "page": 23,
+      "text": "Proof."
+    },
+    {
+      "page": 24,
+      "text": "A.7. Proof of Theorem 4.5"
+    },
+    {
+      "page": 24,
+      "text": "In this section, we prove Theorem 4.5 in the main paper. Recall that we consider the input x ∈ RM ×N with a single channel"
+    },
+    {
+      "page": 24,
+      "text": "to simplify the proof. Then, G ∈ CM ×N , H ∈ CM ×N , and H ∗ ∈ CM ×N denote spectrums of the input, the output, and"
+    },
+    {
+      "page": 24,
+      "text": "and A denotes the conjugate of A; α > 0; ϕ < π/2. Theorem 4.5 proves a case that weights W is optimized to satisfy"
+    },
+    {
+      "page": 24,
+      "text": "Proof. Let us provide specific constrains as follows, so as to make the auto-encoder learnable (i.e., ensuring ∆W is"
+    },
+    {
+      "page": 24,
+      "text": "According to Corollary 3.3, the network output Huv can be computed as follows."
+    },
+    {
+      "page": 25,
+      "text": "According to Corollary 3.4, after a single step of gradient descent, the change of T(uv)(L:1) can be computed as follows."
+    },
+    {
+      "page": 27,
+      "text": "is less likely to learn high-frequency components. It is because according to Theorem 4.2, a large absolute value |µl |"
+    },
+    {
+      "page": 27,
+      "text": "is because according to Theorem 4.2, a large K value alleviates imbalance of the second-order moment SOM(T(uv)(L:1) )"
+    },
+    {
+      "page": 27,
+      "text": "First, we conducted experiments to verify Theorem 4.4 in the main paper, which claims that the upsampling operation"
+    },
+    {
+      "page": 28,
+      "text": "CIFAR-10 dataset and the Tiny-ImageNet dataset in Figure 8 verified Theorem 4.4."
+    },
+    {
+      "page": 28,
+      "text": "Broden dataset using the mean squared error (MSE) loss for image reconstruction. Results in Figure 9 verified Theorem 4.4."
+    }
+  ]
+}

@@ -1,0 +1,127 @@
+Proof. First, according to Assumption 3, if we let m′ = 1, then the average output of order m
+should satisfy ū(m) ≤ mp · ū(1) . Then, according to Assumption 2, we further have ū(m) ≥ ū(0) =
+v(x∅ ) − v(x∅ ) = 0. Combining with the conclusion in Lemma 2, we have
+                                                      M
+                                                      X    m
+                                                             
+                                               (m)         k  (k)
+                     ∀M ≤ m ≤ n, 0 ≤ ū            =       n A     ≤ mp · ū(1) .               (40)
+                                                                        k=1      k
+
+
+Deriving the form of A(k) . For each A(k) , 1 ≤ k ≤ M , we consider its n-ary representation after
+being divided by ū(1) , i.e.,
+                   A(k)     (k)    (k)  (k)      (k)            (k)    (k)
+                     (1)
+                         = aq(k) nq + aq(k) −1 nq −1 + · · · + a1 n + a0 ,                                                          (41)
+                   ū                                                      
+                             (k)    (k)  (k)      (k)            (k)    (k)
+                 ⇒ A(k) = aq(k) nq + aq(k) −1 nq −1 + · · · + a1 n + a0 ū(1) ,                                                     (42)
+                       (k)                                                                               (k)
+where q (k) ∈ N, |ai | ∈ {0, 1, · · · , n − 1} for i = 1, · · · , q (k) , and |a0 | < n. Note that we absorb
+                       (k)
+the decimal part into a0 . Then, let us consider the following two cases for each 1 ≤ k ≤ M . We
+will show that in both cases, A(k) can be represented as the form in Eq. (37).
+Case 1: if q (k) ≤ ⌊p⌋ − 1. In this case, A(k) can directly be represented as the form in Eq. (37):
+                              (k)                            (k)           (k)               (k)         (k)      (k)     (k)
+ A(k) = (λ(k) np+δ + a⌊p⌋−1 n⌊p⌋−1 + · · · + aq(k) +1 nq                         +1
+                                                                                      + aq(k) nq               + a1 n + a0 ) ū(1) , (43)
+                                       (k)                     (k)
+where we simply set λ(k) = a⌊p⌋−1 = · · · = aq(k) +1 = 0, and δ can be arbitrary (we will discuss
+the choice and range of δ in Case 2).
+Case 2: if q (k) ≥ ⌊p⌋. In this case, we first merge all terms with a degree higher than or equal to
+⌊p⌋ into a single term. According to Eq. (42), we have
+                                                                                  
+              (k) q(k)            (k)        (k)                     (k)    (k)  (1)
+      A(k) = 
+             aq(k) n   + · · · + a⌊p⌋ n⌊p⌋ +a⌊p⌋−1 n⌊p⌋−1 + · · · + a1 n + a0   ū                                               (44)
+               |          {z              }
+                                             (k)
+                              =:s(k) np+δ
+                              (k)
+                                                                                                   
+                                        (k)                                (k)               (k)
+               = s(k) np+δ           + a⌊p⌋−1 n⌊p⌋−1 + · · · + a1 n + a0                               ū(1) ,                      (45)
+
+where s(k) ∈ {−1, 1} denotes the sign of this term.
+Let us consider all orders in the set G = {k | 1 ≤ k ≤ M, q (k) ≥ ⌊p⌋}. Each order k has the
+corresponding δ (k) . We set δ = maxk∈G δ (k) , and let k ∗ = arg maxk∈G δ (k) . Then, for any k ∈ G,
+we can rewrite the first term in Eq. (45) as
+                                                (k)             (k)
+                                                                      −δ
+                                    s(k) np+δ         = s|(k) n{z
+                                                                δ
+                                                                         }n
+                                                                            p+δ
+                                                                                      = λ(k) np+δ .                                 (46)
+                                                            =:λ(k)
+
+Note that since δ = maxk∈G δ (k) ≥ δ (k) and s(k) ∈ {−1, 1}, we have
+                                                             (k)                  (k)
+                                                                   −δ                   −δ
+                                       |λ(k) | = |s(k) nδ               | = |nδ              | ≤ 1.                                 (47)
+
+
+                                                                   19
+
+
+Published as a conference paper at ICLR 2024
+
+
+
+
+                   ∗                       ∗
+In particular, |λ(k ) | = 1 because δ (k ) = δ. Therefore, for any k ∈ G, A(k) can be rewritten as
+                                                                              
+                                            (k)                    (k)     (k)
+                   A(k) = λ(k) np+δ + a⌊p⌋−1 n⌊p⌋−1 + · · · + a1 n + a0 ū(1) ,                   (48)
+                        (k)          (k)
+where |λ(k) | ≤ 1, |a0 | < n, |ai | ∈ {0, 1, · · · , n − 1} for i = 1, · · · , ⌊p⌋ − 1.
+Deriving the upper bound of δ. Next, we will derive the upper bound for δ by using the inequality
+in Eq. (40). Let us plug in the expression of A(k) into the Eq. (40), and obtain
+                M
+                             !            M
+                                                         !                     M
+                                                                                         !!
+                     m                        m                                  m
+                                                                                 
+                                               k  (k)                           k  (k)
+               X                         X                                    X
+     (m)             k  (k)     p+δ                         ⌊p⌋−1
+   ū    =           n λ       n     +         n a⌊p⌋−1 n          + ··· +       n a0       ū(1)
+               k=1      k                      k=1   k                                k=1   k
+                                                                                                 (49)
+
+According to Lemma 3, we have the following assertion:
+                                                                  M
+                                                                  X     m0
+                                                                           
+                            ∃ m0 ∈ {n, n − 1, · · · , n − M },          k
+                                                                        n      λ(k) ̸= 0         (50)
+                                                                  k=1   k
+
+This can be proven by contradiction: if for any m ∈ {n, n − 1, · · · , n − M }, we all have
+PM (mk0 ) (k)
+  k=1 (n) λ    = 0, then according to Lemma 3, we obtain λ(k) = 0 for all 1 ≤ k ≤ M .
+        k
+                                          ∗
+However, we have mentioned above that |λ(k ) | = 1, which leads to contradiction.
+                  def   PM (mk0 ) (k)                m
+                                            def PM ( 0 ) (k)
+Let us denote λ =            n
+                            k=1  λ ̸= 0, ai = k=1 nk ai for i = 0, 1, · · · , ⌊p⌋ − 1, therefore
+                            (k )                     (k )
+using the inequality in Eq. (40) for m = m0 we can write
+                                                         
+   0 ≤ ū(m0 ) = λnp+δ + a⌊p⌋−1 n⌊p⌋−1 + · · · + a1 n + a0 ū(1) ≤ mp0 · ū(1) ≤ np · ū(1) . (51)
+
+When λ > 0, by using the right-side inequality, we obtain
+                                                                
+                                     1         a⌊p⌋−1        a0 
+                        δ ≤ logn        1 − p−⌊p⌋+1 − · · · − p     .                            (52)
+                                     λ        n              n
+Similarly, when λ < 0, by using the left-side inequality, we obtain
+                                                                       
+                                         1  a⌊p⌋−1                a0 
+                           δ ≤ logn                      + · · · +        .                      (53)
+                                       −λ np−⌊p⌋+1                 np

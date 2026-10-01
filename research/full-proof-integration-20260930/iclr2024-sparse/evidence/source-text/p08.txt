@@ -1,0 +1,68 @@
+Published as a conference paper at ICLR 2024
+
+
+
+
+   Table 2: Comparison between the number of valid interactions and the derived upper bound.
+                                    OPT-1.3B         LLaMA-7B           Aquila-7B           MLP (tabular dataset)
+  Real # of valid interactions      28.73±52.37      50.53±40.37       30.13±26.20              54.42±36.81
+  Upper bound                      197.84±188.87    293.20±287.28     184.23±124.71            229.11±139.52
+
+interactions that are not cancelled out. Here, the absolute value of this proportion |η (k) | should not
+be negligible. Thus, let us set |η (k) | ≫ n1 . Otherwise, we consider that the positive and negative
+interactions almost cancel out, and then this instance belongs to Case 2.
+Without loss of generality, we set a small positive threshold τ subject to 0 < τ ≪ ET ⊆S [|u(T )|].
+Then, we consider all interactions with |I(S)| ≥ τ as valid (salient) interactions. We consider all
+interactions with |I(S)| < τ as noisy patterns. In fact, as Figure 3 shows, most interactions below
+the threshold τ had roughly exponentially decreasing strength, which meant that most non-salient
+interactions (noisy patterns) had almost zero effect.
+                             def
+Therefore, let us use R(k) = |{S ⊆ N | |S| = k, |I(S)| ≥ τ }| to denote the number of valid interac-
+tions of the k-th order. The following theorem provides an upper bound for R(k) .
+Theorem 3 (Proven in Appendix B.4). R(k) has the following upper bound:
+                                      ū(1)
+                                               |λ(k) np+δ + a⌊p⌋−1 n⌊p⌋−1 + · · · + a0 |.
+                                                             (k)                     (k)
+                          R(k) ≤                                                                                    (6)
+                                    τ |η (k) |
+The above theorem indicates that if positive interactions do not fully cancel with negative interac-
+tions (i.e., |η (k) | is not extremely small), then the number of valid interactions R(k) of thek-th order
+has an upper bound of O(np+δ /|τ η (k) |), which is much less than the total number of nk potential
+interactions of the k-th order in most cases.
+In fact, the final number of valid interactions also depends on the value of p. Although we cannot
+theoretically guarantee different DNNs all have small p values, experiments in Figure 5(b) show that
+p was around 0.9 to 1.5 on common tasks. Nevertheless, Eq. (6) just shows an upper bound of valid
+interactions, which is much more than the real interaction number. Please see Table 2 for the higher
+sparsity of real interactions than the upper bound. Thus, Theorem 3 shows that it is quite common
+for a DNN to encode sparse interactions.
+• Case 2: When positive and negative interactions of the k-th order almost cancel each other.
+In this case, the absolute value of η (k) can be extremely small. In such an extreme situation, the
+number of valid interactions is proportional to np+δ /|τ η (k) |. Then, the upper bound for the number
+of interactions R(k) is much higher, according to Theorem 3. However, R(k) is still much less than
+ n        (k)
+ k if |η      | is not exponentially small.
+Real number of valid interactions vs. the derived bound. We conducted experiments to compare
+the real number of valid interactions with the derived upper bound. We used the same LLMs and
+dataset as those in previous experiments. Besides, we also trained a 5-layer multi-layer perceptron
+(MLP) on a tabular dataset named TV news (Dua & Graff, 2017). Specifically, we set M = 9. We
+set τ = 0.05 maxS ′ |I(S ′ )| for all LLMs, and set τ = 0.1 maxS ′ |I(S ′ )| for the MLP. Table 2 shows
+that the real number of valid interactions was about 30 to 50, while the derived bound was about
+200 to 260. Note that the number of all potential interactions was 2n = 210 = 1024. Please see
+Appendix E.2 for the number of valid interactions and the bound on several example sentences.
+3.3 W HEN ARE INTERACTIONS NON - SPARSE ?
+Despite the above proof of the sparsity of interactions under certain assumptions, there exist some
+special cases in which the DNN does not encode sparse interactions.
+Scenario 1. Let us consider the scenario where the network output contains some random noise,
+i.e., we can decompose the network output into v ′ (xS ) = v(xS ) + ϵS , where ϵS denotes a fully
+random noise. In this case, the effect of each interaction can be rewritten as I ′ (S) = I(S) + Iϵ (S),
+where I(S) denotes the interaction extracted from the normal output component v(xS ), and Iϵ (S) =
+P            |S|−|T |
+    T ⊆S (−1)         · (ϵT − ϵ∅ ) denotes the interaction extracted from the noise. Because Iϵ (S) is a sum
+of 2 noise terms, the variance of Iϵ (S) w.r.t. the noise is 2|S| times larger. In this case, the value of
+      |S|
+
+Iϵ (S), as well as I ′ (S), is not likely to be zero, i.e., we will not obtain sparse interactions.
+
+
+                                                         8
+

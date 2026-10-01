@@ -1,0 +1,1200 @@
+{
+  "paper_id": "iclr2024-generalizable",
+  "results": [
+    {
+      "id": "f11-external-sparsity",
+      "paper_id": "iclr2024-generalizable",
+      "title": "AND稀疏性及其三项条件（外引）",
+      "kind": "external_claim",
+      "original_label": "Section 2.1; Appendix B",
+      "inventory_ids": [
+        "f11-external-sparsity"
+      ],
+      "source_refs": [
+        {
+          "source_id": "src-iclr2024-generalizable-main",
+          "pdf_page": 3,
+          "text_path": "research/full-proof-integration-20260930/iclr2024-generalizable/source-review/all-pages.txt",
+          "page_text_json_path": "research/paper-survey-20260930/recent/text/iclr2024-generalizable.pages.json",
+          "image_path": "research/full-proof-integration-20260930/iclr2024-generalizable/source-review/page-03.png"
+        },
+        {
+          "source_id": "src-iclr2024-generalizable-main",
+          "pdf_page": 12,
+          "text_path": "research/full-proof-integration-20260930/iclr2024-generalizable/source-review/all-pages.txt",
+          "page_text_json_path": "research/paper-survey-20260930/recent/text/iclr2024-generalizable.pages.json",
+          "image_path": "research/full-proof-integration-20260930/iclr2024-generalizable/source-review/page-12.png"
+        }
+      ],
+      "statement_tex": "|\\Omega_{\\rm salient}|\\ll 2^n",
+      "assumptions": [
+        "原文well-trained DNN表述；外引Ren et al. (2024)的三条件，而非本篇新形式前提"
+      ],
+      "definitions": [
+        "sym-model",
+        "sym-input",
+        "sym-input-baseline",
+        "sym-mask",
+        "sym-universe",
+        "sym-coalition",
+        "sym-game",
+        "sym-output-baseline",
+        "sym-and-interaction",
+        "sym-threshold",
+        "sym-significant-set"
+      ],
+      "symbol_ids": [
+        "sym-model",
+        "sym-input",
+        "sym-input-baseline",
+        "sym-mask",
+        "sym-universe",
+        "sym-coalition",
+        "sym-game",
+        "sym-output-baseline",
+        "sym-and-interaction",
+        "sym-threshold",
+        "sym-significant-set"
+      ],
+      "overview": "完整外引条件与数学适用范围说明；本篇未提供独立可形式化的定量稀疏命题。",
+      "proof_steps": [
+        {
+          "id": "f11-external-sparsity-step-1",
+          "title": "外引范围",
+          "body_md": "正文p3与附录B p12转述稀疏性。附录B第一条件精确要求全空间高于M阶的输出混合导数全部为零（Sparse的1β），经1β⇒1α映到高阶交互精确零；其余两条件是平均输出单调和遮挡平均输出的多项式下界；本篇没有重新证明这些条件蕴含某个定量稀疏率。对应Sparse论文的精确T2/T3及其Case1范围保留为跨文来源。",
+          "formula_tex": "\\Omega=\\{S:|I(S)|>\\tau\\}",
+          "justification": "正式外引与三条件逐项定位",
+          "lean_refs": []
+        },
+        {
+          "id": "f11-external-sparsity-step-2",
+          "title": "可用结论边界",
+          "body_md": "不能把well-trained这个经验描述自行定义成新的数学谓词，然后假设一个足以推出稀疏性的强性质。也不能将Sparse有限n计数界直接升级为对所有网络的严格渐近≪结论。本项目完成来源与条件说明，仍明确本篇无独立原证明。",
+          "formula_tex": "",
+          "justification": "外引审校；非新增定理",
+          "lean_refs": []
+        }
+      ],
+      "shared_proof_ids": [],
+      "rewrite_status": "complete",
+      "alignment_status": "agent_checked_formal_source_scope",
+      "user_review_status": "pending",
+      "completion_scope": "完整外引条件与数学适用范围说明；本篇未提供独立可形式化的定量稀疏命题。",
+      "statement_status": "external_qualitative_claim_no_local_proof",
+      "lean": {
+        "status": "not_formalized",
+        "verification_role": "none",
+        "completion_scope": "No complete Lean claim for this original target"
+      },
+      "related_issue_ids": [],
+      "notation_map": [
+        {
+          "source": "v(x_T)",
+          "canonical": "g(T)",
+          "meaning": "fixed input and fixed baseline masked-output game; g(∅) unrestricted"
+        }
+      ],
+      "verification_role": "scope_explanation"
+    },
+    {
+      "id": "f11-theorem1-approx",
+      "paper_id": "iclr2024-generalizable",
+      "title": "少量显著交互近似全部输出（外引）",
+      "kind": "external_theorem_component",
+      "original_label": "Theorem 1, approximate clause",
+      "inventory_ids": [
+        "f11-theorem1-approx"
+      ],
+      "source_refs": [
+        {
+          "source_id": "src-iclr2024-generalizable-main",
+          "pdf_page": 3,
+          "text_path": "research/full-proof-integration-20260930/iclr2024-generalizable/source-review/all-pages.txt",
+          "page_text_json_path": "research/paper-survey-20260930/recent/text/iclr2024-generalizable.pages.json",
+          "image_path": "research/full-proof-integration-20260930/iclr2024-generalizable/source-review/page-03.png"
+        }
+      ],
+      "statement_tex": "v(x_S)\\approx\\sum_{T\\subseteq S:T\\in\\Omega}I_{\\rm and}(T\\mid x)",
+      "assumptions": [],
+      "definitions": [
+        "sym-model",
+        "sym-input",
+        "sym-input-baseline",
+        "sym-mask",
+        "sym-universe",
+        "sym-coalition",
+        "sym-game",
+        "sym-output-baseline",
+        "sym-and-interaction",
+        "sym-threshold",
+        "sym-significant-set"
+      ],
+      "symbol_ids": [
+        "sym-model",
+        "sym-input",
+        "sym-input-baseline",
+        "sym-mask",
+        "sym-universe",
+        "sym-coalition",
+        "sym-game",
+        "sym-output-baseline",
+        "sym-and-interaction",
+        "sym-threshold",
+        "sym-significant-set"
+      ],
+      "overview": "近似子句完整解释，不宣称未量化的原≈与≪已成为完整Lean定理。",
+      "proof_steps": [
+        {
+          "id": "f11-theorem1-approx-step-1",
+          "title": "分离精确与近似子句",
+          "body_md": "Theorem1的精确全交互重构由有限Möbius恒等式支持，公共证明完整。其少量显著交互≈子句外引Sparse理论与经验稀疏，没有规定统一精度。原approx求和含空集当且仅当∅∈Ω，不能无条件另加基线。令Ω为保留族，raw交互I(∅)=g(∅)，精确重构给含空集在内的遗漏项之和；这解释近似依赖，但没有自动认证其大小。",
+          "formula_tex": "g(S)-\\sum_{T\\subseteq S:T\\in\\Omega}I_g(T)=\\sum_{T\\subseteq S:T\\notin\\Omega}I_g(T)",
+          "justification": "有限索引族分组与完整重构",
+          "lean_refs": []
+        },
+        {
+          "id": "f11-theorem1-approx-step-2",
+          "title": "近似语义",
+          "body_md": "原文没有给ε或统一误差上界，也没有把“few salient”量化。项目不新增误差前提或将该子句换为阈值误差定理；实验匹配图与外引严格界另列。",
+          "formula_tex": "",
+          "justification": "≈原义与来源边界",
+          "lean_refs": []
+        }
+      ],
+      "shared_proof_ids": [
+        "proof-finite-mobius-reconstruction-v2"
+      ],
+      "rewrite_status": "complete",
+      "alignment_status": "agent_checked_formal_source_scope",
+      "user_review_status": "pending",
+      "completion_scope": "近似子句完整解释，不宣称未量化的原≈与≪已成为完整Lean定理。",
+      "statement_status": "unquantified_approximation_external_component",
+      "lean": {
+        "status": "not_formalized",
+        "verification_role": "none",
+        "completion_scope": "No complete Lean claim for this original target"
+      },
+      "related_issue_ids": [],
+      "notation_map": [
+        {
+          "source": "v(x_T)",
+          "canonical": "g(T)",
+          "meaning": "fixed input and fixed baseline masked-output game; g(∅) unrestricted"
+        }
+      ],
+      "verification_role": "scope_explanation"
+    },
+    {
+      "id": "f11-proposition1",
+      "paper_id": "iclr2024-generalizable",
+      "title": "少量AND-OR交互近似输出",
+      "kind": "proposition",
+      "original_label": "Proposition 1",
+      "inventory_ids": [
+        "f11-proposition1"
+      ],
+      "source_refs": [
+        {
+          "source_id": "src-iclr2024-generalizable-main",
+          "pdf_page": 4,
+          "text_path": "research/full-proof-integration-20260930/iclr2024-generalizable/source-review/all-pages.txt",
+          "page_text_json_path": "research/paper-survey-20260930/recent/text/iclr2024-generalizable.pages.json",
+          "image_path": "research/full-proof-integration-20260930/iclr2024-generalizable/source-review/page-04.png"
+        }
+      ],
+      "statement_tex": "v(x_T)\\approx v(x_\\varnothing)+\\sum_{\\varnothing\\ne S\\subseteq T:S\\in\\Omega_{\\rm and}}I_{\\rm and}(S\\mid x_T)+\\sum_{S\\cap T\\ne\\varnothing:S\\in\\Omega_{\\rm or}}I_{\\rm or}(S\\mid x_T)",
+      "assumptions": [
+        "原well-trained表述不改写为项目新前提"
+      ],
+      "definitions": [
+        "sym-model",
+        "sym-input",
+        "sym-input-baseline",
+        "sym-mask",
+        "sym-universe",
+        "sym-coalition",
+        "sym-game",
+        "sym-output-baseline",
+        "sym-and-output",
+        "sym-or-output",
+        "sym-and-component-interaction",
+        "sym-or-interaction",
+        "sym-significant-set",
+        "sym-conditional-interaction"
+      ],
+      "symbol_ids": [
+        "sym-model",
+        "sym-input",
+        "sym-input-baseline",
+        "sym-mask",
+        "sym-universe",
+        "sym-coalition",
+        "sym-game",
+        "sym-output-baseline",
+        "sym-and-output",
+        "sym-or-output",
+        "sym-and-component-interaction",
+        "sym-or-interaction",
+        "sym-significant-set",
+        "sym-conditional-interaction"
+      ],
+      "overview": "原命题近似与小族主张仍属未量化来源；完整解释其精确依赖与遗漏项，不声称泛化稀疏已严格证明。",
+      "proof_steps": [
+        {
+          "id": "f11-proposition1-step-1",
+          "title": "全部交互精确匹配",
+          "body_md": "原式的条件输入x_T不能丢失。固定同一模型分量vand+vor=v与同一输入基线，定义g^T(L)=v(x_(T∩L))，gand^T(L)=vand(x_(T∩L))，gor^T(L)=vor(x_(T∩L))；这来自重复掩码的交集恒等式。令Iand^T、Ior^T分别为这些条件游戏在同一总体N上的raw AND/OR变换，即原I(S|x_T)。对AND，只保留S⊆T；OR激活族取S∩T≠∅并加原空集项。全部条件游戏在空集的分量和为v(x∅)，在T上的分量和为v(xT)，所以原literal Theorem2精确匹配成立。不能把OR逐项系数Ior^T换成未掩码输入Ior。",
+          "formula_tex": "v(x_T)=v(x_\\varnothing)+\\sum_{\\varnothing\\ne S\\subseteq T}I_{\\rm and}^{T}(S)+\\sum_{S\\cap T\\ne\\varnothing}I_{\\rm or}^{T}(S)",
+          "justification": "本篇Theorem2的完整共享证明",
+          "lean_refs": []
+        },
+        {
+          "id": "f11-proposition1-step-2",
+          "title": "显著族截断的实际余项",
+          "body_md": "从上式分别移除Ωand、Ωor外的项，误差恰为两组条件交互的遗漏和；每个T的系数族I^T都保持原条件输入。作者要求两显著族≪2^n且能近似所有掩码，但未给本篇独立定量推导；对所有任意分解，精确重构本身不保证这两个余项小。",
+          "formula_tex": "\\text{error}(T)=\\sum_{\\varnothing\\ne S\\subseteq T:S\\notin\\Omega_{\\rm and}}I_{\\rm and}^{T}(S)+\\sum_{S\\cap T\\ne\\varnothing:S\\notin\\Omega_{\\rm or}}I_{\\rm or}^{T}(S)",
+          "justification": "有限分组；不补误差或稀疏假设",
+          "lean_refs": []
+        }
+      ],
+      "shared_proof_ids": [
+        "shared-harsanyi-or-reconstruction",
+        "proof-finite-mobius-reconstruction-v2"
+      ],
+      "rewrite_status": "complete",
+      "alignment_status": "agent_checked_formal_source_scope",
+      "user_review_status": "pending",
+      "completion_scope": "原命题近似与小族主张仍属未量化来源；完整解释其精确依赖与遗漏项，不声称泛化稀疏已严格证明。",
+      "statement_status": "unquantified_approximation_no_local_proof",
+      "lean": {
+        "status": "not_formalized",
+        "verification_role": "none",
+        "completion_scope": "No complete Lean claim for this original target"
+      },
+      "related_issue_ids": [],
+      "notation_map": [
+        {
+          "source": "v(x_T)",
+          "canonical": "g(T)",
+          "meaning": "fixed input and fixed baseline masked-output game; g(∅) unrestricted"
+        }
+      ],
+      "verification_role": "scope_explanation"
+    },
+    {
+      "id": "f11-reparameterization",
+      "paper_id": "iclr2024-generalizable",
+      "title": "AND-OR分解与gamma的一一重参数",
+      "kind": "unnumbered_derivation",
+      "original_label": "Section 2.3; Section 2.3.2",
+      "inventory_ids": [
+        "f11-reparameterization"
+      ],
+      "source_refs": [
+        {
+          "source_id": "src-iclr2024-generalizable-main",
+          "pdf_page": 4,
+          "text_path": "research/full-proof-integration-20260930/iclr2024-generalizable/source-review/all-pages.txt",
+          "page_text_json_path": "research/paper-survey-20260930/recent/text/iclr2024-generalizable.pages.json",
+          "image_path": "research/full-proof-integration-20260930/iclr2024-generalizable/source-review/page-04.png"
+        },
+        {
+          "source_id": "src-iclr2024-generalizable-main",
+          "pdf_page": 6,
+          "text_path": "research/full-proof-integration-20260930/iclr2024-generalizable/source-review/all-pages.txt",
+          "page_text_json_path": "research/paper-survey-20260930/recent/text/iclr2024-generalizable.pages.json",
+          "image_path": "research/full-proof-integration-20260930/iclr2024-generalizable/source-review/page-06.png"
+        }
+      ],
+      "statement_tex": "g_{\\rm and}(T)=\\tfrac12g(T)+\\gamma_T,\\quad g_{\\rm or}(T)=\\tfrac12g(T)-\\gamma_T",
+      "assumptions": [],
+      "definitions": [
+        "sym-model",
+        "sym-input",
+        "sym-input-baseline",
+        "sym-mask",
+        "sym-universe",
+        "sym-coalition",
+        "sym-game",
+        "sym-output-baseline",
+        "sym-and-output",
+        "sym-or-output",
+        "sym-decomposition-parameter"
+      ],
+      "symbol_ids": [
+        "sym-model",
+        "sym-input",
+        "sym-input-baseline",
+        "sym-mask",
+        "sym-universe",
+        "sym-coalition",
+        "sym-game",
+        "sym-output-baseline",
+        "sym-and-output",
+        "sym-or-output",
+        "sym-decomposition-parameter"
+      ],
+      "overview": "全部掩码、任意模型输出与任意分解的一一重参数证明。",
+      "proof_steps": [
+        {
+          "id": "f11-reparameterization-step-1",
+          "title": "由参数得到分解",
+          "body_md": "固定输入、模型与掩码基线，取任意实数族γT。逐个T相加，+γT和−γT抵消，故两分量之和是原g(T)，包括空集和未中心化输出基线。",
+          "formula_tex": "(g(T)/2+\\gamma_T)+(g(T)/2-\\gamma_T)=g(T)",
+          "justification": "实数加法恒等式",
+          "lean_refs": [
+            {
+              "declaration": "FullGeneralizableAnalysis.masked_model_decomposition",
+              "source_path": "research/full-proof-integration-20260930/iclr2024-sparse/lean/FullGeneralizableAnalysis.lean",
+              "line": 28,
+              "scope": "actual Game(Fin n) on all 2^n original masks, arbitrary real output baseline; unique gamma vector for any original decomposition",
+              "report_path": "research/full-proof-integration-20260930/iclr2024-sparse/verification/report.json"
+            },
+            {
+              "declaration": "FullGeneralizableAnalysis.decomposition_iff_unique_gamma",
+              "source_path": "research/full-proof-integration-20260930/iclr2024-sparse/lean/FullGeneralizableAnalysis.lean",
+              "line": 11,
+              "scope": "actual Game(Fin n) on all 2^n original masks, arbitrary real output baseline; unique gamma vector for any original decomposition",
+              "report_path": "research/full-proof-integration-20260930/iclr2024-sparse/verification/report.json"
+            }
+          ]
+        },
+        {
+          "id": "f11-reparameterization-step-2",
+          "title": "由分解恢复唯一参数",
+          "body_md": "若给定任意分量a(T)+b(T)=g(T)，取γT=(a(T)−b(T))/2。代入得到a=g/2+γ及b=g/2−γ。任一参数若满足第一等式，必为a−g/2，因此γ唯一。全体掩码逐点证明给集合函数的一一重参数，不依赖优化成功。",
+          "formula_tex": "\\gamma_T=(a(T)-b(T))/2=a(T)-g(T)/2",
+          "justification": "实数恒等式与函数外延",
+          "lean_refs": [
+            {
+              "declaration": "FullGeneralizableAnalysis.masked_model_decomposition",
+              "source_path": "research/full-proof-integration-20260930/iclr2024-sparse/lean/FullGeneralizableAnalysis.lean",
+              "line": 28,
+              "scope": "actual Game(Fin n) on all 2^n original masks, arbitrary real output baseline; unique gamma vector for any original decomposition",
+              "report_path": "research/full-proof-integration-20260930/iclr2024-sparse/verification/report.json"
+            },
+            {
+              "declaration": "FullGeneralizableAnalysis.decomposition_iff_unique_gamma",
+              "source_path": "research/full-proof-integration-20260930/iclr2024-sparse/lean/FullGeneralizableAnalysis.lean",
+              "line": 11,
+              "scope": "actual Game(Fin n) on all 2^n original masks, arbitrary real output baseline; unique gamma vector for any original decomposition",
+              "report_path": "research/full-proof-integration-20260930/iclr2024-sparse/verification/report.json"
+            }
+          ]
+        },
+        {
+          "id": "f11-reparameterization-step-3",
+          "title": "多模型适配",
+          "body_md": "对每个模型i独立使用同一论证，得到γT^(i)和分量；此时γ模型索引不是共享γ，保留后续共同/个体参数约束的区别。",
+          "formula_tex": "",
+          "justification": "逐模型全称化",
+          "lean_refs": [
+            {
+              "declaration": "FullGeneralizableAnalysis.masked_model_decomposition",
+              "source_path": "research/full-proof-integration-20260930/iclr2024-sparse/lean/FullGeneralizableAnalysis.lean",
+              "line": 28,
+              "scope": "actual Game(Fin n) on all 2^n original masks, arbitrary real output baseline; unique gamma vector for any original decomposition",
+              "report_path": "research/full-proof-integration-20260930/iclr2024-sparse/verification/report.json"
+            },
+            {
+              "declaration": "FullGeneralizableAnalysis.decomposition_iff_unique_gamma",
+              "source_path": "research/full-proof-integration-20260930/iclr2024-sparse/lean/FullGeneralizableAnalysis.lean",
+              "line": 11,
+              "scope": "actual Game(Fin n) on all 2^n original masks, arbitrary real output baseline; unique gamma vector for any original decomposition",
+              "report_path": "research/full-proof-integration-20260930/iclr2024-sparse/verification/report.json"
+            }
+          ]
+        }
+      ],
+      "shared_proof_ids": [],
+      "rewrite_status": "complete",
+      "alignment_status": "agent_checked_formal_source_scope",
+      "user_review_status": "pending",
+      "completion_scope": "全部掩码、任意模型输出与任意分解的一一重参数证明。",
+      "statement_status": "same_original_mathematical_target",
+      "lean": {
+        "status": "verified",
+        "verification_role": "theorem_proof",
+        "evidence_role": "theorem_proof",
+        "declarations": [
+          "FullGeneralizableAnalysis.masked_model_decomposition",
+          "FullGeneralizableAnalysis.decomposition_iff_unique_gamma"
+        ],
+        "scope": "actual Game(Fin n) on all 2^n original masks, arbitrary real output baseline; unique gamma vector for any original decomposition",
+        "completion_scope": "actual Game(Fin n) on all 2^n original masks, arbitrary real output baseline; unique gamma vector for any original decomposition",
+        "report_path": "research/full-proof-integration-20260930/iclr2024-sparse/verification/report.json",
+        "compiled": true,
+        "axiom_audit": "passed",
+        "build_id": "sparse-analysis-full-20260930",
+        "source_fingerprint": "b14a2d969ff03beeca33163d79f67c2afe4170302c813adfb1b58e725426d2aa",
+        "source_path": "research/full-proof-integration-20260930/iclr2024-sparse/lean/FullGeneralizableAnalysis.lean",
+        "line": 28,
+        "statement": "∀ (n : Nat) (v : (Fin n → Real) → Real) (r x : Fin n → Real) (a b : Harsanyi.Game.{0} (Fin n)),\n  (∀ (T : Finset.{0} (Fin n)), Eq.{1} (HAdd.hAdd.{0, 0, 0} (a T) (b T)) (v (Harsanyi.maskCoordinates.{0, 0} r x T))) →\n    ExistsUnique.{1} fun γ =>\n      And\n        (∀ (T : Finset.{0} (Fin n)),\n          Eq.{1} (a T) (HAdd.hAdd.{0, 0, 0} (HDiv.hDiv.{0, 0, 0} (v (Harsanyi.maskCoordinates.{0, 0} r x T)) 2) (γ T)))\n        (∀ (T : Finset.{0} (Fin n)),\n          Eq.{1} (b T) (HSub.hSub.{0, 0, 0} (HDiv.hDiv.{0, 0, 0} (v (Harsanyi.maskCoordinates.{0, 0} r x T)) 2) (γ T)))",
+        "axioms": [
+          "Classical.choice",
+          "Quot.sound",
+          "propext"
+        ],
+        "source_semantics_automatically_verified": false
+      },
+      "related_issue_ids": [],
+      "notation_map": [
+        {
+          "source": "v(x_T)",
+          "canonical": "g(T)",
+          "meaning": "fixed input and fixed baseline masked-output game; g(∅) unrestricted"
+        }
+      ],
+      "verification_role": "theorem_proof"
+    },
+    {
+      "id": "f11-rowmax-penalty",
+      "paper_id": "iclr2024-generalizable",
+      "title": "不超过已有行最大强度时不增加该行惩罚",
+      "kind": "unnumbered_derivation",
+      "original_label": "Section 2.3.2, following Eq.(5)",
+      "inventory_ids": [
+        "f11-rowmax-penalty"
+      ],
+      "source_refs": [
+        {
+          "source_id": "src-iclr2024-generalizable-main",
+          "pdf_page": 6,
+          "text_path": "research/full-proof-integration-20260930/iclr2024-generalizable/source-review/all-pages.txt",
+          "page_text_json_path": "research/paper-survey-20260930/recent/text/iclr2024-generalizable.pages.json",
+          "image_path": "research/full-proof-integration-20260930/iclr2024-generalizable/source-review/page-06.png"
+        }
+      ],
+      "statement_tex": "\\operatorname{rowmax}(A)_S=\\max_{1\\le i\\le m}|A_{S,i}|",
+      "assumptions": [
+        "有限m≥1模型；固定行S"
+      ],
+      "definitions": [
+        "sym-model",
+        "sym-input",
+        "sym-input-baseline",
+        "sym-mask",
+        "sym-universe",
+        "sym-coalition",
+        "sym-game",
+        "sym-output-baseline",
+        "sym-model-count",
+        "sym-interaction-matrix",
+        "sym-rowmax",
+        "sym-entrywise-l1"
+      ],
+      "symbol_ids": [
+        "sym-model",
+        "sym-input",
+        "sym-input-baseline",
+        "sym-mask",
+        "sym-universe",
+        "sym-coalition",
+        "sym-game",
+        "sym-output-baseline",
+        "sym-model-count",
+        "sym-interaction-matrix",
+        "sym-rowmax",
+        "sym-entrywise-l1"
+      ],
+      "overview": "原行ℓ∞惩罚的全部有限模型局部不变性；不扩成未给出的最优支撑定理。",
+      "proof_steps": [
+        {
+          "id": "f11-rowmax-penalty-step-1",
+          "title": "原行范数",
+          "body_md": "p6定义每行ℓ∞，所以行惩罚是R=max_i|a_i|≥0。若模型j的交互强度已达到R，而其他模型交互强度改变后仍不超过R且j保持该值，新的最大值≤R；保留的j项又给最大值≥R。",
+          "formula_tex": "|a_j|=R,\\quad |b_j|=R,\\quad\\forall i\\ |b_i|\\le R\\quad\\Rightarrow\\quad\\max_i|b_i|=R",
+          "justification": "有限最大值的上下界",
+          "lean_refs": [
+            {
+              "declaration": "FullGeneralizableAnalysis.rowStrength_plateau",
+              "source_path": "research/full-proof-integration-20260930/iclr2024-sparse/lean/FullGeneralizableAnalysis.lean",
+              "line": 41,
+              "scope": "arbitrary finite nonempty model family; all signs allowed; row l∞ plateau with one retained maximizing component; no global support optimum claim",
+              "report_path": "research/full-proof-integration-20260930/iclr2024-sparse/verification/report.json"
+            }
+          ]
+        },
+        {
+          "id": "f11-rowmax-penalty-step-2",
+          "title": "总损失的局部不变性",
+          "body_md": "只改变该行、保持其他行时，rowmax向量该坐标不变，因此其ℓ1和不变。这是作者“other models without a penalty”的精确含义；它允许该行的其他值在强度R以内变化，不限制符号。",
+          "formula_tex": "\\sum_S\\max_i|A_{S,i}|\\text{ unchanged}",
+          "justification": "有限求和逐坐标相等",
+          "lean_refs": [
+            {
+              "declaration": "FullGeneralizableAnalysis.rowStrength_plateau",
+              "source_path": "research/full-proof-integration-20260930/iclr2024-sparse/lean/FullGeneralizableAnalysis.lean",
+              "line": 41,
+              "scope": "arbitrary finite nonempty model family; all signs allowed; row l∞ plateau with one retained maximizing component; no global support optimum claim",
+              "report_path": "research/full-proof-integration-20260930/iclr2024-sparse/verification/report.json"
+            }
+          ]
+        },
+        {
+          "id": "f11-rowmax-penalty-step-3",
+          "title": "优化解释边界",
+          "body_md": "原文说该目标鼓励共享稀疏集合，这是一种优化设计解释。上述平坦区性质没有证明每个最优解具有相同支撑，也没有保证训练得到的交互跨模型泛化；不追加这种全局结论。",
+          "formula_tex": "",
+          "justification": "局部代数性质与经验主张分别呈现",
+          "lean_refs": [
+            {
+              "declaration": "FullGeneralizableAnalysis.rowStrength_plateau",
+              "source_path": "research/full-proof-integration-20260930/iclr2024-sparse/lean/FullGeneralizableAnalysis.lean",
+              "line": 41,
+              "scope": "arbitrary finite nonempty model family; all signs allowed; row l∞ plateau with one retained maximizing component; no global support optimum claim",
+              "report_path": "research/full-proof-integration-20260930/iclr2024-sparse/verification/report.json"
+            }
+          ]
+        }
+      ],
+      "shared_proof_ids": [],
+      "rewrite_status": "complete",
+      "alignment_status": "agent_checked_formal_source_scope",
+      "user_review_status": "pending",
+      "completion_scope": "原行ℓ∞惩罚的全部有限模型局部不变性；不扩成未给出的最优支撑定理。",
+      "statement_status": "same_original_mathematical_target",
+      "lean": {
+        "status": "verified",
+        "verification_role": "theorem_proof",
+        "evidence_role": "theorem_proof",
+        "declarations": [
+          "FullGeneralizableAnalysis.rowStrength_plateau"
+        ],
+        "scope": "arbitrary finite nonempty model family; all signs allowed; row l∞ plateau with one retained maximizing component; no global support optimum claim",
+        "completion_scope": "arbitrary finite nonempty model family; all signs allowed; row l∞ plateau with one retained maximizing component; no global support optimum claim",
+        "report_path": "research/full-proof-integration-20260930/iclr2024-sparse/verification/report.json",
+        "compiled": true,
+        "axiom_audit": "passed",
+        "build_id": "sparse-analysis-full-20260930",
+        "source_fingerprint": "b14a2d969ff03beeca33163d79f67c2afe4170302c813adfb1b58e725426d2aa",
+        "source_path": "research/full-proof-integration-20260930/iclr2024-sparse/lean/FullGeneralizableAnalysis.lean",
+        "line": 41,
+        "statement": "∀ {ι : Type u_3} (I : Finset.{u_3} ι) (hI : Finset.Nonempty.{u_3} I) (a b : ι → Real) (j : ι),\n  Membership.mem.{u_3, u_3} I j →\n    (∀ (i : ι), Membership.mem.{u_3, u_3} I i → LE.le.{0} (abs.{0} (a i)) (abs.{0} (a j))) →\n      (∀ (i : ι), Membership.mem.{u_3, u_3} I i → LE.le.{0} (abs.{0} (b i)) (abs.{0} (a j))) →\n        Eq.{1} (abs.{0} (b j)) (abs.{0} (a j)) →\n          Eq.{1} (FullGeneralizableAnalysis.rowStrength.{u_3} I hI b)\n            (FullGeneralizableAnalysis.rowStrength.{u_3} I hI a)",
+        "axioms": [
+          "Classical.choice",
+          "Quot.sound",
+          "propext"
+        ],
+        "source_semantics_automatically_verified": false
+      },
+      "related_issue_ids": [],
+      "notation_map": [
+        {
+          "source": "v(x_T)",
+          "canonical": "g(T)",
+          "meaning": "fixed input and fixed baseline masked-output game; g(∅) unrestricted"
+        }
+      ],
+      "verification_role": "theorem_proof"
+    },
+    {
+      "id": "f11-and-variance",
+      "paper_id": "iclr2024-generalizable",
+      "title": "独立高斯噪声的AND交互方差",
+      "kind": "unnumbered_theorem",
+      "original_label": "Section 2.3.2; Appendix D",
+      "inventory_ids": [
+        "f11-and-variance"
+      ],
+      "source_refs": [
+        {
+          "source_id": "src-iclr2024-generalizable-main",
+          "pdf_page": 7,
+          "text_path": "research/full-proof-integration-20260930/iclr2024-generalizable/source-review/all-pages.txt",
+          "page_text_json_path": "research/paper-survey-20260930/recent/text/iclr2024-generalizable.pages.json",
+          "image_path": "research/full-proof-integration-20260930/iclr2024-generalizable/source-review/page-07.png"
+        },
+        {
+          "source_id": "src-iclr2024-generalizable-main",
+          "pdf_page": 15,
+          "text_path": "research/full-proof-integration-20260930/iclr2024-generalizable/source-review/all-pages.txt",
+          "page_text_json_path": "research/paper-survey-20260930/recent/text/iclr2024-generalizable.pages.json",
+          "image_path": "research/full-proof-integration-20260930/iclr2024-generalizable/source-review/page-15.png"
+        }
+      ],
+      "statement_tex": "\\operatorname{Var}(I′_{\\rm and}(T))=2^{|T|}\\sigma^2",
+      "assumptions": [
+        "固定模型/输入/基线及固定未加噪交互",
+        "原Appendix D：全部输出噪声独立同分布N(0,σ²)",
+        "随机变量对全部噪声联合样本求方差，不把自适应γ假设为固定"
+      ],
+      "definitions": [
+        "sym-model",
+        "sym-input",
+        "sym-input-baseline",
+        "sym-mask",
+        "sym-universe",
+        "sym-coalition",
+        "sym-game",
+        "sym-output-baseline",
+        "sym-and-interaction",
+        "sym-gaussian-noise",
+        "sym-noise-variance"
+      ],
+      "symbol_ids": [
+        "sym-model",
+        "sym-input",
+        "sym-input-baseline",
+        "sym-mask",
+        "sym-universe",
+        "sym-coalition",
+        "sym-game",
+        "sym-output-baseline",
+        "sym-and-interaction",
+        "sym-gaussian-noise",
+        "sym-noise-variance"
+      ],
+      "overview": "原Appendix D固定交互与IID扰动模型的完整随机变量方差证明；不代表重新优化分解γ后的方差。",
+      "proof_steps": [
+        {
+          "id": "f11-and-variance-step-1",
+          "title": "原实际随机变量身份",
+          "body_md": "Appendix D明确给I′(T)=I(T)+ΣL⊆T cL εL，cL=(−1)^(|T|−|L|)。固定I(T)为常数，所以平移不改变方差。每个高斯项有二阶矩，变号后仍有二阶矩。",
+          "formula_tex": "I′(T)=I(T)+\\sum_{L\\subseteq T}(-1)^{|T|-|L|}\\varepsilon_L",
+          "justification": "原Proof身份与常数平移",
+          "lean_refs": [
+            {
+              "declaration": "FullGeneralizableAnalysis.masked_model_and_variance",
+              "source_path": "research/full-proof-integration-20260930/iclr2024-sparse/lean/FullGeneralizableAnalysis.lean",
+              "line": 77,
+              "scope": "actual masked-model output perturbation, all subset IID Gaussian noises, including raw AND empty output baseline; fixed original I, not adaptively optimized gamma",
+              "report_path": "research/full-proof-integration-20260930/iclr2024-sparse/verification/report.json"
+            },
+            {
+              "declaration": "Harsanyi.noisy_masked_and_variance",
+              "source_path": "lean/HarsanyiLib/Harsanyi/Extensions/Noise.lean",
+              "line": 124,
+              "scope": "actual masked-model output perturbation, all subset IID Gaussian noises, including raw AND empty output baseline; fixed original I, not adaptively optimized gamma",
+              "report_path": "research/full-proof-integration-20260930/iclr2024-sparse/verification/report.json"
+            }
+          ]
+        },
+        {
+          "id": "f11-and-variance-step-2",
+          "title": "独立性与方差可加",
+          "body_md": "对不同L，原IID噪声独立；各自乘确定符号保持独立。有限独立平方可积和的方差是各项方差和，不需要假设待证结论。每个符号平方1，因此每项方差σ²。",
+          "formula_tex": "\\operatorname{Var}\\left(\\sum_{L\\subseteq T}c_L\\varepsilon_L\\right)=\\sum_{L\\subseteq T}c_L^2\\sigma^2",
+          "justification": "独立随机变量的协方差为零",
+          "lean_refs": [
+            {
+              "declaration": "FullGeneralizableAnalysis.masked_model_and_variance",
+              "source_path": "research/full-proof-integration-20260930/iclr2024-sparse/lean/FullGeneralizableAnalysis.lean",
+              "line": 77,
+              "scope": "actual masked-model output perturbation, all subset IID Gaussian noises, including raw AND empty output baseline; fixed original I, not adaptively optimized gamma",
+              "report_path": "research/full-proof-integration-20260930/iclr2024-sparse/verification/report.json"
+            },
+            {
+              "declaration": "Harsanyi.noisy_masked_and_variance",
+              "source_path": "lean/HarsanyiLib/Harsanyi/Extensions/Noise.lean",
+              "line": 124,
+              "scope": "actual masked-model output perturbation, all subset IID Gaussian noises, including raw AND empty output baseline; fixed original I, not adaptively optimized gamma",
+              "report_path": "research/full-proof-integration-20260930/iclr2024-sparse/verification/report.json"
+            }
+          ]
+        },
+        {
+          "id": "f11-and-variance-step-3",
+          "title": "计数与来源式修复",
+          "body_md": "T的子集恰有2^|T|个，故结论成立；T=∅时原raw AND只有输出基线项，其噪声方差σ²，仍满足式。p15首句跨S中心和单εT下标是记号问题；实际同T方差按原Proof而非该首句解释，原首句单列issue。",
+          "formula_tex": "\\sum_{L\\subseteq T}\\sigma^2=2^{|T|}\\sigma^2",
+          "justification": "幂集基数与原raw空集约定",
+          "lean_refs": [
+            {
+              "declaration": "FullGeneralizableAnalysis.masked_model_and_variance",
+              "source_path": "research/full-proof-integration-20260930/iclr2024-sparse/lean/FullGeneralizableAnalysis.lean",
+              "line": 77,
+              "scope": "actual masked-model output perturbation, all subset IID Gaussian noises, including raw AND empty output baseline; fixed original I, not adaptively optimized gamma",
+              "report_path": "research/full-proof-integration-20260930/iclr2024-sparse/verification/report.json"
+            },
+            {
+              "declaration": "Harsanyi.noisy_masked_and_variance",
+              "source_path": "lean/HarsanyiLib/Harsanyi/Extensions/Noise.lean",
+              "line": 124,
+              "scope": "actual masked-model output perturbation, all subset IID Gaussian noises, including raw AND empty output baseline; fixed original I, not adaptively optimized gamma",
+              "report_path": "research/full-proof-integration-20260930/iclr2024-sparse/verification/report.json"
+            }
+          ]
+        }
+      ],
+      "shared_proof_ids": [],
+      "rewrite_status": "complete",
+      "alignment_status": "agent_checked_formal_source_scope",
+      "user_review_status": "pending",
+      "completion_scope": "原Appendix D固定交互与IID扰动模型的完整随机变量方差证明；不代表重新优化分解γ后的方差。",
+      "statement_status": "same_original_mathematical_target",
+      "lean": {
+        "status": "verified",
+        "verification_role": "theorem_proof",
+        "evidence_role": "theorem_proof",
+        "declarations": [
+          "FullGeneralizableAnalysis.masked_model_and_variance",
+          "Harsanyi.noisy_masked_and_variance"
+        ],
+        "scope": "actual masked-model output perturbation, all subset IID Gaussian noises, including raw AND empty output baseline; fixed original I, not adaptively optimized gamma",
+        "completion_scope": "actual masked-model output perturbation, all subset IID Gaussian noises, including raw AND empty output baseline; fixed original I, not adaptively optimized gamma",
+        "report_path": "research/full-proof-integration-20260930/iclr2024-sparse/verification/report.json",
+        "compiled": true,
+        "axiom_audit": "passed",
+        "build_id": "sparse-analysis-full-20260930",
+        "source_fingerprint": "b14a2d969ff03beeca33163d79f67c2afe4170302c813adfb1b58e725426d2aa",
+        "source_path": "research/full-proof-integration-20260930/iclr2024-sparse/lean/FullGeneralizableAnalysis.lean",
+        "line": 77,
+        "statement": "∀ {Ω : Type u_4} [inst : MeasurableSpace.{u_4} Ω] (n : Nat) (v : (Fin n → Real) → Real) (r x : Fin n → Real)\n  (μ : MeasureTheory.Measure.{u_4} Ω) [MeasureTheory.IsProbabilityMeasure.{u_4} μ] (T : Finset.{0} (Fin n))\n  (ε : Finset.{0} (Fin n) → Ω → Real) (σ2 : NNReal),\n  (∀ (L : Finset.{0} (Fin n)), Membership.mem.{0, 0} (Finset.powerset.{0} T) L → Measurable.{u_4, 0} (ε L)) →\n    (∀ (L : Finset.{0} (Fin n)),\n        Membership.mem.{0, 0} (Finset.powerset.{0} T) L →\n          Eq.{1} (MeasureTheory.Measure.map.{u_4, 0} (ε L) μ) (ProbabilityTheory.gaussianReal 0 σ2)) →\n      (Set.Pairwise.{0} ↑(Finset.powerset.{0} T) fun L K => ProbabilityTheory.IndepFun.{u_4, 0, 0} (ε L) (ε K) μ) →\n        Eq.{1}\n          (ProbabilityTheory.variance.{u_4}\n            (fun ω =>\n              Harsanyi.interaction.{0}\n                (fun L => HAdd.hAdd.{0, 0, 0} (v (Harsanyi.maskCoordinates.{0, 0} r x L)) (ε L ω)) T)\n            μ)\n          (HMul.hMul.{0, 0, 0} (HPow.hPow.{0, 0, 0} 2 (Finset.card.{0} T)) ↑σ2)",
+        "axioms": [
+          "Classical.choice",
+          "Quot.sound",
+          "propext"
+        ],
+        "source_semantics_automatically_verified": false
+      },
+      "related_issue_ids": [
+        "f11-issue-variance-expectation-indices"
+      ],
+      "notation_map": [
+        {
+          "source": "v(x_T)",
+          "canonical": "g(T)",
+          "meaning": "fixed input and fixed baseline masked-output game; g(∅) unrestricted"
+        }
+      ],
+      "verification_role": "theorem_proof"
+    },
+    {
+      "id": "f11-or-variance",
+      "paper_id": "iclr2024-generalizable",
+      "title": "独立高斯噪声的OR交互方差",
+      "kind": "unnumbered_theorem",
+      "original_label": "Section 2.3.2, Similarly",
+      "inventory_ids": [
+        "f11-or-variance"
+      ],
+      "source_refs": [
+        {
+          "source_id": "src-iclr2024-generalizable-main",
+          "pdf_page": 7,
+          "text_path": "research/full-proof-integration-20260930/iclr2024-generalizable/source-review/all-pages.txt",
+          "page_text_json_path": "research/paper-survey-20260930/recent/text/iclr2024-generalizable.pages.json",
+          "image_path": "research/full-proof-integration-20260930/iclr2024-generalizable/source-review/page-07.png"
+        }
+      ],
+      "statement_tex": "\\operatorname{Var}(I′_{\\rm or}(T))=2^{|T|}\\sigma^2",
+      "assumptions": [
+        "固定模型/输入/基线及固定未加噪交互",
+        "原Appendix D：全部输出噪声独立同分布N(0,σ²)",
+        "随机变量对全部噪声联合样本求方差，不把自适应γ假设为固定"
+      ],
+      "definitions": [
+        "sym-model",
+        "sym-input",
+        "sym-input-baseline",
+        "sym-mask",
+        "sym-universe",
+        "sym-coalition",
+        "sym-game",
+        "sym-output-baseline",
+        "sym-or-interaction",
+        "sym-gaussian-noise",
+        "sym-noise-variance"
+      ],
+      "symbol_ids": [
+        "sym-model",
+        "sym-input",
+        "sym-input-baseline",
+        "sym-mask",
+        "sym-universe",
+        "sym-coalition",
+        "sym-game",
+        "sym-output-baseline",
+        "sym-or-interaction",
+        "sym-gaussian-noise",
+        "sym-noise-variance"
+      ],
+      "overview": "完整补集重索引与原OR空集分支的IID方差证明；本篇“Similarly”未给独立原OR细证。",
+      "proof_steps": [
+        {
+          "id": "f11-or-variance-step-1",
+          "title": "非空交互实际展开",
+          "body_md": "对非空T⊆N，OR原定义为补集输出的负Möbius变换。将固定gor(L)扰动为gor(L)+εL，有限求和分配即I′or(T)=Ior(T)−ΣL⊆T(−1)^(|T|−|L|)ε(N\\L)。这来自定义，不把等式当目标假设。",
+          "formula_tex": "I′_{\\rm or}(T)=I_{\\rm or}(T)-\\sum_{L\\subseteq T}(-1)^{|T|-|L|}\\varepsilon_{N\\setminus L}",
+          "justification": "原OR定义与线性分配",
+          "lean_refs": [
+            {
+              "declaration": "FullGeneralizableAnalysis.masked_model_or_variance",
+              "source_path": "research/full-proof-integration-20260930/iclr2024-sparse/lean/FullGeneralizableAnalysis.lean",
+              "line": 89,
+              "scope": "actual same finite masked-model family with complement indices and raw OR empty baseline branch; IID original noise model",
+              "report_path": "research/full-proof-integration-20260930/iclr2024-sparse/verification/report.json"
+            },
+            {
+              "declaration": "Harsanyi.noisy_masked_or_variance",
+              "source_path": "lean/HarsanyiLib/Harsanyi/Extensions/Noise.lean",
+              "line": 135,
+              "scope": "actual same finite masked-model family with complement indices and raw OR empty baseline branch; IID original noise model",
+              "report_path": "research/full-proof-integration-20260930/iclr2024-sparse/verification/report.json"
+            }
+          ]
+        },
+        {
+          "id": "f11-or-variance-step-2",
+          "title": "补集索引与独立性",
+          "body_md": "L,K⊆T⊆N，若N\\L=N\\K，取同总体补集得到L=K。因此不同L使用不同IID输出噪声，重索引后的族保持独立同分布；确定的负号同样平方1。应用完整有限高斯方差和，得到2^|T|σ²。",
+          "formula_tex": "N\\setminus(N\\setminus L)=L\\quad(L\\subseteq N)",
+          "justification": "有限补集双射、真正随机变量方差和",
+          "lean_refs": [
+            {
+              "declaration": "FullGeneralizableAnalysis.masked_model_or_variance",
+              "source_path": "research/full-proof-integration-20260930/iclr2024-sparse/lean/FullGeneralizableAnalysis.lean",
+              "line": 89,
+              "scope": "actual same finite masked-model family with complement indices and raw OR empty baseline branch; IID original noise model",
+              "report_path": "research/full-proof-integration-20260930/iclr2024-sparse/verification/report.json"
+            },
+            {
+              "declaration": "Harsanyi.noisy_masked_or_variance",
+              "source_path": "lean/HarsanyiLib/Harsanyi/Extensions/Noise.lean",
+              "line": 135,
+              "scope": "actual same finite masked-model family with complement indices and raw OR empty baseline branch; IID original noise model",
+              "report_path": "research/full-proof-integration-20260930/iclr2024-sparse/verification/report.json"
+            }
+          ]
+        },
+        {
+          "id": "f11-or-variance-step-3",
+          "title": "原空集分支",
+          "body_md": "Generalizable规定Ior(∅)=vor(x∅)，空集加噪输出本身方差σ²=2^0σ²。这一分支不能用非空OR的负Möbius式替代，也不同于Sparse的中心化空集交互0。",
+          "formula_tex": "",
+          "justification": "原独立空集定义",
+          "lean_refs": [
+            {
+              "declaration": "FullGeneralizableAnalysis.masked_model_or_variance",
+              "source_path": "research/full-proof-integration-20260930/iclr2024-sparse/lean/FullGeneralizableAnalysis.lean",
+              "line": 89,
+              "scope": "actual same finite masked-model family with complement indices and raw OR empty baseline branch; IID original noise model",
+              "report_path": "research/full-proof-integration-20260930/iclr2024-sparse/verification/report.json"
+            },
+            {
+              "declaration": "Harsanyi.noisy_masked_or_variance",
+              "source_path": "lean/HarsanyiLib/Harsanyi/Extensions/Noise.lean",
+              "line": 135,
+              "scope": "actual same finite masked-model family with complement indices and raw OR empty baseline branch; IID original noise model",
+              "report_path": "research/full-proof-integration-20260930/iclr2024-sparse/verification/report.json"
+            }
+          ]
+        }
+      ],
+      "shared_proof_ids": [],
+      "rewrite_status": "complete",
+      "alignment_status": "agent_checked_formal_source_scope",
+      "user_review_status": "pending",
+      "completion_scope": "完整补集重索引与原OR空集分支的IID方差证明；本篇“Similarly”未给独立原OR细证。",
+      "statement_status": "same_original_mathematical_target",
+      "lean": {
+        "status": "verified",
+        "verification_role": "theorem_proof",
+        "evidence_role": "theorem_proof",
+        "declarations": [
+          "FullGeneralizableAnalysis.masked_model_or_variance",
+          "Harsanyi.noisy_masked_or_variance"
+        ],
+        "scope": "actual same finite masked-model family with complement indices and raw OR empty baseline branch; IID original noise model",
+        "completion_scope": "actual same finite masked-model family with complement indices and raw OR empty baseline branch; IID original noise model",
+        "report_path": "research/full-proof-integration-20260930/iclr2024-sparse/verification/report.json",
+        "compiled": true,
+        "axiom_audit": "passed",
+        "build_id": "sparse-analysis-full-20260930",
+        "source_fingerprint": "b14a2d969ff03beeca33163d79f67c2afe4170302c813adfb1b58e725426d2aa",
+        "source_path": "research/full-proof-integration-20260930/iclr2024-sparse/lean/FullGeneralizableAnalysis.lean",
+        "line": 89,
+        "statement": "∀ {Ω : Type u_4} [inst : MeasurableSpace.{u_4} Ω] (n : Nat) (v : (Fin n → Real) → Real) (r x : Fin n → Real)\n  (μ : MeasureTheory.Measure.{u_4} Ω) [MeasureTheory.IsProbabilityMeasure.{u_4} μ] (T : Finset.{0} (Fin n))\n  (ε : Finset.{0} (Fin n) → Ω → Real) (σ2 : NNReal),\n  (∀ (L : Finset.{0} (Fin n)), Measurable.{u_4, 0} (ε L)) →\n    (∀ (L : Finset.{0} (Fin n)),\n        Eq.{1} (MeasureTheory.Measure.map.{u_4, 0} (ε L) μ) (ProbabilityTheory.gaussianReal 0 σ2)) →\n      (Set.Pairwise.{0} ↑(Finset.powerset.{0} Finset.univ.{0}) fun L K =>\n          ProbabilityTheory.IndepFun.{u_4, 0, 0} (ε L) (ε K) μ) →\n        Eq.{1}\n          (ProbabilityTheory.variance.{u_4}\n            (fun ω =>\n              Harsanyi.orInteraction.{0}\n                (fun L => HAdd.hAdd.{0, 0, 0} (v (Harsanyi.maskCoordinates.{0, 0} r x L)) (ε L ω)) Finset.univ.{0} T)\n            μ)\n          (HMul.hMul.{0, 0, 0} (HPow.hPow.{0, 0, 0} 2 (Finset.card.{0} T)) ↑σ2)",
+        "axioms": [
+          "Classical.choice",
+          "Quot.sound",
+          "propext"
+        ],
+        "source_semantics_automatically_verified": false
+      },
+      "related_issue_ids": [],
+      "notation_map": [
+        {
+          "source": "v(x_T)",
+          "canonical": "g(T)",
+          "meaning": "fixed input and fixed baseline masked-output game; g(∅) unrestricted"
+        }
+      ],
+      "verification_role": "theorem_proof"
+    },
+    {
+      "id": "f11-equation10",
+      "paper_id": "iclr2024-generalizable",
+      "title": "两模型损失的原式展开",
+      "kind": "claimed_identity",
+      "original_label": "Appendix F; Eq.(10)",
+      "inventory_ids": [
+        "f11-equation10"
+      ],
+      "source_refs": [
+        {
+          "source_id": "src-iclr2024-generalizable-main",
+          "pdf_page": 16,
+          "text_path": "research/full-proof-integration-20260930/iclr2024-generalizable/source-review/all-pages.txt",
+          "page_text_json_path": "research/paper-survey-20260930/recent/text/iclr2024-generalizable.pages.json",
+          "image_path": "research/full-proof-integration-20260930/iclr2024-generalizable/source-review/page-16.png"
+        }
+      ],
+      "assumptions": [],
+      "definitions": [
+        "sym-model",
+        "sym-input",
+        "sym-input-baseline",
+        "sym-mask",
+        "sym-universe",
+        "sym-coalition",
+        "sym-game",
+        "sym-output-baseline",
+        "sym-interaction-matrix",
+        "sym-rowmax",
+        "sym-entrywise-l1",
+        "sym-redundancy-weight",
+        "sym-decomposition-parameter"
+      ],
+      "symbol_ids": [
+        "sym-model",
+        "sym-input",
+        "sym-input-baseline",
+        "sym-mask",
+        "sym-universe",
+        "sym-coalition",
+        "sym-game",
+        "sym-output-baseline",
+        "sym-interaction-matrix",
+        "sym-rowmax",
+        "sym-entrywise-l1",
+        "sym-redundancy-weight",
+        "sym-decomposition-parameter"
+      ],
+      "overview": "仅否定 signed max 与原行ℓ∞的逐点展开子断言；原完整带min等式保留，自由索引问题及最优值比较未完成评估。",
+      "proof_steps": [
+        {
+          "id": "f11-equation10-step-1",
+          "title": "逐点反例",
+          "body_md": "正式p6 rowmax=每行ℓ∞=max(|a|,|b|)，p16 Eq10展开却用|max(a,b)|。取a=−3,b=2，前者3、后者2，故该行恒等式不成立。Möbius变换可逆，任意这样的两模型AND交互行可由对应掩码输出分解实现，并非非法交互值。",
+          "formula_tex": "\\max(|-3|,|2|)=3\\ne2=|\\max(-3,2)|",
+          "justification": "直接实数计算；原AND取值无非负约束",
+          "lean_refs": [
+            {
+              "declaration": "FullGeneralizableAnalysis.signed_max_counterexample",
+              "source_path": "research/full-proof-integration-20260930/iclr2024-sparse/lean/FullGeneralizableAnalysis.lean",
+              "line": 70,
+              "scope": "only the signed-max versus row-l∞ pointwise clause is refuted; no statement comparing optimization minima",
+              "report_path": "research/full-proof-integration-20260930/iclr2024-sparse/verification/report.json"
+            }
+          ]
+        },
+        {
+          "id": "f11-equation10-step-2",
+          "title": "影响范围与额外索引错误",
+          "body_md": "反例仅否定展开使用的逐点行恒等式，不能据一个点推出两个优化问题最小值必不相等。原Eq10的自由S及T求和中固定xTk、γTk保留为索引排印问题；原带min的父等式在这些索引未解决时未完成命题评估。逐点展开的分析子断言单列反例，不能把原式改成maxabs后宣布完成。",
+          "formula_tex": "",
+          "justification": "区分逐点展开子断言与原带min父等式",
+          "lean_refs": [
+            {
+              "declaration": "FullGeneralizableAnalysis.signed_max_counterexample",
+              "source_path": "research/full-proof-integration-20260930/iclr2024-sparse/lean/FullGeneralizableAnalysis.lean",
+              "line": 70,
+              "scope": "only the signed-max versus row-l∞ pointwise clause is refuted; no statement comparing optimization minima",
+              "report_path": "research/full-proof-integration-20260930/iclr2024-sparse/verification/report.json"
+            }
+          ]
+        }
+      ],
+      "shared_proof_ids": [],
+      "rewrite_status": "blocked_by_source_issue",
+      "alignment_status": "agent_checked_formal_source_scope",
+      "user_review_status": "pending",
+      "completion_scope": "仅否定 signed max 与原行ℓ∞的逐点展开子断言；原完整带min等式保留，自由索引问题及最优值比较未完成评估。",
+      "statement_status": "parent_optimization_equation_ill_scoped_and_not_assessed; pointwise_row_expansion_refuted",
+      "lean": {
+        "status": "verified",
+        "verification_role": "counterexample",
+        "evidence_role": "counterexample",
+        "declarations": [
+          "FullGeneralizableAnalysis.signed_max_counterexample"
+        ],
+        "scope": "only the signed-max versus row-l∞ pointwise clause is refuted; no statement comparing optimization minima",
+        "completion_scope": "only the signed-max versus row-l∞ pointwise clause is refuted; no statement comparing optimization minima",
+        "report_path": "research/full-proof-integration-20260930/iclr2024-sparse/verification/report.json",
+        "compiled": true,
+        "axiom_audit": "passed",
+        "build_id": "sparse-analysis-full-20260930",
+        "source_fingerprint": "b14a2d969ff03beeca33163d79f67c2afe4170302c813adfb1b58e725426d2aa",
+        "source_path": "research/full-proof-integration-20260930/iclr2024-sparse/lean/FullGeneralizableAnalysis.lean",
+        "line": 70,
+        "statement": "Ne.{1} (Max.max.{0} (abs.{0} (-3)) (abs.{0} 2)) (abs.{0} (Max.max.{0} (-3) 2))",
+        "axioms": [
+          "Classical.choice",
+          "Quot.sound",
+          "propext"
+        ],
+        "source_semantics_automatically_verified": false
+      },
+      "related_issue_ids": [
+        "f11-issue-rowmax-signed-max",
+        "f11-issue-equation10-free-indices"
+      ],
+      "notation_map": [
+        {
+          "source": "v(x_T)",
+          "canonical": "g(T)",
+          "meaning": "fixed input and fixed baseline masked-output game; g(∅) unrestricted"
+        }
+      ],
+      "analysis_clause_tex": "\\operatorname{rowmax}(a,b)\\stackrel{\\rm claimed}{=}|\\max(a,b)|",
+      "clause_assessments": [
+        {
+          "id": "rowmax_expansion",
+          "status": "refuted",
+          "counterexample": "a=-3,b=2: row l∞=3; |signed max|=2"
+        },
+        {
+          "id": "parent_optimization_equation",
+          "status": "not_assessed",
+          "scope": "original free indices unresolved; pointwise counterexample does not compare minimized values"
+        }
+      ],
+      "verification_role": "counterexample"
+    },
+    {
+      "id": "f11-alpha-zero",
+      "paper_id": "iclr2024-generalizable",
+      "title": "alpha=0时Eq.(6)退化为Eq.(5)",
+      "kind": "algebraic_corollary",
+      "original_label": "Appendix I, alpha=0",
+      "inventory_ids": [
+        "f11-alpha-zero"
+      ],
+      "source_refs": [
+        {
+          "source_id": "src-iclr2024-generalizable-main",
+          "pdf_page": 17,
+          "text_path": "research/full-proof-integration-20260930/iclr2024-generalizable/source-review/all-pages.txt",
+          "page_text_json_path": "research/paper-survey-20260930/recent/text/iclr2024-generalizable.pages.json",
+          "image_path": "research/full-proof-integration-20260930/iclr2024-generalizable/source-review/page-17.png"
+        }
+      ],
+      "statement_tex": "L_6(A,B;0)=L_5(A,B)",
+      "assumptions": [],
+      "definitions": [
+        "sym-interaction-matrix",
+        "sym-rowmax",
+        "sym-entrywise-l1",
+        "sym-redundancy-weight"
+      ],
+      "symbol_ids": [
+        "sym-interaction-matrix",
+        "sym-rowmax",
+        "sym-entrywise-l1",
+        "sym-redundancy-weight"
+      ],
+      "overview": "原α=0代入的完整确定性恒等式；实验观察不计为证明。",
+      "proof_steps": [
+        {
+          "id": "f11-alpha-zero-step-1",
+          "title": "原目标定义",
+          "body_md": "记P(A,B)=∥rowmax A∥1+∥rowmax B∥1，Q(A,B)=∥A∥1+∥B∥1。Eq6的逐点目标是P+αQ；代α=0得到P+0Q=P，即Eq5。",
+          "formula_tex": "P+0\\cdot Q=P",
+          "justification": "零乘法与原目标定义",
+          "lean_refs": [
+            {
+              "declaration": "FullGeneralizableAnalysis.alpha_zero",
+              "source_path": "research/full-proof-integration-20260930/iclr2024-sparse/lean/FullGeneralizableAnalysis.lean",
+              "line": 65,
+              "scope": "actual row-max and entrywise matrix objective, arbitrary finite rows/models; finite original 2^n×m matrix instance, alpha0 only",
+              "report_path": "research/full-proof-integration-20260930/iclr2024-sparse/verification/report.json"
+            }
+          ]
+        },
+        {
+          "id": "f11-alpha-zero-step-2",
+          "title": "优化适配",
+          "body_md": "参数搜索的可行域相同，因此逐点目标函数完全相同，最小化问题也相同。此等式没有声称其他α的泛化曲线，p17–18经验消融另列。α=0句的正式PDF位置为17页，图延续至18页。",
+          "formula_tex": "",
+          "justification": "同域同函数；正式页码校正",
+          "lean_refs": [
+            {
+              "declaration": "FullGeneralizableAnalysis.alpha_zero",
+              "source_path": "research/full-proof-integration-20260930/iclr2024-sparse/lean/FullGeneralizableAnalysis.lean",
+              "line": 65,
+              "scope": "actual row-max and entrywise matrix objective, arbitrary finite rows/models; finite original 2^n×m matrix instance, alpha0 only",
+              "report_path": "research/full-proof-integration-20260930/iclr2024-sparse/verification/report.json"
+            }
+          ]
+        }
+      ],
+      "shared_proof_ids": [],
+      "rewrite_status": "complete",
+      "alignment_status": "agent_checked_formal_source_scope",
+      "user_review_status": "pending",
+      "completion_scope": "原α=0代入的完整确定性恒等式；实验观察不计为证明。",
+      "statement_status": "same_original_mathematical_target",
+      "lean": {
+        "status": "verified",
+        "verification_role": "theorem_proof",
+        "evidence_role": "theorem_proof",
+        "declarations": [
+          "FullGeneralizableAnalysis.alpha_zero"
+        ],
+        "scope": "actual row-max and entrywise matrix objective, arbitrary finite rows/models; finite original 2^n×m matrix instance, alpha0 only",
+        "completion_scope": "actual row-max and entrywise matrix objective, arbitrary finite rows/models; finite original 2^n×m matrix instance, alpha0 only",
+        "report_path": "research/full-proof-integration-20260930/iclr2024-sparse/verification/report.json",
+        "compiled": true,
+        "axiom_audit": "passed",
+        "build_id": "sparse-analysis-full-20260930",
+        "source_fingerprint": "b14a2d969ff03beeca33163d79f67c2afe4170302c813adfb1b58e725426d2aa",
+        "source_path": "research/full-proof-integration-20260930/iclr2024-sparse/lean/FullGeneralizableAnalysis.lean",
+        "line": 65,
+        "statement": "∀ {ρ : Type u_2} {ι : Type u_3} (R : Finset.{u_2} ρ) (I : Finset.{u_3} ι) (hI : Finset.Nonempty.{u_3} I)\n  (A B : ρ → ι → Real),\n  Eq.{1} (FullGeneralizableAnalysis.matrixObjective.{u_2, u_3} R I hI A B 0)\n    (FullGeneralizableAnalysis.pooledPenalty.{u_2, u_3} R I hI A B)",
+        "axioms": [
+          "Classical.choice",
+          "Quot.sound",
+          "propext"
+        ],
+        "source_semantics_automatically_verified": false
+      },
+      "related_issue_ids": [],
+      "notation_map": [
+        {
+          "source": "v(x_T)",
+          "canonical": "g(T)",
+          "meaning": "fixed input and fixed baseline masked-output game; g(∅) unrestricted"
+        }
+      ],
+      "verification_role": "theorem_proof"
+    }
+  ],
+  "issues": [
+    {
+      "id": "f11-issue-variance-expectation-indices",
+      "paper_id": "iclr2024-generalizable",
+      "kind": "source_proof_notation_error",
+      "title": "Appendix D首句方差中心跨S与期望下标不一致",
+      "original_formula_tex": "\\mathbb E_{\\varepsilon_T\\sim N(0,\\sigma^2)}[I′_{\\rm and}(T)-\\mathbb E_{\\forall S,\\varepsilon_S\\sim N(0,\\sigma^2)}I′_{\\rm and}(S)]^2=2^{|T|}\\sigma^2",
+      "source_refs": [
+        {
+          "source_id": "src-iclr2024-generalizable-main",
+          "pdf_page": 15
+        }
+      ],
+      "analysis_md": "首句内层中心写I′(S)，外层仅εT下标；严格方差须对全部噪声联合样本求期望且中心为同T随机变量的期望。随后原Proof实际使用Var(I′(T))和固定I(T)，其IID方差结论正确。原首句保留，修记号与证明解释，不改最终Var结论。",
+      "affected_result_ids": [
+        "f11-and-variance"
+      ],
+      "impact_scope": "p15引导首句的期望记法；不否定原Proof固定IID方差结论",
+      "statement_status": "final_variance_statement_correct_under_original_proof_assumptions",
+      "fix_authorization": "proof_only_granted",
+      "user_confirmation": "not_required_for_proof_repair",
+      "resolution_status": "proof_notation_repaired_in_project_explanation"
+    }
+  ],
+  "source_transcription_owner": "reader_multipage_v2_max",
+  "authorization": "proof_only_granted; statement modifications forbidden"
+}

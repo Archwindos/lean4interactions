@@ -1,0 +1,258 @@
+{
+  "generated_at": "2026-09-30T14:47:32.031319+00:00",
+  "status": "passed",
+  "scope": "Current three-paper source integration, mathematical review evidence, Lean proof adapters and reader release. Does not certify all source statements true, nor substitute for user reading-quality judgment.",
+  "preview_data_sha256": "c4aac9edd45303f21143e1cce2408cbcee35efa659ae69cae269c6d9b369c71f",
+  "build_generated_at": "2026-09-30T14:37:25.151969+00:00",
+  "gates": {
+    "source_hashes_and_94_page_audit": true,
+    "frozen_math_reports": true,
+    "all_303_step_evidence_current": true,
+    "independent_API": true,
+    "browser_final_snapshot": true,
+    "existing_port_final_snapshot": true,
+    "aggregate_counts": true,
+    "step-lean-closure-checks": true,
+    "math-rendering-check": true,
+    "api-checks": true,
+    "status-contract-checks": true
+  },
+  "counts": {
+    "source_pages": 94,
+    "inventory_occurrences": 102,
+    "reading_entries": 100,
+    "proof_targets_including_parent_components": 61,
+    "full_scoped_proofs_with_current_Lean": 48,
+    "partial_original_claims": 2,
+    "completed_scope_explanations": 4,
+    "other_source_statement_problems": 7,
+    "shared_proofs": 15,
+    "symbol_records": 101,
+    "issue_records": 34,
+    "step_mappings": 303,
+    "browser_checks": 1789
+  },
+  "non_full_targets": [
+    {
+      "id": "cvpr2023-dummy",
+      "title": "Dummy：原命题空集反例（不修改）",
+      "rewrite_status": "blocked_by_source_issue",
+      "rewrite_role": "counterexample",
+      "statement_assessment": "refuted",
+      "proof_scope": "original statement and proof preserved; original statement refuted without alteration",
+      "lean_scope": "exact original empty-inclusive premise with a nonzero singleton interaction; refutation only"
+    },
+    {
+      "id": "cvpr2023-baseline-faithfulness",
+      "title": "改变输入基线后完整交互仍各自精确",
+      "rewrite_status": "blocked_by_source_issue",
+      "rewrite_role": "partial_proof_with_refuted_clause",
+      "statement_assessment": "partially_refuted",
+      "proof_scope": "verified full-interaction reconstruction subclaim; the source sentence also contains a separate truncated-loss claim with a counterexample",
+      "lean_scope": "full-vector reconstruction subclaim and exact truncated-loss counterexample; source compound clause is not validated as a whole"
+    },
+    {
+      "id": "iclr2024-sparse-salient-approximation",
+      "title": "仅保留显著交互的近似式",
+      "rewrite_status": "complete",
+      "rewrite_role": "statement_scope_explanation",
+      "statement_assessment": "no_statement_error_recorded",
+      "proof_scope": "scope explanation only; original unquantified claim not proved as a new theorem",
+      "lean_scope": "no complete Lean claim; see exact source/explanation scope"
+    },
+    {
+      "id": "iclr2024-sparse-lemma1",
+      "title": "按变量支撑分组的 Taylor 交互表达式",
+      "rewrite_status": "blocked_by_source_issue",
+      "rewrite_role": "statement_scope_explanation",
+      "statement_assessment": "counterexample_recorded",
+      "proof_scope": "original source preserved; exact mathematical issue listed",
+      "lean_scope": "no complete Lean claim; see exact source/explanation scope"
+    },
+    {
+      "id": "iclr2024-sparse-asymptotic-claim",
+      "title": "渐近稀疏解释与Case2同阶稀疏推断的无限反例",
+      "rewrite_status": "blocked_by_source_issue",
+      "rewrite_role": "counterexample",
+      "statement_assessment": "partially_refuted",
+      "proof_scope": "complete infinite-family counterexample under all original three assumptions to p8 Case2 per-order sparsity inference; finite-n BigO scope also explained; original T2/T3 and empirical mostcases not refuted",
+      "lean_scope": "No new Lean counterexample claim; complete original-assumption infinite-family proof is in the project Chinese layer"
+    },
+    {
+      "id": "iclr2024-sparse-noise-variance",
+      "title": "噪声交互方差放大 2^|S| 倍",
+      "rewrite_status": "blocked_by_source_issue",
+      "rewrite_role": "statement_scope_explanation",
+      "statement_assessment": "scope_under_review",
+      "proof_scope": "original source preserved; exact mathematical issue listed",
+      "lean_scope": "no complete Lean claim; see exact source/explanation scope"
+    },
+    {
+      "id": "iclr2024-sparse-parity-mask",
+      "title": "按保留变量数奇偶的交互符号",
+      "rewrite_status": "blocked_by_source_issue",
+      "rewrite_role": "statement_scope_explanation",
+      "statement_assessment": "scope_under_review",
+      "proof_scope": "original source preserved; exact mathematical issue listed",
+      "lean_scope": "no complete Lean claim; see exact source/explanation scope"
+    },
+    {
+      "id": "iclr2024-sparse-transfer-inference",
+      "title": "由稀疏与普遍匹配推逐样本迁移的反证论述",
+      "rewrite_status": "blocked_by_source_issue",
+      "rewrite_role": "counterexample",
+      "statement_assessment": "counterexample_recorded",
+      "proof_scope": "original source preserved; exact mathematical issue listed",
+      "lean_scope": "no complete Lean claim; see exact source/explanation scope"
+    },
+    {
+      "id": "f11-external-sparsity",
+      "title": "AND稀疏性及其三项条件（外引）",
+      "rewrite_status": "complete",
+      "rewrite_role": "statement_scope_explanation",
+      "statement_assessment": "no_statement_error_recorded",
+      "proof_scope": "完整外引条件与数学适用范围说明；本篇未提供独立可形式化的定量稀疏命题。",
+      "lean_scope": "No complete Lean claim for this original target"
+    },
+    {
+      "id": "f11-theorem1-approx",
+      "title": "少量显著交互近似全部输出（外引）",
+      "rewrite_status": "complete",
+      "rewrite_role": "statement_scope_explanation",
+      "statement_assessment": "no_statement_error_recorded",
+      "proof_scope": "近似子句完整解释，不宣称未量化的原≈与≪已成为完整Lean定理。",
+      "lean_scope": "No complete Lean claim for this original target"
+    },
+    {
+      "id": "f11-proposition1",
+      "title": "少量AND-OR交互近似输出",
+      "rewrite_status": "complete",
+      "rewrite_role": "statement_scope_explanation",
+      "statement_assessment": "no_statement_error_recorded",
+      "proof_scope": "原命题近似与小族主张仍属未量化来源；完整解释其精确依赖与遗漏项，不声称泛化稀疏已严格证明。",
+      "lean_scope": "No complete Lean claim for this original target"
+    },
+    {
+      "id": "f11-equation10",
+      "title": "两模型损失的原式展开",
+      "rewrite_status": "blocked_by_source_issue",
+      "rewrite_role": "counterexample",
+      "statement_assessment": "scope_under_review",
+      "proof_scope": "仅否定 signed max 与原行ℓ∞的逐点展开子断言；原完整带min等式保留，自由索引问题及最优值比较未完成评估。",
+      "lean_scope": "only the signed-max versus row-l∞ pointwise clause is refuted; no statement comparing optimization minima"
+    },
+    {
+      "id": "f11-mask-complexity",
+      "title": "全部掩码设置与枚举模型查询计数",
+      "rewrite_status": "complete",
+      "rewrite_role": "partial_component",
+      "statement_assessment": "no_statement_error_recorded",
+      "proof_scope": "mask-set cardinality and one-query-per-mask count; not a total training or interaction-computation time bound",
+      "lean_scope": "mask-set cardinality and one-query-per-mask count; not a total training or interaction-computation time bound"
+    }
+  ],
+  "formal_reports": [
+    {
+      "path": "research/full-proof-integration-20260930/cvpr2023/verification/report.json",
+      "sha256": "878259c0040e3eeb5c1a707b109cd45c4a05987e548c03d95c2496e93709b363",
+      "status": "passed",
+      "declarations": 117,
+      "source_fingerprint": "6ddbd27c5e24541c13b62c45401c7a57609f16fde2db890833f8c0d8c6f4c707"
+    },
+    {
+      "path": "research/full-proof-integration-20260930/iclr2024-sparse/verification/report.json",
+      "sha256": "ee9ab3cba131c2a88d254499802effeac2e6a77c3dc79d160181005648c368b5",
+      "status": "passed",
+      "declarations": 73,
+      "source_fingerprint": "b14a2d969ff03beeca33163d79f67c2afe4170302c813adfb1b58e725426d2aa"
+    },
+    {
+      "path": "research/full-proof-integration-20260930/cvpr2023/verification/derivative-report.json",
+      "sha256": "7ed3044a7015416db605737a0cedf1732ca9d30ba378a25b13e80b843ae7216e",
+      "status": "passed",
+      "declarations": 36,
+      "source_fingerprint": "18d4ec3e5b4063ad677c72a61f3664772c49fb725f5bcfed7efc59df8745789e"
+    },
+    {
+      "path": "reports/lean/20260930T133803-2/report.json",
+      "sha256": "2f1813013c7cce62dae665e6d7f0049a40fa3f364215a3020a4c284f47be2995",
+      "status": "passed",
+      "declarations": 160,
+      "source_fingerprint": "0fe264a6b0ef0dd99379abfe5978668d2701a41606095d03860de90e2fbcd1c9"
+    }
+  ],
+  "evidence": [
+    {
+      "path": "research/full-proof-integration-20260930/root-audit/source-inventory-check.json",
+      "sha256": "d2054289caef6e644648ad645d8db0050633c3d6c87eb7e0991e94bdf2280b0f"
+    },
+    {
+      "path": "research/full-proof-integration-20260930/root-audit/frozen-math-reports.json",
+      "sha256": "68bf4ce6f9a8886be000ab9ac3de7980d141cec021c520182ceb46459ed66302"
+    },
+    {
+      "path": "research/full-proof-integration-20260930/root-audit/step-evidence-check.json",
+      "sha256": "284451538ca4eed969dea5b0f6fb79f7399bac777e5de5577255636f84141942"
+    },
+    {
+      "path": "research/full-proof-integration-20260930/root-audit/api-final-checks.json",
+      "sha256": "130b20b72b754ccc88e76c5b51851e83728f5659e6c732ad58b606c3e503f6cb"
+    },
+    {
+      "path": "research/full-proof-integration-20260930/evidence/step-lean-closure-checks.json",
+      "sha256": "77b99cde5d1911f3304cc3da1c57f25bf38e5a07bac6e6077a58332e78bf37af"
+    },
+    {
+      "path": "research/full-proof-integration-20260930/evidence/math-rendering-check.json",
+      "sha256": "b14022292c3bc0070c1dbdaa68cfc7827b968603d55b9efd940af3cccccd4674"
+    },
+    {
+      "path": "research/full-proof-integration-20260930/evidence/api-checks.json",
+      "sha256": "9e2c1245a8b2bb85c0c4a017c251c64313f3858efe11832c3599924c2b1d98c0"
+    },
+    {
+      "path": "research/full-proof-integration-20260930/evidence/status-contract-checks.json",
+      "sha256": "4fabe18212c12809e68c43de163eff7f65aafdd554c752e7a1d36cfb93863b0f"
+    },
+    {
+      "path": "research/full-proof-integration-20260930/evidence/browser-checks.json",
+      "sha256": "a01c28fdb6bdff548682054fd192f247df8c11a98f2c82ae9bb01262f6aa63a0"
+    },
+    {
+      "path": "research/full-proof-integration-20260930/root-audit/service-check.json",
+      "sha256": "d09fd9b9a79f6c517142042181cf708fcfd1edbddb3b4537c1145119c248d237"
+    }
+  ],
+  "visual_review": {
+    "reviewer": "root",
+    "observations": "Reviewed current homepage, T2 visible source assumptions and folded public definitions, separate original-claim counterexample presentation, and mobile AND-OR reader; long formulas use local horizontal scrolling.",
+    "screenshots": [
+      {
+        "path": "research/full-proof-integration-20260930/evidence/01-full-directory-home.png",
+        "sha256": "11bc3713f6d29bdef4dbe84aa5cb97d501ebf1dd9e273c8473307a8885ba78aa"
+      },
+      {
+        "path": "research/full-proof-integration-20260930/evidence/04-proof-iclr2024-sparse-theorem2.png",
+        "sha256": "8f245886d968762a0a28283c9f003058166876a0adcd0671f3b56ca3fd490f3b"
+      },
+      {
+        "path": "research/full-proof-integration-20260930/evidence/04-proof-cvpr2023-dummy.png",
+        "sha256": "90d41c22bd4edd404b5b5f96c50f2fc307ec7112fe708e1ead591cf4f15d7e2b"
+      },
+      {
+        "path": "research/full-proof-integration-20260930/evidence/06-mobile-andor.png",
+        "sha256": "2a4b86e7e810a631c957d33a6b412eff63a747e24cd84db048ee507a0100922b"
+      }
+    ]
+  },
+  "service": {
+    "base": "http://127.0.0.1:8001/",
+    "directory": "research/full-proof-integration-20260930/preview",
+    "external_forwarded_port": "not verified"
+  },
+  "next_agent_configuration": {
+    "model": "gpt-6.1-sol",
+    "reasoning_effort": "xhigh",
+    "roles": "2-3 mathematical agents; 1 content/web integrator; root task dispatch and independent acceptance"
+  }
+}

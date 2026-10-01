@@ -1,0 +1,130 @@
+{
+  "schema_version": "1.0",
+  "issues": [
+    {
+      "id": "issue-f11-or-intermediate-20260930",
+      "issue_id": "issue-f11-or-intermediate-20260930",
+      "classification": "source_proof_step_issue",
+      "status": "awaiting_user_confirmation",
+      "paper_id": "iclr2024-generalizable",
+      "affected_result_ids": [
+        "iclr2024-generalizable-andor"
+      ],
+      "title": "OR 原证明的中间求和断言：内层和并非在全部 case(3) 条件下为零",
+      "text_md": "正式 PDF 第 14 页 case(3) 的内层二项和被标为 0，但当 T⊆L⊊N 时内层可为 ±1。整层外和仍可能抵消，本记录不据此判断完整定理为假。用户确认与修正授权都待定。",
+      "evidence_path": "research/reader-v2-20260930/math/issues.md",
+      "source_refs": [
+        {
+          "source_id": "src-iclr2024-generalizable-main",
+          "local_path": "research/paper-survey-20260930/recent/pdf/iclr2024-generalizable.pdf",
+          "sha256": "9690fc5c8043ca7f7a583297833588696276efc8324da4ed0dcaa5685c4390ed",
+          "pdf_page": 14,
+          "section": "Appendix C Proof(2) OR case(3)/(4)；Eq.(9)",
+          "image_path": "research/reader-v2-20260930/math/source-review/iclr2024-generalizable-page-14.png",
+          "image_location": "case(3) 段落末的内层求和 underbrace=0；case(4) 的内层和下限 0",
+          "visually_checked": true
+        }
+      ],
+      "original_conditions_tex": "L\\cap T\\ne\\varnothing,\\qquad L\\ne N",
+      "original_assertion_tex": "\\underbrace{\\sum_{m=0}^{|T|-|T\\cap L|}\\binom{|T|-|T\\cap L|}{m}(-1)^{|S^{\\prime}|+m}}_{=0}",
+      "counterexample": {
+        "N": [
+          1,
+          2
+        ],
+        "T": [
+          1
+        ],
+        "L": [
+          1
+        ],
+        "S_prime_cases": [
+          {
+            "S_prime": [],
+            "inner_sum": 1
+          },
+          {
+            "S_prime": [
+              2
+            ],
+            "inner_sum": -1
+          }
+        ],
+        "outer_sum": 0,
+        "explanation_md": "这里 |T|−|T∩L|=0，内层只有 m=0；S′=∅ 时为 1，S′={2} 时为 −1。两者相加为 0。因此失败的是 underbrace 对每个固定 S′ 的判断；这组例子不是最终 OR 重构结论的反例。"
+      },
+      "case4_note": {
+        "original_conditions_tex": "L\\cap T=\\varnothing,\\qquad L\\ne N\\setminus T",
+        "original_range_tex": "0\\le |S^{\\prime\\prime}|\\le |T|",
+        "problem_md": "原文同时要求 S∩T≠∅，且 case(4) 有 L∩T=∅；因此 S′′=S∩T 在被计数的集合中应非空。原式从 0 开始包含了不满足 S∩T≠∅ 的项。",
+        "minimal_instance": {
+          "N": [
+            1,
+            2
+          ],
+          "T": [
+            1
+          ],
+          "L": [],
+          "S_prime": [],
+          "valid_inner_term_m": [
+            1
+          ],
+          "displayed_inner_term_m": [
+            0,
+            1
+          ],
+          "valid_inner_sum": -1,
+          "displayed_inner_sum": 0
+        },
+        "impact_md": "这是同一 OR 四分类推导中的范围问题；外层仍可抵消，记录不判断全文结论为假，也不提供修正版推导。"
+      },
+      "impact_md": "影响范围为正式原证明第 14 页 OR 分类计算的中间等号及其解释。附录 C(1) 第 12–13 页的固定 x AND 子结论不受影响；本轮已验证的 AND adapter 不能关闭该原文问题。",
+      "assessment": "specific_intermediate_assertion_has_counterexample_not_a_counterexample_to_the_theorem",
+      "user_confirmation": "pending",
+      "fix_authorization": "pending",
+      "replacement_proof_published": false,
+      "verification_boundary": "This report records a source-proof issue. The independent public Lean report does not verify this original OR derivation."
+    }
+  ],
+  "alignment_notes": [
+    {
+      "id": "issue-f11-mask-notation-20260930",
+      "classification": "notation_alignment_note",
+      "is_mathematical_error": false,
+      "status": "pending_alignment",
+      "paper_id": "iclr2024-generalizable",
+      "related_result_ids": [
+        "iclr2024-generalizable-andor",
+        "iclr2024-generalizable-and"
+      ],
+      "title": "全文 Theorem 2 的 x_T 记号与附录固定 x 定义需要单独语义对齐",
+      "text_md": "正文 Eq.(3) 与附录重述 Eq.(7) 用 I(S|x_T)，而附录 C(1) 的明确子结论及紧后的定义用固定 x。AND 子结论已按其原式对齐；全文记号未静默替换，也不据此判定定理为假。",
+      "evidence_path": "research/reader-v2-20260930/math/issues.md",
+      "source_locations": [
+        {
+          "pdf_page": 3,
+          "label": "Theorem 2 Eq.(3)"
+        },
+        {
+          "pdf_page": 12,
+          "label": "Theorem 2 Eq.(7) 与 Proof(1) 固定 x 的陈述/定义"
+        },
+        {
+          "pdf_page": 13,
+          "label": "Eq.(8) AND 推导与 OR 定义"
+        }
+      ],
+      "original_full_formula_tex": "v(x_T)=\\sum_{S\\subseteq T}I_{\\mathrm{and}}(S\\mid x_T)+\\sum_{S\\in\\{S:S\\cap T\\ne\\varnothing\\}\\cup\\{\\varnothing\\}}I_{\\mathrm{or}}(S\\mid x_T)",
+      "original_and_subformula_tex": "\\forall T\\subseteq N,\\quad v_{\\mathrm{and}}(x_T)=\\sum_{S\\subseteq T}I_{\\mathrm{and}}(S\\mid x)",
+      "definition_convention_md": "原文单列 I_or(∅|x)=v_or(x_∅)，非空 OR 项采用 Eq.(2) 的负补集交替和。此处把空集处理归为明确的定义约定，不另登记成数学错误。",
+      "impact_md": "本轮只形式化固定 x 的 AND 子结论。完整 Eq.(3)/(7) 的系数如何依赖再次掩码，仍需核对；尚无据此判定完整等式不成立的证据。",
+      "agent_review_status": "agent_checked_difference_in_printed_notation",
+      "user_review_status": "pending",
+      "fix_authorization": "not_requested",
+      "formula_rewritten": false
+    }
+  ],
+  "issue_count": 1,
+  "alignment_note_count": 1
+}

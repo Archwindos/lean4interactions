@@ -1,0 +1,63 @@
+{
+  "count": 1,
+  "denominator": "selected result records; repeated source appearances excluded",
+  "results": [
+    {
+      "id": "iclr2024-sparse-reconstruction",
+      "paper_id": "iclr2024-sparse",
+      "title": "中心化交互的精确重构",
+      "kind": "theorem",
+      "proposition_ids": [
+        "prop-set-function-reconstruction"
+      ],
+      "proof_ids": [
+        "proof-finite-mobius-reconstruction-v2"
+      ],
+      "verification": {
+        "id": "iclr2024-sparse-reconstruction",
+        "record_kind": "results",
+        "scope": "ICLR 2024 Sparse Theorem 1 only; excludes sparsity Theorems 2--3",
+        "completion_scope": "selected_result",
+        "source_alignment": "agent_checked_selected_statement",
+        "readable_rewrite": "complete",
+        "user_review": "pending",
+        "compilation": "passed",
+        "axiom_audit": "passed",
+        "reports": [
+          {
+            "id": "verification-iclr2024-sparse-reconstruction-v2",
+            "path": "research/reader-v2-20260930/math/verification/report.json",
+            "scope": "paper_adapter",
+            "compilation": "passed",
+            "axiom_audit": "passed",
+            "freshness": "current",
+            "unexpected_axioms": [],
+            "declarations": [
+              {
+                "name": "ReaderV2.sparse_centered_reconstruction",
+                "status": "passed",
+                "axioms": [
+                  "propext",
+                  "Classical.choice",
+                  "Quot.sound"
+                ]
+              },
+              {
+                "name": "ReaderV2.sparse_empty",
+                "status": "passed",
+                "axioms": [
+                  "propext",
+                  "Classical.choice",
+                  "Quot.sound"
+                ]
+              }
+            ],
+            "source_semantics_automatically_verified": false
+          }
+        ],
+        "issue_ids": [],
+        "alignment_note_ids": []
+      }
+    }
+  ]
+}

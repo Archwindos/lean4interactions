@@ -1,0 +1,328 @@
+{
+  "status": "passed",
+  "checks": [
+    {
+      "name": "not_started with a candidate proof id is pending",
+      "passed": true,
+      "reading_status": "pending"
+    },
+    {
+      "name": "unknown rewrite status with proof id is pending",
+      "passed": true,
+      "reading_status": "pending"
+    },
+    {
+      "name": "complete metadata without actual body is pending",
+      "passed": true,
+      "reading_status": "pending"
+    },
+    {
+      "name": "complete component with real shared body is complete",
+      "passed": true,
+      "reading_status": "complete"
+    },
+    {
+      "name": "current compiled declaration and approved axioms are verified",
+      "passed": true
+    },
+    {
+      "name": "stale source cannot inherit compiled metadata",
+      "passed": true,
+      "effective_status": "stale"
+    },
+    {
+      "name": "failed command cannot inherit compiled metadata",
+      "passed": true,
+      "effective_status": "unavailable"
+    },
+    {
+      "name": "unapproved axiom cannot inherit compiled metadata",
+      "passed": true,
+      "effective_status": "unavailable"
+    },
+    {
+      "name": "missing exact declaration cannot inherit compiled metadata",
+      "passed": true,
+      "effective_status": "unavailable"
+    }
+  ],
+  "lean_verification": [
+    {
+      "status": "verified",
+      "declarations": [
+        "ReaderV2.cvpr_reconstruction"
+      ],
+      "reasons": [],
+      "package_evidence": {
+        "id": "reader-verification",
+        "path": "research/reader-v2-20260930/math/verification/report.json",
+        "scope": "仅验证 Theorem 1 的有限掩码子集和恒等式；原文因果解释与具体 DNN 运行不由 Lean 检查。",
+        "compilation": "passed",
+        "axiom_audit": "passed",
+        "freshness": "current",
+        "unexpected_axioms": [],
+        "declarations": [
+          {
+            "name": "ReaderV2.cvpr_reconstruction",
+            "status": "passed",
+            "axioms": [
+              "propext",
+              "Classical.choice",
+              "Quot.sound"
+            ]
+          }
+        ],
+        "source_semantics_automatically_verified": false
+      },
+      "source_fingerprint": "0e74f99d1e90091c0bd4e528bc650bf6e39e0edb0cc500135e0e53df2750a7e9",
+      "report_sha256": "17338fa5d1a7c5eb22c0e1d4e7465a1c2b5d953304e796efe1adc66b55a77cfa"
+    },
+    {
+      "status": "verified",
+      "declarations": [
+        "ReaderV2.cvpr_unique_coefficients"
+      ],
+      "reasons": [],
+      "package_evidence": {
+        "id": "reader-verification",
+        "path": "research/reader-v2-20260930/math/verification/report.json",
+        "scope": "仅验证 Appendix C 在同一 AND 规则下、所有掩码精确重构的系数唯一性。",
+        "compilation": "passed",
+        "axiom_audit": "passed",
+        "freshness": "current",
+        "unexpected_axioms": [],
+        "declarations": [
+          {
+            "name": "ReaderV2.cvpr_unique_coefficients",
+            "status": "passed",
+            "axioms": [
+              "propext",
+              "Classical.choice",
+              "Quot.sound"
+            ]
+          }
+        ],
+        "source_semantics_automatically_verified": false
+      },
+      "source_fingerprint": "0e74f99d1e90091c0bd4e528bc650bf6e39e0edb0cc500135e0e53df2750a7e9",
+      "report_sha256": "17338fa5d1a7c5eb22c0e1d4e7465a1c2b5d953304e796efe1adc66b55a77cfa"
+    },
+    {
+      "status": "verified",
+      "declarations": [
+        "ReaderV2.sparse_centered_reconstruction",
+        "ReaderV2.sparse_empty"
+      ],
+      "reasons": [],
+      "package_evidence": {
+        "id": "reader-verification",
+        "path": "research/reader-v2-20260930/math/verification/report.json",
+        "scope": "仅验证原文 Theorem 1 的精确中心化重构；不验证本篇高阶导数条件、稀疏性定理或近似误差结论。",
+        "compilation": "passed",
+        "axiom_audit": "passed",
+        "freshness": "current",
+        "unexpected_axioms": [],
+        "declarations": [
+          {
+            "name": "ReaderV2.sparse_centered_reconstruction",
+            "status": "passed",
+            "axioms": [
+              "propext",
+              "Classical.choice",
+              "Quot.sound"
+            ]
+          },
+          {
+            "name": "ReaderV2.sparse_empty",
+            "status": "passed",
+            "axioms": [
+              "propext",
+              "Classical.choice",
+              "Quot.sound"
+            ]
+          }
+        ],
+        "source_semantics_automatically_verified": false
+      },
+      "source_fingerprint": "0e74f99d1e90091c0bd4e528bc650bf6e39e0edb0cc500135e0e53df2750a7e9",
+      "report_sha256": "17338fa5d1a7c5eb22c0e1d4e7465a1c2b5d953304e796efe1adc66b55a77cfa"
+    },
+    {
+      "status": "verified",
+      "declarations": [
+        "ReaderV2.generalizable_and_subresult"
+      ],
+      "reasons": [],
+      "package_evidence": {
+        "id": "reader-verification",
+        "path": "research/reader-v2-20260930/math/verification/report.json",
+        "scope": "只验证正式附录 C(1) 的固定 x AND 分量子结论。完整 Theorem 2、OR 推导及 AND-OR 分解未被该报告覆盖。",
+        "compilation": "passed",
+        "axiom_audit": "passed",
+        "freshness": "current",
+        "unexpected_axioms": [],
+        "declarations": [
+          {
+            "name": "ReaderV2.generalizable_and_subresult",
+            "status": "passed",
+            "axioms": [
+              "propext",
+              "Classical.choice",
+              "Quot.sound"
+            ]
+          }
+        ],
+        "source_semantics_automatically_verified": false
+      },
+      "source_fingerprint": "0e74f99d1e90091c0bd4e528bc650bf6e39e0edb0cc500135e0e53df2750a7e9",
+      "report_sha256": "17338fa5d1a7c5eb22c0e1d4e7465a1c2b5d953304e796efe1adc66b55a77cfa"
+    },
+    {
+      "status": "verified",
+      "declarations": [
+        "ReaderV2.masked_empty",
+        "ReaderV2.sparse_empty",
+        "ReaderV2.baseline_nonempty_agreement",
+        "ReaderV2.baseline_explicit_reconstruction"
+      ],
+      "reasons": [],
+      "package_evidence": {
+        "id": "reader-verification",
+        "path": "research/reader-v2-20260930/math/verification/report.json",
+        "scope": "公共空集/去基线结果的真实模型输出记号适配；不是新论文定理。",
+        "compilation": "passed",
+        "axiom_audit": "passed",
+        "freshness": "current",
+        "unexpected_axioms": [],
+        "declarations": [
+          {
+            "name": "ReaderV2.masked_empty",
+            "status": "passed",
+            "axioms": [
+              "propext",
+              "Classical.choice",
+              "Quot.sound"
+            ]
+          },
+          {
+            "name": "ReaderV2.sparse_empty",
+            "status": "passed",
+            "axioms": [
+              "propext",
+              "Classical.choice",
+              "Quot.sound"
+            ]
+          },
+          {
+            "name": "ReaderV2.baseline_nonempty_agreement",
+            "status": "passed",
+            "axioms": [
+              "propext",
+              "Classical.choice",
+              "Quot.sound"
+            ]
+          },
+          {
+            "name": "ReaderV2.baseline_explicit_reconstruction",
+            "status": "passed",
+            "axioms": [
+              "propext",
+              "Classical.choice",
+              "Quot.sound"
+            ]
+          }
+        ],
+        "source_semantics_automatically_verified": false
+      },
+      "source_fingerprint": "0e74f99d1e90091c0bd4e528bc650bf6e39e0edb0cc500135e0e53df2750a7e9",
+      "report_sha256": "17338fa5d1a7c5eb22c0e1d4e7465a1c2b5d953304e796efe1adc66b55a77cfa"
+    },
+    {
+      "status": "unavailable",
+      "declarations": [],
+      "reasons": [
+        "verification report is missing"
+      ]
+    },
+    {
+      "status": "verified",
+      "declarations": [
+        "Harsanyi.reconstruction",
+        "Harsanyi.interaction_insert"
+      ],
+      "reasons": [],
+      "package_evidence": {
+        "id": "reader-verification",
+        "path": "research/reader-v2-20260930/math/verification/report.json",
+        "scope": "公共有限集合重构定理及其真实库内归纳证明；论文适配另见各结果。",
+        "compilation": "passed",
+        "axiom_audit": "passed",
+        "freshness": "current",
+        "unexpected_axioms": [],
+        "declarations": [
+          {
+            "name": "Harsanyi.reconstruction",
+            "status": "passed",
+            "axioms": [
+              "propext",
+              "Quot.sound",
+              "Classical.choice"
+            ]
+          },
+          {
+            "name": "Harsanyi.interaction_insert",
+            "status": "passed",
+            "axioms": [
+              "propext",
+              "Quot.sound",
+              "Classical.choice"
+            ]
+          }
+        ],
+        "source_semantics_automatically_verified": false
+      },
+      "source_fingerprint": "0e74f99d1e90091c0bd4e528bc650bf6e39e0edb0cc500135e0e53df2750a7e9",
+      "report_sha256": "17338fa5d1a7c5eb22c0e1d4e7465a1c2b5d953304e796efe1adc66b55a77cfa"
+    },
+    {
+      "status": "verified",
+      "declarations": [
+        "Harsanyi.reconstruction_unique",
+        "Harsanyi.interaction_reconstruct"
+      ],
+      "reasons": [],
+      "package_evidence": {
+        "id": "reader-verification",
+        "path": "research/reader-v2-20260930/math/verification/report.json",
+        "scope": "公共系数唯一性及其实际依赖的逆向反演；论文有限总体量词见独立适配。",
+        "compilation": "passed",
+        "axiom_audit": "passed",
+        "freshness": "current",
+        "unexpected_axioms": [],
+        "declarations": [
+          {
+            "name": "Harsanyi.reconstruction_unique",
+            "status": "passed",
+            "axioms": [
+              "propext",
+              "Quot.sound",
+              "Classical.choice"
+            ]
+          },
+          {
+            "name": "Harsanyi.interaction_reconstruct",
+            "status": "passed",
+            "axioms": [
+              "propext",
+              "Quot.sound",
+              "Classical.choice"
+            ]
+          }
+        ],
+        "source_semantics_automatically_verified": false
+      },
+      "source_fingerprint": "0e74f99d1e90091c0bd4e528bc650bf6e39e0edb0cc500135e0e53df2750a7e9",
+      "report_sha256": "17338fa5d1a7c5eb22c0e1d4e7465a1c2b5d953304e796efe1adc66b55a77cfa"
+    }
+  ]
+}

@@ -1,0 +1,367 @@
+{
+  "schema_version": 1,
+  "pilot_id": "20260930-sparse-concepts-v6",
+  "generated_at": "2026-09-30T05:55:01.108412+00:00",
+  "status": "completed_scoped_pilot",
+  "paper_complete": false,
+  "paper_id": "sparse-concepts-2111-06206",
+  "paper_version": "v6",
+  "visibility": "public",
+  "scope": "One approved public paper; source archive plus Theorem 1 reconstruction/uniqueness alignment and independent Lean application evidence.",
+  "source": {
+    "metadata_url": "https://arxiv.org/abs/2111.06206v6",
+    "pdf_url": "https://arxiv.org/pdf/2111.06206v6",
+    "tex_url": "https://arxiv.org/src/2111.06206v6",
+    "version_date": "2023-04-03T12:02:02Z",
+    "pdf_sha256": "2f18ed3bc48c095ffbf4ab68a1f6a6545d5e86e562229f3795a46e98f3095a12",
+    "tex_archive_sha256": "d7158da234ffbfaaa2f7e32f89e6977e3f910ac4ae40aac209c90e695f6a85e0",
+    "manifest_path": "corpus/papers/sparse-concepts-2111-06206/v6/manifest.yaml",
+    "provenance_path": "corpus/papers/sparse-concepts-2111-06206/v6/sources/source-provenance.json",
+    "source_review_path": "corpus/papers/sparse-concepts-2111-06206/v6/source-review.yaml",
+    "archived_files": 43,
+    "tex_archive_members": 37,
+    "pdf_pages": 38,
+    "archived_file_hash_mismatches": []
+  },
+  "automatic_extraction": {
+    "command_exit_code": 0,
+    "initial_candidates": 17,
+    "manual_issue_occurrences_added": 1,
+    "current_inventory_entries": 18,
+    "extracted_files": 36,
+    "denominator_reviewed": false,
+    "completeness_status": "partially_reviewed",
+    "limitations": [
+      "Automatic 17 candidates include prose references and repeated source occurrences; this is not a mathematical completeness denominator.",
+      "manualtheorem blocks and seven property statements are not completely detected by the automatic extractor.",
+      "All other theorem/property/proof candidates and unnumbered arguments still require section-by-section review."
+    ]
+  },
+  "aligned_unique_results": 2,
+  "reviewed_source_occurrences": [
+    {
+      "claim_id": "claim-e15edb3df777058b68a8489c",
+      "source": "Main §3.1 Theorem 1, PDF/printed p3; AOG.tex 205–215",
+      "theorem_ids": [
+        "harsanyi-reconstruction"
+      ],
+      "proof_ids": [
+        "proof-reconstruction-v1"
+      ],
+      "alignment_status": "aligned"
+    },
+    {
+      "claim_id": "claim-574bfc8510d17c3209fd1d10",
+      "source": "Native TeX occurrence of the same main theorem",
+      "same_source_occurrence_as": "claim-e15edb3df777058b68a8489c",
+      "theorem_ids": [
+        "harsanyi-reconstruction"
+      ],
+      "proof_ids": [
+        "proof-reconstruction-v1"
+      ],
+      "alignment_status": "aligned"
+    },
+    {
+      "claim_id": "claim-9cd974272d015aded7b577c6",
+      "source": "Appendix C Theorem 1, statement p14, both proof parts p14–15; appendix.tex 116–186",
+      "theorem_ids": [
+        "harsanyi-reconstruction",
+        "harsanyi-reconstruction-unique"
+      ],
+      "proof_ids": [
+        "proof-reconstruction-v1",
+        "proof-reconstruction-unique-v1"
+      ],
+      "alignment_status": "aligned"
+    }
+  ],
+  "alignment_checks": [
+    "Fix x, DNN and masking baseline; g(S)=v(x_S) is a real-valued Game (Fin n).",
+    "Ω=2^N contains all masks, including the empty mask.",
+    "Appendix C explicitly identifies SCM output with the subset sum; no learned or approximate-graph conclusion is used.",
+    "w_empty=g(empty) is preserved; no zero-baseline hypothesis or centering alteration is introduced.",
+    "Uniqueness assumes exact reconstruction on every coalition; no sampled-only or full-input-only premise is substituted."
+  ],
+  "shared_proof_policy": {
+    "proof_ids_reused": [
+      "proof-reconstruction-v1",
+      "proof-reconstruction-unique-v1"
+    ],
+    "core_proof_copies_created": 0,
+    "original_and_public_proof_methods_identical": false,
+    "relation_draft": "corpus/relations-public-draft.yaml",
+    "merge_pending_for_root": true
+  },
+  "verification": {
+    "claim_lean_declarations": [
+      "Harsanyi.reconstruction",
+      "Harsanyi.reconstruction_unique"
+    ],
+    "claim_verification_scope": "Existing current library report certifies those referenced canonical declarations; manual source alignment is recorded separately.",
+    "library_report": "reports/lean/20260930T052254-2/report.json",
+    "library_source_fingerprint": "8351261257fe4ea2f6a8792e5a0c30d22cf6efbea57e70e97a7ee19bb5d056bc",
+    "library_status": "passed",
+    "frozen_source_hash_mismatches": [],
+    "independent_application_status": "passed",
+    "independent_application_source": "reports/public-pilot/20260930-sparse-concepts-v6/PublicPilot.lean",
+    "independent_application_log": "reports/public-pilot/20260930-sparse-concepts-v6/lean-applications.log",
+    "independent_application_declarations": [
+      {
+        "name": "SparseConceptsPublicPilot.theorem1_faithfulness",
+        "axioms": [
+          "propext",
+          "Classical.choice",
+          "Quot.sound"
+        ],
+        "status": "passed"
+      },
+      {
+        "name": "SparseConceptsPublicPilot.theorem1_unique_coefficients",
+        "axioms": [
+          "propext",
+          "Classical.choice",
+          "Quot.sound"
+        ],
+        "status": "passed"
+      },
+      {
+        "name": "SparseConceptsPublicPilot.displayed_dummy_counterexample",
+        "axioms": [
+          "propext",
+          "Classical.choice",
+          "Quot.sound"
+        ],
+        "status": "passed"
+      }
+    ],
+    "old_library_report_covers_PublicPilot": false,
+    "PublicPilot_names_used_as_claim_lean_declarations": false,
+    "full_three_package_verification_rerun": false
+  },
+  "open_issues": [
+    {
+      "issue_id": "issue-sparse-concepts-v6-dummy-scope",
+      "assessment": "suspected",
+      "issue_type": "scope_ambiguity",
+      "user_confirmation": "pending",
+      "fix_authorization": "pending",
+      "math_correction_performed": false,
+      "evidence_scope": "Prose with other variables versus displayed all-S formula; exact one-player witness and original context retained."
+    }
+  ],
+  "commands": [
+    {
+      "cwd": ".",
+      "argv": [
+        "scripts/archive",
+        "ingest",
+        "inbox/public-sparse-concepts-v6"
+      ],
+      "exit_code": 0,
+      "log_path": "reports/public-pilot/20260930-sparse-concepts-v6/ingest.log"
+    },
+    {
+      "cwd": ".",
+      "argv": [
+        "scripts/archive",
+        "extract",
+        "sparse-concepts-2111-06206",
+        "--version",
+        "v6"
+      ],
+      "exit_code": 0,
+      "log_path": "reports/public-pilot/20260930-sparse-concepts-v6/extract.log"
+    },
+    {
+      "cwd": "examples/library-consumer",
+      "argv": [
+        "lake",
+        "env",
+        "lean",
+        "../../reports/public-pilot/20260930-sparse-concepts-v6/PublicPilot.lean"
+      ],
+      "exit_code": 0,
+      "log_path": "reports/public-pilot/20260930-sparse-concepts-v6/lean-applications.log"
+    }
+  ],
+  "download_commands": [
+    {
+      "argv": [
+        "curl",
+        "--fail",
+        "--location",
+        "--connect-timeout",
+        "15",
+        "--max-time",
+        "45",
+        "--dump-header",
+        "inbox/public-sparse-concepts-v6/pdf-http-headers.txt",
+        "--output",
+        "inbox/public-sparse-concepts-v6/2111.06206v6.pdf",
+        "https://arxiv.org/pdf/2111.06206v6"
+      ],
+      "default_sandbox_exit_code": 7,
+      "escalated_exit_code": 0
+    },
+    {
+      "argv": [
+        "curl",
+        "--fail",
+        "--location",
+        "--connect-timeout",
+        "15",
+        "--max-time",
+        "45",
+        "--dump-header",
+        "inbox/public-sparse-concepts-v6/tex-http-headers.txt",
+        "--output",
+        "inbox/public-sparse-concepts-v6/2111.06206v6-source.tar",
+        "https://arxiv.org/src/2111.06206v6"
+      ],
+      "escalated_exit_code": 0
+    }
+  ],
+  "not_reviewed": [
+    "All other proof candidates and unnumbered arguments",
+    "Full-paper theorem inventory denominator",
+    "Classical Shapley connection and further interaction indices",
+    "Sparsity and approximate-graph claims"
+  ],
+  "no_private_source_read": true,
+  "evidence_files": [
+    {
+      "path": "corpus/claims/claim-574bfc8510d17c3209fd1d10/adaptation.zh.md",
+      "sha256": "bddfdd07b255e04a38cfd6d67046eb2c1dc14071fc3a653ebac2dfe5829d125b"
+    },
+    {
+      "path": "corpus/claims/claim-574bfc8510d17c3209fd1d10/alignment.yaml",
+      "sha256": "e4bd1bc72030c88f984468847c6bf22c7f93bf5de67fa18fc1d53323d83c6bc4"
+    },
+    {
+      "path": "corpus/claims/claim-574bfc8510d17c3209fd1d10/metadata.yaml",
+      "sha256": "608429fc0bf27a263ab52ecdfa6e74d279312f65525549d4c64dfeb0f13167b0"
+    },
+    {
+      "path": "corpus/claims/claim-574bfc8510d17c3209fd1d10/original-reviewed.tex",
+      "sha256": "ca05432b90b1a0e7a6ee96189096a94cbdec1aa09d7bff77e8913ea061333550"
+    },
+    {
+      "path": "corpus/claims/claim-574bfc8510d17c3209fd1d10/original.tex",
+      "sha256": "12fac1e6fa8cc25860a9280cfed69a17d5dd3c616671679f41eccb710f4bc493"
+    },
+    {
+      "path": "corpus/claims/claim-574bfc8510d17c3209fd1d10/review.yaml",
+      "sha256": "5f31e9fa40f751ff8e53496b67d3fe995f07b1a5a7d91e975b891e10bf67f665"
+    },
+    {
+      "path": "corpus/claims/claim-9cd974272d015aded7b577c6/adaptation.zh.md",
+      "sha256": "50d91021f439dcfe060c0e833f0377e2da31267568bc5f5393fca6ebec5e085b"
+    },
+    {
+      "path": "corpus/claims/claim-9cd974272d015aded7b577c6/alignment.yaml",
+      "sha256": "4525082dc3851c1aa4ae12301e77e2570a391e84258f56f4a36e3ce2877d201c"
+    },
+    {
+      "path": "corpus/claims/claim-9cd974272d015aded7b577c6/metadata.yaml",
+      "sha256": "bb717f1328ddb836544ca31003dd0fada981afe3a2a8cfbf5362e0c3e89c6dd7"
+    },
+    {
+      "path": "corpus/claims/claim-9cd974272d015aded7b577c6/original-reviewed.tex",
+      "sha256": "b7e027bb1af5ce6f30b10d09db2851789ab7669294041f32a931c6e9334075c5"
+    },
+    {
+      "path": "corpus/claims/claim-9cd974272d015aded7b577c6/original.tex",
+      "sha256": "39eb4fb369831be1aa4cc9bccc4449bc16c13ef65107a73b64655ab8e751bd58"
+    },
+    {
+      "path": "corpus/claims/claim-9cd974272d015aded7b577c6/review.yaml",
+      "sha256": "5f31e9fa40f751ff8e53496b67d3fe995f07b1a5a7d91e975b891e10bf67f665"
+    },
+    {
+      "path": "corpus/claims/claim-e15edb3df777058b68a8489c/adaptation.zh.md",
+      "sha256": "95ee237fc479e6134ab381ba3c5ffe2f720245cca7adab1ec3c9383eb1e0ca4a"
+    },
+    {
+      "path": "corpus/claims/claim-e15edb3df777058b68a8489c/alignment.yaml",
+      "sha256": "e4bd1bc72030c88f984468847c6bf22c7f93bf5de67fa18fc1d53323d83c6bc4"
+    },
+    {
+      "path": "corpus/claims/claim-e15edb3df777058b68a8489c/metadata.yaml",
+      "sha256": "e0c3cee20039fc4782ad38e3da3790bb0c5a944d7bb3e66e25712a27c2de5327"
+    },
+    {
+      "path": "corpus/claims/claim-e15edb3df777058b68a8489c/original-reviewed.tex",
+      "sha256": "ca05432b90b1a0e7a6ee96189096a94cbdec1aa09d7bff77e8913ea061333550"
+    },
+    {
+      "path": "corpus/claims/claim-e15edb3df777058b68a8489c/original.tex",
+      "sha256": "d20844a0c4c5e14303bf10cdb8a9e2986322b0b49055245f8fd5f9c1d88df460"
+    },
+    {
+      "path": "corpus/claims/claim-e15edb3df777058b68a8489c/review.yaml",
+      "sha256": "5f31e9fa40f751ff8e53496b67d3fe995f07b1a5a7d91e975b891e10bf67f665"
+    },
+    {
+      "path": "corpus/issues/issue-sparse-concepts-v6-dummy-scope.yaml",
+      "sha256": "e054443f931149ff1a0d6e2a20aecbb4f39d3744581814ebaaafba0b0d0e8d11"
+    },
+    {
+      "path": "corpus/papers/sparse-concepts-2111-06206/v6/inventory.yaml",
+      "sha256": "216f0909e352cbb7c3d9b26d194de069249f9c998d98dd3ee1779d46df486c68"
+    },
+    {
+      "path": "corpus/papers/sparse-concepts-2111-06206/v6/source-review.yaml",
+      "sha256": "6c1d04466d3b699cbc1a1e11105b9761e662b9949cbb1190c85b91bd07445404"
+    },
+    {
+      "path": "corpus/relations-public-draft.yaml",
+      "sha256": "893dbff52a3e4dfa7da94e04d7d3870a934e87b550a90d9202c3d850846b424c"
+    },
+    {
+      "path": "reports/public-pilot/20260930-sparse-concepts-v6/PublicPilot.lean",
+      "sha256": "2a4a5cc5c5717931ebd8d3ef9660903518b3e72c1983d9a16efc3759f02cbd90"
+    },
+    {
+      "path": "reports/public-pilot/20260930-sparse-concepts-v6/lean-applications.log",
+      "sha256": "c145fa53f60738e12c2d182fcf972df3f807098b8d0358edbb80bea0e0ef62ed"
+    },
+    {
+      "path": "reports/public-pilot/20260930-sparse-concepts-v6/pdf-page-03.png",
+      "sha256": "fb4c4be931155afc87b0b1177771eb5e3c8ae0a3844e43de3abd06728687a7dc"
+    },
+    {
+      "path": "reports/public-pilot/20260930-sparse-concepts-v6/pdf-page-13.png",
+      "sha256": "544febfef30f58c5e04fb991301e5245a24edca480553a94720b75f43f245fd8"
+    },
+    {
+      "path": "reports/public-pilot/20260930-sparse-concepts-v6/pdf-page-14.png",
+      "sha256": "ad48bbb466e1b4ee2c89e7035359041aa335d3acde7d9e7522789fa8de7f3f87"
+    },
+    {
+      "path": "reports/public-pilot/20260930-sparse-concepts-v6/pdf-page-15.png",
+      "sha256": "e4c986e1b2986c79baed5d9b9336f850f536897de13ef6aba7dbe22c6d5543ed"
+    },
+    {
+      "path": "reports/public-pilot/20260930-sparse-concepts-v6/pdf-page-16.png",
+      "sha256": "5f4bc2e070d146c0575accda7bfb88cc6cc4c7b695ab82889ff399869157c275"
+    },
+    {
+      "path": "reports/public-pilot/20260930-sparse-concepts-v6/source-evidence/dummy-appendixB-context.tex",
+      "sha256": "b9c8be578a575a564e26f12f6d4e31f4aa48fb6bd352b89f1bb32dd5441d3b07"
+    },
+    {
+      "path": "reports/public-pilot/20260930-sparse-concepts-v6/source-evidence/dummy-appendixD-context.tex",
+      "sha256": "301a33916a9798f6d41d5523332fbbd07780df5e620186dcb2c73f2684414079"
+    },
+    {
+      "path": "reports/public-pilot/20260930-sparse-concepts-v6/source-evidence/theorem1-appendixC-statement-proof.tex",
+      "sha256": "ae3e853249a32f68708f3ae9ca0a18fd30ae1da6cbc6a6f4ad5fe7a8f7cdb4ba"
+    },
+    {
+      "path": "reports/public-pilot/20260930-sparse-concepts-v6/source-evidence/theorem1-main-context.tex",
+      "sha256": "f76834f42e1e520336134db3c81dfc1ca1f1f84783f6490effdf371fb9598981"
+    }
+  ],
+  "data_validation_report": "reports/public-pilot/20260930-sparse-concepts-v6/data-validation.json"
+}

@@ -1,0 +1,86 @@
+Published as a conference paper at ICLR 2024
+
+
+
+
+B     P ROOF OF THEOREMS
+B.1   P ROOF OF T HEOREM 1 IN THE MAIN PAPER
+Theorem 1. Let the input sample x be arbitrarily masked to obtain a masked sample xS . The output
+of the DNN on the masked sample xS can be disentangled into the sum of effects of all interactions
+within the set S:                              X
+                           ∀S ⊆ N, v(xS ) =            I(T ) + v(x∅ ).                         (7)
+                                                               T ⊆S
+
+
+Proof. According to the definition of the Harsanyi interaction, we have ∀S ⊆ N ,
+
+                            X                X X
+                                   I(T ) =              (−1)|T |−|L| u(L)
+                            T ⊆S             T ⊆S L⊆T
+                                             X       X
+                                        =                      (−1)|T |−|L| u(L)
+                                             L⊆S T ⊆S:T ⊇L
+                                               |S|
+                                             X X            X
+                                        =                           (−1)t−|L| u(L)
+                                             L⊆S t=|L| T ⊆S:S⊇L
+                                                           |T |=t
+
+                                                          |S|−|L|
+                                                                                !
+                                             X             X          |S| − |L|
+                                        =          u(L)                           (−1)m
+                                                           m=0
+                                                                          m
+                                             L⊆S
+
+                                        =u(S) = v(xS ) − v(x∅ ).
+                               P
+Therefore, we have v(xS ) =         T ⊆S   I(T ) + v(x∅ ).
+
+
+
+B.2   D ERIVATION OF A SSUMPTION 1-α FROM A SSUMPTION 1-β IN THE MAIN PAPER
+Before we give the derivation of Assumption 1-α from Assumption 1-β, we first prove the following
+lemma.
+Lemma 1. The effect I(S) (S ̸= ∅) of an interactive concept can be rewritten as
+                                                                              κi
+                                                           Q
+                          X           ∂ κ1 +···+κn v         i∈S (xi − bi )
+                  I(S) =                κ         κ      ·                       ,               (8)
+                              κ∈QS ∂x 1 · · · ∂xnn            κ1 ! · · · κn !
+                                        1            x=b
+
+where QS = {[κ1 , . . . , κn ]⊤ | ∀ i ∈ S, κi ∈ N+ ; ∀ i ̸∈ S, κi = 0}.
+Note that a similar proof was first introduced in Ren et al. (2023c).
+
+                                                              ˜
+Proof. Let us denote the function on the right of Eq. (8) by I(S), i.e., for S ̸= ∅,
+                                                                                 κi
+                                                               Q
+                    ˜     def
+                              X         ∂ κ1 +···+κn v          i∈S (xi − bi )
+                    I(S)  =               κ         κ       ·                       .            (9)
+                                κ∈QS ∂x 1 · · · ∂xnn             κ1 ! · · · κn !
+                                          1             x=b
+
+
+                                  ˜
+According to Eq. (1), we define I(∅)   = 0. Actually, it has been proven in Grabisch & Roubens
+(1999) and Ren et al. (2023a) that the Harsanyi interaction I(S) defined in Eq. (1) is the unique
+metric satisfying the universal matching property mentioned in the main paper, i.e.,
+                                                X
+                            ∀ S ⊆ N, v(xS ) =           I(T ) + v(x∅ ).                       (10)
+                                                               T ⊆S
+
+                                   ˜
+Thus, as long as we can prove that I(S) also satisfies the above universal matching property, we can
+       ˜
+obtain I(S) = I(S).
+                                    ˜
+To this end, we only need to prove I(S) also satisfies the universal matching property in Eq. (10).
+Specifically, given an input sample x ∈ Rn , let us consider the Taylor expansion of the network
+
+
+                                                          15
+

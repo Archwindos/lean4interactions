@@ -1,0 +1,71 @@
+                                                    Average IoU                                           TV news            census               bike
+                                                                             Explanation methods
+            Dataset            Model                STI     STI                                      MLP-5 ResMLP-5 MLP-5 ResMLP-5         MLP-5 ResMLP-5
+                                            SI                    ours                      Shapley   125.5     130.8   55.6        51.4   1.1E+4     7953.9
+                                                   (k=2) (k=3)               Attribution
+                                                                                             I×G      738.7    2586.1  408.1      1325.1   1.4E+5    1.1E+5
+      Add-Mul dataset [47]   functions in   0.61    0.27   0.55   1.00         -based
+                                                                                             LRP      317.6    9.4E+4  155.1     1.4E+04   1.4E+5    5.8E+8
+        Dataset in [28]       the dataset   0.99    0.50   0.59   1.00      explanations
+                                                                                             OCC      1386.2   1117.5  638.7       287.4   6.2E+4    3.7E+4
+       Manually labeled         MLP-5       0.87    0.35   0.69   0.97       Interaction      SI      6231.2   5598.6 2726.1      2719.0   1.2E+5    1.2E+5
+        And-Or dataset        ResMLP-5      0.90    0.35   0.69   0.98         -based      STI (k=2) 182.0      236.0   34.7        38.8   7685.0     5219.8
+                                                                            explanations STI (k=3) 177.7        252.4   41.0        60.5   1.0E+4     5045.8
+Table 1. IoU (↑) on synthesized datasets. The AOG explainer                            ours          9.4E-12 1.1E-11 8.5E-12 8.5E-12       2.6E-9     1.9E-9
+correctly extracted causal patterns.
+                                                                            Table 2. Unfaithfulness ρunfaith (↓) of different explanation methods.
+                                                                            Our AOG exhibited the lowest unfaithfulness.
+sentence. The phrase “John placed” in Fig. 5(right) directly
+hurt the linguistic acceptability without considering the com-              5 and ResMLP-5 networks to regress each And-Or function.
+plex structure of the sentence. Please see Appendix G.4 for                 We considered causal patterns in such And-Or functions as
+more results.                                                               ground-truth causal patterns in the DNN.
+                                                                                As for baseline methods, previous studies usually did not
+4.1. Examining whether the AOG explainer reflects
+                                                                            directly extract causal patterns from a trained DNN at a low
+      faithful causality
+                                                                            level as input units. To this end, interaction metrics (such
+    In this section, we proposed two metrics to examine                     as the Shapley interaction (SI) index [13] and the Shapley-
+whether the AOG explainer faithfully reflected the inference                Taylor interaction (STI) index [36]) were widely used to
+logic encoded by DNNs.                                                      quantify numerical effects of different interactive patterns
+    Metric 1: intersection over union (IoU) between causal                  between input variables on the network output. Thus, we
+patterns in the AOG explainer and ground-truth causal                       computed interactive patterns with top-ranked SI values, or
+patterns. This metric evaluated whether causal patterns                     patterns with top-ranked STI values of orders k = 2 and
+(nodes) in the AOG explainer correctly reflected the in-                    k = 3, as competing causal patterns for comparison. Based
+teractive concepts encoded by the model. Given a model                      on the IoU score defined above, Table 1 shows that our AOG
+and an input sample, let m denote the number of ground-                     explainer successfully explained much more causal patterns
+truth causal patterns m = |Ωtruth | in the input. Then, for                 than other interaction metrics.
+fair comparisons, we also used m causal patterns Ωtop-m                         Metric 2: evaluating faithfulness of the AOG explainer.
+in the AOG explainer with the top-m causal effects |wS |.                   We also proposed a metric ρunfaith to evaluate whether an
+We measured the IoU between Ωtruth and Ωtop-m as IoU =                      explanation method faithfully extracted causal effects en-
+|Ωtop-m ∩ Ωtruth |/|Ωtop-m ∪ Ωtruth | to evaluate the correctness of        coded by DNNs. As discussed in Section 3.2, if the quan-
+the extracted causal patterns in the AOG explainer. A higher                tified causal effects w are faithful, then they are supposed
+IoU value means a larger overlap between the ground-truth                   to minimize unfaith(w). Therefore, according to the SCM
+                                                                            in Eq. (2), we defined ρunfaith = ES⊆N [v(xS ) − S ′ ⊆S wS ′ )]2
+                                                                                                                            P
+causal patterns and the extracted causal patterns, which indi-
+cates higher correctness of the extracted causal patterns.                  to measure the unfaithfulness. As mentioned above, we
+    However, for most realistic datasets and models, people                 considered the SI values and STI values as numerical ef-
+could not annotate the ground-truth patterns, as discussed                  fects wS of different interactive patterns S on a DNN’s in-
+in [47]. Therefore, we used the off-the-shelf functions with                ference. Besides, we could also consider that attribution-
+ground-truth causal patterns in the Addition-Multiplication                 based explanations quantified the causal effect w{i} of
+(Add-Mul) dataset [47] and the dataset proposed in [28], to                 each variable i. Therefore, Table 2 compares the ex-
+test whether the learned AOGs could faithfully explain these                tracted causal effects in the AOG with SI values, STI val-
+functions. The ground-truth causal patterns of functions in                 ues, and attribution-based explanations (including the Shap-
+both datasets can be easily determined. For example, for the                ley value [31], Input×Gradient [32], LRP [3], and Occlu-
+function y = x1 x3 + x3 x4 x5 + x4 x6 , xi ∈ {0, 1} in the Add-             sion [43]). Our AOG explainer exhibited much lower ρunfaith
+Mul dataset, the ground-truth causal patterns are Ωtruth =                  values than baseline methods.
+{{x1 , x3 }, {x3 , x4 , x5 }, {x4 , x6 }} given the input sample x =
+[1, 1, ..., 1]. It was because the multiplication between binary
+                                                                            4.2. Conciseness of the AOG explainer
+input variables could be considered as the AND relationship,                   The conciseness of an AOG depends on a trade-off be-
+thereby forming explicit ground-truth causal patterns. In                   tween the ratio of the explained causal effects RΩ and the
+other words, the co-appearance of variables in each causal                  simplicity of the explanation. In this section, we evaluated
+pattern would contribute 1 to the output score y .                          the effects of baseline values on the simplicity of the AOG
+    Similarly, we also constructed the third dataset contain-               explainer, and examined the relationship between the ratio
+ing pre-defined And-Or functions with ground-truth causal                   of causal effects being explained and the simplicity of the
+patterns, namely the manually labeled And-Or dataset (see                   AOG explainer.
+Appendix G.3). Then, we learned the aforementioned MLP-                        Effects of baseline values on the conciseness of ex-
+
+
+
+                                                                         20286

@@ -1,0 +1,85 @@
+Published as a conference paper at ICLR 2024
+
+
+
+
+output v(xS ) of an arbitrarily masked sample xS (S ⊆ N ), which is expanded at x∅ = b =
+[b1 , · · · , bn ]⊤ . Then, we have
+                           ∞             ∞
+                           X             X        ∂ κ1 +···+κn v                 ((xS )1 − b1 )κ1 · · · ((xS )n − bn )κn
+   ∀ S ⊆ N,     v(xS ) =           ···                                       ·                                                  (11)
+                           κ1 =0         κn =0
+                                                 ∂xκ1 1 · · · ∂xκnn   x=b                     κ1 ! · · · κn !
+
+where bi denotes the baseline value to mask the input variable xi .
+According to the definition of the masked sample xS , we have that all variables in S keep unchanged
+and other variables are masked to the baseline value. That is, ∀ i ∈ S, (xS )i = xi ; ∀ i ̸∈ S, (xS )i =
+bi . Hence, we obtain ∀i ̸∈ S, [(xS )i − bi ]κi = 0. Then, among all Taylor expansion terms, only
+terms corresponding to degrees κ in the set PS = {[κ1 , · · · , κn ]⊤ | ∀i ∈ S, κi ∈ N; ∀i ̸∈ S, κi = 0}
+may not be zero. Therefore, Eq. (11) can be re-written as
+                                                                                                               − b i ) κi
+                                                                                              Q
+                                                   X       ∂ κ1 +···+κn v                           i∈S (xi
+                   ∀ S ⊆ N,        v(xS ) =                                               ·                               .     (12)
+                                                  κ∈PS
+                                                          ∂xκ1 1 · · · ∂xκnn      x=b                κ1 ! · · · κn !
+
+We find that the set PS can be divided into multiple disjoint sets as PS = ∪T ⊆S QT , where QT =
+{[κ1 , · · · , κn ]⊤ | ∀i ∈ T, κi ∈ N+ ; ∀i ̸∈ T, κi = 0}. Then, we can derive that
+                                                                                                                   − b i ) κi
+                                                                                                    Q
+                                              X X             ∂ κ1 +···+κn v                            i∈T (xi
+                ∀ S ⊆ N,      v(xS ) =                                                          ·
+                                                             ∂xκ1 1 · · · ∂xκnn       x=b                κ1 ! · · · κn !
+                                              T ⊆S κ∈QT
+                                              X                                                                                 (13)
+                                          =          ˜ ) + v(x∅ ).
+                                                     I(T
+                                              T ⊆S
+
+
+The last step is obtained as follows. When T = ∅, QT only has one element κ = [0, · · · , 0]⊤ , which
+                                       ˜
+corresponds to the term v(x∅ ). Also, I(∅)                                            ˜
+                                            = 0, which leads to the final form. Thus, I(S)   satisfies
+the universal matching property in Eq. (10), and this lemma holds.
+
+
+Then, we prove that by combining Lemma 1 and Assumption 1-β, we can obtain Assumption 1-α.
+Assumption 1-α. Interactions of higher than the M -th order have zero effect, i.e., ∀ S ∈ {S ⊆
+N | |S| ≥ M + 1}, I(S) = 0. Here, the order of an interaction is defined as the number of input
+                               def
+variables in S, i.e., order(S) = |S|.
+
+Proof. According to Lemma 1, we have
+                                                                                                        − bi )κi
+                                                                                      Q
+                                   X               ∂ κ1 +···+κn v                         i∈S (xi
+                     I(S) =                                                       ·                              ,              (14)
+                                         κ∈QS     ∂xκ1 1 · · · ∂xκnn       x=b                κ1 ! · · · κn !
+where QS = {[κ1 , . . . , κn ]⊤ | ∀ i ∈ S, κi ∈ N+ ; ∀ i ̸∈ S, κi = 0}.
+We note that when |S| ≥ M + 1, we have ∀ κ ∈ QS , κ1 + · · · + κn ≥ M + 1. Then, combining
+with Assumption 1-β, we have
+                                      ∂ κ1 +···+κn v
+                                                                      = 0,       ∀κ ∈ QS .                                      (15)
+                                     ∂xκ1 1 · · · ∂xκnn     x=b
+
+This leads to I(S) = 0, ∀S ∈ {S ⊆ N | |S| ≥ M + 1}.
+
+B.3 P ROOF OF T HEOREM 2 IN THE MAIN PAPER
+To facilitate the proof of Theorem 2 in the main paper, we first prove the following two lemmas.
+Lemma 2. For each M ≤ m ≤ n, the average network output of the m-th order can be written as
+                                         M
+                                         X   m
+                                               
+                                   (m)       k  (k)
+                                ū     =     n A     ,                                 (16)
+                                                             k=1       k
+
+where A(k) =
+               P
+                  T ⊆N,|T |=k   I(T ).
+
+
+                                                               16
+

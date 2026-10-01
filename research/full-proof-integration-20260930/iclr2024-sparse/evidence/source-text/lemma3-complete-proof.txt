@@ -1,0 +1,153 @@
+Proof. We first represent the above problem using the matrix representation: if Cw = 0, where
+            n
+               (1)       (n2 )          n
+                                       (M   )
+                                               
+                n         n      ···    n
+               (1)
+            n−1         (2)           (M )                             
+                                                                           w1
+                                                                                
+           ( 1 )       n−1            n−1 
+                       (       )      (      )
+            n             2
+                                 ···    M                                w2 
+      C =  (1)          (n2 )          n
+                                       (M   )  ∈ R(M +1)×M , and w =             M
+                                                                          ...  ∈ R ,      (28)
+                                                                               
+            ..            ..    ..      .. 
+            .              .       .     .    
+             ( 1 ) (n−M
+            n−M
+                                      (n−M                                 wM
+                           2 )          M )
+                                               
+                n         n      ···    n
+               (1)       (2)           (M )
+then we have w = 0.
+To prove this lemma, we only need to prove that rank(C) = M .
+If we perform elementary row transformations on the matrix, i.e., subtracting the (i + 1)-th row from
+                                                           n
+                                                             − n−1           n−1
+                                                                      
+the i-th row (i = 1, 2, · · · , M ), and using the formula m        m   =    m−1 , the matrix can be
+
+
+                                                   17
+
+
+Published as a conference paper at ICLR 2024
+
+
+
+
+transformed as below, with its row rank unchanged:
+                                      n−1
+                                        ( 0 )    (n−11 )           (Mn−1 
+                                                                         −1)
+                                                            · · ·
+                                      (n1 )       (n2 )             (M n
+                                                                           ) 
+                                      (n−2)     (n−2                n−2 
+                                                     1 )           (M    −1) 
+                                      0
+                                      (n)                  ···
+                                      1           (n2 )             (M n
+                                                                           )  
+                               C ′ =  ...           ..     ..          ..                       (29)
+                                     
+                                      n−M            .         .        .    
+                                      ( 0 ) (n−M        )         (n−M 
+                                                                     M −1    )
+                                      n             1
+                                                            ···
+                                                   (n2 )                n
+                                                                               
+                                      (1)                           (M    ) 
+                                      (n−M ) (n−M                  n−M 
+                                                     2 )           ( M )
+                                            1
+                                                            ···
+                                          (n1 )    (n2 )             (M n
+                                                                           )
+To prove that its rank is M , we only need to prove that the first M rows of C ′ are linearly indepen-
+dent, which is further equivalent to proving a non-zero determinant of the square matrix consisting
+of the first M rows, i.e.,
+                                     n−1
+                                       ( 0 )    (n−11 )           (Mn−1 
+                                                                       −1)
+                                          n        n       ···        n
+                                     n−2(1)      (2)               (M    ) 
+                                    ( 0 )      (n−21 )           (Mn−2 
+                                                                       −1) 
+                                     n                    ···
+                           D = det  ( 1 )
+                              def                (n2 )             (Mn
+                                                                          )   ̸= 0              (30)
+                                     .    .        .
+                                                    .      ..         .. 
+                                     .             .         .        .      
+                                     n−M
+                                      ( 0 ) (n−M    1 )           (n−M
+                                                                    M −1 )
+                                                                              
+                                          n        n       ···        n
+                                         (1)      (2)               (M )
+
+We can recursively obtain the equations below:
+                   n−1        n−1
+                                              n−1 
+                                                    
+                       0        1    ···    M −1
+   M  
+        n          n−2         n−2
+                                       ···     n−2 
+  Y                0            1            M −1 
+D          = det  .             ..     .       ..                                                          (31)
+        k          ..            .  ..         . 
+  k=1
+                     n−M       n−M            n−M
+                          
+                       0         1     ···    M −1
+                                n−2            n−2 
+                                                   
+                       0               ·  · ·
+                  
+                                 0           M −2
+                                n−3            n−3 
+                   0
+                                 0     ···    M −2 
+           = det  .                                                   // subtracting (i + 1)-th row from i-th row
+                  
+                                  ..    ..       .. 
+                   ..             .        .     . 
+                     n−M
+                           n−M              n−M
+                       0         1     ···    M −1
+                                                                                                             (32)
+                       n−2       n−2                 n−2 
+                                                          
+                                            ···
+                   
+                        0        1                 M −2
+                       n−3       n−2                 n−2 
+                   
+                        0         1         ···      M −2 
+             = det                                                                                          (33)
+                   
+                         ..       ..        ..         .. 
+                         .       .          .        . 
+                       n−M      n−M                  n−M
+                        0          1        ···      M −2
+          = ···                                                                                              (34)
+          =1                                                                                                 (35)
+Now we can see that
+                                                        1
+                                            D = QM              n
+                                                                     ̸= 0                                   (36)
+                                                      k=1       k
+This leads to the conclusion:
+                                       PM        (mk)
+If ∀ m ∈ {n, n − 1, · · · , n − M },                  w = 0, then wk = 0 for k = 1, · · · , M .
+                                           k=1   (nk) k

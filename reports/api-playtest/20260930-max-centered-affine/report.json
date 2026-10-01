@@ -1,0 +1,280 @@
+{
+  "schema_version": 1,
+  "trial_id": "20260930-max-centered-affine",
+  "generated_at": "2026-09-30T05:37:30.772732+00:00",
+  "status": "passed",
+  "tester": {
+    "agent": "public_pilot_api_max",
+    "model": "gpt-6.1-sol",
+    "reasoning_effort": "max",
+    "participated_in_library_implementation": false,
+    "read_core_implementation_before_authoring": false,
+    "core_read_for_sha256_only": true
+  },
+  "library": {
+    "library": "HarsanyiLib",
+    "library_version": "0.1.0",
+    "lean_version": "4.24.0",
+    "mathlib_revision": "f897ebcf72cd16f89ab4577d0c826cd14afaafc7",
+    "source_fingerprint": "8351261257fe4ea2f6a8792e5a0c30d22cf6efbea57e70e97a7ee19bb5d056bc",
+    "verification_report": "reports/lean/20260930T052254-2/report.json"
+  },
+  "base_report_status": "passed",
+  "frozen_source_hash_mismatches": [],
+  "full_three_package_verification_rerun": false,
+  "environment": {
+    "cwd": "examples/library-consumer",
+    "strategy": "Reuse the locked consumer Lake dependency environment for independent scratch files; do not import Consumer."
+  },
+  "discovery": {
+    "documents": [
+      "AGENTS.md",
+      "PLAN.md",
+      "docs/implementation-contract.md",
+      "docs/ai-use-library.md",
+      "docs/library-quickstart.md",
+      "docs/library-api.md",
+      "docs/api-playtest.md",
+      "docs/math-conventions.md"
+    ],
+    "catalog": "catalog/library.json",
+    "queries": [
+      "uniqueness / 唯一性",
+      "centering / 中心化",
+      "linearity / interaction_add / interaction_smul",
+      "constant / interaction_const / empty baseline"
+    ],
+    "results": "reports/api-playtest/20260930-max-centered-affine/catalog-query-results.json",
+    "minimal_import": "Harsanyi.Core.Properties",
+    "premise_check": [
+      "Finset α; DecidableEq α; real-valued Game α",
+      "No assumption that v(empty)=0",
+      "All finite S in the reconstruct premise",
+      "Empty coefficient retained as zero in final centered formula"
+    ]
+  },
+  "task_source": "reports/api-playtest/20260930-max-centered-affine/task.yaml",
+  "declarations": [
+    {
+      "name": "APIPlaytestMax.centered_affine_interaction",
+      "status": "passed",
+      "axioms": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ],
+      "direct_constants": [
+        "DecidableEq",
+        "Harsanyi.Game",
+        "Real",
+        "Finset",
+        "Eq.mpr",
+        "Eq",
+        "Harsanyi.interaction",
+        "Harsanyi.centered",
+        "HAdd.hAdd",
+        "instHAdd",
+        "Real.instAdd",
+        "HMul.hMul",
+        "instHMul",
+        "Real.instMul",
+        "ite",
+        "EmptyCollection.emptyCollection",
+        "Finset.instEmptyCollection",
+        "Finset.decidableEq",
+        "OfNat.ofNat",
+        "Zero.toOfNat0",
+        "Real.instZero",
+        "HSub.hSub",
+        "instHSub",
+        "Real.instSub",
+        "id",
+        "congrArg",
+        "Harsanyi.interaction_centered",
+        "Harsanyi.interaction_add",
+        "Harsanyi.interaction_smul",
+        "Harsanyi.interaction_const",
+        "dite",
+        "Eq.ndrec",
+        "of_eq_true",
+        "Eq.trans",
+        "AddZero.toZero",
+        "AddZeroClass.toAddZero",
+        "AddMonoid.toAddZeroClass",
+        "SubNegMonoid.toAddMonoid",
+        "AddGroup.toSubNegMonoid",
+        "Real.instAddGroup",
+        "True",
+        "congr",
+        "Harsanyi.interaction_empty",
+        "ite_cond_eq_true",
+        "eq_self",
+        "sub_self",
+        "Eq.symm",
+        "Not",
+        "Decidable",
+        "if_neg",
+        "add_zero",
+        "Real.instAddMonoid",
+        "sub_zero",
+        "SubtractionMonoid.toSubNegZeroMonoid",
+        "SubtractionCommMonoid.toSubtractionMonoid",
+        "AddCommGroup.toDivisionAddCommMonoid",
+        "Real.instAddCommGroup"
+      ],
+      "direct_public_theorem_dependencies": [
+        "Harsanyi.interaction_centered",
+        "Harsanyi.interaction_add",
+        "Harsanyi.interaction_smul",
+        "Harsanyi.interaction_const",
+        "Harsanyi.interaction_empty"
+      ]
+    },
+    {
+      "name": "APIPlaytestMax.centered_affine_unique",
+      "status": "passed",
+      "axioms": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ],
+      "direct_constants": [
+        "DecidableEq",
+        "Harsanyi.Game",
+        "Real",
+        "Finset",
+        "Eq",
+        "Harsanyi.reconstruct",
+        "Harsanyi.centered",
+        "HAdd.hAdd",
+        "instHAdd",
+        "Real.instAdd",
+        "HMul.hMul",
+        "instHMul",
+        "Real.instMul",
+        "Harsanyi.interaction",
+        "Harsanyi.reconstruction_unique",
+        "Eq.mpr",
+        "ite",
+        "EmptyCollection.emptyCollection",
+        "Finset.instEmptyCollection",
+        "Finset.decidableEq",
+        "OfNat.ofNat",
+        "Zero.toOfNat0",
+        "Real.instZero",
+        "id",
+        "congrArg",
+        "funext",
+        "APIPlaytestMax.centered_affine_interaction"
+      ],
+      "direct_public_theorem_dependencies": [
+        "Harsanyi.reconstruction_unique"
+      ]
+    },
+    {
+      "name": "APIPlaytestMax.empty_centering_counterexample",
+      "status": "passed",
+      "axioms": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ],
+      "direct_constants": null,
+      "direct_public_theorem_dependencies": []
+    }
+  ],
+  "used_public_lemmas": [
+    "Harsanyi.interaction_centered",
+    "Harsanyi.interaction_add",
+    "Harsanyi.interaction_smul",
+    "Harsanyi.interaction_const",
+    "Harsanyi.interaction_empty",
+    "Harsanyi.reconstruction_unique"
+  ],
+  "rejection_fixture": {
+    "source": "reports/api-playtest/20260930-max-centered-affine/MissingPremise.lean",
+    "expected": "Lean rejects omitting S.Nonempty",
+    "exit_code": 1,
+    "log_path": "reports/api-playtest/20260930-max-centered-affine/missingpremise-attempt-1.log",
+    "counterexample_decl": "APIPlaytestMax.empty_centering_counterexample",
+    "corpus_issue_created": false,
+    "classification": "synthetic-api-premise-mismatch"
+  },
+  "commands": [
+    {
+      "cwd": "examples/library-consumer",
+      "argv": [
+        "lake",
+        "env",
+        "lean",
+        "../../.tmp/api-playtest-max/Playtest.lean"
+      ],
+      "exit_code": 1,
+      "log_path": "reports/api-playtest/20260930-max-centered-affine/playtest-attempt-1.log"
+    },
+    {
+      "cwd": "examples/library-consumer",
+      "argv": [
+        "lake",
+        "env",
+        "lean",
+        "../../.tmp/api-playtest-max/MissingPremise.lean"
+      ],
+      "exit_code": 1,
+      "log_path": "reports/api-playtest/20260930-max-centered-affine/missingpremise-attempt-1.log"
+    },
+    {
+      "cwd": "examples/library-consumer",
+      "argv": [
+        "lake",
+        "env",
+        "lean",
+        "../../.tmp/api-playtest-max/Playtest.lean"
+      ],
+      "exit_code": 0,
+      "log_path": "reports/api-playtest/20260930-max-centered-affine/playtest-attempt-2.log"
+    },
+    {
+      "cwd": "examples/library-consumer",
+      "argv": [
+        "lake",
+        "env",
+        "lean",
+        "../../.tmp/api-playtest-max/Dependencies.lean"
+      ],
+      "exit_code": 0,
+      "log_path": "reports/api-playtest/20260930-max-centered-affine/dependencies.log"
+    }
+  ],
+  "local_authoring_correction": {
+    "first_attempt_exit_code": 1,
+    "cause": "simp only [if_pos rfl,...] left condition normalized to True; local simplifier correction required",
+    "fix": "Replace that empty branch with simp [interaction_empty].",
+    "scope": "scratch authoring only; no API or mathematical statement changed",
+    "initial_draft_untrusted": true
+  },
+  "documentation_findings": {
+    "required_lemma_discovery": "passed",
+    "signatures_and_imports": "passed",
+    "empty_baseline_description": "passed",
+    "api_gap": null
+  },
+  "source_files": [
+    {
+      "path": "reports/api-playtest/20260930-max-centered-affine/Playtest.lean",
+      "sha256": "93cc2312a9df499b099deae899c009b555a748409c5d35d5a46066f54e566bee"
+    },
+    {
+      "path": "reports/api-playtest/20260930-max-centered-affine/MissingPremise.lean",
+      "sha256": "dad8b2b3d561f49af7998afd7a1a4a8e374448eec560ab5f87286c8afc695e64"
+    },
+    {
+      "path": "reports/api-playtest/20260930-max-centered-affine/Dependencies.lean",
+      "sha256": "0e27330e3493c73fbdc70b34b99ad808691f4e13376f35f6832ae0a70bd406aa"
+    },
+    {
+      "path": "reports/api-playtest/20260930-max-centered-affine/task.yaml",
+      "sha256": "05a14f5172da1898ff4c2bccf2d289e225ae7a0b5ac50fc9107b12cb663dcd52"
+    }
+  ]
+}

@@ -1,0 +1,90 @@
+Published as a conference paper at ICLR 2024
+
+
+
+
+                                   Region size = 𝟑 × 𝟑                             Region size = 𝟓 × 𝟓                           Region size = 𝟕 × 𝟕
+
+
+
+
+                                     salient                                         salient                                       salient
+               |𝐼ሚ 𝑆 |
+
+
+
+
+                                                noisy                                          noisy                                        noisy
+
+
+
+                                index of interaction 𝑆                            index of interaction 𝑆                          index of interaction 𝑆
+
+
+Figure 13: Normalized interaction strength in descending order. We compared the sparsity of inter-
+actions when we extracted interactions by setting different sizes of image regions as input variables.
+Interactions were still sparse when the size of image regions varied.
+
+
+E.5 E XPERIMENTS ON RNN S
+We conducted experiments on an RNN (i.e., the LSTM) to explore the possibility of applying the
+Harsanyi interaction to a wider range of tasks. Specifically, we trained LSTMs with 2 layers on the
+SST-2 dataset (Socher et al., 2013) (for sentiment classification) and the CoLA dataset (Warstadt
+et al., 2019) (for linguistic acceptability classification). The LSTM can be considered to take natural
+language as sequential data. Although these tasks are not equivalent to other prediction tasks on
+sequential    data,样本:
+       Lstm SST-2   they
+                       17, provide
+                            23, 46, 49 potential insights into how we can extend the Harsanyi interaction.
+FigureLstm
+         14 CoLA
+             shows  that 8,the
+                 样本：0,           network encodes relatively sparse interactions.
+                             9, 31
+
+
+                                     Sample 1                             Sample 2                         Sample 3                               Sample 4
+       SST-2
+
+                   |𝐼 𝑆 |
+
+
+
+
+                                                                                                                                                                       𝑛
+                            0   index of interaction 𝑆   2𝑛   0       index of interaction 𝑆   2𝑛   0   index of interaction 𝑆     2𝑛   0     index of interaction 𝑆 2
+
+                                     Sample 1                             Sample 2                         Sample 3                               Sample 4
+       CoLA
+
+                   |𝐼 𝑆 |
+
+
+
+
+                            0   index of interaction 𝑆   2𝑛       0   index of interaction 𝑆 2
+                                                                                               𝑛
+                                                                                                    0   index of interaction 𝑆    2𝑛    0     index of interaction 𝑆   2𝑛
+
+
+
+
+ Figure 14: Interaction strength in descending order. The LSTMs also encode sparse interactions.
+
+
+F    D ISCUSSION ON THE SETTING OF THRESHOLD τ                                                                           IN      S ECTION 3.2
+In fact, the setting of τ is quite reasonable, because most interactions with |I(S)| < τ actually
+have zero interaction effect I(S) = 0,Pinstead of having an extremely small yet non-zero effect
+by coincidence. According to I(S) = T ⊆S (−1)|S|−|T | · u(T ), interaction I(S) is computed by
+adding and subtracting an exponential number of non-zero terms. In this case, we usually obtain
+two types of interaction effects. First, we may obtain I(S) = 0, if the DNN does not encode an
+AND relationship between an exact set of variables in S. Then, different u(T ) values for T ⊆ S
+will eliminate each other, as long as the DNN does not bring random noises to the output u(T ).
+Alternatively, we may obtain I(S) with considerable value |I(S)| ≥ τ . In real applications, it is
+unrealistic for a DNN to be so elaborately trained that adding up 2|S| terms results in an extremely
+small yet non-zero interaction I(S), although we do not fully deny the negligible possibility that we
+may have a few interactions with extremely small interaction effects.
+
+
+                                                                                          33
+

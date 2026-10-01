@@ -1,0 +1,414 @@
+{
+  "schema_version": "2.0",
+  "status": "passed",
+  "generated_at": "2026-09-30T10:23:53.117947+00:00",
+  "scope": "local package integrity and read-only tools; independent source alignment record is separate",
+  "commands": [
+    {
+      "name": "build-package",
+      "cwd": "/mnt/data2/wyh/lean4project",
+      "argv": [
+        "/mnt/data2/wyh/lean4project/.conda-env/bin/python",
+        "research/reader-v2-20260930/architecture/build_package.py"
+      ],
+      "exit_code": 0,
+      "expected_exit_code": 0,
+      "passed": true,
+      "log_path": "research/reader-v2-20260930/architecture/verification/build-package.log"
+    },
+    {
+      "name": "validate",
+      "cwd": "/mnt/data2/wyh/lean4project",
+      "argv": [
+        "/mnt/data2/wyh/lean4project/.conda-env/bin/python",
+        "research/reader-v2-20260930/architecture/paper_agent.py",
+        "validate"
+      ],
+      "exit_code": 0,
+      "expected_exit_code": 0,
+      "passed": true,
+      "log_path": "research/reader-v2-20260930/architecture/verification/validate.log"
+    },
+    {
+      "name": "integrity-tests",
+      "cwd": "/mnt/data2/wyh/lean4project",
+      "argv": [
+        "/mnt/data2/wyh/lean4project/.conda-env/bin/python",
+        "-m",
+        "unittest",
+        "discover",
+        "-s",
+        "research/reader-v2-20260930/architecture",
+        "-p",
+        "test_paper_agent.py",
+        "-v"
+      ],
+      "exit_code": 0,
+      "expected_exit_code": 0,
+      "passed": true,
+      "log_path": "research/reader-v2-20260930/architecture/verification/integrity-tests.log"
+    },
+    {
+      "name": "query",
+      "cwd": "/mnt/data2/wyh/lean4project",
+      "argv": [
+        "/mnt/data2/wyh/lean4project/.conda-env/bin/python",
+        "research/reader-v2-20260930/architecture/paper_agent.py",
+        "query",
+        "--paper",
+        "iclr2024-sparse"
+      ],
+      "exit_code": 0,
+      "expected_exit_code": 0,
+      "passed": true,
+      "log_path": "research/reader-v2-20260930/architecture/verification/query.log"
+    },
+    {
+      "name": "get-result",
+      "cwd": "/mnt/data2/wyh/lean4project",
+      "argv": [
+        "/mnt/data2/wyh/lean4project/.conda-env/bin/python",
+        "research/reader-v2-20260930/architecture/paper_agent.py",
+        "get-result",
+        "cvpr2023-reconstruction"
+      ],
+      "exit_code": 0,
+      "expected_exit_code": 0,
+      "passed": true,
+      "log_path": "research/reader-v2-20260930/architecture/verification/get-result.log"
+    },
+    {
+      "name": "dependencies",
+      "cwd": "/mnt/data2/wyh/lean4project",
+      "argv": [
+        "/mnt/data2/wyh/lean4project/.conda-env/bin/python",
+        "research/reader-v2-20260930/architecture/paper_agent.py",
+        "dependencies",
+        "iclr2024-generalizable-and",
+        "--depth",
+        "2"
+      ],
+      "exit_code": 0,
+      "expected_exit_code": 0,
+      "passed": true,
+      "log_path": "research/reader-v2-20260930/architecture/verification/dependencies.log"
+    },
+    {
+      "name": "parent-status",
+      "cwd": "/mnt/data2/wyh/lean4project",
+      "argv": [
+        "/mnt/data2/wyh/lean4project/.conda-env/bin/python",
+        "research/reader-v2-20260930/architecture/paper_agent.py",
+        "verification-status",
+        "iclr2024-generalizable-andor"
+      ],
+      "exit_code": 0,
+      "expected_exit_code": 0,
+      "passed": true,
+      "log_path": "research/reader-v2-20260930/architecture/verification/parent-status.log"
+    },
+    {
+      "name": "selected-resource",
+      "cwd": "/mnt/data2/wyh/lean4project",
+      "argv": [
+        "/mnt/data2/wyh/lean4project/.conda-env/bin/python",
+        "research/reader-v2-20260930/architecture/paper_agent.py",
+        "get-resource",
+        "res-proof-finite-mobius-reconstruction-v2"
+      ],
+      "exit_code": 0,
+      "expected_exit_code": 0,
+      "passed": true,
+      "log_path": "research/reader-v2-20260930/architecture/verification/selected-resource.log"
+    },
+    {
+      "name": "closed-parameters",
+      "cwd": "/mnt/data2/wyh/lean4project",
+      "argv": [
+        "/mnt/data2/wyh/lean4project/.conda-env/bin/python",
+        "research/reader-v2-20260930/architecture/paper_agent.py",
+        "invoke",
+        "query",
+        "{\"text\":\"\",\"shell\":\"not-executed\"}"
+      ],
+      "exit_code": 2,
+      "expected_exit_code": 2,
+      "passed": true,
+      "log_path": "research/reader-v2-20260930/architecture/verification/closed-parameters.log"
+    }
+  ],
+  "source_files": [
+    {
+      "path": "docs/agent-extension-workflow.md",
+      "sha256": "13b16277615495298cc71262d538e789ff33736895d19a399eab4eb46bce44a0"
+    },
+    {
+      "path": "docs/paper-agent-data-model.md",
+      "sha256": "267d76b6c56d005bde25582bd1dda54904861e0d23fe291c485bb1ea7915776f"
+    },
+    {
+      "path": "research/paper-survey-20260930/earlier/venue-papers/sparse-cvpr2023-main/sparse-cvpr2023-main.pdf",
+      "sha256": "5702e161fa95421935c8879d505033dae903c92e79f491b1199511d643b8ff43"
+    },
+    {
+      "path": "research/paper-survey-20260930/earlier/venue-papers/sparse-cvpr2023-supp/sparse-cvpr2023-supp.pdf",
+      "sha256": "1c17a9af66dedf9db3d190a62ac070115ba1301b3fd568832da2d60f662f92d7"
+    },
+    {
+      "path": "research/paper-survey-20260930/recent/pdf/iclr2024-generalizable.pdf",
+      "sha256": "9690fc5c8043ca7f7a583297833588696276efc8324da4ed0dcaa5685c4390ed"
+    },
+    {
+      "path": "research/paper-survey-20260930/recent/pdf/iclr2024-sparse.pdf",
+      "sha256": "9f380ff7d659d8b414e2cdb70edf9dcc8d0e4108240a1f506c2337664e7c8f45"
+    },
+    {
+      "path": "research/reader-v2-20260930/architecture/agent-package.json",
+      "sha256": "f0c9052e920ddde633d55e4e2a9c664ebc7465445cde523118b5c01300d184eb"
+    },
+    {
+      "path": "research/reader-v2-20260930/architecture/build_package.py",
+      "sha256": "0d8affa298d86916ecd0edeb765d76440c17062184a328c8df26da2a341fe8ac"
+    },
+    {
+      "path": "research/reader-v2-20260930/architecture/package.schema.json",
+      "sha256": "a4e689d719fd95759dc6942eec61757aecd0c30eb1dfeabccc4fcbfdb1a4745e"
+    },
+    {
+      "path": "research/reader-v2-20260930/architecture/paper_agent.py",
+      "sha256": "c723597049cdad01f8a461c4089cb1cd1617f8dac6351fb4bd6d333bf1802c57"
+    },
+    {
+      "path": "research/reader-v2-20260930/architecture/source-alignment-review.md",
+      "sha256": "b4f65f88a39688d4c075116f5869a5226d8c9ef83c4fe9283e3822b673486955"
+    },
+    {
+      "path": "research/reader-v2-20260930/architecture/test_paper_agent.py",
+      "sha256": "34eec6907ebf40cf2b5304877fbd39d831f1a50300acacebe30fc6a98699acd8"
+    },
+    {
+      "path": "research/reader-v2-20260930/architecture/verify_package.py",
+      "sha256": "205803ea9a029cca81cdc533d5103468e0b7b86ebdcbccaf028d2241cdc89eff"
+    },
+    {
+      "path": "research/reader-v2-20260930/data/math-content.json",
+      "sha256": "987510b3b27babda02a67114231726532218a622665300983e30dc2cd2bb490a"
+    },
+    {
+      "path": "research/reader-v2-20260930/data/papers.json",
+      "sha256": "178d1d26f456b34ab7871c3d66e2e88b478fac37ee7d291f571ed18dd4e914f8"
+    },
+    {
+      "path": "research/reader-v2-20260930/data/source-excerpts/metadata.json",
+      "sha256": "6dc44aaa2e3c5901e38c73e82e82fd26ce308730a485275fc8e809d89cebe228"
+    },
+    {
+      "path": "research/reader-v2-20260930/math/issues.json",
+      "sha256": "027ba2da2988d6823296d6a20b2b739eb81c5cd3e02db07ec30e89c70b06e348"
+    },
+    {
+      "path": "research/reader-v2-20260930/math/lean/ReaderAdapters.lean",
+      "sha256": "5539e2f00aa5e4166ed72d115dd821b0e41d010e19068cc8e6a17d6b038ee1db"
+    },
+    {
+      "path": "research/reader-v2-20260930/math/verification/report.json",
+      "sha256": "17338fa5d1a7c5eb22c0e1d4e7465a1c2b5d953304e796efe1adc66b55a77cfa"
+    }
+  ],
+  "source_fingerprint": "8c04bb0b20a46a117bfabad774113744fda5208f6bb0588467817a96a71effd2",
+  "validation": {
+    "status": "passed",
+    "errors": [],
+    "warnings": [],
+    "counts": {
+      "papers": 3,
+      "versions": 3,
+      "sources": 4,
+      "occurrences": 7,
+      "propositions": 2,
+      "shared_proofs": 2,
+      "results": 5,
+      "adapters": 4,
+      "verification_reports": 6,
+      "issues": 1,
+      "alignment_notes": 1,
+      "resources": 21,
+      "prompts": 2
+    },
+    "verification_reports": [
+      {
+        "id": "verification-cvpr2023-reconstruction-v2",
+        "path": "research/reader-v2-20260930/math/verification/report.json",
+        "scope": "paper_adapter",
+        "compilation": "passed",
+        "axiom_audit": "passed",
+        "freshness": "current",
+        "unexpected_axioms": [],
+        "declarations": [
+          {
+            "name": "ReaderV2.cvpr_reconstruction",
+            "status": "passed",
+            "axioms": [
+              "propext",
+              "Classical.choice",
+              "Quot.sound"
+            ]
+          }
+        ],
+        "source_semantics_automatically_verified": false
+      },
+      {
+        "id": "verification-cvpr2023-uniqueness-v2",
+        "path": "research/reader-v2-20260930/math/verification/report.json",
+        "scope": "paper_adapter",
+        "compilation": "passed",
+        "axiom_audit": "passed",
+        "freshness": "current",
+        "unexpected_axioms": [],
+        "declarations": [
+          {
+            "name": "ReaderV2.cvpr_unique_coefficients",
+            "status": "passed",
+            "axioms": [
+              "propext",
+              "Classical.choice",
+              "Quot.sound"
+            ]
+          }
+        ],
+        "source_semantics_automatically_verified": false
+      },
+      {
+        "id": "verification-iclr2024-sparse-reconstruction-v2",
+        "path": "research/reader-v2-20260930/math/verification/report.json",
+        "scope": "paper_adapter",
+        "compilation": "passed",
+        "axiom_audit": "passed",
+        "freshness": "current",
+        "unexpected_axioms": [],
+        "declarations": [
+          {
+            "name": "ReaderV2.sparse_centered_reconstruction",
+            "status": "passed",
+            "axioms": [
+              "propext",
+              "Classical.choice",
+              "Quot.sound"
+            ]
+          },
+          {
+            "name": "ReaderV2.sparse_empty",
+            "status": "passed",
+            "axioms": [
+              "propext",
+              "Classical.choice",
+              "Quot.sound"
+            ]
+          }
+        ],
+        "source_semantics_automatically_verified": false
+      },
+      {
+        "id": "verification-iclr2024-generalizable-and-v2",
+        "path": "research/reader-v2-20260930/math/verification/report.json",
+        "scope": "paper_adapter",
+        "compilation": "passed",
+        "axiom_audit": "passed",
+        "freshness": "current",
+        "unexpected_axioms": [],
+        "declarations": [
+          {
+            "name": "ReaderV2.generalizable_and_subresult",
+            "status": "passed",
+            "axioms": [
+              "propext",
+              "Classical.choice",
+              "Quot.sound"
+            ]
+          }
+        ],
+        "source_semantics_automatically_verified": false
+      },
+      {
+        "id": "verification-library-reconstruction-v2",
+        "path": "research/reader-v2-20260930/math/verification/report.json",
+        "scope": "general_library",
+        "compilation": "passed",
+        "axiom_audit": "passed",
+        "freshness": "current",
+        "unexpected_axioms": [],
+        "declarations": [
+          {
+            "name": "Harsanyi.reconstruction",
+            "status": "passed",
+            "axioms": [
+              "propext",
+              "Quot.sound",
+              "Classical.choice"
+            ]
+          },
+          {
+            "name": "Harsanyi.interaction_insert",
+            "status": "passed",
+            "axioms": [
+              "propext",
+              "Quot.sound",
+              "Classical.choice"
+            ]
+          }
+        ],
+        "source_semantics_automatically_verified": false
+      },
+      {
+        "id": "verification-library-uniqueness-v2",
+        "path": "research/reader-v2-20260930/math/verification/report.json",
+        "scope": "general_library",
+        "compilation": "passed",
+        "axiom_audit": "passed",
+        "freshness": "current",
+        "unexpected_axioms": [],
+        "declarations": [
+          {
+            "name": "Harsanyi.reconstruction_unique",
+            "status": "passed",
+            "axioms": [
+              "propext",
+              "Quot.sound",
+              "Classical.choice"
+            ]
+          },
+          {
+            "name": "Harsanyi.interaction_reconstruct",
+            "status": "passed",
+            "axioms": [
+              "propext",
+              "Quot.sound",
+              "Classical.choice"
+            ]
+          }
+        ],
+        "source_semantics_automatically_verified": false
+      }
+    ],
+    "scope": "package integrity, selected records only"
+  },
+  "integrity_test_count": 12,
+  "negative_cases": [
+    "private derivatives/edges/resources excluded",
+    "stale source hashes",
+    "failed command",
+    "missing declaration",
+    "missing axioms",
+    "sorryAx rejected",
+    "unsupported schema keyword",
+    "foreign-key/version mismatch",
+    "duplicate appearance semantics",
+    "closed tool parameters",
+    "unsafe path/symlink rejected",
+    "component does not verify parent"
+  ],
+  "mcp_server_implemented": false,
+  "production_migration_implemented": false,
+  "private_test_data": "in-memory synthetic records only; no unpublished user file accessed",
+  "source_alignment_review": "research/reader-v2-20260930/architecture/source-alignment-review.md"
+}

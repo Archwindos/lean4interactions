@@ -1,0 +1,173 @@
+{
+  "schema_version": 1,
+  "build_id": "20260930T050811-2",
+  "status": "failed",
+  "generated_at": "2026-09-30T05:08:11.369082+00:00",
+  "source_fingerprint": "c68312321994bd015fe20da9051cf9a0399ebf798473b8b8cb0c429458da5375",
+  "source_files": [
+    {
+      "path": "examples/library-consumer/Consumer.lean",
+      "sha256": "12fac8f72947e86b774208d7969a5aa8501a0260fcb8db95f7e521ec87b204c2"
+    },
+    {
+      "path": "examples/library-consumer/Main.lean",
+      "sha256": "9e3d3e354d16f73ebd9cc04a42f2015cbbadfe2f83bef6f4ba979b291069ba79"
+    },
+    {
+      "path": "examples/library-consumer/lake-manifest.json",
+      "sha256": "a5df03dd221e7b612d8b9761eb278ce3edfc95997016b5bd93c19a46a8639200"
+    },
+    {
+      "path": "examples/library-consumer/lakefile.toml",
+      "sha256": "44cfcbb4d33ad20ddf4d8fa824ded6600282d0659136158ae18b839438094ec9"
+    },
+    {
+      "path": "examples/library-consumer/lean-toolchain",
+      "sha256": "42779d67b81608af8a12aa4328d2ab47ca201925b3b2bd68369587b5340bb434"
+    },
+    {
+      "path": "lean/HarsanyiLib/Harsanyi/Core/Basic.lean",
+      "sha256": "a578c7134739fb375ad725cf9b27c035a2584481975e176fcd4a4cb5789b431a"
+    },
+    {
+      "path": "lean/HarsanyiLib/Harsanyi/Core/Mobius.lean",
+      "sha256": "1edd8f7b7f8ca6487122361a970532872f61c3d649308b109d1d3f882dbe91d9"
+    },
+    {
+      "path": "lean/HarsanyiLib/Harsanyi/Core/Properties.lean",
+      "sha256": "5f0ab5acf2d0e5039fa55eee64d638e5e657f6d57f96075314244dc99e8ac57c"
+    },
+    {
+      "path": "lean/HarsanyiLib/Harsanyi/Core/Shapley.lean",
+      "sha256": "36ab99636124c4427a2e8b76729b2f02ad1c34127f8620bf0d36a021cfe98a82"
+    },
+    {
+      "path": "lean/HarsanyiLib/Harsanyi.lean",
+      "sha256": "ff9febb66181ab75bf17cada4d391ec0c1bc061c4fd6e4a89802e3442cd7a8a1"
+    },
+    {
+      "path": "lean/HarsanyiLib/lake-manifest.json",
+      "sha256": "15530a48dc2a100f79aa805876b097388ace6afe1cae57b0e162cd71195f681c"
+    },
+    {
+      "path": "lean/HarsanyiLib/lakefile.toml",
+      "sha256": "e46c1fd1699110b7ad85209b12cd136778ab62f6789497943149ffe1d62aff76"
+    },
+    {
+      "path": "lean/HarsanyiLib/lean-toolchain",
+      "sha256": "42779d67b81608af8a12aa4328d2ab47ca201925b3b2bd68369587b5340bb434"
+    },
+    {
+      "path": "lean/PaperProofs/Papers/BaselineAdaptation.lean",
+      "sha256": "d0dc66c0cafb5ac7e36b250f7a2cd5e800b8f54ddbbcd74d0e7080a2d78c1a3f"
+    },
+    {
+      "path": "lean/PaperProofs/Papers.lean",
+      "sha256": "5b54b31215ba02de8d56925508e5fb514111599e14a0d104c09cd8e8f90e7dfb"
+    },
+    {
+      "path": "lean/PaperProofs/lake-manifest.json",
+      "sha256": "686953012263d3d0fd66c50aa1dde16750ddffe33040a880c8faff14091aac3e"
+    },
+    {
+      "path": "lean/PaperProofs/lakefile.toml",
+      "sha256": "ec2084d32305657b0c15d80322cd5c12d53c649b838e176d9291ea1827e0419b"
+    },
+    {
+      "path": "lean/PaperProofs/lean-toolchain",
+      "sha256": "42779d67b81608af8a12aa4328d2ab47ca201925b3b2bd68369587b5340bb434"
+    },
+    {
+      "path": "locks/lean-dependencies.json",
+      "sha256": "a63213e8dd95acb9a139bb2ab5b02efe8bed54467e95ed9cb5e735203795eecb"
+    },
+    {
+      "path": "scripts/verify-lean.py",
+      "sha256": "c902b8ebd3b131bdf8a9e8e015e0a3e4b8d0cc837a78bce62f2e4e764f25d9aa"
+    },
+    {
+      "path": "scripts/verify-lean.sh",
+      "sha256": "a038e1d8cc52b1e7568b7e078c7b9578a7cded4099342c87c042e806223d086c"
+    }
+  ],
+  "toolchain": "Lean (version 4.24.0, x86_64-unknown-linux-gnu, commit 797c613eb9b6d4ec95db23e3e00af9ac6657f24b, Release)",
+  "lean_version": "4.24.0",
+  "mathlib_revision": "f897ebcf72cd16f89ab4577d0c826cd14afaafc7",
+  "commands": [
+    {
+      "cwd": ".",
+      "argv": [
+        "lean",
+        "--version"
+      ],
+      "exit_code": 0,
+      "log_path": "reports/lean/20260930T050811-2/toolchain.log"
+    },
+    {
+      "cwd": "lean/HarsanyiLib",
+      "argv": [
+        "lake",
+        "build"
+      ],
+      "exit_code": 0,
+      "log_path": "reports/lean/20260930T050811-2/build-0.log"
+    },
+    {
+      "cwd": "lean/HarsanyiLib",
+      "argv": [
+        "lake",
+        "env",
+        "lean",
+        "/mnt/data2/wyh/lean4project/.tmp/audit-20260930T050811-2-0.lean"
+      ],
+      "exit_code": 1,
+      "log_path": "reports/lean/20260930T050811-2/audit-0.log"
+    },
+    {
+      "cwd": "lean/PaperProofs",
+      "argv": [
+        "lake",
+        "build"
+      ],
+      "exit_code": 0,
+      "log_path": "reports/lean/20260930T050811-2/build-1.log"
+    },
+    {
+      "cwd": "lean/PaperProofs",
+      "argv": [
+        "lake",
+        "env",
+        "lean",
+        "/mnt/data2/wyh/lean4project/.tmp/audit-20260930T050811-2-1.lean"
+      ],
+      "exit_code": 1,
+      "log_path": "reports/lean/20260930T050811-2/audit-1.log"
+    },
+    {
+      "cwd": "examples/library-consumer",
+      "argv": [
+        "lake",
+        "build"
+      ],
+      "exit_code": 0,
+      "log_path": "reports/lean/20260930T050811-2/build-2.log"
+    },
+    {
+      "cwd": "examples/library-consumer",
+      "argv": [
+        "lake",
+        "env",
+        "lean",
+        "/mnt/data2/wyh/lean4project/.tmp/audit-20260930T050811-2-2.lean"
+      ],
+      "exit_code": 1,
+      "log_path": "reports/lean/20260930T050811-2/audit-2.log"
+    }
+  ],
+  "declarations": [],
+  "axiom_whitelist": [
+    "Classical.choice",
+    "Quot.sound",
+    "propext"
+  ]
+}

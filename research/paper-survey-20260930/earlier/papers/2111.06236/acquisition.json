@@ -1,0 +1,93 @@
+{
+  "arxiv_id": "2111.06236",
+  "version": "v4",
+  "title": "Discovering and Explaining the Representation Bottleneck of DNNs",
+  "authors": [
+    "Huiqi Deng",
+    "Qihan Ren",
+    "Hao Zhang",
+    "Quanshi Zhang"
+  ],
+  "first_public_date": "2021-11-11T14:35:20Z",
+  "updated": "2022-11-07T16:47:51Z",
+  "journal_ref": null,
+  "source_url": "https://arxiv.org/abs/2111.06236v4",
+  "pdf_url": "https://arxiv.org/pdf/2111.06236v4",
+  "retrieved_at": "2026-09-30T07:02:51.580250+00:00",
+  "attempts": [],
+  "local_pdf": "research/paper-survey-20260930/earlier/papers/2111.06236/2111.06236v4.pdf",
+  "sha256": "943467eaad9656c4a67d66484cd7c7013558a9f7e7464e327e356470b9d4d5e7",
+  "total_pages": 27,
+  "first_page": "                                        Published as a conference paper at ICLR 2022\n\n\n\n\n                                        D ISCOVERING AND E XPLAINING                                       THE       R EPRESENTA -\n                                        TION B OTTLENECK OF DNN S\n\n                                         Huiqi Deng∗, Qihan Ren∗, Hao Zhang, Quanshi Zhang†\n                                         Shanghai Jiao Tong University\n                                         {denghq7,renqihan,1603023-zh,zqs1022}@sjtu.edu.cn\n\n\n\n                                                                                     A BSTRACT\narXiv:2111.06236v4 [cs.LG] 7 Nov 2022\n\n\n\n\n                                                  This paper explores the bottleneck of feature representations of deep neural net-\n                                                  works (DNNs), from the perspective of the complexity of interactions between\n                                                  input variables encoded in DNNs. To this end, we focus on the multi-order in-\n                                                  teraction between input variables, where the order represents the complexity of\n                                                  interactions. We discover that a DNN is more likely to encode both too simple\n                                                  and too complex interactions, but usually fails to learn interactions of intermediate\n                                                  complexity. Such a phenomenon is widely shared by different DNNs for different\n                                                  tasks. This phenomenon indicates a cognition gap between DNNs and humans,\n                                                  and we call it a representation bottleneck. We theoretically prove the underlying\n                                                  reason for the representation bottleneck. Furthermore, we propose losses to en-\n                                                  courage/penalize the learning of interactions of specific complexities, and analyze\n                                                  the representation capacities of interactions of different complexities. The code is\n                                                  available at https://github.com/Nebularaid2000/bottleneck.\n\n\n                                        1       I NTRODUCTION\n\n                                        The revolution from shallow to deep models is a crucial step in the development of artificial intelli-\n                                        gence. DNNs usually exhibit superior performance to shallow models, which is generally believed\n                                        as a result of the improvement of the representation power (Pascanu et al., 2013; Montúfar et al.,\n                                        2014). To this end, instead of considering previous issues of the accuracy and the generalization\n                                        ability of DNNs, we focus on the following two questions about the representation capacity:\n                                        • Are there any common tendencies of DNNs in representing specific types of features?\n                                        • Does a DNN encode similar visual concepts as human beings for image classification?\n                                        In order to answer the above two questions, we first investigate the bottleneck of feature represen",
+  "status": "downloaded_extracted_requires_manual_review",
+  "automatic_heading_hits": [
+    {
+      "page": 2,
+      "text": "Theoretical proof. In this paper, we theoretically prove the mechanism that is responsible for the"
+    },
+    {
+      "page": 2,
+      "text": "representation bottleneck. Such proof also enables us to simulate the distribution of interactions of"
+    },
+    {
+      "page": 2,
+      "text": "Beyond the theoretical proof, another important issue is how to guide the learning of feature rep-"
+    },
+    {
+      "page": 4,
+      "text": "find that the multi-order interaction is closely connected to the Harsanyi dividend as follows (Proof"
+    },
+    {
+      "page": 6,
+      "text": "Theorem 1. (Proof in Appendix B) Assume Ei,j,S [ ∂∆v(i,j,S)"
+    },
+    {
+      "page": 6,
+      "text": "Theorem 1 shows that the strength (i.e., the          k∆W (m) (i, j)k2 ) of learning m-order inter-"
+    },
+    {
+      "page": 7,
+      "text": "our theory. Based on Theorem 1, the training strength w.r.t. the order m is proportional to the"
+    },
+    {
+      "page": 7,
+      "text": "Theorem 2. (Proof in Appendix B) The output change ∆u(r1 , r2 ) can be decomposed into the sum"
+    },
+    {
+      "page": 16,
+      "text": "Motivation of Theorem 1. Let W denote the network parameters of the DNN. Let L and η denote"
+    },
+    {
+      "page": 16,
+      "text": "Thus, we aim to study the strength ∆W (m) (i, j) of learning the m-order interaction in Theorem 1."
+    },
+    {
+      "page": 16,
+      "text": "Proof skeleton in Theorem 1. To theoretically explain the representation bottleneck, we prove that"
+    },
+    {
+      "page": 16,
+      "text": "Proof of Theorem 1. The m-order interaction I (m) (i, j) between variables i, j is defined as,"
+    },
+    {
+      "page": 17,
+      "text": "Therefore, the conclusion of Theorem 1 holds."
+    },
+    {
+      "page": 26,
+      "text": "Validation of zero-mean assumption in Theorem 1. We further verified the reliability of the zero-"
+    },
+    {
+      "page": 26,
+      "text": "mean assumption in Theorem 1. To this end, we analyzed the mean value Ei,j,S [ ∂∆v(i,j,S)"
+    },
+    {
+      "page": 26,
+      "text": "almost 0, which validated the zero-mean assumption in Theorem 1."
+    },
+    {
+      "page": 27,
+      "text": "texts S. However, such difference is negligible in the proof and does not affect the conclusion of"
+    }
+  ]
+}

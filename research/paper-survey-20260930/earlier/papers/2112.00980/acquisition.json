@@ -1,0 +1,232 @@
+{
+  "arxiv_id": "2112.00980",
+  "version": "v4",
+  "title": "Trap of Feature Diversity in the Learning of MLPs",
+  "authors": [
+    "Dongrui Liu",
+    "Shaobo Wang",
+    "Jie Ren",
+    "Kangrui Wang",
+    "Sheng Yin",
+    "Huiqi Deng",
+    "Quanshi Zhang"
+  ],
+  "first_public_date": "2021-12-02T04:42:26Z",
+  "updated": "2022-06-01T02:55:00Z",
+  "journal_ref": null,
+  "source_url": "https://arxiv.org/abs/2112.00980v4",
+  "pdf_url": "https://arxiv.org/pdf/2112.00980v4",
+  "retrieved_at": "2026-09-30T07:02:50.706902+00:00",
+  "attempts": [],
+  "local_pdf": "research/paper-survey-20260930/earlier/papers/2112.00980/2112.00980v4.pdf",
+  "sha256": "326f8a15d63af494c5d454f8c1737c9b0f8f73f9dd3db9dac29581a33763a5b1",
+  "total_pages": 35,
+  "first_page": "                                            Trap of Feature Diversity in the Learning of MLPs\n\n\n                                                   Dongrui Liua∗     Shaobo Wangb∗ Jie Rena Kangrui Wanga Sheng Yina\n                                                                           Huiqi Denga Quanshi Zhanga †\n                                                          a\n                                                            Shanghai Jiao Tong University b Harbin Institute of Technology\narXiv:2112.00980v4 [cs.LG] 1 Jun 2022\n\n\n\n\n                                                                                         Abstract\n                                                   In this paper, we focus on a typical two-phase phenomenon in the learning of\n                                                   multi-layer perceptrons (MLPs), and we aim to explain the reason for the decrease\n                                                   of feature diversity in the first phase. Specifically, people find that, in the training\n                                                   of MLPs, the training loss does not decrease significantly until the second phase.\n                                                   To this end, we further explore the reason why the diversity of features over\n                                                   different samples keeps decreasing in the first phase, which hurts the optimization\n                                                   of MLPs. We explain such a phenomenon in terms of the learning dynamics of\n                                                   MLPs. Furthermore, we theoretically explain why four typical operations can\n                                                   alleviate the decrease of the feature diversity. The code will be released when the\n                                                   paper is accepted.\n\n\n                                        1       Introduction\n                                        Deep neural networks (DNNs) have achieved significant success in various tasks. However, the\n                                        essential reason for the superior performance of DNNs has not been fully investigated. Many\n                                        studies aim to explain typical phenomena in DNNs, e.g. investigating the phenomenon of the lottery\n                                        ticket hypothesis [16], explaining the double-descent phenomenon [23, 36, 19], understanding the\n                                        information bottleneck hypothesis [48, 41], exploring the gradient noise and regularization [43, 34],\n                                        and analyzing the nonlinear learning dynamics [27, 38].\n                                        In this paper, we focus on the learning dynamics of multi-layer perceptrons (MLPs). It has been\n                                        widely discovered that when MLPs have many layers and the optimization is difficult, the learning\n                                        process of MLPs is more likely to have two phases. As Figure 1(b) shows, the first phase is usually\n                                        not long, in which the training loss does not decrease. Then, in the second phase, the training loss\n                                        suddenly begins to decrease. Note that when the task is simple the first phase may be extremely short\n                                        (e.g. a few iterations w",
+  "status": "downloaded_extracted_requires_manual_review",
+  "automatic_heading_hits": [
+    {
+      "page": 4,
+      "text": "Formulated in Eq.4          Formulated in Theorem 1."
+    },
+    {
+      "page": 4,
+      "text": "Explained in Lemma 3 and Theorem 2"
+    },
+    {
+      "page": 5,
+      "text": "Lemma 1. (Proof in the supplementary material) For the decomposition ∆Wt>=∆Vt C > + ∆εt , given"
+    },
+    {
+      "page": 5,
+      "text": "Lemma 2. (We can also decompose the weight Wt(l) into the component along the common direc-"
+    },
+    {
+      "page": 5,
+      "text": "tion C and the component εt in other directions. Proof is in the supplementary material.) Given the"
+    },
+    {
+      "page": 5,
+      "text": "Theorem 1. (Proof in the supplementary material) The weight change made by a sample can be"
+    },
+    {
+      "page": 7,
+      "text": "directions. The derivation is introduced in the supplementary material. The future self-enhancement"
+    },
+    {
+      "page": 7,
+      "text": "Lemma 3. (Proof in the supplementary material) Given an input sample x ∈ X and a com-"
+    },
+    {
+      "page": 7,
+      "text": "Theorem 2. (Proof in the supplementary material) Under the background assumption, for any train-"
+    },
+    {
+      "page": 7,
+      "text": "samples in a certain category. Theorem 2 shows that each category has a dominating training"
+    },
+    {
+      "page": 7,
+      "text": "direction. Specifically, let us combine Theorem 2 and the background assumption that ∆Ft(l−1) and"
+    },
+    {
+      "page": 7,
+      "text": "cos(αc Vt , ∆Ft            |x ) ≥ 0 in Theorem 2 means that features of training samples in the same category"
+    },
+    {
+      "page": 7,
+      "text": "cos(αc ∆Vt |x , Ft            |x ) ≥ 0 in Theorem 2 means that training samples in the category c all push Vt"
+    },
+    {
+      "page": 7,
+      "text": "cos(Vt , ∆Ft            ) ≥ 0 in Lemma 3."
+    },
+    {
+      "page": 8,
+      "text": "positive and usually increased over iterations, which verified Lemma 3. Besides, the assumption for a"
+    },
+    {
+      "page": 8,
+      "text": "t in Lemma 3 was verified by experimental results in the supplementary material."
+    },
+    {
+      "page": 8,
+      "text": "Theorem 2 and Assumption 1. The overall learning effects of all training samples are dominated"
+    },
+    {
+      "page": 9,
+      "text": "a proof of a strict sufficient condition or a necessary condition for the feature diversity."
+    },
+    {
+      "page": 9,
+      "text": "according to Theorem 2, the self-enhanced system of decreasing feature diversity requires features Ft(l)"
+    },
+    {
+      "page": 9,
+      "text": "that momentum in gradient descent can alleviate this phenomenon. Based on Lemma 3, the self-"
+    },
+    {
+      "page": 9,
+      "text": "According to Lemma 3, such a self-enhanced system requires weights along other directions ε(l)    t to be"
+    },
+    {
+      "page": 26,
+      "text": "E    Proof for the lemma 1"
+    },
+    {
+      "page": 26,
+      "text": "In this section, we present the detailed proof for Lemma 1."
+    },
+    {
+      "page": 26,
+      "text": "Lemma 1. For the decomposition ∆Wt> =∆Vt C > + ∆εt , given weight changes over different"
+    },
+    {
+      "page": 26,
+      "text": "proof. Let ∆ε>                                              >"
+    },
+    {
+      "page": 26,
+      "text": "F   Proof for the lemma 2"
+    },
+    {
+      "page": 26,
+      "text": "In this section, we present the detailed proof for Lemma 2."
+    },
+    {
+      "page": 26,
+      "text": "Lemma 2. (We can also decompose the weight Wt into the component along the common"
+    },
+    {
+      "page": 26,
+      "text": "proof. Let ε>                                           >"
+    },
+    {
+      "page": 27,
+      "text": "H.1     Proof for Theorem 1."
+    },
+    {
+      "page": 27,
+      "text": "In this subsection, we present the detailed proof for Theorem 1."
+    },
+    {
+      "page": 28,
+      "text": "Theorem 1. The weight change made by a sample can be decomposed into (h + 1) terms after the"
+    },
+    {
+      "page": 28,
+      "text": "proof. We can represent weight matrix as Wt                                    = C (l) Vt               + εt        . In addition, according to the"
+    },
+    {
+      "page": 28,
+      "text": "According to Lemma 1 and Lemma 2, we have ∆εt           C (l+1) = 0 and εt  C (l+1) = 0. After the"
+    },
+    {
+      "page": 29,
+      "text": "According to Eq. (2) in the main paper and Lemma 2, we have Ḟt                                                                      = Wt      Dt Ḟt       and"
+    },
+    {
+      "page": 31,
+      "text": "K     Proof for Lemma 3"
+    },
+    {
+      "page": 31,
+      "text": "In this section, we present the detailed proof for Lemma 3."
+    },
+    {
+      "page": 31,
+      "text": "Lemma 3. Given an input sample x ∈ X and a common direction C (l) after the t-th iteration, if"
+    },
+    {
+      "page": 31,
+      "text": "proof. Given a sample x, we can prove that cos(∆Vt , Ft                                                               ) · cos(Vt , ∆Ft                       ) ≥ 0."
+    },
+    {
+      "page": 31,
+      "text": "According to Lemma 1 and Lemma 2, we have C                                                      ∆εt               = 0 and         εt C (l)          = 0. Then, we have"
+    },
+    {
+      "page": 32,
+      "text": "L                Proof for Theorem 2"
+    },
+    {
+      "page": 32,
+      "text": "Theorem 2. Under the background assumption, for any training samples x, x0 ∈ Xc in the category"
+    },
+    {
+      "page": 32,
+      "text": "proof. Given a sample x and a sample x0 from the same category, we can prove that"
+    },
+    {
+      "page": 33,
+      "text": "According to Lemma 3, we have cos(∆Vt |x , Ft            |x ) · cos(Vt , ∆Ft        |x ) ≥ 0. Thus, we have"
+    },
+    {
+      "page": 33,
+      "text": "sign(cos(αc ∆Vt |x , Ft       |x )·cos(αc Vt , ∆Ft        |x )) ≥ 0. In addition, the above proof indicates"
+    },
+    {
+      "page": 33,
+      "text": "We can explain that momentum in gradient descent can alleviate this phenomenon. Based on Lemma"
+    },
+    {
+      "page": 34,
+      "text": "to Lemma 3, such self-enhanced system requires singular values of weights along other directions"
+    },
+    {
+      "page": 34,
+      "text": "will increase singular values of εt based on Lemma 2, alleviating the decrease of feature diversity."
+    },
+    {
+      "page": 34,
+      "text": "weights W0 . Based on Lemma 2, we also have ε0 = W0                                                                                                         − W0                      .         Large singular"
+    },
+    {
+      "page": 34,
+      "text": "According to Lemma 3, such self-enhanced system requires singular values of weights along other"
+    },
+    {
+      "page": 34,
+      "text": "directions εt to be small enough. Based on Lemma 2, we also have εt = Wt                                                                                                                 − Wt                          ."
+    }
+  ]
+}

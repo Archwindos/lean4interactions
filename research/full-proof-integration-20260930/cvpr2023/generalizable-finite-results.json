@@ -1,0 +1,2187 @@
+{
+  "paper_id": "iclr2024-generalizable",
+  "results": [
+    {
+      "id": "f11-and-mask-zero",
+      "paper_id": "iclr2024-generalizable",
+      "title": "掩码消失：含已遮掉变量的AND交互为零",
+      "kind": "finite_theorem_or_derivation",
+      "original_label": "Section 2.1",
+      "inventory_ids": [
+        "f11-and-mask-zero"
+      ],
+      "source_refs": [
+        {
+          "source_id": "src-iclr2024-generalizable-main",
+          "version_id": "ver-iclr2024-generalizable-formal",
+          "pdf_pages": [
+            2
+          ]
+        }
+      ],
+      "statement_tex": "S\\not\\subseteq T\\ \\Rightarrow\\ I_{and}(S\\mid x_T)=0",
+      "assumptions": [
+        "有限N；固定同一个坐标基线r、样本x和模型；不存在原始输出零基线假设。"
+      ],
+      "definitions": [
+        {
+          "id": "f11-coordinate-objects",
+          "body_md": "固定 $N=\\{1,\\ldots,n\\}$、模型 $v:\\mathbb R^n\\to\\mathbb R$、样本 $x$ 和同一个输入基线 $r$。记 $g(A)=v(x_A)$，$b=g(\\varnothing)$。二次掩码定义条件游戏 $g_T(A)=v((x_T)_A)=g(T\\cap A)$。AND为 $I_g(S)=\\sum_{L\\subseteq S}(-1)^{|S|-|L|}g(L)$，另记 $w_A=I_g(A)$。非空OR为 $O_g^N(S)=-I_{g^c}(S)$，其中 $g^c(L)=g(N\\setminus L)$；空OR单独规定 $O_g^N(\\varnothing)=g(\\varnothing)$。所有子集和包括空集，原始输出不要求零基线。涉及分量时分别以 $v_{and},v_{or}$ 定义对应游戏和条件游戏。"
+        }
+      ],
+      "overview": "同一基线的两次掩码等于集合交集；已缺失变量使子集对的输出相同而符号相反。",
+      "proof_steps": [
+        {
+          "id": "f11-mask-comp",
+          "title": "完整掩码合成引理",
+          "body_md": "固定坐标 $i$：若 $i\\in T\\cap L$，两次掩码都保留 $x_i$；若 $i\\notin L$，第二次给 $r_i$；若 $i\\in L\\setminus T$，第一次已经给 $r_i$，第二次保留的仍是 $r_i$。逐坐标相同，得 $(x_T)_L=x_{T\\cap L}$。两次必须使用同一输入基线 $r$。",
+          "formula_tex": "g_T(L)=g(T\\cap L).",
+          "justification": "",
+          "lean_refs": [
+            {
+              "declaration": "Harsanyi.maskCoordinates_comp",
+              "source_path": "lean/HarsanyiLib/Harsanyi/Extensions/OrInteraction.lean",
+              "line": 67,
+              "scope": "proved_general_identity_or_paper_adapter",
+              "explanation_md": "这一步引用该真实定义或声明；数值例子的代入仍属于正文计算。"
+            }
+          ]
+        },
+        {
+          "id": "f11-mask-zero-pair",
+          "title": "选出已被遮掉的变量并配对子集",
+          "body_md": "若 $S\\not\\subseteq T$，取 $i\\in S\\setminus T$。每个 $U\\subseteq S\\setminus\\{i\\}$ 满足 $T\\cap(U\\cup\\{i\\})=T\\cap U$，故对应条件输出相同。交互中的两项符号相反，逐对消去，结果为零。不要求模型线性或 $g(\\varnothing)=0$。",
+          "formula_tex": "S\\not\\subseteq T\\ \\Longrightarrow\\ I_{g_T}(S)=0.",
+          "justification": "",
+          "lean_refs": [
+            {
+              "declaration": "Harsanyi.and_mask_interaction_zero",
+              "source_path": "lean/HarsanyiLib/Harsanyi/Extensions/OrInteraction.lean",
+              "line": 93,
+              "scope": "proved_general_identity_or_paper_adapter",
+              "explanation_md": "这一步引用该真实定义或声明；数值例子的代入仍属于正文计算。"
+            },
+            {
+              "declaration": "FullGeneralizable.and_mask_zero",
+              "source_path": "research/full-proof-integration-20260930/cvpr2023/lean/FullGeneralizable.lean",
+              "line": 7,
+              "scope": "proved_general_identity_or_paper_adapter",
+              "explanation_md": "这一步引用该真实定义或声明；数值例子的代入仍属于正文计算。"
+            }
+          ]
+        },
+        {
+          "id": "f11-mask-boundary",
+          "title": "空集和未掩码边界",
+          "body_md": "$S=\\varnothing$ 始终包含于 $T$，因此消失命题不包括空交互；空交互为 $b$。$T=N$ 时不存在 $S\\not\\subseteq T$。$T=\\varnothing$ 时，全部非空 $S$ 的条件交互为零。",
+          "formula_tex": "",
+          "justification": "",
+          "lean_refs": [
+            {
+              "declaration": "Harsanyi.maskCoordinates_comp",
+              "source_path": "lean/HarsanyiLib/Harsanyi/Extensions/OrInteraction.lean",
+              "line": 67,
+              "scope": "proved_general_identity_or_paper_adapter",
+              "explanation_md": "这一步引用该真实定义或声明；数值例子的代入仍属于正文计算。"
+            }
+          ]
+        }
+      ],
+      "shared_proof_ids": [],
+      "symbol_ids": [
+        "sym-model",
+        "sym-input",
+        "sym-input-baseline",
+        "sym-mask",
+        "sym-universe",
+        "sym-coalition",
+        "sym-game",
+        "sym-output-baseline",
+        "sym-and-interaction",
+        "sym-or-interaction"
+      ],
+      "notation_map": [
+        {
+          "original_tex": "I_{and}(S\\mid x)",
+          "canonical_tex": "I_g(S)",
+          "relationship": "same_definition"
+        },
+        {
+          "original_tex": "I_{and}(S\\mid x_T)",
+          "canonical_tex": "I_{g_T}(S)",
+          "relationship": "derived_quantity"
+        },
+        {
+          "original_tex": "I_{or}(S\\mid x_T)",
+          "canonical_tex": "O_{g_T}^N(S)",
+          "relationship": "derived_quantity"
+        }
+      ],
+      "rewrite_status": "complete",
+      "completion_scope": "entire original finite-algebra statement",
+      "alignment_status": "agent_checked_full_statement",
+      "user_review_status": "pending",
+      "source_transcription_owner": "reader_multipage_v2_max",
+      "merge_policy": {
+        "preserve_original_statement_and_proof_fields": true
+      },
+      "lean": {
+        "status": "verified",
+        "declarations": [
+          "Harsanyi.maskCoordinates_comp",
+          "Harsanyi.and_mask_interaction_zero",
+          "FullGeneralizable.and_mask_zero"
+        ],
+        "scope": "entire original finite-algebra statement",
+        "report_path": "research/full-proof-integration-20260930/cvpr2023/verification/report.json",
+        "compiled": true,
+        "axiom_audit": "passed",
+        "build_id": "full-finite-proof-20260930",
+        "source_fingerprint": "6ddbd27c5e24541c13b62c45401c7a57609f16fde2db890833f8c0d8c6f4c707",
+        "source_semantics_automatically_verified": false,
+        "statement": "∀ {n : Nat} (v : (Fin n → Real) → Real) (r x : Fin n → Real) (T S : Finset.{0} (Fin n)),\n  Not (HasSubset.Subset.{0} S T) →\n    Eq.{1} (Harsanyi.interaction.{0} (Harsanyi.conditionalCoordinateGame.{0, 0} v r x T) S) 0",
+        "source_path": "research/full-proof-integration-20260930/cvpr2023/lean/FullGeneralizable.lean",
+        "line": 7,
+        "label": "所列精确范围已编译并通过公理审计",
+        "step_map": [
+          {
+            "step_id": "f11-mask-comp",
+            "declaration": "Harsanyi.maskCoordinates_comp",
+            "source_path": "lean/HarsanyiLib/Harsanyi/Extensions/OrInteraction.lean",
+            "line": 67,
+            "scope": "proved_general_identity_or_paper_adapter",
+            "explanation_md": "这一步引用该真实定义或声明；数值例子的代入仍属于正文计算。"
+          },
+          {
+            "step_id": "f11-mask-zero-pair",
+            "declaration": "Harsanyi.and_mask_interaction_zero",
+            "source_path": "lean/HarsanyiLib/Harsanyi/Extensions/OrInteraction.lean",
+            "line": 93,
+            "scope": "proved_general_identity_or_paper_adapter",
+            "explanation_md": "这一步引用该真实定义或声明；数值例子的代入仍属于正文计算。"
+          },
+          {
+            "step_id": "f11-mask-zero-pair",
+            "declaration": "FullGeneralizable.and_mask_zero",
+            "source_path": "research/full-proof-integration-20260930/cvpr2023/lean/FullGeneralizable.lean",
+            "line": 7,
+            "scope": "proved_general_identity_or_paper_adapter",
+            "explanation_md": "这一步引用该真实定义或声明；数值例子的代入仍属于正文计算。"
+          },
+          {
+            "step_id": "f11-mask-boundary",
+            "declaration": "Harsanyi.maskCoordinates_comp",
+            "source_path": "lean/HarsanyiLib/Harsanyi/Extensions/OrInteraction.lean",
+            "line": 67,
+            "scope": "proved_general_identity_or_paper_adapter",
+            "explanation_md": "这一步引用该真实定义或声明；数值例子的代入仍属于正文计算。"
+          }
+        ]
+      },
+      "related_issue_ids": [],
+      "rewrite_path": "research/full-proof-integration-20260930/cvpr2023/math/f11-and-mask-zero.zh.md"
+    },
+    {
+      "id": "f11-or-duality",
+      "paper_id": "iclr2024-generalizable",
+      "title": "OR对偶：反转掩码状态的负AND变换",
+      "kind": "finite_theorem_or_derivation",
+      "original_label": "Section 2.1; footnote 5",
+      "inventory_ids": [
+        "f11-or-duality"
+      ],
+      "source_refs": [
+        {
+          "source_id": "src-iclr2024-generalizable-main",
+          "version_id": "ver-iclr2024-generalizable-formal",
+          "pdf_pages": [
+            3
+          ]
+        }
+      ],
+      "statement_tex": "O_g^N(S)=-I_{g^c}(S),\\qquad g^c(L)=g(N\\setminus L),\\ S\\ne\\varnothing",
+      "assumptions": [
+        "有限N；固定同一个坐标基线r、样本x和模型；不存在原始输出零基线假设。"
+      ],
+      "definitions": [
+        {
+          "id": "f11-coordinate-objects",
+          "body_md": "固定 $N=\\{1,\\ldots,n\\}$、模型 $v:\\mathbb R^n\\to\\mathbb R$、样本 $x$ 和同一个输入基线 $r$。记 $g(A)=v(x_A)$，$b=g(\\varnothing)$。二次掩码定义条件游戏 $g_T(A)=v((x_T)_A)=g(T\\cap A)$。AND为 $I_g(S)=\\sum_{L\\subseteq S}(-1)^{|S|-|L|}g(L)$，另记 $w_A=I_g(A)$。非空OR为 $O_g^N(S)=-I_{g^c}(S)$，其中 $g^c(L)=g(N\\setminus L)$；空OR单独规定 $O_g^N(\\varnothing)=g(\\varnothing)$。所有子集和包括空集，原始输出不要求零基线。涉及分量时分别以 $v_{and},v_{or}$ 定义对应游戏和条件游戏。"
+        }
+      ],
+      "overview": "非空OR定义就是补集游戏的负Möbius变换；空集采用作者另外规定的基线值。",
+      "proof_steps": [
+        {
+          "id": "f11-dual-game",
+          "title": "明确反转状态的集合函数",
+          "body_md": "把原样本中“保留”与“使用基线”两个状态交换，新的集合函数是 $g^c(L)=g(N\\setminus L)$。这里反转的是有限状态索引，不是把原模型改成另一个模型。",
+          "formula_tex": "",
+          "justification": "",
+          "lean_refs": [
+            {
+              "declaration": "Harsanyi.orInteraction",
+              "source_path": "lean/HarsanyiLib/Harsanyi/Extensions/OrInteraction.lean",
+              "line": 10,
+              "scope": "definition",
+              "explanation_md": "这一步引用该真实定义或声明；数值例子的代入仍属于正文计算。"
+            }
+          ]
+        },
+        {
+          "id": "f11-dual-definition",
+          "title": "逐项对比非空OR与AND定义",
+          "body_md": "对 $S\\ne\\varnothing$，OR式的各项就是 $g^c$ 的AND变换，但整体有负号。数值一般互为相反数，绝对值相等。空OR另规定为 $g(\\varnothing)$；负AND在空集为 $-g(N)$，一般不同，必须分开。",
+          "formula_tex": "O_g^N(S)=-I_{g^c}(S)\\qquad(S\\ne\\varnothing).",
+          "justification": "",
+          "lean_refs": [
+            {
+              "declaration": "Harsanyi.or_dual",
+              "source_path": "lean/HarsanyiLib/Harsanyi/Extensions/OrInteraction.lean",
+              "line": 58,
+              "scope": "proved_general_identity_or_paper_adapter",
+              "explanation_md": "这一步引用该真实定义或声明；数值例子的代入仍属于正文计算。"
+            },
+            {
+              "declaration": "FullGeneralizable.or_duality",
+              "source_path": "research/full-proof-integration-20260930/cvpr2023/lean/FullGeneralizable.lean",
+              "line": 12,
+              "scope": "proved_general_identity_or_paper_adapter",
+              "explanation_md": "这一步引用该真实定义或声明；数值例子的代入仍属于正文计算。"
+            }
+          ]
+        },
+        {
+          "id": "f11-dual-example",
+          "title": "二变量与空集例子",
+          "body_md": "令 $N=\\{1,2\\}$，$g(\\varnothing)=7$、$g(\\{1\\})=8$、$g(\\{2\\})=9$、$g(\\{1,2\\})=13$。于是 $w_\\varnothing=7$、$w_{\\{1\\}}=1$、$w_{\\{2\\}}=2$、$w_{\\{1,2\\}}=3$。 补集游戏 $g^c$ 的两个单变量AND值为 $-4$、$-5$，二阶值为3；对应OR值为4、5、$-3$，空OR基线为7。反转AND的空值为13，不能用其负值 $-13$ 代替7。",
+          "formula_tex": "",
+          "justification": "",
+          "lean_refs": []
+        }
+      ],
+      "shared_proof_ids": [],
+      "symbol_ids": [
+        "sym-model",
+        "sym-input",
+        "sym-input-baseline",
+        "sym-mask",
+        "sym-universe",
+        "sym-coalition",
+        "sym-game",
+        "sym-output-baseline",
+        "sym-and-interaction",
+        "sym-or-interaction"
+      ],
+      "notation_map": [
+        {
+          "original_tex": "I_{and}(S\\mid x)",
+          "canonical_tex": "I_g(S)",
+          "relationship": "same_definition"
+        },
+        {
+          "original_tex": "I_{and}(S\\mid x_T)",
+          "canonical_tex": "I_{g_T}(S)",
+          "relationship": "derived_quantity"
+        },
+        {
+          "original_tex": "I_{or}(S\\mid x_T)",
+          "canonical_tex": "O_{g_T}^N(S)",
+          "relationship": "derived_quantity"
+        }
+      ],
+      "rewrite_status": "complete",
+      "completion_scope": "nonempty OR duality with explicit separate empty convention; does not prove sparsity inheritance assumptions",
+      "alignment_status": "agent_checked_full_statement",
+      "user_review_status": "pending",
+      "source_transcription_owner": "reader_multipage_v2_max",
+      "merge_policy": {
+        "preserve_original_statement_and_proof_fields": true
+      },
+      "lean": {
+        "status": "verified",
+        "declarations": [
+          "Harsanyi.or_dual",
+          "FullGeneralizable.or_duality"
+        ],
+        "scope": "nonempty OR duality with explicit separate empty convention; does not prove sparsity inheritance assumptions",
+        "report_path": "research/full-proof-integration-20260930/cvpr2023/verification/report.json",
+        "compiled": true,
+        "axiom_audit": "passed",
+        "build_id": "full-finite-proof-20260930",
+        "source_fingerprint": "6ddbd27c5e24541c13b62c45401c7a57609f16fde2db890833f8c0d8c6f4c707",
+        "source_semantics_automatically_verified": false,
+        "statement": "∀ {n : Nat} (v : (Fin n → Real) → Real) (r x : Fin n → Real) (S : Finset.{0} (Fin n)),\n  Ne.{1} S EmptyCollection.emptyCollection.{0} →\n    Eq.{1} (Harsanyi.orInteraction.{0} (fun L => v (Harsanyi.maskCoordinates.{0, 0} r x L)) Finset.univ.{0} S)\n      (Neg.neg.{0}\n        (Harsanyi.interaction.{0} (fun L => v (Harsanyi.maskCoordinates.{0, 0} r x (SDiff.sdiff.{0} Finset.univ.{0} L)))\n          S))",
+        "source_path": "research/full-proof-integration-20260930/cvpr2023/lean/FullGeneralizable.lean",
+        "line": 12,
+        "label": "所列精确范围已编译并通过公理审计",
+        "step_map": [
+          {
+            "step_id": "f11-dual-game",
+            "declaration": "Harsanyi.orInteraction",
+            "source_path": "lean/HarsanyiLib/Harsanyi/Extensions/OrInteraction.lean",
+            "line": 10,
+            "scope": "definition",
+            "explanation_md": "这一步引用该真实定义或声明；数值例子的代入仍属于正文计算。"
+          },
+          {
+            "step_id": "f11-dual-definition",
+            "declaration": "Harsanyi.or_dual",
+            "source_path": "lean/HarsanyiLib/Harsanyi/Extensions/OrInteraction.lean",
+            "line": 58,
+            "scope": "proved_general_identity_or_paper_adapter",
+            "explanation_md": "这一步引用该真实定义或声明；数值例子的代入仍属于正文计算。"
+          },
+          {
+            "step_id": "f11-dual-definition",
+            "declaration": "FullGeneralizable.or_duality",
+            "source_path": "research/full-proof-integration-20260930/cvpr2023/lean/FullGeneralizable.lean",
+            "line": 12,
+            "scope": "proved_general_identity_or_paper_adapter",
+            "explanation_md": "这一步引用该真实定义或声明；数值例子的代入仍属于正文计算。"
+          }
+        ]
+      },
+      "related_issue_ids": [],
+      "rewrite_path": "research/full-proof-integration-20260930/cvpr2023/math/f11-or-duality.zh.md",
+      "source_comparison_note_md": "原footnote 5将反转后的量称为same AND；项目根据原Eq.(2)明确保留整体负号。原文未给一个独立的完整负号处理证明，来源类别不得写成作者已证明了此逐式对齐。"
+    },
+    {
+      "id": "iclr2024-generalizable-theorem1",
+      "paper_id": "iclr2024-generalizable",
+      "title": "Theorem 1精确部分：全部掩码的AND重构",
+      "kind": "finite_theorem_or_derivation",
+      "original_label": "Theorem 1 exact equality",
+      "inventory_ids": [
+        "iclr2024-generalizable-theorem1"
+      ],
+      "source_refs": [
+        {
+          "source_id": "src-iclr2024-generalizable-main",
+          "version_id": "ver-iclr2024-generalizable-formal",
+          "pdf_pages": [
+            3,
+            12,
+            15
+          ]
+        }
+      ],
+      "statement_tex": "\\forall T\\subseteq N,\\quad v(x_T)=\\sum_{S\\subseteq T}I_{and}(S\\mid x)",
+      "assumptions": [
+        "有限N；固定同一个坐标基线r、样本x和模型；不存在原始输出零基线假设。"
+      ],
+      "definitions": [
+        {
+          "id": "f11-coordinate-objects",
+          "body_md": "固定 $N=\\{1,\\ldots,n\\}$、模型 $v:\\mathbb R^n\\to\\mathbb R$、样本 $x$ 和同一个输入基线 $r$。记 $g(A)=v(x_A)$，$b=g(\\varnothing)$。二次掩码定义条件游戏 $g_T(A)=v((x_T)_A)=g(T\\cap A)$。AND为 $I_g(S)=\\sum_{L\\subseteq S}(-1)^{|S|-|L|}g(L)$，另记 $w_A=I_g(A)$。非空OR为 $O_g^N(S)=-I_{g^c}(S)$，其中 $g^c(L)=g(N\\setminus L)$；空OR单独规定 $O_g^N(\\varnothing)=g(\\varnothing)$。所有子集和包括空集，原始输出不要求零基线。涉及分量时分别以 $v_{and},v_{or}$ 定义对应游戏和条件游戏。"
+        }
+      ],
+      "overview": "原始AND变换含空集系数。所有子集的有限消去留下当前掩码输出，精确部分不依赖稀疏假设。",
+      "proof_steps": [
+        {
+          "id": "f11-exact-adapt",
+          "title": "适配原始AND定义",
+          "body_md": "固定x和r后，论文 $I_{and}(A\\mid x)$ 就是 $I_g(A)$。它采用原始输出，空集为b。",
+          "formula_tex": "",
+          "justification": "",
+          "lean_refs": [
+            {
+              "declaration": "FullGeneralizable.exact_and_reconstruction",
+              "source_path": "research/full-proof-integration-20260930/cvpr2023/lean/FullGeneralizable.lean",
+              "line": 18,
+              "scope": "proved_general_identity_or_paper_adapter",
+              "explanation_md": "这一步引用该真实定义或声明；数值例子的代入仍属于正文计算。"
+            }
+          ]
+        },
+        {
+          "id": "cvpr-recon-main",
+          "title": "有限双重求和与区间消去",
+          "body_md": "对固定 $S$ 展开 $w_A$。每对 $L\\subseteq A\\subseteq S$ 只出现一次，交换有限求和不改变项。固定 $L$ 后，用 $B=A\\setminus L\\subseteq S\\setminus L$ 给出一一对应，且 $|A|-|L|=|B|$。若 $L\\ne S$，任选 $i\\in S\\setminus L$，把 $B$ 按是否含 $i$ 配对，符号相反，内和为零；若 $L=S$，只有 $B=\\varnothing$，内和为一。因此只留下 $g(S)$。",
+          "formula_tex": "\\sum_{A\\subseteq S}w_A=\\sum_{L\\subseteq S}g(L)\\sum_{B\\subseteq S\\setminus L}(-1)^{|B|}=g(S).",
+          "justification": "",
+          "lean_refs": [
+            {
+              "declaration": "Harsanyi.reconstruction",
+              "source_path": "lean/HarsanyiLib/Harsanyi/Core/Mobius.lean",
+              "line": 34,
+              "scope": "proved_general_identity_or_paper_adapter",
+              "explanation_md": "这一步引用该真实定义或声明；数值例子的代入仍属于正文计算。"
+            }
+          ]
+        },
+        {
+          "id": "cvpr-recon-empty",
+          "title": "空集与两个变量核对",
+          "body_md": "$S=\\varnothing$ 时只有 $w_\\varnothing=b$。取 $g(\\varnothing)=7,g(\\{1\\})=8,g(\\{2\\})=9,g(\\{1,2\\})=13$，系数为7,1,2,3；完整输入和为13，空输入为7，单变量输入分别为8和9。",
+          "formula_tex": "",
+          "justification": "",
+          "lean_refs": [
+            {
+              "declaration": "Harsanyi.interaction_empty",
+              "source_path": "lean/HarsanyiLib/Harsanyi/Core/Basic.lean",
+              "line": 30,
+              "scope": "proved_general_identity_or_paper_adapter",
+              "explanation_md": "这一步引用该真实定义或声明；数值例子的代入仍属于正文计算。"
+            }
+          ]
+        }
+      ],
+      "shared_proof_ids": [
+        "proof-finite-mobius-reconstruction-v2"
+      ],
+      "symbol_ids": [
+        "sym-model",
+        "sym-input",
+        "sym-input-baseline",
+        "sym-mask",
+        "sym-universe",
+        "sym-coalition",
+        "sym-game",
+        "sym-output-baseline",
+        "sym-and-interaction",
+        "sym-or-interaction"
+      ],
+      "notation_map": [
+        {
+          "original_tex": "I_{and}(S\\mid x)",
+          "canonical_tex": "I_g(S)",
+          "relationship": "same_definition"
+        },
+        {
+          "original_tex": "I_{and}(S\\mid x_T)",
+          "canonical_tex": "I_{g_T}(S)",
+          "relationship": "derived_quantity"
+        },
+        {
+          "original_tex": "I_{or}(S\\mid x_T)",
+          "canonical_tex": "O_{g_T}^N(S)",
+          "relationship": "derived_quantity"
+        }
+      ],
+      "rewrite_status": "complete",
+      "completion_scope": "exact equality component of original Theorem1; approximate/sparsity clause remains a separate inventory target",
+      "alignment_status": "agent_checked_full_statement",
+      "user_review_status": "pending",
+      "source_transcription_owner": "reader_multipage_v2_max",
+      "merge_policy": {
+        "preserve_original_statement_and_proof_fields": true
+      },
+      "lean": {
+        "status": "verified",
+        "declarations": [
+          "FullGeneralizable.exact_and_reconstruction"
+        ],
+        "scope": "exact equality component of original Theorem1; approximate/sparsity clause remains a separate inventory target",
+        "report_path": "research/full-proof-integration-20260930/cvpr2023/verification/report.json",
+        "compiled": true,
+        "axiom_audit": "passed",
+        "build_id": "full-finite-proof-20260930",
+        "source_fingerprint": "6ddbd27c5e24541c13b62c45401c7a57609f16fde2db890833f8c0d8c6f4c707",
+        "source_semantics_automatically_verified": false,
+        "statement": "∀ {n : Nat} (v : (Fin n → Real) → Real) (r x : Fin n → Real) (T : Finset.{0} (Fin n)),\n  Eq.{1} (∑ S ∈ Finset.powerset.{0} T, Harsanyi.interaction.{0} (fun L => v (Harsanyi.maskCoordinates.{0, 0} r x L)) S)\n    (v (Harsanyi.maskCoordinates.{0, 0} r x T))",
+        "source_path": "research/full-proof-integration-20260930/cvpr2023/lean/FullGeneralizable.lean",
+        "line": 18,
+        "label": "所列精确范围已编译并通过公理审计",
+        "step_map": [
+          {
+            "step_id": "f11-exact-adapt",
+            "declaration": "FullGeneralizable.exact_and_reconstruction",
+            "source_path": "research/full-proof-integration-20260930/cvpr2023/lean/FullGeneralizable.lean",
+            "line": 18,
+            "scope": "proved_general_identity_or_paper_adapter",
+            "explanation_md": "这一步引用该真实定义或声明；数值例子的代入仍属于正文计算。"
+          },
+          {
+            "step_id": "cvpr-recon-main",
+            "declaration": "Harsanyi.reconstruction",
+            "source_path": "lean/HarsanyiLib/Harsanyi/Core/Mobius.lean",
+            "line": 34,
+            "scope": "proved_general_identity_or_paper_adapter",
+            "explanation_md": "这一步引用该真实定义或声明；数值例子的代入仍属于正文计算。"
+          },
+          {
+            "step_id": "cvpr-recon-empty",
+            "declaration": "Harsanyi.interaction_empty",
+            "source_path": "lean/HarsanyiLib/Harsanyi/Core/Basic.lean",
+            "line": 30,
+            "scope": "proved_general_identity_or_paper_adapter",
+            "explanation_md": "这一步引用该真实定义或声明；数值例子的代入仍属于正文计算。"
+          }
+        ]
+      },
+      "related_issue_ids": [],
+      "rewrite_path": "research/full-proof-integration-20260930/cvpr2023/math/iclr2024-generalizable-theorem1.zh.md"
+    },
+    {
+      "id": "iclr2024-generalizable-and",
+      "paper_id": "iclr2024-generalizable",
+      "title": "Appendix C(1)：固定样本与字面条件AND重构",
+      "kind": "finite_theorem_or_derivation",
+      "original_label": "Appendix C(1)",
+      "inventory_ids": [
+        "iclr2024-generalizable-and"
+      ],
+      "source_refs": [
+        {
+          "source_id": "src-iclr2024-generalizable-main",
+          "version_id": "ver-iclr2024-generalizable-formal",
+          "pdf_pages": [
+            12,
+            13
+          ]
+        }
+      ],
+      "statement_tex": "g_{and}(T)=\\sum_{S\\subseteq T}I_{g_{and,T}}(S)=\\sum_{S\\subseteq T}I_{g_{and}}(S),\\quad g_{and,T}(L)=g_{and}(T\\cap L).",
+      "assumptions": [
+        "$g(U)=v(x_U)$；有限 $N$、$T\\subseteq N$；AND/OR分量为任意集合函数，父定理要求对全部标签 $U$ 满足 $g(U)=g_{and}(U)+g_{or}(U)$。无需 $x_i\\ne r_i$ 或分量延拓假设。"
+      ],
+      "definitions": [
+        {
+          "id": "f11-coordinate-and-label-objects",
+          "body_md": "固定 $N=\\{1,\\ldots,n\\}$、模型 $v:\\mathbb R^n\\to\\mathbb R$、样本 $x$ 和同一个输入基线 $r$。记 $g(A)=v(x_A)$，$b=g(\\varnothing)$。二次掩码定义条件游戏 $g_T(A)=v((x_T)_A)=g(T\\cap A)$。AND为 $I_g(S)=\\sum_{L\\subseteq S}(-1)^{|S|-|L|}g(L)$，另记 $w_A=I_g(A)$。非空OR为 $O_g^N(S)=-I_{g^c}(S)$，其中 $g^c(L)=g(N\\setminus L)$；空OR单独规定 $O_g^N(\\varnothing)=g(\\varnothing)$。所有子集和包括空集，原始输出不要求零基线。涉及分量时分别以 $v_{and},v_{or}$ 定义对应游戏和条件游戏。 原第4、6页允许按掩码标签任意给定 $\\gamma_A$，因此联合分解的最一般对象是 $g_{and}(A)=\\tfrac12g(A)+\\gamma_A$、$g_{or}(A)=\\tfrac12g(A)-\\gamma_A$，或任意满足 $g(A)=g_{and}(A)+g_{or}(A)$ 的两个集合函数。条件分量按标签定义为 $g_{and,T}(L)=g_{and}(T\\cap L)$、$g_{or,T}(L)=g_{or}(T\\cap L)$。原符号 $v_{and}(x_A),v_{or}(x_A)$ 在此表示这些掩码标签值；若两分量确实来自输入函数，才进一步解释为对向量的函数求值。允许 $x_i=r_i$，不要求不同标签产生不同输入，也不要求任意 $\\gamma_A$ 延拓为输入空间上的单值函数。"
+        }
+      ],
+      "overview": "先用掩码交集解释两种条件系数一致，再逐项复用完整有限重构。",
+      "proof_steps": [
+        {
+          "id": "f11-and-coeff-align",
+          "title": "固定x与字面xT条件系数的对齐",
+          "body_md": "对 $S\\subseteq T$，每个 $L\\subseteq S$ 也有 $L\\subseteq T$，故 $T\\cap L=L$。因此标签条件游戏 $g_{and,T}(L)=g_{and}(T\\cap L)$ 在所有求和项上等于 $g_{and}(L)$，逐项得到 $I_{g_{and,T}}(S)=I_{g_{and}}(S)$。若分量是输入函数，掩码合成 $(x_T)_L=x_L$ 给出同一关系。",
+          "formula_tex": "",
+          "justification": "",
+          "lean_refs": [
+            {
+              "declaration": "FullGeneralizable.label_and_coefficient_eq",
+              "source_path": "research/full-proof-integration-20260930/cvpr2023/lean/FullGeneralizable.lean",
+              "line": 79,
+              "scope": "proved_general_identity_or_paper_adapter",
+              "explanation_md": "这一步引用该真实定义或声明；数值例子的代入仍属于正文计算。"
+            },
+            {
+              "declaration": "FullGeneralizable.literal_and_coefficient_eq",
+              "source_path": "research/full-proof-integration-20260930/cvpr2023/lean/FullGeneralizable.lean",
+              "line": 31,
+              "scope": "proved_general_identity_or_paper_adapter",
+              "explanation_md": "这一步引用该真实定义或声明；数值例子的代入仍属于正文计算。"
+            }
+          ]
+        },
+        {
+          "id": "f11-and-reconstruct",
+          "title": "应用完整有限重构并核前提",
+          "body_md": "对任意集合函数 $g_{and,T}$ 应用完整有限重构，得到 $\\sum_{S\\subseteq T}I_{g_{and,T}}(S)=g_{and,T}(T)=g_{and}(T)$，因为 $T\\cap T=T$。上一条对齐又给 $\\sum_{S\\subseteq T}I_{g_{and}}(S)$ 同值。两个和都包含空集项 $g_{and}(\\varnothing)$；不增加零基线条件。",
+          "formula_tex": "\\sum_{S\\subseteq T}I_{g_{and,T}}(S)=\\sum_{S\\subseteq T}I_{g_{and}}(S)=g_{and}(T).",
+          "justification": "",
+          "lean_refs": [
+            {
+              "declaration": "FullGeneralizable.label_and_reconstruction",
+              "source_path": "research/full-proof-integration-20260930/cvpr2023/lean/FullGeneralizable.lean",
+              "line": 87,
+              "scope": "proved_general_identity_or_paper_adapter",
+              "explanation_md": "这一步引用该真实定义或声明；数值例子的代入仍属于正文计算。"
+            },
+            {
+              "declaration": "FullGeneralizable.literal_and_reconstruction",
+              "source_path": "research/full-proof-integration-20260930/cvpr2023/lean/FullGeneralizable.lean",
+              "line": 24,
+              "scope": "proved_general_identity_or_paper_adapter",
+              "explanation_md": "这一步引用该真实定义或声明；数值例子的代入仍属于正文计算。"
+            }
+          ]
+        },
+        {
+          "id": "f11-and-empty",
+          "title": "空集边界",
+          "body_md": "$T=\\varnothing$ 时唯一求和项为 $S=\\varnothing$，左右都是 $g_{and}(\\varnothing)$。任意标签分量与实际输入函数分量都满足此边界。",
+          "formula_tex": "",
+          "justification": "",
+          "lean_refs": [
+            {
+              "declaration": "Harsanyi.interaction_empty",
+              "source_path": "lean/HarsanyiLib/Harsanyi/Core/Basic.lean",
+              "line": 30,
+              "scope": "proved_general_identity_or_paper_adapter",
+              "explanation_md": "这一步引用该真实定义或声明；数值例子的代入仍属于正文计算。"
+            }
+          ]
+        }
+      ],
+      "shared_proof_ids": [
+        "proof-finite-mobius-reconstruction-v2"
+      ],
+      "symbol_ids": [
+        "sym-model",
+        "sym-input",
+        "sym-input-baseline",
+        "sym-mask",
+        "sym-universe",
+        "sym-coalition",
+        "sym-game",
+        "sym-output-baseline",
+        "sym-and-interaction",
+        "sym-or-interaction"
+      ],
+      "notation_map": [
+        {
+          "original_tex": "I_{and}(S\\mid x)",
+          "canonical_tex": "I_g(S)",
+          "relationship": "same_definition"
+        },
+        {
+          "original_tex": "I_{and}(S\\mid x_T)",
+          "canonical_tex": "I_{g_T}(S)",
+          "relationship": "derived_quantity"
+        },
+        {
+          "original_tex": "I_{or}(S\\mid x_T)",
+          "canonical_tex": "O_{g_T}^N(S)",
+          "relationship": "derived_quantity"
+        }
+      ],
+      "rewrite_status": "complete",
+      "completion_scope": "complete arbitrary mask-label component statement, including every gamma assignment; actual input-function variant retained as a special case",
+      "alignment_status": "agent_checked_full_statement",
+      "user_review_status": "pending",
+      "source_transcription_owner": "reader_multipage_v2_max",
+      "merge_policy": {
+        "preserve_original_statement_and_proof_fields": true
+      },
+      "lean": {
+        "status": "verified",
+        "declarations": [
+          "FullGeneralizable.literal_and_coefficient_eq",
+          "FullGeneralizable.literal_and_reconstruction",
+          "FullGeneralizable.label_and_coefficient_eq",
+          "FullGeneralizable.label_and_reconstruction"
+        ],
+        "scope": "complete arbitrary mask-label component statement, including every gamma assignment; actual input-function variant retained as a special case",
+        "report_path": "research/full-proof-integration-20260930/cvpr2023/verification/report.json",
+        "compiled": true,
+        "axiom_audit": "passed",
+        "build_id": "full-finite-proof-20260930",
+        "source_fingerprint": "6ddbd27c5e24541c13b62c45401c7a57609f16fde2db890833f8c0d8c6f4c707",
+        "source_semantics_automatically_verified": false,
+        "statement": "∀ {n : Nat} (a : Harsanyi.Game.{0} (Fin n)) (T : Finset.{0} (Fin n)),\n  Eq.{1} (∑ S ∈ Finset.powerset.{0} T, Harsanyi.interaction.{0} (FullGeneralizable.labelConditionalGame a T) S) (a T)",
+        "source_path": "research/full-proof-integration-20260930/cvpr2023/lean/FullGeneralizable.lean",
+        "line": 87,
+        "label": "所列精确范围已编译并通过公理审计",
+        "step_map": [
+          {
+            "step_id": "f11-and-coeff-align",
+            "declaration": "FullGeneralizable.label_and_coefficient_eq",
+            "source_path": "research/full-proof-integration-20260930/cvpr2023/lean/FullGeneralizable.lean",
+            "line": 79,
+            "scope": "proved_general_identity_or_paper_adapter",
+            "explanation_md": "这一步引用该真实定义或声明；数值例子的代入仍属于正文计算。"
+          },
+          {
+            "step_id": "f11-and-coeff-align",
+            "declaration": "FullGeneralizable.literal_and_coefficient_eq",
+            "source_path": "research/full-proof-integration-20260930/cvpr2023/lean/FullGeneralizable.lean",
+            "line": 31,
+            "scope": "proved_general_identity_or_paper_adapter",
+            "explanation_md": "这一步引用该真实定义或声明；数值例子的代入仍属于正文计算。"
+          },
+          {
+            "step_id": "f11-and-reconstruct",
+            "declaration": "FullGeneralizable.label_and_reconstruction",
+            "source_path": "research/full-proof-integration-20260930/cvpr2023/lean/FullGeneralizable.lean",
+            "line": 87,
+            "scope": "proved_general_identity_or_paper_adapter",
+            "explanation_md": "这一步引用该真实定义或声明；数值例子的代入仍属于正文计算。"
+          },
+          {
+            "step_id": "f11-and-reconstruct",
+            "declaration": "FullGeneralizable.literal_and_reconstruction",
+            "source_path": "research/full-proof-integration-20260930/cvpr2023/lean/FullGeneralizable.lean",
+            "line": 24,
+            "scope": "proved_general_identity_or_paper_adapter",
+            "explanation_md": "这一步引用该真实定义或声明；数值例子的代入仍属于正文计算。"
+          },
+          {
+            "step_id": "f11-and-empty",
+            "declaration": "Harsanyi.interaction_empty",
+            "source_path": "lean/HarsanyiLib/Harsanyi/Core/Basic.lean",
+            "line": 30,
+            "scope": "proved_general_identity_or_paper_adapter",
+            "explanation_md": "这一步引用该真实定义或声明；数值例子的代入仍属于正文计算。"
+          }
+        ]
+      },
+      "related_issue_ids": [],
+      "rewrite_path": "research/full-proof-integration-20260930/cvpr2023/math/iclr2024-generalizable-and.zh.md"
+    },
+    {
+      "id": "iclr2024-generalizable-or",
+      "paper_id": "iclr2024-generalizable",
+      "title": "Appendix C(2)：OR完整重构与原证明修正",
+      "kind": "finite_theorem_or_derivation",
+      "original_label": "Appendix C(2); Eq.(9)",
+      "inventory_ids": [
+        "iclr2024-generalizable-or"
+      ],
+      "source_refs": [
+        {
+          "source_id": "src-iclr2024-generalizable-main",
+          "version_id": "ver-iclr2024-generalizable-formal",
+          "pdf_pages": [
+            13,
+            14
+          ]
+        }
+      ],
+      "statement_tex": "g_{or}(T)=O_{g_{or,T}}^N(\\varnothing)+\\sum_{\\substack{S\\subseteq N\\\\S\\cap T\\ne\\varnothing}}O_{g_{or,T}}^N(S),\\quad g_{or,T}(L)=g_{or}(T\\cap L).",
+      "assumptions": [
+        "$g(U)=v(x_U)$；有限 $N$、$T\\subseteq N$；AND/OR分量为任意集合函数，父定理要求对全部标签 $U$ 满足 $g(U)=g_{and}(U)+g_{or}(U)$。无需 $x_i\\ne r_i$ 或分量延拓假设。"
+      ],
+      "definitions": [
+        {
+          "id": "f11-coordinate-and-label-objects",
+          "body_md": "固定 $N=\\{1,\\ldots,n\\}$、模型 $v:\\mathbb R^n\\to\\mathbb R$、样本 $x$ 和同一个输入基线 $r$。记 $g(A)=v(x_A)$，$b=g(\\varnothing)$。二次掩码定义条件游戏 $g_T(A)=v((x_T)_A)=g(T\\cap A)$。AND为 $I_g(S)=\\sum_{L\\subseteq S}(-1)^{|S|-|L|}g(L)$，另记 $w_A=I_g(A)$。非空OR为 $O_g^N(S)=-I_{g^c}(S)$，其中 $g^c(L)=g(N\\setminus L)$；空OR单独规定 $O_g^N(\\varnothing)=g(\\varnothing)$。所有子集和包括空集，原始输出不要求零基线。涉及分量时分别以 $v_{and},v_{or}$ 定义对应游戏和条件游戏。 原第4、6页允许按掩码标签任意给定 $\\gamma_A$，因此联合分解的最一般对象是 $g_{and}(A)=\\tfrac12g(A)+\\gamma_A$、$g_{or}(A)=\\tfrac12g(A)-\\gamma_A$，或任意满足 $g(A)=g_{and}(A)+g_{or}(A)$ 的两个集合函数。条件分量按标签定义为 $g_{and,T}(L)=g_{and}(T\\cap L)$、$g_{or,T}(L)=g_{or}(T\\cap L)$。原符号 $v_{and}(x_A),v_{or}(x_A)$ 在此表示这些掩码标签值；若两分量确实来自输入函数，才进一步解释为对向量的函数求值。允许 $x_i=r_i$，不要求不同标签产生不同输入，也不要求任意 $\\gamma_A$ 延拓为输入空间上的单值函数。"
+        }
+      ],
+      "overview": "相交集合族等于全部子集去掉不相交子集；两个精确重构值相减，再单独加回OR基线。",
+      "proof_steps": [
+        {
+          "id": "f11-or-literal-game",
+          "title": "保持字面条件样本并修正原代入",
+          "body_md": "固定 $T\\subseteq N$，令 $h(L)=g_{or,T}(L)=g_{or}(T\\cap L)$，保持原父式的条件掩码标签。于是 $h(N\\setminus L)=g_{or}(T\\setminus L)$。分量来自输入函数时，这才写成 $v_{or}((x_T)_{N\\setminus L})=v_{or}(x_{T\\setminus L})$；原第13页直接使用 $v_{or}(x_{N\\setminus L})$ 一般不等。证明对任意标签函数成立，无需其能延拓为输入函数。",
+          "formula_tex": "",
+          "justification": "",
+          "lean_refs": [
+            {
+              "declaration": "FullGeneralizable.labelConditionalGame",
+              "source_path": "research/full-proof-integration-20260930/cvpr2023/lean/FullGeneralizable.lean",
+              "line": 76,
+              "scope": "definition",
+              "explanation_md": "这一步引用该真实定义或声明；数值例子的代入仍属于正文计算。"
+            },
+            {
+              "declaration": "Harsanyi.maskCoordinates_complement",
+              "source_path": "lean/HarsanyiLib/Harsanyi/Extensions/OrInteraction.lean",
+              "line": 103,
+              "scope": "proved_general_identity_or_paper_adapter",
+              "explanation_md": "这一步引用该真实定义或声明；数值例子的代入仍属于正文计算。"
+            }
+          ]
+        },
+        {
+          "id": "f11-or-filter",
+          "title": "完整辅助引理：相交子集族是两个子集族之差",
+          "body_md": "对每个 $S\\subseteq N$，$S\\cap T=\\varnothing$ 当且仅当 $S\\subseteq N\\setminus T$。故相交子集族为 $\\mathcal P(N)\\setminus\\mathcal P(N\\setminus T)$，后者包含于前者；有限求和等于两个全族的和相减。空集在两个全族中都出现，始终不属于相交族。",
+          "formula_tex": "\\sum_{\\substack{S\\subseteq N\\\\S\\cap T\\ne\\varnothing}}d_S=\\sum_{S\\subseteq N}d_S-\\sum_{S\\subseteq N\\setminus T}d_S.",
+          "justification": "",
+          "lean_refs": [
+            {
+              "declaration": "Harsanyi.activated_subset_sum",
+              "source_path": "lean/HarsanyiLib/Harsanyi/Extensions/OrInteraction.lean",
+              "line": 18,
+              "scope": "proved_general_identity_or_paper_adapter",
+              "explanation_md": "这一步引用该真实定义或声明；数值例子的代入仍属于正文计算。"
+            }
+          ]
+        },
+        {
+          "id": "f11-or-transform",
+          "title": "对补集负游戏作两次重构",
+          "body_md": "令 $f(L)=-h(N\\setminus L)$。对非空 $S$，有限和对整体负号的线性性给 $O_h^N(S)=I_f(S)$。相交族不含空集，故可逐项替换。两次重构给 $f(N)-f(N\\setminus T)=-h(\\varnothing)+h(T)$；这里由 $T\\subseteq N$ 有 $N\\setminus(N\\setminus T)=T$。再用 $h(T)=g_{or}(T)$、$h(\\varnothing)=g_{or}(\\varnothing)$。",
+          "formula_tex": "\\sum_{S\\cap T\\ne\\varnothing}O_h^N(S)=h(T)-h(\\varnothing)=g_{or}(T)-g_{or}(\\varnothing).",
+          "justification": "",
+          "lean_refs": [
+            {
+              "declaration": "Harsanyi.or_reconstruction",
+              "source_path": "lean/HarsanyiLib/Harsanyi/Extensions/OrInteraction.lean",
+              "line": 30,
+              "scope": "proved_general_identity_or_paper_adapter",
+              "explanation_md": "这一步引用该真实定义或声明；数值例子的代入仍属于正文计算。"
+            },
+            {
+              "declaration": "FullGeneralizable.label_or_nonempty_sum",
+              "source_path": "research/full-proof-integration-20260930/cvpr2023/lean/FullGeneralizable.lean",
+              "line": 102,
+              "scope": "proved_general_identity_or_paper_adapter",
+              "explanation_md": "这一步引用该真实定义或声明；数值例子的代入仍属于正文计算。"
+            }
+          ]
+        },
+        {
+          "id": "f11-or-baseline",
+          "title": "单独加回原空OR基线",
+          "body_md": "空OR按定义单列 $O_h^N(\\varnothing)=h(\\varnothing)=g_{or}(\\varnothing)$。加回此基线便重构 $g_{or}(T)$。$T=\\varnothing$ 时相交族为空，只有基线；$T=N$ 时重构完整标签值。因此也涵盖原case1/2在空掩码时重合的边界。",
+          "formula_tex": "",
+          "justification": "",
+          "lean_refs": [
+            {
+              "declaration": "FullGeneralizable.label_or_reconstruction",
+              "source_path": "research/full-proof-integration-20260930/cvpr2023/lean/FullGeneralizable.lean",
+              "line": 93,
+              "scope": "proved_general_identity_or_paper_adapter",
+              "explanation_md": "这一步引用该真实定义或声明；数值例子的代入仍属于正文计算。"
+            }
+          ]
+        },
+        {
+          "id": "f11-or-example",
+          "title": "带非零基线的二变量检验",
+          "body_md": "令 $N=\\{1,2\\}$，$g(\\varnothing)=7$、$g(\\{1\\})=8$、$g(\\{2\\})=9$、$g(\\{1,2\\})=13$。于是 $w_\\varnothing=7$、$w_{\\{1\\}}=1$、$w_{\\{2\\}}=2$、$w_{\\{1,2\\}}=3$。 固定原输入的OR系数是 $O_g^N(\\{1\\})=4$、$O_g^N(\\{2\\})=5$、$O_g^N(N)=-3$，空值7。对原父式的 $T=\\{1\\}$，应使用条件游戏 $h_T(L)=g(T\\cap L)$，其四个输出依次为7、8、7、8，OR系数为1、0、0，空值7。相交求和使用 $\\{1\\}$ 与 $N$，所以条件式给 $7+1+0=8=g(T)$。固定原输入式也给 $7+4-3=8$，但逐项系数不同。$T=\\varnothing$ 时仅基线7；$T=N$ 时两种游戏一致，得 $7+4+5-3=13$。",
+          "formula_tex": "",
+          "justification": "",
+          "lean_refs": []
+        }
+      ],
+      "shared_proof_ids": [
+        "shared-harsanyi-or-reconstruction"
+      ],
+      "symbol_ids": [
+        "sym-model",
+        "sym-input",
+        "sym-input-baseline",
+        "sym-mask",
+        "sym-universe",
+        "sym-coalition",
+        "sym-game",
+        "sym-output-baseline",
+        "sym-and-interaction",
+        "sym-or-interaction"
+      ],
+      "notation_map": [
+        {
+          "original_tex": "I_{and}(S\\mid x)",
+          "canonical_tex": "I_g(S)",
+          "relationship": "same_definition"
+        },
+        {
+          "original_tex": "I_{and}(S\\mid x_T)",
+          "canonical_tex": "I_{g_T}(S)",
+          "relationship": "derived_quantity"
+        },
+        {
+          "original_tex": "I_{or}(S\\mid x_T)",
+          "canonical_tex": "O_{g_T}^N(S)",
+          "relationship": "derived_quantity"
+        }
+      ],
+      "rewrite_status": "complete",
+      "completion_scope": "complete arbitrary mask-label component statement, including every gamma assignment; actual input-function variant retained as a special case",
+      "alignment_status": "agent_checked_full_statement",
+      "user_review_status": "pending",
+      "source_transcription_owner": "reader_multipage_v2_max",
+      "merge_policy": {
+        "preserve_original_statement_and_proof_fields": true
+      },
+      "lean": {
+        "status": "verified",
+        "declarations": [
+          "Harsanyi.activated_subset_sum",
+          "Harsanyi.or_reconstruction",
+          "FullGeneralizable.literal_or_reconstruction",
+          "FullGeneralizable.literal_or_nonempty_sum",
+          "FullGeneralizable.label_or_nonempty_sum",
+          "FullGeneralizable.label_or_reconstruction"
+        ],
+        "scope": "complete arbitrary mask-label component statement, including every gamma assignment; actual input-function variant retained as a special case",
+        "report_path": "research/full-proof-integration-20260930/cvpr2023/verification/report.json",
+        "compiled": true,
+        "axiom_audit": "passed",
+        "build_id": "full-finite-proof-20260930",
+        "source_fingerprint": "6ddbd27c5e24541c13b62c45401c7a57609f16fde2db890833f8c0d8c6f4c707",
+        "source_semantics_automatically_verified": false,
+        "statement": "∀ {n : Nat} (b : Harsanyi.Game.{0} (Fin n)) (T : Finset.{0} (Fin n)),\n  Eq.{1}\n    (HAdd.hAdd.{0, 0, 0}\n      (Harsanyi.orInteraction.{0} (FullGeneralizable.labelConditionalGame b T) Finset.univ.{0}\n        EmptyCollection.emptyCollection.{0})\n      (∑ S ∈ Finset.powerset.{0} Finset.univ.{0} with Not (Disjoint.{0} S T),\n        Harsanyi.orInteraction.{0} (FullGeneralizable.labelConditionalGame b T) Finset.univ.{0} S))\n    (b T)",
+        "source_path": "research/full-proof-integration-20260930/cvpr2023/lean/FullGeneralizable.lean",
+        "line": 93,
+        "label": "所列精确范围已编译并通过公理审计",
+        "step_map": [
+          {
+            "step_id": "f11-or-literal-game",
+            "declaration": "FullGeneralizable.labelConditionalGame",
+            "source_path": "research/full-proof-integration-20260930/cvpr2023/lean/FullGeneralizable.lean",
+            "line": 76,
+            "scope": "definition",
+            "explanation_md": "这一步引用该真实定义或声明；数值例子的代入仍属于正文计算。"
+          },
+          {
+            "step_id": "f11-or-literal-game",
+            "declaration": "Harsanyi.maskCoordinates_complement",
+            "source_path": "lean/HarsanyiLib/Harsanyi/Extensions/OrInteraction.lean",
+            "line": 103,
+            "scope": "proved_general_identity_or_paper_adapter",
+            "explanation_md": "这一步引用该真实定义或声明；数值例子的代入仍属于正文计算。"
+          },
+          {
+            "step_id": "f11-or-filter",
+            "declaration": "Harsanyi.activated_subset_sum",
+            "source_path": "lean/HarsanyiLib/Harsanyi/Extensions/OrInteraction.lean",
+            "line": 18,
+            "scope": "proved_general_identity_or_paper_adapter",
+            "explanation_md": "这一步引用该真实定义或声明；数值例子的代入仍属于正文计算。"
+          },
+          {
+            "step_id": "f11-or-transform",
+            "declaration": "Harsanyi.or_reconstruction",
+            "source_path": "lean/HarsanyiLib/Harsanyi/Extensions/OrInteraction.lean",
+            "line": 30,
+            "scope": "proved_general_identity_or_paper_adapter",
+            "explanation_md": "这一步引用该真实定义或声明；数值例子的代入仍属于正文计算。"
+          },
+          {
+            "step_id": "f11-or-transform",
+            "declaration": "FullGeneralizable.label_or_nonempty_sum",
+            "source_path": "research/full-proof-integration-20260930/cvpr2023/lean/FullGeneralizable.lean",
+            "line": 102,
+            "scope": "proved_general_identity_or_paper_adapter",
+            "explanation_md": "这一步引用该真实定义或声明；数值例子的代入仍属于正文计算。"
+          },
+          {
+            "step_id": "f11-or-baseline",
+            "declaration": "FullGeneralizable.label_or_reconstruction",
+            "source_path": "research/full-proof-integration-20260930/cvpr2023/lean/FullGeneralizable.lean",
+            "line": 93,
+            "scope": "proved_general_identity_or_paper_adapter",
+            "explanation_md": "这一步引用该真实定义或声明；数值例子的代入仍属于正文计算。"
+          }
+        ]
+      },
+      "related_issue_ids": [
+        "issue-f11-or-intermediate-20260930"
+      ],
+      "rewrite_path": "research/full-proof-integration-20260930/cvpr2023/math/iclr2024-generalizable-or.zh.md"
+    },
+    {
+      "id": "iclr2024-generalizable-andor",
+      "paper_id": "iclr2024-generalizable",
+      "title": "Theorem 2：完整字面AND-OR联合匹配",
+      "kind": "finite_theorem_or_derivation",
+      "original_label": "Theorem 2; Eq.(3),(7)",
+      "inventory_ids": [
+        "iclr2024-generalizable-andor"
+      ],
+      "source_refs": [
+        {
+          "source_id": "src-iclr2024-generalizable-main",
+          "version_id": "ver-iclr2024-generalizable-formal",
+          "pdf_pages": [
+            3,
+            12,
+            13,
+            14
+          ]
+        }
+      ],
+      "statement_tex": "v(x_T)=\\sum_{S\\subseteq T}I_{g_{and,T}}(S)+O_{g_{or,T}}^N(\\varnothing)+\\sum_{\\substack{S\\subseteq N\\\\S\\cap T\\ne\\varnothing}}O_{g_{or,T}}^N(S).",
+      "assumptions": [
+        "$g(U)=v(x_U)$；有限 $N$、$T\\subseteq N$；AND/OR分量为任意集合函数，父定理要求对全部标签 $U$ 满足 $g(U)=g_{and}(U)+g_{or}(U)$。无需 $x_i\\ne r_i$ 或分量延拓假设。"
+      ],
+      "definitions": [
+        {
+          "id": "f11-coordinate-and-label-objects",
+          "body_md": "固定 $N=\\{1,\\ldots,n\\}$、模型 $v:\\mathbb R^n\\to\\mathbb R$、样本 $x$ 和同一个输入基线 $r$。记 $g(A)=v(x_A)$，$b=g(\\varnothing)$。二次掩码定义条件游戏 $g_T(A)=v((x_T)_A)=g(T\\cap A)$。AND为 $I_g(S)=\\sum_{L\\subseteq S}(-1)^{|S|-|L|}g(L)$，另记 $w_A=I_g(A)$。非空OR为 $O_g^N(S)=-I_{g^c}(S)$，其中 $g^c(L)=g(N\\setminus L)$；空OR单独规定 $O_g^N(\\varnothing)=g(\\varnothing)$。所有子集和包括空集，原始输出不要求零基线。涉及分量时分别以 $v_{and},v_{or}$ 定义对应游戏和条件游戏。 原第4、6页允许按掩码标签任意给定 $\\gamma_A$，因此联合分解的最一般对象是 $g_{and}(A)=\\tfrac12g(A)+\\gamma_A$、$g_{or}(A)=\\tfrac12g(A)-\\gamma_A$，或任意满足 $g(A)=g_{and}(A)+g_{or}(A)$ 的两个集合函数。条件分量按标签定义为 $g_{and,T}(L)=g_{and}(T\\cap L)$、$g_{or,T}(L)=g_{or}(T\\cap L)$。原符号 $v_{and}(x_A),v_{or}(x_A)$ 在此表示这些掩码标签值；若两分量确实来自输入函数，才进一步解释为对向量的函数求值。允许 $x_i=r_i$，不要求不同标签产生不同输入，也不要求任意 $\\gamma_A$ 延拓为输入空间上的单值函数。"
+        }
+      ],
+      "overview": "任意掩码标签分量分别在条件标签游戏中精确重构，两个分量相加恢复原模型输出；标签碰撞不影响此有限恒等式。",
+      "proof_steps": [
+        {
+          "id": "f11-mask-comp",
+          "title": "完整掩码合成引理",
+          "body_md": "固定坐标 $i$：若 $i\\in T\\cap L$，两次掩码都保留 $x_i$；若 $i\\notin L$，第二次给 $r_i$；若 $i\\in L\\setminus T$，第一次已经给 $r_i$，第二次保留的仍是 $r_i$。逐坐标相同，得 $(x_T)_L=x_{T\\cap L}$。两次必须使用同一输入基线 $r$。",
+          "formula_tex": "g_T(L)=g(T\\cap L).",
+          "justification": "",
+          "lean_refs": [
+            {
+              "declaration": "Harsanyi.maskCoordinates_comp",
+              "source_path": "lean/HarsanyiLib/Harsanyi/Extensions/OrInteraction.lean",
+              "line": 67,
+              "scope": "proved_general_identity_or_paper_adapter",
+              "explanation_md": "这一步引用该真实定义或声明；数值例子的代入仍属于正文计算。"
+            }
+          ]
+        },
+        {
+          "id": "f11-parent-decompose",
+          "title": "同一掩码上的原分解",
+          "body_md": "原分解在每个掩码标签上满足 $g(U)=g_{and}(U)+g_{or}(U)$。特别是作者任意的 $\\gamma_U$ 参数化，逐项相加立即抵消 $\\gamma_U$。即使某个 $x_i=r_i$ 使两标签对应同一向量，两分量仍可作为集合函数使用；证明不另加标签值能延拓为输入函数的条件。",
+          "formula_tex": "",
+          "justification": "",
+          "lean_refs": [
+            {
+              "declaration": "FullGeneralizable.label_and_or_reconstruction",
+              "source_path": "research/full-proof-integration-20260930/cvpr2023/lean/FullGeneralizable.lean",
+              "line": 114,
+              "scope": "proved_general_identity_or_paper_adapter",
+              "explanation_md": "这一步引用该真实定义或声明；数值例子的代入仍属于正文计算。"
+            }
+          ]
+        },
+        {
+          "id": "f11-and-coeff-align",
+          "title": "固定x与字面xT条件系数的对齐",
+          "body_md": "对 $S\\subseteq T$，每个 $L\\subseteq S$ 也有 $L\\subseteq T$，故 $T\\cap L=L$。因此标签条件游戏 $g_{and,T}(L)=g_{and}(T\\cap L)$ 在所有求和项上等于 $g_{and}(L)$，逐项得到 $I_{g_{and,T}}(S)=I_{g_{and}}(S)$。若分量是输入函数，掩码合成 $(x_T)_L=x_L$ 给出同一关系。",
+          "formula_tex": "",
+          "justification": "",
+          "lean_refs": [
+            {
+              "declaration": "FullGeneralizable.label_and_coefficient_eq",
+              "source_path": "research/full-proof-integration-20260930/cvpr2023/lean/FullGeneralizable.lean",
+              "line": 79,
+              "scope": "proved_general_identity_or_paper_adapter",
+              "explanation_md": "这一步引用该真实定义或声明；数值例子的代入仍属于正文计算。"
+            },
+            {
+              "declaration": "FullGeneralizable.literal_and_coefficient_eq",
+              "source_path": "research/full-proof-integration-20260930/cvpr2023/lean/FullGeneralizable.lean",
+              "line": 31,
+              "scope": "proved_general_identity_or_paper_adapter",
+              "explanation_md": "这一步引用该真实定义或声明；数值例子的代入仍属于正文计算。"
+            }
+          ]
+        },
+        {
+          "id": "f11-and-reconstruct",
+          "title": "应用完整有限重构并核前提",
+          "body_md": "对任意集合函数 $g_{and,T}$ 应用完整有限重构，得到 $\\sum_{S\\subseteq T}I_{g_{and,T}}(S)=g_{and,T}(T)=g_{and}(T)$，因为 $T\\cap T=T$。上一条对齐又给 $\\sum_{S\\subseteq T}I_{g_{and}}(S)$ 同值。两个和都包含空集项 $g_{and}(\\varnothing)$；不增加零基线条件。",
+          "formula_tex": "\\sum_{S\\subseteq T}I_{g_{and,T}}(S)=\\sum_{S\\subseteq T}I_{g_{and}}(S)=g_{and}(T).",
+          "justification": "",
+          "lean_refs": [
+            {
+              "declaration": "FullGeneralizable.label_and_reconstruction",
+              "source_path": "research/full-proof-integration-20260930/cvpr2023/lean/FullGeneralizable.lean",
+              "line": 87,
+              "scope": "proved_general_identity_or_paper_adapter",
+              "explanation_md": "这一步引用该真实定义或声明；数值例子的代入仍属于正文计算。"
+            },
+            {
+              "declaration": "FullGeneralizable.literal_and_reconstruction",
+              "source_path": "research/full-proof-integration-20260930/cvpr2023/lean/FullGeneralizable.lean",
+              "line": 24,
+              "scope": "proved_general_identity_or_paper_adapter",
+              "explanation_md": "这一步引用该真实定义或声明；数值例子的代入仍属于正文计算。"
+            }
+          ]
+        },
+        {
+          "id": "f11-or-literal-game",
+          "title": "保持字面条件样本并修正原代入",
+          "body_md": "固定 $T\\subseteq N$，令 $h(L)=g_{or,T}(L)=g_{or}(T\\cap L)$，保持原父式的条件掩码标签。于是 $h(N\\setminus L)=g_{or}(T\\setminus L)$。分量来自输入函数时，这才写成 $v_{or}((x_T)_{N\\setminus L})=v_{or}(x_{T\\setminus L})$；原第13页直接使用 $v_{or}(x_{N\\setminus L})$ 一般不等。证明对任意标签函数成立，无需其能延拓为输入函数。",
+          "formula_tex": "",
+          "justification": "",
+          "lean_refs": [
+            {
+              "declaration": "FullGeneralizable.labelConditionalGame",
+              "source_path": "research/full-proof-integration-20260930/cvpr2023/lean/FullGeneralizable.lean",
+              "line": 76,
+              "scope": "definition",
+              "explanation_md": "这一步引用该真实定义或声明；数值例子的代入仍属于正文计算。"
+            },
+            {
+              "declaration": "Harsanyi.maskCoordinates_complement",
+              "source_path": "lean/HarsanyiLib/Harsanyi/Extensions/OrInteraction.lean",
+              "line": 103,
+              "scope": "proved_general_identity_or_paper_adapter",
+              "explanation_md": "这一步引用该真实定义或声明；数值例子的代入仍属于正文计算。"
+            }
+          ]
+        },
+        {
+          "id": "f11-or-filter",
+          "title": "完整辅助引理：相交子集族是两个子集族之差",
+          "body_md": "对每个 $S\\subseteq N$，$S\\cap T=\\varnothing$ 当且仅当 $S\\subseteq N\\setminus T$。故相交子集族为 $\\mathcal P(N)\\setminus\\mathcal P(N\\setminus T)$，后者包含于前者；有限求和等于两个全族的和相减。空集在两个全族中都出现，始终不属于相交族。",
+          "formula_tex": "\\sum_{\\substack{S\\subseteq N\\\\S\\cap T\\ne\\varnothing}}d_S=\\sum_{S\\subseteq N}d_S-\\sum_{S\\subseteq N\\setminus T}d_S.",
+          "justification": "",
+          "lean_refs": [
+            {
+              "declaration": "Harsanyi.activated_subset_sum",
+              "source_path": "lean/HarsanyiLib/Harsanyi/Extensions/OrInteraction.lean",
+              "line": 18,
+              "scope": "proved_general_identity_or_paper_adapter",
+              "explanation_md": "这一步引用该真实定义或声明；数值例子的代入仍属于正文计算。"
+            }
+          ]
+        },
+        {
+          "id": "f11-or-transform",
+          "title": "对补集负游戏作两次重构",
+          "body_md": "令 $f(L)=-h(N\\setminus L)$。对非空 $S$，有限和对整体负号的线性性给 $O_h^N(S)=I_f(S)$。相交族不含空集，故可逐项替换。两次重构给 $f(N)-f(N\\setminus T)=-h(\\varnothing)+h(T)$；这里由 $T\\subseteq N$ 有 $N\\setminus(N\\setminus T)=T$。再用 $h(T)=g_{or}(T)$、$h(\\varnothing)=g_{or}(\\varnothing)$。",
+          "formula_tex": "\\sum_{S\\cap T\\ne\\varnothing}O_h^N(S)=h(T)-h(\\varnothing)=g_{or}(T)-g_{or}(\\varnothing).",
+          "justification": "",
+          "lean_refs": [
+            {
+              "declaration": "Harsanyi.or_reconstruction",
+              "source_path": "lean/HarsanyiLib/Harsanyi/Extensions/OrInteraction.lean",
+              "line": 30,
+              "scope": "proved_general_identity_or_paper_adapter",
+              "explanation_md": "这一步引用该真实定义或声明；数值例子的代入仍属于正文计算。"
+            },
+            {
+              "declaration": "FullGeneralizable.label_or_nonempty_sum",
+              "source_path": "research/full-proof-integration-20260930/cvpr2023/lean/FullGeneralizable.lean",
+              "line": 102,
+              "scope": "proved_general_identity_or_paper_adapter",
+              "explanation_md": "这一步引用该真实定义或声明；数值例子的代入仍属于正文计算。"
+            }
+          ]
+        },
+        {
+          "id": "f11-or-baseline",
+          "title": "单独加回原空OR基线",
+          "body_md": "空OR按定义单列 $O_h^N(\\varnothing)=h(\\varnothing)=g_{or}(\\varnothing)$。加回此基线便重构 $g_{or}(T)$。$T=\\varnothing$ 时相交族为空，只有基线；$T=N$ 时重构完整标签值。因此也涵盖原case1/2在空掩码时重合的边界。",
+          "formula_tex": "",
+          "justification": "",
+          "lean_refs": [
+            {
+              "declaration": "FullGeneralizable.label_or_reconstruction",
+              "source_path": "research/full-proof-integration-20260930/cvpr2023/lean/FullGeneralizable.lean",
+              "line": 93,
+              "scope": "proved_general_identity_or_paper_adapter",
+              "explanation_md": "这一步引用该真实定义或声明；数值例子的代入仍属于正文计算。"
+            }
+          ]
+        },
+        {
+          "id": "f11-parent-add",
+          "title": "相加得到父定理字面式",
+          "body_md": "AND部分重构 $g_{and}(T)$，OR部分重构 $g_{or}(T)$；相加并使用原分解，得到 $g(T)=v(x_T)$。两个空项合计为 $g(\\varnothing)$。全部系数仍由条件标签游戏 $g_{and,T},g_{or,T}$ 定义，输入函数分量版本是其特例。",
+          "formula_tex": "v(x_T)=\\sum_{S\\subseteq T}I_{g_{and,T}}(S)+O_{g_{or,T}}^N(\\varnothing)+\\sum_{S\\subseteq N:S\\cap T\\ne\\varnothing}O_{g_{or,T}}^N(S).",
+          "justification": "",
+          "lean_refs": [
+            {
+              "declaration": "FullGeneralizable.literal_and_or_reconstruction",
+              "source_path": "research/full-proof-integration-20260930/cvpr2023/lean/FullGeneralizable.lean",
+              "line": 63,
+              "scope": "proved_general_identity_or_paper_adapter",
+              "explanation_md": "这一步引用该真实定义或声明；数值例子的代入仍属于正文计算。"
+            },
+            {
+              "declaration": "FullGeneralizable.label_and_or_reconstruction",
+              "source_path": "research/full-proof-integration-20260930/cvpr2023/lean/FullGeneralizable.lean",
+              "line": 114,
+              "scope": "proved_general_identity_or_paper_adapter",
+              "explanation_md": "这一步引用该真实定义或声明；数值例子的代入仍属于正文计算。"
+            }
+          ]
+        }
+      ],
+      "shared_proof_ids": [
+        "proof-finite-mobius-reconstruction-v2",
+        "shared-harsanyi-or-reconstruction"
+      ],
+      "symbol_ids": [
+        "sym-model",
+        "sym-input",
+        "sym-input-baseline",
+        "sym-mask",
+        "sym-universe",
+        "sym-coalition",
+        "sym-game",
+        "sym-output-baseline",
+        "sym-and-interaction",
+        "sym-or-interaction"
+      ],
+      "notation_map": [
+        {
+          "original_tex": "I_{and}(S\\mid x)",
+          "canonical_tex": "I_g(S)",
+          "relationship": "same_definition"
+        },
+        {
+          "original_tex": "I_{and}(S\\mid x_T)",
+          "canonical_tex": "I_{g_T}(S)",
+          "relationship": "derived_quantity"
+        },
+        {
+          "original_tex": "I_{or}(S\\mid x_T)",
+          "canonical_tex": "O_{g_T}^N(S)",
+          "relationship": "derived_quantity"
+        }
+      ],
+      "rewrite_status": "complete",
+      "completion_scope": "complete arbitrary mask-label component statement, including every gamma assignment; actual input-function variant retained as a special case",
+      "alignment_status": "agent_checked_full_statement",
+      "user_review_status": "pending",
+      "source_transcription_owner": "reader_multipage_v2_max",
+      "merge_policy": {
+        "preserve_original_statement_and_proof_fields": true
+      },
+      "lean": {
+        "status": "verified",
+        "declarations": [
+          "FullGeneralizable.literal_and_or_reconstruction",
+          "FullGeneralizable.label_and_or_reconstruction"
+        ],
+        "scope": "complete arbitrary mask-label component statement, including every gamma assignment; actual input-function variant retained as a special case",
+        "report_path": "research/full-proof-integration-20260930/cvpr2023/verification/report.json",
+        "compiled": true,
+        "axiom_audit": "passed",
+        "build_id": "full-finite-proof-20260930",
+        "source_fingerprint": "6ddbd27c5e24541c13b62c45401c7a57609f16fde2db890833f8c0d8c6f4c707",
+        "source_semantics_automatically_verified": false,
+        "statement": "∀ {n : Nat} (v : (Fin n → Real) → Real) (r x : Fin n → Real) (a b : Harsanyi.Game.{0} (Fin n)),\n  (∀ (U : Finset.{0} (Fin n)), Eq.{1} (v (Harsanyi.maskCoordinates.{0, 0} r x U)) (HAdd.hAdd.{0, 0, 0} (a U) (b U))) →\n    ∀ (T : Finset.{0} (Fin n)),\n      Eq.{1} (v (Harsanyi.maskCoordinates.{0, 0} r x T))\n        (HAdd.hAdd.{0, 0, 0}\n          (∑ S ∈ Finset.powerset.{0} T, Harsanyi.interaction.{0} (FullGeneralizable.labelConditionalGame a T) S)\n          (HAdd.hAdd.{0, 0, 0}\n            (Harsanyi.orInteraction.{0} (FullGeneralizable.labelConditionalGame b T) Finset.univ.{0}\n              EmptyCollection.emptyCollection.{0})\n            (∑ S ∈ Finset.powerset.{0} Finset.univ.{0} with Not (Disjoint.{0} S T),\n              Harsanyi.orInteraction.{0} (FullGeneralizable.labelConditionalGame b T) Finset.univ.{0} S)))",
+        "source_path": "research/full-proof-integration-20260930/cvpr2023/lean/FullGeneralizable.lean",
+        "line": 114,
+        "label": "所列精确范围已编译并通过公理审计",
+        "step_map": [
+          {
+            "step_id": "f11-mask-comp",
+            "declaration": "Harsanyi.maskCoordinates_comp",
+            "source_path": "lean/HarsanyiLib/Harsanyi/Extensions/OrInteraction.lean",
+            "line": 67,
+            "scope": "proved_general_identity_or_paper_adapter",
+            "explanation_md": "这一步引用该真实定义或声明；数值例子的代入仍属于正文计算。"
+          },
+          {
+            "step_id": "f11-parent-decompose",
+            "declaration": "FullGeneralizable.label_and_or_reconstruction",
+            "source_path": "research/full-proof-integration-20260930/cvpr2023/lean/FullGeneralizable.lean",
+            "line": 114,
+            "scope": "proved_general_identity_or_paper_adapter",
+            "explanation_md": "这一步引用该真实定义或声明；数值例子的代入仍属于正文计算。"
+          },
+          {
+            "step_id": "f11-and-coeff-align",
+            "declaration": "FullGeneralizable.label_and_coefficient_eq",
+            "source_path": "research/full-proof-integration-20260930/cvpr2023/lean/FullGeneralizable.lean",
+            "line": 79,
+            "scope": "proved_general_identity_or_paper_adapter",
+            "explanation_md": "这一步引用该真实定义或声明；数值例子的代入仍属于正文计算。"
+          },
+          {
+            "step_id": "f11-and-coeff-align",
+            "declaration": "FullGeneralizable.literal_and_coefficient_eq",
+            "source_path": "research/full-proof-integration-20260930/cvpr2023/lean/FullGeneralizable.lean",
+            "line": 31,
+            "scope": "proved_general_identity_or_paper_adapter",
+            "explanation_md": "这一步引用该真实定义或声明；数值例子的代入仍属于正文计算。"
+          },
+          {
+            "step_id": "f11-and-reconstruct",
+            "declaration": "FullGeneralizable.label_and_reconstruction",
+            "source_path": "research/full-proof-integration-20260930/cvpr2023/lean/FullGeneralizable.lean",
+            "line": 87,
+            "scope": "proved_general_identity_or_paper_adapter",
+            "explanation_md": "这一步引用该真实定义或声明；数值例子的代入仍属于正文计算。"
+          },
+          {
+            "step_id": "f11-and-reconstruct",
+            "declaration": "FullGeneralizable.literal_and_reconstruction",
+            "source_path": "research/full-proof-integration-20260930/cvpr2023/lean/FullGeneralizable.lean",
+            "line": 24,
+            "scope": "proved_general_identity_or_paper_adapter",
+            "explanation_md": "这一步引用该真实定义或声明；数值例子的代入仍属于正文计算。"
+          },
+          {
+            "step_id": "f11-or-literal-game",
+            "declaration": "FullGeneralizable.labelConditionalGame",
+            "source_path": "research/full-proof-integration-20260930/cvpr2023/lean/FullGeneralizable.lean",
+            "line": 76,
+            "scope": "definition",
+            "explanation_md": "这一步引用该真实定义或声明；数值例子的代入仍属于正文计算。"
+          },
+          {
+            "step_id": "f11-or-literal-game",
+            "declaration": "Harsanyi.maskCoordinates_complement",
+            "source_path": "lean/HarsanyiLib/Harsanyi/Extensions/OrInteraction.lean",
+            "line": 103,
+            "scope": "proved_general_identity_or_paper_adapter",
+            "explanation_md": "这一步引用该真实定义或声明；数值例子的代入仍属于正文计算。"
+          },
+          {
+            "step_id": "f11-or-filter",
+            "declaration": "Harsanyi.activated_subset_sum",
+            "source_path": "lean/HarsanyiLib/Harsanyi/Extensions/OrInteraction.lean",
+            "line": 18,
+            "scope": "proved_general_identity_or_paper_adapter",
+            "explanation_md": "这一步引用该真实定义或声明；数值例子的代入仍属于正文计算。"
+          },
+          {
+            "step_id": "f11-or-transform",
+            "declaration": "Harsanyi.or_reconstruction",
+            "source_path": "lean/HarsanyiLib/Harsanyi/Extensions/OrInteraction.lean",
+            "line": 30,
+            "scope": "proved_general_identity_or_paper_adapter",
+            "explanation_md": "这一步引用该真实定义或声明；数值例子的代入仍属于正文计算。"
+          },
+          {
+            "step_id": "f11-or-transform",
+            "declaration": "FullGeneralizable.label_or_nonempty_sum",
+            "source_path": "research/full-proof-integration-20260930/cvpr2023/lean/FullGeneralizable.lean",
+            "line": 102,
+            "scope": "proved_general_identity_or_paper_adapter",
+            "explanation_md": "这一步引用该真实定义或声明；数值例子的代入仍属于正文计算。"
+          },
+          {
+            "step_id": "f11-or-baseline",
+            "declaration": "FullGeneralizable.label_or_reconstruction",
+            "source_path": "research/full-proof-integration-20260930/cvpr2023/lean/FullGeneralizable.lean",
+            "line": 93,
+            "scope": "proved_general_identity_or_paper_adapter",
+            "explanation_md": "这一步引用该真实定义或声明；数值例子的代入仍属于正文计算。"
+          },
+          {
+            "step_id": "f11-parent-add",
+            "declaration": "FullGeneralizable.literal_and_or_reconstruction",
+            "source_path": "research/full-proof-integration-20260930/cvpr2023/lean/FullGeneralizable.lean",
+            "line": 63,
+            "scope": "proved_general_identity_or_paper_adapter",
+            "explanation_md": "这一步引用该真实定义或声明；数值例子的代入仍属于正文计算。"
+          },
+          {
+            "step_id": "f11-parent-add",
+            "declaration": "FullGeneralizable.label_and_or_reconstruction",
+            "source_path": "research/full-proof-integration-20260930/cvpr2023/lean/FullGeneralizable.lean",
+            "line": 114,
+            "scope": "proved_general_identity_or_paper_adapter",
+            "explanation_md": "这一步引用该真实定义或声明；数值例子的代入仍属于正文计算。"
+          }
+        ]
+      },
+      "related_issue_ids": [
+        "issue-f11-or-intermediate-20260930"
+      ],
+      "rewrite_path": "research/full-proof-integration-20260930/cvpr2023/math/iclr2024-generalizable-andor.zh.md"
+    },
+    {
+      "id": "f11-boolean-decomposition",
+      "paper_id": "iclr2024-generalizable",
+      "title": "五变量布尔函数：两种精确AND-OR分解",
+      "kind": "finite_theorem_or_derivation",
+      "original_label": "Section 2.2 Challenge 1",
+      "inventory_ids": [
+        "f11-boolean-decomposition"
+      ],
+      "source_refs": [
+        {
+          "source_id": "src-iclr2024-generalizable-main",
+          "version_id": "ver-iclr2024-generalizable-formal",
+          "pdf_pages": [
+            4
+          ]
+        }
+      ],
+      "statement_tex": "x_1\\land x_2\\land x_3+x_2\\land x_3+x_3\\land x_4+x_4\\lor x_5=x_1x_2x_3+x_2x_3+x_3x_4+x_4+x_5-x_4x_5",
+      "assumptions": [
+        "xi∈{0,1}；0输入基线用于交互支持说明；整个函数代数恒等式对全部五个布尔变量成立。"
+      ],
+      "definitions": [
+        {
+          "id": "f11-coordinate-objects",
+          "body_md": "固定 $N=\\{1,\\ldots,n\\}$、模型 $v:\\mathbb R^n\\to\\mathbb R$、样本 $x$ 和同一个输入基线 $r$。记 $g(A)=v(x_A)$，$b=g(\\varnothing)$。二次掩码定义条件游戏 $g_T(A)=v((x_T)_A)=g(T\\cap A)$。AND为 $I_g(S)=\\sum_{L\\subseteq S}(-1)^{|S|-|L|}g(L)$，另记 $w_A=I_g(A)$。非空OR为 $O_g^N(S)=-I_{g^c}(S)$，其中 $g^c(L)=g(N\\setminus L)$；空OR单独规定 $O_g^N(\\varnothing)=g(\\varnothing)$。所有子集和包括空集，原始输出不要求零基线。涉及分量时分别以 $v_{and},v_{or}$ 定义对应游戏和条件游戏。"
+        }
+      ],
+      "overview": "二变量布尔OR等于加法减去共同AND，代入后得到逐点相同而支持项不同的两种分解。",
+      "proof_steps": [
+        {
+          "id": "f11-boolean-truth",
+          "title": "完整二变量OR恒等式",
+          "body_md": "把布尔变量视为0/1实数。对(x4,x5)四种赋值(0,0),(1,0),(0,1),(1,1)，右侧 $x_4+x_5-x_4x_5$ 分别为0,1,1,1，恰是OR输出。",
+          "formula_tex": "x_4\\lor x_5=x_4+x_5-x_4x_5.",
+          "justification": "",
+          "lean_refs": [
+            {
+              "declaration": "FullGeneralizable.boolean_or_additive",
+              "source_path": "research/full-proof-integration-20260930/cvpr2023/lean/FullGeneralizable.lean",
+              "line": 126,
+              "scope": "proved_general_identity_or_paper_adapter",
+              "explanation_md": "这一步引用该真实定义或声明；数值例子的代入仍属于正文计算。"
+            }
+          ]
+        },
+        {
+          "id": "f11-boolean-expand",
+          "title": "保持三个共同AND项并展开OR",
+          "body_md": "把该恒等式代入原五变量函数，三个AND项不变，得到六个不同变量集合：{1,2,3},{2,3},{3,4},{4},{5},{4,5}，最后系数−1，其余+1。另一分解保持三个AND项，并将{4,5}作为一个OR项。二者逐点相同，没有声称这两种分解是唯一或全局最优。",
+          "formula_tex": "f(x)=x_1x_2x_3+x_2x_3+x_3x_4+x_4+x_5-x_4x_5.",
+          "justification": "",
+          "lean_refs": [
+            {
+              "declaration": "FullGeneralizable.boolean_decomposition",
+              "source_path": "research/full-proof-integration-20260930/cvpr2023/lean/FullGeneralizable.lean",
+              "line": 130,
+              "scope": "proved_general_identity_or_paper_adapter",
+              "explanation_md": "这一步引用该真实定义或声明；数值例子的代入仍属于正文计算。"
+            }
+          ]
+        },
+        {
+          "id": "f11-boolean-support",
+          "title": "完整输入下的真实交互支持",
+          "body_md": "输入全1且基线0时，六个AND乘积项分别是纯AND函数，其系数由公共分布与线性性严格给出。另一路三个AND支持如上、纯OR{4,5}支持一个非空OR系数1；纯OR性质由补集游戏是常数1减纯AND直接证明。输入全0/空掩码两式都0；完整输入两式都4。",
+          "formula_tex": "",
+          "justification": "",
+          "lean_refs": [
+            {
+              "declaration": "Harsanyi.orInteraction_unanimity",
+              "source_path": "lean/HarsanyiLib/Harsanyi/Extensions/OrInteraction.lean",
+              "line": 117,
+              "scope": "proved_general_identity_or_paper_adapter",
+              "explanation_md": "这一步引用该真实定义或声明；数值例子的代入仍属于正文计算。"
+            },
+            {
+              "declaration": "FullCvpr.addmul_coordinate_adapter",
+              "source_path": "research/full-proof-integration-20260930/cvpr2023/lean/FullCvpr.lean",
+              "line": 184,
+              "scope": "proved_general_identity_or_paper_adapter",
+              "explanation_md": "这一步引用该真实定义或声明；数值例子的代入仍属于正文计算。"
+            }
+          ]
+        }
+      ],
+      "shared_proof_ids": [],
+      "symbol_ids": [
+        "sym-model",
+        "sym-input",
+        "sym-input-baseline",
+        "sym-mask",
+        "sym-universe",
+        "sym-coalition",
+        "sym-game",
+        "sym-output-baseline",
+        "sym-and-interaction",
+        "sym-or-interaction"
+      ],
+      "notation_map": [
+        {
+          "original_tex": "I_{and}(S\\mid x)",
+          "canonical_tex": "I_g(S)",
+          "relationship": "same_definition"
+        },
+        {
+          "original_tex": "I_{and}(S\\mid x_T)",
+          "canonical_tex": "I_{g_T}(S)",
+          "relationship": "derived_quantity"
+        },
+        {
+          "original_tex": "I_{or}(S\\mid x_T)",
+          "canonical_tex": "O_{g_T}^N(S)",
+          "relationship": "derived_quantity"
+        }
+      ],
+      "rewrite_status": "complete",
+      "completion_scope": "entire original finite-algebra statement",
+      "alignment_status": "agent_checked_full_statement",
+      "user_review_status": "pending",
+      "source_transcription_owner": "reader_multipage_v2_max",
+      "merge_policy": {
+        "preserve_original_statement_and_proof_fields": true
+      },
+      "lean": {
+        "status": "verified",
+        "declarations": [
+          "FullGeneralizable.boolean_or_additive",
+          "FullGeneralizable.boolean_decomposition",
+          "Harsanyi.orInteraction_unanimity",
+          "FullCvpr.addmul_coordinate_adapter"
+        ],
+        "scope": "entire original finite-algebra statement",
+        "report_path": "research/full-proof-integration-20260930/cvpr2023/verification/report.json",
+        "compiled": true,
+        "axiom_audit": "passed",
+        "build_id": "full-finite-proof-20260930",
+        "source_fingerprint": "6ddbd27c5e24541c13b62c45401c7a57609f16fde2db890833f8c0d8c6f4c707",
+        "source_semantics_automatically_verified": false,
+        "statement": "∀ {α : Type u_1} [inst : DecidableEq.{u_1 + 1} α] (P : Finset.{u_1} (Finset.{u_1} α)) (c : Harsanyi.Game.{u_1} α)\n  (x : α → Real) (B : Finset.{u_1} α),\n  Eq.{1}\n    (Harsanyi.interaction.{u_1}\n      (fun S => FullCvpr.coordinatePolynomial.{u_1} P c (Harsanyi.maskCoordinates.{u_1, 0} (fun x => 0) x S)) B)\n    (ite.{1} (Membership.mem.{u_1, u_1} P B) (HMul.hMul.{0, 0, 0} (c B) (∏ i ∈ B, x i)) 0)",
+        "source_path": "research/full-proof-integration-20260930/cvpr2023/lean/FullCvpr.lean",
+        "line": 184,
+        "label": "所列精确范围已编译并通过公理审计",
+        "step_map": [
+          {
+            "step_id": "f11-boolean-truth",
+            "declaration": "FullGeneralizable.boolean_or_additive",
+            "source_path": "research/full-proof-integration-20260930/cvpr2023/lean/FullGeneralizable.lean",
+            "line": 126,
+            "scope": "proved_general_identity_or_paper_adapter",
+            "explanation_md": "这一步引用该真实定义或声明；数值例子的代入仍属于正文计算。"
+          },
+          {
+            "step_id": "f11-boolean-expand",
+            "declaration": "FullGeneralizable.boolean_decomposition",
+            "source_path": "research/full-proof-integration-20260930/cvpr2023/lean/FullGeneralizable.lean",
+            "line": 130,
+            "scope": "proved_general_identity_or_paper_adapter",
+            "explanation_md": "这一步引用该真实定义或声明；数值例子的代入仍属于正文计算。"
+          },
+          {
+            "step_id": "f11-boolean-support",
+            "declaration": "Harsanyi.orInteraction_unanimity",
+            "source_path": "lean/HarsanyiLib/Harsanyi/Extensions/OrInteraction.lean",
+            "line": 117,
+            "scope": "proved_general_identity_or_paper_adapter",
+            "explanation_md": "这一步引用该真实定义或声明；数值例子的代入仍属于正文计算。"
+          },
+          {
+            "step_id": "f11-boolean-support",
+            "declaration": "FullCvpr.addmul_coordinate_adapter",
+            "source_path": "research/full-proof-integration-20260930/cvpr2023/lean/FullCvpr.lean",
+            "line": 184,
+            "scope": "proved_general_identity_or_paper_adapter",
+            "explanation_md": "这一步引用该真实定义或声明；数值例子的代入仍属于正文计算。"
+          }
+        ]
+      },
+      "related_issue_ids": [],
+      "rewrite_path": "research/full-proof-integration-20260930/cvpr2023/math/f11-boolean-decomposition.zh.md"
+    },
+    {
+      "id": "f11-shapley",
+      "paper_id": "iclr2024-generalizable",
+      "title": "Theorem 3：原模型AND交互与经典Shapley",
+      "kind": "finite_theorem_or_derivation",
+      "original_label": "Theorem 3 (external Harsanyi 1963)",
+      "inventory_ids": [
+        "f11-shapley"
+      ],
+      "source_refs": [
+        {
+          "source_id": "src-iclr2024-generalizable-main",
+          "version_id": "ver-iclr2024-generalizable-formal",
+          "pdf_pages": [
+            15
+          ]
+        }
+      ],
+      "statement_tex": "\\phi_g(i)=\\sum_{S\\subseteq N:i\\in S}\\frac{I_{and}(S\\mid x)}{|S|}",
+      "assumptions": [
+        "有限N；固定同一个坐标基线r、样本x和模型；不存在原始输出零基线假设。"
+      ],
+      "definitions": [
+        {
+          "id": "f11-coordinate-objects",
+          "body_md": "固定 $N=\\{1,\\ldots,n\\}$、模型 $v:\\mathbb R^n\\to\\mathbb R$、样本 $x$ 和同一个输入基线 $r$。记 $g(A)=v(x_A)$，$b=g(\\varnothing)$。二次掩码定义条件游戏 $g_T(A)=v((x_T)_A)=g(T\\cap A)$。AND为 $I_g(S)=\\sum_{L\\subseteq S}(-1)^{|S|-|L|}g(L)$，另记 $w_A=I_g(A)$。非空OR为 $O_g^N(S)=-I_{g^c}(S)$，其中 $g^c(L)=g(N\\setminus L)$；空OR单独规定 $O_g^N(\\varnothing)=g(\\varnothing)$。所有子集和包括空集，原始输出不要求零基线。涉及分量时分别以 $v_{and},v_{or}$ 定义对应游戏和条件游戏。"
+        }
+      ],
+      "overview": "经典边际阶乘定义先变为等分交互；把外部环境子集与含i的交互集合一一对应，得到作者外引公式。",
+      "proof_steps": [
+        {
+          "id": "f11-shapley-component",
+          "title": "核对是原模型的AND交互",
+          "body_md": "原Theorem3的 $I_{and}(S\\mid x)$ 来自模型 $v$ 自身的AND定义，不是任意学习分解中 $v_{and}$ 的系数。取 $g(A)=v(x_A)$、$i\\in N$，即满足经典阶乘Shapley与共有证明的前提。",
+          "formula_tex": "",
+          "justification": "",
+          "lean_refs": [
+            {
+              "declaration": "FullGeneralizable.shapley",
+              "source_path": "research/full-proof-integration-20260930/cvpr2023/lean/FullGeneralizable.lean",
+              "line": 136,
+              "scope": "proved_general_identity_or_paper_adapter",
+              "explanation_md": "这一步引用该真实定义或声明；数值例子的代入仍属于正文计算。"
+            }
+          ]
+        },
+        {
+          "id": "shapley-definition",
+          "title": "从经典阶乘权重定义开始",
+          "body_md": "取 $i\\in N$，记 $n=|N|\\ge1$。经典Shapley值对每个环境 $S\\subseteq N\\setminus\\{i\\}$ 的边际 $g(S\\cup\\{i\\})-g(S)=\\Delta_{\\{i\\}}g(S)$，按阶乘权重 $|S|!(n-|S|-1)!/n!$ 加权求和。",
+          "formula_tex": "\\phi_g(i)=\\sum_{S\\subseteq N\\setminus\\{i\\}}\\frac{|S|!(n-|S|-1)!}{n!}\\Delta_{\\{i\\}}g(S).",
+          "justification": "",
+          "lean_refs": [
+            {
+              "declaration": "Harsanyi.factorialShapley",
+              "source_path": "lean/HarsanyiLib/Harsanyi/Extensions/Attribution.lean",
+              "line": 300,
+              "scope": "definition",
+              "explanation_md": "这一步引用该真实定义或声明；数值例子的代入仍属于正文计算。"
+            }
+          ]
+        },
+        {
+          "id": "factorial-lemma",
+          "title": "完整辅助引理：有限阶乘卷积",
+          "body_md": "对任意有限集合 $R$、非负整数 $a,b$，记 $m=|R|$，$F_R(a,b)=\\sum_{A\\subseteq R}(a+|A|)!(b+m-|A|)!$。对 $R$ 作插入归纳，并加强归纳命题为对所有 $a,b$ 成立。$R=\\varnothing$ 时两边都是 $a!b!$。插入新变量 $i\\notin R$ 后，按 $A$ 是否含 $i$ 分组得到 $F_{R\\cup\\{i\\}}(a,b)=F_R(a,b+1)+F_R(a+1,b)$。归纳假设给出的两项有共同分母 $(a+b+2)!$ 和共同大阶乘 $(a+b+m+2)!$，小阶乘相加为 $a!(b+1)!+(a+1)!b!=a!b!(a+b+2)$。约去正数 $a+b+2$ 得插入后的公式。全部阶乘为正，除法合法；论证包括 $a=0$、$b=0$、$m=0$。",
+          "formula_tex": "F_R(a,b)=\\frac{a!b!(a+b+m+1)!}{(a+b+1)!}.",
+          "justification": "",
+          "lean_refs": [
+            {
+              "declaration": "Harsanyi.factorial_powerset_sum",
+              "source_path": "lean/HarsanyiLib/Harsanyi/Extensions/Attribution.lean",
+              "line": 84,
+              "scope": "proved_general_identity_or_paper_adapter",
+              "explanation_md": "这一步引用该真实定义或声明；数值例子的代入仍属于正文计算。"
+            }
+          ]
+        },
+        {
+          "id": "factorial-coefficient",
+          "title": "完整辅助引理：包含固定子集的权重和",
+          "body_md": "取正整数 $k$、有限环境集合 $E$ 及 $L\\subseteq E$。记 $m=|E|$、$l=|L|$、$R=E\\setminus L$。每个包含 $L$ 的 $S\\subseteq E$ 唯一写成 $L\\cup A$，其中 $A\\subseteq R$，且 $|S|=l+|A|$、$|R|=m-l$。将上一引理用于 $a=l$、$b=k-1$；利用 $k(k-1)!=k!$ 并约去大阶乘 $(m+k)!$，得到下式，包括 $L=\\varnothing$ 和 $L=E$。",
+          "formula_tex": "\\sum_{L\\subseteq S\\subseteq E}\\frac{k\\,|S|!(m+k-|S|-1)!}{(m+k)!}=\\frac{l!k!}{(l+k)!}=\\binom{l+k}{k}^{-1}.",
+          "justification": "",
+          "lean_refs": [
+            {
+              "declaration": "Harsanyi.sum_supersets_eq_sum_complement",
+              "source_path": "lean/HarsanyiLib/Harsanyi/Extensions/Attribution.lean",
+              "line": 131,
+              "scope": "proved_general_identity_or_paper_adapter",
+              "explanation_md": "这一步引用该真实定义或声明；数值例子的代入仍属于正文计算。"
+            },
+            {
+              "declaration": "Harsanyi.factorialWeight_superset_sum",
+              "source_path": "lean/HarsanyiLib/Harsanyi/Extensions/Attribution.lean",
+              "line": 172,
+              "scope": "proved_general_identity_or_paper_adapter",
+              "explanation_md": "这一步引用该真实定义或声明；数值例子的代入仍属于正文计算。"
+            },
+            {
+              "declaration": "Harsanyi.factorial_ratio_eq_choose_inv",
+              "source_path": "lean/HarsanyiLib/Harsanyi/Extensions/Attribution.lean",
+              "line": 249,
+              "scope": "proved_general_identity_or_paper_adapter",
+              "explanation_md": "这一步引用该真实定义或声明；数值例子的代入仍属于正文计算。"
+            }
+          ]
+        },
+        {
+          "id": "factorial-transform",
+          "title": "交换有限求和，得到一般加权差分恒等式",
+          "body_md": "若 $T\\cap E=\\varnothing$，边际分解给 $\\Delta_Tg(S)=\\sum_{U\\subseteq S}w_{T\\cup U}$。每对 $U\\subseteq S\\subseteq E$ 恰好出现一次，交换有限双和。固定 $U$ 后，所有包含它的环境的权重之和由上一引理给出，所以每个 $w_{T\\cup U}$ 得到下式中的精确系数。",
+          "formula_tex": "\\sum_{S\\subseteq E}\\frac{k\\,|S|!(m+k-|S|-1)!}{(m+k)!}\\Delta_Tg(S)=\\sum_{U\\subseteq E}\\binom{|U|+k}{k}^{-1}w_{T\\cup U}.",
+          "justification": "",
+          "lean_refs": [
+            {
+              "declaration": "Harsanyi.weighted_higherMarginal_eq",
+              "source_path": "lean/HarsanyiLib/Harsanyi/Extensions/Attribution.lean",
+              "line": 220,
+              "scope": "proved_general_identity_or_paper_adapter",
+              "explanation_md": "这一步引用该真实定义或声明；数值例子的代入仍属于正文计算。"
+            }
+          ]
+        },
+        {
+          "id": "shapley-specialize",
+          "title": "逐项检查共有引理的参数",
+          "body_md": "在加权差分恒等式中取 $T=\\{i\\}$、$E=N\\setminus\\{i\\}$、$k=1$，于是 $m=n-1$，左侧权重恰好是经典Shapley阶乘权重。右侧系数为 $\\binom{|U|+1}{1}^{-1}=1/(|U|+1)$，得到原结论。差分集合与环境不相交，且 $k>0$，满足引理的全部前提。",
+          "formula_tex": "\\phi_g(i)=\\sum_{U\\subseteq N\\setminus\\{i\\}}\\frac{I_g(U\\cup\\{i\\})}{|U|+1}.",
+          "justification": "",
+          "lean_refs": [
+            {
+              "declaration": "Harsanyi.factorialShapley_eq_dividends",
+              "source_path": "lean/HarsanyiLib/Harsanyi/Extensions/Attribution.lean",
+              "line": 319,
+              "scope": "proved_general_identity_or_paper_adapter",
+              "explanation_md": "这一步引用该真实定义或声明；数值例子的代入仍属于正文计算。"
+            },
+            {
+              "declaration": "FullCvpr.shapley",
+              "source_path": "research/full-proof-integration-20260930/cvpr2023/lean/FullCvpr.lean",
+              "line": 57,
+              "scope": "proved_general_identity_or_paper_adapter",
+              "explanation_md": "这一步引用该真实定义或声明；数值例子的代入仍属于正文计算。"
+            }
+          ]
+        },
+        {
+          "id": "shapley-empty-example",
+          "title": "空集输出基线与二变量例子",
+          "body_md": "令 $N=\\{1,2\\}$，$g(\\varnothing)=7$、$g(\\{1\\})=8$、$g(\\{2\\})=9$、$g(\\{1,2\\})=13$。于是 $w_\\varnothing=7$、$w_{\\{1\\}}=1$、$w_{\\{2\\}}=2$、$w_{\\{1,2\\}}=3$。 因此 $\\phi_g(1)=1+3/2=5/2$、$\\phi_g(2)=2+3/2=7/2$，总和为 $6=g(N)-b$。环境 $U$ 可以为空，但分配的是非空交互 $\\{i\\}$；输出基线 $b$ 不分配给变量。若 $N=\\{i\\}$，唯一环境为空，公式给 $\\phi_g(i)=g(\\{i\\})-b$。",
+          "formula_tex": "",
+          "justification": "",
+          "lean_refs": []
+        },
+        {
+          "id": "f11-shapley-reindex",
+          "title": "把环境子集换成含i的交互集合",
+          "body_md": "环境 $U\\subseteq N\\setminus\\{i\\}$ 与含 $i$ 的交互集合一一对应：$S=U\\cup\\{i\\}$，逆映射 $U=S\\setminus\\{i\\}$，且 $|S|=|U|+1$。逐项换索引，便得到原分母 $|S|$。空集不含 $i$，不参与分配。",
+          "formula_tex": "\\phi_g(i)=\\sum_{U\\subseteq N\\setminus\\{i\\}}\\frac{I_g(U\\cup\\{i\\})}{|U|+1}=\\sum_{S\\subseteq N:i\\in S}\\frac{I_g(S)}{|S|}.",
+          "justification": "",
+          "lean_refs": [
+            {
+              "declaration": "Harsanyi.dividendAllocation_eq_insert_sum",
+              "source_path": "lean/HarsanyiLib/Harsanyi/Extensions/Attribution.lean",
+              "line": 391,
+              "scope": "proved_general_identity_or_paper_adapter",
+              "explanation_md": "这一步引用该真实定义或声明；数值例子的代入仍属于正文计算。"
+            },
+            {
+              "declaration": "Harsanyi.factorialShapley_eq_dividendAllocation",
+              "source_path": "lean/HarsanyiLib/Harsanyi/Extensions/Attribution.lean",
+              "line": 418,
+              "scope": "proved_general_identity_or_paper_adapter",
+              "explanation_md": "这一步引用该真实定义或声明；数值例子的代入仍属于正文计算。"
+            },
+            {
+              "declaration": "FullGeneralizable.shapley",
+              "source_path": "research/full-proof-integration-20260930/cvpr2023/lean/FullGeneralizable.lean",
+              "line": 136,
+              "scope": "proved_general_identity_or_paper_adapter",
+              "explanation_md": "这一步引用该真实定义或声明；数值例子的代入仍属于正文计算。"
+            }
+          ]
+        }
+      ],
+      "shared_proof_ids": [
+        "shared-harsanyi-shapley-dividend"
+      ],
+      "symbol_ids": [
+        "sym-model",
+        "sym-input",
+        "sym-input-baseline",
+        "sym-mask",
+        "sym-universe",
+        "sym-coalition",
+        "sym-game",
+        "sym-output-baseline",
+        "sym-and-interaction",
+        "sym-shapley",
+        "sym-shapley"
+      ],
+      "notation_map": [
+        {
+          "original_tex": "I_{and}(S\\mid x)",
+          "canonical_tex": "I_g(S)",
+          "relationship": "same_definition"
+        },
+        {
+          "original_tex": "I_{and}(S\\mid x_T)",
+          "canonical_tex": "I_{g_T}(S)",
+          "relationship": "derived_quantity"
+        },
+        {
+          "original_tex": "I_{or}(S\\mid x_T)",
+          "canonical_tex": "O_{g_T}^N(S)",
+          "relationship": "derived_quantity"
+        }
+      ],
+      "rewrite_status": "complete",
+      "completion_scope": "entire external Shapley statement using the original model v AND coefficients; this paper has no author proof",
+      "alignment_status": "agent_checked_full_statement",
+      "user_review_status": "pending",
+      "source_transcription_owner": "reader_multipage_v2_max",
+      "merge_policy": {
+        "preserve_original_statement_and_proof_fields": true
+      },
+      "lean": {
+        "status": "verified",
+        "declarations": [
+          "Harsanyi.factorialShapley_eq_dividendAllocation",
+          "FullGeneralizable.shapley"
+        ],
+        "scope": "entire external Shapley statement using the original model v AND coefficients; this paper has no author proof",
+        "report_path": "research/full-proof-integration-20260930/cvpr2023/verification/report.json",
+        "compiled": true,
+        "axiom_audit": "passed",
+        "build_id": "full-finite-proof-20260930",
+        "source_fingerprint": "6ddbd27c5e24541c13b62c45401c7a57609f16fde2db890833f8c0d8c6f4c707",
+        "source_semantics_automatically_verified": false,
+        "statement": "∀ {n : Nat} (v : (Fin n → Real) → Real) (r x : Fin n → Real) (i : Fin n),\n  Eq.{1} (Harsanyi.factorialShapley.{0} (fun S => v (Harsanyi.maskCoordinates.{0, 0} r x S)) Finset.univ.{0} i)\n    (∑ S ∈ Finset.powerset.{0} Finset.univ.{0},\n      ite.{1} (Membership.mem.{0, 0} S i)\n        (HDiv.hDiv.{0, 0, 0} (Harsanyi.interaction.{0} (fun L => v (Harsanyi.maskCoordinates.{0, 0} r x L)) S)\n          ↑(Finset.card.{0} S))\n        0)",
+        "source_path": "research/full-proof-integration-20260930/cvpr2023/lean/FullGeneralizable.lean",
+        "line": 136,
+        "label": "所列精确范围已编译并通过公理审计",
+        "notes_md": "Lean 经典Shapley对象由阶乘权重边际定义；等分交互式是证明结论。",
+        "step_map": [
+          {
+            "step_id": "f11-shapley-component",
+            "declaration": "FullGeneralizable.shapley",
+            "source_path": "research/full-proof-integration-20260930/cvpr2023/lean/FullGeneralizable.lean",
+            "line": 136,
+            "scope": "proved_general_identity_or_paper_adapter",
+            "explanation_md": "这一步引用该真实定义或声明；数值例子的代入仍属于正文计算。"
+          },
+          {
+            "step_id": "shapley-definition",
+            "declaration": "Harsanyi.factorialShapley",
+            "source_path": "lean/HarsanyiLib/Harsanyi/Extensions/Attribution.lean",
+            "line": 300,
+            "scope": "definition",
+            "explanation_md": "这一步引用该真实定义或声明；数值例子的代入仍属于正文计算。"
+          },
+          {
+            "step_id": "factorial-lemma",
+            "declaration": "Harsanyi.factorial_powerset_sum",
+            "source_path": "lean/HarsanyiLib/Harsanyi/Extensions/Attribution.lean",
+            "line": 84,
+            "scope": "proved_general_identity_or_paper_adapter",
+            "explanation_md": "这一步引用该真实定义或声明；数值例子的代入仍属于正文计算。"
+          },
+          {
+            "step_id": "factorial-coefficient",
+            "declaration": "Harsanyi.sum_supersets_eq_sum_complement",
+            "source_path": "lean/HarsanyiLib/Harsanyi/Extensions/Attribution.lean",
+            "line": 131,
+            "scope": "proved_general_identity_or_paper_adapter",
+            "explanation_md": "这一步引用该真实定义或声明；数值例子的代入仍属于正文计算。"
+          },
+          {
+            "step_id": "factorial-coefficient",
+            "declaration": "Harsanyi.factorialWeight_superset_sum",
+            "source_path": "lean/HarsanyiLib/Harsanyi/Extensions/Attribution.lean",
+            "line": 172,
+            "scope": "proved_general_identity_or_paper_adapter",
+            "explanation_md": "这一步引用该真实定义或声明；数值例子的代入仍属于正文计算。"
+          },
+          {
+            "step_id": "factorial-coefficient",
+            "declaration": "Harsanyi.factorial_ratio_eq_choose_inv",
+            "source_path": "lean/HarsanyiLib/Harsanyi/Extensions/Attribution.lean",
+            "line": 249,
+            "scope": "proved_general_identity_or_paper_adapter",
+            "explanation_md": "这一步引用该真实定义或声明；数值例子的代入仍属于正文计算。"
+          },
+          {
+            "step_id": "factorial-transform",
+            "declaration": "Harsanyi.weighted_higherMarginal_eq",
+            "source_path": "lean/HarsanyiLib/Harsanyi/Extensions/Attribution.lean",
+            "line": 220,
+            "scope": "proved_general_identity_or_paper_adapter",
+            "explanation_md": "这一步引用该真实定义或声明；数值例子的代入仍属于正文计算。"
+          },
+          {
+            "step_id": "shapley-specialize",
+            "declaration": "Harsanyi.factorialShapley_eq_dividends",
+            "source_path": "lean/HarsanyiLib/Harsanyi/Extensions/Attribution.lean",
+            "line": 319,
+            "scope": "proved_general_identity_or_paper_adapter",
+            "explanation_md": "这一步引用该真实定义或声明；数值例子的代入仍属于正文计算。"
+          },
+          {
+            "step_id": "shapley-specialize",
+            "declaration": "FullCvpr.shapley",
+            "source_path": "research/full-proof-integration-20260930/cvpr2023/lean/FullCvpr.lean",
+            "line": 57,
+            "scope": "proved_general_identity_or_paper_adapter",
+            "explanation_md": "这一步引用该真实定义或声明；数值例子的代入仍属于正文计算。"
+          },
+          {
+            "step_id": "f11-shapley-reindex",
+            "declaration": "Harsanyi.dividendAllocation_eq_insert_sum",
+            "source_path": "lean/HarsanyiLib/Harsanyi/Extensions/Attribution.lean",
+            "line": 391,
+            "scope": "proved_general_identity_or_paper_adapter",
+            "explanation_md": "这一步引用该真实定义或声明；数值例子的代入仍属于正文计算。"
+          },
+          {
+            "step_id": "f11-shapley-reindex",
+            "declaration": "Harsanyi.factorialShapley_eq_dividendAllocation",
+            "source_path": "lean/HarsanyiLib/Harsanyi/Extensions/Attribution.lean",
+            "line": 418,
+            "scope": "proved_general_identity_or_paper_adapter",
+            "explanation_md": "这一步引用该真实定义或声明；数值例子的代入仍属于正文计算。"
+          },
+          {
+            "step_id": "f11-shapley-reindex",
+            "declaration": "FullGeneralizable.shapley",
+            "source_path": "research/full-proof-integration-20260930/cvpr2023/lean/FullGeneralizable.lean",
+            "line": 136,
+            "scope": "proved_general_identity_or_paper_adapter",
+            "explanation_md": "这一步引用该真实定义或声明；数值例子的代入仍属于正文计算。"
+          }
+        ]
+      },
+      "related_issue_ids": [],
+      "rewrite_path": "research/full-proof-integration-20260930/cvpr2023/math/f11-shapley.zh.md"
+    },
+    {
+      "id": "f11-mask-complexity",
+      "paper_id": "iclr2024-generalizable",
+      "title": "全部掩码设置与枚举模型查询计数",
+      "kind": "finite_theorem_or_derivation",
+      "original_label": "Appendix G",
+      "inventory_ids": [
+        "f11-mask-complexity"
+      ],
+      "source_refs": [
+        {
+          "source_id": "src-iclr2024-generalizable-main",
+          "version_id": "ver-iclr2024-generalizable-formal",
+          "pdf_pages": [
+            3,
+            16,
+            17,
+            20,
+            22,
+            23
+          ]
+        }
+      ],
+      "statement_tex": "|\\mathcal P(N)|=2^{|N|}=2^n",
+      "assumptions": [
+        "有限N；固定同一个坐标基线r、样本x和模型；不存在原始输出零基线假设。"
+      ],
+      "definitions": [
+        {
+          "id": "f11-coordinate-objects",
+          "body_md": "固定 $N=\\{1,\\ldots,n\\}$、模型 $v:\\mathbb R^n\\to\\mathbb R$、样本 $x$ 和同一个输入基线 $r$。记 $g(A)=v(x_A)$，$b=g(\\varnothing)$。二次掩码定义条件游戏 $g_T(A)=v((x_T)_A)=g(T\\cap A)$。AND为 $I_g(S)=\\sum_{L\\subseteq S}(-1)^{|S|-|L|}g(L)$，另记 $w_A=I_g(A)$。非空OR为 $O_g^N(S)=-I_{g^c}(S)$，其中 $g^c(L)=g(N\\setminus L)$；空OR单独规定 $O_g^N(\\varnothing)=g(\\varnothing)$。所有子集和包括空集，原始输出不要求零基线。涉及分量时分别以 $v_{and},v_{or}$ 定义对应游戏和条件游戏。"
+        }
+      ],
+      "overview": "掩码设置与变量子集一一对应，给出2^n计数；一次逐掩码查询方案因此有2^n调用。",
+      "proof_steps": [
+        {
+          "id": "f11-count-bijection",
+          "title": "每个变量的两种状态与子集一一对应",
+          "body_md": "每个 $i\\in N$ 选择保留或基线。保留坐标的集合 $S$ 唯一表示该设置，反之每个 $S\\subseteq N$ 给一个设置，所以 $n$ 个二值选择有 $2^n$ 个掩码设置，即 $|\\mathcal P(N)|=2^n$。即使某个 $x_i=r_i$ 使不同设置产生相同向量，设置数仍为 $2^n$。",
+          "formula_tex": "",
+          "justification": "",
+          "lean_refs": [
+            {
+              "declaration": "FullGeneralizable.mask_count",
+              "source_path": "research/full-proof-integration-20260930/cvpr2023/lean/FullGeneralizable.lean",
+              "line": 142,
+              "scope": "proved_general_identity_or_paper_adapter",
+              "explanation_md": "这一步引用该真实定义或声明；数值例子的代入仍属于正文计算。"
+            }
+          ]
+        },
+        {
+          "id": "f11-count-queries",
+          "title": "完整枚举方案的模型查询数",
+          "body_md": "一次对每个设置查询模型的完整枚举有 $2^n$ 次调用；$m$ 个模型各枚举一次有 $m2^n$ 次。这是查询方案的计数，不能单独推出全部交互变换、训练或梯度优化的总运行时间。",
+          "formula_tex": "",
+          "justification": "",
+          "lean_refs": [
+            {
+              "declaration": "FullGeneralizable.mask_count",
+              "source_path": "research/full-proof-integration-20260930/cvpr2023/lean/FullGeneralizable.lean",
+              "line": 142,
+              "scope": "proved_general_identity_or_paper_adapter",
+              "explanation_md": "这一步引用该真实定义或声明；数值例子的代入仍属于正文计算。"
+            }
+          ]
+        },
+        {
+          "id": "f11-count-boundary",
+          "title": "n为零与六变量原例",
+          "body_md": "$n=0$ 时唯一空设置，数目为 $1=2^0$；$n=6$ 时为64个设置。原时间表为实验测量，不能由设置计数推出具体秒数。",
+          "formula_tex": "",
+          "justification": "",
+          "lean_refs": []
+        }
+      ],
+      "shared_proof_ids": [],
+      "symbol_ids": [
+        "sym-model",
+        "sym-input",
+        "sym-input-baseline",
+        "sym-mask",
+        "sym-universe",
+        "sym-coalition",
+        "sym-game",
+        "sym-output-baseline",
+        "sym-and-interaction",
+        "sym-or-interaction"
+      ],
+      "notation_map": [
+        {
+          "original_tex": "I_{and}(S\\mid x)",
+          "canonical_tex": "I_g(S)",
+          "relationship": "same_definition"
+        },
+        {
+          "original_tex": "I_{and}(S\\mid x_T)",
+          "canonical_tex": "I_{g_T}(S)",
+          "relationship": "derived_quantity"
+        },
+        {
+          "original_tex": "I_{or}(S\\mid x_T)",
+          "canonical_tex": "O_{g_T}^N(S)",
+          "relationship": "derived_quantity"
+        }
+      ],
+      "rewrite_status": "complete",
+      "completion_scope": "mask-set cardinality and one-query-per-mask count; not a total training or interaction-computation time bound",
+      "alignment_status": "agent_checked_full_statement",
+      "user_review_status": "pending",
+      "source_transcription_owner": "reader_multipage_v2_max",
+      "merge_policy": {
+        "preserve_original_statement_and_proof_fields": true
+      },
+      "lean": {
+        "status": "verified",
+        "declarations": [
+          "FullGeneralizable.mask_count"
+        ],
+        "scope": "mask-set cardinality and one-query-per-mask count; not a total training or interaction-computation time bound",
+        "report_path": "research/full-proof-integration-20260930/cvpr2023/verification/report.json",
+        "compiled": true,
+        "axiom_audit": "passed",
+        "build_id": "full-finite-proof-20260930",
+        "source_fingerprint": "6ddbd27c5e24541c13b62c45401c7a57609f16fde2db890833f8c0d8c6f4c707",
+        "source_semantics_automatically_verified": false,
+        "statement": "∀ (n : Nat), Eq.{1} (Finset.card.{0} (Finset.powerset.{0} Finset.univ.{0})) (HPow.hPow.{0, 0, 0} 2 n)",
+        "source_path": "research/full-proof-integration-20260930/cvpr2023/lean/FullGeneralizable.lean",
+        "line": 142,
+        "label": "所列精确范围已编译并通过公理审计",
+        "step_map": [
+          {
+            "step_id": "f11-count-bijection",
+            "declaration": "FullGeneralizable.mask_count",
+            "source_path": "research/full-proof-integration-20260930/cvpr2023/lean/FullGeneralizable.lean",
+            "line": 142,
+            "scope": "proved_general_identity_or_paper_adapter",
+            "explanation_md": "这一步引用该真实定义或声明；数值例子的代入仍属于正文计算。"
+          },
+          {
+            "step_id": "f11-count-queries",
+            "declaration": "FullGeneralizable.mask_count",
+            "source_path": "research/full-proof-integration-20260930/cvpr2023/lean/FullGeneralizable.lean",
+            "line": 142,
+            "scope": "proved_general_identity_or_paper_adapter",
+            "explanation_md": "这一步引用该真实定义或声明；数值例子的代入仍属于正文计算。"
+          }
+        ]
+      },
+      "related_issue_ids": [],
+      "rewrite_path": "research/full-proof-integration-20260930/cvpr2023/math/f11-mask-complexity.zh.md"
+    }
+  ],
+  "shared_proofs": [
+    {
+      "id": "shared-harsanyi-or-reconstruction",
+      "title": "共享证明：OR补集变换的精确重构",
+      "statement_tex": "g(T)=O_g^N(\\varnothing)+\\sum_{S\\subseteq N,\\,S\\cap T\\ne\\varnothing}O_g^N(S)",
+      "assumptions": [
+        "$T\\subseteq N$；$g:\\mathcal P(N)\\to\\mathbb R$；非空OR取补集游戏的负AND变换，空OR单列原输出基线。"
+      ],
+      "definitions": [
+        {
+          "id": "finite-or-game",
+          "body_md": "固定有限总体 $N$。集合函数 $g:\\mathcal P(N)\\to\\mathbb R$ 的输出基线为 $b=g(\\varnothing)$，交互为 $I_g(A)=\\sum_{U\\subseteq A}(-1)^{|A|-|U|}g(U)$。记 $w_A=I_g(A)$。所有子集和包括空集，且 $w_\\varnothing=b$。差分为 $\\Delta_Tg(S)=\\sum_{L\\subseteq T}(-1)^{|T|-|L|}g(L\\cup S)$。原始输出不要求零基线；中心化函数 $g_0=g-b$ 仅使空交互变为零。 非空OR定义为 $O_g^N(S)=-I_{g^c}(S)$，$g^c(L)=g(N\\setminus L)$；空OR为 $g(\\varnothing)$。"
+        }
+      ],
+      "proof_steps": [
+        {
+          "id": "f11-or-filter",
+          "title": "完整辅助引理：相交子集族是两个子集族之差",
+          "body_md": "T子集N。对每个S子集N，$S\\cap T=\\varnothing$ 当且仅当 $S\\subseteq N\\setminus T$，所以相交子集恰为 $\\mathcal P(N)\\setminus\\mathcal P(N\\setminus T)$。后者族包含于前者，有限求和为全和减去不相交和。空集一直在两个全族中，不在相交族。",
+          "formula_tex": "\\sum_{\\substack{S\\subseteq N\\\\S\\cap T\\ne\\varnothing}}d_S=\\sum_{S\\subseteq N}d_S-\\sum_{S\\subseteq N\\setminus T}d_S.",
+          "justification": "",
+          "lean_refs": [
+            {
+              "declaration": "Harsanyi.activated_subset_sum",
+              "source_path": "lean/HarsanyiLib/Harsanyi/Extensions/OrInteraction.lean",
+              "line": 18,
+              "scope": "proved_general_identity_or_paper_adapter",
+              "explanation_md": "这一步引用该真实定义或声明；数值例子的代入仍属于正文计算。"
+            }
+          ]
+        },
+        {
+          "id": "f11-or-transform",
+          "title": "对补集负游戏作两次重构",
+          "body_md": "令 $f(L)=-h(N\\setminus L)$。每个非空S的OR系数等于I_f(S)，由有限求和对整体负号的线性性。相交族没有空S，所以可逐项替换。两次公共重构给 $f(N)-f(N\\setminus T)=-h(\\varnothing)+h(T)$，这里使用 $N\\setminus(N\\setminus T)=T$，需要并已核T子集N。",
+          "formula_tex": "\\sum_{S\\cap T\\ne\\varnothing}O_h^N(S)=h(T)-h(\\varnothing)=v_{or}(x_T)-v_{or}(x_\\varnothing).",
+          "justification": "",
+          "lean_refs": [
+            {
+              "declaration": "Harsanyi.or_reconstruction",
+              "source_path": "lean/HarsanyiLib/Harsanyi/Extensions/OrInteraction.lean",
+              "line": 30,
+              "scope": "proved_general_identity_or_paper_adapter",
+              "explanation_md": "这一步引用该真实定义或声明；数值例子的代入仍属于正文计算。"
+            },
+            {
+              "declaration": "FullGeneralizable.label_or_nonempty_sum",
+              "source_path": "research/full-proof-integration-20260930/cvpr2023/lean/FullGeneralizable.lean",
+              "line": 102,
+              "scope": "proved_general_identity_or_paper_adapter",
+              "explanation_md": "这一步引用该真实定义或声明；数值例子的代入仍属于正文计算。"
+            }
+          ]
+        },
+        {
+          "id": "f11-or-baseline",
+          "title": "单独加回原空OR基线",
+          "body_md": "作者规定 $O_h^N(\\varnothing)=h(\\varnothing)=v_{or}(x_\\varnothing)$。把它加回相交和即可得到 $v_{or}(x_T)$。T空时相交族为空，差值0，最终只有基线；T=N时覆盖完整输入。这同时避免原case1/2在T空时重复计数。",
+          "formula_tex": "",
+          "justification": "",
+          "lean_refs": [
+            {
+              "declaration": "FullGeneralizable.label_or_reconstruction",
+              "source_path": "research/full-proof-integration-20260930/cvpr2023/lean/FullGeneralizable.lean",
+              "line": 93,
+              "scope": "proved_general_identity_or_paper_adapter",
+              "explanation_md": "这一步引用该真实定义或声明；数值例子的代入仍属于正文计算。"
+            }
+          ]
+        }
+      ],
+      "rewrite_status": "complete",
+      "alignment_status": "agent_checked_full_statement",
+      "user_review_status": "pending",
+      "lean": {
+        "status": "verified",
+        "declarations": [
+          "Harsanyi.activated_subset_sum",
+          "Harsanyi.or_reconstruction"
+        ],
+        "report_path": "research/full-proof-integration-20260930/cvpr2023/verification/report.json",
+        "compiled": true,
+        "axiom_audit": "passed",
+        "build_id": "full-finite-proof-20260930",
+        "source_fingerprint": "6ddbd27c5e24541c13b62c45401c7a57609f16fde2db890833f8c0d8c6f4c707",
+        "source_semantics_automatically_verified": false,
+        "statement": "∀ {α : Type u_1} [inst : DecidableEq.{u_1 + 1} α] (g : Harsanyi.Game.{u_1} α) (N T : Finset.{u_1} α),\n  HasSubset.Subset.{u_1} T N → Eq.{1} (Harsanyi.orReconstruction.{u_1} g N T) (g T)",
+        "source_path": "lean/HarsanyiLib/Harsanyi/Extensions/OrInteraction.lean",
+        "line": 30,
+        "label": "所列精确范围已编译并通过公理审计",
+        "step_map": [
+          {
+            "step_id": "f11-or-filter",
+            "declaration": "Harsanyi.activated_subset_sum",
+            "source_path": "lean/HarsanyiLib/Harsanyi/Extensions/OrInteraction.lean",
+            "line": 18,
+            "scope": "proved_general_identity_or_paper_adapter",
+            "explanation_md": "这一步引用该真实定义或声明；数值例子的代入仍属于正文计算。"
+          },
+          {
+            "step_id": "f11-or-transform",
+            "declaration": "Harsanyi.or_reconstruction",
+            "source_path": "lean/HarsanyiLib/Harsanyi/Extensions/OrInteraction.lean",
+            "line": 30,
+            "scope": "proved_general_identity_or_paper_adapter",
+            "explanation_md": "这一步引用该真实定义或声明；数值例子的代入仍属于正文计算。"
+          },
+          {
+            "step_id": "f11-or-transform",
+            "declaration": "FullGeneralizable.label_or_nonempty_sum",
+            "source_path": "research/full-proof-integration-20260930/cvpr2023/lean/FullGeneralizable.lean",
+            "line": 102,
+            "scope": "proved_general_identity_or_paper_adapter",
+            "explanation_md": "这一步引用该真实定义或声明；数值例子的代入仍属于正文计算。"
+          },
+          {
+            "step_id": "f11-or-baseline",
+            "declaration": "FullGeneralizable.label_or_reconstruction",
+            "source_path": "research/full-proof-integration-20260930/cvpr2023/lean/FullGeneralizable.lean",
+            "line": 93,
+            "scope": "proved_general_identity_or_paper_adapter",
+            "explanation_md": "这一步引用该真实定义或声明；数值例子的代入仍属于正文计算。"
+          }
+        ]
+      }
+    }
+  ],
+  "issues": [
+    {
+      "id": "issue-f11-or-intermediate-20260930",
+      "paper_id": "iclr2024-generalizable",
+      "title": "OR原证明的分类中间零和、条件输出代入及空掩码重合",
+      "category": "proof_case_and_mask_alignment_errors",
+      "source_refs": [
+        {
+          "source_id": "src-iclr2024-generalizable-main",
+          "version_id": "ver-iclr2024-generalizable-formal",
+          "pdf_pages": [
+            13,
+            14
+          ],
+          "section": "Appendix C(2); Eq.(9)"
+        }
+      ],
+      "original_formula_tex": "\\sum_{S:S\\cap T\\ne\\varnothing}I_{or}(S\\mid x_T)=\\sum_{S:S\\cap T\\ne\\varnothing}\\left[-\\sum_{L\\subseteq S}(-1)^{|S|-|L|}v_{or}(x_{N\\setminus L})\\right]",
+      "evidence_md": "第13页该首代入式不保留二次掩码。取N={1,2}、T={1}、$g(A)=\\mathbf1_{N\\subseteq A}$、S=N。字面条件游戏hT全零，所以OR系数左0；原右−1。正确逐项输出是 $v_{or}((x_T)_{N\\setminus L})=v_{or}(x_{T\\setminus L})$。第14页case(3)以 $\\sum_{j=0}^{|T|-|T\\cap L|}\\binom{|T|-|T\\cap L|}j(-1)^j=0$ 作内层消去，但T子集L时上界0，和1；例如N={1,2},T=L={1}。完整外层仍能消去，但原标注内零不成立。case(4)激活要求在T新增至少一个变量，原下界印0，应分别核实际索引族；T空时case(1) L=N\\T与case(2)L=N重合，不能重复计同一项。",
+      "impact_md": "错误属于原证明的中间分类和条件式代入；原OR及AND-OR父命题不变。修正证明使用相交子集族差及完整Möbius重构，包含T空，逐项保留literal conditioned sample。",
+      "related_result_ids": [
+        "iclr2024-generalizable-or",
+        "iclr2024-generalizable-andor"
+      ],
+      "original_statement_status": "no_counterexample_found; proof repaired without changing statement",
+      "user_confirmation": "not_individually_reviewed",
+      "fix_authorization": "proof_only_granted",
+      "statement_fix_authorization": "not_granted",
+      "status": "proof_repaired_and_formally_audited",
+      "user_review_status": "pending"
+    }
+  ],
+  "symbols": [],
+  "merge_policy": "replace project rewrite and Lean metadata; preserve UI/source agent complete original_statement_md/original_proof_md TeX transcriptions",
+  "counts": {
+    "finite_targets": 9,
+    "rewrite_complete": 9,
+    "lean_verified_scopes": 9
+  }
+}

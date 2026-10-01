@@ -1,0 +1,69 @@
+Published as a conference paper at ICLR 2024
+
+
+
+
+other images were taken as negative samples. The heavy computational cost did not allow us to test
+on all samples in these datasets. Thus, similar to previous studies Li & Zhang (2023b), we used a
+subset of samples to compute interactions. For all models except for LLMs, we followed the setting
+of testing samples in Li & Zhang (2023b), in which 50 samples from the CelebA-eyeglasses dataset,
+100 samples from the ShapeNet dataset and the MNIST-3 dataset, and 500 samples from each of the
+three tabular datasets have been selected to compute interactions.
+C.2 T HE ANNOTATION OF SEMANTIC PARTS
+As mentioned in Section 3.1, given an input sample with n input variables, the DNN may encode at
+most 2n potential interactions. The computational cost for extracting salient interaction primitives is
+high, when the number of input variables n is large. For example, if each 3D point of a point-cloud
+(or each pixel of an image) is taken as a single input variable, the computation is usually prohibitive.
+In order to overcome this issue, Li & Zhang (2023b) annotated 8-10 semantic parts in each input
+sample, and the annotated semantic parts are aligned over different samples. Then, each semantic
+part in an input sample is taken as a “single” input variable to the DNN.
+• For the ShapeNet dataset (Yi et al., 2016), Yi et al. have provided annotations for semantic parts
+for input samples    in the motorbike category. The semantic parts include gas tank, seat, handle,
+          Segment version-3
+light, wheel, and frame. Based
+          1_cluster_00，Sample 642on the original annotation, Li & Zhang (2023b) further divided the
+annotation1_cluster_01，Sample
+            for each motorbike489sample into more fine-grained semantic parts, including gas tank,
+          1_cluster_02，Sample
+seat, handle,                 116back wheel, front frame, mid frame, and back frame.
+              light, front wheel,
+           1_cluster_03，Sample 372
+         1_cluster_04，Sample
+• For images  in the MNIST-334dataset, we used the semantic parts annotated by Li & Zhang (2023b).
+The annotation of different parts was based on some key points in each image. Figure 6 shows
+examples of these semantic parts.
+
+
+
+
+         Figure 6: Examples of annotated semantic parts for samples of the MNIST-3 dataset.
+
+
+D       E XPERIMENTAL SETTINGS FOR L ARGE L ANGUAGE M ODELS AND MLP S
+D.1 M ODELS AND DATASETS
+We used off-the-shelf trained LLMs (including the OPT-1.3B6 model, the LLaMA-7B7 model, and
+BAAI Aquila-7B8 model) provided by Huggingface in all our experiments. The detailed information
+on these models and the training data can be found on the corresponding web pages.
+To construct input sentences, for each paragraph in the SQuAD dataset, we first took the initial 30
+words. Then, starting from the 31st word, we evaluated the following two conditions: 1) the current
+word had a specific meaning and was not a stop word in NLTK (Bird et al., 2009), 2) there were
+no punctuations like the period or the semicolon in the five positions preceding the current word. If
+both conditions were satisfied, we stopped this process and considered the current word as the target
+word for the LLM to predict. We considered the words before this target word as the input sentence
+for the LLM. If either condition was not satisfied, we incorporated the current word into the input
+sentence and continued evaluating the next word until this process stopped. For each input sentence,
+we used 10 meaningful words (words that are not NLTK stop words or punctuations) annotated by
+Shen et al. (2023) to construct the set of input variables N , so that we have n = |N | = 10. When
+masking the input sentence, we only masked words in N , without changing other “background”
+words. We tested on the first 1000 sentences in the SQuAD dataset. It was because the heavy
+computational cost did not allow us to test on all 20000+ sentences in the dataset.
+    6
+      https://huggingface.co/facebook/opt-1.3b
+    7
+      https://huggingface.co/linhvu/decapoda-research-llama-7b-hf
+    8
+      https://huggingface.co/BAAI/Aquila-7B
+
+
+                                                  28
+

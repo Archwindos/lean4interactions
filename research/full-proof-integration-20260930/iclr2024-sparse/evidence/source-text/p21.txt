@@ -1,0 +1,103 @@
+Published as a conference paper at ICLR 2024
+
+
+
+
+                                                                             A(k)
+Note that A(k) always has the same sign as η (k) , making                    η (k)
+                                                                                     > 0. Therefore, we can simply add
+                                                                                         |A(k) |
+absolute value to the left-hand side of the above equation and get                       |η (k) |
+                                                                                                    ≥ τ R(k) .
+
+Since τ > 0, we can obtain
+                           |A(k) |        ū(1)                  (k)                     (k)
+               R(k) ≤                 =            |λ(k) np+δ + a⌊p⌋−1 n⌊p⌋−1 + · · · + a0 |.                         (60)
+                           τ |η (k) |   τ |η (k) |
+
+
+
+
+B.5 P ROOF OF T HEOREM 4 IN THE A PPENDIX
+Before proving Theorem 4, we first prove the following lemma, which can serve as the foundation
+for proofs of Theorem 4, 5, and 6.
+Lemma 4 (Connection to the marginal benefit). ∆uT (S) = L⊆T (−1)|T |−|L| u(L ∪ S) denotes the
+                                                                                 P
+marginal benefit (Grabisch & Roubens, 1999) of variables in T ⊆ N \ S given the environment S .
+We have proven that ∆uT (S) can be decomposed     into the sum of interaction utilities inside T and
+sub-environments of S , i.e. ∆uT (S) = S ′ ⊆S I(T ∪ S ′ ).
+                                      P
+
+
+Proof. By the definition of the marginal benefit, we have
+                     X
+         ∆uT (S) =         (−1)|T |−|L| u(L ∪ S)
+                     L⊆T
+                     X                         X
+                 =         (−1)|T |−|L|                I(K) // by the universal matching property
+                     L⊆T                     K⊆L∪S
+                     X                         X X
+                 =         (−1)|T |−|L|                       I(L′ ∪ S ′ )   // since L ∩ S = ∅
+                     L⊆T                     L′ ⊆L   S ′ ⊆S
+                                                                            
+                     X            X                    X
+                 =                     (−1)|T |−|L|           I(L′ ∪ S ′ )
+                     S ′ ⊆S       L⊆T                  L′ ⊆L
+                                                                            
+                     X X X
+                            (−1)|T |−|L| I(L′ ∪ S ′ )
+                                                     
+                 =     
+                                                    
+                     S ′ ⊆S       L′ ⊆T L⊆T
+                                        L⊇L′
+                                                                                                           
+                                                                                                          
+                                                 |T |
+                                                                                  !
+                    X                                                |T | − |L′ |
+                                        X       X                                                           
+                              ′                                                          |T |−|L|    ′   ′ 
+                 =        I(S ∪ T ) +                                               (−1)         I(L ∪ S ) 
+                                            
+                                                                              ′
+                                                                       l − |L |
+                   S ′ ⊆S 
+                          | {z }
+                                       L′ ⊊T   l=|L′ |
+                                                                                                            
+                             L′ =T                                                                          
+                                       |                                          {z                       }
+                                                                                 L′ ⊊T
+                                                                                                               
+                                                            |T |
+                                                                               !
+                                                                  |T | − |L′ |
+                                                                                            
+                    X          ′
+                                        X       ′   ′
+                                                           X                         |T |−|L| 
+                                                                                              
+                 =        I(S ∪ T ) +       I(L ∪ S ) ·                        (−1)
+                                            
+                                                                   l −  |L′|                  
+                   S ′ ⊆S             L′ ⊊T             l=|L′ |                             
+                                                          |               {z                }
+                                                                          =0
+                    X
+                 =        I(S ′ ∪ T )
+                     S ′ ⊆S
+
+
+
+
+Then, let us prove Theorem 4.
+Theorem 4. Let ϕ(i) denote the Shapley value of an input variable i. Then, the Shapley value ϕ(i)
+can be explained as the result of uniformly assigning attributions of each Harsanyi interaction to
+                                                   1
+                                       P
+each involving variable i, i.e., ϕ(i) = S⊆N \{i} |S|+1 I(S ∪ {i}).
+
+
+                                                                 21
+

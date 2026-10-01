@@ -1,0 +1,505 @@
+{
+  "snapshot_at": "2026-09-30T08:00:44.166342+00:00",
+  "prototype_only": true,
+  "paper": {
+    "paper_id": "sparse-concepts-cvpr2023",
+    "version": "CVPR2023",
+    "title": "Defining and Quantifying the Emergence of Sparse Concepts in DNNs",
+    "authors": [
+      "Jie Ren",
+      "Mingjie Li",
+      "Qirui Chen",
+      "Huiqi Deng",
+      "Quanshi Zhang"
+    ],
+    "visibility": "public",
+    "edition": "CVPR 2023 正式会议版 · CVF公开版本",
+    "main_pages": 10,
+    "supplement_pages": 27
+  },
+  "inventory": {
+    "source_record_count": null,
+    "reviewed_source_record_count": null,
+    "reviewed_unique_mathematical_results": 2,
+    "denominator_reviewed": false,
+    "completeness_status": "formal_full_inventory_not_reviewed",
+    "items": []
+  },
+  "formal_edition_audit": {
+    "edition": "CVPR2023 official CVF open-access main paper and supplement",
+    "main_pages": 10,
+    "supplement_pages": 27,
+    "sources": [
+      {
+        "key": "sparse-cvpr2023",
+        "url": "https://openaccess.thecvf.com/content/CVPR2023/html/Ren_Defining_and_Quantifying_the_Emergence_of_Sparse_Concepts_in_DNNs_CVPR_2023_paper.html",
+        "resolved_url": "https://openaccess.thecvf.com/content/CVPR2023/html/Ren_Defining_and_Quantifying_the_Emergence_of_Sparse_Concepts_in_DNNs_CVPR_2023_paper.html",
+        "retrieved_at": "2026-09-30T07:21:28.735996+00:00",
+        "local_file": "research/paper-survey-20260930/earlier/publication-index/sparse-cvpr2023.html",
+        "sha256": "00c0d7affa2b3bc6d696f1fef3ff3647d3edfc8acfa699c9a7421c926ccd47d1",
+        "total_pages": null,
+        "status": "ok"
+      },
+      {
+        "key": "sparse-cvpr2023-main",
+        "url": "https://openaccess.thecvf.com/content/CVPR2023/papers/Ren_Defining_and_Quantifying_the_Emergence_of_Sparse_Concepts_in_DNNs_CVPR_2023_paper.pdf",
+        "resolved_url": "https://openaccess.thecvf.com/content/CVPR2023/papers/Ren_Defining_and_Quantifying_the_Emergence_of_Sparse_Concepts_in_DNNs_CVPR_2023_paper.pdf",
+        "retrieved_at": "2026-09-30T07:21:33.814714+00:00",
+        "local_file": "research/paper-survey-20260930/earlier/venue-papers/sparse-cvpr2023-main/sparse-cvpr2023-main.pdf",
+        "sha256": "5702e161fa95421935c8879d505033dae903c92e79f491b1199511d643b8ff43",
+        "total_pages": 10,
+        "status": "ok"
+      },
+      {
+        "key": "sparse-cvpr2023-supp",
+        "url": "https://openaccess.thecvf.com/content/CVPR2023/supplemental/Ren_Defining_and_Quantifying_CVPR_2023_supplemental.pdf",
+        "resolved_url": "https://openaccess.thecvf.com/content/CVPR2023/supplemental/Ren_Defining_and_Quantifying_CVPR_2023_supplemental.pdf",
+        "retrieved_at": "2026-09-30T07:21:33.840168+00:00",
+        "local_file": "research/paper-survey-20260930/earlier/venue-papers/sparse-cvpr2023-supp/sparse-cvpr2023-supp.pdf",
+        "sha256": "1c17a9af66dedf9db3d190a62ac070115ba1301b3fd568832da2d60f662f92d7",
+        "total_pages": 27,
+        "status": "ok"
+      }
+    ],
+    "full_formal_inventory_reviewed": false,
+    "corpus_edition_migrated": false,
+    "scope": [
+      "Main PDF page 3 Theorem 1 and fixed-masking/SCM definitions on pages 3–4",
+      "Supplement PDF page 2 Theorem 1 statement, page 3 complete reconstruction and uniqueness proof",
+      "Main PDF page 4 Theorem 2 statement and prose reference to Theorem 1; proof location only, supplement page 6 onwards"
+    ],
+    "aligned_mathematical_components": [
+      {
+        "result": "harsanyi-reconstruction",
+        "evidence": "Fixed input/DNN/baseline; real-valued g(S)=v(x_S); full power set including empty; SCM triggered iff T subset S; all-mask exact reconstruction.",
+        "source_pages": [
+          "main:3",
+          "main:4",
+          "supplement:2",
+          "supplement:3"
+        ]
+      },
+      {
+        "result": "harsanyi-reconstruction-unique",
+        "evidence": "Alternative coefficients reconstruct every coalition exactly; supplement's empty-set base case retains w_empty=v(x_empty); no zero-baseline assumption added.",
+        "source_pages": [
+          "supplement:2",
+          "supplement:3"
+        ]
+      }
+    ],
+    "auxiliary_tex": {
+      "edition": "arXiv:2111.06206v6",
+      "is_official_cvpr_tex": false,
+      "scoped_visual_and_text_comparison": "Theorem 1 main statement and both supplement proof components match in mathematical hypotheses/formulas/conclusion. Citation and equation numbers differ, full documents are not asserted identical.",
+      "differences": [
+        "Main Harsanyi citation is [15] in CVPR and [29] in arXiv",
+        "Main Shapley citation is [31] in CVPR and [56] in arXiv",
+        "Supplement reconstruction equation is (2) in official PDF and (10) in arXiv",
+        "Official main has 10 pages; arXiv main content and pagination differ"
+      ]
+    },
+    "visual_evidence": [
+      "evidence/official-main-page-03.png",
+      "evidence/official-supp-page-02.png",
+      "evidence/official-supp-page-03.png"
+    ],
+    "new_proofs_or_lean_builds": false
+  },
+  "formal_reference_text": "The following para-\ngraphs will introduce how to relax the Harsanyi dividend in\nTheorem 1 by removing noisy causal patterns and learning\nthe optimal baseline value, so as to boost the sparsity of\ncausal effects. Besides, we also discovered that adversarial\ntraining [24] can make the DNN encode much more sparse\ncausal effects.",
+  "original": {
+    "reconstruction_statement": {
+      "path": "corpus/papers/sparse-concepts-2111-06206/v6/sources/tex/AOG.tex",
+      "first": 205,
+      "last": 215,
+      "raw": "\\begin{theorem}[Proof in Appendix C]\\label{th:harsanyi-faithful}\nGiven a certain input {\\small$\\boldsymbol{x}$}, let the causal graph in Fig. \\ref{fig:causal-graph} encode {\\small$2^n$} causal patterns, \\emph{i.e.}, {\\small$\\Omega=2^{\\mathcal{N}}=\\{\\mathcal{S}: \\mathcal{S}\\subseteq\\mathcal{N}\\}$}.\nIf the causal effect {\\small$w_{\\mathcal{S}}$} of each causal pattern {\\small$\\mathcal{S}\\in\\Omega$} is measured by the Harsanyi dividend~\\cite{harsanyi1963simplified}, \\emph{i.e.} {\\small$w_{\\mathcal{S}} \\triangleq {\\sum}_{\\mathcal{S}'\\subseteq \\mathcal{S}}(-1)^{|\\mathcal{S}|-|\\mathcal{S}'|}\\cdot v(\\boldsymbol{x}_{\\mathcal{S}'})$}, then the causal graph faithfully encodes the inference logic of the DNN, as follows.\n\\vspace{-3pt}\n\\begin{small}\n\\begin{equation}\n    \\forall \\mathcal{S}\\subseteq \\mathcal{N},\\ \\ \n    Y(\\boldsymbol{x}_{\\mathcal{S}}) = v(\\boldsymbol{x}_{\\mathcal{S}})\n\\end{equation}\n\\end{small}\n\\end{theorem}\n",
+      "label": "AOG.tex:205–215"
+    },
+    "appendix_statement": {
+      "path": "corpus/papers/sparse-concepts-2111-06206/v6/sources/tex/appendix.tex",
+      "first": 116,
+      "last": 129,
+      "raw": "\\begin{manualtheorem}{1}[Theorem 1]\\label{th:app-harsanyi-faithful}\nGiven a certain input {\\small$\\boldsymbol{x}$}, let the causal graph in Fig. 1 (in the main paper) encode {\\small$2^n$} causal patterns, \\emph{i.e.}, {\\small$\\Omega=2^{\\mathcal{N}}=\\{\\mathcal{S}: \\mathcal{S}\\subseteq\\mathcal{N}\\}$}.\nIf the causal effect {\\small$w_{\\mathcal{S}}$} of each causal pattern {\\small$\\mathcal{S}\\in\\Omega$} is measured by the Harsanyi dividend~\\cite{harsanyi1963simplified}, \\emph{i.e.} {\\small$w_{\\mathcal{S}} \\triangleq {\\sum}_{\\mathcal{S}'\\subseteq \\mathcal{S}}(-1)^{|\\mathcal{S}|-|\\mathcal{S}'|}\\cdot v(\\boldsymbol{x}_{\\mathcal{S}'})$}, then the causal graph faithfully encodes the inference logic of the DNN, as follows.\n\n\n\\vspace{-5pt}\n\\begin{small}\n\\begin{equation}\n    \\forall \\mathcal{S}\\subseteq \\mathcal{N},\\ \\ \n    Y(\\boldsymbol{x}_{\\mathcal{S}}) = v(\\boldsymbol{x}_{\\mathcal{S}})\n\\end{equation}\n\\end{small}\nMore crucially, the Harsanyi dividend is the unique metric that satisfies the faithfulness requirement.\n\\end{manualtheorem}\n",
+      "label": "appendix.tex:116–129"
+    },
+    "theorem1_proof": {
+      "path": "corpus/papers/sparse-concepts-2111-06206/v6/sources/tex/appendix.tex",
+      "first": 131,
+      "last": 186,
+      "raw": "$\\bullet$~\\textit{Proof:} We only need to prove the following two statements. (1) Necessity: the causal graph based on Harsanyi dividends {\\small$w_{\\mathcal{S}}$} satisfies the faithfulness requirement {\\small$\\forall \\mathcal{S}\\subseteq \\mathcal{N}, Y(\\boldsymbol{x}_{\\mathcal{S}})\\!=\\! v(\\boldsymbol{x}_{\\mathcal{S}})$}.\n(2) Sufficiency: if there exists another metric {\\small$\\tilde{w}_{\\mathcal{S}}$} that also satisfies the faithfulness requirement, then, it is equivalent to the Harsanyi dividend, \\emph{i.e.} {\\small$\\forall \\mathcal{S}\\subseteq \\mathcal{N}, \\tilde{w}_{\\mathcal{S}}=w_{\\mathcal{S}}$}.\n\nAccording to the SCM in Eq. (2) of the main paper, we have {\\small$Y(\\boldsymbol{x}_{\\mathcal{S}})=\\sum_{\\mathcal{S}'\\in\\Omega}w_{\\mathcal{S}'}\\cdot C_{\\mathcal{S}'}(\\boldsymbol{x}_{\\mathcal{S}})=\\sum_{\\mathcal{S}'\\subseteq\\mathcal{S}}w_{\\mathcal{S}'}$}.\nTherefore, the faithfulness requirement can be equivalently re-written as {\\small$\\forall \\mathcal{S}\\subseteq \\mathcal{N}, v(\\boldsymbol{x}_{\\mathcal{S}})=\\sum_{\\mathcal{S}'\\subseteq\\mathcal{S}}w_{\\mathcal{S}'}$}.\n\n\\textit{Proof for necessity.}\nAccording to the definition of the Harsanyi dividend, we have {\\small$\\forall \\mathcal{S}\\subseteq \\mathcal{N}$}, \n\n\\begin{small}\n\\begin{align*}\n\\sum_{\\mathcal{S}'\\subseteq \\mathcal{S}}  w_{\\mathcal{S}'}  =& \\sum_{\\mathcal{S}'\\subseteq \\mathcal{S}} \\sum_{\\mathcal{L}\\subseteq \\mathcal{S}'} (-1)^{|\\mathcal{S}'|-|\\mathcal{L}|}  v(\\boldsymbol{x}_{\\mathcal{L}}) \\\\\n=& \\sum_{\\mathcal{L}\\subseteq \\mathcal{S}} \\sum_{\\mathcal{S}'\\subseteq \\mathcal{S}: \\mathcal{S}'\\supseteq \\mathcal{L}} (-1)^{|\\mathcal{S}'|-|\\mathcal{L}|} v(\\boldsymbol{x}_{\\mathcal{L}}) \\\\\n=& \\sum_{\\mathcal{L}\\subseteq \\mathcal{S}} \\sum_{s'=|\\mathcal{L}|}^{|\\mathcal{S}|} \\sum_{\\scriptsize\\substack{\\mathcal{S}'\\subseteq \\mathcal{S}: \\mathcal{S}'\\supseteq \\mathcal{L}\\\\\n|\\mathcal{S}'|=s'}} (-1)^{s'-|\\mathcal{L}|} v(\\boldsymbol{x}_{\\mathcal{L}}) \\\\\n=& \\sum_{\\mathcal{L}\\subseteq \\mathcal{S}} v(\\boldsymbol{x}_{\\mathcal{L}})  \\sum_{m=0}^{|\\mathcal{S}|-|\\mathcal{L}|} \\binom{|\\mathcal{S}|-|\\mathcal{L}|}{m} (-1)^{m}= v(\\boldsymbol{x}_{\\mathcal{S}}) \n\\end{align*}\n\\end{small}\n\n\n\n\\textit{Proof for sufficiency.}\nSuppose there exists another metric {\\small$\\tilde{w}_{\\mathcal{S}}$} that satisfies {\\small$\\forall \\mathcal{S}\\subseteq \\mathcal{N}, v(\\boldsymbol{x}_{\\mathcal{S}})  = {\\sum}_{\\mathcal{S}'\\subseteq \\mathcal{S}} \\tilde{w}_{\\mathcal{S}'} $}.\nThen, we prove {\\small$\\tilde{w}_{\\mathcal{S}} = w_{\\mathcal{S}} $} by induction on the number of variables {\\small$|\\mathcal{S}|$} in the causal pattern.\n\n\n\n\\textit{(Basis step)}\nWhen {\\small$|\\mathcal{S}|=0$}, \\emph{i.e.} {\\small$\\mathcal{S}=\\emptyset$}, we have {\\small$\\tilde{w}_{\\emptyset} = v(\\boldsymbol{x}_{\\emptyset}) = w_{\\emptyset}$}.\nSimilarly, it can be directly derived that when {\\small$|\\mathcal{S}|=1$}, \\emph{i.e.} {\\small$\\mathcal{S}=\\{i\\}$}, {\\small$\\tilde{w}_{\\{i\\}} = v(\\boldsymbol{x}_{\\{i\\}}) - v(\\boldsymbol{x}_{\\emptyset}) = w_{\\{i\\}}$}; \nwhen {\\small$|\\mathcal{S}|=2$}, \\emph{i.e.} {\\small$\\mathcal{S}=\\{i,j\\}$}, {\\small$\\tilde{w}_{\\{i,j\\}} = v(\\boldsymbol{x}_{\\{i,j\\}}) - v(\\boldsymbol{x}_{\\{i\\}}) - v(\\boldsymbol{x}_{\\{j\\}}) + v(\\boldsymbol{x}_{\\emptyset}) = w_{\\{i, j\\}}$}.\n\n\n\\textit{(Induction step)} Suppose {\\small$\\tilde{w}_{\\mathcal{S}} = w_{\\mathcal{S}} $} holds for any {\\small$\\mathcal{S}$} with {\\small$|\\mathcal{S}|=s\\geq 2$}. \nThen, for {\\small$|\\mathcal{S}|=s+1$}, we have\n\n\\begin{small}\n\\begin{align*}\n v(\\boldsymbol{x}_{\\mathcal{S}})  =& \\sum_{\\mathcal{S}'\\subseteq \\mathcal{S}} \\tilde{w}_{\\mathcal{S}'}  =  \\tilde{w}_{\\mathcal{S}}  + \\sum_{\\mathcal{S}'\\subsetneq \\mathcal{S}} \\tilde{w}_{\\mathcal{S}'} \\\\\n=&  \\tilde{w}_{\\mathcal{S}}  + \\sum_{\\mathcal{S}'\\subsetneq \\mathcal{S}}\\sum_{\\mathcal{L}\\subseteq \\mathcal{S}'}(-1)^{|\\mathcal{S}'|-|\\mathcal{L}|} v(\\boldsymbol{x}_{\\mathcal{L}}) \\qquad\\text{// by the induction assumption}\\\\\n=&  \\tilde{w}_{\\mathcal{S}}  + \\sum_{\\mathcal{L}\\subsetneq \\mathcal{S}}\\sum_{\\mathcal{S}'\\subsetneq \\mathcal{S}:\\mathcal{L}\\subseteq \\mathcal{S}'} (-1)^{|\\mathcal{S}'|-|\\mathcal{L}|}\\cdot  v(\\boldsymbol{x}_{\\mathcal{L}}) \\\\\n=&  \\tilde{w}_{\\mathcal{S}}  + \\sum_{\\mathcal{L}\\subsetneq \\mathcal{S}}\\sum_{s'=|\\mathcal{L}|}^{|\\mathcal{S}|-1}\\sum_{\\scriptsize\\substack{\\mathcal{S}'\\subsetneq \\mathcal{S}: \\mathcal{L}\\subseteq \\mathcal{S}'\\\\|\\mathcal{S}'|=s'}} (-1)^{s'-|\\mathcal{L}|}\\cdot  v(\\boldsymbol{x}_{\\mathcal{L}}) \\\\\n=&  \\tilde{w}_{\\mathcal{S}}  + \\sum_{\\mathcal{L}\\subsetneq \\mathcal{S}}  v(\\boldsymbol{x}_{\\mathcal{L}})  \\sum_{s'=|\\mathcal{L}|}^{|\\mathcal{S}|-1} \\binom{|\\mathcal{S}|-|\\mathcal{L}|}{s'-|\\mathcal{L}|} (-1)^{s'-|\\mathcal{L}|}\\\\\n=&  \\tilde{w}_{\\mathcal{S}}  + \\sum_{\\mathcal{L}\\subsetneq \\mathcal{S}}  v(\\boldsymbol{x}_{\\mathcal{L}})  \\underbrace{\\sum_{m=0}^{|\\mathcal{S}|-|\\mathcal{L}|-1} \\binom{|\\mathcal{S}|-|\\mathcal{L}|}{m} (-1)^{m}}_{0-(-1)^{|\\mathcal{S}|-|\\mathcal{L}|}}\\\\\n=&  \\tilde{w}_{\\mathcal{S}}  - \\sum_{\\mathcal{L}\\subsetneq \\mathcal{S}}(-1)^{|\\mathcal{S}|-|\\mathcal{L}|}  v(\\boldsymbol{x}_{\\mathcal{L}}) .\n\\end{align*}\n\\end{small}\n\nIn this way, we have \n\\begin{small}\n\\begin{equation*}\n     \\tilde{w}_{\\mathcal{S}}  =  v(\\boldsymbol{x}_{\\mathcal{S}})  + \\sum_{\\mathcal{L}\\subsetneq \\mathcal{S}}(-1)^{|\\mathcal{S}|-|\\mathcal{L}|}  v(\\boldsymbol{x}_{\\mathcal{L}})  = \\sum_{\\mathcal{L}\\subseteq \\mathcal{S}}(-1)^{|\\mathcal{S}|-|\\mathcal{L}|} v(\\boldsymbol{x}_{\\mathcal{L}})  =  w_{\\mathcal{S}} .\n\\end{equation*}\n\\end{small}\n\nTherefore, the Harsanyi dividend is \\textbf{the unique metric} that satisfies the faithfulness requirement.\n",
+      "label": "appendix.tex:131–186"
+    },
+    "shapley_statement": {
+      "path": "corpus/papers/sparse-concepts-2111-06206/v6/sources/tex/AOG.tex",
+      "first": 261,
+      "last": 265,
+      "raw": "\\begin{theorem}[Connection to the Shapley value, proved by \\cite{harsanyi1963simplified}]\\label{th:harsanyi-shapley-value}\nLet {\\small $\\phi(i)$} denote the Shapley value~\\cite{shapley1953value} of an input variable $i$.\nThen, the Shapley value {\\small$\\phi(i)$} can be explained as the result of uniformly assigning causal effects to each involving variable {\\small$i$}, \\emph{i.e.}, {\\small $\\phi(i)=\\sum_{\\mathcal{S}\\subseteq \\mathcal{N}\\backslash\\{i\\}}\\frac{1}{|\\mathcal{S}|+1} w_{\\mathcal{S}\\cup\\{i\\}}$}.\n\\label{theo:shapley}\n\\end{theorem}\n",
+      "label": "AOG.tex:261–265"
+    },
+    "shapley_proof_context": {
+      "path": "corpus/papers/sparse-concepts-2111-06206/v6/sources/tex/appendix.tex",
+      "first": 355,
+      "last": 430,
+      "raw": "\\vspace{5pt}\n\\noindent\\textbf{Theorem \\ref{th:app-harsanyi-shapley-value} (Connection to the Shapley value).} Let {\\small $\\phi(i)$} denote the Shapley value~\\cite{shapley1953value} of an input variable $i$.\nThen, the Shapley value {\\small$\\phi(i)$} can be represented as a weighted sum of causal effects involving the variable {\\small$i$}, \\emph{i.e.}, {\\small $\\phi(i)=\\sum_{\\mathcal{S}\\subseteq \\mathcal{N}\\backslash\\{i\\}}\\frac{1}{|\\mathcal{S}|+1} w_{\\mathcal{S}\\cup\\{i\\}}$}.\n\\textit{In other words, the effect of a causal pattern with {\\small$m$} variables should be equally assigned to the {\\small$m$} variables in the computation of Shapley values.}\n\n$\\bullet$~\\textit{Proof:} By the definition of the Shapley value, we have\n\n\n\\begin{small}\n\\begin{align*}\n\\phi(i)=& \\underset{\\scriptsize m}{\\mathbb{E}}\\ \\underset{\\scriptsize\\substack{\\mathcal{S}\\subseteq \\mathcal{N}\\backslash\\{i\\}\\\\ |\\mathcal{S}|=m}}{\\mathbb{E}}[v(\\boldsymbol{x}_{\\mathcal{S}\\cup\\{i\\}})-v(\\boldsymbol{x}_{\\mathcal{S}})]\\\\\n=& \\frac{1}{|\\mathcal{N}|}\\sum_{m=0}^{|\\mathcal{N}|-1}\\frac{1}{\\binom{|\\mathcal{N}|-1}{m}}\\sum_{\\scriptsize \\substack{\\mathcal{S}\\subseteq \\mathcal{N}\\backslash\\{i\\}\\\\ |\\mathcal{S}|=m}}\\Big[v(\\boldsymbol{x}_{\\mathcal{S}\\cup\\{i\\}})-v(\\boldsymbol{x}_{\\mathcal{S}})\\Big] \\\\\n=& \\frac{1}{|\\mathcal{N}|}\\sum_{m=0}^{|\\mathcal{N}|-1}\\frac{1}{\\binom{|\\mathcal{N}|-1}{m}}\\sum_{\\scriptsize \\substack{\\mathcal{S}\\subseteq \\mathcal{N}\\backslash\\{i\\}\\\\ |\\mathcal{S}|=m}}\\Delta v_{\\{i\\}}(\\boldsymbol{x}_{\\mathcal{S}}) \\\\\n=& \\frac{1}{|\\mathcal{N}|}\\sum_{m=0}^{|\\mathcal{N}|-1}\\frac{1}{\\binom{|\\mathcal{N}|-1}{m}}\\sum_{\\scriptsize \\substack{\\mathcal{S}\\subseteq \\mathcal{N}\\backslash\\{i\\}\\\\ |\\mathcal{S}|=m}} \\left[\\sum_{\\mathcal{L}\\subseteq \\mathcal{S}}w_{\\mathcal{L}\\cup\\{i\\}}\\right]\\quad\\text{// by Theorem \\ref{th:harsanyi-marginal-benefit}}\\\\\n=& \\frac{1}{|\\mathcal{N}|}\\sum_{\\mathcal{L}\\subseteq \\mathcal{N}\\backslash\\{i\\}} \\sum_{m=0}^{|\\mathcal{N}|-1} \\frac{1}{\\binom{|\\mathcal{N}|-1}{m}}\\sum_{\\scriptsize\\substack{\\mathcal{S}\\subseteq \\mathcal{N}\\backslash\\{i\\}\\\\|\\mathcal{S}|=m\\\\ \\mathcal{S}\\supseteq \\mathcal{L}}} w_{\\mathcal{L}\\cup\\{i\\}}\\\\\n=& \\frac{1}{|\\mathcal{N}|}\\sum_{\\mathcal{L}\\subseteq \\mathcal{N}\\backslash\\{i\\}} \\sum_{m=|\\mathcal{L}|}^{|\\mathcal{N}|-1} \\frac{1}{\\binom{|\\mathcal{N}|-1}{m}}\\sum_{\\scriptsize\\substack{\\mathcal{S}\\subseteq \\mathcal{N}\\backslash\\{i\\}\\\\|\\mathcal{S}|=m\\\\ \\mathcal{S}\\supseteq \\mathcal{L}}} w_{\\mathcal{L}\\cup\\{i\\}}\n\\quad\\text{// since {\\small$\\mathcal{S}\\supseteq \\mathcal{L}$}, {\\small$|\\mathcal{S}|=m\\geq|\\mathcal{L}|$}.}\\\\\n=& \\frac{1}{|\\mathcal{N}|}\\sum_{\\mathcal{L}\\subseteq \\mathcal{N}\\backslash\\{i\\}} \\sum_{m=|\\mathcal{L}|}^{|\\mathcal{N}|-1} \\frac{1}{\\binom{|\\mathcal{N}|-1}{m}}\\cdot\\binom{|\\mathcal{N}|-|\\mathcal{L}|-1}{m-|\\mathcal{L}|}\\cdot w_{\\mathcal{L}\\cup\\{i\\}}\\\\\n=& \\frac{1}{|\\mathcal{N}|}\\sum_{\\mathcal{L}\\subseteq \\mathcal{N}\\backslash\\{i\\}}w_{\\mathcal{L}\\cup\\{i\\}} \\underbrace{\\sum_{k=0}^{|\\mathcal{N}|-|\\mathcal{L}|-1}\\frac{1}{\\binom{|\\mathcal{N}|-1}{|\\mathcal{L}|+k}}\\cdot\\binom{|\\mathcal{N}|-|\\mathcal{L}|-1}{k}}_{\\alpha_\\mathcal{L}}\n\\end{align*}\n\\end{small}\n\nThen, we leverage the following properties of combinatorial numbers and the Beta function to simplify the term {\\small$w_\\mathcal{L}=\\sum_{k=0}^{|\\mathcal{N}|-|\\mathcal{L}|-1}\\frac{1}{\\binom{|\\mathcal{N}|-1}{|\\mathcal{L}|+k}}\\cdot\\binom{|\\mathcal{N}|-|\\mathcal{L}|-1}{k}$}.\n\n\\textit{(i) A property of combinitorial numbers.} {\\small$m\\cdot\\binom{n}{m}=n\\cdot\\binom{n-1}{m-1}$.}\n\n\\textit{(ii) The definition of the Beta function.} For {\\small$p,q>0$}, the Beta function is defined as {\\small$B(p,q)=\\int_0^1 x^{p-1}(1-x)^{1-q}dx$.}\n\n\\textit{(iii) Connections between combinitorial numbers and the Beta function.}\n\n\\quad $\\circ$ When {\\small$p,q\\in\\mathbb{Z}^+$}, we have {\\small$B(p,q)=\\frac{1}{q\\cdot\\binom{p+q-1}{p-1}}$}.\n\n\\quad $\\circ$ For {\\small$m,n\\in\\mathbb{Z}^+$} and {\\small$n>m$}, we have {\\small$\\binom{n}{m}=\\frac{1}{m\\cdot B(n-m+1,m)}$}.\n\n\n\\begin{small}\n\\begin{align*}\n\\alpha_\\mathcal{L} =& \\sum_{k=0}^{|\\mathcal{N}|-|\\mathcal{L}|-1}\\frac{1}{\\binom{|\\mathcal{N}|-1}{|\\mathcal{L}|+k}}\\cdot\\binom{|\\mathcal{N}|-|\\mathcal{L}|-1}{k} \\\\\n=& \\sum_{k=0}^{|\\mathcal{N}|-|\\mathcal{L}|-1}\\binom{|\\mathcal{N}|-|\\mathcal{L}|-1}{k}\\cdot (|\\mathcal{L}|+k)\\cdot B(|\\mathcal{N}|-|\\mathcal{L}|-k, |\\mathcal{L}|+k)\\\\\n=& \\sum_{k=0}^{|\\mathcal{N}|-|\\mathcal{L}|-1} |\\mathcal{L}|\\cdot \\binom{|\\mathcal{N}|-|\\mathcal{L}|-1}{k} \\cdot B(|\\mathcal{N}|-|\\mathcal{L}|-k, |\\mathcal{L}|+k)\\qquad\\text{$\\cdots$\\textcircled{1}}\\\\\n&+ \\sum_{k=0}^{|\\mathcal{N}|-|\\mathcal{L}|-1} k\\cdot \\binom{|\\mathcal{N}|-|\\mathcal{L}|-1}{k} \\cdot B(|\\mathcal{N}|-|\\mathcal{L}|-k, |\\mathcal{L}|+k)\\qquad\\text{$\\cdots$\\textcircled{2}}\n\\end{align*}\n\\end{small}\n\nThen, we solve \\textcircled{1} and \\textcircled{2} respectively. For \\textcircled{1}, we have\n\n\n\\begin{small}\n\\begin{align*}\n\\text{\\textcircled{1}} =& \\int_{0}^{1}|\\mathcal{L}|\\sum_{k=0}^{|\\mathcal{N}|-|\\mathcal{L}|-1}\\binom{|\\mathcal{N}|-|\\mathcal{L}|-1}{k}\\cdot x^{|\\mathcal{N}|-|\\mathcal{L}|-k-1}\\cdot (1-x)^{|\\mathcal{L}|+k-1}\\ dx\\\\\n=& \\int_{0}^{1}|\\mathcal{L}|\\cdot\\underbrace{\\left[\\sum_{k=0}^{|\\mathcal{N}|-|\\mathcal{L}|-1}\\binom{|\\mathcal{N}|-|\\mathcal{L}|-1}{k}\\cdot x^{|\\mathcal{N}|-|\\mathcal{L}|-k-1}\\cdot (1-x)^{k}\\right]}_{=1}\\cdot (1-x)^{|\\mathcal{L}|-1}\\ dx\\\\\n=& \\int_{0}^{1}|\\mathcal{L}|(1-x)^{|\\mathcal{L}|-1}\\ dx = 1\n\\end{align*}\n\\end{small}\n\nFor \\textcircled{2}, we have\n\n\n\\begin{small}\n\\begin{align*}\n\\text{\\textcircled{2}} =& \\sum_{k=1}^{|\\mathcal{N}|-|\\mathcal{L}|-1} (|\\mathcal{N}|-|\\mathcal{L}|-1)\\cdot \\binom{|\\mathcal{N}|-|\\mathcal{L}|-2}{k-1} \\cdot B(|\\mathcal{N}|-|\\mathcal{L}|-k, |\\mathcal{L}|+k)\\\\\n=& (|\\mathcal{N}|-|\\mathcal{L}|-1)\\sum_{k'=0}^{|\\mathcal{N}|-|\\mathcal{L}|-2} \\binom{|\\mathcal{N}|-|\\mathcal{L}|-2}{k'}\\cdot B(|\\mathcal{N}|-|\\mathcal{L}|-k'-1, |\\mathcal{L}|+k'+1)\\\\\n=& (|\\mathcal{N}|-|\\mathcal{L}|-1)\\int_{0}^{1} \\sum_{k'=0}^{|\\mathcal{N}|-|\\mathcal{L}|-2}\\binom{|\\mathcal{N}|-|\\mathcal{L}|-2}{k'}\\cdot x^{|\\mathcal{N}|-|\\mathcal{L}|-k'-2}\\cdot (1-x)^{|\\mathcal{L}|+k'}\\ dx\\\\\n=& (|\\mathcal{N}|-|\\mathcal{L}|-1)\\int_{0}^{1} \\underbrace{\\left[\\sum_{k'=0}^{|\\mathcal{N}|-|\\mathcal{L}|-2}\\binom{|\\mathcal{N}|-|\\mathcal{L}|-2}{k'}\\cdot x^{|\\mathcal{N}|-|\\mathcal{L}|-k'-2}\\cdot (1-x)^{k'}\\right]}_{=1}\\cdot (1-x)^{|\\mathcal{L}|}\\ dx\\\\\n=& (|\\mathcal{N}|-|\\mathcal{L}|-1)\\int_0^1 (1-x)^{|\\mathcal{L}|}\\ dx = \\frac{|\\mathcal{N}|-|\\mathcal{L}|-1}{|\\mathcal{L}|+1}\n\\end{align*}\n\\end{small}\n\nHence, we have \n\n\n\\begin{small}\n\\begin{equation*}\n    \\alpha_\\mathcal{L}=\\text{\\textcircled{1}}+\\text{\\textcircled{2}}=1+\\frac{|\\mathcal{N}|-|\\mathcal{L}|-1}{|\\mathcal{L}|+1}=\\frac{|\\mathcal{N}|}{|\\mathcal{L}|+1}\n\\end{equation*}\n\\end{small}\n",
+      "label": "appendix.tex:355–430"
+    },
+    "complaint_context": {
+      "path": "corpus/papers/sparse-concepts-2111-06206/v6/sources/tex/AOG.tex",
+      "first": 320,
+      "last": 342,
+      "raw": "However, direct optimization of Eq. (\\ref{eq:faithful-concise}) is difficult.\nTherefore, we propose several techniques to learn sparse causal effects based on Eq. (\\ref{eq:faithful-concise}) to faithfully mimic the DNN's outputs on numerous masked samples.\nThe following paragraphs will introduce how to relax the Harsanyi dividend in Theorem \\ref{th:harsanyi-faithful} by removing noisy causal patterns and learning the optimal baseline value, so as to boost the sparsity of causal effects.\nBesides, we also discovered that adversarial training~\\cite{madry2018towards} can make the DNN encode much more sparse causal effects.\n\n\n\\textbf{First, boosting conciseness by learning the optimal baseline value.}\nIn fact, the sparsity of causal patterns does not only depend on the DNN itself, but it is also determined by the choice of baseline values in Eq. (\\ref{eq:masked-sample}).\nSpecifically, input variables are masked by their baseline values {\\small $\\boldsymbol{r}=[r_1,r_2,\\ldots,r_n]$} to represent their absence states in the computation of causal effects.\nThus, {\\small$\\boldsymbol{w}_{\\Omega}$} can be represented as a function of {\\small$\\boldsymbol{r}$}, \\emph{i.e.}, {\\small$\\boldsymbol{w}_{\\Omega}(\\boldsymbol{r})$}.\nTo this end, some recent studies~\\cite{ancona2019explaining,dabkowski2017real,ren2021learning} defined baseline values from a heuristic perspective, \\emph{e.g.} simply using mean/zero baseline values~\\cite{dabkowski2017real,sundararajan2017axiomatic}.\nHowever, it still remains an open problem to define optimal baseline values.\n\nThus, we further boost the sparsity of causal patterns by learning the optimal baseline values that enhance the conciseness of the causal graph.\nHowever, it is difficult to learn optimal baseline values by directly optimizing Eq. (\\ref{eq:faithful-concise}).\nTo this end, we relax the optimization problem in Eq. (\\ref{eq:faithful-concise}) ({\\small$L_0$} regression) as a Lasso regression ({\\small$L_1$} regression) as follows.\n\n\\vspace{-3pt}\n\\begin{small}\n\\begin{equation}\n\\begin{aligned}\n     {\\min}_{\\Omega,\\boldsymbol{r}}\\ \\  &\\mathrm{unfaith}(\\boldsymbol{w}_{\\Omega})\n     \\ \\ \n",
+      "label": "AOG.tex:320–342"
+    }
+  },
+  "proofs": {
+    "proof-reconstruction-v1": {
+      "theorem": {
+        "schema_version": 1,
+        "theorem_id": "harsanyi-reconstruction",
+        "title": "全部交互精确重构集合函数",
+        "summary": "全部交互精确重构集合函数。统一约定见 docs/math-conventions.md。",
+        "assumptions": [
+          "变量类型 α 的相等关系可判定；S、T、N 为有限子集。",
+          "v、w、d 为实值集合函数，不默认 v(∅)=0。"
+        ],
+        "visibility": "public",
+        "proofs": [
+          "proof-reconstruction-v1"
+        ],
+        "lean_declarations": [
+          "Harsanyi.reconstruction"
+        ],
+        "tags": [
+          "Möbius inversion",
+          "reconstruction",
+          "反演",
+          "重构"
+        ],
+        "origin": "project_derived",
+        "source_claim_ids": [],
+        "paper_alignment_status": "not_applicable"
+      },
+      "metadata": {
+        "schema_version": 1,
+        "proof_id": "proof-reconstruction-v1",
+        "theorem_id": "harsanyi-reconstruction",
+        "lean_declarations": [
+          "Harsanyi.reconstruction"
+        ],
+        "dependencies": [
+          "harsanyi-interaction-empty",
+          "harsanyi-interaction-insert",
+          "harsanyi-reconstruct-empty"
+        ],
+        "visibility": "public",
+        "lean_dependencies": [
+          "Harsanyi.Game",
+          "Harsanyi.interaction",
+          "Harsanyi.interaction_empty",
+          "Harsanyi.interaction_insert",
+          "Harsanyi.marginal",
+          "Harsanyi.reconstruct",
+          "Harsanyi.reconstruct_empty"
+        ],
+        "steps": [
+          {
+            "id": "step-1",
+            "lean_declarations": [
+              "Harsanyi.reconstruction"
+            ]
+          },
+          {
+            "id": "step-2",
+            "lean_declarations": [
+              "Harsanyi.reconstruction"
+            ]
+          },
+          {
+            "id": "step-3",
+            "lean_declarations": [
+              "Harsanyi.reconstruction"
+            ]
+          },
+          {
+            "id": "step-4",
+            "lean_declarations": [
+              "Harsanyi.reconstruction"
+            ]
+          }
+        ],
+        "origin": "project_new_proof",
+        "source_claim_ids": [],
+        "review_status": "project_authored"
+      },
+      "statement": "\\sum_{T\\subseteq S}I_v(T)=v(S)\n",
+      "body": "# 全部交互精确重构集合函数\n\n命题：\\(\\sum_{T\\subseteq S}I_v(T)=v(S)\\)。\n\n前提：变量类型 α 的相等关系可判定；S、T、N 为有限子集。；v、w、d 为实值集合函数，不默认 v(∅)=0。\n\n证明思路：对有限集合 S 作插入归纳，并使归纳假设对任意实值集合函数成立。空集情形由空集交互给出。\n\n<a id=\"step-1\"></a>\n\n1. 对有限集合 S 作插入归纳，并使归纳假设对任意实值集合函数成立。空集情形由空集交互给出。\n\n<a id=\"step-2\"></a>\n\n2. 对 S∪{i}，把子集拆成 T 与 T∪{i} 两组。第一组的交互总和由归纳假设等于 v(S)。\n\n<a id=\"step-3\"></a>\n\n3. 第二组由增加变量公式变成 Δ_i v 的交互总和，归纳假设给出 Δ_i v(S)。\n\n<a id=\"step-4\"></a>\n\n4. 两组相加为 v(S)+[v(S∪{i})−v(S)]=v(S∪{i})。空集基线包含在求和中。\n\nLean 关键声明：`Harsanyi.reconstruction`。各步骤解释同一声明的证明；类型转换和求和重写属于形式化辅助操作。\n\n来源与对齐：这是本项目一般性数学证明的中文重写，没有宣称来自某篇论文，也没有把任何论文条目标记为已对齐。论文引用映射需另行核对。\n",
+      "declaration": {
+        "name": "Harsanyi.reconstruction",
+        "signature": "∀ {α : Type u_1} [DecidableEq.{u_1 + 1} α] (v : Harsanyi.Game.{u_1} α) (S : Finset.{u_1} α),\n  Eq.{1} (Harsanyi.reconstruct.{u_1} (Harsanyi.interaction.{u_1} v) S) (v S)",
+        "module": "Harsanyi.Core.Mobius",
+        "source_path": "lean/HarsanyiLib/Harsanyi/Core/Mobius.lean",
+        "line": 34,
+        "axioms": [
+          "propext",
+          "Quot.sound",
+          "Classical.choice"
+        ],
+        "verification_status": "passed"
+      },
+      "source": {
+        "path": "lean/HarsanyiLib/Harsanyi/Core/Mobius.lean",
+        "first": 34,
+        "last": 48,
+        "raw": "theorem reconstruction (v : Game α) (S : Finset α) :\n    reconstruct (interaction v) S = v S := by\n  induction S using Finset.induction_on generalizing v with\n  | empty => simp\n  | @insert i S hi ih =>\n    unfold reconstruct\n    rw [sum_powerset_insert hi]\n    have h : ∀ T ∈ S.powerset,\n        interaction v (insert i T) = interaction (marginal v i) T := by\n      intro T hT\n      exact interaction_insert v T i (fun hit => hi ((mem_powerset.mp hT) hit))\n    rw [sum_congr rfl h]\n    change reconstruct (interaction v) S + reconstruct (interaction (marginal v i)) S = _\n    rw [ih v, ih (marginal v i)]\n    simp [marginal]\n",
+        "label": "Mobius.lean:34–48"
+      }
+    },
+    "proof-reconstruction-unique-v1": {
+      "theorem": {
+        "schema_version": 1,
+        "theorem_id": "harsanyi-reconstruction-unique",
+        "title": "重构系数唯一",
+        "summary": "重构系数唯一。统一约定见 docs/math-conventions.md。",
+        "assumptions": [
+          "变量类型 α 的相等关系可判定；S、T、N 为有限子集。",
+          "v、w、d 为实值集合函数，不默认 v(∅)=0。",
+          "∀ S，R_d(S)=v(S)。"
+        ],
+        "visibility": "public",
+        "proofs": [
+          "proof-reconstruction-unique-v1"
+        ],
+        "lean_declarations": [
+          "Harsanyi.reconstruction_unique"
+        ],
+        "tags": [
+          "uniqueness",
+          "唯一性"
+        ],
+        "origin": "project_derived",
+        "source_claim_ids": [],
+        "paper_alignment_status": "not_applicable"
+      },
+      "metadata": {
+        "schema_version": 1,
+        "proof_id": "proof-reconstruction-unique-v1",
+        "theorem_id": "harsanyi-reconstruction-unique",
+        "lean_declarations": [
+          "Harsanyi.reconstruction_unique"
+        ],
+        "dependencies": [
+          "harsanyi-interaction-congr",
+          "harsanyi-interaction-reconstruct"
+        ],
+        "visibility": "public",
+        "lean_dependencies": [
+          "Harsanyi.Game",
+          "Harsanyi.interaction",
+          "Harsanyi.interaction_congr",
+          "Harsanyi.interaction_reconstruct",
+          "Harsanyi.reconstruct"
+        ],
+        "steps": [
+          {
+            "id": "step-1",
+            "lean_declarations": [
+              "Harsanyi.reconstruction_unique"
+            ]
+          },
+          {
+            "id": "step-2",
+            "lean_declarations": [
+              "Harsanyi.reconstruction_unique"
+            ]
+          },
+          {
+            "id": "step-3",
+            "lean_declarations": [
+              "Harsanyi.reconstruction_unique"
+            ]
+          }
+        ],
+        "origin": "project_new_proof",
+        "source_claim_ids": [],
+        "review_status": "project_authored"
+      },
+      "statement": "(\\forall S,\\ R_d(S)=v(S))\\Longrightarrow d=I_v\n",
+      "body": "# 重构系数唯一\n\n命题：\\((\\forall S,\\ R_d(S)=v(S))\\Longrightarrow d=I_v\\)。\n\n前提：变量类型 α 的相等关系可判定；S、T、N 为有限子集。；v、w、d 为实值集合函数，不默认 v(∅)=0。；∀ S，R_d(S)=v(S)。\n\n证明思路：对任意 S，反向反演给出 d(S)=I_(R_d)(S)。\n\n<a id=\"step-1\"></a>\n\n1. 对任意 S，反向反演给出 d(S)=I_(R_d)(S)。\n\n<a id=\"step-2\"></a>\n\n2. 假设保证 R_d 与 v 在所有子集上相等，故局部一致性给出 I_(R_d)(S)=I_v(S)。\n\n<a id=\"step-3\"></a>\n\n3. 逐点相等推出两个集合函数相等；不需要 v(∅)=0。\n\nLean 关键声明：`Harsanyi.reconstruction_unique`。各步骤解释同一声明的证明；类型转换和求和重写属于形式化辅助操作。\n\n来源与对齐：这是本项目一般性数学证明的中文重写，没有宣称来自某篇论文，也没有把任何论文条目标记为已对齐。论文引用映射需另行核对。\n",
+      "declaration": {
+        "name": "Harsanyi.reconstruction_unique",
+        "signature": "∀ {α : Type u_1} [DecidableEq.{u_1 + 1} α] (v d : Harsanyi.Game.{u_1} α),\n  (∀ (S : Finset.{u_1} α), Eq.{1} (Harsanyi.reconstruct.{u_1} d S) (v S)) →\n    Eq.{u_1 + 1} d (Harsanyi.interaction.{u_1} v)",
+        "module": "Harsanyi.Core.Mobius",
+        "source_path": "lean/HarsanyiLib/Harsanyi/Core/Mobius.lean",
+        "line": 66,
+        "axioms": [
+          "propext",
+          "Quot.sound",
+          "Classical.choice"
+        ],
+        "verification_status": "passed"
+      },
+      "source": {
+        "path": "lean/HarsanyiLib/Harsanyi/Core/Mobius.lean",
+        "first": 66,
+        "last": 72,
+        "raw": "theorem reconstruction_unique (v d : Game α)\n    (h : ∀ S, reconstruct d S = v S) : d = interaction v := by\n  funext S\n  rw [← interaction_reconstruct d S]\n  apply interaction_congr\n  intro T _\n  exact h T\n",
+        "label": "Mobius.lean:66–72"
+      }
+    }
+  },
+  "dependency_proofs": [
+    {
+      "title": "增加变量等于取有限差分",
+      "body": "# 增加变量等于取有限差分\n\n命题：\\(i\\notin S\\Longrightarrow I_v(S\\cup\\{i\\})=I_{\\Delta_i v}(S),\\quad\\Delta_i v(T)=v(T\\cup\\{i\\})-v(T)\\)。\n\n前提：变量类型 α 的相等关系可判定；S、T、N 为有限子集。；v、w、d 为实值集合函数，不默认 v(∅)=0。；i∉S。\n\n证明思路：把 S∪{i} 的所有子集唯一分成不含 i 的 T⊆S，以及含 i 的 T∪{i}。\n\n<a id=\"step-1\"></a>\n\n1. 把 S∪{i} 的所有子集唯一分成不含 i 的 T⊆S，以及含 i 的 T∪{i}。\n\n<a id=\"step-2\"></a>\n\n2. i 不在 S 中，所以 |S∪{i}|=|S|+1；对任意 T⊆S 也有 i∉T。\n\n<a id=\"step-3\"></a>\n\n3. 不含 i 的项比原系数多一个负号；含 i 的项中两边基数都增 1，原系数保持不变。\n\n<a id=\"step-4\"></a>\n\n4. 配对相加得到 (−1)^(|S|−|T|)[v(T∪{i})−v(T)]，即差分的交互。\n\nLean 关键声明：`Harsanyi.interaction_insert`。各步骤解释同一声明的证明；类型转换和求和重写属于形式化辅助操作。\n\n来源与对齐：这是本项目一般性数学证明的中文重写，没有宣称来自某篇论文，也没有把任何论文条目标记为已对齐。论文引用映射需另行核对。\n"
+    },
+    {
+      "title": "空集交互就是基线",
+      "body": "# 空集交互就是基线\n\n命题：\\(I_v(\\varnothing)=v(\\varnothing)\\)。\n\n前提：变量类型 α 的相等关系可判定；S、T、N 为有限子集。；v、w、d 为实值集合函数，不默认 v(∅)=0。\n\n证明思路：空集仅有一个子集，即空集自身。\n\n<a id=\"step-1\"></a>\n\n1. 空集仅有一个子集，即空集自身。\n\n<a id=\"step-2\"></a>\n\n2. 代入定义，指数为 0，系数为 1，故唯一一项是 v(∅)。\n\nLean 关键声明：`Harsanyi.interaction_empty`。各步骤解释同一声明的证明；类型转换和求和重写属于形式化辅助操作。\n\n来源与对齐：这是本项目一般性数学证明的中文重写，没有宣称来自某篇论文，也没有把任何论文条目标记为已对齐。论文引用映射需另行核对。\n"
+    },
+    {
+      "title": "空集重构",
+      "body": "# 空集重构\n\n命题：\\(R_d(\\varnothing)=d(\\varnothing)\\)。\n\n前提：变量类型 α 的相等关系可判定；S、T、N 为有限子集。；v、w、d 为实值集合函数，不默认 v(∅)=0。\n\n证明思路：重构求和遍历空集的全部子集。\n\n<a id=\"step-1\"></a>\n\n1. 重构求和遍历空集的全部子集。\n\n<a id=\"step-2\"></a>\n\n2. 这个子集族只有 ∅，于是得到 d(∅)。\n\nLean 关键声明：`Harsanyi.reconstruct_empty`。各步骤解释同一声明的证明；类型转换和求和重写属于形式化辅助操作。\n\n来源与对齐：这是本项目一般性数学证明的中文重写，没有宣称来自某篇论文，也没有把任何论文条目标记为已对齐。论文引用映射需另行核对。\n"
+    }
+  ],
+  "verification": {
+    "notice": "Public declaration excerpt; existing evidence rechecked against current source, no new Lean build was run for this prototype.",
+    "report_path": "reports/lean/20260930T052254-2/report.json",
+    "status": "passed",
+    "effective_status": "passed",
+    "generated_at": "2026-09-30T05:22:54.849183+00:00",
+    "source_fingerprint": "8351261257fe4ea2f6a8792e5a0c30d22cf6efbea57e70e97a7ee19bb5d056bc",
+    "toolchain": "Lean (version 4.24.0, x86_64-unknown-linux-gnu, commit 797c613eb9b6d4ec95db23e3e00af9ac6657f24b, Release)",
+    "mathlib_revision": "f897ebcf72cd16f89ab4577d0c826cd14afaafc7",
+    "declarations": [
+      {
+        "name": "Harsanyi.reconstruction",
+        "package": "lean/HarsanyiLib",
+        "module": "Harsanyi.Core.Mobius",
+        "source_path": "lean/HarsanyiLib/Harsanyi/Core/Mobius.lean",
+        "line": 34,
+        "axioms": [
+          "propext",
+          "Quot.sound",
+          "Classical.choice"
+        ],
+        "dependencies": [
+          "AddCommGroup.toAddGroup",
+          "AddCommMonoid.toAddMonoid",
+          "AddGroup.toSubNegMonoid",
+          "AddMonoid.toAddZeroClass",
+          "AddZero.toAdd",
+          "AddZeroClass.toAddZero",
+          "DecidableEq",
+          "EmptyCollection.emptyCollection",
+          "Eq",
+          "Eq.mpr",
+          "Eq.trans",
+          "Finset",
+          "Finset.induction_on",
+          "Finset.instEmptyCollection",
+          "Finset.instHasSubset",
+          "Finset.instInsert",
+          "Finset.instMembership",
+          "Finset.mem_powerset",
+          "Finset.powerset",
+          "Finset.sum",
+          "Finset.sum_congr",
+          "Finset.sum_powerset_insert",
+          "HAdd.hAdd",
+          "HSub.hSub",
+          "Harsanyi.Game",
+          "Harsanyi.interaction",
+          "Harsanyi.interaction_empty",
+          "Harsanyi.interaction_insert",
+          "Harsanyi.marginal",
+          "Harsanyi.reconstruct",
+          "Harsanyi.reconstruct_empty",
+          "HasSubset.Subset",
+          "Iff.mp",
+          "Insert.insert",
+          "Membership.mem",
+          "Not",
+          "Real",
+          "Real.instAdd",
+          "Real.instAddCommGroup",
+          "Real.instAddCommMonoid",
+          "SubNegMonoid.toAddMonoid",
+          "SubNegMonoid.toSub",
+          "True",
+          "add_sub_cancel",
+          "congrArg",
+          "eq_self",
+          "id",
+          "instHAdd",
+          "instHSub",
+          "of_eq_true",
+          "rfl"
+        ],
+        "kind": "theorem",
+        "signature": "∀ {α : Type u_1} [DecidableEq.{u_1 + 1} α] (v : Harsanyi.Game.{u_1} α) (S : Finset.{u_1} α),\n  Eq.{1} (Harsanyi.reconstruct.{u_1} (Harsanyi.interaction.{u_1} v) S) (v S)",
+        "universe_parameters": [
+          "u_1"
+        ],
+        "status": "passed"
+      },
+      {
+        "name": "Harsanyi.reconstruction_unique",
+        "package": "lean/HarsanyiLib",
+        "module": "Harsanyi.Core.Mobius",
+        "source_path": "lean/HarsanyiLib/Harsanyi/Core/Mobius.lean",
+        "line": 66,
+        "axioms": [
+          "propext",
+          "Quot.sound",
+          "Classical.choice"
+        ],
+        "dependencies": [
+          "DecidableEq",
+          "Eq",
+          "Eq.mpr",
+          "Eq.symm",
+          "Finset",
+          "Finset.instHasSubset",
+          "Harsanyi.Game",
+          "Harsanyi.interaction",
+          "Harsanyi.interaction_congr",
+          "Harsanyi.interaction_reconstruct",
+          "Harsanyi.reconstruct",
+          "HasSubset.Subset",
+          "Real",
+          "congrArg",
+          "funext",
+          "id"
+        ],
+        "kind": "theorem",
+        "signature": "∀ {α : Type u_1} [DecidableEq.{u_1 + 1} α] (v d : Harsanyi.Game.{u_1} α),\n  (∀ (S : Finset.{u_1} α), Eq.{1} (Harsanyi.reconstruct.{u_1} d S) (v S)) →\n    Eq.{u_1 + 1} d (Harsanyi.interaction.{u_1} v)",
+        "universe_parameters": [
+          "u_1"
+        ],
+        "status": "passed"
+      }
+    ],
+    "commands": [
+      {
+        "cwd": "lean/HarsanyiLib",
+        "argv": [
+          "lake",
+          "build"
+        ],
+        "exit_code": 0,
+        "log_path": "reports/lean/20260930T052254-2/build-0.log"
+      },
+      {
+        "cwd": "lean/HarsanyiLib",
+        "argv": [
+          "lake",
+          "env",
+          "lean",
+          "/mnt/data2/wyh/lean4project/.tmp/audit-20260930T052254-2-0.lean"
+        ],
+        "exit_code": 0,
+        "log_path": "reports/lean/20260930T052254-2/audit-0.log"
+      }
+    ]
+  }
+}

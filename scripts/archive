@@ -1,0 +1,8 @@
+#!/usr/bin/env bash
+set -euo pipefail
+source "$(cd -- "$(dirname -- "${BASH_SOURCE[0]}")" && pwd)/env.sh"
+if [[ ! -x "$ARCHIVE_PROJECT_ROOT/.conda-env/bin/python" ]]; then
+  echo 'Run scripts/bootstrap.sh to create the project-local Conda environment.' >&2
+  exit 1
+fi
+exec "$ARCHIVE_PROJECT_ROOT/.conda-env/bin/python" -m archive "$@"

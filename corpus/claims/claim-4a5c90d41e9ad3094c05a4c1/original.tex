@@ -1,0 +1,16 @@
+Theorem 1). Note that no matter whether input variables are
+dependent or not, the faithfulness will not be affected, i.e.,
+the causal graph can always accurately mimic the DNN’s
+output on all 2n possible masked input samples.
+However, different original samples x mainly trigger dif-
+ferent sets of causal patterns and generate different causal
+graphs. For example, given a cat image, pixels on the head
+(inS) may form a head pattern, and the DNN may assign
+a signiﬁcant effectwS on the pattern. Whereas, we cannot
+ﬁnd the head pattern in a bus image, so the same set of pixels
+S in the bus image probably do not form any meaningful
+pattern and have ignorable effectwS≈ 0.
+Speciﬁcally, given the sample x, each masked sample
+xS is implemented by masking all variables inN\S using
+baseline values just like in [4, 16], as follows.
+3

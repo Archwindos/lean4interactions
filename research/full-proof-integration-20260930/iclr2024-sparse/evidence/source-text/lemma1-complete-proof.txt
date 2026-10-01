@@ -1,0 +1,75 @@
+Proof. Let us denote the function on the right of Eq. (8) by I(S), i.e., for S ̸= ∅,
+                                                                                 κi
+                                                               Q
+                    ˜     def
+                              X         ∂ κ1 +···+κn v          i∈S (xi − bi )
+                    I(S)  =               κ         κ       ·                       .            (9)
+                                κ∈QS ∂x 1 · · · ∂xnn             κ1 ! · · · κn !
+                                          1             x=b
+
+
+                                  ˜
+According to Eq. (1), we define I(∅)   = 0. Actually, it has been proven in Grabisch & Roubens
+(1999) and Ren et al. (2023a) that the Harsanyi interaction I(S) defined in Eq. (1) is the unique
+metric satisfying the universal matching property mentioned in the main paper, i.e.,
+                                                X
+                            ∀ S ⊆ N, v(xS ) =           I(T ) + v(x∅ ).                       (10)
+                                                               T ⊆S
+
+                                   ˜
+Thus, as long as we can prove that I(S) also satisfies the above universal matching property, we can
+       ˜
+obtain I(S) = I(S).
+                                    ˜
+To this end, we only need to prove I(S) also satisfies the universal matching property in Eq. (10).
+Specifically, given an input sample x ∈ Rn , let us consider the Taylor expansion of the network
+
+
+                                                          15
+
+
+Published as a conference paper at ICLR 2024
+
+
+
+
+output v(xS ) of an arbitrarily masked sample xS (S ⊆ N ), which is expanded at x∅ = b =
+[b1 , · · · , bn ]⊤ . Then, we have
+                           ∞             ∞
+                           X             X        ∂ κ1 +···+κn v                 ((xS )1 − b1 )κ1 · · · ((xS )n − bn )κn
+   ∀ S ⊆ N,     v(xS ) =           ···                                       ·                                                  (11)
+                           κ1 =0         κn =0
+                                                 ∂xκ1 1 · · · ∂xκnn   x=b                     κ1 ! · · · κn !
+
+where bi denotes the baseline value to mask the input variable xi .
+According to the definition of the masked sample xS , we have that all variables in S keep unchanged
+and other variables are masked to the baseline value. That is, ∀ i ∈ S, (xS )i = xi ; ∀ i ̸∈ S, (xS )i =
+bi . Hence, we obtain ∀i ̸∈ S, [(xS )i − bi ]κi = 0. Then, among all Taylor expansion terms, only
+terms corresponding to degrees κ in the set PS = {[κ1 , · · · , κn ]⊤ | ∀i ∈ S, κi ∈ N; ∀i ̸∈ S, κi = 0}
+may not be zero. Therefore, Eq. (11) can be re-written as
+                                                                                                               − b i ) κi
+                                                                                              Q
+                                                   X       ∂ κ1 +···+κn v                           i∈S (xi
+                   ∀ S ⊆ N,        v(xS ) =                                               ·                               .     (12)
+                                                  κ∈PS
+                                                          ∂xκ1 1 · · · ∂xκnn      x=b                κ1 ! · · · κn !
+
+We find that the set PS can be divided into multiple disjoint sets as PS = ∪T ⊆S QT , where QT =
+{[κ1 , · · · , κn ]⊤ | ∀i ∈ T, κi ∈ N+ ; ∀i ̸∈ T, κi = 0}. Then, we can derive that
+                                                                                                                   − b i ) κi
+                                                                                                    Q
+                                              X X             ∂ κ1 +···+κn v                            i∈T (xi
+                ∀ S ⊆ N,      v(xS ) =                                                          ·
+                                                             ∂xκ1 1 · · · ∂xκnn       x=b                κ1 ! · · · κn !
+                                              T ⊆S κ∈QT
+                                              X                                                                                 (13)
+                                          =          ˜ ) + v(x∅ ).
+                                                     I(T
+                                              T ⊆S
+
+
+The last step is obtained as follows. When T = ∅, QT only has one element κ = [0, · · · , 0]⊤ , which
+                                       ˜
+corresponds to the term v(x∅ ). Also, I(∅)                                            ˜
+                                            = 0, which leads to the final form. Thus, I(S)   satisfies
+the universal matching property in Eq. (10), and this lemma holds.

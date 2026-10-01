@@ -1,0 +1,57 @@
+{
+  "arxiv_id": "1611.04246",
+  "version": "v2",
+  "title": "Growing Interpretable Part Graphs on ConvNets via Multi-Shot Learning",
+  "authors": [
+    "Quanshi Zhang",
+    "Ruiming Cao",
+    "Ying Nian Wu",
+    "Song-Chun Zhu"
+  ],
+  "first_public_date": "2016-11-14T04:13:37Z",
+  "updated": "2017-03-13T07:23:20Z",
+  "journal_ref": null,
+  "source_url": "https://arxiv.org/abs/1611.04246v2",
+  "pdf_url": "https://arxiv.org/pdf/1611.04246v2",
+  "retrieved_at": "2026-09-30T07:03:30.973722+00:00",
+  "attempts": [
+    {
+      "url": "https://arxiv.org/pdf/1611.04246v2",
+      "status": "error",
+      "error": "HTTP Error 406: Not Acceptable"
+    },
+    {
+      "url": "https://export.arxiv.org/pdf/1611.04246v2",
+      "status": "ok",
+      "bytes": 4199709
+    }
+  ],
+  "download_url": "https://export.arxiv.org/pdf/1611.04246v2",
+  "response_headers": {
+    "Connection": "close",
+    "Content-Length": "4199709",
+    "content-disposition": "inline; filename=\"1611.04246v2.pdf\"",
+    "last-modified": "Sat, 21 Jan 2023 07:25:36 GMT",
+    "link": "<https://arxiv.org/pdf/1611.04246>; rel='canonical'",
+    "server": "Google Frontend",
+    "via": "1.1 google, 1.1 varnish, 1.1 varnish, 1.1 varnish, 1.1 varnish, 1.1 varnish",
+    "x-cloud-trace-context": "839643f71701bc140b3c7ad2fcc09c9a",
+    "content-type": "application/pdf",
+    "etag": "\"sha256:a5c16dcb6f1120848cb8a49444b660f763802f419c5ac1181e910dce8cba55a0\"",
+    "access-control-allow-origin": "*",
+    "Accept-Ranges": "bytes",
+    "Age": "1",
+    "Date": "Wed, 30 Sep 2026 07:03:33 GMT",
+    "X-Served-By": "cache-lga-kjfk8660021-LGA, cache-lga-kjfk8660021-LGA, cache-lga-kjfk8660069-LGA, cache-lga-kjfk8660069-LGA, cache-lga-kjfk8660069-LGA, cache-lga-kjfk8660069-LGA, cache-qpg120088-QPG",
+    "X-Cache": "MISS, MISS, MISS, MISS, MISS",
+    "X-Cache-Hits": "0, 0, 0",
+    "X-Timer": "S1790751812.544856,VS0,VE2383",
+    "Strict-Transport-Security": "max-age=300"
+  },
+  "local_pdf": "research/paper-survey-20260930/earlier/papers/1611.04246/1611.04246v2.pdf",
+  "sha256": "0be4a3d6c0cef65dec24d16990533ecf1fe0caceef22afb5c8c072d3c4c10255",
+  "total_pages": 10,
+  "first_page": "                                               Growing Interpretable Part Graphs on ConvNets via Multi-Shot Learning\n\n                                                                Quanshi Zhang, Ruiming Cao, Ying Nian Wu, and Song-Chun Zhu\n                                                                                            University of California, Los Angeles\narXiv:1611.04246v2 [cs.CV] 13 Mar 2017\n\n\n\n\n                                                                     Abstract                                                      Training                                  Limited annotations for\n                                                                                                                                     data                                      multi-shot learning\n                                           This paper proposes a learning strategy that extracts object-                                                      ...\n                                           part concepts from a pre-trained convolutional neural network\n                                           (CNN), in an attempt to 1) explore explicit semantics hid-\n                                           den in CNN units and 2) gradually grow a semantically inter-            CNN   CNN      ...    CNN\n                                                                                                                                                          CNN\n\n                                           pretable graphical model on the pre-trained CNN for hierar-                                                                      Graph 1   Graph 2    Graph 3\n                                           chical object understanding. Given part annotations on very            Part 1 Part 2         Part N   Part 1 Part 2 ... Part N    t=1      t=2          t=3\n                                           few (e.g. 3–12) objects, our method mines certain latent pat-                    (a)                            (b)                           (c)\n                                           terns from the pre-trained CNN and associates them with dif-\n                                           ferent semantic parts. We use a four-layer And-Or graph to            Figure 1: Comparison of three learning strategies. (a) Indi-\n                                           organize the mined latent patterns, so as to clarify their inter-     vidually learning/fine-tuning each part without sharing pat-\n                                           nal semantic hierarchy. Our method is guided by a small num-          terns between parts has large information redundancy in\n                                           ber of part annotations, and it achieves superior performance\n                                           (about 13%–107% improvement) in part center prediction on\n                                                                                                                 model representation. (b) Jointly learning/fine-tuning parts\n                                           the PASCAL VOC and ImageNet datasets1 .                               requires all parts to be simultaneously learned. (c) Given\n                                                                                                                 a small number (e.g. 3–12) of part annotations based on\n                                                                                             ",
+  "status": "downloaded_extracted_requires_manual_review",
+  "automatic_heading_hits": []
+}

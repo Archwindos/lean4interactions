@@ -1,0 +1,69 @@
+Published as a conference paper at ICLR 2024
+
+
+
+
+Another potential way to determine the set N is to select regions with significant Shapley values.
+It is because Theorem 4 shows that the Shapley value ϕ(i) can be explained as the result of uni-
+formly assigning attributions of each Harsanyi interaction to each involved variable i. Therefore,
+the Shapley value can serve as a reasonable metric to measure the saliency of input variables.
+In order to ensure the inference logic of the network was meaningful, we discarded sentences for
+which the LLM predicted meaningless words, such as “the”, “a”, and other stop words. In addition,
+we discarded sentences on which the classification confidence of the LLM is low. Specifically, we
+set a threshold ξ for v(x) − v(x∅ ). Given an input sentence x, if v(x) − v(x∅ ) < ξ, then we
+discarded this sentence. We set ξ = 1 for the OPT-1.3B model, ξ = 2 for the LLaMA-7B model,
+and ξ = 3 for the BAAI Aquila-7B model and the MLP.
+D.2 OR INTERACTIONS AS A SPECIFIC KIND OF AND INTERACTIONS
+In addition to the Harsanyi interaction defined in Eq. (1), which represents the AND relationship
+between input variables, Li & Zhang (2023a) have also defined OR interactions, as follows.
+                                 X
+                     Ior (S) = −         (−1)|S|−|T | u(N \ T ), s.t. S ̸= ∅,                (61)
+                                      T ⊆S
+
+where u(N \ T ) = v(xN \T ) − v(x∅ ). The OR interaction represents the OR relationship between
+input variables. In particular, Ior (∅) = u(∅) = 0. In later discussions, we use Iand (S) to denote the
+Harsanyi interaction (or the AND interaction) in order to distinguish it from the OR interaction. It
+is worth noting that an OR interaction can be regarded as a specific AND interaction, if we inverse
+the definition of the masked state and the unmasked state of an input variable.
+Simultaneously extracting AND-OR interactions. In fact, a well-trained DNN usually encodes com-
+plex interactions between input variables, including both AND interactions and OR interactions. Li
+& Zhang (2023a) proposed a method to simultaneously extract AND interactions Iand (S) and OR
+interactions Ior (S) from the network output. Given a set S ⊆ N and the corresponding masked sam-
+ple xS , Li & Zhang (2023a) proposed to learn a decomposition u(S) = uand (S) + uor (S), towards
+the sparsest interactions. The uand (S) term was explained by AND interactions, and the uor (S) term
+was explained by OR interactions, subject to Iand (∅) = uand (∅) = 0, Ior (∅) = uor (∅) = 0.
+                                               X                            X
+          u(S) = uand (S) + uor (S), uand (S) =         Iand (T ), uor (S) =          Ior (T ).  (62)
+                                                    T ⊆S                       T ∩S̸=∅
+
+Specifically, they decomposed u(S) into uand (S) = 0.5 · u(S) + γS and uand (S) = 0.5 · u(S) − γS ,
+where {γS }S⊆N are a set of learnable variables that determine the decomposition of output scores
+for AND and OR interactions. Then, they learned the parameters {γS } by minimizing the following
+LASSO-like loss to obtain sparse interactions:
+                                      X
+                                min            |Iand (S)| + |Ior (S)|                         (63)
+                                  {γS }      S⊆N
+
+
+Removing noises. As discussed in Section 3.3, a small noise ϵS in the network output may signif-
+icantly affect the extracted interactions, especially for high-order interactions. Thus, Li & Zhang
+(2023a) proposed to learn to remove the noise term ϵS from the computation of AND-OR inter-
+actions. Specifically, the decomposition was rewritten as uand (S) = 0.5 · (u(S) − ϵS ) + γS and
+uor (S) = 0.5 · (u(S) − ϵS ) + γS . Thus, the parameters {ϵS }, and {γS } are simultaneously learned
+by minimizing the loss function in Eq. (63). The values of {ϵS } were constrained in [−ζ, ζ] where
+ζ = 0.04 · |v(x) − v(x∅ )|.
+When illustrating the near-zero effects of high-order interactions in Figure 4, we extracted both
+AND and OR interactions (can be regarded as a specific kind of AND interactions) and removed the
+noises from the network output as mentioned in Section D.2. When computing the number of valid
+(salient) interactions in Table 1 and 2, we only extracted AND interactions and we still removed the
+noises from network output.
+When comparing the real number of valid interactions with the derived bound in Table 2, we only
+considered the first M -order interactions. This was because the theoretical bound can only be com-
+puted for the first M -order interactions, due to the Assumption 1-α (interactions higher than the
+M -th order have zero effects). In this way, we only considered the first M -order interactions for fair
+comparison. Nevertheless, it is already shown in Figure 4 that high-order interactions usually had
+small effects, so ignoring interactions higher than the M -th order did not affect the conclusion.
+
+
+                                                   29
+

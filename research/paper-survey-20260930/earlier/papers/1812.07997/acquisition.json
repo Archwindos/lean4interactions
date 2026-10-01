@@ -1,0 +1,59 @@
+{
+  "arxiv_id": "1812.07997",
+  "version": "v1",
+  "title": "Explanatory Graphs for CNNs",
+  "authors": [
+    "Quanshi Zhang",
+    "Xin Wang",
+    "Ruiming Cao",
+    "Ying Nian Wu",
+    "Feng Shi",
+    "Song-Chun Zhu"
+  ],
+  "first_public_date": "2018-12-18T06:33:49Z",
+  "updated": "2018-12-18T06:33:49Z",
+  "journal_ref": null,
+  "source_url": "https://arxiv.org/abs/1812.07997v1",
+  "pdf_url": "https://arxiv.org/pdf/1812.07997v1",
+  "retrieved_at": "2026-09-30T07:03:12.673224+00:00",
+  "attempts": [
+    {
+      "url": "https://arxiv.org/pdf/1812.07997v1",
+      "status": "error",
+      "error": "Truncated body 7340032/9773568"
+    },
+    {
+      "url": "https://export.arxiv.org/pdf/1812.07997v1",
+      "status": "ok",
+      "bytes": 9773568
+    }
+  ],
+  "download_url": "https://export.arxiv.org/pdf/1812.07997v1",
+  "response_headers": {
+    "Connection": "close",
+    "Content-Length": "9773568",
+    "content-disposition": "inline; filename=\"1812.07997v1.pdf\"",
+    "last-modified": "Sun, 22 Jan 2023 23:27:40 GMT",
+    "link": "<https://arxiv.org/pdf/1812.07997>; rel='canonical'",
+    "server": "Google Frontend",
+    "via": "1.1 google, 1.1 varnish, 1.1 varnish, 1.1 varnish, 1.1 varnish, 1.1 varnish",
+    "x-cloud-trace-context": "0f194b9972204789df65fb6aa7dddf10",
+    "content-type": "application/pdf",
+    "etag": "\"sha256:5d832420b289fecd5281cbb12e550124f75767cfeb90cf7b29c49e45e882da67\"",
+    "access-control-allow-origin": "*",
+    "Accept-Ranges": "bytes",
+    "Age": "4899",
+    "Date": "Wed, 30 Sep 2026 07:03:13 GMT",
+    "X-Served-By": "cache-lga-kjfk8660057-LGA, cache-lga-kjfk8660057-LGA, cache-lga-kjfk8660077-LGA, cache-lga-kjfk8660077-LGA, cache-lga-kjfk8660077-LGA, cache-lga-kjfk8660027-LGA, cache-sin-wsat1880036-SIN",
+    "X-Cache": "MISS, HIT, MISS, MISS, MISS",
+    "X-Cache-Hits": "0, 0, 0",
+    "X-Timer": "S1790751793.285067,VS0,VE312",
+    "Strict-Transport-Security": "max-age=300"
+  },
+  "local_pdf": "research/paper-survey-20260930/earlier/papers/1812.07997/1812.07997v1.pdf",
+  "sha256": "dddb5d2c904933dfdcfe220de882f368b887aa3103cd04a26afb3012431795b1",
+  "total_pages": 15,
+  "first_page": "                                     IEEE TRANSACTIONS ON PATTERN ANALYSIS AND MACHINE INTELLIGENCE, IN SUBMISSION                                                               1\n\n\n\n\n                                                             Explanatory Graphs for CNNs\n                                     Quanshi Zhang, Xin Wang, Ruiming Cao, Ying Nian Wu, Feng Shi, and Song-Chun Zhu, Fellow, IEEE\n\n\n                                          Abstract—This paper introduces a graphical model, namely an explanatory graph, which reveals the knowledge hierarchy hidden\n                                          inside conv-layers of a pre-trained CNN. Each filter in a conv-layer of a CNN for object classification usually represents a mixture\n                                          of object parts. We develop a simple yet effective method to disentangle object-part pattern components from each filter. We\n                                          construct an explanatory graph to organize the mined part patterns, where a node represents a part pattern, and each edge\n                                          encodes co-activation relationships and spatial relationships between patterns. More crucially, given a pre-trained CNN, the\n                                          explanatory graph is learned without a need of annotating object parts. Experiments show that each graph node consistently\narXiv:1812.07997v1 [cs.CV] 18 Dec 2018\n\n\n\n\n                                          represented the same object part through different images, which boosted the transferability of CNN features. We transferred part\n                                          patterns in the explanatory graph to the task of part localization, and our method significantly outperformed other approaches.\n\n                                          Index Terms—Convolutional Neural Networks, Graphical Model, Interpretable Deep Learning\n\n                                                                                                           F\n\n\n\n                                     1   I NTRODUCTION                                                           •   Because a filter in the conv-layer may be poten-\n                                     Convolutional neural networks (CNNs) [9], [12], [15]                            tially triggered by multiple parts of the object, we\n                                     have exhibited superior performance in various visual                           disentangle different part patterns from the same\n                                     tasks, for example, object classification and detection.                        filter, which are represented as different graph\n                                     In comparison, explaining features in middle conv-                              nodes.\n                                                                                                                  • A graph edge connects two nodes in adjacent\n                                     layers of a CNN has presented continuous challenges\n                                     for decades. When a CNN is trained for object classifi-                         layers to encode co-activation logics and spatial\n                                     cation, its conv-layers have encoded rich implicit pat-                         relationships between them.\n                                                                                                            ",
+  "status": "downloaded_extracted_requires_manual_review",
+  "automatic_heading_hits": []
+}

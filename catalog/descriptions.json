@@ -1,0 +1,2512 @@
+{
+  "Harsanyi.Game": {
+    "title": "实值集合函数",
+    "summary": "Game α = Finset α → ℝ；有限总体可选用其元素子类型。",
+    "assumptions": [
+      "变量类型 α 的相等关系可判定；S、T、N 为有限子集。",
+      "v、w、d 为实值集合函数，不默认 v(∅)=0。"
+    ],
+    "tags": [
+      "Game"
+    ],
+    "example_paths": [
+      "examples/library-consumer/Consumer.lean"
+    ],
+    "mathlib_correspondence": [
+      "Finset",
+      "Finset.powerset",
+      "Real"
+    ]
+  },
+  "Harsanyi.interaction": {
+    "title": "Harsanyi / Boolean Möbius 变换",
+    "summary": "I_v(S)=∑_(T⊆S)(−1)^(|S|−|T|)v(T)，包含空集。",
+    "assumptions": [
+      "变量类型 α 的相等关系可判定；S、T、N 为有限子集。",
+      "v、w、d 为实值集合函数，不默认 v(∅)=0。"
+    ],
+    "tags": [
+      "interaction"
+    ],
+    "example_paths": [
+      "examples/library-consumer/Consumer.lean"
+    ],
+    "mathlib_correspondence": [
+      "Finset",
+      "Finset.powerset",
+      "Real"
+    ]
+  },
+  "Harsanyi.reconstruct": {
+    "title": "子集求和重构",
+    "summary": "R_d(S)=∑_(T⊆S)d(T)。",
+    "assumptions": [
+      "变量类型 α 的相等关系可判定；S、T、N 为有限子集。",
+      "v、w、d 为实值集合函数，不默认 v(∅)=0。"
+    ],
+    "tags": [
+      "reconstruct"
+    ],
+    "example_paths": [
+      "examples/library-consumer/Consumer.lean"
+    ],
+    "mathlib_correspondence": [
+      "Finset",
+      "Finset.powerset",
+      "Real"
+    ]
+  },
+  "Harsanyi.centered": {
+    "title": "中心化转换",
+    "summary": "v°(S)=v(S)−v(∅)，显式去除基线。",
+    "assumptions": [
+      "变量类型 α 的相等关系可判定；S、T、N 为有限子集。",
+      "v、w、d 为实值集合函数，不默认 v(∅)=0。"
+    ],
+    "tags": [
+      "centered"
+    ],
+    "example_paths": [
+      "examples/library-consumer/Consumer.lean"
+    ],
+    "mathlib_correspondence": [
+      "Finset",
+      "Finset.powerset",
+      "Real"
+    ]
+  },
+  "Harsanyi.marginal": {
+    "title": "插入差分",
+    "summary": "Δ_i v(S)=v(S∪{i})−v(S)。",
+    "assumptions": [
+      "变量类型 α 的相等关系可判定；S、T、N 为有限子集。",
+      "v、w、d 为实值集合函数，不默认 v(∅)=0。"
+    ],
+    "tags": [
+      "marginal"
+    ],
+    "mathlib_correspondence": [
+      "Finset",
+      "Finset.powerset",
+      "Real"
+    ]
+  },
+  "Harsanyi.unanimity": {
+    "title": "纯 AND / unanimity 函数",
+    "summary": "u_(A,c)(S)=c 若 A⊆S，否则为 0；A=∅ 时为常数。",
+    "assumptions": [
+      "变量类型 α 的相等关系可判定；S、T、N 为有限子集。",
+      "v、w、d 为实值集合函数，不默认 v(∅)=0。"
+    ],
+    "tags": [
+      "unanimity"
+    ],
+    "mathlib_correspondence": [
+      "Finset",
+      "Finset.powerset",
+      "Real"
+    ]
+  },
+  "Harsanyi.dividendAllocation": {
+    "title": "按成员等分交互归因",
+    "summary": "φ_i(v;N)=∑_(S⊆N,i∈S)I_v(S)/|S|。这是 dividend 形式；与经典阶乘权重的边际 Shapley 公式之间的等价定理仍未形式化。",
+    "assumptions": [
+      "变量类型 α 的相等关系可判定；S、T、N 为有限子集。",
+      "v、w、d 为实值集合函数，不默认 v(∅)=0。"
+    ],
+    "tags": [
+      "dividendAllocation"
+    ],
+    "mathlib_correspondence": [
+      "Finset",
+      "Finset.powerset",
+      "Real"
+    ]
+  },
+  "Harsanyi.interaction_empty": {
+    "title": "空集交互就是基线",
+    "summary": "空集交互就是基线。统一约定见 docs/math-conventions.md。",
+    "assumptions": [
+      "变量类型 α 的相等关系可判定；S、T、N 为有限子集。",
+      "v、w、d 为实值集合函数，不默认 v(∅)=0。"
+    ],
+    "theorem_id": "harsanyi-interaction-empty",
+    "proof_id": "proof-interaction-empty-v1",
+    "tags": [
+      "empty",
+      "baseline",
+      "空集"
+    ],
+    "summary_en": "interaction empty",
+    "statement_tex": "I_v(\\varnothing)=v(\\varnothing)",
+    "mathlib_correspondence": [
+      "Finset",
+      "Finset.powerset",
+      "Real"
+    ]
+  },
+  "Harsanyi.reconstruct_empty": {
+    "title": "空集重构",
+    "summary": "空集重构。统一约定见 docs/math-conventions.md。",
+    "assumptions": [
+      "变量类型 α 的相等关系可判定；S、T、N 为有限子集。",
+      "v、w、d 为实值集合函数，不默认 v(∅)=0。"
+    ],
+    "theorem_id": "harsanyi-reconstruct-empty",
+    "proof_id": "proof-reconstruct-empty-v1",
+    "tags": [
+      "empty",
+      "reconstruction"
+    ],
+    "summary_en": "reconstruct empty",
+    "statement_tex": "R_d(\\varnothing)=d(\\varnothing)",
+    "mathlib_correspondence": [
+      "Finset",
+      "Finset.powerset",
+      "Real"
+    ]
+  },
+  "Harsanyi.centered_empty": {
+    "title": "中心化后的空值为零",
+    "summary": "中心化后的空值为零。统一约定见 docs/math-conventions.md。",
+    "assumptions": [
+      "变量类型 α 的相等关系可判定；S、T、N 为有限子集。",
+      "v、w、d 为实值集合函数，不默认 v(∅)=0。"
+    ],
+    "theorem_id": "harsanyi-centered-empty",
+    "proof_id": "proof-centered-empty-v1",
+    "tags": [
+      "baseline",
+      "centering",
+      "中心化"
+    ],
+    "summary_en": "centered empty",
+    "statement_tex": "v^\\circ(\\varnothing)=0",
+    "mathlib_correspondence": [
+      "Finset",
+      "Finset.powerset",
+      "Real"
+    ]
+  },
+  "Harsanyi.interaction_congr": {
+    "title": "只需核对目标集合的子集",
+    "summary": "只需核对目标集合的子集。统一约定见 docs/math-conventions.md。",
+    "assumptions": [
+      "变量类型 α 的相等关系可判定；S、T、N 为有限子集。",
+      "v、w、d 为实值集合函数，不默认 v(∅)=0。",
+      "∀ T⊆S，v(T)=w(T)。"
+    ],
+    "theorem_id": "harsanyi-interaction-congr",
+    "proof_id": "proof-interaction-congr-v1",
+    "tags": [
+      "locality",
+      "前提转换"
+    ],
+    "summary_en": "interaction congr",
+    "statement_tex": "(\\forall T\\subseteq S,\\ v(T)=w(T))\\Longrightarrow I_v(S)=I_w(S)",
+    "mathlib_correspondence": [
+      "Finset",
+      "Finset.powerset",
+      "Real"
+    ]
+  },
+  "Harsanyi.interaction_singleton": {
+    "title": "单点交互是相对基线的增量",
+    "summary": "单点交互是相对基线的增量。统一约定见 docs/math-conventions.md。",
+    "assumptions": [
+      "变量类型 α 的相等关系可判定；S、T、N 为有限子集。",
+      "v、w、d 为实值集合函数，不默认 v(∅)=0。"
+    ],
+    "theorem_id": "harsanyi-interaction-singleton",
+    "proof_id": "proof-interaction-singleton-v1",
+    "tags": [
+      "singleton",
+      "单点",
+      "baseline"
+    ],
+    "summary_en": "interaction singleton",
+    "statement_tex": "I_v(\\{i\\})=v(\\{i\\})-v(\\varnothing)",
+    "mathlib_correspondence": [
+      "Finset",
+      "Finset.powerset",
+      "Real"
+    ]
+  },
+  "Harsanyi.interaction_insert": {
+    "title": "增加变量等于取有限差分",
+    "summary": "增加变量等于取有限差分。统一约定见 docs/math-conventions.md。",
+    "assumptions": [
+      "变量类型 α 的相等关系可判定；S、T、N 为有限子集。",
+      "v、w、d 为实值集合函数，不默认 v(∅)=0。",
+      "i∉S。"
+    ],
+    "theorem_id": "harsanyi-interaction-insert",
+    "proof_id": "proof-interaction-insert-v1",
+    "tags": [
+      "recursion",
+      "finite difference",
+      "递推"
+    ],
+    "summary_en": "interaction insert",
+    "statement_tex": "i\\notin S\\Longrightarrow I_v(S\\cup\\{i\\})=I_{\\Delta_i v}(S),\\quad\\Delta_i v(T)=v(T\\cup\\{i\\})-v(T)",
+    "mathlib_correspondence": [
+      "Finset",
+      "Finset.powerset",
+      "Real"
+    ]
+  },
+  "Harsanyi.reconstruction": {
+    "title": "全部交互精确重构集合函数",
+    "summary": "全部交互精确重构集合函数。统一约定见 docs/math-conventions.md。",
+    "assumptions": [
+      "变量类型 α 的相等关系可判定；S、T、N 为有限子集。",
+      "v、w、d 为实值集合函数，不默认 v(∅)=0。"
+    ],
+    "theorem_id": "harsanyi-reconstruction",
+    "proof_id": "proof-reconstruction-v1",
+    "tags": [
+      "Möbius inversion",
+      "reconstruction",
+      "反演",
+      "重构"
+    ],
+    "summary_en": "reconstruction",
+    "statement_tex": "\\sum_{T\\subseteq S}I_v(T)=v(S)",
+    "example_paths": [
+      "examples/library-consumer/Consumer.lean"
+    ],
+    "mathlib_correspondence": [
+      "Finset",
+      "Finset.powerset",
+      "Real"
+    ]
+  },
+  "Harsanyi.interaction_reconstruct": {
+    "title": "子集和的交互恢复原系数",
+    "summary": "子集和的交互恢复原系数。统一约定见 docs/math-conventions.md。",
+    "assumptions": [
+      "变量类型 α 的相等关系可判定；S、T、N 为有限子集。",
+      "v、w、d 为实值集合函数，不默认 v(∅)=0。"
+    ],
+    "theorem_id": "harsanyi-interaction-reconstruct",
+    "proof_id": "proof-interaction-reconstruct-v1",
+    "tags": [
+      "Möbius inversion",
+      "inverse",
+      "反向反演"
+    ],
+    "summary_en": "interaction reconstruct",
+    "statement_tex": "I_{R_d}(S)=d(S),\\quad R_d(S)=\\sum_{T\\subseteq S}d(T)",
+    "mathlib_correspondence": [
+      "Finset",
+      "Finset.powerset",
+      "Real"
+    ]
+  },
+  "Harsanyi.reconstruction_unique": {
+    "title": "重构系数唯一",
+    "summary": "重构系数唯一。统一约定见 docs/math-conventions.md。",
+    "assumptions": [
+      "变量类型 α 的相等关系可判定；S、T、N 为有限子集。",
+      "v、w、d 为实值集合函数，不默认 v(∅)=0。",
+      "∀ S，R_d(S)=v(S)。"
+    ],
+    "theorem_id": "harsanyi-reconstruction-unique",
+    "proof_id": "proof-reconstruction-unique-v1",
+    "tags": [
+      "uniqueness",
+      "唯一性"
+    ],
+    "summary_en": "reconstruction unique",
+    "statement_tex": "(\\forall S,\\ R_d(S)=v(S))\\Longrightarrow d=I_v",
+    "example_paths": [
+      "examples/library-consumer/Consumer.lean"
+    ],
+    "mathlib_correspondence": [
+      "Finset",
+      "Finset.powerset",
+      "Real"
+    ]
+  },
+  "Harsanyi.interaction_injective": {
+    "title": "交互变换是单射",
+    "summary": "交互变换是单射。统一约定见 docs/math-conventions.md。",
+    "assumptions": [
+      "变量类型 α 的相等关系可判定；S、T、N 为有限子集。",
+      "v、w、d 为实值集合函数，不默认 v(∅)=0。"
+    ],
+    "theorem_id": "harsanyi-interaction-injective",
+    "proof_id": "proof-interaction-injective-v1",
+    "tags": [
+      "injective",
+      "单射"
+    ],
+    "summary_en": "interaction injective",
+    "statement_tex": "I_v=I_w\\Longrightarrow v=w",
+    "mathlib_correspondence": [
+      "Finset",
+      "Finset.powerset",
+      "Real"
+    ]
+  },
+  "Harsanyi.interaction_add": {
+    "title": "交互的可加性",
+    "summary": "交互的可加性。统一约定见 docs/math-conventions.md。",
+    "assumptions": [
+      "变量类型 α 的相等关系可判定；S、T、N 为有限子集。",
+      "v、w、d 为实值集合函数，不默认 v(∅)=0。"
+    ],
+    "theorem_id": "harsanyi-interaction-add",
+    "proof_id": "proof-interaction-add-v1",
+    "tags": [
+      "linearity",
+      "additivity",
+      "线性"
+    ],
+    "summary_en": "interaction add",
+    "statement_tex": "I_{v+w}(S)=I_v(S)+I_w(S)",
+    "example_paths": [
+      "examples/library-consumer/Consumer.lean"
+    ],
+    "mathlib_correspondence": [
+      "Finset",
+      "Finset.powerset",
+      "Real"
+    ]
+  },
+  "Harsanyi.interaction_sub": {
+    "title": "交互保持差值",
+    "summary": "交互保持差值。统一约定见 docs/math-conventions.md。",
+    "assumptions": [
+      "变量类型 α 的相等关系可判定；S、T、N 为有限子集。",
+      "v、w、d 为实值集合函数，不默认 v(∅)=0。"
+    ],
+    "theorem_id": "harsanyi-interaction-sub",
+    "proof_id": "proof-interaction-sub-v1",
+    "tags": [
+      "linearity",
+      "subtraction"
+    ],
+    "summary_en": "interaction sub",
+    "statement_tex": "I_{v-w}(S)=I_v(S)-I_w(S)",
+    "mathlib_correspondence": [
+      "Finset",
+      "Finset.powerset",
+      "Real"
+    ]
+  },
+  "Harsanyi.interaction_smul": {
+    "title": "交互保持实数缩放",
+    "summary": "交互保持实数缩放。统一约定见 docs/math-conventions.md。",
+    "assumptions": [
+      "变量类型 α 的相等关系可判定；S、T、N 为有限子集。",
+      "v、w、d 为实值集合函数，不默认 v(∅)=0。",
+      "a∈ℝ。"
+    ],
+    "theorem_id": "harsanyi-interaction-smul",
+    "proof_id": "proof-interaction-smul-v1",
+    "tags": [
+      "linearity",
+      "scale",
+      "缩放"
+    ],
+    "summary_en": "interaction smul",
+    "statement_tex": "I_{av}(S)=aI_v(S)",
+    "example_paths": [
+      "examples/library-consumer/Consumer.lean"
+    ],
+    "mathlib_correspondence": [
+      "Finset",
+      "Finset.powerset",
+      "Real"
+    ]
+  },
+  "Harsanyi.interaction_zero": {
+    "title": "零函数的交互为零",
+    "summary": "零函数的交互为零。统一约定见 docs/math-conventions.md。",
+    "assumptions": [
+      "变量类型 α 的相等关系可判定；S、T、N 为有限子集。",
+      "v、w、d 为实值集合函数，不默认 v(∅)=0。"
+    ],
+    "theorem_id": "harsanyi-interaction-zero",
+    "proof_id": "proof-interaction-zero-v1",
+    "tags": [
+      "zero",
+      "linearity"
+    ],
+    "summary_en": "interaction zero",
+    "statement_tex": "I_0(S)=0",
+    "mathlib_correspondence": [
+      "Finset",
+      "Finset.powerset",
+      "Real"
+    ]
+  },
+  "Harsanyi.interaction_const": {
+    "title": "常数只贡献空集交互",
+    "summary": "常数只贡献空集交互。统一约定见 docs/math-conventions.md。",
+    "assumptions": [
+      "变量类型 α 的相等关系可判定；S、T、N 为有限子集。",
+      "v、w、d 为实值集合函数，不默认 v(∅)=0。",
+      "c∈ℝ。"
+    ],
+    "theorem_id": "harsanyi-interaction-const",
+    "proof_id": "proof-interaction-const-v1",
+    "tags": [
+      "constant",
+      "baseline",
+      "常量"
+    ],
+    "summary_en": "interaction const",
+    "statement_tex": "I_c(S)=\\begin{cases}c&S=\\varnothing\\\\0&S\\ne\\varnothing\\end{cases}",
+    "example_paths": [
+      "examples/library-consumer/Consumer.lean"
+    ],
+    "mathlib_correspondence": [
+      "Finset",
+      "Finset.powerset",
+      "Real"
+    ]
+  },
+  "Harsanyi.interaction_centered": {
+    "title": "中心化只移除空集交互",
+    "summary": "中心化只移除空集交互。统一约定见 docs/math-conventions.md。",
+    "assumptions": [
+      "变量类型 α 的相等关系可判定；S、T、N 为有限子集。",
+      "v、w、d 为实值集合函数，不默认 v(∅)=0。"
+    ],
+    "theorem_id": "harsanyi-interaction-centered",
+    "proof_id": "proof-interaction-centered-v1",
+    "tags": [
+      "centering",
+      "baseline",
+      "中心化"
+    ],
+    "summary_en": "interaction centered",
+    "statement_tex": "I_{v^\\circ}(S)=I_v(S)-\\mathbf1_{S=\\varnothing}v(\\varnothing)",
+    "example_paths": [
+      "examples/library-consumer/Consumer.lean"
+    ],
+    "mathlib_correspondence": [
+      "Finset",
+      "Finset.powerset",
+      "Real"
+    ]
+  },
+  "Harsanyi.interaction_centered_nonempty": {
+    "title": "非空交互不受中心化影响",
+    "summary": "非空交互不受中心化影响。统一约定见 docs/math-conventions.md。",
+    "assumptions": [
+      "变量类型 α 的相等关系可判定；S、T、N 为有限子集。",
+      "v、w、d 为实值集合函数，不默认 v(∅)=0。",
+      "S.Nonempty（等价于 S≠∅）。"
+    ],
+    "theorem_id": "harsanyi-interaction-centered-nonempty",
+    "proof_id": "proof-interaction-centered-nonempty-v1",
+    "tags": [
+      "centering",
+      "nonempty",
+      "非空"
+    ],
+    "summary_en": "interaction centered nonempty",
+    "statement_tex": "S\\ne\\varnothing\\Longrightarrow I_{v^\\circ}(S)=I_v(S)",
+    "example_paths": [
+      "examples/library-consumer/Consumer.lean"
+    ],
+    "mathlib_correspondence": [
+      "Finset",
+      "Finset.powerset",
+      "Real"
+    ]
+  },
+  "Harsanyi.interaction_recursive": {
+    "title": "从较小集合交互递推",
+    "summary": "从较小集合交互递推。统一约定见 docs/math-conventions.md。",
+    "assumptions": [
+      "变量类型 α 的相等关系可判定；S、T、N 为有限子集。",
+      "v、w、d 为实值集合函数，不默认 v(∅)=0。"
+    ],
+    "theorem_id": "harsanyi-interaction-recursive",
+    "proof_id": "proof-interaction-recursive-v1",
+    "tags": [
+      "recursion",
+      "proper subsets",
+      "递推"
+    ],
+    "summary_en": "interaction recursive",
+    "statement_tex": "I_v(S)=v(S)-\\sum_{T\\subsetneq S}I_v(T)",
+    "mathlib_correspondence": [
+      "Finset",
+      "Finset.powerset",
+      "Real"
+    ]
+  },
+  "Harsanyi.reconstruct_single": {
+    "title": "单个系数重构纯 AND 函数",
+    "summary": "单个系数重构纯 AND 函数。统一约定见 docs/math-conventions.md。",
+    "assumptions": [
+      "变量类型 α 的相等关系可判定；S、T、N 为有限子集。",
+      "v、w、d 为实值集合函数，不默认 v(∅)=0。",
+      "A 任意有限集，c∈ℝ；允许 A=∅。"
+    ],
+    "theorem_id": "harsanyi-reconstruct-single",
+    "proof_id": "proof-reconstruct-single-v1",
+    "tags": [
+      "unanimity",
+      "pure interaction",
+      "AND",
+      "纯交互"
+    ],
+    "summary_en": "reconstruct single",
+    "statement_tex": "R_{d_A}(S)=c\\mathbf1_{A\\subseteq S},\\quad d_A(T)=c\\mathbf1_{T=A}",
+    "mathlib_correspondence": [
+      "Finset",
+      "Finset.powerset",
+      "Real"
+    ]
+  },
+  "Harsanyi.interaction_unanimity": {
+    "title": "纯 AND 函数只含一个交互",
+    "summary": "纯 AND 函数只含一个交互。统一约定见 docs/math-conventions.md。",
+    "assumptions": [
+      "变量类型 α 的相等关系可判定；S、T、N 为有限子集。",
+      "v、w、d 为实值集合函数，不默认 v(∅)=0。",
+      "A 任意有限集，c∈ℝ；允许 A=∅。"
+    ],
+    "theorem_id": "harsanyi-interaction-unanimity",
+    "proof_id": "proof-interaction-unanimity-v1",
+    "tags": [
+      "unanimity",
+      "pure interaction",
+      "AND",
+      "纯交互"
+    ],
+    "summary_en": "interaction unanimity",
+    "statement_tex": "I_{u_{A,c}}(S)=c\\mathbf1_{S=A},\\quad u_{A,c}(T)=c\\mathbf1_{A\\subseteq T}",
+    "mathlib_correspondence": [
+      "Finset",
+      "Finset.powerset",
+      "Real"
+    ]
+  },
+  "Harsanyi.interaction_dummy": {
+    "title": "无贡献变量的联合交互为零",
+    "summary": "无贡献变量的联合交互为零。统一约定见 docs/math-conventions.md。",
+    "assumptions": [
+      "变量类型 α 的相等关系可判定；S、T、N 为有限子集。",
+      "v、w、d 为实值集合函数，不默认 v(∅)=0。",
+      "i∉S。",
+      "对每个 T⊆S，插入 i 不改变 v(T)。"
+    ],
+    "theorem_id": "harsanyi-interaction-dummy",
+    "proof_id": "proof-interaction-dummy-v1",
+    "tags": [
+      "dummy",
+      "null player",
+      "无贡献变量"
+    ],
+    "summary_en": "interaction dummy",
+    "statement_tex": "i\\notin S,\\ (\\forall T\\subseteq S,\\ v(T\\cup\\{i\\})=v(T))\\Longrightarrow I_v(S\\cup\\{i\\})=0",
+    "mathlib_correspondence": [
+      "Finset",
+      "Finset.powerset",
+      "Real"
+    ]
+  },
+  "Harsanyi.interaction_relabel": {
+    "title": "变量双射重命名保持交互",
+    "summary": "变量双射重命名保持交互。统一约定见 docs/math-conventions.md。",
+    "assumptions": [
+      "变量类型 α 的相等关系可判定；S、T、N 为有限子集。",
+      "v、w、d 为实值集合函数，不默认 v(∅)=0。",
+      "e:α≃β 是双射；α、β 的相等关系可判定。"
+    ],
+    "theorem_id": "harsanyi-interaction-relabel",
+    "proof_id": "proof-interaction-relabel-v1",
+    "tags": [
+      "symmetry",
+      "bijection",
+      "relabel",
+      "对称"
+    ],
+    "summary_en": "interaction relabel",
+    "statement_tex": "I_{v\\circ e^{-1}}(e(S))=I_v(S)",
+    "mathlib_correspondence": [
+      "Finset",
+      "Finset.powerset",
+      "Real"
+    ]
+  },
+  "Harsanyi.dividendAllocation_add": {
+    "title": "等分交互归因的可加性",
+    "summary": "等分交互归因的可加性。统一约定见 docs/math-conventions.md。",
+    "assumptions": [
+      "变量类型 α 的相等关系可判定；S、T、N 为有限子集。",
+      "v、w、d 为实值集合函数，不默认 v(∅)=0。"
+    ],
+    "theorem_id": "harsanyi-dividendAllocation-add",
+    "proof_id": "proof-dividendAllocation-add-v1",
+    "tags": [
+      "allocation",
+      "Shapley dividend",
+      "linearity"
+    ],
+    "summary_en": "dividendAllocation add",
+    "statement_tex": "\\phi_i(v+w;N)=\\phi_i(v;N)+\\phi_i(w;N)",
+    "mathlib_correspondence": [
+      "Finset",
+      "Finset.powerset",
+      "Real"
+    ]
+  },
+  "Harsanyi.sum_dividend_shares": {
+    "title": "一个非空交互的份额总和",
+    "summary": "一个非空交互的份额总和。统一约定见 docs/math-conventions.md。",
+    "assumptions": [
+      "变量类型 α 的相等关系可判定；S、T、N 为有限子集。",
+      "v、w、d 为实值集合函数，不默认 v(∅)=0。",
+      "S⊆N，x∈ℝ。"
+    ],
+    "theorem_id": "harsanyi-sum-dividend-shares",
+    "proof_id": "proof-sum-dividend-shares-v1",
+    "tags": [
+      "allocation",
+      "efficiency",
+      "division",
+      "分母"
+    ],
+    "summary_en": "sum dividend shares",
+    "statement_tex": "\\sum_{i\\in N}\\mathbf1_{i\\in S}\\frac{x}{|S|}=\\begin{cases}0&S=\\varnothing\\\\x&S\\ne\\varnothing\\end{cases}",
+    "mathlib_correspondence": [
+      "Finset",
+      "Finset.powerset",
+      "Real"
+    ]
+  },
+  "Harsanyi.dividendAllocation_efficiency": {
+    "title": "总归因等于去基线的总值",
+    "summary": "总归因等于去基线的总值。统一约定见 docs/math-conventions.md。",
+    "assumptions": [
+      "变量类型 α 的相等关系可判定；S、T、N 为有限子集。",
+      "v、w、d 为实值集合函数，不默认 v(∅)=0。"
+    ],
+    "theorem_id": "harsanyi-dividendAllocation-efficiency",
+    "proof_id": "proof-dividendAllocation-efficiency-v1",
+    "tags": [
+      "allocation",
+      "efficiency",
+      "baseline",
+      "效率"
+    ],
+    "summary_en": "dividendAllocation efficiency",
+    "statement_tex": "\\sum_{i\\in N}\\phi_i(v;N)=v(N)-v(\\varnothing)",
+    "mathlib_correspondence": [
+      "Finset",
+      "Finset.powerset",
+      "Real"
+    ]
+  },
+  "Harsanyi.dividendAllocation_centered": {
+    "title": "等分交互归因保持中心化",
+    "summary": "等分交互归因保持中心化。统一约定见 docs/math-conventions.md。",
+    "assumptions": [
+      "变量类型 α 的相等关系可判定；S、T、N 为有限子集。",
+      "v、w、d 为实值集合函数，不默认 v(∅)=0。"
+    ],
+    "theorem_id": "harsanyi-dividendAllocation-centered",
+    "proof_id": "proof-dividendAllocation-centered-v1",
+    "tags": [
+      "allocation",
+      "centering",
+      "baseline"
+    ],
+    "summary_en": "dividendAllocation centered",
+    "statement_tex": "\\phi_i(v^\\circ;N)=\\phi_i(v;N)",
+    "mathlib_correspondence": [
+      "Finset",
+      "Finset.powerset",
+      "Real"
+    ]
+  },
+  "Harsanyi.dividendAllocation_unanimity": {
+    "title": "纯交互在成员间均分",
+    "summary": "纯交互在成员间均分。统一约定见 docs/math-conventions.md。",
+    "assumptions": [
+      "变量类型 α 的相等关系可判定；S、T、N 为有限子集。",
+      "v、w、d 为实值集合函数，不默认 v(∅)=0。",
+      "A⊆N。允许 A=∅，此时 i∉A，结果为 0。"
+    ],
+    "theorem_id": "harsanyi-dividendAllocation-unanimity",
+    "proof_id": "proof-dividendAllocation-unanimity-v1",
+    "tags": [
+      "allocation",
+      "unanimity",
+      "pure interaction"
+    ],
+    "summary_en": "dividendAllocation unanimity",
+    "statement_tex": "A\\subseteq N\\Longrightarrow\\phi_i(u_{A,c};N)=\\mathbf1_{i\\in A}\\frac{c}{|A|}",
+    "mathlib_correspondence": [
+      "Finset",
+      "Finset.powerset",
+      "Real"
+    ]
+  },
+  "Harsanyi.higherMarginal": {
+    "title": "定义高阶有限边际，并严格分解为包含全部差分变量的交互。",
+    "summary": "定义高阶有限边际，并严格分解为包含全部差分变量的交互。",
+    "assumptions": [
+      "差分变量T与环境S须不相交；全部子集包含空集，不要求g空为零。"
+    ],
+    "shared_proof_ids": [
+      "shared-harsanyi-marginal-decomposition"
+    ],
+    "example_paths": [
+      "research/full-proof-integration-20260930/cvpr2023/lean/FullCvpr.lean"
+    ],
+    "symbol_ids": [],
+    "description_provenance": "research/full-proof-integration-20260930/cvpr2023/api-descriptions.json",
+    "tags": [
+      "Attribution"
+    ],
+    "mathlib_correspondence": []
+  },
+  "Harsanyi.reconstruct_union_disjoint": {
+    "title": "把两个不相交有限集合上的重构和分成两层子集和。",
+    "summary": "把两个不相交有限集合上的重构和分成两层子集和。",
+    "assumptions": [
+      "两个有限集合不相交；系数函数任意。"
+    ],
+    "shared_proof_ids": [
+      "shared-harsanyi-marginal-decomposition"
+    ],
+    "example_paths": [],
+    "symbol_ids": [],
+    "description_provenance": "research/full-proof-integration-20260930/cvpr2023/api-descriptions.json",
+    "tags": [
+      "Attribution"
+    ],
+    "mathlib_correspondence": []
+  },
+  "Harsanyi.higherMarginal_eq_sum_interaction": {
+    "title": "定义高阶有限边际，并严格分解为包含全部差分变量的交互。",
+    "summary": "定义高阶有限边际，并严格分解为包含全部差分变量的交互。",
+    "assumptions": [
+      "差分变量T与环境S须不相交；全部子集包含空集，不要求g空为零。"
+    ],
+    "shared_proof_ids": [
+      "shared-harsanyi-marginal-decomposition"
+    ],
+    "example_paths": [
+      "research/full-proof-integration-20260930/cvpr2023/lean/FullCvpr.lean"
+    ],
+    "symbol_ids": [],
+    "description_provenance": "research/full-proof-integration-20260930/cvpr2023/api-descriptions.json",
+    "tags": [
+      "Attribution"
+    ],
+    "mathlib_correspondence": []
+  },
+  "Harsanyi.interaction_symmetry": {
+    "title": "局部等效合作使加入两个变量的交互相等。",
+    "summary": "局部等效合作使加入两个变量的交互相等。",
+    "assumptions": [
+      "i,j不在S；对每个U⊆S，加入i与加入j输出相同；不要求i≠j。"
+    ],
+    "shared_proof_ids": [
+      "shared-harsanyi-symmetry"
+    ],
+    "example_paths": [
+      "research/full-proof-integration-20260930/cvpr2023/lean/FullCvpr.lean"
+    ],
+    "symbol_ids": [],
+    "description_provenance": "research/full-proof-integration-20260930/cvpr2023/api-descriptions.json",
+    "tags": [
+      "Attribution"
+    ],
+    "mathlib_correspondence": []
+  },
+  "Harsanyi.interaction_context_difference": {
+    "title": "增加变量的交互等于该变量始终在场的条件交互减原交互。",
+    "summary": "增加变量的交互等于该变量始终在场的条件交互减原交互。",
+    "assumptions": [
+      "i∉S；条件游戏空值为g({i})，不默认零。"
+    ],
+    "shared_proof_ids": [
+      "shared-harsanyi-recursive"
+    ],
+    "example_paths": [
+      "research/full-proof-integration-20260930/cvpr2023/lean/FullCvpr.lean"
+    ],
+    "symbol_ids": [],
+    "description_provenance": "research/full-proof-integration-20260930/cvpr2023/api-descriptions.json",
+    "tags": [
+      "Attribution"
+    ],
+    "mathlib_correspondence": []
+  },
+  "Harsanyi.interaction_additive_dummy_nonempty": {
+    "title": "非空环境中恒定加法边际的含该变量交互为零。",
+    "summary": "非空环境中恒定加法边际的含该变量交互为零。",
+    "assumptions": [
+      "i∉S且S非空；每个U⊆S的边际同为常数c。不能用于CVPR原空集量词。"
+    ],
+    "shared_proof_ids": [
+      "shared-harsanyi-dummy-nonempty"
+    ],
+    "example_paths": [],
+    "symbol_ids": [],
+    "description_provenance": "research/full-proof-integration-20260930/cvpr2023/api-descriptions.json",
+    "tags": [
+      "Attribution"
+    ],
+    "mathlib_correspondence": []
+  },
+  "Harsanyi.factorial_powerset_sum": {
+    "title": "对所有有限子集计算阶乘卷积的精确闭式，含全零参数。",
+    "summary": "对所有有限子集计算阶乘卷积的精确闭式，含全零参数。",
+    "assumptions": [
+      "a,b为自然数，R有限；a=0、b=0、R空都包括。"
+    ],
+    "shared_proof_ids": [
+      "shared-harsanyi-factorial-convolution"
+    ],
+    "example_paths": [],
+    "symbol_ids": [],
+    "description_provenance": "research/full-proof-integration-20260930/cvpr2023/api-descriptions.json",
+    "tags": [
+      "Attribution"
+    ],
+    "mathlib_correspondence": []
+  },
+  "Harsanyi.sum_supersets_eq_sum_complement": {
+    "title": "把包含固定L的子集和换成补集内自由子集和。",
+    "summary": "把包含固定L的子集和换成补集内自由子集和。",
+    "assumptions": [
+      "L⊆N；S=L∪U，U⊆N\\\\L；任意实值函数f。"
+    ],
+    "shared_proof_ids": [
+      "shared-harsanyi-factorial-convolution"
+    ],
+    "example_paths": [],
+    "symbol_ids": [],
+    "description_provenance": "research/full-proof-integration-20260930/cvpr2023/api-descriptions.json",
+    "tags": [
+      "Attribution"
+    ],
+    "mathlib_correspondence": []
+  },
+  "Harsanyi.factorialWeight": {
+    "title": "定义统一的有限阶乘权重。",
+    "summary": "定义统一的有限阶乘权重。",
+    "assumptions": [
+      "定义对自然数参数总定义；归因闭式定理另要求k>0及相应子集基数界。"
+    ],
+    "shared_proof_ids": [
+      "shared-harsanyi-factorial-convolution"
+    ],
+    "example_paths": [],
+    "symbol_ids": [],
+    "description_provenance": "research/full-proof-integration-20260930/cvpr2023/api-descriptions.json",
+    "tags": [
+      "Attribution"
+    ],
+    "mathlib_correspondence": []
+  },
+  "Harsanyi.factorialWeight_superset_sum": {
+    "title": "包含固定子集的统一权重和等于阶乘比。",
+    "summary": "包含固定子集的统一权重和等于阶乘比。",
+    "assumptions": [
+      "k>0；L⊆N；空L和L=N包括。"
+    ],
+    "shared_proof_ids": [
+      "shared-harsanyi-factorial-convolution"
+    ],
+    "example_paths": [],
+    "symbol_ids": [],
+    "description_provenance": "research/full-proof-integration-20260930/cvpr2023/api-descriptions.json",
+    "tags": [
+      "Attribution"
+    ],
+    "mathlib_correspondence": []
+  },
+  "Harsanyi.sum_powerset_extend": {
+    "title": "把小集合的子集和延到总体并按包含关系置零。",
+    "summary": "把小集合的子集和延到总体并按包含关系置零。",
+    "assumptions": [
+      "S⊆N；系数函数任意；包括空集。"
+    ],
+    "shared_proof_ids": [
+      "proof-finite-mobius-reconstruction-v2"
+    ],
+    "example_paths": [
+      "research/full-proof-integration-20260930/cvpr2023/lean/FullCvpr.lean"
+    ],
+    "symbol_ids": [],
+    "description_provenance": "research/full-proof-integration-20260930/cvpr2023/api-descriptions.json",
+    "tags": [
+      "Attribution"
+    ],
+    "mathlib_correspondence": []
+  },
+  "Harsanyi.weighted_higherMarginal_eq": {
+    "title": "统一阶乘权重的边际和变成交互的二项系数权重和。",
+    "summary": "统一阶乘权重的边际和变成交互的二项系数权重和。",
+    "assumptions": [
+      "k>0；T与有限环境N不相交；原始输出基线可以非零。"
+    ],
+    "shared_proof_ids": [
+      "shared-harsanyi-factorial-convolution"
+    ],
+    "example_paths": [],
+    "symbol_ids": [],
+    "description_provenance": "research/full-proof-integration-20260930/cvpr2023/api-descriptions.json",
+    "tags": [
+      "Attribution"
+    ],
+    "mathlib_correspondence": []
+  },
+  "Harsanyi.factorial_ratio_eq_choose_inv": {
+    "title": "把实数阶乘比转换为二项系数倒数。",
+    "summary": "把实数阶乘比转换为二项系数倒数。",
+    "assumptions": [
+      "a,k为自然数；实数转换和阶乘非零已在证明中处理。"
+    ],
+    "shared_proof_ids": [
+      "shared-harsanyi-factorial-convolution"
+    ],
+    "example_paths": [],
+    "symbol_ids": [],
+    "description_provenance": "research/full-proof-integration-20260930/cvpr2023/api-descriptions.json",
+    "tags": [
+      "Attribution"
+    ],
+    "mathlib_correspondence": []
+  },
+  "Harsanyi.factorialWeight_one": {
+    "title": "在k=1时统一权重等于经典阶乘权重。",
+    "summary": "在k=1时统一权重等于经典阶乘权重。",
+    "assumptions": [
+      "此为代数恒等式；具体归因应用另外核对s≤m。"
+    ],
+    "shared_proof_ids": [
+      "shared-harsanyi-factorial-convolution"
+    ],
+    "example_paths": [],
+    "symbol_ids": [],
+    "description_provenance": "research/full-proof-integration-20260930/cvpr2023/api-descriptions.json",
+    "tags": [
+      "Attribution"
+    ],
+    "mathlib_correspondence": []
+  },
+  "Harsanyi.factorialWeight_eq_inv_choose": {
+    "title": "在合法最高阶环境界内，统一权重等于STI原k/n倒二项式权重。",
+    "summary": "在合法最高阶环境界内，统一权重等于STI原k/n倒二项式权重。",
+    "assumptions": [
+      "k>0且s≤m；n=m+k因而非零。"
+    ],
+    "shared_proof_ids": [
+      "shared-harsanyi-shapley-taylor-dividend"
+    ],
+    "example_paths": [],
+    "symbol_ids": [],
+    "description_provenance": "research/full-proof-integration-20260930/cvpr2023/api-descriptions.json",
+    "tags": [
+      "Attribution"
+    ],
+    "mathlib_correspondence": []
+  },
+  "Harsanyi.factorialShapley": {
+    "title": "以经典阶乘边际定义Shapley并证明交互均分闭式。",
+    "summary": "以经典阶乘边际定义Shapley并证明交互均分闭式。",
+    "assumptions": [
+      "定理要求i∈N；N有限，n≥1；g空可非零但基线不分配。"
+    ],
+    "shared_proof_ids": [
+      "shared-harsanyi-shapley-dividend"
+    ],
+    "example_paths": [
+      "research/full-proof-integration-20260930/cvpr2023/lean/FullCvpr.lean"
+    ],
+    "symbol_ids": [],
+    "description_provenance": "research/full-proof-integration-20260930/cvpr2023/api-descriptions.json",
+    "tags": [
+      "Attribution"
+    ],
+    "mathlib_correspondence": []
+  },
+  "Harsanyi.factorialShapleyInteraction": {
+    "title": "以原SII阶乘边际定义目标集合的Shapley interaction并证明交互展开。",
+    "summary": "以原SII阶乘边际定义目标集合的Shapley interaction并证明交互展开。",
+    "assumptions": [
+      "T⊆N；空目标与完整总体目标都包括；不把T内玩家逐个归因。"
+    ],
+    "shared_proof_ids": [
+      "shared-harsanyi-shapley-interaction-dividend"
+    ],
+    "example_paths": [
+      "research/full-proof-integration-20260930/cvpr2023/lean/FullCvpr.lean"
+    ],
+    "symbol_ids": [],
+    "description_provenance": "research/full-proof-integration-20260930/cvpr2023/api-descriptions.json",
+    "tags": [
+      "Attribution"
+    ],
+    "mathlib_correspondence": []
+  },
+  "Harsanyi.shapleyTaylor": {
+    "title": "按原三分支定义STI并证明正阶闭式。",
+    "summary": "按原三分支定义STI并证明正阶闭式。",
+    "assumptions": [
+      "闭式定理要求T⊆N、k>0；原论文只写第k阶，正阶域解释不能伪称原文显式写不等式。k=0未属当前核验范围。"
+    ],
+    "shared_proof_ids": [
+      "shared-harsanyi-shapley-taylor-dividend"
+    ],
+    "example_paths": [
+      "research/full-proof-integration-20260930/cvpr2023/lean/FullCvpr.lean"
+    ],
+    "symbol_ids": [],
+    "description_provenance": "research/full-proof-integration-20260930/cvpr2023/api-descriptions.json",
+    "tags": [
+      "Attribution"
+    ],
+    "mathlib_correspondence": []
+  },
+  "Harsanyi.factorialShapley_eq_dividends": {
+    "title": "以经典阶乘边际定义Shapley并证明交互均分闭式。",
+    "summary": "以经典阶乘边际定义Shapley并证明交互均分闭式。",
+    "assumptions": [
+      "定理要求i∈N；N有限，n≥1；g空可非零但基线不分配。"
+    ],
+    "shared_proof_ids": [
+      "shared-harsanyi-shapley-dividend"
+    ],
+    "example_paths": [
+      "research/full-proof-integration-20260930/cvpr2023/lean/FullCvpr.lean"
+    ],
+    "symbol_ids": [],
+    "description_provenance": "research/full-proof-integration-20260930/cvpr2023/api-descriptions.json",
+    "tags": [
+      "Attribution"
+    ],
+    "mathlib_correspondence": []
+  },
+  "Harsanyi.factorialShapleyInteraction_eq_dividends": {
+    "title": "以原SII阶乘边际定义目标集合的Shapley interaction并证明交互展开。",
+    "summary": "以原SII阶乘边际定义目标集合的Shapley interaction并证明交互展开。",
+    "assumptions": [
+      "T⊆N；空目标与完整总体目标都包括；不把T内玩家逐个归因。"
+    ],
+    "shared_proof_ids": [
+      "shared-harsanyi-shapley-interaction-dividend"
+    ],
+    "example_paths": [
+      "research/full-proof-integration-20260930/cvpr2023/lean/FullCvpr.lean"
+    ],
+    "symbol_ids": [],
+    "description_provenance": "research/full-proof-integration-20260930/cvpr2023/api-descriptions.json",
+    "tags": [
+      "Attribution"
+    ],
+    "mathlib_correspondence": []
+  },
+  "Harsanyi.shapleyTaylor_eq_dividends": {
+    "title": "按原三分支定义STI并证明正阶闭式。",
+    "summary": "按原三分支定义STI并证明正阶闭式。",
+    "assumptions": [
+      "闭式定理要求T⊆N、k>0；原论文只写第k阶，正阶域解释不能伪称原文显式写不等式。k=0未属当前核验范围。"
+    ],
+    "shared_proof_ids": [
+      "shared-harsanyi-shapley-taylor-dividend"
+    ],
+    "example_paths": [
+      "research/full-proof-integration-20260930/cvpr2023/lean/FullCvpr.lean"
+    ],
+    "symbol_ids": [],
+    "description_provenance": "research/full-proof-integration-20260930/cvpr2023/api-descriptions.json",
+    "tags": [
+      "Attribution"
+    ],
+    "mathlib_correspondence": []
+  },
+  "Harsanyi.dividendAllocation_eq_insert_sum": {
+    "title": "把环境子集索引改成含i的交互集合，并对接原Shapley按|S|均分式。",
+    "summary": "把环境子集索引改成含i的交互集合，并对接原Shapley按|S|均分式。",
+    "assumptions": [
+      "i∈N；U↔U∪{i}是一一对应；空交互不参与。"
+    ],
+    "shared_proof_ids": [
+      "shared-harsanyi-shapley-dividend"
+    ],
+    "example_paths": [],
+    "symbol_ids": [],
+    "description_provenance": "research/full-proof-integration-20260930/cvpr2023/api-descriptions.json",
+    "tags": [
+      "Attribution"
+    ],
+    "mathlib_correspondence": []
+  },
+  "Harsanyi.factorialShapley_eq_dividendAllocation": {
+    "title": "把环境子集索引改成含i的交互集合，并对接原Shapley按|S|均分式。",
+    "summary": "把环境子集索引改成含i的交互集合，并对接原Shapley按|S|均分式。",
+    "assumptions": [
+      "i∈N；U↔U∪{i}是一一对应；空交互不参与。"
+    ],
+    "shared_proof_ids": [
+      "shared-harsanyi-shapley-dividend"
+    ],
+    "example_paths": [
+      "research/full-proof-integration-20260930/cvpr2023/lean/FullGeneralizable.lean"
+    ],
+    "symbol_ids": [],
+    "description_provenance": "research/full-proof-integration-20260930/cvpr2023/api-descriptions.json",
+    "tags": [
+      "Attribution"
+    ],
+    "mathlib_correspondence": []
+  },
+  "Harsanyi.orInteraction": {
+    "title": "定义非空补集负AND变换及独立空OR基线，证明全部掩码OR重构。",
+    "summary": "定义非空补集负AND变换及独立空OR基线，证明全部掩码OR重构。",
+    "assumptions": [
+      "重构定理要求T⊆N；OR空集定义为g空，不能沿用非空的−I_gc公式。"
+    ],
+    "shared_proof_ids": [
+      "shared-harsanyi-or-reconstruction"
+    ],
+    "example_paths": [
+      "research/full-proof-integration-20260930/cvpr2023/lean/FullGeneralizable.lean"
+    ],
+    "symbol_ids": [],
+    "description_provenance": "research/full-proof-integration-20260930/cvpr2023/api-descriptions.json",
+    "tags": [
+      "OrInteraction"
+    ],
+    "mathlib_correspondence": []
+  },
+  "Harsanyi.orReconstruction": {
+    "title": "定义非空补集负AND变换及独立空OR基线，证明全部掩码OR重构。",
+    "summary": "定义非空补集负AND变换及独立空OR基线，证明全部掩码OR重构。",
+    "assumptions": [
+      "重构定理要求T⊆N；OR空集定义为g空，不能沿用非空的−I_gc公式。"
+    ],
+    "shared_proof_ids": [
+      "shared-harsanyi-or-reconstruction"
+    ],
+    "example_paths": [
+      "research/full-proof-integration-20260930/cvpr2023/lean/FullGeneralizable.lean"
+    ],
+    "symbol_ids": [],
+    "description_provenance": "research/full-proof-integration-20260930/cvpr2023/api-descriptions.json",
+    "tags": [
+      "OrInteraction"
+    ],
+    "mathlib_correspondence": []
+  },
+  "Harsanyi.activated_subset_sum": {
+    "title": "相交模式族的和等于全部子集和减不相交子集和。",
+    "summary": "相交模式族的和等于全部子集和减不相交子集和。",
+    "assumptions": [
+      "N,T任意有限集合；这一纯子集族恒等式本身不要求T⊆N。"
+    ],
+    "shared_proof_ids": [
+      "shared-harsanyi-or-reconstruction"
+    ],
+    "example_paths": [],
+    "symbol_ids": [],
+    "description_provenance": "research/full-proof-integration-20260930/cvpr2023/api-descriptions.json",
+    "tags": [
+      "OrInteraction"
+    ],
+    "mathlib_correspondence": []
+  },
+  "Harsanyi.or_reconstruction": {
+    "title": "定义非空补集负AND变换及独立空OR基线，证明全部掩码OR重构。",
+    "summary": "定义非空补集负AND变换及独立空OR基线，证明全部掩码OR重构。",
+    "assumptions": [
+      "重构定理要求T⊆N；OR空集定义为g空，不能沿用非空的−I_gc公式。"
+    ],
+    "shared_proof_ids": [
+      "shared-harsanyi-or-reconstruction"
+    ],
+    "example_paths": [
+      "research/full-proof-integration-20260930/cvpr2023/lean/FullGeneralizable.lean"
+    ],
+    "symbol_ids": [],
+    "description_provenance": "research/full-proof-integration-20260930/cvpr2023/api-descriptions.json",
+    "tags": [
+      "OrInteraction"
+    ],
+    "mathlib_correspondence": []
+  },
+  "Harsanyi.or_dual": {
+    "title": "非空OR等于反转掩码状态游戏的负AND交互。",
+    "summary": "非空OR等于反转掩码状态游戏的负AND交互。",
+    "assumptions": [
+      "S非空；整体负号必须保留；空OR另有定义。"
+    ],
+    "shared_proof_ids": [
+      "shared-harsanyi-or-reconstruction"
+    ],
+    "example_paths": [
+      "research/full-proof-integration-20260930/cvpr2023/lean/FullGeneralizable.lean"
+    ],
+    "symbol_ids": [],
+    "description_provenance": "research/full-proof-integration-20260930/cvpr2023/api-descriptions.json",
+    "tags": [
+      "OrInteraction"
+    ],
+    "mathlib_correspondence": []
+  },
+  "Harsanyi.maskCoordinates": {
+    "title": "实际坐标掩码及二次掩码合成、幂等规则。",
+    "summary": "实际坐标掩码及二次掩码合成、幂等规则。",
+    "assumptions": [
+      "全部掩码使用同一输入基线r；输入x和r可以相等；合成集合为T∩L。"
+    ],
+    "shared_proof_ids": [
+      "shared-harsanyi-or-reconstruction"
+    ],
+    "example_paths": [
+      "research/full-proof-integration-20260930/cvpr2023/lean/FullGeneralizable.lean"
+    ],
+    "symbol_ids": [],
+    "description_provenance": "research/full-proof-integration-20260930/cvpr2023/api-descriptions.json",
+    "tags": [
+      "OrInteraction"
+    ],
+    "mathlib_correspondence": []
+  },
+  "Harsanyi.maskCoordinates_comp": {
+    "title": "实际坐标掩码及二次掩码合成、幂等规则。",
+    "summary": "实际坐标掩码及二次掩码合成、幂等规则。",
+    "assumptions": [
+      "全部掩码使用同一输入基线r；输入x和r可以相等；合成集合为T∩L。"
+    ],
+    "shared_proof_ids": [
+      "shared-harsanyi-or-reconstruction"
+    ],
+    "example_paths": [
+      "research/full-proof-integration-20260930/cvpr2023/lean/FullGeneralizable.lean"
+    ],
+    "symbol_ids": [],
+    "description_provenance": "research/full-proof-integration-20260930/cvpr2023/api-descriptions.json",
+    "tags": [
+      "OrInteraction"
+    ],
+    "mathlib_correspondence": []
+  },
+  "Harsanyi.maskCoordinates_idempotent": {
+    "title": "实际坐标掩码及二次掩码合成、幂等规则。",
+    "summary": "实际坐标掩码及二次掩码合成、幂等规则。",
+    "assumptions": [
+      "全部掩码使用同一输入基线r；输入x和r可以相等；合成集合为T∩L。"
+    ],
+    "shared_proof_ids": [
+      "shared-harsanyi-or-reconstruction"
+    ],
+    "example_paths": [
+      "research/full-proof-integration-20260930/cvpr2023/lean/FullGeneralizable.lean"
+    ],
+    "symbol_ids": [],
+    "description_provenance": "research/full-proof-integration-20260930/cvpr2023/api-descriptions.json",
+    "tags": [
+      "OrInteraction"
+    ],
+    "mathlib_correspondence": []
+  },
+  "Harsanyi.maskCoordinates_insert_absent": {
+    "title": "已缺失坐标的再次保留不改变向量，故含该坐标的AND交互为零。",
+    "summary": "已缺失坐标的再次保留不改变向量，故含该坐标的AND交互为零。",
+    "assumptions": [
+      "insert lemma要求i∉T；交互消失要求S不包含于T。原始输出不必零基线。"
+    ],
+    "shared_proof_ids": [
+      "proof-finite-mobius-reconstruction-v2"
+    ],
+    "example_paths": [],
+    "symbol_ids": [],
+    "description_provenance": "research/full-proof-integration-20260930/cvpr2023/api-descriptions.json",
+    "tags": [
+      "OrInteraction"
+    ],
+    "mathlib_correspondence": []
+  },
+  "Harsanyi.conditionalCoordinateGame": {
+    "title": "定义按原字面x_T再掩码的条件集合函数。",
+    "summary": "定义按原字面x_T再掩码的条件集合函数。",
+    "assumptions": [
+      "参数是实际模型、r、x、T；h_T(L)=v((x_T)_L)，不替换成固定原输入的系数。"
+    ],
+    "shared_proof_ids": [
+      "shared-harsanyi-or-reconstruction"
+    ],
+    "example_paths": [
+      "research/full-proof-integration-20260930/cvpr2023/lean/FullGeneralizable.lean"
+    ],
+    "symbol_ids": [],
+    "description_provenance": "research/full-proof-integration-20260930/cvpr2023/api-descriptions.json",
+    "tags": [
+      "OrInteraction"
+    ],
+    "mathlib_correspondence": []
+  },
+  "Harsanyi.and_mask_interaction_zero": {
+    "title": "已缺失坐标的再次保留不改变向量，故含该坐标的AND交互为零。",
+    "summary": "已缺失坐标的再次保留不改变向量，故含该坐标的AND交互为零。",
+    "assumptions": [
+      "insert lemma要求i∉T；交互消失要求S不包含于T。原始输出不必零基线。"
+    ],
+    "shared_proof_ids": [
+      "proof-finite-mobius-reconstruction-v2"
+    ],
+    "example_paths": [
+      "research/full-proof-integration-20260930/cvpr2023/lean/FullGeneralizable.lean"
+    ],
+    "symbol_ids": [],
+    "description_provenance": "research/full-proof-integration-20260930/cvpr2023/api-descriptions.json",
+    "tags": [
+      "OrInteraction"
+    ],
+    "mathlib_correspondence": []
+  },
+  "Harsanyi.maskCoordinates_complement": {
+    "title": "字面条件样本再按补集掩码等于T\\L掩码。",
+    "summary": "字面条件样本再按补集掩码等于T\\L掩码。",
+    "assumptions": [
+      "T⊆N，二次使用同一个基线r。"
+    ],
+    "shared_proof_ids": [
+      "shared-harsanyi-or-reconstruction"
+    ],
+    "example_paths": [],
+    "symbol_ids": [],
+    "description_provenance": "research/full-proof-integration-20260930/cvpr2023/api-descriptions.json",
+    "tags": [
+      "OrInteraction"
+    ],
+    "mathlib_correspondence": []
+  },
+  "Harsanyi.orUnanimity": {
+    "title": "纯OR触发函数的非空OR交互仅在其目标模式非零。",
+    "summary": "纯OR触发函数的非空OR交互仅在其目标模式非零。",
+    "assumptions": [
+      "A⊆N且A非空；c任意实数；空OR基线单列。"
+    ],
+    "shared_proof_ids": [
+      "shared-harsanyi-or-reconstruction"
+    ],
+    "example_paths": [],
+    "symbol_ids": [],
+    "description_provenance": "research/full-proof-integration-20260930/cvpr2023/api-descriptions.json",
+    "tags": [
+      "OrInteraction"
+    ],
+    "mathlib_correspondence": []
+  },
+  "Harsanyi.orInteraction_unanimity": {
+    "title": "纯OR触发函数的非空OR交互仅在其目标模式非零。",
+    "summary": "纯OR触发函数的非空OR交互仅在其目标模式非零。",
+    "assumptions": [
+      "A⊆N且A非空；c任意实数；空OR基线单列。"
+    ],
+    "shared_proof_ids": [
+      "shared-harsanyi-or-reconstruction"
+    ],
+    "example_paths": [],
+    "symbol_ids": [],
+    "description_provenance": "research/full-proof-integration-20260930/cvpr2023/api-descriptions.json",
+    "tags": [
+      "OrInteraction"
+    ],
+    "mathlib_correspondence": []
+  },
+  "Harsanyi.linePartial": {
+    "title": "真实一元坐标曲线导数与坐标值参数偏导的精确关系。",
+    "summary": "真实一元坐标曲线导数与坐标值参数偏导的精确关系。",
+    "assumptions": [
+      "linePartial本身使用总函数deriv；用其零值推经典结论时须另提供真实存在条件。"
+    ],
+    "shared_proof_ids": [
+      "shared-harsanyi-derivative-cutoff-mvt"
+    ],
+    "example_paths": [],
+    "symbol_ids": [],
+    "description_provenance": "research/full-proof-integration-20260930/cvpr2023/api-descriptions.json",
+    "tags": [
+      "DerivativeCutoff"
+    ],
+    "mathlib_correspondence": []
+  },
+  "Harsanyi.HasLineDerivatives": {
+    "title": "显式保存每个有序前缀偏导沿下一坐标的真实可微性。",
+    "summary": "显式保存每个有序前缀偏导沿下一坐标的真实可微性。",
+    "assumptions": [
+      "这不是C∞假设，也不能由C1一句替代；它是特定经典混合偏导存在的递归展开。"
+    ],
+    "shared_proof_ids": [
+      "shared-harsanyi-derivative-cutoff-mvt"
+    ],
+    "example_paths": [],
+    "symbol_ids": [],
+    "description_provenance": "research/full-proof-integration-20260930/cvpr2023/api-descriptions.json",
+    "tags": [
+      "DerivativeCutoff"
+    ],
+    "mathlib_correspondence": []
+  },
+  "Harsanyi.rectDifference": {
+    "title": "定义有限矩形差分与实际坐标方向/实数步长列表。",
+    "summary": "定义有限矩形差分与实际坐标方向/实数步长列表。",
+    "assumptions": [
+      "步长可正、可负或零；有限差分本身无需模型可微。"
+    ],
+    "shared_proof_ids": [
+      "shared-harsanyi-derivative-cutoff-mvt"
+    ],
+    "example_paths": [],
+    "symbol_ids": [],
+    "description_provenance": "research/full-proof-integration-20260930/cvpr2023/api-descriptions.json",
+    "tags": [
+      "DerivativeCutoff"
+    ],
+    "mathlib_correspondence": []
+  },
+  "Harsanyi.orderedPartial": {
+    "title": "按给定列表从左到右取真实混合偏导，坐标重复次数编码多重指标。",
+    "summary": "按给定列表从左到右取真实混合偏导，坐标重复次数编码多重指标。",
+    "assumptions": [
+      "使用经典存在条件时必须配合regular；幅度不进入混合偏导。"
+    ],
+    "shared_proof_ids": [
+      "shared-harsanyi-derivative-cutoff-mvt"
+    ],
+    "example_paths": [],
+    "symbol_ids": [],
+    "description_provenance": "research/full-proof-integration-20260930/cvpr2023/api-descriptions.json",
+    "tags": [
+      "DerivativeCutoff"
+    ],
+    "mathlib_correspondence": []
+  },
+  "Harsanyi.OrderedPartialRegular": {
+    "title": "显式保存每个有序前缀偏导沿下一坐标的真实可微性。",
+    "summary": "显式保存每个有序前缀偏导沿下一坐标的真实可微性。",
+    "assumptions": [
+      "这不是C∞假设，也不能由C1一句替代；它是特定经典混合偏导存在的递归展开。"
+    ],
+    "shared_proof_ids": [
+      "shared-harsanyi-derivative-cutoff-mvt"
+    ],
+    "example_paths": [],
+    "symbol_ids": [],
+    "description_provenance": "research/full-proof-integration-20260930/cvpr2023/api-descriptions.json",
+    "tags": [
+      "DerivativeCutoff"
+    ],
+    "mathlib_correspondence": []
+  },
+  "Harsanyi.deriv_line_eq": {
+    "title": "平移和有限加减使偏导与矩形差分交换。",
+    "summary": "平移和有限加减使偏导与矩形差分交换。",
+    "assumptions": [
+      "涉及差法则或可微性保存时需要HasLineDerivatives；平移身份不使用混合偏导换序。"
+    ],
+    "shared_proof_ids": [
+      "shared-harsanyi-derivative-cutoff-mvt"
+    ],
+    "example_paths": [],
+    "symbol_ids": [],
+    "description_provenance": "research/full-proof-integration-20260930/cvpr2023/api-descriptions.json",
+    "tags": [
+      "DerivativeCutoff"
+    ],
+    "mathlib_correspondence": []
+  },
+  "Harsanyi.hasLineDerivatives_translate": {
+    "title": "平移和有限加减使偏导与矩形差分交换。",
+    "summary": "平移和有限加减使偏导与矩形差分交换。",
+    "assumptions": [
+      "涉及差法则或可微性保存时需要HasLineDerivatives；平移身份不使用混合偏导换序。"
+    ],
+    "shared_proof_ids": [
+      "shared-harsanyi-derivative-cutoff-mvt"
+    ],
+    "example_paths": [],
+    "symbol_ids": [],
+    "description_provenance": "research/full-proof-integration-20260930/cvpr2023/api-descriptions.json",
+    "tags": [
+      "DerivativeCutoff"
+    ],
+    "mathlib_correspondence": []
+  },
+  "Harsanyi.linePartial_translate": {
+    "title": "平移和有限加减使偏导与矩形差分交换。",
+    "summary": "平移和有限加减使偏导与矩形差分交换。",
+    "assumptions": [
+      "涉及差法则或可微性保存时需要HasLineDerivatives；平移身份不使用混合偏导换序。"
+    ],
+    "shared_proof_ids": [
+      "shared-harsanyi-derivative-cutoff-mvt"
+    ],
+    "example_paths": [],
+    "symbol_ids": [],
+    "description_provenance": "research/full-proof-integration-20260930/cvpr2023/api-descriptions.json",
+    "tags": [
+      "DerivativeCutoff"
+    ],
+    "mathlib_correspondence": []
+  },
+  "Harsanyi.linePartial_sub": {
+    "title": "平移和有限加减使偏导与矩形差分交换。",
+    "summary": "平移和有限加减使偏导与矩形差分交换。",
+    "assumptions": [
+      "涉及差法则或可微性保存时需要HasLineDerivatives；平移身份不使用混合偏导换序。"
+    ],
+    "shared_proof_ids": [
+      "shared-harsanyi-derivative-cutoff-mvt"
+    ],
+    "example_paths": [],
+    "symbol_ids": [],
+    "description_provenance": "research/full-proof-integration-20260930/cvpr2023/api-descriptions.json",
+    "tags": [
+      "DerivativeCutoff"
+    ],
+    "mathlib_correspondence": []
+  },
+  "Harsanyi.hasLineDerivatives_rectDifference": {
+    "title": "平移和有限加减使偏导与矩形差分交换。",
+    "summary": "平移和有限加减使偏导与矩形差分交换。",
+    "assumptions": [
+      "涉及差法则或可微性保存时需要HasLineDerivatives；平移身份不使用混合偏导换序。"
+    ],
+    "shared_proof_ids": [
+      "shared-harsanyi-derivative-cutoff-mvt"
+    ],
+    "example_paths": [],
+    "symbol_ids": [],
+    "description_provenance": "research/full-proof-integration-20260930/cvpr2023/api-descriptions.json",
+    "tags": [
+      "DerivativeCutoff"
+    ],
+    "mathlib_correspondence": []
+  },
+  "Harsanyi.linePartial_rectDifference": {
+    "title": "平移和有限加减使偏导与矩形差分交换。",
+    "summary": "平移和有限加减使偏导与矩形差分交换。",
+    "assumptions": [
+      "涉及差法则或可微性保存时需要HasLineDerivatives；平移身份不使用混合偏导换序。"
+    ],
+    "shared_proof_ids": [
+      "shared-harsanyi-derivative-cutoff-mvt"
+    ],
+    "example_paths": [],
+    "symbol_ids": [],
+    "description_provenance": "research/full-proof-integration-20260930/cvpr2023/api-descriptions.json",
+    "tags": [
+      "DerivativeCutoff"
+    ],
+    "mathlib_correspondence": []
+  },
+  "Harsanyi.rectDifference_zero_of_orderedPartial_zero": {
+    "title": "真实混合偏导全空间为零，经有限差分归纳与一元MVT得矩形差分全空间为零。",
+    "summary": "真实混合偏导全空间为零，经有限差分归纳与一元MVT得矩形差分全空间为零。",
+    "assumptions": [
+      "OrderedPartialRegular及最终偏导∀z=0；不假定多项式、解析性或Taylor相等。"
+    ],
+    "shared_proof_ids": [
+      "shared-harsanyi-derivative-cutoff-mvt"
+    ],
+    "example_paths": [],
+    "symbol_ids": [],
+    "description_provenance": "research/full-proof-integration-20260930/cvpr2023/api-descriptions.json",
+    "tags": [
+      "DerivativeCutoff"
+    ],
+    "mathlib_correspondence": []
+  },
+  "Harsanyi.coordinateDirection": {
+    "title": "真实一元坐标曲线导数与坐标值参数偏导的精确关系。",
+    "summary": "真实一元坐标曲线导数与坐标值参数偏导的精确关系。",
+    "assumptions": [
+      "linePartial本身使用总函数deriv；用其零值推经典结论时须另提供真实存在条件。"
+    ],
+    "shared_proof_ids": [
+      "shared-harsanyi-derivative-cutoff-mvt"
+    ],
+    "example_paths": [],
+    "symbol_ids": [],
+    "description_provenance": "research/full-proof-integration-20260930/cvpr2023/api-descriptions.json",
+    "tags": [
+      "DerivativeCutoff"
+    ],
+    "mathlib_correspondence": []
+  },
+  "Harsanyi.coordinateCurve_eq_update": {
+    "title": "真实一元坐标曲线导数与坐标值参数偏导的精确关系。",
+    "summary": "真实一元坐标曲线导数与坐标值参数偏导的精确关系。",
+    "assumptions": [
+      "linePartial本身使用总函数deriv；用其零值推经典结论时须另提供真实存在条件。"
+    ],
+    "shared_proof_ids": [
+      "shared-harsanyi-derivative-cutoff-mvt"
+    ],
+    "example_paths": [],
+    "symbol_ids": [],
+    "description_provenance": "research/full-proof-integration-20260930/cvpr2023/api-descriptions.json",
+    "tags": [
+      "DerivativeCutoff"
+    ],
+    "mathlib_correspondence": []
+  },
+  "Harsanyi.linePartial_coordinate_eq": {
+    "title": "真实一元坐标曲线导数与坐标值参数偏导的精确关系。",
+    "summary": "真实一元坐标曲线导数与坐标值参数偏导的精确关系。",
+    "assumptions": [
+      "linePartial本身使用总函数deriv；用其零值推经典结论时须另提供真实存在条件。"
+    ],
+    "shared_proof_ids": [
+      "shared-harsanyi-derivative-cutoff-mvt"
+    ],
+    "example_paths": [],
+    "symbol_ids": [],
+    "description_provenance": "research/full-proof-integration-20260930/cvpr2023/api-descriptions.json",
+    "tags": [
+      "DerivativeCutoff"
+    ],
+    "mathlib_correspondence": []
+  },
+  "Harsanyi.coordinateMoves": {
+    "title": "定义有限矩形差分与实际坐标方向/实数步长列表。",
+    "summary": "定义有限矩形差分与实际坐标方向/实数步长列表。",
+    "assumptions": [
+      "步长可正、可负或零；有限差分本身无需模型可微。"
+    ],
+    "shared_proof_ids": [
+      "shared-harsanyi-derivative-cutoff-mvt"
+    ],
+    "example_paths": [],
+    "symbol_ids": [],
+    "description_provenance": "research/full-proof-integration-20260930/cvpr2023/api-descriptions.json",
+    "tags": [
+      "DerivativeCutoff"
+    ],
+    "mathlib_correspondence": []
+  },
+  "Harsanyi.incrementCoordinates": {
+    "title": "把实际坐标掩码交互接到矩形有限差分。",
+    "summary": "把实际坐标掩码交互接到矩形有限差分。",
+    "assumptions": [
+      "列表不重复；insert桥要求i不在剩余U；baseline桥h=x−r；模型任意。"
+    ],
+    "shared_proof_ids": [
+      "shared-harsanyi-derivative-cutoff-mvt"
+    ],
+    "example_paths": [],
+    "symbol_ids": [],
+    "description_provenance": "research/full-proof-integration-20260930/cvpr2023/api-descriptions.json",
+    "tags": [
+      "DerivativeCutoff"
+    ],
+    "mathlib_correspondence": []
+  },
+  "Harsanyi.incrementGame": {
+    "title": "把实际坐标掩码交互接到矩形有限差分。",
+    "summary": "把实际坐标掩码交互接到矩形有限差分。",
+    "assumptions": [
+      "列表不重复；insert桥要求i不在剩余U；baseline桥h=x−r；模型任意。"
+    ],
+    "shared_proof_ids": [
+      "shared-harsanyi-derivative-cutoff-mvt"
+    ],
+    "example_paths": [],
+    "symbol_ids": [],
+    "description_provenance": "research/full-proof-integration-20260930/cvpr2023/api-descriptions.json",
+    "tags": [
+      "DerivativeCutoff"
+    ],
+    "mathlib_correspondence": []
+  },
+  "Harsanyi.incrementCoordinates_insert": {
+    "title": "把实际坐标掩码交互接到矩形有限差分。",
+    "summary": "把实际坐标掩码交互接到矩形有限差分。",
+    "assumptions": [
+      "列表不重复；insert桥要求i不在剩余U；baseline桥h=x−r；模型任意。"
+    ],
+    "shared_proof_ids": [
+      "shared-harsanyi-derivative-cutoff-mvt"
+    ],
+    "example_paths": [],
+    "symbol_ids": [],
+    "description_provenance": "research/full-proof-integration-20260930/cvpr2023/api-descriptions.json",
+    "tags": [
+      "DerivativeCutoff"
+    ],
+    "mathlib_correspondence": []
+  },
+  "Harsanyi.rectDifference_coordinate_eq_interaction": {
+    "title": "把实际坐标掩码交互接到矩形有限差分。",
+    "summary": "把实际坐标掩码交互接到矩形有限差分。",
+    "assumptions": [
+      "列表不重复；insert桥要求i不在剩余U；baseline桥h=x−r；模型任意。"
+    ],
+    "shared_proof_ids": [
+      "shared-harsanyi-derivative-cutoff-mvt"
+    ],
+    "example_paths": [],
+    "symbol_ids": [],
+    "description_provenance": "research/full-proof-integration-20260930/cvpr2023/api-descriptions.json",
+    "tags": [
+      "DerivativeCutoff"
+    ],
+    "mathlib_correspondence": []
+  },
+  "Harsanyi.incrementCoordinates_baseline": {
+    "title": "把实际坐标掩码交互接到矩形有限差分。",
+    "summary": "把实际坐标掩码交互接到矩形有限差分。",
+    "assumptions": [
+      "列表不重复；insert桥要求i不在剩余U；baseline桥h=x−r；模型任意。"
+    ],
+    "shared_proof_ids": [
+      "shared-harsanyi-derivative-cutoff-mvt"
+    ],
+    "example_paths": [],
+    "symbol_ids": [],
+    "description_provenance": "research/full-proof-integration-20260930/cvpr2023/api-descriptions.json",
+    "tags": [
+      "DerivativeCutoff"
+    ],
+    "mathlib_correspondence": []
+  },
+  "Harsanyi.orderedPartial_coordinate_amplitudes": {
+    "title": "证明真实混合偏导及存在条件与差分步长无关。",
+    "summary": "证明真实混合偏导及存在条件与差分步长无关。",
+    "assumptions": [
+      "坐标列表相同；方向同为坐标单位向量，幅度仅用于有限差分。"
+    ],
+    "shared_proof_ids": [
+      "shared-harsanyi-derivative-cutoff-mvt"
+    ],
+    "example_paths": [],
+    "symbol_ids": [],
+    "description_provenance": "research/full-proof-integration-20260930/cvpr2023/api-descriptions.json",
+    "tags": [
+      "DerivativeCutoff"
+    ],
+    "mathlib_correspondence": []
+  },
+  "Harsanyi.orderedPartialRegular_coordinate_amplitudes": {
+    "title": "证明真实混合偏导及存在条件与差分步长无关。",
+    "summary": "证明真实混合偏导及存在条件与差分步长无关。",
+    "assumptions": [
+      "坐标列表相同；方向同为坐标单位向量，幅度仅用于有限差分。"
+    ],
+    "shared_proof_ids": [
+      "shared-harsanyi-derivative-cutoff-mvt"
+    ],
+    "example_paths": [],
+    "symbol_ids": [],
+    "description_provenance": "research/full-proof-integration-20260930/cvpr2023/api-descriptions.json",
+    "tags": [
+      "DerivativeCutoff"
+    ],
+    "mathlib_correspondence": []
+  },
+  "Harsanyi.orderedCoordinatePartial": {
+    "title": "按给定列表从左到右取真实混合偏导，坐标重复次数编码多重指标。",
+    "summary": "按给定列表从左到右取真实混合偏导，坐标重复次数编码多重指标。",
+    "assumptions": [
+      "使用经典存在条件时必须配合regular；幅度不进入混合偏导。"
+    ],
+    "shared_proof_ids": [
+      "shared-harsanyi-derivative-cutoff-mvt"
+    ],
+    "example_paths": [],
+    "symbol_ids": [],
+    "description_provenance": "research/full-proof-integration-20260930/cvpr2023/api-descriptions.json",
+    "tags": [
+      "DerivativeCutoff"
+    ],
+    "mathlib_correspondence": []
+  },
+  "Harsanyi.OrderedCoordinateRegular": {
+    "title": "显式保存每个有序前缀偏导沿下一坐标的真实可微性。",
+    "summary": "显式保存每个有序前缀偏导沿下一坐标的真实可微性。",
+    "assumptions": [
+      "这不是C∞假设，也不能由C1一句替代；它是特定经典混合偏导存在的递归展开。"
+    ],
+    "shared_proof_ids": [
+      "shared-harsanyi-derivative-cutoff-mvt"
+    ],
+    "example_paths": [],
+    "symbol_ids": [],
+    "description_provenance": "research/full-proof-integration-20260930/cvpr2023/api-descriptions.json",
+    "tags": [
+      "DerivativeCutoff"
+    ],
+    "mathlib_correspondence": []
+  },
+  "Harsanyi.HasClassicalMixedDerivatives": {
+    "title": "全阶regular加零值cutoff的便捷公共变体，与精确论文adapter分开。",
+    "summary": "全阶regular加零值cutoff的便捷公共变体，与精确论文adapter分开。",
+    "assumptions": [
+      "便捷变体分开要求全阶存在与高阶零值；论文adapter使用ClassicalMixedDerivativeCutoff单predicate。"
+    ],
+    "shared_proof_ids": [
+      "shared-harsanyi-derivative-cutoff-mvt"
+    ],
+    "example_paths": [],
+    "symbol_ids": [],
+    "description_provenance": "research/full-proof-integration-20260930/cvpr2023/api-descriptions.json",
+    "tags": [
+      "DerivativeCutoff"
+    ],
+    "mathlib_correspondence": []
+  },
+  "Harsanyi.MixedDerivativeCutoff": {
+    "title": "全阶regular加零值cutoff的便捷公共变体，与精确论文adapter分开。",
+    "summary": "全阶regular加零值cutoff的便捷公共变体，与精确论文adapter分开。",
+    "assumptions": [
+      "便捷变体分开要求全阶存在与高阶零值；论文adapter使用ClassicalMixedDerivativeCutoff单predicate。"
+    ],
+    "shared_proof_ids": [
+      "shared-harsanyi-derivative-cutoff-mvt"
+    ],
+    "example_paths": [],
+    "symbol_ids": [],
+    "description_provenance": "research/full-proof-integration-20260930/cvpr2023/api-descriptions.json",
+    "tags": [
+      "DerivativeCutoff"
+    ],
+    "mathlib_correspondence": []
+  },
+  "Harsanyi.ClassicalMixedDerivativeCutoff": {
+    "title": "原全空间高阶经典混合导数存在且为零，推出实际掩码的非空高阶交互为零。",
+    "summary": "原全空间高阶经典混合导数存在且为零，推出实际掩码的非空高阶交互为零。",
+    "assumptions": [
+      "对每个总阶>M的非降序列表同时要求该特定混合偏导存在及∀z为零；不另加全阶hmixed；centered目标由M<|S|保证非空。"
+    ],
+    "shared_proof_ids": [
+      "shared-harsanyi-derivative-cutoff-mvt"
+    ],
+    "example_paths": [
+      "research/full-proof-integration-20260930/cvpr2023/lean/SparseDerivativeAdapter.lean"
+    ],
+    "symbol_ids": [],
+    "description_provenance": "research/full-proof-integration-20260930/cvpr2023/api-descriptions.json",
+    "tags": [
+      "DerivativeCutoff"
+    ],
+    "mathlib_correspondence": []
+  },
+  "Harsanyi.coordinate_multiIndex_total_order": {
+    "title": "验证有序列表的重复次数总和是总阶，S.sort对应每个支撑坐标一次。",
+    "summary": "验证有序列表的重复次数总和是总阶，S.sort对应每个支撑坐标一次。",
+    "assumptions": [
+      "变量总体Fin n；列表可重复；finset特化列表不重复且有序。"
+    ],
+    "shared_proof_ids": [
+      "shared-harsanyi-derivative-cutoff-mvt"
+    ],
+    "example_paths": [],
+    "symbol_ids": [],
+    "description_provenance": "research/full-proof-integration-20260930/cvpr2023/api-descriptions.json",
+    "tags": [
+      "DerivativeCutoff"
+    ],
+    "mathlib_correspondence": []
+  },
+  "Harsanyi.coordinate_multiIndex_finset": {
+    "title": "验证有序列表的重复次数总和是总阶，S.sort对应每个支撑坐标一次。",
+    "summary": "验证有序列表的重复次数总和是总阶，S.sort对应每个支撑坐标一次。",
+    "assumptions": [
+      "变量总体Fin n；列表可重复；finset特化列表不重复且有序。"
+    ],
+    "shared_proof_ids": [
+      "shared-harsanyi-derivative-cutoff-mvt"
+    ],
+    "example_paths": [],
+    "symbol_ids": [],
+    "description_provenance": "research/full-proof-integration-20260930/cvpr2023/api-descriptions.json",
+    "tags": [
+      "DerivativeCutoff"
+    ],
+    "mathlib_correspondence": []
+  },
+  "Harsanyi.interaction_zero_of_orderedCoordinatePartial_zero": {
+    "title": "只用S对应的一个真实混合偏导存在且全空间为零，即推出S掩码交互为零。",
+    "summary": "只用S对应的一个真实混合偏导存在且全空间为零，即推出S掩码交互为零。",
+    "assumptions": [
+      "只要求S.sort这一个特定列表的regular和最终偏导∀z为零；不要求全阶存在。"
+    ],
+    "shared_proof_ids": [
+      "shared-harsanyi-derivative-cutoff-mvt"
+    ],
+    "example_paths": [],
+    "symbol_ids": [],
+    "description_provenance": "research/full-proof-integration-20260930/cvpr2023/api-descriptions.json",
+    "tags": [
+      "DerivativeCutoff"
+    ],
+    "mathlib_correspondence": []
+  },
+  "Harsanyi.interaction_zero_of_mixedDerivativeCutoff": {
+    "title": "全阶regular加零值cutoff的便捷公共变体，与精确论文adapter分开。",
+    "summary": "全阶regular加零值cutoff的便捷公共变体，与精确论文adapter分开。",
+    "assumptions": [
+      "便捷变体分开要求全阶存在与高阶零值；论文adapter使用ClassicalMixedDerivativeCutoff单predicate。"
+    ],
+    "shared_proof_ids": [
+      "shared-harsanyi-derivative-cutoff-mvt"
+    ],
+    "example_paths": [],
+    "symbol_ids": [],
+    "description_provenance": "research/full-proof-integration-20260930/cvpr2023/api-descriptions.json",
+    "tags": [
+      "DerivativeCutoff"
+    ],
+    "mathlib_correspondence": []
+  },
+  "Harsanyi.interaction_zero_of_classicalMixedDerivativeCutoff": {
+    "title": "原全空间高阶经典混合导数存在且为零，推出实际掩码的非空高阶交互为零。",
+    "summary": "原全空间高阶经典混合导数存在且为零，推出实际掩码的非空高阶交互为零。",
+    "assumptions": [
+      "对每个总阶>M的非降序列表同时要求该特定混合偏导存在及∀z为零；不另加全阶hmixed；centered目标由M<|S|保证非空。"
+    ],
+    "shared_proof_ids": [
+      "shared-harsanyi-derivative-cutoff-mvt"
+    ],
+    "example_paths": [],
+    "symbol_ids": [],
+    "description_provenance": "research/full-proof-integration-20260930/cvpr2023/api-descriptions.json",
+    "tags": [
+      "DerivativeCutoff"
+    ],
+    "mathlib_correspondence": []
+  },
+  "Harsanyi.centered_interaction_zero_of_classicalMixedDerivativeCutoff": {
+    "title": "原全空间高阶经典混合导数存在且为零，推出实际掩码的非空高阶交互为零。",
+    "summary": "原全空间高阶经典混合导数存在且为零，推出实际掩码的非空高阶交互为零。",
+    "assumptions": [
+      "对每个总阶>M的非降序列表同时要求该特定混合偏导存在及∀z为零；不另加全阶hmixed；centered目标由M<|S|保证非空。"
+    ],
+    "shared_proof_ids": [
+      "shared-harsanyi-derivative-cutoff-mvt"
+    ],
+    "example_paths": [
+      "research/full-proof-integration-20260930/cvpr2023/lean/SparseDerivativeAdapter.lean"
+    ],
+    "symbol_ids": [],
+    "description_provenance": "research/full-proof-integration-20260930/cvpr2023/api-descriptions.json",
+    "tags": [
+      "DerivativeCutoff"
+    ],
+    "mathlib_correspondence": []
+  },
+  "Harsanyi.centered_interaction_zero_of_mixedDerivativeCutoff": {
+    "title": "全阶regular加零值cutoff的便捷公共变体，与精确论文adapter分开。",
+    "summary": "全阶regular加零值cutoff的便捷公共变体，与精确论文adapter分开。",
+    "assumptions": [
+      "便捷变体分开要求全阶存在与高阶零值；论文adapter使用ClassicalMixedDerivativeCutoff单predicate。"
+    ],
+    "shared_proof_ids": [
+      "shared-harsanyi-derivative-cutoff-mvt"
+    ],
+    "example_paths": [],
+    "symbol_ids": [],
+    "description_provenance": "research/full-proof-integration-20260930/cvpr2023/api-descriptions.json",
+    "tags": [
+      "DerivativeCutoff"
+    ],
+    "mathlib_correspondence": []
+  },
+  "Harsanyi.Sparsity.CoefficientWitness": {
+    "title": "Theorem 2 完整存在见证",
+    "summary": "同时记录 m0、领先系数、偏移和低位系数，以及原表示式、位界、非零 λ 和两个符号分支的界。",
+    "assumptions": [
+      "任意有限低位索引族 J；没有把表示等式当作存在性定理的输入假设。"
+    ],
+    "example_paths": [
+      "lean/HarsanyiLib/Harsanyi/Extensions/Sparsity.lean"
+    ],
+    "symbol_ids": [],
+    "shared_proof_ids": [],
+    "mathlib_correspondence": [],
+    "description_provenance": "research/full-proof-integration-20260930/iclr2024-sparse/library-descriptions.json"
+  },
+  "Harsanyi.Sparsity.choose_coefficients_zero": {
+    "title": "二项式基底系数消去",
+    "summary": "对连续 M+1 个取值为零的二项式组合逐次作有限差分，推出全部系数为零。",
+    "assumptions": [
+      "M≤n；从零阶到 M 阶的全部 M+1 个系数和测试行。"
+    ],
+    "example_paths": [
+      "lean/HarsanyiLib/Harsanyi/Extensions/Sparsity.lean"
+    ],
+    "symbol_ids": [],
+    "shared_proof_ids": [],
+    "mathlib_correspondence": [],
+    "description_provenance": "research/full-proof-integration-20260930/iclr2024-sparse/library-descriptions.json"
+  },
+  "Harsanyi.Sparsity.binomial_matrix_kernel": {
+    "title": "Lemma 3 的二项式矩阵核",
+    "summary": "原 (M+1)×M 比值矩阵只有零核，以有限差分避开原行列式漏号。",
+    "assumptions": [
+      "0<M<n；所有 j=0,…,M 的行等式；k=1,…,M。"
+    ],
+    "example_paths": [
+      "lean/HarsanyiLib/Harsanyi/Extensions/Sparsity.lean"
+    ],
+    "symbol_ids": [],
+    "shared_proof_ids": [],
+    "mathlib_correspondence": [],
+    "description_provenance": "research/full-proof-integration-20260930/iclr2024-sparse/library-descriptions.json"
+  },
+  "Harsanyi.Sparsity.binomial_coefficients_zero_of_le": {
+    "title": "包含 M=n 的系数消去",
+    "summary": "把 Lemma 3 的零核结论扩展到 M=n，供 T2 零均值分支使用。",
+    "assumptions": [
+      "M≤n；全部 M+1 行，不需要 M<n 或 μ1≠0。"
+    ],
+    "example_paths": [
+      "lean/HarsanyiLib/Harsanyi/Extensions/Sparsity.lean"
+    ],
+    "symbol_ids": [],
+    "shared_proof_ids": [],
+    "mathlib_correspondence": [],
+    "description_provenance": "research/full-proof-integration-20260930/iclr2024-sparse/library-descriptions.json"
+  },
+  "Harsanyi.Sparsity.orderTotal": {
+    "title": "按阶交互有符号总和",
+    "summary": "在 N 的全部 k 元子集上求交互系数之和 A(k)。",
+    "assumptions": [
+      "有限全集 N；任意实集合函数 d；不是绝对值之和。"
+    ],
+    "example_paths": [
+      "lean/HarsanyiLib/Harsanyi/Extensions/Sparsity.lean"
+    ],
+    "symbol_ids": [],
+    "shared_proof_ids": [],
+    "mathlib_correspondence": [],
+    "description_provenance": "research/full-proof-integration-20260930/iclr2024-sparse/library-descriptions.json"
+  },
+  "Harsanyi.Sparsity.meanOutput": {
+    "title": "固定掩码阶的平均输出",
+    "summary": "在所有 m 元掩码上取平均，分母为二项式系数。",
+    "assumptions": [
+      "有限 N；数学平均的有效域 m≤|N|；定义本身使用 Lean 实数除法。"
+    ],
+    "example_paths": [
+      "lean/HarsanyiLib/Harsanyi/Extensions/Sparsity.lean"
+    ],
+    "symbol_ids": [],
+    "shared_proof_ids": [],
+    "mathlib_correspondence": [],
+    "description_provenance": "research/full-proof-integration-20260930/iclr2024-sparse/library-descriptions.json"
+  },
+  "Harsanyi.Sparsity.card_supermasks": {
+    "title": "超集掩码计数",
+    "summary": "一个 k 元子集被恰好 choose(n-k,m-k) 个 m 元掩码包含。",
+    "assumptions": [
+      "T⊆N 且 |T|≤m≤|N|。"
+    ],
+    "example_paths": [
+      "lean/HarsanyiLib/Harsanyi/Extensions/Sparsity.lean"
+    ],
+    "symbol_ids": [],
+    "shared_proof_ids": [],
+    "mathlib_correspondence": [],
+    "description_provenance": "research/full-proof-integration-20260930/iclr2024-sparse/library-descriptions.json"
+  },
+  "Harsanyi.Sparsity.subset_layer_sum": {
+    "title": "按固定交互聚合掩码和",
+    "summary": "交换 m 元掩码与其子集的求和次序，再按子集阶数聚合。",
+    "assumptions": [
+      "m≤|N|；有限集合上的完整双重求和。"
+    ],
+    "example_paths": [
+      "lean/HarsanyiLib/Harsanyi/Extensions/Sparsity.lean"
+    ],
+    "symbol_ids": [],
+    "shared_proof_ids": [],
+    "mathlib_correspondence": [],
+    "description_provenance": "research/full-proof-integration-20260930/iclr2024-sparse/library-descriptions.json"
+  },
+  "Harsanyi.Sparsity.layer_sum_reconstruct": {
+    "title": "重构输出的层总和",
+    "summary": "把一层所有重构输出写为各阶交互总和乘超集计数。",
+    "assumptions": [
+      "m≤|N|；任意系数函数 d，零阶项保留。"
+    ],
+    "example_paths": [
+      "lean/HarsanyiLib/Harsanyi/Extensions/Sparsity.lean"
+    ],
+    "symbol_ids": [],
+    "shared_proof_ids": [],
+    "mathlib_correspondence": [],
+    "description_provenance": "research/full-proof-integration-20260930/iclr2024-sparse/library-descriptions.json"
+  },
+  "Harsanyi.Sparsity.choose_ratio": {
+    "title": "二项式系数比值恒等式",
+    "summary": "超集计数除以掩码层大小等于 choose(m,k)/choose(n,k)。",
+    "assumptions": [
+      "k≤m≤n，确保用于数学比值的分母非零。"
+    ],
+    "example_paths": [
+      "lean/HarsanyiLib/Harsanyi/Extensions/Sparsity.lean"
+    ],
+    "symbol_ids": [],
+    "shared_proof_ids": [],
+    "mathlib_correspondence": [],
+    "description_provenance": "research/full-proof-integration-20260930/iclr2024-sparse/library-descriptions.json"
+  },
+  "Harsanyi.Sparsity.mean_reconstruction": {
+    "title": "逐层平均重构公式",
+    "summary": "平均输出等于各阶交互总和乘二项式比例；原始零阶项保留。",
+    "assumptions": [
+      "m≤|N|；g=reconstruct d 是输入形式，不假设待证结论。"
+    ],
+    "example_paths": [
+      "lean/HarsanyiLib/Harsanyi/Extensions/Sparsity.lean"
+    ],
+    "symbol_ids": [],
+    "shared_proof_ids": [],
+    "mathlib_correspondence": [],
+    "description_provenance": "research/full-proof-integration-20260930/iclr2024-sparse/library-descriptions.json"
+  },
+  "Harsanyi.Sparsity.mean_centered_cutoff": {
+    "title": "Lemma 2 完整均值公式",
+    "summary": "对中心化游戏，在高阶交互为零时保留 1 到 M 阶，得到原均值公式。",
+    "assumptions": [
+      "M≤m≤|N|；所有 S⊆N、|S|>M 的中心化交互为零；原输出基线任意。"
+    ],
+    "example_paths": [
+      "research/full-proof-integration-20260930/iclr2024-sparse/lean/FullSparse.lean"
+    ],
+    "symbol_ids": [],
+    "shared_proof_ids": [],
+    "mathlib_correspondence": [],
+    "description_provenance": "research/full-proof-integration-20260930/iclr2024-sparse/library-descriptions.json"
+  },
+  "Harsanyi.Sparsity.mean_centered_cutoff_all": {
+    "title": "包括低掩码阶的截断均值",
+    "summary": "m<M 时以 choose(m,k)=0 自动移除越阶项，得到所有 m≤n 的同一公式。",
+    "assumptions": [
+      "m≤|N|；原高阶交互零前提，不另加 m≥M。"
+    ],
+    "example_paths": [
+      "lean/HarsanyiLib/Harsanyi/Extensions/Sparsity.lean"
+    ],
+    "symbol_ids": [],
+    "shared_proof_ids": [],
+    "mathlib_correspondence": [],
+    "description_provenance": "research/full-proof-integration-20260930/iclr2024-sparse/library-descriptions.json"
+  },
+  "Harsanyi.Sparsity.mean_centered_zero": {
+    "title": "中心化空掩码均值",
+    "summary": "中心化后空层均值为零。",
+    "assumptions": [
+      "任意有限 N；centered g 在空集取零。"
+    ],
+    "example_paths": [
+      "lean/HarsanyiLib/Harsanyi/Extensions/Sparsity.lean"
+    ],
+    "symbol_ids": [],
+    "shared_proof_ids": [],
+    "mathlib_correspondence": [],
+    "description_provenance": "research/full-proof-integration-20260930/iclr2024-sparse/library-descriptions.json"
+  },
+  "Harsanyi.Sparsity.meanOutput_top": {
+    "title": "完整掩码层均值",
+    "summary": "全集层只有 N 这一掩码，其均值就是 g(N)。",
+    "assumptions": [
+      "任意集合函数 g；不要求输出基线为零。"
+    ],
+    "example_paths": [
+      "lean/HarsanyiLib/Harsanyi/Extensions/Sparsity.lean"
+    ],
+    "symbol_ids": [],
+    "shared_proof_ids": [],
+    "mathlib_correspondence": [],
+    "description_provenance": "research/full-proof-integration-20260930/iclr2024-sparse/library-descriptions.json"
+  },
+  "Harsanyi.Sparsity.totalStrength": {
+    "title": "按阶交互绝对强度",
+    "summary": "在所有 k 元子集上累加 |d(S)|。",
+    "assumptions": [
+      "与有符号 orderTotal 分开；空层和按有限和约定。"
+    ],
+    "example_paths": [
+      "lean/HarsanyiLib/Harsanyi/Extensions/Sparsity.lean"
+    ],
+    "symbol_ids": [],
+    "shared_proof_ids": [],
+    "mathlib_correspondence": [],
+    "description_provenance": "research/full-proof-integration-20260930/iclr2024-sparse/library-descriptions.json"
+  },
+  "Harsanyi.Sparsity.salientFamily": {
+    "title": "阈值显著交互族",
+    "summary": "保留满足 τ≤|d(S)| 的 k 元子集。",
+    "assumptions": [
+      "此定义使用包含等号的阈值；原 τ>0 在后续计数界使用。"
+    ],
+    "example_paths": [
+      "lean/HarsanyiLib/Harsanyi/Extensions/Sparsity.lean"
+    ],
+    "symbol_ids": [],
+    "shared_proof_ids": [],
+    "mathlib_correspondence": [],
+    "description_provenance": "research/full-proof-integration-20260930/iclr2024-sparse/library-descriptions.json"
+  },
+  "Harsanyi.Sparsity.cancellationRatio": {
+    "title": "同阶抵消比",
+    "summary": "定义 η=A(k)/Σ|d(S)|，保持原有符号约定。",
+    "assumptions": [
+      "Lean 零分母除法定义为零；含 1/|η| 的数学界限另要求 η≠0。"
+    ],
+    "example_paths": [
+      "lean/HarsanyiLib/Harsanyi/Extensions/Sparsity.lean"
+    ],
+    "symbol_ids": [],
+    "shared_proof_ids": [],
+    "mathlib_correspondence": [],
+    "description_provenance": "research/full-proof-integration-20260930/iclr2024-sparse/library-descriptions.json"
+  },
+  "Harsanyi.Sparsity.threshold_count": {
+    "title": "阈值计数基本不等式",
+    "summary": "每个显著系数贡献至少 τ，故 τ·显著数量≤总绝对强度。",
+    "assumptions": [
+      "任意实 τ 都满足此乘法式；除以 τ 的后续结论要求 τ>0。"
+    ],
+    "example_paths": [
+      "lean/HarsanyiLib/Harsanyi/Extensions/Sparsity.lean"
+    ],
+    "symbol_ids": [],
+    "shared_proof_ids": [],
+    "mathlib_correspondence": [],
+    "description_provenance": "research/full-proof-integration-20260930/iclr2024-sparse/library-descriptions.json"
+  },
+  "Harsanyi.Sparsity.salient_count_bound": {
+    "title": "非抵消情形显著交互界",
+    "summary": "把阈值计数转换为 |A(k)|/(τ|η|)，包括真实 η 定义。",
+    "assumptions": [
+      "τ>0、η≠0；不是 η=0 完全抵消情形，也还未代入 T2 系数。"
+    ],
+    "example_paths": [
+      "lean/HarsanyiLib/Harsanyi/Extensions/Sparsity.lean"
+    ],
+    "symbol_ids": [],
+    "shared_proof_ids": [],
+    "mathlib_correspondence": [],
+    "description_provenance": "research/full-proof-integration-20260930/iclr2024-sparse/library-descriptions.json"
+  },
+  "Harsanyi.Sparsity.coefficient_normalization": {
+    "title": "系数归一化存在构造",
+    "summary": "采用 C=1+Σ|A(k)/μ| 构造有界领先系数与增长偏移；μ=0 单独选一个系数为 1。",
+    "assumptions": [
+      "b>1、p>0、有限非空 K、μ≥0、μ≤ΣA≤b^pμ；μ=0 时所有 A(k)=0。最后一条由论文适配另行证明。"
+    ],
+    "example_paths": [
+      "lean/HarsanyiLib/Harsanyi/Extensions/Sparsity.lean"
+    ],
+    "symbol_ids": [],
+    "shared_proof_ids": [],
+    "mathlib_correspondence": [],
+    "description_provenance": "research/full-proof-integration-20260930/iclr2024-sparse/library-descriptions.json"
+  },
+  "Harsanyi.Sparsity.sparse_coefficient_existence": {
+    "title": "从原三条件得到领先系数",
+    "summary": "在原截断、均值单调与输出鲁棒性下证明系数存在；由均值方程推出零均值分支所有 A(k)=0。",
+    "assumptions": [
+      "|N|>1、1≤M≤|N|、p>0；不增加 μ1≠0、G 非空或 M<n。"
+    ],
+    "example_paths": [
+      "lean/HarsanyiLib/Harsanyi/Extensions/Sparsity.lean"
+    ],
+    "symbol_ids": [],
+    "shared_proof_ids": [],
+    "mathlib_correspondence": [],
+    "description_provenance": "research/full-proof-integration-20260930/iclr2024-sparse/library-descriptions.json"
+  },
+  "Harsanyi.Sparsity.leadingAggregate": {
+    "title": "领先系数加权总和",
+    "summary": "定义原 λ^(m0) 的二项式比值加权和。",
+    "assumptions": [
+      "保持原 m0 和各阶 c；在 m0=|N|、M≤|N| 时权重全部为 1。"
+    ],
+    "example_paths": [
+      "lean/HarsanyiLib/Harsanyi/Extensions/Sparsity.lean"
+    ],
+    "symbol_ids": [],
+    "shared_proof_ids": [],
+    "mathlib_correspondence": [],
+    "description_provenance": "research/full-proof-integration-20260930/iclr2024-sparse/library-descriptions.json"
+  },
+  "Harsanyi.Sparsity.digitAggregate": {
+    "title": "低位系数加权总和",
+    "summary": "定义原 a_i^(m0) 的二项式比值加权和。",
+    "assumptions": [
+      "a 的两下标为交互阶 k 与低位 i，二者不能互换。"
+    ],
+    "example_paths": [
+      "lean/HarsanyiLib/Harsanyi/Extensions/Sparsity.lean"
+    ],
+    "symbol_ids": [],
+    "shared_proof_ids": [],
+    "mathlib_correspondence": [],
+    "description_provenance": "research/full-proof-integration-20260930/iclr2024-sparse/library-descriptions.json"
+  },
+  "Harsanyi.Sparsity.sparse_original_coefficient_witness": {
+    "title": "Theorem 2 原系数式完整存在性",
+    "summary": "取 m0=n、低位全部为零，构造满足原全部系数约束和两条符号蕴含的见证。",
+    "assumptions": [
+      "n>1、1≤M≤n、p>0 及原三条件；M=n 与 μ1=0 包含；M=0 的另一读法问题单列。"
+    ],
+    "example_paths": [
+      "research/full-proof-integration-20260930/iclr2024-sparse/lean/FullSparse.lean"
+    ],
+    "symbol_ids": [],
+    "shared_proof_ids": [],
+    "mathlib_correspondence": [],
+    "description_provenance": "research/full-proof-integration-20260930/iclr2024-sparse/library-descriptions.json"
+  },
+  "Harsanyi.Sparsity.salient_bound_original_coefficients": {
+    "title": "代入同一 T2 见证的计数界",
+    "summary": "把同一见证的原完整系数表示式实际代入显著交互计数，得到原 T3 展开。",
+    "assumptions": [
+      "k∈[1,M]、τ>0、η≠0、μ1≥0；w 为真实 CoefficientWitness。"
+    ],
+    "example_paths": [],
+    "symbol_ids": [],
+    "shared_proof_ids": [],
+    "mathlib_correspondence": [],
+    "description_provenance": "research/full-proof-integration-20260930/iclr2024-sparse/library-descriptions.json"
+  },
+  "Harsanyi.Sparsity.sparse_original_T2_T3": {
+    "title": "由原条件推出完整 T2 与 T3",
+    "summary": "从原三条件构造见证，并同时证明各阶阈值计数的原系数展开界。",
+    "assumptions": [
+      "n>1、1≤M≤n、p>0；T3 只在 τ>0、η≠0 的原非抵消范围。"
+    ],
+    "example_paths": [
+      "research/full-proof-integration-20260930/iclr2024-sparse/lean/FullSparse.lean"
+    ],
+    "symbol_ids": [],
+    "shared_proof_ids": [],
+    "mathlib_correspondence": [],
+    "description_provenance": "research/full-proof-integration-20260930/iclr2024-sparse/library-descriptions.json"
+  },
+  "Harsanyi.signed_gaussian_variance": {
+    "title": "独立高斯交错和的方差",
+    "summary": "真实随机变量：常量加带 ±1 系数的有限独立高斯和，方差为项数乘 σ²。",
+    "assumptions": [
+      "概率测度；每项可测且分布为 N(0,σ²)；对所用项两两独立；c_i²=1。L² 从高斯分布推出。"
+    ],
+    "example_paths": [
+      "lean/HarsanyiLib/Harsanyi/Extensions/Noise.lean"
+    ],
+    "symbol_ids": [],
+    "shared_proof_ids": [],
+    "mathlib_correspondence": [],
+    "description_provenance": "research/full-proof-integration-20260930/iclr2024-sparse/library-descriptions.json"
+  },
+  "Harsanyi.and_gaussian_variance": {
+    "title": "AND 交错扰动方差",
+    "summary": "在全部 L⊆T 的高斯扰动上求交错和，方差为 2^|T|σ²。",
+    "assumptions": [
+      "原 I 为固定常量；子集标签上的噪声可测、同高斯分布且两两独立。"
+    ],
+    "example_paths": [
+      "lean/HarsanyiLib/Harsanyi/Extensions/Noise.lean"
+    ],
+    "symbol_ids": [],
+    "shared_proof_ids": [],
+    "mathlib_correspondence": [],
+    "description_provenance": "research/full-proof-integration-20260930/iclr2024-sparse/library-descriptions.json"
+  },
+  "Harsanyi.or_gaussian_variance": {
+    "title": "OR 补集索引扰动方差",
+    "summary": "补集映射在 T 的子集上单射，从原噪声族传递独立性，得到相同方差。",
+    "assumptions": [
+      "T⊆N；所有 N 子集标签噪声满足分布与独立前提；这是非空 OR 定义的交错和组件。"
+    ],
+    "example_paths": [
+      "lean/HarsanyiLib/Harsanyi/Extensions/Noise.lean"
+    ],
+    "symbol_ids": [],
+    "shared_proof_ids": [],
+    "mathlib_correspondence": [],
+    "description_provenance": "research/full-proof-integration-20260930/iclr2024-sparse/library-descriptions.json"
+  },
+  "Harsanyi.noisyMaskedGame": {
+    "title": "固定输出族加独立扰动",
+    "summary": "把已固定的游戏输出 g(L) 改为 g(L)+ε_L(ω)，保持原模型输出与随机扰动分开。",
+    "assumptions": [
+      "γ 自适应优化产生的噪声不是本定义自动涵盖的原 IID 输出扰动模型。"
+    ],
+    "example_paths": [
+      "lean/HarsanyiLib/Harsanyi/Extensions/Noise.lean"
+    ],
+    "symbol_ids": [],
+    "shared_proof_ids": [],
+    "mathlib_correspondence": [],
+    "description_provenance": "research/full-proof-integration-20260930/iclr2024-sparse/library-descriptions.json"
+  },
+  "Harsanyi.noisy_and_identity": {
+    "title": "扰动后 AND 交互恒等式",
+    "summary": "从实际扰动输出的 Möbius 变换推出 I′=I+交错噪声和，没有假设待证身份。",
+    "assumptions": [
+      "任意 T，包括空集；空集为原始输出基线加 ε∅。"
+    ],
+    "example_paths": [
+      "lean/HarsanyiLib/Harsanyi/Extensions/Noise.lean"
+    ],
+    "symbol_ids": [],
+    "shared_proof_ids": [],
+    "mathlib_correspondence": [],
+    "description_provenance": "research/full-proof-integration-20260930/iclr2024-sparse/library-descriptions.json"
+  },
+  "Harsanyi.noisy_or_identity": {
+    "title": "扰动后非空 OR 交互恒等式",
+    "summary": "从 OR 的真实补集定义得到原系数加带负号的补集噪声和。",
+    "assumptions": [
+      "T 非空；空 OR 系数按原定义为 g(∅)，须使用单独分支。"
+    ],
+    "example_paths": [
+      "lean/HarsanyiLib/Harsanyi/Extensions/Noise.lean"
+    ],
+    "symbol_ids": [],
+    "shared_proof_ids": [],
+    "mathlib_correspondence": [],
+    "description_provenance": "research/full-proof-integration-20260930/iclr2024-sparse/library-descriptions.json"
+  },
+  "Harsanyi.noisy_masked_and_variance": {
+    "title": "实际扰动 AND 系数方差",
+    "summary": "对实际 noisyMaskedGame 的 AND 系数证明方差，含原始空集输出基线分支。",
+    "assumptions": [
+      "所用子集上的可测性、零均值高斯同分布和两两独立；固定原游戏 g。"
+    ],
+    "example_paths": [
+      "research/full-proof-integration-20260930/iclr2024-sparse/lean/FullGeneralizableAnalysis.lean"
+    ],
+    "symbol_ids": [],
+    "shared_proof_ids": [],
+    "mathlib_correspondence": [],
+    "description_provenance": "research/full-proof-integration-20260930/iclr2024-sparse/library-descriptions.json"
+  },
+  "Harsanyi.noisy_masked_or_variance": {
+    "title": "实际扰动 OR 系数方差",
+    "summary": "对同一扰动输出族证明 OR 系数方差；空集直接使用 ε∅，非空使用补集单射。",
+    "assumptions": [
+      "T⊆N；所有 N 子集上的原 IID 高斯模型；固定原游戏 g；σ²允许为零。"
+    ],
+    "example_paths": [
+      "research/full-proof-integration-20260930/iclr2024-sparse/lean/FullGeneralizableAnalysis.lean"
+    ],
+    "symbol_ids": [],
+    "shared_proof_ids": [],
+    "mathlib_correspondence": [],
+    "description_provenance": "research/full-proof-integration-20260930/iclr2024-sparse/library-descriptions.json"
+  }
+}

@@ -1,0 +1,14 @@
+\begin{manualtheorem}{1}[Theorem 1]\label{th:app-harsanyi-faithful}
+Given a certain input {\small$\boldsymbol{x}$}, let the causal graph in Fig. 1 (in the main paper) encode {\small$2^n$} causal patterns, \emph{i.e.}, {\small$\Omega=2^{\mathcal{N}}=\{\mathcal{S}: \mathcal{S}\subseteq\mathcal{N}\}$}.
+If the causal effect {\small$w_{\mathcal{S}}$} of each causal pattern {\small$\mathcal{S}\in\Omega$} is measured by the Harsanyi dividend~\cite{harsanyi1963simplified}, \emph{i.e.} {\small$w_{\mathcal{S}} \triangleq {\sum}_{\mathcal{S}'\subseteq \mathcal{S}}(-1)^{|\mathcal{S}|-|\mathcal{S}'|}\cdot v(\boldsymbol{x}_{\mathcal{S}'})$}, then the causal graph faithfully encodes the inference logic of the DNN, as follows.
+
+
+\vspace{-5pt}
+\begin{small}
+\begin{equation}
+    \forall \mathcal{S}\subseteq \mathcal{N},\ \ 
+    Y(\boldsymbol{x}_{\mathcal{S}}) = v(\boldsymbol{x}_{\mathcal{S}})
+\end{equation}
+\end{small}
+More crucially, the Harsanyi dividend is the unique metric that satisfies the faithfulness requirement.
+\end{manualtheorem}

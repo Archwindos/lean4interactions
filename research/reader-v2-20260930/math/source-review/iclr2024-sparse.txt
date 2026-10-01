@@ -1,0 +1,2374 @@
+=== PDF PAGE 1 ===
+Published as a conference paper at ICLR 2024
+
+
+WHERE WE HAVE ARRIVED  IN PROVING  THE EMER-
+GENCE    OF   SPARSE   INTERACTION   PRIMITIVES    IN
+DNNS
+
+
+ Qihan Ren,  Jiayang Gao,  Wen Shen,  Quanshi Zhang∗
+ Shanghai Jiao Tong University
+ {renqihan,gjy0515,adashen,zqs1022}@sjtu.edu.cn
+
+
+                                                  ABSTRACT
+          This study aims to prove the emergence of symbolic concepts (or more precisely,
+          sparse primitive inference patterns) in well-trained deep neural networks (DNNs).
+          Specifically, we prove the following three conditions for the emergence.  (i) The
+          high-order derivatives of the network output with respect to the input variables are
+          all zero. (ii) The DNN can be used on occluded samples and when the input sam-
+          ple is less occluded, the DNN will yield higher confidence. (iii) The confidence of
+          the DNN does not significantly degrade on occluded samples.  These conditions
+          are quite common, and we prove that under these conditions, the DNN will only
+          encode a relatively small number of sparse interactions between input variables.
+          Moreover, we can consider such interactions as symbolic primitive inference pat-
+          terns encoded by a DNN, because we show that inference scores of the DNN on
+          an exponentially large number of randomly masked samples can always be well
+          mimicked by numerical effects of just a few interactions. The code is available at
+          https://github.com/sjtu-xai-lab/interaction-sparsity.
+
+1    INTRODUCTION
+In the field of explainable AI, one of the fundamental problems is whether the inference logic of a
+deep neural network (DNN) can really be explained as symbolic concepts. Although some interest-
+ing phenomena of the emergence of concepts in DNNs have been discovered in previous studies (Li
+& Zhang, 2023b; Ren et al., 2023a), the core problem is still not strictly formulated or proven, i.e.,
+strictly proving whether the knowledge encoded by DNNs is indeed symbolic.
+To this end, it is a significant challenge to prove whether or not the knowledge encoded by a black-
+box DNN is symbolic. Up to now, heuristic studies usually explained DNN features using manually
+annotated concepts (Bau et al., 2017; Kim et al., 2018), without formally defining or proving the
+concepts in a DNN. Thus, the proof of the emergence of symbolic concepts in DNNs will have a
+profound impact on both theory and practice.
+However,  the definition of concepts encoded by a DNN is still an open problem,  because it is a
+complex cross-disciplinary issue related to cognitive science, neuroscience, and mathematics. Nev-
+ertheless,  let us ignore cognitive issues and limit our discussion to the scope of whether we can
+obtain a relatively small set of primitive inference patterns to strictly explain the complex changes
+of inference scores of the DNN on different input samples.
+To be precise, we hope to prove a set of sufficient conditions to enable us to represent the knowledge
+of a DNN as symbolic primitives.  To this end, if we ignore cognitive issues,   Ren et al. (2023a)
+and  Li & Zhang (2023b) have considered Harsanyi interactions (Harsanyi, 1963) to represent the
+symbolic primitives encoded by a DNN. It is because they have empirically observed that a well-
+trained DNN usually only encoded a few salient interactions, and they have also observed that the
+network output could be well mimicked by these interactions.  Specifically, each interaction repre-
+sents an AND relationship between a setS of input variables, and this interaction has a numerical
+effectI(S) on the inference score of the DNN. The input variables can be image regions for image
+classification or words for natural language processing. As Figure 1 shows, when classifying a dog
+
+   ∗Quanshi Zhang is the corresponding author.  He is with the Department of Computer Science and Engi-
+neering, the John Hopcroft Center, at the Shanghai Jiao Tong University, China.
+
+
+                                                         1
+
+=== PDF PAGE 2 ===
+Published as a conference paper at ICLR 2024
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+Figure 1: Illustration of interactions encoded by a DNN. Each interactionS corresponds to an AND
+relationship among a specific set S of input variables (image patches).  The patches x1 and x4 are
+masked, so that interactionsS2 andS3 are deactivated.
+
+image, a DNN may encode a salient interaction among three image regions inS  ={x1,x2,x3}.
+Only when all three image regions are present will the interaction be activated and contribute a nu-
+merical effectI(S) to the inference score of the DNN. Masking any regions inS will deactivate the
+interactions and makeI(S) = 0.
+Therefore, the proof of the emergence of interaction primitives is to prove a set of common con-
+ditions,  which makes a DNN only encode a small number of symbolic (sparse) interactions.  It
+means that given an input samplex, the inference scorev(x) of the DNN can be disentangled into
+the sum of the effectsI(S) of a few salient interactions, i.e.,v(x)≈PS∈ΩsalientI(S) + bias, which
+can be called interaction primitives.  Specifically, we prove three conditions.  (i) The DNN has at
+most M-th order non-zero derivatives, where M < n, and n is the number of input variables to
+the DNN. (ii) The DNN can be used on occluded samples (e.g., an image with some patches being
+masked), and yields a higher classification confidence when the sample is less occluded.  (iii) The
+classification confidence of the DNN does not significantly degrade on occluded samples. Because
+these conditions are common for many DNNs, and the proof does not depend on the specific archi-
+tecture of the network, our proof ensures that the emergence of symbolic interaction primitives is a
+universal phenomenon for various networks trained for different tasks.
+In fact, the essential reason for the emergence of sparse interaction primitives is neither the architec-
+ture of the neural network, nor the sparsity of network parameters/intermediate-layer features, but
+the property of the task. To be precise, when the task requires the DNN to conduct smooth inference
+on masked/occluded samples, a well-trained DNN usually encodes sparse interaction primitives.
+
+2    RELATED WORK
+We have developed a system of game-theoretic interactions for explaining DNNs in the last three
+years, and have published more than fifteen papers in this direction.  This system focused on ad-
+dressing the following problems in explainable AI: (i) explicitly defining, extracting, and counting
+interactions encoded by a DNN, (ii) explaining the representation capacity (e.g., generalization abil-
+ity and adversarial robustness) of DNNs from the perspective of interaction,  and (iii) summariz-
+ing/explaining common mechanisms shared by different empirical deep learning methods.
+• Explicitly defining and extracting interactions encoded by a DNN. A representative approach in
+explainable AI was to explain the interactions between different input variables  (Sundararajan et al.,
+2020; Tsai et al., 2022). Based on game theory,  Zhang et al. (2021a;b; 2020) defined multi-variate
+interaction and multi-order interaction. Ren et al. (2023a) discovered the sparsity of interactions in
+experiments. Li & Zhang (2023b) further discovered that salient interactions were usually transfer-
+able across different input samples and exhibited certain discrimination power.   Chen et al. (2024)
+extracted generalizable interactions shared by different DNNs.  These studies indicated that salient
+interactions could be considered as interaction primitives encoded by a DNN. Furthermore, Ren et al.
+(2023b) used the sparsity of interactions to define the optimal baseline value for the Shapley value.
+Cheng et al. (2021a) used interactions of different complexities to explain the encoding of specific
+types of shapes and textures in DNNs for image classification. Cheng et al. (2021b) discovered that
+salient interactions usually represented prototypical visual patterns in images.
+•  Explaining  the  representation  capacity  of  DNNs  using  game-theoretic  interactions.    Game-
+theoretic  interactions  have  been  used  to  explain  the  representation  capacity  of  a  DNN,  although
+the following studies used the multi-order interaction (Zhang et al., 2020), rather than the Harsanyi
+
+
+                                                            2
+
+=== PDF PAGE 3 ===
+Published as a conference paper at ICLR 2024
+
+
+
+
+interaction.  Nevertheless, the Harsanyi interaction has been proven to be compositional elements
+in the multi-order interaction.  The multi-order interaction has been used to explain the adversar-
+ial robustness (Ren et al., 2021; Zhou et al., 2024), adversarial transferability (Wang et al., 2021),
+and  generalization  ability  (Zhang  et  al.,  2020;  Zhou  et  al.,  2024)  of  a  DNN.  In  addition,  Deng
+et al. (2021) proved the difficulty of a DNN in encoding middle-complexity interactions. Ren et al.
+(2023c) proved that compared to a standard DNN, a Bayesian neural network (BNN) tended to avoid
+encoding complex Harsanyi interactions. Liu et al. (2023) explained the intuition that DNNs learned
+simple Harsanyi interactions more easily than complex Harsanyi interactions.
+• Summarizing common mechanisms for the success of various empirical deep learning methods.
+Deng et al. (2024) found that the computation of attribution values for fourteen attribution methods
+could all be explained as a re-allocation of interaction effects.   Zhang et al. (2022a) proved that
+twelve methods to improve the adversarial transferability in previous studies essentially shared the
+common utility of reducing the interactions between adversarial perturbation units.
+
+3    DNNS TEND TO ENCODE SPARSE INTERACTIONS
+3.1    OVERVIEW OF THE EMERGENCE OF SYMBOLIC (SPARSE) INTERACTIONS IN DNNS
+In this study, we aim to prove that symbolic (sparse) interactions usually emerge in a well-trained
+DNN. Recent studies (Ren et al., 2023a; Li & Zhang, 2023b) have empirically discovered the emer-
+gence of symbolic (sparse) interactions in various DNNs on different tasks.  In mathematics, the
+emergence of symbolic (sparse) interactions means that the DNN’s inference logic can be repre-
+sented as the detection of a small number of interactions with a certifiably low approximation error.
+• Definition.  A clear definition of interactions encoded by a DNN is required.  In this study, the
+interaction is defined as the Harsanyi dividend (Harsanyi, 1963).  Let us consider a trained DNN
+v  and an input samplex  =  [x1,··· ,xn]⊤  with n input variables indexed by N  ={1,··· ,n}.
+The input variables can be image regions for image classification or words in an input sentence
+for a natural language processing task.  Furthermore, without loss of generality, let us assume that
+the output of the DNN on the samplex is a scalar, denoted byv(x)∈ R.  For DNNs with multi-
+dimensional output, we may choose one dimension of the output vector as the final outputv(x). In
+particular, for classification tasks, we setv(x) = log  p(y=ytruth|x)1−p(y=ytruth|x) by following Deng et al. (2021).
+The interaction effect of the Harsanyi dividend (Harsanyi, 1963) (or the Harsanyi interaction) be-
+tween a setS⊆N of input variables is defined as follows:
+
+                                        I(S)  def=XT⊆S(−1)|S|−|T|·u(T ),                                                      (1)
+
+ where u(T )   def= v(xT )−v(x∅).  Here, v(xT ) denotes the network output on the masked input
+samplexT , where the variables inN\T  are masked using their baseline valuesb = [b1,...,bn]⊤,
+and the variables inT are unchanged. Accordingly,v(x∅) denotes the network output on the sample
+x∅, where all the input variables are masked. In particular, we haveu(∅) =I(∅) = 0.
+Each interaction can be understood as an AND relationship between input variables inS. For exam-
+ple, as Figure 1 shows, to recognize a dog face, let a DNN encode the collaboration between three
+image regions inS ={x1,x2,x3}. Only when the image regionsx1,x2, andx3 are all present will
+the interaction be activated and make a certain numerical effectI(S) on the network output.  The
+absence (masking) of any of the three image regions (e.g., the masking ofx1 in Figure 1) deactivates
+the interaction and removes the numerical effect, i.e.,I(S) = 0.
+We followed Li & Zhang (2023b) to visualize interactions encoded by PointNet++ (Qi et al., 2017b)
+on the ShapeNet (Yi et al., 2016) dataset. Each point cloud in this dataset contained 2500 points. To
+simplify the visualization,  Li & Zhang (2023b) considered each semantic part1 on the point cloud
+as a single input variable to the DNN. Figure 2 shows that the interactionS ={light, front wheel}
+usually contributed a positive effect to the network output (i.e.,I(S) > 0), whereas the interaction
+S ={front wheel, back frame, mid frame} usually had a negative effect (i.e.,I(S)< 0).
+• Faithful compositional inference patterns.  We use the following three axiomatic properties to
+define interactions as representations of faithful inference patterns (or concepts) encoded by a DNN.
+
+   1Annotations of the semantic parts were provided by the ShapeNet dataset. See Appendix C.2 for details.
+
+
+                                                            3
+
+=== PDF PAGE 4 ===
+Published as a conference paper at ICLR 2024
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+Figure 2:  Interactions extracted by PointNet++ on different samples in the ShapeNet dataset and
+their corresponding effectsI(S). Histograms on the right show the distribution of interaction effects
+I(S) on different “motorbike” samples.
+
+(1) Sparsity property. A DNN is supposed to encode few salient interactions on a specific sample.
+(2) Universal matching property. The network output on any arbitrarily masked sample is supposed
+to be well matched by the effects of specific interactions.
+(3) Sample-wise transferability property.  Salient interactions are supposed to be shared across dif-
+ferent samples in the same category.
+Li & Zhang (2023b) have empirically discovered the sparsity of Harsanyi interactions.  They have
+also observed a significant overlap between salient interactions extracted from different samples in
+the same category, which indicated the transferability of interactions across different samples.  In
+addition, it has been proven that the Harsanyi interaction satisfies the universal matching property.
+Theorem 1 (Proven in  Ren et al. (2023a) and Appendix B.1).  Let the input samplex be arbitrarily
+masked  to  obtain  a  masked  sample xS.   The  output  of  the  DNN  on  masked  sample xS  can  be
+disentangled into the sum of all interaction effects withinS:∀S⊆N, v(xS) =PT⊆SI(T ) +v(x∅).
+Furthermore,  the  Harsanyi  interaction  has  been  proven  to  satisfy  seven  desirable  properties  in
+game  theory,  e.g.,  the  efficiency,  linearity,  dummy,  and  symmetry  properties.    In  addition,  the
+Harsanyi  interaction  can  explain  the  elementary  mechanism  of  three  existing  game-theoretic  at-
+tribution/interaction metrics, e.g., the Shapley value 2  (Shapley, 1953). See Appendix A for details.
+• Illustrating the emergence of interaction primitives.  The core task of proving the emergence
+of symbolic primitives is to prove that in a well-trained DNN, the interactions defined above are
+sparse. Although there are as many as 2n interactions corresponding to all subsetsS in 2N  ={S :
+S⊆ N}, recent studies (Ren et al., 2023a; Li & Zhang, 2023b) have empirically discovered that
+these interactions were usually sparse in a well-trained DNN. That is, only a few salient interactions
+have significant effects on the network output and can be taken as salient interaction primitives. In
+comparison, most other interactions have near-zero effects (i.e.,I(S)≈ 0), which are referred to as
+noisy patterns. According to Theorem 1, the network output can be summarized by a small number
+of salient interactions, i.e.,v(x)≈PS∈Ωsalient,S̸=∅I(S) +v(x∅).
+Although the sparsity of interactions has already been demonstrated in previous studies (Ren et al.,
+2023a; Li & Zhang, 2023b),  we still conducted experiments in this study to better illustrate this
+phenomenon.   We  followed  Li  &  Zhang  (2023b)  to  conduct  experiments  on  various  neural  net-
+works3, including multilayer perceptrons (MLPs), residual MLPs (ResMLPs) (Touvron et al., 2022),
+LeNet  (LeCun  et  al.,  1998),  AlexNet  (Krizhevsky  et  al.,  2012),  VGG  (Simonyan  &  Zisserman,
+2014),  ResNet (He et al., 2016),  PointNet (Qi et al., 2017a),  PointNet++ (Qi et al., 2017b),  and
+on different datasets, including tabular data (the tic-tac-toe dataset (Dua & Graff, 2017), phishing
+dataset (Dua & Graff, 2017), and wifi dataset (Dua & Graff, 2017)), point cloud data (the ShapeNet
+dataset (Yi et al., 2016)), and image data (the MNIST-3 dataset (LeCun et al., 1998) and CelebA-
+eyeglasses dataset (Liu et al., 2015)).  For better visualization, we drew a curve of the interaction
+strength  by  normalizing  the  interaction  ˜I(S)  = I(S)/ maxS′|I(S′)|  in  descending  order.   Fig-
+ure 3 shows the strength curve that was averaged over different samples in the dataset, which was
+
+   2We haveϕ(i) =P                      1
+                           S⊆N\{i}    |S|+1I(S∪{i}), which means that the Shapley valueϕ(i) can be explained
+as the result of uniformly assigning each Harsanyi interactionI(S∪{i}) to each involved variable.
+   3Please see Appendix C.1 for details on these DNNs and datasets.
+
+
+                                                             4
+
+=== PDF PAGE 5 ===
+Published as a conference paper at ICLR 2024
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+Figure 3: Normalized strength of different interactions, shown in descending order.  Various DNNs
+trained for different tasks all encoded sparse interactions.  In other words, only a relatively small
+number of interactions had a significant effect, while most interactions were noisy patterns and had
+near-zero effects, i.e.,I(S)≈ 0.
+
+computed according to the method in (Li & Zhang, 2023b). Figure 3 successfully verifies that inter-
+actions encoded by various DNNs on different tasks were all sparse.  Moreover, we followed Li &
+Zhang (2023b) to define interactions with|I(S)|>τ = 0.05· maxS′|I(S′)| as salient interactions.
+3.2    PROVING THE SPARSITY OF INTERACTIONS
+Despite these achievements, there is still no theory to prove the emergence of such sparse interactions
+as symbolic primitives.  Therefore, in this subsection, we make an initial attempt to theoretically
+prove the sparsity of interactions. To be precise, we need to prove the conditions, under which the
+output of a DNN can be approximated by the effects of a small number of salient interactions,
+instead of a mass of fuzzy features.  More interestingly, the proof will show that the sparsity of
+interactions depends on the property of the classification task itself, rather than the architecture of
+the neural network, or the sparsity of the parameters/intermediate-layer features.
+Given a trained DNNv and an input samplex = [x1,··· ,xn]⊤, letv(x)∈ R denote the scalar
+network output on the samplex. Let us consider the Taylor expansion of the network outputv(x),
+which is expanded at the pointb = [b1,··· ,bn]⊤:
+
+                             ∞X        ∞X                    x=b
+                  v(x) =         ···         ∂κ1+···+κnv           · (x1−b1)κ1··· (xn−bn)κn
+
+                            κ1=0     κn=0   ∂xκ11 ···∂xκnn                     κ1!···κn!      .                       (2)
+
+Strictly speaking, there are no high-order derivatives for ReLU neural networks.  In this case, we
+can still use the finite difference method (Peebles et al., 2020; Gonnet & Scholl, 2009) to compute
+the equivalent high-order derivatives yielded by the change in ReLU gating states.
+Assumption 1-α.  Interactions higher than theM-th order have zero effect, i.e.,∀S∈{S⊆ N|
+|S|≥M + 1}, I(S) = 0. The order is defined as the number of input variables inS, order(S)  def=|S|.
+Assumption  1-β.   The  network  is  assumed  to  have  at  most M-order  non-zero  derivatives,  i.e.,
+∀b∈ Rn,∀κ1···κn∈ N,  s.t.κ1 +··· +κn≥M + 1, we have ∂κ1+···+κnv∂xκ11 ···∂xκnn
+                                                                                                 x=b = 0.
+In mathematics, Assumption 1-α can be derived (see Appendix B.2) from Assumption 1-β (assum-
+ing no derivatives higher than theM-th order in the Taylor expansion of the functionv), which is a
+stronger assumption than Assumption 1-α and is specific to continuously differentiable functions4.
+In comparison, Assumption 1-α can be applied to more general networks than Assumption 1-β.
+In fact, only Assumption 1-α without Assumption 1-β is already enough to conduct our later proof.
+The assumed non-existence of high-order interactions in Assumption 1-α is not strange, and it has
+been illustrated in many large language models (please see Figure 4).  This is because high-order
+
+   4This is a common setting for a simple DNN or a DNN with almost zero high-order derivatives.  In fact, it
+is not necessary for most DNNs to have derivatives of very high orders during training.
+
+
+                                                            5
+
+=== PDF PAGE 6 ===
+Published as a conference paper at ICLR 2024
+
+
+
+
+
+
+
+
+
+Figure 4: Box-and-whisker diagram for the strength of interactions|I(S)| of each orderm. We tested
+different LLMs (OPT-1.3B, LLaMA-7B, and Aquila-7B) on the SQuAD dataset. Experiments show
+that high-order interactions on these networks were usually close to zero. Please see Appendix D.1
+for experimental details and Appendix E.1 for results on more samples.
+
+
+
+
+
+
+Figure 5:  (a) Visualization of the monotonicity.  Each curve shows the monotonic increase of the
+average output of the m-th order  ¯u(m)  with the order m on a sample.  The shaded area indicates
+the standard deviation of allm-order outputs on a sample, i.e., Std|S|=m[u(S)].  Note that the value
+of standard deviation does not affect our proof, because the proof only relies on the average output
+¯u(m). (b) The average value ofp over different input samples, along with the standard deviation.
+interactions usually represent extremely complex patterns and are usually unnecessary in real ap-
+plications.  For example, let us consider an interaction with a nonzero effect I(S) corresponding
+to the AND relationship between M′  =  100 > M  input variables.  This indicates that if any of
+the 100 input variables is masked, then the interaction will be deactivated.  Such an elaborate in-
+teraction is usually considered as an over-fitted pattern in real applications and it is not commonly
+learned by a DNN. In addition, ignoring very high-order interactions is common in the literature on
+game-theoretic interactions (Sundararajan et al., 2020; Tsai et al., 2022).  In spite of that, we admit
+that there are a few special cases where high-order interactions may appear in real applications, but
+in those cases, extensive high-order interactions can be summarized as a simple effect, thereby not
+hurting the proof of the sparsity of interactions. Please see Section 3.3 for further discussion.
+Second, let us consider a classification task in a real-world application, where some input samples
+may be partially occluded or masked.  In fact, the classification of occluded samples is quite com-
+mon, and a well-trained DNN is supposed to yield higher classification confidence for samples that
+are less masked. Therefore, we make the following monotonicity assumption:
+Assumption 2 (Monotonicity).  The average network output is assumed to monotonically increase
+with the size of the unmasked setS of the input variables, i.e.,∀m′≤ m, we have ¯u(m′)≤ ¯u(m),
+where ¯u(m)  def= E|S|=m[u(S)],u(S) =v(xS)−v(x∅).
+This assumption indicates that the average classification confidence of the DNN increases when the
+input sample is less occluded.  Specifically,  ¯u(m)  = E|S|=m[v(xS)−v(x∅)]≥  0 represents the
+average network output over all masked samplesxS with|S| =m. We refer to ¯u(m) as the average
+output of them-th order in the following discussion.
+Justification of the monotonicity assumption. Assumption 2 commonly holds on different samples
+and DNNs. We justify this assumption through both theoretical analysis and experiments. Theoreti-
+cally speaking, if we limit our discussion to two specific masked samplesS andS′ s.t. S ⊊S′, we
+cannot always ensureu(S)<u(S′), because some variables inS′\S may be unrelated to the clas-
+sification, and may even have negative contributions to the classification.  However, Assumption 2
+focuses on the average output over allm-order masked states, ¯u(m) = E|S|=m[u(S)], which is much
+stabler and more robust than the output on a specific masked state u(S).  Thus, the monotonicity
+assumption is common for an input sample. Please see Appendix H for an example.
+For  experimental  justification  of  Assumption  2,  we  conducted  experiments  on  three  Large  Lan-
+guage Models (LLMs), including the OPT-1.3B model (Zhang et al., 2022b), the BAAI Aquila-7B
+model (FlagAI, 2023), and the LLaMA-7B model (Touvron et al., 2023). We tested these networks
+on 1000 sentences from the SQuAD dataset (Rajpurkar et al., 2016).  For each input sentence, we
+followed Shen et al. (2023) to selectn = 10 words from the sentence as input variables to reduce the
+computational cost.  Please see Appendix D.1 for details on the input sentences, how to determine
+
+
+                                                           6
+
+=== PDF PAGE 7 ===
+Published as a conference paper at ICLR 2024
+
+
+
+
+
+Table 1:    Our theory can explain the sparsity of interactions in about 84.52% - 89.87% samples,
+because these samples had monotonic values of ¯u(m). Nevertheless, the remaining 10.13% -15.48%
+samples without the monotonicity also encoded very sparse interactions. Our proof is still significant
+enough, although we cannot prove the sparsity on all input samples.
+                                                                           OPT-1.3B       LLaMA-7B      Aquila-7B
+               Percent of samples with monotonicity                         89.87%            84.52%            87.46%
+  Avg # of valid interactions      Samples with monotonicity              29.06±52.46     50.71±40.35     30.16±26.22
+                                   Samples without monotonicity           42.67±38.87     79.71±59.43     65.94±69.99
+
+the setN, and how to mask words inN\T when computingv(xT ). Table 1 shows that on all LLMs,
+over 84% of the input samples satisfied the monotonicity assumption. Figure 5(a) also visualizes the
+increase of the average output of them-th order ¯u(m) along with the orderm on different LLMs.
+Table 1 also shows that because of the complexity of training an LLM, in a few cases, the average
+network output of them-th order was not always monotonic along with the orderm.  In fact, this
+conflicted with the common logic, but it was still possible because the extremely high diversity of
+sentences made the LLM difficult to be sufficiently trained (fully converge).  In this study, we did
+not consider such a case and only focused on the ideal case where a network was well-trained.
+Third, we need to ensure that the classification confidence of the DNN does not significantly degrade
+on masked input samples.  In real applications, the classification/detection of occluded samples is
+common. Thus, for a well-trained DNN, its confidence when classifying occluded (masked) samples
+should not be substantially lower than its confidence for unmasked samples.
+Assumption 3.  Given the average network output of samples with m unmasked input variables,
+¯u(m),  we assume a lower bound for the average network output of samples with m′  (m′ ≤ m)
+unmasked input variables, i.e.,∀m′≤m,  ¯u(m′)≥ (m′m )p ¯u(m), wherep> 0 is a positive constant.
+In  Assumption  3,  we  bound  the  decrease  of  the  average  output  of  order m  by  a  polynomial  of
+degree p.   If  this  assumption  is  violated,  i.e.,  ¯u(m′) <  (m′m )p  ¯u(m)  for m′ ≤ m,  then  it  implies
+either extremely low classification confidence on masked samples or extremely high classification
+confidence on normal (unmasked) samples, which are both undesirable cases in real applications.
+We also conducted experiments to illustrate the value ofp on real DNNs and datasets. We used the
+same LLMs and dataset as those in the previous experiment.  Figure 5(b) shows that the value ofp
+across different samples was around 0.9 to 1.5, which was reasonable for further analysis.
+Proof of the sparsity of interactions.  Under the above conditions, we prove that interactions en-
+coded by a DNN are sparse.  We start by analyzing the upper bound of the sum of the effects of all
+k-order interactions, denoted byA(k)  def=PS⊆N,|S|=kI(S).
+Theorem 2 (Proven in Appendix B.3).  There existsm0∈{n,n− 1,··· ,n−M}, such that for all
+1≤k≤M, the sum of the effects of allk-order interactions can be written as
+
+                         A(k) = (λ(k)np+δ +a(k)⌊p⌋−1n⌊p⌋−1 +··· +a(k)1 n +a(k)0   ) ¯u(1),                               (3)
+
+where|λ(k)|≤ 1,|a(k)0 |<n,|a(k)i |∈{0, 1,··· ,n− 1} fori = 1,··· ,⌊p⌋− 1, and  1
+
+                            δ≤ logn      λ   1− a⌊p⌋−1np−⌊p⌋+1−···− a0np         ,     ifλ> 0,                                    (4)
+                                          1     a⌊p⌋−1
+                            δ≤ logn      −λ     np−⌊p⌋+1 +··· + a0np          ,     ifλ< 0.                                        (5)
+
+Here,λ  def=PM                              def=PM
+                 k=1 (m0k )(nk) λ(k)̸= 0,ai       k=1 (m0k )(nk) a(k)i    fori = 0, 1,··· ,⌊p⌋− 1, and⌊p⌋ denotes the
+greatest integer that is less than or equal top.
+The above theorem indicates that the sum of effects of allk-order interactions isO(np+δ).  Then,
+we discuss the sparsity of interactions in the following two cases.
+• Case 1:  When the positive and negative interactions of the k-th order do not fully cancelP
+out each other.  Let η(k)   def=    P  |S|=kI(S)
+                                      |S|=k|I(S)|  denote the remaining proportion of the effects ofk-order
+
+                                                             7
+
+=== PDF PAGE 8 ===
+Published as a conference paper at ICLR 2024
+
+
+
+
+
+    Table 2: Comparison between the number of valid interactions and the derived upper bound.
+                                      OPT-1.3B          LLaMA-7B          Aquila-7B        MLP (tabular dataset)
+  Real # of valid interactions       28.73±52.37         50.53±40.37         30.13±26.20               54.42±36.81
+  Upper bound                       197.84±188.87     293.20±287.28     184.23±124.71            229.11±139.52
+
+interactions that are not cancelled out.  Here, the absolute value of this proportion|η(k)| should not
+be negligible.  Thus, let us set|η(k)|≫  1n.  Otherwise, we consider that the positive and negative
+interactions almost cancel out, and then this instance belongs to Case 2.
+Without loss of generality, we set a small positive thresholdτ  subject to 0 < τ≪ ET⊆S[|u(T )|].
+Then, we consider all interactions with|I(S)|≥ τ  as valid (salient) interactions.  We consider all
+interactions with|I(S)|<τ  as noisy patterns.  In fact, as Figure 3 shows, most interactions below
+the thresholdτ  had roughly exponentially decreasing strength, which meant that most non-salient
+interactions (noisy patterns) had almost zero effect.
+Therefore, let us useR(k)  def=|{S⊆ N||S| = k,|I(S)|≥τ}| to denote the number of valid interac-
+tions of thek-th order. The following theorem provides an upper bound forR(k).
+Theorem 3 (Proven in Appendix B.4). R(k) has the following upper bound:
+
+                            R(k)≤    ¯u(1)τ|η(k)||λ(k)np+δ +a(k)⌊p⌋−1n⌊p⌋−1 +··· +a(k)0 |.                                     (6)
+
+The above theorem indicates that if positive interactions do not fully cancel with negative interac-
+tions (i.e.,|η(k)| is not extremely small), then the number of valid interactionsR(k) of thek-th order potential
+has an upper bound ofO(np+δ/|τη(k)|), which is much less than the total number ofnk
+interactions of thek-th order in most cases.
+In fact, the final number of valid interactions also depends on the value ofp.  Although we cannot
+theoretically guarantee different DNNs all have smallp values, experiments in Figure 5(b) show that
+p was around 0.9 to 1.5 on common tasks. Nevertheless, Eq. (6) just shows an upper bound of valid
+interactions, which is much more than the real interaction number. Please see Table 2 for the higher
+sparsity of real interactions than the upper bound.  Thus, Theorem 3 shows that it is quite common
+for a DNN to encode sparse interactions.
+• Case 2: When positive and negative interactions of thek-th order almost cancel each other.
+In this case, the absolute value of η(k)  can be extremely small.  In such an extreme situation, the
+number of valid interactions is proportional tonp+δ/|τη(k)|. Then, the upper bound for the number
+of interactionsR(k) is much higher, according to Theorem 3. However,R(k) is still much less than
+n if|η(k)| is not exponentially small.
+ k
+Real number of valid interactions vs. the derived bound. We conducted experiments to compare
+the real number of valid interactions with the derived upper bound.  We used the same LLMs and
+dataset as those in previous experiments.  Besides, we also trained a 5-layer multi-layer perceptron
+(MLP) on a tabular dataset named TV news (Dua & Graff, 2017).  Specifically, we setM  = 9.  We
+setτ = 0.05 maxS′|I(S′)| for all LLMs, and setτ = 0.1 maxS′|I(S′)| for the MLP. Table 2 shows
+that the real number of valid interactions was about 30 to 50, while the derived bound was about
+200 to 260.  Note that the number of all potential interactions was 2n  = 210  = 1024.  Please see
+Appendix E.2 for the number of valid interactions and the bound on several example sentences.
+3.3    WHEN ARE INTERACTIONS NON-SPARSE?
+Despite the above proof of the sparsity of interactions under certain assumptions, there exist some
+special cases in which the DNN does not encode sparse interactions.
+Scenario 1.  Let us consider the scenario where the network output contains some random noise,
+i.e.,  we can decompose the network output into v′(xS)  = v(xS) +ϵS,  where ϵS  denotes a fully
+random noise.  In this case, the effect of each interaction can be rewritten asI′(S) = I(S) +Iϵ(S),
+whereI(S) denotes the interaction extracted from the normal output componentv(xS), andIϵ(S) =
+P
+   T⊆S(−1)|S|−|T|·(ϵT−ϵ∅) denotes the interaction extracted from the noise. BecauseIϵ(S) is a sum
+of 2|S| noise terms, the variance ofIϵ(S) w.r.t. the noise is 2|S| times larger. In this case, the value of
+Iϵ(S), as well asI′(S), is not likely to be zero, i.e., we will not obtain sparse interactions.
+
+
+                                                            8
+
+=== PDF PAGE 9 ===
+Published as a conference paper at ICLR 2024
+
+
+
+
+In fact, this scenario does not satisfy Assumptions 1-α and 1-β.  In this case, we can simply ignore
+small noises inv′(xS) to obtain sparse interactions.  To this end, Li & Zhang (2023a) proposed a
+method to estimate and remove potential small noises from the network output and boost the sparsity.
+Scenario 2.  Let us consider the second scenario, in which the network output on a masked sample
+xS is purely dependent on the number of variables inS. We consider an example in which the sign
+ofu(S) is decided by the parity of the number of variables inS, i.e., if|S| is odd, thenu(S) = +1;
+otherwise,u(S) =−1. In this case,I(S) is always positive if|S| is odd, and always negative if|S|
+is even, which is not sparse.  In fact, this scenario does not satisfy Assumption 2 (the monotonicity
+assumption). In addition, the classification of the parity does not represent the typical paradigm for
+classification because there are no inference patterns for classification.
+Scenario  3.   In  this  scenario,  the  network  encodes  high-order  OR  relationships  between  the  in-
+put variables.   For example,  the network may encode an OR relationship “blue patch 1”∨···∨
+“blue patch m” to recognize the sky.  Such an OR relationship will be explained as a large number
+of lower-order Harsanyi interactions.  However, in real applications, such high-order interactions,
+e.g., the detection of the sky, can actually be taken as a single concept. If we disentangle and remove
+such high-order interactions from the network output,  the remaining output is likely to generate
+sparse Harsanyi interactions. In addition, this scenario does not satisfy Assumptions 1-α and 1-β.
+Scenario 4.  Let us consider the scenario in which the network output is in the form of a periodic
+function,  e.g., v(xS)  =  sin(Pi∈Sxi).   In this case,  interactions encoded by the network are not
+sparse. This scenario does not satisfy Assumptions 1-α, 1-β, and Assumption 2.
+Scenario 5.  Let us consider the special task that heavily relies on the information of all input vari-
+ables, e.g., judging whether the number of 1’s in a binary sequence (e.g., the sequence [0, 0, 1, 0, 1])
+is odd or even.  In this task, the value ofp may be large, and the monotonicity assumption is not
+satisfied. As a result, the interactions may not be sparse. See Appendix E.3 for experiments.
+
+4    SIGNIFICANCE OF THE EMERGENCE OF INTERACTION PRIMITIVES
+• The emergence of symbolic interaction primitives can be considered as a theoretical foundation
+for the field of explainable AI. Many studies have attempted to explain the feature representation of
+DNNs as the encoding of different concepts with clear meanings.  For example, Bau et al. (2017;
+2020) examined how each convolutional filter was related to its encoded fuzzy concept.  Kim et al.
+(2018)  attempted  to  find  a  certain  feature  direction  in  the  intermediate  layer  corresponding  to  a
+specific manually-defined concept. However, the fundamental issue behind these explanations, i.e.,
+whether a DNN can be faithfully explained as symbolic concepts, has not been studied.
+• The proof of the emergence of interaction primitives may provide a new perspective to analyze the
+generalization power and robustness of a DNN. In fact, game-theoretic interactions have been used
+to explain overfitting (Zhang et al., 2020), adversarial robustness (Ren et al., 2021), and adversarial
+transferability (Wang et al., 2021), although these studies used multi-order interactions (Zhang et al.,
+2020) for analysis5, rather than the Harsanyi interaction.
+• Given the sparsity property and the universal matching property, the sample-wise transferability
+property can be obtained by contradiction.  If interactions are not transferable across samples, then
+it means that the DNN activates different sets of salient interactions on different samples, and this
+indicates that the number of interaction patterns encoded by the DNN will be explosively large.
+
+5    CONCLUSION AND  FUTURE WORK
+This study provided a set of conditions for the emergence of symbolic interaction primitives for
+inference. Under these conditions, we proved that a DNN encoded very sparse interactions between
+input  variables.   The  commonness  of  these  conditions  indicated  that  the  emergence  of  symbolic
+(sparse) interactions was not unusual, but might be a universal phenomenon for various well-trained
+AI models, because the proof does not rely on the network architecture.  In future work, we will
+attempt to derive a tighter upper bound for the number of valid interactions R(k)  encoded by the
+network. Additionally, we will further quantify the precise conditions that prevent the emergence of
+symbolic interaction primitives from occurring in a DNN.
+
+   5Harsanyi interactions are compositional elements of multi-order interactions (Ren et al., 2023a).
+
+
+                                                            9
+
+=== PDF PAGE 10 ===
+Published as a conference paper at ICLR 2024
+
+
+
+
+Acknowledgements.   This  work  is  partially  supported  by  the  National  Science  and  Technology
+Major  Project  (2021ZD0111602),  the  National  Nature  Science  Foundation  of  China  (92370115,
+62276165, 62206170).
+
+ETHIC STATEMENT
+This paper aims to prove the emergence of sparse primitive inference patterns in well-trained DNNs
+under certain conditions. The proof potentially provides theoretical support for explaining DNNs at
+the concept level. There are no ethical issues with this paper.
+
+REPRODUCIBILITY  STATEMENT
+We   have   provided   proofs   for   the   theoretical   results   of   this   study   in   Appendix   B.   We
+have   also   provided   experimental   details   in   Appendix   C.1,   Appendix   C.2,   and   Appendix
+D.1.   Furthermore,  we  have  released  the  code  at https://github.com/sjtu-xai-lab/
+interaction-sparsity.
+
+REFERENCES
+David Bau, Bolei Zhou, Aditya Khosla, Aude Oliva, and Antonio Torralba.   Network dissection:
+  Quantifying interpretability of deep visual representations.  In Proceedings of the IEEE Confer-
+  ence on Computer Vision and Pattern Recognition (CVPR), July 2017.
+
+David Bau, Jun-Yan Zhu, Hendrik Strobelt, Agata Lapedriza, Bolei Zhou, and Antonio Torralba.
+  Understanding  the  role  of  individual  units  in  a  deep  neural  network.   Proceedings  of  the  Na-
+  tional Academy of Sciences, 117(48):30071–30078, 2020.  doi: 10.1073/pnas.1907375117.  URL
+  https://www.pnas.org/doi/abs/10.1073/pnas.1907375117.
+
+Steven Bird, Ewan Klein, and Edward Loper. Natural Language Processing with Python: Analyzing
+  Text with the Natural Language Toolkit. O’Reilly Media, Inc., 2009.
+
+Lu Chen,  Siyu Lou,  Benhao Huang,  and Quanshi Zhang.   Defining and extracting generalizable
+  interaction primitives from DNNs.  In The Twelfth International Conference on Learning Repre-
+  sentations, 2024. URL https://openreview.net/forum?id=OCqyFVFNeF.
+
+Xu Cheng, Chuntung Chu, Yi Zheng, Jie Ren, and Quanshi Zhang.  A Game-Theoretic Taxonomy
+  of Visual Concepts in DNNs. arXiv preprint arXiv:2106.10938, 2021a.
+
+Xu Cheng, Xin Wang, Haotian Xue, Zhengyang Liang, and Quanshi Zhang.  A Hypothesis for the
+  Aesthetic Appreciation in Neural Networks. arXiv preprint arXiv::2108.02646, 2021b.
+
+Huiqi  Deng,  Qihan  Ren,  Xu  Chen,  Hao  Zhang,  Jie  Ren,  and  Quanshi  Zhang.   Discovering  and
+  Explaining the Representation Bottleneck of DNNs. ICLR, 2021.
+
+Huiqi Deng, Na Zou, Mengnan Du, Weifu Chen, Guocan Feng, Ziwei Yang, Zheyang Li, and Quan-
+  shi  Zhang.   Unifying  Fourteen  Post-hoc  Attribution  Methods  with  Taylor  Interactions.   IEEE
+  Transactions on Pattern Analysis and Machine Intelligence, 2024.
+
+Dheeru Dua and Casey Graff. UCI machine learning repository, 2017. URL http://archive.
+  ics.uci.edu/ml.
+
+FlagAI.   Baai aquila language model, 2023.   URL https://github.com/FlagAI-Open/
+  FlagAI/blob/master/examples/Aquila.
+
+Gaston H Gonnet and Ralf Scholl. Scientific computation. Cambridge University Press, 2009.
+
+Michel Grabisch and Marc Roubens.  An axiomatic approach to the concept of interaction among
+  players in cooperative games. International Journal of game theory, 28(4):547–565, 1999.
+
+John C. Harsanyi.  A simplified bargaining model for the n-person cooperative game.  International
+  Economic Review, 4(2):194–220, 1963. ISSN 00206598, 14682354.
+
+
+                                                        10
+
+=== PDF PAGE 11 ===
+Published as a conference paper at ICLR 2024
+
+
+
+
+Kaiming He, Xiangyu Zhang, Shaoqing Ren, and Jian Sun. Deep residual learning for image recog-
+  nition.  In Proceedings of the IEEE conference on computer vision and pattern recognition, pp.
+  770–778, 2016.
+
+Been Kim, Martin Wattenberg, Justin Gilmer, Carrie Cai, James Wexler, Fernanda Viegas, and Rory
+  sayres.   Interpretability beyond feature attribution:  Quantitative testing with concept activation
+  vectors (TCAV). In Jennifer Dy and Andreas Krause (eds.), Proceedings of the 35th International
+  Conference on Machine Learning, volume 80 of Proceedings of Machine Learning Research, pp.
+  2668–2677.  PMLR,  10–15  Jul  2018.   URL https://proceedings.mlr.press/v80/
+  kim18d.html.
+Alex Krizhevsky, Ilya Sutskever, and Geoffrey E Hinton.  Imagenet classification with deep convo-
+  lutional neural networks. In Advances in Neural Information Processing Systems, volume 25, pp.
+  1097–1105, 2012.
+
+Yann LeCun, L´eon Bottou, Yoshua Bengio, and Patrick Haffner. Gradient-based learning applied to
+  document recognition. Proceedings of the IEEE, 86(11):2278–2324, 1998.
+Mingjie Li and Quanshi Zhang.  Defining and Quantifying AND-OR Interactions for Faithful and
+  Concise Explanation of DNNs. arXiv preprint arXiv:2304.13312, 2023a.
+
+Mingjie Li and Quanshi Zhang. Does a Neural Network Really Encode Symbolic Concepts?  Inter-
+  national Conference on Machine Learning, 2023b.
+Dongrui Liu, Huiqi Deng, Xu Cheng, Qihan Ren, Kangrui Wang, and Quanshi Zhang. Towards the
+  Difficulty for a Deep Neural Network to Learn Concepts of Different Complexities.  In Thirty-
+  seventh Conference on Neural Information Processing Systems, 2023.
+
+Ziwei Liu, Ping Luo, Xiaogang Wang, and Xiaoou Tang. Deep learning face attributes in the wild. In
+  Proceedings of the IEEE International Conference on Computer Vision (ICCV), December 2015.
+William Peebles,  John Peebles,  Jun-Yan Zhu,  Alexei Efros,  and Antonio Torralba.   The hessian
+  penalty:  A  weak  prior  for  unsupervised  disentanglement.   In  Andrea  Vedaldi,  Horst  Bischof,
+  Thomas  Brox,  and  Jan-Michael  Frahm  (eds.),  Computer  Vision  –  ECCV  2020,  pp.  581–597,
+  Cham, 2020. Springer International Publishing. ISBN 978-3-030-58539-6.
+
+Charles R. Qi, Hao Su, Kaichun Mo, and Leonidas J. Guibas.   Pointnet:  Deep learning on point
+  sets for 3d classification and segmentation. In Proceedings of the IEEE Conference on Computer
+  Vision and Pattern Recognition (CVPR), July 2017a.
+Charles  Ruizhongtai  Qi,   Li  Yi,   Hao  Su,   and  Leonidas  J  Guibas.      Pointnet++:    Deep  hi-
+  erarchical   feature   learning   on   point   sets   in   a   metric   space.       In   I.   Guyon,   U.   Von
+  Luxburg,  S.  Bengio,  H.  Wallach,  R.  Fergus,  S.  Vishwanathan,  and  R.  Garnett  (eds.),  Ad-
+  vances   in   Neural   Information   Processing   Systems,   volume   30.   Curran   Associates,   Inc.,
+  2017b.    URL  https://proceedings.neurips.cc/paper_files/paper/2017/
+  file/d8bf84be3800d12f74d8b05e9b89836f-Paper.pdf.
+
+Pranav Rajpurkar, Jian Zhang, Konstantin Lopyrev, and Percy Liang.  SQuAD: 100,000+ questions
+  for machine comprehension of text. In Proceedings of the 2016 Conference on Empirical Methods
+  in Natural Language Processing, pp. 2383–2392, Austin, Texas, November 2016. Association for
+  Computational Linguistics.  doi:  10.18653/v1/D16-1264.  URL https://aclanthology.
+  org/D16-1264.
+
+Jie Ren, Die Zhang, Yisen Wang, Lu Chen, Zhanpeng Zhou, Yiting Chen, Xu Cheng, Xin Wang,
+  Meng Zhou, Jie Shi, and Quanshi Zhang. Towards a Unified Game-Theoretic View of Adversarial
+  Perturbations  and  Robustness.   In  M.  Ranzato,  A.  Beygelzimer,  Y.  Dauphin,  P.S.  Liang,  and
+  J. Wortman Vaughan (eds.), Advances in Neural Information Processing Systems, volume 34, pp.
+  3797–3810. Curran Associates, Inc., 2021.
+Jie Ren, Mingjie Li, Qirui Chen, Huiqi Deng, and Quanshi Zhang.  Defining and Quantifying the
+  Emergence of Sparse Concepts in DNNs. In The IEEE/CVF Computer Vision and Pattern Recog-
+  nition Conference, 2023a.
+
+
+                                                         11
+
+=== PDF PAGE 12 ===
+Published as a conference paper at ICLR 2024
+
+
+
+
+Jie Ren, Zhanpeng Zhou, Qirui Chen, and Quanshi Zhang.  Can We Faithfully Represent Absence
+  States to Compute Shapley Values on a DNN?  In International Conference on Learning Repre-
+  sentations, 2023b. URL https://openreview.net/forum?id=YV8tP7bW6Kt.
+
+Qihan Ren, Huiqi Deng, Yunuo Chen, Siyu Lou, and Quanshi Zhang.  Bayesian Neural Networks
+  Tend to Ignore Complex and Sensitive Concepts. International Conference on Machine Learning,
+  2023c.
+
+Lloyd S Shapley.  A value for n-person games.  Contributions to the Theory of Games, 2(28):307–
+  317, 1953.
+
+Wen Shen, Lei Cheng, Yuxiao Yang, Mingjie Li, and Quanshi Zhang.  Can the inference logic of
+  large language models be disentangled into symbolic concepts? arXiv preprint arXiv:2304.01083,
+  2023.
+
+Karen Simonyan and Andrew Zisserman.  Very deep convolutional networks for large-scale image
+  recognition. In International Conference on Learning Representations, 2014.
+Richard Socher, Alex Perelygin, Jean Wu, Jason Chuang, Christopher D Manning, Andrew Y Ng,
+  and Christopher Potts.   Recursive deep models for semantic compositionality over a sentiment
+  treebank.  In Proceedings of the 2013 conference on empirical methods in natural language pro-
+  cessing, pp. 1631–1642, 2013.
+
+Mukund  Sundararajan,  Kedar  Dhamdhere,  and  Ashish  Agarwal.   The  shapley  taylor  interaction
+  index. In International Conference on Machine Learning, pp. 9259–9268. PMLR, 2020.
+
+Hugo Touvron, Piotr Bojanowski, Mathilde Caron, Matthieu Cord, Alaaeldin El-Nouby, Edouard
+  Grave,  Gautier  Izacard,  Armand  Joulin,  Gabriel  Synnaeve,  Jakob  Verbeek,  and  Herv´e  J´egou.
+  Resmlp: Feedforward networks for image classification with data-efficient training. IEEE Trans-
+  actions on Pattern Analysis and Machine Intelligence, pp. 1–9, 2022. doi: 10.1109/TPAMI.2022.
+  3206148.
+
+Hugo Touvron, Thibaut Lavril, Gautier Izacard, Xavier Martinet, Marie-Anne Lachaux, Timoth´ee
+  Lacroix, Baptiste Rozi`ere, Naman Goyal, Eric Hambro, Faisal Azhar, et al.  Llama:  Open and
+  efficient foundation language models. arXiv preprint arXiv:2302.13971, 2023.
+
+Che-Ping Tsai, Chih-Kuan Yeh, and Pradeep Ravikumar.  Faith-shap: The faithful shapley interac-
+  tion index. arXiv preprint arXiv:2203.00870, 2022.
+Xin Wang,  Jie Ren,  Shuyun Lin,  Xiangming Zhu,  Yisen Wang,  and Quanshi Zhang.   A Unified
+  Approach to Interpreting and Boosting Adversarial Transferability.  In International Conference
+  on Learning Representations, 2021.
+
+Alex Warstadt, Amanpreet Singh, and Samuel R Bowman. Neural network acceptability judgments.
+  Transactions of the Association for Computational Linguistics, 7:625–641, 2019.
+
+Li Yi,  Vladimir G Kim,  Duygu Ceylan,  I-Chao Shen,  Mengyan Yan,  Hao Su,  Cewu Lu,  Qixing
+  Huang, Alla Sheffer, and Leonidas Guibas.  A scalable active framework for region annotation in
+  3d shape collections. ACM Transactions on Graphics (ToG), 35(6):1–12, 2016.
+
+Die Zhang, Hao Zhang, Huilin Zhou, Xiaoyi Bao, Da Huo, Ruizhao Chen, Xu Cheng, Mengyue
+  Wu,  and Quanshi Zhang.   Building Interpretable Interaction Trees for Deep NLP Models.   In
+  Thirty-Fifth  AAAI  Conference  on  Artificial  Intelligence,  AAAI  2021,  pp.  14328–14337.  AAAI
+  Press, 2021a.
+
+Hao Zhang, Sen Li, YinChao Ma, Mingjie Li, Yichen Xie, and Quanshi Zhang.  Interpreting and
+  Boosting Dropout from a Game-Theoretic View.  In International Conference on Learning Rep-
+  resentations, 2020.
+Hao Zhang, Yichen Xie, Longjie Zheng, Die Zhang, and Quanshi Zhang.  Interpreting Multivariate
+  Shapley Interactions in DNNs.  In Thirty-Fifth AAAI Conference on Artificial Intelligence, AAAI
+  2021, pp. 10877–10886. AAAI Press, 2021b.
+
+
+                                                         12
+
+=== PDF PAGE 13 ===
+Published as a conference paper at ICLR 2024
+
+
+
+
+Quanshi Zhang,  Xin Wang,  Jie Ren,  Xu Cheng,  Shuyun Lin,  Yisen Wang,  and Xiangming Zhu.
+  Proving Common Mechanisms Shared by Twelve Methods of Boosting Adversarial Transferabil-
+  ity. arXiv preprint arXiv:2207.11694, 2022a.
+Susan Zhang, Stephen Roller, Naman Goyal, Mikel Artetxe, Moya Chen, Shuohui Chen, Christo-
+  pher Dewan,  Mona Diab,  Xian Li,  Xi Victoria Lin,  et al.   Opt:  Open pre-trained transformer
+  language models. arXiv preprint arXiv:2205.01068, 2022b.
+Huilin Zhou, Hao Zhang, Huiqi Deng, Dongrui Liu, Wen Shen, Shih-Han Chan, and Quanshi Zhang.
+  Explaining Generalization Power of a DNN using Interactive Concepts.  In Thirty-Eighth AAAI
+  Conference on Artificial Intelligence, AAAI 2024. AAAI Press, 2024.
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+                                                        13
+
+=== PDF PAGE 14 ===
+Published as a conference paper at ICLR 2024
+
+
+
+A    AXIOMS AND THEOREMS FOR THE HARSANYI  DIVIDEND INTERACTION
+A.1    DESIRABLE GAME-THEORETIC PROPERTIES
+The Harsanyi dividend was designed as a standard metric to measure interactions between input
+variables encoded by the network. In this section, we present several desirable axioms and theorems
+that the Harsanyi dividend interactionI(S) satisfies.  This further demonstrates the trustworthiness
+of the Harsanyi dividend interaction.
+The  Harsanyi  dividend  interactions I(S)  satisfies  the  efficiency,  linearity,  dummy,  symmetry,
+anonymity,  recursive  and  interaction distribution  axioms,  as follows.   We follow the  notation in
+the main paper to letu(S) =v(xS)−v(x∅).
+(1) Efficiency axiom (proven by Harsanyi (1963)). The output score of a model can be decomposed
+into interaction effects of different patterns, i.e. u(N) =PS⊆NI(S).
+(2) Linearity axiom.  If we merge output scores of two modelsu1 andu2 as the output of modelu,
+i.e. ∀S⊆ N, u(S)  = u1(S) +u2(S), then their interaction effects Iu1(S) and Iu2(S) can also be
+merged as∀S⊆N,Iu(S) =Iu1(S) +Iu2(S).
+(3)  Dummy  axiom.   If  a  variable i ∈ N  is  a  dummy  variable,  i.e. ∀S ⊆ N\{i},u(S∪{i})  =
+u(S) +u({i}), then it has no interaction with other variables,∀∅̸=S⊆N\{i},I(S∪{i}) = 0.
+(4) Symmetry axiom.  If input variables i,j ∈ N  cooperate with other variables in the same way,
+∀S⊆N\{i,j},u(S∪{i}) =u(S∪{j}), then they have same interaction effects with other variables,
+∀S⊆N\{i,j},I(S∪{i}) =I(S∪{j}).
+(5)  Anonymity  axiom.   For  any  permutations π  on N,  we  have∀S⊆ N,Iu(S) =Iπu(πS),  where
+πS≜{π(i)|i∈S}, and the new modelπu is defined by (πu)(πS)=u(S). This indicates that interaction
+effects are not changed by permutation.
+(6) Recursive axiom.   The interaction effects can be computed recursively.   For i∈ N  and S ⊆
+N\{i}, the interaction effect of the pattern S∪{i} is equal to the interaction effect of S  with the
+presence ofi minus the interaction effect ofS with the absence ofi, i.e.∀S⊆N\{i},I(S∪{i}) =
+I(S|i is always present)−I(S). I(S|i is always present) denotes the interaction effect when the variable
+i is always present as a constant context, i.e. I(S|i is always present) =PL⊆S(−1)|S|−|L|·u(L∪{i}).
+(7) Interaction distribution axiom.   This axiom characterizes how interactions are distributed for
+“interaction functions” (Sundararajan et al., 2020).  An interaction functionuT  parameterized by a
+subset of variablesT  is defined as follows.∀S⊆ N, ifT ⊆ S, uT (S) = c; otherwise, uT (S) = 0.
+The functionuT  models pure interaction among the variables inT , because only if all variables in
+T  are present, the output value will be increased byc.  The interactions encoded in the functionuT
+satisfiesI(T ) =c, and∀S̸=T ,I(S) = 0.
+A.2    CONNECTION TO EXISTING GAME-THEORETIC ATTRIBUTION/INTERACTION METRICS
+The  Harsanyi  interaction I(S)  is  actually  the  elementary  mechanism  of  existing  game-theoretic
+attribution/interaction metrics, as follows.
+Theorem 4 (Connection to the Shapley value (Shapley, 1953), proven in both Harsanyi (1963) and
+Appendix B.5).  Letϕ(i) denote the Shapley value of an input variablei.  Then, the Shapley value
+ϕ(i) can be explained as the result of uniformly assigning attributions of each Harsanyi interaction
+to each involving variablei, i.e.,ϕ(i) =P                      1
+                                                   S⊆N\{i}   |S|+1I(S∪{i}).
+Theorem 5 (Connection to the Shapley interaction index (Grabisch & Roubens, 1999), proven in
+both Ren et al. (2023a) and Appendix B.6).  Given a subset of input variablesT⊆ N, the Shapley
+interaction index IShapley(T ) can be represented as IShapley(T )  = P                      1
+                                                                                 S⊆N\T   |S|+1I(S∪T ).  In other
+words, the index IShapley(T ) can be explained as uniformly allocating I(S′) s.t. S′  = S∪T  to the
+compositional variables ofS′ if we treat the coalition of variables inT  as a single variable.
+Theorem 6 (Connection to the Shapley Taylor interaction index (Sundararajan et al., 2020), proven
+in both Ren et al. (2023a) and Appendix B.7).  Given a subset of input variables T ⊆ N, the k-
+th order Shapley Taylor interaction indexIShapley-Taylor(T ) can be represented as the weighted sum of|S|+k−1I(S∪T )
+interaction effects, i.e.,IShapley-Taylor(T ) =I(T ) if|T|<k;IShapley-Taylor(T ) =PS⊆N\T              k
+if|T| =k; andIShapley-Taylor(T ) = 0 if|T|>k.
+
+
+                                                          14
+
+=== PDF PAGE 15 ===
+Published as a conference paper at ICLR 2024
+
+
+
+B    PROOF OF THEOREMS
+B.1    PROOF OF THEOREM 1 IN THE MAIN PAPER
+Theorem 1. Let the input samplex be arbitrarily masked to obtain a masked samplexS. The output
+of the DNN on the masked samplexS can be disentangled into the sum of effects of all interactions
+within the setS:
+                                ∀S⊆N, v(xS) =XT⊆SI(T ) +v(x∅).                                        (7)
+
+
+Proof.  According to the definition of the Harsanyi interaction, we have∀S⊆N,
+
+                               X    I(T ) =X      X   (−1)|T|−|L|u(L)
+
+
+                               T⊆S           T⊆S  L⊆T
+                                          =X         X      (−1)|T|−|L|u(L)
+
+
+                                             L⊆S  T⊆S:T⊇L
+
+                                                   |S|X   X
+                                          =X                     (−1)t−|L|u(L)
+                                             L⊆S  t=|L|T⊆S:S⊇L
+                                                         |T|=t
+                                                        |S|−|L|X           !
+                                          =X      u(L)           |S|−|L|      (−1)m
+
+                                             L⊆S         m=0         m
+                                          =u(S) =v(xS)−v(x∅).
+
+Therefore, we havev(xS) =PT⊆SI(T ) +v(x∅).
+
+
+
+B.2    DERIVATION OF ASSUMPTION 1-α FROM ASSUMPTION 1-β  IN THE MAIN PAPER
+Before we give the derivation of Assumption 1-α from Assumption 1-β, we first prove the following
+lemma.
+Lemma 1.  The effectI(S) (S̸=∅) of an interactive concept can be rewritten as
+                                               ∂κ1+···+κnv     x=b Q
+                        I(S) =X                                      ·    i∈S(xi−bi)κi
+                                      κ∈QS   ∂xκ11 ···∂xκnn                κ1!···κn!  ,                            (8)
+
+whereQS ={[κ1,...,κn]⊤|∀i∈S,κi∈ N+;∀i̸∈S,κi = 0}.
+Note that a similar proof was first introduced in Ren et al. (2023c).
+
+Proof.  Let us denote the function on the right of Eq. (8) by ˜I(S), i.e., forS̸=∅,
+                                               ∂κ1+···+κnv     x=b Q
+                        ˜I(S)  def=X                                 ·    i∈S(xi−bi)κi
+                                      κ∈QS    ∂xκ11 ···∂xκnn               κ1!···κn!  .                            (9)
+
+According to Eq. (1), we define  ˜I(∅)  =  0.  Actually, it has been proven in Grabisch & Roubens
+(1999) and Ren et al. (2023a) that the Harsanyi interaction I(S) defined in Eq. (1) is the unique
+metric satisfying the universal matching property mentioned in the main paper, i.e.,
+
+                                ∀S⊆N, v(xS) =XT⊆SI(T ) +v(x∅).                                      (10)
+
+Thus, as long as we can prove that ˜I(S) also satisfies the above universal matching property, we can
+obtain ˜I(S) =I(S).
+To this end, we only need to prove ˜I(S) also satisfies the universal matching property in Eq. (10).
+Specifically, given an input samplex∈ Rn, let us consider the Taylor expansion of the network
+
+
+                                                        15
+
+=== PDF PAGE 16 ===
+Published as a conference paper at ICLR 2024
+
+
+
+
+output v(xS)  of  an  arbitrarily  masked  samplexS(S ⊆ N),  which  is  expanded  at x∅  = b  =
+[b1,··· ,bn]⊤. Then, we have
+
+                              ∞X       ∞X                   x=b
+    ∀S⊆N,  v(xS) =                ···        ∂κ1+···+κnv          · ((xS)1−b1)κ1··· ((xS)n−bn)κn
+
+                            κ1=0     κn=0   ∂xκ11 ···∂xκnn                       κ1!···κn!                         (11)
+
+wherebi denotes the baseline value to mask the input variablexi.
+According to the definition of the masked samplexS, we have that all variables inS keep unchanged
+and other variables are masked to the baseline value. That is,∀i∈S, (xS)i =xi;∀i̸∈S, (xS)i =
+bi.  Hence, we obtain∀i̸∈ S,  [(xS)i−bi]κi  = 0.  Then, among all Taylor expansion terms, only
+terms corresponding to degreesκ in the setPS ={[κ1,··· ,κn]⊤|∀i∈S,κi∈ N;∀i̸∈S,κi = 0}
+may not be zero. Therefore, Eq. (11) can be re-written as
+                                                     ∂κ1+···+κnv    x=bQ
+                    ∀S⊆N,  v(xS) = X                                     ·    i∈S(xi−bi)κi
+                                             κ∈PS   ∂xκ11 ···∂xκnn             κ1!···κn!  .                      (12)
+
+We find that the setPS can be divided into multiple disjoint sets asPS =∪T⊆S QT , whereQT  =
+{[κ1,··· ,κn]⊤|∀i∈T,κi∈ N+;∀i̸∈T,κi = 0}. Then, we can derive that
+                                                X       ∂κ1+···+κnv    x=bQ
+                  ∀S⊆N,  v(xS) = X                                           ·   i∈T (xi−bi)κi
+                                          T⊆S  κ∈QT    ∂xκ11 ···∂xκnn             κ1!···κn!
+                                                                                                               (13)
+                                       = X      ˜I(T ) +v(x∅).
+
+                                          T⊆S
+The last step is obtained as follows. WhenT  =∅,QT  only has one elementκ = [0,··· , 0]⊤, which
+corresponds to the termv(x∅).  Also, ˜I(∅) = 0, which leads to the final form.  Thus, ˜I(S) satisfies
+the universal matching property in Eq. (10), and this lemma holds.
+
+
+
+Then, we prove that by combining Lemma 1 and Assumption 1-β, we can obtain Assumption 1-α.
+Assumption 1-α.  Interactions of higher than the M-th order have zero effect, i.e.,∀ S∈{S⊆
+N||S|≥ M + 1}, I(S) = 0.  Here, the order of an interaction is defined as the number of input
+variables inS, i.e., order(S)  def=|S|.
+
+Proof.  According to Lemma 1, we have                                  Q
+                                               ∂κ1+···+κnv    x=b
+                        I(S) =X                                      ·   i∈S(xi−bi)κi
+                                      κ∈QS   ∂xκ11 ···∂xκnn               κ1!···κn!  ,                          (14)
+
+whereQS ={[κ1,...,κn]⊤|∀i∈S,κi∈ N+;∀i̸∈S,κi = 0}.
+We note that when|S|≥M + 1, we have∀κ∈QS, κ1 +··· +κn≥M + 1. Then, combining
+with Assumption 1-β, we have
+                                     ∂κ1+···+κnv     x=b
+                                    ∂xκ11 ···∂xκnn         = 0, ∀κ∈QS.                                          (15)
+
+
+This leads toI(S) = 0,∀S∈{S⊆N||S|≥M + 1}.
+
+B.3    PROOF OF THEOREM 2 IN THE MAIN PAPER
+To facilitate the proof of Theorem 2 in the main paper, we first prove the following two lemmas.
+Lemma 2.  For eachM≤m≤n, the average network output of them-th order can be written as
+                                                       MX  m
+                                             ¯u(m) =        nkA(k),                                                       (16)
+
+                                                      k=1    k
+whereA(k) =PT⊆N,|T|=kI(T ).
+
+
+                                                        16
+
+=== PDF PAGE 17 ===
+Published as a conference paper at ICLR 2024
+
+
+
+
+Proof.  According to the definition of ¯u(m), we have
+
+                   ¯u(m) = ES⊆N,|S|=m[u(S)]                                                                                  (17)
+                          = ES⊆N,|S|=m[v(xS)−v(x∅)]                                                                  (18)hXi
+                          = ES⊆N,|S|=m            T⊆SI(T )         //according to Theorem 1                    (19)
+                                              Xm        X
+                          = ES⊆N,|S|=m             k=1      T⊆S,|T|=kI(T )                                        (20)
+                                                       X
+                          =Xmk=1 ES⊆N,|S|=m                 T⊆S,|T|=kI(T )                                        (21)
+                                       n1X                  X
+                          =Xmk=1                 S⊆N,|S|=m         T⊆S,|T|=kI(T )                                     (22)
+                                        m    n−k       X
+                          =Xm          n1
+                                 k=1    m     m−k            T⊆N,|T|=kI(T )                                            (23)
+                                       m
+                          =Xm          nkX
+                                 k=1    k        T⊆N,|T|=kI(T )                                                             (24)
+                                       m
+                          =Xm          nkA(k)                                                                                      (25)
+                                 k=1    k
+
+From  Eq.  (22)  to  Eq.  (23),  we  note  that  each  single T ⊆ N(|T|  = k)  is  repeatly  counted  for
+n−k times in the sumP                      P
+ m−k                            S⊆N,|S|=m        T⊆S,|T|=kI(T ). And from Eq. (23) to Eq. (24), we use the
+following property:
+    n     m                               m!                               (n−k)!               n  n−k
+     m       k    =    n!m!(n−m)!    k!(m−k)! =   n!k!(n−k)!         (m−k)!(n−m)! =               k     m−k       .
+                                                                                                                  (26)
+Furthermore, according to Assumption 1-α, we have∀S∈{S⊆ N||S|≥ M + 1}, I(S) = 0.
+Therefore, we have∀k≥M + 1, A(k) = 0. This leads to
+                                                              m                     m
+                    ∀M≤m≤n,    ¯u(m) =Xm                      nkA(k) =XM            nkA(k).                     (27)
+                                                        k=1    k                 k=1    k
+
+
+
+
+Lemma  3.   Given n ∈  N+  and M ∈  N+,  where M < n,  if∀ m ∈ {n,n− 1,··· ,n−
+M}, PM          k)
+         k=1 (m(nk)wk = 0, then we havewk = 0 fork = 1,··· ,M.
+
+Proof.  We first represent the above problem using the matrix representation: ifCw = 0, where
+                 (n         (n                     
+                   1)         2)               M)
+              (n1)   (n2)  ···      (n(nM)                                w1w2...
+                (n−11  )    (n−12  )           M )                                          ∈ RM,          (28)
+       C =        (n1)       (n2)  ···     (n−1(nM)    ∈ R(M+1)×M,     andw =
+                   ...              ...         ...         ...
+                (n−M       (n−M                                                           wM
+                   1  )       2  )             M  )
+                  (n1)       (n2)  ···    (n−M(nM)
+then we havew = 0.
+To prove this lemma, we only need to prove that rank(C) =M.
+If we perform elementary row transformations on the matrix, i.e., subtracting the (i+1)-th row from−n−1 = n−1, the matrix can be
+thei-th row (i = 1, 2,··· ,M), and using the formulanm                       m          m−1
+
+
+                                                          17
+
+=== PDF PAGE 18 ===
+Published as a conference paper at ICLR 2024
+
+
+
+
+transformed as below, with its row rank unchanged:                                       
+                                                  (n−10  )     (n−11  )            M−1)
+                                               (n1) (n2)  ···    (n−1(nM)     
+                                                  (n−20  )     (n−21  )            M−1)
+                                                    (n1)        (n2)  ···    (n−2(nM)
+                                       C′ =          ...              ...         ...         ...                             (29)
+                                                  (n−M0  )    (n−M1  )             M−1)
+                                                  (n−M(n1)    (n−M(n2)  ···    (n−M(nM)
+
+                                                     1  )         2  )              M  )
+                                                    (n1)        (n2)  ···    (n−M(nM)
+To prove that its rank isM, we only need to prove that the firstM rows ofC′ are linearly indepen-
+dent, which is further equivalent to proving a non-zero determinant of the square matrix consisting
+of the firstM rows, i.e.,                                                               
+                                                  (n−10  )    (n−11  )            M−1)
+                                              (n1)     (n2)  ···    (n−1(nM)     
+                                                  (n−20  )    (n−21  )            M−1)
+                                  D  def= det      (n1)...              ...         ...         ...(n2)  ···    (n−2(nM)̸= 0                                  (30)
+
+                                                 (n−M0  )    (n−M1  )             M−1)
+                                                   (n1)        (n2)  ···    (n−M(nM)
+
+We can recursively obtain the equations below:n−1  n−1 ··· n−1
+                                                                    
+         n                  n−20   n−21      ··· n−2M−1
+    MY                                                                                                                            (31)
+D               = det          0...              ...          ...          ...1M−1
+   k=1     k
+                           n−M n−M ··· n−M
+                               0            1   ··· n−2M−1
+                              0   n−2                              
+                                            0   ··· n−3M−2
+                           0   n−30                      M−2         // subtracting (i + 1)-th row fromi-th row
+                = det          ...              ...          ...          ...
+                           n−M n−M ··· n−M
+                               0            1                 M−1
+                            n−2  n−2 ··· n−2                                                                            (32)
+                                                                    
+                         n−30  n−21      ··· n−2M−2                                                                 (33)
+                = det          0...              ...          ...          ...1M−2
+
+                           n−M n−M ··· n−M
+                               0            1                 M−2
+                =···                                                                                                                           (34)
+                = 1                                                                                                                              (35)
+Now we can see that
+                                                    D =        1QM  n̸= 0                                                        (36)
+                                                               k=1    k
+This leads to the conclusion:
+If∀m∈{n,n− 1,··· ,n−M}, PM                                k)
+                                                  k=1 (m(nk)wk = 0, thenwk = 0 fork = 1,··· ,M.
+
+
+
+Next, we will prove Theorem 2.
+Theorem 2.  There existsm0∈{n,n− 1,··· ,n−M}, such that for all 1≤ k≤ M, the sum of
+the effects of allk-order interactions can be written as:
+                       A(k) = (λ(k)np+δ +a(k)⌊p⌋−1n⌊p⌋−1 +··· +a(k)1 n +a(k)0   ) ¯u(1),                      (37)
+
+
+                                                                18
+
+=== PDF PAGE 19 ===
+Published as a conference paper at ICLR 2024
+
+
+
+
+where|λ(k)|≤ 1,|a(k)0 |<n,|a(k)i |∈{0, 1,··· ,n− 1} fori = 1,··· ,⌊p⌋− 1, and
+                                      1
+                        δ≤ logn       λ    1− a⌊p⌋−1np−⌊p⌋+1−···− a0np         ,     ifλ> 0,                          (38)
+                                       1     a⌊p⌋−1
+                        δ≤ logn       −λ     np−⌊p⌋+1 +··· + a0np           ,     ifλ< 0.                              (39)
+
+Here,λ  def=PM                              def=PM
+                 k=1 (m0k )(nk) λ(k)̸= 0,ai        k=1 (m0k )(nk) a(k)i    fori = 0, 1,··· ,⌊p⌋− 1, and⌊p⌋ denotes
+the greatest integer less than or equal top.
+
+Proof.  First,  according to Assumption 3,  if we let m′  =  1,  then the average output of order m
+should satisfy ¯u(m)≤mp· ¯u(1). Then, according to Assumption 2, we further have ¯u(m)≥ ¯u(0) =
+v(x∅)−v(x∅) = 0. Combining with the conclusion in Lemma 2, we have
+                                                               MX  m
+                         ∀M≤m≤n,    0≤ ¯u(m) =                     nkA(k)≤mp· ¯u(1).                           (40)
+
+                                                              k=1    k
+
+Deriving the form ofA(k). For eachA(k),  1≤k≤M, we consider itsn-ary representation after
+being divided by ¯u(1), i.e.,
+                      A(k)
+                      ¯u(1)  =a(k) q(k)nq(k) +a(k)q(k)−1nq(k)−1 +··· +a(k)1 n +a(k)0 ,                             (41)
+
+                  ⇒A(k) =        a(k)q(k)nq(k) +a(k)q(k)−1nq(k)−1 +··· +a(k)1 n +a(k)0         ¯u(1),                 (42)
+
+whereq(k)∈ N,|a(k)i |∈{0, 1,··· ,n− 1} fori = 1,··· ,q(k), and|a(k)0 |<n. Note that we absorb
+the decimal part intoa(k)0   .  Then, let us consider the following two cases for each 1≤k≤M.  We
+will show that in both cases,A(k) can be represented as the form in Eq. (37).
+Case 1: ifq(k)≤⌊p⌋− 1. In this case,A(k) can directly be represented as the form in Eq. (37):
+
+ A(k) = (λ(k)np+δ +a(k)⌊p⌋−1n⌊p⌋−1 +··· +a(k)q(k)+1nq(k)+1 +a(k)q(k)nq(k) +a(k)1 n +a(k)0   ) ¯u(1),  (43)
+
+where we simply setλ(k) = a(k)⌊p⌋−1 =··· = a(k)q(k)+1 = 0, andδ can be arbitrary (we will discuss
+the choice and range ofδ in Case 2).
+Case 2:  ifq(k)≥⌊p⌋.  In this case, we first merge all terms with a degree higher than or equal to
+⌊p⌋ into a single term. According to Eq. (42), we have
+                                                                                                 
+       A(k) =    a(k)                             +a(k)                                         ¯u(1)          (44)
+                   |q(k)nq(k) +··· +a(k){z  ⌊p⌋n⌊p⌋}     ⌊p⌋−1n⌊p⌋−1 +··· +a(k)1 n +a(k)0
+                            =:s(k)np+δ(k)
+             =    s(k)np+δ(k) +a(k)⌊p⌋−1n⌊p⌋−1 +··· +a(k)1 n +a(k)0              ¯u(1),                                    (45)
+
+wheres(k)∈{−1, 1} denotes the sign of this term.
+Let us consider all orders in the set G  ={k|  1≤ k≤ M,q(k)≥⌊p⌋}.  Each order k has the
+correspondingδ(k). We setδ = maxk∈Gδ(k), and letk∗ = arg maxk∈Gδ(k). Then, for anyk∈G,
+we can rewrite the first term in Eq. (45) as
+
+                                s(k)np+δ(k) =s(k)nδ(k)−δ|{z   } np+δ =λ(k)np+δ.                                    (46)
+                                                     =:λ(k)
+Note that sinceδ = maxk∈Gδ(k)≥δ(k) ands(k)∈{−1, 1}, we have
+
+                                   |λ(k)| =|s(k)nδ(k)−δ| =|nδ(k)−δ|≤ 1.                                         (47)
+
+
+                                                          19
+
+=== PDF PAGE 20 ===
+Published as a conference paper at ICLR 2024
+
+
+
+
+In particular,|λ(k∗)| = 1 becauseδ(k∗) =δ. Therefore, for anyk∈G,A(k) can be rewritten as
+
+                     A(k) =      λ(k)np+δ +a(k)⌊p⌋−1n⌊p⌋−1 +··· +a(k)1 n +a(k)0                ¯u(1),                     (48)
+
+where|λ(k)|≤ 1,|a(k)0 |<n,|a(k)i |∈{0, 1,··· ,n− 1} fori = 1,··· ,⌊p⌋− 1.
+Deriving the upper bound ofδ. Next, we will derive the upper bound forδ by using the inequality
+in Eq. (40). Let us plug in the expression ofA(k) into the Eq. (40), and obtain   MX!  MX!   MX              !!
+                       m                            m                                         m
+   ¯u(m) =             nkλ(k)     np+δ +            nka(k)         n⌊p⌋−1 +··· +               nka(k)       ¯u(1)
+                                                             ⌊p⌋−1                                       0
+                 k=1     k                      k=1     k                                    k=1    k
+                                                                                                                     (49)
+
+According to Lemma 3, we have the following assertion:
+                                                                         MX  m0k 
+                           ∃m0∈{n,n− 1,··· ,n−M},                             n λ(k)̸= 0                             (50)
+                                                                        k=1     k
+This  can  be  proven  by  contradiction:   if  for  any m ∈ {n,n− 1,··· ,n− M},  we  all  have
+PM
+   k=1 (m0k )(nk) λ(k)  =  0,  then  according  to  Lemma  3,  we  obtain λ(k)  =  0  for  all 1 ≤ k ≤ M.
+However, we have mentioned above that|λ(k∗)| = 1, which leads to contradiction.
+Let us denoteλ  def=PM                                def=PM
+                           k=1 (m0k )(nk) λ(k)̸= 0,ai        k=1 (m0k )(nk) a(k)i    fori = 0, 1,··· ,⌊p⌋− 1, therefore
+using the inequality in Eq. (40) form =m0 we can write
+    0≤ ¯u(m0) =       λnp+δ +a⌊p⌋−1n⌊p⌋−1 +··· +a1n +a0                      ¯u(1)≤mp0· ¯u(1)≤np· ¯u(1).     (51)
+
+Whenλ> 0, by using the right-side inequality, we obtain  1
+
+                                δ≤ logn        λ   1− a⌊p⌋−1np−⌊p⌋+1−···− a0np           .                                    (52)
+
+Similarly, whenλ< 0, by using the left-side inequality, we obtain   1
+                                                       a⌊p⌋−1
+                                  δ≤ logn       −λ     np−⌊p⌋+1 +··· + a0np            .                                     (53)
+
+
+
+
+B.4    PROOF OF THEOREM 3 IN THE MAIN PAPER
+Theorem 6. R(k) has the following upper bound:
+
+                          R(k)≤    ¯u(1)τ|η(k)||λ(k)np+δ +a(k)⌊p⌋−1n⌊p⌋−1 +··· +a(k)0 |.                           (54)
+
+
+Proof.  According to the definition ofA(k), we have
+                   A(k) =X|S|=kI(S)                                                                                           (55)
+
+                          =η(k)X|S|=k|I(S)|  // according to the definition ofη(k)                   (56)
+
+Then, we obtain
+               A(k)
+                η(k)  =X|S|=k|I(S)|                                                                                              (57)
+                      ≥X|S|=k,|I(S)|≥τ|I(S)|                                                                                (58)
+
+                      ≥τR(k)  // according toR(k) =|{S⊆N||S| =k,|I(S)|≥τ}|             (59)
+
+
+                                                           20
+
+=== PDF PAGE 21 ===
+Published as a conference paper at ICLR 2024
+
+
+
+
+Note thatA(k) always has the same sign asη(k), making A(k)η(k) > 0.  Therefore, we can simply add
+absolute value to the left-hand side of the above equation and get|A(k)||η(k)|≥τR(k).
+
+Sinceτ > 0, we can obtain
+
+                  R(k)≤ |A(k)|τ|η(k)| =    ¯u(1)τ|η(k)||λ(k)np+δ +a(k)⌊p⌋−1n⌊p⌋−1 +··· +a(k)0 |.                  (60)
+
+
+
+
+B.5    PROOF OF THEOREM 4 IN THE APPENDIX
+Before proving Theorem 4, we first prove the following lemma, which can serve as the foundation
+for proofs of Theorem 4, 5, and 6.
+Lemma 4 (Connection to the marginal benefit).  ∆uT (S) =PL⊆T (−1)|T|−|L|u(L∪S) denotes the
+marginal benefit (Grabisch & Roubens, 1999) of variables inT⊆ N\S given the environmentS.
+We have proven that ∆uT (S) can be decomposed into the sum of interaction utilities insideT  and
+sub-environments ofS, i.e. ∆uT (S) =PS′⊆SI(T∪S′).
+
+Proof.  By the definition of the marginal benefit, we have
+
+
+          ∆uT (S) =X       (−1)|T|−|L|u(L∪S)
+                      L⊆T
+                    =X     (−1)|T|−|L| X         I(K)    // by the universal matching property
+                      L⊆T               K⊆L∪S
+                                               X
+                    =X     (−1)|T|−|L| X            I(L′∪S′)    // sinceL∩S =∅
+                      L⊆T               L′⊆L  S′⊆S
+                                                                
+                    = X     X(−1)|T|−|L| X           I(L′∪S′)
+
+                      S′⊆S    L⊆T               L′⊆L
+                                                                 
+                            X    X                             
+                    = X                  (−1)|T|−|L|I(L′∪S′)
+                      S′⊆S    L′⊆T  L⊆T
+                                    L⊇L′
+                                                                                                   
+                                                                !                          
+                                                     |T|X
+                    = X       I(S′∪T )+ X                  |T|−|L′|     (−1)|T|−|L|I(L′∪S′)
+
+                      S′⊆S    |   {z    }   L′⊊T    l=|L′|    l−|L′|
+                                 L′=T       |                          {z                          }
+                                                                     L′⊊T
+                                                                                                  
+                            I(S′∪T ) + X     I(L′∪S′)·   |T|X              !              
+                    = X                                                   |T|−|L′|     (−1)|T|−|L|
+
+                      S′⊆S                  L′⊊T                  l=|L′|   l−|L′|
+                                                                  |               {z               }
+                                                                                 =0
+                    = X     I(S′∪T )
+                      S′⊆S
+
+
+
+Then, let us prove Theorem 4.
+Theorem 4.  Letϕ(i) denote the Shapley value of an input variablei.  Then, the Shapley valueϕ(i)
+can be explained as the result of uniformly assigning attributions of each Harsanyi interaction to
+each involving variablei, i.e.,ϕ(i) =P                    1
+                                              S⊆N\{i}   |S|+1I(S∪{i}).
+
+                                                       21
+
+=== PDF PAGE 22 ===
+Published as a conference paper at ICLR 2024
+
+
+
+
+Proof.  By the definition of the Shapley value, we have
+
+         ϕ(i) =Em    E      [u(S∪{i})−u(S)]
+                   S⊆N\{i}
+                     |S|=m
+                      |N|−1X                   h                    i
+               =  1          |N|−11 X         u(S∪{i})−u(S)
+                 |N|   m=0      m     S⊆N\{i}
+
+                                       |S|=m
+
+                      |N|−1X
+               =  1          |N|−11 X        ∆u{i}(S)
+                 |N|   m=0      m     S⊆N\{i}
+
+                                       |S|=m
+                                                                
+                      |N|−1X
+               =  1          |N|−11 X        X    I(L∪{i})     // by Lemma 4
+                 |N|   m=0      m     S⊆N\{i}   L⊆S
+
+                                       |S|=m
+                        X      |N|−1X     1
+               =  1|N|                |N|−1 X         I(L∪{i})
+                      L⊆N\{i}   m=0      m     S⊆N\{i}
+                                                 |S|=m
+                                                 S⊇L
+                        X       |N|−1X    1
+               =  1|N|                |N|−1 X          I(L∪{i})    // sinceS⊇L,|S| =m≥|L|.
+                      L⊆N\{i}  m=|L|      m     S⊆N\{i}
+                                                 |S|=m
+                                                  S⊇L
+                                |N|−1X                            !
+               =  1     X                 1        |N|−|L|− 1       I(L∪{i})
+                 |N|                  |N|−1·        m−|L|
+                      L⊆N\{i}  m=|L|      m
+                                            |N|−|L|−1X                            !
+               =  1     X      I(L∪{i})                   1        |N|−|L|− 1
+                 |N|                                   |N|−1·           k
+                      L⊆N\{i}               |  k=0      |L|+k  {z                  }
+
+                                                               wL
+
+Then, we leverage the following properties of combinatorial numbers and the Beta function to sim-.
+plify the termwL =P|N|−|L|−1            1
+                          k=0        (|N|−1          k
+                                      |L|+k)·|N|−|L|−1
+(i) A property of combinitorial numbers. m·n =n·n−1.
+                                                    m           m−1
+(ii)  The  definition  of  the  Beta  function.   For p,q >  0,  the  Beta  function  is  defined  as B(p,q)  =
+R 1
+ 0 xp−1(1−x)1−qdx.
+(iii) Connections between combinitorial numbers and the Beta function.
+  ◦ Whenp,q∈ Z+, we haveB(p,q) =           1q·(p+q−1
+                                                  p−1  ).
+  ◦ Form,n∈ Z+ andn>m, we haven =                 1
+                                               m      m·B(n−m+1,m).
+
+
+                     |N|−|L|−1X                             !
+              wL =              |N|−11·    |N|−|L|− 1
+
+                        k=0       |L|+k             k
+
+                     |N|−|L|−1X                  !
+                   =              |N|−|L|− 1        · (|L| +k)·B(|N|−|L|−k,|L| +k)
+
+                        k=0              k
+                     |N|−|L|−1X                       !
+                   =            |L|·   |N|−|L|− 1        ·B(|N|−|L|−k,|L| +k)  ···  1⃝
+
+                        k=0                   k
+                        |N|−|L|−1X                     !
+                     +             k·   |N|−|L|− 1        ·B(|N|−|L|−k,|L| +k)  ···  2⃝
+                           k=0                 k
+
+Then, we solve  1⃝ and  2⃝ respectively. For  1⃝, we have
+
+
+                                                       22
+
+=== PDF PAGE 23 ===
+Published as a conference paper at ICLR 2024
+
+
+
+
+
+
+               Z  1    |N|−|L|−1X                  !
+          1⃝ =                      |N|−|L|− 1        ·x|N|−|L|−k−1· (1−x)|L|+k−1dx
+
+                0 |L|     k=0              k
+               Z  1                                   !                             
+                          |N|−|L|−1X
+            =                         |N|−|L|− 1        ·x|N|−|L|−k−1· (1−x)k·(1−x)|L|−1dx
+
+                0 |L|·        k=0             k
+                         |                             {z                             }
+                                                       =1
+               Z  1
+            =
+                0 |L|(1−x)|L|−1dx = 1
+
+
+For  2⃝, we have
+
+
+
+
+
+          |N|−|L|−1X                                     !
+    2⃝ =            (|N|−|L|− 1)·        |N|−|L|− 2        ·B(|N|−|L|−k,|L| +k)
+
+             k=1                              k− 1
+
+                           |N|−|L|−2X                  !
+       =(|N|−|L|− 1)                    |N|−|L|− 2        ·B(|N|−|L|−k′− 1,|L| +k′ + 1)
+
+                              k′=0            k′
+                           Z  1|N|−|L|−2X                  !
+       =(|N|−|L|− 1)                        |N|−|L|− 2        ·x|N|−|L|−k′−2· (1−x)|L|+k′ dx
+
+                            0     k′=0             k′
+                           Z  1|N|−|L|−2X                   !                                
+       =(|N|−|L|− 1)                         |N|−|L|− 2        ·x|N|−|L|−k′−2· (1−x)k′·(1−x)|L|dx
+                            0       k′=0             k′
+                               |                              {z                              }
+                                                              =1
+                           Z  1
+       =(|N|−|L|− 1)                                 |L| + 1
+                            0  (1−x)|L|dx =|N|−|L|− 1
+
+
+Hence, we have
+
+
+
+                               wL =  1⃝ +  2⃝ = 1 +|N|−|L|− 1|L| + 1      = |N||L| + 1
+
+
+Therefore, we provedϕ(i) =    1       P                                                1
+                                  |N|    S⊆N\{i}wL·I(L∪{i}) =PS⊆N\{i}               |S|+1I(S∪{i}).
+
+
+
+
+
+B.6    PROOF OF THEOREM 5 IN THE APPENDIX
+Theorem 5.  Given a subset of input variablesT⊆ N, the Shapley interaction indexIShapley(T ) can
+be represented asIShapley(T ) =P                  1
+                                       S⊆N\T   |S|+1I(S∪T ).  In other words, the indexIShapley(T ) can be
+explained as uniformly allocatingI(S′) s.t. S′ = S∪T  to the compositional variables ofS′, if we
+treat the coalition of variables inT  as a single variable.
+
+
+
+Proof.  The  Shapley  interaction  index  (Grabisch  &  Roubens,  1999)  is  defined  as IShapley(T )  =
+P          |S|!(|N|−|S|−|T|)!
+  S⊆N\T      (|N|−|T|+1)!    ∆uT (S). Then, we have
+
+                                                        23
+
+=== PDF PAGE 24 ===
+Published as a conference paper at ICLR 2024
+
+
+
+
+
+
+
+          IShapley(T ) = X       |S|!(|N|−|S|−|T|)!
+
+                        S⊆N\T      (|N|−|T| + 1)!    ∆uT (S)
+
+                                        |N|−|T|X
+                      =          1              |N|−|T|1 X       ∆uT (S)
+                        |N|−|T| + 1       m=0        m     S⊆N\T
+
+                                                            |S|=m
+                                                                                   
+                                        |N|−|T|X
+                      =          1              |N|−|T|1 X       X     I(L∪T )     // by Lemma 4
+                        |N|−|T| + 1       m=0        m     S⊆N\T     L⊆S
+
+                                                            |S|=m
+                                          X     |N|−|T|X     1
+                      =          1|N|−|T| + 1            |N|−|T| X       I(L∪T )
+                                        L⊆N\T    m=|L|       m      S⊆N\T
+                                                                    |S|=m
+                                                                     S⊇L
+                                                |N|−|T|X                              !
+                                          X                  1       |N|−|L|−|T|
+                      =          1|N|−|T| + 1            |N|−|T|       m−|L|          I(L∪T )
+                                        L⊆N\T    m=|L|       m
+                                                           |N|−|L|−|T|X                              !
+                                          X                                 1       |N|−|L|−|T|
+                      =          1|N|−|T| + 1   I(L∪T )                 |N|−|T|           k
+                                        L⊆N\T                  k=0        |L|+k
+                                                           |                    {z                    }
+                                                                                wL
+
+
+Similar to the proof of Theorem 4, we leverage the properties of combinatorial numbers and the
+Beta function to simplifywL.
+
+
+
+
+             |N|−|L|−|T|X                               !
+      wL =                |N|−|T|1   |N|−|L|−|T|
+
+                 k=0        |L|+k             k
+
+             |N|−|L|−|T|X                    !
+          =                 |N|−|L|−|T|         · |L| +k     ·B   |N|−|L|−|T|−k + 1,|L| +k
+
+                 k=0                k
+
+             |N|−|L|−|T|X                         !
+          =               |L|·   |N|−|L|−|T|         ·B   |N|−|L|−|T|−k + 1,|L| +k                  ···  1⃝
+
+                 k=0                     k
+
+                |N|−|L|−|T|X                       !
+             +              k·    |N|−|L|−|T|         ·B   |N|−|L|−|T|−k + 1,|L| +k                  ···  2⃝
+
+                    k=0                   k
+
+
+Then, we solve  1⃝ and  2⃝ respectively. For  1⃝, we have
+
+
+            Z  1    |N|−|L|−|T|X                    !
+       1⃝ =                        |N|−|L|−|T|         ·x|N|−|L|−|T|−k· (1−x)|L|+k−1dx
+             0 |L|      k=0                k
+            Z  1      |N|−|L|−|T|X                    !                               
+         =                           |N|−|L|−|T|         ·x|N|−|L|−|T|−k· (1−x)k·(1−x)|L|−1dx
+
+             0 |L|·        k=0                k
+                      |                               {z                                }
+                                                      =1
+            Z  1
+         =
+             0 |L|· (1−x)|L|−1dx = 1
+
+
+For  2⃝, we have
+
+
+                                                       24
+
+=== PDF PAGE 25 ===
+Published as a conference paper at ICLR 2024
+
+
+
+
+
+
+
+
+
+
+      |N|−|L|−|T|X                                              !
+                                         |N|−|L|−|T|− 1
+2⃝ =               (|N|−|L|−|T|)                 k− 1              ·B   |N|−|L|−|T|−k + 1,|L| +k
+          k=1
+                          |N|−|L|−|T|−1X                           !
+                                            |N|−|L|−|T|− 1
+   =(|N|−|L|−|T|)                                      k′             ·B    |N|−|L|−|T|−k′,|L| +k′ + 1
+                               k′=0
+                          Z  1 |N|−|L|−|T|−1X                           !
+   =(|N|−|L|−|T|)                                |N|−|L|−|T|− 1            ·x|N|−|L|−|T|−k′−1· (1−x)|L|+k′ dx
+
+                            0       k′=0                   k′
+                          Z  1 |N|−|L|−|T|−1X                            !                                     
+   =(|N|−|L|−|T|)                                 |N|−|L|−|T|− 1            ·x|N|−|L|−|T|−k′−1· (1−x)k′          ·(1−x)|L|dx
+
+                            0         k′=0                   k′
+                               |                                       {z                                        }
+                                                                       =1
+                          Z  1
+   =(|N|−|L|−|T|)                                      |L| + 1
+                            0  (1−x)|L|dx =|N|−|L|−|T|
+
+
+Hence, we have
+
+
+
+                            wL =  1⃝ +  2⃝ = 1 +|N|−|L|−|T||L| + 1        =|N|−|T| + 1|L| + 1
+
+
+Therefore, we proved thatIShapley(T ) =           1        P                                             1
+                                                |N|−|T|+1     L⊆N\TwL·I(L∪T ) =PL⊆N\T                  |L|+1I(L∪T ).
+
+
+
+
+
+B.7    PROOF OF THEOREM 6 IN THE APPENDIX
+Theorem 6.  Given a subset of input variables T ⊆ N, the k-th order Shapley Taylor interaction
+indexIShapley-Taylor(T ) can be represented as weighted sum of interaction effects, i.e.,IShapley-Taylor(T ) =|S|+k−1I(S∪T ) if|T| = k; andIShapley-Taylor(T ) = 0 if
+I(T ) if|T| < k; IShapley-Taylor(T ) =PS⊆N\T            k
+|T|>k.
+
+
+
+Proof.  By the definition of the Shapley Taylor interaction index,
+
+
+                                            ∆uT (∅)                                          if|T|<k
+
+                                                  k  P              1
+                     IShapley-Taylor(k)(T ) = |N|    S⊆N\T    (|N|−1
+                                                                    |S|  )∆uT (S)    if|T| =k
+                                                0                                                     if|T|>k
+
+
+When|T|<k, by the definition in Eq. (1) of the main paper, we have
+
+
+
+                       IShapley-Taylor(k)(T ) = ∆uT (∅) = X(−1)|T|−|L|·u(L) =I(T ).
+                                                            L⊆T
+
+
+When|T| =k, we have
+
+
+                                                           25
+
+=== PDF PAGE 26 ===
+Published as a conference paper at ICLR 2024
+
+
+
+
+
+
+             IShapley-Taylor(k)(T ) = k X         1
+                                  |N|         |N|−1· ∆uT (S)
+                                      S⊆N\T      |S|
+
+                                      |N|−kX  X
+                                = k                 |N|−11· ∆uT (S)
+                                  |N|  m=0   S⊆N\T     |S|
+
+                                             |S|=m
+                                                                            
+                                      |N|−kX  X
+                                = k                 |N|−11 X    I(L∪T )     // by Lemma 4
+                                  |N|  m=0   S⊆N\T     |S|     L⊆S
+
+                                             |S|=m
+                                        X     |N|−kX    1
+                                = k|N|               |N|−1 X       I(L∪T )
+                                      L⊆N\T   m=|L|     |S|   S⊆N\T
+                                                              |S|=m
+                                                               S⊇L
+                                              |N|−kX                          !
+                                        X               1      |N|−|L|−k
+                                = k|N|               |N|−1      m−|L|         I(L∪T )
+                                      L⊆N\T   m=|L|     |S|
+                                                        |N|−|L|−kX                           !
+                                = k     X     I(L∪T )                  1      |N|−|L|−k
+                                  |N|                              |N|−1          m
+                                      L⊆N\T             |  m=0      |L|+m{z                  }
+
+                                                                          wL
+
+
+Similar to the proof of Theorem 4, we leverage the properties of combinatorial numbers and the
+Beta function to simplifywL.
+
+
+
+
+                  |N|−|L|−kX                          !
+            wL =             |N|−11   |N|−|L|−k
+
+                     m=0      |L|+m           m
+
+                  |N|−|L|−kX                 !
+                               |N|−|L|−k
+                =                    m          ·  |L| +m    ·B   |N|−|L|−m,|L| +m
+                     m=0
+                  |N|−|L|−kX                      !
+                =            |L|·   |N|−|L|−k        ·B   |N|−|L|−m,|L| +m                ···  1⃝
+
+                     m=0                  m
+
+                     |N|−|L|−kX                     !
+                  +             m·    |N|−|L|−k        ·B   |N|−|L|−m,|L| +m               ···  2⃝
+
+                        m=0                 m
+
+
+Then, we solve  1⃝ and  2⃝ respectively. For  1⃝, we have
+
+
+
+          Z  1     |N|−|L|−kX                 !
+     1⃝ =                      |N|−|L|−k         ·x|N|−|L|−m−1· (1−x)|L|+m−1dx
+
+           0 |L|·     m=0             m
+          Z  1                                 !                             
+                     |N|−|L|−kX
+       =                        |N|−|L|−k        ·x|N|−|L|−m−k· (1−x)m        ·xk−1· (1−x)|L|−1dx
+
+           0 |L|·      m=0             m
+                   |                            {z                             }
+                                                =1
+          Z  1
+       =                                                         |L|+k−1
+           0 |L|·xk−1· (1−x)|L|−1dx =|L|·B(k,|L|) =        1k−1
+
+
+For  2⃝, we have
+
+
+                                                     26
+
+=== PDF PAGE 27 ===
+Published as a conference paper at ICLR 2024
+
+
+
+
+
+
+
+
+
+
+     |N|−|L|−kX                                         !
+2⃝ =            (|N|−|L|−k)·         |N|−|L|−k− 1          ·B   |N|−|L|−m,|L| +m
+
+        m=1                                m− 1
+
+     |N|−|L|−k−1X                                          !
+   =              (|N|−|L|−k)·         |N|−|L|−k− 1           ·B   |N|−|L|−m′− 1,|L| +m′ + 1
+
+         m′=0                                   m′
+     Z  1                  |N|−|L|−k−1X                       !
+   =                                      |N|−|L|−k− 1           ·x|N|−|L|−m′−2· (1−x)|L|+m′ dx
+
+       0  (|N|−|L|−k)          m′=0                m′
+     Z  1                  |N|−|L|−k−1X                        !                                  
+   =                                       |N|−|L|−k− 1          ·x|N|−|L|−m′−k−1· (1−x)m′          ·xk−1· (1−x)|L|dx
+       0  (|N|−|L|−k)           m′=0                m′
+                           |                                   {z                                   }
+                                                               =1
+     Z  1
+   =
+       0  (|N|−|L|−k)·xk−1· (1−x)|L|dx = (|N|−|L|−k)·B(k,|L| + 1)
+   = |N|−|L|−k(|L| + 1)|L|+k
+                 k−1
+
+Hence, we have
+
+
+                        wL = 1⃝ +  2⃝ =        1|L|+k−1 + |N|−|L|−k(|L| + 1)|L|+k
+                                              k−1                    k−1
+                            =|L|!· (k− 1)!(|L| +k− 1)! +|N|−|L|−k|L| + 1  · (|L| + 1)!· (k− 1)!(|L| +k)!
+
+                            =|L|!· (k− 1)!(|L| +k− 1)! +|N|−|L|−k|L| +k  ·|L|!· (k− 1)!(|L| +k− 1)!
+
+                            =   1 +|N|−|L|−k|L| +k    ·|L|!· (k− 1)!(|L| +k− 1)!
+
+                            = |N||L| +k·|L|!· (k− 1)!(|L| +k− 1)!
+
+                            =|N|k · |L|!·k!(|L| +k)!
+
+                            =|N|k ·      1|L|+k
+                                        k
+Therefore,  we  proved  that  when |T|   = k, IShapley-Taylor(T )   =  k        P
+    P                                                  |L|+k−1I(L∪T ).|N|        L⊆N\TwL· I(L∪ T )   =
+ k             |N|
+|N|    L⊆N\T    k ·        1(|L|+k             L⊆N\T      k
+                        k   )·I(L∪T ) =P
+
+
+C    EXPERIMENTAL SETTINGS FOR  VISUALIZING INTERACTION  PRIMITIVES
+C.1    MODELS AND DATASETS
+We used the models (including MLP, ResMLP, LeNet, AlexNet, VGG, PointNet, and PointNet++)
+provided by  Li & Zhang (2023b) and followed their experimental settings. The MLPs and ResMLPs
+used in this experiment all had 5 fully-connected layers.  Each hidden layer had 100 neurons.  The
+tic-tac-toe dataset, the wifi dataset, and the phishing dataset refer to the UCI tic-tac-toe endgame
+dataset (Dua & Graff, 2017), the UCI wireless indoor localization dataset (Dua & Graff, 2017), and
+the UCI phishing website prediction dataset (Dua & Graff, 2017), respectively. The MNIST-3 dataset
+is a binary classification dataset, where images of the digit “three” in the MNIST dataset (LeCun
+et al., 1998) were taken as positive samples, while images of other digits were taken as negative
+samples.  The CelebA-eyeglasses dataset is a binary classification dataset, where images with the
+attribute “eyeglasses” in the CelebA dataset (Liu et al., 2015) were taken as positive samples, while
+
+
+                                                       27
+
+=== PDF PAGE 28 ===
+Published as a conference paper at ICLR 2024
+
+
+
+
+other images were taken as negative samples. The heavy computational cost did not allow us to test
+on all samples in these datasets.  Thus, similar to previous studies Li & Zhang (2023b), we used a
+subset of samples to compute interactions. For all models except for LLMs, we followed the setting
+of testing samples in  Li & Zhang (2023b), in which 50 samples from the CelebA-eyeglasses dataset,
+100 samples from the ShapeNet dataset and the MNIST-3 dataset, and 500 samples from each of the
+three tabular datasets have been selected to compute interactions.
+
+C.2    THE ANNOTATION OF SEMANTIC PARTS
+As mentioned in Section 3.1, given an input sample withn input variables, the DNN may encode at
+most 2n potential interactions. The computational cost for extracting salient interaction primitives is
+high, when the number of input variablesn is large. For example, if each 3D point of a point-cloud
+(or each pixel of an image) is taken as a single input variable, the computation is usually prohibitive.
+In order to overcome this issue,  Li & Zhang (2023b) annotated 8-10 semantic parts in each input
+sample, and the annotated semantic parts are aligned over different samples.  Then, each semantic
+part in an input sample is taken as a “single” input variable to the DNN.
+• For the ShapeNet dataset (Yi et al., 2016), Yi et al.  have provided annotations for semantic parts
+for input samples in the motorbike category.   The semantic parts include gas tank,  seat,  handle,
+light, wheel, and frame.  Based on the original annotation,  Li & Zhang (2023b) further divided the
+annotation for each motorbike sample into more fine-grained semantic parts,  including gas tank,
+seat, handle, light, front wheel, back wheel, front frame, mid frame, and back frame.
+•  For images in the MNIST-3 dataset, we used the semantic parts annotated by  Li & Zhang (2023b).
+The annotation of different parts was based on some key points in each image.   Figure 6 shows
+examples of these semantic parts.
+
+
+
+
+
+
+
+
+
+         Figure 6: Examples of annotated semantic parts for samples of the MNIST-3 dataset.
+
+D    EXPERIMENTAL SETTINGS FOR LARGE LANGUAGE MODELS AND MLPS
+D.1    MODELS AND DATASETS
+We used off-the-shelf trained LLMs (including the OPT-1.3B6 model, the LLaMA-7B7 model, and
+BAAI Aquila-7B8 model) provided by Huggingface in all our experiments. The detailed information
+on these models and the training data can be found on the corresponding web pages.
+To construct input sentences, for each paragraph in the SQuAD dataset, we first took the initial 30
+words. Then, starting from the 31st word, we evaluated the following two conditions: 1) the current
+word had a specific meaning and was not a stop word in NLTK (Bird et al., 2009), 2) there were
+no punctuations like the period or the semicolon in the five positions preceding the current word. If
+both conditions were satisfied, we stopped this process and considered the current word as the target
+word for the LLM to predict. We considered the words before this target word as the input sentence
+for the LLM. If either condition was not satisfied, we incorporated the current word into the input
+sentence and continued evaluating the next word until this process stopped. For each input sentence,
+we used 10 meaningful words (words that are not NLTK stop words or punctuations) annotated by
+Shen et al. (2023) to construct the set of input variablesN, so that we haven =|N| = 10.  When
+masking the input sentence,  we only masked words in N,  without changing other “background”
+words.   We  tested  on  the  first  1000  sentences  in  the  SQuAD  dataset.   It  was  because  the  heavy
+computational cost did not allow us to test on all 20000+ sentences in the dataset.
+
+   6https://huggingface.co/facebook/opt-1.3b
+   7https://huggingface.co/linhvu/decapoda-research-llama-7b-hf
+   8https://huggingface.co/BAAI/Aquila-7B
+
+
+                                                          28
+
+=== PDF PAGE 29 ===
+Published as a conference paper at ICLR 2024
+
+
+
+
+Another potential way to determine the setN  is to select regions with significant Shapley values.
+It is because Theorem 4 shows that the Shapley value ϕ(i) can be explained as the result of uni-
+formly assigning attributions of each Harsanyi interaction to each involved variable i.  Therefore,
+the Shapley value can serve as a reasonable metric to measure the saliency of input variables.
+In order to ensure the inference logic of the network was meaningful, we discarded sentences for
+which the LLM predicted meaningless words, such as “the”, “a”, and other stop words. In addition,
+we discarded sentences on which the classification confidence of the LLM is low.  Specifically, we
+set a threshold ξ  for v(x)−v(x∅).   Given an input sentencex,  if v(x)−v(x∅) < ξ,  then we
+discarded this sentence.  We setξ = 1 for the OPT-1.3B model,ξ = 2 for the LLaMA-7B model,
+andξ = 3 for the BAAI Aquila-7B model and the MLP.
+D.2    OR INTERACTIONS AS A SPECIFIC KIND OF AND INTERACTIONS
+In addition to the Harsanyi interaction defined in Eq. (1), which represents the AND relationship
+between input variables,  Li & Zhang (2023a) have also defined OR interactions, as follows.
+
+                          Ior(S) =−XT⊆S(−1)|S|−|T|u(N\T ),     s.t.S̸=∅,                            (61)
+
+whereu(N\T ) =v(xN\T )−v(x∅). The OR interaction represents the OR relationship between
+input variables. In particular,Ior(∅) =u(∅) = 0. In later discussions, we useIand(S) to denote the
+Harsanyi interaction (or the AND interaction) in order to distinguish it from the OR interaction.  It
+is worth noting that an OR interaction can be regarded as a specific AND interaction, if we inverse
+the definition of the masked state and the unmasked state of an input variable.
+Simultaneously extracting AND-OR interactions. In fact, a well-trained DNN usually encodes com-
+plex interactions between input variables, including both AND interactions and OR interactions.  Li
+& Zhang (2023a) proposed a method to simultaneously extract AND interactionsIand(S) and OR
+interactionsIor(S) from the network output. Given a setS⊆N and the corresponding masked sam-
+plexS,  Li & Zhang (2023a) proposed to learn a decompositionu(S) =uand(S) +uor(S), towards
+the sparsest interactions. Theuand(S) term was explained by AND interactions, and theuor(S) term
+was explained by OR interactions, subject toIand(∅) =uand(∅) = 0,Ior(∅) =uor(∅) = 0.
+           u(S)=uand(S) +uor(S), uand(S)=XT⊆SIand(T ), uor(S)=XT∩S̸=∅Ior(T ).         (62)
+
+Specifically, they decomposedu(S) intouand(S) = 0.5·u(S) +γS anduand(S) = 0.5·u(S)−γS,
+where{γS}S⊆N  are a set of learnable variables that determine the decomposition of output scores
+for AND and OR interactions. Then, they learned the parameters{γS} by minimizing the following
+LASSO-like loss to obtain sparse interactions:
+                                        min{γS}X
+
+                                                  S⊆N|Iand(S)| +|Ior(S)|                                               (63)
+
+Removing noises.  As discussed in Section 3.3, a small noiseϵS  in the network output may signif-
+icantly affect the extracted interactions, especially for high-order interactions.  Thus,   Li & Zhang
+(2023a) proposed to learn to remove the noise term ϵS  from the computation of AND-OR inter-
+actions.  Specifically, the decomposition was rewritten as uand(S)  =  0.5· (u(S)−ϵS) +γS  and
+uor(S) = 0.5· (u(S)−ϵS) +γS. Thus, the parameters{ϵS}, and{γS} are simultaneously learned
+by minimizing the loss function in Eq. (63).  The values of{ϵS} were constrained in [−ζ,ζ] where
+ζ = 0.04·|v(x)−v(x∅)|.
+When  illustrating  the  near-zero  effects  of  high-order  interactions  in  Figure  4,  we  extracted  both
+AND and OR interactions (can be regarded as a specific kind of AND interactions) and removed the
+noises from the network output as mentioned in Section D.2. When computing the number of valid
+(salient) interactions in Table 1 and 2, we only extracted AND interactions and we still removed the
+noises from network output.
+When comparing the real number of valid interactions with the derived bound in Table 2, we only
+considered the firstM-order interactions. This was because the theoretical bound can only be com-
+puted for the first M-order interactions, due to the Assumption 1-α (interactions higher than the
+M-th order have zero effects). In this way, we only considered the firstM-order interactions for fair
+comparison.  Nevertheless, it is already shown in Figure 4 that high-order interactions usually had
+small effects, so ignoring interactions higher than theM-th order did not affect the conclusion.
+
+
+                                                          29
+
+=== PDF PAGE 30 ===
+Published as a conference paper at ICLR 2024
+
+
+
+E    MORE EXPERIMENTAL RESULTS
+
+E.1    MORE RESULTS TO ILLUSTRATE THE NEAR-ZERO EFFECT OF HIGH-ORDER
+       INTERACTIONS
+We visualize the average strength of interactionsI(m)str    = E|S|=m[|I(S)|] of them-th order on more
+samples. Figure 7, 8, and 9 all show that high-order interactions on these LLMs usually have effects
+that are close to zero.
+
+
+
+
+
+
+
+
+
+
+
+
+Figure 7:  Visualization of the average strength of interactionsI(m)str    = E|S|=m[|I(S)|] of them-th
+order on the OPT-1.3B model.
+
+
+
+
+
+
+
+
+
+
+
+
+
+Figure 8:  Visualization of the average strength of interactionsI(m)str    = E|S|=m[|I(S)|] of them-th
+order on the LLaMA-7B model.
+
+
+
+
+
+
+
+
+
+
+
+
+
+Figure 9:  Visualization of the average strength of interactionsI(m)str    = E|S|=m[|I(S)|] of them-th
+order on the BAAI Aquila-7B model.
+
+
+E.2    COMPARISON BETWEEN THE REAL NUMBER OF VALID INTERACTIONS AND THE BOUND
+       ON EXAMPLE SENTENCES
+In  this  section,  we  show  several  example  input  sentences  along  with  their  real  number  of  valid
+(salient) interactions and the derived upper bound.  We also show the strength of the normalized
+interaction  ˜I(S)  = I(S)/ maxS′|I(S′)| on these examples in descending order,  similar to Fig-
+ure 3.  Figure 10, 11, and 12 shows the results on OPT-1.3B, LLaMA-7B, and BAAI Aquila-7B,
+respectively.
+
+
+                                                        30
+
+=== PDF PAGE 31 ===
+Published as a conference paper at ICLR 2024
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+Figure 10: Comparison between the real number of valid interactions and the derived upper bound,
+and visualization of normalized interaction strength in descending order on the OPT-1.3B model.
+Words in bold are the input variables in the setN for which we compute interactions.
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+Figure 11: Comparison between the real number of valid interactions and the derived upper bound,
+and visualization of normalized interaction strength in descending order on the LLaMA-7B model.
+Words in bold are the input variables in the setN for which we compute interactions.
+
+
+                                                          31
+
+=== PDF PAGE 32 ===
+Published as a conference paper at ICLR 2024
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+Figure 12: Comparison between the real number of valid interactions and the derived upper bound,
+and visualization of normalized interaction strength in descending order on the BAAI Aquila-7B
+model. Words in bold are the input variables in the setN for which we compute interactions.
+
+
+E.3    MORE DISCUSSIONS AND EXPERIMENTS ABOUT THE VALUE OFp
+Although Assumption 3 does not constrain the upper bound for the constantp, we have conducted
+experiments on LLMs to measure the true value ofp in real applications.  Figure 5(b) shows that
+the value of p across different samples was around 0.9 to 1.5.  According to either Theorem 3 or
+experimental verification in Table 2, interactions encoded by these LLMs were sparse.
+Despite the lack of the bound forp, our theory is still complete.  It is because the contribution of
+our study is to clarify the conditions that lead to the emergence of sparse interaction primitives,
+instead of guaranteeing sparse interaction in every DNN. In most tasks (e.g., the aforementioned
+classification tasks), these conditions are commonly satisfied, so that our theory has guaranteed the
+sparsity of interactions without a need of actually computing the interactions. Section 3.3 discusses
+a few special cases that do not satisfy the three common conditions.  Therefore, instead of showing
+that sparse interaction primitives will emerge in all scenarios, the goal of this paper is to identify
+common conditions that provably ensure the emergence of sparse interaction primitives.
+In addition, let us analyze how the sparsity of interactions depends on the value ofp. Some special
+tasks heavily rely on the global information of all input variables, e.g., the task of judging whether
+the number of 1’s in a binary sequence is odd or even (i.e.,  judging the parity).   Then,  in these
+tasks, the value ofp may be large.  Therefore, we conducted experiments to train an MLP to judge
+whether  the  number  of  1’s  in  a  binary  sequence  (e.g.,  the  sequence  [0,1,1,1,0,0,1,0,1,1])  is  odd
+or even.  Specifically, each binary sequence contains 10 digits.  The MLP has 3 layers, and each
+layer contains 100 neurons.  We trained the MLP on 1000 randomly generated samples for 50000
+iterations, with the learning rate set to 0.01, and the MLP achieved 100% accuracy on these samples.
+We then tested the value ofp and found thatp was around 9.9 to 19.7, which is relatively large.
+Fortunately, in most classification tasks as shown in Figure 5(b), the network usually shows a certain
+level of robustness to the masking of input samples. Therefore, the value ofp will not be very large
+in most classification tasks, thus ensuring the sparsity of interactions encoded by the network.
+
+E.4    SIZE OF IMAGE REGIONS DOES NOT AFFECT THE SPARSITY OF INTERACTIONS
+We would like to clarify that the objective, i.e., the proof of the emergence of sparse interactions, is
+agnostic to the selection of input variables for interactions.  To better illustrate this, we conducted
+experiments on the MNIST-3 dataset to show that the interactions were still sparse when the size of
+image regions varied. Specifically, the original image parts annotated by  Li & Zhang (2023b) were
+of the size of 3× 3 pixels. Then, we enlarged the size of image parts to 5× 5 pixels and 7× 7 pixels.
+Figure 13 shows that the use of input variables of different sizes did not clearly affect the sparsity of
+interactions.
+
+
+                                                           32
+
+=== PDF PAGE 33 ===
+Published as a conference paper at ICLR 2024
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+Figure 13: Normalized interaction strength in descending order. We compared the sparsity of inter-
+actions when we extracted interactions by setting different sizes of image regions as input variables.
+Interactions were still sparse when the size of image regions varied.
+
+
+E.5    EXPERIMENTS ON RNNS
+We conducted experiments on an RNN (i.e., the LSTM) to explore the possibility of applying the
+Harsanyi interaction to a wider range of tasks. Specifically, we trained LSTMs with 2 layers on the
+SST-2 dataset (Socher et al., 2013) (for sentiment classification) and the CoLA dataset (Warstadt
+et al., 2019) (for linguistic acceptability classification). The LSTM can be considered to take natural
+language as sequential data.  Although these tasks are not equivalent to other prediction tasks on
+sequential data,  they provide potential insights into how we can extend the Harsanyi interaction.
+Figure 14 shows that the network encodes relatively sparse interactions.
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+ Figure 14: Interaction strength in descending order. The LSTMs also encode sparse interactions.
+
+F    DISCUSSION ON THE SETTING OF THRESHOLDτ  IN SECTION 3.2
+In fact,  the setting of τ  is quite reasonable,  because most interactions with|I(S)| < τ  actually
+have zero interaction effect I(S)  =  0,  instead of having an extremely small yet non-zero effect
+by coincidence.  According toI(S) =PT⊆S(−1)|S|−|T|·u(T ), interactionI(S) is computed by
+adding and subtracting an exponential number of non-zero terms.  In this case, we usually obtain
+two types of interaction effects.  First, we may obtain I(S)  =  0, if the DNN does not encode an
+AND relationship between an exact set of variables inS.  Then, differentu(T ) values forT ⊆ S
+will eliminate each other, as long as the DNN does not bring random noises to the output u(T ).
+Alternatively, we may obtainI(S) with considerable value|I(S)|≥ τ.  In real applications, it is
+unrealistic for a DNN to be so elaborately trained that adding up 2|S| terms results in an extremely
+small yet non-zero interactionI(S), although we do not fully deny the negligible possibility that we
+may have a few interactions with extremely small interaction effects.
+
+
+                                                          33
+
+=== PDF PAGE 34 ===
+Published as a conference paper at ICLR 2024
+
+
+
+G    BROADER IMPACT OF PROVING THE EMERGENCE OF SYMBOLIC (SPARSE)
+      INTERACTIONS
+Proving the emergence of symbolic (sparse) interactions provides an alternative methodology for
+deep learning,  i.e.,  communicative learning.  In contrast to end-to-end learning from the data,  in
+communicative learning, people may directly communicate with the middle-level concepts encoded
+by the DNN to examine and fix the representation flaws of the DNN. Communicative learning may
+include,  but  is  not  limited  to,  (i)  the  extraction  and  visualization  of  symbolic  concepts,  (ii)  the
+alignment of such implicitly encoded concepts and explicitly annotated human knowledge, (iii) the
+diagnosis of representation flaws of a DNN, (iv) the discovery of new concepts from DNNs to enrich
+human knowledge, and (v) interactively fixing/debugging incorrect concepts in a DNN.
+H    AN EXAMPLE TO  ILLUSTRATE THE VALIDITY  OF ASSUMPTION 2
+Assumption 2 assumes that the average network output ¯u(m)  = E|S|=m[u(S)] monotonically in- possible subsetsS with sizem, and the average
+crease with the orderm, which considers allnm
+network output is much stabler and more robust than the output on a specific masked state u(S).
+This assumption is common for most models, without requiring all input variables to carry useful
+information. For example, let us explain the target modelv(x) =x1x2x3 +x1x2 +x2x3 +x2 +x3,
+where the inputx = [x1,x2,x3,x4,x5] contains 5 input variables indexed byN  ={1, 2, 3, 4, 5},
+and  each  input  variable xi ∈ {0, 1}  is  binary.   Here, x1, x2,  and x3  are  related  to  the  classifi-
+cation,  while x4  and x5  are  unrelated  to  the  classification.   Then,  for|S|  =  2,  the  value  of  all
+possibleu(S) are listed as follows: u({1, 2}) = 2,u({1, 3}) = 1,u({1, 4}) = 0,u({1, 5}) = 0,
+u({2, 3})  =  3, u({2, 4})  =  1, u({2, 5})  =  1, u({3, 4})  =  1, u({3, 5})  =  1, u({4, 5})  =  0.
+Similarly,  for|S|  =  3,  the  value  of  all  possible u(S)  are  listed  as  follows: u({1, 2, 3})  =  5,
+u({1, 2, 4})  =  2, u({1, 2, 5})  =  2, u({1, 3, 4})  =  1, u({1, 3, 5})  =  1, u({1, 4, 5})  =  0,
+u({2, 3, 4})  =  3, u({2, 3, 5})  =  3, u({2, 4, 5})  =  1, u({3, 4, 5})  =  0.    We  can  see  that
+E|S|=2[u(S)] = 1≤ 1.8 = E|S|=3[u(S)], which satisfies the monotonicity assumption.
+I    CAN WE HAVE AN EFFICIENT WAY TO VERIFY ASSUMPTION 2 AND
+    ASSUMPTION 3 (APPROXIMATINGp VALUE) ON A SPECIFIC  SAMPLE
+In order to efficiently test whether Assumption 2 and Assumption 3 are satisfied,  given an input
+samplex, we can simply sample a set of subsets (not all subsets){S1,S2,··· ,St} for each orderm
+s.t.|Si| =m, to approximate ¯u(m) and the value ofp, which significantly reduces the computationalPt
+cost.  Mathematically, we have ¯u(m)≈  1t            i=1u(Si), where|Si| = m for 1≤ i≤ t.  Then, we
+can simply use the above approximated ¯u(m) to compute the valuep. In this way, the computational
+cost of empirically testing the monotonic increase of ¯u(m) and a rough estimation of the value ofp
+isO(nt), which is much less thanO(2n).
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+                                                         34

@@ -1,0 +1,55 @@
+{
+  "arxiv_id": "2205.06983",
+  "version": "v2",
+  "title": "RASAT: Integrating Relational Structures into Pretrained Seq2Seq Model for Text-to-SQL",
+  "authors": [
+    "Jiexing Qi",
+    "Jingyao Tang",
+    "Ziwei He",
+    "Xiangpeng Wan",
+    "Yu Cheng",
+    "Chenghu Zhou",
+    "Xinbing Wang",
+    "Quanshi Zhang",
+    "Zhouhan Lin"
+  ],
+  "first_public_date": "2022-05-14T06:27:40Z",
+  "updated": "2022-10-09T07:01:11Z",
+  "journal_ref": null,
+  "source_url": "https://arxiv.org/abs/2205.06983v2",
+  "pdf_url": "https://arxiv.org/pdf/2205.06983v2",
+  "retrieved_at": "2026-09-30T07:02:48.833329+00:00",
+  "attempts": [
+    {
+      "url": "https://arxiv.org/pdf/2205.06983v2",
+      "status": "ok",
+      "bytes": 729506
+    }
+  ],
+  "download_url": "https://arxiv.org/pdf/2205.06983v2",
+  "response_headers": {
+    "Connection": "close",
+    "Content-Length": "729506",
+    "content-disposition": "inline; filename=\"2205.06983v2.pdf\"",
+    "etag": "CNvg55L33fwCEAE=",
+    "server": "Google Frontend",
+    "link": "<https://arxiv.org/pdf/2205.06983>; rel='canonical'",
+    "last-modified": "Mon, 23 Jan 2023 14:45:13 GMT",
+    "access-control-allow-origin": "*",
+    "via": "1.1 google, 1.1 varnish, 1.1 varnish, 1.1 varnish",
+    "content-type": "application/pdf",
+    "x-cloud-trace-context": "54e32d08a404490108905f13076e5f70",
+    "Accept-Ranges": "bytes",
+    "Age": "370998",
+    "Date": "Wed, 30 Sep 2026 07:02:48 GMT",
+    "X-Served-By": "cache-lga-kjfk8660044-LGA, cache-lga-kjfk8660044-LGA, cache-lga-kjfk8660044-LGA, cache-sin-wsap440064-SIN",
+    "X-Cache": "MISS, HIT, HIT",
+    "X-Timer": "S1790751769.983623,VS0,VE1"
+  },
+  "local_pdf": "research/paper-survey-20260930/earlier/papers/2205.06983/2205.06983v2.pdf",
+  "sha256": "f6a99e7694a2e1d0533993ba9bc1d9a9179bb98304b32563486a84060fce87f6",
+  "total_pages": 15,
+  "first_page": "                                        RASAT: Integrating Relational Structures into Pretrained Seq2Seq Model\n                                                                   for Text-to-SQL\n                                                  Jiexing Qi1 , Jingyao Tang1 , Ziwei He1 , Xiangpeng Wan2 , Yu Cheng3\n                                                   Chenghu Zhou4 , Xinbing Wang1 , Quanshi Zhang1 , Zhouhan Lin1∗\n                                                              1\n                                                                Shanghai Jiao Tong University, Shanghai, China\n                                                                2\n                                                                  NetMind.AI and ProtagoLabs, Virginia, USA\n                                                             3\n                                                               Microsoft Research, Redmond, Washington, USA\n                                                         4\n                                                           IGSNRR, Chinese Academy of Sciences, Beijing, China\n                                            {qi_jiexing, monstar, ziwei.he, zqs1022, xwang8}@sjtu.edu.cn\n                                                                       lin.zhouhan@gmail.com\n\n                                                                  Abstract                         through recent years. For example, Bogin et al.\n                                                                                                   (2019b) introduced schema encoding to represent\n                                                Relational structures such as schema linking\narXiv:2205.06983v2 [cs.CL] 9 Oct 2022\n\n\n\n\n                                                                                                   the schema structure of the database, and the result-\n                                                and schema encoding have been validated as a\n                                                                                                   ing augmented LSTM encoder-decoder architec-\n                                                key component to qualitatively translating nat-\n                                                ural language into SQL queries. However, in-       ture was able to generalize better towards unseen\n                                                troducing these structural relations comes with    database schema. Lin et al. (2020a) introduced rela-\n                                                prices: they often result in a specialized model   tions between the entity mentioned in the question\n                                                structure, which largely prohibits using large     and the matched entries in the database to utilize\n                                                pretrained models in text-to-SQL. To address       database content effectively. Their BERT-based\n                                                this problem, we propose RASAT: a Trans-           encoder is followed by an LSTM-based pointer net-\n                                                former seq2seq architecture augmented with\n                                                                                                   work as the decoder, which generalizes better be-\n                                                relation-aware self-attention that could lever-\n                                     ",
+  "status": "downloaded_extracted_requires_manual_review",
+  "automatic_heading_hits": []
+}

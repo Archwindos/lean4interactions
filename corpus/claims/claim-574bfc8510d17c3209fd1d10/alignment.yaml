@@ -1,0 +1,45 @@
+schema_version: 1
+status: aligned
+reviewed_at: '2026-09-30T05:49:39.860742+00:00'
+symbol_mapping:
+- source: fixed input x, fixed DNN and fixed baseline-mask scheme
+  target: 'g : 2^N → ℝ'
+  lean: 'maskedOutput : Harsanyi.Game (Fin n)'
+- source: S ⊆ N
+  target: finite coalition S, including empty
+  lean: 'S : Finset (Fin n)'
+- source: w_S
+  target: I_g(S)
+  lean: Harsanyi.interaction maskedOutput S
+- source: Y(x_S)=Σ_(T⊆S)w_T
+  target: R_(I_g)(S)
+  lean: Harsanyi.reconstruct (Harsanyi.interaction maskedOutput) S
+- source: alternative coefficients tilde w_S
+  target: d(S)
+  lean: 'coeffs : Harsanyi.Game (Fin n)'
+components:
+- component: exact reconstruction / faithfulness
+  theorem_id: harsanyi-reconstruction
+  proof_id: proof-reconstruction-v1
+  lean_declaration: Harsanyi.reconstruction
+  relation_type: same_statement_after_notation_normalization
+  original_proof_method: finite double-sum exchange and binomial cancellation
+  shared_proof_origin: project_new_proof
+  same_original_proof_method: false
+assumptions:
+- The input, DNN and masking baseline scheme are fixed; g(S)=v(x_S) is real-valued.
+- N has n variables and Ω=2^N contains every coalition including the empty coalition.
+- For the uniqueness component, every masked coalition must be reconstructed exactly.
+empty_set_check: Original appendix C explicitly has tilde w_empty=v(x_empty)=w_empty.
+  No zero-baseline or centering premise was added.
+definition_check: Source appendix C rewrites the SCM exactly as Y(x_S)=sum_(T subset
+  S) w_T. Fin n represents precisely the original fixed finite variable domain.
+evidence:
+- reports/public-pilot/20260930-sparse-concepts-v6/source-evidence/theorem1-main-context.tex
+- reports/public-pilot/20260930-sparse-concepts-v6/source-evidence/theorem1-appendixC-statement-proof.tex
+- reports/public-pilot/20260930-sparse-concepts-v6/pdf-page-03.png
+- reports/public-pilot/20260930-sparse-concepts-v6/pdf-page-14.png
+- reports/public-pilot/20260930-sparse-concepts-v6/pdf-page-15.png
+application_source: reports/public-pilot/20260930-sparse-concepts-v6/PublicPilot.lean
+application_log: reports/public-pilot/20260930-sparse-concepts-v6/lean-applications.log
+core_verification_report: reports/lean/20260930T052254-2/report.json

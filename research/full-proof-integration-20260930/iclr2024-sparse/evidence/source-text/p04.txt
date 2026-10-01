@@ -1,0 +1,80 @@
+Published as a conference paper at ICLR   2024
+                                     Concept改成了interaction
+
+
+
+
+                      A salient interaction S = {light, front wheel} (highlighted in color)
+                                                                                                                         0.2
+         sample 1             sample 2              sample 3             sample 4               sample 5
+
+
+
+
+                                                                                                             frequency
+                                                                                                                          0
+                                                                                                                               -2         0         2
+        𝐼(𝑆) = 1.72         𝐼(𝑆) = 1.96         𝐼(𝑆) = 1.90            𝐼(𝑆) = 1.81            𝐼(𝑆) = 1.93                                𝐼(𝑆)
+              A salient interaction S = {front wheel, back frame, mid frame} (highlighted in color)
+                                                                                                                  0.25
+         sample 1            sample 2              sample 3               sample 4              sample 5
+
+
+
+
+                                                                                                             frequency
+                                                                                                                          0
+                                                                                                                                    -1    0     1
+       𝐼(𝑆) = −0.84       𝐼(𝑆) = −1.20           𝐼(𝑆) = −0.93         𝐼(𝑆) = −1.02            𝐼(𝑆) = −1.23                               𝐼(𝑆)
+
+Figure 2: Interactions extracted by PointNet++ on different samples in the ShapeNet dataset and
+their corresponding effects I(S). Histograms on the right show the distribution of interaction effects
+I(S) on different “motorbike” samples.
+
+(1) Sparsity property. A DNN is supposed to encode few salient interactions on a specific sample.
+(2) Universal matching property. The network output on any arbitrarily masked sample is supposed
+to be well matched by the effects of specific interactions.
+(3) Sample-wise transferability property. Salient interactions are supposed to be shared across dif-
+ferent samples in the same category.
+Li & Zhang (2023b) have empirically discovered the sparsity of Harsanyi interactions. They have
+also observed a significant overlap between salient interactions extracted from different samples in
+the same category, which indicated the transferability of interactions across different samples. In
+addition, it has been proven that the Harsanyi interaction satisfies the universal matching property.
+Theorem 1 (Proven in Ren et al. (2023a) and Appendix B.1). Let the input sample x be arbitrarily
+masked to obtain a masked sample xS . The output of the DNN on maskedPsample xS can be
+disentangled into the sum of all interaction effects within S: ∀S ⊆ N, v(xS ) = T ⊆S I(T ) + v(x∅ ).
+Furthermore, the Harsanyi interaction has been proven to satisfy seven desirable properties in
+game theory, e.g., the efficiency, linearity, dummy, and symmetry properties. In addition, the
+Harsanyi interaction can explain the elementary mechanism of three existing game-theoretic at-
+tribution/interaction metrics, e.g., the Shapley value 2 (Shapley, 1953). See Appendix A for details.
+• Illustrating the emergence of interaction primitives. The core task of proving the emergence
+of symbolic primitives is to prove that in a well-trained DNN, the interactions defined above are
+sparse. Although there are as many as 2n interactions corresponding to all subsets S in 2N = {S :
+S ⊆ N }, recent studies (Ren et al., 2023a; Li & Zhang, 2023b) have empirically discovered that
+these interactions were usually sparse in a well-trained DNN. That is, only a few salient interactions
+have significant effects on the network output and can be taken as salient interaction primitives. In
+comparison, most other interactions have near-zero effects (i.e., I(S) ≈ 0), which are referred to as
+noisy patterns. According to Theorem P 1, the network output can be summarized by a small number
+of salient interactions, i.e., v(x) ≈ S∈Ωsalient ,S̸=∅ I(S) + v(x∅ ).
+Although the sparsity of interactions has already been demonstrated in previous studies (Ren et al.,
+2023a; Li & Zhang, 2023b), we still conducted experiments in this study to better illustrate this
+phenomenon. We followed Li & Zhang (2023b) to conduct experiments on various neural net-
+works3 , including multilayer perceptrons (MLPs), residual MLPs (ResMLPs) (Touvron et al., 2022),
+LeNet (LeCun et al., 1998), AlexNet (Krizhevsky et al., 2012), VGG (Simonyan & Zisserman,
+2014), ResNet (He et al., 2016), PointNet (Qi et al., 2017a), PointNet++ (Qi et al., 2017b), and
+on different datasets, including tabular data (the tic-tac-toe dataset (Dua & Graff, 2017), phishing
+dataset (Dua & Graff, 2017), and wifi dataset (Dua & Graff, 2017)), point cloud data (the ShapeNet
+dataset (Yi et al., 2016)), and image data (the MNIST-3 dataset (LeCun et al., 1998) and CelebA-
+eyeglasses dataset (Liu et al., 2015)). For better visualization, we drew a curve of the interaction
+                                          ˜
+strength by normalizing the interaction I(S)     = I(S)/ maxS ′ |I(S ′ )| in descending order. Fig-
+ure 3 shows the strength curve that was averaged over different samples in the dataset, which was
+   2                   P             1
+      We have ϕ(i) = S⊆N \{i} |S|+1     I(S ∪ {i}), which means that the Shapley value ϕ(i) can be explained
+as the result of uniformly assigning each Harsanyi interaction I(S ∪ {i}) to each involved variable.
+    3
+      Please see Appendix C.1 for details on these DNNs and datasets.
+
+
+                                                                     4
+

@@ -1,0 +1,70 @@
+Published as a conference paper at ICLR 2024
+
+
+
+
+OR interactions. Analogously, we can also use the OR interaction to explain the function v : Rn →
+R. To this end, (Zhou et al., 2023; Li & Zhang, 2023a) have defined the following OR interaction
+effect Ior (S|x) to measure the OR interaction encoded by v. In particular, Ior (∅|x) = v(x∅ ).
+                                            X
+                             Ior (S|x) := −        (−1)|S|−|T | v(xN \T ).                      (2)
+                                                     T ⊆S
+
+Each OR interaction Ior (S|x) describes the OR relationship between all variables in S. Let us
+consider an input sentence “x1 = This, x2 = movie, x3 = is, x4 = boring, x5 = and, x6 =
+disappointing” for sentiment classification. Let us set S = {x4 , x6 }. The presence of any word in
+S will contribute a negative sentiment effect Ior (S|x) to the function output.
+Sparsity of interactions. Theoretically, according to Equation (1), a function can encode at most 2n
+different AND interactions w.r.t. all 2n subsets ∀S, S ⊆ N . However, Ren et al. (2024) have proved
+that under some common conditions2 , most well-trained DNNs only encode a small set of AND
+interactions, denoted by Ω, i.e., only a few interactions S ∈ Ω have considerable effects Iand (S|x).
+All other interactions have almost zero effects, i.e., Iand (S|x) ≈ 0, which can be regarded as a set of
+negligible noise patterns.
+It is worth noting that an OR interaction can be regarded as a specific AND interaction, if we inverse
+the definition of the masked state and the unmasked state of an input variable5 . Thus, the proven
+sparsity of AND interactions can also indicate the conclusion that well-trained DNNs tend to encode
+a small number of OR interactions.
+Definition of interaction primitives. Considering the above proven sparsity of interactions, we
+define an interaction primitive as a salient interaction. Formally, given a threshold τ , the set of
+interaction primitives are defined as Ω = {S ⊆ N : |I(S|x)| > τ }.
+Theorem 1 (Universal matching theorem, proved by (Ren et al., 2024)). As the corollary of the
+proven sparsity in Ren et al. (2024), the function’s output on all 2n masked samples {xS |S ⊆
+                                                                                      n
+N } could beP                      P by the interaction primitives in Ω, s.t., |Ω| ≪ 2 , i.e., ∀S ⊆
+               universally explained
+N, v(xS ) = T ⊆S Iand (T |x) ≈ T ⊆S:T ∈Ω Iand (T |x).
+
+In particular, Theorem 1 shows that if we arbitrarily mask the input sample x, we can get 2n different
+masked samples4 , ∀S, S ⊆ N . Then, we can universally match the output of the function v(xS ) on
+all 2n masked samples using only a few interaction primitives in Ω.
+
+2.2    FAITHFULNESS PROBLEM WITH INTERACTION - BASED EXPLANATIONS
+
+Basic setting of using AND-OR interactions to explain a DNN. In this section, we consider to
+employ both AND interactions and OR interactions to explain the DNN’s output. This is because
+the complexity of the representations in DNNs makes it difficult to rely solely on either AND inter-
+actions or OR interactions to faithfully explain true inference primitives encoded by the DNN.
+To this end, we need to decompose the output of the DNN into two terms v(x) = vand (x) + vor (x),
+so that we can use AND interactions to explain the term vand (x) and use OR interactions to explain
+the term vor (x). In this way, the first challenge is how to learn an appropriate decomposition of
+vand (x) and vor (x) that reveals intrinsic primitive interactions encoded by the DNN. We will discuss
+this challenge later.
+No matter how we randomly decompose v(x) = vand (x) + vor (x), Theorem 2 states that we can still
+use interactions to fit the DNN’s outputs on 2n randomly masked samples {xT |T ⊆ N }. Further-
+more, according to the sparsity of interaction primitives in Section 2.1, we can obtain Proposition 1,
+i.e., the 2n network outputs on all masked samples can usually be approximated by a small number
+of AND interaction primitives in Ωand and OR interaction primitives in Ωor , s.t., |Ωand |, |Ωor | ≪ 2n .
+Theorem 2 (Universal matching theorem, proof in Appendix C). Let us be given a DNN v and an
+input sample x. For each randomly masked sample xT , T ⊆ N , we obtain
+                                        X                 X
+      v(xT ) = vand (xT ) + vor (xT ) =     Iand (S|xT ) +                   Ior (S|xT ). (3)
+                                                 S⊆T                      S∈{S:S∩T ̸=∅}∪{∅}
+   5
+     To compute Iand (S|x), we use a baseline value bi and set xi = bi to represent its masked state. If we
+consider bi variable as the presence of the variable, and consider the original value xi as its masked state (i.e.,
+using v(bT ) to represent v(xN \T ) in Equation (2)), then Ior (S|x) in Equation (2) can be formulated the same
+as the AND interaction in Equation (1).
+
+
+                                                        3
+

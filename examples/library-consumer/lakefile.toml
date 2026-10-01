@@ -1,0 +1,14 @@
+name = "library-consumer"
+version = "0.1.0"
+defaultTargets = ["Consumer", "demo"]
+
+[[require]]
+name = "HarsanyiLib"
+path = "../../lean/HarsanyiLib"
+
+[[lean_lib]]
+name = "Consumer"
+
+[[lean_exe]]
+name = "demo"
+root = "Main"

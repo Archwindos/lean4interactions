@@ -1,0 +1,74 @@
+Theorem 2 (Connection to the Shapley value, proved by
+[29]). Let φ(i) denote the Shapley value [56] of an input
+variablei. Then, the Shapley value φ(i) can be explained
+as the result of uniformly assigning causal effects to each
+involving variablei, i.e.,φ(i) =∑
+S⊆N\{i}
+1
+|S|+1wS∪{i}.
+The Shapley value [56] was ﬁrst proposed in game theory
+and has been used by previous studies [45] to estimate attri-
+butions of input variables in the DNN. The Shapley value
+satisﬁes four satisfactory axioms and is widely considered as
+a relatively fair estimation of attributions. Theorem 2 proves
+that the Shapley value can be considered as a re-allocation
+of causal effects to input variables.
+In Appendix D.2, we further prove that the Shapley in-
+teraction index [26] and the Shapley Taylor interaction in-
+dex [66] can also be understood as the assignment of causal
+effectswS to different coalitions.
+3.2. Discovering and boosting the conciseness of the
+causal graph
+Remark 1. Given a DNNv(·) and an input sample x withn
+variables, we can ﬁnd a small set of causal patternsΩ subject
+to|Ω|≪ 2n, such that the DNN’s output can be approximated
+by the causal graph’s output,i.e.∀S⊆N , Y(xS)≈v(xS).
+• Discovering the conciseness. We have discovered that
+lots of DNNs with various architectures trained for different
+tasks can all be explained using sparse causal patterns. Al-
+though Theorem 1 indicates that the causal graph needs to
+encode 2n causal patterns to precisely ﬁt the DNN’s output
+on all the 2n masked samples, Remark 1 shows a common
+phenomenon that the causal effects wS extracted from the
+DNN are usually very sparse. To this end, we trained various
+DNNs for different tasks, and Fig. 2 shows the strength of
+causal effects|wS| in descending order for various DNNs.
+We found that most causal patterns had little inﬂuence on
+the output with negligible values|wS|≈ 0, and they were
+termed noisy causal patterns . Only a few causal patterns
+had considerable effects|wS|, and they were termed salient
+causal patterns . Furthermore, we also conducted experi-
+ments in Section 4.2, and Figs. 3, 4, and 6 show that we
+could use a small number of causal patterns (empirically 10
+to 100 causal patterns for most DNNs) in Ω to approximate
+the DNN’s output, as stated in Remark 1.
+• Boosting the conciseness. Inspired by Remark 1, we
+aim to learn a more concise causal graph. To this end, we pro-
+pose the following objective of learning faithful and sparse
+causal effectswS.
+minw,Ω unfaith(wΩ) s.t.|Ω|≤M
+⇔ minw,Ω unfaith(wΩ) s.t.‖wΩ‖0≤M,
+unfaith(wΩ) =
+∑
+S⊆N
+[
+v(xS)−YwΩ(xS)
+]2
+(5)
+where wΩ
+def
+= [w′
+S1,w′
+S2,...,w′
+S2n ]. IfS∈ Ω, then w′
+S =wS;
+otherwise,w′
+S =0. The L0-norm‖wΩ‖0 refers to the number
+of non-zero elements in wΩ, thereby‖wΩ‖0 =|Ω|. In this
+way, the above objective function enables people to use a
+small number of causal patterns to explain the DNN.
+However, direct optimization of Eq. (5) is difﬁcult. There-
+fore, we propose several techniques to learn sparse causal
+effects based on Eq. (5) to faithfully mimic the DNN’s
+outputs on numerous masked samples. The following para-
+graphs will introduce how to relax the Harsanyi dividend in

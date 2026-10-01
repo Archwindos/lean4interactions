@@ -1,0 +1,1505 @@
+=== PDF PAGE 1 ===
+          Defining and Quantifying the Emergence of Sparse Concepts in DNNs:
+                                                      Supplementary Material
+
+
+                              Jie Ren∗, Mingjie Li*, Qirui Chen, Huiqi Deng, Quanshi Zhang†
+                                                       Shanghai Jiao Tong University
+
+
+A. Related works
+   Explanations for DNNs. Many methods have been proposed to explain DNNs, such as visualizing the features learned
+by the DNN [16,46,62,63], and estimating the pixel-wise attribution/saliency of input samples [2,19,34,41,42,66,67].
+[9] and [61] estimated the smallest subset of variables to mimic DNN’s output.  Some studies extracted logical rules as
+explanations [6,27,28,36,57]. Meanwhile, another direction is to distill a DNN into another interpretable symbolic model, for
+example, an additive model [53,55], decision tree [1,8,20,59], or graphical model [44,65].                                      However, most of these explainer
+models usually only consider the model’s fitness to the network output, but whether their explanation can always faithfully
+reflect the logic in the DNN under various data transformations is still an open problem. In this study, we find that the network
+outputs on an exponential number of randomly masked samples can always be explained by a causal graph, of which the
+faithfulness is theoretically proven.
+   Using causality to explain DNNs. The causality framework was originally proposed to study the causal structure of a set
+of observed variables [26,38]. For example, [60] proposed a neural-causal model to identify and estimate causal relationships
+in data. Recently, several studies have explained DNNs based on causality. For example, some studies [21,25,56] proposed
+attribution methods based on manually defined causal relationships between input variables. Similarly, [3,7,23] explained the
+association between inputs and intermediate features/outputs using causal models. Instead of manually setting or assuming
+causal relationships, we quantify the exact interactive concepts encoded by the DNN as causal patterns for inference, whose
+faithfulness is both theoretically guaranteed and experimentally verified. Note that the SCM in Eq. (2) of the main paper does
+not explain the DNN as a linear model, such as a bag-of-words model [13,48]. This is because given different samples, the
+DNN may activate different sets of causal patterns.
+   Interactions.  Causal patterns in the proposed causal graph can actually be considered as a specific type of interaction
+in game theory.  Similar to causal effects, interactions in game theory are widely used to quantify the numerical effects of
+interactive concepts between input variables on the DNN output [29,30,37,47,50]. In game theory, the Shapley interaction
+index [22] was used by [33] to analyze tree ensembles. [51,54] proposed interaction metrics from different perspectives. [15]
+proved that DNNs were less likely to encode interactive concepts of intermediate complexity. Unlike previous studies, we
+find that we can use a few causal patterns (interactive concepts) to faithfully represent the inference logic of a DNN, which is
+experimentally verified.
+B. Harsanyi dividend
+   This section revisits the definition of Harsanyi dividend [24], a typical metric in game theory. In this study, the causal effect
+wS of each patternS is quantified based on Harsanyi dividends. In game theory, a complex system (e.g., a deep model) is
+usually considered a game. Each input variable represents a player in the game, and the output of this system is the reward
+obtained by a subset of players.  Specifically, let us consider a deep model and an input sample x withn variables (e.g.  a
+sentence withn words)N  ={1, 2,...,n}. A deep model can be understood as a gamev(·). In this game, the input variables in
+N  do not individually contribute to the model output. Instead, they interact with each other to form concepts (causal patterns)
+for inference. Each conceptS⊆N  has a certain causal effect on the model output. In this study, we prove in Theorem1that
+the Harsanyi dividendwS is a unique faithful metric for quantifying such causal effects.
+
+   *These authors contributed equally to this work.
+   †Quanshi Zhang is the corresponding author. He is with the Department of Computer Science and Engineering, the John Hopcroft Center, at the Shanghai
+Jiao Tong University, China. zqs1022@sjtu.edu.cn.
+
+
+                                                                             1
+
+=== PDF PAGE 2 ===
+                                                        wS = X       (−1)|S′|−|S|·v(xS′),                                                           (1)
+                                                                S′⊆S
+   wherev(xS) denotes the model output when only variables in the subsetS⊆N  are given, and all other variables are
+masked using their baseline values.
+   We also prove that the Harsanyi dividendwS satisfies seven desirable axioms, including the efficiency, linearity, dummy,
+symmetry, anonymity, recursive and interaction distribution axioms, which demonstrates its trustworthiness.
+   (1)  Efficiency  axiom.   The  output  score  of  a  model  can  be  decomposed  into  effects  of  different  causal  patterns,  i.e.
+v(x) =PS⊆NwS.
+   (2) Linearity axiom.  If we merge the output scores of the two modelst(·) andu(·) into the output of modelv(·), i.e.
+∀S⊆N, v(xS) =t(xS) +u(xS), the corresponding causal effectswtS andwuS can also be merged as∀S⊆N,wvS =wtS +wuS.
+   (3) Dummy axiom. If a variablei∈N  is a dummy variable, i.e.∀S⊆N\{i},v(xS∪{i}) =v(xS) +v(x{i}), it has no causal
+effect with other variables,∀S⊆N\{i},wS∪{i} = 0.
+   (4) Symmetry axiom. If the input variablesi,j∈N cooperate with other variables in the same manner,∀S⊆N\{i,j},v(xS∪{i}) =
+v(xS∪{j}), then they have the same causal effects with other variables,∀S⊆N\{i,j},wS∪{i} =wS∪{j}.
+   (5) Anonymity axiom.  For any permutationsπ onN , we have∀S⊆N,wvS =wπvπS, whereπS ≜{π(i)|i∈S}, and the new
+modelπv is defined by (πv)(xπS)=v(xS). This indicates that causal effects are not changed by the permutation.
+   (6) Recursive axiom.  The causal effects can be computed recursively.  Fori∈N  andS⊆N\{i}, the causal effect of
+the patternS∪{i} is equal to the causal effect ofS in the presence ofi minus the causal effect ofS in the absence ofi, i.e.
+∀S⊆N\{i},wS∪{i} =wS|i  present−wS. wS|i  present denotes the causal effect when the variablei is always present as a constant
+context, i.e. wS|i  present =PS′⊆S(−1)|S|−|S′|·v(xS′∪{i}).
+   (7) Interaction distribution axiom. This axiom characterizes how causal effects are distributed for a class of “interaction
+functions” [51]. The interaction function   vT  parameterized by a subset of variablesT  is defined as follows.∀S⊆N , ifT ⊆S,
+vT (xS) =c; otherwise,vT (xS) = 0. The functionvT  models the causal effect of the patternT , because only if all variables
+inT  are present, will the output value be increased byc. The causal effects encoded in the functionvT  satisfywT  =c, and
+∀S̸=T ,wS = 0.
+   More crucially, we also prove that causal effectswS based on the Harsanyi dividend can explain the elementary mechanism
+of existing game-theoretic attributions/interactions, as follows.
+
+Theorem 5 (Connection to the marginal benefit [22])     .  Let ∆vT (xS) =PT′⊆T (−1)|T|−|T′|v(xT′∪S) denote the marginal
+benefit of variables inT ⊆N\S given the environmentS. We have proven that ∆vT (xS) can be decomposed into the sum of
+the causal effects insideT  and the sub-environments ofS, i.e. ∆vT (xS) =PS′⊆SwT∪S′.
+
+Theorem  2  (Connection  to  the  Shapley  value  [43])     .  Let ϕ(i)  denote  the  Shapley  value  of  input  variable i.   Then,  the
+Shapley value ϕ(i) can be explained as the result of uniformly assigning causal effects to each involved variable i, i.e.,
+ϕ(i) =P                 1
+           S⊆N\{i}    |S|+1wS∪{i}. This theorem also proves that the Shapley value is a fair assignment of attributions from the
+perspective of causal effects.
+
+Theorem 3 (Connection to the Shapley interaction index [22])     .  Given a subset of input variablesT ⊆N , the Shapley
+interaction indexIShapley(T ) can be represented asIShapley(T ) =P                        1
+                                                                               S⊆N\T    |S|+1wS∪T . In other words, the indexIShapley(T ) can
+be explained as uniformly allocating causal effectswS′ s.t.S′ =S∪T  to the compositional variables ofS′, if we treat the
+coalition of variables inT  as a single variable.
+
+Theorem 4 (Connection to the Shapley Taylor interaction index [51])     .  Given a subset of input variablesT ⊆N , thek-th order
+Shapley Taylor interaction indexIShapley-Taylor(T ) can be represented as weighted sum of causal effects, i.e.,IShapley-Taylor(T ) =wT|S|+k−1wS∪T  if|T| =k; andIShapley-Taylor(T ) = 0 if|T|>k.
+if|T|<k;IShapley-Taylor(T ) =PS⊆N\T              k
+
+C. The proof of Theorem1in the main paper
+Theorem 1.  Given a certain input x, let the causal graph in Fig.  1 (in the main paper) encode 2n causal patterns, i.e.,
+Ω = 2N  ={S :S⊆N}. If the causal effectwS of each causal patternS∈ Ω is measured by the Harsanyi dividend [24],       i.e.
+wS ≜PS′⊆S(−1)|S|−|S′|·v(xS′), then the causal graph faithfully encodes the inference logic of the DNN, as follows.
+                                                           ∀S⊆N, Y (xS) =v(xS)                                                                      (2)
+More crucially, the Harsanyi dividend is the unique metric that satisfies the faithfulness requirement.
+
+=== PDF PAGE 3 ===
+   • Proof: We only need to prove the following two statements. (1) Necessity: the causal graph based on Harsanyi dividends
+wS satisfies the faithfulness requirement∀S⊆N,Y (xS)=v(xS). (2) Sufficiency: if there exists another metric  ˜wS that also
+satisfies the faithfulness requirement, then, it is equivalent to the Harsanyi dividend, i.e.∀S⊆N, ˜wS =wS.
+   According to the SCM in Eq. (2) of the main paper, we haveY (xS) =PS′∈ΩwS′·CS′(xS) =PS′⊆SwS′. Therefore, the
+faithfulness requirement can be equivalently re-written as∀S⊆N,v(xS) =PS′⊆SwS′.
+   Proof for necessity. According to the definition of the Harsanyi dividend, we have∀S⊆N ,
+
+                                       X                   X
+                                             wS′ = X           (−1)|S′|−|L|v(xL)
+                                       S′⊆S         S′⊆S  L⊆S′
+                                                  =X         X       (−1)|S′|−|L|v(xL)
+
+
+                                                    L⊆S  S′⊆S:S′⊇L
+
+                                                           |S|X    X
+                                                  =X                       (−1)s′−|L|v(xL)
+                                                    L⊆S  s′=|L| S′⊆S:S′⊇L
+                                                                  |S′|=s′
+                                                                 |S|−|L|X           !
+                                                  =X     v(xL)            |S|−|L|     (−1)m =v(xS)
+
+                                                    L⊆S           m=0         m
+
+   Proof for sufficiency. Suppose there exists another metric  ˜wS that satisfies∀S⊆N,v(xS) =PS′⊆S ˜wS′. Then, we prove
+˜wS =wS by induction on the number of variables|S| in the causal pattern.
+   (Basis step) When|S| = 0, i.e.S =∅, we have  ˜w∅ =v(x∅) =w∅. Similarly, it can be directly derived that when|S| = 1, i.e.
+S ={i},  ˜w{i} =v(x{i})−v(x∅) =w{i}; when|S| = 2, i.e.S ={i,j},  ˜w{i,j} =v(x{i,j})−v(x{i})−v(x{j}) +v(x∅) =w{i,j}.
+   (Induction step) Suppose  ˜wS =wS holds for anyS with|S| =s≥ 2. Then, for|S| =s + 1, we have
+
+
+                             v(xS) = X        ˜wS′ =  ˜wS + X     ˜wS′
+                                       S′⊆S                 S′⊊S
+                                                    X
+                                     = ˜wS + X           (−1)|S′|−|L|v(xL)        // by the induction assumption
+                                              S′⊊S L⊆S′
+                                     = ˜wS +X         X       (−1)|S′|−|L|·v(xL)
+
+
+                                              L⊊S S′⊊S:L⊆S′
+
+                                                   |S|−1X    X
+                                     = ˜wS +X                       (−1)s′−|L|·v(xL)
+                                              L⊊S s′=|L| S′⊊S:L⊆S′
+                                                           |S′|=s′
+                                                          |S|−1X             !
+                                     = ˜wS +X     v(xL)            |S|−|L|     (−1)s′−|L|
+
+                                              L⊊S         s′=|L|   s′−|L|
+
+                                                          |S|−|L|−1X            !
+                                     = ˜wS +X     v(xL)               |S|−|L|     (−1)m
+
+                                              L⊊S            m=0          m
+                                                          |              {z              }
+                                                                   0−(−1)|S|−|L|
+                                     = ˜wS−X(−1)|S|−|L|v(xL).
+                                              L⊊S
+   In this way, we have
+                                 ˜wS =v(xS) +X(−1)|S|−|L|v(xL) = X(−1)|S|−|L|v(xL) =wS.
+                                                  L⊊S                         L⊆S
+   Therefore, the Harsanyi dividend is the unique metric that satisfies the faithfulness requirement.
+D. Proofs of axioms and theorems for the Harsanyi dividend
+D.1. Proofs of axioms
+   In this section, we prove that the Harsanyi dividendwS  satisfies the efficiency, linearity, dummy, symmetry, anonymity,
+recursive, and interaction distribution axioms.
+
+=== PDF PAGE 4 ===
+   (1) Efficiency axiom.   The output score of a model can be decomposed into effects of different causal patterns,  i.e.
+v(x) =PS⊆NwS.
+   • Proof: According to the definition of the Harsanyi dividend, we have
+
+                                 X                 X
+                                      wS = X           (−1)|S|−|S′|·v(xS′)
+                                S⊆N          S⊆N  S′⊆S
+                                          = X         X       (−1)|S|−|S′|·v(xS′)
+
+
+                                             S′⊆N  S:S′⊆S⊆N
+                                                     nX      X
+                                          = X                       (−1)s−|S′|v(xS′)
+                                             S′⊆N  s=|S′|S:S′⊆S⊆N
+                                                            |S|=s
+                                                           n−|S′|X           !
+                                          = X      v(xS′)           n−|S′|     (−1)m
+
+                                             S′⊆N           m=0        m
+
+                                          =v(x)    // the only case that cannot be cancelled out isS′ =N
+
+   (2) Linearity axiom.  If we merge output scores of two models t(·) and u(·) as the output of model v(·), i.e. ∀S ⊆
+N, v(xS) =t(xS) +u(xS), then the corresponding causal effectswtS andwuS can also be merged as∀S⊆N,wvS =wtS +wuS.
+   • Proof: According to the definition of the Harsanyi dividend, we have
+
+
+                                        wvS = X     (−1)|S|−|S′|v(xS)
+                                               S′⊆S
+                                            = X     (−1)|S|−|S′|[t(xS) +u(xS)]
+                                               S′⊆S
+                                            = X     (−1)|S|−|S′|t(xS) + X       (−1)|S|−|S′|u(xS)
+                                               S′⊆S                        S′⊆S
+                                            =wtS +wuS.
+
+   (3) Dummy axiom. If a variablei∈N  is a dummy variable, i.e.∀S⊆N\{i},v(xS∪{i}) =v(xS) +v(x{i}), then it has no
+causal effect with other variables,∀S⊆N\{i},wS∪{i} = 0.
+   • Proof: According to the definition of the Harsanyi dividend, we have
+
+
+                              wS∪{i} =  X         (−1)|S|+1−|S′|v(xS′)
+                                         S′⊆S∪{i}
+                                      = X     (−1)|S|+1−|S′|v(xS′) + X        (−1)|S|−|S′|v(xS′∪{i})
+                                         S′⊆S                            S′⊆S
+                                      = X     (−1)|S|+1−|S′|v(xS′) + X        (−1)|S|−|S′|[v(xS) +v(x{i})]
+                                         S′⊆S                            S′⊆S
+                                        h X
+                                      =        (−1)|S|−|S′|i  ·v(x{i})
+                                          S′⊆S
+                                      =0.
+
+   (4) Symmetry axiom. If input variablesi,j∈N cooperate with other variables in the same way,∀S⊆N\{i,j},v(xS∪{i}) =
+v(xS∪{j}), then they have same causal effects with other variables,∀S⊆N\{i,j},wS∪{i} =wS∪{j}.
+   • Proof: According to the definition of the Harsanyi dividend, we have
+
+
+                                 wS∪{i} =  X          (−1)|S|+1−|S′|v(xS′)
+                                            S′⊆S∪{i}
+                                          = X     (−1)|S|+1−|S′|v(xS′) + X        (−1)|S|−|S′|v(xS′∪{i})
+                                            S′⊆S                             S′⊆S
+
+=== PDF PAGE 5 ===
+                                            = X     (−1)|S|+1−|S′|v(xS′) + X         (−1)|S|−|S′|v(xS′∪{j})
+                                              S′⊆S                              S′⊆S
+                                            =  X         (−1)|S|+1−|S′|v(xS′)
+                                              S′⊆S∪{j}
+                                            =wS∪{j}.
+
+   (5) Anonymity axiom. For any permutationsπ onN , we have∀S⊆N,wvS =wπvπS, whereπS ≜{π(i)|i∈S}, and the new
+modelπv is defined by (πv)(xπS)=v(xS). This indicates that causal effects are not changed by permutation.
+   • Proof: According to the definition of the Harsanyi dividend, we have
+
+
+                                                     wπvπS = X     (−1)|S|−|S′|(πv)(xπS′)
+                                                             S′⊆S
+                                                           = X     (−1)|S|−|S′|v(xS′)
+                                                             S′⊆S
+                                                           =wvS.
+
+   (6) Recursive axiom. The causal effects can be computed recursively. Fori∈N  andS⊆N\{i}, the causal effect of the
+patternS∪{i} is equal to the causal effect ofS with the presence ofi minus the causal effect ofS with the absence ofi, i.e.
+∀S⊆N\{i},wS∪{i} =wS|i  present−wS. wS|i  present denotes the causal effect when the variablei is always present as a constant
+context, i.e. wS|i  present =PS′⊆S(−1)|S|−|S′|·v(xS′∪{i}).
+   • Proof: According to the definition of the Harsanyi dividend, we have
+
+
+                                   wS∪{i} =  X           (−1)|S|+1−|S′|v(xS′)
+                                               S′⊆S∪{i}
+                                            = X     (−1)|S|+1−|S′|v(xS′) + X         (−1)|S|−|S′|v(xS′∪{i})
+                                               S′⊆S                             S′⊆S
+                                            = X     (−1)|S|−|S′|v(xS′∪{i})− X          (−1)|S|−|S′|v(xS′)
+                                               S′⊆S                               S′⊆S
+                                            =wS|i  present−wS.
+
+   (7) Interaction distribution axiom. This axiom characterizes how causal effects are distributed for a class of “interaction
+functions” [51]. An interaction function   vT  parameterized by a subset of variablesT  is defined as follows.∀S⊆N , ifT ⊆S,
+vT (xS) = c; otherwise,vT (xS) = 0.  The functionvT  purely models the causal effect of the patternT , because only if all
+variables inT  are present, the output value will be increased byc. The causal effects encoded in the functionvT  satisfywT  =c,
+and∀S̸=T ,wS = 0.
+   • Proof: IfS ⊊T , we have
+
+                                              wS = X       (−1)|S|−|S′|·    v(xS′)| {z  }       = 0.
+                                                     S′⊆S                  ∀S′⊆S⊊T,v(xS′)=0
+   IfS =T , we have
+
+
+                                                 wS =wT  = X         (−1)|T|−|S′|v(xS′)
+                                                               S′⊆T
+                                                     =v(T ) + X       (−1)|T|−|S′|v(xS′)|{z} =c.
+                                                                S′⊊T                   =0
+
+   IfS ⊋T , we have
+
+
+                                                  wS = X       (−1)|S|−|S′|v(xS′)
+                                                         S′⊆S
+
+=== PDF PAGE 6 ===
+                                                       =c· X      (−1)|S|−|S′|
+
+                                                            S′⊆S
+                                                            S′⊇T
+                                                            |S|−|T|X             !
+                                                       =c·             |S|−|T|     (−1)m = 0.
+
+                                                              m=0          m
+D.2. Proofs of theorems
+   In this section, we prove connections between the Harsanyi dividendwS and several game-theoretic attributions/interactions.
+We first prove Theorem5, which can be seen as the foundation for proofs of Theorem2,3, and4.
+Theorem5(Connection to the marginal benefit).        Let ∆vT (xS) =PT′⊆T (−1)|T|−|T′|v(xT′∪S) denote the marginal benefit
+of variables inT ⊆N\S given the environmentS. We have proven that ∆vT (xS) can be decomposed into the sum of causal
+effects insideT  and sub-environments ofS, i.e. ∆vT (xS) =PS′⊆SwT∪S′.
+   • Proof: By the definition of the marginal benefit, we have
+
+
+                            ∆vT (xS) =X        (−1)|T|−|L|v(xL∪S)
+                                          L⊆T
+                                       =X      (−1)|T|−|L| X         wK    // by Theorem1
+                                          L⊆T                K⊆L∪S
+                                       =X      (−1)|T|−|L| X        X    wL′∪S′    // sinceL∩S =∅
+
+
+                                          L⊆T                L′⊆L  S′⊆S
+                                                                                  
+                                       = X      X     (−1)|T|−|L| X       wL′∪S′
+
+                                          S′⊆S    L⊆T                L′⊆L
+                                                                                  
+                                       = X      X     X    (−1)|T|−|L|wL′∪S′
+
+
+                                          S′⊆S    L′⊆T  L⊆T
+                                                        L⊇L′
+                                                                                                                   
+                                                                                  !                       
+                                                                       |T|X
+                                       = X        wS′∪T|  + X                |T|−|L′|     (−1)|T|−|L|wL′∪S′
+                                          S′⊆S       {z }    L′⊊T    l=|L′|    l−|L′|
+                                                   L′=T      |                         {z                         }
+
+                                                                                     L′⊊T
+                                                                                                                 
+                                                wS′∪T  + X    wL′∪S′·  |T|X               !              
+                                       = X                                              |T|−|L′|      (−1)|T|−|L|
+                                          S′⊆S               L′⊊T               l=|L′|    l−|L′|
+                                                                                |               {z                }
+                                                                                                =0
+                                       = X      wS′∪T
+                                          S′⊆S
+   In particular, ifT  is a singleton set, i.e.T  ={i}, we can obtain a similar conclusion to [40] that      ∆v{i}(xS) =PL⊆SwL∪{i}.
+Theorem2(Connection to the Shapley value).        Letϕ(i) denote the Shapley value [43] of an input variable  i. Then, the Shapley
+valueϕ(i) can be represented as a weighted sum of causal effects involving the variablei, i.e.,ϕ(i) =P                                  1
+                                                                                                                           S⊆N\{i}   |S|+1wS∪{i}.
+In other words, the effect of a causal pattern withm variables should be equally assigned to them variables in the computation
+of Shapley values.
+   • Proof: By the definition of the Shapley value, we have
+
+
+                          ϕ(i) =Em    E       [v(xS∪{i})−v(xS)]
+                                     S⊆N\{i}
+                                      |S|=m
+                                       |N|−1X                    h                       i
+                                =  1          |N|−11   X         v(xS∪{i})−v(xS)
+                                  |N|   m=0       m     S⊆N\{i}
+
+                                                         |S|=m
+
+=== PDF PAGE 7 ===
+                                     |N|−1X
+                              =  1          |N|−11  X       ∆v{i}(xS)
+                                 |N|  m=0      m     S⊆N\{i}
+
+                                                       |S|=m
+                                                                            
+                                     |N|−1X
+                              =  1          |N|−11  X       X     wL∪{i}     // by Theorem5
+                                 |N|  m=0      m     S⊆N\{i}    L⊆S
+
+                                                       |S|=m
+                                        X      |N|−1X    1
+                              =  1|N|                 |N|−1  X        wL∪{i}
+                                     L⊆N\{i}    m=0      m     S⊆N\{i}
+                                                                |S|=m
+                                                                 S⊇L
+                                        X      |N|−1X    1
+                              =  1|N|                 |N|−1  X        wL∪{i}    // sinceS⊇L,|S| =m≥|L|.
+                                     L⊆N\{i}   m=|L|     m     S⊆N\{i}
+                                                                |S|=m
+                                                                 S⊇L
+                                               |N|−1X                             !
+                              =  1      X                1         |N|−|L|− 1       ·wL∪{i}
+                                 |N|                  |N|−1·        m−|L|
+                                     L⊆N\{i}   m=|L|     m
+                                                       |N|−|L|−1X                             !
+                              =  1      X      wL∪{i}                 1        |N|−|L|− 1
+                                 |N|                              |N|−1·            k
+                                     L⊆N\{i}           |  k=0       |L|+k  {z                  }
+
+                                                                          αL
+
+P|N|−|L|−1Then, we leverage the following properties of combinatorial numbers and the Beta function to simplify the termwL =.
+                 1
+  k=0         (|N|−1         k
+               |L|+k)·|N|−|L|−1                          =n·n−1.
+   (i) A property of combinitorial numbers. m·nm                 m−1
+   (ii) The definition of the Beta function. Forp,q> 0, the Beta function is defined asB(p,q) =R 10 xp−1(1−x)1−qdx.
+   (iii) Connections between combinitorial numbers and the Beta function.
+      ◦ Whenp,q∈ Z+, we haveB(p,q) =         1q·(p+q−1
+                                                     =              1p−1  ).
+      ◦ Form,n∈ Z+ andn>m, we havenm                    m·B(n−m+1,m).
+
+
+                                   |N|−|L|−1X                            !
+                            αL =              |N|−11·   |N|−|L|− 1
+
+                                      k=0      |L|+k             k
+
+                                   |N|−|L|−1X                 !
+                                =              |N|−|L|− 1        · (|L| +k)·B(|N|−|L|−k,|L| +k)
+
+                                      k=0             k
+                                   |N|−|L|−1X                       !
+                                =            |L|·    |N|−|L|− 1       ·B(|N|−|L|−k,|L| +k)  ···  1⃝
+
+                                      k=0                  k
+                                     |N|−|L|−1X                      !
+                                   +            k·    |N|−|L|− 1       ·B(|N|−|L|−k,|L| +k)  ···  2⃝
+
+                                         k=0                k
+
+   Then, we solve  1⃝ and  2⃝ respectively. For  1⃝, we have
+
+                            Z  1    |N|−|L|−1X                  !
+                       1⃝ =                      |N|−|L|− 1        ·x|N|−|L|−k−1· (1−x)|L|+k−1dx
+                              0 |L|     k=0             k
+                            Z  1      |N|−|L|−1X                   !                             
+                          =                         |N|−|L|− 1       ·x|N|−|L|−k−1· (1−x)k        ·(1−x)|L|−1dx
+                              0 |L|·       k=0             k
+                                      |                            {z                             }
+                                                                   =1
+                            Z  1
+                          =
+                              0 |L|(1−x)|L|−1dx = 1
+
+=== PDF PAGE 8 ===
+   For  2⃝, we have
+
+
+                        |N|−|L|−1X                                      !
+                   2⃝ =            (|N|−|L|− 1)·        |N|−|L|− 2         ·B(|N|−|L|−k,|L| +k)
+
+                           k=1                               k− 1
+
+                                          |N|−|L|−2X                  !
+                     =(|N|−|L|− 1)                     |N|−|L|− 2        ·B(|N|−|L|−k′− 1,|L| +k′ + 1)
+
+                                             k′=0            k′
+                                          Z  1|N|−|L|−2X                   !
+                     =(|N|−|L|− 1)                         |N|−|L|− 2        ·x|N|−|L|−k′−2· (1−x)|L|+k′ dx
+
+                                           0     k′=0             k′
+                                          Z  1|N|−|L|−2X                    !                               
+                     =(|N|−|L|− 1)                          |N|−|L|− 2        ·x|N|−|L|−k′−2· (1−x)k′·(1−x)|L|dx
+
+                                           0       k′=0             k′
+                                              |                              {z                               }
+                                                                             =1
+                                          Z  1
+                     =(|N|−|L|− 1)                                  |L| + 1
+                                           0  (1−x)|L|dx =|N|−|L|− 1
+   Hence, we have
+
+                                              αL =  1⃝ +  2⃝ = 1 +|N|−|L|− 1|L| + 1      = |N||L| + 1
+   Therefore, we provedϕ(i) =    1        P                                            1
+                                      |N|    S⊆N\{i}αL·wL∪{i} =PS⊆N\{i}              |S|+1·wS∪{i}.
+Theorem3(Connection to the Shapley interaction index).          Given a subset of input variablesT ⊆N , IShapley(T )  =
+P          |S|!(|N|−|S|−|T|)!
+  S⊆N\T       (|N|−|T|+1)!    ∆vT (xS)  denotes  the  Shapley  interaction  index  [22]  of  T .   We  have  proved  that  the  Shapley
+interaction index can be represented as the weighted sum of causal effects involvingT , i.e.,IShapley(T ) =P                           1
+                                                                                                                            S⊆N\T    |S|+1wS∪T .
+In other words, the index IShapley(T ) can be explained as uniformly allocating causal effects wS′  s.t. S′  =S∪T  to the
+compositional variables ofS′, if we treat the coalition of variables inT  as a single variable.
+   • Proof:
+
+
+                          IShapley(T ) = X       |S|!(|N|−|S|−|T|)!
+
+                                        S⊆N\T       (|N|−|T| + 1)!     ∆vT (xS)
+
+                                                         |N|−|T|X
+                                      =          1                |N|−|T|1 X       ∆vT (xS)
+                                        |N|−|T| + 1        m=0        m      S⊆N\T
+
+                                                                              |S|=m
+                                                                                                  
+                                                         |N|−|T|X
+                                      =          1                |N|−|T|1 X       X     wL∪T   
+                                        |N|−|T| + 1        m=0        m      S⊆N\T     L⊆S
+
+                                                                              |S|=m
+                                                           X     |N|−|T|X      1
+                                      =          1|N|−|T| + 1             |N|−|T| X         wL∪T
+                                                         L⊆N\T    m=|L|        m      S⊆N\T
+                                                                                       |S|=m
+                                                                                       S⊇L
+                                                                 |N|−|T|X                                !
+                                      =          1         X                   1        |N|−|L|−|T|        wL∪T
+                                        |N|−|T| + 1                       |N|−|T|         m−|L|
+                                                         L⊆N\T    m=|L|        m
+                                                                         |N|−|L|−|T|X                                !
+                                      =          1         X     wL∪T                      1       |N|−|L|−|T|
+                                        |N|−|T| + 1                                   |N|−|T|            k
+                                                         L⊆N\T           |   k=0         |L|+k {z                     }
+
+                                                                                              αL
+   Just like the proof of Theorem2, we leverage the properties of combinitorial numbers and the Beta function to simplify       αL.
+
+=== PDF PAGE 9 ===
+                            |N|−|L|−|T|X                                 !
+                     αL =                 |N|−|T|1   |N|−|L|−|T|
+
+                                k=0         |L|+k               k
+
+                            |N|−|L|−|T|X                      !
+                         =                  |N|−|L|−|T|          ·  |L| +k    ·B    |N|−|L|−|T|−k + 1,|L| +k
+                                k=0                 k
+
+                            |N|−|L|−|T|X                           !
+                         =               |L|·    |N|−|L|−|T|          ·B   |N|−|L|−|T|−k + 1,|L| +k                     ···  1⃝
+                                k=0                      k
+
+                               |N|−|L|−|T|X                         !
+                            +               k·    |N|−|L|−|T|          ·B   |N|−|L|−|T|−k + 1,|L| +k                     ···  2⃝
+
+                                   k=0                    k
+   Then, we solve  1⃝ and  2⃝ respectively. For  1⃝, we have
+
+                           Z  1    |N|−|L|−|T|X                      !
+                      1⃝ =                         |N|−|L|−|T|          ·x|N|−|L|−|T|−k· (1−x)|L|+k−1dx
+
+                             0 |L|      k=0                k
+                           Z  1      |N|−|L|−|T|X                       !                                
+                        =                            |N|−|L|−|T|           ·x|N|−|L|−|T|−k· (1−x)k         ·(1−x)|L|−1dx
+
+                             0 |L|·        k=0                 k
+                                     |                                 {z                                  }
+                                                                       =1
+                           Z  1
+                        =
+                             0 |L|· (1−x)|L|−1dx = 1
+   For  2⃝, we have
+
+
+               |N|−|L|−|T|X                                               !
+         2⃝ =               (|N|−|L|−|T|)         |N|−|L|−|T|− 1            ·B    |N|−|L|−|T|−k + 1,|L| +k
+
+                   k=1                                     k− 1
+
+                                   |N|−|L|−|T|−1X                            !
+            =(|N|−|L|−|T|)                            |N|−|L|−|T|− 1            ·B   |N|−|L|−|T|−k′,|L| +k′ + 1
+
+                                         k′=0                   k′
+                                   Z  1 |N|−|L|−|T|−1X                           !
+            =(|N|−|L|−|T|)                                |N|−|L|−|T|− 1            ·x|N|−|L|−|T|−k′−1· (1−x)|L|+k′ dx
+                                     0       k′=0                    k′
+                                   Z  1                                           !                                     
+                                          |N|−|L|−|T|−1X
+            =(|N|−|L|−|T|)                                 |N|−|L|−|T|− 1            ·x|N|−|L|−|T|−k′−1· (1−x)k′·(1−x)|L|dx
+
+                                     0         k′=0                   k′
+                                        |                                       {z                                        }
+                                                                                =1
+                                   Z  1
+            =(|N|−|L|−|T|)                                      |L| + 1
+                                     0  (1−x)|L|dx =|N|−|L|−|T|
+   Hence, we have
+
+                                          αL =  1⃝ +  2⃝ = 1 +|N|−|L|−|T||L| + 1        =|N|−|T| + 1|L| + 1
+   Therefore, we proved thatIShapley(T ) =          1          P                                         1
+                                                   |N|−|T|+1      L⊆N\T αL·wL∪T  =PL⊆N\T               |L|+1wL∪T .
+Theorem4(Connection to the Shapley Taylor interaction index).        Given a subset of input variablesT ⊆N , thek-th order
+Shapley Taylor interaction indexIShapley-Taylor(T ) can be represented as weighted sum of causal effects, i.e.,IShapley-Taylor(T ) =wT|S|+k−1wS∪T  if|T| =k; andIShapley-Taylor(T ) = 0 if|T|>k.
+if|T|<k;IShapley-Taylor(T ) =PS⊆N\T              k
+   • Proof: By the definition of the Shapley Taylor interaction index,
+                                                          ∆vT (x∅)                                          if|T|<k
+
+                                                               k  P               1
+                                  IShapley-Taylor(k)(T ) = |N|    S⊆N\T     (|N|−1
+                                                                                 |S|  )∆vT (xS)    if|T| =k
+                                                              0                                                        if|T|>k
+
+=== PDF PAGE 10 ===
+When|T|<k, by the definition of the Harsanyi dividend, we have
+
+                               IShapley-Taylor(k)(T ) = ∆vT (x∅) = X   (−1)|T|−|L|·v(xL) =wT.
+                                                                  L⊆T
+When|T| =k, we have
+
+                         IShapley-Taylor(k)(T ) = k  X         1
+                                               |N|          |N|−1· ∆vT (xS)
+                                                   S⊆N\T      |S|
+
+                                                   |N|−kX  X
+                                            = k                  |N|−11· ∆vT (xS)
+                                               |N|  m=0   S⊆N\T     |S|
+
+                                                          |S|=m
+                                                                                      
+                                                   |N|−kX  X
+                                            = k                  |N|−11 X     wL∪T  
+                                               |N|  m=0   S⊆N\T     |S|     L⊆S
+
+                                                          |S|=m
+                                                     X     |N|−kX     1
+                                            = k|N|                |N|−1 X        wL∪T
+                                                   L⊆N\T   m=|L|     |S|   S⊆N\T
+                                                                            |S|=m
+                                                                             S⊇L
+                                                           |N|−kX                          !
+                                                     X                1      |N|−|L|−k
+                                            = k|N|                |N|−1       m−|L|        wL∪T
+                                                   L⊆N\T   m=|L|     |S|
+                                                                  |N|−|L|−kX                           !
+                                            = k      X     wL∪T                  1      |N|−|L|−k
+                                               |N|                           |N|−1          m
+                                                   L⊆N\T          |  m=0      |L|+m{z                   }
+
+                                                                                    αL
+Just like the proof of Theorem2, we leverage the properties of combinatorial numbers and the Beta function to simplify       αL.
+
+
+                            |N|−|L|−kX                           !
+                      αL =             |N|−11   |N|−|L|−k
+
+                               m=0       |L|+m          m
+
+                            |N|−|L|−kX                  !
+                                         |N|−|L|−k
+                          =                    m          ·  |L| +m     ·B   |N|−|L|−m,|L| +m
+                               m=0
+                            |N|−|L|−kX                       !
+                          =            |L|·   |N|−|L|−k        ·B   |N|−|L|−m,|L| +m                ···  1⃝
+                               m=0                  m
+
+                               |N|−|L|−kX                      !
+                             +            m·    |N|−|L|−k        ·B   |N|−|L|−m,|L| +m                ···  2⃝
+
+                                  m=0                 m
+
+Then, we solve  1⃝ and  2⃝ respectively. For  1⃝, we have
+
+                    Z  1     |N|−|L|−kX                 !
+               1⃝ =                       |N|−|L|−k        ·x|N|−|L|−m−1· (1−x)|L|+m−1dx
+
+                     0 |L|·     m=0             m
+                    Z  1                                 !                              
+                               |N|−|L|−kX
+                  =                       |N|−|L|−k         ·x|N|−|L|−m−k· (1−x)m·xk−1· (1−x)|L|−1dx
+
+                     0 |L|·       m=0             m
+                             |                             {z                             }
+                                                           =1
+                    Z  1
+                  =                                                        |L|+k−1
+                     0 |L|·xk−1· (1−x)|L|−1dx =|L|·B(k,|L|) =        1k−1
+
+For  2⃝, we have
+
+=== PDF PAGE 11 ===
+              |N|−|L|−kX                                            !
+         2⃝ =            (|N|−|L|−k)·          |N|−|L|−k− 1            ·B   |N|−|L|−m,|L| +m
+
+                 m=1                                  m− 1
+
+              |N|−|L|−k−1X                                             !
+            =               (|N|−|L|−k)·          |N|−|L|−k− 1            ·B   |N|−|L|−m′− 1,|L| +m′ + 1
+
+                  m′=0                                     m′
+              Z  1                   |N|−|L|−k−1X                         !
+            =                                        |N|−|L|−k− 1            ·x|N|−|L|−m′−2· (1−x)|L|+m′ dx
+
+                0  (|N|−|L|−k)           m′=0                 m′
+              Z  1                                                         !                                    
+                                       |N|−|L|−k−1X
+            =                                         |N|−|L|−k− 1           ·x|N|−|L|−m′−k−1· (1−x)m′·xk−1· (1−x)|L|dx
+
+                0  (|N|−|L|−k)             m′=0                 m′
+                                     |                                     {z                                     }
+                                                                           =1
+              Z  1
+            =
+                0  (|N|−|L|−k)·xk−1· (1−x)|L|dx = (|N|−|L|−k)·B(k,|L| + 1)
+            = |N|−|L|−k(|L| + 1)|L|+k
+                           k−1
+   Hence, we have
+
+
+                                        αL = 1⃝ +  2⃝ =        1|L|+k−1 + |N|−|L|−k(|L| + 1)|L|+k
+                                                              k−1                      k−1
+                                            =|L|!· (k− 1)!(|L| +k− 1)! +|N|−|L|−k|L| + 1  · (|L| + 1)!· (k− 1)!(|L| +k)!
+
+                                            =|L|!· (k− 1)!(|L| +k− 1)! +|N|−|L|−k|L| +k  ·|L|!· (k− 1)!(|L| +k− 1)!
+
+                                            =   1 +|N|−|L|−k|L| +k     ·|L|!· (k− 1)!(|L| +k− 1)!
+
+                                            = |N||L| +k·|L|!· (k− 1)!(|L| +k− 1)!
+
+                                            =|N|k · |L|!·k!(|L| +k)!
+
+                                            =|N|k ·      1|L|+k
+                                                         k
+   Therefore, we proved that when|T| =k,IShapley-Taylor(T ) =  k             P                                P           |N|
+                                                                         |N|    L⊆N\T αL·wL∪T  =  k|N|           L⊆N\T     k ·       1(|L|+k
+P          |L|+k−1wL∪T .                                                                                                         k   )·wL∪T  =
+
+   L⊆N\T       k
+E. Potential alternative settings for baseline values
+   This section discusses the potential alternative settings for baseline values, as mentioned in Section 3.2 of the main paper.
+The baseline values are used to represent the absent states of variables in the computation ofv(xS). To this end, many recent
+studies have set baseline values from a heuristic perspective, as follows.
+• Mean baseline values [14].       The baseline value of each input variable is set to the mean value of this variable over all samples,
+i.e.∀i∈N,ri = Ex[xi].
+• Zero baseline values [4,52].          The baseline value of each input variable is set to zero, i.e.∀i∈N,ri = 0.
+• Blurring input samples.  In the computation ofv(xS), some studies [18,19] removed variables from the input image by
+blurring the value of each input variablexi (i∈N\S) based on a Gaussian kernel.
+   However, defining optimal baseline values remains an open problem. Therefore, in this study, we learn the optimal baseline
+values that enhance the conciseness of the explanation based on Eq.  (6) of the main paper.  Specifically, we initialize the
+baseline valueri as the mean value of the variablei over all samples for the tabular and NLP datasets. For the MNIST dataset,
+we initializeri to zero (i.e. black pixels) for each input variablei. Then, we optimizeri to minimize Eq. (6) in the main paper
+while constraining it within a relatively small range, i.e.,∥ri−rinitiali ∥2≤τ, to represent the absence state.
+
+=== PDF PAGE 12 ===
+F. Simplifying the explanation using the minimum description length principle
+   In this section, we discuss the algorithm for extracting common coalitions to minimize the total description length in Eq.
+(8) of the main paper. Given an AOGg and input variablesN , letM =N∪ Ωcoalition denote the set of all terminal nodes and
+AND nodes in the bottom two layers (e.g.M =N∪ Ωcoalition ={x1,x2,...,x6}∪{α,β} in Fig. 1(d) of the main paper). The
+total description lengthL(g,M) is given in Eq. (8) of the main paper.
+   To minimizeL(g,M), we used the greedy strategy to extract the common coalitions of input variables iteratively. In each
+iteration, we chose the coalitionα⊆N  that most efficiently decreased the total description length. Then we considered this
+coalition as an AND node, and added it to Ωcoalition in the third layer of the AOG. The efficiency of a coalitionα w.r.t.  the
+decrease in the total description length was defined as follows.
+
+                                                  δ(α) = ∆L|α|  = L(g,M∪{α})−L(g,M)|α|        ,                                                     (3)
+   where L(g,M)  denoted  the  total  description  length  without  using  the  newly  added  coalition α,  and L(g,M∪{α})
+denoted the total description when we added the nodeα to further simplify the description ofg.|α| denotes the number of
+input variables in α.  We iteratively extracted the most efficient coalition α to minimize the total description length.  The
+extraction process stopped when there was no new coalition α that could further reduce the total description length (i.e.
+∀α /∈M,L(g,M∪{α})−L(g,M)> 0), or when the most efficientα was not shared by multiple patterns.
+G. More experimental details, results, and discussions
+G.1. Datasets and models
+   Datasets.  We conducted experiments on both natural language processing tasks and the classification/regression tasks
+based on tabular datasets. For natural language processing, we used the SST-2 dataset [49] for sentiment prediction and the
+CoLA dataset [58] for linguistic acceptability. For tabular datasets, we used the UCI census income dataset (     census) [17],
+the UCI bike sharing dataset (bike) [17], and the UCI TV news channel commercial detection dataset (     TV news) [17]. We
+followed [11,12] to pre-process data for these tabular datasets. We also normalized the data in each dataset to a zero mean and
+unit variance.
+   Models.  We trained the LSTMs and CNNs based on NLP datasets.  The LSTM was unidirectional and had two layers,
+with a hidden layer of size 100. The architecture of the CNN was the same as the architecture in [39]. In addition, for tabular
+datasets, we followed [11,12] to train LightGBMs [31], XGBoost [10], and two-layer MLPs (                     MLP-2).  We also trained
+five-layer MLPs (MLP-5) and five layer MLPs with skip-connections (ResMLP-5) on these datasets. For the ResMLP-5, we
+added a skip connection to each fully connected layer of the MLP-5. Figure1shows the architecture of the ResMLP-5. The
+hidden layers in MLP-5 and ResMLP-5 had the same width of 100. In our experiment, we also learned MLP-2, MLP-5, and
+ResMLP-5 on each tabular dataset via adversarial training [35]. During adversarial training, adversarial examples   xadv =x +δ
+were generated by theℓ∞ PGD attack, where∥δ∥∞≤ 0.1. The attack was iterated for 20 steps with the step size of 0.01.
+
+
+
+
+
+
+
+
+
+
+                                                   Figure 1. The architecture of the ResMLP-5.
+
+   Accuracy of models. Table1reports the classification accuracy of models trained on the TV news and census datasets, and
+the mean squared error of models trained on the bike dataset. Table2reports the classification accuracy of the models trained
+on the CoLA and SST-2 datasets. Table3reports the classification accuracy of the models trained on the MNIST dataset.
+G.2. More visualization of AOGs
+   This section provides the visualization of more AOGs generated by our method on various datasets.
+   For tabular data, Figures10,11,12,13, and14show examples of AOGs generated by our method on different models
+trained on the census, bike, and TV news datasets. The up-arrow(↑) / down-arrow(↓) labeled in the terminal nodes indicated
+that the actual value of the input variable was greater than or less than the baseline value.
+
+=== PDF PAGE 13 ===
+              Table 1. Classification accuracy (on TV news and census dataset) and mean squared error (on bike                Table 2. Accuracy of models trained on
+              dataset) of different models.                                                                                   NLP datasets.
+
+
+
+
+
+
+
+                                                  Table 3. Classification accuracy of models trained on the MNIST dataset.
+
+
+
+
+
+                  For the image data, Figure6shows an example of the AOG generated by our method on ResNet-18 trained on the CelebA
+              dataset. The ResNet-18 was trained to classify the eyeglasses attribute. We manually segmented the facial parts and used these
+              parts as input variables to construct the AOG. We found that salient patterns usually fitted human cognition. Figures7,8, and
+              9show examples of the AOGs generated using our method on ResNet-32/44 and VGG-16 trained on the MNIST dataset,
+              respectively. We manually segmented the digits in the MNIST dataset into eight connected parts, as the eight corresponding
+              input variables of each DNN. We observed that the AOGs extracted meaningful digit shapes used by the DNN for inference.
+                  For NLP data, Figures15and16show examples of the AOGs generated by our method on LSTMs and CNNs trained on
+              the SST-2 and CoLA datasets. Furthermore, Figure17shows examples of AOGs for explaining incorrect predictions. Results
+              show that the AOG explainer could reveal reasons why the model made incorrect predictions. For example, in the sentiment
+              classification task, the local sentiment may significantly affect the inference on the entire sentence, such as words “originality”
+              and “cleverness” in Figure17(top), words “originality” and “delight” in Figure17(middle), and words “painfully” and “bad”
+              in Figure17(bottom).
+              G.3. Details of experiments on synthesized functions and datasets
+                  This section provides more details on the synthesized functions and datasets used in Section 4.1 of the main paper.
+                  The Addition-Multiplication dataset [64].       This dataset contained 100 functions consisting of only addition and multipli-
+              cation operations. For example,v(x) =x1 +x2x3 +x3x4x5 +x4x6. Each variablexi was a binary variable, i.e. xi∈{0, 1}.
+                  The ground-truth causal patterns and there corresponding effects can be easily determined. For each term in these functions
+              (e.g. the termx3x4x5 in the functionv(x) =x1 +x2x3 +x3x4x5 +x4x6), only when variables contained by this term were all
+              present (e.g. x3 =x4 =x5 = 1), this term would contribute to the output. Therefore, we could consider input variables in each
+              term to form a ground-truth causal pattern. In the example function above, given the input x = [1, 1, 1, 1, 1, 1], the ground-truth
+              causal patterns were Ωtruth ={{x1},{x2,x3},{x3,x4,x5},{x4,x6}}. Given the input x = [1, 1, 0, 1, 1, 1], the ground-truth causal
+              patterns were Ωtruth ={{x1},{x4,x6}}.
+                  In our experiments, we randomly generated 100 Addition-Multiplication functions. Each of them had 10 input variables and
+              10 to 100 terms. Subsequently, 200 binary input samples were randomly generated for each function. For each input sample,
+              letm =|Ωtruth| denote the number of the labeled ground-truth patterns. For a fair comparison, we computed causal effectsI(S)
+              and extracted the top-m salient patterns Ωtop-m. Then, we averaged the values of IoU = |Ωtop-k∩Ωtruth||Ωtop-k∪Ωtruth| over all samples.
+                  The dataset in [40].       This dataset contained 100 functions consisting of addition, subtraction, multiplication, and sigmoid
+              operations.  Similar to the Addition-Multiplication dataset, the ground-truth causal patterns in this dataset could also be
+              easily determined.  Let us consider the functionv(x) =−x1x2x3− sigmoid(5x4x5− 5x6− 2.5),xi∈{0, 1} as an example.
+              The termx1x2x3 was activated (= 1) if and only ifx1 = x2 = x3 = 1.  The term sigmoid(5x4x5− 5x6− 2.5) was activated
+              (>  0.5) if and only if x4  = x5  =  1 and x6  =  0.  Thus, we could also consider that this function contained two ground-
+              truth causal patterns.  In other words, for the above function, given the input x = [1, 1, 1, 1, 1, 0], the ground-truth causal
+              patterns were Ωtruth ={{x1,x2,x3},{x4,x5,x6}}.  Given the input x = [1, 1, 1, 1, 1, 1], the ground-truth causal patterns were
+              Ωtruth ={{x1,x2,x3}}.
+                  In our experiments, we followed [40] to randomly generated 100 functions. Each of them had 6-12 input variables. Then,
+              we randomly generated 200 binary input samples for each of these functions. Just like the Addition-Multiplication dataset,
+              we extracted the top-m (m =|Ωtruth|) salient patterns Ωtop-m, and computed the average IoU between Ωtruth and Ωtop-m over all
+              samples for comparison.
+                  The manually labeled And-Or dataset. This dataset contained 10 functions with AND operations (denoted by &) and OR
+
+
+
+
+
+DatasetDatasetLSTM       CNNMLP-2         MLP-5                 ResMLP-5           XGBoost     LightGBM
+Dataset    normal    adversarialResNet-20    ResNet-32    ResNet-44    VGG-16normal    adversarialnormal    adversarial
+TV newsCoLA83.11%      78.49%64.42%     65.79%79.86%      80.24%79.01%      80.13%  84.48%      84.19%
+MNISTcensus79.91%      75.77%99.45%        99.57%        99.47%       99.68%78.96%      77.79%80.49%      77.99%87.35%87.54%
+ SST-2bike   86.83%     78.19%-              -2161.47     3080.732149.43     2708.591623.71         -
+
+=== PDF PAGE 14 ===
+              operations (denoted by |).  For example, let us consider the functionf(x) = (x1 > 0)&(x2 > 0)|(x2 > 0)&(x3 > 0)&(x4 >
+              0)|(x3 > 0)&(x5 > 0). Each input variable is a scalar, i.e. xi∈ R, and the output is binary, i.e. f(x)∈{0, 1}. For each And-Or
+              function, we randomly generated 100,000 Gaussian noises withn = 8 variables as input samples, and labeled these samples
+              following functions in the And-Or dataset, namely the manually labeled And-Or dataset.
+                  The ground-truth causal patterns in this dataset could be determined as follows. For the above function, we could consider
+              {x1,x2},{x2,x3,x4}, and{x3,x5} as possible causal patterns. If any of these patterns was significantly activated, i.e. if all
+              input variables in this pattern were greater than a thresholdτ = 0.5, then we consider this pattern to be significant enough to
+              be a valid ground-truth causal pattern. I.e. for the above function, given the input x = [1.0, 2.0, 1.5, 0.9, 0.8], the ground-truth
+              causal patterns were Ωtruth  ={{x1,x2},{x2,x3,x4},{x3,x5}}.  Given the input x = [0.8, 1.5, 1.2, 0.1, 0.9], the ground-truth
+              causal patterns were Ωtruth ={{x1,x2},{x3,x5}}.
+                  In our experiments, we trained one MLP-5 network and one ResMLP-5 network for binary classification using the manually
+              labeled dataset generated based on each And-Or function. Similar to the above experiments, for each well-trained model, we
+              extracted the top-m salient patterns and computed the average IoU over 1000 training samples for comparison.  Note that
+              there was no principle to ensure that the model learned the exact ground-truth causality between input variables for inference.
+              Therefore, the average IoU on this dataset was less than 1.
+                  An extended version of the Addition-Multiplication dataset. In order to evaluate the accuracy of the computed causal
+              effects, we also extended the Addition-Multiplication dataset to generate functions with not only ground-truth causal patterns,
+              but also ground-truth causal effects for evaluation. The extended Addition-Multiplication dataset also contained 100 functions,
+              which consisted of addition and multiplication operations. Each variablexi was a binary variable, i.e. xi∈{0, 1}. Different
+              from functions in the Addition-Multiplication dataset, there were different coefficients before each term in each function. For
+              example,v(x) = 3x1− 2x2x3−x3x4x5 + 5x4x6.
+                  The ground-truth causal effects in these functions can be easily determined. Similar to the original Addition-Multiplication
+              dataset, each term was a ground-truth pattern. In this case, we could consider the causal effect of each pattern as the value
+              of its coefficient.  For the above function, given the input x  =  [1, 1, 1, 1, 1, 1], the ground-truth effects of causal patterns
+              were w{x1}  = 3,w{x2,x3}  =−2,w{x3,x4,x5}  =−1,w{x4,x6}  = 5, and for otherS⊆{x1,...,x6}, wS  = 0.  Given the input
+              x = (1, 1, 0, 1, 1, 1), the ground-truth causal effects werew{x1} = 3,w{x4,x6} = 5, and for otherS⊆{x1,...,x6},wS = 0.
+                  In our experiments, we randomly generated 100 functions. Each of them had 10 input variables, and had 10-100 terms.
+              Subsequently, 200 binary input samples were randomly generated for each function. For each input sample, we measured theP
+              Jaccard similarity coefficientJ =          PS⊆N min(|wtruthS |,|wS|)
+
+                                                           S⊆N max(|wtruthS |,|wS|) between ground-truth causal effectswtruthS    (defined above) and causal
+              effectswS computed using our method. The average value ofJ over all samples was 1.00, indicating that our method based on
+              Harsanyi dividends correctly extracted the causal effects in these functions.
+              G.4. More experimental results on the faithfulness of the AOG explainer
+                  This section presents the results of the faithfulness of the AOG explainer on NLP and vision tasks.  For NLP tasks, we
+              used the SST-2 dataset.  For the vision tasks, we used the MNIST and CelebA datasets.  We computed the unfaithfulness
+              metricρunfaith to evaluate whether the explanation method faithfully extracted the causal effects encoded by the DNNs. Table4
+              compares the extracted causal effects in the AOG with SI values, STI values, and attribution-based explanations (including the
+              Shapley value [43], Input ×Gradient [45], LRP [5], and Occlusion [63]). Our AOG explainer exhibited significantly lower
+              ρunfaith values than the baseline methods.
+
+                                         Table 4. Unfaithfulness (↓) of different explanation methods on the NLP and vision tasks.
+
+
+
+
+
+
+
+              G.5. More analysis on the faithfulness of the AOG explainer
+                  In this section, we discuss the experiment in Section 4.1 of the main paper, in which we evaluated whether an explanation
+              method faithfully extracted causal effects encoded by deep models based on metric 2. To this end, we considered the SI value
+              IShapley(S) [22] and the STI value   IShapley-Taylor(S) [51] as the numerical effects of different interactive patterns  S on a DNN’s
+
+
+
+
+
+
+     Dataset           DNN     Shapley      I×G      LRP    OCC       SI       STI (k=2)    STI (k=3)       Ours
+ NLP       SST-2       LSTM       15.8       1.0E+3     258     65.9      166         4.05            2.50        1.4E-12
+                       CNN        27.4         38.5       210      577       234         4.06            1.12        6.7E-12
+Vision    MNIST       RN-20       22.6         303       349     21.6      234         3.44            0.47        9.1E-14
+          CelebA      RN-18       1.57       5.1E+5     358      290     13.88        0.42          4.5E-2      2.1E-13
+
+=== PDF PAGE 15 ===
+Figure 2. (a) The relationship between the number of causal patterns|Ω| in the AOG and the ratio of the explained causal effectsRΩ, based
+on the census dataset. The relationship betweenRΩ and (b) the number of nodes, and (c) the number of edges in the AOG, based on the
+census dataset.
+
+
+
+
+
+
+
+
+
+
+
+Figure 3. (a) The relationship between the number of causal patterns|Ω| in the AOG and the ratio of the explained causal effectsRΩ, based
+on the bike dataset. The relationship betweenRΩ and (b) the number of nodes, and (c) the number of edges in the AOG, based on the bike
+dataset.
+
+
+inference.  Besides, we could also consider that attribution-based explanations quantified the causal effect of each single
+variablei (e.g. the Shapley-Taylor interaction index, the Shapley value [43], Input ×Gradient [45], LRP [5], Occlusion [63]).
+   Specifically, the computation of the metricρunfaith for each baseline method are discussed as follows.
+   • For interaction-based explanations, given an input sample x, letIShapley(S),IShapley-Taylor(S) denote the Shapley interaction
+(SI) value and the Shapley-Taylor interaction (STI) value of the interactive patternS. Based on the SCM in Eq. (2) of the main
+paper, the metricρunfaith is defined as follows.
+
+                  ρunfaithSI      = ES⊆N [v(xS)−XS′⊆SIShapley(S′)]2,  ρunfaithSTI    = ES⊆N [v(xS)−XS′⊆SIShapley-Taylor(S′)]2                             (4)
+
+   • For attribution-based explainer models, given the input sample x, letϕShapley(i),ϕIG(i),ϕLRP(i),ϕOcc(i) denote the attribution
+of the input variablei computed using the Shapley value, Input× Gradient, LRP, and Occlusion, respectively. As previously
+mentioned, these attribution values quantify the causal effects of each variablei. Based on the SCM in Eq. (2) of the main
+paper, the unfaithfulness of these attribution-based explanations was similarly measured as follows.
+
+                         ρunfaithShapley = ES⊆N [v(xS)−X                            IG     = ES⊆N [v(xS)−X
+                                                             i∈SϕShapley(i)]2,  ρunfaith                             i∈SϕIG(i)]2,                         (5)
+                           ρunfaithLRP    = ES⊆N [v(xS)−Xi∈SϕLRP(i)]2,  ρunfaithOcc    = ES⊆N [v(xS)−Xi∈SϕOcc(i)]2
+   Then, we compared the unfaithfulness of the AOG explainers using the above six baseline explanation methods. Based on
+each tabular dataset, we computed the averageρunfaith over the training samples, i.e. Ex[ρunfaith]given x. Table 2 in the main paper
+shows that the AOG explainer exhibited significantly stronger faithfulness than other explanation methods.
+G.6. More experimental results on the ratio of the explained causal effectsRΩ
+   This section provides more experimental results on the relationship between the ratio of explained causal effectsRΩ and the
+AOG explainer.
+   Similar to the experiment in the Paragraph Ratio of the explained causal effects, Section 4.2 of the main paper, we used
+causal patterns in Ω to approximate the model output. Figure2(a) and Figure3(a) show the relationship between       |Ω| and the
+ratio of explained causal effectsRΩ in different models, based on the census and bike datasets. We found that when we used a
+few causal patterns, we could explain most of the causal effects in the model output. Figure2(b,c) and Figure3(b,c) show that
+the node number and edge number increased with the increase inRΩ.
+
+=== PDF PAGE 16 ===
+Figure 4. The number of patterns (the first column), nodes (the second column), and edges (the third column) in the AOG, based on baseline
+values of different learning epochs. The learned baseline value significantly enhanced the conciseness of explanations.
+
+
+   Besides, Figure2(a) and Figure3also show that compared with the normally trained model, we could use fewer causal
+patterns (smaller|Ω|) to achieve the same ratio of the explained causal effectsRΩ in the adversarially trained model. Moreover,
+Figure2(b,c) and Figure3(b,c) also show that the AOGs corresponding to adversarially trained models were less complex than
+the AOGs corresponding to normally trained models. This indicated that adversarial training made models encode sparser
+causal patterns than normal training.
+G.7. More analysis on the effectiveness of the learned baseline values
+   This section provides experimental analysis of the effects of baseline values on the conciseness of explanations. In addition
+to the experiments in the Paragraph Effects of baseline values on the conciseness of explanations in Section 4.2 of the main
+paper, in this section, we analyze the effectiveness of the learned baseline values in terms of the AOG complexity from
+different perspectives. To this end, we first computed causal effects using the baseline values obtained in different epochs
+during the learning phase. Then, based on the computed causal effects, we measured the numbers of causal patterns, nodes,
+and edges in the AOG at each learning epoch. For a fair comparison, we selected the minimum number|Ω| of causal patterns
+such that the ratio of the explained causal effectsQΩ exceeded 70%, to construct the AOG. Figure4shows the change in the
+AOG complexity during the learning process of baseline values, in terms of the number of causal patterns, nodes, and edges in
+the AOG. We found that learning the baseline values significantly simplified the AOG, thus boosting the conciseness of the
+explanations.
+G.8. Comparing the complexity of AOGs and the complexity of DNNs
+   In this subsection, we compare the complexity of AOGs and the complexity of DNNs. We trained ResMLP networks with
+different numbers of layers on the Add-Mul and census datasets, and we explained these DNNs using AOGs. Figure5shows a
+comparison of the node number (complexity) of the AOG with the depth and parameter number (complexity) of the DNN. We
+found that a more complex DNN did not necessarily encode more complex features and thereby did not always obtaining a
+more complex AOG.
+
+H. Discussion about the running time of the AOG explainer
+   In this section, we conducted an experiment to measure the running time of the methods in Table 2, Section 4.1 of the main
+paper. Specifically, we measured the average running time to compute the explanation of a single sample for MLP-5 trained on
+the census dataset. The running time was averaged over 20 different input samples. Table5shows that the proposed AOG
+explainer was comparable to the existing methods in terms of time complexity. For the implementation, we implemented the
+Harsanyi dividend, the Shapley value [43], the Shapley interaction index [22], and the Shapley Taylor interaction index [51]
+by ourselves, and implemented the other three methods (Input×Gradient [45], LRP [5], and Occlusion [63]) based on the
+Captum [32] package. All the computation was conducted using an NVIDIA GeForce RTX 2080 Ti GPU.
+
+=== PDF PAGE 17 ===
+                                                           Figure 5. Comparing the complexity (the node number) of the
+                                                           AOG and the complexity (the parameter number) of the DNN.
+
+                               Table 5. The average running time to compute the explanation of a single sample, based on different methods.
+
+
+
+
+                   For high-dimensional inputs such as images, there are many techniques to solve the dimension problem and reduce the time
+               cost. For example, we can manually segment an input into multiple parts, and use these parts as input variables to construct the
+               AOG. In this way, the running time required to compute an AOG on the CelebA dataset was reduced to 4.03 s. Besides, we
+               can also ignore casual patterns between distant parts to accelerate the computation.
+
+               I. Discussion about the difference between the AOG explainer and the BoW model
+                   Do we explain a DNN as a linear model, such as a bag-of-words (BoW) model [13,48]?            First, although the AOG
+               explainer appears to be a linear additive model, the AOG explainer does NOT simplify the non-linear deep model as a linear
+               model.  Instead, as mentioned in Section 3.1 of the main paper, the AOG explainer extracts different causal patterns from
+               different input samples, instead of using the same set of causal patterns to explain different samples. It is because the deep
+               model is non-linear and triggers different causal patterns to handle different samples. Therefore, unlike the BoW model, which
+               extracts the same set of features for each sample, the AOG explainer quantifies the manner in which the deep model triggers
+               different causal patterns to handle different samples, thereby remaining non-linear for different inputs. Second, the BoW model
+               considers only the presence or absence of input variables, whereas the AOG explainer is sensitive to the spatial relationships of
+               input variables. For example, Table6shows the causal effects    wS of the same sets of wordsS encoded by the deep model1,
+               given two sentences with the same words but different word positions. We found that the deep model encoded significantly
+               different causal effects between the same sets of words, demonstrating that the AOG explainer differs from the BoW model.
+
+               Table 6. Given two sentences with the same words but different word positions, the causal effects of the same sets of wordsS encoded
+               by the deep model were different. This demonstrated that the AOG explainer was sensitive to the spatial relationship of input variables,
+               indicating a difference with the BoW model.
+
+
+
+
+
+
+
+
+                   Nevertheless, common and salient causal patterns shared by different input samples can also be considered the basic
+               elementary concepts encoded by the deep model. For example, if two sentences contain the same set of wordsS in the same
+               position, then the deep model encodes the same causal effectswS′,∀S′⊆S.  Table7shows that the deep model encoded
+               the same causal effects withinS ={not, very, smart} for two different sentences. From this perspective, such common causal
+               patterns can be roughly considered as typical “words” in a BoW model.
+
+
+
+
+
+
+
+                  1In this example, we explained the causal effects encoded by a two-layer LSTM model trained on the SST-2 dataset for sentiment classification. We set
+               v(xS) =p(y = positive sentiment|xS).
+
+
+
+
+
+    Sentence 1: it’s just not very smart.                Sentence 2: it’s not just very smart.
+    sets of wordsS          causal effectswS          sets of wordsS          causal effectswS
+   {just, not, smart, .}                -1.616    {not, just, smart, .}                1.139MethodSI               STI (k = 2)             STI (k = 3)            Shapley              IxG                LRP                Occ                Ours
+Running time (s){it, just, not, very}                -1.510    {it, not, just, very}                 5.9080.0179±0.0013    0.0176±1.6× 10−5    0.0176±3.9× 10−5    0.0179±0.0019    0.0045±0.0014    0.0170±0.0007    0.0302±0.0018    0.0182±0.0010
+{’s, just, not, very, smart}            -1.172   {’s, not, just, very, smart}            0.890
+ {just, not, very, smart}             -0.715    {not, just, very, smart}              3.563
+
+=== PDF PAGE 18 ===
+               Table 7.  Given two sentences containing the same set of wordsS ={not, very, smart}, the causal effects within the subset of wordsS
+               encoded by the deep model were the same. The deep model encoded the same causal effectswS′,∀S′⊆S.
+
+
+
+
+
+
+
+
+
+
+               References
+
+                [1]  Mahed Abroshan, Saumitra Mishra, and Mohammad Mahdi Khalili. Symbolic metamodels for interpreting black-boxes using primitive
+                     functions. arXiv preprint arXiv:2302.04791, 2023.1
+                [2]  Kamil Adamczewski, Frederik Harder, and Mijung Park. Bayesian importance of features (bif). arXiv preprint arXiv:2010.13872,
+                     2010.1
+                [3]  David Alvarez-Melis and Tommi S Jaakkola. A causal framework for explaining the predictions of black-box sequence-to-sequence
+                     models. In EMNLP, 2017.1
+                [4]  Marco Ancona, Cengiz Oztireli, and Markus Gross. Explaining deep neural networks with a polynomial time algorithm for shapley
+                     value approximation. In International Conference on Machine Learning, pages 272–281. PMLR, 2019.11
+                [5]  Sebastian Bach, Alexander Binder, Grégoire Montavon, Frederick Klauschen, Klaus-Robert Müller, and Wojciech Samek.   On
+                     pixel-wise explanations for non-linear classifier decisions by layer-wise relevance propagation. PloS one, 10(7):e0130140, 2015.14,
+                     15,16
+                [6]  Pietro  Barbiero,  Gabriele  Ciravegna,  Francesco  Giannini,  Pietro  Lió,  Marco  Gori,  and  Stefano  Melacci.   Entropy-based  logic
+                     explanations of neural networks. In Proceedings of the AAAI Conference on Artificial Intelligence, pages 6046–6054, 2022.1
+                [7]  Aditya Chattopadhyay, Piyushi Manupriya, Anirban Sarkar, and Vineeth N Balasubramanian. Neural network attributions: A causal
+                     perspective. In ICML, 2019.1
+                [8]  Zhengping Che, Sanjay Purushotham, Robinder Khemani, and Yan Liu.  Interpretable deep models for icu outcome prediction.  In
+                     AMIA annual symposium proceedings, volume 2016, page 371. American Medical Informatics Association, 2016.1
+                [9]  Jianbo Chen, Le Song, Martin J. Wainwright, and Michael I. Jordan. Learning to explain: An information-theoretic perspective on
+                     model interpretation. In Jennifer G. Dy and Andreas Krause, editors, Proceedings of the 35th International Conference on Machine
+                     Learning, ICML 2018, Stockholmsmässan, Stockholm, Sweden, July 10-15, 2018, volume 80 of Proceedings of Machine Learning
+                     Research, pages 882–891. PMLR, 2018.1
+               [10]  Tianqi Chen and Carlos Guestrin. Xgboost: A scalable tree boosting system. In Proceedings of the 22nd acm sigkdd international
+                     conference on knowledge discovery and data mining, pages 785–794, 2016.12
+               [11]  Ian Covert and Su-In Lee.   Improving kernelshap:  Practical shapley value estimation using linear regression.   In International
+                     Conference on Artificial Intelligence and Statistics, pages 3457–3465. PMLR, 2021.12
+               [12]  Ian Covert, Scott M Lundberg, and Su-In Lee. Understanding global feature contributions with additive importance measures. Advances
+                     in Neural Information Processing Systems, 33, 2020.12
+               [13]  Gabriella Csurka, Christopher Dance, Lixin Fan, Jutta Willamowski, and Cédric Bray. Visual categorization with bags of keypoints. In
+                     Workshop on statistical learning in computer vision, ECCV. Prague, 2004.1,17
+               [14]Piotr Dabkowski and Yarin Gal. Real time image saliency for black box classifiers.        arXiv preprint arXiv:1705.07857, 2017.11
+               [15]  Huiqi Deng, Qihan Ren, Hao Zhang, and Quanshi Zhang.  Discovering and explaining the representation bottleneck of dnns.  In
+                     International Conference on Learning Representations, 2022.1
+               [16]  Alexey Dosovitskiy and Thomas Brox.  Inverting visual representations with convolutional networks.  In Proceedings of the IEEE
+                     Conference on Computer Vision and Pattern Recognition, pages 4829–4837, 2016.1
+               [17]Dheeru Dua and Casey Graff. UCI machine learning repository, 2017.12
+               [18]  Ruth Fong, Mandela Patrick, and Andrea Vedaldi. Understanding deep networks via extremal perturbations and smooth masks. In
+                     Proceedings of the IEEE/CVF International Conference on Computer Vision, pages 2950–2958, 2019.11
+               [19]  Ruth C Fong and Andrea Vedaldi. Interpretable explanations of black boxes by meaningful perturbation. In Proceedings of the IEEE
+                     international conference on computer vision, pages 3429–3437, 2017.1,11
+               [20]  Nicholas Frosst and Geoffrey Hinton. Distilling a neural network into a soft decision tree. arXiv preprint arXiv:1711.09784, 2017.1
+               [21]  Christopher Frye, Colin Rowat, and Ilya Feige.  Asymmetric shapley values: incorporating causal knowledge into model-agnostic
+                     explainability. Advances in Neural Information Processing Systems, 33:1229–1239, 2020.1
+
+
+
+  Sentence 1: it’s just not very smart.          Sentence 3: he is just not very smart.
+sets of wordsS′⊆S    causal effectwS′    sets of wordsS′⊆S    causal effectwS′
+     {not, smart}                 -13.481     {not, smart}                 -13.481
+      {not, very}                  -12.826     {not, very}                  -12.826
+       {smart}                     6.568      {smart}                     6.568
+    {very, smart}                  3.720     {very, smart}                  3.720
+        {not}                      0.939      {not}                      0.939
+  {not, very, smart}               0.837    {not, very, smart}               0.837
+        {very}                     -0.197      {very}                     -0.197
+
+=== PDF PAGE 19 ===
+[22]  Michel Grabisch and Marc Roubens.  An axiomatic approach to the concept of interaction among players in cooperative games.
+      International Journal of game theory, 28(4):547–565, 1999.1,2,8,14,16
+[23]  Michael Harradon, Jeff Druce, and Brian Ruttenberg.  Causal learning and explanation of deep neural networks via autoencoded
+      activations. arXiv preprint arXiv:1802.00541, 2018.1
+[24]  John C Harsanyi. A simplified bargaining model for the n-person cooperative game. International Economic Review, 4(2):194–220,
+      1963.1,2
+[25]  Tom Heskes, Evi Sijben, Ioan Gabriel Bucur, and Tom Claassen.  Causal shapley values: Exploiting causal knowledge to explain
+      individual predictions of complex models. Advances in neural information processing systems, 33:4778–4789, 2020.1
+[26]  Patrik O Hoyer, Dominik Janzing, Joris M Mooij, Jonas Peters, Bernhard Schölkopf, et al. Nonlinear causal discovery with additive
+      noise models. In NIPS, 2008.1
+[27]  Alexey Ignatiev, Nina Narodytska, and Joao Marques-Silva. Abduction-based explanations for machine learning models. In AAAI,
+      2019.1
+[28]Alexey Ignatiev, Nina Narodytska, and Joao Marques-Silva. On relating explanations and adversarial examples.        Advances in Neural
+      Information Processing Systems, 32:15883–15893, 2019.1
+[29]  Joseph D Janizek, Pascal Sturmfels, and Su-In Lee. Explaining explanations: Axiomatic feature interactions for deep networks. arXiv
+      preprint arXiv:2002.04138, 2020.1
+[30]  Xisen Jin, Zhongyu Wei, Junyi Du, Xiangyang Xue, and Xiang Ren.   Towards hierarchical importance attribution:  Explaining
+      compositional semantics for neural sequence models. In International Conference on Learning Representations, 2019.1
+[31]  Guolin Ke, Qi Meng, Thomas Finley, Taifeng Wang, Wei Chen, Weidong Ma, Qiwei Ye, and Tie-Yan Liu. Lightgbm: A highly efficient
+      gradient boosting decision tree. Advances in neural information processing systems, 30:3146–3154, 2017.12
+[32]  Narine Kokhlikyan, Vivek Miglani, Miguel Martin, Edward Wang, Bilal Alsallakh, Jonathan Reynolds, Alexander Melnikov, Natalia
+      Kliushkina, Carlos Araya, Siqi Yan, et al. Captum: A unified and generic model interpretability library for pytorch. arXiv preprint
+      arXiv:2009.07896, 2020.16
+[33]  Scott M Lundberg, Gabriel G Erion, and Su-In Lee. Consistent individualized feature attribution for tree ensembles. arXiv preprint
+      arXiv:1802.03888, 2018.1
+[34]  Scott M Lundberg and Su-In Lee.  A unified approach to interpreting model predictions.  In Proceedings of the 31st international
+      conference on neural information processing systems, pages 4768–4777, 2017.1
+[35]  Aleksander Madry, Aleksandar Makelov, Ludwig Schmidt, Dimitris Tsipras, and Adrian Vladu.  Towards deep learning models
+      resistant to adversarial attacks. In International Conference on Learning Representations, 2018.12
+[36]  Joao Marques-Silva, Thomas Gerspacher, Martin C Cooper, Alexey Ignatiev, and Nina Narodytska.  Explanations for monotonic
+      classifiers. In Marina Meila and Tong Zhang, editors, Proceedings of the 38th International Conference on Machine Learning, volume
+      139 of Proceedings of Machine Learning Research, pages 7469–7479. PMLR, 18–24 Jul 2021.1
+[37]  W James Murdoch, Peter J Liu, and Bin Yu. Beyond word importance: Contextual decomposition to extract interactions from lstms. In
+      International Conference on Learning Representations, 2018.1
+[38]Judea Pearl.        Causality. Cambridge university press, 2009.1
+[39]A Rakhlin. Convolutional neural networks for sentence classification.        GitHub, 2016.12
+[40]  Jie Ren, Zhanpeng Zhou, Qirui Chen, and Quanshi Zhang. Can we faithfully represent masked states to compute shapley values on a
+      dnn?  In The eleventh International Conference on Learning Representations, ICLR 2023, Kigali Rwanda, May 1-5, 2023, 2023.6,13
+[41]  Marco Tulio Ribeiro, Sameer Singh, and Carlos Guestrin. " why should i trust you?" explaining the predictions of any classifier. In
+      Proceedings of the 22nd ACM SIGKDD international conference on knowledge discovery and data mining, pages 1135–1144, 2016.1
+[42]  Ramprasaath R Selvaraju, Michael Cogswell, Abhishek Das, Ramakrishna Vedantam, Devi Parikh, and Dhruv Batra.  Grad-cam:
+      Visual explanations from deep networks via gradient-based localization.  In Proceedings of the IEEE international conference on
+      computer vision, pages 618–626, 2017.1
+[43]Lloyd S Shapley. A value for n-person games.        Contributions to the Theory of Games, 2(28):307–317, 1953.2,6,14,15,16
+[44]Andy Shih, Arthur Choi, and Adnan Darwiche. Compiling bayesian network classifiers into decision graphs. In        AAAI, 2019.1
+[45]  Avanti Shrikumar, Peyton Greenside, Anna Shcherbina, and Anshul Kundaje.  Not just a black box:  Learning important features
+      through propagating activation differences. arXiv preprint arXiv:1605.01713, 2016.14,15,16
+[46]  Karen Simonyan, Andrea Vedaldi, and Andrew Zisserman.  Deep inside convolutional networks: Visualising image classification
+      models and saliency maps. arXiv preprint arXiv:1312.6034, 2013.1
+[47]  Chandan Singh, W James Murdoch, and Bin Yu.   Hierarchical interpretations for neural network predictions.   In International
+      Conference on Learning Representations, 2018.1
+[48]  Josef Sivic and Andrew Zisserman.  Video google: A text retrieval approach to object matching in videos.  In IEEE International
+      Conference on Computer Vision, volume 3, pages 1470–1470. IEEE Computer Society, 2003.1,17
+[49]  Richard Socher, Alex Perelygin, Jean Wu, Jason Chuang, Christopher D Manning, Andrew Y Ng, and Christopher Potts. Recursive
+      deep models for semantic compositionality over a sentiment treebank. In Proceedings of the 2013 conference on empirical methods in
+      natural language processing, pages 1631–1642, 2013.12
+
+=== PDF PAGE 20 ===
+[50]  Daria Sorokina, Rich Caruana, Mirek Riedewald, and Daniel Fink. Detecting statistical interactions with additive groves of trees. In
+      Proceedings of the 25th international conference on Machine learning, pages 1000–1007, 2008.1
+[51]  Mukund Sundararajan, Kedar Dhamdhere, and Ashish Agarwal. The shapley taylor interaction index. In International Conference on
+      Machine Learning, pages 9259–9268. PMLR, 2020.1,2,5,14,16
+[52]  Mukund Sundararajan, Ankur Taly, and Qiqi Yan. Axiomatic attribution for deep networks. In Proceedings of the 34th International
+      Conference on Machine Learning-Volume 70, pages 3319–3328, 2017.11
+[53]  Sarah Tan, Rich Caruana, Giles Hooker, Paul Koch, and Albert Gordo. Learning global additive explanations for neural nets using
+      model distillation. arXiv preprint arXiv:1801.08640, 2018.1
+[54]  Che-Ping  Tsai,  Chih-Kuan  Yeh,  and  Pradeep  Ravikumar.   Faith-shap:  The  faithful  shapley  interaction  index.   arXiv  preprint
+      arXiv:2203.00870, 2022.1
+[55]  Joel Vaughan, Agus Sudjianto, Erind Brahimi, Jie Chen, and Vijayan N Nair. Explainable neural networks based on additive index
+      models. arXiv preprint arXiv:1806.01933, 2018.1
+[56]  Jiaxuan Wang, Jenna Wiens, and Scott Lundberg.  Shapley flow:  A graph-based approach to interpreting model predictions.  In
+      International Conference on Artificial Intelligence and Statistics, pages 721–729. PMLR, 2021.1
+[57]  Zhuo Wang, Wei Zhang, Ning Liu, and Jianyong Wang. Scalable rule-based representation learning for interpretable classification.
+      Advances in Neural Information Processing Systems, 34:30479–30491, 2021.1
+[58]Alex Warstadt, Amanpreet Singh, and Samuel R Bowman. Neural network acceptability judgments.        Transactions of the Association
+      for Computational Linguistics, 7:625–641, 2019.12
+[59]  Mike Wu,  Michael C Hughes,  Sonali Parbhoo,  Maurizio Zazzi,  Volker Roth,  and Finale Doshi-Velez.   Beyond sparsity:  Tree
+      regularization of deep models for interpretability. In Thirty-Second AAAI Conference on Artificial Intelligence, 2018.1
+[60]  Kevin Xia, Kai-Zhan Lee, Yoshua Bengio, and Elias Bareinboim.  The causal-neural connection: Expressiveness, learnability, and
+      inference. Advances in Neural Information Processing Systems, 34:10823–10836, 2021.1
+[61]  Jinsung Yoon, James Jordon, and Mihaela van der Schaar. INVASE: instance-wise variable selection using neural networks. In 7th
+      International Conference on Learning Representations, ICLR 2019, New Orleans, LA, USA, May 6-9, 2019, 2019.1
+[62]  Jason Yosinski, Jeff Clune, Anh Nguyen, Thomas Fuchs, and Hod Lipson. Understanding neural networks through deep visualization.
+      arXiv preprint arXiv:1506.06579, 2015.1
+[63]  Matthew D Zeiler and Rob Fergus.  Visualizing and understanding convolutional networks.  In European conference on computer
+      vision, pages 818–833. Springer, 2014.1,14,15,16
+[64]  Hao Zhang, Yichen Xie, Longjie Zheng, Die Zhang, and Quanshi Zhang. Interpreting multivariate shapley interactions in dnns. In
+      AAAI, 2021.13
+[65]  Quanshi Zhang, Ruiming Cao, Feng Shi, Ying Nian Wu, and Song-Chun Zhu. Interpreting cnn knowledge via an explanatory graph.
+      In Thirty-Second AAAI Conference on Artificial Intelligence, 2018.1
+[66]  Bolei Zhou, Aditya Khosla, Agata Lapedriza, Aude Oliva, and Antonio Torralba. Object detectors emerge in deep scene cnns. In ICLR,
+      2015.1
+[67]  Bolei Zhou, Aditya Khosla, Agata Lapedriza, Aude Oliva, and Antonio Torralba. Learning deep features for discriminative localization.
+      In Proceedings of the IEEE conference on computer vision and pattern recognition, pages 2921–2929, 2016.1
+
+=== PDF PAGE 21 ===
+Figure 6. An examples of AOGs extracted from the ResNet-18 network, trained on the CelebA dataset.
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+ Figure 7. Examples of AOGs extracted from the ResNet-32 network, trained on the MNIST dataset.
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+ Figure 8. Examples of AOGs extracted from the ResNet-44 network, trained on the MNIST dataset.
+
+=== PDF PAGE 22 ===
+                        Figure 9. Examples of AOGs extracted from the VGG-16 network, trained on the MNIST dataset.
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+Figure 10. An example of the AOG extracted from the MLP-5 network, trained on the census dataset. Red edges indicate the parse graph of
+the most salient causal pattern.
+
+=== PDF PAGE 23 ===
+Figure 11. An example of the AOG extracted from the ResMLP-5 network, trained on the census dataset. Red edges indicate the parse graph
+of the most salient causal pattern.
+
+=== PDF PAGE 24 ===
+                               (a) Examples of AOGs extracted from the MLP-2 network, adversarially trained on the census dataset.
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+                              (b) Examples of AOGs extracted from the MLP-5 network, adversarially trained on the census dataset.
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+                            (c) Examples of AOGs extracted from the ResMLP-5 network, adversarially trained on the census dataset.
+
+Figure 12. Examples of AOGs extracted from models trained on the census dataset. Red edges indicate the parse graph of a specific causal
+pattern.
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+                                (a) Examples of AOGs extracted from the MLP-5 network, adversarially trained on the bike dataset.
+
+=== PDF PAGE 25 ===
+                             (b) Examples of AOGs extracted from the ResMLP-5 network, adversarially trained on the bike dataset.
+
+Figure 13. Examples of AOGs extracted from models trained on the bike dataset. Red edges indicate the parse graph of a specific causal
+pattern.
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+                             (a) Examples of AOGs extracted from the MLP-2 network, adversarially trained on the TV news dataset.
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+                            (b) Examples of AOGs extracted from the MLP-5 network, adversarially trained on the TV news dataset.
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+                          (c) Examples of AOGs extracted from the ResMLP-5 network, adversarially trained on the TV news dataset.
+
+Figure 14. Examples of AOGs extracted from models trained on the TV news dataset. Red edges indicate the parse graph of a specific causal
+pattern.
+
+=== PDF PAGE 26 ===
+                                      (a) Examples of AOGs extracted from the CNN network, trained on the SST-2 dataset.
+
+
+
+
+
+
+
+
+
+
+
+
+                                     (b) Examples of AOGs extracted from the LSTM network, trained on the SST-2 dataset.
+
+Figure 15. Examples of AOGs extracted from models trained on the SST-2 dataset. Red edges indicate the parse graph of the most salient
+causal pattern.
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+                                      (a) Examples of AOGs extracted from the CNN network, trained on the CoLA dataset.
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+                                     (b) Examples of AOGs extracted from the LSTM network, trained on the CoLA dataset.
+
+Figure 16. Examples of AOGs extracted from models trained on the CoLA dataset. Red edges indicate the parse graph of the most salient
+causal pattern.
+
+=== PDF PAGE 27 ===
+Figure 17. AOGs that explained incorrect predictions of the network model trained on the SST-2 dataset. Red edges indicated the parse
+graphs of causal patterns towards correct predictions, while blue edges indicated parse graphs of causal patterns towards wrong predictions.

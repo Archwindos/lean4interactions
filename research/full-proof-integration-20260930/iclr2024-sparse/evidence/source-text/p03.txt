@@ -1,0 +1,69 @@
+Published as a conference paper at ICLR 2024
+
+
+
+
+interaction. Nevertheless, the Harsanyi interaction has been proven to be compositional elements
+in the multi-order interaction. The multi-order interaction has been used to explain the adversar-
+ial robustness (Ren et al., 2021; Zhou et al., 2024), adversarial transferability (Wang et al., 2021),
+and generalization ability (Zhang et al., 2020; Zhou et al., 2024) of a DNN. In addition, Deng
+et al. (2021) proved the difficulty of a DNN in encoding middle-complexity interactions. Ren et al.
+(2023c) proved that compared to a standard DNN, a Bayesian neural network (BNN) tended to avoid
+encoding complex Harsanyi interactions. Liu et al. (2023) explained the intuition that DNNs learned
+simple Harsanyi interactions more easily than complex Harsanyi interactions.
+• Summarizing common mechanisms for the success of various empirical deep learning methods.
+Deng et al. (2024) found that the computation of attribution values for fourteen attribution methods
+could all be explained as a re-allocation of interaction effects. Zhang et al. (2022a) proved that
+twelve methods to improve the adversarial transferability in previous studies essentially shared the
+common utility of reducing the interactions between adversarial perturbation units.
+
+3       DNN S TEND TO ENCODE SPARSE INTERACTIONS
+3.1 OVERVIEW OF THE EMERGENCE OF SYMBOLIC ( SPARSE ) INTERACTIONS IN DNN S
+In this study, we aim to prove that symbolic (sparse) interactions usually emerge in a well-trained
+DNN. Recent studies (Ren et al., 2023a; Li & Zhang, 2023b) have empirically discovered the emer-
+gence of symbolic (sparse) interactions in various DNNs on different tasks. In mathematics, the
+emergence of symbolic (sparse) interactions means that the DNN’s inference logic can be repre-
+sented as the detection of a small number of interactions with a certifiably low approximation error.
+• Definition. A clear definition of interactions encoded by a DNN is required. In this study, the
+interaction is defined as the Harsanyi dividend (Harsanyi, 1963). Let us consider a trained DNN
+v and an input sample x = [x1 , · · · , xn ]⊤ with n input variables indexed by N = {1, · · · , n}.
+The input variables can be image regions for image classification or words in an input sentence
+for a natural language processing task. Furthermore, without loss of generality, let us assume that
+the output of the DNN on the sample x is a scalar, denoted by v(x) ∈ R. For DNNs with multi-
+dimensional output, we may choose one dimension of the output vector as the final output v(x). In
+                                                         p(y=y truth |x)
+particular, for classification tasks, we set v(x) = log 1−p(y=y   truth |x) by following Deng et al. (2021).
+
+
+The interaction effect of the Harsanyi dividend (Harsanyi, 1963) (or the Harsanyi interaction) be-
+tween a set S ⊆ N of input variables is defined as follows:
+                                             def
+                                                   X
+                                       I(S) =             (−1)|S|−|T | · u(T ),                             (1)
+                                                   T ⊆S
+
+                   def
+ where u(T ) = v(xT ) − v(x∅ ). Here, v(xT ) denotes the network output on the masked input
+sample xT , where the variables in N \ T are masked using their baseline values b = [b1 , . . . , bn ]⊤ ,
+and the variables in T are unchanged. Accordingly, v(x∅ ) denotes the network output on the sample
+x∅ , where all the input variables are masked. In particular, we have u(∅) = I(∅) = 0.
+Each interaction can be understood as an AND relationship between input variables in S. For exam-
+ple, as Figure 1 shows, to recognize a dog face, let a DNN encode the collaboration between three
+image regions in S = {x1 , x2 , x3 }. Only when the image regions x1 , x2 , and x3 are all present will
+the interaction be activated and make a certain numerical effect I(S) on the network output. The
+absence (masking) of any of the three image regions (e.g., the masking of x1 in Figure 1) deactivates
+the interaction and removes the numerical effect, i.e., I(S) = 0.
+We followed Li & Zhang (2023b) to visualize interactions encoded by PointNet++ (Qi et al., 2017b)
+on the ShapeNet (Yi et al., 2016) dataset. Each point cloud in this dataset contained 2500 points. To
+simplify the visualization, Li & Zhang (2023b) considered each semantic part1 on the point cloud
+as a single input variable to the DNN. Figure 2 shows that the interaction S = {light, front wheel}
+usually contributed a positive effect to the network output (i.e., I(S) > 0), whereas the interaction
+S = {front wheel, back frame, mid frame} usually had a negative effect (i.e., I(S) < 0).
+• Faithful compositional inference patterns. We use the following three axiomatic properties to
+define interactions as representations of faithful inference patterns (or concepts) encoded by a DNN.
+    1
+        Annotations of the semantic parts were provided by the ShapeNet dataset. See Appendix C.2 for details.
+
+
+                                                           3
+

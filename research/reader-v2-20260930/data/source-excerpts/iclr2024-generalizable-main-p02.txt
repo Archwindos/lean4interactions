@@ -1,0 +1,76 @@
+Published as a conference paper at ICLR 2024
+
+
+
+                              distinctive                               shared                   distinctive
+                                                      1st DNN             AND
+                                                                                   2nd DNN
+                                        AND
+                                                                         black                    OR
+                                       said                       OR
+                                                                          dog
+                                                                                   OR
+                                                                                                  dog
+            Interaction                black                  black               black          over
+            primitives                  dog                    dog        AND     over           David
+                                                      OR                 black            AND
+                                                     dog                  dog             they
+                                                     over                over             said
+
+            Input variables     They          said          the        black     dog      is     over      David
+
+            Input sentence                           They said the black dog is over David.       Negative sentiment
+
+
+Figure 1: Distinctive and shared interactions. When we extract AND-OR interactions from two
+DNNs, AND interactions S1 = {black, dog} and S2 = {black, dog, over}, and OR interactions S3 =
+{black, dog} and S4 = {black, over} are shared by two DNNs, while interactions, such as the AND
+interaction S5 = {they, said}, are distinctive interactions encoded by a single DNN.
+common interactions shared by different AI models. Interactions, which are not shared by different
+DNNs, may be perceived as out-of-distribution signals without clear meanings.
+Therefore, in this study, we revisit the generalization of interactions. Specifically, we identify a clear
+mechanism that makes the existing method extract different interactions from the same DNN under
+different initialization states, which hurts the generalization power of interactions.
+Thus, to address the generalization issue, we propose a new method for extracting generalizable
+interactions. A generalizable interaction is defined as Figure 1 shows. Given multiple DNNs trained
+for the same task and an input sample, if an interaction can be extracted from all these DNNs, then
+we consider it generalizable. Our method is designed to extract interactions with maximum gen-
+eralization power. This approach ensures that if an interaction exhibits a significant impact on the
+output score for one DNN, it usually demonstrates noteworthy influence for other DNNs. We con-
+ducted experiments on various dataset. Experiments showed that our proposed method significantly
+improved the generalization power of the extracted interactions across different DNNs.
+
+2       G ENERALIZABLE INTERACTION PRIMITIVES ACROSS DNN S
+2.1     P RELIMINARIES : EXPLAINING THE NETWORK OUTPUT WITH INTERACTION PRIMITIVES
+
+Although there is no theory to guarantee that how to define concepts that fit well with human cogni-
+tion, Li & Zhang (2023a) and Ren et al. (2024) still provided mathematical supports to explain why
+we can still use interactions between input variables as the primitives or concepts encoded by the
+DNN. Specifically, there are two types of interactions, i.e., AND interactions and OR interactions.
+AND interactions. Given a function v : Rn → R, let us consider an input sample x =
+[x1 , x2 , · · · , xn ]⊺ with n input variables indexed by N = {1, 2, ..., n}. Here, v(x) ∈ R denotes
+the function output on x3 . Then, Ren et al. (2023b) have used the Harsanyi dividend (Harsanyi,
+1963) Iand (S|x) to quantify the numerical effect of the AND relationship between input variables in
+S ⊆ N , which is encoded by the function v. We consider this interaction as an AND interaction.
+                                                 X
+                                   Iand (S|x) :=        (−1)|S|−|T | v(xT ).                      (1)
+                                                             T ⊆S
+
+where Iand (∅|x) = v(x∅ ), and xT denotes a sample whose input variables in N \ T are masked4 .
+Each AND interaction Iand (S|x) reveals the AND relationship between all variables in S. For in-
+stance, let us consider the slang term S = {x3 , x4 , x5 , x6 } in the sentence “x1 = It, x2 = is, x3 =
+raining, x4 = cats, x5 = and, x6 = dogs!” as a toy example. The co-occurrence of four words forms
+the semantic concept of “heavy rain” and contributes a numerical effect Iand (S|x) to the function
+output. Otherwise, the masking of any word xi ∈ S invalidates the semantic concept and eliminates
+the interaction effect, i.e., obtaining Iand (S|xmasked ) = 0 on the masked sample.
+    3
+     If the target function/model/network has a vectorized output, e.g., a DNN for multi-category classification,
+                            p(y=y truth |x)
+we may set v(x) = log 1−p(y=y        truth |x) by following (Deng et al., 2022).
+   4
+     We followed (Li & Zhang, 2023a) to obtain two discrete states for each input variable, i.e., the masked and
+unmasked states. We simply masked each input variable i ∈ N \ S using baseline values.
+
+
+                                                                   2
+

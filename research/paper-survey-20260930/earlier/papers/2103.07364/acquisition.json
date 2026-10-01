@@ -1,0 +1,166 @@
+{
+  "arxiv_id": "2103.07364",
+  "version": "v2",
+  "title": "A Unified Game-Theoretic Interpretation of Adversarial Robustness",
+  "authors": [
+    "Jie Ren",
+    "Die Zhang",
+    "Yisen Wang",
+    "Lu Chen",
+    "Zhanpeng Zhou",
+    "Yiting Chen",
+    "Xu Cheng",
+    "Xin Wang",
+    "Meng Zhou",
+    "Jie Shi",
+    "Quanshi Zhang"
+  ],
+  "first_public_date": "2021-03-12T15:56:28Z",
+  "updated": "2021-11-09T13:29:01Z",
+  "journal_ref": null,
+  "source_url": "https://arxiv.org/abs/2103.07364v2",
+  "pdf_url": "https://arxiv.org/pdf/2103.07364v2",
+  "retrieved_at": "2026-09-30T07:03:00.585279+00:00",
+  "attempts": [
+    {
+      "url": "https://arxiv.org/pdf/2103.07364v2",
+      "status": "ok",
+      "bytes": 2259730
+    }
+  ],
+  "download_url": "https://arxiv.org/pdf/2103.07364v2",
+  "response_headers": {
+    "Connection": "close",
+    "Content-Length": "2259730",
+    "last-modified": "Mon, 23 Jan 2023 09:02:41 GMT",
+    "content-disposition": "inline; filename=\"2103.07364v2.pdf\"",
+    "content-type": "application/pdf",
+    "via": "1.1 google, 1.1 varnish, 1.1 varnish, 1.1 varnish",
+    "x-cloud-trace-context": "187271916514f4b983b48fac1b0b1fb1",
+    "etag": "\"sha256:7c3a0cc8cbe8f90e01e6d84cf083c45cfa96ad4fc9d1a16943f418482267ccf9\"",
+    "link": "<https://arxiv.org/pdf/2103.07364>; rel='canonical'",
+    "server": "Google Frontend",
+    "access-control-allow-origin": "*",
+    "Accept-Ranges": "bytes",
+    "Age": "352630",
+    "Date": "Wed, 30 Sep 2026 07:03:00 GMT",
+    "X-Served-By": "cache-lga-kjfk8660032-LGA, cache-lga-kjfk8660032-LGA, cache-lga-kjfk8660049-LGA, cache-sin-wsat1880037-SIN",
+    "X-Cache": "MISS, HIT, HIT",
+    "X-Timer": "S1790751781.753310,VS0,VE1"
+  },
+  "local_pdf": "research/paper-survey-20260930/earlier/papers/2103.07364/2103.07364v2.pdf",
+  "sha256": "38b45d489d886e18be91bb6cf7c5b5b91403f3e5a44aa66fb75847640d54de43",
+  "total_pages": 27,
+  "first_page": "                                                   A Unified Game-Theoretic Interpretation of\n                                                             Adversarial Robustness\n\n\n                                                        Jie Rena∗ , Die Zhanga∗ , Yisen Wangb∗, Lu Chena , Zhanpeng Zhoua ,\n                                                 Yiting Chena , Xu Chenga , Xin Wanga , Meng Zhoua,c†, Jie Shid , Quanshi Zhanga‡\n                                                                             a\n                                                                              Shanghai Jiao Tong University\narXiv:2103.07364v2 [cs.LG] 9 Nov 2021\n\n\n\n\n                                                     b\n                                                         Key Lab. of Machine Perception (MoE), School of EECS, Peking University\n                                                                              c\n                                                                                Carnegie Mellon University\n                                                                                d\n                                                                                  Huawei technologies Inc.\n\n\n\n                                                                                         Abstract\n\n                                                   This paper provides a unified view to explain different adversarial attacks and\n                                                   defense methods, i.e. the view of multi-order interactions between input variables\n                                                   of DNNs. Based on the multi-order interaction, we discover that adversarial attacks\n                                                   mainly affect high-order interactions to fool the DNN. Furthermore, we find\n                                                   that the robustness of adversarially trained DNNs comes from category-specific\n                                                   low-order interactions. Our findings provide a potential method to unify\n                                                   adversarial perturbations and robustness, which can explain the existing defense\n                                                   methods in a principle way. Besides, our findings also make a revision of\n                                                   previous inaccurate understanding of the shape bias of adversarially learned\n                                                   features. Our code is available online at https://github.com/Jie-Ren/\n                                                   A-Unified-Game-Theoretic-Interpretation-of-Adversarial-Robustness.\n\n\n\n                                        1       Introduction\n                                        Adversarial robustness of deep neural networks (DNNs) has received increasing attention in recent\n                                        years. Related studies include adversarial defense and attacks [60, 25]. In terms of defense, adversarial\n                                        training is an effective and the most widely-used method [41, 85, 67, 68, 73]. In spite of their fast\n                                        development, the essential mechanism of the adversarial robustness is still unclear. Thus, the\n                                        understanding of adversarial attacks and defense is an emerging direction in recent years. Ilyas\n        ",
+  "status": "downloaded_extracted_requires_manual_review",
+  "automatic_heading_hits": [
+    {
+      "page": 5,
+      "text": "Proof of decomposing network output into multi-order interactions to explain adversarial at-"
+    },
+    {
+      "page": 7,
+      "text": "Proposition 1 (equivalence between the multi-order interaction and the mutual information): Given"
+    },
+    {
+      "page": 7,
+      "text": "Proposition 1 indicates that compared to low-order interactions, high-order interactions are condi-"
+    },
+    {
+      "page": 7,
+      "text": "Note that in Proposition 1, we set v̂(S) = H(Y |XS ), which is slightly different from setting v(S) ="
+    },
+    {
+      "page": 9,
+      "text": "Proposition 1 in Section 4.1, i.e. low-order interactions correspond to the mutual information condi-"
+    },
+    {
+      "page": 9,
+      "text": "rather than low-order interactions (please see the proof in the supplementary material). In this way,"
+    },
+    {
+      "page": 15,
+      "text": "Shapley values, and the proof of Proposition 1 in Section 4.1 of the paper."
+    },
+    {
+      "page": 16,
+      "text": "• Proof :"
+    },
+    {
+      "page": 16,
+      "text": "• Proof :"
+    },
+    {
+      "page": 16,
+      "text": "• Proof :"
+    },
+    {
+      "page": 17,
+      "text": "• Proof :"
+    },
+    {
+      "page": 17,
+      "text": "• Proof :"
+    },
+    {
+      "page": 18,
+      "text": "• Proof :"
+    },
+    {
+      "page": 18,
+      "text": "• Proof :"
+    },
+    {
+      "page": 18,
+      "text": "• Proof :"
+    },
+    {
+      "page": 18,
+      "text": "• Proof :"
+    },
+    {
+      "page": 19,
+      "text": "• Proof :"
+    },
+    {
+      "page": 19,
+      "text": "• Proof :"
+    },
+    {
+      "page": 19,
+      "text": "Proposition 1 in Section 4.1 of the paper shows the equivalence between the multi-order interaction"
+    },
+    {
+      "page": 19,
+      "text": "and the mutual information. In the supplementary material, this section provides the proof of this"
+    },
+    {
+      "page": 19,
+      "text": "• Proof :"
+    },
+    {
+      "page": 20,
+      "text": "• Proof :"
+    },
+    {
+      "page": 21,
+      "text": "• Proof :"
+    },
+    {
+      "page": 21,
+      "text": "According to Proposition 1, v̂(S) = H(Y |XS ) denotes the entropy of the classification probability"
+    },
+    {
+      "page": 22,
+      "text": "• Proof :"
+    },
+    {
+      "page": 27,
+      "text": "DNNs. This can be explained Proposition 1 in the paper. As we have discussed in Section 4.1 of the"
+    },
+    {
+      "page": 27,
+      "text": "small contexts XS according to Proposition 1, while the high-order interaction corresponds to such a"
+    }
+  ]
+}

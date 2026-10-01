@@ -1,0 +1,50 @@
+{
+  "arxiv_id": "1804.10272",
+  "version": "v2",
+  "title": "Network Transplanting",
+  "authors": [
+    "Quanshi Zhang",
+    "Yu Yang",
+    "Qian Yu",
+    "Ying Nian Wu"
+  ],
+  "first_public_date": "2018-04-26T20:25:36Z",
+  "updated": "2018-12-18T05:18:29Z",
+  "journal_ref": null,
+  "source_url": "https://arxiv.org/abs/1804.10272v2",
+  "pdf_url": "https://arxiv.org/pdf/1804.10272v2",
+  "retrieved_at": "2026-09-30T07:03:19.307267+00:00",
+  "attempts": [
+    {
+      "url": "https://arxiv.org/pdf/1804.10272v2",
+      "status": "ok",
+      "bytes": 1027183
+    }
+  ],
+  "download_url": "https://arxiv.org/pdf/1804.10272v2",
+  "response_headers": {
+    "Connection": "close",
+    "Content-Length": "1027183",
+    "etag": "CIzoy6CM3PwCEAE=",
+    "last-modified": "Sun, 22 Jan 2023 21:14:19 GMT",
+    "x-cloud-trace-context": "f6107978b1446124269c0a4483f388f2",
+    "access-control-allow-origin": "*",
+    "server": "Google Frontend",
+    "content-type": "application/pdf",
+    "content-disposition": "inline; filename=\"1804.10272v2.pdf\"",
+    "link": "<https://arxiv.org/pdf/1804.10272>; rel='canonical'",
+    "via": "1.1 google, 1.1 varnish, 1.1 varnish, 1.1 varnish",
+    "Accept-Ranges": "bytes",
+    "Age": "97945",
+    "Date": "Wed, 30 Sep 2026 07:03:19 GMT",
+    "X-Served-By": "cache-lga-kjfk8660054-LGA, cache-lga-kjfk8660054-LGA, cache-lga-kjfk8660036-LGA, cache-sin-wsat1880095-SIN",
+    "X-Cache": "MISS, HIT, MISS",
+    "X-Timer": "S1790751799.461033,VS0,VE253"
+  },
+  "local_pdf": "research/paper-survey-20260930/earlier/papers/1804.10272/1804.10272v2.pdf",
+  "sha256": "f423ba10fd4707a80781751f2f4864bff9afb8c497f4557c007d8d764cf0fc4c",
+  "total_pages": 13,
+  "first_page": "                                                                                       Network Transplanting\n\n                                                                        Quanshi Zhanga , Yu Yangb , Qian Yuc , Ying Nian Wub\n                                                                                   a\n                                                                                     Shanghai Jiao Tong University\n                                                                              b\n                                                                                University of California, Los Angeles\n                                                                                 c\n                                                                                   University of California, Berkeley\narXiv:1804.10272v2 [cs.LG] 18 Dec 2018\n\n\n\n\n                                                                  Abstract                                     key issues of learning a universal net, which are not com-\n                                                                                                               monly discussed in the current literature of deep learning.\n                                             This paper focuses on a new task, i.e. transplanting              • The start-up cost w.r.t. sample collection is also impor-\n                                         a category-and-task-specific neural network to a generic,             tant, besides the total number of training annotations. Tra-\n                                         modular network without strong supervision. We design an              ditional methods usually require people to simultaneously\n                                         functionally interpretable structure for the generic network.         prepare training samples for all pairs of categories and tasks\n                                         Like building LEGO blocks, we teach the generic network               before the learning begins. However, it is usually unafford-\n                                         a new category by directly transplanting the module corre-            able, when there is a large number of categories and tasks.\n                                         sponding to the category from a pre-trained network with              In comparison, our method enables a neural network to se-\n                                         a few or even without sample annotations. Our method in-              quentially absorb network modules of different categories\n                                         crementally adds new categories to the generic network but            one-by-one, so the algorithm can start without all data.\n                                         does not affect representations of existing categories. In this       • Massive distributed learning & weak centralized\n                                         way, our method breaks the typical bottleneck of learning a           learning: Distributing the massive computation of learn-\n                                         net for massive tasks and categories, i.e. the requirement of         ing the network into local computation centers all over the\n                                         collecting samples for all tasks and categories at the same           world is of great practical values. There exist numerous net-\n                                         time before the learning begins. ",
+  "status": "downloaded_extracted_requires_manual_review",
+  "automatic_heading_hits": []
+}

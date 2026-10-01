@@ -1,0 +1,28 @@
+{% extends 'base.html' %}
+{% from 'macros.html' import badge with context %}
+{% block content %}
+<a class="back-link" href="/library">← Lean API 目录</a>
+<h1><code>{{ catalog_name(entry) }}</code></h1>
+<p class="lead">{{ entry.get('title',entry.get('summary','')) }}</p>
+{{ badge(entry.get('verification_status')) }}
+<p>导入模块：<code>{{ entry.get('module','尚无记录') }}</code></p>
+<h2 id="signature">实际签名</h2>
+<pre class="lean-source">{{ entry.get('signature') or '尚未取得实际 Lean 签名，不能根据名称推定其类型。' }}</pre>
+<h2>适用假设与依赖</h2>
+<p>{{ entry.get('assumptions',[])|text or '请核对实际签名中的全部参数和假设。' }}</p>
+<p>依赖：{{ entry.get('dependencies',[])|text or '尚无记录' }}</p>
+<p>传递公理：<code>{% if 'axioms' in entry and entry.axioms is not none %}{{ entry.axioms|text or '无' }}{% else %}尚无记录；字段缺失不等于已通过公理审计。{% endif %}</code></p>
+<div class="related">
+  {% if entry.get('theorem_id') %}<a href="/theorems/{{ entry.theorem_id|urlencode }}">数学陈述与来源</a>{% endif %}
+  {% if entry.get('proof_id') %}<a href="/proofs/{{ entry.proof_id|urlencode }}">中文分步证明</a>{% endif %}
+</div>
+{% if reading_steps %}
+<p>对应讲解步骤：{% for step in reading_steps %}<a href="{{ step.url }}">{{ step.title }}</a>{% if not loop.last %} · {% endif %}{% endfor %}</p>
+{% endif %}
+<h2 id="source">源码与构建证据</h2>
+{% if not public_mode and entry.get('source_path') %}<p><a href="/files/{{ entry.source_path }}">{{ entry.source_path }}</a> · 第 {{ source_start or entry.get('line',entry.get('line_start','未知')) }} 行</p>{% endif %}
+{% if source_text %}<pre class="lean-source"><code>{{ source_text }}</code></pre>{% else %}<p class="muted">当前视图没有可读取的关联源码片段。</p>{% endif %}
+{% if not public_mode and catalog.get('verification_report') %}<p><a href="/files/{{ catalog.verification_report }}">实际验证报告</a>（包含构建命令、退出码和日志路径）</p>{% endif %}
+{% if not public_mode %}{% for path in entry.get('log_paths',[]) %}<p><a href="/files/{{ path }}">构建日志 {{ path }}</a></p>{% endfor %}{% endif %}
+<p>源码或依赖变更后，旧报告应标记为过期并重新验证。</p>
+{% endblock %}

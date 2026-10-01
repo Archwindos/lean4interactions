@@ -1,0 +1,72 @@
+               𝑣(𝒙)                                     𝑌                                             input variables              AND node           OR node
+                            represented as                                     rewritten as               +              simplified as                    +
+                …                                  …
+                                                          𝑤𝒮 = 2.0
+                                                                    … 𝐶𝒮𝐾                                                                                     2.0
+                   contribute        𝐶𝒮1     𝐶𝒮2              𝐶𝒮                                            2.0
+                                                                                                                                    𝜶        𝑥1 𝑥3   …        𝑥4 𝜷    … 𝜶𝜷
+                   2.0 to 𝑣(𝒙)                                                      𝑥1 𝑥2     𝑥1 𝑥3   …   𝑥4 𝑥5𝑥6   … 𝑥1 𝑥2 𝑥5𝑥6
+                                                              𝒮 = {4, 5, 6}
+                                                                                                                                        𝜶=𝑥1 𝑥2                     𝜷=𝑥5 𝑥6
+   𝑥1   𝑥2    𝑥3      𝑥4 𝑥5 𝑥6        𝑋1     𝑋2    𝑋3       𝑋4     𝑋5     𝑋6
+   Sit down and take it easy                                                            𝑥1 𝑥2 𝑥3 𝑥4 𝑥5 𝑥6                               𝑥1   𝑥2      𝑥3       𝑥4     𝑥5   𝑥6
+                                                   (optional dependencies)
+                (a)                                     (b)                                               (c)                                         (d)
+Figure 1. Emergence of symbolic interactive concepts in a sufficiently trained DNN (a), which make considerable numerical effects on the
+network output. (b) All interactive concepts can be faithfully organized into a causal graph, which reflects the DNN’s inference logic. (c,d)
+Besides, the causal graph can be further simplified as an And-Or graph (AOG), which extracts common coalitions.
+
+patterns have almost zero effects on the output Y , so we can                          in XAI [36, 38]. Based on game theory, we defined the
+use a sparse graph with a small number of salient causal pat-                          multivariate interaction [44, 46] and the multi-order interac-
+terns to approximate the DNN’s output in real applications.                            tion [45] to investigate interactions from different perspec-
+Furthermore, as Fig. 1(c,d) shows, we propose to summa-                                tives. In this study, we first demonstrate that game-theoretic
+rize common coalitions shared by salient causal patterns to                            interactions are faithful (Theorem 1) and very sparse (Re-
+simplify the causal graph to a deep And-Or graph (AOG).                                mard 1). [20] further found that salient interactions were
+   Note that since the DNN encodes complex inference logic,                            usually discriminative and shared by different samples and
+different samples may activate different sets of salient causal                        different DNNs. These findings enabled us to consider
+patterns and generate different causal graphs.                                         salient interactions as concepts encoded by a DNN. Based
+   • Universality. As Fig. 2 shows, given DNNs with vari-                              on this, [28] formulated the optimal baseline values in game-
+ous architectures trained on different tasks, we find that the                         theoretic explanations for DNNs. Furthermore, [6] investi-
+inference of each DNN can all be faithfully and concisely                              gated the different behaviors of the DNN when encoding
+explained by a few salient causal patterns.                                            shapes and textures. [7] further found that salient interactions
+   In addition, we prove that causal patterns extracted from                           usually represented the prototypical concepts encoded by a
+the DNN have broad theoretical connections with classical                              DNN.
+interaction/attribution metrics for explaining DNNs. Specif-                              • Game-theoretic interactions enable us to explain the
+ically, the causal effects can explain the elementary mech-                            representation power of DNNs. We used interactions to
+anism of the Shapley value [31], the Shapley interaction                               explain the various capacities of a DNN, including its adver-
+index [13], and the Shapley-Taylor interaction index [36].                             sarial robustness [27,39], adversarial transferability [40], and
+   Contributions of this paper can be summarized as fol-                               generalization power [45, 50]. [9] proved that a DNN is less
+lows: (1) We discover and prove that the inference logic                               likely to encode interactions of the intermediate complexity.
+of a complex DNN on a certain sample can be represented                                In comparison, [29] proved that a Bayesian neural network is
+as a relatively simple causal graph. (2) Furthermore, such                             less likely to encode complex interactions, thereby avoiding
+a causal graph can be further simplified as an AOG. (3)                                over-fitting.
+The trustworthiness of using the AOG to explain a DNN is                                  • Game-theoretic interactions also reveal the common
+verified in experiments.                                                               mechanism underlying many empirical findings. [10] discov-
+                                                                                       ered that the interactions could be considered as elementary
+2. Explainable AI (XAI) theories based on                                              components of fourteen attribution methods. [49] proved that
+   game-theoretic interactions                                                         the reduction of interactions is the common utility of twelve
+                                                                                       previous methods of boosting adversarial transferability.
+   This study provides a solid foundation for XAI theories
+based on game-theoretic interactions. Our research group
+                                                                                       3. Method
+led by Dr. Quanshi Zhang in Shanghai Jiao Tong University
+has developed a theory system based on game-theoretic inter-                           3.1. Causal graph based on interactive concepts
+actions to address two challenges in XAI, i.e., (1) extracting
+                                                                                          In this paper, we discover and prove a concept-emerging
+explicit and countable concepts from implicit knowledge
+                                                                                       phenomenon that the inference logic of a DNN on an in-
+encoded by a DNN, and (2) using explicit concepts to ex-
+                                                                                       put sample can be represented as a causal graph, in which
+plain the representation power of DNNs. More crucially, this
+                                                                                       each causal pattern can be considered as an interactive con-
+interaction also enables us to unify the common mechanisms
+                                                                                       cept1 . Thus, in order to clarify this phenomenon, let us
+shared by various empirical findings on DNNs.
+   • Extracting concepts encoded by DNNs. Defining the                                     1 Note that unlike previous studies [12], the concept in this paper is
+
+interactions between input variables is a typical approach                             defined based on interactions between input variables.
+
+
+
+
+                                                                                   20281

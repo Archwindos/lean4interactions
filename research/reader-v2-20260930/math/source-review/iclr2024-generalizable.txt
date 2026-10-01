@@ -1,0 +1,1520 @@
+=== PDF PAGE 1 ===
+Published as a conference paper at ICLR 2024
+
+
+DEFINING AND EXTRACTING GENERALIZABLE INTER-
+ACTION PRIMITIVES FROM DNNS
+
+
+ Lu Chen1∗   Siyu Lou1,2∗   Benhao Huang1     Quanshi Zhang1†
+ 1Shanghai Jiao Tong University, Shanghai, China 2Eastern Institute of Technology, Ningbo, China
+ {lu.chen,siyu.lou,hbh001098hbh,zqs1022}@sjtu.edu.cn
+
+
+                                                  ABSTRACT
+
+          Faithfully summarizing the knowledge encoded by a deep neural network (DNN)
+          into a few symbolic primitive patterns without losing much information represents
+          a core challenge in explainable AI. To this end,  Ren et al. (2024) have derived a
+          series of theorems to prove that the inference score of a DNN can be explained as
+          a small set of interactions between input variables. However, the lack of general-
+          ization power makes it still hard to consider such interactions as faithful primitive
+          patterns encoded by the DNN. Therefore,  given different DNNs trained for the
+          same task,  we develop a new method to extract interactions that are shared by
+          these DNNs.  Experiments show that the extracted interactions can better reflect
+          common knowledge shared by different DNNs1.
+
+1    INTRODUCTION
+
+Explaining and quantifying the exact knowledge encoded by a deep neural network (DNN) presents a
+new challenge in explainable AI. Previous studies mainly visualized patterns encoded by DNNs (Bau
+et al., 2017; Kim et al., 2018) and estimated a saliency map on input variables (Simonyan et al., 2013;
+R. Selvaraju et al., 2017). However, a new question is that can we formulate the implicit knowledge
+encoded by the DNN as explicit and symbolic primitive patterns?  In fact, we hope these primitive
+patterns serve as elementary units for inference, just like concepts in human cognition.
+However, there is no widely accepted way to define the concept encoded by a DNN, because we
+cannot mathematically define/formulate the exact concept in human cognition.  Nevertheless, if we
+ignore cognitive issues, Ren et al. (2024); Li & Zhang (2023b) have derived a series of theorems
+as convincing evidence to take interactions as symbolic primitives encoded by a DNN. Specifically,
+an interaction captures the intricate nonlinear relationship encoded by the DNN. For instance, when
+a DNN processes a sentence “It is raining cats and dogs!”, the DNN may encode the interaction
+between a set of input variables S  ={raining, cats, and, dogs}⊆N.   When all words in S  are
+present, an interactive effectI(S) emerges, and pushes the DNN’s inference towards the semantic
+meaning of “heavy rain.” However, if any word inS is masked, the effect will be removed.
+Ren et al. (2024) have mainly proven two theorems to justify the convincingness of considering
+above interactions as primitive inference patterns encoded by the DNN. First, it is proven that under
+some common conditions2, a well-trained DNN usually just encodes a limited number of interactions
+w.r.t.   a few sets of input variables.   More crucially,  let us randomly mask an input sample x in
+different  ways  to  generate  an  exponential  number  of  masked  samples.   It  is  proven  that  people
+can use just a few interactions to accurately approximate the DNN’s outputs on all these masked
+samples. Thus, these few interactions are referred to as interaction primitives.
+Despite the aforementioned theorems, this study does not yet deem the above interactions as faithful
+primitives of DNNs.  The core problem is that existing interaction extraction methods cannot the-
+oretically guarantee the generalization (transferability) of the interactions, e.g., ensuring to extract
+
+   ∗Equal contribution.
+   †Quanshi Zhang is the corresponding author.  He is with the Department of Computer Science and Engi-
+neering, the John Hopcroft Center, at the Shanghai Jiao Tong University, China.
+   1https://github.com/sjtu-xai-lab/generalizable-interaction
+   2Please see Appendix B for details.
+
+
+                                                          1
+
+=== PDF PAGE 2 ===
+Published as a conference paper at ICLR 2024
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+Figure 1:  Distinctive and shared interactions.   When we extract AND-OR interactions from two
+DNNs, AND interactionsS1 ={black, dog} andS2 ={black, dog, over}, and OR interactionsS3 =
+{black, dog} andS4 ={black, over} are shared by two DNNs, while interactions, such as the AND
+interactionS5 ={they, said}, are distinctive interactions encoded by a single DNN.
+common interactions shared by different AI models. Interactions, which are not shared by different
+DNNs, may be perceived as out-of-distribution signals without clear meanings.
+Therefore, in this study, we revisit the generalization of interactions. Specifically, we identify a clear
+mechanism that makes the existing method extract different interactions from the same DNN under
+different initialization states, which hurts the generalization power of interactions.
+Thus,  to address the generalization issue,  we propose a new method for extracting generalizable
+interactions. A generalizable interaction is defined as Figure 1 shows. Given multiple DNNs trained
+for the same task and an input sample, if an interaction can be extracted from all these DNNs, then
+we consider it generalizable.  Our method is designed to extract interactions with maximum gen-
+eralization power.  This approach ensures that if an interaction exhibits a significant impact on the
+output score for one DNN, it usually demonstrates noteworthy influence for other DNNs.  We con-
+ducted experiments on various dataset. Experiments showed that our proposed method significantly
+improved the generalization power of the extracted interactions across different DNNs.
+
+2    GENERALIZABLE INTERACTION  PRIMITIVES ACROSS DNNS
+
+2.1    PRELIMINARIES:  EXPLAINING THE NETWORK OUTPUT WITH INTERACTION PRIMITIVES
+
+Although there is no theory to guarantee that how to define concepts that fit well with human cogni-
+tion,  Li & Zhang (2023a) and Ren et al. (2024) still provided mathematical supports to explain why
+we can still use interactions between input variables as the primitives or concepts encoded by the
+DNN. Specifically, there are two types of interactions, i.e., AND interactions and OR interactions.
+AND  interactions.    Given  a  function v   :  Rn →  R,  let  us  consider  an  input  sample x  =
+[x1,x2,··· ,xn]⊺  with n input variables indexed by N  ={1, 2,...,n}.  Here, v(x)∈ R denotes
+the function output on x3.  Then,   Ren et al. (2023b) have used the Harsanyi dividend (Harsanyi,
+1963)Iand(S|x) to quantify the numerical effect of the AND relationship between input variables in
+S⊆N, which is encoded by the functionv. We consider this interaction as an AND interaction.
+
+                                   Iand(S|x) := XT⊆S(−1)|S|−|T|v(xT ).                                          (1)
+
+whereIand(∅|x) =v(x∅), and xT  denotes a sample whose input variables inN\T  are masked4.
+Each AND interactionIand(S|x) reveals the AND relationship between all variables inS.  For in-
+stance, let us consider the slang termS ={x3,x4,x5,x6} in the sentence “x1 = It,x2 = is,x3 =
+raining,x4 = cats,x5 = and,x6 = dogs!” as a toy example. The co-occurrence of four words forms
+the semantic concept of “heavy rain” and contributes a numerical effectIand(S|x) to the function
+output. Otherwise, the masking of any wordxi∈S invalidates the semantic concept and eliminates
+the interaction effect, i.e., obtainingIand(S|xmasked) = 0 on the masked sample.
+
+   3If the target function/model/network has a vectorized output, e.g., a DNN for multi-category classification,
+we may setv(x) = log  p(y=ytruth|x)1−p(y=ytruth|x)  by following (Deng et al., 2022).
+   4We followed (Li & Zhang, 2023a) to obtain two discrete states for each input variable, i.e., the masked and
+unmasked states. We simply masked each input variablei∈N\S using baseline values.
+
+
+                                                           2
+
+=== PDF PAGE 3 ===
+Published as a conference paper at ICLR 2024
+
+
+
+
+OR interactions. Analogously, we can also use the OR interaction to explain the functionv : Rn→
+R.  To this end,  (Zhou et al., 2023; Li & Zhang, 2023a) have defined the following OR interaction
+effectIor(S|x) to measure the OR interaction encoded byv. In particular,Ior(∅|x) =v(x∅).
+                                 Ior(S|x) :=−XT⊆S(−1)|S|−|T|v(xN\T ).                                       (2)
+
+Each  OR  interaction Ior(S|x)  describes  the  OR  relationship  between  all  variables  in S.   Let  us
+consider  an  input  sentence  “x1  =  This, x2  =  movie, x3  =  is, x4  =  boring, x5  =  and, x6  =
+disappointing” for sentiment classification.  Let us setS ={x4,x6}.  The presence of any word in
+S will contribute a negative sentiment effectIor(S|x) to the function output.
+Sparsity of interactions. Theoretically, according to Equation (1), a function can encode at most 2n
+different AND interactions w.r.t. all 2n subsets∀S,S⊆N. However,  Ren et al. (2024) have proved
+that under some common conditions2, most well-trained DNNs only encode a small set of AND
+interactions, denoted by Ω, i.e., only a few interactionsS∈ Ω have considerable effectsIand(S|x).
+All other interactions have almost zero effects, i.e.,Iand(S|x)≈ 0, which can be regarded as a set of
+negligible noise patterns.
+It is worth noting that an OR interaction can be regarded as a specific AND interaction, if we inverse
+the definition of the masked state and the unmasked state of an input variable5.  Thus, the proven
+sparsity of AND interactions can also indicate the conclusion that well-trained DNNs tend to encode
+a small number of OR interactions.
+Definition of interaction primitives.   Considering the above proven sparsity of interactions,  we
+define an interaction primitive as a salient interaction.   Formally,  given a threshold τ,  the set of
+interaction primitives are defined as Ω ={S⊆N :|I(S|x)|>τ}.
+Theorem 1 (Universal matching theorem, proved by (Ren et al., 2024)).  As the corollary of the
+proven  sparsity  in  Ren  et  al.  (2024),  the  function’s  output  on  all 2n  masked  samples{xS|S ⊆
+N} could be universally explained by the interaction primitives in Ω, s.t.,|Ω|≪  2n, i.e.,∀S⊆
+N,v(xS) = PT⊆SIand(T|x)≈ PT⊆S:T∈ΩIand(T|x).
+
+In particular, Theorem 1 shows that if we arbitrarily mask the input sample x, we can get 2n different
+masked samples4,∀S,S⊆N. Then, we can universally match the output of the functionv(xS) on
+all 2n masked samples using only a few interaction primitives in Ω.
+
+2.2    FAITHFULNESS PROBLEM WITH INTERACTION-BASED EXPLANATIONS
+
+Basic setting of using AND-OR interactions to explain a DNN. In this section, we consider to
+employ both AND interactions and OR interactions to explain the DNN’s output.  This is because
+the complexity of the representations in DNNs makes it difficult to rely solely on either AND inter-
+actions or OR interactions to faithfully explain true inference primitives encoded by the DNN.
+To this end, we need to decompose the output of the DNN into two termsv(x) =vand(x) +vor(x),
+so that we can use AND interactions to explain the termvand(x) and use OR interactions to explain
+the term vor(x).  In this way, the first challenge is how to learn an appropriate decomposition of
+vand(x) andvor(x) that reveals intrinsic primitive interactions encoded by the DNN. We will discuss
+this challenge later.
+No matter how we randomly decomposev(x) =vand(x)+vor(x), Theorem 2 states that we can still
+use interactions to fit the DNN’s outputs on 2n randomly masked samples{xT|T⊆ N}.  Further-
+more, according to the sparsity of interaction primitives in Section 2.1, we can obtain Proposition 1,
+i.e., the 2n network outputs on all masked samples canusuallybe approximated by a small number
+of AND interaction primitives in Ωand and OR interaction primitives in Ωor, s.t.,|Ωand|,|Ωor|≪ 2n.
+Theorem 2 (Universal matching theorem, proof in Appendix C).  Let us be given a DNNv and an
+input sample x. For each randomly masked sample xT ,T⊆N, we obtain
+       v(xT ) =vand(xT ) +vor(xT ) = XS⊆TIand(S|xT ) +XS∈{S:S∩T̸=∅}∪{∅}Ior(S|xT ).     (3)
+
+   5To compute Iand(S|x), we use a baseline value bi  and set xi  = bi  to represent its masked state.  If we
+considerbi variable as the presence of the variable, and consider the original valuexi as its masked state (i.e.,
+usingv(bT ) to representv(xN\T ) in Equation (2)), thenIor(S|x) in Equation (2) can be formulated the same
+as the AND interaction in Equation (1).
+
+
+                                                            3
+
+=== PDF PAGE 4 ===
+Published as a conference paper at ICLR 2024
+
+
+
+
+
+
+Proposition  1.   The  output  of  a  well-trained  DNN  on  all  2n  masked  samples{xT|T ⊆ N}
+could  be  universally  approximated  by  the  interaction  primitives  in  Ωand  and  Ωor,  s.t., |Ωand|,
+|Ωor| ≪  2n,  i.e., ∀T ⊆ N,v(xT )  =  PS⊆TIand(S|xT ) +PS∈{S:S∩T̸=∅}∪{∅}Ior(S|xT ) ≈
+v(x∅)+P∅̸=S⊆T:S∈ΩandIand(S|xT )+PS∩T̸=∅:S∈ΩorIor(S|xT ), wherev(x∅) =vand(x∅)+vor(x∅).
+
+Problems with the faithfulness of interactions. Although the universal matching capacity proven
+in Theorem 2 is a quite significant advantage of AND-OR interactions, it is still not the ultimate
+guarantee for the faithfulness of the extracted interactions.  To be precise, there is still no standard
+way  to  faithfully  decompose  the vand(x)  term  and  the vor(x)  term  that  reveal  intrinsic  primitive
+interactions encoded by the DNN, considering the following two challenges.
+• Challenge 1, ambiguous decomposition ofvand(x) andvor(x) usually brings in considerable uncer-
+tainty in the extraction of interactions. Let us take the following toy Boolean function as an example
+to illustrate the diversity of interactions,f(x) =x1∧x2∧x3 +x2∧x3 +x3∧x4 +x4∨x5, where
+x = [x1,x2,x3,x4,x5]⊺ andxi∈{0, 1}.  We have two ways to decomposef(x).  First, we can
+simply decomposevand(x) =x1∧x2∧x3 +x2∧x3 +x3∧x4 andvor(x) =x4∨x5, then to ex-
+plainf(x) with an OR interactionIor(S ={4, 5}) and three AND interactionsIand(S ={1, 2, 3}),
+Iand(S ={2, 3}) andIand(S ={3, 4}). Alternatively, we can also use exclusively AND interactions
+to explainf(x). Specifically, we can rewritevand(x) =x1∧x2∧x3 +x2∧x3 +x3∧x4 +x4∨x5 =
+x1∧x2∧x3 +x2∧x3 +x3∧x4 + (x4 +x5−x4∧x5) andvor(x) = 0, w.r.txi∈{0, 1}. Thus,
+thevand term can be explained by a total of six AND interaction primitives. This is a typical case for
+diverse strategy of extracting interactions that are generated by different decompositions.
+The aforementionedf(x) is just an exceedingly simple function. In real-world applications, DNNs
+usually encode intricate AND-OR relationships among input variables, making it exceptionally chal-
+lenging to formulate an explicit expression for the DNN function or to establish a definitive ground-
+truth decomposition ofvand(x) andvor(x).  Consequently, the diversity issue with interactions are
+ubiquitous and unavoidable.
+• Challenge 2, how to ensure the interaction primitives are generalizable. It is commonly considered
+that generalizable primitives are usually transferable over different models trained for the same task,
+instead of being over-fitted by a single model.  Thus, if an interaction primitive can be consistently
+extracted from different DNNs,  then it can be considered as a faithful concept.  Otherwise,  non-
+generalizable (non-transferable) interactions do not appear as faithful concepts, even though they
+still satisfy the criteria of sparsity and universal matching in Theorem 2.
+Definition  1  (Transferability  of  interaction  primitives).  Given m  different  DNNs  trained  for  the
+same task, v(1),v(2),...,v(m),  we use AND-OR interactions to explain the output score v(i)(x)
+of  each  DNN v(i)  on  the  input  sample x.    Let  Ωand,(i)  = {S ⊆ N   : |I(i)and(S|x)| > τ(i)}  and
+Ωor,(i)  ={S ⊆ N  :|I(i)or  (S|x)| > τ(i)} denote a set of sparse AND interaction primitives and a
+set of sparse OR interaction primitives, respectively.  Then, the set of generalizable AND and the
+set of generalizable OR interaction primitives for thei-th DNN, are defined as Ωandshared = Tmi=1 Ωand,(i)
+and Ωorshared = Tmi=1 Ωor,(i), respectively. The generalization power of AND and OR interactions of the
+i-th DNN, can be measured bys(i)and =|Ωandshared|/|Ωand,(i)| ands(i)or   =|Ωorshared|/|Ωor,(i)|, respectively.
+
+Definition 1 introduces the generalization power of interaction primitives.  A larger value signifies
+higher transferability and, consequently, more generalizable interactive primitives.
+
+
+2.3    EXTRACTING GENERALIZABLE INTERACTION PRIMITIVES
+
+Neither of the aforementioned two challenges has been adequately tackled in previous interaction
+studies. In essense, interactions are determined by the decomposition of the network outputv(x) =
+vand(x)+vor(x). Thus, if we rewrite the decomposition asvand(xT ) = 0.5v(xT )+γT andvor(xT ) =
+0.5v(xT )−γT , then the learning of the best decomposition is equivalent to learning a set of{γT}.
+Here,  the parameter γT ∈ R for a subset T ⊆ N  determines a specific decomposition between
+vand(xT ) andvor(xT ).  Therefore, our goal is to learn the appropriate parameters{γT} that reduce
+the aforementioned uncertainty of interaction primitives and boost their generalization power.
+
+
+                                                           4
+
+=== PDF PAGE 5 ===
+Published as a conference paper at ICLR 2024
+
+
+
+
+To this end, to alleviate the uncertainty of the interactions, the most intuitive approach is to learn
+the sparsest interactions, considering the principle of Occam’s Razor, as follows.  It is because the
+sparsest (or simplest) explanation is usually considered as the most faithful explanation.
+
+                                             min{γT}∥Iand∥1 +∥Ior∥1,                                                      (4)
+
+where Iand = [Iand(T1|x),...,Iand(T2n|x)]⊺, Ior = [Ior(T1|x),...,Ior(T2n|x)]⊺∈ R2n,Tk⊆N.
+The aboveℓ1 norm loss promotes the sparsity of both AND interactions and OR interactions.
+
+2.3.1    ONLY ACHIEVING SPARSITY IS NOT ENOUGH
+Although the sparsity can be used to reduce the uncertainty of interactions, the sparsity of interac-
+tions w.r.t.  each single input sample obtained in Equation (4) does not fully solve the above two
+challenges.  First,   Ren et al. (2023c) have found that the extraction of high-order interactions is
+usually sensitive to small noises in input variables, where the order is defined as the number of in-
+put variables inS, i.e., order(S) =|S|.  It means that when different noises are added to the input
+samples, the algorithm may extract fully different high-order interactions6. Similarly, this will also
+hurt the generalization power of interaction primitives over different samples, when these samples
+contain similar sets of input variables.
+Second,  optimizing  the  loss  in  Equation  (4)  may  lead  to  diverse  solutions.   Given  different  ini-
+tial  states,  the  loss  in  Equation  (4)  may  learn  two  different  sets  of  parameters{γT}  as  two  lo-
+cal minima with similar loss values, while the two sets of parameters{γT} generate two different
+sets of interactions.  We conducted experiments to illustrate this point.  Given a pre-trained BERT
+model (Devlin et al., 2019) and an input sentence x on the SST-2 dataset for sentiment classifica-
+tion, we learned the parameters{γT} to extract sparse interaction primitives4.  In this experiment,
+we  repeatedly  extracted two  sets  of  AND-OR interactions  by  applying  two different  sets  of  ini-
+tialized parameters{γT}, which are denoted by (Aand,Aor) and (Band,Bor). Aand  ={S⊆ N  :
+|Iand(S|x)| > τAand)} denotes the set of AND interaction primitives extracted by a certain initial-
+ization of{γT}, where the parameterτAand was determined to ensure that each set selected the most
+salientK  = 100 interactions.  We used the transferability of interaction primitives in Definition 1,
+Sand  =|Aand TBand|/|Aand| andSor  =|Aor TBor|/|Aor|, to measure the diversity of interactions
+caused by the different parameter initializations. Table 2 shows that given different initial states,
+optimizing the loss in Equation (4) usually extracted two dramatically different sets of AND-OR in-
+teractions with only 21% overlap. Figure 12 further shows the top 5 AND-OR interaction primitives
+extracted from BERT model on the same input sentence, which illustrates that given different initial
+states, the loss in Equation (4) would learn different AND-OR interactions.
+Third,  prioritizing  sparsity  cannot  guarantee  high  generalization  power  across  different  models.
+Since a DNN may simultaneously learn common knowledge shared by different DNNs and be over-
+fitted to some out-of-the-distribution patterns,  different DNNs may only share partial interaction
+primitives.  We believe that the shared common interactions are more faithful, so the transferability
+is another way to guarantee the generalization power of interaction primitives.  Therefore, we hope
+to formulate and extract common interactions that are generalizable through different DNNs.
+We conducted experiments to illustrate the difference between interactions extracted from two DNNs
+by using Equation (4). We used BERTBASEvbase and BERTLARGEvlarge (Devlin et al., 2019) for the
+task of sentiment classification.  Specifically, given an input sentence x, we learned two sets of pa-
+rameters{γbaseT } and{γlargeT } for the BERT-base model and the BERT-large model,  respectively.
+Then  we  extracted  two  sets  of  AND-OR  interactive  concepts  (Ωand,base,  Ωor,base)  and  (Ωand,large,
+Ωor,large), respectively.  Subsequently, we computed the transferability of the extracted interaction
+primitives according to Definition 1. Figure 3(a) shows that the transferability of the extracted AND-
+OR interaction primitives was much lower than interactions proposed in this study.
+
+2.3.2    EXTRACTING GENERALIZABLE INTERACTIONS
+As discussed above, the sparsity alone is not enough to tackle the aforementioned challenges. There-
+fore,  in  this  study,  we  propose  to  use  the  generalization  power  as  a  straightforward  purpose,  to
+
+   6Please see Appendix D for details.
+
+
+                                                             5
+
+=== PDF PAGE 6 ===
+Published as a conference paper at ICLR 2024
+
+
+
+
+boost the faithfulness of interactions. Meanwhile, the sparsity of interactions is also supposed to be
+guaranteed.  Given a total ofm DNNsv(1),v(2),...,v(m) trained for the same task, the objective of
+extracting generalizable interactions shared by them DNNs is revised from Equation (4), as follows.
+                           min{γ(1)
+                                   T ,...,γ(m)T }∥rowmax(I  and)∥1 +∥rowmax(I  or)∥1,                              (5)
+                  h                        i                              h                        i
+where            I  and  =I(1)and I(2)and ... I(m)and∈                R   2n×m  and            I  or  =I(1)or  I(2)or ... I(m)or∈                R   2n×m.  I(i)and  =
+[I(i)and(T1|x),...,I(i)and(T2n|x)]⊺∈            R   2n  and I(i)or   represent the all 2n AND-OR interactions extracted
+from  the i-th  DNN, Tk ⊆ N.   The  matrix  operator rowmax()  computes  the ℓ∞  norm  of  each
+row within the matrix, i.e., rowmax(I  and) = [∥I  and[1, :]∥∞,...,∥I  and[2n, :]∥∞]⊺∈             R   2n.  For each
+specific subset of variablesTk⊆ N, the rowmax() operation returns the most salient interaction
+strength over allm interactions from them DNNs.Please see Appendix F for more discussion on
+the matrix         I  and.
+Unlike Equation (4), the revised loss in Equation (5) only penalizes the most salient interactions over
+allm interactions extracted fromm DNNs, with respect to each subsetTk⊆N. This loss function
+ensures that if a DNN encodes a strong interaction w.r.t.  the set Tk, then we can also extract the
+same interaction w.r.t. Tk from the otherm− 1 DNNs without a penalty.  Theℓ1 norm also makes
+that them DNNs share similar sets of sparse interactions.  Considering the sparsity of interactions,
+for most subsetTk, the effectI(i)and/or(Tk|x) is supposed to keep almost zero on allm DNNs.
+
+Just like in Equation (4), we decompose the output of thei-th DNN asv(i)and(xT )=0.5v(i)(xT )+γ(i)T
+andv(i)or (xT )=0.5v(i)(xT )−γ(i)T   to compute two vectors of AND-OR interactions, I(i)and and I(i)or .
+Redundancy of interactions. However, it is important to emphasize that only penalizing the largest
+interaction among them DNNs in Equation (5) still faces the redundancy problem. Specifically, for
+eachi-th DNN, we compute a total of 2n AND interactions and 2n OR interactions w.r.t.  different
+subsets T ⊆ N.   Some of these 2n+1  interactions,  denoted by the set Ω(i)max,  are selected by the
+loss in Equation (5) as the most salient interactions overm DNNs, while the set of other unselected
+interactions are denoted by Ω(i)others  ={T ⊆ N}\ Ω(i)max.  Then, the redundancy problem is caused
+by a short-cut solution to the loss minimization in Equation (5), i.e., using unselected not-so-salient
+interactions in Ω(i)others  to represent numerical effects of selected interactions Ω(i)max, as discussed in
+Challenge 1 in Section 2.2. As a short-cut solution to Equation (5), this may also reduces the strength
+of the penalized salient interactions in Equation (5), but generates lots of redundant interacitons.
+Therefore, we revise the loss in Equation (5) to add penalties on unselected interactions to avoid the
+short-cut solution with a coefficient ofα, as follows7.
+          min{γ(1)
+                  T ,...,γ(m)T } (∥rowmax(I  and)∥1 +∥rowmax(I  or)∥1) +α (∥I  and∥1 +∥I  or∥1),         (6)
+whereα∈ [0, 1] is a positive scalar.  We extend the notation of theℓ1 norm∥·∥1 to represent the
+sum of the absolute values of all elements in a given vector or matrix.It is worth noting that the
+generalization power of interactions is guaranteed by the rowmax() function in Equation (5), which
+assigns much higher penalties to non-generalizable interactions than generalizable interactions.
+Sharing decomposition between DNNs. Optimizing Equation (6) is challenging8. To address this
+challenge, we introduce a set of strategies to facilitate the optimization process.  We assume that
+when allm DNNs are sufficiently trained, these DNNs tend to have similar decompositions of AND
+interactions and OR interactions, i.e., obtaining similar parameters,∀T⊆ N,γ(1)T ≈ γ(2)T ≈···≈
+γ(m)T    .  To achieve this, we introduce two types of parameters forγ(i)T  ,γ(i)T   = ¯γT + ˆγ(i)T  , where ¯γT
+represents the common decomposition shared by all DNNs, and ˆγ(i)T   represents the decomposition
+specific to eachi-th DNN. We constrain the significance of the unshared decomposition by using
+a bound|ˆγ(i)T | < τ (i)γ   , whereτ (i)γ    = 0.5·         E   x[|v(i)(x)−v(i)(x∅)|].  During the training process, if
+|ˆγ(i)T |>τ (i)γ   , then we set ˆγ(i)T   =τ (i)γ · sign(ˆγ(i)T  ).
+
+
+    7Please see Appendix F for a detailed explanation of Equation (6).
+    8Note that regardless of whether Equation (6) is optimized to the optimal solution, theoretically, the ex-
+tracted AND-OR interactions can still satisfy the property of universal matching in Theorem 2.
+
+
+                                                              6
+
+=== PDF PAGE 7 ===
+Published as a conference paper at ICLR 2024
+
+
+
+
+Modeling noises.   Furthermore,  we have identified a potential limitation in the definition of the
+interactions,  i.e.,  the  sensitivity  to  noise.   Let  us  assume  that  the  output  of  the i-th  DNN  has
+a  small  noise.   We  represent  such  noises  by  adding  a  small  Gaussian  noise ϵT ∼ N (0,σ2)  to
+the  network  output v′(i)and (xT )  = v(i)and(xT ) + ϵ(i)T  .   In  this  case,  we  can  derive  that I′(i)and (T )  =
+I(i)and(T ) + PT′⊆T (−1)|T|−|T′|ϵ(i)T′ .   We prove  that  the variance  of I′(i)and (T )  caused  by the  Gaus-
+sian noises is EϵT∼N(0,σ2)[I′(i)and (T )−E∀S,ϵS∼N(0,σ2)I′(i)and (S)]2 = 2|T|σ2 (please see Appendix D
+for details). Similarly, the variance ofI′(i)or  (T ) is also 2|T|σ2 for OR interactions. It means that the
+variance/instability of interactions increases exponentially with the order of the interaction|T|.
+
+Therefore, we propose to directly learn the error termϵ(i)T   based on Equation (6) to remove tiny noisy
+signals, which are unavoidable in real data but cannot be modeled as AND-OR interactions, i.e.,
+settingv(i)(xT ) =v(i)and(xT ) +v(i)or (xT ) +ϵ(i)T  , in order to enhance the robustness of our interaction
+extraction process. The error term is constrained to a small range|ϵ(i)T|<τ (i)ϵ   , subject toτ (i)ϵ    = 0.02·
+|v(i)(x)−v(i)(x∅)|. During the training process, if|ϵ(i)|>τ (i)ϵ   , then we set|ϵ(i)| =τ (i)ϵ · sign(ϵ(i)T  ).
+Then, we conducted experiments to examine whether the extracted AND-OR interactions could still
+accurately explain the network output, when removing the error term. We followed experimental set-
+tings in Section 3 to extract interactions on both BERTBASE and BERTLARGE models. We computed
+the matching errore(xT ) =|v(xT )−vapprox(xT )| , wherevapprox(xT ) was the network output ap-
+proximated by all interactions based on Theorem 2. Figure 13 shows matching errors of all masked
+samples w.r.t. all subsetsT⊆N, when we sorted the network outputs for all 2n masked samples in
+a descending order. It shows that the real network output was well approximated by interactions.
+
+3    EXPERIMENT
+
+In this section,  we conducted experiments to verify the sparsity and generalization power of the
+interaction primitives extracted by our proposed method on the following three tasks.
+Task1:  sentiment classification with language models.  We jointly extracted two sets of AND-OR
+interaction primitives from the BERTBASE model and the BERTLARGE model (Devlin et al., 2019) by
+following Equation (6). We finetuned the pre-trained BERTBASE model and the BERTLARGE model
+on  the  SST-2  dataset  (Socher  et  al.,  2013)  for  sentiment  classification.   For  each  input  sentence
+x containing n tokens9,  we analyzed the log-odds output of the ground-truth label,  i.e., v(x)  =
+log  p(y=ytruth|x)1−p(y=ytruth|x) by following (Deng et al., 2022).
+Task2:  dialogue task with large language models.  We extracted two sets of AND-OR interaction
+primitives from the pre-trained LLaMA model (Touvron et al., 2023) and OPT-1.3B model (Zhang
+et al., 2022b). We explained the DNNs’ outputs on the SQuAD dataset (Rajpurkar et al., 2016). We
+took the first several words of each document in the dataset as the input of a DNN, and let the DNN
+predict the next word.  For each input sentence x containingn words9, we analyzed the log-odds
+output of the (n + 1)-th word that was associated with the highest probability by the DNN,ymax,
+i.e.,v(x) = log  p(y=ymax|x)1−p(y=ymax|x) .
+Task3: image classification task with vision models. We extracted two sets of AND-OR interaction
+primitives from the ResNet-20 model (He et al., 2016) and the VGG-16 model (Simonyan & Zisser-
+man, 2015), which were trained on the MNIST dataset (LeCun, 1998).  These models were trained
+to classify the digit “3” from other digits.In practice, considering the          2n computational complexity,
+we have followed settings in(Li & Zhang, 2023b),who labeled a few important input patchesin
+the image as input variables. For each input image x containingn patches9, we analyzed the scalar
+output before the softmax layer corresponding to the digit “3.”
+Sparsity of the extracted primitives.  We aggregated all AND-OR interactions from various sam-
+ples, and draw their strength in a descending order in Figure 2.  This figure compares the curve of
+interaction strength|I(S)|,S⊆N between our extracted interactions,the traditional interactions (Li
+
+
+
+   9Please see Appendix O for details.
+
+
+                                                            7
+
+=== PDF PAGE 8 ===
+Published as a conference paper at ICLR 2024
+
+
+
+
+
+
+
+
+
+
+Figure 2:  Strength of AND-OR interactions log|I(S|x)| over different samples in a descending
+order. All interactions above the dash line had much more significant effect (shown in a log space)
+and were considered as salient interactions.
+
+
+
+
+
+
+
+
+
+Figure 3: Generalization power(measured by   sand andsor)of the extracted primitives interactions.
+
+& Zhang, 2023b)10(namely, Traditional) and the original Harsanyi interactions (Ren et al., 2023a)
+(namely, Harsanyi).The competing method (Li & Zhang, 2023b) (  Traditional in Figure 2) extracts
+the sparest interactions according to Equation (4), and the original Harsanyi interactions (Ren et al.,
+2023a) (Harsanyi in Figure 2) extracts interactions according to Equation (1)11.We found that most
+of the interactions had negligible effect.  Although the proposed method reduced the sparsity a bit,
+the extracted interactions were still sparse enough to be considered as primitive inference patterns.
+For each DNN, we further set a thresholdτ (i) to collect a set of salient interactions from this DNN
+as interaction primitives, i.e.,τ (i) = 0.05· maxS|I(S|x)|.
+Generalization power of the extracted interaction primitives.  We took the most salientk inter-
+actions from eachi-th DNN as the set of AND-OR interaction primitives, i.e.,|Ωand, (i)| =|Ωor, (i)| =
+k,i∈{1, 2}. We used the metricsand andsor in Definition 1 to measure the generalization power of
+interactions extracted from two DNNs. Figure 3 shows the generalization power of interactions when
+we computedsand andsor based on different numbersk of most salient interactions. We found that
+the set of AND-OR interactions extracted from the proposed method exhibited higher generalization
+power than interactions extracted from the traditional method.
+Low-order interaction primitives are more stable. Furthermore, we compared the ratio of shared
+interactions of different orders, i.e., order(S) =|S|. For interactions of each ordero, we computed
+the overall strength of all positive interactions and that of all negative interactions of thei-th DNN,P
+which were shared by other DNNs, as Shared+,(i)(o) = Pop∈{and,or}                      S∈Ωop,(i)                   op (S|x))
+                                                   P                                        shared ,|S|=o max(0,I(i)
+and    Shared−,(i)(o)      =    Pop∈{and,or}          S∈Ωop,(i)                   op (S|x)),     respectively.          Be-
+                                                   P       shared ,|S|=o min(0,I(i)
+sides,       All+,(i)(o)        =   Pop∈{and,or}      S∈Ωop,(i),|S|=o max(0,I(i)op (S|x))     and     All−,(i)(o)        =
+P             P
+   op∈{and,or}   S∈Ωop,(i),|S|=o min(0,I(i)op (S|x))  denote  the  overall  strength  of  salient  positive  in-
+teractions  and  that  of  salient  negative  interactions,  respectively.    In  this  way,  Figure  4  reports
+(Shared+,(i), Shared−,(i))  and  (All+,(i), All−,(i))  for  different  orders  within  the  three  tasks.    It
+shows that low-order interactions were more likely to be shared by different DNNs than high-order
+interactions.    Besides,    Figure  4  further  shows  a  higher  ratio  of  interactions  extracted  by  the
+proposed  method  were  shared  by  different  DNNs  than  interactions  extracted  by  the  traditional
+method.In particular, the high similarity of interactions between ResNet-20 and VGG-16 shows
+that although two DNNs for the same tasks had fully different architectures, there probably existed
+a set of ultimate interactions for a task, and different well-optimized DNNs were likely to converge
+to such interactions.
+Visualization of the shared interaction primitives across different DNNs. We also visualize the
+shared and distinctive interaction primitives in Figure 5. This figure shows that generalizable interac-
+
+
+   10In the implementation of the competing method, we also learned an additional error termϵ(i)
+                                                                                                               T   to remove
+small noises, just like in Section 2.3.2, to enable fair comparisons.
+   11Please see Appendix H for more details.
+
+
+                                                              8
+
+=== PDF PAGE 9 ===
+Published as a conference paper at ICLR 2024
+
+
+
+
+
+
+
+
+
+
+
+
+Figure 4:  Overall interactions and shared interactions.   The red and black bars show the overall
+strength of positive interactions All+,(i)(o) and that of negative interactions All−,(i)(o) of eacho-th
+order. The orange and green bars indicate the strength of positive interactions that are shared by the
+other DNN Shared+,(i)(o) and that of the shared negative interactions Shared−,(i)(o), respectively.
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+Figure 5:  Visualization of the shared and distinctive interaction primitives across different DNNs.
+We selected some of salient interactions from the most salientk = 50 AND-OR interactions in each
+DNN. The black and gray color show the AND interactions and the OR interactions, respectively.
+The left and right column show the distinctive interactions extracted from the BERTBASE model and
+the BERTLARGE  model, respectively.  The middle column shows the shared interactions extracted
+from both models.Please see Appendix J for more interactions.
+
+tions shared by different models can be regarded as more reliable concepts, which consistently con-
+tribute salient interaction effects to the output of different DNNs. In comparison, non-generalizable
+interactions, which are sometimes over-fitted by a single model, may appear as out-of-distribution
+features. From this pespective, we consider generalizable interactions as relatively faithful concepts
+that often have a significant impact on the inference of DNNs.    Figure 5 further shows that,our
+method extracted much more shared interactions than the traditional interaction-extraction method,
+which shows that our method could obtain more stable explanation of the inference logic of a DNN.
+It is because the interactions shared by different DNNs were usually considered more faithful.
+
+4    CONCLUSION
+
+In this paper, we proposed a method to extract generalizable interaction primitives.  The sparsity
+and universal-matching property of interactions provide lots of evidence to faithfully explain DNNs
+with interactions. Thus, in this paper, we propose to further improve the generalization power of in-
+teractions, which adds the last piece of the puzzle of interaction primitives. Compared to traditional
+interactions, interactions shared by different DNNs are more likely to be the underlying primitives
+that shape the DNN’s output.  Furthermore, the extraction of interaction primitives also contributes
+to real applications. For example, it can assist in learning optimal baseline values for Shapley values
+(Ren et al., 2023b) and explaining the representation limits of Bayesian networks (Ren et al., 2023c).
+In addition, the extraction of generalizable interaction primitives shared by different DNNs provide
+a new perspective to formulating the out-of-distribution (OOD) features.  Previous studies usually
+treated an entire sample as an OOD sample, whereas our work redefines the OOD problem at the
+level of detailed interactions, i.e., unshared interactions can be regarded as OOD information.
+
+
+                                                            9
+
+=== PDF PAGE 10 ===
+Published as a conference paper at ICLR 2024
+
+
+
+ACKNOWLEDGMENTS
+
+This   work   is   partially   supported   by   the   National   Science   and   Technology   Major   Project
+(2021ZD0111602), the National Nature Science Foundation of China (62276165,92370115), Shang-
+hai Natural Science Foundation (21JC1403800,21ZR1434600).
+
+ETHICS STATEMENT
+
+This paper aims to extract generalizable interaction primitives that are shared by different DNNs.
+This paper utilizes publicly released datasets which have been widely accepted by the machine learn-
+ing community. This paper does not involve human subjects and does not include potentially harm-
+ful insights, methods, or applications.  The paper also does not involve discrimination/bias/fairness
+issues, as well as privacy and security issues. There are no ethical issues with this paper.
+
+REPRODUCIBILITY STATEMENT
+
+We provide proofs for the theoretical results of this study in Appendix C to D. We also provide
+experimental details in Section 3 and Appendix O.
+
+REFERENCES
+BAAI. Aquila-7b. 2023. URL https://huggingface.co/BAAI/Aquila-7B.
+
+David Bau, Bolei Zhou, Aditya Khosla, Aude Oliva, and Antonio Torralba.   Network dissection:
+  Quantifying interpretability of deep visual representations.  In Proceedings of the IEEE Confer-
+  ence on Computer Vision and Pattern Recognition, pp. 6541–6549, 2017.
+
+Huiqi Deng, Qihan Ren, Hao Zhang, and Quanshi Zhang. Discovering and explaining the represen-
+  tation bottleneck of dnns. In International Conference on Learning Representations, 2022.
+
+Huiqi Deng, Na Zou, Mengnan Du, Weifu Chen, Guocan Feng, Ziwei Yang, Zheyang Li, and Quan-
+  shi Zhang.  Unifying fourteen post-hoc attribution methods with taylor interactions.  IEEE Trans-
+  actions on Pattern Analysis and Machine Intelligence, 2024.
+
+Jacob Devlin, Ming-Wei Chang, Kenton Lee, and Kristina Toutanova.  Bert:  Pre-training of deep
+  bidirectional transformers for language understanding. Proceedings of NAACL-HLT, 2019.
+Amil Dravid, Yossi Gandelsman, Alexei A. Efros, and Assaf Shocher. Rosetta neurons: Mining the
+  common units in a model zoo. IEEE International Conference on Computer Vision, 2023.
+
+John C Harsanyi.  A simplified bargaining model for the n-person cooperative game.  International
+  Economic Review, 4(2):194–220, 1963.
+
+Kaiming He, Xiangyu Zhang, Shaoqing Ren, and Jian Sun. Deep residual learning for image recog-
+  nition. In Proceedings of the IEEE Conference on Computer Vision and Pattern Recognition, pp.
+  770–778, 2016.
+
+Been Kim,  Martin Wattenberg,  Justin Gilmer,  Carrie Cai,  James Wexler,  Fernanda Viegas,  et al.
+  Interpretability beyond feature attribution:  Quantitative testing with concept activation vectors
+  (tcav). In International Conference on Machine Learning, pp. 2668–2677. PMLR, 2018.
+
+Yann LeCun.   The mnist database of handwritten digits.   1998.   URL http://yann.lecun.
+  com/exdb/mnist/.
+
+Mingjie Li and Quanshi Zhang.  Technical note:  Defining and quantifying and-or interactions for
+  faithful and concise explanation of dnns. arXiv preprint arXiv:2304.13312, 2023a.
+Mingjie Li and Quanshi Zhang.  Does a neural network really encode symbolic concept?  Interna-
+  tional Conference on Machine Learning, 2023b.
+
+
+                                                         10
+
+=== PDF PAGE 11 ===
+Published as a conference paper at ICLR 2024
+
+
+
+
+Dongrui Liu, Huiqi Deng, Xu Cheng, Qihan Ren, Kangrui Wang, and Quanshi Zhang.   Towards
+  the difficulty for a deep neural network to learn concepts of different complexities.  Advances in
+  Neural Information Processing Systems, 2024.
+Ramprasaath R. Selvaraju, Michael Cogswell, Abhishek Das, Ramakrishna Vedantam, Devi Parikh,
+  and Dhruv Batra.  Grad-cam:  Visual explanations from deep networks via gradient-based local-
+  ization. International Conference on Computer Vision, 2017.
+Pranav Rajpurkar, Jian Zhang, Konstantin Lopyrev, and Percy Liang.  Squad:  100,000+ questions
+  for machine comprehension of text. arXiv preprint arXiv:1606.05250, 2016.
+Jie Ren, Mingjie Li, Qirui Chen, Huiqi Deng, and Quanshi Zhang.  Defining and quantifying the
+  emergence of sparse concepts in dnns. IEEE Conference on Computer Vision and Pattern Recog-
+  nition, 2023a.
+Jie Ren, Zhanpeng Zhou, Qirui Chen, and Quanshi Zhang. Can we faithfully represent masked states
+  to compute shapley values on a dnn?  In International Conference on Learning Representations,
+  2023b.
+Qihan Ren, Huiqi Deng, Yunuo Chen, Siyu Lou, and Quanshi Zhang.  Bayesian neural networks
+  avoid encoding perturbation-sensitive and complex concepts.  International Conference on Ma-
+  chine Learning, 2023c.
+Qihan Ren, Jiayang Gao, Wen Shen, and Quanshi Zhang.  Where we have arrived in proving the
+  emergence of sparse interaction primitives in dnns. International Conference on Learning Repre-
+  sentations, 2024.
+Wen Shen, Lei Cheng, Yuxiao Yang, Mingjie Li, and Quanshi Zhang.  Can the inference logic of
+  large language models be disentangled into symbolic concepts? arXiv preprint arXiv:2304.01083,
+  2023.
+Karen Simonyan and Andrew Zisserman.  Very deep convolutional networks for large-scale image
+  recognition. International Conference on Learning Representations, 2015.
+Karen Simonyan, Andrea Vedaldi, and Andrew Zisserman. Deep inside convolutional networks: Vi-
+  sualising image classification models and saliency maps. arXiv preprint arXiv:1312.6034, 2013.
+Richard Socher, Alex Perelygin, Jean Wu, Jason Chuang, Christopher D Manning, Andrew Y Ng,
+  and Christopher Potts.   Recursive deep models for semantic compositionality over a sentiment
+  treebank.  In Proceedings of the 2013 conference on empirical methods in natural language pro-
+  cessing, pp. 1631–1642, 2013.
+Hugo Touvron, Thibaut Lavril, Gautier Izacard, Xavier Martinet, Marie-Anne Lachaux, Timoth´ee
+  Lacroix, Baptiste Rozi`ere, Naman Goyal, Eric Hambro, Faisal Azhar, et al.  Llama:  Open and
+  efficient foundation language models. arXiv preprint arXiv:2302.13971, 2023.
+Jason Yosinski, Jeff Clune, Anh Nguyen, Thomas Fuchs, and Hod Lipson.  Understanding neural
+  networks through deep visualization. International Conference on Machine Learning, 2015.
+Quanshi Zhang,  Xin Wang,  Jie Ren,  Xu Cheng,  Shuyun Lin,  Yisen Wang,  and Xiangming Zhu.
+  Proving common mechanisms shared by twelve methods of boosting adversarial transferability.
+  arXiv preprint arXiv:2207.11694, 2022a.
+Susan Zhang, Stephen Roller, Naman Goyal, Mikel Artetxe, Moya Chen, Shuohui Chen, Christo-
+  pher Dewan,  Mona Diab,  Xian Li,  Xi Victoria Lin,  et al.   Opt:  Open pre-trained transformer
+  language models. arXiv preprint arXiv:2205.01068, 2022b.
+Huilin Zhou, Huijie Tang, Mingjie Li, Hao Zhang, Zhenyu Liu, and Quanshi Zhang.  Explaining
+  how a neural network play the go game and let people learn.  arXiv preprint arXiv:2310.09838,
+  2023.
+Huilin Zhou, Hao Zhang, Huiqi Deng, Dongrui Liu, Wen Shen, Shih-Han Chan, and Quanshi Zhang.
+  Explaining generalization power of a dnn using interactive concepts.   The Association for the
+  Advancement of Artificial Intelligence, 2024.
+
+
+                                                         11
+
+=== PDF PAGE 12 ===
+Published as a conference paper at ICLR 2024
+
+
+
+A    PREVIOUS LITERATURE OF USING INTERACTIONS TO EXPLAIN DNNS
+
+Explaining the knowledge encoded by DNNs is one of the ultimate goals of explainable AI but
+presents significant challenges.   For instance,  some studies employed visualization techniques to
+show the patterns learned by a DNN (Simonyan et al., 2013; Yosinski et al., 2015), and some focused
+on extracting feature vectors that may be associated with semantic concepts (Simonyan et al., 2013),
+while some studies learned feature vectors potentially related to concepts (Kim et al., 2018).Dravid
+et al. (2023) identified convolutional kernels in different DNNs that expressed similar concepts.
+However,  theoretically,  whether the knowledge or the complex inference logic of a DNN can be
+faithfully represented as symbolic primitive inference patterns still presents significant challenges.
+Up to now, there is still no universally accepted definition of the knowledge, as it encompasses var-
+ious aspects of cognitive science, neuroscience, and mathematics.  However, if we ignore cognitive
+and neuroscience aspects, Ren et al. (2023a) have proposed to quantify interactions between input
+variables encoded by the DNN, to explain the knowledge in the DNN. More crucially, Ren et al.
+(2024) have derived several theorems as mathematical evidence of considering such interactions as
+primitive inference patterns encoded by a DNN. Specifically, Ren et al. (2024) proved that DNNs
+usually only encoded a small number of interactions, under some common conditions2.  Besides,
+these interactions can universally explain the DNN’s output score on any arbitrary masked input
+samples. Li & Zhang (2023b) further discovered the discriminative power of certain interactions.
+Besides, Deng et al. (2024) found that different attribution scores estimated by different attribution
+methods could all be represented as a combination of different interactions.   Zhang et al. (2022a)
+used interactions to explain the mechanism of different methods of boosting adversarial transferabil-
+ity. Ren et al. (2023b) used interactions to define the optimal baseline value for computing Shapley
+values.  Deng et al. (2022) found that for most DNNs it was difficult to learn interactions with me-
+dian number of input variables,  and it was discovered that DNNs and Bayesian neural networks
+were unlikely to model complex interactions with many input variables (Ren et al., 2023c; Liu et al.,
+2024).   Zhou  et  al.  (2024)  used  the  generalization  power  of  different  interactions  to  explain  the
+generalization power of DNNs.
+
+B    THE CONDITIONS FOR UNIVERSAL MATCHING  OF THE DNN  OUTPUT
+
+Ren et al. (2024) have proved that a well-trained DNN usually just encodes a limited number of
+interactions. More importantly, one can just use a few interactions to approximate the DNN’s outputs
+on all 2n masked samples{xS|S⊆ N}, under the following three common assumptions.  (1) The
+high order derivatives of the DNN output with respect to the input variables are all zero.  (2) The
+DNN works well on the masked samples, and yield higher confidence when the input sample is less
+masked.  (3) The confidence of the DNN does not drop significantly on the masked samples.  With
+these natural assumptions, a well-trained DNN’s output on all 2n masked samples can be universally
+approximated by the sum of just a few salient interactions in Ω, s.t.,|Ω|≪ 2n.
+
+C    PROOF OF THEOREMS
+
+Theorem 2 (Universal matching theorem) Let us be given a DNNv and an input sample x. For each
+randomly masked sample xT ,T⊆N, we obtain
+
+       v(xT ) =vand(xT ) +vor(xT ) = XS⊆TIand(S|xT ) +XS∈{S:S∩T̸=∅}∪{∅}Ior(S|xT ).     (7)
+
+
+Proof.  (1) Universal matching theorem of AND interactions.
+Ren et al. (2023a) have used the Haranyi dividend (Harsanyi, 1963)Iand(S|x) to state the universal
+matching theorem of AND interactions. The output of a well-trained DNN on all 2n masked samples
+{xT|T ⊆ N}  could  be  universally  explained  by  the  all  interaction  primitives  in T ⊆ N,  i.e.,
+∀T⊆N,vand(xT ) = PS⊆TIand(S|x).
+
+Specifically,   the   AND   interaction   is   defined   as Iand(S|x)    :=  PL⊆S(−1)|S|−|L|vand(xL)
+in  Equation  (1).    To  compute  the  sum  of  AND  interactions ∀T ⊆ N,PS⊆TIand(S|x)   =
+
+
+                                                          12
+
+=== PDF PAGE 13 ===
+Published as a conference paper at ICLR 2024
+
+
+
+P       P
+   S⊆T     L⊆S(−1)|S|−|L|vand(xL),  we  first  exchange  the  order  of  summation  of  the  set L ⊆
+S ⊆ T  and  the  set S ⊇ L.   That  is,  we  compute  all  linear  combinations  of  all  sets S  con-
+taining L  with  respect  to  the  model  outputs vand(xL)  given  a  set  of  input  variables L,  i.e.,
+P
+   S:L⊆S⊆T (−1)|S|−|L|vand(xL). Then, we compute all summations over the setL⊆T .
+In this way, we can compute them separately for different cases ofL⊆ S⊆ T .  In the following,
+we consider the cases (1)L =S =T , and (2)L⊆S⊆T,L̸=T , respectively.
+(1) When L  = S  = T , the linear combination of all subsets S  containing L with respect to the
+model outputvand(xL) is (−1)|T|−|T|vand(xL) =vand(xL).
+(2) WhenL⊆ S⊆ T,L̸= T , the linear combination of all subsetsS containingL with respect
+to the model output vand(xL) is PS:L⊆S⊆T (−1)|S|−|L|vand(xL).  For all sets S  : T ⊇ S ⊇ L,
+let us consider the linear combinations of all setsS with number|S| for the model outputvand(xL),
+respectively. Letm :=|S|−|L|, (0≤m≤|T|−|L|), then there are a total ofCm|T|−|L| combinations
+of all setsS of order|S|.  Thus, givenL, accumulating the model outputsvand(xL) corresponding
+to allS⊇ L, then PS:L⊆S⊆T (−1)|S|−|L|vand(xL) = vand(xL)· X|T|−|L|m=0  Cm|T|−|L|(−1)m                       = 0.
+                                                                             |             {z             }
+                                                                                          =0
+Please see the complete derivation of the following formula.
+
+        X                                   X
+
+            S⊆TIand(S|xT ) = XS⊆T           XL⊆S(−1)|S|−|L|vand(xL)
+                               = XL⊆T           S:L⊆S⊆T (−1)|S|−|L|vand(xL)
+                               =vand(xT )+X                                                                   (8)
+                                  |   {z   }        L⊆T,L̸=Tvand(xL)· X|T|−|L||m=0  Cm|T|−|L|(−1)m{z    }
+                                     L=T                                                 =0
+                               =vand(xT ).
+
+
+(2) Universal matching theorem of OR interactions.
+According to the definition of OR interactions in Section 2.1, we will derive that∀T⊆N,vor(xT ) =
+P
+   S∈{S:S∩T̸=∅}∪{∅}Ior(S|xT ) =Ior(∅|xT ) + PS:S∩T̸=∅Ior(S|xT ), s.t.,Ior(∅|xT ) =vor(x∅).
+Specifically,   the  OR  interaction  is  defined  as Ior(S|x)   := −PL⊆S(−1)|S|−|L|vor(xN\L)
+in  Equation  (2).    Similar  to  the  above  derivation  of  the  universal  matching  theorem  of  AND
+interactions,   to  compute  the  sum  of  OR  interactions ∀T ⊆ N,Phi                 S:S∩T̸=∅Ior(S|xT )   =
+P             −P                                    , we first exchange the order of summation of the set
+   S:S∩T̸=∅         L⊆S(−1)|S|−|L|vor(xN\L)
+L⊆ S⊆ N  and the setS  : S∩T ̸=∅.  That is, we compute all linear combinations of all sets
+S containingL with respect to the model outputsvor(xN\L) given a set of input variablesL, i.e.,
+P
+   S:S∩T̸=∅,S⊇L(−1)|S|−|L|vor(xN\L). Then, we compute all summations over the setL⊆N.
+In this way, we can compute them separately for different cases ofL⊆ S⊆ N,S∩T ̸=∅.  In
+the following, we consider the cases (1)L = N\T , (2)L = N, (3)L∩T̸=∅,L̸= N, and (4)
+L∩T  =∅,L̸=N\T , respectively.
+(1) WhenL =N\T , the linear combination of all subsetsS containingL with respect to the model
+outputvor(xN\L) is PS:S∩T̸=∅,S⊇L(−1)|S|−|L|vor(xN\L) = PS:S∩T̸=∅,S⊇L(−1)|S|−|L|vor(xT ).
+For  all  sets S   : S ⊇ L,S∩ T ̸= ∅  (then S ̸= N\ T,S ̸= L),  let  us  consider  the  lin-
+ear combinations of all sets S  with number|S| for the model output vor(xT ),  respectively.   Let
+|S′| :=|S|−|L|, (1≤|S′|≤|T|), then there are a total ofC|S′||T|   combinations of all setsS  of
+order|S|. Thus, givenL, accumulating the model outputsvor(xT ) corresponding to allS⊇L, then
+P                                                                                      =−vor(xT ).
+   S:S∩T̸=∅,S⊇L(−1)|S|−|L|vor(xN\L) =vor(xT )· X|T||S′|=1C|S′||T| (−1)|S′|
+                                                           |           {z            }
+                                                                      =−1
+
+                                                       13
+
+=== PDF PAGE 14 ===
+Published as a conference paper at ICLR 2024
+
+
+
+
+(2) WhenL =N  (thenS =N), the linear combination of all subsetsS containingL with respect
+to the model outputvor(xN\L) is PS:S∩T̸=∅,S⊇L(−1)|S|−|L|vor(xN\L) = (−1)|N|−|N|vor(x∅) =
+vor(x∅).
+(3)  When L∩ T ̸= ∅,L ̸= N,  the  linear  combination  of  all  subsets S  containing L  with
+respect  to  the  model  output vor(xN\L)  is PS:S∩T̸=∅,S⊇L(−1)|S|−|L|vor(xN\L).    For  all  sets
+S   : S ⊇ L,S∩ T ̸= ∅,  let  us  consider  the  linear  combinations  of  all  sets S  with  num-
+ber|S|  for  the  model  output vor(xT ),  respectively.   Let  us  split|S|−|L|  into|S′|  and|S′′|,
+i.e.,|S|−|L| =|S′| +|S′′|, whereS′ ={i|i∈S,i /∈L,i∈N\T},S′′ ={i|i∈S,i /∈L,i∈T}
+(then 0 ≤ |S′′| ≤ |T|−|T∩ L|)  and S′ + S′′ + L  = S.   In  this  way,  there  are  a  total  of
+C|S′′||T|−|T∩L|  combinations  of  all  sets S′′  of  order|S′′|.   Thus,  given L,  accumulating  the  model
+outputs vor(xN\L)  corresponding  to  all S ⊇ L,  then PX|T|−|T∩L|   S:S∩T̸=∅,S⊇L(−1)|S|−|L|vor(xN\L)  =
+vor(xN\L)· PS′⊆N\T\L             |S′′|=0  C|S′′||T|−|T∩L|(−1)|S′|+|S′′|    = 0.
+                             |                    {z                     }
+                                                  =0
+(4)  When L∩T  = ∅,L ̸= N\T ,  the  linear  combination  of  all  subsets S  containing L  with
+respect to the model outputvor(xN\L) is PS:S∩T̸=∅,S⊇L(−1)|S|−|L|vor(xN\L).  Similarly, let us
+split|S|−|L| into|S′| and|S′′|, i.e.,|S|−|L| =|S′|+|S′′|, whereS′ ={i|i∈S,i /∈L,i∈N\T},
+S′′ ={i|i∈S,i∈T} (then 0≤|S′′|≤|T|) andS′ +S′′ +L =S. In this way, there are a total
+ofC|S′′||T|   combinations of all setsS′′ of order|S′′|. Thus, givenL, accumulating the model outputs
+vor(xN\L) corresponding to allS⊇ L, then PX|T|         S:S∩T̸=∅,S⊇L(−1)|S|−|L|vor(xN\L) = vor(xN\L)·
+P                                                 = 0.
+   S′⊆N\T\L        |S′′|=0C|S′′||T|  (−1)|S′|+|S′′|
+               |               {z               }
+                               =0
+Please see the complete derivation of the following formula.
+
+X                                        h                                   i
+    S:S∩T̸=∅Ior(S|xT ) = XS:S∩T̸=∅        −XL⊆S(−1)|S|−|L|vor(xN\L)
+                                        X
+                         =−XL⊆N            S:S∩T̸=∅,S⊇L(−1)|S|−|L|vor(xN\L)
+                                                    
+                                  |T|X
+                         =−           C|S′||T| (−1)|S′|·vor(xT )|{z}−vor(x∅)|{z}
+
+                                |S′|=1                   L=N\T        L=N
+                                                                                              
+                                                           |T|−|T∩L|X
+                           −    X             X                    C|S′′||T|−|T∩L|(−1)|S′|+|S′′|·vor(xN\L)
+
+                              L∩T̸=∅,L̸=N    S′⊆N\T\L       |S′′|=0
+                                                                                        
+                                                               |T|X
+                           −      X              X                C|S′′||T|  (−1)|S′|+|S′′|·vor(xN\L)
+
+                              L∩T=∅,L̸=N\T      S′⊆N\T\L     |S′′|=0
+                                                                                      
+                         =−(−1)·vor(xT )−vor(x∅)−    X                      X        0·vor(xN\L)
+
+                                                            L∩T̸=∅,L̸=N    S′⊆N\T\L
+                                                           
+                           −      X              X        0·vor(xN\L)
+
+                              L∩T=∅,L̸=N\T      S′⊆N\T\L
+                         =vor(xT )−vor(x∅)
+                                                                                                               (9)
+(3) Universal matching theorem of AND-OR interactions.
+With  the  universal  matching  theorem  of  AND  interactions  and  the  universal  matching  theorem
+of  OR  interactions,  we  can  easily  get v(xT )  = vand(xT ) + vor(xT )  = PS⊆TIand(S|xT ) +
+P
+   S∈{S:S∩T̸=∅}∪{∅}Ior(S|xT ),  thus,  we  obtain  the  universal  matching  theorem  of  AND-OR  in-
+teractions.
+
+
+                                                       14
+
+=== PDF PAGE 15 ===
+Published as a conference paper at ICLR 2024
+
+
+
+
+
+
+
+Theorem 3 (proved by Harsanyi (1963)).  The Shapley value ϕ(i) of an input variable i can be
+explained as a uniform allocation of the AND interactions, i.e.,ϕ(i) = PS⊆N:S∋i   1|S|Iand(S|x).
+
+D    PROOF OF THE VARIANCE OF AND  AND OR INTERACTIONS
+
+In this section, we prove that the variance ofI′(i)and (T ) caused by the Gaussian noisesϵ(i)T ∼N (0,σ2)
+is EϵT∼N(0,σ2)[I′(i)and (T )−E∀S,ϵS∼N(0,σ2)I′(i)and (S)]2 = 2|T|σ2 in Section 2.3.2.
+
+
+Proof.  Given I′(i)and (T )    =  I(i)and(T )  + PT′⊆T (−1)|T|−|T′|ϵ(i)T′ ,   the   variance   of I′(i)and (T )   is
+Var(I′(i)and (T )) = Var(I(i)and(T ) + PT′⊆T (−1)|T|−|T′|ϵ(i)T′ ).  As the AND interactionI(i)and(T ) and the
+Gaussian noiseϵ(i)T   are independent of each other, then the variance ofI′(i)and (T ) can be decomposed
+to Var(I′(i)and (T )) = Var(I(i)and(T )) + Var(PT′⊆T (−1)|T|−|T′|ϵ(i)T′ ) = Var(PT′⊆T (−1)|T|−|T′|ϵ(i)T′ ),
+this is because hereI(i)and(T ) can be regarded as a constant.
+
+Since each Gaussian noise ϵ(i)T ∼N (0,σ2),∀T ⊆ N  is independent and identically distributed,
+then the variance is Var(I′(i)and (T )) = Var(PT′⊆T (−1)|T|−|T′|ϵ(i)T′ ) = Var(ϵ(i)T′1 ) + Var(ϵ(i)T′2 ) +··· +
+Var(ϵ(i)T′
+       2|T| ) = 2|T|·σ2 (there are a total of 2|T| subsets forT′⊆T ).
+
+E    THE FAITHFULNESS OF THE SPARSITY AND UNIVERSAL-MATCHING.
+
+This section further demonstrates the faithfulness of the sparsity and universal-matching theorem of
+AND-OR interactions, both theoretically and experimentally.
+Theoretically,  the faithfulness of the sparsity and universal-matching theorem of AND-OR inter-
+actions means that, given an input sample withn variables, we must prove that (1) a well-trained
+DNN usually just encodes a small number of salient interactions Ω (Ren et al., 2024), comparing
+with all 2n potential combinations of the input variables in a given input sample, i.e.,|Ω|≪ 2n, and
+that (2) the network outputv(xS) on all 2n randomly masked samples{xS|S⊆ N} can be well
+matched by a few interactions in Ω  ={S⊆ N  :|I(S|x)| > τ} as defined in the Definition of
+interaction primitives in Section 2.1.  These two terms have been proved in Theorem 1, Theorem 2
+and Proposition 1.
+Then, in practice, considering the 2n  computational complexity, we have followed settings in (Li
+& Zhang, 2023b) to extract interactions between a set of randomly selected input variables N  =
+{1, 2,...,t}, (t<n), while other unselected (n−t) input variables remain unmasked, leaving the
+original state unchanged. In this case, faithfulness does not mean that our interactions explain all the
+inference logic encoded between alln input variables for a given samplex in the pre-trained DNN.
+Instead, it only means that the extracted interactions can also accurately match the inference logic
+encoded between the selectedt input variables for a given samplex in the DNN.
+Experimental verification.   In addition,  we have further conducted an experiment to verify the
+faithfulness when we explain interactions between all input variables.  To this end, for the senti-
+ment classification task on the SST-2 dataset in BERTBASE,  we selected sentences containing 15
+tokens to verify the faithfulness of the sparsity in Proposition 1 and the universal-matching prop-
+erty in Theorem 2.   All tokens are selected as input variables.   We focused on the matching er-
+rors  for  all  masked  samples xT,∀T ⊆ N.   Specifically,  we  observed  whether  the  real  network
+output  on  the  masked  sample v(xT ),∀T ⊆ N  can  be  well  approximated  by  interactions.   We
+have verified that the extracted salient interactions in Ω faithfully explain the network output, i.e.,
+∀T ⊆ N,v(xT )≈ v(x∅) + P∅̸=S⊆T:S∈ΩandIand(S|xT ) + PS∩T̸=∅:S∈ΩorIor(S|xT ). Figure 6 il-
+lustrates that network outputv(xT ),∀T⊆N on all 2n randomly masked samples can be well fitted
+by interactions.
+
+
+                                                          15
+
+=== PDF PAGE 16 ===
+Published as a conference paper at ICLR 2024
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+Figure 6:Universal matching of all interaction primitives to the DNN’s output, when we use salient
+interactions to match the DNN’s output. Shade area indicates the matching error of differentv(xT ).
+
+F    DETAILED EXPLANATION OF EQUATION (6)
+
+This  section  uses  a  simple  example  to  illustrate  Equation  (6)  more  clearly.    Let  us  illustrate
+how  the  interaction  matrices  are  formatted  in  a  toy  example.   Let  us  consider  two  pre-trained
+DNNs v(1), v(2)  and  an  input  sample x  with N   = {1, 2}  variables,  and  take  the  AND  in-
+teraction  matrix               I  and  in  Equation  (6)  as  an  example  (the  OR  interaction  matrix               I  or  can  be  ob-
+tained  similarly).   First,  we  get  all  22  AND  interactions  extracted  from  the i-th  model I(i)and  =
+[Iand(T1|x),Iand(T2|x),Iand(T3|x),Iand(T4|x)]⊺ ∈  R22,  according  to  the  description  of  Equa-
+tion (4).  Here, each interaction value Iand(Tk|x)∈ R,Tk ⊆ N  denotes the interaction value of
+each masked sample xTk, which is computed according to Equation (1).  Second, the AND inter-hi
+action matrix          I  and =I(1)and, I(2)and∈ R22×2 represents the interaction values corresponding to the 22
+masked samples for each of the two models.
+Let us illustrate how to learn the parameter γ(i)T    in Equation (6).  The loss in Equation (6) in the
+above example can be represented as the function of{γT}, as follows.
+
+
+
+Loss = min{γ(1)
+                 Tk,γ(2)Tk} (∥rowmax(I   and)∥1 +∥rowmax(I   or)∥1) +α (∥I   and∥1 +∥I   or∥1)
+      = min{γ(1)            X    | max(X
+
+                 Tk,γ(2)Tk}                  T⊆S(−1)|S|−|T|[0.5·v(1)(xTk) +γ(1)Tk ],XT⊆S(−1)|S|−|T|[0.5·v(2)(xTk) +γ(2)Tk ])|
+                          Tk⊆N
+      + X       | max(−XT⊆S(−1)|S|−|T|[0.5·v(1)(xN\Tk)−γ(1)Tk ],−XT⊆S(−1)|S|−|T|[0.5·v(2)(xN\Tk)−γ(2)Tk ])|
+         Tk⊆N
+
+                     2X
+      +α· X              |XT⊆S(−1)|S|−|T|[0.5·v(i)(xTk) +γ(i)Tk ]|
+             Tk⊆N   i=1
+
+                     2X
+      +α· X              |− XT⊆S(−1)|S|−|T|[0.5·v(i)(xN\Tk)−γ(i)Tk ])|.
+             Tk⊆N   i=1
+                                                                                                                      (10)
+Therefore, we only need to optimize{γ(1)Tk,γ(2)Tk} via gradient descent to reduce the loss in Equa-
+tion (6).
+
+
+
+G    THE RUN-TIME COMPLEXITY
+
+This section explores the run-time complexity of extracting AND-OR interactions on different tasks.
+Theoretically, given an input sample withn input variables, the time complexity is 2n, and we need
+to generate masked samples for model inference.  Fortunately, the variable number is not too large
+by  following  the  settings  in  (Li  &  Zhang,  2023b)  and  (Shen  et  al.,  2023).   In  real  applications,
+
+
+                                                            16
+
+=== PDF PAGE 17 ===
+Published as a conference paper at ICLR 2024
+
+
+
+
+                          Table 1:Average run-time per sample on different tasks.
+
+           sentiment classification                   dialogue task                 image classification
+             on the SST-2 dataset               on the SQuAD dataset               on the MNIST dataset
+           w.r.t. the pair of models           w.r.t. the pair of models          w.r.t. the pair of models
+       (BERTBASE and BERTLARGE)                (LLaMA and OPT-1.3B)              (ResNet-20 and VGG-16)
+                45.14 seconds                          46.61 seconds                       27.15 seconds
+
+
+
+the average running time for a sentence in the SST-2 dataset on the BERTLARGE  model is 45.14
+seconds. Table 1 further shows the average running time of each input sample for different tasks.
+
+
+H    MORE BASELINE TO  VERIFY THE EFFECTIVENESS OF EQUATION (6)
+
+
+To further verify the effectiveness of the interactions extracted from Equation (6),  we conducted
+experiments on more baseline,  namely the original Harsanyi interaction (Ren et al., 2023a).   We
+compared the sparsity and the generalization power of the AND interactions extracted from different
+DNNs. Figure 7 shows that the interactions extracted by our method exhibit higher sparsity and
+generalization power compared to the original AND interactions.
+To enable fair comparisons, we double the number of Harsanyi interactions extracted from a sample
+by  setting I′(S|x)  = I(S|x).   Thus,  we  congregate  both  sets  of  interactions  (a  total  of 2· 2n
+interactions)  to  draw  a  curve  in  Figure  2  and  Figure  3.   In  this  way,  we  can  compare  the  same
+number of interactions over different methods.
+
+
+
+
+
+
+
+
+
+
+
+
+
+Figure 7:Comparing the sparsity and generalization power of the extracted interactions between the
+original Harsanyi interactions and our proposed method.
+
+
+
+
+I    ABLATION STUDY OF THE PARAMETER α IN EQUATION (6)
+
+
+To explore the effect ofα on the AND-OR interactions extracted from Equation (6), we conducted
+an ablation study on α.  Specifically, we jointly extracted two sets of AND-OR interactions from
+the BERTBASE  and BERTLARGE  models,  which were trained by (Devlin et al., 2019) and further
+finetuned by us for sentiment classification on the SST-2 dataset.  For comparison, we set the value
+ofα to [0, 0.2, 0.4, 0.6, 0.8, 1.0], respectively.  Here, whenα = 0, Equation (6) degenerated into
+Equation (5), indicating that only the largest interactions among them DNNs were penalized.  As
+α increases, the effects of not-so-salient interactions in other models were taken into account.  Fig-
+ure 8 shows that as the value ofα increases, the sparsity of the extracted interactions did not increase
+too much, but the generalization power of the extracted interactions decreased.  This shows the ef-
+
+
+                                                          17
+
+=== PDF PAGE 18 ===
+Published as a conference paper at ICLR 2024
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+Figure 8:Effect of  α on the AND-OR interactions extracted from Equation (6).  (a) Strength of all
+interactions extracted from all samples, which were sorted in a descending order.  The increase of
+differentα value did not significantly affect the sparsity of interactions. (b) Decreasing generaliza-
+tion power of extracted AND-OR interactions, when theα value increased.
+
+
+fectiveness of the penalty in Equation (5) in boosting the generalization power without significantly
+hurting the sparsity.
+J    VISUALIZATION OF MORE SHARED AND  DISTINCTIVE INTERACTION
+     PRIMITIVES FOR FIGURE 5
+
+In this section, we visualized all shared and distinctive interaction primitives across different DNNs
+in Figure 5.  Specifically, we randomly selected 10 tokens in the given sentence, labeling these 10
+tokens in red and the other unselected tokens in black.  Here, n  =  10 input variables denote the
+embeddings corresponding to these 10 tokens. Since each input variable has two states, masked and
+unmasked, a total of 210 masked samples are generated. Then, according to Equations (1) and (2), a
+total of 2· 210 AND interactions and OR interactions are finally obtained.
+Then, we extracted the most salientk = 50 interactions from a total of 2· 210 AND interactions and
+OR interactions as the set of AND-OR interaction primitives in each DNN, respectively. Therefore,
+in our proposed method, 25 shared interactions were extracted from both models, and 25 distinctive
+interactions were extracted from the BERTBASE and BERTLARGE models, respectively.  In contrast,
+in the traditional method, 16 shared interactions were extracted from both models, and 34 distinctive
+interactions were extracted from the BERTBASE and BERTLARGE models, respectively.
+In addition, Figure 9 shows the strength of the interaction value|I(S|x)| for each salient interaction.
+Specifically, we show the strength of the interaction value for each distinctive interaction in each
+DNN. We also show the strengths of two interaction values for each shared interaction extracted from
+both DNNs, where the strength of the interaction value on the BERTBASE model is on the left and the
+strength of the interaction value on the BERTLARGE model is on the right. Figure 9 illustrates that,
+our  method  extracted  more  shared  interactions  compared  to  the  traditional  interaction-extraction
+method.
+
+
+
+K    DISCUSSION ON THE DIFFERENCES IN THE SIMILARITY OF INTERACTIONS
+
+This  section  compares  the  consistency  of  interactions  between  different  types  of  DNNs.   Since
+LLaMA (Touvron et al., 2023) and OPT-1.3B (Zhang et al., 2022b) have much more parameters
+than BERTBASE  and BERTLARGE  (Devlin et al., 2019),  it is often widely believed that these two
+LLMs can better converge to the true language knowledge in the training data.
+We can roughly understand this phenomenon by clarifying the following two phenomena.   First,
+through extensive experiments, the authors have found that the learning of a DNN usually has two
+phases,  i.e.,  the learning of new interactions and the forgotten of incorrectly learned interactions
+(this is our on-going research).  In most cases, after the forgetting phase, the remained interactions
+of an LLM are usually shared by other LLMs.  The high similarity of interactions between LLMs
+has also been observed in (Shen et al., 2023).
+
+
+                                                          18
+
+=== PDF PAGE 19 ===
+Published as a conference paper at ICLR 2024
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+      Figure 9:Visualization of more shared and distinctive interaction primitives for Figure 5.
+Second,  compared to LLMs,  relatively small models are less powerful to remove all incorrectly
+learned interactions.  For example, a simple model is usually less powerful to regress a complex
+function. The less powerful models (BERTBASE and BERTLARGE) are not powerful enough to accu-
+rately encode the potentially complex interactions.
+Therefore, small models are more likely to represent various incorrect interactions to approximate
+the true target of the task.   This may partially explains the high difficulty of extracting common
+interactions from two BERT models, as well as why the proposed method shows more improvements
+in the generalization power of interactions on BERT models.
+Experimental verification. To this end, we have further conducted a new experiment to compare the
+interactions extracted from two LLMs, i.e., LLaMA (Touvron et al., 2023) and Aquila-7B (BAAI,
+2023).  As Figure 10 shows, two LLMs usually encode much more similar interactions than two
+not-so-large models. In fact, we have also observed similar interactions in anther pair of LLMs, i.e.,
+LLaMA and OPT-1.3B (Zhang et al., 2022b) (please see Figure 4). This partially explains the reason
+why the performance improvement of these two LLMs is similar to that of LLaMA and OPT-1.3B.
+
+
+L    A  CONCRETE EXAMPLE TO ILLUSTRATE THE PROCEDURE
+
+Let us use a concrete input sentence with six tokens to illustrate the experimental procedure from
+beginning to end.
+Step 1: Given the sentence “A stitch in time saves nine” with six tokens, the six input variables are
+x1 = embedding of token “A”,x2 = embedding of token “stitch”,x3 = embedding of token “in”,
+
+
+                                                         19
+
+=== PDF PAGE 20 ===
+Published as a conference paper at ICLR 2024
+
+
+
+
+
+
+
+
+
+
+
+
+
+                Figure 10:Differences of interactions between different types of DNNs.
+
+
+x4 = embedding of token “time”,x5 = embedding of token “saves”, andx6 = embedding of token
+“nine”.  Although the dimensions of the embedding for the BERTBASE and BERTLARGE models are
+different, we can still compute the interactions between the embeddings corresponding to the same
+token.  Specifically, the embedding xi  of a token in the BERTBASE  model is xi ∈ R768, and the
+embeddingxi of a token in the BERTLARGE model isxi∈ R1024.
+Step 2:  The baseline value for each input variable is b1  = b2  = b3  = b4  = b5  = b6  = special
+embedding of a masked token, where the special embedding of the masked token is encoded by the
+BERTBASE and BERTLARGE model, respectively. This special embedding can use the embedding of a
+special token, e.g., the embedding of the [CLS] token. Specifically, the baselinebi in the BERTBASE
+model isbi∈ R768, and the baselinebi in the BERTLARGE model isbi∈ R1024.
+Step  3:  In  this  case,  there  are  a  total  of 26  masked  samples xT0, xT1, xT2, xT3,··· , xT62, xT63
+used for the model inference.  Specifically, the first masked sample is xT0  ={b1,b2,b3,b4,b5,b6},
+where each of its input variables (embedding) is replaced with the corresponding baseline value
+(embedding of a special token),  i.e., xi  = bi,i∈{1, 2,··· , 6}.   The second masked sample is
+xT1 ={b1,b2,b3,b4,b5,x6}, where its input variablex6 is kept as the original embedding, and the
+other five input variables are replaced with the corresponding baseline values, i.e.,x1  = b1,x2  =
+b2,x3 =b3,x4 =b4,x5 =b5. The third masked sample is xT2 ={b1,b2,b3,b4,x5,b6}, where its
+input variablex5 is kept as the original embedding, and the other five input variables are replaced
+with the corresponding baseline values, i.e., x1  = b1,x2  = b2,x3  = b3,x4  = b4,x6  = b6.  The
+fourth masked sample is xT3 ={b1,b2,b3,b4,x5,x6}, where its input variablesx5 andx6 are kept
+as the original embedding, respectively, and the other four input variables are replaced with the cor-
+responding baseline values.  Similarly, the 63rd masked sample is xT62  ={x1,x2,x3,x4,x5,b6},
+where its input variables x1, x2, x3, x4, x5  are kept as the original embedding, respectively, and
+x6 =b6.  The 64th masked sample is xT63  ={x1,x2,x3,x4,x5,x6}, where all input variables are
+kept unchanged from the original embedding.
+Step 4: For each masked sample xTj,j∈{0, 1,··· , 63}, we computed the log-odds output of the
+ground-truth labelv(xTj) = log  p(y=y truth|xTj )1−p(y=y truth|xTj )∈ R as the model output.  In this way, feeding all
+masked samples xTj  into the BERTBASE model produced a total of 26 model outputsvBASE(xT0),
+vBASE(xT1),··· ,vBASE(xT63).   Feeding all masked samples xTj  into the BERTLARGE  model pro-
+duced a total of 26 model outputsvLARGE(xT0),vLARGE(xT1),··· ,vLARGE(xT63).
+Step 5:  Computed the AND outputs vBASEand   (xTj)  =  0.5vBASE(xTj) +γBASETj  ,j ∈{0, 1,··· , 63}
+and the OR outputsvBASEor     (xTj) = 0.5vBASE(xTj)−γBASETj  ,j∈{0, 1,··· , 63} for the BERTBASE
+model, respectively.  Computed the AND outputsvLARGEand     (xTj) = 0.5vLARGE(xTj) +γLARGETj   ,j∈
+{0, 1,··· , 63} and the OR outputsvLARGEor       (xTj) = 0.5vLARGE(xTj)−γLARGETj   ,j∈{0, 1,··· , 63}
+for the BERTLARGE model, respectively.
+Step  6:   Computed  the  AND  interactions IBASEand   (Tj|x)  =  PT⊆Tj(−1)|Tj|−|T|vBASEand   (xT ),j ∈
+{0, 1,··· , 63} and the OR interactions IBASEor     (Tj|x)  =−PT⊆Tj(−1)|Tj|−|T|vBASEor     (xN\T ),j ∈
+{0, 1,··· , 63}   for   the   BERTBASE   model,   respectively.       Computed   the   AND   interactions
+ILARGEand     (Tj|x)  = PT⊆Tj(−1)|Tj|−|T|vLARGEand     (xT ),j ∈ {0, 1,··· , 63}  and  the  OR  interactions
+ILARGEor       (Tj|x)  = −PT⊆Tj(−1)|Tj|−|T|vLARGEor       (xN\T ),j ∈ {0, 1,··· , 63}  for  the  BERTLARGE
+model, respectively.
+
+
+                                                          20
+
+=== PDF PAGE 21 ===
+Published as a conference paper at ICLR 2024
+
+
+
+
+Table 2:  Diversity of two sets of interactions, which are extracted based on Equation (4) from the
+same models but with different initialized parameters{γT}.
+
+                                           DNNs   Sand   Sor
+                                         BERTBASE      10.90%     16.18%
+                                        BERTLARGE     17.84%     20.90%
+
+
+
+Step 7:  Learned the parametersγBASETj      andγLARGETj   ,j∈{0, 1,··· , 63} using the loss in Equation
+(6). Went back to Step 5 and repeated the iterations until the loss converges.
+Step  8:    Computed  the  final  AND  interactions IBASEand   (Tj|x)  and  the  final  OR  interactions
+IBASEor     (Tj|x),j∈{0, 1,··· , 63} for the BERTBASE model using the learnable parametersγBASETj  ,j∈
+{0, 1,··· , 63}. The final salient interactions of the BERTBASE model are obtained from all 26 inter-
+actions, where the final salient interactions are those with interaction values greater than the thresh-
+oldτ BASE, ΩBASE ={Tj⊆N :|IBASEand/or(Tj|x)|>τ BASE}.
+Computed the final AND interactionsILARGEand     (Tj|x) and the final OR interactionsILARGEor       (Tj|x),j∈
+{0, 1,··· , 63}   for   the   BERTLARGE   model   using   the   learnable   parameters γLARGETj   ,j ∈
+{0, 1,··· , 63}.   The final salient interactions of the BERTLARGE  model are obtained from all 26
+interactions, where the final salient interactions are those with interaction values greater than the
+thresholdτ LARGE, ΩLARGE ={Tj⊆N :|ILARGEand/or  (Tj|x)|>τ LARGE}.
+M    MATCHING PRECISION OF AND-OR INTERACTIONS
+
+In this section, we conducted experiments to show the matching precision of the interactions used for
+matching the network output. Specifically, we extracted traditional AND-OR interaction primitives
+using various DNNs trained on different datasets following the settings in (Li & Zhang, 2023b).P
+Then, we used the metric m  =           P                      S∈{top k interactions}|I(S)|
+
+                                           S∈{top k interactions}|I(S)|+|v(N)−v(∅)−PS∈{top k interactions}I(S)|  to measure
+the matching precision of the salient interactions.  Figure 11 shows the matching precision of the in-
+teractions when we computedm based on different numbersk of most salient interactions. We found
+that only a few salient interactions were required to achieve a relatively high matching precision.
+
+
+
+
+
+
+
+
+
+
+      Figure 11:Matching precision of the interactions used for matching the network output.
+
+
+N    MORE EXPERIMENTS
+
+N.1    OPTIMIZING THE LOSS IN EQUATION (4) MAY LEAD TO DIVERSE SOLUTIONS
+
+In Section 2.3.1, we mentioned that optimizing the loss in Equation (4) may lead to diverse solutions.
+Given different initial states, optimizing the loss in Equation (4) usually extracted two different sets
+of AND-OR interactions.  In particular, as shown in Table 2, when we set the initial state of two
+sets of parameters{γT} as γT ∼ N (0, 1),  the loss in Equation (4) would learned dramatically
+different interactions with only 21% overlap. Figure 12 further shows the top 5 AND-OR interaction
+primitives extracted from BERTLARGE model on an input sentence. Both experiments illustrate that
+given different initial states, the loss in Equation (4) may learn different AND-OR interactions.
+
+
+                                                           21
+
+=== PDF PAGE 22 ===
+Published as a conference paper at ICLR 2024
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+Figure 12: Top 5 AND-OR interaction primitives extracted from BERTLARGE model, when optimiz-
+ing the loss in Equation (4) given different initial states.
+
+N.2    EXAMINING WHETHER THE INTERACTIONS CAN EXPLAIN THE NETWORK OUTPUT
+
+In Section 2.3.2, we mentioned to conduct experiments to examine whether the extracted AND-OR
+interactions could still accurately explain the network output, when we removed the error term. Fig-
+ure 13 shows matching errors of all masked samples for all subsetsT ⊆ N  , when we sorted the
+network outputs for all 2n  masked samples in a descending order.  It shows that the real network
+output was well approximated by interactions.
+
+
+
+
+
+
+
+
+
+
+Figure 13: Universal matching of interaction primitives to the DNN’s output.  Shade area indicates
+the matching error of differentv(xT ).
+
+O    EXPERIMENTAL DETAILS
+
+O.1    PERFORMANCE OF DNNS
+
+In Section 3, we conducted experiments using several DNNs trained on different types of datasets,
+including the language and image datasets.   In the sentiment classification task,  we fintuned the
+pretrained models, BERTBASE and BERTLARGE, using the SST-2 dataset.  For image classification
+task, we trained ResNet-20 and VGG-16 with the MNIST-3 dataset. Table 3 reports the classification
+accuracy of the aforementioned DNNs.  For the dialogue task, we used the pretrained models, the
+LLaMA model and OPT-1.3B model, directly.
+
+Table 3: Classification accuracy of different DNNs in the sentiment classification and image classi-
+fication tasks.
+
+                               Tasks                     dataset                      DNNs
+
+                    sentiment classification       SST-2       BERTBASE     BERTLARGE91.32%           93.26%
+
+                      image classification        MNIST-3     ResNet-20        VGG-16100%              100%
+
+
+O.2    THE SELECTION OF INPUT VARIABLES FOR INTERACTION EXTRACTION
+
+This section discusses the selection of input variables for extracting interactions.   As mentioned
+in Section 2.2, given an input sample x withn input variables, we can extracted at most 2n interac-
+
+
+                                                          22
+
+=== PDF PAGE 23 ===
+Published as a conference paper at ICLR 2024
+
+
+
+
+tions. Therefore, the computational cost for extracting interactions increases exponentially with the
+number of input variables. For example, if we take a word in a sentence (or a pixel in an image) as
+an input variable, the computation is usually inapplicable. To alleviate this issue, we followed (Shen
+et al., 2023) to select a set of words as input variables and leave other words as the constant back-
+ground to compute interactions between them.  Specifically,  we selected 8-10 input variables for
+each sample in the three tasks.  We only extracted the interactions between the selected variables,
+leaving the rest of the unselected input variables unchanged as background.
+• For sentences in the SST-2 dataset, we first tokenized the input sentences and selected tokens as
+input variables for 200 samples.  For each sentence in this dataset, some words have no clear se-
+mantics for sentiment classification, i.e., stop words containing dummy words and pronouns, and
+consequently, there is little interaction within their corresponding tokens.  Therefore, we bypassed
+these tokens without clear semantics, and only selected tokens among the remaining semantic to-
+kens.  To facilitate analysis, we randomly selectedn = 10 tokens as input variables for sentences
+with more than 10 semantic tokens. The masking of input variables was performed at the embedding
+level.
+• For sentences in the SQuAD dataset, we took first several words in each document as the input
+sample to the DNN. Specifically, we selected the first 30 words in each document as the input sample
+and the 31st word as the target word, provided that the following conditions were met: 1) The 31st
+word possessed clear semantic meaning, which means that it did not belong to the category of stop
+words. 2) The five words immediately preceding the target word did not constitute sentence-ending
+punctuation marks, such as a full stop. If either of these conditions was not satisfied, we extended the
+initial 30 words until all requirements were fulfilled, and selected the next word as the target word.
+When extracting interactions, we randomly selected a set of n  =  10 words which have semantic
+meanings as input variables. It’s worth noting that a single word can correspond to multiple tokens,
+so when we masked a specific word, we masked all of its corresponding tokens.  The masking of
+input variables was performed at the embedding level.
+• For images in the MNIST-3 dataset, we manually labeled the semantic part for 100 positive sam-
+ples (digit 3) by following (Li & Zhang, 2023b).  For each image in this dataset, most of the pixels
+are black background pixels with no semantic information, and consequently, there is no interaction
+within these black pixels.  Thus, we considered interactions only within foreground pixels.  Specif-
+ically, we divided a whole image into small patches of size 3× 3 and selected n  =  8 patches in
+the foreground of an image as input variables.  Following (Li & Zhang, 2023b), we used the zero
+patches as the baseline values to mask the unselected patchesi∈N\T  in the sample.
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+                                                           23

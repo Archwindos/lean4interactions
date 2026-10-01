@@ -1,0 +1,57 @@
+{
+  "arxiv_id": "1911.09017",
+  "version": "v1",
+  "title": "Towards a Unified Evaluation of Explanation Methods without Ground Truth",
+  "authors": [
+    "Hao Zhang",
+    "Jiayi Chen",
+    "Haotian Xue",
+    "Quanshi Zhang"
+  ],
+  "first_public_date": "2019-11-20T16:44:48Z",
+  "updated": "2019-11-20T16:44:48Z",
+  "journal_ref": null,
+  "source_url": "https://arxiv.org/abs/1911.09017v1",
+  "pdf_url": "https://arxiv.org/pdf/1911.09017v1",
+  "retrieved_at": "2026-09-30T07:03:08.200642+00:00",
+  "attempts": [
+    {
+      "url": "https://arxiv.org/pdf/1911.09017v1",
+      "status": "error",
+      "error": "HTTP Error 406: Not Acceptable"
+    },
+    {
+      "url": "https://export.arxiv.org/pdf/1911.09017v1",
+      "status": "ok",
+      "bytes": 3312876
+    }
+  ],
+  "download_url": "https://export.arxiv.org/pdf/1911.09017v1",
+  "response_headers": {
+    "Connection": "close",
+    "Content-Length": "3312876",
+    "content-disposition": "inline; filename=\"1911.09017v1.pdf\"",
+    "last-modified": "Mon, 23 Jan 2023 02:59:21 GMT",
+    "link": "<https://arxiv.org/pdf/1911.09017>; rel='canonical'",
+    "server": "Google Frontend",
+    "via": "1.1 google, 1.1 varnish, 1.1 varnish, 1.1 varnish, 1.1 varnish, 1.1 varnish",
+    "x-cloud-trace-context": "3957d85eb744f1087a2bc5ee2f9a894e",
+    "content-type": "application/pdf",
+    "etag": "\"sha256:297bffc3268253ea729e952e5ff11a451cc9b84086573aab07eb55d89117b862\"",
+    "access-control-allow-origin": "*",
+    "Accept-Ranges": "bytes",
+    "Age": "0",
+    "Date": "Wed, 30 Sep 2026 07:03:09 GMT",
+    "X-Served-By": "cache-lga-kjfk8660042-LGA, cache-lga-kjfk8660042-LGA, cache-lga-kjfk8660034-LGA, cache-lga-kjfk8660034-LGA, cache-lga-kjfk8660034-LGA, cache-lga-kjfk8660070-LGA, cache-qpg1237-QPG",
+    "X-Cache": "MISS, MISS, MISS, MISS, MISS",
+    "X-Cache-Hits": "0, 0, 0",
+    "X-Timer": "S1790751789.771833,VS0,VE695",
+    "Strict-Transport-Security": "max-age=300"
+  },
+  "local_pdf": "research/paper-survey-20260930/earlier/papers/1911.09017/1911.09017v1.pdf",
+  "sha256": "5ee3e71de231c4f972513e2f07f636663416dfbe9930ccc7b9aa8f2be2ce8696",
+  "total_pages": 21,
+  "first_page": "                                         Preprint\n\n\n\n\n                                         T OWARDS A U NIFIED E VALUATION OF E XPLANATION\n                                         M ETHODS WITHOUT G ROUND T RUTH\n                                          Hao Zhang, Jiayi Chen, Haotian Xue, Quanshi Zhang∗\n                                          Shanghai Jiao Tong University\n\n\n\n                                                                                     A BSTRACT\narXiv:1911.09017v1 [cs.LG] 20 Nov 2019\n\n\n\n\n                                                    This paper proposes a set of criteria to evaluate the objectiveness of explanation\n                                                    methods of neural networks, which is crucial for the development of explainable\n                                                    AI, but it also presents significant challenges. The core challenge is that people\n                                                    usually cannot obtain ground-truth explanations of the neural network. To this\n                                                    end, we design four metrics to evaluate explanation results without ground-truth\n                                                    explanations. Our metrics can be broadly applied to nine benchmark methods of\n                                                    interpreting neural networks, which provides new insights of explanation methods.\n\n\n                                         1   I NTRODUCTION\n\n                                         Nowadays, many methods are proposed to explain the feature representations of a deep neural net-\n                                         work (DNN) in a post-hoc manner. In this research, we limit our attention to existing methods\n                                         of estimating the importance/attribution/saliency of input pixels or intermediate-layer neural units\n                                         w.r.t. the network output (Shrikumar et al., 2016; Lundberg & Lee, 2017; Ribeiro et al., 2016; Binder\n                                         et al., 2016), which present the mainstream of explaining neural networks. To avoid ambiguity, the\n                                         estimated importance/saliency/attribution maps are all termed “attribution maps” in this paper.\n                                         However, some methods usually pursue attribution maps which look reasonable from the perspective\n                                         of human users, instead of objectively reflecting the information processing in the DNN. A trust-\n                                         worthy evaluation of the objectiveness of attribution maps is crucial for the development of deep\n                                         learning and proposes significant challenges to state-of-the-art algorithms.\n                                         Existing metrics (Yang & Kim, 2019; Arras et al., 2019) of evaluating explanation methods have\n                                         certain shortcomings.\n                                         Issue 1, evaluation of the accuracy of a DNN 6= evaluation of the objectiveness of attribution\n                                         maps: Some methods only evaluate whether the visualized attribution map looks reasonable to\n                                         human users, instead of examining whether an attribution map objectively reflects the truth of a\n           ",
+  "status": "downloaded_extracted_requires_manual_review",
+  "automatic_heading_hits": []
+}

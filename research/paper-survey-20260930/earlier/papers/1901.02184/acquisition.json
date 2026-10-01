@@ -1,0 +1,59 @@
+{
+  "arxiv_id": "1901.02184",
+  "version": "v1",
+  "title": "Explaining AlphaGo: Interpreting Contextual Effects in Neural Networks",
+  "authors": [
+    "Zenan Ling",
+    "Haotian Ma",
+    "Yu Yang",
+    "Robert C. Qiu",
+    "Song-Chun Zhu",
+    "Quanshi Zhang"
+  ],
+  "first_public_date": "2019-01-08T07:23:05Z",
+  "updated": "2019-01-08T07:23:05Z",
+  "journal_ref": null,
+  "source_url": "https://arxiv.org/abs/1901.02184v1",
+  "pdf_url": "https://arxiv.org/pdf/1901.02184v1",
+  "retrieved_at": "2026-09-30T07:03:12.570340+00:00",
+  "attempts": [
+    {
+      "url": "https://arxiv.org/pdf/1901.02184v1",
+      "status": "error",
+      "error": "HTTP Error 406: Not Acceptable"
+    },
+    {
+      "url": "https://export.arxiv.org/pdf/1901.02184v1",
+      "status": "ok",
+      "bytes": 6353832
+    }
+  ],
+  "download_url": "https://export.arxiv.org/pdf/1901.02184v1",
+  "response_headers": {
+    "Connection": "close",
+    "Content-Length": "6353832",
+    "content-disposition": "inline; filename=\"1901.02184v1.pdf\"",
+    "last-modified": "Sun, 22 Jan 2023 23:36:30 GMT",
+    "link": "<https://arxiv.org/pdf/1901.02184>; rel='canonical'",
+    "server": "Google Frontend",
+    "via": "1.1 google, 1.1 varnish, 1.1 varnish, 1.1 varnish, 1.1 varnish, 1.1 varnish",
+    "x-cloud-trace-context": "4c478393ffb42e4ce7cc15d7f6465e88",
+    "content-type": "application/pdf",
+    "etag": "\"sha256:11c7eae4317ebf114d3b064601b7d732d0e4ec6fb1f7295fb6d5a39cdfb65258\"",
+    "access-control-allow-origin": "*",
+    "Accept-Ranges": "bytes",
+    "Age": "0",
+    "Date": "Wed, 30 Sep 2026 07:03:13 GMT",
+    "X-Served-By": "cache-lga-kjfk8660034-LGA, cache-lga-kjfk8660034-LGA, cache-lga-kjfk8660046-LGA, cache-lga-kjfk8660046-LGA, cache-lga-kjfk8660046-LGA, cache-lga-kjfk8660078-LGA, cache-sin-wsat1880037-SIN",
+    "X-Cache": "MISS, MISS, MISS, MISS, MISS",
+    "X-Cache-Hits": "0, 0, 0",
+    "X-Timer": "S1790751793.170491,VS0,VE785",
+    "Strict-Transport-Security": "max-age=300"
+  },
+  "local_pdf": "research/paper-survey-20260930/earlier/papers/1901.02184/1901.02184v1.pdf",
+  "sha256": "03bc969ec192e6d40da5e7ef7e2aebccd1f44c776c581215ea43feb176fb5299",
+  "total_pages": 12,
+  "first_page": "                                              Explaining AlphaGo: Interpreting Contextual Effects in Neural Networks\n\n                                            Zenan Ling1,∗ , Haotian Ma2 , Yu Yang3 , Robert C. Qiu1,4 , Song-Chun Zhu3 , and Quanshi Zhang1\n                                                      1\n                                                        Shanghai Jiao Tong University, 2 South China University of Technology,\n                                                   3\n                                                     University of California, Los Angeles, 4 Tennessee Technological University\n\n\n                                                                    Abstract                                             work into a high-dimensional vector, and we treat each\narXiv:1901.02184v1 [cs.CV] 8 Jan 2019\n\n\n\n\n                                                                                                                         dimension as a specific “unit” without ambiguity. As\n                                           In this paper1 , we propose to disentangle and interpret                      we know, a single input unit is usually not informative\n                                        contextual effects that are encoded in a pre-trained deep                        enough to make independent contributions to the net-\n                                        neural network. We use our method to explain the gaming                          work output. Thus, we need to clarify which other in-\n                                        strategy of the alphaGo Zero model. Unlike previous stud-                        put units the target input unit collaborates with to con-\n                                        ies that visualized image appearances corresponding to the                       stitute inference patterns of the neural network, so as\n                                        network output or a neural activation only from a global                         to pass information to high layers.\n                                        perspective, our research aims to clarify how a certain in-\n                                        put unit (dimension) collaborates with other units (dimen-                    • Can we quantitatively measure the significance of\n                                        sions) to constitute inference patterns of the neural network                   above contextual collaborations between the target in-\n                                        and thus contribute to the network output. The analysis of                      put unit and its neighboring units?\n                                        local contextual effects w.r.t. certain input units is of special\n                                        values in real applications. Explaining the logic of the al-                   Method: Therefore, given a pre-trained convolutional\n                                        phaGo Zero model is a typical application. In experiments,                  neural network (CNN), we propose to disentangle contex-\n                                        our method successfully disentangled the rationale of each                  tual effects w.r.t. certain input units.\n                                        move during the Go game.                                                       As shown in Fig. 1, we design two methods to interpret\n                                                              ",
+  "status": "downloaded_extracted_requires_manual_review",
+  "automatic_heading_hits": []
+}

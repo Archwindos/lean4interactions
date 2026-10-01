@@ -1,0 +1,1185 @@
+{
+  "arxiv_id": "2207.11694",
+  "version": "v1",
+  "title": "Proving Common Mechanisms Shared by Twelve Methods of Boosting Adversarial Transferability",
+  "authors": [
+    "Quanshi Zhang",
+    "Xin Wang",
+    "Jie Ren",
+    "Xu Cheng",
+    "Shuyun Lin",
+    "Yisen Wang",
+    "Xiangming Zhu"
+  ],
+  "first_public_date": "2022-07-24T08:36:12Z",
+  "updated": "2022-07-24T08:36:12Z",
+  "journal_ref": null,
+  "source_url": "https://arxiv.org/abs/2207.11694v1",
+  "pdf_url": "https://arxiv.org/pdf/2207.11694v1",
+  "retrieved_at": "2026-09-30T07:02:45.925620+00:00",
+  "attempts": [
+    {
+      "url": "https://arxiv.org/pdf/2207.11694v1",
+      "status": "error",
+      "error": "Truncated body 1048576/2224064"
+    },
+    {
+      "url": "https://export.arxiv.org/pdf/2207.11694v1",
+      "status": "ok",
+      "bytes": 2224064
+    }
+  ],
+  "download_url": "https://export.arxiv.org/pdf/2207.11694v1",
+  "response_headers": {
+    "Connection": "close",
+    "Content-Length": "2224064",
+    "x-cloud-trace-context": "ab41489960de592cc19e5087053818f1",
+    "last-modified": "Mon, 23 Jan 2023 16:13:53 GMT",
+    "via": "1.1 google, 1.1 varnish, 1.1 varnish, 1.1 varnish, 1.1 varnish, 1.1 varnish",
+    "link": "<https://arxiv.org/pdf/2207.11694>; rel='canonical'",
+    "access-control-allow-origin": "*",
+    "content-type": "application/pdf",
+    "etag": "\"sha256:25c476a695d22cf55049b0c8d2270de20499cfaaae3824ff4ea61c238f45153f\"",
+    "content-disposition": "inline; filename=\"2207.11694v1.pdf\"",
+    "server": "Google Frontend",
+    "Accept-Ranges": "bytes",
+    "Age": "147579",
+    "Date": "Wed, 30 Sep 2026 07:02:47 GMT",
+    "X-Served-By": "cache-lga-kjfk8660026-LGA, cache-lga-kjfk8660026-LGA, cache-lga-kjfk8660045-LGA, cache-lga-kjfk8660045-LGA, cache-lga-kjfk8660045-LGA, cache-lga-kjfk8660045-LGA, cache-qpg120093-QPG",
+    "X-Cache": "MISS, HIT, MISS, HIT, HIT",
+    "X-Cache-Hits": "0, 1, 0",
+    "X-Timer": "S1790751767.174911,VS0,VE1",
+    "Strict-Transport-Security": "max-age=300"
+  },
+  "local_pdf": "research/paper-survey-20260930/earlier/papers/2207.11694/2207.11694v1.pdf",
+  "sha256": "b7bc067a0e4c3f5bb060d5c9d1d9b7407f0e0f3916d6b87b292110eb63c1b1e4",
+  "total_pages": 97,
+  "first_page": "                                          Proving Common Mechanisms Shared by Twelve Methods of\n                                                     Boosting Adversarial Transferability\n                                                                 Quanshi Zhang∗†1 , Xin Wang*1 , Jie Ren*1 ,\n                                                        Xu Cheng1 , Shuyun Lin‡1,2 , Yisen Wang3 , and Xiangming Zhu1\n                                                                             1\n                                                                                 Shanghai Jiao Tong University\n                                                                                    2\n                                                                                       Tsinghua University\narXiv:2207.11694v1 [cs.LG] 24 Jul 2022\n\n\n\n\n                                                                                      3\n                                                                                        Peking University\n\n\n                                                                                             Abstract\n                                                    Although many methods have been proposed to enhance the transferability of adversarial\n                                                perturbations, these methods are designed in a heuristic manner, and the essential mechanism\n                                                for improving adversarial transferability is still unclear. This paper summarizes the common\n                                                mechanism shared by twelve previous transferability-boosting methods in a unified view, i.e. these\n                                                methods all reduce game-theoretic interactions between regional adversarial perturbations. To this\n                                                end, we focus on the attacking utility of all interactions between regional adversarial perturbations,\n                                                and we first discover and prove the negative correlation between the adversarial transferability and\n                                                the attacking utility of interactions. Based on this discovery, we theoretically prove and empirically\n                                                verify that twelve previous transferability-boosting methods all reduce interactions between regional\n                                                adversarial perturbations. More crucially, we consider the reduction of interactions as the essential\n                                                reason for the enhancement of adversarial transferability. Furthermore, we design the interaction\n                                                loss to directly penalize interactions between regional adversarial perturbations during attacking.\n                                                Experimental results show that the interaction loss significantly improves the transferability of\n                                                adversarial perturbations.\n\n\n                                         1      Introduction\n                                         Adversarial attacks of deep neural networks (DNNs) has received considerable attention in recent\n                                         years [30, 31, 53, 20, 10, 57]. Adversarial transferability [47, 12] is one of the intriguing properties of\n                                ",
+  "status": "downloaded_extracted_requires_manual_review",
+  "automatic_heading_hits": [
+    {
+      "page": 3,
+      "text": "theoretical proof, we propose a new loss to directly penalize interactions between perturbation units"
+    },
+    {
+      "page": 6,
+      "text": "Please see the supplementary material for the proof. This definition is just the same as the Shapley"
+    },
+    {
+      "page": 6,
+      "text": "Theorem 1. (Decomposing the attacking utility into multi-order interactions, proof in [37]"
+    },
+    {
+      "page": 7,
+      "text": "Before the proof of the negative correlation between adversarial transferability and interactions, let us"
+    },
+    {
+      "page": 7,
+      "text": "Lemma 1. (The closed-form solution to adversarial perturbations, proof in Appendix B.1.)"
+    },
+    {
+      "page": 8,
+      "text": "Corollary 1. (Proof in Appendix B.2.) Let β = αm denote the total adversarial strength. If we use"
+    },
+    {
+      "page": 8,
+      "text": "In this way, Lemma 1 and Corollary 1 show that unlike the single-step attack with the adversarial"
+    },
+    {
+      "page": 8,
+      "text": "in Corollary 1 can also be used to analyze the `2 PGD attack and the `∞ PGD attack [31]. The PGD"
+    },
+    {
+      "page": 8,
+      "text": "Please see Appendix A.4 for the proof."
+    },
+    {
+      "page": 8,
+      "text": "Lemma 2. (The closed-form solution to interactions, proof in Appendix C             P.) For the adversarial"
+    },
+    {
+      "page": 8,
+      "text": "Moreover, according to Corollary 1, if the adversarial perturbation is given as the result of the infinite-"
+    },
+    {
+      "page": 9,
+      "text": "Corollary 2. (Proof in Appendix D.) According to [60], if the loss function Loss(x) for attacking is"
+    },
+    {
+      "page": 9,
+      "text": "Theorem 2. (Multi-step attack generates perturbations with larger interactions than the"
+    },
+    {
+      "page": 9,
+      "text": "single-step attack, proof in Appendix E.) We consider the multi-step attack with infinite steps, i.e.,"
+    },
+    {
+      "page": 9,
+      "text": "δ (multi) =Pδ (∞) defined in Corollary"
+    },
+    {
+      "page": 9,
+      "text": "with larger interactions. Theorem 2 enables us to compare adversarial perturbations between the"
+    },
+    {
+      "page": 9,
+      "text": "Then, Theorem 2 theoretically proves that the multi-step attack usually generates perturbations with"
+    },
+    {
+      "page": 9,
+      "text": "Theorem 3. (Proof in Appendix F.) Under Assumption 3, if the prediction scores   Pon other categories"
+    },
+    {
+      "page": 9,
+      "text": "tion. Theorem 3 shows the negative relationship between the balance of predictions and the interaction"
+    },
+    {
+      "page": 11,
+      "text": "assumptions used in the proof."
+    },
+    {
+      "page": 11,
+      "text": "Proposition 1. (Perturbations of the MI Attack exhibit smaller interactions than perturbations of"
+    },
+    {
+      "page": 11,
+      "text": "the multi-step attack, proof in Appendix G.) According to Eq. (8), the accumulated step size β = αm"
+    },
+    {
+      "page": 12,
+      "text": "Proposition 2. (Perturbations of the LinBP Attack exhibit smaller interactions than perturbations"
+    },
+    {
+      "page": 12,
+      "text": "of the multi-step attack, proof in Appendix H.) For the multi-step attack, we consider the multi-step"
+    },
+    {
+      "page": 12,
+      "text": "Proposition 3. (Perturbations generated with the multi-step attack on the adversarially-trained"
+    },
+    {
+      "page": 12,
+      "text": "DNN have smaller interactions than perturbations generated on the normally-trained DNN, proof in"
+    },
+    {
+      "page": 13,
+      "text": "Proposition 4. (Perturbations of the PI Attack exhibit smaller interactions than perturbations of the"
+    },
+    {
+      "page": 13,
+      "text": "multi-step attack, proof in Appendix J.) In the binary classification, let us consider that the classification"
+    },
+    {
+      "page": 13,
+      "text": "Proposition 5. (Perturbations generated with the single-step attack on the DNN finetuned by the"
+    },
+    {
+      "page": 13,
+      "text": "normally-trained DNN, proof in Appendix K.) Let δθ(nor) and δθ(ia)                    denote adversarial perturbations"
+    },
+    {
+      "page": 13,
+      "text": "exhibit the same attacking strength, Theorem 3 has proven that under Assumption 3 and Definition 1,"
+    },
+    {
+      "page": 14,
+      "text": "Proposition 6. (Perturbations of the RAP Attack exhibit smaller interactions than perturbations of"
+    },
+    {
+      "page": 14,
+      "text": "the multi-step attack, proof in Appendix L.) Let δ (rap) denote the adversarial perturbation generated"
+    },
+    {
+      "page": 14,
+      "text": "Proposition 7. (Perturbations of the IL Attack exhibit smaller interactions than perturbations of the"
+    },
+    {
+      "page": 14,
+      "text": "multi-step attack, proof in Appendix M.) Let δ (il) denote the adversarial perturbation generated by the"
+    },
+    {
+      "page": 15,
+      "text": "Proposition 8. (Proof in Appendix N.) For the i-th category, if the output probability of the original"
+    },
+    {
+      "page": 15,
+      "text": "Proposition 8 shows that Gaussian noises in the VR Attack make the output probability p̄(τ ) more"
+    },
+    {
+      "page": 15,
+      "text": "Proposition 9. (The single-step VR Attack generates perturbations with smaller interactions than the"
+    },
+    {
+      "page": 15,
+      "text": "normal single-step attack, proof in Appendix N.) Let the classification loss Loss(x) be formulated as the"
+    },
+    {
+      "page": 15,
+      "text": "to Lemma 2, the two-layer network learned by the FD Attack is very likely to generate perturbations"
+    },
+    {
+      "page": 17,
+      "text": "Loss(x + δ (S) ) − Loss(x) used in Corollary 2."
+    },
+    {
+      "page": 25,
+      "text": "Proof. Let us analyze the first form of the pairwise interaction. When perturbation units a and b are"
+    },
+    {
+      "page": 26,
+      "text": "Theorem 1. Decomposing the attacking utility into multi-order interactions. The overall"
+    },
+    {
+      "page": 26,
+      "text": "Proof. According to the efficiency property of the Shapley value [55], we have"
+    },
+    {
+      "page": 28,
+      "text": "Proof. The sum of the p interaction can be written as follows."
+    },
+    {
+      "page": 28,
+      "text": "In this section, we prove Lemma 1 in Section 3.2, which analyzes the dynamics of the adversarial"
+    },
+    {
+      "page": 29,
+      "text": "Lemma 3. Based on Assumption 1, the adversarial perturbation ∆x(t) generated at the t-th step attack"
+    },
+    {
+      "page": 29,
+      "text": "Proof. We prove Lemma 3 by induction."
+    },
+    {
+      "page": 30,
+      "text": "Thus, Lemma 3 is proven."
+    },
+    {
+      "page": 30,
+      "text": "B.1     Proof of Lemma 1 in Section 3.2"
+    },
+    {
+      "page": 30,
+      "text": "Based on Lemma 3, we prove Lemma 1 in Section 3.2, which provides a closed-form solution to the"
+    },
+    {
+      "page": 30,
+      "text": "Lemma 1. Let us decompose the Hessian matrix (H = ∇2x Loss(x) ∈ Rn×n ) via eigen-decomposition"
+    },
+    {
+      "page": 30,
+      "text": "Proof. According to Eq. (27) and Lemma 3, the adversarial perturbation of the m-step attack can be"
+    },
+    {
+      "page": 31,
+      "text": "Thus, Lemma 1 in Section 3.2 of the main paper is proven."
+    },
+    {
+      "page": 32,
+      "text": "B.2      Proof of Corollary 1 in Section 3.2"
+    },
+    {
+      "page": 32,
+      "text": "In this subsection, we prove Corollary 1 in Section 3.2 of the main paper, which analyzes the adversarial"
+    },
+    {
+      "page": 32,
+      "text": "Corollary 1. Let β = αm denote the total adversarial strength. If we use the infinite-step adversarial"
+    },
+    {
+      "page": 32,
+      "text": "Proof. The adversarial perturbation δ (∞) generated by the infinite-step attack with an infinitesimal"
+    },
+    {
+      "page": 32,
+      "text": "Subsequently, based on Lemma 1, the adversarial perturbation δ (∞) in Eq. (42) can be re-written"
+    },
+    {
+      "page": 32,
+      "text": "= lim V D(m) γ // According to Lemma 1                                       (43)"
+    },
+    {
+      "page": 32,
+      "text": "Thus, Corollary 1 in Section 3.2 of the main paper is proven."
+    },
+    {
+      "page": 33,
+      "text": "In this section, we prove Lemma 2 in Section 3.2, which provides a closed-form solution for interactions"
+    },
+    {
+      "page": 34,
+      "text": "Lemma 2 (the closed-form solution to interactions). Based on Assumption P         1, for the adversarial"
+    },
+    {
+      "page": 34,
+      "text": "Moreover, according to Corollary 1, if the adversarial perturbation is given as the result of the infinite-"
+    },
+    {
+      "page": 34,
+      "text": "Proof. According to Eq. (50), the pairwise interaction between perturbation units Iab (δ) is calculated"
+    },
+    {
+      "page": 35,
+      "text": "Based on Eq. (53), the sum of pairwise interactions between perturbation units in Lemma 2 can be"
+    },
+    {
+      "page": 35,
+      "text": "According to Corollary 1, the adversarial perturbation δ (∞) can be represented as follows."
+    },
+    {
+      "page": 36,
+      "text": "Thus, Lemma 2 in Section 3.2 is proven."
+    },
+    {
+      "page": 36,
+      "text": "D     Proof of the positive semi-definiteness of the Hessian matrix"
+    },
+    {
+      "page": 36,
+      "text": "In this section, we prove Corollary 2 in Section 3.2, which shows that if the DNN is a ReLU network,"
+    },
+    {
+      "page": 36,
+      "text": "Lemma 4. Based on Assumption 2, the Hessian matrix of the loss function w.r.t. the input sample"
+    },
+    {
+      "page": 36,
+      "text": "Proof. According to the chain rule, the Hessian matrix H , ∇2x Loss(x) can be re-written as"
+    },
+    {
+      "page": 36,
+      "text": "Thus, Lemma 4 is proven."
+    },
+    {
+      "page": 37,
+      "text": "Lemma 5 (Gershgorin circle theorem). Let A ∈ Cn×n , Ri ="
+    },
+    {
+      "page": 37,
+      "text": "Corollary 2. According to [60], if the loss function is formulated as the cross-entropy upon the softmax"
+    },
+    {
+      "page": 37,
+      "text": "Proof. Multi-category classification. We first prove that the Hessian matrix is positive semi-definite"
+    },
+    {
+      "page": 37,
+      "text": "Then, based on Lemma 4, the Hessian matrix H = ∇2x Loss(x) can be written as"
+    },
+    {
+      "page": 39,
+      "text": "eigenvalues of matrix ∇2z Loss(x) are non-negative. To this end, we use Lemma 5 (Gershgorin circle"
+    },
+    {
+      "page": 39,
+      "text": "Lemma 5 indicates that each eigenvalue   of ∇2z Loss(x) lies"
+    },
+    {
+      "page": 39,
+      "text": "According to Lemma 4, the Hessian matrix H = ∇2x Loss(x) is given as follows."
+    },
+    {
+      "page": 40,
+      "text": "The sum of pairwise interactions. According to Lemma 2, given the adversarial perturbation"
+    },
+    {
+      "page": 40,
+      "text": "In this section, we prove Theorem 2 in Section 3.2, which demonstrates that the sum of pairwise"
+    },
+    {
+      "page": 40,
+      "text": "Before the proof of Theorem 2, we first revisit the multi-step attack and the single-step attack."
+    },
+    {
+      "page": 40,
+      "text": "δ (multi) , δ (∞) =             Dii γi vi ,         //    According to Corollary 1"
+    },
+    {
+      "page": 41,
+      "text": "Thus, Theorem 2 focuses on comparisons between interactions a,b∈Ω [Iab (δ (multi) )] for the multi-step"
+    },
+    {
+      "page": 41,
+      "text": "E.3      Proof of Theorem 2"
+    },
+    {
+      "page": 41,
+      "text": "Theorem 2. If the loss function for attacking Loss(x) is formulated as the cross-entropy loss in Eq. (60),"
+    },
+    {
+      "page": 41,
+      "text": "Proof. We prove Theorem 2 based on perturbations generated from the above two perspectives."
+    },
+    {
+      "page": 42,
+      "text": "Here, this difference is proven to be positive, because each term in Eq. (84) is positive. The proof is"
+    },
+    {
+      "page": 42,
+      "text": "• λi ≥ 0. According to Corollary 2, the Hessian matrix H = ∇2x Loss(x) is positive semi-definite."
+    },
+    {
+      "page": 42,
+      "text": "• Dii + β ≥ 0. According to Corollary 1, the value of Dii is given as follows."
+    },
+    {
+      "page": 43,
+      "text": "decrease with the index i, i.e., λ1 ≥ λ2 ≥ . . . ≥ λn ≥ 0. The proof of ∀i, λi ≥ 0 is demonstrated in"
+    },
+    {
+      "page": 43,
+      "text": "Lemma"
+    },
+    {
+      "page": 44,
+      "text": "In summary, Theorem 2 in Section 3.2 is proven from the above two perspectives."
+    },
+    {
+      "page": 44,
+      "text": "F       Proof that more balanced prediction probabilities can result"
+    },
+    {
+      "page": 44,
+      "text": "Before the proof, we introduce a lemma."
+    },
+    {
+      "page": 44,
+      "text": "F.1     Proof of Lemma 7"
+    },
+    {
+      "page": 44,
+      "text": "Lemma 7. Based on Assumption 2, if the classification loss Loss(x) is formulated as the cross-entropy"
+    },
+    {
+      "page": 44,
+      "text": "Proof. According to the chain rule, the gradient g = ∇x Loss(x) can be re-written as follows."
+    },
+    {
+      "page": 45,
+      "text": "According to Lemma 4, the Hessian matrix Hθ = ∇2x Lossθ (x) can be written as"
+    },
+    {
+      "page": 45,
+      "text": "F.2     Proof of Theorem 3"
+    },
+    {
+      "page": 45,
+      "text": "where η denotes the step size, and gθ = ∇x Lossθ (x). According to Lemma 2, the sum of pairwise"
+    },
+    {
+      "page": 46,
+      "text": "Theorem 3. In multi-category classification, let the loss function for attacking Loss(x) be formulated"
+    },
+    {
+      "page": 46,
+      "text": "Proof. According to Lemma 2, the sum of pairwise interactions of perturbation units (a, b) is given as"
+    },
+    {
+      "page": 46,
+      "text": "= η 2 W̃x (p − Y ) W̃x (diag(p) − ppT )W̃xT W̃x (p − Y )                  // According to Lemma 7"
+    },
+    {
+      "page": 47,
+      "text": "So according to Lemma 6 (Chebyshev’s sum inequality), we have"
+    },
+    {
+      "page": 47,
+      "text": "pi1 + qj1 ≥ pi2 + qj2 ≥ . . . ≥ pic−1 + qjc−1 ≥ 0. So according to and Eq. (106) and Lemma 6 (Chebyshev’s"
+    },
+    {
+      "page": 48,
+      "text": "G        Proof that the MI Attack generates perturbations with smaller"
+    },
+    {
+      "page": 48,
+      "text": "In this section, we prove Proposition 1 in Section 4, which shows that perturbations of the MI Attack [8]"
+    },
+    {
+      "page": 48,
+      "text": "Before the proof of Proposition 1, we revisit the MI Attack."
+    },
+    {
+      "page": 48,
+      "text": "the perturbation. Thus, to simplify the proof, we ignore the normalization of the gradient, the sign"
+    },
+    {
+      "page": 49,
+      "text": "Lemma 8. Based on Assumption 1, the gradient gmi w.r.t. the t-step MI Attack can be written as"
+    },
+    {
+      "page": 49,
+      "text": "Proof. We prove Lemma 8 by induction."
+    },
+    {
+      "page": 50,
+      "text": "Thus, Lemma 8 is proven."
+    },
+    {
+      "page": 50,
+      "text": "Corollary 3. Let λi ∈ R and vi ∈ Rn denote the i-th eigenvalue and its corresponding eigenvector of"
+    },
+    {
+      "page": 50,
+      "text": "the Hessian matrix H = ∇2x Loss(x), respectively. Based on Lemma 8, the gradient gmi w.r.t. the MI"
+    },
+    {
+      "page": 50,
+      "text": "Proof. According to Lemma 8, the gradient gmi can be written as"
+    },
+    {
+      "page": 50,
+      "text": "s H g         // According to Lemma 8"
+    },
+    {
+      "page": 50,
+      "text": "Lemma 8) and the eigenvalue λi ≥ 0 (according to Corollary 2) are positive."
+    },
+    {
+      "page": 50,
+      "text": "Thus, Corollary 3 is proven."
+    },
+    {
+      "page": 51,
+      "text": "The perturbation generated by the MI Attack. According to Corollary 3, the perturbation"
+    },
+    {
+      "page": 51,
+      "text": "=          α             Aii γi vi        // According to Corollary 3           (123)"
+    },
+    {
+      "page": 51,
+      "text": "Corollary 4. Let λi ∈ R and vn ∈ Rn denote the i-th eigenvalue and its corresponding eigenvector"
+    },
+    {
+      "page": 51,
+      "text": "of the Hessian matrix H = ∇2x Loss(x), respectively. Based on Lemma 3, the gradient gmi for the t-th"
+    },
+    {
+      "page": 52,
+      "text": "Proof. According to Eq. (26), the update of the perturbation at each step t is represented as"
+    },
+    {
+      "page": 52,
+      "text": "∆x(t) , α · ∇x0 Loss(x0 = x + δ (t−1) ) = α · [I + αH]                                        g     // According to Lemma 3"
+    },
+    {
+      "page": 52,
+      "text": "Thus, Corollary 4 is proven."
+    },
+    {
+      "page": 52,
+      "text": "The perturbation generated by the multi-step attack. According to Lemma 3, the pertur-"
+    },
+    {
+      "page": 52,
+      "text": "=         α         Bii γi vi         // According to Corollary 4                  (131)"
+    },
+    {
+      "page": 53,
+      "text": "G.3      Proof of Proposition 1"
+    },
+    {
+      "page": 53,
+      "text": "Proposition 1 (Perturbations of the MI Attack exhibit smaller interactions than perturbations of the"
+    },
+    {
+      "page": 53,
+      "text": "Proof. According to Eq. (125) and Eq. (133), the difference between interactions a,b∈Ω [Iab (δ (multi) )]"
+    },
+    {
+      "page": 53,
+      "text": "• λi ≥ 0. According to Corollary 2, the Hessian matrix H = ∇2x Loss(x) is positive semi-definite."
+    },
+    {
+      "page": 53,
+      "text": "Specifically, according to Corollary 4, the term Dii = α t=1 Bii = α t=1 (1 + αλi )t−1 ≥ 0 is"
+    },
+    {
+      "page": 53,
+      "text": "positive. Besides, according to Lemma 3, the term Rii = α t=1 Aii ≥ 0 is positive, because Aii ≥ 0."
+    },
+    {
+      "page": 53,
+      "text": "Bii − Aii ≥ 0 is positive, which is proven in Lemma 9 as follows."
+    },
+    {
+      "page": 53,
+      "text": "Lemma 9. Given gmi = i=1 Aii γi vi and gmulti = i=1 Bii γi vi , we have ∀i, Aii ≤ Bii ."
+    },
+    {
+      "page": 53,
+      "text": "Proof. We prove Lemma 9 by induction."
+    },
+    {
+      "page": 53,
+      "text": "λ i vi vi           α     Aii γi vi   // According to Corollary 3"
+    },
+    {
+      "page": 54,
+      "text": "Moreover, according to Corollary 3, the gradient for the t-step MI Attack can also be represented"
+    },
+    {
+      "page": 54,
+      "text": "as gmi = i=1 Aii γi vi . Hence, based on Corollary 3 and Eq. (135), we obtain"
+    },
+    {
+      "page": 54,
+      "text": "gmi =        Aii γi vi =         (t − 1)Aii       +1+            αλi Aii γi vi // According to Eq. (135) and Corollary 3"
+    },
+    {
+      "page": 54,
+      "text": "Thus, Lemma 9 is proven."
+    },
+    {
+      "page": 54,
+      "text": "Thus, Proposition 1 in Section 4 is proven."
+    },
+    {
+      "page": 54,
+      "text": "H      Proof that the LinBP Attack generates perturbations with"
+    },
+    {
+      "page": 54,
+      "text": "In this section, we prove Proposition 2 in Section 4, which shows that perturbations of the LinBP"
+    },
+    {
+      "page": 54,
+      "text": "Before the proof of Proposition 2, we first revisit the LinBP Attack."
+    },
+    {
+      "page": 55,
+      "text": "craft the perturbation. Thus, to simplify the proof, we ignore the sign operation and the clip operation,"
+    },
+    {
+      "page": 57,
+      "text": "H.3     Proof of Proposition 2"
+    },
+    {
+      "page": 57,
+      "text": "In this subsection, we prove Proposition 2 in Section 4 under the condition that kδ (multi) k2 = kδ (lbp) k2 ."
+    },
+    {
+      "page": 57,
+      "text": "To simplify the story, we prove Proposition 2 based on binary classification. In this scenario, we have"
+    },
+    {
+      "page": 57,
+      "text": "Lemma 10. Based on Assumption 2, if the loss function is formulated as the cross-entropy loss"
+    },
+    {
+      "page": 57,
+      "text": "Proof. According to Lemma 4, the Hessian matrix H = ∇2x Loss(x) is given as follows."
+    },
+    {
+      "page": 57,
+      "text": "Moreover, according to Corollary 2, H is positive semi-definite. Thus, H has a single positive eigenvalue"
+    },
+    {
+      "page": 57,
+      "text": "Proposition 2 (Perturbations of the LinBP Attack exhibit smaller interactions than those of the"
+    },
+    {
+      "page": 58,
+      "text": "Proof. We prove Proposition 2 based on binary classification. In this scenario, according to Lemma 10"
+    },
+    {
+      "page": 58,
+      "text": "• λ1 ≥ 0. According to Corollary 2, the Hessian matrix H = ∇2x Loss(x) is positive semi-definite."
+    },
+    {
+      "page": 59,
+      "text": "Lemma 11. Based on Assumption 2, if the loss function is formulated as the cross-entropy loss"
+    },
+    {
+      "page": 59,
+      "text": "Proof. According to Lemma 10, v1 =         kw̃x k2 ."
+    },
+    {
+      "page": 59,
+      "text": "Thus, based on Lemma 11, ∀i 6= 1, the projection length γi can be represented as"
+    },
+    {
+      "page": 59,
+      "text": "Thus, Proposition 2 in Section 4 is proven."
+    },
+    {
+      "page": 59,
+      "text": "I     Proof that perturbations generated by the multi-step attack"
+    },
+    {
+      "page": 60,
+      "text": "Proposition 3 (Perturbations generated by the multi-step attack on the adversarially-trained DNN"
+    },
+    {
+      "page": 60,
+      "text": "Proof. Based on Taylor series and Eq. (163), adversarial training can be written as follows."
+    },
+    {
+      "page": 60,
+      "text": "Note that, according to Lemma 2, the sum of pairwise interactions inside the adversarial perturbation"
+    },
+    {
+      "page": 61,
+      "text": "J      Proof of the PI Attack generates perturbations with smaller"
+    },
+    {
+      "page": 61,
+      "text": "In this section, we prove Proposition 4 in Section 4, which shows that perturbations of the PI Attack [11]"
+    },
+    {
+      "page": 61,
+      "text": "Before the proof of Proposition 4, we first revisit the PI Attack."
+    },
+    {
+      "page": 61,
+      "text": "the proof, we ignore the sign operation and the clip operation, without hurting the trustworthiness of"
+    },
+    {
+      "page": 62,
+      "text": "following proof for simplicity. In this scenario, the perturbation of the PI Attack updated in each step"
+    },
+    {
+      "page": 62,
+      "text": "∆xpi-first = α [I + αH]                 g       // According to Lemma 3,"
+    },
+    {
+      "page": 62,
+      "text": "∆xpi-second = [I + αAH]                      ∆xpi-second .              // According to Lemma 12        (175)"
+    },
+    {
+      "page": 62,
+      "text": "Lemma 12. Based on Assumption 1, the perturbation of the PI Attack updated at the s-th step in the"
+    },
+    {
+      "page": 62,
+      "text": "Proof. According to Eq. (173), if 1 ≤ s ≤ m2 , let t = s + m1 . Then, we have"
+    },
+    {
+      "page": 63,
+      "text": "Thus, Lemma 12 is proven."
+    },
+    {
+      "page": 63,
+      "text": "Lemma 13. If the loss function is formulated as the cross-entropy loss on the sigmoid function, we"
+    },
+    {
+      "page": 63,
+      "text": "Proof. Let us first focus on the adversarial perturbation generated in the first stage δpi     defined in"
+    },
+    {
+      "page": 63,
+      "text": "Eq. (180). According to Corollary 1, if we use the infinite-step adversarial attack with an infinitesimal"
+    },
+    {
+      "page": 64,
+      "text": "the sigmoid function, according to Lemma 10, the Hessian matrix only has a single positive eigenvalue"
+    },
+    {
+      "page": 64,
+      "text": "Hessian matrix can be re-written as H = λ1 v1 v1T . Moreover, according to Lemma 11, the gradient"
+    },
+    {
+      "page": 64,
+      "text": "= γ1 v1 + λ1 v1 v1T               γ1 v 1                     //    g = γ1 v1 , H = λ1 v1 v1T in Lemma 10 and Lemma 11"
+    },
+    {
+      "page": 64,
+      "text": "Lemma 12, the perturbation of the PI Attack generated in the second stage can be written as"
+    },
+    {
+      "page": 64,
+      "text": "=         [I + αAH]                ∆xpi-second        // According to Lemma 12"
+    },
+    {
+      "page": 64,
+      "text": "=              0   (αAλ1 v1 v1T )s ∆xpi-second // According to Lemma 10"
+    },
+    {
+      "page": 65,
+      "text": "where β1 = αm1 , β2 = αm2 , and γ10 = exp(β1 λ1 )γ1 ∈ R. Thus, Lemma 13 is proven."
+    },
+    {
+      "page": 66,
+      "text": "Let β1 = αm1 and β2 = αm2 . Then, according to Corollary 1, the adversarial perturbation δ (multi) of"
+    },
+    {
+      "page": 67,
+      "text": "=                           γ1 v1T     λ1 v1 v1T                           γ1 v1     //H = λ1 v1 v1T , according to Lemma 11"
+    },
+    {
+      "page": 67,
+      "text": "J.3         Proof of Proposition 4"
+    },
+    {
+      "page": 67,
+      "text": "Proposition 4 (Perturbations of the PI Attack exhibit smaller interactions than those of the multi-step"
+    },
+    {
+      "page": 67,
+      "text": "Proof. According to Eq. (195) and Eq. (191), the difference between interactions a,b∈Ω Iab (δ (multi) )"
+    },
+    {
+      "page": 68,
+      "text": "Furthermore, we use the Chebyshev’s sum inequality in Lemma 6 to determine the upper bound of"
+    },
+    {
+      "page": 68,
+      "text": "we have τ1 v1,1 ≥ τ2 v1,2 ≥ . . . ≥ τn v1,n . In this way, applying Lemma 6 (Chebyshev’s sum inequality),"
+    },
+    {
+      "page": 69,
+      "text": "where λk denotes the k-th eigenvalue of matrix B. According to Lemma 5 (Gershgorin circle"
+    },
+    {
+      "page": 69,
+      "text": "Thus, Proposition 4 is proven."
+    },
+    {
+      "page": 70,
+      "text": "K      Proof that the perturbation generated by the single-step at-"
+    },
+    {
+      "page": 70,
+      "text": "prove that a,b∈Ω Iab δθ(ia)                                        . Before the proof, we first introduce some"
+    },
+    {
+      "page": 71,
+      "text": "K.2      Proof of Lemma 14"
+    },
+    {
+      "page": 71,
+      "text": "Lemma 14. We are given H = W̃x Hz W̃xT , where Hz = ∂∂z∂z"
+    },
+    {
+      "page": 71,
+      "text": "Proof. Because Hz is a symmetric matrix, it can be decomposed into"
+    },
+    {
+      "page": 72,
+      "text": "K.3      Proof of Lemma 15"
+    },
+    {
+      "page": 72,
+      "text": "Lemma 15. Let the DNN trained by the IA Attack satisfies Assumption 3 and Definition 1. If the"
+    },
+    {
+      "page": 72,
+      "text": "Proof. Given the input x ∈ Rn and a DNN parameterized by θ, the cross-entropy loss for classification"
+    },
+    {
+      "page": 73,
+      "text": "according to Lemma 7, the Hessian matrix H = ∇2x Loss(x) and the gradient g = ∇x Loss(x) are given"
+    },
+    {
+      "page": 74,
+      "text": "Based on Lemma 7 and Lemma 14, we can derive values of trace(H) and g T g, and determine the"
+    },
+    {
+      "page": 74,
+      "text": "According to Lemma 7 and Lemma 14, we have"
+    },
+    {
+      "page": 74,
+      "text": "• The value of g T g. According to Lemma 7 and Assumption 3, we have"
+    },
+    {
+      "page": 74,
+      "text": "• The value range of λi . As proven in Appendix D, based on Lemma 5 (Gershgorin circle theorem), we"
+    },
+    {
+      "page": 74,
+      "text": "Loss . According to Lemma 14, we have"
+    },
+    {
+      "page": 75,
+      "text": "K.4        Proof of Proposition 5"
+    },
+    {
+      "page": 75,
+      "text": "Proposition 5 (Perturbations generated by the single-step attack on the DNN trained by the IA Attack"
+    },
+    {
+      "page": 75,
+      "text": "Proof. The basic flowchart of the proof is as follows. We first prove that compared with the normally-"
+    },
+    {
+      "page": 75,
+      "text": "sample x more similar to each other. Then, according to Theorem 3, we can prove that perturbations"
+    },
+    {
+      "page": 75,
+      "text": "According to Lemma 15, the objectiveP     function of the IA Attack on the specific sample x can be"
+    },
+    {
+      "page": 75,
+      "text": "Lemma 16 (Cauchy–Schwarz inequality).                  2"
+    },
+    {
+      "page": 76,
+      "text": "Theorem 3, we have"
+    },
+    {
+      "page": 76,
+      "text": "L     Proof that the RAP Attack generates perturbations with"
+    },
+    {
+      "page": 76,
+      "text": "In this section, we prove Proposition 6 in Section 4, which shows that perturbations of the RAP"
+    },
+    {
+      "page": 76,
+      "text": "Attack [36] exhibit smaller interactions than those of the multi-step attack. Before the proof of"
+    },
+    {
+      "page": 76,
+      "text": "Proposition 6, we revisit the RAP Attack."
+    },
+    {
+      "page": 76,
+      "text": "optimization. Thus, to simplify the proof, we ignore the sign operation and the clip operation, without"
+    },
+    {
+      "page": 77,
+      "text": "Lemma 17. Based on Assumption 1, the update of the perturbation via gradient descent at the t-th"
+    },
+    {
+      "page": 77,
+      "text": "Proof. Given g = ∇x Loss(x) and H = ∇2x Loss(x), based on Assumption 1, we have"
+    },
+    {
+      "page": 77,
+      "text": "Thus, Lemma 17 is proven."
+    },
+    {
+      "page": 77,
+      "text": "Lemma 18. Based on Assumption 1, r(t) can be written as r(t) = V RV T ∆r1 , where R ∈ Rn×n"
+    },
+    {
+      "page": 78,
+      "text": "Proof. According to Eq. (246), the perturbation r(t) can be expressed as follows."
+    },
+    {
+      "page": 78,
+      "text": "=          [I − αH]         ∆r1         // According to Lemma 17"
+    },
+    {
+      "page": 78,
+      "text": "Thus, Lemma 18 is proven."
+    },
+    {
+      "page": 78,
+      "text": "Lemma 19. We are given H = ∇2x Loss(x) = V λV T and g = ∇x Loss(x). Based on Assumption 1,"
+    },
+    {
+      "page": 79,
+      "text": "Proof. According to Eq. (249), the perturbation ∆xrap generated at the t-th step can be re-written as"
+    },
+    {
+      "page": 79,
+      "text": "// According to Lemma 18"
+    },
+    {
+      "page": 79,
+      "text": "= α g + HV RV T ∆r1           // According to Lemma 18"
+    },
+    {
+      "page": 80,
+      "text": "Thus, Lemma 19 is proven."
+    },
+    {
+      "page": 80,
+      "text": "Lemma 20. Based on Assumption 1, the perturbation of the RAP Attack in Eq. (250) is given as"
+    },
+    {
+      "page": 80,
+      "text": "Proof. According to Eq. (250), the perturbation δrap is given as follows."
+    },
+    {
+      "page": 80,
+      "text": "=         V G(t) V T g           // According to Lemma 19"
+    },
+    {
+      "page": 81,
+      "text": "Thus, Lemma 20 is proven."
+    },
+    {
+      "page": 81,
+      "text": "Corollary 5. If we use the infinite-step adversarial attack with an infinitesimal step size to simplify the"
+    },
+    {
+      "page": 81,
+      "text": "Proof."
+    },
+    {
+      "page": 81,
+      "text": "Thus, Corollary 5 is proven."
+    },
+    {
+      "page": 82,
+      "text": "corresponding eigenvector of the Hessian matrix H = ∇2x Loss(x), respectively. According to Corollary 5,"
+    },
+    {
+      "page": 83,
+      "text": "L.3    Proof of Proposition 6"
+    },
+    {
+      "page": 83,
+      "text": "Proposition 6 (Perturbations of the RAP Attack exhibit smaller interactions than those of the"
+    },
+    {
+      "page": 83,
+      "text": "Proof. According to Eq. (268) and Eq. (265), the difference between interactions a,b∈Ω [Iab (δ (multi) )]"
+    },
+    {
+      "page": 83,
+      "text": "• λi ≥ 0. According to Corollary 2, the Hessian matrix H = ∇2x Loss(x) is positive semi-definite."
+    },
+    {
+      "page": 83,
+      "text": "Thus, Proposition 6 is proven."
+    },
+    {
+      "page": 84,
+      "text": "M          Proof that the IL Attack generates perturbations with smaller"
+    },
+    {
+      "page": 84,
+      "text": "In this subsection, we prove Proposition 7 in Section 4, which shows that the Intermediate Level Attack"
+    },
+    {
+      "page": 84,
+      "text": "(IL Attack) [18] exhibits smaller interactions than those of the multi-step attack. Before the proof of"
+    },
+    {
+      "page": 84,
+      "text": "Proposition 7, we first revisit the IL Attack."
+    },
+    {
+      "page": 84,
+      "text": "by the multi-step attack, with steps being m2 and the step size being α. According to Corollary 1, let"
+    },
+    {
+      "page": 85,
+      "text": "δbase =            Dii           γ i vi .   // According to Corollary 1                         (278)"
+    },
+    {
+      "page": 85,
+      "text": "multi-step attack. Then, according to Corollary 1, if we use the infinite-step adversarial attack with an"
+    },
+    {
+      "page": 86,
+      "text": "M.3       Proof of Proposition 7"
+    },
+    {
+      "page": 86,
+      "text": "In this subsection, we prove Proposition 7 in Section 4 under the condition that kδ (multi) k2 = kδ (il) k2 ."
+    },
+    {
+      "page": 86,
+      "text": "Proposition 7 ( Perturbations of the IL Attack exhibit smaller interactions than perturbations"
+    },
+    {
+      "page": 86,
+      "text": "Proof. Based on Eq. (281) and Eq. (284), the difference between interactions a,b∈Ω [Iab (δ (multi) )] for"
+    },
+    {
+      "page": 86,
+      "text": "decrease with the index i, i.e., λ1 ≥ λ2 ≥ . . . ≥ λn ≥ 0. According to Corollary 2, the Hessian matrix"
+    },
+    {
+      "page": 87,
+      "text": "this, we can use the Chebyshev’s sum inequality in Lemma 6 to prove P            that interactions"
+    },
+    {
+      "page": 87,
+      "text": "// According to Chebyshev’s sum inequality in Lemma 6"
+    },
+    {
+      "page": 87,
+      "text": "Thus, Proposition 7 is proven."
+    },
+    {
+      "page": 87,
+      "text": "N         Proof that the single-step VR Attack generates perturba-"
+    },
+    {
+      "page": 87,
+      "text": "In this section, we prove Proposition 9 in Section 4, which shows that perturbations generated by the"
+    },
+    {
+      "page": 87,
+      "text": "attack with the cross-entropy loss. Before the proof of Proposition 9, we first revisit the VR Attack."
+    },
+    {
+      "page": 88,
+      "text": "Lemma 7, if Loss(x) is formulated as the cross-entropy loss, then the gradient g is given as follows."
+    },
+    {
+      "page": 88,
+      "text": "= Eξ∼N (0,σ2 I) W̃x (p̂ − Y )      // According to Lemma 7"
+    },
+    {
+      "page": 89,
+      "text": "= (ηce )2 (p − Y )T W̃xT W̃x diag(p) − ppT W̃xT W̃x (p − Y ) // According to Lemma. 7"
+    },
+    {
+      "page": 89,
+      "text": "= (ηvr )2 (q − Y )T W̃xT W̃x diag(p) − ppT W̃xT W̃x (q − Y ) // According to Lemma. 7"
+    },
+    {
+      "page": 89,
+      "text": "N.2     Proof of Proposition 8"
+    },
+    {
+      "page": 90,
+      "text": "approximation of qi . We just prove Proposition 8 based on the simplified probability in Eq. (304). We"
+    },
+    {
+      "page": 90,
+      "text": "Proposition 8. If pi ≤ 0.5, then p̄i (τ ) − pi ≥ 0; if pi ≥ 0.5, then p̄i (τ ) − pi ≤ 0."
+    },
+    {
+      "page": 90,
+      "text": "Proof. The value of p̄i (τ ) can be expressed as follows."
+    },
+    {
+      "page": 91,
+      "text": "N.3     Proof of Proposition 9"
+    },
+    {
+      "page": 91,
+      "text": "Proposition 8 shows that p̄(τ ) is more balanced than p, thus we make the following Assumption 6 based"
+    },
+    {
+      "page": 91,
+      "text": "py ≥ 0.5. Then, we can derive the properties of the average probability q based on Proposition 8 as"
+    },
+    {
+      "page": 91,
+      "text": "• According to Proposition 8, p̄y (τ ) ≤ py . Because p̄y (τ ) defined in Eq. (304) is an approximation"
+    },
+    {
+      "page": 91,
+      "text": "• Proposition 8 demonstrates that when the probability value of the i-th category on the sample"
+    },
+    {
+      "page": 91,
+      "text": "Proposition 9 (Perturbations generated by the single-step VR Attack exhibit smaller interactions than"
+    },
+    {
+      "page": 91,
+      "text": "Proof. According to Eq. (309), we have           1−qy   ≤ 1. Thus, according to Assumption 6, we have"
+    },
+    {
+      "page": 92,
+      "text": "k=1 1−qy = 1. Thus, according to Eq. (311) and Lemma 6 (Chebyshev’s sum inequality), we have"
+    },
+    {
+      "page": 92,
+      "text": "ai1 + bj1 ≥ ai2 + bj2 ≥ . . . ≥ aic−1 + bjc−1 ≥ 0. So according to and Eq. (311) and Lemma 6 (Chebyshev’s"
+    },
+    {
+      "page": 95,
+      "text": "Lemma 2, the two-layer network learned by the FD Attack is very likely to generate perturbations with"
+    }
+  ]
+}

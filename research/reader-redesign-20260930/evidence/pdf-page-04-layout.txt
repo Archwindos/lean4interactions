@@ -1,0 +1,57 @@
+                              {xi,  i∈S                                         causal effects|wS| in descending order for various DNNs.
+                   (xS)i =       ri,  i∈N\S ,                        (4)        We found that most causal patterns had little inﬂuence on
+                                                                                the output with negligible values|wS|≈ 0, and they were
+where r = [r1,r2,...,rn] denotes the baseline values of the                     termed noisy causal patterns.  Only a few causal patterns
+n input variables. The DNN’s outputv(xS)2 is computed by                        had considerable effects|wS|, and they were termed salient
+taking the masked sample xS as the input. According to the                      causal  patterns.  Furthermore, we also conducted experi-
+SCM in Eq. (2), the output  Y (xS) of the causal graph is com-                  ments in Section4.2, and Figs.3,4, and6show that we
+puted asY (xS) =∑T∈ΩwT·CT (xS) =∑T⊆S,T∈ΩwT . In                                 could use a small number of causal patterns (empirically 10
+particular,Y (x = xN ) =∑S∈ΩwS. In Section3.2, we will                          to 100 causal patterns for most DNNs) in Ω to approximate
+introduce how to learn optimal baseline valuesri that further                   the DNN’s output, as stated in Remark1.
+enhance the conciseness of the causal graph.                                        • Boosting the conciseness.  Inspired by Remark1, we
+   • Generality of causal patterns. Besides, we also prove                      aim to learn a more concise causal graph. To this end, we pro-
+that the above causal effectswS based on Harsanyi dividends                     pose the following objective of learning faithful and sparse
+satisfy the efﬁciency, linearity, dummy, symmetry, anonymity,                   causal effectswS.
+recursive, and interaction distribution axioms in game theory
+(see Appendix B and D.1), which further demonstrates the                                      minw,Ω  unfaith(wΩ) s.t.|Ω|≤M
+trustworthiness of the causal effects.  More crucially,  we                               ⇔ minw,Ω  unfaith(wΩ) s.t.‖wΩ‖0≤M,
+also prove that causal effectswS can explain the elementary                                                           [                      ]2        (5)
+mechanism of existing game-theoretic metrics. Please see                                 unfaith(wΩ) =∑                v(xS)−YwΩ(xS)
+Appendix D.2 for the proof.                                                                                     S⊆N
+Theorem 2 (Connection to the Shapley value, proved by                           where wΩ     def= [w′S1,w′S2,...,w′S2n ].  IfS∈ Ω, thenw′S =wS;
+[29])     .  Let φ(i) denote the Shapley value [56] of an input                 otherwise,w′S =0. TheL0-norm‖wΩ‖0 refers to the number
+variablei.  Then, the Shapley valueφ(i) can be explained                        of non-zero elements in wΩ, thereby‖wΩ‖0 =|Ω|.  In this
+as the result of uniformly assigning causal effects to each                     way, the above objective function enables people to use a
+involving variablei, i.e.,φ(i) =∑                       1                       small number of causal patterns to explain the DNN.
+                                          S⊆N\{i}    |S|+1wS∪{i}.
+                                                                                    However, direct optimization of Eq. (5) is difﬁcult. There-
+   The Shapley value [56] was ﬁrst proposed in game theory                      fore, we propose several techniques to learn sparse causal
+and has been used by previous studies [45] to estimate attri-                   effects  based  on  Eq.   (5)  to  faithfully  mimic  the  DNN’s
+butions of input variables in the DNN. The Shapley value                        outputs on numerous masked samples. The following para-
+satisﬁes four satisfactory axioms and is widely considered as                   graphs will introduce how to relax the Harsanyi dividend in
+a relatively fair estimation of attributions. Theorem2proves                    Theorem1by removing noisy causal patterns and learning
+that the Shapley value can be considered as a re-allocation                     the optimal baseline value,  so as to boost the sparsity of
+of causal effects to input variables.                                           causal effects. Besides, we also discovered that adversarial
+   In Appendix D.2, we further prove that the Shapley in-                       training [46] can make the DNN encode much more sparse
+teraction index [26] and the Shapley Taylor interaction in-                     causal effects.
+dex [66] can also be understood as the assignment of causal                         First,  boosting  conciseness  by  learning  the  optimal
+effectswS to different coalitions.                                              baseline value. In fact, the sparsity of causal patterns does
+3.2. Discovering and boosting the conciseness of the                            not  only  depend  on  the  DNN  itself,  but  it  is  also  deter-
+       causal graph                                                             mined by the choice of baseline values in Eq.  (4).  Specif-
+                                                                                ically, input variables are masked by their baseline values
+Remark 1.  Given a DNNv(·) and an input sample x withn                          r  = [r1,r2,...,rn] to represent their absence states in the
+variables, we can ﬁnd a small set of causal patterns Ω subject                  computation of causal effects. Thus, wΩ can be represented
+to|Ω|≪2n, such that the DNN’s output can be approximated                        as a function of r, i.e., wΩ(r).  To this end, some recent
+by the causal graph’s output,i.e.∀S⊆N, Y (xS)≈v(xS).                            studies  [4,16,52]  deﬁned  baseline  values  from  a  heuris-
+   • Discovering the conciseness. We have discovered that                       tic perspective, e.g.  simply using mean/zero baseline val-
+lots of DNNs with various architectures trained for different                   ues [16,67].  However, it still remains an open problem to
+tasks can all be explained using sparse causal patterns. Al-                    deﬁne optimal baseline values.
+though Theorem1indicates that the causal graph needs to                             Thus,  we further boost the sparsity of causal patterns
+encode 2n causal patterns to precisely ﬁt the DNN’s output                      by learning the optimal baseline values that enhance the
+on all the 2n masked samples, Remark1shows a common                             conciseness of the causal graph. However, it is difﬁcult to
+phenomenon that the causal effectswS extracted from the                         learn optimal baseline values by directly optimizing Eq. (5).
+DNN are usually very sparse. To this end, we trained various                    To this end, we relax the optimization problem in Eq. (5) ( L0
+DNNs for different tasks, and Fig.2shows the strength of                        regression) as a Lasso regression (L1 regression) as follows.
+
+
+                                                                            4

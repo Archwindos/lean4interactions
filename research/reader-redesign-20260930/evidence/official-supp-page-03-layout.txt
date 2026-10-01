@@ -1,0 +1,66 @@
+   • Proof: We only need to prove the following two statements. (1) Necessity: the causal graph based on Harsanyi dividends
+wS satisfies the faithfulness requirement∀S⊆N,Y (xS)=v(xS). (2) Sufficiency: if there exists another metric  ˜wS that also
+satisfies the faithfulness requirement, then, it is equivalent to the Harsanyi dividend, i.e.∀S⊆N, ˜wS =wS.
+   According to the SCM in Eq. (2) of the main paper, we haveY (xS) =PS′∈ΩwS′·CS′(xS) =PS′⊆SwS′. Therefore, the
+faithfulness requirement can be equivalently re-written as∀S⊆N,v(xS) =PS′⊆SwS′.
+   Proof for necessity. According to the definition of the Harsanyi dividend, we have∀S⊆N ,
+
+                                       X                   X
+                                             wS′ = X           (−1)|S′|−|L|v(xL)
+                                       S′⊆S         S′⊆S  L⊆S′
+                                                  =X         X       (−1)|S′|−|L|v(xL)
+
+
+                                                    L⊆S  S′⊆S:S′⊇L
+
+                                                           |S|X    X
+                                                  =X                       (−1)s′−|L|v(xL)
+                                                    L⊆S  s′=|L| S′⊆S:S′⊇L
+                                                                  |S′|=s′
+                                                                 |S|−|L|X           !
+                                                  =X     v(xL)            |S|−|L|     (−1)m =v(xS)
+
+                                                    L⊆S           m=0         m
+
+   Proof for sufficiency. Suppose there exists another metric  ˜wS that satisfies∀S⊆N,v(xS) =PS′⊆S ˜wS′. Then, we prove
+˜wS =wS by induction on the number of variables|S| in the causal pattern.
+   (Basis step) When|S| = 0, i.e.S =∅, we have  ˜w∅ =v(x∅) =w∅. Similarly, it can be directly derived that when|S| = 1, i.e.
+S ={i},  ˜w{i} =v(x{i})−v(x∅) =w{i}; when|S| = 2, i.e.S ={i,j},  ˜w{i,j} =v(x{i,j})−v(x{i})−v(x{j}) +v(x∅) =w{i,j}.
+   (Induction step) Suppose  ˜wS =wS holds for anyS with|S| =s≥ 2. Then, for|S| =s + 1, we have
+
+
+                             v(xS) = X        ˜wS′ =  ˜wS + X     ˜wS′
+                                       S′⊆S                 S′⊊S
+                                                    X
+                                     = ˜wS + X           (−1)|S′|−|L|v(xL)        // by the induction assumption
+                                              S′⊊S L⊆S′
+                                     = ˜wS +X         X       (−1)|S′|−|L|·v(xL)
+
+
+                                              L⊊S S′⊊S:L⊆S′
+
+                                                   |S|−1X    X
+                                     = ˜wS +X                       (−1)s′−|L|·v(xL)
+                                              L⊊S s′=|L| S′⊊S:L⊆S′
+                                                           |S′|=s′
+                                                          |S|−1X             !
+                                     = ˜wS +X     v(xL)            |S|−|L|     (−1)s′−|L|
+
+                                              L⊊S         s′=|L|   s′−|L|
+
+                                                          |S|−|L|−1X            !
+                                     = ˜wS +X     v(xL)               |S|−|L|     (−1)m
+
+                                              L⊊S            m=0          m
+                                                          |              {z              }
+                                                                   0−(−1)|S|−|L|
+                                     = ˜wS−X(−1)|S|−|L|v(xL).
+                                              L⊊S
+   In this way, we have
+                                 ˜wS =v(xS) +X(−1)|S|−|L|v(xL) = X(−1)|S|−|L|v(xL) =wS.
+                                                  L⊊S                         L⊆S
+   Therefore, the Harsanyi dividend is the unique metric that satisfies the faithfulness requirement.
+D. Proofs of axioms and theorems for the Harsanyi dividend
+D.1. Proofs of axioms
+   In this section, we prove that the Harsanyi dividendwS  satisfies the efficiency, linearity, dummy, symmetry, anonymity,
+recursive, and interaction distribution axioms.

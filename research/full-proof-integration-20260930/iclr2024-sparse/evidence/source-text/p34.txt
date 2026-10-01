@@ -1,0 +1,49 @@
+Published as a conference paper at ICLR 2024
+
+
+
+
+G    B ROADER IMPACT OF PROVING THE EMERGENCE OF SYMBOLIC ( SPARSE )
+     INTERACTIONS
+Proving the emergence of symbolic (sparse) interactions provides an alternative methodology for
+deep learning, i.e., communicative learning. In contrast to end-to-end learning from the data, in
+communicative learning, people may directly communicate with the middle-level concepts encoded
+by the DNN to examine and fix the representation flaws of the DNN. Communicative learning may
+include, but is not limited to, (i) the extraction and visualization of symbolic concepts, (ii) the
+alignment of such implicitly encoded concepts and explicitly annotated human knowledge, (iii) the
+diagnosis of representation flaws of a DNN, (iv) the discovery of new concepts from DNNs to enrich
+human knowledge, and (v) interactively fixing/debugging incorrect concepts in a DNN.
+
+H    A N EXAMPLE TO ILLUSTRATE THE VALIDITY OF A SSUMPTION 2
+Assumption 2 assumes that the average network output ū(m) = E|S|=m [u(S)] monotonically in-
+                                                    n
+crease with the order m, which considers all m          possible subsets S with size m, and the average
+network output is much stabler and more robust than the output on a specific masked state u(S).
+This assumption is common for most models, without requiring all input variables to carry useful
+information. For example, let us explain the target model v(x) = x1 x2 x3 + x1 x2 + x2 x3 + x2 + x3 ,
+where the input x = [x1 , x2 , x3 , x4 , x5 ] contains 5 input variables indexed by N = {1, 2, 3, 4, 5},
+and each input variable xi ∈ {0, 1} is binary. Here, x1 , x2 , and x3 are related to the classifi-
+cation, while x4 and x5 are unrelated to the classification. Then, for |S| = 2, the value of all
+possible u(S) are listed as follows: u({1, 2}) = 2, u({1, 3}) = 1, u({1, 4}) = 0, u({1, 5}) = 0,
+u({2, 3}) = 3, u({2, 4}) = 1, u({2, 5}) = 1, u({3, 4}) = 1, u({3, 5}) = 1, u({4, 5}) = 0.
+Similarly, for |S| = 3, the value of all possible u(S) are listed as follows: u({1, 2, 3}) = 5,
+u({1, 2, 4}) = 2, u({1, 2, 5}) = 2, u({1, 3, 4}) = 1, u({1, 3, 5}) = 1, u({1, 4, 5}) = 0,
+u({2, 3, 4}) = 3, u({2, 3, 5}) = 3, u({2, 4, 5}) = 1, u({3, 4, 5}) = 0. We can see that
+E|S|=2 [u(S)] = 1 ≤ 1.8 = E|S|=3 [u(S)], which satisfies the monotonicity assumption.
+
+I   C AN WE HAVE AN EFFICIENT WAY TO VERIFY A SSUMPTION 2 AND
+    A SSUMPTION 3 ( APPROXIMATING p VALUE ) ON A SPECIFIC SAMPLE
+In order to efficiently test whether Assumption 2 and Assumption 3 are satisfied, given an input
+sample x, we can simply sample a set of subsets (not all subsets) {S1 , S2 , · · · , St } for each order m
+s.t. |Si | = m, to approximate ū(m) and the value of p, which significantly reduces the computational
+                                             Pt
+cost. Mathematically, we have ū(m) ≈ 1t i=1 u(Si ), where |Si | = m for 1 ≤ i ≤ t. Then, we
+can simply use the above approximated ū(m) to compute the value p. In this way, the computational
+cost of empirically testing the monotonic increase of ū(m) and a rough estimation of the value of p
+is O(nt), which is much less than O(2n ).
+
+
+
+
+                                                   34
+

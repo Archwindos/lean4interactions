@@ -1,0 +1,141 @@
+{
+  "notice": "Public declaration excerpt; existing evidence rechecked against current source, no new Lean build was run for this prototype.",
+  "report_path": "reports/lean/20260930T052254-2/report.json",
+  "status": "passed",
+  "effective_status": "passed",
+  "generated_at": "2026-09-30T05:22:54.849183+00:00",
+  "source_fingerprint": "8351261257fe4ea2f6a8792e5a0c30d22cf6efbea57e70e97a7ee19bb5d056bc",
+  "toolchain": "Lean (version 4.24.0, x86_64-unknown-linux-gnu, commit 797c613eb9b6d4ec95db23e3e00af9ac6657f24b, Release)",
+  "mathlib_revision": "f897ebcf72cd16f89ab4577d0c826cd14afaafc7",
+  "declarations": [
+    {
+      "name": "Harsanyi.reconstruction",
+      "package": "lean/HarsanyiLib",
+      "module": "Harsanyi.Core.Mobius",
+      "source_path": "lean/HarsanyiLib/Harsanyi/Core/Mobius.lean",
+      "line": 34,
+      "axioms": [
+        "propext",
+        "Quot.sound",
+        "Classical.choice"
+      ],
+      "dependencies": [
+        "AddCommGroup.toAddGroup",
+        "AddCommMonoid.toAddMonoid",
+        "AddGroup.toSubNegMonoid",
+        "AddMonoid.toAddZeroClass",
+        "AddZero.toAdd",
+        "AddZeroClass.toAddZero",
+        "DecidableEq",
+        "EmptyCollection.emptyCollection",
+        "Eq",
+        "Eq.mpr",
+        "Eq.trans",
+        "Finset",
+        "Finset.induction_on",
+        "Finset.instEmptyCollection",
+        "Finset.instHasSubset",
+        "Finset.instInsert",
+        "Finset.instMembership",
+        "Finset.mem_powerset",
+        "Finset.powerset",
+        "Finset.sum",
+        "Finset.sum_congr",
+        "Finset.sum_powerset_insert",
+        "HAdd.hAdd",
+        "HSub.hSub",
+        "Harsanyi.Game",
+        "Harsanyi.interaction",
+        "Harsanyi.interaction_empty",
+        "Harsanyi.interaction_insert",
+        "Harsanyi.marginal",
+        "Harsanyi.reconstruct",
+        "Harsanyi.reconstruct_empty",
+        "HasSubset.Subset",
+        "Iff.mp",
+        "Insert.insert",
+        "Membership.mem",
+        "Not",
+        "Real",
+        "Real.instAdd",
+        "Real.instAddCommGroup",
+        "Real.instAddCommMonoid",
+        "SubNegMonoid.toAddMonoid",
+        "SubNegMonoid.toSub",
+        "True",
+        "add_sub_cancel",
+        "congrArg",
+        "eq_self",
+        "id",
+        "instHAdd",
+        "instHSub",
+        "of_eq_true",
+        "rfl"
+      ],
+      "kind": "theorem",
+      "signature": "∀ {α : Type u_1} [DecidableEq.{u_1 + 1} α] (v : Harsanyi.Game.{u_1} α) (S : Finset.{u_1} α),\n  Eq.{1} (Harsanyi.reconstruct.{u_1} (Harsanyi.interaction.{u_1} v) S) (v S)",
+      "universe_parameters": [
+        "u_1"
+      ],
+      "status": "passed"
+    },
+    {
+      "name": "Harsanyi.reconstruction_unique",
+      "package": "lean/HarsanyiLib",
+      "module": "Harsanyi.Core.Mobius",
+      "source_path": "lean/HarsanyiLib/Harsanyi/Core/Mobius.lean",
+      "line": 66,
+      "axioms": [
+        "propext",
+        "Quot.sound",
+        "Classical.choice"
+      ],
+      "dependencies": [
+        "DecidableEq",
+        "Eq",
+        "Eq.mpr",
+        "Eq.symm",
+        "Finset",
+        "Finset.instHasSubset",
+        "Harsanyi.Game",
+        "Harsanyi.interaction",
+        "Harsanyi.interaction_congr",
+        "Harsanyi.interaction_reconstruct",
+        "Harsanyi.reconstruct",
+        "HasSubset.Subset",
+        "Real",
+        "congrArg",
+        "funext",
+        "id"
+      ],
+      "kind": "theorem",
+      "signature": "∀ {α : Type u_1} [DecidableEq.{u_1 + 1} α] (v d : Harsanyi.Game.{u_1} α),\n  (∀ (S : Finset.{u_1} α), Eq.{1} (Harsanyi.reconstruct.{u_1} d S) (v S)) →\n    Eq.{u_1 + 1} d (Harsanyi.interaction.{u_1} v)",
+      "universe_parameters": [
+        "u_1"
+      ],
+      "status": "passed"
+    }
+  ],
+  "commands": [
+    {
+      "cwd": "lean/HarsanyiLib",
+      "argv": [
+        "lake",
+        "build"
+      ],
+      "exit_code": 0,
+      "log_path": "reports/lean/20260930T052254-2/build-0.log"
+    },
+    {
+      "cwd": "lean/HarsanyiLib",
+      "argv": [
+        "lake",
+        "env",
+        "lean",
+        "/mnt/data2/wyh/lean4project/.tmp/audit-20260930T052254-2-0.lean"
+      ],
+      "exit_code": 0,
+      "log_path": "reports/lean/20260930T052254-2/audit-0.log"
+    }
+  ]
+}

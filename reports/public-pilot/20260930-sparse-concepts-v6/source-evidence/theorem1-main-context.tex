@@ -1,0 +1,57 @@
+Given a pre-trained DNN {\small$v(\cdot)$} and an input sample {\small$\boldsymbol{x}$} with {\small$n$} variables {\small$\mathcal{N}=\{1,2,\ldots,n\}$} (\emph{e.g.}, a sentence with {\small$n$} words), let {\small$v(\boldsymbol{x})\in\mathbb{R}$} denote the DNN's output\footnote{Note that people can apply different settings for the DNN's output {\scriptsize$v(\boldsymbol{x})$}. In particular, in the multi-category classification task, we set {\scriptsize$v(\boldsymbol{x})=\log\frac{p(y=y^{\text{truth}}|\boldsymbol{x})}{1-p(y=y^{\text{truth}}|\boldsymbol{x})}\in\mathbb{R}$} by following~\cite{deng2022discovering}.\label{footnote:v-S}} on the sample {\small$\boldsymbol{x}$}. Then, the causal graph corresponding to the inference logic on {\small$\boldsymbol{x}$} is shown in Fig. \ref{fig:causal-graph}(b).
+As Fig. \ref{fig:causal-graph}(b) shows, each source node {\small$X_i$} {\small$(i=1,...,n)$} in the bottom layer represents the binary state of whether the {\small$i$}-th input variable is masked ({\small$X_i=0$}) or not ({\small$X_i=1$}).
+The second layer consists of a set {\small$\Omega$} of all causal patterns. Each causal pattern {\small$\mathcal{S}\in\Omega$} represents the AND relationship between a subset of input variables {\small$\mathcal{S}\!\subseteq\!\mathcal{N}$}.
+For example, in Fig. \ref{fig:causal-graph}(b), the co-appearance of the three words in {\small$\mathcal{S}=\{\textit{take, it, easy}\}$} forms a phrase meaning ``calm down''.
+In other words, only when all three words are present, the causal pattern {\small$\mathcal{S}$} will be triggered, denoted by {\small$C_{\mathcal{S}}=1$}; otherwise, {\small$C_{\mathcal{S}}=0$}.
+As the output of the causal graph, the single sink node {\small$Y$} depends on triggering states {\small$C_{\mathcal{S}}$} of all causal patterns in  {\small$\Omega$}.
+Thus, the transition probability in this causal graph is given as follows.
+
+\begin{small}
+\begin{equation}
+\begin{gathered}
+    P(C_{\mathcal{S}}=1|X_1,X_2,...,X_n)={\prod}_{i\in\mathcal{S}} X_i,
+    \\[-2pt]
+    P(Y|\{C_{\mathcal{S}}|\mathcal{S}\in\Omega\})=\mathbbm{1}\left(Y={\sum}_{\mathcal{S}\in\Omega}  w_{\mathcal{S}}\cdot C_{\mathcal{S}}\right),
+    \label{eq:transition-probability}
+\end{gathered}
+\end{equation}
+\end{small}
+\!\!where {\small$Y\in\{v(x_S)|S\subseteq N\}$}.
+{\small$P(C_{\mathcal{S}}\!=\!0|X_1,X_2,...,X_n)\!=\!1\!-\!P(C_{\mathcal{S}}\!=\!1|X_1,X_2,...,X_n)$}.
+{\small$\mathbbm{1}(\cdot)$} refers to the indicator function.
+
+{\small$w_{\mathcal{S}}$} can be understood as the \textit{\textbf{causal effect}} of the pattern {\small$\mathcal{S}$} to the output {\small$Y$}.
+Specifically, each triggered causal pattern {\small$C_{\mathcal{S}}$} will contribute a certain causal effect {\small$w_{\mathcal{S}}$} to the DNN’s output.
+For example, the triggered causal pattern \textit{``take it easy''} would contribute a considerable additional effect {\small$w_{\mathcal{S}}\!>\!0$} that pushes the DNN's output towards the positive meaning ``calm down.''
+The quantification of the causal effect {\small$w_{\mathcal{S}}$} will be introduced later.
+
+
+According to Eq. (\ref{eq:transition-probability}), the causal relationship between {\small$C_{\mathcal{S}}$} {\small$(\mathcal{S}\in\Omega)$} and the output {\small$Y$} in the causal graph can be specified by the following structural causal model (SCM)~\cite{pearl2009causality}.
+
+
+\begin{small}
+\begin{equation}
+    Y(X)={\sum}_{\mathcal{S}\in\Omega}\ w_{\mathcal{S}}\cdot C_{\mathcal{S}}(X)
+    \label{eq:scm}
+\end{equation}
+\end{small}
+
+
+$\bullet$ \textbf{Faithfulness of the causal graph.}
+In this paragraph, we prove that there exists at least one causal graph parameterized by {\small $\{w_\mathcal{S}\}$} in Eq. \eqref{eq:transition-probability} that can faithfully mimic the inference logic of a DNN on the sample {\small$\boldsymbol{x}$}.
+Specifically, given an input sample {\small$\boldsymbol{x}$} with {\small$n$} variables, we have {\small$2^n$} ways to mask input variables in {\small$\boldsymbol{x}$}, and generate {\small$2^n$} different masked samples.
+If the output {\small$Y$} of a causal graph can always mimic the DNN's output\footref{footnote:v-S} on all the {\small$2^n$} input samples, we can consider that the causal graph is faithful.
+To this end, given a subset of input variables {\small$\mathcal{S}\!\subseteq\!\mathcal{N}$}, let {\small$\boldsymbol{x}_{\mathcal{S}}$} denote the masked sample, where variables in {\small$\mathcal{N}\backslash\mathcal{S}$} are masked, and other variables in {\small$\mathcal{S}$} keep unchanged.
+Let {\small$v(\boldsymbol{x}_{\mathcal{S}})$} and {\small$Y(\boldsymbol{x}_{\mathcal{S}})$} denote the DNN's output\footref{footnote:v-S} and the causal graph's output on this sample {\small$\boldsymbol{x}_{\mathcal{S}}$}, respectively.
+
+\begin{theorem}[Proof in Appendix C]\label{th:harsanyi-faithful}
+Given a certain input {\small$\boldsymbol{x}$}, let the causal graph in Fig. \ref{fig:causal-graph} encode {\small$2^n$} causal patterns, \emph{i.e.}, {\small$\Omega=2^{\mathcal{N}}=\{\mathcal{S}: \mathcal{S}\subseteq\mathcal{N}\}$}.
+If the causal effect {\small$w_{\mathcal{S}}$} of each causal pattern {\small$\mathcal{S}\in\Omega$} is measured by the Harsanyi dividend~\cite{harsanyi1963simplified}, \emph{i.e.} {\small$w_{\mathcal{S}} \triangleq {\sum}_{\mathcal{S}'\subseteq \mathcal{S}}(-1)^{|\mathcal{S}|-|\mathcal{S}'|}\cdot v(\boldsymbol{x}_{\mathcal{S}'})$}, then the causal graph faithfully encodes the inference logic of the DNN, as follows.
+\vspace{-3pt}
+\begin{small}
+\begin{equation}
+    \forall \mathcal{S}\subseteq \mathcal{N},\ \ 
+    Y(\boldsymbol{x}_{\mathcal{S}}) = v(\boldsymbol{x}_{\mathcal{S}})
+\end{equation}
+\end{small}
+\end{theorem}

@@ -1,0 +1,102 @@
+Theorem 5 (Connection to the marginal beneﬁt). Let ∆vT (xS) =∑
+T′⊆T (−1)|T|−|T′|v(xT′∪S) denote the marginal beneﬁt
+of variables inT ⊆N\S given the environmentS. We have proven that ∆vT (xS) can be decomposed into the sum of causal
+effects insideT and sub-environments ofS, i.e. ∆vT (xS) =∑
+S′⊆SwT∪S′.
+• Proof: By the deﬁnition of the marginal beneﬁt, we have
+∆vT (xS) =
+∑
+L⊆T
+(−1)|T|−|L|v(xL∪S)
+=
+∑
+L⊆T
+(−1)|T|−|L| ∑
+K⊆L∪S
+wK // by Theorem 1
+=
+∑
+L⊆T
+(−1)|T|−|L| ∑
+L′⊆L
+∑
+S′⊆S
+wL′∪S′ // sinceL∩S =∅
+=
+∑
+S′⊆S
+
+∑
+L⊆T
+(−1)|T|−|L| ∑
+L′⊆L
+wL′∪S′
+
+
+=
+∑
+S′⊆S
+
+
+∑
+L′⊆T
+∑
+L⊆T
+L⊇L′
+(−1)|T|−|L|wL′∪S′
+
+
+=
+∑
+S′⊆S
+
+
+wS′∪T| {z }
+L′=T
++
+∑
+L′⊊T
+
+
+|T|∑
+l=|L′|
+(
+|T|−|L ′|
+l−|L′|
+)
+(−1)|T|−|L|wL′∪S′
+
+
+| {z }
+L′⊊T
+
+
+=
+∑
+S′⊆S
+
+
+wS′∪T +
+∑
+L′⊊T
+
+
+wL′∪S′·
+|T|∑
+l=|L′|
+(
+|T|−|L ′|
+l−|L′|
+)
+(−1)|T|−|L|
+| {z }
+=0
+
+
+
+
+=
+∑
+S′⊆S
+wS′∪T
+18

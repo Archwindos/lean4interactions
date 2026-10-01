@@ -1,0 +1,87 @@
+                                                                                                          MLP-5 (normal)                           ResMLP-5 (normal)                         MLP-2 (normal)
+                                                                                                          MLP-5 (adversarial)                      ResMLP-5 (adversarial)                    MLP-2 (adversarial)
+                                                                                      350                                                                                                   1800
+
+
+
+                   On the census dataset On the TV News dataset
+                                                                                                                                         350
+                                                                                                                                                                                            1400
+
+
+
+
+                                                                      # of patterns
+
+
+
+
+                                                                                                                            # of nodes
+
+
+
+
+                                                                                                                                                                               # of edges
+                                                                                      250                                                250
+                                                                                                                                                                                            1000
+                                                                                      150                                                150                                                 600
+
+                                                                                      50                                                 50                                                  200
+                                                                                            0   10   20     30   40   50                       0     10   20   30   40   50                        0   10   20   30   40   50
+                                                                                                     epoch                                                epoch                                             epoch
+                                                                                  1200                                             1200
+                                                                                                                                                                                            6000
+                                                                  # of patterns
+
+
+
+
+                                                                                                                           # of nodes
+
+
+
+
+                                                                                                                                                                              # of edges
+                                                                                      800                                                800
+                                                                                                                                                                                            4000
+                                                                                      400                                                400                                                2000
+
+                                                                                       0                                                   0                                                   0
+                                                                                            0   10   20     30   40   50                       0     10   20   30   40   50                        0   10   20   30   40   50
+                                                                                                     epoch                                                epoch                                             epoch
+
+Figure 4. The number of patterns (the first column), nodes (the second column), and edges (the third column) in the AOG, based on baseline
+values of different learning epochs. The learned baseline value significantly enhanced the conciseness of explanations.
+
+
+   Besides, Figure 2(a) and Figure 3 also show that compared with the normally trained model, we could use fewer causal
+patterns (smaller |Ω|) to achieve the same ratio of the explained causal effects RΩ in the adversarially trained model. Moreover,
+Figure 2(b,c) and Figure 3(b,c) also show that the AOGs corresponding to adversarially trained models were less complex than
+the AOGs corresponding to normally trained models. This indicated that adversarial training made models encode sparser
+causal patterns than normal training.
+G.7. More analysis on the effectiveness of the learned baseline values
+    This section provides experimental analysis of the effects of baseline values on the conciseness of explanations. In addition
+to the experiments in the Paragraph Effects of baseline values on the conciseness of explanations in Section 4.2 of the main
+paper, in this section, we analyze the effectiveness of the learned baseline values in terms of the AOG complexity from
+different perspectives. To this end, we first computed causal effects using the baseline values obtained in different epochs
+during the learning phase. Then, based on the computed causal effects, we measured the numbers of causal patterns, nodes,
+and edges in the AOG at each learning epoch. For a fair comparison, we selected the minimum number |Ω| of causal patterns
+such that the ratio of the explained causal effects QΩ exceeded 70%, to construct the AOG. Figure 4 shows the change in the
+AOG complexity during the learning process of baseline values, in terms of the number of causal patterns, nodes, and edges in
+the AOG. We found that learning the baseline values significantly simplified the AOG, thus boosting the conciseness of the
+explanations.
+G.8. Comparing the complexity of AOGs and the complexity of DNNs
+   In this subsection, we compare the complexity of AOGs and the complexity of DNNs. We trained ResMLP networks with
+different numbers of layers on the Add-Mul and census datasets, and we explained these DNNs using AOGs. Figure 5 shows a
+comparison of the node number (complexity) of the AOG with the depth and parameter number (complexity) of the DNN. We
+found that a more complex DNN did not necessarily encode more complex features and thereby did not always obtaining a
+more complex AOG.
+
+H. Discussion about the running time of the AOG explainer
+   In this section, we conducted an experiment to measure the running time of the methods in Table 2, Section 4.1 of the main
+paper. Specifically, we measured the average running time to compute the explanation of a single sample for MLP-5 trained on
+the census dataset. The running time was averaged over 20 different input samples. Table 5 shows that the proposed AOG
+explainer was comparable to the existing methods in terms of time complexity. For the implementation, we implemented the
+Harsanyi dividend, the Shapley value [43], the Shapley interaction index [22], and the Shapley Taylor interaction index [51]
+by ourselves, and implemented the other three methods (Input×Gradient [45], LRP [5], and Occlusion [63]) based on the
+Captum [32] package. All the computation was conducted using an NVIDIA GeForce RTX 2080 Ti GPU.

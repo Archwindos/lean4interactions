@@ -1,0 +1,57 @@
+operations (denoted by |). For example, let us consider the function f (x) = (x1 > 0)&(x2 > 0)|(x2 > 0)&(x3 > 0)&(x4 >
+0)|(x3 > 0)&(x5 > 0). Each input variable is a scalar, i.e. xi ∈ R, and the output is binary, i.e. f (x) ∈ {0, 1}. For each And-Or
+function, we randomly generated 100,000 Gaussian noises with n = 8 variables as input samples, and labeled these samples
+following functions in the And-Or dataset, namely the manually labeled And-Or dataset.
+   The ground-truth causal patterns in this dataset could be determined as follows. For the above function, we could consider
+{x1 , x2 }, {x2 , x3 , x4 }, and {x3 , x5 } as possible causal patterns. If any of these patterns was significantly activated, i.e. if all
+input variables in this pattern were greater than a threshold τ = 0.5, then we consider this pattern to be significant enough to
+be a valid ground-truth causal pattern. I.e. for the above function, given the input x = [1.0, 2.0, 1.5, 0.9, 0.8], the ground-truth
+causal patterns were Ωtruth = {{x1 , x2 }, {x2 , x3 , x4 }, {x3 , x5 }}. Given the input x = [0.8, 1.5, 1.2, 0.1, 0.9], the ground-truth
+causal patterns were Ωtruth = {{x1 , x2 }, {x3 , x5 }}.
+   In our experiments, we trained one MLP-5 network and one ResMLP-5 network for binary classification using the manually
+labeled dataset generated based on each And-Or function. Similar to the above experiments, for each well-trained model, we
+extracted the top-m salient patterns and computed the average IoU over 1000 training samples for comparison. Note that
+there was no principle to ensure that the model learned the exact ground-truth causality between input variables for inference.
+Therefore, the average IoU on this dataset was less than 1.
+   An extended version of the Addition-Multiplication dataset. In order to evaluate the accuracy of the computed causal
+effects, we also extended the Addition-Multiplication dataset to generate functions with not only ground-truth causal patterns,
+but also ground-truth causal effects for evaluation. The extended Addition-Multiplication dataset also contained 100 functions,
+which consisted of addition and multiplication operations. Each variable xi was a binary variable, i.e. xi ∈ {0, 1}. Different
+from functions in the Addition-Multiplication dataset, there were different coefficients before each term in each function. For
+example, v(x) = 3x1 − 2x2 x3 − x3 x4 x5 + 5x4 x6 .
+   The ground-truth causal effects in these functions can be easily determined. Similar to the original Addition-Multiplication
+dataset, each term was a ground-truth pattern. In this case, we could consider the causal effect of each pattern as the value
+of its coefficient. For the above function, given the input x = [1, 1, 1, 1, 1, 1], the ground-truth effects of causal patterns
+were w{x1 } = 3, w{x2 ,x3 } = −2, w{x3 ,x4 ,x5 } = −1, w{x4 ,x6 } = 5, and for other S ⊆ {x1 , ..., x6 }, wS = 0. Given the input
+x = (1, 1, 0, 1, 1, 1), the ground-truth causal effects were w{x1 } = 3, w{x4 ,x6 } = 5, and for other S ⊆ {x1 , ..., x6 }, wS = 0.
+   In our experiments, we randomly generated 100 functions. Each of them had 10 input variables, and had 10-100 terms.
+Subsequently, 200 binary input samples           were randomly generated for each function. For each input sample, we measured the
+                                                  min(|wtruth |,|w |)
+                                           P
+Jaccard similarity coefficient J = P S⊆N max(|wStruth |,|wS |) between ground-truth causal effects wStruth (defined above) and causal
+                                             S⊆N        S         S
+effects wS computed using our method. The average value of J over all samples was 1.00, indicating that our method based on
+Harsanyi dividends correctly extracted the causal effects in these functions.
+G.4. More experimental results on the faithfulness of the AOG explainer
+    This section presents the results of the faithfulness of the AOG explainer on NLP and vision tasks. For NLP tasks, we
+used the SST-2 dataset. For the vision tasks, we used the MNIST and CelebA datasets. We computed the unfaithfulness
+metric ρunfaith to evaluate whether the explanation method faithfully extracted the causal effects encoded by the DNNs. Table 4
+compares the extracted causal effects in the AOG with SI values, STI values, and attribution-based explanations (including the
+Shapley value [43], Input×Gradient [45], LRP [5], and Occlusion [63]). Our AOG explainer exhibited significantly lower
+ρunfaith values than the baseline methods.
+
+                        Table 4. Unfaithfulness (↓) of different explanation methods on the NLP and vision tasks.
+
+                    Dataset        DNN      Shapley     I×G      LRP     OCC       SI    STI (k=2)    STI (k=3)       Ours
+                                   LSTM      15.8      1.0E+3    258     65.9     166      4.05         2.50        1.4E-12
+                NLP      SST-2
+                                   CNN       27.4       38.5     210     577      234      4.06         1.12        6.7E-12
+                        MNIST      RN-20     22.6        303     349     21.6     234      3.44         0.47        9.1E-14
+               Vision
+                        CelebA     RN-18     1.57      5.1E+5    358     290     13.88     0.42        4.5E-2       2.1E-13
+
+
+G.5. More analysis on the faithfulness of the AOG explainer
+    In this section, we discuss the experiment in Section 4.1 of the main paper, in which we evaluated whether an explanation
+method faithfully extracted causal effects encoded by deep models based on metric 2. To this end, we considered the SI value
+I Shapley (S) [22] and the STI value I Shapley-Taylor (S) [51] as the numerical effects of different interactive patterns S on a DNN’s

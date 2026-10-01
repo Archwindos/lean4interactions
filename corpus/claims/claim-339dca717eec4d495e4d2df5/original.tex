@@ -1,0 +1,81 @@
+Theorem 1. Speciﬁcally, we remove noisy causal patterns
+by following a greedy strategy, i.e., iteratively removing
+the noisy causal pattern such that unfaith(wΩ) is minimized
+in each step. In this way, we just use the set of retained
+causal patterns, denoted by Ω, to approximate the output, i.e.,
+v(x)≈Y (x) =∑
+S∈ΩwS·CS(x) =∑
+S∈ΩwS.
+Ratio of the explained causal effectsRΩ. We propose a
+metricRΩ to quantify the ratio of the explained salient causal
+effects in Ω to the overall network output.
+RΩ =
+∑
+S∈Ω|wS|∑
+S∈Ω|wS| +|∆| (7)
+where ∆=v(x)−∑
+S∈ΩwS denotes effects of the unexplained
+causal patterns.
+Third, discovering that adversarial training boosts
+the conciseness. As discussed in Section 4.3, we also dis-
+cover that adversarial training [46] makes the DNN encode
+3The setting ofτ is introduced in Section 4.2. Please see Appendix E
+for more discussions
+more sparse causal patterns than standard training, thus
+boosting the conciseness of the causal graph.
+3.3. Rewriting the causal graph as an AOG
+The AOG is a hierarchical graphical model that encodes
+how semantic patterns are formed for inference, which
+has been widely used for interpretable knowledge repre-
+sentation [42, 86], object detection [64], etc. In this sec-
+tion, we show that the above causal graph can be rewrit-
+ten into an And-Or graph (AOG), which summarizes com-
+mon coalitions shared by different causal patterns to fur-
+ther simplify the explanation. According to the SCM in
+Eq. (2), the causal graph in Section 3.1 actually repre-
+sents the And-Sum representation encoded by the DNN,
+i.e.,v(x)≈∑
+S∈ΩwS·CS(x)=∑
+S∈ΩwS. In fact, such And-
+Sum representation can be equivalently transformed into an
+AOG.
+The structure of a simple three-layer AOG is shown in
+Fig. 1(c). Just like the causal graph in Fig. 1(b), at the bottom
+layer of the AOG in Fig. 1(c), there aren leaf nodes represent-
+ingn variables of the input sample. The second layer of the
+AOG has multiple AND nodes, each representing the AND
+relationship between its child nodes. For example, the AND
+node x4x5x6 indicates the causal pattern S ={x4,x 5,x 6}
+with the causal effect wS = 2.0. The root node is a noisy
+OR node (as discussed in [42]), which sums up effects of
+all its child AND nodes to mimic the network output, i.e.,
+output =∑
+S∈ΩwS·CS.
+Furthermore, in order to simplify the AOG, we extract
+common coalitions shared by different causal patterns as
+new nodes to construct a deeper AOG. For example, in
+Fig. 1(c), input variables x5 and x6 frequently co-appear
+in different causal patterns. Thus, we consider x5,x 6 as a
+coalition and add an AND node β ={x5,x 6} to represent
+their co-appearance. Accordingly, the pattern {x4,x 5,x 6}
+is simpliﬁed as{x4,β} (see Fig. 1(d)). Therefore, for each
+coalition / causal patternS in an intermediate layer, its trig-
+gering stateCS =∏
+S′∈Child(S)CS′, where Child(S) denotes
+all input variables or coalitions composingS. I.e., each coali-
+tion / causal patternS is triggered if and only if all its child
+nodes in Child(S) are triggered.
+In order to extract common coalitions, we use the mini-
+mum description length (MDL) principle [27] to learn the
+AOGg as the simplest description of causal patterns. The
+MDL is a classic way of summarizing patterns from data for
+decades, which has solid foundations in information theory.
+Given an AOGg and input variablesN , letM=N∪ Ωcoalition
+denote the set of all leaf nodes and AND nodes in the bottom
+two layers, e.g.M=N∪ Ωcoalition ={x1,x 2,...,x 6}∪{α,β} in
+Fig. 1(d). The objective of minimizing the description length
+L(g,M) is given as follows.
+min
+M
+L(g,M) s.t. L(g,M) =L(M) +LM(g), (8)
+5

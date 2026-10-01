@@ -1,0 +1,25 @@
+[build-system]
+requires = ["setuptools>=68"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "harsanyi-proof-archive"
+version = "0.1.0"
+description = "File-backed local archive for mathematical proofs and Lean evidence"
+requires-python = ">=3.12"
+dependencies = ["PyYAML>=6.0.2,<7", "pypdf>=5,<7", "fastapi>=0.115,<1", "uvicorn>=0.30,<1", "jinja2>=3.1,<4"]
+
+[project.optional-dependencies]
+test = ["pytest>=8,<10", "httpx>=0.27,<1"]
+
+[project.scripts]
+archive = "archive.cli:main"
+
+[tool.setuptools.packages.find]
+where = ["src"]
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]
+pythonpath = ["src"]
+cache_dir = ".cache/pytest"
+addopts = "--basetemp=.tmp/pytest"

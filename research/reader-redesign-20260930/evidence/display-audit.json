@@ -1,0 +1,79 @@
+{
+  "generated_at": "2026-09-30T08:00:44.166342+00:00",
+  "complaint_url_path": "/claims/claim-114147f1447e7138f450971e",
+  "classification": "prose_reference_false_positive_in_display_audit_only",
+  "canonical_corpus_disposition": "pending",
+  "corpus_not_changed": true,
+  "claim": {
+    "metadata": {
+      "schema_version": 1,
+      "claim_id": "claim-114147f1447e7138f450971e",
+      "paper_id": "sparse-concepts-2111-06206",
+      "paper_version": "v6",
+      "source_location": {
+        "file": "sources/2111.06206v6.pdf",
+        "pdf_page": 4,
+        "printed_page": null,
+        "section": null,
+        "line": null,
+        "offset": 4141
+      },
+      "original_label": "Theorem 1 by removing noisy causal patterns and learning",
+      "kind": "claim",
+      "theorem_ids": [],
+      "proof_ids": [],
+      "review_status": "candidate",
+      "extraction_status": "candidate",
+      "rewriting_status": "not_started",
+      "alignment_status": "not_reviewed",
+      "visibility": "public",
+      "source_sha256": "2f18ed3bc48c095ffbf4ab68a1f6a6545d5e86e562229f3795a46e98f3095a12",
+      "issues": [
+        "Automatically detected candidate; statement/proof boundaries and completeness require human review."
+      ]
+    },
+    "original": "Theorem 1 by removing noisy causal patterns and learning\nthe optimal baseline value, so as to boost the sparsity of\ncausal effects. Besides, we also discovered that adversarial\ntraining [46] can make the DNN encode much more sparse\ncausal effects.\nFirst, boosting conciseness by learning the optimal\nbaseline value. In fact, the sparsity of causal patterns does\nnot only depend on the DNN itself, but it is also deter-\nmined by the choice of baseline values in Eq. (4). Specif-\nically, input variables are masked by their baseline values\nr = [r1,r 2,...,r n] to represent their absence states in the\ncomputation of causal effects. Thus, wΩ can be represented\nas a function of r, i.e., wΩ(r). To this end, some recent\nstudies [4, 16, 52] deﬁned baseline values from a heuris-\ntic perspective, e.g. simply using mean/zero baseline val-\nues [16, 67]. However, it still remains an open problem to\ndeﬁne optimal baseline values.\nThus, we further boost the sparsity of causal patterns\nby learning the optimal baseline values that enhance the\nconciseness of the causal graph. However, it is difﬁcult to\nlearn optimal baseline values by directly optimizing Eq. (5).\nTo this end, we relax the optimization problem in Eq. (5) (L0\nregression) as a Lasso regression (L1 regression) as follows.\n4\n",
+    "alignment": {
+      "schema_version": 1,
+      "status": "not_reviewed",
+      "symbol_mapping": [],
+      "evidence": []
+    },
+    "review": {
+      "schema_version": 1,
+      "status": "pending",
+      "issues": [
+        "Automatically detected candidate; statement/proof boundaries and completeness require human review."
+      ]
+    }
+  },
+  "source_context": {
+    "path": "corpus/papers/sparse-concepts-2111-06206/v6/sources/tex/AOG.tex",
+    "first": 320,
+    "last": 342,
+    "raw": "However, direct optimization of Eq. (\\ref{eq:faithful-concise}) is difficult.\nTherefore, we propose several techniques to learn sparse causal effects based on Eq. (\\ref{eq:faithful-concise}) to faithfully mimic the DNN's outputs on numerous masked samples.\nThe following paragraphs will introduce how to relax the Harsanyi dividend in Theorem \\ref{th:harsanyi-faithful} by removing noisy causal patterns and learning the optimal baseline value, so as to boost the sparsity of causal effects.\nBesides, we also discovered that adversarial training~\\cite{madry2018towards} can make the DNN encode much more sparse causal effects.\n\n\n\\textbf{First, boosting conciseness by learning the optimal baseline value.}\nIn fact, the sparsity of causal patterns does not only depend on the DNN itself, but it is also determined by the choice of baseline values in Eq. (\\ref{eq:masked-sample}).\nSpecifically, input variables are masked by their baseline values {\\small $\\boldsymbol{r}=[r_1,r_2,\\ldots,r_n]$} to represent their absence states in the computation of causal effects.\nThus, {\\small$\\boldsymbol{w}_{\\Omega}$} can be represented as a function of {\\small$\\boldsymbol{r}$}, \\emph{i.e.}, {\\small$\\boldsymbol{w}_{\\Omega}(\\boldsymbol{r})$}.\nTo this end, some recent studies~\\cite{ancona2019explaining,dabkowski2017real,ren2021learning} defined baseline values from a heuristic perspective, \\emph{e.g.} simply using mean/zero baseline values~\\cite{dabkowski2017real,sundararajan2017axiomatic}.\nHowever, it still remains an open problem to define optimal baseline values.\n\nThus, we further boost the sparsity of causal patterns by learning the optimal baseline values that enhance the conciseness of the causal graph.\nHowever, it is difficult to learn optimal baseline values by directly optimizing Eq. (\\ref{eq:faithful-concise}).\nTo this end, we relax the optimization problem in Eq. (\\ref{eq:faithful-concise}) ({\\small$L_0$} regression) as a Lasso regression ({\\small$L_1$} regression) as follows.\n\n\\vspace{-3pt}\n\\begin{small}\n\\begin{equation}\n\\begin{aligned}\n     {\\min}_{\\Omega,\\boldsymbol{r}}\\ \\  &\\mathrm{unfaith}(\\boldsymbol{w}_{\\Omega})\n     \\ \\ \n",
+    "label": "AOG.tex:320–342"
+  },
+  "pdf_evidence": "evidence/public-pdf-page-04.png",
+  "reading": "PDF page 4, right column: a prose sentence referring to Theorem 1; no new theorem declaration.",
+  "source_format": "original.tex is PDF-extracted plain text, not original TeX",
+  "empty_modules": {
+    "theorem_ids": [],
+    "proof_ids": [],
+    "alignment_evidence": [],
+    "adaptation_file_exists": false
+  },
+  "status_contract_bug": {
+    "producer": "rewriting_status",
+    "consumer": "rewrite_status",
+    "path": "web/templates/macros.html",
+    "normalization_found": false
+  },
+  "alert_routing_bug": {
+    "path": "web/templates/macros.html",
+    "macro": "issues",
+    "prose_extraction_issue_labeled_as": "数学问题待确认"
+  },
+  "tex_renderer_limitation": "archive-math.js passes a mixed prose+TeX block to katex.render; document environments are unsupported and PDF plain text has no TeX delimiters.",
+  "notation_warning": "Do not repair exponents, subscripts or formula boundaries from PDF text without checking source/PDF."
+}

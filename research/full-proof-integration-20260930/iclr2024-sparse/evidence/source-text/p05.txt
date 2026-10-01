@@ -1,0 +1,96 @@
+Published as a conference paper at ICLR 2024
+
+
+
+
+                          tic-tac-toe                       tic-tac-toe                           wifi                                   wifi                        CelebA-eyeglasses
+                            MLP-5                           ResMLP-5                            MLP-5                                 ResMLP-5                            ResNet-34
+                       salient
+
+
+   |𝐼ሚ 𝑆 |
+                                                        salient                              salient                               salient                              salient
+                                  noisy                           noisy                                noisy                                      noisy                           noisy
+             0.05                             0.05                                0.05                                   0.05                                 0.05
+
+
+
+                           phishing                         phishing                            ShapeNet                              ShapeNet                       CelebA-eyeglasses
+                             MLP-5                          ResMLP-5                             PointNet                             PointNet++                          ResNet-18
+   |𝐼ሚ 𝑆 |
+
+
+
+
+                        salient                         salient                               salient                               salient                             salient
+                                  noisy                           noisy                                 noisy                                 noisy                               noisy
+             0.05                             0.05                                 0.05                                  0.05                                 0.05
+
+
+
+                          MNIST-3                         MNIST-3                               MNIST-3                               MNIST-3                        CelebA-eyeglasses
+                            LeNet                          ResNet-20                            ResNet-44                              VGG-16                             ResNet-34
+   |𝐼ሚ 𝑆 |
+
+
+
+
+                        salient                         salient                               salient                               salient                             salient
+                                  noisy                             noisy                               noisy                                 noisy                               noisy
+             0.05                             0.05                                 0.05                                  0.05                                 0.05
+
+
+                    index of interaction 𝑆           index of interaction 𝑆               index of interaction 𝑆                index of interaction 𝑆               index of interaction 𝑆
+
+
+Figure 3: Normalized strength of different interactions, shown in descending order. Various DNNs
+trained for different tasks all encoded sparse interactions. In other words, only a relatively small
+number of interactions had a significant effect, while most interactions were noisy patterns and had
+near-zero effects, i.e., I(S) ≈ 0.
+
+computed according to the method in (Li & Zhang, 2023b). Figure 3 successfully verifies that inter-
+actions encoded by various DNNs on different tasks were all sparse. Moreover, we followed Li &
+Zhang (2023b) to define interactions with |I(S)| > τ = 0.05 · maxS ′ |I(S ′ )| as salient interactions.
+3.2 P ROVING THE SPARSITY OF INTERACTIONS                          又把高度压缩了
+                                                                   Concept改成了interaction
+Despite these achievements, there is still no theory to prove the emergence of such sparse interactions
+as symbolic primitives. Therefore, in this subsection, we make an initial attempt to theoretically
+prove the sparsity of interactions. To be precise, we need to prove the conditions, under which the
+output of a DNN can be approximated by the effects of a small number of salient interactions,
+instead of a mass of fuzzy features. More interestingly, the proof will show that the sparsity of
+interactions depends on the property of the classification task itself, rather than the architecture of
+the neural network, or the sparsity of the parameters/intermediate-layer features.
+Given a trained DNN v and an input sample x = [x1 , · · · , xn ]⊤ , let v(x) ∈ R denote the scalar
+network output on the sample x. Let us consider the Taylor expansion of the network output v(x),
+which is expanded at the point b = [b1 , · · · , bn ]⊤ :
+                                             ∞               ∞
+                                             X               X             ∂ κ1 +···+κn v                           (x1 − b1 )κ1 · · · (xn − bn )κn
+                                   v(x) =             ···                                                       ·                                   .                                         (2)
+                                             κ1 =0          κn =0
+                                                                          ∂xκ1 1 · · · ∂xκnn        x=b                      κ1 ! · · · κn !
+
+ Strictly speaking, there are no high-order derivatives for ReLU neural networks. In this case, we
+can still use the finite difference method (Peebles et al., 2020; Gonnet & Scholl, 2009) to compute
+the equivalent high-order derivatives yielded by the change in ReLU gating states.
+Assumption 1-α. Interactions higher than the M -th order have zero effect, i.e., ∀ S ∈ {S ⊆ N |
+                                                                                             def
+|S| ≥ M + 1}, I(S) = 0. The order is defined as the number of input variables in S, order(S) = |S|.
+Assumption 1-β. The network is assumed to have at most M -order non-zero derivatives, i.e.,
+                                                                      κ +···+κn
+∀ b ∈ Rn , ∀ κ1 · · · κn ∈ N, s.t. κ1 + · · · + κn ≥ M + 1, we have ∂∂x1κ1 ···∂xκnv = 0.
+                                                                                                                                              1           n   x=b
+
+In mathematics, Assumption 1-α can be derived (see Appendix B.2) from Assumption 1-β (assum-
+ing no derivatives higher than the M -th order in the Taylor expansion of the function v), which is a
+stronger assumption than Assumption 1-α and is specific to continuously differentiable functions4 .
+In comparison, Assumption 1-α can be applied to more general networks than Assumption 1-β.
+In fact, only Assumption 1-α without Assumption 1-β is already enough to conduct our later proof.
+The assumed non-existence of high-order interactions in Assumption 1-α is not strange, and it has
+been illustrated in many large language models (please see Figure 4). This is because high-order
+    4
+      This is a common setting for a simple DNN or a DNN with almost zero high-order derivatives. In fact, it
+is not necessary for most DNNs to have derivatives of very high orders during training.
+
+
+                                                                                                5
+

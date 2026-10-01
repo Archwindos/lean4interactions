@@ -1,0 +1,19 @@
+schema_version: 1
+trial: independent-ai-api-playtest
+tester: public_pilot_api_max
+model: gpt-6.1-sol
+reasoning_effort: max
+participated_in_library_implementation: false
+discovery_constraint: delivery_docs_and_machine_catalog_before_authoring
+core_implementation_read_before_authoring: false
+task: >-
+  对任意实值有限集合函数 v、实数 a 与 b，确定去基线后的仿射游戏
+  centered(T ↦ a*v(T)+b) 的全部交互系数，包括空集；进而证明能在
+  所有有限集合上重构这个游戏的任意系数函数 d 必须等于该公式。
+premises:
+  - α has DecidableEq; S ranges over Finset α.
+  - v and d are real-valued games; no zero-baseline premise on v.
+  - The uniqueness part assumes reconstruct d S equals the centered affine game for every S.
+rejection_task: >-
+  Omit S.Nonempty when calling interaction_centered_nonempty and verify Lean
+  rejects the application. Keep this synthetic fixture outside corpus/issues.

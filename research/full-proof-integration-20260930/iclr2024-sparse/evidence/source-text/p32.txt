@@ -1,0 +1,81 @@
+Published as a conference paper at ICLR 2024
+aquila: 样本 0, 44
+
+
+
+            Input sentence: Super Bowl 50 was an American football game to
+            determine the champion of the National Football League (NFL) for
+            the 2015 season. The American Football Conference (AFC)                         salient
+
+
+
+
+                                                                                  |𝐼ሚ 𝑆 |
+            champion Denver Broncos
+
+            Predicted word: defeated                                                                  noisy
+
+            Real # of valid (salient) interactions: 46
+            Upper bound: 168.25                                                             index of interaction 𝑆
+
+
+
+            Input sentence: After a punt from both teams, Carolina got on track
+            with a 9-play, 73-yard scoring drive. Newton completed 4 of 4                   salient
+
+
+
+
+                                                                                  |𝐼ሚ 𝑆 |
+            passes for 51 yards and rushed twice for 25
+                                                                                                      noisy
+            Predicted word: yards
+
+            Real # of valid (salient) interactions: 15
+            Upper bound: 104.95                                                              index of interaction 𝑆
+
+
+
+Figure 12: Comparison between the real number of valid interactions and the derived upper bound,
+and visualization of normalized interaction strength in descending order on the BAAI Aquila-7B
+model. Words in bold are the input variables in the set N for which we compute interactions.
+
+
+E.3   M ORE DISCUSSIONS AND EXPERIMENTS ABOUT THE VALUE OF p
+Although Assumption 3 does not constrain the upper bound for the constant p, we have conducted
+experiments on LLMs to measure the true value of p in real applications. Figure 5(b) shows that
+the value of p across different samples was around 0.9 to 1.5. According to either Theorem 3 or
+experimental verification in Table 2, interactions encoded by these LLMs were sparse.
+Despite the lack of the bound for p, our theory is still complete. It is because the contribution of
+our study is to clarify the conditions that lead to the emergence of sparse interaction primitives,
+instead of guaranteeing sparse interaction in every DNN. In most tasks (e.g., the aforementioned
+classification tasks), these conditions are commonly satisfied, so that our theory has guaranteed the
+sparsity of interactions without a need of actually computing the interactions. Section 3.3 discusses
+a few special cases that do not satisfy the three common conditions. Therefore, instead of showing
+that sparse interaction primitives will emerge in all scenarios, the goal of this paper is to identify
+common conditions that provably ensure the emergence of sparse interaction primitives.
+In addition, let us analyze how the sparsity of interactions depends on the value of p. Some special
+tasks heavily rely on the global information of all input variables, e.g., the task of judging whether
+the number of 1’s in a binary sequence is odd or even (i.e., judging the parity). Then, in these
+tasks, the value of p may be large. Therefore, we conducted experiments to train an MLP to judge
+whether the number of 1’s in a binary sequence (e.g., the sequence [0,1,1,1,0,0,1,0,1,1]) is odd
+or even. Specifically, each binary sequence contains 10 digits. The MLP has 3 layers, and each
+layer contains 100 neurons. We trained the MLP on 1000 randomly generated samples for 50000
+iterations, with the learning rate set to 0.01, and the MLP achieved 100% accuracy on these samples.
+We then tested the value of p and found that p was around 9.9 to 19.7, which is relatively large.
+Fortunately, in most classification tasks as shown in Figure 5(b), the network usually shows a certain
+level of robustness to the masking of input samples. Therefore, the value of p will not be very large
+in most classification tasks, thus ensuring the sparsity of interactions encoded by the network.
+
+E.4   S IZE OF IMAGE REGIONS DOES NOT AFFECT THE SPARSITY OF INTERACTIONS
+We would like to clarify that the objective, i.e., the proof of the emergence of sparse interactions, is
+agnostic to the selection of input variables for interactions. To better illustrate this, we conducted
+experiments on the MNIST-3 dataset to show that the interactions were still sparse when the size of
+image regions varied. Specifically, the original image parts annotated by Li & Zhang (2023b) were
+of the size of 3 × 3 pixels. Then, we enlarged the size of image parts to 5 × 5 pixels and 7 × 7 pixels.
+Figure 13 shows that the use of input variables of different sizes did not clearly affect the sparsity of
+interactions.
+
+
+                                                                 32
+

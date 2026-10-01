@@ -1,0 +1,30 @@
+#!/usr/bin/env bash
+# Source this file. All generated data stays within this project.
+ARCHIVE_PROJECT_ROOT="$(cd -- "$(dirname -- "${BASH_SOURCE[0]}")/.." && pwd)"
+export ARCHIVE_PROJECT_ROOT
+export ARCHIVE_ROOT="${ARCHIVE_ROOT:-$ARCHIVE_PROJECT_ROOT}"
+export CONDARC=" "
+export CONDA_REGISTER_ENVS=false
+export CONDA_PKGS_DIRS="$ARCHIVE_PROJECT_ROOT/.cache/conda/pkgs"
+export CONDA_ENVS_PATH="$ARCHIVE_PROJECT_ROOT/.tools/conda-envs"
+export CONDA_NO_PLUGINS=true
+export CONDA_AUTO_UPDATE_CONDA=false
+export CONDA_NOTIFY_OUTDATED_CONDA=false
+export CONDA_SOLVER=classic
+export PIP_CACHE_DIR="$ARCHIVE_PROJECT_ROOT/.cache/pip"
+export PIP_CONFIG_FILE=/dev/null
+export PIP_DISABLE_PIP_VERSION_CHECK=1
+export XDG_CACHE_HOME="$ARCHIVE_PROJECT_ROOT/.cache/xdg"
+export XDG_CONFIG_HOME="$ARCHIVE_PROJECT_ROOT/.cache/config"
+export XDG_DATA_HOME="$ARCHIVE_PROJECT_ROOT/.cache/data"
+export TMPDIR="$ARCHIVE_PROJECT_ROOT/.tmp"
+export TEMP="$TMPDIR"
+export TMP="$TMPDIR"
+export PYTHONPYCACHEPREFIX="$ARCHIVE_PROJECT_ROOT/.cache/python"
+export PYTHONNOUSERSITE=1
+export PYTHONPATH="$ARCHIVE_PROJECT_ROOT/src${PYTHONPATH:+:$PYTHONPATH}"
+export ELAN_HOME="$ARCHIVE_PROJECT_ROOT/.tools/elan"
+export LEAN_HOME="$ARCHIVE_PROJECT_ROOT/.tools/lean"
+export MATHLIB_CACHE_DIR="$ARCHIVE_PROJECT_ROOT/.cache/mathlib"
+export PATH="$ARCHIVE_PROJECT_ROOT/.conda-env/bin:$ARCHIVE_PROJECT_ROOT/.tools/lean-4.24.0-linux/bin:$ELAN_HOME/bin:$PATH"
+mkdir -p "$CONDA_PKGS_DIRS" "$CONDA_ENVS_PATH" "$PIP_CACHE_DIR" "$XDG_CACHE_HOME" "$XDG_CONFIG_HOME" "$XDG_DATA_HOME" "$TMPDIR" "$PYTHONPYCACHEPREFIX"

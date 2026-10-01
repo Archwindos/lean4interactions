@@ -1,0 +1,53 @@
+                                                              # nodes in AOG
+                                                               #layer
+                                                              #param 1.5K         41.9K        82.3K
+
+                                            Figure 5. Comparing the complexity (the node number) of the
+                                            AOG and the complexity (the parameter number) of the DNN.
+                                                             # layers in ResMLP (# params)
+                  Table 5. The average running time to compute the explanation of a single sample, based on different methods.
+    Method                 SI            STI (k = 2)         STI (k = 3)           Shapley           IxG             LRP             Occ             Ours
+ Running time (s)    0.0179±0.0013   0.0176±1.6 × 10−5   0.0176±3.9 × 10−5     0.0179±0.0019    0.0045±0.0014   0.0170±0.0007   0.0302±0.0018   0.0182±0.0010
+
+
+
+   For high-dimensional inputs such as images, there are many techniques to solve the dimension problem and reduce the time
+cost. For example, we can manually segment an input into multiple parts, and use these parts as input variables to construct the
+AOG. In this way, the running time required to compute an AOG on the CelebA dataset was reduced to 4.03 s. Besides, we
+can also ignore casual patterns between distant parts to accelerate the computation.
+
+I. Discussion about the difference between the AOG explainer and the BoW model
+   Do we explain a DNN as a linear model, such as a bag-of-words (BoW) model [13, 48]? First, although the AOG
+explainer appears to be a linear additive model, the AOG explainer does NOT simplify the non-linear deep model as a linear
+model. Instead, as mentioned in Section 3.1 of the main paper, the AOG explainer extracts different causal patterns from
+different input samples, instead of using the same set of causal patterns to explain different samples. It is because the deep
+model is non-linear and triggers different causal patterns to handle different samples. Therefore, unlike the BoW model, which
+extracts the same set of features for each sample, the AOG explainer quantifies the manner in which the deep model triggers
+different causal patterns to handle different samples, thereby remaining non-linear for different inputs. Second, the BoW model
+considers only the presence or absence of input variables, whereas the AOG explainer is sensitive to the spatial relationships of
+input variables. For example, Table 6 shows the causal effects wS of the same sets of words S encoded by the deep model1 ,
+given two sentences with the same words but different word positions. We found that the deep model encoded significantly
+different causal effects between the same sets of words, demonstrating that the AOG explainer differs from the BoW model.
+
+Table 6. Given two sentences with the same words but different word positions, the causal effects of the same sets of words S encoded
+by the deep model were different. This demonstrated that the AOG explainer was sensitive to the spatial relationship of input variables,
+indicating a difference with the BoW model.
+
+                                    Sentence 1: it’s just not very smart.              Sentence 2: it’s not just very smart.
+                                    sets of words S         causal effects wS          sets of words S         causal effects wS
+                                  {just, not, smart, .}          -1.616              {not, just, smart, .}           1.139
+                                   {it, just, not, very}         -1.510               {it, not, just, very}          5.908
+                               {’s, just, not, very, smart}      -1.172           {’s, not, just, very, smart}       0.890
+                                {just, not, very, smart}         -0.715            {not, just, very, smart}          3.563
+
+   Nevertheless, common and salient causal patterns shared by different input samples can also be considered the basic
+elementary concepts encoded by the deep model. For example, if two sentences contain the same set of words S in the same
+position, then the deep model encodes the same causal effects wS ′ , ∀S ′ ⊆ S . Table 7 shows that the deep model encoded
+the same causal effects within S = {not, very, smart} for two different sentences. From this perspective, such common causal
+patterns can be roughly considered as typical “words” in a BoW model.
+
+
+
+
+   1 In   this example, we explained the causal effects encoded by a two-layer LSTM model trained on the SST-2 dataset for sentiment classification. We set
+v(xS ) = p(y = positive sentiment|xS ).

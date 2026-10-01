@@ -1,0 +1,11 @@
+{% extends 'base.html' %}{% from 'macros.html' import states,privacy,issues with context %}
+{% block content %}{% if claim.get('paper_id') %}<a class="back-link" href="/papers/{{ claim.paper_id|urlencode }}{% if claim.get('paper_version') %}?version={{ claim.paper_version|urlencode }}{% endif %}">← 来源论文</a>{% endif %}<div class="card-top"><code>{{ entity_id(claim,'claim') }}</code>{{ privacy(claim) }}</div><h1>{{ claim.get('original_label','') }} {{ claim.get('title',entity_id(claim,'claim')) }}</h1><p class="lead">{{ claim.get('source_location',{})|text }}</p>{{ states(claim) }}{{ issues(claim.get('issues',[])) }}<p class="notice">这里保存论文出现位置及其原文。规范化公共结果的验证状态，不自动赋给这一论文条目。</p>
+{% if claim.get('verification_scope') == 'independent_claim' %}
+<section class="panel">
+  <h2>独立论文应用验证</h2>
+  <p>本条目的 Lean 状态根据独立报告、当前源码指纹与声明公理计算。公共库报告另行维护；清单核对与命题对齐仍分别审查。</p>
+  {% if verification_files %}<ul>{% for file in verification_files %}<li><a href="/files/{{ file.path }}">{{ file.title }}</a> <code>{{ file.path }}</code></li>{% endfor %}</ul>{% endif %}
+  {% if claim.get('verification_evidence',{}).get('reason') %}<p class="muted">{{ claim.verification_evidence.reason }}</p>{% endif %}
+</section>
+{% endif %}
+<h2>原陈述与原证明</h2><pre class="math-source">{{ claim.get('original',claim.get('original_text',claim.get('statement','原文尚未录入'))) }}</pre>{% if claim.get('original_proof') %}<pre>{{ claim.original_proof }}</pre>{% endif %}<h2>关联的规范结果与共享证明</h2><div class="related">{% for id in claim.get('theorem_ids',[]) %}<a href="/theorems/{{ id|urlencode }}">{{ id }}</a>{% endfor %}{% for id in claim.get('proof_ids',[]) %}<a href="/proofs/{{ id|urlencode }}">{{ id }}</a>{% endfor %}</div>{% if not claim.get('theorem_ids') and not claim.get('proof_ids') %}<p class="muted">尚未完成公共结果匹配。</p>{% endif %}<h2>本论文的定义转换与应用</h2>{% if claim.get('adaptation') %}{{ claim.adaptation|safe_markdown|safe }}{% else %}<p class="muted">适配说明尚未录入。</p>{% endif %}{% if claim.get('symbol_mapping') %}<pre>{{ claim.symbol_mapping|text }}</pre>{% endif %}{% endblock %}

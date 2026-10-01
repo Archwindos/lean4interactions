@@ -1,0 +1,73 @@
+                                                      w_{\mathcal {S}} = \sum _{\mathcal {S}'\subseteq \mathcal {S}} (-1)^{|\mathcal {S}'|-|\mathcal {S}|}\cdot v(\boldsymbol {x}_{\mathcal {S}'}),        (1)
+
+   where v(xS ) denotes the model output when only variables in the subset S ⊆ N are given, and all other variables are
+masked using their baseline values.
+   We also prove that the Harsanyi dividend wS satisfies seven desirable axioms, including the efficiency, linearity, dummy,
+symmetry, anonymity, recursive and interaction distribution axioms, which demonstrates its trustworthiness.
+   (1) Efficiency axiom. The output score of a model can be decomposed into effects of different causal patterns, i.e.
+        P
+v(x) = S⊆N wS .
+   (2) Linearity axiom. If we merge the output scores of the two models t(·) and u(·) into the output of model v(·), i.e.
+∀S ⊆ N , v(xS ) = t(xS ) + u(xS ), the corresponding causal effects wSt and wSu can also be merged as ∀S ⊆ N , wSv = wSt + wSu .
+   (3) Dummy axiom. If a variable i ∈ N is a dummy variable, i.e. ∀S ⊆ N \{i}, v(xS∪{i} ) = v(xS ) + v(x{i} ), it has no causal
+effect with other variables, ∀S ⊆ N \{i}, wS∪{i} = 0.
+   (4) Symmetry axiom. If the input variables i, j ∈ N cooperate with other variables in the same manner, ∀S ⊆ N \{i, j}, v(xS∪{i} ) =
+v(xS∪{j} ), then they have the same causal effects with other variables, ∀S ⊆ N \{i, j}, wS∪{i} = wS∪{j} .
+   (5) Anonymity axiom. For any permutations π on N , we have ∀S ⊆ N , wSv = wπS         πv
+                                                                                            , where πS ≜ {π(i)|i ∈S}, and the new
+model πv is defined by (πv)(xπS ) = v(xS ). This indicates that causal effects are not changed by the permutation.
+   (6) Recursive axiom. The causal effects can be computed recursively. For i ∈ N and S ⊆ N \{i}, the causal effect of
+the pattern S ∪ {i} is equal to the causal effect of S in the presence of i minus the causal effect of S in the absence of i, i.e.
+∀S ⊆ N \{i}, wS∪{i} = wS|i present − wS . wS|i present denotes the causal effect when the variable i is always present as a constant
+                                              ′
+context, i.e. wS|i present = S ′ ⊆S (−1)|S|−|S | · v(xS ′ ∪{i} ).
+                            P
+
+   (7) Interaction distribution axiom. This axiom characterizes how causal effects are distributed for a class of “interaction
+functions” [51]. The interaction function vT parameterized by a subset of variables T is defined as follows. ∀S ⊆ N , if T ⊆ S ,
+vT (xS ) = c; otherwise, vT (xS ) = 0. The function vT models the causal effect of the pattern T , because only if all variables
+in T are present, will the output value be increased by c. The causal effects encoded in the function vT satisfy wT = c, and
+∀S ≠ T , wS = 0 .
+   More crucially, we also prove that causal effects wS based on the Harsanyi dividend can explain the elementary mechanism
+of existing game-theoretic attributions/interactions, as follows.
+                                                                                                                                                                                                       ′
+Theorem 5 (Connection to the marginal benefit [22]). Let ∆vT (xS ) = T ′ ⊆T (−1)|T |−|T | v(xT ′ ∪S ) denote the marginal
+                                                                                                                                                                                 P
+
+benefit of variables in T ⊆ N \ S given the environment S . We have proven that ∆vT (xS ) can be decomposed into the sum of
+                                                                            P
+the causal effects inside T and the sub-environments of S , i.e. ∆vT (xS ) = S ′ ⊆S wT ∪S ′ .
+Theorem 2 (Connection to the Shapley value [43]). Let ϕ(i) denote the Shapley value of input variable i. Then, the
+Shapley value ϕ(i) can be explained as the result of uniformly assigning causal effects to each involved variable i, i.e.,
+                    1
+      P
+ϕ(i) = S⊆N \{i} |S|+1   wS∪{i} . This theorem also proves that the Shapley value is a fair assignment of attributions from the
+perspective of causal effects.
+
+Theorem 3 (Connection to the Shapley interaction index [22]). Given a subset of input variables T ⊆ N , the Shapley
+                                                                                 1
+interaction index I Shapley (T ) can be represented as I Shapley (T ) = S⊆N \T |S|+1 wS∪T . In other words, the index I Shapley (T ) can
+                                                                         P
+
+be explained as uniformly allocating causal effects wS ′ s.t. S = S ∪ T to the compositional variables of S ′ , if we treat the
+                                                                       ′
+
+coalition of variables in T as a single variable.
+Theorem 4 (Connection to the Shapley Taylor interaction index [51]). Given a subset of input variables T ⊆ N , the k-th order
+Shapley Taylor interaction index I Shapley-Taylor (T ) can be represented as weighted sum of causal effects, i.e., I Shapley-Taylor (T ) = wT
+                                                   −1
+if |T | < k; I Shapley-Taylor (T ) = S⊆N \T |S|+k      wS∪T if |T | = k; and I Shapley-Taylor (T ) = 0 if |T | > k.
+                                    P
+                                              k
+
+
+C. The proof of Theorem 1 in the main paper
+Theorem 1. Given a certain input x, let the causal graph in Fig. 1 (in the main paper) encode 2n causal patterns, i.e.,
+Ω = 2N = {S : S ⊆ N }. If the causal effect wS of each causal pattern S ∈ Ω is measured by the Harsanyi dividend [24], i.e.
+                      ′
+wS ≜ S ′ ⊆S (−1)|S|−|S | · v(xS ′ ), then the causal graph faithfully encodes the inference logic of the DNN, as follows.
+     P
+
+                                                                  \forall \mathcal {S}\subseteq \mathcal {N},\ \
+Y(\boldsymbol {x}_{\mathcal {S}}) = v(\boldsymbol {x}_{\mathcal {S}})                     (2)
+More crucially, the Harsanyi dividend is the unique metric that satisfies the faithfulness requirement.

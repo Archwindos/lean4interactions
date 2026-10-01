@@ -1,0 +1,23 @@
+Try this:
+  ring_nf
+  
+  The `ring` tactic failed to close the goal. Use `ring_nf` to obtain a normal form.
+    
+  Note that `ring` works primarily in *commutative* rings. If you have a noncommutative ring, abelian group or module, consider using `noncomm_ring`, `abel` or `module` instead.
+../../.tmp/api-playtest-max/Playtest.lean:15:2: error: unsolved goals
+case pos
+α : Type u_1
+inst✝ : DecidableEq α
+v : Game α
+a b : ℝ
+⊢ a * v ∅ + ((if True then b else 0) - if True then a * v ∅ + b else 0) = if True then 0 else a * v ∅
+../../.tmp/api-playtest-max/Playtest.lean:16:15: warning: This simp argument is unused:
+  if_pos rfl
+
+Hint: Omit it from the simp argument list.
+  simp only [if̵_̵p̵o̵s̵ ̵r̵f̵l̵,̵ ̵i̵nteraction_empty]
+
+Note: This linter can be disabled with `set_option linter.unusedSimpArgs false`
+'APIPlaytestMax.centered_affine_interaction' depends on axioms: [propext, sorryAx, Classical.choice, Quot.sound]
+'APIPlaytestMax.centered_affine_unique' depends on axioms: [propext, sorryAx, Classical.choice, Quot.sound]
+'APIPlaytestMax.empty_centering_counterexample' depends on axioms: [propext, Classical.choice, Quot.sound]

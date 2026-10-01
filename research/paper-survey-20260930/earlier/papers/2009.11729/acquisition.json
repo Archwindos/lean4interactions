@@ -1,0 +1,100 @@
+{
+  "arxiv_id": "2009.11729",
+  "version": "v4",
+  "title": "Interpreting and Boosting Dropout from a Game-Theoretic View",
+  "authors": [
+    "Hao Zhang",
+    "Sen Li",
+    "Yinchao Ma",
+    "Mingjie Li",
+    "Yichen Xie",
+    "Quanshi Zhang"
+  ],
+  "first_public_date": "2020-09-24T14:39:42Z",
+  "updated": "2021-03-16T10:42:04Z",
+  "journal_ref": null,
+  "source_url": "https://arxiv.org/abs/2009.11729v4",
+  "pdf_url": "https://arxiv.org/pdf/2009.11729v4",
+  "retrieved_at": "2026-09-30T07:03:02.289550+00:00",
+  "attempts": [
+    {
+      "url": "https://arxiv.org/pdf/2009.11729v4",
+      "status": "error",
+      "error": "HTTP Error 406: Not Acceptable"
+    },
+    {
+      "url": "https://export.arxiv.org/pdf/2009.11729v4",
+      "status": "ok",
+      "bytes": 2726235
+    }
+  ],
+  "download_url": "https://export.arxiv.org/pdf/2009.11729v4",
+  "response_headers": {
+    "Connection": "close",
+    "Content-Length": "2726235",
+    "content-disposition": "inline; filename=\"2009.11729v4.pdf\"",
+    "last-modified": "Mon, 23 Jan 2023 06:50:15 GMT",
+    "link": "<https://arxiv.org/pdf/2009.11729>; rel='canonical'",
+    "server": "Google Frontend",
+    "via": "1.1 google, 1.1 varnish, 1.1 varnish, 1.1 varnish, 1.1 varnish, 1.1 varnish",
+    "x-cloud-trace-context": "6666384f1a8bb310ac691ab4147996db",
+    "content-type": "application/pdf",
+    "etag": "\"sha256:2a2ebc3dc08261d044c7fa0b247b2586b1a680c685568496143a972e38c381a7\"",
+    "access-control-allow-origin": "*",
+    "Accept-Ranges": "bytes",
+    "Age": "0",
+    "Date": "Wed, 30 Sep 2026 07:03:03 GMT",
+    "X-Served-By": "cache-lga-kjfk8660070-LGA, cache-lga-kjfk8660070-LGA, cache-lga-kjfk8660057-LGA, cache-lga-kjfk8660057-LGA, cache-lga-kjfk8660057-LGA, cache-lga-kjfk8660057-LGA, cache-sin-wsat1880094-SIN",
+    "X-Cache": "MISS, MISS, MISS, MISS, MISS",
+    "X-Cache-Hits": "0, 0, 0",
+    "X-Timer": "S1790751783.862721,VS0,VE680",
+    "Strict-Transport-Security": "max-age=300"
+  },
+  "local_pdf": "research/paper-survey-20260930/earlier/papers/2009.11729/2009.11729v4.pdf",
+  "sha256": "55ec7a254b622f95d5e92cea42802e1fa9406b84b19de74aee17b5d188df4957",
+  "total_pages": 20,
+  "first_page": "                                         Published as a conference paper at ICLR 2021\n\n\n\n\n                                         I NTERPRETING AND B OOSTING D ROPOUT                                                  FROM A\n                                         G AME -T HEORETIC V IEW\n                                          Hao Zhang                                                      Sen Li\n                                          Shanghai Jiao Tong University                                  Sun Yat-sen University\n                                          1603023-zh@sjtu.edu.cn                                         lisen6@mail2.sysu.edu.cn\n\n                                          Yinchao Ma                                                   Mingjie Li\n                                          Huazhong University of Science and Technology                Shanghai Jiao Tong University\narXiv:2009.11729v4 [cs.LG] 16 Mar 2021\n\n\n\n\n                                          u201713506@hust.edu.cn                                       limingjie0608@sjtu.edu.cn\n\n                                          Yichen Xie                                           Quanshi Zhang∗\n                                          Shanghai Jiao Tong University                        Shanghai Jiao Tong University\n                                          xieyichen@sjtu.edu.cn                                zqs1022@sjtu.edu.cn\n\n\n\n                                                                                     A BSTRACT\n\n                                                  This paper aims to understand and improve the utility of the dropout operation\n                                                  from the perspective of game-theoretic interactions. We prove that dropout can\n                                                  suppress the strength of interactions between input variables of deep neural net-\n                                                  works (DNNs). The theoretic proof is also verified by various experiments. Fur-\n                                                  thermore, we find that such interactions were strongly related to the over-fitting\n                                                  problem in deep learning. Thus, the utility of dropout can be regarded as decreas-\n                                                  ing interactions to alleviate the significance of over-fitting. Based on this under-\n                                                  standing, we propose an interaction loss to further improve the utility of dropout.\n                                                  Experimental results have shown that the interaction loss can effectively improve\n                                                  the utility of dropout and boost the performance of DNNs.\n\n\n                                         1   I NTRODUCTION\n\n                                         Deep neural networks (DNNs) have exhibited significant success in various tasks, but the over-\n                                         fitting problem is still a considerable challenge for deep learning. Dropout is usually considered as\n                                         an effective operation to alleviate the over-fitting problem of DNNs. Hinton et al. (2012); Srivastava\n                                         et al. (2014) thought that dropout could encourage each unit in an intermediate-layer feature to\n                                         model useful",
+  "status": "downloaded_extracted_requires_manual_review",
+  "automatic_heading_hits": [
+    {
+      "page": 1,
+      "text": "works (DNNs). The theoretic proof is also verified by various experiments. Fur-"
+    },
+    {
+      "page": 5,
+      "text": "Proof of the relationship between dropout and the interaction. In this section, we aim to mathe-"
+    },
+    {
+      "page": 5,
+      "text": "J (i, j). The computation of R (i, j) and the proof of Equation (4) are provided in Appendices"
+    },
+    {
+      "page": 5,
+      "text": "Please see Appendix C for the proof."
+    },
+    {
+      "page": 6,
+      "text": "interaction, which verified the above proof."
+    },
+    {
+      "page": 8,
+      "text": "approximation of Lossinteraction . Please see Appendix F for the proof."
+    },
+    {
+      "page": 12,
+      "text": "This section provides the detailed proof for Equation (4) in Section 3. The s-order interaction can"
+    },
+    {
+      "page": 13,
+      "text": "This section gives the detailed proof for Equation (5) and Equation (6, left) in Section 3. We first"
+    },
+    {
+      "page": 13,
+      "text": "=                    J q (i, j)               % similar to the proof of Equation (14).                                       (25)"
+    },
+    {
+      "page": 14,
+      "text": "This section gives the proof for the trustworthiness of the approximated interaction loss Loss0interaction"
+    }
+  ]
+}

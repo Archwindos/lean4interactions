@@ -1,0 +1,72 @@
+               |N |−|L|−k
+                                                               !
+                       X                    |N | − |L| − k − 1                                
+        ⃝
+        2 =            (|N | − |L| − k) ·                        · B |N | − |L| − m, |L| + m
+                m=1
+                                                  m−1
+            |N |−|L|−k−1
+                                                                 !
+                 X                            |N | − |L| − k − 1                                          
+          =              (|N | − |L| − k) ·              ′
+                                                                    · B |N | − |L| − m′ − 1, |L| + m′ + 1
+                                                       m
+                 m′ =0
+                                 |N |−|L|−k−1
+            Z 1                                                     !
+                                      X          |N | − |L| − k − 1                  ′                ′
+          =     (|N | − |L| − k)                            ′
+                                                                       · x|N |−|L|−m −2 · (1 − x)|L|+m dx
+             0                                            m
+                                     m′ =0
+                                                                                                       
+                                   |N |−|L|−k−1
+            Z 1                                                       !
+                                        X          |N | − |L| − k − 1                  ′              ′
+          =     (|N | − |L| − k)                                        · x|N |−|L|−m −k−1 · (1 − x)m  ·xk−1 · (1 − x)|L| dx
+             0                            ′
+                                                           m′
+                                       m =0
+                                 |                                   {z                                 }
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                    =1
+               Z       1
+           =               (|N | − |L| − k) · xk−1 · (1 − x)|L| dx = (|N | − |L| − k) · B(k, |L| + 1)
+                   0
+                |N | − |L| − k
+           =
+               (|L| + 1) |L|+k
+                               
+                          k−1
+
+    Hence, we have
+
+                                                \alpha _\mathcal {L} =& \text {\textcircled {1}}+\text {\textcircled {2}} = \frac {1}{\binom {|\mathcal {L}|+k-1}{k-1}} + \frac {|\mathcal {N}|-|\mathcal {L}|-k}{(|\mathcal {L}|+1)\binom {|\mathcal {L}|+k}{k-1}}\\ =& \frac {|\mathcal {L}|!\cdot (k-1)!}{(|\mathcal {L}|+k-1)!} + \frac {|\mathcal {N}|-|\mathcal {L}|-k}{|\mathcal {L}|+1}\cdot \frac {(|\mathcal {L}|+1)!\cdot (k-1)!}{(|\mathcal {L}|+k)!}\\ =& \frac {|\mathcal {L}|!\cdot (k-1)!}{(|\mathcal {L}|+k-1)!} + \frac {|\mathcal {N}|-|\mathcal {L}|-k}{|\mathcal {L}|+k}\cdot \frac {|\mathcal {L}|!\cdot (k-1)!}{(|\mathcal {L}|+k-1)!}\\ =& \left [1+\frac {|\mathcal {N}|-|\mathcal {L}|-k}{|\mathcal {L}|+k}\right ]\cdot \frac {|\mathcal {L}|!\cdot (k-1)!}{(|\mathcal {L}|+k-1)!}\\ =& \frac {|\mathcal {N}|}{|\mathcal {L}|+k}\cdot \frac {|\mathcal {L}|!\cdot (k-1)!}{(|\mathcal {L}|+k-1)!}\\ =& \frac {|\mathcal {N}|}{k}\cdot \frac {|\mathcal {L}|!\cdot k!}{(|\mathcal {L}|+k)!}\\ =& \frac {|\mathcal {N}|}{k}\cdot \frac {1}{\binom {|\mathcal {L}|+k}{k}}
+
+
+
+
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                     |N |
+    Therefore, we proved that when |T | = k, I Shapley-Taylor (T ) =                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                k                             k                               1
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                          P                             P
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                          L⊆N \T   αL · wL∪T =              L⊆N \T          ·            · wL∪T =
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                   |N |                          |N |                 k         (|L|+k
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                   k )
+            |L|+k −1
+P                
+  L⊆N \T       k
+                              wL∪T .
+
+E. Potential alternative settings for baseline values
+    This section discusses the potential alternative settings for baseline values, as mentioned in Section 3.2 of the main paper.
+The baseline values are used to represent the absent states of variables in the computation of v(xS ). To this end, many recent
+studies have set baseline values from a heuristic perspective, as follows.
+• Mean baseline values [14]. The baseline value of each input variable is set to the mean value of this variable over all samples,
+i.e. ∀i ∈ N , ri = Ex [xi ].
+• Zero baseline values [4, 52]. The baseline value of each input variable is set to zero, i.e. ∀i ∈ N , ri = 0.
+• Blurring input samples. In the computation of v(xS ), some studies [18, 19] removed variables from the input image by
+blurring the value of each input variable xi (i ∈ N \S) based on a Gaussian kernel.
+    However, defining optimal baseline values remains an open problem. Therefore, in this study, we learn the optimal baseline
+values that enhance the conciseness of the explanation based on Eq. (6) of the main paper. Specifically, we initialize the
+baseline value ri as the mean value of the variable i over all samples for the tabular and NLP datasets. For the MNIST dataset,
+we initialize ri to zero (i.e. black pixels) for each input variable i. Then, we optimize ri to minimize Eq. (6) in the main paper
+while constraining it within a relatively small range, i.e., ∥ri −riinitial ∥2 ≤ τ , to represent the absence state.

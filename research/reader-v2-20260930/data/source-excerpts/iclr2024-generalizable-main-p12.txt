@@ -1,0 +1,68 @@
+Published as a conference paper at ICLR 2024
+
+
+
+
+A    P REVIOUS LITERATURE OF USING INTERACTIONS TO EXPLAIN DNN S
+
+Explaining the knowledge encoded by DNNs is one of the ultimate goals of explainable AI but
+presents significant challenges. For instance, some studies employed visualization techniques to
+show the patterns learned by a DNN (Simonyan et al., 2013; Yosinski et al., 2015), and some focused
+on extracting feature vectors that may be associated with semantic concepts (Simonyan et al., 2013),
+while some studies learned feature vectors potentially related to concepts (Kim et al., 2018). Dravid
+et al. (2023) identified convolutional kernels in different DNNs that expressed similar concepts.
+However, theoretically, whether the knowledge or the complex inference logic of a DNN can be
+faithfully represented as symbolic primitive inference patterns still presents significant challenges.
+Up to now, there is still no universally accepted definition of the knowledge, as it encompasses var-
+ious aspects of cognitive science, neuroscience, and mathematics. However, if we ignore cognitive
+and neuroscience aspects, Ren et al. (2023a) have proposed to quantify interactions between input
+variables encoded by the DNN, to explain the knowledge in the DNN. More crucially, Ren et al.
+(2024) have derived several theorems as mathematical evidence of considering such interactions as
+primitive inference patterns encoded by a DNN. Specifically, Ren et al. (2024) proved that DNNs
+usually only encoded a small number of interactions, under some common conditions2 . Besides,
+these interactions can universally explain the DNN’s output score on any arbitrary masked input
+samples. Li & Zhang (2023b) further discovered the discriminative power of certain interactions.
+Besides, Deng et al. (2024) found that different attribution scores estimated by different attribution
+methods could all be represented as a combination of different interactions. Zhang et al. (2022a)
+used interactions to explain the mechanism of different methods of boosting adversarial transferabil-
+ity. Ren et al. (2023b) used interactions to define the optimal baseline value for computing Shapley
+values. Deng et al. (2022) found that for most DNNs it was difficult to learn interactions with me-
+dian number of input variables, and it was discovered that DNNs and Bayesian neural networks
+were unlikely to model complex interactions with many input variables (Ren et al., 2023c; Liu et al.,
+2024). Zhou et al. (2024) used the generalization power of different interactions to explain the
+generalization power of DNNs.
+
+B    T HE CONDITIONS FOR UNIVERSAL MATCHING OF THE DNN OUTPUT
+
+Ren et al. (2024) have proved that a well-trained DNN usually just encodes a limited number of
+interactions. More importantly, one can just use a few interactions to approximate the DNN’s outputs
+on all 2n masked samples {xS |S ⊆ N }, under the following three common assumptions. (1) The
+high order derivatives of the DNN output with respect to the input variables are all zero. (2) The
+DNN works well on the masked samples, and yield higher confidence when the input sample is less
+masked. (3) The confidence of the DNN does not drop significantly on the masked samples. With
+these natural assumptions, a well-trained DNN’s output on all 2n masked samples can be universally
+approximated by the sum of just a few salient interactions in Ω, s.t., |Ω| ≪ 2n .
+
+C    P ROOF OF T HEOREMS
+
+Theorem 2 (Universal matching theorem) Let us be given a DNN v and an input sample x. For each
+randomly masked sample xT , T ⊆ N , we obtain
+                                       X                  X
+     v(xT ) = vand (xT ) + vor (xT ) =      Iand (S|xT ) +                    Ior (S|xT ). (7)
+                                           S⊆T                    S∈{S:S∩T ̸=∅}∪{∅}
+
+
+Proof. (1) Universal matching theorem of AND interactions.
+Ren et al. (2023a) have used the Haranyi dividend (Harsanyi, 1963) Iand (S|x) to state the universal
+matching theorem of AND interactions. The output of a well-trained DNN on all 2n masked samples
+{xT |T ⊆ N } could P  be universally explained by the all interaction primitives in T ⊆ N , i.e.,
+∀T ⊆ N, vand (xT ) = S⊆T Iand (S|x).
+
+                                                                              (−1)|S|−|L| vand (xL )
+                                                                      P
+Specifically, the AND interaction is defined as Iand (S|x) :=             L⊆SP
+in Equation (1). To compute the sum of AND interactions ∀T ⊆ N, S⊆T Iand (S|x) =
+
+
+                                                 12
+

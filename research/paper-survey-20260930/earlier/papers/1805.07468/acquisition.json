@@ -1,0 +1,51 @@
+{
+  "arxiv_id": "1805.07468",
+  "version": "v1",
+  "title": "Unsupervised Learning of Neural Networks to Explain Neural Networks",
+  "authors": [
+    "Quanshi Zhang",
+    "Yu Yang",
+    "Yuchen Liu",
+    "Ying Nian Wu",
+    "Song-Chun Zhu"
+  ],
+  "first_public_date": "2018-05-18T23:02:14Z",
+  "updated": "2018-05-18T23:02:14Z",
+  "journal_ref": null,
+  "source_url": "https://arxiv.org/abs/1805.07468v1",
+  "pdf_url": "https://arxiv.org/pdf/1805.07468v1",
+  "retrieved_at": "2026-09-30T07:03:18.721281+00:00",
+  "attempts": [
+    {
+      "url": "https://arxiv.org/pdf/1805.07468v1",
+      "status": "ok",
+      "bytes": 5191869
+    }
+  ],
+  "download_url": "https://arxiv.org/pdf/1805.07468v1",
+  "response_headers": {
+    "Connection": "close",
+    "Content-Length": "5191869",
+    "last-modified": "Sun, 22 Jan 2023 21:26:13 GMT",
+    "content-disposition": "inline; filename=\"1805.07468v1.pdf\"",
+    "content-type": "application/pdf",
+    "via": "1.1 google, 1.1 varnish, 1.1 varnish, 1.1 varnish",
+    "x-cloud-trace-context": "f4a30d9f25bd0388f5431e85704233e0",
+    "etag": "\"sha256:5094b4f92ebb14632787f34c231cb9101393658e0f673c8014ea809fafd75427\"",
+    "link": "<https://arxiv.org/pdf/1805.07468>; rel='canonical'",
+    "server": "Google Frontend",
+    "access-control-allow-origin": "*",
+    "Accept-Ranges": "bytes",
+    "Age": "17469",
+    "Date": "Wed, 30 Sep 2026 07:03:19 GMT",
+    "X-Served-By": "cache-lga-kjfk8660043-LGA, cache-lga-kjfk8660043-LGA, cache-lga-kjfk8660043-LGA, cache-sin-wsap440048-SIN",
+    "X-Cache": "MISS, HIT, MISS",
+    "X-Timer": "S1790751799.872242,VS0,VE275"
+  },
+  "local_pdf": "research/paper-survey-20260930/earlier/papers/1805.07468/1805.07468v1.pdf",
+  "sha256": "d1e2b90b094b8114654d39d6bbc768bb40b45dfdffcc14cc0cf0cbbe75b008dc",
+  "total_pages": 16,
+  "first_page": "                                                Unsupervised Learning of Neural Networks to\n                                                         Explain Neural Networks\n\n\n                                               Quanshi Zhangb,a , Yu Yanga , Yuchen Liuc , Ying Nian Wua , and Song-Chun Zhua\n                                                   a                                            b\n                                                     University of California, Los Angeles        Shanghai Jiao Tong University\n                                                                         c\narXiv:1805.07468v1 [cs.CV] 18 May 2018\n\n\n\n\n                                                                           University of California, Irvine.\n\n\n\n                                                                                       Abstract\n\n                                                  This paper presents an unsupervised method to learn a neural network, namely\n                                                  an explainer, to interpret a pre-trained convolutional neural network (CNN), i.e.\n                                                  explaining knowledge representations hidden in middle conv-layers of the CNN.\n                                                  Given feature maps of a certain conv-layer of the CNN, the explainer performs like\n                                                  an auto-encoder, which first disentangles the feature maps into object-part features\n                                                  and then inverts object-part features back to features of higher conv-layers of the\n                                                  CNN. More specifically, the explainer contains interpretable conv-layers, where\n                                                  each filter disentangles the representation of a specific object part from chaotic input\n                                                  feature maps. As a paraphrase of CNN features, the disentangled representations\n                                                  of object parts help people understand the logic inside the CNN. We also learn\n                                                  the explainer to use object-part features to reconstruct features of higher CNN\n                                                  layers, in order to minimize loss of information during the feature disentanglement.\n                                                  More crucially, we learn the explainer via network distillation without using any\n                                                  annotations of sample labels, object parts, or textures for supervision. We have\n                                                  applied our method to different types of CNNs for evaluation, and explainers have\n                                                  significantly boosted the interpretability of CNN features.\n\n\n                                         1   Introduction\n                                         Convolutional neural networks (CNNs) [18, 16, 10] have achieved superior performance in many\n                                         visual tasks, such as object classification and detection. In contrast to the significant discrimination\n                                         power, the model interpretability has always been an Achilles’ heel of deep neural networks.\n                                         In this paper, we aim to boost the interpret",
+  "status": "downloaded_extracted_requires_manual_review",
+  "automatic_heading_hits": []
+}

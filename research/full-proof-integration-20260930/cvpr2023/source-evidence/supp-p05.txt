@@ -1,0 +1,54 @@
+                                                                                                                                                                                                                                                                                                                                     X                                                                                                                                                                                                                                                                                                                                                                                                                                                                  ′       X                    ′
+                                                                                                                                                                                                                                                    =                                                                                                                                                                                                   (−1)|S|+1−|S | v(xS ′ ) +                                                                                                                                                                                                                                                                                                                                        (−1)|S|−|S | v(xS ′ ∪{j} )
+                                                                                                                                                                                                                                                                                                                   S ′ ⊆S                                                                                                                                                                                                                                                                                                                                                                                                                                                                                       S ′ ⊆S
+                                                                                                                                                                                                                                                                                                                                                                                               X                                                                                                                                                                                                                                                                                                                                                                                                            ′
+                                                                                                                                                                                                                                                    =                                                                                                                                                                                                                                                                                                                         (−1)|S|+1−|S | v(xS ′ )
+                                                                                                                                                                                                                                                                                                                   S ′ ⊆S∪{j}
+
+                                                                                                                                                                                                                                                    =wS∪{j} .
+
+  (5) Anonymity axiom. For any permutations π on N , we have ∀S ⊆ N , wSv = wπS       πv
+                                                                                         , where πS ≜ {π(i)|i ∈ S}, and the new
+model πv is defined by (πv)(xπS ) = v(xS ). This indicates that causal effects are not changed by permutation.
+  • Proof: According to the definition of the Harsanyi dividend, we have
+
+
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                     w^{\pi v}_{\pi \mathcal {S}}=& \sum _{\mathcal {S}'\subseteq \mathcal {S}} (-1)^{|\mathcal {S}|-|\mathcal {S}'|} (\pi v)(\boldsymbol {x}_{\pi \mathcal {S}'})\\ =& \sum _{\mathcal {S}'\subseteq \mathcal {S}} (-1)^{|\mathcal {S}|-|\mathcal {S}'|} v(\boldsymbol {x}_{\mathcal {S}'})\\ =& w^v_{\mathcal {S}}.
+
+
+
+
+   (6) Recursive axiom. The causal effects can be computed recursively. For i ∈ N and S ⊆ N \{i}, the causal effect of the
+pattern S ∪ {i} is equal to the causal effect of S with the presence of i minus the causal effect of S with the absence of i, i.e.
+∀S ⊆ N \{i}, wS∪{i} = wS|i present − wS . wS|i present denotes the causal effect when the variable i is always present as a constant
+                                              ′
+context, i.e. wS|i present = S ′ ⊆S (−1)|S|−|S | · v(xS ′ ∪{i} ).
+                            P
+
+   • Proof: According to the definition of the Harsanyi dividend, we have
+
+
+                                 w_{\mathcal {S}\cup \{i\}} =& \sum _{\mathcal {S}'\subseteq \mathcal {S}\cup \{i\}} (-1)^{|\mathcal {S}|+1-|\mathcal {S}'|}v(\boldsymbol {x}_{\mathcal {S}'})\\ =& \sum _{\mathcal {S}'\subseteq \mathcal {S}} (-1)^{|\mathcal {S}|+1-|\mathcal {S}'|}v(\boldsymbol {x}_{\mathcal {S}'}) + \sum _{\mathcal {S}'\subseteq \mathcal {S}} (-1)^{|\mathcal {S}|-|\mathcal {S}'|}v(\boldsymbol {x}_{\mathcal {S}'\cup \{i\}})\\ =& \sum _{\mathcal {S}'\subseteq \mathcal {S}} (-1)^{|\mathcal {S}|-|\mathcal {S}'|}v(\boldsymbol {x}_{\mathcal {S}'\cup \{i\}}) - \sum _{\mathcal {S}'\subseteq \mathcal {S}} (-1)^{|\mathcal {S}|-|\mathcal {S}'|}v(\boldsymbol {x}_{\mathcal {S}'})\\ =& w_{\mathcal {S}|i~\text {present}} - w_{\mathcal {S}}.
+
+
+
+
+   (7) Interaction distribution axiom. This axiom characterizes how causal effects are distributed for a class of “interaction
+functions” [51]. An interaction function vT parameterized by a subset of variables T is defined as follows. ∀S ⊆ N , if T ⊆ S ,
+vT (xS ) = c; otherwise, vT (xS ) = 0. The function vT purely models the causal effect of the pattern T , because only if all
+variables in T are present, the output value will be increased by c. The causal effects encoded in the function vT satisfy wT = c,
+and ∀S ≠ T , wS = 0.
+   • Proof: If S ⊊ T , we have
+
+                                                                                                                                                                                                                                                                                                            w_{\mathcal {S}}=\sum _{\mathcal {S}'\subseteq \mathcal {S}} (-1)^{|\mathcal {S}|-|\mathcal {S}'|}\cdot \underbrace {v(\boldsymbol {x}_{\mathcal {S}'})}_{\forall \mathcal {S}'\subseteq \mathcal {S}\subsetneq \mathcal {T}, v(\boldsymbol {x}_{\mathcal {S}'})=0}=0. 
+
+
+   If S = T , we have
+
+
+                                                                                                                                                                                                                                                                                                                                                                            w_{\mathcal {S}}=& w_{\mathcal {T}} = \sum _{\mathcal {S}'\subseteq \mathcal {T}}(-1)^{|\mathcal {T}|-|\mathcal {S}'|}v(\boldsymbol {x}_{\mathcal {S}'})\\ =& v(\mathcal {T}) + \sum _{\mathcal {S}'\subsetneq \mathcal {T}}(-1)^{|\mathcal {T}|-|\mathcal {S}'|}\underbrace {v(\boldsymbol {x}_{\mathcal {S}'})}_{=0} =c.
+
+
+
+
+   If S ⊋ T , we have

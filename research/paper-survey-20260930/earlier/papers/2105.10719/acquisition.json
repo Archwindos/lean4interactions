@@ -1,0 +1,133 @@
+{
+  "arxiv_id": "2105.10719",
+  "version": "v4",
+  "title": "Can We Faithfully Represent Masked States to Compute Shapley Values on a DNN?",
+  "authors": [
+    "Jie Ren",
+    "Zhanpeng Zhou",
+    "Qirui Chen",
+    "Quanshi Zhang"
+  ],
+  "first_public_date": "2021-05-22T13:03:18Z",
+  "updated": "2023-05-24T11:36:09Z",
+  "journal_ref": null,
+  "source_url": "https://arxiv.org/abs/2105.10719v4",
+  "pdf_url": "https://arxiv.org/pdf/2105.10719v4",
+  "retrieved_at": "2026-09-30T07:03:00.230779+00:00",
+  "attempts": [],
+  "local_pdf": "research/paper-survey-20260930/earlier/papers/2105.10719/2105.10719v4.pdf",
+  "sha256": "6772ffc52197998bb82aff8f7208b81d7719742f7a23edf078f2823202dc5181",
+  "total_pages": 30,
+  "first_page": "                                         Published as a conference paper at ICLR 2023\n\n\n\n\n                                         C AN W E FAITHFULLY R EPRESENT M ASKED S TATES\n                                         TO C OMPUTE S HAPLEY VALUES ON A DNN?\n\n                                          Jie Ren, Zhanpeng Zhou, Qirui Chen, Quanshi Zhang∗\n                                          Shanghai Jiao Tong University\n\n\n\n                                                                                         A BSTRACT\narXiv:2105.10719v4 [cs.LG] 24 May 2023\n\n\n\n\n                                                   Masking some input variables of a deep neural network (DNN) and computing\n                                                   output changes on the masked input sample represent a typical way to compute at-\n                                                   tributions of input variables in the sample. People usually mask an input variable\n                                                   using its baseline value. However, there is no theory to examine whether baseline\n                                                   value faithfully represents the absence of an input variable, i.e., removing all sig-\n                                                   nals from the input variable. Fortunately, recent studies (Ren et al., 2023a; Deng\n                                                   et al., 2022a) show that the inference score of a DNN can be strictly disentangled\n                                                   into a set of causal patterns (or concepts) encoded by the DNN. Therefore, we pro-\n                                                   pose to use causal patterns to examine the faithfulness of baseline values. More\n                                                   crucially, it is proven that causal patterns can be explained as the elementary ra-\n                                                   tionale of the Shapley value. Furthermore, we propose a method to learn optimal\n                                                   baseline values, and experimental results have demonstrated its effectiveness.\n\n\n                                         1       I NTRODUCTION\n                                         Many attribution methods (Zhou et al., 2016; Selvaraju et al., 2017; Lundberg and Lee, 2017; Shriku-\n                                         mar et al., 2017) have been proposed to estimate the attribution (importance) of input variables to\n                                         the model output, which represents an important direction in explainable AI. In this direction, many\n                                         studies (Lundberg and Lee, 2017; Ancona et al., 2019; Fong et al., 2019) masked some input vari-\n                                         ables of a deep neural network (DNN), and they used the change of network outputs on the masked\n                                         samples to estimate attributions of input variables. As Fig. 1 shows, there are different types of\n                                         baseline values to represent the absence of input variables.\n                                         Theoretically, the trustworthiness of attributions highly depends on whether the current baseline\n                                         value can really remove the signal of the input variable without bringing in new out-of-distribution\n                                         (OOD) featur",
+  "status": "downloaded_extracted_requires_manual_review",
+  "automatic_heading_hits": [
+    {
+      "page": 4,
+      "text": "the DNN. Theorem 1 and Remark 1 prove that most interactions have ignorable effects US ≈ 0,"
+    },
+    {
+      "page": 4,
+      "text": "Theorem 1 (Faithfulness, proven by Ren et al. (2023a) and Appendix E.1) Let us consider a DNN"
+    },
+    {
+      "page": 4,
+      "text": "relationships that contain the variable i. Please see Appendix F for the proof."
+    },
+    {
+      "page": 4,
+      "text": "from the following three perspectives. First, Theorem 1 and Remark 1 prove that the inference score"
+    },
+    {
+      "page": 4,
+      "text": "Theorem 2 shows that Shapley values can be explained as a re-allocation of causal effects to input"
+    },
+    {
+      "page": 5,
+      "text": "Theorem 2 (proven by Harsanyi (1982) and Appendix E.2) We can directly derive Shapley values"
+    },
+    {
+      "page": 5,
+      "text": "Q      2 (proof in Appendix E.3) Let us consider a function with a single causal pattern f (xS ) ="
+    },
+    {
+      "page": 5,
+      "text": "Theorem 3 (proof in Appendix E.3) For the function f (xS ) = wS j∈S (xj −δj ), if we use m′ incor-"
+    },
+    {
+      "page": 5,
+      "text": "Theorem 4 (proof in Appendix E.3) If we use m′ incorrect baseline values to compute causal effects"
+    },
+    {
+      "page": 5,
+      "text": "ϕp = ϕq = 0.5 · w, according to Theorem 2. Otherwise, if we use incorrect baseline values {b′p ="
+    },
+    {
+      "page": 6,
+      "text": "variables should generate the most simplified causal explanation. Remark 2 and Theorem 3 show"
+    },
+    {
+      "page": 6,
+      "text": "The above proof well fits Occam’s Razor, i.e., the simplest causality with the minimum causal"
+    },
+    {
+      "page": 7,
+      "text": "Based on Theorem 3, we derive Eq. (4) to learn optimal baseline values, but the computational"
+    },
+    {
+      "page": 7,
+      "text": "to learning baseline values. According to Theorem 4, incorrect baseline values usually mistakenly"
+    },
+    {
+      "page": 8,
+      "text": "line values being zero. Theorem 2 considers the Shapley value as a uniform assignment of effects"
+    },
+    {
+      "page": 16,
+      "text": "the causal pattern. Therefore, according to Theorem 2 in the paper, the output probability should"
+    },
+    {
+      "page": 17,
+      "text": "Theorem 1 (Faithfulness, proven by Ren et al. (2023a)) Let us consider a DNN v and an input"
+    },
+    {
+      "page": 17,
+      "text": "Proof: According to the definition of the Harsanyi dividend, we have ∀S ⊆ N ,"
+    },
+    {
+      "page": 17,
+      "text": "Theorem 2 Harsanyi dividends can be considered as causal patterns of the Shapley value."
+    },
+    {
+      "page": 17,
+      "text": "• Proof:"
+    },
+    {
+      "page": 18,
+      "text": "Theorem 3 For the function f (xS ) = wS j∈S (xj − δj ), if we use m′ incorrect baseline values"
+    },
+    {
+      "page": 18,
+      "text": "Theorem 4 If we use m′ incorrect baseline values to compute causal effects in the function f (xS ) ="
+    },
+    {
+      "page": 18,
+      "text": "• Theoretical proof: Without loss of generality, let us consider an input sample x, with ∀j ∈ S, xj ̸="
+    },
+    {
+      "page": 20,
+      "text": "Proof: let S = S ′ ∪ {i}. If i ∈ S is masked, then ∀L s.t. i ∈   / L, xL = xL∪{i} . Therefore,"
+    },
+    {
+      "page": 29,
+      "text": "• Proof :"
+    },
+    {
+      "page": 29,
+      "text": "• Proof :"
+    },
+    {
+      "page": 30,
+      "text": "• Proof :"
+    }
+  ]
+}

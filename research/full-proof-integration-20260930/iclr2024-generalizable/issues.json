@@ -1,0 +1,73 @@
+{
+  "schema_version": "3.0",
+  "issues": [
+    {
+      "paper_id": "iclr2024-generalizable",
+      "affected_result_ids": [
+        "f11-equation10"
+      ],
+      "fix_authorization": "proof_only_granted",
+      "user_review_status": "pending",
+      "id": "f11-issue-rowmax-signed-max",
+      "title": "Eq.(10)：行范数的逐点展开有反例",
+      "kind": "analysis_subclause_counterexample",
+      "issue_type": "analysis_subclause_counterexample",
+      "assessment_status": "clause_refuted_parent_not_assessed",
+      "source_refs": [
+        {
+          "source_id": "src-iclr2024-generalizable-main",
+          "pdf_page": 6,
+          "role": "statement",
+          "label": "Eq.(5) rowmax definition"
+        },
+        {
+          "source_id": "src-iclr2024-generalizable-main",
+          "pdf_page": 16,
+          "role": "proof",
+          "label": "Appendix F Eq.(10)"
+        }
+      ],
+      "original_formula_tex": "\\operatorname{rowmax}(a,b)=\\max(|a|,|b|),\\qquad\\text{Eq.(10) uses }|\\max(a,b)|",
+      "problem_md": "第6页定义每行的最大绝对值范数；第16页Eq.(10)逐点展开用了有符号最大值的绝对值。两者不是同一函数。这个问题仅针对展开中的子断言，不证明两个带min目标的最优值不同。",
+      "counterexample_tex": "a=-3,\\ b=2:\\qquad\\max(|a|,|b|)=3\\ne2=|\\max(a,b)|",
+      "evidence_md": "原式中的这一逐点恒等式已由项目反例声明实际编译。完整Eq.(10)含未绑定的索引，父优化等式的严格含义与最优值等价另列未判定。",
+      "clause_assessments": [
+        {
+          "id": "rowmax_expansion",
+          "status": "refuted",
+          "counterexample": "a=-3,b=2: row l∞=3; |signed max|=2"
+        },
+        {
+          "id": "parent_optimization_equation",
+          "status": "not_assessed",
+          "scope": "original free indices unresolved; pointwise counterexample does not compare minimized values"
+        }
+      ],
+      "impact_md": "可以判定行范数逐点展开错误；不能将此反例提升为对整个原min等式的反驳。原Eq.(6)定义与作者Eq.(10)均保留。"
+    },
+    {
+      "paper_id": "iclr2024-generalizable",
+      "affected_result_ids": [
+        "f11-equation10"
+      ],
+      "fix_authorization": "proof_only_granted",
+      "user_review_status": "pending",
+      "id": "f11-issue-equation10-free-indices",
+      "title": "Eq.(10)：求和索引与父优化等式的作用域未明确",
+      "kind": "statement_notation_scope_issue",
+      "statement_status": "not_assessed_ill_scoped",
+      "source_refs": [
+        {
+          "source_id": "src-iclr2024-generalizable-main",
+          "pdf_page": 16,
+          "role": "statement",
+          "label": "Appendix F Eq.(10)"
+        }
+      ],
+      "original_formula_tex": "\\begin{aligned}\n\\mathrm{Loss}&=\\min_{\\{\\gamma_{T_k}^{(1)},\\gamma_{T_k}^{(2)}\\}}(\\|\\operatorname{rowmax}(I_{\\mathrm{and}})\\|_1+\\|\\operatorname{rowmax}(I_{\\mathrm{or}})\\|_1)+\\alpha(\\|I_{\\mathrm{and}}\\|_1+\\|I_{\\mathrm{or}}\\|_1)\\\\\n&=\\min_{\\{\\gamma_{T_k}^{(1)},\\gamma_{T_k}^{(2)}\\}}\\sum_{T_k\\subseteq N}\\left|\\max\\left(\\sum_{T\\subseteq S}(-1)^{|S|-|T|}[0.5v^{(1)}(x_{T_k})+\\gamma_{T_k}^{(1)}],\\sum_{T\\subseteq S}(-1)^{|S|-|T|}[0.5v^{(2)}(x_{T_k})+\\gamma_{T_k}^{(2)}]\\right)\\right|\\\\\n&\\quad+\\sum_{T_k\\subseteq N}\\left|\\max\\left(-\\sum_{T\\subseteq S}(-1)^{|S|-|T|}[0.5v^{(1)}(x_{N\\setminus T_k})-\\gamma_{T_k}^{(1)}],-\\sum_{T\\subseteq S}(-1)^{|S|-|T|}[0.5v^{(2)}(x_{N\\setminus T_k})-\\gamma_{T_k}^{(2)}]\\right)\\right|\\\\\n&\\quad+\\alpha\\sum_{T_k\\subseteq N}\\sum_{i=1}^2\\left|\\sum_{T\\subseteq S}(-1)^{|S|-|T|}[0.5v^{(i)}(x_{T_k})+\\gamma_{T_k}^{(i)}]\\right|\\\\\n&\\quad+\\alpha\\sum_{T_k\\subseteq N}\\sum_{i=1}^2\\left|-\\sum_{T\\subseteq S}(-1)^{|S|-|T|}[0.5v^{(i)}(x_{N\\setminus T_k})-\\gamma_{T_k}^{(i)}]\\right|.\n\\end{aligned}",
+      "problem_md": "作者外层求和绑定T_k，内层使用T⊆S以及|S|-|T|，但S没有在这份展开中绑定；部分输出和参数仍按T_k而非内层T索引。项目保留完整原式，未替作者选择一种修正后的解释。",
+      "evidence_md": "请逐行对照正式PDF第16页：原Eq.(10)的min、求和范围、输出索引与自由S均在原文栏完整保留。已有(-3,2)反例只检验其中有符号max展开。",
+      "impact_md": "父min等式尚未判定。不得通过猜测索引、更改原陈述或根据逐点反例直接声称两种优化最优值不同。"
+    }
+  ]
+}

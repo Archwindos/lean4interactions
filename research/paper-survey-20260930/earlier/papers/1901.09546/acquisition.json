@@ -1,0 +1,64 @@
+{
+  "arxiv_id": "1901.09546",
+  "version": "v2",
+  "title": "Interpretable Complex-Valued Neural Networks for Privacy Protection",
+  "authors": [
+    "Liyao Xiang",
+    "Haotian Ma",
+    "Hao Zhang",
+    "Yifan Zhang",
+    "Jie Ren",
+    "Quanshi Zhang"
+  ],
+  "first_public_date": "2019-01-28T08:21:21Z",
+  "updated": "2020-01-14T17:17:33Z",
+  "journal_ref": null,
+  "source_url": "https://arxiv.org/abs/1901.09546v2",
+  "pdf_url": "https://arxiv.org/pdf/1901.09546v2",
+  "retrieved_at": "2026-09-30T07:03:09.103573+00:00",
+  "attempts": [
+    {
+      "url": "https://arxiv.org/pdf/1901.09546v2",
+      "status": "error",
+      "error": "HTTP Error 406: Not Acceptable"
+    },
+    {
+      "url": "https://export.arxiv.org/pdf/1901.09546v2",
+      "status": "ok",
+      "bytes": 3719334
+    }
+  ],
+  "download_url": "https://export.arxiv.org/pdf/1901.09546v2",
+  "response_headers": {
+    "Connection": "close",
+    "Content-Length": "3719334",
+    "content-disposition": "inline; filename=\"1901.09546v2.pdf\"",
+    "last-modified": "Sun, 22 Jan 2023 23:46:45 GMT",
+    "link": "<https://arxiv.org/pdf/1901.09546>; rel='canonical'",
+    "server": "Google Frontend",
+    "via": "1.1 google, 1.1 varnish, 1.1 varnish, 1.1 varnish, 1.1 varnish, 1.1 varnish",
+    "x-cloud-trace-context": "269c32c8fa392631c2b802149ceade48",
+    "content-type": "application/pdf",
+    "etag": "\"sha256:cf0a520aaf0c6ce4a193db2d8a87f3d04457e1c031b40358b11959626ca72f3c\"",
+    "access-control-allow-origin": "*",
+    "Accept-Ranges": "bytes",
+    "Age": "1",
+    "Date": "Wed, 30 Sep 2026 07:03:10 GMT",
+    "X-Served-By": "cache-lga-kjfk8660043-LGA, cache-lga-kjfk8660043-LGA, cache-lga-kjfk8660054-LGA, cache-lga-kjfk8660054-LGA, cache-lga-kjfk8660054-LGA, cache-lga-kjfk8660027-LGA, cache-qpg1273-QPG",
+    "X-Cache": "MISS, MISS, MISS, MISS, MISS",
+    "X-Cache-Hits": "0, 0, 0",
+    "X-Timer": "S1790751790.676424,VS0,VE1135",
+    "Strict-Transport-Security": "max-age=300"
+  },
+  "local_pdf": "research/paper-survey-20260930/earlier/papers/1901.09546/1901.09546v2.pdf",
+  "sha256": "bf9521916a7fe8cc5f5ab0698f6e7ca819796d42a3a9a355a605959ce93c5c07",
+  "total_pages": 14,
+  "first_page": "                                         Published as a conference paper at ICLR 2020\n\n\n\n\n                                         I NTERPRETABLE C OMPLEX -VALUED N EURAL N ET-\n                                         WORKS FOR P RIVACY P ROTECTION\n\n                                          Liyao Xianga , Hao Zhanga , Haotian Mab , Yifan Zhanga , Jie Rena , and Quanshi Zhanga\n                                          ∗a                                 b\n                                             Shanghai Jiao Tong University,    South China University of Technology\n\n\n\n                                                                                      A BSTRACT\narXiv:1901.09546v2 [cs.LG] 14 Jan 2020\n\n\n\n\n                                                  Previous studies have found that an adversary attacker can often infer unintended\n                                                  input information from intermediate-layer features. We study the possibility of\n                                                  preventing such adversarial inference, yet without too much accuracy degradation.\n                                                  We propose a generic method to revise the neural network to boost the challenge of\n                                                  inferring input attributes from features, while maintaining highly accurate outputs.\n                                                  In particular, the method transforms real-valued features into complex-valued\n                                                  ones, in which the input is hidden in a randomized phase of the transformed\n                                                  features. The knowledge of the phase acts like a key, with which any party\n                                                  can easily recover the output from the processing result, but without which the\n                                                  party can neither recover the output nor distinguish the original input. Preliminary\n                                                  experiments on various datasets and network structures have shown that our method\n                                                  significantly diminishes the adversary’s ability in inferring about the input while\n                                                  largely preserves the resulting accuracy.\n\n\n                                         1    I NTRODUCTION\n\n                                         Deep neural networks (DNNs) have shown superb capabilities to process massive volume of data,\n                                         and local devices such as mobile phones, medical equipment, Internet of Things (IoT) devices have\n                                         become major data entry points in recent years. Although on-device machine learning has exhibited\n                                         various advantages, it usually burdens thin devices with overwhelming computational overhead. Yet\n                                         offloading data or processed features to a cloud operator would put the individual privacy at risk. For\n                                         example, if a user has a virtual assistant at home, it should not worry about its private data being\n                                         collected and processed by an untrusted cloud operator. The operator, on the other hand, should not\n                                         be able to recover original signals ",
+  "status": "downloaded_extracted_requires_manual_review",
+  "automatic_heading_hits": [
+    {
+      "page": 4,
+      "text": "All above six operations satisfy Eqn. (4). Please see supplementary materials for the proof."
+    }
+  ]
+}

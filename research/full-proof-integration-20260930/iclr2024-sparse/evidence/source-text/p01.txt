@@ -1,0 +1,62 @@
+Published as a conference paper at ICLR 2024
+
+
+
+
+W HERE W E H AVE A RRIVED IN P ROVING THE E MER -
+GENCE OF S PARSE I NTERACTION P RIMITIVES IN
+DNN S
+ Qihan Ren, Jiayang Gao, Wen Shen, Quanshi Zhang∗
+ Shanghai Jiao Tong University
+ {renqihan,gjy0515,adashen,zqs1022}@sjtu.edu.cn
+
+
+
+                                            A BSTRACT
+         This study aims to prove the emergence of symbolic concepts (or more precisely,
+         sparse primitive inference patterns) in well-trained deep neural networks (DNNs).
+         Specifically, we prove the following three conditions for the emergence. (i) The
+         high-order derivatives of the network output with respect to the input variables are
+         all zero. (ii) The DNN can be used on occluded samples and when the input sam-
+         ple is less occluded, the DNN will yield higher confidence. (iii) The confidence of
+         the DNN does not significantly degrade on occluded samples. These conditions
+         are quite common, and we prove that under these conditions, the DNN will only
+         encode a relatively small number of sparse interactions between input variables.
+         Moreover, we can consider such interactions as symbolic primitive inference pat-
+         terns encoded by a DNN, because we show that inference scores of the DNN on
+         an exponentially large number of randomly masked samples can always be well
+         mimicked by numerical effects of just a few interactions. The code is available at
+         https://github.com/sjtu-xai-lab/interaction-sparsity.
+
+1   I NTRODUCTION
+In the field of explainable AI, one of the fundamental problems is whether the inference logic of a
+deep neural network (DNN) can really be explained as symbolic concepts. Although some interest-
+ing phenomena of the emergence of concepts in DNNs have been discovered in previous studies (Li
+& Zhang, 2023b; Ren et al., 2023a), the core problem is still not strictly formulated or proven, i.e.,
+strictly proving whether the knowledge encoded by DNNs is indeed symbolic.
+To this end, it is a significant challenge to prove whether or not the knowledge encoded by a black-
+box DNN is symbolic. Up to now, heuristic studies usually explained DNN features using manually
+annotated concepts (Bau et al., 2017; Kim et al., 2018), without formally defining or proving the
+concepts in a DNN. Thus, the proof of the emergence of symbolic concepts in DNNs will have a
+profound impact on both theory and practice.
+However, the definition of concepts encoded by a DNN is still an open problem, because it is a
+complex cross-disciplinary issue related to cognitive science, neuroscience, and mathematics. Nev-
+ertheless, let us ignore cognitive issues and limit our discussion to the scope of whether we can
+obtain a relatively small set of primitive inference patterns to strictly explain the complex changes
+of inference scores of the DNN on different input samples.
+To be precise, we hope to prove a set of sufficient conditions to enable us to represent the knowledge
+of a DNN as symbolic primitives. To this end, if we ignore cognitive issues, Ren et al. (2023a)
+and Li & Zhang (2023b) have considered Harsanyi interactions (Harsanyi, 1963) to represent the
+symbolic primitives encoded by a DNN. It is because they have empirically observed that a well-
+trained DNN usually only encoded a few salient interactions, and they have also observed that the
+network output could be well mimicked by these interactions. Specifically, each interaction repre-
+sents an AND relationship between a set S of input variables, and this interaction has a numerical
+effect I(S) on the inference score of the DNN. The input variables can be image regions for image
+classification or words for natural language processing. As Figure 1 shows, when classifying a dog
+   ∗
+     Quanshi Zhang is the corresponding author. He is with the Department of Computer Science and Engi-
+neering, the John Hopcroft Center, at the Shanghai Jiao Tong University, China.
+
+
+                                                  1
+

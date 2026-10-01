@@ -1,0 +1,234 @@
+{
+  "resource": {
+    "id": "res-proof-finite-mobius-reconstruction-v2",
+    "kind": "readable_proof",
+    "path": "research/reader-v2-20260930/data/math-content.json",
+    "mime_type": "application/json",
+    "content_format": "project_readable_proof",
+    "record_collection": "shared_proofs",
+    "record_id": "proof-finite-mobius-reconstruction-v2",
+    "visibility": "public",
+    "sha256": "987510b3b27babda02a67114231726532218a622665300983e30dc2cd2bb490a"
+  },
+  "actual_sha256": "987510b3b27babda02a67114231726532218a622665300983e30dc2cd2bb490a",
+  "size_bytes": 132736,
+  "record": {
+    "id": "proof-finite-mobius-reconstruction-v2",
+    "title": "公共证明：所有交互精确重构每一个掩码输出",
+    "kind": "library_result",
+    "statement_tex": "\\forall g\\ \\forall S,\\quad R_{I_g}(S)=\\sum_{T\\subseteq S}I_g(T)=g(S)",
+    "assumptions": [
+      {
+        "id": "finite-coalitions",
+        "text_md": "S 是有限变量集合。g 与 d 是定义在有限变量子集上的任意实值函数；不要求连续、可微、独立性或零输出基线。",
+        "formula_tex": "g,d:\\mathcal P_{\\mathrm{fin}}(U)\\to\\mathbb R"
+      },
+      {
+        "id": "finite-domain",
+        "text_md": "U 表示变量总体，\\(\\mathcal P_{\\mathrm{fin}}(U)\\) 表示其所有有限子集。每次参与求和的 S、T 都有限；变量总体本身可以无限。论文应用则固定有限总体 N，只讨论 \\(2^N\\)。",
+        "formula_tex": "S\\in\\mathcal P_{\\mathrm{fin}}(U)"
+      }
+    ],
+    "definitions": [
+      {
+        "id": "interaction",
+        "text_md": "交互是有限交替和。\\(T\\subseteq S\\) 保证 |T|≤|S|，因此指数 \\(|S|-|T|\\) 是非负整数。",
+        "formula_tex": "I_g(S):=\\sum_{T\\subseteq S}(-1)^{|S|-|T|}g(T)"
+      },
+      {
+        "id": "reconstruct",
+        "text_md": "\\(R_d\\) 是在给定保留变量集 S 上累加所有被激活的系数。",
+        "formula_tex": "R_d(S):=\\sum_{T\\subseteq S}d(T)"
+      },
+      {
+        "id": "finite-difference",
+        "text_md": "插入差分比较保留 i 与掩码 i 两种状态。下面的插入引理只在 \\(i\\notin S\\) 时使用。",
+        "formula_tex": "(\\Delta_i g)(T):=g(T\\cup\\{i\\})-g(T)"
+      }
+    ],
+    "overview": "每次插入一个新变量 i，都把子集分成“不含 i”和“含 i”两组。含 i 那组的交互等于插入差分 \\(\\Delta_i g\\) 的交互；这让两个子集总和分别重构 \\(g(S)\\) 和 \\(g(S\\cup \\{i\\})-g(S)\\)，相加后中间项消去。先把这个辅助引理证清，再对有限集合归纳。下面用有限集合归纳给出完整证明；原论文采用有限双重和的消去路线，另在论文结果的原证明摘要中解释。",
+    "proof_steps": [
+      {
+        "id": "step-1",
+        "title": "辅助引理：为什么子集能分成两组",
+        "body_md": "固定有限集合 S 及不属于 S 的变量 i。\\(S\\cup \\{i\\}\\) 的任何子集 A，要么不含 i，这时 A 本身就是 S 的子集；要么含 i，这时唯一地写成 \\(A=T\\cup \\{i\\}\\)，其中 \\(T=A\\setminus \\{i\\}\\subseteq S\\)。两类互不重叠，且各自覆盖所有可能情况，所以对任意实值函数 F 可以把有限和改写为下面的两组和。没有遗漏空集：它出现在第一组 \\(T=\\varnothing\\)；第二组 \\(T=\\varnothing\\) 对应 {i}。",
+        "formula_tex": "\\sum_{A\\subseteq S\\cup\\{i\\}}F(A)=\\sum_{T\\subseteq S}F(T)+\\sum_{T\\subseteq S}F(T\\cup\\{i\\})",
+        "justification": "子集与不含/含 i 两类的显式一一对应。",
+        "lean_refs": [
+          {
+            "declaration": "Harsanyi.interaction_insert",
+            "source_path": "lean/HarsanyiLib/Harsanyi/Core/Mobius.lean",
+            "line": 8,
+            "scope": "detail_inside_existing_proof",
+            "explanation_md": "插入引理证明内实际使用子集拆分；这一步没有另增一个项目定理。"
+          }
+        ]
+      },
+      {
+        "id": "step-2",
+        "title": "辅助引理：展开符号，得到插入差分",
+        "body_md": "把上一步用于交互 \\(I_g(S\\cup \\{i\\})\\) 的定义。每个 \\(T\\subseteq S\\) 都满足 \\(i\\notin T\\)，因此 \\(|S\\cup \\{i\\}|=|S|+1\\)、\\(|T\\cup \\{i\\}|=|T|+1\\)。令 \\(k=|S|-|T|\\ge 0\\)：第一组的系数是 \\((-1)^{k+1}=-(-1)^k\\)；第二组的系数是 \\((-1)^k\\)。把同一 T 的两项合并，得到 \\((-1)^k\\)[\\(g(T\\cup \\{i\\})−g(T)\\)]。最后一行正是 \\(I_{\\Delta_i g}(S)\\) 的定义。",
+        "formula_tex": "\\begin{aligned}I_g(S\\cup\\{i\\})&=\\sum_{T\\subseteq S}(-1)^{|S|+1-|T|}g(T)+\\sum_{T\\subseteq S}(-1)^{|S|-|T|}g(T\\cup\\{i\\})\\\\&=\\sum_{T\\subseteq S}(-1)^{|S|-|T|}\\bigl(g(T\\cup\\{i\\})-g(T)\\bigr)\\\\&=I_{\\Delta_i g}(S).\\end{aligned}",
+        "justification": "\\(i\\notin S\\) 及 \\(T\\subseteq S\\) 给出两个插入基数；整数幂的递推关系给出负号；有限和逐项相加。",
+        "lean_refs": [
+          {
+            "declaration": "Harsanyi.interaction_insert",
+            "source_path": "lean/HarsanyiLib/Harsanyi/Core/Mobius.lean",
+            "line": 8,
+            "scope": "detail_inside_existing_proof",
+            "explanation_md": "这个三行等式是已存在 interaction_insert 的完整数学内容；h1/h2 位于该声明证明内。"
+          }
+        ]
+      },
+      {
+        "id": "step-3",
+        "title": "主证明：加强归纳命题，并处理空集",
+        "body_md": "对有限集合 S 作插入归纳，但归纳命题必须说“对任意集合函数 g 都有 \\(R_{I_g}(S)=g(S)\\)”。不能只固定最初的 g 后归纳，因为插入一步还要对新函数 \\(\\Delta_i g\\) 使用归纳假设。\n\n当 \\(S=\\varnothing\\) 时，空集只有一个子集，即自身。定义中的指数是 0，(−1)^0=1，所以 \\(I_g(\\varnothing )=g(\\varnothing )\\)，而重构和也只有这一项。这是归纳起点；无需且不能在这里默默令 \\(g(\\varnothing )\\)=0。",
+        "formula_tex": "R_{I_g}(\\varnothing)=I_g(\\varnothing)=(-1)^0g(\\varnothing)=g(\\varnothing)",
+        "justification": "有限集合插入归纳；空集的子集族只有空集本身；空集交互公式。",
+        "lean_refs": [
+          {
+            "declaration": "Harsanyi.reconstruction",
+            "source_path": "lean/HarsanyiLib/Harsanyi/Core/Mobius.lean",
+            "line": 34,
+            "scope": "detail_inside_existing_proof",
+            "explanation_md": "归纳语句 generalizing v 以及 empty 分支都在 reconstruction 的现有证明内。"
+          },
+          {
+            "declaration": "Harsanyi.interaction_empty",
+            "source_path": "lean/HarsanyiLib/Harsanyi/Core/Basic.lean",
+            "line": 30,
+            "scope": "reused_exact_declaration",
+            "explanation_md": ""
+          }
+        ]
+      },
+      {
+        "id": "step-4",
+        "title": "主证明：对两组和分别使用归纳假设",
+        "body_md": "现在设 \\(i\\notin S\\)，并假设任意函数 h 在 S 上都满足 \\(R_{I_h}(S)\\)=h(S)。第一步的拆分把 \\(S\\cup \\{i\\}\\) 上的重构和写成两组。对第二组中的每个 \\(T\\subseteq S\\)，仍有 \\(i\\notin T\\)，所以第二步的插入交互引理可以逐项使用。得到的第二组是 \\(\\Delta_i g\\) 在 S 上的交互总和。对第一组用归纳假设 h=g，对第二组用归纳假设 h=\\(\\Delta_i g\\)，便分别得到 \\(g(S)\\) 与 \\(\\Delta_i g(S)\\)。这里明确使用了两次同一个归纳假设，而不是假设差分的结论未经证明成立。",
+        "formula_tex": "\\begin{aligned}R_{I_g}(S\\cup\\{i\\})&=\\sum_{T\\subseteq S}I_g(T)+\\sum_{T\\subseteq S}I_g(T\\cup\\{i\\})\\\\&=R_{I_g}(S)+R_{I_{\\Delta_i g}}(S)\\\\&=g(S)+(\\Delta_i g)(S).\\end{aligned}",
+        "justification": "子集拆分；插入交互引理逐项使用；加强归纳假设适用于任意集合函数。",
+        "lean_refs": [
+          {
+            "declaration": "Harsanyi.reconstruction",
+            "source_path": "lean/HarsanyiLib/Harsanyi/Core/Mobius.lean",
+            "line": 34,
+            "scope": "detail_inside_existing_proof",
+            "explanation_md": "现有代码的 sum_congr、ih v 和 ih (marginal v i) 分别实现逐项替换和两次归纳应用。"
+          }
+        ]
+      },
+      {
+        "id": "step-5",
+        "title": "主证明：消去中间输出，完成归纳",
+        "body_md": "按插入差分的定义，\\(\\Delta_i g(S)=g(S\\cup \\{i\\})-g(S)\\)。将其代入上一步，\\(g(S)\\) 与 −\\(g(S)\\) 在实数加法中消去，得到所需的 \\(g(S\\cup \\{i\\})\\)。空集起点与每次插入的步骤已经覆盖所有有限 S，因此对任意有限 S 的重构恒等式成立。论文中只需把这里的 \\(g(S)\\) 换成固定模型和掩码规则给出的 \\(v(x_S)\\)。",
+        "formula_tex": "g(S)+(\\Delta_i g)(S)=g(S)+g(S\\cup\\{i\\})-g(S)=g(S\\cup\\{i\\})",
+        "justification": "插入差分定义与实数加减法；有限集合归纳结论。",
+        "lean_refs": [
+          {
+            "declaration": "Harsanyi.reconstruction",
+            "source_path": "lean/HarsanyiLib/Harsanyi/Core/Mobius.lean",
+            "line": 34,
+            "scope": "detail_inside_existing_proof",
+            "explanation_md": "reconstruction 最后 simp [marginal] 完成此消去；不是五个新定理各自独立编译。"
+          }
+        ]
+      }
+    ],
+    "example_md": "取两个变量 \\(N=\\{1,2\\}\\)，固定四个模型输出：\\(v(x_\\varnothing)=2\\)、\\(v(x_{\\{1\\}})=5\\)、\\(v(x_{\\{2\\}})=7\\)、\\(v(x_{\\{1,2\\}})=13\\)。于是\n\\[I_g(\\varnothing)=2,\\quad I_g(\\{1\\})=5-2=3,\\quad I_g(\\{2\\})=7-2=5,\\]\n\\[I_g(\\{1,2\\})=13-5-7+2=3.\\]\n在完整输入上，\\(2+3+5+3=13\\)；仅保留变量 1 时，\\(2+3=5\\)；全掩码时求和只有空集项 2。后三个检查说明同一组系数要同时重构全部掩码输出。",
+    "lean": {
+      "status": "verified",
+      "label": "选定陈述已编译并通过公理审计",
+      "compiled": true,
+      "axiom_audit": "passed",
+      "scope": "公共有限集合重构定理及其真实库内归纳证明；论文适配另见各结果。",
+      "alignment_status": "not_a_paper_claim",
+      "source_semantics_automatically_verified": false,
+      "declarations": [
+        "Harsanyi.reconstruction",
+        "Harsanyi.interaction_insert"
+      ],
+      "statement": "∀ {α : Type u_1} [DecidableEq.{u_1 + 1} α] (v : Harsanyi.Game.{u_1} α) (S : Finset.{u_1} α),\n  Eq.{1} (Harsanyi.reconstruct.{u_1} (Harsanyi.interaction.{u_1} v) S) (v S)",
+      "source_path": "lean/HarsanyiLib/Harsanyi/Core/Mobius.lean",
+      "report_path": "research/reader-v2-20260930/math/verification/report.json",
+      "adapter_code": "theorem interaction_insert (v : Game α) (S : Finset α) (i : α) (hi : i ∉ S) :\n    interaction v (insert i S) = interaction (marginal v i) S := by\n  unfold interaction marginal\n  rw [sum_powerset_insert hi]\n  have h1 : ∀ T ∈ S.powerset,\n      (-1 : ℝ) ^ ((insert i S).card - T.card) * v T =\n      -((-1 : ℝ) ^ (S.card - T.card) * v T) := by\n    intro T hT\n    have hTS := card_le_card (mem_powerset.mp hT)\n    rw [card_insert_of_notMem hi]\n    have he : S.card + 1 - T.card = (S.card - T.card) + 1 := by omega\n    rw [he, pow_succ]\n    ring\n  have h2 : ∀ T ∈ S.powerset,\n      (-1 : ℝ) ^ ((insert i S).card - (insert i T).card) * v (insert i T) =\n      (-1 : ℝ) ^ (S.card - T.card) * v (insert i T) := by\n    intro T hT\n    have hiT : i ∉ T := fun hit => hi ((mem_powerset.mp hT) hit)\n    rw [card_insert_of_notMem hi, card_insert_of_notMem hiT]\n    simp\n  rw [sum_congr rfl h1, sum_congr rfl h2, ← sum_add_distrib]\n  apply sum_congr rfl\n  intro T _\n  ring\n\n/-- All dividends reconstruct every finite coalition, without a baseline assumption. -/\n\ntheorem reconstruction (v : Game α) (S : Finset α) :\n    reconstruct (interaction v) S = v S := by\n  induction S using Finset.induction_on generalizing v with\n  | empty => simp\n  | @insert i S hi ih =>\n    unfold reconstruct\n    rw [sum_powerset_insert hi]\n    have h : ∀ T ∈ S.powerset,\n        interaction v (insert i T) = interaction (marginal v i) T := by\n      intro T hT\n      exact interaction_insert v T i (fun hit => hi ((mem_powerset.mp hT) hit))\n    rw [sum_congr rfl h]\n    change reconstruct (interaction v) S + reconstruct (interaction (marginal v i)) S = _\n    rw [ih v, ih (marginal v i)]\n    simp [marginal]\n\n/-- The converse Boolean Möbius inversion: transforming subset sums recovers coefficients. -/",
+      "source_fingerprint": "0e74f99d1e90091c0bd4e528bc650bf6e39e0edb0cc500135e0e53df2750a7e9",
+      "step_map": [
+        {
+          "step_id": "step-1",
+          "declaration": "Harsanyi.interaction_insert",
+          "explanation": "插入引理证明内实际使用子集拆分；这一步没有另增一个项目定理。",
+          "scope": "detail_inside_existing_proof",
+          "source_path": "lean/HarsanyiLib/Harsanyi/Core/Mobius.lean",
+          "line": 8,
+          "lean_excerpt": "theorem interaction_insert (v : Game α) (S : Finset α) (i : α) (hi : i ∉ S) :\n    interaction v (insert i S) = interaction (marginal v i) S := by\n  unfold interaction marginal\n  rw [sum_powerset_insert hi]\n  have h1 : ∀ T ∈ S.powerset,\n      (-1 : ℝ) ^ ((insert i S).card - T.card) * v T =\n      -((-1 : ℝ) ^ (S.card - T.card) * v T) := by\n    intro T hT\n    have hTS := card_le_card (mem_powerset.mp hT)\n    rw [card_insert_of_notMem hi]\n    have he : S.card + 1 - T.card = (S.card - T.card) + 1 := by omega\n    rw [he, pow_succ]\n    ring\n  have h2 : ∀ T ∈ S.powerset,\n      (-1 : ℝ) ^ ((insert i S).card - (insert i T).card) * v (insert i T) =\n      (-1 : ℝ) ^ (S.card - T.card) * v (insert i T) := by\n    intro T hT\n    have hiT : i ∉ T := fun hit => hi ((mem_powerset.mp hT) hit)\n    rw [card_insert_of_notMem hi, card_insert_of_notMem hiT]\n    simp\n  rw [sum_congr rfl h1, sum_congr rfl h2, ← sum_add_distrib]\n  apply sum_congr rfl\n  intro T _\n  ring\n\n/-- All dividends reconstruct every finite coalition, without a baseline assumption. -/"
+        },
+        {
+          "step_id": "step-2",
+          "declaration": "Harsanyi.interaction_insert",
+          "explanation": "这个三行等式是已存在 interaction_insert 的完整数学内容；h1/h2 位于该声明证明内。",
+          "scope": "detail_inside_existing_proof",
+          "source_path": "lean/HarsanyiLib/Harsanyi/Core/Mobius.lean",
+          "line": 8,
+          "lean_excerpt": "theorem interaction_insert (v : Game α) (S : Finset α) (i : α) (hi : i ∉ S) :\n    interaction v (insert i S) = interaction (marginal v i) S := by\n  unfold interaction marginal\n  rw [sum_powerset_insert hi]\n  have h1 : ∀ T ∈ S.powerset,\n      (-1 : ℝ) ^ ((insert i S).card - T.card) * v T =\n      -((-1 : ℝ) ^ (S.card - T.card) * v T) := by\n    intro T hT\n    have hTS := card_le_card (mem_powerset.mp hT)\n    rw [card_insert_of_notMem hi]\n    have he : S.card + 1 - T.card = (S.card - T.card) + 1 := by omega\n    rw [he, pow_succ]\n    ring\n  have h2 : ∀ T ∈ S.powerset,\n      (-1 : ℝ) ^ ((insert i S).card - (insert i T).card) * v (insert i T) =\n      (-1 : ℝ) ^ (S.card - T.card) * v (insert i T) := by\n    intro T hT\n    have hiT : i ∉ T := fun hit => hi ((mem_powerset.mp hT) hit)\n    rw [card_insert_of_notMem hi, card_insert_of_notMem hiT]\n    simp\n  rw [sum_congr rfl h1, sum_congr rfl h2, ← sum_add_distrib]\n  apply sum_congr rfl\n  intro T _\n  ring\n\n/-- All dividends reconstruct every finite coalition, without a baseline assumption. -/"
+        },
+        {
+          "step_id": "step-3",
+          "declaration": "Harsanyi.reconstruction",
+          "explanation": "归纳语句 generalizing v 以及 empty 分支都在 reconstruction 的现有证明内。",
+          "scope": "detail_inside_existing_proof",
+          "source_path": "lean/HarsanyiLib/Harsanyi/Core/Mobius.lean",
+          "line": 34,
+          "lean_excerpt": "theorem reconstruction (v : Game α) (S : Finset α) :\n    reconstruct (interaction v) S = v S := by\n  induction S using Finset.induction_on generalizing v with\n  | empty => simp\n  | @insert i S hi ih =>\n    unfold reconstruct\n    rw [sum_powerset_insert hi]\n    have h : ∀ T ∈ S.powerset,\n        interaction v (insert i T) = interaction (marginal v i) T := by\n      intro T hT\n      exact interaction_insert v T i (fun hit => hi ((mem_powerset.mp hT) hit))\n    rw [sum_congr rfl h]\n    change reconstruct (interaction v) S + reconstruct (interaction (marginal v i)) S = _\n    rw [ih v, ih (marginal v i)]\n    simp [marginal]\n\n/-- The converse Boolean Möbius inversion: transforming subset sums recovers coefficients. -/"
+        },
+        {
+          "step_id": "step-3",
+          "declaration": "Harsanyi.interaction_empty",
+          "explanation": "reused_exact_declaration",
+          "scope": "reused_exact_declaration",
+          "source_path": "lean/HarsanyiLib/Harsanyi/Core/Basic.lean",
+          "line": 30,
+          "lean_excerpt": "@[simp] theorem interaction_empty (v : Game α) : interaction v ∅ = v ∅ := by\n  simp [interaction]"
+        },
+        {
+          "step_id": "step-4",
+          "declaration": "Harsanyi.reconstruction",
+          "explanation": "现有代码的 sum_congr、ih v 和 ih (marginal v i) 分别实现逐项替换和两次归纳应用。",
+          "scope": "detail_inside_existing_proof",
+          "source_path": "lean/HarsanyiLib/Harsanyi/Core/Mobius.lean",
+          "line": 34,
+          "lean_excerpt": "theorem reconstruction (v : Game α) (S : Finset α) :\n    reconstruct (interaction v) S = v S := by\n  induction S using Finset.induction_on generalizing v with\n  | empty => simp\n  | @insert i S hi ih =>\n    unfold reconstruct\n    rw [sum_powerset_insert hi]\n    have h : ∀ T ∈ S.powerset,\n        interaction v (insert i T) = interaction (marginal v i) T := by\n      intro T hT\n      exact interaction_insert v T i (fun hit => hi ((mem_powerset.mp hT) hit))\n    rw [sum_congr rfl h]\n    change reconstruct (interaction v) S + reconstruct (interaction (marginal v i)) S = _\n    rw [ih v, ih (marginal v i)]\n    simp [marginal]\n\n/-- The converse Boolean Möbius inversion: transforming subset sums recovers coefficients. -/"
+        },
+        {
+          "step_id": "step-5",
+          "declaration": "Harsanyi.reconstruction",
+          "explanation": "reconstruction 最后 simp [marginal] 完成此消去；不是五个新定理各自独立编译。",
+          "scope": "detail_inside_existing_proof",
+          "source_path": "lean/HarsanyiLib/Harsanyi/Core/Mobius.lean",
+          "line": 34,
+          "lean_excerpt": "theorem reconstruction (v : Game α) (S : Finset α) :\n    reconstruct (interaction v) S = v S := by\n  induction S using Finset.induction_on generalizing v with\n  | empty => simp\n  | @insert i S hi ih =>\n    unfold reconstruct\n    rw [sum_powerset_insert hi]\n    have h : ∀ T ∈ S.powerset,\n        interaction v (insert i T) = interaction (marginal v i) T := by\n      intro T hT\n      exact interaction_insert v T i (fun hit => hi ((mem_powerset.mp hT) hit))\n    rw [sum_congr rfl h]\n    change reconstruct (interaction v) S + reconstruct (interaction (marginal v i)) S = _\n    rw [ih v, ih (marginal v i)]\n    simp [marginal]\n\n/-- The converse Boolean Möbius inversion: transforming subset sums recovers coefficients. -/"
+        }
+      ],
+      "excluded_scope": [
+        "full-paper claims",
+        "F11 full Theorem 2 AND-OR notation and original proof",
+        "experimental OR file",
+        "training/sparsity/approximation claims",
+        "implementation of a concrete DNN or concrete mask operation"
+      ],
+      "user_review_status": "not_a_paper_claim",
+      "code_kind": "actual_public_library_source_excerpt",
+      "encoding_note": "数学上的有限子集族用 Finset 表示；库要求可判定相等关系。论文适配取 Fin n，使 ∀ S : Finset (Fin n) 恰好遍历固定总体的全部掩码。T⊆S 保证指数中的自然数减法没有截断。库源码中的 h1/h2 是插入基数和符号计算；generalizing v/d 保持对任意函数的加强归纳；funext 实现逐点相等。编译检查形式陈述，定义与论文语义的对应仍须人工核对。"
+    },
+    "caveats": [
+      "正文五节解释已有库内证明；它们没有五个新增 Lean 声明。被验证的是库定理以及单独编译的论文适配。",
+      "所有子集和包含空集；删掉空集项后应在和外加回 \\(g(\\varnothing )\\)。",
+      "原文采用双重求和/二项消去，Lean 采用插入归纳；两条证明方法要分别说明，不能把原文每一行标为已逐行翻译。"
+    ],
+    "rewrite_status": "complete",
+    "alignment_status": "not_a_paper_claim",
+    "user_review_status": "not_a_paper_claim",
+    "completion_scope": "公共有限集合重构定理及其真实库内归纳证明；论文适配另见各结果。"
+  }
+}

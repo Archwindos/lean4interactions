@@ -1,0 +1,21 @@
+% Agent transcription of mathematical content from the pinned ICLR 2024 PDF.
+% PDF p3 Eq(1), p4 Theorem 1, p15 Appendix B.1 Eq(7).
+% This is a transcription, not the authors' original TeX source.
+N=\{1,\ldots,n\},\qquad
+u(T)\stackrel{\mathrm{def}}=v(\boldsymbol{x}_T)-v(\boldsymbol{x}_\emptyset),
+\qquad
+I(S)\stackrel{\mathrm{def}}=\sum_{T\subseteq S}(-1)^{|S|-|T|}u(T),
+\qquad u(\emptyset)=I(\emptyset)=0.
+
+\forall S\subseteq N,\qquad
+v(\boldsymbol{x}_S)=\sum_{T\subseteq S}I(T)+v(\boldsymbol{x}_\emptyset).
+
+% B.1: the finite-sum calculation printed in the paper.
+\begin{aligned}
+\sum_{T\subseteq S}I(T)
+ &=\sum_{T\subseteq S}\sum_{L\subseteq T}(-1)^{|T|-|L|}u(L)\\
+ &=\sum_{L\subseteq S}\sum_{T\subseteq S:T\supseteq L}(-1)^{|T|-|L|}u(L)\\
+ &=\sum_{L\subseteq S}u(L)
+   \sum_{m=0}^{|S|-|L|}\binom{|S|-|L|}{m}(-1)^m\\
+ &=u(S)=v(\boldsymbol{x}_S)-v(\boldsymbol{x}_\emptyset).
+\end{aligned}

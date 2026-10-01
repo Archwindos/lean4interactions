@@ -1,0 +1,35 @@
+[
+  {
+    "cwd": ".",
+    "argv": [
+      "scripts/archive",
+      "ingest",
+      "inbox/public-sparse-concepts-v6"
+    ],
+    "exit_code": 0,
+    "log_path": "reports/public-pilot/20260930-sparse-concepts-v6/ingest.log"
+  },
+  {
+    "cwd": ".",
+    "argv": [
+      "scripts/archive",
+      "extract",
+      "sparse-concepts-2111-06206",
+      "--version",
+      "v6"
+    ],
+    "exit_code": 0,
+    "log_path": "reports/public-pilot/20260930-sparse-concepts-v6/extract.log"
+  },
+  {
+    "cwd": "examples/library-consumer",
+    "argv": [
+      "lake",
+      "env",
+      "lean",
+      "../../reports/public-pilot/20260930-sparse-concepts-v6/PublicPilot.lean"
+    ],
+    "exit_code": 0,
+    "log_path": "reports/public-pilot/20260930-sparse-concepts-v6/lean-applications.log"
+  }
+]

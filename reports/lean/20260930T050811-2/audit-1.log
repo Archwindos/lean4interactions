@@ -1,0 +1,12 @@
+/mnt/data2/wyh/lean4project/.tmp/audit-20260930T050811-2-1.lean:9:0: error: Unknown option `pp.width`
+/mnt/data2/wyh/lean4project/.tmp/audit-20260930T050811-2-1.lean:24:4: error: Application type mismatch: The argument
+  Lean.Elab.Command.liftIO (IO.println.{0} (HAppend.hAppend.{0, 0, 0} "ARCHIVE_API:" (Lean.Json.compress row)))
+has type
+  Lean.Elab.Command.CommandElabM Unit
+but is expected to have type
+  ReaderT.{0, 0} Lean.Elab.Term.Context (StateRefT' IO.RealWorld Lean.Elab.Term.State Lean.Meta.MetaM) ?m.101
+in the application
+  Bind.bind.{0, 0}
+    (Lean.Elab.Command.liftIO (IO.println.{0} (HAppend.hAppend.{0, 0, 0} "ARCHIVE_API:" (Lean.Json.compress row))))
+'PaperProofs.centered_reconstruction' depends on axioms: [propext, Classical.choice, Quot.sound]
+'PaperProofs.centered_dividend_agreement' depends on axioms: [propext, Classical.choice, Quot.sound]

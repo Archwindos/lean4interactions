@@ -1,0 +1,16 @@
+Theorem 1. Given a certain input x, let the causal graph in Fig. 1 (in the main paper) encode 2n causal patterns, i.e.,
+Ω = 2N ={S :S⊆N} . If the causal effectwS of each causal patternS∈ Ω is measured by the Harsanyi dividend [29], i.e.
+wS ≜∑
+S′⊆S(−1)|S|−|S′|·v(xS′), then the causal graph faithfully encodes the inference logic of the DNN, as follows.
+∀S⊆N , Y (xS) =v(xS) (10)
+More crucially, the Harsanyi dividend is the unique metric that satisﬁes the faithfulness requirement.
+• Proof: We only need to prove the following two statements. (1) Necessity: the causal graph based on Harsanyi dividends
+wS satisﬁes the faithfulness requirement∀S⊆N ,Y (xS)=v(xS). (2) Sufﬁciency: if there exists another metric ˜wS that also
+satisﬁes the faithfulness requirement, then, it is equivalent to the Harsanyi dividend, i.e.∀S⊆N , ˜wS =wS.
+According to the SCM in Eq. (2) of the main paper, we haveY (xS) =∑
+S′∈ΩwS′·CS′(xS) =∑
+S′⊆SwS′. Therefore, the
+faithfulness requirement can be equivalently re-written as∀S⊆N ,v (xS) =∑
+S′⊆SwS′.
+Proof for necessity. According to the deﬁnition of the Harsanyi dividend, we have∀S⊆N ,
+14

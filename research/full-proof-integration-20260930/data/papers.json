@@ -1,0 +1,732 @@
+{
+  "schema_version": "3.0",
+  "papers": [
+    {
+      "id": "cvpr2023-sparse-concepts",
+      "short_title": "稀疏概念与因果图",
+      "title": "Defining and Quantifying the Emergence of Sparse Concepts in DNNs",
+      "authors": [
+        "Jie Ren",
+        "Mingjie Li",
+        "Qirui Chen",
+        "Huiqi Deng",
+        "Quanshi Zhang"
+      ],
+      "venue": "CVPR 2023",
+      "year": 2023,
+      "intro": "用Harsanyi dividend表述全部交互的精确重构与唯一性；论文还报告提取少量显著概念的经验方法。",
+      "scope": "目录覆盖正式正文、附录及补充材料的全部已登记数学条目；每条分别记录原文、重写与Lean范围。",
+      "version_id": "ver-cvpr2023-formal",
+      "version_label": "CVPR 2023 venue-hosted published PDF(s); artifact SHA256 pinned",
+      "visibility": "public",
+      "publication_status": "published",
+      "canonical_publication_key": "https://openaccess.thecvf.com/content/CVPR2023/html/Ren_Defining_and_Quantifying_the_Emergence_of_Sparse_Concepts_in_DNNs_CVPR_2023_paper.html",
+      "publication_url": "https://openaccess.thecvf.com/content/CVPR2023/html/Ren_Defining_and_Quantifying_the_Emergence_of_Sparse_Concepts_in_DNNs_CVPR_2023_paper.html",
+      "results": [
+        {
+          "id": "cvpr2023-reconstruction",
+          "title": "Theorem 1：重构全部掩码输出",
+          "kind": "theorem",
+          "original_label": "Theorem 1; Axiom (1) Efficiency"
+        },
+        {
+          "id": "cvpr2023-uniqueness",
+          "title": "Appendix C：全部掩码重构系数唯一",
+          "kind": "theorem",
+          "original_label": "Appendix C sufficiency"
+        },
+        {
+          "id": "cvpr2023-linearity",
+          "title": "Linearity：逐点相加的交互相加",
+          "kind": "axiom_property",
+          "original_label": "Axiom (2)"
+        },
+        {
+          "id": "cvpr2023-dummy",
+          "title": "Dummy：原命题空集反例（不修改）",
+          "kind": "axiom_property",
+          "original_label": "Axiom (3)"
+        },
+        {
+          "id": "cvpr2023-symmetry",
+          "title": "Symmetry：相同合作输出具有相同交互",
+          "kind": "axiom_property",
+          "original_label": "Axiom (4)"
+        },
+        {
+          "id": "cvpr2023-anonymity",
+          "title": "Anonymity：重命名变量保持交互",
+          "kind": "axiom_property",
+          "original_label": "Axiom (5)"
+        },
+        {
+          "id": "cvpr2023-recursive",
+          "title": "Recursive：始终保留变量的上下文差分",
+          "kind": "axiom_property",
+          "original_label": "Axiom (6)"
+        },
+        {
+          "id": "cvpr2023-interaction-distribution",
+          "title": "Interaction distribution：纯AND只在指定集合有交互",
+          "kind": "axiom_property",
+          "original_label": "Axiom (7)"
+        },
+        {
+          "id": "cvpr2023-marginal-decomposition",
+          "title": "Theorem 5：环境中的高阶边际分解",
+          "kind": "theorem",
+          "original_label": "Theorem 5"
+        },
+        {
+          "id": "cvpr2023-shapley",
+          "title": "Theorem 2：经典Shapley的交互均分",
+          "kind": "theorem",
+          "original_label": "Theorem 2"
+        },
+        {
+          "id": "cvpr2023-shapley-interaction",
+          "title": "Theorem 3：Shapley interaction 的交互权重",
+          "kind": "theorem",
+          "original_label": "Theorem 3"
+        },
+        {
+          "id": "cvpr2023-shapley-taylor",
+          "title": "Theorem 4：Shapley–Taylor 的全部阶数分支",
+          "kind": "theorem",
+          "original_label": "Theorem 4"
+        },
+        {
+          "id": "cvpr2023-scm-subset-sum",
+          "title": "SCM：二值AND触发化为子集和",
+          "kind": "unnumbered_derivation",
+          "original_label": "Main Eq.(1),(2)"
+        },
+        {
+          "id": "cvpr2023-baseline-faithfulness",
+          "title": "改变输入基线后完整交互仍各自精确",
+          "kind": "unnumbered_derivation",
+          "original_label": "Main 3.2 unnumbered"
+        },
+        {
+          "id": "cvpr2023-aog-regrouping",
+          "title": "AOG：共享AND子模式的等价重组",
+          "kind": "unnumbered_derivation",
+          "original_label": "Main 3.3 unnumbered"
+        },
+        {
+          "id": "cvpr2023-addmul-coefficients",
+          "title": "二值加乘模型：交互就是激活项的系数",
+          "kind": "unnumbered_derivation",
+          "original_label": "Main 4.1; Supplement G.3"
+        },
+        {
+          "id": "cvpr-inv-harsanyi-definition",
+          "title": "Harsanyi dividend 原定义",
+          "kind": "definition",
+          "original_label": "Supplement Eq. (1); main Theorem 1 definition"
+        },
+        {
+          "id": "cvpr-inv-mask-definition",
+          "title": "固定输入与输入基线定义掩码",
+          "kind": "definition",
+          "original_label": "Main Eq. (4); Supplement E"
+        },
+        {
+          "id": "cvpr-inv-remark1",
+          "title": "少量模式近似 DNN 的经验稀疏现象",
+          "kind": "empirical_observation",
+          "original_label": "Remark 1"
+        },
+        {
+          "id": "cvpr-inv-combinatorial-beta",
+          "title": "二项系数恒等式与 Beta 性质",
+          "kind": "external_unproved_ingredient",
+          "original_label": "D.2 (i)–(iii), unnumbered ingredients"
+        },
+        {
+          "id": "cvpr-inv-optimization",
+          "title": "模式选择与L0→L1松弛",
+          "kind": "algorithm_and_heuristic",
+          "original_label": "Main Eq. (5), (6)"
+        },
+        {
+          "id": "cvpr-inv-explained-ratio",
+          "title": "已解释效应比例",
+          "kind": "definition",
+          "original_label": "Main Eq. (7)"
+        },
+        {
+          "id": "cvpr-inv-mdl",
+          "title": "MDL目标与贪心规则",
+          "kind": "algorithm_and_definition",
+          "original_label": "Main Eq. (8); Supplement Eq. (3)"
+        },
+        {
+          "id": "cvpr-inv-evaluation",
+          "title": "实验指标、相似性及结果",
+          "kind": "definition_and_empirical_analysis",
+          "original_label": "Main 4.1–4.3; Supplement G.4–G.8 Eq. (4), (5)"
+        },
+        {
+          "id": "cvpr-inv-synthesized-labels",
+          "title": "sigmoid与And-Or实验人工真值规则",
+          "kind": "experimental_labeling_convention",
+          "original_label": "Supplement G.3"
+        },
+        {
+          "id": "cvpr-inv-runtime",
+          "title": "运行时间与维数降低",
+          "kind": "unproved_complexity_and_empirical_runtime",
+          "original_label": "Main 3.3; Supplement H"
+        },
+        {
+          "id": "cvpr-inv-bow",
+          "title": "AOG与BoW的区别及共同词组",
+          "kind": "discussion_and_empirical_example",
+          "original_label": "Supplement I; Table 6,7"
+        },
+        {
+          "id": "cvpr-inv-related-work",
+          "title": "相关文献的外引结论",
+          "kind": "external_claim_without_proof",
+          "original_label": "Main 2; Supplement A"
+        }
+      ],
+      "sources": [
+        {
+          "id": "src-cvpr2023-main",
+          "label": "正式主文",
+          "kind": "main",
+          "local_path": "research/paper-survey-20260930/earlier/venue-papers/sparse-cvpr2023-main/sparse-cvpr2023-main.pdf",
+          "url": "https://openaccess.thecvf.com/content/CVPR2023/papers/Ren_Defining_and_Quantifying_the_Emergence_of_Sparse_Concepts_in_DNNs_CVPR_2023_paper.pdf",
+          "sha256": "5702e161fa95421935c8879d505033dae903c92e79f491b1199511d643b8ff43",
+          "total_pages": 10,
+          "version_id": "ver-cvpr2023-formal",
+          "publication_status": "published",
+          "visibility": "public"
+        },
+        {
+          "id": "src-cvpr2023-supplement",
+          "label": "正式补充材料",
+          "kind": "supplement",
+          "local_path": "research/paper-survey-20260930/earlier/venue-papers/sparse-cvpr2023-supp/sparse-cvpr2023-supp.pdf",
+          "url": "https://openaccess.thecvf.com/content/CVPR2023/supplemental/Ren_Defining_and_Quantifying_CVPR_2023_supplemental.pdf",
+          "sha256": "1c17a9af66dedf9db3d190a62ac070115ba1301b3fd568832da2d60f662f92d7",
+          "total_pages": 27,
+          "version_id": "ver-cvpr2023-formal",
+          "publication_status": "published",
+          "visibility": "public"
+        }
+      ],
+      "inventory_entry_count": 29
+    },
+    {
+      "id": "iclr2024-sparse",
+      "short_title": "稀疏交互的理论条件",
+      "title": "Where We Have Arrived in Proving the Emergence of Sparse Interaction Primitives in DNNs",
+      "authors": [
+        "Qihan Ren",
+        "Jiayang Gao",
+        "Wen Shen",
+        "Quanshi Zhang"
+      ],
+      "venue": "ICLR 2024",
+      "year": 2024,
+      "intro": "分析DNN中稀疏交互出现的充分条件，并复述、证明Harsanyi交互的精确匹配恒等式。",
+      "scope": "目录覆盖正式正文、附录及补充材料的全部已登记数学条目；每条分别记录原文、重写与Lean范围。",
+      "version_id": "ver-iclr2024-sparse-formal",
+      "version_label": "ICLR 2024 official proceedings/journal PDF",
+      "visibility": "public",
+      "publication_status": "published",
+      "canonical_publication_key": "https://proceedings.iclr.cc/paper_files/paper/2024/hash/db0ee27cb50dd9087b133f6e7d28a90e-Abstract-Conference.html",
+      "publication_url": "https://proceedings.iclr.cc/paper_files/paper/2024/hash/db0ee27cb50dd9087b133f6e7d28a90e-Abstract-Conference.html",
+      "results": [
+        {
+          "id": "iclr2024-sparse-definitions",
+          "title": "掩码、去基线输出与 Harsanyi 交互定义",
+          "kind": "definition",
+          "original_label": "Eq. (1)"
+        },
+        {
+          "id": "iclr2024-sparse-desiderata",
+          "title": "稀疏性、普遍匹配、逐样本迁移三个评价标准",
+          "kind": "desiderata_and_empirical_observation",
+          "original_label": "Section 3.1 (1)–(3)"
+        },
+        {
+          "id": "iclr2024-sparse-reconstruction",
+          "title": "所有掩码输出的去基线重构",
+          "kind": "numbered_theorem",
+          "original_label": "Theorem 1"
+        },
+        {
+          "id": "iclr2024-sparse-salient-approximation",
+          "title": "仅保留显著交互的近似式",
+          "kind": "unnumbered_inference",
+          "original_label": "Section 3.1 unnumbered"
+        },
+        {
+          "id": "iclr2024-sparse-taylor-expansion",
+          "title": "在输入基线的无限多元 Taylor 展开",
+          "kind": "analytic_representation",
+          "original_label": "Eq. (2)"
+        },
+        {
+          "id": "iclr2024-sparse-assumption-1alpha",
+          "title": "高于 M 阶交互为零",
+          "kind": "assumption",
+          "original_label": "Assumption 1-α"
+        },
+        {
+          "id": "iclr2024-sparse-assumption-1beta",
+          "title": "全空间高于 M 阶导数为零",
+          "kind": "assumption",
+          "original_label": "Assumption 1-β"
+        },
+        {
+          "id": "iclr2024-sparse-lemma1",
+          "title": "按变量支撑分组的 Taylor 交互表达式",
+          "kind": "numbered_lemma",
+          "original_label": "Lemma 1"
+        },
+        {
+          "id": "iclr2024-sparse-derivative-cutoff",
+          "title": "由导数阶数推出交互阶数截断",
+          "kind": "unnumbered_proved_implication",
+          "original_label": "Assumption 1-β ⇒ Assumption 1-α"
+        },
+        {
+          "id": "iclr2024-sparse-assumption2",
+          "title": "按掩码阶数的平均输出单调性",
+          "kind": "assumption",
+          "original_label": "Assumption 2 (Monotonicity)"
+        },
+        {
+          "id": "iclr2024-sparse-assumption3",
+          "title": "平均输出的多项式下界",
+          "kind": "assumption",
+          "original_label": "Assumption 3"
+        },
+        {
+          "id": "iclr2024-sparse-order-statistics",
+          "title": "阶交互总和、抵消比例与显著交互计数",
+          "kind": "definition",
+          "original_label": "A^(k), η^(k), R^(k)"
+        },
+        {
+          "id": "iclr2024-sparse-lemma2",
+          "title": "平均掩码输出的组合系数表达式",
+          "kind": "numbered_lemma",
+          "original_label": "Lemma 2"
+        },
+        {
+          "id": "iclr2024-sparse-lemma3",
+          "title": "连续阶数的组合系数矩阵满列秩",
+          "kind": "numbered_lemma",
+          "original_label": "Lemma 3"
+        },
+        {
+          "id": "iclr2024-sparse-theorem2",
+          "title": "阶交互总效应的 n 进制表达与 δ 界",
+          "kind": "numbered_theorem",
+          "original_label": "Theorem 2"
+        },
+        {
+          "id": "iclr2024-sparse-asymptotic-claim",
+          "title": "渐近稀疏解释与Case2同阶稀疏推断的无限反例",
+          "kind": "unnumbered_asymptotic_inference",
+          "original_label": "Section 3.2 unnumbered"
+        },
+        {
+          "id": "iclr2024-sparse-theorem3",
+          "title": "显著 k 阶交互数的上界",
+          "kind": "numbered_theorem",
+          "original_label": "Theorem 3"
+        },
+        {
+          "id": "iclr2024-sparse-axiom-linearity",
+          "title": "线性性质",
+          "kind": "listed_property_no_local_proof",
+          "original_label": "A.1 (2)"
+        },
+        {
+          "id": "iclr2024-sparse-axiom-dummy",
+          "title": "虚设变量性质",
+          "kind": "listed_property_no_local_proof",
+          "original_label": "A.1 (3)"
+        },
+        {
+          "id": "iclr2024-sparse-axiom-symmetry",
+          "title": "对称性质",
+          "kind": "listed_property_no_local_proof",
+          "original_label": "A.1 (4)"
+        },
+        {
+          "id": "iclr2024-sparse-axiom-anonymity",
+          "title": "匿名性性质",
+          "kind": "listed_property_no_local_proof",
+          "original_label": "A.1 (5)"
+        },
+        {
+          "id": "iclr2024-sparse-axiom-recursive",
+          "title": "递归差分性质",
+          "kind": "listed_property_no_local_proof",
+          "original_label": "A.1 (6)"
+        },
+        {
+          "id": "iclr2024-sparse-axiom-distribution",
+          "title": "纯交互分布性质",
+          "kind": "listed_property_no_local_proof",
+          "original_label": "A.1 (7)"
+        },
+        {
+          "id": "iclr2024-sparse-lemma4",
+          "title": "边际收益的交互展开",
+          "kind": "numbered_lemma",
+          "original_label": "Lemma 4"
+        },
+        {
+          "id": "iclr2024-sparse-theorem4",
+          "title": "Shapley 值按交互等分",
+          "kind": "numbered_theorem",
+          "original_label": "Theorem 4"
+        },
+        {
+          "id": "iclr2024-sparse-theorem5",
+          "title": "Shapley 交互指标的交互展开",
+          "kind": "numbered_theorem",
+          "original_label": "Theorem 5"
+        },
+        {
+          "id": "iclr2024-sparse-theorem6",
+          "title": "Shapley–Taylor 指标的分段交互展开",
+          "kind": "numbered_theorem",
+          "original_label": "Theorem 6"
+        },
+        {
+          "id": "iclr2024-sparse-noise-linearity",
+          "title": "掩码输出噪声的交互线性分解",
+          "kind": "unnumbered_algebraic_derivation",
+          "original_label": "Scenario 1, unnumbered"
+        },
+        {
+          "id": "iclr2024-sparse-noise-variance",
+          "title": "噪声交互方差放大 2^|S| 倍",
+          "kind": "unnumbered_probability_claim",
+          "original_label": "Scenario 1, unnumbered"
+        },
+        {
+          "id": "iclr2024-sparse-parity-mask",
+          "title": "按保留变量数奇偶的交互符号",
+          "kind": "unnumbered_example_derivation",
+          "original_label": "Scenario 2"
+        },
+        {
+          "id": "iclr2024-sparse-or-density",
+          "title": "高阶 OR 产生多项 AND 交互的讨论",
+          "kind": "qualitative_mathematical_claim",
+          "original_label": "Scenario 3"
+        },
+        {
+          "id": "iclr2024-sparse-periodic-density",
+          "title": "正弦输出交互不稀疏的示意",
+          "kind": "qualitative_mathematical_claim",
+          "original_label": "Scenario 4"
+        },
+        {
+          "id": "iclr2024-sparse-parity-task",
+          "title": "奇偶分类任务的大 p 经验观察",
+          "kind": "empirical_observation",
+          "original_label": "Scenario 5 / E.3"
+        },
+        {
+          "id": "iclr2024-sparse-transfer-inference",
+          "title": "由稀疏与普遍匹配推逐样本迁移的反证论述",
+          "kind": "unnumbered_contradiction_argument",
+          "original_label": "Section 4 unnumbered"
+        },
+        {
+          "id": "iclr2024-sparse-or-reverse",
+          "title": "OR 交互与反向掩码 AND 交互的关系",
+          "kind": "unnumbered_algebraic_inference",
+          "original_label": "D.2 unnumbered"
+        },
+        {
+          "id": "iclr2024-sparse-and-or-matching",
+          "title": "AND–OR 分解的全掩码匹配",
+          "kind": "external_result_no_local_proof",
+          "original_label": "Eq. (62)"
+        },
+        {
+          "id": "iclr2024-sparse-and-or-optimization",
+          "title": "稀疏 AND–OR 与去噪的优化定义",
+          "kind": "algorithm_description",
+          "original_label": "Eq. (63)"
+        },
+        {
+          "id": "iclr2024-sparse-threshold-discussion",
+          "title": "阈值以下交互多为精确零的解释",
+          "kind": "heuristic_empirical_claim",
+          "original_label": "Appendix F"
+        },
+        {
+          "id": "iclr2024-sparse-monotonicity-example",
+          "title": "五个二进制变量的平均单调例",
+          "kind": "worked_example",
+          "original_label": "Appendix H"
+        },
+        {
+          "id": "iclr2024-sparse-sampling-complexity",
+          "title": "每阶抽 t 个掩码的均值估计及 O(nt) 代价",
+          "kind": "unnumbered_algorithmic_derivation",
+          "original_label": "Appendix I"
+        },
+        {
+          "id": "iclr2024-sparse-experiments",
+          "title": "经验稀疏性、均值单调与 p 数值",
+          "kind": "empirical_observation",
+          "original_label": "Figures 2–14 / Tables 1–2"
+        },
+        {
+          "id": "iclr2024-sparse-related-work",
+          "title": "外引既有数学与经验结果",
+          "kind": "external_background_no_local_proof",
+          "original_label": "Section 2"
+        }
+      ],
+      "sources": [
+        {
+          "id": "src-iclr2024-sparse-main",
+          "label": "正式主文（含附录）",
+          "kind": "main",
+          "local_path": "research/paper-survey-20260930/recent/pdf/iclr2024-sparse.pdf",
+          "url": "https://proceedings.iclr.cc/paper_files/paper/2024/file/db0ee27cb50dd9087b133f6e7d28a90e-Paper-Conference.pdf",
+          "sha256": "9f380ff7d659d8b414e2cdb70edf9dcc8d0e4108240a1f506c2337664e7c8f45",
+          "total_pages": 34,
+          "version_id": "ver-iclr2024-sparse-formal",
+          "publication_status": "published",
+          "visibility": "public"
+        }
+      ],
+      "inventory_entry_count": 43
+    },
+    {
+      "id": "iclr2024-generalizable",
+      "short_title": "跨模型通用交互",
+      "title": "Defining and Extracting Generalizable Interaction Primitives from DNNs",
+      "authors": [
+        "Lu Chen",
+        "Siyu Lou",
+        "Benhao Huang",
+        "Quanshi Zhang"
+      ],
+      "venue": "ICLR 2024",
+      "year": 2024,
+      "intro": "研究不同DNN共同抽取的AND/OR交互，区分精确匹配与交互的泛化能力。",
+      "scope": "目录覆盖正式正文、附录及补充材料的全部已登记数学条目；每条分别记录原文、重写与Lean范围。",
+      "version_id": "ver-iclr2024-generalizable-formal",
+      "version_label": "ICLR 2024 official proceedings/journal PDF",
+      "visibility": "public",
+      "publication_status": "published",
+      "canonical_publication_key": "https://proceedings.iclr.cc/paper_files/paper/2024/hash/67a9b444cbcd647572c88194619f72d5-Abstract-Conference.html",
+      "publication_url": "https://proceedings.iclr.cc/paper_files/paper/2024/hash/67a9b444cbcd647572c88194619f72d5-Abstract-Conference.html",
+      "results": [
+        {
+          "id": "f11-model-mask",
+          "title": "模型、掩码与输入基线",
+          "kind": "definition",
+          "original_label": "Section 2.1; footnotes 3–5"
+        },
+        {
+          "id": "f11-and-definition",
+          "title": "AND/Harsanyi 交互及空集约定",
+          "kind": "definition",
+          "original_label": "Eq.(1)"
+        },
+        {
+          "id": "f11-and-mask-zero",
+          "title": "掩码消失：含已遮掉变量的AND交互为零",
+          "kind": "finite_theorem_or_derivation",
+          "original_label": "Section 2.1"
+        },
+        {
+          "id": "f11-or-definition",
+          "title": "OR交互及单列空集值",
+          "kind": "definition",
+          "original_label": "Eq.(2)"
+        },
+        {
+          "id": "f11-or-duality",
+          "title": "OR对偶：反转掩码状态的负AND变换",
+          "kind": "finite_theorem_or_derivation",
+          "original_label": "Section 2.1; footnote 5"
+        },
+        {
+          "id": "f11-external-sparsity",
+          "title": "AND稀疏性及其三项条件（外引）",
+          "kind": "external_claim",
+          "original_label": "Section 2.1; Appendix B"
+        },
+        {
+          "id": "f11-significant-definition",
+          "title": "显著交互集合",
+          "kind": "definition",
+          "original_label": "Definition of interaction primitives"
+        },
+        {
+          "id": "iclr2024-generalizable-theorem1",
+          "title": "Theorem 1精确部分：全部掩码的AND重构",
+          "kind": "finite_theorem_or_derivation",
+          "original_label": "Theorem 1 exact equality"
+        },
+        {
+          "id": "f11-theorem1-approx",
+          "title": "少量显著交互近似全部输出（外引）",
+          "kind": "external_theorem_component",
+          "original_label": "Theorem 1, approximate clause"
+        },
+        {
+          "id": "iclr2024-generalizable-andor",
+          "title": "Theorem 2：完整字面AND-OR联合匹配",
+          "kind": "finite_theorem_or_derivation",
+          "original_label": "Theorem 2; Eq.(3),(7)"
+        },
+        {
+          "id": "iclr2024-generalizable-and",
+          "title": "Appendix C(1)：固定样本与字面条件AND重构",
+          "kind": "finite_theorem_or_derivation",
+          "original_label": "Appendix C(1)"
+        },
+        {
+          "id": "iclr2024-generalizable-or",
+          "title": "Appendix C(2)：OR完整重构与原证明修正",
+          "kind": "finite_theorem_or_derivation",
+          "original_label": "Appendix C(2); Eq.(9)"
+        },
+        {
+          "id": "f11-proposition1",
+          "title": "少量AND-OR交互近似输出",
+          "kind": "proposition",
+          "original_label": "Proposition 1"
+        },
+        {
+          "id": "f11-boolean-decomposition",
+          "title": "五变量布尔函数：两种精确AND-OR分解",
+          "kind": "finite_theorem_or_derivation",
+          "original_label": "Section 2.2 Challenge 1"
+        },
+        {
+          "id": "f11-transferability",
+          "title": "交互可迁移率与共同交互",
+          "kind": "definition",
+          "original_label": "Definition 1"
+        },
+        {
+          "id": "f11-reparameterization",
+          "title": "AND-OR分解与gamma的一一重参数",
+          "kind": "unnumbered_derivation",
+          "original_label": "Section 2.3; Section 2.3.2"
+        },
+        {
+          "id": "f11-objectives",
+          "title": "稀疏、跨模型及冗余损失的定义",
+          "kind": "optimization_definition",
+          "original_label": "Eq.(4),(5),(6)"
+        },
+        {
+          "id": "f11-rowmax-penalty",
+          "title": "不超过已有行最大强度时不增加该行惩罚",
+          "kind": "unnumbered_derivation",
+          "original_label": "Section 2.3.2, following Eq.(5)"
+        },
+        {
+          "id": "f11-shared-gamma",
+          "title": "共享/个体分解与剪裁规则",
+          "kind": "algorithm_rule",
+          "original_label": "Section 2.3.2, Sharing decomposition"
+        },
+        {
+          "id": "f11-and-variance",
+          "title": "独立高斯噪声的AND交互方差",
+          "kind": "unnumbered_theorem",
+          "original_label": "Section 2.3.2; Appendix D"
+        },
+        {
+          "id": "f11-or-variance",
+          "title": "独立高斯噪声的OR交互方差",
+          "kind": "unnumbered_theorem",
+          "original_label": "Section 2.3.2, Similarly"
+        },
+        {
+          "id": "f11-noise-error",
+          "title": "可学习误差及剪裁",
+          "kind": "algorithm_rule",
+          "original_label": "Section 2.3.2, Modeling noises"
+        },
+        {
+          "id": "f11-shapley",
+          "title": "Theorem 3：原模型AND交互与经典Shapley",
+          "kind": "finite_theorem_or_derivation",
+          "original_label": "Theorem 3 (external Harsanyi 1963)"
+        },
+        {
+          "id": "f11-equation10",
+          "title": "两模型损失的原式展开",
+          "kind": "claimed_identity",
+          "original_label": "Appendix F; Eq.(10)"
+        },
+        {
+          "id": "f11-mask-complexity",
+          "title": "全部掩码设置与枚举模型查询计数",
+          "kind": "finite_theorem_or_derivation",
+          "original_label": "Appendix G"
+        },
+        {
+          "id": "f11-alpha-zero",
+          "title": "alpha=0时Eq.(6)退化为Eq.(5)",
+          "kind": "algebraic_corollary",
+          "original_label": "Appendix I, alpha=0"
+        },
+        {
+          "id": "f11-procedure-example",
+          "title": "六token完整交互提取例",
+          "kind": "algorithm_example",
+          "original_label": "Appendix L, Steps 1–8"
+        },
+        {
+          "id": "f11-matching-metric",
+          "title": "前k交互的匹配精度指标",
+          "kind": "definition",
+          "original_label": "Appendix M"
+        },
+        {
+          "id": "f11-empirical",
+          "title": "稀疏性、迁移率、可视化与匹配实验",
+          "kind": "empirical_observation",
+          "original_label": "Section 3; Appendix E,H,I,J,K,M,N,O.1"
+        },
+        {
+          "id": "f11-background-selection",
+          "title": "所选输入变量与固定背景的作用域",
+          "kind": "experimental_scope",
+          "original_label": "Appendix O.2; Appendix E"
+        }
+      ],
+      "sources": [
+        {
+          "id": "src-iclr2024-generalizable-main",
+          "label": "正式主文（含附录）",
+          "kind": "main",
+          "local_path": "research/paper-survey-20260930/recent/pdf/iclr2024-generalizable.pdf",
+          "url": "https://proceedings.iclr.cc/paper_files/paper/2024/file/67a9b444cbcd647572c88194619f72d5-Paper-Conference.pdf",
+          "sha256": "9690fc5c8043ca7f7a583297833588696276efc8324da4ed0dcaa5685c4390ed",
+          "total_pages": 23,
+          "version_id": "ver-iclr2024-generalizable-formal",
+          "publication_status": "published",
+          "visibility": "public"
+        }
+      ],
+      "inventory_entry_count": 30
+    }
+  ]
+}

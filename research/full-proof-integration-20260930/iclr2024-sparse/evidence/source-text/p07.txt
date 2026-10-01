@@ -1,0 +1,86 @@
+Published as a conference paper at ICLR 2024
+
+
+
+
+Table 1: Our theory can explain the sparsity of interactions in about 84.52% - 89.87% samples,
+because these samples had monotonic values of ū(m) . Nevertheless, the remaining 10.13% -15.48%
+samples without the monotonicity also encoded very sparse interactions. Our proof is still significant
+enough, although we cannot prove the sparsity on all input samples.
+                                                                         OPT-1.3B           LLaMA-7B      Aquila-7B
+                Percent of samples with monotonicity                      89.87%             84.52%        87.46%
+                                  Samples with monotonicity             29.06±52.46         50.71±40.35   30.16±26.22
+  Avg # of valid interactions
+                                  Samples without monotonicity          42.67±38.87         79.71±59.43   65.94±69.99
+
+the set N , and how to mask words in N \T when computing v(xT ). Table 1 shows that on all LLMs,
+over 84% of the input samples satisfied the monotonicity assumption. Figure 5(a) also visualizes the
+increase of the average output of the m-th order ū(m) along with the order m on different LLMs.
+Table 1 also shows that because of the complexity of training an LLM, in a few cases, the average
+network output of the m-th order was not always monotonic along with the order m. In fact, this
+conflicted with the common logic, but it was still possible because the extremely high diversity of
+sentences made the LLM difficult to be sufficiently trained (fully converge). In this study, we did
+not consider such a case and only focused on the ideal case where a network was well-trained.
+Third, we need to ensure that the classification confidence of the DNN does not significantly degrade
+on masked input samples. In real applications, the classification/detection of occluded samples is
+common. Thus, for a well-trained DNN, its confidence when classifying occluded (masked) samples
+should not be substantially lower than its confidence for unmasked samples.
+Assumption 3. Given the average network output of samples with m unmasked input variables,
+ū(m) , we assume a lower bound for the average network output of samples with m′ (m′ ≤ m)
+                                              ′        ′ p
+unmasked input variables, i.e., ∀ m′ ≤ m, ū(m ) ≥ ( m
+                                                     m
+                                                        ) ū(m) , where p > 0 is a positive constant.
+In Assumption 3, we bound the decrease of the average output of order m by a polynomial of
+                                                    ′        ′ p
+degree p. If this assumption is violated, i.e., ū(m ) < ( m
+                                                           m
+                                                              ) ū(m) for m′ ≤ m, then it implies
+either extremely low classification confidence on masked samples or extremely high classification
+confidence on normal (unmasked) samples, which are both undesirable cases in real applications.
+We also conducted experiments to illustrate the value of p on real DNNs and datasets. We used the
+same LLMs and dataset as those in the previous experiment. Figure 5(b) shows that the value of p
+across different samples was around 0.9 to 1.5, which was reasonable for further analysis.
+Proof of the sparsity of interactions. Under the above conditions, we prove that interactions en-
+coded by a DNN are sparse. We start by analyzing the upper bound of the sum of the effects of all
+                                      def P
+k-order interactions, denoted by A(k) = S⊆N,|S|=k I(S).
+Theorem 2 (Proven in Appendix B.3). There exists m0 ∈ {n, n − 1, · · · , n − M }, such that for all
+1 ≤ k ≤ M , the sum of the effects of all k-order interactions can be written as
+                        A(k) = (λ(k) np+δ + a⌊p⌋−1 n⌊p⌋−1 + · · · + a1 n + a0 ) ū(1) ,
+                                                      (k)                  (k)        (k)
+                                                                                                                    (3)
+
+where |λ(k) | ≤ 1, |a0(k) | < n, |ai(k) | ∈ {0, 1, · · · , n − 1} for i = 1, · · · , ⌊p⌋ − 1, and
+                                                                   
+                                      1      a⌊p⌋−1           a0 
+                           δ ≤ logn      1 − p−⌊p⌋+1 − · · · − p      , if λ > 0,                                   (4)
+                                      λ      n                 n
+                                                                 
+                                       1  a⌊p⌋−1            a0 
+                           δ ≤ logn                  + ··· + p      , if λ < 0.                                     (5)
+                                      −λ n  p−⌊p⌋+1          n
+          def         (m0 )                 def      (k)    (m0 )
+ Here, λ = M               (k)
+                               ̸= 0, ai = M
+                P                                 P
+                     k
+               k=1 (n) λ
+                                                  k
+                                           k=1 (n) ai    for i = 0, 1, · · · , ⌊p⌋ − 1, and ⌊p⌋ denotes the
+                     k                            k
+greatest integer that is less than or equal to p.
+The above theorem indicates that the sum of effects of all k-order interactions is O(np+δ ). Then,
+we discuss the sparsity of interactions in the following two cases.
+• Case 1: When the positive  P
+                                and negative interactions of the k-th order do not fully cancel
+                     (k) def P |S|=k I(S)
+out each other. Let η =             |I(S)|
+                                           denote the remaining proportion of the effects of k-order
+                                    |S|=k
+
+
+
+
+                                                                7
+

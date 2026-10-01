@@ -1,0 +1,79 @@
+     OR          Red edges indicate a parse graph   output=5.94, 𝑅Ω =99.12%                                                                       output=15.97, 𝑅Ω = 95.80%
+    node         of a causal pattern.               grammatically correct                                                                         positive sentiment
+    AND
+   nodes
+   salient
+( patterns )
+                                                                                                   2.54                                                                                  6.59
+     AND
+    nodes
+  common
+( coalitions )
+    input
+  variables                                                                                        -2.54                                                                             -6.59
+
+Figure 3. AOGs that explained correct predictions made by the neural network. The networks were trained on (left) the CoLA dataset and
+(right) the SST-2 dataset, respectively. The red color of nodes in the second layer indicates causal patterns with positive effects, while the
+blue color represents patterns with negative effects. Red edges indicate the parse graph of a causal pattern.
+
+                                                                                                              output = 9.01, prediction: digit 4, 𝑅Ω = 98.11%
+using nodes in M to describe patterns in g . The MDL                                                                                                 parse graph of the pattern
+                                                                                                                                                     𝑆 = 𝜉 = 𝑥1 , 𝑥2 , 𝑥3
+principle usually formulates the complexity (description
+length) of the set of nodes M as the entropy L(M) =
+     P
+−κ m∈M p(m) log p(m). We set the occurring probabil-
+ity p(m) of the node m ∈ M proportional to the overall
+strength of causal effects of the node m’s all parent nodes                           𝛼 = {𝑥2 , 𝑥3 }       𝛽 = {𝑥5 , 𝑥6 }     𝛾 = {𝑥4 , 𝑥6 }     𝜁 = {𝑥6 , 𝑥8 }    𝜉 = {𝑥1 , 𝑥2 , 𝑥3 }
+
+S , Child(S) ∋ m. ∀m∈M, p(m)=count(m)/ m′ ∈M count(m′ )
+                                            P
+                   P
+s.t. count(m) = S∈Ω:Child(S)∋m |wS |. κ = 10/Z is a scalar
+                     P
+weight, where Z = S∈Ω |wS |. The second term LM (g)=
+              P
+−ES∼p(S|g) m∈S log p(m) represents the complexity (de-
+scription length) of using nodes in M to describe all causal                          𝑥1           𝑥2            𝑥3          𝑥4            𝑥5          𝑥6           𝑥7             𝑥8
+patterns in g . The appearing probability of the causal pattern                  Figure 4. An AOG that explained the prediction made by ResNet-
+S in the AOG g is sampled as p(S|g) ∝ |wS |. The time cost                       20 trained on the MNIST dataset. Red edges indicate the parse
+of the MDL method is O(|Ω|2 ). The loss L(g, M) can be                           graph of a causal pattern.
+minimized by recursively adding common coalitions into                              label: grammatically wrong                         label: grammatically correct
+                                                                                 prediction: grammatically correct                   prediction: grammatically wrong             towards
+M via the greedy strategy by following [14]. Please see                                                                                                                           correct
+                                                                                                                                                                                prediction
+Appendix F for more discussions.
+    Limitations of the AOG explainer. Although we prove
+that the AOG explainer is the unique faithful explanation,                                                                                                                       towards
+                                                                                                                                                                                  wrong
+it is still far from a computationally efficient explanation.                              w{she, was} = -4.28                            w{John, placed} = -3.92               prediction
+Thus, extending the theoretical solution to the practical one
+                                                                                 Figure 5. AOGs for a network trained on the CoLA dataset. We
+is our future work, e.g. developing approximated methods                         randomly highlight a parse graph (blue) in the AOG.
+or accelerating techniques for computation. In Appendix H,
+we have discussed some techniques to reduce the time cost
+                                                                                 XGBoost [5]. For MLPs, we used two-layer MLPs (namely
+on image datasets.
+                                                                                 MLP-2) and five-layer MLPs (namely MLP-5), where each
+                                                                                 layer contained 100 neurons. Besides, we added a skip-
+4. Experiments
+                                                                                 connection [16] to each layer of MLP-5 to build ResMLP-5.
+    Datasets and models. We focused on classifica-                               Please see Appendix G.1 for more details.
+tion/regression tasks based on NLP datasets, image datasets,                        Explaining network inferences and discovering repre-
+and tabular datasets. For NLP tasks, we explained                                sentation flaws of DNNs. Figs. 3 and 4 show AOG expla-
+LSTMs [17] and CNNs used in [26]. Each model was                                 nations for correct predictions in NLP tasks and the image
+trained for sentiment classification on the SST-2 dataset [34]                   classification task, respectively. The highlighted parse graph
+or for linguistic acceptability classification on the CoLA                       in each figure corresponds to a single causal pattern. We
+dataset [41], respectively. For vision tasks, we explained                       only visualized a single parse graph in each AOG for clarity.
+ResNets [16] and VGG-16 [33] trained on the MNIST                                We found that AOGs extracted meaningful word colloca-
+dataset [19] and the CelebA dataset [22] (please see Ap-                         tions and typical digit shapes used by the DNN for inference.
+pendix G.2 for results on the CelebA dataset). The tabular                       Besides, Fig. 5 shows AOG explanations for incorrect predic-
+datasets included the UCI census income dataset [11], the                        tions in the NLP task. Results show that the AOG explainer
+UCI bike sharing dataset [11], and the UCI TV news chan-                         could reveal the representation flaws that were responsible
+nel commercial detection dataset [11]. These datasets were                       for incorrect predictions. For example, local correct gram-
+termed census, bike, and TV news for simplicity. Each tab-                       mar “she was” in Fig. 5(left) was mistakenly learned to make
+ular dataset was used to train MLPs, LightGBM [18], and                          negative impacts on the linguistic acceptability of the whole
+
+
+
+                                                                              20285

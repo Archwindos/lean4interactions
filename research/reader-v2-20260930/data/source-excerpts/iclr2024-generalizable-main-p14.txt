@@ -1,0 +1,96 @@
+Published as a conference paper at ICLR 2024
+
+
+
+
+(2) When L = N (then S = N ), the  P linear combination of all subsets S containing L with respect
+to the model output vor (xN \L ) is S:S∩T ̸=∅,S⊇L (−1)|S|−|L| vor (xN \L ) = (−1)|N |−|N | vor (x∅ ) =
+vor (x∅ ).
+(3) When L ∩ T ̸= ∅, L ̸= N , the linear                                     subsets S containing L with
+                                                    P combination of all|S|−|L|
+respect to the model output vor (xN \L ) is            S:S∩T ̸=∅,S⊇L (−1)          vor (xN \L ). For all sets
+S : S ⊇ L, S ∩ T ̸= ∅, let us consider the linear combinations of all sets S with num-
+ber |S| for the model output vor (xT ), respectively. Let us split |S| − |L| into |S ′ | and |S ′′ |,
+i.e.,|S| − |L| = |S ′ | + |S ′′ |, where S ′ = {i|i ∈ S, i ∈/ L, i ∈ N \ T }, S ′′ = {i|i ∈ S, i ∈
+                                                                                                 / L, i ∈ T }
+(then 0 ≤ |S ′′ | ≤ |T | − |T ∩ L|) and S ′ + S ′′ + L = S. In this way, there are a total of
+   |S ′′ |
+C|T |−|T ∩L| combinations of all sets S ′′ of order |S ′′ |. Thus, given L, accumulating the model
+outputs vor (xN \L ) corresponding to all S ⊇ L, then S:S∩T ̸=∅,S⊇L (−1)|S|−|L| vor (xN \L ) =
+                                                                 P
+                              X|T |−|T ∩L| |S ′′ |                ′   ′′
+                                              C|T |−|T ∩L| (−1)|S |+|S | = 0.
+              P
+vor (xN \L ) · S ′ ⊆N \T \L
+                                   |S ′′ |=0
+                              |                    {z                  }
+                                                           =0
+
+(4) When L ∩ T = ∅, L ̸= N \ T , the P             linear combination of all subsets S containing L with
+respect to the model output vor (xN \L ) is S:S∩T ̸=∅,S⊇L (−1)|S|−|L| vor (xN \L ). Similarly, let us
+split |S|−|L| into |S ′ | and |S ′′ |, i.e.,|S|−|L| = |S ′ |+|S ′′ |, where S ′ = {i|i ∈ S, i ∈
+                                                                                              / L, i ∈ N \T },
+S ′′ = {i|i ∈ S, i ∈ T } (then 0 ≤ |S ′′ | ≤ |T |) and S ′ + S ′′ + L = S. In this way, there are a total
+        |S ′′ |
+of C|T | combinations of all sets S ′′ of order |S ′′ |. Thus, given L, accumulating the model outputs
+vor (xN \L ) corresponding to all S ⊇ L, then S:S∩T ̸=∅,S⊇L (−1)|S|−|L| vor (xN \L ) = vor (xN \L ) ·
+                                                     P
+                 X|T |       |S ′′ |         ′  ′′
+                           C|T | (−1)|S |+|S | = 0.
+P
+    S ′ ⊆N \T \L     ′′
+                   |S |=0
+                 |             {z                }
+                                    =0
+
+Please see the complete derivation of the following formula.
+
+X                               X     h X                                      i
+                Ior (S|xT ) =          −               (−1)|S|−|L| vor (xN \L )
+    S:S∩T ̸=∅                        S:S∩T ̸=∅L⊆S
+                             X       X
+                          =−                              (−1)|S|−|L| vor (xN \L )
+                                L⊆N       S:S∩T ̸=∅,S⊇L
+                                                      
+                               |T |
+                                        ′          ′
+                                     |S   |
+                               X                |S   |
+                          = −      C|T | (−1)  · vor (xT ) − vor (x∅ )
+                                ′
+                                                         | {z } | {z }
+                                     |S |=1
+                                                                  L=N \T             L=N
+                                                                                                                    
+                                                                      |T |−|T ∩L|
+                                                                                     |S ′′ |           ′    ′′
+                                         X                 X              X
+                                −                                                 C|T |−|T ∩L| (−1)|S |+|S |           · vor (xN \L )
+                                    L∩T ̸=∅,L̸=N   S ′ ⊆N \T \L        |S ′′ |=0
+                                                                                                             
+                                                                           |T |
+                                                                                     |S ′′ |    ′    ′′
+                                         X                 X               X
+                                −                                                 C|T | (−1)|S |+|S |           · vor (xN \L )
+                                    L∩T =∅,L̸=N \T     S ′ ⊆N \T \L     |S ′′ |=0
+                                                                                                          
+                                                                            X                 X
+                          = −(−1) · vor (xT ) − vor (x∅ ) −                                              0 · vor (xN \L )
+                                                                       L∩T ̸=∅,L̸=N        S ′ ⊆N \T \L
+                                                                      
+                                         X                 X
+                                −                                    0 · vor (xN \L )
+                                    L∩T =∅,L̸=N \T     S ′ ⊆N \T \L
+
+                          = vor (xT ) − vor (x∅ )
+                                                                                                                                     (9)
+(3) Universal matching theorem of AND-OR interactions.
+With the universal matching theorem of AND interactions and the universal     P matching theorem
+of OR interactions, we can easily get v(xT ) = vand (xT ) + vor (xT ) =         S⊆T Iand (S|xT ) +
+P
+   S∈{S:S∩T ̸=∅}∪{∅} Ior (S|x T ), thus, we obtain the universal matching theorem of AND-OR in-
+teractions.
+
+
+                                                                14
+

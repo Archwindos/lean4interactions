@@ -1,0 +1,157 @@
+[
+  {
+    "title": "Where We Have Arrived in Proving the Emergence of Sparse Interaction Primitives in DNNs",
+    "sampled_pdf_page": 15,
+    "evidence_section": "B.1 Theorem 1",
+    "unit_type": "proof",
+    "declared_proof_count": 11,
+    "proof_count_kind": "exact_manual_formal_pdf_proof_or_derivation_units",
+    "declared_numbered_results": 10,
+    "declared_locally_proved_numbered_results": 10,
+    "sample_headings_and_context": [
+      "\nB     P ROOF OF THEOREMS\nB.1   P ROOF OF T HEOREM 1 IN THE MAIN PAPER\nTheorem 1. Let the input sample x be arbitrarily masked to obtain a masked sample xS . The output",
+      "B.1   P ROOF OF T HEOREM 1 IN THE MAIN PAPER\nTheorem 1. Let the input sample x be arbitrarily masked to obtain a masked sample xS . The output\nof the DNN on the masked sample xS can be disentangled into the sum of effects of all interactions\nwithin the set S:                              X",
+      "\nProof. According to the definition of the Harsanyi interaction, we have ∀S ⊆ N ,\n\nX                X X",
+      "Before we give the derivation of Assumption 1-α from Assumption 1-β, we first prove the following\nlemma.\nLemma 1. The effect I(S) (S ̸= ∅) of an interactive concept can be rewritten as\nκi",
+      "lemma.\nLemma 1. The effect I(S) (S ̸= ∅) of an interactive concept can be rewritten as\nκi\nQ",
+      "where QS = {[κ1 , . . . , κn ]⊤ | ∀ i ∈ S, κi ∈ N+ ; ∀ i ̸∈ S, κi = 0}.\nNote that a similar proof was first introduced in Ren et al. (2023c).\n\n˜",
+      "˜\nProof. Let us denote the function on the right of Eq. (8) by I(S), i.e., for S ̸= ∅,\nκi\nQ"
+    ]
+  },
+  {
+    "title": "Towards Attributions of Input Variables in a Coalition",
+    "sampled_pdf_page": 12,
+    "evidence_section": "C Theorem 3.2 (appendix label Theorem 2)",
+    "unit_type": "proof",
+    "declared_proof_count": 10,
+    "proof_count_kind": "exact_manual_formal_pdf_proof_or_derivation_units",
+    "declared_numbered_results": 7,
+    "declared_locally_proved_numbered_results": 7,
+    "sample_headings_and_context": [
+      "\nC. Proof of Theorem 2\nP           |S|!(n−|S|−1)!    \u0002                 \u0003\nProof. According to the definition of Shapley values, we have: ϕ(i) =                     S⊆N \\{i}          n!         · v(S ∪ {i}) − v(S) =",
+      "P           |S|!(n−|S|−1)!    \u0002                 \u0003\nProof. According to the definition of Shapley values, we have: ϕ(i) =                     S⊆N \\{i}          n!         · v(S ∪ {i}) − v(S) =\n\u0002                    \u0003\nES⊆N \\{i} v(S ∪ {i}) − v(S) ."
+    ]
+  },
+  {
+    "title": "Towards the Dynamics of a DNN Learning Symbolic Interactions",
+    "sampled_pdf_page": 16,
+    "evidence_section": "F.1 Theorem 2 universal matching",
+    "unit_type": "proof",
+    "declared_proof_count": 8,
+    "proof_count_kind": "exact_manual_formal_pdf_proof_or_derivation_units",
+    "declared_numbered_results": 9,
+    "declared_locally_proved_numbered_results": 7,
+    "sample_headings_and_context": [
+      "\nIn this way, the proof of the sparsity of AND interactions in [27] can also extend to OR interactions.\nFurthermore, we can simplify our analysis of the DNN’s learning of interactions by only focusing on\nAND interactions.",
+      "\nF    Proof of theorems\nF.1 Proof of Theorem 2\nProof. (1) Universal matching theorem of AND interactions.",
+      "F    Proof of theorems\nF.1 Proof of Theorem 2\nProof. (1) Universal matching theorem of AND interactions.\nWe will prove that output component vand (xS ) on all 2n masked samples {xS : S ⊆ N } could",
+      "F.1 Proof of Theorem 2\nProof. (1) Universal matching theorem of AND interactions.\nWe will prove that output component vand (xS ) on all 2n masked samples {xS : S ⊆ N } could\nP universally explained by the all interactions in S ⊆ N , i.e., ∀∅ ="
+    ]
+  },
+  {
+    "title": "Bayesian Neural Networks Avoid Encoding Complex and Perturbation-Sensitive Concepts",
+    "sampled_pdf_page": 15,
+    "evidence_section": "G.1 Lemma 2.1",
+    "unit_type": "proof",
+    "declared_proof_count": 6,
+    "proof_count_kind": "exact_manual_formal_pdf_proof_or_derivation_units",
+    "declared_numbered_results": 7,
+    "declared_locally_proved_numbered_results": 6,
+    "sample_headings_and_context": [
+      "\nG. Proof of Theorems\nG.1. Proof of Lemma 2.1 in the main paper\nLemma 2.1. Given a neural network v and an arbitrary input sample x′ ∈ Rn , the network output can be decomposed",
+      "G. Proof of Theorems\nG.1. Proof of Lemma 2.1 in the main paper\nLemma 2.1. Given a neural network v and an arbitrary input sample x′ ∈ Rn , the network output can be decomposed\nusing the Taylor expansion v(x′ ) = S⊆N π∈QS US,π · J(S, π|x′ ). In this way, according to Eq. (3) in the main paper, the",
+      "G.1. Proof of Lemma 2.1 in the main paper\nLemma 2.1. Given a neural network v and an arbitrary input sample x′ ∈ Rn , the network output can be decomposed\nusing the Taylor expansion v(x′ ) = S⊆N π∈QS US,π · J(S, π|x′ ). In this way, according to Eq. (3) in the main paper, the\nP       P",
+      "˜\nProof. Let us denote the function on the right of Eq. (20) by I(S|x ′\n), i.e.,\nX"
+    ]
+  },
+  {
+    "title": "HarsanyiNet: Computing Accurate Shapley Values in a Single Forward Propagation",
+    "sampled_pdf_page": 12,
+    "evidence_section": "B Theorem 2",
+    "unit_type": "proof",
+    "declared_proof_count": 5,
+    "proof_count_kind": "exact_manual_formal_pdf_proof_or_derivation_units",
+    "declared_numbered_results": 5,
+    "declared_locally_proved_numbered_results": 4,
+    "sample_headings_and_context": [
+      "\nB. Proofs of Theorems\nIn this section, we prove the theorems in the paper.\nPL      (l)",
+      "B. Proofs of Theorems\nIn this section, we prove the theorems in the paper.\nPL      (l)\nTheorem 2. Let a network output v(x) ∈ R be represented as v(x) = l=1 (wv )⊺ z(l) (x), according to Equation (2).",
+      "PL      (l)\nTheorem 2. Let a network output v(x) ∈ R be represented as v(x) = l=1 (wv )⊺ z(l) (x), according to Equation (2).\nIn this way, the Harsanyi interaction between input variables in the set S computed on the network output v(x) can be\nPL Pm(l) (l) (l)",
+      "\nProof. We have\n\nXL",
+      "According to the linearity property of the Harsanyi interactions, if ∀S ⊆ N , v(xS ) = u(xS ) + w(xS ) and (cv)(xS ) =\nc · v(xS ), ∀c ∈ R, then the Harsanyi interaction I v (S) is also a linear combination of I u (S) and I w (S), i.e., ∀S ⊆ N ,\n(l)\nI v (S) = I u (S) + I w (S) and I (cv) (S) = c · I v (S). Therefore, as Ju (S) denotes the Harsanyi interaction computed on the",
+      "\nTheorem 3 (Deriving Shapley values from Harsanyi units in intermediate layers). The Shapley value ϕ(i) can be computed\nas\nXL Xm(l)             1"
+    ]
+  },
+  {
+    "title": "Towards the Difficulty for a Deep Neural Network to Learn Concepts of Different Complexities",
+    "sampled_pdf_page": 17,
+    "evidence_section": "G.1 Theorem 2",
+    "unit_type": "proof",
+    "declared_proof_count": 4,
+    "proof_count_kind": "exact_manual_formal_pdf_proof_or_derivation_units",
+    "declared_numbered_results": 5,
+    "declared_locally_proved_numbered_results": 3,
+    "sample_headings_and_context": [
+      "G     Proof of Theorems\nG.1    Proof of Theorem 2 in the main paper\n′    n",
+      "G     Proof of Theorems\nG.1    Proof of Theorem 2 in the main paper\n′    n\nTheorem 2. Given a neural network v and an arbitrary input sample    P x ∈PR , the network output can",
+      "′    n\nTheorem 2. Given a neural network v and an arbitrary input sample    P x ∈PR , the network output can\nbe decomposed by using the Taylor expansion [10], i.e., v(x′ ) = S⊆N π∈QS US,π · J(S, π|x′ ). In\nthis way, according to Eq. (1), the interaction effect I(S|x′ ) on the sample x′ can be reformulated as",
+      "˜\nProof. Let us denote the function on the right of Eq. (2) by I(S|x ′\n), i.e.,\nX"
+    ]
+  },
+  {
+    "title": "Defining and Extracting Generalizable Interaction Primitives from DNNs",
+    "sampled_pdf_page": 12,
+    "evidence_section": "C Theorem 2: AND, OR, combined under one Proof block",
+    "unit_type": "proof",
+    "declared_proof_count": 2,
+    "proof_count_kind": "exact_manual_formal_pdf_proof_or_derivation_units",
+    "declared_numbered_results": 4,
+    "declared_locally_proved_numbered_results": 1,
+    "sample_headings_and_context": [
+      "variables encoded by the DNN, to explain the knowledge in the DNN. More crucially, Ren et al.\n(2024) have derived several theorems as mathematical evidence of considering such interactions as\nprimitive inference patterns encoded by a DNN. Specifically, Ren et al. (2024) proved that DNNs\nusually only encoded a small number of interactions, under some common conditions2 . Besides,",
+      "\nC    P ROOF OF T HEOREMS\n\nTheorem 2 (Universal matching theorem) Let us be given a DNN v and an input sample x. For each",
+      "\nTheorem 2 (Universal matching theorem) Let us be given a DNN v and an input sample x. For each\nrandomly masked sample xT , T ⊆ N , we obtain\nX                  X",
+      "\nProof. (1) Universal matching theorem of AND interactions.\nRen et al. (2023a) have used the Haranyi dividend (Harsanyi, 1963) Iand (S|x) to state the universal\nmatching theorem of AND interactions. The output of a well-trained DNN on all 2n masked samples",
+      "Ren et al. (2023a) have used the Haranyi dividend (Harsanyi, 1963) Iand (S|x) to state the universal\nmatching theorem of AND interactions. The output of a well-trained DNN on all 2n masked samples\n{xT |T ⊆ N } could P  be universally explained by the all interaction primitives in T ⊆ N , i.e.,\n∀T ⊆ N, vand (xT ) = S⊆T Iand (S|x)."
+    ]
+  },
+  {
+    "title": "Layerwise Change of Knowledge in Neural Networks",
+    "sampled_pdf_page": 15,
+    "evidence_section": "F Theorem 3.3",
+    "unit_type": "proof",
+    "declared_proof_count": 2,
+    "proof_count_kind": "exact_manual_formal_pdf_proof_or_derivation_units",
+    "declared_numbered_results": 2,
+    "declared_locally_proved_numbered_results": 2,
+    "sample_headings_and_context": [
+      "\nF. Proof of Theorem 3.3\nTheorem 3.3 Given an input sample x ∈ Rn , the network output score v(xT ) on each masked input samples {xT |T ⊆ N }\ncan be decomposed into effects of AND interactions and OR interactions, subject to Iand (∅|x) = vand (x∅ ) = v(x∅ ) and",
+      "F. Proof of Theorem 3.3\nTheorem 3.3 Given an input sample x ∈ Rn , the network output score v(xT ) on each masked input samples {xT |T ⊆ N }\ncan be decomposed into effects of AND interactions and OR interactions, subject to Iand (∅|x) = vand (x∅ ) = v(x∅ ) and\nIor (∅|x) = vor (x∅ ) = 0.",
+      "\nProof. Let us first focus on the sum of AND interactions, as follows.\nX                          X         X\nIand (S|xT ) =                          (−1)|S|−|L| vand (xL )",
+      "\nThus, Theorem 3.3 is proven.\n\n"
+    ]
+  },
+  {
+    "title": "Explaining Generalization Power of a DNN Using Interactive Concepts",
+    "sampled_pdf_page": 5,
+    "evidence_section": "Main pp5–6 Taylor/moment and approximate variance-growth analysis",
+    "unit_type": "approximate_derivation",
+    "declared_proof_count": 1,
+    "proof_count_kind": "exact_manual_formal_pdf_approximate_derivation_inventory",
+    "declared_numbered_results": 3,
+    "declared_locally_proved_numbered_results": 0,
+    "sample_headings_and_context": [
+      "are usually more likely to make inconsistent effects on given                                                               related to the phenomenon of the inconsistency of high-\nnoisy data, which verifies Theorem 2.                                                                                       order concepts, i.e., high-order concepts are more sensitive\nto small noises in the input sample than low-order concepts.\nTherefore, we aim to prove that the interaction effect’s",
+      "extract similar low-order concepts from the training data and                                                               provide conceptual insights into real-world applications.\ntesting data. In other words, low-order concepts in training                                                                Lemma 1. Given a neural network v and an arbitrary per-\ndata could be better generalized to testing data.                                                                           turbed input sample x′ = x + ϵ, the neural network output\nv(x′ ) can be rewritten by following the Taylor series expan-",
+      "we try to use the inconsistency of high-order concepts to                                                                                         ∞ X\nexplain their low generalization power. Before the proof,\nX\nv(x′ ) = v(b) +             C(κ) · ∇v (κ) · π(κ|x′ ), (4)",
+      "sample x, we select a set of salient concepts of each m-\nAs a prerequisite, Lemma 1 gives the Taylor series ex-\nth order, Ω(m)\nx   = {S ⊆ N : |S| = m ∧ |I(S|x)| > τ },",
+      "sarial attacking; otherwise not. Thus, we compute the ratio                                                                 applications. Thus, we temporarily set bi = xi +α, if xi < µi ;\nof inconsistent concepts to all the m-order salient concepts                                                                and set bi = xi − α, if xi > µi , to simplify the proof.\n(m)\nas r(m) = Ex∈D |{S⊆N :S∈Ωx ∧(m)   I(S|x)·I(S|x̃)<0}|",
+      "as r(m) = Ex∈D |{S⊆N :S∈Ωx ∧(m)   I(S|x)·I(S|x̃)<0}|\n.                                                                      Theorem 2. Given a neural network v and an arbitrary per-\n|Ωx |\nTo compare the inconsistency over different orders, we                                                                   turbed input sample x′ = x+ϵ by adding a Gaussian pertur-"
+    ]
+  },
+  {
+    "title": "Towards the first principles of explaining DNNs: interactions explain the learning dynamics",
+    "scope": "reference_only; no local proof units claimed",
+    "sampled": false
+  }
+]

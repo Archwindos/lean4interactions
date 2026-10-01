@@ -1,0 +1,561 @@
+=== PDF PAGE 1 ===
+          Defining and Quantifying the Emergence of Sparse Concepts in DNNs
+
+
+                             Jie Ren∗, Mingjie Li*, Qirui Chen, Huiqi Deng, Quanshi Zhang†
+                                                    Shanghai Jiao Tong University
+
+
+                             Abstract                                         Each interactive conceptS represents an AND relationship
+                                                                              between the set of words inS.  In other words, only their
+   This paper aims to illustrate the concept-emerging phe-                    co-appearance will trigger this interactive concept. The ab-
+nomenon in a trained DNN. Specifically, we find that the                      sence (masking) of any words in{take, it, easy} will remove
+inference score of a DNN can be disentangled into the effects                 the effectwS towards “calm down” from the network output.
+of a few interactive concepts. These concepts can be under-                       Causal graph based on interactive concepts. Given an
+stood as causal patterns in a sparse, symbolic causal graph,                  input sample, we introduce how to extract a set of interactive
+which explains the DNN. The faithfulness of using such a                      concepts Ω from a trained DNN, and how to organize all
+causal graph to explain the DNN is theoretically guaranteed,                  such conceptsS∈ Ω into a three-layer causal graph in Fig.
+because we prove that the causal graph can well mimic the                     1(b). We also prove that such a causal graph can mimic the
+DNN’s outputs on an exponential number of different masked                    inference score of the DNN. Specifically, each source node
+samples. Besides, such a causal graph can be further sim-                     Xi  (i  =  1,...,n) in the bottom layer represents the binary
+plified and re-written as an And-Or graph (AOG), without                      state of whether thei-th input variable is masked (Xi = 0)
+losing much explanation accuracy. The code is released at                     or not (Xi = 1). Each intermediate nodeCS (S∈ Ω) in the
+https://github.com/sjtu-xai-lab/aog.                                          causal graph represents an interactive conceptS that encodes
+                                                                              the AND relationship between input variables inS. In fact,
+                                                                              S can also be interpreted as a causal pattern for the DNN’s
+1. Introduction                                                               inference, as follows. If the interactive concept appears in
+   It is widely believed that the essence of deep neural net-                 the sample, then the causal patternS is triggeredCS  = 1;
+works (DNNs) is a fitting problem, instead of explicitly for-                 otherwise,CS  = 0.  Each triggered patternS contributes a
+mulating causality or modeling symbolic concepts like how                     causal effect wS  to the causal graph’s output Y  in the top
+graphical models do. However, in this study, we surprisingly                  layer.  Therefore, the output Y  of the causal graph can be
+discover that sparse and symbolic interactive relationships                   specified by a structural causal model (SCM) [25], which
+between input variables emerge in various DNNs trained                        sums up all triggered causal effects, i.e. Y  =PSwS·CS.
+for many tasks, when the DNN is sufficiently trained.  In                     Note that we study the mathematical causality between
+other words, the inference score of a DNN can be faithfully                   the input and the output of the DNN, instead of the natu-
+disentangled into effects of only a few interactive concepts.                 ral true causality potentially hidden in data.
+   In fact, the concept-emerging phenomenon does exist and                        In this study, we discover that we can always construct
+is even quite common for various DNNs, though somewhat                        a causal graph with a relatively small number of causal
+counter-intuitive and seeming conflicting with the DNN’s                      patterns (interactive concepts) to faithfully and concisely
+layerwise inference. To clarify this phenomenon, let us first                 explain a DNN’s inference on an input sample.
+define interactive concepts that emerge in the DNN. Let a                         • Faithfulness. Given an input sample withn variables,
+DNN haven input variables (e.g. a sentence withn words).                      there are 2n different ways to randomly mask input variables.
+As Fig.1(a) shows, given the sentence “        sit down and take it           Given any one of all the 2n masked input samples, we prove
+easy,” the co-appearance of a set of wordsS ={take, it, easy}                 that the outputY  of the causal graph can always mimic the
+causes the meaning of “calm down,” which makes a consider-                    DNN’s output. This guarantees that the causal graph encodes
+able numerical contributionwS to the network output. Such                     the same logic (i.e. the same set of interactive concepts) as
+a combination of words is termed an interactive concept.                      the DNN. Thus, we can consider such a causal graph as a
+                                                                              faithful explanation for the inference logic of the DNN.
+   *These authors contributed equally to this work.
+   †Quanshi Zhang is the corresponding author. He is with the Department          • Conciseness.  Theoretically, we may extract at most
+of Computer Science and Engineering, the John Hopcroft Center, at the         2n causal patterns (interactive concepts) from a DNN with
+Shanghai Jiao Tong University, China. zqs1022@sjtu.edu.cn.                    n input variables.  However, we discover that most causal
+
+=== PDF PAGE 2 ===
+Figure 1. Emergence of symbolic interactive concepts in a sufficiently trained DNN (a), which make considerable numerical effects on the
+network output. (b) All interactive concepts can be faithfully organized into a causal graph, which reflects the DNN’s inference logic. (c,d)
+Besides, the causal graph can be further simplified as an And-Or graph (AOG), which extracts common coalitions.
+
+patterns have almost zero effects on the outputY , so we can                      in XAI  [36,38].   Based  on game  theory,  we defined  the
+use a sparse graph with a small number of salient causal pat-                     multivariate interaction [44,46] and the multi-order interac-
+terns to approximate the DNN’s output in real applications.                       tion [45] to investigate interactions from different perspec-
+Furthermore, as Fig.1(c,d) shows, we propose to summa-                            tives. In this study, we first demonstrate that game-theoretic
+rize common coalitions shared by salient causal patterns to                       interactions are faithful (Theorem1) and very sparse (Re-
+simplify the causal graph to a deep And-Or graph (AOG).                           mard1). [20] further found that salient interactions were
+   Note that since the DNN encodes complex inference logic,                       usually discriminative and shared by different samples and
+different samples may activate different sets of salient causal                   different  DNNs.   These  findings  enabled  us  to  consider
+patterns and generate different causal graphs.                                    salient interactions as concepts encoded by a DNN. Based
+   • Universality. As Fig.2shows, given DNNs with vari-                           on this, [28] formulated the optimal baseline values in game-
+ous architectures trained on different tasks, we find that the                    theoretic explanations for DNNs. Furthermore, [6] investi-
+inference of each DNN can all be faithfully and concisely                         gated the different behaviors of the DNN when encoding
+explained by a few salient causal patterns.                                       shapes and textures. [7] further found that salient interactions
+   In addition, we prove that causal patterns extracted from                      usually represented the prototypical concepts encoded by a
+the DNN have broad theoretical connections with classical                         DNN.
+interaction/attribution metrics for explaining DNNs. Specif-                          • Game-theoretic interactions enable us to explain the
+ically, the causal effects can explain the elementary mech-                       representation  power  of  DNNs.   We  used  interactions  to
+anism of the Shapley value [31],  the Shapley interaction                         explain the various capacities of a DNN, including its adver-
+index [13], and the Shapley-Taylor interaction index [36].                        sarial robustness [27,39], adversarial transferability [40], and
+   Contributions of this paper can be summarized as fol-                          generalization power [45,50]. [9] proved that a DNN is less
+lows:  (1) We discover and prove that the inference logic                         likely to encode interactions of the intermediate complexity.
+of a complex DNN on a certain sample can be represented                           In comparison, [29] proved that a Bayesian neural network is
+as a relatively simple causal graph.  (2) Furthermore, such                       less likely to encode complex interactions, thereby avoiding
+a  causal  graph  can  be  further  simplified  as  an  AOG.  (3)                 over-fitting.
+The trustworthiness of using the AOG to explain a DNN is                              • Game-theoretic interactions also reveal the common
+verified in experiments.                                                          mechanism underlying many empirical findings. [10] discov-
+                                                                                  ered that the interactions could be considered as elementary
+2.  Explainable  AI  (XAI)  theories  based  on                                   components of fourteen attribution methods. [49] proved that
+     game-theoretic interactions                                                  the reduction of interactions is the common utility of twelve
+   This study provides a solid foundation for XAI theories                        previous methods of boosting adversarial transferability.
+
+based on game-theoretic interactions.  Our research group                         3. Method
+led by Dr. Quanshi Zhang in Shanghai Jiao Tong University
+has developed a theory system based on game-theoretic inter-                      3.1. Causal graph based on interactive concepts
+actions to address two challenges in XAI, i.e., (1) extracting                        In this paper, we discover and prove a concept-emerging
+explicit and countable concepts from implicit knowledge                           phenomenon that the inference logic of a DNN on an in-
+encoded by a DNN, and (2) using explicit concepts to ex-                          put sample can be represented as a causal graph, in which
+plain the representation power of DNNs. More crucially, this                      each causal pattern can be considered as an interactive con-
+interaction also enables us to unify the common mechanisms                        cept1.   Thus,  in order to clarify this phenomenon,  let us
+shared by various empirical findings on DNNs.
+   • Extracting concepts encoded by DNNs.  Defining the                              1Note that unlike previous studies [12],  the concept in this paper is
+interactions between input variables is a typical approach                        defined based on interactions between input variables.
+
+=== PDF PAGE 3 ===
+                                                                                     • Faithfulness of the causal graph. In this paragraph, we
+                                                                                 prove that there exists at least one causal graph parameterized
+                                                                                 by{wS} in Eq.  (1)    that can faithfully mimic the inference
+                                                                                 logic of a DNN on the sample x. Specifically, given an input
+                                                                                 sample x withn variables, we have 2n ways to mask input
+                                                                                 variables in x, and generate 2n different masked samples. If
+                                                                                 the outputY  of a causal graph can always mimic the DNN’s
+                                                                                 output2 on all the 2n input samples, we can consider that
+Figure 2.  Strength of causal effects of different causal patterns               the causal graph is faithful.  To this end, given a subset of
+shown in descending order. It shows that sparse causality (sparse                input variablesS⊆N , let xS  denote the masked sample,
+interactive concepts) is universal for various DNNs.                             where variables inN\S are masked, and other variables in
+                                                                                 S keep unchanged. Letv(xS) andY (xS) denote the DNN’s
+first  introduce  how  to  build  the  causal  graph.    Given  a                output2  and the causal graph’s output on this sample xS,
+pre-trained DNN v(·) and an input sample x with n vari-                          respectively.
+ablesN  ={1, 2,...,n} (e.g., a sentence withn words), let                        Theorem 1 (Proof in Appendix C).  Given a certain input
+v(x)∈ R denote the DNN’s output2 on the sample x. Then,                          x, let the causal graph in Fig.1encode    2n causal patterns,
+the causal graph corresponding to the inference logic on x is                    i.e., Ω  =  2N  ={S  :S ⊆N}.  If the causal effect wS  of
+shown in Fig.1(b). As Fig.1(b) shows, each source node       Xi                  each causal patternS ∈  Ω is measured by the Harsanyi
+(i = 1,...,n) in the bottom layer represents the binary state                    dividend [15],       i.e. wS ≜PS′⊆S(−1)|S|−|S′|·v(xS′), then
+of whether thei-th input variable is masked (Xi = 0) or not                      the causal graph faithfully encodes the inference logic of the
+(Xi = 1). The second layer consists of a set Ω of all causal                     DNN, as follows.
+patterns.  Each causal patternS∈  Ω represents the AND                                                ∀S⊆N, Y (xS) =v(xS)                               (3)
+relationship between a subset of input variablesS⊆N . For
+example, in Fig.1(b), the co-appearance of the three words                           In fact, the Harsanyi dividendwS was first proposed in
+inS ={take, it, easy} forms a phrase meaning “calm down”.                        game  theory  to  measure  the  interaction  between  players.
+In other words, only when all three words are present, the                       Here, we first use it in the SCM to explain the causal effect
+causal patternS will be triggered, denoted byCS = 1; other-                      of each causal patternS⊆N  for the DNN’s inference.
+wise,CS = 0. As the output of the causal graph, the single                           Theorem1proves the faithfulness of using such a causal
+sink nodeY  depends on triggering statesCS  of all causal                        graph to represent the inference logic of the DNN on a certain
+patterns in Ω. Thus, the transition probability in this causal                   sample x. In other words, we can exactly disentangle/explain
+graph is given as follows.                                                       the DNN output on any masked sample into the causal effects.
+             P (CS = 1|X1,X2,...,Xn) =Y              i∈SXi,                      It ensures that we can use the causal graph to predict DNN
+                                                                       (1)       outputs on randomly masked samples, thereby showing the
+        P (Y|{CS|S∈ Ω}) =            1Y  =XS∈ΩwS·CS              ,               trustworthiness of the causal graph. In comparison, previous
+
+where Y ∈{v(xS)|S ⊆ N}. P (CS = 0|X1,X2,...,Xn) =                                explanation methods [1,4,23,30,42] cannot mimic inferences
+1−P (CS  = 1|X1,X2,...,Xn).                                 1  (·)  refers  to the  indicatoron the masked samples (i.e., not satisfying the faithfulness in
+function.                                                                        Theorem1). Note that no matter whether input variables are
+    wS can be understood as the causal effect of the pattern                     dependent or not, the faithfulness will not be affected, i.e.,
+S to the outputY . Specifically, each triggered causal pattern                   the causal graph can always accurately mimic the DNN’s
+CS will contribute a certain causal effectwS to the DNN’s                        output on all 2n possible masked input samples.
+output.   For  example,  the  triggered  causal  pattern  “take                      However, different original samples x mainly trigger dif-
+it easy” would contribute a considerable additional effect                       ferent sets of causal patterns and generate different causal
+wS> 0 that pushes the DNN’s output towards the positive                          graphs. For example, given a cat image, pixels on the head
+meaning  “calm  down.”   The  quantification  of  the  causal                    (inS) may form a head pattern, and the DNN may assign
+effectwS will be introduced later.                                               a significant effectwS on the pattern. Whereas, we cannot
+    According to Eq. (1), the causal relationship between  CS                    find the head pattern in a bus image, so the same set of pixels
+(S∈ Ω) and the outputY  in the causal graph can be specified                     S  in the bus image probably do not form any meaningful
+by the following structural causal model (SCM) [25].                             pattern and have ignorable effectwS≈ 0.
+                   Y (X) =X                                            (2)           Specifically, given the sample x, each masked sample
+
+                                   S∈ΩwS·CS(X)                                   xS is implemented by masking all variables inN\S using
+
+   2Note that people can apply different settings for the DNN’s output           baseline values just like in [2,8], as follows.
+v(x). In particular, in the multi-category classification task, we set v(x) =                                    xi,  i∈S
+log    p(y=ytruth|x)                                                                                 (xS)i =       ri,  i∈N\S ,                         (4)
+    1−p(y=ytruth|x) ∈ R by following [9].
+
+=== PDF PAGE 4 ===
+where r = [r1,r2,...,rn] denotes the baseline values of the                     termed noisy causal patterns.  Only a few causal patterns
+n input variables. The DNN’s outputv(xS)2 is computed by                        had considerable effects|wS|, and they were termed salient
+taking the masked sample xS as the input. According to the                      causal patterns.  Furthermore, we also conducted experi-
+SCM in Eq. (2), the output  Y (xS) of the causal graph is com-                  ments in Section4.2, and Figs.3,4, and6show that we
+puted asY (xS) =PT∈ΩwT·CT (xS) =PT⊆S,T∈ΩwT . In                                 could use a small number of causal patterns (empirically 10
+particular,Y (x = xN ) =PS∈ΩwS. In Section3.2, we will                          to 100 causal patterns for most DNNs) in Ω to approximate
+introduce how to learn optimal baseline valuesri that further                   the DNN’s output, as stated in Remark1.
+enhance the conciseness of the causal graph.                                       • Boosting the conciseness. Inspired by Remark1, we
+   • Generality of causal patterns. Besides, we also prove                      aim to learn a more concise causal graph. To this end, we pro-
+that the above causal effectswS based on Harsanyi dividends                     pose the following objective of learning faithful and sparse
+satisfy the efficiency, linearity, dummy, symmetry, anonymity,                  causal effectswS.
+recursive, and interaction distribution axioms in game theory                                 minw,Ω  unfaith(wΩ) s.t.|Ω|≤M
+(see Appendix B and D.1), which further demonstrates the
+trustworthiness of the causal effects.  More crucially,  we                               ⇔ minw,Ω  unfaith(wΩ) s.t.∥wΩ∥0≤M,                         (5)
+also prove that causal effectswS can explain the elementary                                                           h                      i2
+mechanism of existing game-theoretic metrics. Please see                                 unfaith(wΩ) =XS⊆N             v(xS)−YwΩ(xS)
+Appendix D.2 for the proof.                                                    where wΩ      def= [w′S1,w′S2,...,w′S2n ].  IfS∈ Ω, thenw′S =wS;
+Theorem 2 (Connection to the Shapley value, proved by                           otherwise,w′S =0. TheL0-norm∥wΩ∥0 refers to the number
+[15])     .  Let ϕ(i) denote the Shapley value [31] of an input                 of non-zero elements in wΩ, thereby∥wΩ∥0 =|Ω|.  In this
+variablei.  Then, the Shapley valueϕ(i) can be explained                       way, the above objective function enables people to use a
+as the result of uniformly assigning causal effects to each                     small number of causal patterns to explain the DNN.
+involving variablei, i.e.,ϕ(i) =P                      1                           However, direct optimization of Eq. (5) is difficult. There-
+                                          S⊆N\{i}    |S|+1wS∪{i}.
+   The Shapley value [31] was first proposed in game theory                     fore, we propose several techniques to learn sparse causal
+and has been used by previous studies [23] to estimate attri-                   effects  based  on  Eq.   (5)  to  faithfully  mimic  the  DNN’s
+butions of input variables in the DNN. The Shapley value                        outputs on numerous masked samples. The following para-
+satisfies four satisfactory axioms and is widely considered as                  graphs will introduce how to relax the Harsanyi dividend in
+a relatively fair estimation of attributions. Theorem2proves                    Theorem1by removing noisy causal patterns and learning
+that the Shapley value can be considered as a re-allocation                     the optimal baseline value,  so as to boost the sparsity of
+of causal effects to input variables.                                           causal effects. Besides, we also discovered that adversarial
+   In Appendix D.2, we further prove that the Shapley in-                       training [24] can make the DNN encode much more sparse
+teraction index [13] and the Shapley Taylor interaction in-                     causal effects.
+dex [36] can also be understood as the assignment of causal                        First,  boosting conciseness by learning the optimal
+effectswS to different coalitions.                                              baseline value. In fact, the sparsity of causal patterns does
+                                                                                not  only  depend  on  the  DNN  itself,  but  it  is  also  deter-
+3.2. Discovering and boosting the conciseness of the                            mined by the choice of baseline values in Eq.  (4).  Specif-
+       causal graph                                                             ically, input variables are masked by their baseline values
+Remark 1.  Given a DNNv(·) and an input sample x withn                          r  = [r1,r2,...,rn] to represent their absence states in the
+variables, we can find a small set of causal patterns Ω subject                 computation of causal effects. Thus, wΩ can be represented
+to|Ω|≪2n, such that the DNN’s output can be approximated                        as a function of r, i.e., wΩ(r).  To this end, some recent
+by the causal graph’s output, i.e.∀S⊆N, Y (xS)≈v(xS).                           studies [2,8,28] defined baseline values from a heuristic per-
+                                                                                spective, e.g. simply using mean/zero baseline values [8,37].
+   • Discovering the conciseness. We have discovered that                       However, it still remains an open problem to define optimal
+lots of DNNs with various architectures trained for different                   baseline values.
+tasks can all be explained using sparse causal patterns. Al-                       Thus,  we further boost the sparsity of causal patterns
+though Theorem1indicates that the causal graph needs to                         by learning the optimal baseline values that enhance the
+encode 2n causal patterns to precisely fit the DNN’s output                     conciseness of the causal graph. However, it is difficult to
+on all the 2n masked samples, Remark1shows a common                             learn optimal baseline values by directly optimizing Eq. (5).
+phenomenon that the causal effectswS extracted from the                         To this end, we relax the optimization problem in Eq. (5) ( L0
+DNN are usually very sparse. To this end, we trained various                    regression) as a Lasso regression (L1 regression) as follows.
+DNNs for different tasks, and Fig.2shows the strength of                                        minΩ,r  unfaith(wΩ) s.t.∥wΩ∥0≤M
+causal effects|wS| in descending order for various DNNs.                                    ⇔  minΩ,r  unfaith(wΩ) +λ∥wΩ∥0
+We found that most causal patterns had little influence on                                                                                           (6)
+the output with negligible values|wS|≈ 0, and they were                                   =⇒  minΩ,r  unfaith(wΩ) +λ∥wΩ∥1relax
+
+=== PDF PAGE 5 ===
+    We learn optimal baseline values by minimizing the loss                     3.3. Rewriting the causal graph as an AOG
+L(r, Ω)  =  unfaith(wΩ) +λ·∥wΩ∥1.   More crucially,  the                           The AOG is a hierarchical graphical model that encodes
+learning of baseline values is the safest way of optimizing                     how  semantic  patterns  are  formed  for  inference,  which
+L(r, Ω), because the change of baseline values always en-                       has  been  widely  used  for  interpretable  knowledge  repre-
+sures unfaith(w) = 0 and just affects∥wΩ∥1.  In this way,                       sentation [21,48],  object detection [35],                  etc.   In this sec-
+learning baseline values significantly boosts the conciseness                   tion,  we show that the above causal graph can be rewrit-
+of causal effects. In practice, we usually initialize the base-                 ten into an And-Or graph (AOG), which summarizes com-
+line value ri  as the mean value of the variable i over all                     mon coalitions shared by different causal patterns to fur-
+samples, and then we constrainri within a relatively small                      ther simplify the explanation.   According to the SCM in
+range, i.e.,∥ri−rinitiali ∥2≤τ, to represent the absence state3.                Eq.   (2),  the  causal  graph  in  Section3.1actually  repre-
+    Second,  boosting  conciseness  by  neglecting  noisy                       sents  the  And-Sum  representation  encoded  by  the  DNN,
+causal  patterns.   Considering  the  optimization  problem,                    i.e.,v(x)≈PS∈ΩwS·CS(x)=PS∈ΩwS. In fact, such And-
+we use a greedy strategy to remove the noisy causal patterns                    Sum representation can be equivalently transformed into an
+from 2N  ={S :S⊆N} and keep the salient causal patterns                         AOG.
+to construct the set Ω⊆ 2N  that minimizes the lossL(r, Ω)                         The structure of a simple three-layer AOG is shown in
+in Eq.  (6).  It is worth noting that we do not directly learn                  Fig.1(c). Just like the causal graph in Fig.1(b), at the bottom
+causal effects by blindly optimizing Eq.  (6), because au-                      layer of the AOG in Fig.1(c), there are    n leaf nodes represent-
+tomatically optimized causal effects usually lack sufficient                    ingn variables of the input sample. The second layer of the
+support for their physical meanings,  while the setting of                      AOG has multiple AND nodes, each representing the AND
+Harsanyi dividends is a meaningful interaction metric in                        relationship between its child nodes. For example, the AND
+game theory [15]. The Harsanyi dividend satisfies       the effi-               node x4x5x6  indicates the causal patternS  ={x4,x5,x6}
+ciency, linearity, dummy, symmetry axioms axioms, which                         with the causal effect wS  = 2.0.  The root node is a noisy
+ensures the trustworthiness of this metric.  In other words,                    OR node (as discussed in [21]), which sums up effects of
+although automatically optimized causal effects can mini-                       all its child AND nodes to mimic the network output, i.e.,
+mize unfaith(w), they still cannot be considered as reliable                    output =P
+                                                                                              S∈ΩwS·CS.
+explanations from the perspective of game theory.  Thus,                           Furthermore, in order to simplify the AOG, we extract
+we only recursively remove noisy causal patterns from Ω to                      common coalitions shared by different causal patterns as
+update Ω, i.e., Ω←Ω\{S}, without creating any new causal                        new  nodes  to  construct  a  deeper  AOG.  For  example,  in
+effect outside the paradigm of the Harsanyi dividends in                        Fig.1(c),  input variables    x5  and x6  frequently co-appear
+Theorem1.  Specifically, we remove noisy causal patterns                        in different causal patterns.  Thus, we considerx5,x6 as a
+by following a greedy strategy,  i.e.,  iteratively removing                    coalition and add an AND nodeβ ={x5,x6} to represent
+the noisy causal pattern such that unfaith(wΩ) is minimized                     their co-appearance.  Accordingly, the pattern{x4,x5,x6}
+in each step.  In this way, we just use the set of retained                     is simplified as{x4,β} (see Fig.1(d)). Therefore, for each
+causal patterns, denoted by Ω, to approximate the output, i.e.,                 coalition / causal patternS in an intermediate layer, its trig-
+v(x)≈Y (x) =PS∈ΩwS·CS(x) =PS∈ΩwS.                                               gering stateCS =Q
+                                                                                                         S′∈Child(S)CS′, where Child(S) denotes
+    Ratio of the explained causal effectsRΩ. We propose a                       all input variables or coalitions composingS. I.e., each coali-
+metricRΩ to quantify the ratio of the explained salient causal                  tion / causal patternS is triggered if and only if all its child
+effects in Ω to the overall network output.                                     nodes in Child(S) are triggered.
+                                 P                                                 In order to extract common coalitions, we use the mini-
+
+                                    S∈Ω|wS|                                     mum description length (MDL) principle [14] to learn the
+                      RΩ =    P                                       (7)       AOGg as the simplest description of causal patterns.  The
+                                 S∈Ω|wS| +|∆|
+                                                                                MDL is a classic way of summarizing patterns from data for
+where ∆=v(x)−PS∈ΩwS denotes effects of the unexplained                          decades, which has solid foundations in information theory.
+causal patterns.                                                                Given an AOGg and input variablesN , letM=N∪Ωcoalition
+    Third, discovering that adversarial training boosts the                     denote the set of all leaf nodes and AND nodes in the bottom
+conciseness. As discussed in Section4.3, we also discover                       two layers, e.g.M=N∪Ωcoalition ={x1,x2,...,x6}∪{α,β} in
+that adversarial training [24] makes the DNN encode more                        Fig.1(d). The objective of minimizing the description length
+sparse causal patterns than standard training, thus boosting                    L(g,M) is given as follows.
+the conciseness of the causal graph.                                                    minM L(g,M) s.t. L(g,M) =L(M) +LM(g),                        (8)
+
+
+
+
+   3The setting ofτ  is introduced in Section4.2. Please see Appendix E         where L(M)  denotes  the  complexity  of  describing  the
+for more discussions                                                            set  of  nodesM,  and LM(g)  denotes  the  complexity  of
+
+=== PDF PAGE 6 ===
+Figure 3. AOGs that explained correct predictions made by the neural network. The networks were trained on (left) the CoLA dataset and
+(right) the SST-2 dataset, respectively. The red color of nodes in the second layer indicates causal patterns with positive effects, while the
+blue color represents patterns with negative effects. Red edges indicate the parse graph of a causal pattern.
+
+using  nodes  inM  to  describe  patterns  in g.   The  MDL
+principle  usually  formulates  the  complexity  (description
+length)  of  the  set  of  nodesM  as  the  entropy L(M) =
+−κPm∈Mp(m) logp(m).   We set the occurring probabil-
+ity p(m)  of  the  node m∈M  proportional  to  the  overall
+strength of causal effects of the nodem’s all parent nodes
+S, Child(S)∋m.∀m∈M,p(m)=count(m)/Pm′∈M count(m′)
+s.t.   count(m)=PS∈Ω:Child(S)∋m|wS|. κ=10/Z  is a scalar
+weight, where Z =PS∈Ω|wS|.  The second term LM(g)=
+−ES∼p(S|g)Pm∈S logp(m) represents the complexity (de-
+scription length) of using nodes inM to describe all causal
+patterns ing. The appearing probability of the causal pattern                   Figure 4. An AOG that explained the prediction made by ResNet-
+S in the AOGg is sampled asp(S|g)∝|wS|. The time cost                           20 trained on the MNIST dataset.  Red edges indicate the parse
+of the MDL method is O(|Ω|2).  The loss L(g,M) can be                           graph of a causal pattern.
+minimized by recursively adding common coalitions into
+M via the greedy strategy by following [14].  Please see
+Appendix F for more discussions.
+   Limitations of the AOG explainer. Although we prove
+that the AOG explainer is the unique faithful explanation,
+it is still far from a computationally efficient explanation.
+Thus, extending the theoretical solution to the practical one                   Figure 5.  AOGs for a network trained on the CoLA dataset.  We
+is our future work, e.g. developing approximated methods                        randomly highlight a parse graph (blue) in the AOG.
+or accelerating techniques for computation. In Appendix H,
+we have discussed some techniques to reduce the time cost                       XGBoost [5]. For MLPs, we used two-layer MLPs (namely
+on image datasets.                                                              MLP-2) and five-layer MLPs (namely MLP-5), where each
+4. Experiments                                                                  layer contained 100 neurons.   Besides,  we added a skip-
+                                                                                connection [16] to each layer of MLP-5 to build      ResMLP-5.
+   Datasets  and  models.      We  focused  on  classifica-                     Please see Appendix G.1 for more details.
+tion/regression tasks based on NLP datasets, image datasets,                        Explaining network inferences and discovering repre-
+and  tabular  datasets.      For  NLP  tasks,   we  explained                   sentation flaws of DNNs. Figs.3and4show AOG expla-
+LSTMs  [17]  and  CNNs  used  in  [26].   Each  model  was                      nations for correct predictions in NLP tasks and the image
+trained for sentiment classification on the SST-2 dataset [34]                  classification task, respectively. The highlighted parse graph
+or for linguistic acceptability classification on the CoLA                      in each figure corresponds to a single causal pattern.  We
+dataset [41], respectively.  For vision tasks, we explained                     only visualized a single parse graph in each AOG for clarity.
+ResNets  [16]  and  VGG-16  [33]  trained  on  the  MNIST                       We found that AOGs extracted meaningful word colloca-
+dataset [19] and the CelebA dataset [22] (please see Ap-                        tions and typical digit shapes used by the DNN for inference.
+pendix G.2 for results on the CelebA dataset). The tabular                      Besides, Fig.5shows AOG explanations for incorrect predic-
+datasets included the UCI census income dataset [11], the                       tions in the NLP task. Results show that the AOG explainer
+UCI bike sharing dataset [11], and the UCI TV news chan-                        could reveal the representation flaws that were responsible
+nel commercial detection dataset [11]. These datasets were                      for incorrect predictions. For example, local correct gram-
+termed census, bike, and TV news for simplicity. Each tab-                      mar “she was” in Fig.5(left) was mistakenly learned to make
+ular dataset was used to train MLPs, LightGBM [18], and                         negative impacts on the linguistic acceptability of the whole
+
+=== PDF PAGE 7 ===
+                                                  Average IoU                         Explanation methods     TV news             census             bike
+             Dataset            Model       SI      STI   STI    ours                                     MLP-5   ResMLP-5   MLP-5   ResMLP-5  MLP-5  ResMLP-5
+                                                 (k=2)   (k=3)                       AttributionShapley   125.5      130.8    55.6       51.4  1.1E+4    7953.9
+       Add-Mul dataset [47]  functions in  0.61    0.27     0.55 1.00                  -based     I×G     738.7     2586.1   408.1     1325.1  1.4E+5    1.1E+5
+          Dataset in [28]     the dataset  0.99    0.50     0.59 1.00               explanations  LRP     317.6     9.4E+4   155.1     1.4E+04 1.4E+5    5.8E+8
+         Manually labeled      MLP-5       0.87    0.35     0.69 0.97                            OCC      1386.2     1117.5  638.7      287.4  6.2E+4    3.7E+4
+          And-Or dataset      ResMLP-5     0.90    0.35     0.69 0.98                Interaction   SI     6231.2     5598.6  2726.1     2719.0 1.2E+5    1.2E+5
+                                                                                       -based  STI (k=2)  182.0      236.0    34.7       38.8  7685.0    5219.8
+                                                                                    explanationsSTI (k=3) 177.7      252.4    41.0       60.5  1.0E+4    5045.8
+Table 1.   IoU (↑) on synthesized datasets.   The AOG explainer                             ours         9.4E-12    1.1E-11 8.5E-12    8.5E-12 2.6E-9    1.9E-9
+correctly extracted causal patterns.                                               Table 2. Unfaithfulnessρunfaith (↓) of different explanation methods.
+sentence. The phrase “John placed” in Fig.5(right) directly                         Our AOG exhibited the lowest unfaithfulness.
+hurt the linguistic acceptability without considering the com-                      5 and ResMLP-5 networks to regress each And-Or function.
+plex structure of the sentence. Please see Appendix G.4 for                        We considered causal patterns in such And-Or functions as
+more results.                                                                       ground-truth causal patterns in the DNN.
+4.1. Examining whether the AOG explainer reflects                                      As for baseline methods, previous studies usually did not
+        faithful causality                                                          directly extract causal patterns from a trained DNN at a low
+                                                                                    level as input units.  To this end, interaction metrics (such
+    In  this  section,  we  proposed  two  metrics  to  examine                     as the Shapley interaction (SI) index [13] and the Shapley-
+whether the AOG explainer faithfully reflected the inference                       Taylor interaction (STI) index [36]) were widely used to
+logic encoded by DNNs.                                                              quantify numerical effects of different interactive patterns
+    Metric 1: intersection over union (IoU) between causal                          between input variables on the network output.  Thus, we
+patterns in the AOG explainer and ground-truth causal                               computed interactive patterns with top-ranked SI values, or
+patterns.   This metric evaluated whether causal patterns                           patterns with top-ranked STI values of orders k = 2 and
+(nodes)  in  the  AOG  explainer  correctly  reflected  the  in-                    k =3, as competing causal patterns for comparison. Based
+teractive concepts encoded by the model.  Given a model                             on the IoU score defined above, Table1shows that our AOG
+and an input sample, let m denote the number of ground-                             explainer successfully explained much more causal patterns
+truth causal patterns m  =|Ωtruth| in the input.   Then,  for                       than other interaction metrics.
+fair  comparisons,  we  also  used m  causal  patterns  Ωtop-m                         Metric 2: evaluating faithfulness of the AOG explainer.
+in the AOG explainer with the top-m causal effects|wS|.                            We also proposed  a metric ρunfaith  to evaluate  whether an
+We measured the IoU between Ωtruth  and Ωtop-m  as  IoU  =                          explanation method faithfully extracted causal effects en-
+|Ωtop-m∩ Ωtruth|/|Ωtop-m∪ Ωtruth| to evaluate the correctness of                    coded by DNNs.  As discussed in Section3.2, if the quan-
+the extracted causal patterns in the AOG explainer. A higher                        tified causal effects w are faithful, then they are supposed
+IoU value means a larger overlap between the ground-truth                           to minimize unfaith(w). Therefore, according to the SCM
+causal patterns and the extracted causal patterns, which indi-                      in Eq. (2), we defined  ρunfaith = ES⊆N [v(xS)−PS′⊆SwS′)]2
+cates higher correctness of the extracted causal patterns.                          to measure the unfaithfulness.   As mentioned above,  we
+    However, for most realistic datasets and models, people                         considered the SI values and STI values as numerical ef-
+could not annotate the ground-truth patterns, as discussed                          fectswS of different interactive patternsS on a DNN’s in-
+in [47]. Therefore, we used the off-the-shelf functions with                        ference.  Besides, we could also consider that attribution-
+ground-truth causal patterns in the Addition-Multiplication                         based  explanations  quantified  the  causal  effect w{i}  of
+(Add-Mul) dataset [47] and the dataset proposed in [28], to                         each  variable i.    Therefore,  Table2compares  the  ex-
+test whether the learned AOGs could faithfully explain these                        tracted causal effects in the AOG with SI values, STI val-
+functions. The ground-truth causal patterns of functions in                         ues, and attribution-based explanations (including the Shap-
+both datasets can be easily determined. For example, for the                        ley value [31], Input ×Gradient [32], LRP [3], and Occlu-
+functiony =x1x3 +x3x4x5 +x4x6,xi∈{0, 1} in the Add-                                 sion [43]). Our AOG explainer exhibited much lower   ρunfaith
+Mul dataset,  the ground-truth causal patterns are Ωtruth  =                       values than baseline methods.
+{{x1,x3},{x3,x4,x5},{x4,x6}} given the input sample x=                              4.2. Conciseness of the AOG explainer
+[1, 1,..., 1]. It was because the multiplication between binary
+input variables could be considered as the AND relationship,                           The conciseness of an AOG depends on a trade-off be-
+thereby forming explicit ground-truth causal patterns.  In                          tween the ratio of the explained causal effectsRΩ and the
+other words, the co-appearance of variables in each causal                          simplicity of the explanation. In this section, we evaluated
+pattern would contribute 1 to the output scorey.                                    the effects of baseline values on the simplicity of the AOG
+    Similarly, we also constructed the third dataset contain-                       explainer, and examined the relationship between the ratio
+ing pre-defined And-Or functions with ground-truth causal                           of causal effects being explained and the simplicity of the
+patterns, namely the manually labeled And-Or dataset (see                          AOG explainer.
+Appendix G.3). Then, we learned the aforementioned MLP-                                Effects  of  baseline  values  on  the  conciseness  of  ex-
+
+=== PDF PAGE 8 ===
+                                                                                                          Figure  6.    (a)  The  change  of RΩ  along
+                                                                                                          with the number of causal patterns|Ω| in
+                                                                                                          AOGs. (b,c) The change of the node/edge
+                                                                                                          number in AOGs along withRΩ.  (d) The
+                                                                                                          histogram of re-scaled causal effects. The
+                                                                                                          learned  baseline  values  boosted  the  spar-
+                                                                                                          sity of causal patterns in the AOG explainer.
+                                                                                                          Please see Appendix G.6 and G.7 for results
+                                                                                                          on other datasets.
+
+planations.  In this experiment, we explored whether the                                                             TV news    census     bike
+                                                                                           MLP-2         normal       0.5965     0.4899       -
+learning of baseline values in Section3.2could boost the                                               adversarial    0.6109     0.6292       -
+sparsity of causal patterns. To this end, we followed [8] to                               MLP-5         normal       0.3664     0.2482    0.3816
+initialize baseline values of input variables as their mean                                            adversarial    0.6304     0.4971    0.4741
+values over different samples.  Then, we learned baseline                                 ResMLP-5       normal       0.3480     0.2764    0.3992
+                                                                                                       adversarial    0.5731     0.4489    0.4491
+values via Eq. (6). The baseline value  ri of each input vari-                  Table 3. Jaccard similarity between two models. Two adversarially
+able i was constrained within a certain range around the                         trained models were more similar than two normally trained ones.
+data average, i.e.,∥ri− Ex[xi]∥2≤ τ.  In experiments, we
+set τ = 0.01·Varx[xi], where Varx[xi] denotes the variance
+of thei-th input variable over different samples.  Fig.6(d)                         Besides, adversarial training also made different models
+shows the histogram of the relative strength of causal effects                   encode common patterns. To this end, we trained different
+      |wS|                                                                       pairs of models with the same architecture but with different
+maxS′⊆N|wS′|,  which was re-scaled to the range of [0, 1].
+Compared with mean baseline values, the learned baseline                         initial parameters. Given the same input, we measured the
+values usually generated fewer causal patterns with signifi-                    Jaccard similarity coefficient between causal effects of each
+cant strengths, which boosted the sparsity of causal effects                     pair of models, in order to examine whether the two mod-
+and enhanced the conciseness of explanations.  In this ex-                       els encoded similar causal patterns. LetwS andw′S denote
+periment, we used MLP-5 and computed relative strengths                          causal effects in the two models. The Jaccard similarity co-P
+of causal effects in 20 randomly selected samples in the TV                      efficient was computed asJ =          PS⊆N min(|wS|,|w′S|)
+                                                                                                                          S⊆N max(|wS|,|w′S|). A high
+news dataset. Please see Appendix G.7 for more results.                         Jaccard similarity indicated that the two models encoded
+   Ratio of the explained causal effectsRΩ. There was a                          similar causal patterns for inference.  Table3shows that
+trade-off between faithfulness (the ratio of explained causal                    the similarity between two adversarially trained models was
+effects) and conciseness of the AOG. A good explanation                          significantly higher than that between two normally trained
+was supposed to improve the simplicity while keeping a                           models. This indicated adversarial training made different
+large ratio of causal effects being explained. As discussed                      models encode common causal patterns for inference.
+in Section3.2, we just used causal patterns in                  Ω to approx-
+imate the DNN’s output.  Fig.6(a) shows the relationship                         5. Conclusion
+between|Ω| and the ratio of the explained causal effectsRΩ
+in different models based on the TV news dataset. When we                           In this paper, we discover and study the concept-emerging
+used a few causal patterns, we could explain most effects of                     phenomenon in a DNN. Specifically, we show that the infer-
+causal patterns to the DNN’s output. Fig.6(b,c) shows that                       ence logic of a DNN can usually be mimicked by a sparse
+the node and edge number of the AOG increased along with                         causal graph.  To this end, we theoretically prove and ex-
+the increase ofRΩ.                                                               perimentally verify the faithfulness of using a sparse causal
+4.3. Effects of adversarial training                                             graph to represent interactive concepts encoded in a DNN.
+                                                                                We also propose several techniques to boost the conciseness
+   In  this  experiment,  we  learned  MLP-2,  MLP-5,  and                       of such causal representation.  Furthermore, we show that
+ResMLP-5 on the TV news dataset via adversarial train-                           such a causal graph can be rewritten as an AOG, which fur-
+ing  [24].   Fig.6(a)  shows  that  compared  with  normally                     ther simplifies the explanation. The AOG explainer provides
+trained models, we could use less causal patterns (smaller                       new insights for understanding the inference logic of DNNs.
+|Ω|) to explain the same ratio of causal effectsRΩ in adver-                        Acknowledgements.      This   work   is   partially   sup-
+sarially trained models.  Moreover, Fig.6(b,c) also shows                        ported  by  the  National  Nature  Science  Foundation  of
+that AOGs for adversarially trained models contained fewer                       China (62276165), National Key R&D Program of China
+nodes and edges than AOGs for normally trained models.                          (2021ZD0111602), Shanghai Natural Science Foundation
+This indicated that adversarial training made models encode                     (21JC1403800,21ZR1434600),  National  Nature  Science
+more sparse causal patterns than normal training.                                Foundation of China (U19B2043).
+
+=== PDF PAGE 9 ===
+References                                                                            [14]  Mark H Hansen and Bin Yu. Model selection and the principle
+ [1]  Kamil  Adamczewski,  Frederik  Harder,  and  Mijung  Park.                            of minimum description length.   Journal of the American
+      Bayesian  importance  of  features  (bif).     arXiv  preprint                        Statistical Association, 96(454):746–774, 2001.5,6
+      arXiv:2010.13872, 2010.3                                                        [15]  John C Harsanyi.  A simplified bargaining model for the n-
+ [2]  Marco Ancona, Cengiz Oztireli, and Markus Gross. Explain-                             person cooperative game.  International Economic Review,
+      ing deep neural networks with a polynomial time algorithm                             4(2):194–220, 1963.3,4,5
+      for shapley value approximation. In International Conference                    [16]  Kaiming He, Xiangyu Zhang, Shaoqing Ren, and Jian Sun.
+      on Machine Learning, pages 272–281. PMLR, 2019.3,4                                    Deep residual learning for image recognition.  In Proceed-
+                                                                                            ings of the IEEE conference on computer vision and pattern
+ [3]  Sebastian  Bach,  Alexander  Binder,  Grégoire  Montavon,                             recognition, pages 770–778, 2016.6
+      Frederick Klauschen,  Klaus-Robert Müller,  and Wojciech                        [17]  Sepp Hochreiter and Jürgen Schmidhuber. Long short-term
+      Samek. On pixel-wise explanations for non-linear classifier                           memory. Neural computation, 9(8):1735–1780, 1997.6
+      decisions by layer-wise relevance propagation.   PloS one,                      [18]  Guolin Ke, Qi Meng, Thomas Finley, Taifeng Wang, Wei
+      10(7):e0130140, 2015.7                                                                Chen, Weidong Ma, Qiwei Ye, and Tie-Yan Liu. Lightgbm:
+ [4]  Jianbo Chen, Le Song, Martin J. Wainwright, and Michael I.                            A highly efficient gradient boosting decision tree. Advances in
+      Jordan.  Learning to explain:  An information-theoretic per-                          neural information processing systems, 30:3146–3154, 2017.
+      spective  on  model  interpretation.   In  Jennifer  G.  Dy  and                      6
+      Andreas Krause,  editors,  Proceedings of the 35th Interna-                     [19]  Yann  LeCun.    The  mnist  database  of  handwritten  digits.
+      tional Conference on Machine Learning, ICML 2018, Stock-                              http://yann. lecun. com/exdb/mnist/, 1998.6
+      holmsmässan,  Stockholm,  Sweden,  July  10-15,  2018,  vol-                    [20]  Mingjie Li and Quanshi Zhang. Does a neural network really
+      ume 80 of Proceedings of Machine Learning Research, pages                             encode symbolic concept?  arXiv preprint arXiv:2302.13080,
+      882–891. PMLR, 2018.3                                                                 2023.2
+ [5]  Tianqi Chen and Carlos Guestrin. Xgboost: A scalable tree                       [21]  Xilai Li, Xi Song, and Tianfu Wu. Aognets: Compositional
+      boosting system.   In Proceedings of the 22nd acm sigkdd                              grammatical architectures for deep learning. In Proceedings
+      international conference on knowledge discovery and data                              of the IEEE/CVF Conference on Computer Vision and Pattern
+      mining, pages 785–794, 2016.6                                                         Recognition, pages 6220–6230, 2019.5
+ [6]  Xu Cheng, Chuntung Chu, Yi Zheng, Jie Ren, and Quanshi                          [22]  Ziwei  Liu,  Ping  Luo,  Xiaogang  Wang,  and  Xiaoou  Tang.
+      Zhang.   A game-theoretic taxonomy of visual concepts in                              Deep learning face attributes in the wild. In Proceedings of
+      dnns. arXiv preprint arXiv:2106.10938, 2021.2                                         International Conference on Computer Vision (ICCV), De-
+ [7]  Xu Cheng, Xin Wang, Haotian Xue, Zhengyang Liang, and                                 cember 2015.6
+      Quanshi Zhang. A hypothesis for the aesthetic appreciation                      [23]  Scott M Lundberg and Su-In Lee.   A unified approach to
+      in neural networks. arXiv preprint arXiv::2108.02646, 2021.                           interpreting model predictions.  In Proceedings of the 31st
+      2                                                                                     international conference on neural information processing
+ [8]  Piotr Dabkowski and Yarin Gal. Real time image saliency for                           systems, pages 4768–4777, 2017.3,4
+      black box classifiers. arXiv preprint arXiv:1705.07857, 2017.                   [24]  Aleksander Madry, Aleksandar Makelov, Ludwig Schmidt,
+      3,4,8                                                                                 Dimitris Tsipras,  and Adrian Vladu.   Towards deep learn-
+ [9]  Huiqi Deng, Qihan Ren, Hao Zhang, and Quanshi Zhang.                                  ing models resistant to adversarial attacks. In International
+      Discovering and explaining the representation bottleneck of                           Conference on Learning Representations, 2018.4,5,8
+      DNNS. In The Tenth International Conference on Learning                         [25]  Judea Pearl. Causality. Cambridge university press, 2009.1,
+      Representations, ICLR 2022, Virtual Event, April 25-29, 2022,                         3
+      2022.2,3                                                                        [26]  A Rakhlin. Convolutional neural networks for sentence clas-
+[10]  Huiqi Deng, Na Zou, Mengnan Du, Weifu Chen, Guocan                                    sification. GitHub, 2016.6
+      Feng,  Ziwei Yang,  Zheyang Li,  and Quanshi Zhang.   Un-                       [27]  Jie Ren, Die Zhang, Yisen Wang, Lu Chen, Zhanpeng Zhou,
+      derstanding and unifying fourteen attribution methods with                            Yiting  Chen,  Xu  Cheng,  Xin  Wang,  Meng  Zhou,  Jie  Shi,
+      taylor interactions. arXiv preprint, 2022.2                                           and Quanshi Zhang. Towards a unified game-theoretic view
+                                                                                            of adversarial perturbations and robustness.  In M. Ranzato,
+[11]  Dheeru Dua and Casey Graff. UCI machine learning reposi-                              A. Beygelzimer,  Y. Dauphin,  P.S. Liang,  and J. Wortman
+      tory, 2017.6                                                                          Vaughan, editors, Advances in Neural Information Processing
+[12]  Amirata Ghorbani, James Wexler, James Y. Zou, and Been                                Systems, volume 34, pages 3797–3810. Curran Associates,
+      Kim.   Towards automatic concept-based explanations.   In                             Inc., 2021.2
+      Advances in Neural Information Processing Systems 32: An-                       [28]  Jie Ren, Zhanpeng Zhou, Qirui Chen, and Quanshi Zhang.
+      nual Conference on Neural Information Processing Systems                              Can we faithfully represent masked states to compute shapley
+      2019, NeurIPS 2019, December 8-14, 2019, Vancouver, BC,                               values on a dnn?  In The eleventh International Conference on
+      Canada, pages 9273–9282, 2019.2                                                       Learning Representations, ICLR 2023, Kigali Rwanda, May
+[13]  Michel Grabisch and Marc Roubens. An axiomatic approach                               1-5, 2023, 2023.2,4,7
+      to the concept of interaction among players in cooperative                      [29]  Qihan Ren, Huiqi Deng, Yunuo Chen, Siyu Lou, and Quanshi
+      games. International Journal of game theory, 28(4):547–565,                           Zhang. Bayesian neural networks tend to ignore complex and
+      1999.2,4,7                                                                            sensitive concepts. arXiv preprint arXiv:2302.13095, 2023.2
+
+=== PDF PAGE 10 ===
+[30]  Marco Tulio Ribeiro, Sameer Singh, and Carlos Guestrin. "                             Building interpretable interaction trees for deep NLP models.
+      why should i trust you?" explaining the predictions of any                            In Thirty-Fifth AAAI Conference on Artificial Intelligence,
+      classifier. In Proceedings of the 22nd ACM SIGKDD interna-                            AAAI 2021, Thirty-Third Conference on Innovative Applica-
+      tional conference on knowledge discovery and data mining,                             tions of Artificial Intelligence, IAAI 2021, The Eleventh Sym-
+      pages 1135–1144, 2016.3                                                               posium on Educational Advances in Artificial Intelligence,
+[31]  Lloyd S Shapley. A value for n-person games. Contributions                            EAAI 2021, Virtual Event, February 2-9, 2021, pages 14328–
+      to the Theory of Games, 2(28):307–317, 1953.2,4,7                                     14337. AAAI Press, 2021.2
+[32]  Avanti Shrikumar, Peyton Greenside, Anna Shcherbina, and                       [45]  Hao Zhang, Sen Li, Yinchao Ma, Mingjie Li, Yichen Xie,
+      Anshul Kundaje.  Not just a black box: Learning important                             and Quanshi Zhang. Interpreting and boosting dropout from
+      features through propagating activation differences.  arXiv                           a game-theoretic view. In International Conference on Learn-
+      preprint arXiv:1605.01713, 2016.7                                                     ing Representations, 2021.2
+[33]  Karen Simonyan and Andrew Zisserman. Very deep convo-                          [46]  Hao Zhang,  Yichen Xie,  Longjie Zheng,  Die Zhang,  and
+      lutional networks for large-scale image recognition.  arXiv                           Quanshi Zhang.   Interpreting multivariate shapley interac-
+      preprint arXiv:1409.1556, 2014.6                                                      tions in dnns. In Thirty-Fifth AAAI Conference on Artificial
+[34]  Richard Socher,  Alex Perelygin,  Jean Wu,  Jason Chuang,                             Intelligence, AAAI 2021, Thirty-Third Conference on Inno-
+      Christopher D Manning, Andrew Y Ng, and Christopher Potts.                            vative Applications of Artificial Intelligence, IAAI 2021, The
+      Recursive deep models for semantic compositionality over a                            Eleventh Symposium on Educational Advances in Artificial
+      sentiment treebank.  In Proceedings of the 2013 conference                            Intelligence, EAAI 2021, Virtual Event, February 2-9, 2021,
+      on empirical methods in natural language processing, pages                            pages 10877–10886. AAAI Press, 2021.2
+      1631–1642, 2013.6                                                              [47]  Hao Zhang,  Yichen Xie,  Longjie Zheng,  Die Zhang,  and
+[35]  Xi Song, Tianfu Wu, Yunde Jia, and Song-Chun Zhu.  Dis-                               Quanshi Zhang. Interpreting multivariate shapley interactions
+      criminatively trained and-or tree models for object detection.                        in dnns. In AAAI, 2021.7
+      In Proceedings of the IEEE conference on computer vision                       [48]  Quanshi Zhang, Jie Ren, Ge Huang, Ruiming Cao, Ying Nian
+      and pattern recognition, pages 3278–3285, 2013.5                                      Wu, and Song-Chun Zhu.  Mining interpretable aog repre-
+[36]  Mukund Sundararajan, Kedar Dhamdhere, and Ashish Agar-                                sentations from convolutional networks via active question
+      wal.  The shapley taylor interaction index.  In International                         answering.  IEEE transactions on pattern analysis and ma-
+      Conference on Machine Learning, pages 9259–9268. PMLR,                                chine intelligence, 2020.5
+      2020.2,4,7                                                                     [49]  Quanshi Zhang, Xin Wang, Jie Ren, Xu Cheng, Shuyun Lin,
+[37]  Mukund Sundararajan, Ankur Taly, and Qiqi Yan. Axiomatic                              Yisen Wang, and Xiangming Zhu.  Proving common mech-
+      attribution for deep networks.   In Proceedings of the 34th                           anisms  shared  by  twelve  methods  of  boosting  adversarial
+      International Conference on Machine Learning-Volume 70,                               transferability. arXiv preprint arXiv:2207.11694, 2022.2
+      pages 3319–3328, 2017.4                                                        [50]  Huilin Zhou, Hao Zhang, Huiqi Deng, Dongrui Liu, Wen
+[38]  Che-Ping  Tsai,  Chih-Kuan  Yeh,  and  Pradeep  Ravikumar.                            Shen, Shih-Han Chan, and Quanshi Zhang.  Concept-level
+      Faith-shap:  The faithful shapley interaction index.   arXiv                          explanation for the generalization of a dnn.  arXiv preprint
+      preprint arXiv:2203.00870, 2022.2                                                     arXiv:2302.13091, 2023.2
+[39]  Xin Wang, Shuyun Lin, Hao Zhang, Yufei Zhu, and Quanshi
+      Zhang.   Interpreting attributions and interactions of adver-
+      sarial attacks. In 2021 IEEE/CVF International Conference
+      on Computer Vision,  ICCV 2021,  Montreal,  QC, Canada,
+      October 10-17, 2021, pages 1075–1084. IEEE, 2021.2
+[40]  Xin Wang, Jie Ren, Shuyun Lin, Xiangming Zhu, Yisen Wang,
+      and Quanshi Zhang. A unified approach to interpreting and
+      boosting adversarial transferability. In 9th International Con-
+      ference on Learning Representations,  ICLR 2021,  Virtual
+      Event, Austria, May 3-7, 2021, 2021.2
+[41]  Alex Warstadt, Amanpreet Singh, and Samuel R Bowman.
+      Neural network acceptability judgments. Transactions of the
+      Association for Computational Linguistics, 7:625–641, 2019.
+      6
+[42]  Jinsung Yoon, James Jordon, and Mihaela van der Schaar. IN-
+      VASE: instance-wise variable selection using neural networks.
+      In 7th International Conference on Learning Representations,
+      ICLR 2019, New Orleans, LA, USA, May 6-9, 2019, 2019.3
+[43]  Matthew D Zeiler and Rob Fergus.  Visualizing and under-
+      standing convolutional networks. In European conference on
+      computer vision, pages 818–833. Springer, 2014.7
+[44]  Die Zhang, Hao Zhang, Huilin Zhou, Xiaoyi Bao, Da Huo,
+      Ruizhao Chen, Xu Cheng, Mengyue Wu, and Quanshi Zhang.

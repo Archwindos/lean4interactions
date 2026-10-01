@@ -1,0 +1,182 @@
+{
+  "arxiv_id": "2111.06206",
+  "version": "v6",
+  "title": "Defining and Quantifying the Emergence of Sparse Concepts in DNNs",
+  "authors": [
+    "Jie Ren",
+    "Mingjie Li",
+    "Qirui Chen",
+    "Huiqi Deng",
+    "Quanshi Zhang"
+  ],
+  "first_public_date": "2021-11-11T13:48:20Z",
+  "updated": "2023-04-03T12:02:02Z",
+  "journal_ref": null,
+  "source_url": "https://arxiv.org/abs/2111.06206v6",
+  "pdf_url": "https://arxiv.org/pdf/2111.06206v6",
+  "retrieved_at": "2026-09-30T07:02:52.265431+00:00",
+  "attempts": [],
+  "local_pdf": "research/paper-survey-20260930/earlier/papers/2111.06206/2111.06206v6.pdf",
+  "sha256": "2f18ed3bc48c095ffbf4ab68a1f6a6545d5e86e562229f3795a46e98f3095a12",
+  "total_pages": 38,
+  "first_page": "                                                  Defining and Quantifying the Emergence of Sparse Concepts in DNNs\n\n                                                                     Jie Ren∗ , Mingjie Li*, Qirui Chen, Huiqi Deng, Quanshi Zhang†\n                                                                                      Shanghai Jiao Tong University\n\n\n                                                                     Abstract                                       Each interactive concept S represents an AND relationship\n                                                                                                                    between the set of words in S . In other words, only their\narXiv:2111.06206v6 [cs.LG] 3 Apr 2023\n\n\n\n\n                                           This paper aims to illustrate the concept-emerging phe-                  co-appearance will trigger this interactive concept. The ab-\n                                        nomenon in a trained DNN. Specifically, we find that the                    sence (masking) of any words in {take, it, easy} will remove\n                                        inference score of a DNN can be disentangled into the effects               the effect wS towards “calm down” from the network output.\n                                        of a few interactive concepts. These concepts can be under-                     Causal graph based on interactive concepts. Given an\n                                        stood as causal patterns in a sparse, symbolic causal graph,                input sample, we introduce how to extract a set of interactive\n                                        which explains the DNN. The faithfulness of using such a                    concepts Ω from a trained DNN, and how to organize all\n                                        causal graph to explain the DNN is theoretically guaranteed,                such concepts S ∈ Ω into a three-layer causal graph in Fig.\n                                        because we prove that the causal graph can well mimic the                   1(b). We also prove that such a causal graph can mimic the\n                                        DNN’s outputs on an exponential number of different masked                  inference score of the DNN. Specifically, each source node\n                                        samples. Besides, such a causal graph can be further sim-                   Xi (i = 1, ..., n) in the bottom layer represents the binary\n                                        plified and re-written as an And-Or graph (AOG), without                    state of whether the i-th input variable is masked (Xi = 0)\n                                        losing much explanation accuracy. The code is released at                   or not (Xi = 1). Each intermediate node CS (S ∈ Ω) in the\n                                        https://github.com/sjtu-xai-lab/aog.                                        causal graph represents an interactive concept S that encodes\n                                                                                                                    the AND relationship between input variables in S . In fact,\n                                                                                                                    S can also be interpreted as a causal pattern for the DNN’s\n                                        1. Introduction                                                   ",
+  "status": "downloaded_extracted_requires_manual_review",
+  "automatic_heading_hits": [
+    {
+      "page": 2,
+      "text": "rize common coalitions shared by salient causal patterns to                            interactions are faithful (Theorem 1) and very sparse (Re-"
+    },
+    {
+      "page": 3,
+      "text": "shown in Fig. 1(b). As Fig. 1(b) shows, each source node Xi                                                                                         Theorem 1 (Proof in Appendix C). Given a certain input"
+    },
+    {
+      "page": 3,
+      "text": "patterns in Ω. Thus, the transition probability in this causal                                                                                          Theorem 1 proves the faithfulness of using such a causal"
+    },
+    {
+      "page": 3,
+      "text": "function.                                                                                                                                           Theorem 1). Note that no matter whether input variables are"
+    },
+    {
+      "page": 4,
+      "text": "Appendix D.2 for the proof."
+    },
+    {
+      "page": 4,
+      "text": "Theorem 2 (Connection to the Shapley value, proved by                      where wΩ = [wS0 1 , wS0 2 , ..., wS0 2n ]. If S ∈ Ω, then wS0 = wS ;"
+    },
+    {
+      "page": 4,
+      "text": "a relatively fair estimation of attributions. Theorem 2 proves             Theorem 1 by removing noisy causal patterns and learning"
+    },
+    {
+      "page": 4,
+      "text": "though Theorem 1 indicates that the causal graph needs to                      Thus, we further boost the sparsity of causal patterns"
+    },
+    {
+      "page": 5,
+      "text": "Theorem 1. Specifically, we remove noisy causal patterns                          their co-appearance. Accordingly, the pattern {x4 , x5 , x6 }"
+    },
+    {
+      "page": 13,
+      "text": "for inference. Each concept S ⊆ N has a certain causal effect on the model output. In this study, we prove in Theorem 1 that"
+    },
+    {
+      "page": 14,
+      "text": "Theorem 5 (Connection to the marginal benefit [26]). Let ∆vT (xS ) = T 0 ⊆T (−1)|T |−|T | v(xT 0 ∪S ) denote the marginal"
+    },
+    {
+      "page": 14,
+      "text": "Theorem 2 (Connection to the Shapley value [56]). Let φ(i) denote the Shapley value of input variable i. Then, the"
+    },
+    {
+      "page": 14,
+      "text": "Theorem 3 (Connection to the Shapley interaction index [26]). Given a subset of input variables T ⊆ N , the Shapley"
+    },
+    {
+      "page": 14,
+      "text": "Theorem 4 (Connection to the Shapley Taylor interaction index [66]). Given a subset of input variables T ⊆ N , the k-th order"
+    },
+    {
+      "page": 14,
+      "text": "C. The proof of Theorem 1 in the main paper"
+    },
+    {
+      "page": 14,
+      "text": "Theorem 1. Given a certain input x, let the causal graph in Fig. 1 (in the main paper) encode 2n causal patterns, i.e.,"
+    },
+    {
+      "page": 14,
+      "text": "• Proof: We only need to prove the following two statements. (1) Necessity: the causal graph based on Harsanyi dividends"
+    },
+    {
+      "page": 14,
+      "text": "Proof for necessity. According to the definition of the Harsanyi dividend, we have ∀S ⊆ N ,"
+    },
+    {
+      "page": 15,
+      "text": "Proof for sufficiency. Suppose there exists another metric w̃S that satisfies ∀S ⊆ N , v(xS ) = S 0 ⊆S w̃S 0 . Then, we prove"
+    },
+    {
+      "page": 15,
+      "text": "• Proof: According to the definition of the Harsanyi dividend, we have"
+    },
+    {
+      "page": 16,
+      "text": "• Proof: According to the definition of the Harsanyi dividend, we have"
+    },
+    {
+      "page": 16,
+      "text": "• Proof: According to the definition of the Harsanyi dividend, we have"
+    },
+    {
+      "page": 16,
+      "text": "• Proof: According to the definition of the Harsanyi dividend, we have"
+    },
+    {
+      "page": 17,
+      "text": "• Proof: According to the definition of the Harsanyi dividend, we have"
+    },
+    {
+      "page": 17,
+      "text": "• Proof: According to the definition of the Harsanyi dividend, we have"
+    },
+    {
+      "page": 17,
+      "text": "• Proof: If S ( T , we have"
+    },
+    {
+      "page": 18,
+      "text": "We first prove Theorem 5, which can be seen as the foundation for proofs of Theorem 2, 3, and 4."
+    },
+    {
+      "page": 18,
+      "text": "Theorem 5 (Connection to the marginal benefit). Let ∆vT (xS ) = T 0 ⊆T (−1)|T |−|T | v(xT 0 ∪S ) denote the marginal benefit"
+    },
+    {
+      "page": 18,
+      "text": "• Proof: By the definition of the marginal benefit, we have"
+    },
+    {
+      "page": 18,
+      "text": "=         (−1)|T |−|L|                    wK      // by Theorem 1"
+    },
+    {
+      "page": 19,
+      "text": "Theorem 2 (Connection to the Shapley value). Let φ(i) denote the Shapley value [56] of an input variable i. Then, the Shap-"
+    },
+    {
+      "page": 19,
+      "text": "• Proof: By the definition of the Shapley value, we have"
+    },
+    {
+      "page": 19,
+      "text": "         wL∪{i}               // by Theorem 5"
+    },
+    {
+      "page": 20,
+      "text": "Theorem 3 (Connection to the Shapley interaction index). Given a subset of input variables T ⊆ N , I Shapley (T ) ="
+    },
+    {
+      "page": 21,
+      "text": "• Proof:"
+    },
+    {
+      "page": 21,
+      "text": "Just like the proof of Theorem 2, we leverage the properties of combinitorial numbers and the Beta function to simplify αL ."
+    },
+    {
+      "page": 22,
+      "text": "Theorem 4 (Connection to the Shapley Taylor interaction index). Given a subset of input variables T ⊆ N , the k-th order"
+    },
+    {
+      "page": 22,
+      "text": "• Proof: By the definition of the Shapley Taylor interaction index,"
+    },
+    {
+      "page": 23,
+      "text": "Just like the proof of Theorem 2, we leverage the properties of combinatorial numbers and the Beta function to simplify αL ."
+    }
+  ]
+}

@@ -1,0 +1,111 @@
+Published as a conference paper at ICLR 2024
+
+
+
+
+Proof. According to the definition of ū(m) , we have
+                ū(m) = ES⊆N,|S|=m [u(S)]                                                         (17)
+                      = ES⊆N,|S|=m [v(xS ) − v(x∅ )]                                              (18)
+                                    hX            i
+                      = ES⊆N,|S|=m           I(T )     //according to Theorem 1                   (19)
+                                       T ⊆S
+                                    X                            
+                                        m X
+                      = ES⊆N,|S|=m                          I(T )                                 (20)
+                                        k=1     T ⊆S,|T |=k
+                        Xm                 X                     
+                      =       ES⊆N,|S|=m                    I(T )                                 (21)
+                             k=1                    T ⊆S,|T |=k
+                          Xm       1 X                   X
+                      =            n
+                                                                          I(T )                  (22)
+                             k=1             S⊆N,|S|=m       T ⊆S,|T |=k
+                                   m
+                                          
+                          Xm       1   n−k X
+                      =            n
+                                                        I(T )                                    (23)
+                             k=1
+                                   m
+                                       m−k   T ⊆N,|T |=k
+                                   m X
+                                     
+                          Xm
+                                   k
+                      =            n          I(T )                                               (24)
+                             k=1         T ⊆N,|T |=k
+                                   k
+                                   m
+                                     
+                          Xm
+                                   k  (k)
+                      =            n A                                                            (25)
+                             k=1
+                                   k
+
+
+From Eq. (22) to Eq. (23), we note that each single T ⊆ N (|T | = k) is repeatly counted for
+ n−k                   P            P
+ m−k times in the sum    S⊆N,|S|=m     T ⊆S,|T |=k I(T ). And from Eq. (23) to Eq. (24), we use the
+following property:
+                                                                                      
+     n    m           n!         m!               n!          (n − k)!           n     n−k
+               =                          =                                  =                  .
+     m     k      m!(n − m)! k!(m − k)!      k!(n − k)! (m − k)!(n − m)!         k    m−k
+                                                                                               (26)
+Furthermore, according to Assumption 1-α, we have ∀S ∈ {S ⊆ N | |S| ≥ M + 1}, I(S) = 0.
+Therefore, we have ∀k ≥ M + 1, A(k) = 0. This leads to
+                                                 m         XM m
+                                                                   
+                                        Xm
+                                  (m)            k  (k)          k  (k)
+                ∀M ≤ m ≤ n, ū        =          n A     =        n A     .        (27)
+                                                  k=1                      k=1
+                                                         k                         k
+
+
+
+
+Lemma 3. Given n ∈ N+ and M ∈ N+ , where M < n, if ∀ m ∈ {n, n − 1, · · · , n −
+    PM (m)
+M }, k=1 nk wk = 0, then we have wk = 0 for k = 1, · · · , M .
+         (k )
+
+Proof. We first represent the above problem using the matrix representation: if Cw = 0, where
+            n
+               (1)       (n2 )          n
+                                       (M   )
+                                               
+                n         n      ···    n
+               (1)
+            n−1         (2)           (M )                             
+                                                                           w1
+                                                                                
+           ( 1 )       n−1            n−1 
+                       (       )      (      )
+            n             2
+                                 ···    M                                w2 
+      C =  (1)          (n2 )          n
+                                       (M   )  ∈ R(M +1)×M , and w =             M
+                                                                          ...  ∈ R ,      (28)
+                                                                               
+            ..            ..    ..      .. 
+            .              .       .     .    
+             ( 1 ) (n−M
+            n−M
+                                      (n−M                                 wM
+                           2 )          M )
+                                               
+                n         n      ···    n
+               (1)       (2)           (M )
+then we have w = 0.
+To prove this lemma, we only need to prove that rank(C) = M .
+If we perform elementary row transformations on the matrix, i.e., subtracting the (i + 1)-th row from
+                                                           n
+                                                             − n−1           n−1
+                                                                      
+the i-th row (i = 1, 2, · · · , M ), and using the formula m        m   =    m−1 , the matrix can be
+
+
+                                                   17
+

@@ -1,0 +1,534 @@
+{
+  "schema_version": 1,
+  "review_id": "independent-sparse-review-by-cvpr-20260930",
+  "reviewer": "full_cvpr_proofs_max",
+  "paper_id": "iclr2024-sparse",
+  "generated_at": "2026-09-30T14:10:07.835916+00:00",
+  "source_id": "src-iclr2024-sparse-main",
+  "version_id": "ver-iclr2024-sparse-formal",
+  "source_pdf_sha256": "9f380ff7d659d8b414e2cdb70edf9dcc8d0e4108240a1f506c2337664e7c8f45",
+  "independence_scope": "Independent of Sparse authoring agent: original page audit, original proof transcription, Sparse-specific rewrites, Sparsity/FullSparse signatures and mathematical assumptions. Shared finite attribution and DerivativeCutoff were authored by this reviewer; those public proof bodies are not certified here as an independent peer review.",
+  "machine_tests_repeated": false,
+  "source_semantics_automatically_verified": false,
+  "counts": {
+    "pdf_pages": 34,
+    "inventory_entries": 43,
+    "unique_proof_targets": 27,
+    "numbered_theorems": 6,
+    "numbered_lemmas": 4,
+    "listed_properties": 7
+  },
+  "page_audit": [
+    {
+      "pdf_page": 1,
+      "source_id": "src-iclr2024-sparse-main",
+      "layout_checked": true,
+      "image_checked": false,
+      "finding": "摘要/导言：条件与动机，未发现局部证明。",
+      "inventory_entry_ids": []
+    },
+    {
+      "pdf_page": 2,
+      "source_id": "src-iclr2024-sparse-main",
+      "layout_checked": true,
+      "image_checked": false,
+      "finding": "解释图、截断近似与外引背景；没有遗漏编号结果。",
+      "inventory_entry_ids": [
+        "iclr2024-sparse-salient-approximation",
+        "iclr2024-sparse-related-work"
+      ]
+    },
+    {
+      "pdf_page": 3,
+      "source_id": "src-iclr2024-sparse-main",
+      "layout_checked": true,
+      "image_checked": false,
+      "finding": "Eq.(1)、u中心化、log-odds输出定义；经验部件图不是证明。",
+      "inventory_entry_ids": [
+        "iclr2024-sparse-definitions",
+        "iclr2024-sparse-desiderata",
+        "iclr2024-sparse-experiments",
+        "iclr2024-sparse-related-work"
+      ]
+    },
+    {
+      "pdf_page": 4,
+      "source_id": "src-iclr2024-sparse-main",
+      "layout_checked": true,
+      "image_checked": false,
+      "finding": "三项desiderata、T1陈述、Shapley脚注；完整重构与截断近似已分开。",
+      "inventory_entry_ids": [
+        "iclr2024-sparse-desiderata",
+        "iclr2024-sparse-reconstruction",
+        "iclr2024-sparse-salient-approximation",
+        "iclr2024-sparse-theorem4",
+        "iclr2024-sparse-experiments"
+      ]
+    },
+    {
+      "pdf_page": 5,
+      "source_id": "src-iclr2024-sparse-main",
+      "layout_checked": true,
+      "image_checked": false,
+      "finding": "Eq.(2)、1α/1β全量词及C1背景；不能把ReLU有限差分等同经典高阶导数。",
+      "inventory_entry_ids": [
+        "iclr2024-sparse-taylor-expansion",
+        "iclr2024-sparse-assumption-1alpha",
+        "iclr2024-sparse-assumption-1beta",
+        "iclr2024-sparse-derivative-cutoff",
+        "iclr2024-sparse-experiments"
+      ]
+    },
+    {
+      "pdf_page": 6,
+      "source_id": "src-iclr2024-sparse-main",
+      "layout_checked": true,
+      "image_checked": false,
+      "finding": "Assumption2为阶层平均单调，不是逐子集单调；其理论说明与图5为依据讨论。",
+      "inventory_entry_ids": [
+        "iclr2024-sparse-assumption2",
+        "iclr2024-sparse-experiments"
+      ]
+    },
+    {
+      "pdf_page": 7,
+      "source_id": "src-iclr2024-sparse-main",
+      "layout_checked": true,
+      "image_checked": false,
+      "finding": "Assumption3、T2全部系数/两符号界、A及η定义；p<1与均值零边界已列。",
+      "inventory_entry_ids": [
+        "iclr2024-sparse-assumption3",
+        "iclr2024-sparse-order-statistics",
+        "iclr2024-sparse-theorem2",
+        "iclr2024-sparse-asymptotic-claim",
+        "iclr2024-sparse-experiments"
+      ]
+    },
+    {
+      "pdf_page": 8,
+      "source_id": "src-iclr2024-sparse-main",
+      "layout_checked": true,
+      "image_checked": true,
+      "finding": "T3及两Case、噪声线性/方差；新Case2反例严格限于比较推断。",
+      "inventory_entry_ids": [
+        "iclr2024-sparse-order-statistics",
+        "iclr2024-sparse-asymptotic-claim",
+        "iclr2024-sparse-theorem3",
+        "iclr2024-sparse-noise-linearity",
+        "iclr2024-sparse-noise-variance",
+        "iclr2024-sparse-experiments"
+      ]
+    },
+    {
+      "pdf_page": 9,
+      "source_id": "src-iclr2024-sparse-main",
+      "layout_checked": true,
+      "image_checked": false,
+      "finding": "Scenario2–5、迁移反证、结论；parity定义冲突及迁移反例保留，OR/sin为无量化讨论。",
+      "inventory_entry_ids": [
+        "iclr2024-sparse-noise-variance",
+        "iclr2024-sparse-parity-mask",
+        "iclr2024-sparse-or-density",
+        "iclr2024-sparse-periodic-density",
+        "iclr2024-sparse-parity-task",
+        "iclr2024-sparse-transfer-inference"
+      ]
+    },
+    {
+      "pdf_page": 10,
+      "source_id": "src-iclr2024-sparse-main",
+      "layout_checked": true,
+      "image_checked": false,
+      "finding": "致谢、伦理、复现声明与参考文献；没有原局部数学证明。",
+      "inventory_entry_ids": []
+    },
+    {
+      "pdf_page": 11,
+      "source_id": "src-iclr2024-sparse-main",
+      "layout_checked": true,
+      "image_checked": false,
+      "finding": "参考文献，没有局部数学证明。",
+      "inventory_entry_ids": []
+    },
+    {
+      "pdf_page": 12,
+      "source_id": "src-iclr2024-sparse-main",
+      "layout_checked": true,
+      "image_checked": false,
+      "finding": "参考文献，没有局部数学证明。",
+      "inventory_entry_ids": []
+    },
+    {
+      "pdf_page": 13,
+      "source_id": "src-iclr2024-sparse-main",
+      "layout_checked": true,
+      "image_checked": false,
+      "finding": "参考文献结束，没有局部数学证明。",
+      "inventory_entry_ids": []
+    },
+    {
+      "pdf_page": 14,
+      "source_id": "src-iclr2024-sparse-main",
+      "layout_checked": true,
+      "image_checked": false,
+      "finding": "A.1七性质完整前提与A.2 T4–6；没有性质逐条原证明，效率与T1归并。",
+      "inventory_entry_ids": [
+        "iclr2024-sparse-axiom-efficiency",
+        "iclr2024-sparse-axiom-linearity",
+        "iclr2024-sparse-axiom-dummy",
+        "iclr2024-sparse-axiom-symmetry",
+        "iclr2024-sparse-axiom-anonymity",
+        "iclr2024-sparse-axiom-recursive",
+        "iclr2024-sparse-axiom-distribution",
+        "iclr2024-sparse-theorem4",
+        "iclr2024-sparse-theorem5",
+        "iclr2024-sparse-theorem6"
+      ]
+    },
+    {
+      "pdf_page": 15,
+      "source_id": "src-iclr2024-sparse-main",
+      "layout_checked": true,
+      "image_checked": true,
+      "finding": "B.1 T1完整换序；B.2 L1定义、唯一性引入。原索引错保留。",
+      "inventory_entry_ids": [
+        "iclr2024-sparse-reconstruction",
+        "iclr2024-sparse-lemma1"
+      ]
+    },
+    {
+      "pdf_page": 16,
+      "source_id": "src-iclr2024-sparse-main",
+      "layout_checked": true,
+      "image_checked": true,
+      "finding": "L1剩余Eq.(11)–(13)、导数截断Eq.(14)–(15)、L2陈述；Taylor两读法分开。",
+      "inventory_entry_ids": [
+        "iclr2024-sparse-assumption-1alpha",
+        "iclr2024-sparse-lemma1",
+        "iclr2024-sparse-derivative-cutoff",
+        "iclr2024-sparse-lemma2"
+      ]
+    },
+    {
+      "pdf_page": 17,
+      "source_id": "src-iclr2024-sparse-main",
+      "layout_checked": true,
+      "image_checked": false,
+      "finding": "L2完整计数Eq.(17)–(27)、L3完整矩阵陈述和消元开始。",
+      "inventory_entry_ids": [
+        "iclr2024-sparse-lemma2",
+        "iclr2024-sparse-lemma3"
+      ]
+    },
+    {
+      "pdf_page": 18,
+      "source_id": "src-iclr2024-sparse-main",
+      "layout_checked": true,
+      "image_checked": true,
+      "finding": "L3 Eq.(29)–(36)符号/复制行核图；T2 Eq.(37)开始。",
+      "inventory_entry_ids": [
+        "iclr2024-sparse-lemma3",
+        "iclr2024-sparse-theorem2"
+      ]
+    },
+    {
+      "pdf_page": 19,
+      "source_id": "src-iclr2024-sparse-main",
+      "layout_checked": true,
+      "image_checked": true,
+      "finding": "T2 Eq.(38)–(47)、n进制两分支；μ1=0、G为空没有隐藏成新假设。",
+      "inventory_entry_ids": [
+        "iclr2024-sparse-theorem2"
+      ]
+    },
+    {
+      "pdf_page": 20,
+      "source_id": "src-iclr2024-sparse-main",
+      "layout_checked": true,
+      "image_checked": false,
+      "finding": "T2 Eq.(48)–(53)结束；B.4误印Theorem6，按内容归并T3。",
+      "inventory_entry_ids": [
+        "iclr2024-sparse-theorem2",
+        "iclr2024-sparse-theorem3"
+      ]
+    },
+    {
+      "pdf_page": 21,
+      "source_id": "src-iclr2024-sparse-main",
+      "layout_checked": true,
+      "image_checked": false,
+      "finding": "T3 Eq.(60)、L4完整有限换序、T4重述；L4自由L原错误保留。",
+      "inventory_entry_ids": [
+        "iclr2024-sparse-theorem3",
+        "iclr2024-sparse-lemma4",
+        "iclr2024-sparse-theorem4"
+      ]
+    },
+    {
+      "pdf_page": 22,
+      "source_id": "src-iclr2024-sparse-main",
+      "layout_checked": true,
+      "image_checked": false,
+      "finding": "T4求和与Beta定义；错指数和零参数属于工具路线问题。",
+      "inventory_entry_ids": [
+        "iclr2024-sparse-theorem4"
+      ]
+    },
+    {
+      "pdf_page": 23,
+      "source_id": "src-iclr2024-sparse-main",
+      "layout_checked": true,
+      "image_checked": false,
+      "finding": "T4积分结束及T5阶乘定义；原有限离散定义与规范Shapley一致。",
+      "inventory_entry_ids": [
+        "iclr2024-sparse-theorem4",
+        "iclr2024-sparse-theorem5"
+      ]
+    },
+    {
+      "pdf_page": 24,
+      "source_id": "src-iclr2024-sparse-main",
+      "layout_checked": true,
+      "image_checked": false,
+      "finding": "T5完整换序及Beta第一项；L空分支不能直接用原①=1。",
+      "inventory_entry_ids": [
+        "iclr2024-sparse-theorem5"
+      ]
+    },
+    {
+      "pdf_page": 25,
+      "source_id": "src-iclr2024-sparse-main",
+      "layout_checked": true,
+      "image_checked": false,
+      "finding": "T5结束、T6三分支及正阶定义域解释；非新增第七定理。",
+      "inventory_entry_ids": [
+        "iclr2024-sparse-theorem5",
+        "iclr2024-sparse-theorem6"
+      ]
+    },
+    {
+      "pdf_page": 26,
+      "source_id": "src-iclr2024-sparse-main",
+      "layout_checked": true,
+      "image_checked": false,
+      "finding": "T6临界阶换序与Beta第一项；自由S、空L源问题保留。",
+      "inventory_entry_ids": [
+        "iclr2024-sparse-theorem6"
+      ]
+    },
+    {
+      "pdf_page": 27,
+      "source_id": "src-iclr2024-sparse-main",
+      "layout_checked": true,
+      "image_checked": false,
+      "finding": "T6所有收尾式与C.1实验设置；没有忽略最后一页证明收尾。",
+      "inventory_entry_ids": [
+        "iclr2024-sparse-theorem6",
+        "iclr2024-sparse-experiments"
+      ]
+    },
+    {
+      "pdf_page": 28,
+      "source_id": "src-iclr2024-sparse-main",
+      "layout_checked": true,
+      "image_checked": false,
+      "finding": "C.1/C.2/D.1模型与变量选择设置，只有外引/经验材料。",
+      "inventory_entry_ids": [
+        "iclr2024-sparse-experiments"
+      ]
+    },
+    {
+      "pdf_page": 29,
+      "source_id": "src-iclr2024-sparse-main",
+      "layout_checked": true,
+      "image_checked": false,
+      "finding": "D.2 Eq.(61)反向OR、Eq.(62)双零基线匹配、Eq.(63)优化；分量名/γ符号错保留。",
+      "inventory_entry_ids": [
+        "iclr2024-sparse-or-reverse",
+        "iclr2024-sparse-and-or-matching",
+        "iclr2024-sparse-and-or-optimization",
+        "iclr2024-sparse-experiments"
+      ]
+    },
+    {
+      "pdf_page": 30,
+      "source_id": "src-iclr2024-sparse-main",
+      "layout_checked": true,
+      "image_checked": false,
+      "finding": "E.1/E.2图7–9及均值/归一化定义，经验近零没有改作精确零。",
+      "inventory_entry_ids": [
+        "iclr2024-sparse-experiments"
+      ]
+    },
+    {
+      "pdf_page": 31,
+      "source_id": "src-iclr2024-sparse-main",
+      "layout_checked": true,
+      "image_checked": false,
+      "finding": "E.2图10–11实测，不作为新的证明。",
+      "inventory_entry_ids": [
+        "iclr2024-sparse-experiments"
+      ]
+    },
+    {
+      "pdf_page": 32,
+      "source_id": "src-iclr2024-sparse-main",
+      "layout_checked": true,
+      "image_checked": false,
+      "finding": "E.2/E.3/E.4：条件适用范围、p与parity实验、区域尺寸实验；不能从经验推出全称。",
+      "inventory_entry_ids": [
+        "iclr2024-sparse-parity-task",
+        "iclr2024-sparse-experiments"
+      ]
+    },
+    {
+      "pdf_page": 33,
+      "source_id": "src-iclr2024-sparse-main",
+      "layout_checked": true,
+      "image_checked": false,
+      "finding": "E.4/E.5图与F阈值启发讨论；不存在一般非零效应与阈值之间的数学间隙证明。",
+      "inventory_entry_ids": [
+        "iclr2024-sparse-threshold-discussion",
+        "iclr2024-sparse-experiments"
+      ]
+    },
+    {
+      "pdf_page": 34,
+      "source_id": "src-iclr2024-sparse-main",
+      "layout_checked": true,
+      "image_checked": true,
+      "finding": "G展望、H完整二/三阶算例、I采样查询计数；H错误表项修正范围仅该例。",
+      "inventory_entry_ids": [
+        "iclr2024-sparse-monotonicity-example",
+        "iclr2024-sparse-sampling-complexity"
+      ]
+    }
+  ],
+  "reviewed_targets": [
+    "iclr2024-sparse-reconstruction",
+    "iclr2024-sparse-salient-approximation",
+    "iclr2024-sparse-lemma1",
+    "iclr2024-sparse-derivative-cutoff",
+    "iclr2024-sparse-lemma2",
+    "iclr2024-sparse-lemma3",
+    "iclr2024-sparse-theorem2",
+    "iclr2024-sparse-asymptotic-claim",
+    "iclr2024-sparse-theorem3",
+    "iclr2024-sparse-axiom-linearity",
+    "iclr2024-sparse-axiom-dummy",
+    "iclr2024-sparse-axiom-symmetry",
+    "iclr2024-sparse-axiom-anonymity",
+    "iclr2024-sparse-axiom-recursive",
+    "iclr2024-sparse-axiom-distribution",
+    "iclr2024-sparse-lemma4",
+    "iclr2024-sparse-theorem4",
+    "iclr2024-sparse-theorem5",
+    "iclr2024-sparse-theorem6",
+    "iclr2024-sparse-noise-linearity",
+    "iclr2024-sparse-noise-variance",
+    "iclr2024-sparse-parity-mask",
+    "iclr2024-sparse-transfer-inference",
+    "iclr2024-sparse-or-reverse",
+    "iclr2024-sparse-and-or-matching",
+    "iclr2024-sparse-monotonicity-example",
+    "iclr2024-sparse-sampling-complexity"
+  ],
+  "findings": [
+    {
+      "issue_id": "sparse-issue-asymptotic-sparsity",
+      "severity": "source_inference_counterexample",
+      "source_pages": [
+        8
+      ],
+      "impact": "Case2 non-exponential-cancellation-implies-relative-sparsity inference only; exact T2/T3 unaffected",
+      "evidence_path": "research/full-proof-integration-20260930/cvpr2023/review-findings/sparse-case2-counterexample.md",
+      "counterexample_checked": true,
+      "root_independently_checked": true,
+      "fix_authorization": "proof_only_granted",
+      "statement_fix_authorization": "not_granted"
+    },
+    {
+      "issue_id": "sparse-issue-taylor-validity",
+      "severity": "source_scope_gap",
+      "source_pages": [
+        5,
+        15,
+        16
+      ],
+      "impact": "Flat-function counterexample refutes independent general-smooth reading, not supplied-valid-Taylor reading or full-space 1beta cutoff",
+      "existing_issue_independently_checked": true
+    },
+    {
+      "issue_id": "sparse-issue-T2-parameter-domain",
+      "severity": "source_parameter_scope_gap",
+      "source_pages": [
+        5,
+        7,
+        18,
+        19
+      ],
+      "impact": "Positive defined domain is proved, including M=n and mu1=0; zero-M reading contradicts nonzero aggregate and remains separate",
+      "existing_issue_independently_checked": true
+    }
+  ],
+  "remaining_limits": [
+    "No replication of empirical figures, data, model training, or statistical tests.",
+    "No independent peer review of this reviewer own generic attribution/analytic proof bodies; root reviewed them separately.",
+    "Scenario3/4 are explicitly unquantified source discussions, not verified universal claims.",
+    "General infinite Taylor result, undefined zero ratios, zero-M source reading, and transfer statement are not silently repaired by strengthening premises."
+  ],
+  "files_read_snapshot": [
+    {
+      "path": "research/paper-survey-20260930/recent/pdf/iclr2024-sparse.pdf",
+      "sha256": "9f380ff7d659d8b414e2cdb70edf9dcc8d0e4108240a1f506c2337664e7c8f45"
+    },
+    {
+      "path": "research/full-proof-integration-20260930/iclr2024-sparse/inventory.json",
+      "sha256": "1a9d9f449b422ff999930ecd40b84ce964b6bdb9ea9027721534b46ce53b3198"
+    },
+    {
+      "path": "research/full-proof-integration-20260930/iclr2024-sparse/content.json",
+      "sha256": "bf430b796b72418062c0d99bfc230f05ea1c33b7fab1ff8a4a08ff6745b93016"
+    },
+    {
+      "path": "research/full-proof-integration-20260930/iclr2024-sparse/issues.json",
+      "sha256": "1c17f1f1b367deb5c0a6b5717a694c998dece3ab82fa93ce2e2b99794fc904b4"
+    },
+    {
+      "path": "research/full-proof-integration-20260930/iclr2024-sparse/math/author-statements.tex.md",
+      "sha256": "88aaed345d904ddd2daaf52ac61e53754d34ab4d6fa2926a6a06e9ca1cc8d8e8"
+    },
+    {
+      "path": "research/full-proof-integration-20260930/iclr2024-sparse/math/author-proofs.tex.md",
+      "sha256": "7f2b967e740502e530d2d59d2608f0a5b45b00e96cf79be538224523872b355c"
+    },
+    {
+      "path": "research/full-proof-integration-20260930/iclr2024-sparse/math/rewrites.zh.md",
+      "sha256": "b4c6a32adce6bbedd8b1148fa3a61f371cea6b0eb12170f4f7b37c2deedcb073"
+    },
+    {
+      "path": "research/full-proof-integration-20260930/iclr2024-sparse/lean/FullSparse.lean",
+      "sha256": "c02b7206d1969a2d59e281efe5e1f960332a698f05ae78e57df270cead4efc90"
+    },
+    {
+      "path": "lean/HarsanyiLib/Harsanyi/Extensions/Sparsity.lean",
+      "sha256": "6dbc6fad36694a6d87065d8f7ac68845796d1ef57a532a89f0fa945f9a349d4e"
+    },
+    {
+      "path": "research/full-proof-integration-20260930/iclr2024-sparse/verification/report.json",
+      "sha256": "ee9ab3cba131c2a88d254499802effeac2e6a77c3dc79d160181005648c368b5"
+    },
+    {
+      "path": "research/full-proof-integration-20260930/cvpr2023/lean/SparseDerivativeAdapter.lean",
+      "sha256": "40c4fe175b2936741eee07f6b7e5361025cf8d5e4ad1902ab2a7221fe72d926b"
+    },
+    {
+      "path": "lean/HarsanyiLib/Harsanyi/Extensions/DerivativeCutoff.lean",
+      "sha256": "2665e9a856d8a7cd5a8dffa749619f7c667b7e874876131dcd0adcbc7bcb8348"
+    },
+    {
+      "path": "research/full-proof-integration-20260930/cvpr2023/verification/derivative-report.json",
+      "sha256": "7ed3044a7015416db605737a0cedf1732ca9d30ba378a25b13e80b843ae7216e"
+    }
+  ]
+}

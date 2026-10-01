@@ -1,0 +1,26 @@
+{
+  "arxiv_id": "2003.08365",
+  "version": "v2",
+  "title": "Deep Quaternion Features for Privacy Protection",
+  "authors": [
+    "Hao Zhang",
+    "Yiting Chen",
+    "Liyao Xiang",
+    "Haotian Ma",
+    "Jie Shi",
+    "Quanshi Zhang"
+  ],
+  "first_public_date": "2020-03-18T17:38:24Z",
+  "updated": "2020-06-21T09:37:52Z",
+  "journal_ref": null,
+  "source_url": "https://arxiv.org/abs/2003.08365v2",
+  "pdf_url": "https://arxiv.org/pdf/2003.08365v2",
+  "retrieved_at": "2026-09-30T07:03:05.312863+00:00",
+  "attempts": [],
+  "local_pdf": "research/paper-survey-20260930/earlier/papers/2003.08365/2003.08365v2.pdf",
+  "sha256": "d7cc2bbd068cdb900cd063a8a5a941e7d6aac304753c06fea97c1515d3a755cf",
+  "total_pages": 10,
+  "first_page": "                                                                  Deep Quaternion Features for Privacy Protection\n\n\n                                                        Hao Zhang * 1 Yiting Chen * 1 Haotian Ma 2 Liyao Xiang 1 Jie Shi 3 Quanshi Zhang 1\n\n\n                                                                   Abstract                                         (I)\n                                               We propose a method to revise the neural network\n                                               to construct the quaternion-valued neural network                          (Fooling parts)\narXiv:2003.08365v2 [cs.LG] 21 Jun 2020\n\n\n\n\n                                               (QNN), in order to prevent intermediate-layer fea-\n                                               tures from leaking input information. The QNN                                                            Encrypt\n                                               uses quaternion-valued features, where each el-                   Input\n                                               ement is a quaternion. The QNN hides input\n                                                                                                                            Encoder\n                                               information into a random phase of quaternion-\n                                                                                                                                                        Revised layers\n                                               valued features. Even if attackers have obtained\n                                               network parameters and intermediate-layer fea-\n                                               tures, they cannot extract input information with-                                Decrypt\n                                               out knowing the target phase. In this way, the\n                                               QNN can effectively protect the input privacy. Be-\n                                               sides, the output accuracy of QNNs only degrades                   (III)                              Attacker            (II)\n                                               mildly compared to traditional neural networks,\n                                               and the computational cost is much less than other            Figure 1. Overview of the QNN. The encoder module (I) is located\n                                               privacy-preserving methods.                                   at the local device. The traditional real-valued feature a is extracted\n                                               The QNN can be further extended to rotation-                  and converted into a quaternion-valued tensor for encryption. The\n                                               equivariant neural networks based on d-ary                    quaternion-valued feature is rotated by θ. The rotated feature is\n                                                                                                             processed by the processing module (II) which satisfies the rotation\n                                               hypercomplex-valued features with better perfor-\n                                                                                                             equivariance property. The decoder module (III) uses θ to decrypt\n                                            ",
+  "status": "downloaded_extracted_requires_manual_review",
+  "automatic_heading_hits": []
+}

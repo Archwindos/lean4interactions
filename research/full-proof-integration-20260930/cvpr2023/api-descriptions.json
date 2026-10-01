@@ -1,0 +1,1302 @@
+{
+  "schema_version": 1,
+  "description_scope": "new public Extensions only; actual signatures stay in audited registry",
+  "declarations": {
+    "Harsanyi.higherMarginal": {
+      "description_zh": "定义高阶有限边际，并严格分解为包含全部差分变量的交互。",
+      "key_preconditions_md": "差分变量T与环境S须不相交；全部子集包含空集，不要求g空为零。",
+      "shared_proof_ids": [
+        "shared-harsanyi-marginal-decomposition"
+      ],
+      "examples": [
+        {
+          "path": "research/full-proof-integration-20260930/cvpr2023/lean/FullCvpr.lean",
+          "kind": "actual_compiled_paper_adapter"
+        }
+      ],
+      "declaration": "Harsanyi.higherMarginal",
+      "source_path": "lean/HarsanyiLib/Harsanyi/Extensions/Attribution.lean",
+      "line": 10,
+      "import": "Harsanyi.Extensions.Attribution",
+      "verification_report_path": "research/full-proof-integration-20260930/cvpr2023/verification/report.json"
+    },
+    "Harsanyi.reconstruct_union_disjoint": {
+      "description_zh": "把两个不相交有限集合上的重构和分成两层子集和。",
+      "key_preconditions_md": "两个有限集合不相交；系数函数任意。",
+      "shared_proof_ids": [
+        "shared-harsanyi-marginal-decomposition"
+      ],
+      "examples": [
+        {
+          "path": "research/full-proof-integration-20260930/cvpr2023/lean/FullCvpr.lean",
+          "kind": "actual_compiled_paper_adapter"
+        }
+      ],
+      "declaration": "Harsanyi.reconstruct_union_disjoint",
+      "source_path": "lean/HarsanyiLib/Harsanyi/Extensions/Attribution.lean",
+      "line": 14,
+      "import": "Harsanyi.Extensions.Attribution",
+      "verification_report_path": "research/full-proof-integration-20260930/cvpr2023/verification/report.json"
+    },
+    "Harsanyi.higherMarginal_eq_sum_interaction": {
+      "description_zh": "定义高阶有限边际，并严格分解为包含全部差分变量的交互。",
+      "key_preconditions_md": "差分变量T与环境S须不相交；全部子集包含空集，不要求g空为零。",
+      "shared_proof_ids": [
+        "shared-harsanyi-marginal-decomposition"
+      ],
+      "examples": [
+        {
+          "path": "research/full-proof-integration-20260930/cvpr2023/lean/FullCvpr.lean",
+          "kind": "actual_compiled_paper_adapter"
+        }
+      ],
+      "declaration": "Harsanyi.higherMarginal_eq_sum_interaction",
+      "source_path": "lean/HarsanyiLib/Harsanyi/Extensions/Attribution.lean",
+      "line": 32,
+      "import": "Harsanyi.Extensions.Attribution",
+      "verification_report_path": "research/full-proof-integration-20260930/cvpr2023/verification/report.json"
+    },
+    "Harsanyi.interaction_symmetry": {
+      "description_zh": "局部等效合作使加入两个变量的交互相等。",
+      "key_preconditions_md": "i,j不在S；对每个U⊆S，加入i与加入j输出相同；不要求i≠j。",
+      "shared_proof_ids": [
+        "shared-harsanyi-symmetry"
+      ],
+      "examples": [
+        {
+          "path": "research/full-proof-integration-20260930/cvpr2023/lean/FullCvpr.lean",
+          "kind": "actual_compiled_paper_adapter"
+        }
+      ],
+      "declaration": "Harsanyi.interaction_symmetry",
+      "source_path": "lean/HarsanyiLib/Harsanyi/Extensions/Attribution.lean",
+      "line": 53,
+      "import": "Harsanyi.Extensions.Attribution",
+      "verification_report_path": "research/full-proof-integration-20260930/cvpr2023/verification/report.json"
+    },
+    "Harsanyi.interaction_context_difference": {
+      "description_zh": "增加变量的交互等于该变量始终在场的条件交互减原交互。",
+      "key_preconditions_md": "i∉S；条件游戏空值为g({i})，不默认零。",
+      "shared_proof_ids": [
+        "shared-harsanyi-recursive"
+      ],
+      "examples": [
+        {
+          "path": "research/full-proof-integration-20260930/cvpr2023/lean/FullCvpr.lean",
+          "kind": "actual_compiled_paper_adapter"
+        }
+      ],
+      "declaration": "Harsanyi.interaction_context_difference",
+      "source_path": "lean/HarsanyiLib/Harsanyi/Extensions/Attribution.lean",
+      "line": 63,
+      "import": "Harsanyi.Extensions.Attribution",
+      "verification_report_path": "research/full-proof-integration-20260930/cvpr2023/verification/report.json"
+    },
+    "Harsanyi.interaction_additive_dummy_nonempty": {
+      "description_zh": "非空环境中恒定加法边际的含该变量交互为零。",
+      "key_preconditions_md": "i∉S且S非空；每个U⊆S的边际同为常数c。不能用于CVPR原空集量词。",
+      "shared_proof_ids": [
+        "shared-harsanyi-dummy-nonempty"
+      ],
+      "examples": [
+        {
+          "path": "research/full-proof-integration-20260930/cvpr2023/lean/FullCvpr.lean",
+          "kind": "actual_compiled_paper_adapter"
+        }
+      ],
+      "declaration": "Harsanyi.interaction_additive_dummy_nonempty",
+      "source_path": "lean/HarsanyiLib/Harsanyi/Extensions/Attribution.lean",
+      "line": 72,
+      "import": "Harsanyi.Extensions.Attribution",
+      "verification_report_path": "research/full-proof-integration-20260930/cvpr2023/verification/report.json"
+    },
+    "Harsanyi.factorial_powerset_sum": {
+      "description_zh": "对所有有限子集计算阶乘卷积的精确闭式，含全零参数。",
+      "key_preconditions_md": "a,b为自然数，R有限；a=0、b=0、R空都包括。",
+      "shared_proof_ids": [
+        "shared-harsanyi-factorial-convolution"
+      ],
+      "examples": [
+        {
+          "path": "research/full-proof-integration-20260930/cvpr2023/lean/FullCvpr.lean",
+          "kind": "actual_compiled_paper_adapter"
+        }
+      ],
+      "declaration": "Harsanyi.factorial_powerset_sum",
+      "source_path": "lean/HarsanyiLib/Harsanyi/Extensions/Attribution.lean",
+      "line": 84,
+      "import": "Harsanyi.Extensions.Attribution",
+      "verification_report_path": "research/full-proof-integration-20260930/cvpr2023/verification/report.json"
+    },
+    "Harsanyi.sum_supersets_eq_sum_complement": {
+      "description_zh": "把包含固定L的子集和换成补集内自由子集和。",
+      "key_preconditions_md": "L⊆N；S=L∪U，U⊆N\\\\L；任意实值函数f。",
+      "shared_proof_ids": [
+        "shared-harsanyi-factorial-convolution"
+      ],
+      "examples": [
+        {
+          "path": "research/full-proof-integration-20260930/cvpr2023/lean/FullCvpr.lean",
+          "kind": "actual_compiled_paper_adapter"
+        }
+      ],
+      "declaration": "Harsanyi.sum_supersets_eq_sum_complement",
+      "source_path": "lean/HarsanyiLib/Harsanyi/Extensions/Attribution.lean",
+      "line": 131,
+      "import": "Harsanyi.Extensions.Attribution",
+      "verification_report_path": "research/full-proof-integration-20260930/cvpr2023/verification/report.json"
+    },
+    "Harsanyi.factorialWeight": {
+      "description_zh": "定义统一的有限阶乘权重。",
+      "key_preconditions_md": "定义对自然数参数总定义；归因闭式定理另要求k>0及相应子集基数界。",
+      "shared_proof_ids": [
+        "shared-harsanyi-factorial-convolution"
+      ],
+      "examples": [
+        {
+          "path": "research/full-proof-integration-20260930/cvpr2023/lean/FullCvpr.lean",
+          "kind": "actual_compiled_paper_adapter"
+        }
+      ],
+      "declaration": "Harsanyi.factorialWeight",
+      "source_path": "lean/HarsanyiLib/Harsanyi/Extensions/Attribution.lean",
+      "line": 167,
+      "import": "Harsanyi.Extensions.Attribution",
+      "verification_report_path": "research/full-proof-integration-20260930/cvpr2023/verification/report.json"
+    },
+    "Harsanyi.factorialWeight_superset_sum": {
+      "description_zh": "包含固定子集的统一权重和等于阶乘比。",
+      "key_preconditions_md": "k>0；L⊆N；空L和L=N包括。",
+      "shared_proof_ids": [
+        "shared-harsanyi-factorial-convolution"
+      ],
+      "examples": [
+        {
+          "path": "research/full-proof-integration-20260930/cvpr2023/lean/FullCvpr.lean",
+          "kind": "actual_compiled_paper_adapter"
+        }
+      ],
+      "declaration": "Harsanyi.factorialWeight_superset_sum",
+      "source_path": "lean/HarsanyiLib/Harsanyi/Extensions/Attribution.lean",
+      "line": 172,
+      "import": "Harsanyi.Extensions.Attribution",
+      "verification_report_path": "research/full-proof-integration-20260930/cvpr2023/verification/report.json"
+    },
+    "Harsanyi.sum_powerset_extend": {
+      "description_zh": "把小集合的子集和延到总体并按包含关系置零。",
+      "key_preconditions_md": "S⊆N；系数函数任意；包括空集。",
+      "shared_proof_ids": [
+        "proof-finite-mobius-reconstruction-v2"
+      ],
+      "examples": [
+        {
+          "path": "research/full-proof-integration-20260930/cvpr2023/lean/FullCvpr.lean",
+          "kind": "actual_compiled_paper_adapter"
+        }
+      ],
+      "declaration": "Harsanyi.sum_powerset_extend",
+      "source_path": "lean/HarsanyiLib/Harsanyi/Extensions/Attribution.lean",
+      "line": 208,
+      "import": "Harsanyi.Extensions.Attribution",
+      "verification_report_path": "research/full-proof-integration-20260930/cvpr2023/verification/report.json"
+    },
+    "Harsanyi.weighted_higherMarginal_eq": {
+      "description_zh": "统一阶乘权重的边际和变成交互的二项系数权重和。",
+      "key_preconditions_md": "k>0；T与有限环境N不相交；原始输出基线可以非零。",
+      "shared_proof_ids": [
+        "shared-harsanyi-factorial-convolution"
+      ],
+      "examples": [
+        {
+          "path": "research/full-proof-integration-20260930/cvpr2023/lean/FullCvpr.lean",
+          "kind": "actual_compiled_paper_adapter"
+        }
+      ],
+      "declaration": "Harsanyi.weighted_higherMarginal_eq",
+      "source_path": "lean/HarsanyiLib/Harsanyi/Extensions/Attribution.lean",
+      "line": 220,
+      "import": "Harsanyi.Extensions.Attribution",
+      "verification_report_path": "research/full-proof-integration-20260930/cvpr2023/verification/report.json"
+    },
+    "Harsanyi.factorial_ratio_eq_choose_inv": {
+      "description_zh": "把实数阶乘比转换为二项系数倒数。",
+      "key_preconditions_md": "a,k为自然数；实数转换和阶乘非零已在证明中处理。",
+      "shared_proof_ids": [
+        "shared-harsanyi-factorial-convolution"
+      ],
+      "examples": [
+        {
+          "path": "research/full-proof-integration-20260930/cvpr2023/lean/FullCvpr.lean",
+          "kind": "actual_compiled_paper_adapter"
+        }
+      ],
+      "declaration": "Harsanyi.factorial_ratio_eq_choose_inv",
+      "source_path": "lean/HarsanyiLib/Harsanyi/Extensions/Attribution.lean",
+      "line": 249,
+      "import": "Harsanyi.Extensions.Attribution",
+      "verification_report_path": "research/full-proof-integration-20260930/cvpr2023/verification/report.json"
+    },
+    "Harsanyi.factorialWeight_one": {
+      "description_zh": "在k=1时统一权重等于经典阶乘权重。",
+      "key_preconditions_md": "此为代数恒等式；具体归因应用另外核对s≤m。",
+      "shared_proof_ids": [
+        "shared-harsanyi-factorial-convolution"
+      ],
+      "examples": [
+        {
+          "path": "research/full-proof-integration-20260930/cvpr2023/lean/FullCvpr.lean",
+          "kind": "actual_compiled_paper_adapter"
+        }
+      ],
+      "declaration": "Harsanyi.factorialWeight_one",
+      "source_path": "lean/HarsanyiLib/Harsanyi/Extensions/Attribution.lean",
+      "line": 262,
+      "import": "Harsanyi.Extensions.Attribution",
+      "verification_report_path": "research/full-proof-integration-20260930/cvpr2023/verification/report.json"
+    },
+    "Harsanyi.factorialWeight_eq_inv_choose": {
+      "description_zh": "在合法最高阶环境界内，统一权重等于STI原k/n倒二项式权重。",
+      "key_preconditions_md": "k>0且s≤m；n=m+k因而非零。",
+      "shared_proof_ids": [
+        "shared-harsanyi-shapley-taylor-dividend"
+      ],
+      "examples": [
+        {
+          "path": "research/full-proof-integration-20260930/cvpr2023/lean/FullCvpr.lean",
+          "kind": "actual_compiled_paper_adapter"
+        }
+      ],
+      "declaration": "Harsanyi.factorialWeight_eq_inv_choose",
+      "source_path": "lean/HarsanyiLib/Harsanyi/Extensions/Attribution.lean",
+      "line": 268,
+      "import": "Harsanyi.Extensions.Attribution",
+      "verification_report_path": "research/full-proof-integration-20260930/cvpr2023/verification/report.json"
+    },
+    "Harsanyi.factorialShapley": {
+      "description_zh": "以经典阶乘边际定义Shapley并证明交互均分闭式。",
+      "key_preconditions_md": "定理要求i∈N；N有限，n≥1；g空可非零但基线不分配。",
+      "shared_proof_ids": [
+        "shared-harsanyi-shapley-dividend"
+      ],
+      "examples": [
+        {
+          "path": "research/full-proof-integration-20260930/cvpr2023/lean/FullCvpr.lean",
+          "kind": "actual_compiled_paper_adapter"
+        }
+      ],
+      "declaration": "Harsanyi.factorialShapley",
+      "source_path": "lean/HarsanyiLib/Harsanyi/Extensions/Attribution.lean",
+      "line": 300,
+      "import": "Harsanyi.Extensions.Attribution",
+      "verification_report_path": "research/full-proof-integration-20260930/cvpr2023/verification/report.json"
+    },
+    "Harsanyi.factorialShapleyInteraction": {
+      "description_zh": "以原SII阶乘边际定义目标集合的Shapley interaction并证明交互展开。",
+      "key_preconditions_md": "T⊆N；空目标与完整总体目标都包括；不把T内玩家逐个归因。",
+      "shared_proof_ids": [
+        "shared-harsanyi-shapley-interaction-dividend"
+      ],
+      "examples": [
+        {
+          "path": "research/full-proof-integration-20260930/cvpr2023/lean/FullCvpr.lean",
+          "kind": "actual_compiled_paper_adapter"
+        }
+      ],
+      "declaration": "Harsanyi.factorialShapleyInteraction",
+      "source_path": "lean/HarsanyiLib/Harsanyi/Extensions/Attribution.lean",
+      "line": 306,
+      "import": "Harsanyi.Extensions.Attribution",
+      "verification_report_path": "research/full-proof-integration-20260930/cvpr2023/verification/report.json"
+    },
+    "Harsanyi.shapleyTaylor": {
+      "description_zh": "按原三分支定义STI并证明正阶闭式。",
+      "key_preconditions_md": "闭式定理要求T⊆N、k>0；原论文只写第k阶，正阶域解释不能伪称原文显式写不等式。k=0未属当前核验范围。",
+      "shared_proof_ids": [
+        "shared-harsanyi-shapley-taylor-dividend"
+      ],
+      "examples": [
+        {
+          "path": "research/full-proof-integration-20260930/cvpr2023/lean/FullCvpr.lean",
+          "kind": "actual_compiled_paper_adapter"
+        }
+      ],
+      "declaration": "Harsanyi.shapleyTaylor",
+      "source_path": "lean/HarsanyiLib/Harsanyi/Extensions/Attribution.lean",
+      "line": 312,
+      "import": "Harsanyi.Extensions.Attribution",
+      "verification_report_path": "research/full-proof-integration-20260930/cvpr2023/verification/report.json"
+    },
+    "Harsanyi.factorialShapley_eq_dividends": {
+      "description_zh": "以经典阶乘边际定义Shapley并证明交互均分闭式。",
+      "key_preconditions_md": "定理要求i∈N；N有限，n≥1；g空可非零但基线不分配。",
+      "shared_proof_ids": [
+        "shared-harsanyi-shapley-dividend"
+      ],
+      "examples": [
+        {
+          "path": "research/full-proof-integration-20260930/cvpr2023/lean/FullCvpr.lean",
+          "kind": "actual_compiled_paper_adapter"
+        }
+      ],
+      "declaration": "Harsanyi.factorialShapley_eq_dividends",
+      "source_path": "lean/HarsanyiLib/Harsanyi/Extensions/Attribution.lean",
+      "line": 319,
+      "import": "Harsanyi.Extensions.Attribution",
+      "verification_report_path": "research/full-proof-integration-20260930/cvpr2023/verification/report.json"
+    },
+    "Harsanyi.factorialShapleyInteraction_eq_dividends": {
+      "description_zh": "以原SII阶乘边际定义目标集合的Shapley interaction并证明交互展开。",
+      "key_preconditions_md": "T⊆N；空目标与完整总体目标都包括；不把T内玩家逐个归因。",
+      "shared_proof_ids": [
+        "shared-harsanyi-shapley-interaction-dividend"
+      ],
+      "examples": [
+        {
+          "path": "research/full-proof-integration-20260930/cvpr2023/lean/FullCvpr.lean",
+          "kind": "actual_compiled_paper_adapter"
+        }
+      ],
+      "declaration": "Harsanyi.factorialShapleyInteraction_eq_dividends",
+      "source_path": "lean/HarsanyiLib/Harsanyi/Extensions/Attribution.lean",
+      "line": 341,
+      "import": "Harsanyi.Extensions.Attribution",
+      "verification_report_path": "research/full-proof-integration-20260930/cvpr2023/verification/report.json"
+    },
+    "Harsanyi.shapleyTaylor_eq_dividends": {
+      "description_zh": "按原三分支定义STI并证明正阶闭式。",
+      "key_preconditions_md": "闭式定理要求T⊆N、k>0；原论文只写第k阶，正阶域解释不能伪称原文显式写不等式。k=0未属当前核验范围。",
+      "shared_proof_ids": [
+        "shared-harsanyi-shapley-taylor-dividend"
+      ],
+      "examples": [
+        {
+          "path": "research/full-proof-integration-20260930/cvpr2023/lean/FullCvpr.lean",
+          "kind": "actual_compiled_paper_adapter"
+        }
+      ],
+      "declaration": "Harsanyi.shapleyTaylor_eq_dividends",
+      "source_path": "lean/HarsanyiLib/Harsanyi/Extensions/Attribution.lean",
+      "line": 361,
+      "import": "Harsanyi.Extensions.Attribution",
+      "verification_report_path": "research/full-proof-integration-20260930/cvpr2023/verification/report.json"
+    },
+    "Harsanyi.dividendAllocation_eq_insert_sum": {
+      "description_zh": "把环境子集索引改成含i的交互集合，并对接原Shapley按|S|均分式。",
+      "key_preconditions_md": "i∈N；U↔U∪{i}是一一对应；空交互不参与。",
+      "shared_proof_ids": [
+        "shared-harsanyi-shapley-dividend"
+      ],
+      "examples": [
+        {
+          "path": "research/full-proof-integration-20260930/cvpr2023/lean/FullGeneralizable.lean",
+          "kind": "actual_compiled_paper_adapter"
+        }
+      ],
+      "declaration": "Harsanyi.dividendAllocation_eq_insert_sum",
+      "source_path": "lean/HarsanyiLib/Harsanyi/Extensions/Attribution.lean",
+      "line": 391,
+      "import": "Harsanyi.Extensions.Attribution",
+      "verification_report_path": "research/full-proof-integration-20260930/cvpr2023/verification/report.json"
+    },
+    "Harsanyi.factorialShapley_eq_dividendAllocation": {
+      "description_zh": "把环境子集索引改成含i的交互集合，并对接原Shapley按|S|均分式。",
+      "key_preconditions_md": "i∈N；U↔U∪{i}是一一对应；空交互不参与。",
+      "shared_proof_ids": [
+        "shared-harsanyi-shapley-dividend"
+      ],
+      "examples": [
+        {
+          "path": "research/full-proof-integration-20260930/cvpr2023/lean/FullGeneralizable.lean",
+          "kind": "actual_compiled_paper_adapter"
+        }
+      ],
+      "declaration": "Harsanyi.factorialShapley_eq_dividendAllocation",
+      "source_path": "lean/HarsanyiLib/Harsanyi/Extensions/Attribution.lean",
+      "line": 418,
+      "import": "Harsanyi.Extensions.Attribution",
+      "verification_report_path": "research/full-proof-integration-20260930/cvpr2023/verification/report.json"
+    },
+    "Harsanyi.orInteraction": {
+      "description_zh": "定义非空补集负AND变换及独立空OR基线，证明全部掩码OR重构。",
+      "key_preconditions_md": "重构定理要求T⊆N；OR空集定义为g空，不能沿用非空的−I_gc公式。",
+      "shared_proof_ids": [
+        "shared-harsanyi-or-reconstruction"
+      ],
+      "examples": [
+        {
+          "path": "research/full-proof-integration-20260930/cvpr2023/lean/FullGeneralizable.lean",
+          "kind": "actual_compiled_paper_adapter"
+        }
+      ],
+      "declaration": "Harsanyi.orInteraction",
+      "source_path": "lean/HarsanyiLib/Harsanyi/Extensions/OrInteraction.lean",
+      "line": 10,
+      "import": "Harsanyi.Extensions.OrInteraction",
+      "verification_report_path": "research/full-proof-integration-20260930/cvpr2023/verification/report.json"
+    },
+    "Harsanyi.orReconstruction": {
+      "description_zh": "定义非空补集负AND变换及独立空OR基线，证明全部掩码OR重构。",
+      "key_preconditions_md": "重构定理要求T⊆N；OR空集定义为g空，不能沿用非空的−I_gc公式。",
+      "shared_proof_ids": [
+        "shared-harsanyi-or-reconstruction"
+      ],
+      "examples": [
+        {
+          "path": "research/full-proof-integration-20260930/cvpr2023/lean/FullGeneralizable.lean",
+          "kind": "actual_compiled_paper_adapter"
+        }
+      ],
+      "declaration": "Harsanyi.orReconstruction",
+      "source_path": "lean/HarsanyiLib/Harsanyi/Extensions/OrInteraction.lean",
+      "line": 13,
+      "import": "Harsanyi.Extensions.OrInteraction",
+      "verification_report_path": "research/full-proof-integration-20260930/cvpr2023/verification/report.json"
+    },
+    "Harsanyi.activated_subset_sum": {
+      "description_zh": "相交模式族的和等于全部子集和减不相交子集和。",
+      "key_preconditions_md": "N,T任意有限集合；这一纯子集族恒等式本身不要求T⊆N。",
+      "shared_proof_ids": [
+        "shared-harsanyi-or-reconstruction"
+      ],
+      "examples": [
+        {
+          "path": "research/full-proof-integration-20260930/cvpr2023/lean/FullGeneralizable.lean",
+          "kind": "actual_compiled_paper_adapter"
+        }
+      ],
+      "declaration": "Harsanyi.activated_subset_sum",
+      "source_path": "lean/HarsanyiLib/Harsanyi/Extensions/OrInteraction.lean",
+      "line": 18,
+      "import": "Harsanyi.Extensions.OrInteraction",
+      "verification_report_path": "research/full-proof-integration-20260930/cvpr2023/verification/report.json"
+    },
+    "Harsanyi.or_reconstruction": {
+      "description_zh": "定义非空补集负AND变换及独立空OR基线，证明全部掩码OR重构。",
+      "key_preconditions_md": "重构定理要求T⊆N；OR空集定义为g空，不能沿用非空的−I_gc公式。",
+      "shared_proof_ids": [
+        "shared-harsanyi-or-reconstruction"
+      ],
+      "examples": [
+        {
+          "path": "research/full-proof-integration-20260930/cvpr2023/lean/FullGeneralizable.lean",
+          "kind": "actual_compiled_paper_adapter"
+        }
+      ],
+      "declaration": "Harsanyi.or_reconstruction",
+      "source_path": "lean/HarsanyiLib/Harsanyi/Extensions/OrInteraction.lean",
+      "line": 30,
+      "import": "Harsanyi.Extensions.OrInteraction",
+      "verification_report_path": "research/full-proof-integration-20260930/cvpr2023/verification/report.json"
+    },
+    "Harsanyi.or_dual": {
+      "description_zh": "非空OR等于反转掩码状态游戏的负AND交互。",
+      "key_preconditions_md": "S非空；整体负号必须保留；空OR另有定义。",
+      "shared_proof_ids": [
+        "shared-harsanyi-or-reconstruction"
+      ],
+      "examples": [
+        {
+          "path": "research/full-proof-integration-20260930/cvpr2023/lean/FullGeneralizable.lean",
+          "kind": "actual_compiled_paper_adapter"
+        }
+      ],
+      "declaration": "Harsanyi.or_dual",
+      "source_path": "lean/HarsanyiLib/Harsanyi/Extensions/OrInteraction.lean",
+      "line": 58,
+      "import": "Harsanyi.Extensions.OrInteraction",
+      "verification_report_path": "research/full-proof-integration-20260930/cvpr2023/verification/report.json"
+    },
+    "Harsanyi.maskCoordinates": {
+      "description_zh": "实际坐标掩码及二次掩码合成、幂等规则。",
+      "key_preconditions_md": "全部掩码使用同一输入基线r；输入x和r可以相等；合成集合为T∩L。",
+      "shared_proof_ids": [
+        "shared-harsanyi-or-reconstruction"
+      ],
+      "examples": [
+        {
+          "path": "research/full-proof-integration-20260930/cvpr2023/lean/FullGeneralizable.lean",
+          "kind": "actual_compiled_paper_adapter"
+        }
+      ],
+      "declaration": "Harsanyi.maskCoordinates",
+      "source_path": "lean/HarsanyiLib/Harsanyi/Extensions/OrInteraction.lean",
+      "line": 63,
+      "import": "Harsanyi.Extensions.OrInteraction",
+      "verification_report_path": "research/full-proof-integration-20260930/cvpr2023/verification/report.json"
+    },
+    "Harsanyi.maskCoordinates_comp": {
+      "description_zh": "实际坐标掩码及二次掩码合成、幂等规则。",
+      "key_preconditions_md": "全部掩码使用同一输入基线r；输入x和r可以相等；合成集合为T∩L。",
+      "shared_proof_ids": [
+        "shared-harsanyi-or-reconstruction"
+      ],
+      "examples": [
+        {
+          "path": "research/full-proof-integration-20260930/cvpr2023/lean/FullGeneralizable.lean",
+          "kind": "actual_compiled_paper_adapter"
+        }
+      ],
+      "declaration": "Harsanyi.maskCoordinates_comp",
+      "source_path": "lean/HarsanyiLib/Harsanyi/Extensions/OrInteraction.lean",
+      "line": 67,
+      "import": "Harsanyi.Extensions.OrInteraction",
+      "verification_report_path": "research/full-proof-integration-20260930/cvpr2023/verification/report.json"
+    },
+    "Harsanyi.maskCoordinates_idempotent": {
+      "description_zh": "实际坐标掩码及二次掩码合成、幂等规则。",
+      "key_preconditions_md": "全部掩码使用同一输入基线r；输入x和r可以相等；合成集合为T∩L。",
+      "shared_proof_ids": [
+        "shared-harsanyi-or-reconstruction"
+      ],
+      "examples": [
+        {
+          "path": "research/full-proof-integration-20260930/cvpr2023/lean/FullGeneralizable.lean",
+          "kind": "actual_compiled_paper_adapter"
+        }
+      ],
+      "declaration": "Harsanyi.maskCoordinates_idempotent",
+      "source_path": "lean/HarsanyiLib/Harsanyi/Extensions/OrInteraction.lean",
+      "line": 73,
+      "import": "Harsanyi.Extensions.OrInteraction",
+      "verification_report_path": "research/full-proof-integration-20260930/cvpr2023/verification/report.json"
+    },
+    "Harsanyi.maskCoordinates_insert_absent": {
+      "description_zh": "已缺失坐标的再次保留不改变向量，故含该坐标的AND交互为零。",
+      "key_preconditions_md": "insert lemma要求i∉T；交互消失要求S不包含于T。原始输出不必零基线。",
+      "shared_proof_ids": [
+        "proof-finite-mobius-reconstruction-v2"
+      ],
+      "examples": [
+        {
+          "path": "research/full-proof-integration-20260930/cvpr2023/lean/FullGeneralizable.lean",
+          "kind": "actual_compiled_paper_adapter"
+        }
+      ],
+      "declaration": "Harsanyi.maskCoordinates_insert_absent",
+      "source_path": "lean/HarsanyiLib/Harsanyi/Extensions/OrInteraction.lean",
+      "line": 77,
+      "import": "Harsanyi.Extensions.OrInteraction",
+      "verification_report_path": "research/full-proof-integration-20260930/cvpr2023/verification/report.json"
+    },
+    "Harsanyi.conditionalCoordinateGame": {
+      "description_zh": "定义按原字面x_T再掩码的条件集合函数。",
+      "key_preconditions_md": "参数是实际模型、r、x、T；h_T(L)=v((x_T)_L)，不替换成固定原输入的系数。",
+      "shared_proof_ids": [
+        "shared-harsanyi-or-reconstruction"
+      ],
+      "examples": [
+        {
+          "path": "research/full-proof-integration-20260930/cvpr2023/lean/FullGeneralizable.lean",
+          "kind": "actual_compiled_paper_adapter"
+        }
+      ],
+      "declaration": "Harsanyi.conditionalCoordinateGame",
+      "source_path": "lean/HarsanyiLib/Harsanyi/Extensions/OrInteraction.lean",
+      "line": 88,
+      "import": "Harsanyi.Extensions.OrInteraction",
+      "verification_report_path": "research/full-proof-integration-20260930/cvpr2023/verification/report.json"
+    },
+    "Harsanyi.and_mask_interaction_zero": {
+      "description_zh": "已缺失坐标的再次保留不改变向量，故含该坐标的AND交互为零。",
+      "key_preconditions_md": "insert lemma要求i∉T；交互消失要求S不包含于T。原始输出不必零基线。",
+      "shared_proof_ids": [
+        "proof-finite-mobius-reconstruction-v2"
+      ],
+      "examples": [
+        {
+          "path": "research/full-proof-integration-20260930/cvpr2023/lean/FullGeneralizable.lean",
+          "kind": "actual_compiled_paper_adapter"
+        }
+      ],
+      "declaration": "Harsanyi.and_mask_interaction_zero",
+      "source_path": "lean/HarsanyiLib/Harsanyi/Extensions/OrInteraction.lean",
+      "line": 93,
+      "import": "Harsanyi.Extensions.OrInteraction",
+      "verification_report_path": "research/full-proof-integration-20260930/cvpr2023/verification/report.json"
+    },
+    "Harsanyi.maskCoordinates_complement": {
+      "description_zh": "字面条件样本再按补集掩码等于T\\L掩码。",
+      "key_preconditions_md": "T⊆N，二次使用同一个基线r。",
+      "shared_proof_ids": [
+        "shared-harsanyi-or-reconstruction"
+      ],
+      "examples": [
+        {
+          "path": "research/full-proof-integration-20260930/cvpr2023/lean/FullGeneralizable.lean",
+          "kind": "actual_compiled_paper_adapter"
+        }
+      ],
+      "declaration": "Harsanyi.maskCoordinates_complement",
+      "source_path": "lean/HarsanyiLib/Harsanyi/Extensions/OrInteraction.lean",
+      "line": 103,
+      "import": "Harsanyi.Extensions.OrInteraction",
+      "verification_report_path": "research/full-proof-integration-20260930/cvpr2023/verification/report.json"
+    },
+    "Harsanyi.orUnanimity": {
+      "description_zh": "纯OR触发函数的非空OR交互仅在其目标模式非零。",
+      "key_preconditions_md": "A⊆N且A非空；c任意实数；空OR基线单列。",
+      "shared_proof_ids": [
+        "shared-harsanyi-or-reconstruction"
+      ],
+      "examples": [
+        {
+          "path": "research/full-proof-integration-20260930/cvpr2023/lean/FullGeneralizable.lean",
+          "kind": "actual_compiled_paper_adapter"
+        }
+      ],
+      "declaration": "Harsanyi.orUnanimity",
+      "source_path": "lean/HarsanyiLib/Harsanyi/Extensions/OrInteraction.lean",
+      "line": 114,
+      "import": "Harsanyi.Extensions.OrInteraction",
+      "verification_report_path": "research/full-proof-integration-20260930/cvpr2023/verification/report.json"
+    },
+    "Harsanyi.orInteraction_unanimity": {
+      "description_zh": "纯OR触发函数的非空OR交互仅在其目标模式非零。",
+      "key_preconditions_md": "A⊆N且A非空；c任意实数；空OR基线单列。",
+      "shared_proof_ids": [
+        "shared-harsanyi-or-reconstruction"
+      ],
+      "examples": [
+        {
+          "path": "research/full-proof-integration-20260930/cvpr2023/lean/FullGeneralizable.lean",
+          "kind": "actual_compiled_paper_adapter"
+        }
+      ],
+      "declaration": "Harsanyi.orInteraction_unanimity",
+      "source_path": "lean/HarsanyiLib/Harsanyi/Extensions/OrInteraction.lean",
+      "line": 117,
+      "import": "Harsanyi.Extensions.OrInteraction",
+      "verification_report_path": "research/full-proof-integration-20260930/cvpr2023/verification/report.json"
+    },
+    "Harsanyi.linePartial": {
+      "description_zh": "真实一元坐标曲线导数与坐标值参数偏导的精确关系。",
+      "key_preconditions_md": "linePartial本身使用总函数deriv；用其零值推经典结论时须另提供真实存在条件。",
+      "shared_proof_ids": [
+        "shared-harsanyi-derivative-cutoff-mvt"
+      ],
+      "examples": [
+        {
+          "path": "research/full-proof-integration-20260930/cvpr2023/lean/SparseDerivativeAdapter.lean",
+          "kind": "actual_compiled_paper_adapter"
+        }
+      ],
+      "declaration": "Harsanyi.linePartial",
+      "source_path": "lean/HarsanyiLib/Harsanyi/Extensions/DerivativeCutoff.lean",
+      "line": 13,
+      "import": "Harsanyi.Extensions.DerivativeCutoff",
+      "verification_report_path": "research/full-proof-integration-20260930/cvpr2023/verification/derivative-report.json"
+    },
+    "Harsanyi.HasLineDerivatives": {
+      "description_zh": "显式保存每个有序前缀偏导沿下一坐标的真实可微性。",
+      "key_preconditions_md": "这不是C∞假设，也不能由C1一句替代；它是特定经典混合偏导存在的递归展开。",
+      "shared_proof_ids": [
+        "shared-harsanyi-derivative-cutoff-mvt"
+      ],
+      "examples": [
+        {
+          "path": "research/full-proof-integration-20260930/cvpr2023/lean/SparseDerivativeAdapter.lean",
+          "kind": "actual_compiled_paper_adapter"
+        }
+      ],
+      "declaration": "Harsanyi.HasLineDerivatives",
+      "source_path": "lean/HarsanyiLib/Harsanyi/Extensions/DerivativeCutoff.lean",
+      "line": 17,
+      "import": "Harsanyi.Extensions.DerivativeCutoff",
+      "verification_report_path": "research/full-proof-integration-20260930/cvpr2023/verification/derivative-report.json"
+    },
+    "Harsanyi.rectDifference": {
+      "description_zh": "定义有限矩形差分与实际坐标方向/实数步长列表。",
+      "key_preconditions_md": "步长可正、可负或零；有限差分本身无需模型可微。",
+      "shared_proof_ids": [
+        "shared-harsanyi-derivative-cutoff-mvt"
+      ],
+      "examples": [
+        {
+          "path": "research/full-proof-integration-20260930/cvpr2023/lean/SparseDerivativeAdapter.lean",
+          "kind": "actual_compiled_paper_adapter"
+        }
+      ],
+      "declaration": "Harsanyi.rectDifference",
+      "source_path": "lean/HarsanyiLib/Harsanyi/Extensions/DerivativeCutoff.lean",
+      "line": 21,
+      "import": "Harsanyi.Extensions.DerivativeCutoff",
+      "verification_report_path": "research/full-proof-integration-20260930/cvpr2023/verification/derivative-report.json"
+    },
+    "Harsanyi.orderedPartial": {
+      "description_zh": "按给定列表从左到右取真实混合偏导，坐标重复次数编码多重指标。",
+      "key_preconditions_md": "使用经典存在条件时必须配合regular；幅度不进入混合偏导。",
+      "shared_proof_ids": [
+        "shared-harsanyi-derivative-cutoff-mvt"
+      ],
+      "examples": [
+        {
+          "path": "research/full-proof-integration-20260930/cvpr2023/lean/SparseDerivativeAdapter.lean",
+          "kind": "actual_compiled_paper_adapter"
+        }
+      ],
+      "declaration": "Harsanyi.orderedPartial",
+      "source_path": "lean/HarsanyiLib/Harsanyi/Extensions/DerivativeCutoff.lean",
+      "line": 26,
+      "import": "Harsanyi.Extensions.DerivativeCutoff",
+      "verification_report_path": "research/full-proof-integration-20260930/cvpr2023/verification/derivative-report.json"
+    },
+    "Harsanyi.OrderedPartialRegular": {
+      "description_zh": "显式保存每个有序前缀偏导沿下一坐标的真实可微性。",
+      "key_preconditions_md": "这不是C∞假设，也不能由C1一句替代；它是特定经典混合偏导存在的递归展开。",
+      "shared_proof_ids": [
+        "shared-harsanyi-derivative-cutoff-mvt"
+      ],
+      "examples": [
+        {
+          "path": "research/full-proof-integration-20260930/cvpr2023/lean/SparseDerivativeAdapter.lean",
+          "kind": "actual_compiled_paper_adapter"
+        }
+      ],
+      "declaration": "Harsanyi.OrderedPartialRegular",
+      "source_path": "lean/HarsanyiLib/Harsanyi/Extensions/DerivativeCutoff.lean",
+      "line": 32,
+      "import": "Harsanyi.Extensions.DerivativeCutoff",
+      "verification_report_path": "research/full-proof-integration-20260930/cvpr2023/verification/derivative-report.json"
+    },
+    "Harsanyi.deriv_line_eq": {
+      "description_zh": "平移和有限加减使偏导与矩形差分交换。",
+      "key_preconditions_md": "涉及差法则或可微性保存时需要HasLineDerivatives；平移身份不使用混合偏导换序。",
+      "shared_proof_ids": [
+        "shared-harsanyi-derivative-cutoff-mvt"
+      ],
+      "examples": [
+        {
+          "path": "research/full-proof-integration-20260930/cvpr2023/lean/SparseDerivativeAdapter.lean",
+          "kind": "actual_compiled_paper_adapter"
+        }
+      ],
+      "declaration": "Harsanyi.deriv_line_eq",
+      "source_path": "lean/HarsanyiLib/Harsanyi/Extensions/DerivativeCutoff.lean",
+      "line": 36,
+      "import": "Harsanyi.Extensions.DerivativeCutoff",
+      "verification_report_path": "research/full-proof-integration-20260930/cvpr2023/verification/derivative-report.json"
+    },
+    "Harsanyi.hasLineDerivatives_translate": {
+      "description_zh": "平移和有限加减使偏导与矩形差分交换。",
+      "key_preconditions_md": "涉及差法则或可微性保存时需要HasLineDerivatives；平移身份不使用混合偏导换序。",
+      "shared_proof_ids": [
+        "shared-harsanyi-derivative-cutoff-mvt"
+      ],
+      "examples": [
+        {
+          "path": "research/full-proof-integration-20260930/cvpr2023/lean/SparseDerivativeAdapter.lean",
+          "kind": "actual_compiled_paper_adapter"
+        }
+      ],
+      "declaration": "Harsanyi.hasLineDerivatives_translate",
+      "source_path": "lean/HarsanyiLib/Harsanyi/Extensions/DerivativeCutoff.lean",
+      "line": 46,
+      "import": "Harsanyi.Extensions.DerivativeCutoff",
+      "verification_report_path": "research/full-proof-integration-20260930/cvpr2023/verification/derivative-report.json"
+    },
+    "Harsanyi.linePartial_translate": {
+      "description_zh": "平移和有限加减使偏导与矩形差分交换。",
+      "key_preconditions_md": "涉及差法则或可微性保存时需要HasLineDerivatives；平移身份不使用混合偏导换序。",
+      "shared_proof_ids": [
+        "shared-harsanyi-derivative-cutoff-mvt"
+      ],
+      "examples": [
+        {
+          "path": "research/full-proof-integration-20260930/cvpr2023/lean/SparseDerivativeAdapter.lean",
+          "kind": "actual_compiled_paper_adapter"
+        }
+      ],
+      "declaration": "Harsanyi.linePartial_translate",
+      "source_path": "lean/HarsanyiLib/Harsanyi/Extensions/DerivativeCutoff.lean",
+      "line": 53,
+      "import": "Harsanyi.Extensions.DerivativeCutoff",
+      "verification_report_path": "research/full-proof-integration-20260930/cvpr2023/verification/derivative-report.json"
+    },
+    "Harsanyi.linePartial_sub": {
+      "description_zh": "平移和有限加减使偏导与矩形差分交换。",
+      "key_preconditions_md": "涉及差法则或可微性保存时需要HasLineDerivatives；平移身份不使用混合偏导换序。",
+      "shared_proof_ids": [
+        "shared-harsanyi-derivative-cutoff-mvt"
+      ],
+      "examples": [
+        {
+          "path": "research/full-proof-integration-20260930/cvpr2023/lean/SparseDerivativeAdapter.lean",
+          "kind": "actual_compiled_paper_adapter"
+        }
+      ],
+      "declaration": "Harsanyi.linePartial_sub",
+      "source_path": "lean/HarsanyiLib/Harsanyi/Extensions/DerivativeCutoff.lean",
+      "line": 60,
+      "import": "Harsanyi.Extensions.DerivativeCutoff",
+      "verification_report_path": "research/full-proof-integration-20260930/cvpr2023/verification/derivative-report.json"
+    },
+    "Harsanyi.hasLineDerivatives_rectDifference": {
+      "description_zh": "平移和有限加减使偏导与矩形差分交换。",
+      "key_preconditions_md": "涉及差法则或可微性保存时需要HasLineDerivatives；平移身份不使用混合偏导换序。",
+      "shared_proof_ids": [
+        "shared-harsanyi-derivative-cutoff-mvt"
+      ],
+      "examples": [
+        {
+          "path": "research/full-proof-integration-20260930/cvpr2023/lean/SparseDerivativeAdapter.lean",
+          "kind": "actual_compiled_paper_adapter"
+        }
+      ],
+      "declaration": "Harsanyi.hasLineDerivatives_rectDifference",
+      "source_path": "lean/HarsanyiLib/Harsanyi/Extensions/DerivativeCutoff.lean",
+      "line": 65,
+      "import": "Harsanyi.Extensions.DerivativeCutoff",
+      "verification_report_path": "research/full-proof-integration-20260930/cvpr2023/verification/derivative-report.json"
+    },
+    "Harsanyi.linePartial_rectDifference": {
+      "description_zh": "平移和有限加减使偏导与矩形差分交换。",
+      "key_preconditions_md": "涉及差法则或可微性保存时需要HasLineDerivatives；平移身份不使用混合偏导换序。",
+      "shared_proof_ids": [
+        "shared-harsanyi-derivative-cutoff-mvt"
+      ],
+      "examples": [
+        {
+          "path": "research/full-proof-integration-20260930/cvpr2023/lean/SparseDerivativeAdapter.lean",
+          "kind": "actual_compiled_paper_adapter"
+        }
+      ],
+      "declaration": "Harsanyi.linePartial_rectDifference",
+      "source_path": "lean/HarsanyiLib/Harsanyi/Extensions/DerivativeCutoff.lean",
+      "line": 76,
+      "import": "Harsanyi.Extensions.DerivativeCutoff",
+      "verification_report_path": "research/full-proof-integration-20260930/cvpr2023/verification/derivative-report.json"
+    },
+    "Harsanyi.rectDifference_zero_of_orderedPartial_zero": {
+      "description_zh": "真实混合偏导全空间为零，经有限差分归纳与一元MVT得矩形差分全空间为零。",
+      "key_preconditions_md": "OrderedPartialRegular及最终偏导∀z=0；不假定多项式、解析性或Taylor相等。",
+      "shared_proof_ids": [
+        "shared-harsanyi-derivative-cutoff-mvt"
+      ],
+      "examples": [
+        {
+          "path": "research/full-proof-integration-20260930/cvpr2023/lean/SparseDerivativeAdapter.lean",
+          "kind": "actual_compiled_paper_adapter"
+        }
+      ],
+      "declaration": "Harsanyi.rectDifference_zero_of_orderedPartial_zero",
+      "source_path": "lean/HarsanyiLib/Harsanyi/Extensions/DerivativeCutoff.lean",
+      "line": 91,
+      "import": "Harsanyi.Extensions.DerivativeCutoff",
+      "verification_report_path": "research/full-proof-integration-20260930/cvpr2023/verification/derivative-report.json"
+    },
+    "Harsanyi.coordinateDirection": {
+      "description_zh": "真实一元坐标曲线导数与坐标值参数偏导的精确关系。",
+      "key_preconditions_md": "linePartial本身使用总函数deriv；用其零值推经典结论时须另提供真实存在条件。",
+      "shared_proof_ids": [
+        "shared-harsanyi-derivative-cutoff-mvt"
+      ],
+      "examples": [
+        {
+          "path": "research/full-proof-integration-20260930/cvpr2023/lean/SparseDerivativeAdapter.lean",
+          "kind": "actual_compiled_paper_adapter"
+        }
+      ],
+      "declaration": "Harsanyi.coordinateDirection",
+      "source_path": "lean/HarsanyiLib/Harsanyi/Extensions/DerivativeCutoff.lean",
+      "line": 116,
+      "import": "Harsanyi.Extensions.DerivativeCutoff",
+      "verification_report_path": "research/full-proof-integration-20260930/cvpr2023/verification/derivative-report.json"
+    },
+    "Harsanyi.coordinateCurve_eq_update": {
+      "description_zh": "真实一元坐标曲线导数与坐标值参数偏导的精确关系。",
+      "key_preconditions_md": "linePartial本身使用总函数deriv；用其零值推经典结论时须另提供真实存在条件。",
+      "shared_proof_ids": [
+        "shared-harsanyi-derivative-cutoff-mvt"
+      ],
+      "examples": [
+        {
+          "path": "research/full-proof-integration-20260930/cvpr2023/lean/SparseDerivativeAdapter.lean",
+          "kind": "actual_compiled_paper_adapter"
+        }
+      ],
+      "declaration": "Harsanyi.coordinateCurve_eq_update",
+      "source_path": "lean/HarsanyiLib/Harsanyi/Extensions/DerivativeCutoff.lean",
+      "line": 118,
+      "import": "Harsanyi.Extensions.DerivativeCutoff",
+      "verification_report_path": "research/full-proof-integration-20260930/cvpr2023/verification/derivative-report.json"
+    },
+    "Harsanyi.linePartial_coordinate_eq": {
+      "description_zh": "真实一元坐标曲线导数与坐标值参数偏导的精确关系。",
+      "key_preconditions_md": "linePartial本身使用总函数deriv；用其零值推经典结论时须另提供真实存在条件。",
+      "shared_proof_ids": [
+        "shared-harsanyi-derivative-cutoff-mvt"
+      ],
+      "examples": [
+        {
+          "path": "research/full-proof-integration-20260930/cvpr2023/lean/SparseDerivativeAdapter.lean",
+          "kind": "actual_compiled_paper_adapter"
+        }
+      ],
+      "declaration": "Harsanyi.linePartial_coordinate_eq",
+      "source_path": "lean/HarsanyiLib/Harsanyi/Extensions/DerivativeCutoff.lean",
+      "line": 127,
+      "import": "Harsanyi.Extensions.DerivativeCutoff",
+      "verification_report_path": "research/full-proof-integration-20260930/cvpr2023/verification/derivative-report.json"
+    },
+    "Harsanyi.coordinateMoves": {
+      "description_zh": "定义有限矩形差分与实际坐标方向/实数步长列表。",
+      "key_preconditions_md": "步长可正、可负或零；有限差分本身无需模型可微。",
+      "shared_proof_ids": [
+        "shared-harsanyi-derivative-cutoff-mvt"
+      ],
+      "examples": [
+        {
+          "path": "research/full-proof-integration-20260930/cvpr2023/lean/SparseDerivativeAdapter.lean",
+          "kind": "actual_compiled_paper_adapter"
+        }
+      ],
+      "declaration": "Harsanyi.coordinateMoves",
+      "source_path": "lean/HarsanyiLib/Harsanyi/Extensions/DerivativeCutoff.lean",
+      "line": 135,
+      "import": "Harsanyi.Extensions.DerivativeCutoff",
+      "verification_report_path": "research/full-proof-integration-20260930/cvpr2023/verification/derivative-report.json"
+    },
+    "Harsanyi.incrementCoordinates": {
+      "description_zh": "把实际坐标掩码交互接到矩形有限差分。",
+      "key_preconditions_md": "列表不重复；insert桥要求i不在剩余U；baseline桥h=x−r；模型任意。",
+      "shared_proof_ids": [
+        "shared-harsanyi-derivative-cutoff-mvt"
+      ],
+      "examples": [
+        {
+          "path": "research/full-proof-integration-20260930/cvpr2023/lean/SparseDerivativeAdapter.lean",
+          "kind": "actual_compiled_paper_adapter"
+        }
+      ],
+      "declaration": "Harsanyi.incrementCoordinates",
+      "source_path": "lean/HarsanyiLib/Harsanyi/Extensions/DerivativeCutoff.lean",
+      "line": 138,
+      "import": "Harsanyi.Extensions.DerivativeCutoff",
+      "verification_report_path": "research/full-proof-integration-20260930/cvpr2023/verification/derivative-report.json"
+    },
+    "Harsanyi.incrementGame": {
+      "description_zh": "把实际坐标掩码交互接到矩形有限差分。",
+      "key_preconditions_md": "列表不重复；insert桥要求i不在剩余U；baseline桥h=x−r；模型任意。",
+      "shared_proof_ids": [
+        "shared-harsanyi-derivative-cutoff-mvt"
+      ],
+      "examples": [
+        {
+          "path": "research/full-proof-integration-20260930/cvpr2023/lean/SparseDerivativeAdapter.lean",
+          "kind": "actual_compiled_paper_adapter"
+        }
+      ],
+      "declaration": "Harsanyi.incrementGame",
+      "source_path": "lean/HarsanyiLib/Harsanyi/Extensions/DerivativeCutoff.lean",
+      "line": 141,
+      "import": "Harsanyi.Extensions.DerivativeCutoff",
+      "verification_report_path": "research/full-proof-integration-20260930/cvpr2023/verification/derivative-report.json"
+    },
+    "Harsanyi.incrementCoordinates_insert": {
+      "description_zh": "把实际坐标掩码交互接到矩形有限差分。",
+      "key_preconditions_md": "列表不重复；insert桥要求i不在剩余U；baseline桥h=x−r；模型任意。",
+      "shared_proof_ids": [
+        "shared-harsanyi-derivative-cutoff-mvt"
+      ],
+      "examples": [
+        {
+          "path": "research/full-proof-integration-20260930/cvpr2023/lean/SparseDerivativeAdapter.lean",
+          "kind": "actual_compiled_paper_adapter"
+        }
+      ],
+      "declaration": "Harsanyi.incrementCoordinates_insert",
+      "source_path": "lean/HarsanyiLib/Harsanyi/Extensions/DerivativeCutoff.lean",
+      "line": 144,
+      "import": "Harsanyi.Extensions.DerivativeCutoff",
+      "verification_report_path": "research/full-proof-integration-20260930/cvpr2023/verification/derivative-report.json"
+    },
+    "Harsanyi.rectDifference_coordinate_eq_interaction": {
+      "description_zh": "把实际坐标掩码交互接到矩形有限差分。",
+      "key_preconditions_md": "列表不重复；insert桥要求i不在剩余U；baseline桥h=x−r；模型任意。",
+      "shared_proof_ids": [
+        "shared-harsanyi-derivative-cutoff-mvt"
+      ],
+      "examples": [
+        {
+          "path": "research/full-proof-integration-20260930/cvpr2023/lean/SparseDerivativeAdapter.lean",
+          "kind": "actual_compiled_paper_adapter"
+        }
+      ],
+      "declaration": "Harsanyi.rectDifference_coordinate_eq_interaction",
+      "source_path": "lean/HarsanyiLib/Harsanyi/Extensions/DerivativeCutoff.lean",
+      "line": 155,
+      "import": "Harsanyi.Extensions.DerivativeCutoff",
+      "verification_report_path": "research/full-proof-integration-20260930/cvpr2023/verification/derivative-report.json"
+    },
+    "Harsanyi.incrementCoordinates_baseline": {
+      "description_zh": "把实际坐标掩码交互接到矩形有限差分。",
+      "key_preconditions_md": "列表不重复；insert桥要求i不在剩余U；baseline桥h=x−r；模型任意。",
+      "shared_proof_ids": [
+        "shared-harsanyi-derivative-cutoff-mvt"
+      ],
+      "examples": [
+        {
+          "path": "research/full-proof-integration-20260930/cvpr2023/lean/SparseDerivativeAdapter.lean",
+          "kind": "actual_compiled_paper_adapter"
+        }
+      ],
+      "declaration": "Harsanyi.incrementCoordinates_baseline",
+      "source_path": "lean/HarsanyiLib/Harsanyi/Extensions/DerivativeCutoff.lean",
+      "line": 180,
+      "import": "Harsanyi.Extensions.DerivativeCutoff",
+      "verification_report_path": "research/full-proof-integration-20260930/cvpr2023/verification/derivative-report.json"
+    },
+    "Harsanyi.orderedPartial_coordinate_amplitudes": {
+      "description_zh": "证明真实混合偏导及存在条件与差分步长无关。",
+      "key_preconditions_md": "坐标列表相同；方向同为坐标单位向量，幅度仅用于有限差分。",
+      "shared_proof_ids": [
+        "shared-harsanyi-derivative-cutoff-mvt"
+      ],
+      "examples": [
+        {
+          "path": "research/full-proof-integration-20260930/cvpr2023/lean/SparseDerivativeAdapter.lean",
+          "kind": "actual_compiled_paper_adapter"
+        }
+      ],
+      "declaration": "Harsanyi.orderedPartial_coordinate_amplitudes",
+      "source_path": "lean/HarsanyiLib/Harsanyi/Extensions/DerivativeCutoff.lean",
+      "line": 186,
+      "import": "Harsanyi.Extensions.DerivativeCutoff",
+      "verification_report_path": "research/full-proof-integration-20260930/cvpr2023/verification/derivative-report.json"
+    },
+    "Harsanyi.orderedPartialRegular_coordinate_amplitudes": {
+      "description_zh": "证明真实混合偏导及存在条件与差分步长无关。",
+      "key_preconditions_md": "坐标列表相同；方向同为坐标单位向量，幅度仅用于有限差分。",
+      "shared_proof_ids": [
+        "shared-harsanyi-derivative-cutoff-mvt"
+      ],
+      "examples": [
+        {
+          "path": "research/full-proof-integration-20260930/cvpr2023/lean/SparseDerivativeAdapter.lean",
+          "kind": "actual_compiled_paper_adapter"
+        }
+      ],
+      "declaration": "Harsanyi.orderedPartialRegular_coordinate_amplitudes",
+      "source_path": "lean/HarsanyiLib/Harsanyi/Extensions/DerivativeCutoff.lean",
+      "line": 196,
+      "import": "Harsanyi.Extensions.DerivativeCutoff",
+      "verification_report_path": "research/full-proof-integration-20260930/cvpr2023/verification/derivative-report.json"
+    },
+    "Harsanyi.orderedCoordinatePartial": {
+      "description_zh": "按给定列表从左到右取真实混合偏导，坐标重复次数编码多重指标。",
+      "key_preconditions_md": "使用经典存在条件时必须配合regular；幅度不进入混合偏导。",
+      "shared_proof_ids": [
+        "shared-harsanyi-derivative-cutoff-mvt"
+      ],
+      "examples": [
+        {
+          "path": "research/full-proof-integration-20260930/cvpr2023/lean/SparseDerivativeAdapter.lean",
+          "kind": "actual_compiled_paper_adapter"
+        }
+      ],
+      "declaration": "Harsanyi.orderedCoordinatePartial",
+      "source_path": "lean/HarsanyiLib/Harsanyi/Extensions/DerivativeCutoff.lean",
+      "line": 206,
+      "import": "Harsanyi.Extensions.DerivativeCutoff",
+      "verification_report_path": "research/full-proof-integration-20260930/cvpr2023/verification/derivative-report.json"
+    },
+    "Harsanyi.OrderedCoordinateRegular": {
+      "description_zh": "显式保存每个有序前缀偏导沿下一坐标的真实可微性。",
+      "key_preconditions_md": "这不是C∞假设，也不能由C1一句替代；它是特定经典混合偏导存在的递归展开。",
+      "shared_proof_ids": [
+        "shared-harsanyi-derivative-cutoff-mvt"
+      ],
+      "examples": [
+        {
+          "path": "research/full-proof-integration-20260930/cvpr2023/lean/SparseDerivativeAdapter.lean",
+          "kind": "actual_compiled_paper_adapter"
+        }
+      ],
+      "declaration": "Harsanyi.OrderedCoordinateRegular",
+      "source_path": "lean/HarsanyiLib/Harsanyi/Extensions/DerivativeCutoff.lean",
+      "line": 209,
+      "import": "Harsanyi.Extensions.DerivativeCutoff",
+      "verification_report_path": "research/full-proof-integration-20260930/cvpr2023/verification/derivative-report.json"
+    },
+    "Harsanyi.HasClassicalMixedDerivatives": {
+      "description_zh": "全阶regular加零值cutoff的便捷公共变体，与精确论文adapter分开。",
+      "key_preconditions_md": "便捷变体分开要求全阶存在与高阶零值；论文adapter使用ClassicalMixedDerivativeCutoff单predicate。",
+      "shared_proof_ids": [
+        "shared-harsanyi-derivative-cutoff-mvt"
+      ],
+      "examples": [
+        {
+          "path": "research/full-proof-integration-20260930/cvpr2023/lean/SparseDerivativeAdapter.lean",
+          "kind": "actual_compiled_paper_adapter"
+        }
+      ],
+      "declaration": "Harsanyi.HasClassicalMixedDerivatives",
+      "source_path": "lean/HarsanyiLib/Harsanyi/Extensions/DerivativeCutoff.lean",
+      "line": 220,
+      "import": "Harsanyi.Extensions.DerivativeCutoff",
+      "verification_report_path": "research/full-proof-integration-20260930/cvpr2023/verification/derivative-report.json"
+    },
+    "Harsanyi.MixedDerivativeCutoff": {
+      "description_zh": "全阶regular加零值cutoff的便捷公共变体，与精确论文adapter分开。",
+      "key_preconditions_md": "便捷变体分开要求全阶存在与高阶零值；论文adapter使用ClassicalMixedDerivativeCutoff单predicate。",
+      "shared_proof_ids": [
+        "shared-harsanyi-derivative-cutoff-mvt"
+      ],
+      "examples": [
+        {
+          "path": "research/full-proof-integration-20260930/cvpr2023/lean/SparseDerivativeAdapter.lean",
+          "kind": "actual_compiled_paper_adapter"
+        }
+      ],
+      "declaration": "Harsanyi.MixedDerivativeCutoff",
+      "source_path": "lean/HarsanyiLib/Harsanyi/Extensions/DerivativeCutoff.lean",
+      "line": 224,
+      "import": "Harsanyi.Extensions.DerivativeCutoff",
+      "verification_report_path": "research/full-proof-integration-20260930/cvpr2023/verification/derivative-report.json"
+    },
+    "Harsanyi.ClassicalMixedDerivativeCutoff": {
+      "description_zh": "原全空间高阶经典混合导数存在且为零，推出实际掩码的非空高阶交互为零。",
+      "key_preconditions_md": "对每个总阶>M的非降序列表同时要求该特定混合偏导存在及∀z为零；不另加全阶hmixed；centered目标由M<|S|保证非空。",
+      "shared_proof_ids": [
+        "shared-harsanyi-derivative-cutoff-mvt"
+      ],
+      "examples": [
+        {
+          "path": "research/full-proof-integration-20260930/cvpr2023/lean/SparseDerivativeAdapter.lean",
+          "kind": "actual_compiled_paper_adapter"
+        }
+      ],
+      "declaration": "Harsanyi.ClassicalMixedDerivativeCutoff",
+      "source_path": "lean/HarsanyiLib/Harsanyi/Extensions/DerivativeCutoff.lean",
+      "line": 231,
+      "import": "Harsanyi.Extensions.DerivativeCutoff",
+      "verification_report_path": "research/full-proof-integration-20260930/cvpr2023/verification/derivative-report.json"
+    },
+    "Harsanyi.coordinate_multiIndex_total_order": {
+      "description_zh": "验证有序列表的重复次数总和是总阶，S.sort对应每个支撑坐标一次。",
+      "key_preconditions_md": "变量总体Fin n；列表可重复；finset特化列表不重复且有序。",
+      "shared_proof_ids": [
+        "shared-harsanyi-derivative-cutoff-mvt"
+      ],
+      "examples": [
+        {
+          "path": "research/full-proof-integration-20260930/cvpr2023/lean/SparseDerivativeAdapter.lean",
+          "kind": "actual_compiled_paper_adapter"
+        }
+      ],
+      "declaration": "Harsanyi.coordinate_multiIndex_total_order",
+      "source_path": "lean/HarsanyiLib/Harsanyi/Extensions/DerivativeCutoff.lean",
+      "line": 236,
+      "import": "Harsanyi.Extensions.DerivativeCutoff",
+      "verification_report_path": "research/full-proof-integration-20260930/cvpr2023/verification/derivative-report.json"
+    },
+    "Harsanyi.coordinate_multiIndex_finset": {
+      "description_zh": "验证有序列表的重复次数总和是总阶，S.sort对应每个支撑坐标一次。",
+      "key_preconditions_md": "变量总体Fin n；列表可重复；finset特化列表不重复且有序。",
+      "shared_proof_ids": [
+        "shared-harsanyi-derivative-cutoff-mvt"
+      ],
+      "examples": [
+        {
+          "path": "research/full-proof-integration-20260930/cvpr2023/lean/SparseDerivativeAdapter.lean",
+          "kind": "actual_compiled_paper_adapter"
+        }
+      ],
+      "declaration": "Harsanyi.coordinate_multiIndex_finset",
+      "source_path": "lean/HarsanyiLib/Harsanyi/Extensions/DerivativeCutoff.lean",
+      "line": 247,
+      "import": "Harsanyi.Extensions.DerivativeCutoff",
+      "verification_report_path": "research/full-proof-integration-20260930/cvpr2023/verification/derivative-report.json"
+    },
+    "Harsanyi.interaction_zero_of_orderedCoordinatePartial_zero": {
+      "description_zh": "只用S对应的一个真实混合偏导存在且全空间为零，即推出S掩码交互为零。",
+      "key_preconditions_md": "只要求S.sort这一个特定列表的regular和最终偏导∀z为零；不要求全阶存在。",
+      "shared_proof_ids": [
+        "shared-harsanyi-derivative-cutoff-mvt"
+      ],
+      "examples": [
+        {
+          "path": "research/full-proof-integration-20260930/cvpr2023/lean/SparseDerivativeAdapter.lean",
+          "kind": "actual_compiled_paper_adapter"
+        }
+      ],
+      "declaration": "Harsanyi.interaction_zero_of_orderedCoordinatePartial_zero",
+      "source_path": "lean/HarsanyiLib/Harsanyi/Extensions/DerivativeCutoff.lean",
+      "line": 253,
+      "import": "Harsanyi.Extensions.DerivativeCutoff",
+      "verification_report_path": "research/full-proof-integration-20260930/cvpr2023/verification/derivative-report.json"
+    },
+    "Harsanyi.interaction_zero_of_mixedDerivativeCutoff": {
+      "description_zh": "全阶regular加零值cutoff的便捷公共变体，与精确论文adapter分开。",
+      "key_preconditions_md": "便捷变体分开要求全阶存在与高阶零值；论文adapter使用ClassicalMixedDerivativeCutoff单predicate。",
+      "shared_proof_ids": [
+        "shared-harsanyi-derivative-cutoff-mvt"
+      ],
+      "examples": [
+        {
+          "path": "research/full-proof-integration-20260930/cvpr2023/lean/SparseDerivativeAdapter.lean",
+          "kind": "actual_compiled_paper_adapter"
+        }
+      ],
+      "declaration": "Harsanyi.interaction_zero_of_mixedDerivativeCutoff",
+      "source_path": "lean/HarsanyiLib/Harsanyi/Extensions/DerivativeCutoff.lean",
+      "line": 275,
+      "import": "Harsanyi.Extensions.DerivativeCutoff",
+      "verification_report_path": "research/full-proof-integration-20260930/cvpr2023/verification/derivative-report.json"
+    },
+    "Harsanyi.interaction_zero_of_classicalMixedDerivativeCutoff": {
+      "description_zh": "原全空间高阶经典混合导数存在且为零，推出实际掩码的非空高阶交互为零。",
+      "key_preconditions_md": "对每个总阶>M的非降序列表同时要求该特定混合偏导存在及∀z为零；不另加全阶hmixed；centered目标由M<|S|保证非空。",
+      "shared_proof_ids": [
+        "shared-harsanyi-derivative-cutoff-mvt"
+      ],
+      "examples": [
+        {
+          "path": "research/full-proof-integration-20260930/cvpr2023/lean/SparseDerivativeAdapter.lean",
+          "kind": "actual_compiled_paper_adapter"
+        }
+      ],
+      "declaration": "Harsanyi.interaction_zero_of_classicalMixedDerivativeCutoff",
+      "source_path": "lean/HarsanyiLib/Harsanyi/Extensions/DerivativeCutoff.lean",
+      "line": 285,
+      "import": "Harsanyi.Extensions.DerivativeCutoff",
+      "verification_report_path": "research/full-proof-integration-20260930/cvpr2023/verification/derivative-report.json"
+    },
+    "Harsanyi.centered_interaction_zero_of_classicalMixedDerivativeCutoff": {
+      "description_zh": "原全空间高阶经典混合导数存在且为零，推出实际掩码的非空高阶交互为零。",
+      "key_preconditions_md": "对每个总阶>M的非降序列表同时要求该特定混合偏导存在及∀z为零；不另加全阶hmixed；centered目标由M<|S|保证非空。",
+      "shared_proof_ids": [
+        "shared-harsanyi-derivative-cutoff-mvt"
+      ],
+      "examples": [
+        {
+          "path": "research/full-proof-integration-20260930/cvpr2023/lean/SparseDerivativeAdapter.lean",
+          "kind": "actual_compiled_paper_adapter"
+        }
+      ],
+      "declaration": "Harsanyi.centered_interaction_zero_of_classicalMixedDerivativeCutoff",
+      "source_path": "lean/HarsanyiLib/Harsanyi/Extensions/DerivativeCutoff.lean",
+      "line": 292,
+      "import": "Harsanyi.Extensions.DerivativeCutoff",
+      "verification_report_path": "research/full-proof-integration-20260930/cvpr2023/verification/derivative-report.json"
+    },
+    "Harsanyi.centered_interaction_zero_of_mixedDerivativeCutoff": {
+      "description_zh": "全阶regular加零值cutoff的便捷公共变体，与精确论文adapter分开。",
+      "key_preconditions_md": "便捷变体分开要求全阶存在与高阶零值；论文adapter使用ClassicalMixedDerivativeCutoff单predicate。",
+      "shared_proof_ids": [
+        "shared-harsanyi-derivative-cutoff-mvt"
+      ],
+      "examples": [
+        {
+          "path": "research/full-proof-integration-20260930/cvpr2023/lean/SparseDerivativeAdapter.lean",
+          "kind": "actual_compiled_paper_adapter"
+        }
+      ],
+      "declaration": "Harsanyi.centered_interaction_zero_of_mixedDerivativeCutoff",
+      "source_path": "lean/HarsanyiLib/Harsanyi/Extensions/DerivativeCutoff.lean",
+      "line": 301,
+      "import": "Harsanyi.Extensions.DerivativeCutoff",
+      "verification_report_path": "research/full-proof-integration-20260930/cvpr2023/verification/derivative-report.json"
+    }
+  }
+}

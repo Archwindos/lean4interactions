@@ -1,0 +1,496 @@
+Published as a conference paper at ICLR 2024
+
+
+
+
+A    P REVIOUS LITERATURE OF USING INTERACTIONS TO EXPLAIN DNN S
+
+Explaining the knowledge encoded by DNNs is one of the ultimate goals of explainable AI but
+presents significant challenges. For instance, some studies employed visualization techniques to
+show the patterns learned by a DNN (Simonyan et al., 2013; Yosinski et al., 2015), and some focused
+on extracting feature vectors that may be associated with semantic concepts (Simonyan et al., 2013),
+while some studies learned feature vectors potentially related to concepts (Kim et al., 2018). Dravid
+et al. (2023) identified convolutional kernels in different DNNs that expressed similar concepts.
+However, theoretically, whether the knowledge or the complex inference logic of a DNN can be
+faithfully represented as symbolic primitive inference patterns still presents significant challenges.
+Up to now, there is still no universally accepted definition of the knowledge, as it encompasses var-
+ious aspects of cognitive science, neuroscience, and mathematics. However, if we ignore cognitive
+and neuroscience aspects, Ren et al. (2023a) have proposed to quantify interactions between input
+variables encoded by the DNN, to explain the knowledge in the DNN. More crucially, Ren et al.
+(2024) have derived several theorems as mathematical evidence of considering such interactions as
+primitive inference patterns encoded by a DNN. Specifically, Ren et al. (2024) proved that DNNs
+usually only encoded a small number of interactions, under some common conditions2 . Besides,
+these interactions can universally explain the DNN’s output score on any arbitrary masked input
+samples. Li & Zhang (2023b) further discovered the discriminative power of certain interactions.
+Besides, Deng et al. (2024) found that different attribution scores estimated by different attribution
+methods could all be represented as a combination of different interactions. Zhang et al. (2022a)
+used interactions to explain the mechanism of different methods of boosting adversarial transferabil-
+ity. Ren et al. (2023b) used interactions to define the optimal baseline value for computing Shapley
+values. Deng et al. (2022) found that for most DNNs it was difficult to learn interactions with me-
+dian number of input variables, and it was discovered that DNNs and Bayesian neural networks
+were unlikely to model complex interactions with many input variables (Ren et al., 2023c; Liu et al.,
+2024). Zhou et al. (2024) used the generalization power of different interactions to explain the
+generalization power of DNNs.
+
+B    T HE CONDITIONS FOR UNIVERSAL MATCHING OF THE DNN OUTPUT
+
+Ren et al. (2024) have proved that a well-trained DNN usually just encodes a limited number of
+interactions. More importantly, one can just use a few interactions to approximate the DNN’s outputs
+on all 2n masked samples {xS |S ⊆ N }, under the following three common assumptions. (1) The
+high order derivatives of the DNN output with respect to the input variables are all zero. (2) The
+DNN works well on the masked samples, and yield higher confidence when the input sample is less
+masked. (3) The confidence of the DNN does not drop significantly on the masked samples. With
+these natural assumptions, a well-trained DNN’s output on all 2n masked samples can be universally
+approximated by the sum of just a few salient interactions in Ω, s.t., |Ω| ≪ 2n .
+
+C    P ROOF OF T HEOREMS
+
+Theorem 2 (Universal matching theorem) Let us be given a DNN v and an input sample x. For each
+randomly masked sample xT , T ⊆ N , we obtain
+                                       X                  X
+     v(xT ) = vand (xT ) + vor (xT ) =      Iand (S|xT ) +                    Ior (S|xT ). (7)
+                                           S⊆T                    S∈{S:S∩T ̸=∅}∪{∅}
+
+
+Proof. (1) Universal matching theorem of AND interactions.
+Ren et al. (2023a) have used the Haranyi dividend (Harsanyi, 1963) Iand (S|x) to state the universal
+matching theorem of AND interactions. The output of a well-trained DNN on all 2n masked samples
+{xT |T ⊆ N } could P  be universally explained by the all interaction primitives in T ⊆ N , i.e.,
+∀T ⊆ N, vand (xT ) = S⊆T Iand (S|x).
+
+                                                                              (−1)|S|−|L| vand (xL )
+                                                                      P
+Specifically, the AND interaction is defined as Iand (S|x) :=             L⊆SP
+in Equation (1). To compute the sum of AND interactions ∀T ⊆ N, S⊆T Iand (S|x) =
+
+
+                                                 12
+Published as a conference paper at ICLR 2024
+
+
+
+
+                   |S|−|L|
+P       P
+  S⊆T    L⊆S (−1)          vand (xL ), we first exchange the order of summation of the set L ⊆
+S ⊆ T and the set S ⊇ L. That is, we compute all linear combinations of all sets S con-
+taining L with respect to the model outputs vand (xL ) given a set of input variables L, i.e.,
+                |S|−|L|
+P
+   S:L⊆S⊆T (−1)         vand (xL ). Then, we compute all summations over the set L ⊆ T .
+In this way, we can compute them separately for different cases of L ⊆ S ⊆ T . In the following,
+we consider the cases (1) L = S = T , and (2) L ⊆ S ⊆ T, L ̸= T , respectively.
+(1) When L = S = T , the linear combination of all subsets S containing L with respect to the
+model output vand (xL ) is (−1)|T |−|T | vand (xL ) = vand (xL ).
+(2) When L ⊆ S ⊆ T, L ̸= T , the  P linear combination of all subsets S containing L with respect
+to the model output vand (xL ) is S:L⊆S⊆T (−1)|S|−|L| vand (xL ). For all sets S : T ⊇ S ⊇ L,
+let us consider the linear combinations of all sets S with number |S| for the model output vand (xL ),
+                                                                                m
+respectively. Let m := |S|−|L|, (0 ≤ m ≤ |T |−|L|), then there are a total of C|T |−|L| combinations
+of all sets S of order |S|. Thus, given L, accumulating the model outputs vand (xL ) corresponding
+                                                                    X|T |−|L|
+                                                                                 m            m
+to all S ⊇ L, then S:L⊆S⊆T (−1)|S|−|L| vand (xL ) = vand (xL ) ·
+                     P
+                                                                               C|T |−|L| (−1)    = 0.
+                                                                        m=0
+                                                                    |           {z            }
+                                                                                            =0
+Please see the complete derivation of the following formula.
+
+        X                          X       X
+                  Iand (S|xT ) =                     (−1)|S|−|L| vand (xL )
+            S⊆T                      S⊆T       L⊆S
+                                   X       X
+                              =                             (−1)|S|−|L| vand (xL )
+                                     L⊆T       S:L⊆S⊆T
+                                               X                              X|T |−|L|
+                                                                                            m            m
+                                                                                                             (8)
+                              = vand (xT ) +                   vand (xL ) ·               C|T |−|L| (−1)
+                                | {z }            L⊆T,L̸=T                        m=0
+                                                                              |            {z            }
+                                    L=T                                                    =0
+                              = vand (xT ).
+
+
+(2) Universal matching theorem of OR interactions.
+According
+P           to the definition of OR interactions inP     Section 2.1, we will derive that ∀T ⊆ N, vor (xT ) =
+   S∈{S:S∩T ̸=∅}∪{∅}   Ior (S|xT ) =  I or (∅|x T ) +     S:S∩T ̸=∅ Ior (S|xT ), s.t., Ior (∅|xT ) = vor (x∅ ).
+
+Specifically, the OR interaction is defined as Ior (S|x) := − L⊆S (−1)|S|−|L| vor (xN \L )
+                                                                                 P
+in Equation (2). Similar to the above derivation of the universal matching           P         theorem of AND
+interactions, to compute the sum of OR interactions ∀T ⊆ N, S:S∩T ̸=∅ Ior (S|xT ) =
+             h P                                    i
+                              |S|−|L|
+P
+   S:S∩T ̸=∅  −     L⊆S  (−1)         v or (x N \L )  , we first exchange the order of summation of the set
+L ⊆ S ⊆ N and the set S : S ∩ T ̸= ∅. That is, we compute all linear combinations of all sets
+S containing L with respect to the model outputs vor (xN \L ) given a set of input variables L, i.e.,
+                     |S|−|L|
+P
+  S:S∩T ̸=∅,S⊇L (−1)         vor (xN \L ). Then, we compute all summations over the set L ⊆ N .
+In this way, we can compute them separately for different cases of L ⊆ S ⊆ N, S ∩ T ̸= ∅. In
+the following, we consider the cases (1) L = N \ T , (2) L = N , (3) L ∩ T ̸= ∅, L ̸= N , and (4)
+L ∩ T = ∅, L ̸= N \ T , respectively.
+(1) When L = N \ TP    , the linear combination of all subsets S containing     L with respect to the model
+output vor (xN \L ) is S:S∩T ̸=∅,S⊇L (−1)|S|−|L| vor (xN \L ) = S:S∩T ̸=∅,S⊇L (−1)|S|−|L| vor (xT ).
+                                                                     P
+
+For all sets S : S ⊇ L, S ∩ T ̸= ∅ (then S ̸= N \ T, S ̸= L), let us consider the lin-
+ear combinations of all sets S with number |S| for the model output vor (xT ), respectively. Let
+                                                                         |S ′ |
+|S ′ | := |S| − |L|, (1 ≤ |S ′ | ≤ |T |), then there are a total of C|T | combinations of all sets S of
+order |S|. Thus, given L, accumulating the model outputs vor (xT ) corresponding to all S ⊇ L, then
+                                                           X|T |     |S ′ |      ′
+                       |S|−|L|
+                                                                    C|T | (−1)|S | = −vor (xT ).
+P
+   S:S∩T ̸=∅,S⊇L (−1)           vor (xN \L ) = vor (xT ) ·     ′
+                                                             |S |=1
+                                                           |        {z            }
+                                                                      =−1
+
+
+                                                       13
+Published as a conference paper at ICLR 2024
+
+
+
+
+(2) When L = N (then S = N ), the  P linear combination of all subsets S containing L with respect
+to the model output vor (xN \L ) is S:S∩T ̸=∅,S⊇L (−1)|S|−|L| vor (xN \L ) = (−1)|N |−|N | vor (x∅ ) =
+vor (x∅ ).
+(3) When L ∩ T ̸= ∅, L ̸= N , the linear                                     subsets S containing L with
+                                                    P combination of all|S|−|L|
+respect to the model output vor (xN \L ) is            S:S∩T ̸=∅,S⊇L (−1)          vor (xN \L ). For all sets
+S : S ⊇ L, S ∩ T ̸= ∅, let us consider the linear combinations of all sets S with num-
+ber |S| for the model output vor (xT ), respectively. Let us split |S| − |L| into |S ′ | and |S ′′ |,
+i.e.,|S| − |L| = |S ′ | + |S ′′ |, where S ′ = {i|i ∈ S, i ∈/ L, i ∈ N \ T }, S ′′ = {i|i ∈ S, i ∈
+                                                                                                 / L, i ∈ T }
+(then 0 ≤ |S ′′ | ≤ |T | − |T ∩ L|) and S ′ + S ′′ + L = S. In this way, there are a total of
+   |S ′′ |
+C|T |−|T ∩L| combinations of all sets S ′′ of order |S ′′ |. Thus, given L, accumulating the model
+outputs vor (xN \L ) corresponding to all S ⊇ L, then S:S∩T ̸=∅,S⊇L (−1)|S|−|L| vor (xN \L ) =
+                                                                 P
+                              X|T |−|T ∩L| |S ′′ |                ′   ′′
+                                              C|T |−|T ∩L| (−1)|S |+|S | = 0.
+              P
+vor (xN \L ) · S ′ ⊆N \T \L
+                                   |S ′′ |=0
+                              |                    {z                  }
+                                                           =0
+
+(4) When L ∩ T = ∅, L ̸= N \ T , the P             linear combination of all subsets S containing L with
+respect to the model output vor (xN \L ) is S:S∩T ̸=∅,S⊇L (−1)|S|−|L| vor (xN \L ). Similarly, let us
+split |S|−|L| into |S ′ | and |S ′′ |, i.e.,|S|−|L| = |S ′ |+|S ′′ |, where S ′ = {i|i ∈ S, i ∈
+                                                                                              / L, i ∈ N \T },
+S ′′ = {i|i ∈ S, i ∈ T } (then 0 ≤ |S ′′ | ≤ |T |) and S ′ + S ′′ + L = S. In this way, there are a total
+        |S ′′ |
+of C|T | combinations of all sets S ′′ of order |S ′′ |. Thus, given L, accumulating the model outputs
+vor (xN \L ) corresponding to all S ⊇ L, then S:S∩T ̸=∅,S⊇L (−1)|S|−|L| vor (xN \L ) = vor (xN \L ) ·
+                                                     P
+                 X|T |       |S ′′ |         ′  ′′
+                           C|T | (−1)|S |+|S | = 0.
+P
+    S ′ ⊆N \T \L     ′′
+                   |S |=0
+                 |             {z                }
+                                    =0
+
+Please see the complete derivation of the following formula.
+
+X                               X     h X                                      i
+                Ior (S|xT ) =          −               (−1)|S|−|L| vor (xN \L )
+    S:S∩T ̸=∅                        S:S∩T ̸=∅L⊆S
+                             X       X
+                          =−                              (−1)|S|−|L| vor (xN \L )
+                                L⊆N       S:S∩T ̸=∅,S⊇L
+                                                      
+                               |T |
+                                        ′          ′
+                                     |S   |
+                               X                |S   |
+                          = −      C|T | (−1)  · vor (xT ) − vor (x∅ )
+                                ′
+                                                         | {z } | {z }
+                                     |S |=1
+                                                                  L=N \T             L=N
+                                                                                                                    
+                                                                      |T |−|T ∩L|
+                                                                                     |S ′′ |           ′    ′′
+                                         X                 X              X
+                                −                                                 C|T |−|T ∩L| (−1)|S |+|S |           · vor (xN \L )
+                                    L∩T ̸=∅,L̸=N   S ′ ⊆N \T \L        |S ′′ |=0
+                                                                                                             
+                                                                           |T |
+                                                                                     |S ′′ |    ′    ′′
+                                         X                 X               X
+                                −                                                 C|T | (−1)|S |+|S |           · vor (xN \L )
+                                    L∩T =∅,L̸=N \T     S ′ ⊆N \T \L     |S ′′ |=0
+                                                                                                          
+                                                                            X                 X
+                          = −(−1) · vor (xT ) − vor (x∅ ) −                                              0 · vor (xN \L )
+                                                                       L∩T ̸=∅,L̸=N        S ′ ⊆N \T \L
+                                                                      
+                                         X                 X
+                                −                                    0 · vor (xN \L )
+                                    L∩T =∅,L̸=N \T     S ′ ⊆N \T \L
+
+                          = vor (xT ) − vor (x∅ )
+                                                                                                                                     (9)
+(3) Universal matching theorem of AND-OR interactions.
+With the universal matching theorem of AND interactions and the universal     P matching theorem
+of OR interactions, we can easily get v(xT ) = vand (xT ) + vor (xT ) =         S⊆T Iand (S|xT ) +
+P
+   S∈{S:S∩T ̸=∅}∪{∅} Ior (S|x T ), thus, we obtain the universal matching theorem of AND-OR in-
+teractions.
+
+
+                                                                14
+Published as a conference paper at ICLR 2024
+
+
+
+
+Theorem 3 (proved by Harsanyi (1963)). The Shapley value ϕ(i) of P     an input variable i can be
+                                                                                  1
+explained as a uniform allocation of the AND interactions, i.e., ϕ(i) = S⊆N :S∋i |S| Iand (S|x).
+
+
+D    P ROOF OF THE VARIANCE OF AND AND OR INTERACTIONS
+                                                      ′(i)                                     (i)
+In this section, we prove that the variance of Iand (T ) caused by the Gaussian noises ϵT ∼ N (0, σ 2 )
+                    ′(i)                          ′(i)
+is EϵT ∼N (0,σ2 ) [Iand (T ) − E∀S,ϵS ∼N (0,σ2 ) Iand (S)]2 = 2|T | σ 2 in Section 2.3.2.
+
+
+                      ′(i)      (i)        P              |T |−|T ′ | (i)                     ′(i)
+Proof. Given Iand (T )             =
+                               Iand (T ) +  T ′ ⊆T (−1)              ϵT ′ , the variance of Iand (T ) is
+     ′(i)             (i)                           ′ (i)                                 (i)
+Var(Iand (T )) = Var(Iand (T ) + T ′ ⊆T (−1)|T |−|T | ϵT ′ ). As the AND interaction Iand (T ) and the
+                                 P
+                      (i)                                                           ′(i)
+Gaussian noise ϵT are independent of each other, then the variance of Iand (T ) can be decomposed
+        ′(i)             (i)                                ′ (i)                              ′ (i)
+to Var(Iand (T )) = Var(Iand (T )) + Var( T ′ ⊆T (−1)|T |−|T | ϵT ′ ) = Var( T ′ ⊆T (−1)|T |−|T | ϵT ′ ),
+                                         P                                  P
+                             (i)
+this is because here Iand (T ) can be regarded as a constant.
+                                       (i)
+Since each Gaussian noise ϵT ∼ N (0, σ 2 ), ∀T ⊆ N is independent and identically distributed,
+                          ′(i)                               ′ (i)            (i)          (i)
+then the variance is Var(Iand (T )) = Var( T ′ ⊆T (−1)|T |−|T | ϵT ′ ) = Var(ϵT ′ ) + Var(ϵT ′ ) + · · · +
+                                          P
+                                                                                           1         2
+     (i)
+Var(ϵT ′       ) = 2|T | · σ 2 (there are a total of 2|T | subsets for T ′ ⊆ T ).
+       2|T |
+
+
+
+
+E    T HE FAITHFULNESS OF THE SPARSITY AND UNIVERSAL - MATCHING .
+
+This section further demonstrates the faithfulness of the sparsity and universal-matching theorem of
+AND-OR interactions, both theoretically and experimentally.
+Theoretically, the faithfulness of the sparsity and universal-matching theorem of AND-OR inter-
+actions means that, given an input sample with n variables, we must prove that (1) a well-trained
+DNN usually just encodes a small number of salient interactions Ω (Ren et al., 2024), comparing
+with all 2n potential combinations of the input variables in a given input sample, i.e., |Ω| ≪ 2n , and
+that (2) the network output v(xS ) on all 2n randomly masked samples {xS |S ⊆ N } can be well
+matched by a few interactions in Ω = {S ⊆ N : |I(S|x)| > τ } as defined in the Definition of
+interaction primitives in Section 2.1. These two terms have been proved in Theorem 1, Theorem 2
+and Proposition 1.
+Then, in practice, considering the 2n computational complexity, we have followed settings in (Li
+& Zhang, 2023b) to extract interactions between a set of randomly selected input variables N =
+{1, 2, . . . , t}, (t < n), while other unselected (n − t) input variables remain unmasked, leaving the
+original state unchanged. In this case, faithfulness does not mean that our interactions explain all the
+inference logic encoded between all n input variables for a given sample x in the pre-trained DNN.
+Instead, it only means that the extracted interactions can also accurately match the inference logic
+encoded between the selected t input variables for a given sample x in the DNN.
+Experimental verification. In addition, we have further conducted an experiment to verify the
+faithfulness when we explain interactions between all input variables. To this end, for the senti-
+ment classification task on the SST-2 dataset in BERTBASE , we selected sentences containing 15
+tokens to verify the faithfulness of the sparsity in Proposition 1 and the universal-matching prop-
+erty in Theorem 2. All tokens are selected as input variables. We focused on the matching er-
+rors for all masked samples xT , ∀T ⊆ N . Specifically, we observed whether the real network
+output on the masked sample v(xT ), ∀T ⊆ N can be well approximated by interactions. We
+                               Psalient interactions in Ω faithfully
+have verified that the extracted                              P explain the network output, i.e.,
+∀T ⊆ N, v(xT ) ≈ v(x∅ ) + ∅̸=S⊆T :S∈Ωand Iand (S|xT ) + S∩T ̸=∅:S∈Ωor Ior (S|xT ). Figure 6 il-
+lustrates that network output v(xT ), ∀T ⊆ N on all 2n randomly masked samples can be well fitted
+by interactions.
+
+
+                                                             15
+Published as a conference paper at ICLR 2024
+
+
+
+
+                                            DNN’s output 𝑣(𝐱 ! )
+                                                                                         BERTBASE
+
+
+                                                                           index of interactions
+
+
+Figure 6: Universal matching of all interaction primitives to the DNN’s output, when we use salient
+interactions to match the DNN’s output. Shade area indicates the matching error of different v(xT ).
+
+
+F    D ETAILED EXPLANATION OF E QUATION (6)
+
+This section uses a simple example to illustrate Equation (6) more clearly. Let us illustrate
+how the interaction matrices are formatted in a toy example. Let us consider two pre-trained
+DNNs v (1) , v (2) and an input sample x with N = {1, 2} variables, and take the AND in-
+teraction matrix Iand in Equation (6) as an example (the OR interaction matrix Ior can be ob-
+                                                                                                       (i)
+tained similarly). First, we get all 22 AND interactions extracted from the i-th model Iand =
+                                                                  2
+[Iand (T1 |x), Iand (T2 |x), Iand (T3 |x), Iand (T4 |x)]⊺ ∈ R2 , according to the description of Equa-
+tion (4). Here, each interaction value Iand (Tk |x) ∈ R, Tk ⊆ N denotes the interaction value of
+each masked sample hxTk , which       i is computed     according to Equation (1). Second, the AND inter-
+action matrix Iand = Iand , Iand ∈ R         22 ×2
+                            (1) (2)
+                                                    represents the interaction values corresponding to the 22
+masked samples for each of the two models.
+                                                                             (i)
+Let us illustrate how to learn the parameter γT in Equation (6). The loss in Equation (6) in the
+above example can be represented as the function of {γT }, as follows.
+
+
+Loss = min{γ (1) ,γ (2) } (∥rowmax(Iand )∥1 + ∥rowmax(Ior )∥1 ) + α (∥Iand ∥1 + ∥Ior ∥1 )
+            Tk     Tk
+                           X          X                                                X
+                                             (−1)|S|−|T | [0.5 · v (1) (xTk ) + γTk ],    (−1)|S|−|T | [0.5 · v (2) (xTk ) + γTk ])|
+                                                                                 (1)                                          (2)
+     = min{γ (1) ,γ (2) }      | max(
+                  Tk   Tk                                          T ⊆S                                                  T ⊆S
+                            Tk ⊆N
+          X                  X                                                                             X
+                                        (−1)|S|−|T | [0.5 · v (1) (xN \Tk ) − γTk ], −                                (−1)|S|−|T | [0.5 · v (2) (xN \Tk ) − γTk ])|
+                                                                                                   (1)                                                       (2)
+      +           | max(−
+                                 T ⊆S                                                                          T ⊆S
+          Tk ⊆N
+                2
+              X X   X
+                                        (−1)|S|−|T | [0.5 · v (i) (xTk ) + γTk ]|
+                                                                                            (i)
+      +α·         |
+                                 T ⊆S
+             Tk ⊆N i=1
+                2
+              X X                X
+                                           (−1)|S|−|T | [0.5 · v (i) (xN \Tk ) − γTk ])|.
+                                                                                                     (i)
+      +α·                   |−
+                                    T ⊆S
+             Tk ⊆N i=1
+                                                                                                                                              (10)
+                                                                      (1)   (2)
+Therefore, we only need to optimize                                 {γTk , γTk }   via gradient descent to reduce the loss in Equa-
+tion (6).
+
+
+
+
+G     T HE RUN - TIME COMPLEXITY
+
+This section explores the run-time complexity of extracting AND-OR interactions on different tasks.
+Theoretically, given an input sample with n input variables, the time complexity is 2n , and we need
+to generate masked samples for model inference. Fortunately, the variable number is not too large
+by following the settings in (Li & Zhang, 2023b) and (Shen et al., 2023). In real applications,
+
+
+                                                                               16
+Published as a conference paper at ICLR 2024
+
+
+
+
+                                       Table 1: Average run-time per sample on different tasks.
+
+                      sentiment classification                    dialogue task                                                     image classification
+                       on the SST-2 dataset                on the SQuAD dataset                                                    on the MNIST dataset
+                      w.r.t. the pair of models            w.r.t. the pair of models                                              w.r.t. the pair of models
+                    (BERTBASE and BERTLARGE )             (LLaMA and OPT-1.3B)                                                   (ResNet-20 and VGG-16)
+                                45.14 seconds                  46.61 seconds                                                           27.15 seconds
+
+
+
+the average running time for a sentence in the SST-2 dataset on the BERTLARGE model is 45.14
+seconds. Table 1 further shows the average running time of each input sample for different tasks.
+
+
+H                M ORE BASELINE TO VERIFY THE EFFECTIVENESS OF E QUATION (6)
+
+To further verify the effectiveness of the interactions extracted from Equation (6), we conducted
+experiments on more baseline, namely the original Harsanyi interaction (Ren et al., 2023a). We
+compared the sparsity and the generalization power of the AND interactions extracted from different
+DNNs. Figure 7 shows that the interactions extracted by our method exhibit higher sparsity and
+generalization power compared to the original AND interactions.
+To enable fair comparisons, we double the number of Harsanyi interactions extracted from a sample
+by setting I ′ (S|x) = I(S|x). Thus, we congregate both sets of interactions (a total of 2 · 2n
+interactions) to draw a curve in Figure 2 and Figure 3. In this way, we can compare the same
+number of interactions over different methods.
+                                       18:5
+    In log space 𝐥𝐨𝐠 |𝑰(𝑺|𝒙)|
+
+
+
+
+                                                                               (ratio of shared interactions)
+
+
+
+
+                                                                                                                                 Task 1: Sentiment Classification
+                                     BERTBASE                  BERTLARGE
+    Interaction Strength
+
+
+
+
+                                                                                   generalization power
+
+                                                                                                           (measured by 𝑆!"# )
+
+
+
+
+                                  1
+                                    % max$ 𝐼(𝑆|𝑥)
+                                 20
+
+
+
+
+                                                                                                                                       # of salient interactions
+                                                    (a)                                                                                        (b)
+Figure 7: Comparing the sparsity and generalization power of the extracted interactions between the
+original Harsanyi interactions and our proposed method.
+
+
+
+
+I            A BLATION STUDY OF THE PARAMETER α IN E QUATION (6)
+
+To explore the effect of α on the AND-OR interactions extracted from Equation (6), we conducted
+an ablation study on α. Specifically, we jointly extracted two sets of AND-OR interactions from
+the BERTBASE and BERTLARGE models, which were trained by (Devlin et al., 2019) and further
+finetuned by us for sentiment classification on the SST-2 dataset. For comparison, we set the value
+of α to [0, 0.2, 0.4, 0.6, 0.8, 1.0], respectively. Here, when α = 0, Equation (6) degenerated into
+Equation (5), indicating that only the largest interactions among the m DNNs were penalized. As
+α increases, the effects of not-so-salient interactions in other models were taken into account. Fig-
+ure 8 shows that as the value of α increases, the sparsity of the extracted interactions did not increase
+too much, but the generalization power of the extracted interactions decreased. This shows the ef-
+
+
+                                                                    17
+

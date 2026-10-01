@@ -1,0 +1,33 @@
+When |T | < k, by the definition of the Harsanyi dividend, we have
+
+                                                                                                                                                                                                                                                                               I^{\textrm {Shapley-Taylor}(k)}(\mathcal {T})=\Delta v_\mathcal {T}(\boldsymbol {x}_{\emptyset })=\sum _{\mathcal {\mathcal {L}}\subseteq \mathcal {\mathcal {T}}}(-1)^{|\mathcal {T}|-|\mathcal {L}|}\cdot v(\boldsymbol {x}_{\mathcal {L}}) = w_{\mathcal {T}} . 
+
+When |T | = k, we have
+
+
+                                                                                                                I^{\textrm {Shapley-Taylor}(k)}(\mathcal {T}) =& \frac {k}{|\mathcal {N}|}\sum _{\mathcal {S}\subseteq \mathcal {N}\backslash \mathcal {T}}\frac {1}{\binom {|\mathcal {N}|-1}{|\mathcal {S}|}}\cdot \Delta v_\mathcal {T}(\boldsymbol {x}_{\mathcal {S}})\\ =& \frac {k}{|\mathcal {N}|}\sum _{m=0}^{|\mathcal {N}|-k}\sum _{\scriptsize \substack {\mathcal {S}\subseteq \mathcal {N}\backslash \mathcal {T}\\|\mathcal {S}|=m}}\frac {1}{\binom {|\mathcal {N}|-1}{|\mathcal {S}|}}\cdot \Delta v_\mathcal {T}(\boldsymbol {x}_{\mathcal {S}})\\ =& \frac {k}{|\mathcal {N}|}\sum _{m=0}^{|\mathcal {N}|-k}\sum _{\scriptsize \substack {\mathcal {S}\subseteq \mathcal {N}\backslash \mathcal {T}\\|\mathcal {S}|=m}}\frac {1}{\binom {|\mathcal {N}|-1}{|\mathcal {S}|}} \left [\sum _{\mathcal {L}\subseteq \mathcal {S}} w_{\mathcal {L}\cup \mathcal {T}} \right ]\\ =& \frac {k}{|\mathcal {N}|}\sum _{\mathcal {L}\subseteq \mathcal {N}\backslash \mathcal {T}}\sum _{m=|\mathcal {L}|}^{|\mathcal {N}|-k}\frac {1}{\binom {|\mathcal {N}|-1}{|\mathcal {S}|}}\sum _{\scriptsize \substack {\mathcal {S}\subseteq \mathcal {N}\backslash \mathcal {T}\\|\mathcal {S}|=m\\\mathcal {S}\supseteq \mathcal {L}}} w_{\mathcal {L}\cup \mathcal {T}} \\ =& \frac {k}{|\mathcal {N}|}\sum _{\mathcal {L}\subseteq \mathcal {N}\backslash \mathcal {T}}\sum _{m=|\mathcal {L}|}^{|\mathcal {N}|-k}\frac {1}{\binom {|\mathcal {N}|-1}{|\mathcal {S}|}}\binom {|\mathcal {N}|-|\mathcal {L}|-k}{m-|\mathcal {L}|} w_{\mathcal {L}\cup \mathcal {T}} \\ =& \frac {k}{|\mathcal {N}|}\sum _{\mathcal {L}\subseteq \mathcal {N}\backslash \mathcal {T}} w_{\mathcal {L}\cup \mathcal {T}} \underbrace {\sum _{m=0}^{|\mathcal {N}|-|\mathcal {L}|-k}\frac {1}{\binom {|\mathcal {N}|-1}{|\mathcal {L}|+m}}\binom {|\mathcal {N}|-|\mathcal {L}|-k}{m}}_{\alpha _\mathcal {L}}
+
+
+
+
+Just like the proof of Theorem 2, we leverage the properties of combinatorial numbers and the Beta function to simplify αL .
+
+
+                                                                                  \alpha _\mathcal {L} =& \sum _{m=0}^{|\mathcal {N}|-|\mathcal {L}|-k}\frac {1}{\binom {|\mathcal {N}|-1}{|\mathcal {L}|+m}}\binom {|\mathcal {N}|-|\mathcal {L}|-k}{m}\\ =& \sum _{m=0}^{|\mathcal {N}|-|\mathcal {L}|-k}\binom {|\mathcal {N}|-|\mathcal {L}|-k}{m}\cdot \Big (|\mathcal {L}|+m\Big )\cdot B\Big (|\mathcal {N}|-|\mathcal {L}|-m, |\mathcal {L}|+m\Big )\\ =& \sum _{m=0}^{|\mathcal {N}|-|\mathcal {L}|-k} |\mathcal {L}|\cdot \binom {|\mathcal {N}|-|\mathcal {L}|-k}{m}\cdot B\Big (|\mathcal {N}|-|\mathcal {L}|-m, |\mathcal {L}|+m\Big ) \qquad \text {$\cdots $\textcircled {1}}\\ &+ \sum _{m=0}^{|\mathcal {N}|-|\mathcal {L}|-k} m\cdot \binom {|\mathcal {N}|-|\mathcal {L}|-k}{m}\cdot B\Big (|\mathcal {N}|-|\mathcal {L}|-m, |\mathcal {L}|+m\Big ) \qquad \text {$\cdots $\textcircled {2}}
+
+
+
+
+Then, we solve ⃝
+               1 and ⃝
+                     2 respectively. For ⃝,
+                                         1 we have
+
+
+                \text {\textcircled {1}} =& \int _0^1 |\mathcal {L}|\cdot \sum _{m=0}^{|\mathcal {N}|-|\mathcal {L}|-k}\binom {|\mathcal {N}|-|\mathcal {L}|-k}{m}\cdot x^{|\mathcal {N}|-|\mathcal {L}|-m-1}\cdot (1-x)^{|\mathcal {L}|+m-1}\ dx\\ =& \int _0^1 |\mathcal {L}|\cdot \underbrace {\left [\sum _{m=0}^{|\mathcal {N}|-|\mathcal {L}|-k}\binom {|\mathcal {N}|-|\mathcal {L}|-k}{m}\cdot x^{|\mathcal {N}|-|\mathcal {L}|-m-k}\cdot (1-x)^{m}\right ]}_{=1}\cdot x^{k-1}\cdot (1-x)^{|\mathcal {L}|-1}\ dx\\ =& \int _0^1 |\mathcal {L}|\cdot x^{k-1}\cdot (1-x)^{|\mathcal {L}|-1}\ dx = |\mathcal {L}|\cdot B(k, |\mathcal {L}|) = \frac {1}{\binom {|\mathcal {L}|+k-1}{k-1}}
+
+
+
+
+For ⃝,
+    2 we have

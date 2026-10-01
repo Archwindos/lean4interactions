@@ -1,0 +1,24 @@
+Theorem 1 by removing noisy causal patterns and learning
+the optimal baseline value, so as to boost the sparsity of
+causal effects. Besides, we also discovered that adversarial
+training [46] can make the DNN encode much more sparse
+causal effects.
+First, boosting conciseness by learning the optimal
+baseline value. In fact, the sparsity of causal patterns does
+not only depend on the DNN itself, but it is also deter-
+mined by the choice of baseline values in Eq. (4). Specif-
+ically, input variables are masked by their baseline values
+r = [r1,r 2,...,r n] to represent their absence states in the
+computation of causal effects. Thus, wΩ can be represented
+as a function of r, i.e., wΩ(r). To this end, some recent
+studies [4, 16, 52] deﬁned baseline values from a heuris-
+tic perspective, e.g. simply using mean/zero baseline val-
+ues [16, 67]. However, it still remains an open problem to
+deﬁne optimal baseline values.
+Thus, we further boost the sparsity of causal patterns
+by learning the optimal baseline values that enhance the
+conciseness of the causal graph. However, it is difﬁcult to
+learn optimal baseline values by directly optimizing Eq. (5).
+To this end, we relax the optimization problem in Eq. (5) (L0
+regression) as a Lasso regression (L1 regression) as follows.
+4

@@ -1,0 +1,58 @@
+{
+  "arxiv_id": "1708.01785",
+  "version": "v3",
+  "title": "Interpreting CNN Knowledge via an Explanatory Graph",
+  "authors": [
+    "Quanshi Zhang",
+    "Ruiming Cao",
+    "Feng Shi",
+    "Ying Nian Wu",
+    "Song-Chun Zhu"
+  ],
+  "first_public_date": "2017-08-05T15:59:13Z",
+  "updated": "2017-11-22T02:29:51Z",
+  "journal_ref": null,
+  "source_url": "https://arxiv.org/abs/1708.01785v3",
+  "pdf_url": "https://arxiv.org/pdf/1708.01785v3",
+  "retrieved_at": "2026-09-30T07:03:24.804838+00:00",
+  "attempts": [
+    {
+      "url": "https://arxiv.org/pdf/1708.01785v3",
+      "status": "error",
+      "error": "HTTP Error 406: Not Acceptable"
+    },
+    {
+      "url": "https://export.arxiv.org/pdf/1708.01785v3",
+      "status": "ok",
+      "bytes": 5354357
+    }
+  ],
+  "download_url": "https://export.arxiv.org/pdf/1708.01785v3",
+  "response_headers": {
+    "Connection": "close",
+    "Content-Length": "5354357",
+    "content-disposition": "inline; filename=\"1708.01785v3.pdf\"",
+    "last-modified": "Sun, 22 Jan 2023 18:59:14 GMT",
+    "link": "<https://arxiv.org/pdf/1708.01785>; rel='canonical'",
+    "server": "Google Frontend",
+    "via": "1.1 google, 1.1 varnish, 1.1 varnish, 1.1 varnish, 1.1 varnish, 1.1 varnish",
+    "x-cloud-trace-context": "0a29b85cf30a3d500375834498bfb56d",
+    "content-type": "application/pdf",
+    "etag": "\"sha256:5bd8ac551845efbe0088165838136cfe03489bf14cb57b3dc8959bc75ef978a9\"",
+    "access-control-allow-origin": "*",
+    "Accept-Ranges": "bytes",
+    "Age": "0",
+    "Date": "Wed, 30 Sep 2026 07:03:25 GMT",
+    "X-Served-By": "cache-lga-kjfk8660042-LGA, cache-lga-kjfk8660042-LGA, cache-lga-kjfk8660043-LGA, cache-lga-kjfk8660043-LGA, cache-lga-kjfk8660043-LGA, cache-lga-kjfk8660028-LGA, cache-sin-wsap440091-SIN",
+    "X-Cache": "MISS, MISS, MISS, MISS, MISS",
+    "X-Cache-Hits": "0, 0, 0",
+    "X-Timer": "S1790751805.372262,VS0,VE627",
+    "Strict-Transport-Security": "max-age=300"
+  },
+  "local_pdf": "research/paper-survey-20260930/earlier/papers/1708.01785/1708.01785v3.pdf",
+  "sha256": "8d25ba699266009143c3f5d4307aa5c66a5839bb2d8ca548cd60f464d6208c1a",
+  "total_pages": 10,
+  "first_page": "                                                              Interpreting CNN Knowledge Via An Explanatory Graph\n\n                                                         Quanshi Zhang, Ruiming Cao, Feng Shi, Ying Nian Wu, and Song-Chun Zhu\n                                                                                            University of California, Los Angeles\narXiv:1708.01785v3 [cs.CV] 22 Nov 2017\n\n\n\n\n                                                                      Abstract                                     Head      Neck\n                                                                                                                  pattern   pattern\n\n                                           This paper learns a graphical model, namely an explanatory\n                                           graph, which reveals the knowledge hierarchy hidden inside\n                                           a pre-trained CNN. Considering that each filter1 in a conv-\n                                           layer of a pre-trained CNN usually represents a mixture of\n\n\n\n\n                                                                                                                                      …\n                                           object parts, we propose a simple yet efficient method to au-\n                                           tomatically disentangles different part patterns from each fil-\n                                           ter, and construct an explanatory graph. In the explanatory\n                                                                                                                    Input       Feature maps Explanatory Parts corresponding to\n                                           graph, each node represents a part pattern, and each edge en-\n                                                                                                                   image         of different  graph       each graph node\n                                           codes co-activation relationships and spatial relationships be-\n                                                                                                                                 conv-layers\n                                           tween patterns. More importantly, we learn the explanatory\n                                           graph for a pre-trained CNN in an unsupervised manner, i.e.\n                                           without a need of annotating object parts. Experiments show           Figure 1: An explanatory graph represents knowledge hier-\n                                           that each graph node consistently represents the same object          archy hidden in conv-layers of a CNN. Each filter in a pre-\n                                           part through different images. We transfer part patterns in the       trained CNN may be activated by different object parts. Our\n                                           explanatory graph to the task of part localization, and our           method disentangles part patterns from each filter in an un-\n                                           method significantly outperforms other approaches.                    supervised manner, thereby clarifying the knowledge repre-\n                                                                                                                 sentation.\n                                                                  ",
+  "status": "downloaded_extracted_requires_manual_review",
+  "automatic_heading_hits": []
+}

@@ -1,0 +1,106 @@
+Published as a conference paper at ICLR 2024
+
+
+
+
+        |N |−|L|−k
+                                                                               !
+               X                                        |N | − |L| − k − 1                                   
+⃝
+2 =                        (|N | − |L| − k) ·                                      · B |N | − |L| − m, |L| + m
+               m=1
+                                                              m−1
+        |N |−|L|−k−1
+                                                                                   !
+                   X                                      |N | − |L| − k − 1                                                
+    =                        (|N | − |L| − k) ·                                        · B |N | − |L| − m′ − 1, |L| + m′ + 1
+                                                                  m′
+                   m′ =0
+                                        |N |−|L|−k−1
+                                                                                       !
+        Z      1                                X              |N | − |L| − k − 1                          ′                         ′
+    =              (|N | − |L| − k)                                                        · x|N |−|L|−m       −2
+                                                                                                                     · (1 − x)|L|+m dx
+           0                                                           m′
+                                                m′ =0
+                                                                                                                                        
+                                            |N |−|L|−k−1
+                                                                                        !
+        Z      1                                  X             |N | − |L| − k − 1                              ′                    ′
+    =              (|N | − |L| − k)                                                · x|N |−|L|−m                   −k−1
+                                                                                                                           · (1 − x)m  ·xk−1 · (1 − x)|L| dx
+           0                                                            m′
+                                                 m′ =0
+                                        |                                        {z                                                      }
+                                                                                       =1
+        Z      1
+    =              (|N | − |L| − k) · xk−1 · (1 − x)|L| dx = (|N | − |L| − k) · B(k, |L| + 1)
+           0
+         |N | − |L| − k
+    =
+        (|L| + 1) |L|+k
+                        
+                   k−1
+
+
+Hence, we have
+
+                                                                    1           |N | − |L| − k
+                                    w L =⃝
+                                         1 +⃝
+                                            2 =                 |L|+k−1
+                                                                          +
+                                                                               (|L| + 1) |L|+k
+                                                                                               
+                                                                  k−1                     k−1
+                                              |L|! · (k − 1)!      |N | − |L| − k (|L| + 1)! · (k − 1)!
+                                            =                   +                   ·
+                                              (|L| + k − 1)!           |L| + 1             (|L| + k)!
+                                              |L|! · (k − 1)!      |N | − |L| − k |L|! · (k − 1)!
+                                            =                   +                   ·
+                                              (|L| + k − 1)!           |L| + k        (|L| + k − 1)!
+                                                                    
+                                                     |N | − |L| − k       |L|! · (k − 1)!
+                                            = 1+                        ·
+                                                         |L| + k          (|L| + k − 1)!
+                                                |N |      |L|! · (k − 1)!
+                                            =          ·
+                                              |L| + k (|L| + k − 1)!
+                                              |N |    |L|! · k!
+                                            =      ·
+                                               k     (|L| + k)!
+                                              |N |       1
+                                            =      · |L|+k
+                                               k
+                                                           k
+
+
+Therefore, we proved that when |T | = k, I Shapley-Taylor (T ) =                                          k
+                                                                                                                P
+                                                                                                         |N |        L⊆N \T   wL · I(L ∪ T ) =
+ k                |N |              1                                          |L|+k −1
+       P                                                        P                   
+           L⊆N \T k           ·              · I(L ∪ T ) =         L⊆N \T               I(L     ∪ T ).
+|N |                              (|L|+k
+                                     k )
+                                                                                 k
+
+
+
+
+C       E XPERIMENTAL SETTINGS FOR VISUALIZING INTERACTION PRIMITIVES
+C.1 M ODELS AND DATASETS
+We used the models (including MLP, ResMLP, LeNet, AlexNet, VGG, PointNet, and PointNet++)
+provided by Li & Zhang (2023b) and followed their experimental settings. The MLPs and ResMLPs
+used in this experiment all had 5 fully-connected layers. Each hidden layer had 100 neurons. The
+tic-tac-toe dataset, the wifi dataset, and the phishing dataset refer to the UCI tic-tac-toe endgame
+dataset (Dua & Graff, 2017), the UCI wireless indoor localization dataset (Dua & Graff, 2017), and
+the UCI phishing website prediction dataset (Dua & Graff, 2017), respectively. The MNIST-3 dataset
+is a binary classification dataset, where images of the digit “three” in the MNIST dataset (LeCun
+et al., 1998) were taken as positive samples, while images of other digits were taken as negative
+samples. The CelebA-eyeglasses dataset is a binary classification dataset, where images with the
+attribute “eyeglasses” in the CelebA dataset (Liu et al., 2015) were taken as positive samples, while
+
+
+                                                                            27
+

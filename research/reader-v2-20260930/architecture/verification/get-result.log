@@ -1,0 +1,621 @@
+{
+  "result": {
+    "id": "cvpr2023-reconstruction",
+    "paper_id": "cvpr2023-sparse-concepts",
+    "title": "全部因果模式的精确重构",
+    "kind": "theorem",
+    "proposition_ids": [
+      "prop-set-function-reconstruction"
+    ],
+    "proof_ids": [
+      "proof-finite-mobius-reconstruction-v2"
+    ],
+    "adapter_ids": [
+      "adapter-cvpr2023-reconstruction-v2"
+    ],
+    "occurrence_ids": [
+      "occ-cvpr2023-theorem1-main",
+      "occ-cvpr2023-theorem1-supplement"
+    ],
+    "issue_ids": [],
+    "alignment_note_ids": [],
+    "verification_report_ids": [
+      "verification-cvpr2023-reconstruction-v2"
+    ],
+    "scope": "CVPR 2023 Theorem 1 reconstruction clause; all subsets of Fin n",
+    "completion_scope": "selected_result",
+    "alignment_status": "agent_checked_selected_statement",
+    "rewrite_status": "complete",
+    "user_review_status": "pending",
+    "visibility": "public"
+  },
+  "mathematical_content": {
+    "id": "cvpr2023-reconstruction",
+    "paper_id": "cvpr2023-sparse-concepts",
+    "title": "Theorem 1：同一组因果效应重构全部掩码输出",
+    "kind": "paper_result",
+    "result_scope": "Theorem 1 exact finite-mask reconstruction",
+    "rewrite_status": "complete",
+    "shared_proof_id": "proof-finite-mobius-reconstruction-v2",
+    "shared_proof_ids": [
+      "proof-finite-mobius-reconstruction-v2"
+    ],
+    "source_refs": [
+      {
+        "id": "src-cvpr2023-main",
+        "source_id": "src-cvpr2023-main",
+        "title": "CVPR 2023 正式正文",
+        "version": "ver-cvpr2023-formal",
+        "version_id": "ver-cvpr2023-formal",
+        "local_path": "research/paper-survey-20260930/earlier/venue-papers/sparse-cvpr2023-main/sparse-cvpr2023-main.pdf",
+        "local_pdf": "research/paper-survey-20260930/earlier/venue-papers/sparse-cvpr2023-main/sparse-cvpr2023-main.pdf",
+        "url": "https://openaccess.thecvf.com/content/CVPR2023/papers/Ren_Defining_and_Quantifying_the_Emergence_of_Sparse_Concepts_in_DNNs_CVPR_2023_paper.pdf",
+        "sha256": "5702e161fa95421935c8879d505033dae903c92e79f491b1199511d643b8ff43",
+        "pages": [
+          3,
+          4
+        ],
+        "page_numbering": "PDF page, one-based",
+        "locations": [
+          {
+            "label": "Theorem 1；Eq.(2) 与掩码 Eq.(4) 起点",
+            "pdf_page": 3,
+            "role": "statement"
+          },
+          {
+            "label": "掩码 Eq.(4) 后的子集和解释",
+            "pdf_page": 4,
+            "role": "statement"
+          }
+        ],
+        "source_checked": true
+      },
+      {
+        "id": "src-cvpr2023-supplement",
+        "source_id": "src-cvpr2023-supplement",
+        "title": "CVPR 2023 正式补充材料",
+        "version": "ver-cvpr2023-formal",
+        "version_id": "ver-cvpr2023-formal",
+        "local_path": "research/paper-survey-20260930/earlier/venue-papers/sparse-cvpr2023-supp/sparse-cvpr2023-supp.pdf",
+        "local_pdf": "research/paper-survey-20260930/earlier/venue-papers/sparse-cvpr2023-supp/sparse-cvpr2023-supp.pdf",
+        "url": "https://openaccess.thecvf.com/content/CVPR2023/supplemental/Ren_Defining_and_Quantifying_CVPR_2023_supplemental.pdf",
+        "sha256": "1c17a9af66dedf9db3d190a62ac070115ba1301b3fd568832da2d60f662f92d7",
+        "pages": [
+          2,
+          3
+        ],
+        "page_numbering": "PDF page, one-based",
+        "locations": [
+          {
+            "label": "Appendix C Theorem 1 与唯一性重述",
+            "pdf_page": 2,
+            "role": "statement"
+          },
+          {
+            "label": "Appendix C necessity/sufficiency 完整证明",
+            "pdf_page": 3,
+            "role": "proof"
+          }
+        ],
+        "source_checked": true
+      }
+    ],
+    "statement_tex": "w_A:=\\sum_{T\\subseteq A}(-1)^{|A|-|T|}v(x_T),\\qquad\\forall S\\subseteq N,\\quad Y(x_S)=\\sum_{A\\subseteq S}w_A=v(x_S)",
+    "assumptions": [
+      {
+        "id": "fixed-data",
+        "text_md": "固定一个模型 v、一个原始输入 x 和一组输入基线 r。为每个 \\(S\\subseteq N\\) 使用同一规则构造 \\(x_S\\)，输出 \\(v(x_S)\\) 是有限实数。",
+        "formula_tex": "N=\\{1,\\ldots,n\\},\\quad v(x_S)\\in\\mathbb R"
+      },
+      {
+        "id": "all-subsets",
+        "text_md": "讨论同一有限总体 N 的全部子集，包含空集；不要求不同掩码输入必须互不相同，也不要求输入变量统计独立。",
+        "formula_tex": "S\\subseteq N"
+      },
+      {
+        "id": "full-pattern-family",
+        "text_md": "本条精确结论使用全部模式 Ω=\\(2^N\\)，每个模式 A 的激活规则是所有 A 中变量都保留时贡献 \\(w_A\\)。",
+        "formula_tex": "\\Omega=2^N,\\quad C_A(x_S)=\\mathbf1_{A\\subseteq S}"
+      }
+    ],
+    "definitions": [
+      {
+        "id": "paper-mask",
+        "text_md": "论文模型仍以样本为自变量；g 只是固定 x 和 r 后的集合函数。输入基线向量 r 与输出基线 \\(v(x_\\varnothing )\\) 要分开。",
+        "formula_tex": "g(S):=v(x_S),\\qquad (x_S)_i=\\begin{cases}x_i&i\\in S,\\\\r_i&i\\notin S.\\end{cases}"
+      },
+      {
+        "id": "causal-effect",
+        "text_md": "本篇直接对原始模型输出作交互变换，包含空集模式。",
+        "formula_tex": "w_A=I_g(A),\\quad w_\\varnothing=v(x_\\varnothing)"
+      },
+      {
+        "id": "graph-output",
+        "text_md": "在掩码输入 \\(x_S\\) 上，把所有已触发模式的效应相加。",
+        "formula_tex": "Y(x_S):=\\sum_{A\\subseteq N}w_A\\mathbf1_{A\\subseteq S}=\\sum_{A\\subseteq S}w_A"
+      }
+    ],
+    "overview": "先把论文的掩码输出和 AND 模式激活准确变成集合函数及子集和，再使用下方完整公共重构证明。原文没有假设 \\(v(x_\\varnothing )\\)=0；空集模式给出的常数项正好承载这个输出基线。",
+    "original_statement_md": "正式正文 PDF 第 3 页 Theorem 1 给出 \\(\\forall S\\subseteq N,\\ Y(x_S)=v(x_S)\\)，效应定义为 \\(w_A=\\sum_{T\\subseteq A}(-1)^{|A|-|T|}v(x_T)\\)。补充 PDF 第 2 页 Appendix C 重述，并在第 3 页给出证明。此处为公式摘录与中文定位，完整原文以正式 PDF 为准。",
+    "original_proof_md": "原文先交换有限双重求和，把每个输出 \\(v(x_L)\\) 的系数集中起来：\n\\[\\sum_{T\\subseteq S}w_T=\\sum_{L\\subseteq S}v(x_L)\\sum_{L\\subseteq T\\subseteq S}(-1)^{|T|-|L|}.\\]\n固定 \\(L\\subseteq S\\)，将 T 唯一写成 L∪Q，\\(Q\\subseteq S\\)\\L，内层便成为 \\(\\sum_{Q\\subseteq S\\setminus L}(-1)^{|Q|}\\)。若 \\(L=S\\)，只有 \\(Q=\\varnothing\\)，系数为 1。若 \\(L\\subsetneq S\\)，选一个 j∈S\\L；把 Q 按不含/含 j 配对，两项符号相反且绝对值相同，内层总和为 0。于是只有 \\(L=S\\) 的 \\(v(x_S)\\) 留下。这是原文二项恒等式 \\(\\sum_{m=0}^{k}\\binom{k}{m}(-1)^m=(1-1)^k\\) 的具体理由；k=0 时系数是 1，不能写成 0。\n\n上面是原文计算路线的完整中文解释；公共 Lean 当前采用下面展开的插入归纳路线，没有为这份双重求和解释另增一个 Lean 声明。",
+    "proof_steps": [
+      {
+        "id": "step-1",
+        "title": "将激活规则化成子集求和",
+        "body_md": "固定一个待解释的掩码 S。模式 A 被触发当且仅当 \\(A\\subseteq S\\)，所以求和中 \\(A\\nsubseteq S\\) 的指示函数为 0、\\(A\\subseteq S\\) 的为 1，\\(Y(x_S)\\) 就是 \\(\\sum _{A\\subseteq S}w_A\\)。\\(A=\\varnothing\\) 是 S 的子集，空乘积约定给出其激活值为 1，因此空集效应始终贡献；不能把它删掉。",
+        "formula_tex": "Y(x_S)=\\sum_{A\\subseteq N}w_A\\mathbf1_{A\\subseteq S}=\\sum_{A\\subseteq S}w_A",
+        "justification": "原文 SCM 输出与 AND 激活的确定性求和语义。",
+        "lean_refs": []
+      },
+      {
+        "id": "step-2",
+        "title": "对齐集合函数与有限总体",
+        "body_md": "定义 \\(g(S)=v(x_S)\\)。由于 x、基线与模型都固定，这确实是定义在 \\(2^N\\) 上的同一个实值函数。将 \\(g(T)=v(x_T)\\) 代入交互定义，论文的 \\(w_A\\) 就逐项等于 \\(I_g(A)\\)。",
+        "formula_tex": "g(S)=v(x_S),\\qquad w_A=I_g(A)",
+        "justification": "定义逐项一致；Fin n 表示固定有限总体。",
+        "lean_refs": [
+          {
+            "declaration": "ReaderV2.cvpr_reconstruction",
+            "source_path": "research/reader-v2-20260930/math/lean/ReaderAdapters.lean",
+            "line": 18,
+            "scope": "paper_adapter",
+            "explanation_md": "适配以真实模型输出函数 v 和真实类型的 mask 参数陈述有限子集和；具体 DNN/掩码实现不在验证范围。"
+          }
+        ]
+      },
+      {
+        "id": "step-3",
+        "title": "应用完整公共重构证明",
+        "body_md": "下方公共证明说明，对任意实值集合函数 g 以及任意有限 S，\\(\\sum _{A\\subseteq S}I_g(A)=g(S)\\)。将第二步的定义代入，并结合第一步得到 \\(Y(x_S)=v(x_S)\\)。该结论对所有 S 同时成立，而不是为每个掩码重新选一组权重。特别 \\(S=\\varnothing\\) 时两边等于 \\(v(x_\\varnothing )\\)，并非一般等于 0。",
+        "formula_tex": "Y(x_S)=\\sum_{A\\subseteq S}w_A=\\sum_{A\\subseteq S}I_g(A)=g(S)=v(x_S)",
+        "justification": "公共重构定理；定义代入。",
+        "lean_refs": [
+          {
+            "declaration": "Harsanyi.reconstruction",
+            "source_path": "lean/HarsanyiLib/Harsanyi/Core/Mobius.lean",
+            "line": 34,
+            "scope": "reused_exact_declaration",
+            "explanation_md": ""
+          },
+          {
+            "declaration": "ReaderV2.cvpr_reconstruction",
+            "source_path": "research/reader-v2-20260930/math/lean/ReaderAdapters.lean",
+            "line": 18,
+            "scope": "paper_adapter",
+            "explanation_md": "真实代码只复用整条 reconstruction；辅助推导在下方公共证明与库源码中展开。"
+          }
+        ]
+      }
+    ],
+    "example_md": "取两个变量 \\(N=\\{1,2\\}\\)，固定四个模型输出：\\(v(x_\\varnothing)=2\\)、\\(v(x_{\\{1\\}})=5\\)、\\(v(x_{\\{2\\}})=7\\)、\\(v(x_{\\{1,2\\}})=13\\)。于是\n\\[I_g(\\varnothing)=2,\\quad I_g(\\{1\\})=5-2=3,\\quad I_g(\\{2\\})=7-2=5,\\]\n\\[I_g(\\{1,2\\})=13-5-7+2=3.\\]\n在完整输入上，\\(2+3+5+3=13\\)；仅保留变量 1 时，\\(2+3=5\\)；全掩码时求和只有空集项 2。后三个检查说明同一组系数要同时重构全部掩码输出。",
+    "lean": {
+      "status": "verified",
+      "label": "选定陈述已编译并通过公理审计",
+      "compiled": true,
+      "axiom_audit": "passed",
+      "scope": "仅验证 Theorem 1 的有限掩码子集和恒等式；原文因果解释与具体 DNN 运行不由 Lean 检查。",
+      "alignment_status": "agent_checked_selected_statement",
+      "source_semantics_automatically_verified": false,
+      "declarations": [
+        "ReaderV2.cvpr_reconstruction"
+      ],
+      "statement": "∀ {X : Type u_1} {n : Nat} (v : X → Real) (mask : Finset.{0} (Fin n) → X) (S : Finset.{0} (Fin n)),\n  Eq.{1} (∑ T ∈ Finset.powerset.{0} S, Harsanyi.interaction.{0} (ReaderV2.maskedGame.{u_1} v mask) T) (v (mask S))",
+      "source_path": "research/reader-v2-20260930/math/lean/ReaderAdapters.lean",
+      "report_path": "research/reader-v2-20260930/math/verification/report.json",
+      "adapter_code": "import Harsanyi.Core.Properties\n\nnamespace ReaderV2\nopen Finset Harsanyi\n\nnoncomputable def maskedGame {X : Type*} {n : ℕ}\n    (v : X → ℝ) (mask : Finset (Fin n) → X) : Game (Fin n) :=\n  fun S => v (mask S)\n\ntheorem cvpr_reconstruction {X : Type*} {n : ℕ}\n    (v : X → ℝ) (mask : Finset (Fin n) → X) (S : Finset (Fin n)) :\n    (∑ T ∈ S.powerset, interaction (maskedGame v mask) T) = v (mask S) := by\n  exact reconstruction (maskedGame v mask) S\n\nend ReaderV2\n",
+      "source_fingerprint": "0e74f99d1e90091c0bd4e528bc650bf6e39e0edb0cc500135e0e53df2750a7e9",
+      "step_map": [
+        {
+          "step_id": "step-2",
+          "declaration": "ReaderV2.cvpr_reconstruction",
+          "explanation": "适配以真实模型输出函数 v 和真实类型的 mask 参数陈述有限子集和；具体 DNN/掩码实现不在验证范围。",
+          "scope": "paper_adapter",
+          "source_path": "research/reader-v2-20260930/math/lean/ReaderAdapters.lean",
+          "line": 18,
+          "lean_excerpt": "theorem cvpr_reconstruction {X : Type*} {n : ℕ}\n    (v : X → ℝ) (mask : Finset (Fin n) → X) (S : Finset (Fin n)) :\n    (∑ T ∈ S.powerset, interaction (maskedGame v mask) T) = v (mask S) := by\n  exact reconstruction (maskedGame v mask) S"
+        },
+        {
+          "step_id": "step-3",
+          "declaration": "Harsanyi.reconstruction",
+          "explanation": "reused_exact_declaration",
+          "scope": "reused_exact_declaration",
+          "source_path": "lean/HarsanyiLib/Harsanyi/Core/Mobius.lean",
+          "line": 34,
+          "lean_excerpt": "theorem reconstruction (v : Game α) (S : Finset α) :\n    reconstruct (interaction v) S = v S := by\n  induction S using Finset.induction_on generalizing v with\n  | empty => simp\n  | @insert i S hi ih =>\n    unfold reconstruct\n    rw [sum_powerset_insert hi]\n    have h : ∀ T ∈ S.powerset,\n        interaction v (insert i T) = interaction (marginal v i) T := by\n      intro T hT\n      exact interaction_insert v T i (fun hit => hi ((mem_powerset.mp hT) hit))\n    rw [sum_congr rfl h]\n    change reconstruct (interaction v) S + reconstruct (interaction (marginal v i)) S = _\n    rw [ih v, ih (marginal v i)]\n    simp [marginal]\n\n/-- The converse Boolean Möbius inversion: transforming subset sums recovers coefficients. -/"
+        },
+        {
+          "step_id": "step-3",
+          "declaration": "ReaderV2.cvpr_reconstruction",
+          "explanation": "真实代码只复用整条 reconstruction；辅助推导在下方公共证明与库源码中展开。",
+          "scope": "paper_adapter",
+          "source_path": "research/reader-v2-20260930/math/lean/ReaderAdapters.lean",
+          "line": 18,
+          "lean_excerpt": "theorem cvpr_reconstruction {X : Type*} {n : ℕ}\n    (v : X → ℝ) (mask : Finset (Fin n) → X) (S : Finset (Fin n)) :\n    (∑ T ∈ S.powerset, interaction (maskedGame v mask) T) = v (mask S) := by\n  exact reconstruction (maskedGame v mask) S"
+        }
+      ],
+      "excluded_scope": [
+        "full-paper claims",
+        "F11 full Theorem 2 AND-OR notation and original proof",
+        "experimental OR file",
+        "training/sparsity/approximation claims",
+        "implementation of a concrete DNN or concrete mask operation"
+      ],
+      "user_review_status": "pending",
+      "code_kind": "exact_source_declarations_with_import_context",
+      "encoding_note": "数学上的有限子集族用 Finset 表示；库要求可判定相等关系。论文适配取 Fin n，使 ∀ S : Finset (Fin n) 恰好遍历固定总体的全部掩码。T⊆S 保证指数中的自然数减法没有截断。库源码中的 h1/h2 是插入基数和符号计算；generalizing v/d 保持对任意函数的加强归纳；funext 实现逐点相等。编译检查形式陈述，定义与论文语义的对应仍须人工核对。"
+    },
+    "caveats": [
+      "正文本次代理已核对数学适配与正式 main/supp；Lean 编译检查给出的形式陈述，不自动保证译文或论文解释正确。",
+      "精确重构以 Ω=\\(2^N\\) 为前提；论文后续稀疏模式的近似效果未在此条证明。",
+      "第一步的指示函数模型语义已人工核对，但本轮 adapter 从等价子集和开始，没有新增一个因果图概率分布的 Lean 模型。"
+    ],
+    "alignment_status": "agent_checked_selected_statement",
+    "user_review_status": "pending",
+    "completion_scope": "Theorem 1 exact finite-mask reconstruction",
+    "display_statement_tex": [
+      "w_A:=\\sum_{T\\subseteq A}(-1)^{|A|-|T|}v(x_T)",
+      "\\forall S\\subseteq N,\\quad Y(x_S)=\\sum_{A\\subseteq S}w_A=v(x_S)"
+    ],
+    "original_statement_note": "正式原命题公式摘录与项目中文定位说明；不是原文完整逐字转录。完整正式原文见 PDF。",
+    "original_statement_source_type": "project_source_summary_with_formula_excerpt",
+    "original_proof_note": "原证明路线的项目中文说明或摘要，含明确标注的数学解释；不是原作者证明的完整逐字转录。正式原文见 PDF。",
+    "original_proof_source_type": "project_chinese_explanation_of_source_proof_route"
+  },
+  "occurrences": [
+    {
+      "id": "occ-cvpr2023-theorem1-main",
+      "paper_id": "cvpr2023-sparse-concepts",
+      "source_id": "src-cvpr2023-main",
+      "version_id": "ver-cvpr2023-formal",
+      "pdf_pages": [
+        3
+      ],
+      "original_label": "Theorem 1",
+      "role": "main_statement",
+      "excerpt_id": "excerpt-cvpr2023-theorem1",
+      "source_review_status": "agent_checked_against_pinned_pdf",
+      "user_review_status": "pending",
+      "visibility": "public"
+    },
+    {
+      "id": "occ-cvpr2023-theorem1-supplement",
+      "paper_id": "cvpr2023-sparse-concepts",
+      "source_id": "src-cvpr2023-supplement",
+      "version_id": "ver-cvpr2023-formal",
+      "pdf_pages": [
+        2,
+        3
+      ],
+      "original_label": "Appendix C, Theorem 1",
+      "role": "restatement_with_proof",
+      "excerpt_id": "excerpt-cvpr2023-theorem1",
+      "source_review_status": "agent_checked_against_pinned_pdf",
+      "user_review_status": "pending",
+      "visibility": "public"
+    }
+  ],
+  "propositions": [
+    {
+      "id": "prop-set-function-reconstruction",
+      "title": "有限集合函数的 Möbius 重构",
+      "statement_tex": "I_g(S)=\\sum_{T\\subseteq S}(-1)^{|S|-|T|}g(T),\\qquad\\sum_{T\\subseteq S}I_g(T)=g(S)",
+      "assumptions": [
+        "finite input subsets",
+        "real-valued set function g; no g(empty)=0 assumption"
+      ],
+      "proof_ids": [
+        "proof-finite-mobius-reconstruction-v2"
+      ],
+      "origin": "project_general_theorem",
+      "visibility": "public"
+    }
+  ],
+  "shared_proofs": [
+    {
+      "metadata": {
+        "id": "proof-finite-mobius-reconstruction-v2",
+        "proposition_ids": [
+          "prop-set-function-reconstruction"
+        ],
+        "content_path": "research/reader-v2-20260930/data/math-content.json",
+        "dependency_ids": [],
+        "verification_report_ids": [
+          "verification-library-reconstruction-v2"
+        ],
+        "lean_declarations": [
+          "Harsanyi.reconstruction",
+          "Harsanyi.interaction_insert"
+        ],
+        "origin": "project_new_readable_proof",
+        "visibility": "public"
+      },
+      "content": {
+        "id": "proof-finite-mobius-reconstruction-v2",
+        "title": "公共证明：所有交互精确重构每一个掩码输出",
+        "kind": "library_result",
+        "statement_tex": "\\forall g\\ \\forall S,\\quad R_{I_g}(S)=\\sum_{T\\subseteq S}I_g(T)=g(S)",
+        "assumptions": [
+          {
+            "id": "finite-coalitions",
+            "text_md": "S 是有限变量集合。g 与 d 是定义在有限变量子集上的任意实值函数；不要求连续、可微、独立性或零输出基线。",
+            "formula_tex": "g,d:\\mathcal P_{\\mathrm{fin}}(U)\\to\\mathbb R"
+          },
+          {
+            "id": "finite-domain",
+            "text_md": "U 表示变量总体，\\(\\mathcal P_{\\mathrm{fin}}(U)\\) 表示其所有有限子集。每次参与求和的 S、T 都有限；变量总体本身可以无限。论文应用则固定有限总体 N，只讨论 \\(2^N\\)。",
+            "formula_tex": "S\\in\\mathcal P_{\\mathrm{fin}}(U)"
+          }
+        ],
+        "definitions": [
+          {
+            "id": "interaction",
+            "text_md": "交互是有限交替和。\\(T\\subseteq S\\) 保证 |T|≤|S|，因此指数 \\(|S|-|T|\\) 是非负整数。",
+            "formula_tex": "I_g(S):=\\sum_{T\\subseteq S}(-1)^{|S|-|T|}g(T)"
+          },
+          {
+            "id": "reconstruct",
+            "text_md": "\\(R_d\\) 是在给定保留变量集 S 上累加所有被激活的系数。",
+            "formula_tex": "R_d(S):=\\sum_{T\\subseteq S}d(T)"
+          },
+          {
+            "id": "finite-difference",
+            "text_md": "插入差分比较保留 i 与掩码 i 两种状态。下面的插入引理只在 \\(i\\notin S\\) 时使用。",
+            "formula_tex": "(\\Delta_i g)(T):=g(T\\cup\\{i\\})-g(T)"
+          }
+        ],
+        "overview": "每次插入一个新变量 i，都把子集分成“不含 i”和“含 i”两组。含 i 那组的交互等于插入差分 \\(\\Delta_i g\\) 的交互；这让两个子集总和分别重构 \\(g(S)\\) 和 \\(g(S\\cup \\{i\\})-g(S)\\)，相加后中间项消去。先把这个辅助引理证清，再对有限集合归纳。下面用有限集合归纳给出完整证明；原论文采用有限双重和的消去路线，另在论文结果的原证明摘要中解释。",
+        "proof_steps": [
+          {
+            "id": "step-1",
+            "title": "辅助引理：为什么子集能分成两组",
+            "body_md": "固定有限集合 S 及不属于 S 的变量 i。\\(S\\cup \\{i\\}\\) 的任何子集 A，要么不含 i，这时 A 本身就是 S 的子集；要么含 i，这时唯一地写成 \\(A=T\\cup \\{i\\}\\)，其中 \\(T=A\\setminus \\{i\\}\\subseteq S\\)。两类互不重叠，且各自覆盖所有可能情况，所以对任意实值函数 F 可以把有限和改写为下面的两组和。没有遗漏空集：它出现在第一组 \\(T=\\varnothing\\)；第二组 \\(T=\\varnothing\\) 对应 {i}。",
+            "formula_tex": "\\sum_{A\\subseteq S\\cup\\{i\\}}F(A)=\\sum_{T\\subseteq S}F(T)+\\sum_{T\\subseteq S}F(T\\cup\\{i\\})",
+            "justification": "子集与不含/含 i 两类的显式一一对应。",
+            "lean_refs": [
+              {
+                "declaration": "Harsanyi.interaction_insert",
+                "source_path": "lean/HarsanyiLib/Harsanyi/Core/Mobius.lean",
+                "line": 8,
+                "scope": "detail_inside_existing_proof",
+                "explanation_md": "插入引理证明内实际使用子集拆分；这一步没有另增一个项目定理。"
+              }
+            ]
+          },
+          {
+            "id": "step-2",
+            "title": "辅助引理：展开符号，得到插入差分",
+            "body_md": "把上一步用于交互 \\(I_g(S\\cup \\{i\\})\\) 的定义。每个 \\(T\\subseteq S\\) 都满足 \\(i\\notin T\\)，因此 \\(|S\\cup \\{i\\}|=|S|+1\\)、\\(|T\\cup \\{i\\}|=|T|+1\\)。令 \\(k=|S|-|T|\\ge 0\\)：第一组的系数是 \\((-1)^{k+1}=-(-1)^k\\)；第二组的系数是 \\((-1)^k\\)。把同一 T 的两项合并，得到 \\((-1)^k\\)[\\(g(T\\cup \\{i\\})−g(T)\\)]。最后一行正是 \\(I_{\\Delta_i g}(S)\\) 的定义。",
+            "formula_tex": "\\begin{aligned}I_g(S\\cup\\{i\\})&=\\sum_{T\\subseteq S}(-1)^{|S|+1-|T|}g(T)+\\sum_{T\\subseteq S}(-1)^{|S|-|T|}g(T\\cup\\{i\\})\\\\&=\\sum_{T\\subseteq S}(-1)^{|S|-|T|}\\bigl(g(T\\cup\\{i\\})-g(T)\\bigr)\\\\&=I_{\\Delta_i g}(S).\\end{aligned}",
+            "justification": "\\(i\\notin S\\) 及 \\(T\\subseteq S\\) 给出两个插入基数；整数幂的递推关系给出负号；有限和逐项相加。",
+            "lean_refs": [
+              {
+                "declaration": "Harsanyi.interaction_insert",
+                "source_path": "lean/HarsanyiLib/Harsanyi/Core/Mobius.lean",
+                "line": 8,
+                "scope": "detail_inside_existing_proof",
+                "explanation_md": "这个三行等式是已存在 interaction_insert 的完整数学内容；h1/h2 位于该声明证明内。"
+              }
+            ]
+          },
+          {
+            "id": "step-3",
+            "title": "主证明：加强归纳命题，并处理空集",
+            "body_md": "对有限集合 S 作插入归纳，但归纳命题必须说“对任意集合函数 g 都有 \\(R_{I_g}(S)=g(S)\\)”。不能只固定最初的 g 后归纳，因为插入一步还要对新函数 \\(\\Delta_i g\\) 使用归纳假设。\n\n当 \\(S=\\varnothing\\) 时，空集只有一个子集，即自身。定义中的指数是 0，(−1)^0=1，所以 \\(I_g(\\varnothing )=g(\\varnothing )\\)，而重构和也只有这一项。这是归纳起点；无需且不能在这里默默令 \\(g(\\varnothing )\\)=0。",
+            "formula_tex": "R_{I_g}(\\varnothing)=I_g(\\varnothing)=(-1)^0g(\\varnothing)=g(\\varnothing)",
+            "justification": "有限集合插入归纳；空集的子集族只有空集本身；空集交互公式。",
+            "lean_refs": [
+              {
+                "declaration": "Harsanyi.reconstruction",
+                "source_path": "lean/HarsanyiLib/Harsanyi/Core/Mobius.lean",
+                "line": 34,
+                "scope": "detail_inside_existing_proof",
+                "explanation_md": "归纳语句 generalizing v 以及 empty 分支都在 reconstruction 的现有证明内。"
+              },
+              {
+                "declaration": "Harsanyi.interaction_empty",
+                "source_path": "lean/HarsanyiLib/Harsanyi/Core/Basic.lean",
+                "line": 30,
+                "scope": "reused_exact_declaration",
+                "explanation_md": ""
+              }
+            ]
+          },
+          {
+            "id": "step-4",
+            "title": "主证明：对两组和分别使用归纳假设",
+            "body_md": "现在设 \\(i\\notin S\\)，并假设任意函数 h 在 S 上都满足 \\(R_{I_h}(S)\\)=h(S)。第一步的拆分把 \\(S\\cup \\{i\\}\\) 上的重构和写成两组。对第二组中的每个 \\(T\\subseteq S\\)，仍有 \\(i\\notin T\\)，所以第二步的插入交互引理可以逐项使用。得到的第二组是 \\(\\Delta_i g\\) 在 S 上的交互总和。对第一组用归纳假设 h=g，对第二组用归纳假设 h=\\(\\Delta_i g\\)，便分别得到 \\(g(S)\\) 与 \\(\\Delta_i g(S)\\)。这里明确使用了两次同一个归纳假设，而不是假设差分的结论未经证明成立。",
+            "formula_tex": "\\begin{aligned}R_{I_g}(S\\cup\\{i\\})&=\\sum_{T\\subseteq S}I_g(T)+\\sum_{T\\subseteq S}I_g(T\\cup\\{i\\})\\\\&=R_{I_g}(S)+R_{I_{\\Delta_i g}}(S)\\\\&=g(S)+(\\Delta_i g)(S).\\end{aligned}",
+            "justification": "子集拆分；插入交互引理逐项使用；加强归纳假设适用于任意集合函数。",
+            "lean_refs": [
+              {
+                "declaration": "Harsanyi.reconstruction",
+                "source_path": "lean/HarsanyiLib/Harsanyi/Core/Mobius.lean",
+                "line": 34,
+                "scope": "detail_inside_existing_proof",
+                "explanation_md": "现有代码的 sum_congr、ih v 和 ih (marginal v i) 分别实现逐项替换和两次归纳应用。"
+              }
+            ]
+          },
+          {
+            "id": "step-5",
+            "title": "主证明：消去中间输出，完成归纳",
+            "body_md": "按插入差分的定义，\\(\\Delta_i g(S)=g(S\\cup \\{i\\})-g(S)\\)。将其代入上一步，\\(g(S)\\) 与 −\\(g(S)\\) 在实数加法中消去，得到所需的 \\(g(S\\cup \\{i\\})\\)。空集起点与每次插入的步骤已经覆盖所有有限 S，因此对任意有限 S 的重构恒等式成立。论文中只需把这里的 \\(g(S)\\) 换成固定模型和掩码规则给出的 \\(v(x_S)\\)。",
+            "formula_tex": "g(S)+(\\Delta_i g)(S)=g(S)+g(S\\cup\\{i\\})-g(S)=g(S\\cup\\{i\\})",
+            "justification": "插入差分定义与实数加减法；有限集合归纳结论。",
+            "lean_refs": [
+              {
+                "declaration": "Harsanyi.reconstruction",
+                "source_path": "lean/HarsanyiLib/Harsanyi/Core/Mobius.lean",
+                "line": 34,
+                "scope": "detail_inside_existing_proof",
+                "explanation_md": "reconstruction 最后 simp [marginal] 完成此消去；不是五个新定理各自独立编译。"
+              }
+            ]
+          }
+        ],
+        "example_md": "取两个变量 \\(N=\\{1,2\\}\\)，固定四个模型输出：\\(v(x_\\varnothing)=2\\)、\\(v(x_{\\{1\\}})=5\\)、\\(v(x_{\\{2\\}})=7\\)、\\(v(x_{\\{1,2\\}})=13\\)。于是\n\\[I_g(\\varnothing)=2,\\quad I_g(\\{1\\})=5-2=3,\\quad I_g(\\{2\\})=7-2=5,\\]\n\\[I_g(\\{1,2\\})=13-5-7+2=3.\\]\n在完整输入上，\\(2+3+5+3=13\\)；仅保留变量 1 时，\\(2+3=5\\)；全掩码时求和只有空集项 2。后三个检查说明同一组系数要同时重构全部掩码输出。",
+        "lean": {
+          "status": "verified",
+          "label": "选定陈述已编译并通过公理审计",
+          "compiled": true,
+          "axiom_audit": "passed",
+          "scope": "公共有限集合重构定理及其真实库内归纳证明；论文适配另见各结果。",
+          "alignment_status": "not_a_paper_claim",
+          "source_semantics_automatically_verified": false,
+          "declarations": [
+            "Harsanyi.reconstruction",
+            "Harsanyi.interaction_insert"
+          ],
+          "statement": "∀ {α : Type u_1} [DecidableEq.{u_1 + 1} α] (v : Harsanyi.Game.{u_1} α) (S : Finset.{u_1} α),\n  Eq.{1} (Harsanyi.reconstruct.{u_1} (Harsanyi.interaction.{u_1} v) S) (v S)",
+          "source_path": "lean/HarsanyiLib/Harsanyi/Core/Mobius.lean",
+          "report_path": "research/reader-v2-20260930/math/verification/report.json",
+          "adapter_code": "theorem interaction_insert (v : Game α) (S : Finset α) (i : α) (hi : i ∉ S) :\n    interaction v (insert i S) = interaction (marginal v i) S := by\n  unfold interaction marginal\n  rw [sum_powerset_insert hi]\n  have h1 : ∀ T ∈ S.powerset,\n      (-1 : ℝ) ^ ((insert i S).card - T.card) * v T =\n      -((-1 : ℝ) ^ (S.card - T.card) * v T) := by\n    intro T hT\n    have hTS := card_le_card (mem_powerset.mp hT)\n    rw [card_insert_of_notMem hi]\n    have he : S.card + 1 - T.card = (S.card - T.card) + 1 := by omega\n    rw [he, pow_succ]\n    ring\n  have h2 : ∀ T ∈ S.powerset,\n      (-1 : ℝ) ^ ((insert i S).card - (insert i T).card) * v (insert i T) =\n      (-1 : ℝ) ^ (S.card - T.card) * v (insert i T) := by\n    intro T hT\n    have hiT : i ∉ T := fun hit => hi ((mem_powerset.mp hT) hit)\n    rw [card_insert_of_notMem hi, card_insert_of_notMem hiT]\n    simp\n  rw [sum_congr rfl h1, sum_congr rfl h2, ← sum_add_distrib]\n  apply sum_congr rfl\n  intro T _\n  ring\n\n/-- All dividends reconstruct every finite coalition, without a baseline assumption. -/\n\ntheorem reconstruction (v : Game α) (S : Finset α) :\n    reconstruct (interaction v) S = v S := by\n  induction S using Finset.induction_on generalizing v with\n  | empty => simp\n  | @insert i S hi ih =>\n    unfold reconstruct\n    rw [sum_powerset_insert hi]\n    have h : ∀ T ∈ S.powerset,\n        interaction v (insert i T) = interaction (marginal v i) T := by\n      intro T hT\n      exact interaction_insert v T i (fun hit => hi ((mem_powerset.mp hT) hit))\n    rw [sum_congr rfl h]\n    change reconstruct (interaction v) S + reconstruct (interaction (marginal v i)) S = _\n    rw [ih v, ih (marginal v i)]\n    simp [marginal]\n\n/-- The converse Boolean Möbius inversion: transforming subset sums recovers coefficients. -/",
+          "source_fingerprint": "0e74f99d1e90091c0bd4e528bc650bf6e39e0edb0cc500135e0e53df2750a7e9",
+          "step_map": [
+            {
+              "step_id": "step-1",
+              "declaration": "Harsanyi.interaction_insert",
+              "explanation": "插入引理证明内实际使用子集拆分；这一步没有另增一个项目定理。",
+              "scope": "detail_inside_existing_proof",
+              "source_path": "lean/HarsanyiLib/Harsanyi/Core/Mobius.lean",
+              "line": 8,
+              "lean_excerpt": "theorem interaction_insert (v : Game α) (S : Finset α) (i : α) (hi : i ∉ S) :\n    interaction v (insert i S) = interaction (marginal v i) S := by\n  unfold interaction marginal\n  rw [sum_powerset_insert hi]\n  have h1 : ∀ T ∈ S.powerset,\n      (-1 : ℝ) ^ ((insert i S).card - T.card) * v T =\n      -((-1 : ℝ) ^ (S.card - T.card) * v T) := by\n    intro T hT\n    have hTS := card_le_card (mem_powerset.mp hT)\n    rw [card_insert_of_notMem hi]\n    have he : S.card + 1 - T.card = (S.card - T.card) + 1 := by omega\n    rw [he, pow_succ]\n    ring\n  have h2 : ∀ T ∈ S.powerset,\n      (-1 : ℝ) ^ ((insert i S).card - (insert i T).card) * v (insert i T) =\n      (-1 : ℝ) ^ (S.card - T.card) * v (insert i T) := by\n    intro T hT\n    have hiT : i ∉ T := fun hit => hi ((mem_powerset.mp hT) hit)\n    rw [card_insert_of_notMem hi, card_insert_of_notMem hiT]\n    simp\n  rw [sum_congr rfl h1, sum_congr rfl h2, ← sum_add_distrib]\n  apply sum_congr rfl\n  intro T _\n  ring\n\n/-- All dividends reconstruct every finite coalition, without a baseline assumption. -/"
+            },
+            {
+              "step_id": "step-2",
+              "declaration": "Harsanyi.interaction_insert",
+              "explanation": "这个三行等式是已存在 interaction_insert 的完整数学内容；h1/h2 位于该声明证明内。",
+              "scope": "detail_inside_existing_proof",
+              "source_path": "lean/HarsanyiLib/Harsanyi/Core/Mobius.lean",
+              "line": 8,
+              "lean_excerpt": "theorem interaction_insert (v : Game α) (S : Finset α) (i : α) (hi : i ∉ S) :\n    interaction v (insert i S) = interaction (marginal v i) S := by\n  unfold interaction marginal\n  rw [sum_powerset_insert hi]\n  have h1 : ∀ T ∈ S.powerset,\n      (-1 : ℝ) ^ ((insert i S).card - T.card) * v T =\n      -((-1 : ℝ) ^ (S.card - T.card) * v T) := by\n    intro T hT\n    have hTS := card_le_card (mem_powerset.mp hT)\n    rw [card_insert_of_notMem hi]\n    have he : S.card + 1 - T.card = (S.card - T.card) + 1 := by omega\n    rw [he, pow_succ]\n    ring\n  have h2 : ∀ T ∈ S.powerset,\n      (-1 : ℝ) ^ ((insert i S).card - (insert i T).card) * v (insert i T) =\n      (-1 : ℝ) ^ (S.card - T.card) * v (insert i T) := by\n    intro T hT\n    have hiT : i ∉ T := fun hit => hi ((mem_powerset.mp hT) hit)\n    rw [card_insert_of_notMem hi, card_insert_of_notMem hiT]\n    simp\n  rw [sum_congr rfl h1, sum_congr rfl h2, ← sum_add_distrib]\n  apply sum_congr rfl\n  intro T _\n  ring\n\n/-- All dividends reconstruct every finite coalition, without a baseline assumption. -/"
+            },
+            {
+              "step_id": "step-3",
+              "declaration": "Harsanyi.reconstruction",
+              "explanation": "归纳语句 generalizing v 以及 empty 分支都在 reconstruction 的现有证明内。",
+              "scope": "detail_inside_existing_proof",
+              "source_path": "lean/HarsanyiLib/Harsanyi/Core/Mobius.lean",
+              "line": 34,
+              "lean_excerpt": "theorem reconstruction (v : Game α) (S : Finset α) :\n    reconstruct (interaction v) S = v S := by\n  induction S using Finset.induction_on generalizing v with\n  | empty => simp\n  | @insert i S hi ih =>\n    unfold reconstruct\n    rw [sum_powerset_insert hi]\n    have h : ∀ T ∈ S.powerset,\n        interaction v (insert i T) = interaction (marginal v i) T := by\n      intro T hT\n      exact interaction_insert v T i (fun hit => hi ((mem_powerset.mp hT) hit))\n    rw [sum_congr rfl h]\n    change reconstruct (interaction v) S + reconstruct (interaction (marginal v i)) S = _\n    rw [ih v, ih (marginal v i)]\n    simp [marginal]\n\n/-- The converse Boolean Möbius inversion: transforming subset sums recovers coefficients. -/"
+            },
+            {
+              "step_id": "step-3",
+              "declaration": "Harsanyi.interaction_empty",
+              "explanation": "reused_exact_declaration",
+              "scope": "reused_exact_declaration",
+              "source_path": "lean/HarsanyiLib/Harsanyi/Core/Basic.lean",
+              "line": 30,
+              "lean_excerpt": "@[simp] theorem interaction_empty (v : Game α) : interaction v ∅ = v ∅ := by\n  simp [interaction]"
+            },
+            {
+              "step_id": "step-4",
+              "declaration": "Harsanyi.reconstruction",
+              "explanation": "现有代码的 sum_congr、ih v 和 ih (marginal v i) 分别实现逐项替换和两次归纳应用。",
+              "scope": "detail_inside_existing_proof",
+              "source_path": "lean/HarsanyiLib/Harsanyi/Core/Mobius.lean",
+              "line": 34,
+              "lean_excerpt": "theorem reconstruction (v : Game α) (S : Finset α) :\n    reconstruct (interaction v) S = v S := by\n  induction S using Finset.induction_on generalizing v with\n  | empty => simp\n  | @insert i S hi ih =>\n    unfold reconstruct\n    rw [sum_powerset_insert hi]\n    have h : ∀ T ∈ S.powerset,\n        interaction v (insert i T) = interaction (marginal v i) T := by\n      intro T hT\n      exact interaction_insert v T i (fun hit => hi ((mem_powerset.mp hT) hit))\n    rw [sum_congr rfl h]\n    change reconstruct (interaction v) S + reconstruct (interaction (marginal v i)) S = _\n    rw [ih v, ih (marginal v i)]\n    simp [marginal]\n\n/-- The converse Boolean Möbius inversion: transforming subset sums recovers coefficients. -/"
+            },
+            {
+              "step_id": "step-5",
+              "declaration": "Harsanyi.reconstruction",
+              "explanation": "reconstruction 最后 simp [marginal] 完成此消去；不是五个新定理各自独立编译。",
+              "scope": "detail_inside_existing_proof",
+              "source_path": "lean/HarsanyiLib/Harsanyi/Core/Mobius.lean",
+              "line": 34,
+              "lean_excerpt": "theorem reconstruction (v : Game α) (S : Finset α) :\n    reconstruct (interaction v) S = v S := by\n  induction S using Finset.induction_on generalizing v with\n  | empty => simp\n  | @insert i S hi ih =>\n    unfold reconstruct\n    rw [sum_powerset_insert hi]\n    have h : ∀ T ∈ S.powerset,\n        interaction v (insert i T) = interaction (marginal v i) T := by\n      intro T hT\n      exact interaction_insert v T i (fun hit => hi ((mem_powerset.mp hT) hit))\n    rw [sum_congr rfl h]\n    change reconstruct (interaction v) S + reconstruct (interaction (marginal v i)) S = _\n    rw [ih v, ih (marginal v i)]\n    simp [marginal]\n\n/-- The converse Boolean Möbius inversion: transforming subset sums recovers coefficients. -/"
+            }
+          ],
+          "excluded_scope": [
+            "full-paper claims",
+            "F11 full Theorem 2 AND-OR notation and original proof",
+            "experimental OR file",
+            "training/sparsity/approximation claims",
+            "implementation of a concrete DNN or concrete mask operation"
+          ],
+          "user_review_status": "not_a_paper_claim",
+          "code_kind": "actual_public_library_source_excerpt",
+          "encoding_note": "数学上的有限子集族用 Finset 表示；库要求可判定相等关系。论文适配取 Fin n，使 ∀ S : Finset (Fin n) 恰好遍历固定总体的全部掩码。T⊆S 保证指数中的自然数减法没有截断。库源码中的 h1/h2 是插入基数和符号计算；generalizing v/d 保持对任意函数的加强归纳；funext 实现逐点相等。编译检查形式陈述，定义与论文语义的对应仍须人工核对。"
+        },
+        "caveats": [
+          "正文五节解释已有库内证明；它们没有五个新增 Lean 声明。被验证的是库定理以及单独编译的论文适配。",
+          "所有子集和包含空集；删掉空集项后应在和外加回 \\(g(\\varnothing )\\)。",
+          "原文采用双重求和/二项消去，Lean 采用插入归纳；两条证明方法要分别说明，不能把原文每一行标为已逐行翻译。"
+        ],
+        "rewrite_status": "complete",
+        "alignment_status": "not_a_paper_claim",
+        "user_review_status": "not_a_paper_claim",
+        "completion_scope": "公共有限集合重构定理及其真实库内归纳证明；论文适配另见各结果。"
+      }
+    }
+  ],
+  "adapters": [
+    {
+      "id": "adapter-cvpr2023-reconstruction-v2",
+      "paper_id": "cvpr2023-sparse-concepts",
+      "result_id": "cvpr2023-reconstruction",
+      "proposition_ids": [
+        "prop-set-function-reconstruction"
+      ],
+      "proof_ids": [
+        "proof-finite-mobius-reconstruction-v2"
+      ],
+      "source_occurrence_ids": [
+        "occ-cvpr2023-theorem1-main",
+        "occ-cvpr2023-theorem1-supplement"
+      ],
+      "source_path": "research/reader-v2-20260930/math/lean/ReaderAdapters.lean",
+      "lean_declarations": [
+        "ReaderV2.cvpr_reconstruction"
+      ],
+      "definition_map": "g(S)=v(mask(S)); uncentered I(empty)=v(mask(empty))",
+      "alignment_status": "agent_checked_selected_statement",
+      "user_review_status": "pending",
+      "verification_report_ids": [
+        "verification-cvpr2023-reconstruction-v2"
+      ],
+      "scope": "CVPR 2023 Theorem 1 reconstruction clause; all subsets of Fin n",
+      "concrete_mask_implementation_verified": false,
+      "visibility": "public"
+    }
+  ],
+  "issues": [],
+  "alignment_notes": [],
+  "verification": {
+    "id": "cvpr2023-reconstruction",
+    "record_kind": "results",
+    "scope": "CVPR 2023 Theorem 1 reconstruction clause; all subsets of Fin n",
+    "completion_scope": "selected_result",
+    "source_alignment": "agent_checked_selected_statement",
+    "readable_rewrite": "complete",
+    "user_review": "pending",
+    "compilation": "passed",
+    "axiom_audit": "passed",
+    "reports": [
+      {
+        "id": "verification-cvpr2023-reconstruction-v2",
+        "path": "research/reader-v2-20260930/math/verification/report.json",
+        "scope": "paper_adapter",
+        "compilation": "passed",
+        "axiom_audit": "passed",
+        "freshness": "current",
+        "unexpected_axioms": [],
+        "declarations": [
+          {
+            "name": "ReaderV2.cvpr_reconstruction",
+            "status": "passed",
+            "axioms": [
+              "propext",
+              "Classical.choice",
+              "Quot.sound"
+            ]
+          }
+        ],
+        "source_semantics_automatically_verified": false
+      }
+    ],
+    "issue_ids": [],
+    "alignment_note_ids": []
+  }
+}

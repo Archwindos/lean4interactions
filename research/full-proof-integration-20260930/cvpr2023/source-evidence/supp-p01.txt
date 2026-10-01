@@ -1,0 +1,50 @@
+         Defining and Quantifying the Emergence of Sparse Concepts in DNNs:
+                               Supplementary Material
+
+                             Jie Ren∗ , Mingjie Li*, Qirui Chen, Huiqi Deng, Quanshi Zhang†
+                                              Shanghai Jiao Tong University
+
+
+A. Related works
+    Explanations for DNNs. Many methods have been proposed to explain DNNs, such as visualizing the features learned
+by the DNN [16, 46, 62, 63], and estimating the pixel-wise attribution/saliency of input samples [2, 19, 34, 41, 42, 66, 67].
+[9] and [61] estimated the smallest subset of variables to mimic DNN’s output. Some studies extracted logical rules as
+explanations [6, 27, 28, 36, 57]. Meanwhile, another direction is to distill a DNN into another interpretable symbolic model, for
+example, an additive model [53, 55], decision tree [1, 8, 20, 59], or graphical model [44, 65]. However, most of these explainer
+models usually only consider the model’s fitness to the network output, but whether their explanation can always faithfully
+reflect the logic in the DNN under various data transformations is still an open problem. In this study, we find that the network
+outputs on an exponential number of randomly masked samples can always be explained by a causal graph, of which the
+faithfulness is theoretically proven.
+    Using causality to explain DNNs. The causality framework was originally proposed to study the causal structure of a set
+of observed variables [26, 38]. For example, [60] proposed a neural-causal model to identify and estimate causal relationships
+in data. Recently, several studies have explained DNNs based on causality. For example, some studies [21, 25, 56] proposed
+attribution methods based on manually defined causal relationships between input variables. Similarly, [3, 7, 23] explained the
+association between inputs and intermediate features/outputs using causal models. Instead of manually setting or assuming
+causal relationships, we quantify the exact interactive concepts encoded by the DNN as causal patterns for inference, whose
+faithfulness is both theoretically guaranteed and experimentally verified. Note that the SCM in Eq. (2) of the main paper does
+not explain the DNN as a linear model, such as a bag-of-words model [13, 48]. This is because given different samples, the
+DNN may activate different sets of causal patterns.
+    Interactions. Causal patterns in the proposed causal graph can actually be considered as a specific type of interaction
+in game theory. Similar to causal effects, interactions in game theory are widely used to quantify the numerical effects of
+interactive concepts between input variables on the DNN output [29, 30, 37, 47, 50]. In game theory, the Shapley interaction
+index [22] was used by [33] to analyze tree ensembles. [51, 54] proposed interaction metrics from different perspectives. [15]
+proved that DNNs were less likely to encode interactive concepts of intermediate complexity. Unlike previous studies, we
+find that we can use a few causal patterns (interactive concepts) to faithfully represent the inference logic of a DNN, which is
+experimentally verified.
+
+B. Harsanyi dividend
+   This section revisits the definition of Harsanyi dividend [24], a typical metric in game theory. In this study, the causal effect
+wS of each pattern S is quantified based on Harsanyi dividends. In game theory, a complex system (e.g., a deep model) is
+usually considered a game. Each input variable represents a player in the game, and the output of this system is the reward
+obtained by a subset of players. Specifically, let us consider a deep model and an input sample x with n variables (e.g. a
+sentence with n words) N = {1, 2, ..., n}. A deep model can be understood as a game v(·). In this game, the input variables in
+N do not individually contribute to the model output. Instead, they interact with each other to form concepts (causal patterns)
+for inference. Each concept S ⊆ N has a certain causal effect on the model output. In this study, we prove in Theorem 1 that
+the Harsanyi dividend wS is a unique faithful metric for quantifying such causal effects.
+   * These authors contributed equally to this work.
+   † Quanshi Zhang is the corresponding author. He is
+                                              with the Department of Computer Science and Engineering, the John Hopcroft Center, at the Shanghai
+Jiao Tong University, China. zqs1022@sjtu.edu.cn.
+
+
+                                                                       1

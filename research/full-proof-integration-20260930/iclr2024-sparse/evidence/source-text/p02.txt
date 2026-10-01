@@ -1,0 +1,69 @@
+Published as a conference paper at ICLR 2024
+
+
+
+
+         𝑣(𝒙)
+                                        𝑆1                     Interaction 1        𝐼 𝑆1 = 0.4
+                                                                (activated)
+          …
+                    Explained as                                Interaction 2 𝐼 𝑆2 = 0
+                                   𝑆3          𝑥2 𝑥1            (deactivated)                    𝑣(𝒙) = 𝐼 𝑆1 + 𝐼 𝑆2
+    Feed to   DNN                                                             𝐼 𝑆3 = 0                  +𝐼 𝑆3 + ⋯
+                                               𝑥3
+                                                        𝑆2          Interaction 3
+                                                                    (deactivated)
+                                        𝑥4
+                                                                ...
+
+Figure 1: Illustration of interactions encoded by a DNN. Each interaction S corresponds to an AND
+relationship among a specific set S of input variables (image patches). The patches x1 and x4 are
+masked, so that interactions S2 and S3 are deactivated.
+
+image, a DNN may encode a salient interaction among three image regions in S = {x1 , x2 , x3 }.
+Only when all three image regions are present will the interaction be activated and contribute a nu-
+merical effect I(S) to the inference score of the DNN. Masking any regions in S will deactivate the
+interactions and make I(S) = 0.
+Therefore, the proof of the emergence of interaction primitives is to prove a set of common con-
+ditions, which makes a DNN only encode a small number of symbolic (sparse) interactions. It
+means that given an input sample x, the inference score v(x) of the DNNP can be disentangled into
+the sum of the effects I(S) of a few salient interactions, i.e., v(x) ≈ S∈Ωsalient I(S) + bias, which
+can be called interaction primitives. Specifically, we prove three conditions. (i) The DNN has at
+most M -th order non-zero derivatives, where M < n, and n is the number of input variables to
+the DNN. (ii) The DNN can be used on occluded samples (e.g., an image with some patches being
+masked), and yields a higher classification confidence when the sample is less occluded. (iii) The
+classification confidence of the DNN does not significantly degrade on occluded samples. Because
+these conditions are common for many DNNs, and the proof does not depend on the specific archi-
+tecture of the network, our proof ensures that the emergence of symbolic interaction primitives is a
+universal phenomenon for various networks trained for different tasks.
+In fact, the essential reason for the emergence of sparse interaction primitives is neither the architec-
+ture of the neural network, nor the sparsity of network parameters/intermediate-layer features, but
+the property of the task. To be precise, when the task requires the DNN to conduct smooth inference
+on masked/occluded samples, a well-trained DNN usually encodes sparse interaction primitives.
+
+2   R ELATED W ORK
+We have developed a system of game-theoretic interactions for explaining DNNs in the last three
+years, and have published more than fifteen papers in this direction. This system focused on ad-
+dressing the following problems in explainable AI: (i) explicitly defining, extracting, and counting
+interactions encoded by a DNN, (ii) explaining the representation capacity (e.g., generalization abil-
+ity and adversarial robustness) of DNNs from the perspective of interaction, and (iii) summariz-
+ing/explaining common mechanisms shared by different empirical deep learning methods.
+• Explicitly defining and extracting interactions encoded by a DNN. A representative approach in
+explainable AI was to explain the interactions between different input variables (Sundararajan et al.,
+2020; Tsai et al., 2022). Based on game theory, Zhang et al. (2021a;b; 2020) defined multi-variate
+interaction and multi-order interaction. Ren et al. (2023a) discovered the sparsity of interactions in
+experiments. Li & Zhang (2023b) further discovered that salient interactions were usually transfer-
+able across different input samples and exhibited certain discrimination power. Chen et al. (2024)
+extracted generalizable interactions shared by different DNNs. These studies indicated that salient
+interactions could be considered as interaction primitives encoded by a DNN. Furthermore, Ren et al.
+(2023b) used the sparsity of interactions to define the optimal baseline value for the Shapley value.
+Cheng et al. (2021a) used interactions of different complexities to explain the encoding of specific
+types of shapes and textures in DNNs for image classification. Cheng et al. (2021b) discovered that
+salient interactions usually represented prototypical visual patterns in images.
+• Explaining the representation capacity of DNNs using game-theoretic interactions. Game-
+theoretic interactions have been used to explain the representation capacity of a DNN, although
+the following studies used the multi-order interaction (Zhang et al., 2020), rather than the Harsanyi
+
+
+                                                    2
+

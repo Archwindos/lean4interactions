@@ -1,0 +1,1303 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "urn:interaction-reader-v2:package:2.0",
+  "title": "Selected-paper agent package v2; use structural and semantic validation together",
+  "type": "object",
+  "required": [
+    "schema_version",
+    "package_id",
+    "package_version",
+    "scope",
+    "implementation",
+    "data_files",
+    "papers",
+    "versions",
+    "sources",
+    "occurrences",
+    "propositions",
+    "shared_proofs",
+    "results",
+    "adapters",
+    "verification_reports",
+    "issues",
+    "alignment_notes",
+    "resources",
+    "prompts",
+    "edges",
+    "tools"
+  ],
+  "properties": {
+    "schema_version": {
+      "type": "string",
+      "const": "2.0"
+    },
+    "package_id": {
+      "type": "string",
+      "pattern": "^[a-z][a-z0-9-]*$",
+      "maxLength": 120
+    },
+    "package_version": {
+      "type": "string"
+    },
+    "scope": {
+      "type": "string"
+    },
+    "implementation": {
+      "type": "object",
+      "required": [
+        "transport",
+        "mcp_server_implemented",
+        "production_migration_implemented"
+      ],
+      "properties": {
+        "transport": {
+          "type": "string",
+          "const": "local_json_cli"
+        },
+        "mcp_server_implemented": {
+          "type": "boolean",
+          "const": false
+        },
+        "production_migration_implemented": {
+          "type": "boolean",
+          "const": false
+        }
+      },
+      "additionalProperties": false
+    },
+    "data_files": {
+      "type": "object",
+      "required": [
+        "papers_path",
+        "math_path",
+        "source_excerpts_path"
+      ],
+      "properties": {
+        "papers_path": {
+          "type": "string",
+          "minLength": 1
+        },
+        "math_path": {
+          "type": "string",
+          "minLength": 1
+        },
+        "source_excerpts_path": {
+          "type": "string",
+          "minLength": 1
+        }
+      },
+      "additionalProperties": false
+    },
+    "papers": {
+      "type": "array",
+      "items": {
+        "$ref": "#/$defs/paper"
+      }
+    },
+    "versions": {
+      "type": "array",
+      "items": {
+        "$ref": "#/$defs/version"
+      }
+    },
+    "sources": {
+      "type": "array",
+      "items": {
+        "$ref": "#/$defs/source"
+      }
+    },
+    "occurrences": {
+      "type": "array",
+      "items": {
+        "$ref": "#/$defs/occurrence"
+      }
+    },
+    "propositions": {
+      "type": "array",
+      "items": {
+        "$ref": "#/$defs/proposition"
+      }
+    },
+    "shared_proofs": {
+      "type": "array",
+      "items": {
+        "$ref": "#/$defs/proof"
+      }
+    },
+    "results": {
+      "type": "array",
+      "items": {
+        "$ref": "#/$defs/result"
+      }
+    },
+    "adapters": {
+      "type": "array",
+      "items": {
+        "$ref": "#/$defs/adapter"
+      }
+    },
+    "verification_reports": {
+      "type": "array",
+      "items": {
+        "$ref": "#/$defs/report"
+      }
+    },
+    "issues": {
+      "type": "array",
+      "items": {
+        "$ref": "#/$defs/issue"
+      }
+    },
+    "alignment_notes": {
+      "type": "array",
+      "items": {
+        "$ref": "#/$defs/alignment_note"
+      }
+    },
+    "resources": {
+      "type": "array",
+      "items": {
+        "$ref": "#/$defs/resource"
+      }
+    },
+    "prompts": {
+      "type": "array",
+      "items": {
+        "$ref": "#/$defs/prompt"
+      }
+    },
+    "edges": {
+      "type": "array",
+      "items": {
+        "$ref": "#/$defs/edge"
+      }
+    },
+    "tools": {
+      "type": "array",
+      "items": {
+        "$ref": "#/$defs/tool"
+      }
+    }
+  },
+  "additionalProperties": false,
+  "$defs": {
+    "paper": {
+      "type": "object",
+      "required": [
+        "id",
+        "visibility",
+        "version_ids",
+        "publication_status"
+      ],
+      "properties": {
+        "id": {
+          "type": "string",
+          "pattern": "^[a-z][a-z0-9-]*$",
+          "maxLength": 120
+        },
+        "visibility": {
+          "type": "string",
+          "enum": [
+            "public",
+            "private"
+          ]
+        },
+        "version_ids": {
+          "type": "array",
+          "items": {
+            "type": "string",
+            "pattern": "^[a-z][a-z0-9-]*$",
+            "maxLength": 120
+          },
+          "uniqueItems": true
+        },
+        "publication_status": {
+          "type": "string"
+        }
+      },
+      "additionalProperties": false
+    },
+    "version": {
+      "type": "object",
+      "required": [
+        "id",
+        "visibility",
+        "paper_id",
+        "label",
+        "publication_status",
+        "source_ids"
+      ],
+      "properties": {
+        "id": {
+          "type": "string",
+          "pattern": "^[a-z][a-z0-9-]*$",
+          "maxLength": 120
+        },
+        "visibility": {
+          "type": "string",
+          "enum": [
+            "public",
+            "private"
+          ]
+        },
+        "paper_id": {
+          "type": "string",
+          "pattern": "^[a-z][a-z0-9-]*$",
+          "maxLength": 120
+        },
+        "label": {
+          "type": "string"
+        },
+        "publication_status": {
+          "type": "string"
+        },
+        "source_ids": {
+          "type": "array",
+          "items": {
+            "type": "string",
+            "pattern": "^[a-z][a-z0-9-]*$",
+            "maxLength": 120
+          },
+          "uniqueItems": true
+        }
+      },
+      "additionalProperties": false
+    },
+    "source": {
+      "type": "object",
+      "required": [
+        "id",
+        "visibility",
+        "paper_id",
+        "label",
+        "kind",
+        "local_path",
+        "url",
+        "sha256",
+        "total_pages",
+        "version_id",
+        "publication_status",
+        "page_refs",
+        "provenance_type"
+      ],
+      "properties": {
+        "id": {
+          "type": "string",
+          "pattern": "^[a-z][a-z0-9-]*$",
+          "maxLength": 120
+        },
+        "visibility": {
+          "type": "string",
+          "enum": [
+            "public",
+            "private"
+          ]
+        },
+        "paper_id": {
+          "type": "string",
+          "pattern": "^[a-z][a-z0-9-]*$",
+          "maxLength": 120
+        },
+        "label": {
+          "type": "string"
+        },
+        "kind": {
+          "type": "string",
+          "enum": [
+            "main",
+            "supplement"
+          ]
+        },
+        "local_path": {
+          "type": "string",
+          "minLength": 1
+        },
+        "url": {
+          "type": "string"
+        },
+        "sha256": {
+          "type": "string",
+          "pattern": "^[0-9a-f]{64}$"
+        },
+        "total_pages": {
+          "type": "integer",
+          "minimum": 1
+        },
+        "version_id": {
+          "type": "string",
+          "pattern": "^[a-z][a-z0-9-]*$",
+          "maxLength": 120
+        },
+        "publication_status": {
+          "type": "string"
+        },
+        "page_refs": {
+          "type": "array",
+          "items": {
+            "type": "integer",
+            "minimum": 1
+          }
+        },
+        "provenance_type": {
+          "type": "string",
+          "enum": [
+            "official_venue_pdf"
+          ]
+        }
+      },
+      "additionalProperties": false
+    },
+    "occurrence": {
+      "type": "object",
+      "required": [
+        "id",
+        "visibility",
+        "paper_id",
+        "version_id",
+        "source_id",
+        "pdf_pages",
+        "original_label",
+        "role",
+        "excerpt_id",
+        "source_review_status",
+        "user_review_status"
+      ],
+      "properties": {
+        "id": {
+          "type": "string",
+          "pattern": "^[a-z][a-z0-9-]*$",
+          "maxLength": 120
+        },
+        "visibility": {
+          "type": "string",
+          "enum": [
+            "public",
+            "private"
+          ]
+        },
+        "paper_id": {
+          "type": "string",
+          "pattern": "^[a-z][a-z0-9-]*$",
+          "maxLength": 120
+        },
+        "version_id": {
+          "type": "string",
+          "pattern": "^[a-z][a-z0-9-]*$",
+          "maxLength": 120
+        },
+        "source_id": {
+          "type": "string",
+          "pattern": "^[a-z][a-z0-9-]*$",
+          "maxLength": 120
+        },
+        "pdf_pages": {
+          "type": "array",
+          "minItems": 1,
+          "items": {
+            "type": "integer",
+            "minimum": 1
+          }
+        },
+        "original_label": {
+          "type": "string"
+        },
+        "role": {
+          "type": "string",
+          "enum": [
+            "main_statement",
+            "restatement_with_proof",
+            "proof_component"
+          ]
+        },
+        "excerpt_id": {
+          "type": "string",
+          "pattern": "^[a-z][a-z0-9-]*$",
+          "maxLength": 120
+        },
+        "source_review_status": {
+          "type": "string"
+        },
+        "user_review_status": {
+          "type": "string",
+          "enum": [
+            "not_recorded",
+            "pending",
+            "accepted",
+            "rejected"
+          ]
+        }
+      },
+      "additionalProperties": false
+    },
+    "proposition": {
+      "type": "object",
+      "required": [
+        "id",
+        "visibility",
+        "title",
+        "statement_tex",
+        "assumptions",
+        "proof_ids",
+        "origin"
+      ],
+      "properties": {
+        "id": {
+          "type": "string",
+          "pattern": "^[a-z][a-z0-9-]*$",
+          "maxLength": 120
+        },
+        "visibility": {
+          "type": "string",
+          "enum": [
+            "public",
+            "private"
+          ]
+        },
+        "title": {
+          "type": "string"
+        },
+        "statement_tex": {
+          "type": "string"
+        },
+        "assumptions": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          },
+          "uniqueItems": true
+        },
+        "proof_ids": {
+          "type": "array",
+          "items": {
+            "type": "string",
+            "pattern": "^[a-z][a-z0-9-]*$",
+            "maxLength": 120
+          },
+          "uniqueItems": true
+        },
+        "origin": {
+          "type": "string"
+        }
+      },
+      "additionalProperties": false
+    },
+    "proof": {
+      "type": "object",
+      "required": [
+        "id",
+        "visibility",
+        "proposition_ids",
+        "content_path",
+        "dependency_ids",
+        "verification_report_ids",
+        "lean_declarations",
+        "origin"
+      ],
+      "properties": {
+        "id": {
+          "type": "string",
+          "pattern": "^[a-z][a-z0-9-]*$",
+          "maxLength": 120
+        },
+        "visibility": {
+          "type": "string",
+          "enum": [
+            "public",
+            "private"
+          ]
+        },
+        "proposition_ids": {
+          "type": "array",
+          "items": {
+            "type": "string",
+            "pattern": "^[a-z][a-z0-9-]*$",
+            "maxLength": 120
+          },
+          "uniqueItems": true
+        },
+        "content_path": {
+          "type": "string",
+          "minLength": 1
+        },
+        "dependency_ids": {
+          "type": "array",
+          "items": {
+            "type": "string",
+            "pattern": "^[a-z][a-z0-9-]*$",
+            "maxLength": 120
+          },
+          "uniqueItems": true
+        },
+        "verification_report_ids": {
+          "type": "array",
+          "items": {
+            "type": "string",
+            "pattern": "^[a-z][a-z0-9-]*$",
+            "maxLength": 120
+          },
+          "uniqueItems": true
+        },
+        "lean_declarations": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          },
+          "uniqueItems": true
+        },
+        "origin": {
+          "type": "string"
+        }
+      },
+      "additionalProperties": false
+    },
+    "result": {
+      "type": "object",
+      "required": [
+        "id",
+        "visibility",
+        "paper_id",
+        "title",
+        "kind",
+        "proposition_ids",
+        "proof_ids",
+        "adapter_ids",
+        "occurrence_ids",
+        "issue_ids",
+        "alignment_note_ids",
+        "verification_report_ids",
+        "scope",
+        "completion_scope",
+        "alignment_status",
+        "rewrite_status",
+        "user_review_status"
+      ],
+      "properties": {
+        "id": {
+          "type": "string",
+          "pattern": "^[a-z][a-z0-9-]*$",
+          "maxLength": 120
+        },
+        "visibility": {
+          "type": "string",
+          "enum": [
+            "public",
+            "private"
+          ]
+        },
+        "paper_id": {
+          "type": "string",
+          "pattern": "^[a-z][a-z0-9-]*$",
+          "maxLength": 120
+        },
+        "title": {
+          "type": "string"
+        },
+        "kind": {
+          "type": "string",
+          "enum": [
+            "theorem",
+            "theorem_component"
+          ]
+        },
+        "proposition_ids": {
+          "type": "array",
+          "items": {
+            "type": "string",
+            "pattern": "^[a-z][a-z0-9-]*$",
+            "maxLength": 120
+          },
+          "uniqueItems": true
+        },
+        "proof_ids": {
+          "type": "array",
+          "items": {
+            "type": "string",
+            "pattern": "^[a-z][a-z0-9-]*$",
+            "maxLength": 120
+          },
+          "uniqueItems": true
+        },
+        "adapter_ids": {
+          "type": "array",
+          "items": {
+            "type": "string",
+            "pattern": "^[a-z][a-z0-9-]*$",
+            "maxLength": 120
+          },
+          "uniqueItems": true
+        },
+        "occurrence_ids": {
+          "type": "array",
+          "items": {
+            "type": "string",
+            "pattern": "^[a-z][a-z0-9-]*$",
+            "maxLength": 120
+          },
+          "uniqueItems": true
+        },
+        "issue_ids": {
+          "type": "array",
+          "items": {
+            "type": "string",
+            "pattern": "^[a-z][a-z0-9-]*$",
+            "maxLength": 120
+          },
+          "uniqueItems": true
+        },
+        "alignment_note_ids": {
+          "type": "array",
+          "items": {
+            "type": "string",
+            "pattern": "^[a-z][a-z0-9-]*$",
+            "maxLength": 120
+          },
+          "uniqueItems": true
+        },
+        "verification_report_ids": {
+          "type": "array",
+          "items": {
+            "type": "string",
+            "pattern": "^[a-z][a-z0-9-]*$",
+            "maxLength": 120
+          },
+          "uniqueItems": true
+        },
+        "scope": {
+          "type": "string"
+        },
+        "completion_scope": {
+          "type": "string",
+          "enum": [
+            "selected_result",
+            "selected_subresult",
+            "full_original_theorem"
+          ]
+        },
+        "alignment_status": {
+          "type": "string",
+          "enum": [
+            "agent_checked_selected_statement",
+            "pending_alignment",
+            "not_applicable",
+            "candidate"
+          ]
+        },
+        "rewrite_status": {
+          "type": "string",
+          "enum": [
+            "complete",
+            "not_started",
+            "in_progress"
+          ]
+        },
+        "user_review_status": {
+          "type": "string",
+          "enum": [
+            "not_recorded",
+            "pending",
+            "accepted",
+            "rejected"
+          ]
+        }
+      },
+      "additionalProperties": false
+    },
+    "adapter": {
+      "type": "object",
+      "required": [
+        "id",
+        "visibility",
+        "paper_id",
+        "result_id",
+        "proposition_ids",
+        "proof_ids",
+        "source_occurrence_ids",
+        "source_path",
+        "lean_declarations",
+        "definition_map",
+        "alignment_status",
+        "user_review_status",
+        "verification_report_ids",
+        "scope",
+        "concrete_mask_implementation_verified"
+      ],
+      "properties": {
+        "id": {
+          "type": "string",
+          "pattern": "^[a-z][a-z0-9-]*$",
+          "maxLength": 120
+        },
+        "visibility": {
+          "type": "string",
+          "enum": [
+            "public",
+            "private"
+          ]
+        },
+        "paper_id": {
+          "type": "string",
+          "pattern": "^[a-z][a-z0-9-]*$",
+          "maxLength": 120
+        },
+        "result_id": {
+          "type": "string",
+          "pattern": "^[a-z][a-z0-9-]*$",
+          "maxLength": 120
+        },
+        "proposition_ids": {
+          "type": "array",
+          "items": {
+            "type": "string",
+            "pattern": "^[a-z][a-z0-9-]*$",
+            "maxLength": 120
+          },
+          "uniqueItems": true
+        },
+        "proof_ids": {
+          "type": "array",
+          "items": {
+            "type": "string",
+            "pattern": "^[a-z][a-z0-9-]*$",
+            "maxLength": 120
+          },
+          "uniqueItems": true
+        },
+        "source_occurrence_ids": {
+          "type": "array",
+          "items": {
+            "type": "string",
+            "pattern": "^[a-z][a-z0-9-]*$",
+            "maxLength": 120
+          },
+          "uniqueItems": true
+        },
+        "source_path": {
+          "type": "string",
+          "minLength": 1
+        },
+        "lean_declarations": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          },
+          "uniqueItems": true
+        },
+        "definition_map": {
+          "type": "string"
+        },
+        "alignment_status": {
+          "type": "string",
+          "enum": [
+            "agent_checked_selected_statement",
+            "pending_alignment",
+            "not_applicable",
+            "candidate"
+          ]
+        },
+        "user_review_status": {
+          "type": "string",
+          "enum": [
+            "not_recorded",
+            "pending",
+            "accepted",
+            "rejected"
+          ]
+        },
+        "verification_report_ids": {
+          "type": "array",
+          "items": {
+            "type": "string",
+            "pattern": "^[a-z][a-z0-9-]*$",
+            "maxLength": 120
+          },
+          "uniqueItems": true
+        },
+        "scope": {
+          "type": "string"
+        },
+        "concrete_mask_implementation_verified": {
+          "type": "boolean"
+        }
+      },
+      "additionalProperties": false
+    },
+    "report": {
+      "type": "object",
+      "required": [
+        "id",
+        "visibility",
+        "path",
+        "build_id",
+        "scope",
+        "scope_description",
+        "subject_ids",
+        "expected_declarations"
+      ],
+      "properties": {
+        "id": {
+          "type": "string",
+          "pattern": "^[a-z][a-z0-9-]*$",
+          "maxLength": 120
+        },
+        "visibility": {
+          "type": "string",
+          "enum": [
+            "public",
+            "private"
+          ]
+        },
+        "path": {
+          "type": "string",
+          "minLength": 1
+        },
+        "build_id": {
+          "type": "string"
+        },
+        "scope": {
+          "type": "string",
+          "enum": [
+            "general_library",
+            "paper_adapter"
+          ]
+        },
+        "scope_description": {
+          "type": "string"
+        },
+        "subject_ids": {
+          "type": "array",
+          "items": {
+            "type": "string",
+            "pattern": "^[a-z][a-z0-9-]*$",
+            "maxLength": 120
+          },
+          "uniqueItems": true
+        },
+        "expected_declarations": {
+          "type": "array",
+          "minItems": 1,
+          "items": {
+            "type": "string"
+          }
+        }
+      },
+      "additionalProperties": false
+    },
+    "issue": {
+      "type": "object",
+      "required": [
+        "id",
+        "visibility",
+        "path",
+        "paper_id",
+        "result_ids",
+        "source_occurrence_ids",
+        "summary",
+        "classification",
+        "status",
+        "user_confirmation",
+        "fix_authorization"
+      ],
+      "properties": {
+        "id": {
+          "type": "string",
+          "pattern": "^[a-z][a-z0-9-]*$",
+          "maxLength": 120
+        },
+        "visibility": {
+          "type": "string",
+          "enum": [
+            "public",
+            "private"
+          ]
+        },
+        "path": {
+          "type": "string",
+          "minLength": 1
+        },
+        "paper_id": {
+          "type": "string",
+          "pattern": "^[a-z][a-z0-9-]*$",
+          "maxLength": 120
+        },
+        "result_ids": {
+          "type": "array",
+          "items": {
+            "type": "string",
+            "pattern": "^[a-z][a-z0-9-]*$",
+            "maxLength": 120
+          },
+          "uniqueItems": true
+        },
+        "source_occurrence_ids": {
+          "type": "array",
+          "items": {
+            "type": "string",
+            "pattern": "^[a-z][a-z0-9-]*$",
+            "maxLength": 120
+          },
+          "uniqueItems": true
+        },
+        "summary": {
+          "type": "string"
+        },
+        "classification": {
+          "type": "string",
+          "const": "source_proof_step_issue"
+        },
+        "status": {
+          "type": "string",
+          "enum": [
+            "awaiting_user_confirmation",
+            "awaiting_fix_authorization",
+            "resolved",
+            "rejected"
+          ]
+        },
+        "user_confirmation": {
+          "type": "string",
+          "enum": [
+            "pending",
+            "confirmed",
+            "rejected"
+          ]
+        },
+        "fix_authorization": {
+          "type": "string",
+          "enum": [
+            "pending",
+            "authorized",
+            "not_authorized"
+          ]
+        }
+      },
+      "additionalProperties": false
+    },
+    "alignment_note": {
+      "type": "object",
+      "required": [
+        "id",
+        "visibility",
+        "path",
+        "paper_id",
+        "result_ids",
+        "source_occurrence_ids",
+        "summary",
+        "classification",
+        "is_mathematical_error",
+        "status",
+        "user_review_status",
+        "fix_authorization"
+      ],
+      "properties": {
+        "id": {
+          "type": "string",
+          "pattern": "^[a-z][a-z0-9-]*$",
+          "maxLength": 120
+        },
+        "visibility": {
+          "type": "string",
+          "enum": [
+            "public",
+            "private"
+          ]
+        },
+        "path": {
+          "type": "string",
+          "minLength": 1
+        },
+        "paper_id": {
+          "type": "string",
+          "pattern": "^[a-z][a-z0-9-]*$",
+          "maxLength": 120
+        },
+        "result_ids": {
+          "type": "array",
+          "items": {
+            "type": "string",
+            "pattern": "^[a-z][a-z0-9-]*$",
+            "maxLength": 120
+          },
+          "uniqueItems": true
+        },
+        "source_occurrence_ids": {
+          "type": "array",
+          "items": {
+            "type": "string",
+            "pattern": "^[a-z][a-z0-9-]*$",
+            "maxLength": 120
+          },
+          "uniqueItems": true
+        },
+        "summary": {
+          "type": "string"
+        },
+        "classification": {
+          "type": "string",
+          "const": "notation_alignment_note"
+        },
+        "is_mathematical_error": {
+          "type": "boolean",
+          "const": false
+        },
+        "status": {
+          "type": "string",
+          "const": "pending_alignment"
+        },
+        "user_review_status": {
+          "type": "string",
+          "enum": [
+            "not_recorded",
+            "pending",
+            "accepted",
+            "rejected"
+          ]
+        },
+        "fix_authorization": {
+          "type": "string",
+          "const": "not_requested"
+        }
+      },
+      "additionalProperties": false
+    },
+    "resource": {
+      "type": "object",
+      "required": [
+        "id",
+        "visibility",
+        "kind",
+        "path",
+        "mime_type",
+        "content_format"
+      ],
+      "properties": {
+        "id": {
+          "type": "string",
+          "pattern": "^[a-z][a-z0-9-]*$",
+          "maxLength": 120
+        },
+        "visibility": {
+          "type": "string",
+          "enum": [
+            "public",
+            "private"
+          ]
+        },
+        "kind": {
+          "type": "string"
+        },
+        "path": {
+          "type": "string",
+          "minLength": 1
+        },
+        "mime_type": {
+          "type": "string"
+        },
+        "content_format": {
+          "type": "string",
+          "enum": [
+            "formal_pdf_original",
+            "pdf_text_extract",
+            "agent_math_transcription",
+            "structured_math_and_explanation",
+            "project_readable_proof",
+            "build_report",
+            "lean_source",
+            "tool_source",
+            "schema",
+            "issue_evidence",
+            "workflow"
+          ]
+        },
+        "sha256": {
+          "type": "string",
+          "pattern": "^[0-9a-f]{64}$"
+        },
+        "source_ids": {
+          "type": "array",
+          "items": {
+            "type": "string",
+            "pattern": "^[a-z][a-z0-9-]*$",
+            "maxLength": 120
+          },
+          "uniqueItems": true
+        },
+        "version_ids": {
+          "type": "array",
+          "items": {
+            "type": "string",
+            "pattern": "^[a-z][a-z0-9-]*$",
+            "maxLength": 120
+          },
+          "uniqueItems": true
+        },
+        "record_collection": {
+          "type": "string",
+          "enum": [
+            "shared_proofs",
+            "results"
+          ]
+        },
+        "record_id": {
+          "type": "string",
+          "pattern": "^[a-z][a-z0-9-]*$",
+          "maxLength": 120
+        },
+        "derived_from_ids": {
+          "type": "array",
+          "items": {
+            "type": "string",
+            "pattern": "^[a-z][a-z0-9-]*$",
+            "maxLength": 120
+          },
+          "uniqueItems": true
+        }
+      },
+      "additionalProperties": false
+    },
+    "prompt": {
+      "type": "object",
+      "required": [
+        "id",
+        "visibility",
+        "path",
+        "title",
+        "kind"
+      ],
+      "properties": {
+        "id": {
+          "type": "string",
+          "pattern": "^[a-z][a-z0-9-]*$",
+          "maxLength": 120
+        },
+        "visibility": {
+          "type": "string",
+          "enum": [
+            "public",
+            "private"
+          ]
+        },
+        "path": {
+          "type": "string",
+          "minLength": 1
+        },
+        "title": {
+          "type": "string"
+        },
+        "kind": {
+          "type": "string",
+          "const": "human_ai_workflow"
+        }
+      },
+      "additionalProperties": false
+    },
+    "edge": {
+      "type": "object",
+      "required": [
+        "id",
+        "visibility",
+        "from_id",
+        "to_id",
+        "type",
+        "review_status",
+        "evidence"
+      ],
+      "properties": {
+        "id": {
+          "type": "string",
+          "pattern": "^[a-z][a-z0-9-]*$",
+          "maxLength": 120
+        },
+        "visibility": {
+          "type": "string",
+          "enum": [
+            "public",
+            "private"
+          ]
+        },
+        "from_id": {
+          "type": "string",
+          "pattern": "^[a-z][a-z0-9-]*$",
+          "maxLength": 120
+        },
+        "to_id": {
+          "type": "string",
+          "pattern": "^[a-z][a-z0-9-]*$",
+          "maxLength": 120
+        },
+        "type": {
+          "type": "string",
+          "enum": [
+            "located_in",
+            "appears_in",
+            "instantiates",
+            "uses_shared_proof",
+            "implemented_by",
+            "has_build_evidence",
+            "raises_issue",
+            "proved_by",
+            "depends_on",
+            "repeats_statement",
+            "cites_prior_result",
+            "component_of",
+            "has_component",
+            "needs_alignment"
+          ]
+        },
+        "review_status": {
+          "type": "string"
+        },
+        "evidence": {
+          "type": "string"
+        }
+      },
+      "additionalProperties": false
+    },
+    "tool": {
+      "type": "object",
+      "required": [
+        "name",
+        "description",
+        "implementation",
+        "transport",
+        "read_only",
+        "input_schema"
+      ],
+      "properties": {
+        "id": {
+          "type": "string",
+          "pattern": "^[a-z][a-z0-9-]*$",
+          "maxLength": 120
+        },
+        "visibility": {
+          "type": "string",
+          "enum": [
+            "public",
+            "private"
+          ]
+        },
+        "name": {
+          "type": "string"
+        },
+        "description": {
+          "type": "string"
+        },
+        "implementation": {
+          "type": "string"
+        },
+        "transport": {
+          "type": "string",
+          "const": "local_json_cli"
+        },
+        "read_only": {
+          "type": "boolean",
+          "const": true
+        },
+        "input_schema": {
+          "type": "object",
+          "additionalProperties": true
+        }
+      },
+      "additionalProperties": false
+    }
+  }
+}

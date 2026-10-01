@@ -1,0 +1,33 @@
+   (1) Efficiency axiom. The output score of a model can be decomposed into effects of different causal patterns, i.e.
+       P
+v(x) =    S⊆N wS .
+   • Proof: According to the definition of the Harsanyi dividend, we have
+
+                                                                                                                                                                                                                                                           \sum _{\mathcal {S}\subseteq \mathcal {N}} w_{\mathcal {S}} =& \sum _{\mathcal {S}\subseteq \mathcal {N}} \sum _{\mathcal {S}'\subseteq \mathcal {S}} (-1)^{|\mathcal {S}|-|\mathcal {S}'|}\cdot v(\boldsymbol {x}_{\mathcal {S}'})\\ =& \sum _{\mathcal {S}'\subseteq \mathcal {N}} \sum _{\scriptsize \mathcal {S}:\mathcal {S}'\subseteq \mathcal {S}\subseteq \mathcal {N}} (-1)^{|\mathcal {S}|-|\mathcal {S}'|}\cdot v(\boldsymbol {x}_{\mathcal {S}'})\\ =& \sum _{\mathcal {S}'\subseteq \mathcal {N}} \sum _{s=|\mathcal {S}'|}^{n} \sum _{\scriptsize \substack {\mathcal {S}:\mathcal {S}'\subseteq \mathcal {S}\subseteq \mathcal {N}\\ |\mathcal {S}|=s}} (-1)^{s-|\mathcal {S}'|}v(\boldsymbol {x}_{\mathcal {S}'})\\ =& \sum _{\mathcal {S}'\subseteq \mathcal {N}}v(\boldsymbol {x}_{\mathcal {S}'}) \sum _{m=0}^{n-|\mathcal {S}'|} \binom {n-|\mathcal {S}'|}{m} (-1)^{m}\\ =& v(\boldsymbol {x}) \quad \text {// the only case that cannot be cancelled out is {\small $\mathcal {S}'=\mathcal {N}$}}
+
+
+
+
+   (2) Linearity axiom. If we merge output scores of two models t(·) and u(·) as the output of model v(·), i.e. ∀S ⊆
+N , v(xS ) = t(xS ) + u(xS ), then the corresponding causal effects wSt and wSu can also be merged as ∀S ⊆ N , wSv = wSt + wSu .
+   • Proof: According to the definition of the Harsanyi dividend, we have
+
+
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                  w^v_{\mathcal {S}} =& \sum _{\mathcal {S}'\subseteq \mathcal {S}}(-1)^{|\mathcal {S}|-|\mathcal {S}'|}v(\boldsymbol {x}_{\mathcal {S}})\\ =& \sum _{\mathcal {S}'\subseteq \mathcal {S}}(-1)^{|\mathcal {S}|-|\mathcal {S}'|}[t(\boldsymbol {x}_{\mathcal {S}})+u(\boldsymbol {x}_{\mathcal {S}})]\\ =&\sum _{\mathcal {S}'\subseteq \mathcal {S}}(-1)^{|\mathcal {S}|-|\mathcal {S}'|}t(\boldsymbol {x}_{\mathcal {S}})+\sum _{\mathcal {S}'\subseteq \mathcal {S}}(-1)^{|\mathcal {S}|-|\mathcal {S}'|}u(\boldsymbol {x}_{\mathcal {S}})\\ =& w^t_{\mathcal {S}}+w^u_{\mathcal {S}}.
+
+
+
+
+   (3) Dummy axiom. If a variable i ∈ N is a dummy variable, i.e. ∀S ⊆ N \{i}, v(xS∪{i} ) = v(xS ) + v(x{i} ), then it has no
+causal effect with other variables, ∀S ⊆ N \{i}, wS∪{i} = 0.
+   • Proof: According to the definition of the Harsanyi dividend, we have
+
+
+                             w_{\mathcal {S}\cup \{i\}} =& \sum _{\mathcal {S}'\subseteq \mathcal {S}\cup \{i\}} (-1)^{|\mathcal {S}|+1-|\mathcal {S}'|}v(\boldsymbol {x}_{\mathcal {S}'})\\ =& \sum _{\mathcal {S}'\subseteq \mathcal {S}} (-1)^{|\mathcal {S}|+1-|\mathcal {S}'|}v(\boldsymbol {x}_{\mathcal {S}'}) + \sum _{\mathcal {S}'\subseteq \mathcal {S}} (-1)^{|\mathcal {S}|-|\mathcal {S}'|}v(\boldsymbol {x}_{\mathcal {S}'\cup \{i\}})\\ =& \sum _{\mathcal {S}'\subseteq \mathcal {S}} (-1)^{|\mathcal {S}|+1-|\mathcal {S}'|}v(\boldsymbol {x}_{\mathcal {S}'}) + \sum _{\mathcal {S}'\subseteq \mathcal {S}} (-1)^{|\mathcal {S}|-|\mathcal {S}'|}[v(\boldsymbol {x}_{\mathcal {S}})+v(\boldsymbol {x}_{\{i\}})]\\ =& \Big [\sum _{\mathcal {S}'\subseteq \mathcal {S}}(-1)^{|\mathcal {S}|-|\mathcal {S}'|}\Big ]\cdot v(\boldsymbol {x}_{\{i\}})\\ =& 0.
+
+
+
+
+   (4) Symmetry axiom. If input variables i, j ∈ N cooperate with other variables in the same way, ∀S ⊆ N \{i, j}, v(xS∪{i} ) =
+v(xS∪{j} ), then they have same causal effects with other variables, ∀S ⊆ N \{i, j}, wS∪{i} = wS∪{j} .
+   • Proof: According to the definition of the Harsanyi dividend, we have

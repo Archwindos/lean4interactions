@@ -1,0 +1,9 @@
+<!doctype html>
+<html lang="zh-CN">
+<head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>{{ page_title }} · Harsanyi Archive</title><link rel="stylesheet" href="/static/archive.css"></head>
+<body>
+<header class="site-header"><a class="brand" href="/">Harsanyi <span>证明档案库</span></a><nav aria-label="主导航"><a href="/papers">论文</a><a href="/theorems">公共结果</a><a href="/library">Lean API</a><a href="/issues">问题记录</a><a href="/search">检索</a></nav><span class="mode">{{ '公开视图' if public_mode else '本地档案' }}</span></header>
+<main class="container">{% block content %}{% endblock %}</main>
+<footer class="container footer"><p>数学提取、命题对齐与 Lean 验证分别记录。已验证的公共定理不自动证明论文中的应用已经对齐。</p><p>全部页面、样式与数学资源在本地提供。{% if not math_renderer %}公式当前显示为可读 LaTeX 源码，尚未启用数学排版。{% endif %}</p>{% if not public_mode %}<p>本地视图包含私有材料；对外分享须使用经过隐私筛选的公开导出。</p>{% endif %}</footer>
+{% if math_renderer %}<script defer src="/static/vendor/katex/katex.min.js"></script><script defer src="/static/vendor/katex/contrib/auto-render.min.js"></script><script defer src="/static/archive-math.js"></script><link rel="stylesheet" href="/static/vendor/katex/katex.min.css">{% endif %}
+</body></html>

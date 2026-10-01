@@ -1,0 +1,85 @@
+                                                                                                                                                               Figure 6. (a) The change of RΩ along
+    MLP-5 (normal)    MLP-5 (adversarial)    ResMLP-5 (normal)            ResMLP-5 (adversarial)                               causal effect computed by       with the number of causal patterns |Ω| in
+           MLP-2 (normal)    MLP-2 (adversarial)   LightGBM              XGBoost                                                  learned baseline values
+1.0                                                       70
+                                                                                                                                  mean baseline values         AOGs. (b,c) The change of the node/edge
+
+
+
+
+                                                                                                    log10(# of patterns)
+                            30                                                                                             4
+                                                                                                                                                               number in AOGs along with RΩ . (d) The
+
+
+
+
+                                                          # of edges
+                             # of nodes
+                                                                                                                           2
+                                                                                                                                                               histogram of re-scaled causal effects. The
+                                                                                                                                                               learned baseline values boosted the spar-
+0.0                             0                             0                                                            0                                   sity of causal patterns in the AOG explainer.
+   0.0        Ω         30       0.0      𝑅Ω        1.0            0.0         𝑅Ω         1.0                                  0.0   𝑤𝒮 /max𝒮′ 𝑤𝒮′     1.0     Please see Appendix G.6 and G.7 for results
+             (a)                          (b)                                  (c)                                                         (d)
+                                                                                                                                                               on other datasets.
+
+                                                                                                                                                                           TV news   census    bike
+planations. In this experiment, we explored whether the                                                                                                        normal       0.5965   0.4899      -
+learning of baseline values in Section 3.2 could boost the                                                                                 MLP-2
+                                                                                                                                                             adversarial    0.6109   0.6292      -
+sparsity of causal patterns. To this end, we followed [8] to                                                                               MLP-5
+                                                                                                                                                               normal       0.3664   0.2482   0.3816
+initialize baseline values of input variables as their mean                                                                                                  adversarial    0.6304   0.4971   0.4741
+                                                                                                                                                               normal       0.3480   0.2764   0.3992
+values over different samples. Then, we learned baseline                                                                                ResMLP-5
+                                                                                                                                                             adversarial    0.5731   0.4489   0.4491
+values via Eq. (6). The baseline value ri of each input vari-
+able i was constrained within a certain range around the                                                                   Table 3. Jaccard similarity between two models. Two adversarially
+                                                                                                                           trained models were more similar than two normally trained ones.
+data average, i.e., ∥ri − Ex [xi ]∥2 ≤ τ . In experiments, we
+set τ = 0.01·Varx [xi ], where Varx [xi ] denotes the variance
+of the i-th input variable over different samples. Fig. 6(d)                                                                   Besides, adversarial training also made different models
+shows the histogram of the relative strength of causal effects                                                             encode common patterns. To this end, we trained different
+      |wS |                                                                                                                pairs of models with the same architecture but with different
+maxS ′ ⊆N |wS ′ |
+                  , which was re-scaled to the range of [0, 1].
+Compared with mean baseline values, the learned baseline                                                                   initial parameters. Given the same input, we measured the
+values usually generated fewer causal patterns with signifi-                                                               Jaccard similarity coefficient between causal effects of each
+cant strengths, which boosted the sparsity of causal effects                                                               pair of models, in order to examine whether the two mod-
+and enhanced the conciseness of explanations. In this ex-                                                                  els encoded similar causal patterns. Let wS and wS′ denote
+periment, we used MLP-5 and computed relative strengths                                                                    causal effects in the two models.  The Jaccard similarity co-
+                                                                                                                                                            P                 ′
+                                                                                                                                                              S⊆N min(|wS |,|wS |)
+of causal effects in 20 randomly selected samples in the TV                                                                efficient was computed as J =    P                 ′    . A high
+                                                                                                                                                             S⊆N max(|wS |,|wS |)
+news dataset. Please see Appendix G.7 for more results.                                                                    Jaccard similarity indicated that the two models encoded
+   Ratio of the explained causal effects RΩ . There was a                                                                  similar causal patterns for inference. Table 3 shows that
+trade-off between faithfulness (the ratio of explained causal                                                              the similarity between two adversarially trained models was
+effects) and conciseness of the AOG. A good explanation                                                                    significantly higher than that between two normally trained
+was supposed to improve the simplicity while keeping a                                                                     models. This indicated adversarial training made different
+large ratio of causal effects being explained. As discussed                                                                models encode common causal patterns for inference.
+in Section 3.2, we just used causal patterns in Ω to approx-
+imate the DNN’s output. Fig. 6(a) shows the relationship                                                                   5. Conclusion
+between |Ω| and the ratio of the explained causal effects RΩ
+in different models based on the TV news dataset. When we                                                                     In this paper, we discover and study the concept-emerging
+used a few causal patterns, we could explain most effects of                                                               phenomenon in a DNN. Specifically, we show that the infer-
+causal patterns to the DNN’s output. Fig. 6(b,c) shows that                                                                ence logic of a DNN can usually be mimicked by a sparse
+the node and edge number of the AOG increased along with                                                                   causal graph. To this end, we theoretically prove and ex-
+the increase of RΩ .                                                                                                       perimentally verify the faithfulness of using a sparse causal
+                                                                                                                           graph to represent interactive concepts encoded in a DNN.
+4.3. Effects of adversarial training                                                                                       We also propose several techniques to boost the conciseness
+   In this experiment, we learned MLP-2, MLP-5, and                                                                        of such causal representation. Furthermore, we show that
+ResMLP-5 on the TV news dataset via adversarial train-                                                                     such a causal graph can be rewritten as an AOG, which fur-
+ing [24]. Fig. 6(a) shows that compared with normally                                                                      ther simplifies the explanation. The AOG explainer provides
+trained models, we could use less causal patterns (smaller                                                                 new insights for understanding the inference logic of DNNs.
+|Ω|) to explain the same ratio of causal effects RΩ in adver-                                                                 Acknowledgements.          This work is partially sup-
+sarially trained models. Moreover, Fig. 6(b,c) also shows                                                                  ported by the National Nature Science Foundation of
+that AOGs for adversarially trained models contained fewer                                                                 China (62276165), National Key R&D Program of China
+nodes and edges than AOGs for normally trained models.                                                                     (2021ZD0111602), Shanghai Natural Science Foundation
+This indicated that adversarial training made models encode                                                                (21JC1403800,21ZR1434600), National Nature Science
+more sparse causal patterns than normal training.                                                                          Foundation of China (U19B2043).
+
+
+
+                                                                                                   20287

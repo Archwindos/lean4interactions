@@ -1,0 +1,69 @@
+Published as a conference paper at ICLR 2024
+
+
+
+
+A     A XIOMS AND THEOREMS FOR THE H ARSANYI DIVIDEND INTERACTION
+A.1 D ESIRABLE GAME - THEORETIC PROPERTIES
+The Harsanyi dividend was designed as a standard metric to measure interactions between input
+variables encoded by the network. In this section, we present several desirable axioms and theorems
+that the Harsanyi dividend interaction I(S) satisfies. This further demonstrates the trustworthiness
+of the Harsanyi dividend interaction.
+The Harsanyi dividend interactions I(S) satisfies the efficiency, linearity, dummy, symmetry,
+anonymity, recursive and interaction distribution axioms, as follows. We follow the notation in
+the main paper to let u(S) = v(xS ) − v(x∅ ).
+(1) Efficiency axiom (proven by Harsanyi (1963)). The outputP   score of a model can be decomposed
+into interaction effects of different patterns, i.e. u(N ) = S⊆N I(S).
+(2) Linearity axiom. If we merge output scores of two models u1 and u2 as the output of model u,
+i.e. ∀S ⊆ N, u(S) = u1 (S) + u2 (S), then their interaction effects Iu1 (S) and Iu2 (S) can also be
+merged as ∀S ⊆ N, Iu (S) = Iu1 (S) + Iu2 (S).
+(3) Dummy axiom. If a variable i ∈ N is a dummy variable, i.e. ∀S ⊆ N \{i}, u(S ∪ {i}) =
+u(S) + u({i}), then it has no interaction with other variables, ∀ ∅ ̸= S ⊆ N \{i}, I(S ∪ {i}) = 0.
+(4) Symmetry axiom. If input variables i, j ∈ N cooperate with other variables in the same way,
+∀S ⊆ N \{i, j}, u(S ∪ {i}) = u(S ∪ {j}), then they have same interaction effects with other variables,
+∀S ⊆ N \{i, j}, I(S ∪ {i}) = I(S ∪ {j}).
+(5) Anonymity axiom. For any permutations π on N , we have ∀S ⊆ N, Iu (S) = Iπu (πS), where
+πS ≜ {π(i)|i ∈S}, and the new model πu is defined by (πu)(πS)=u(S). This indicates that interaction
+effects are not changed by permutation.
+(6) Recursive axiom. The interaction effects can be computed recursively. For i ∈ N and S ⊆
+N \{i}, the interaction effect of the pattern S ∪ {i} is equal to the interaction effect of S with the
+presence of i minus the interaction effect of S with the absence of i, i.e. ∀S ⊆ N \{i}, I(S ∪ {i}) =
+I(S|i is always present)−I(S). I(S|i is always present) denotes the interaction effect when the variable
+i is always present as a constant context, i.e. I(S|i is always present) = L⊆S (−1)|S|−|L| · u(L ∪ {i}).
+                                                                          P
+
+(7) Interaction distribution axiom. This axiom characterizes how interactions are distributed for
+“interaction functions” (Sundararajan et al., 2020). An interaction function uT parameterized by a
+subset of variables T is defined as follows. ∀S ⊆ N , if T ⊆ S , uT (S) = c; otherwise, uT (S) = 0.
+The function uT models pure interaction among the variables in T , because only if all variables in
+T are present, the output value will be increased by c. The interactions encoded in the function uT
+satisfies I(T ) = c, and ∀S ̸= T , I(S) = 0.
+A.2 C ONNECTION TO EXISTING GAME - THEORETIC ATTRIBUTION / INTERACTION METRICS
+The Harsanyi interaction I(S) is actually the elementary mechanism of existing game-theoretic
+attribution/interaction metrics, as follows.
+Theorem 4 (Connection to the Shapley value (Shapley, 1953), proven in both Harsanyi (1963) and
+Appendix B.5). Let ϕ(i) denote the Shapley value of an input variable i. Then, the Shapley value
+ϕ(i) can be explained as the result of uniformly assigning attributions of each Harsanyi interaction
+                                                      1
+                                          P
+to each involving variable i, i.e., ϕ(i) = S⊆N \{i} |S|+1 I(S ∪ {i}).
+
+Theorem 5 (Connection to the Shapley interaction index (Grabisch & Roubens, 1999), proven in
+both Ren et al. (2023a) and Appendix B.6). Given a subset of input     P variables   T ⊆ N , the Shapley
+                                                                                 1
+interaction index I Shapley (T ) can be represented as I Shapley (T ) = S⊆N \T |S|+1 I(S ∪ T ). In other
+words, the index I Shapley (T ) can be explained as uniformly allocating I(S ′ ) s.t. S ′ = S ∪ T to the
+compositional variables of S ′ if we treat the coalition of variables in T as a single variable.
+Theorem 6 (Connection to the Shapley Taylor interaction index (Sundararajan et al., 2020), proven
+in both Ren et al. (2023a) and Appendix B.7). Given a subset of input variables T ⊆ N , the k-
+th order Shapley Taylor interaction index I Shapley-Taylor (T ) can be represented as the weighted sum of
+                                                                                                           −1
+interaction effects, i.e., I Shapley-Taylor (T ) = I(T ) if |T | < k; I Shapley-Taylor (T ) = S⊆N \T |S|+k
+                                                                                             P
+                                                                                                       k
+                                                                                                               I(S∪T )
+if |T | = k; and I Shapley-Taylor (T ) = 0 if |T | > k.
+
+
+                                                         14
+

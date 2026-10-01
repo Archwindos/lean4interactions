@@ -1,0 +1,126 @@
+Published as a conference paper at ICLR 2024
+
+
+
+
+                                                    k      X             1
+                  I Shapley-Taylor(k) (T ) =                         |N |−1
+                                                                               · ∆uT (S)
+                                                   |N |
+                                                          S⊆N \T       |S|
+
+                                                        |N |−k
+                                                    k X X                       1
+                                               =                              |N |−1
+                                                                                        · ∆uT (S)
+                                                   |N | m=0 S⊆N \T
+                                                                                |S|
+                                                                   |S|=m
+                                                                                                                
+                                                          |N |−k
+                                                  k X               X           1           X
+                                               =                              |N |−1
+                                                                                               I(L ∪ T )           // by Lemma 4
+                                                 |N | m=0          S⊆N \T       |S|        L⊆S
+                                                                   |S|=m
+
+                                                                    |N |−k
+                                                    k      X         X             1        X
+                                               =                              |N |−1
+                                                                                                    I(L ∪ T )
+                                                   |N |
+                                                                                       
+                                                          L⊆N \T m=|L|          |S|        S⊆N \T
+                                                                                           |S|=m
+                                                                                            S⊇L
+
+                                                                    |N |−k
+                                                                                                      !
+                                                  k        X         X             1   |N | − |L| − k
+                                               =                              |N |−1
+                                                                                                        I(L ∪ T )
+                                                 |N |                                     m − |L|
+                                                                                     
+                                                          L⊆N \T m=|L|          |S|
+
+                                                                                   |N |−|L|−k
+                                                                                                                             !
+                                                  k        X                           X                1     |N | − |L| − k
+                                               =                    I(L ∪ T )                       |N |−1
+                                                 |N |                                                               m
+                                                                                                           
+                                                          L⊆N \T                       m=0          |L|+m
+                                                                                   |                       {z                }
+                                                                                                            wL
+
+
+
+
+Similar to the proof of Theorem 4, we leverage the properties of combinatorial numbers and the
+Beta function to simplify wL .
+
+
+                          |N |−|L|−k
+                                                                !
+                                  X             1|N | − |L| − k
+              wL =                         |N |−1      m
+                                                  
+                              m=0     |L|+m
+                          |N |−|L|−k
+                                                       !
+                              X        |N | − |L| − k                                        
+                        =                                · |L| + m · B |N | − |L| − m, |L| + m
+                              m=0
+                                             m
+                          |N |−|L|−k
+                                                            !
+                              X             |N | − |L| − k                               
+                        =            |L| ·                    · B |N | − |L| − m, |L| + m     ···⃝1
+                              m=0
+                                                   m
+                             |N |−|L|−k
+                                                             !
+                                 X            |N | − |L| − k                               
+                          +             m·                      · B |N | − |L| − m, |L| + m     ···⃝2
+                                 m=0
+                                                     m
+
+
+Then, we solve ⃝
+               1 and ⃝
+                     2 respectively. For ⃝,
+                                         1 we have
+
+
+                              |N |−|L|−k
+                                                                    !
+          Z       1                X           |N | − |L| − k
+   ⃝
+   1 =                |L| ·                                             · x|N |−|L|−m−1 · (1 − x)|L|+m−1 dx
+              0                    m=0
+                                                     m
+                                                                                                                
+                                  |N |−|L|−k
+                                                                     !
+          Z       1                  X          |N | − |L| − k                |N |−|L|−m−k
+      =               |L| ·                                             ·x                      · (1 − x)      m
+                                                                                                                     ·xk−1 · (1 − x)|L|−1 dx
+              0                     m=0
+                                                      m
+                              |                                         {z                                       }
+                                                                        =1
+          Z       1
+                                                                                                    1
+      =               |L| · xk−1 · (1 − x)|L|−1 dx = |L| · B(k, |L|) =                        |L|+k−1
+                                                                                                            
+              0                                                                                 k−1
+
+
+
+
+For ⃝,
+    2 we have
+
+
+                                                                              26
+

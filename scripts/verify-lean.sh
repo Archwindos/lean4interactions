@@ -1,0 +1,5 @@
+#!/usr/bin/env bash
+set -euo pipefail
+project_root="$(cd -- "$(dirname -- "${BASH_SOURCE[0]}")/.." && pwd)"
+source "$project_root/scripts/env.sh"
+exec python "$project_root/scripts/verify-lean.py" "$@"

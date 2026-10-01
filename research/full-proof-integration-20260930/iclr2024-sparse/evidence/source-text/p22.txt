@@ -1,0 +1,142 @@
+Published as a conference paper at ICLR 2024
+
+
+
+
+Proof. By the definition of the Shapley value, we have
+
+        ϕ(i) =E          E     [u(S ∪ {i}) − u(S)]
+               m S⊆N \{i}
+                    |S|=m
+
+                      |N |−1
+                  1 X                1            X             h                 i
+             =                  |N |−1
+                                                                 u(S ∪ {i}) − u(S)
+                 |N | m=0
+                                           
+                                  m            S⊆N \{i}
+                                                |S|=m
+
+                      |N |−1
+                  1 X                1            X
+             =                  |N |−1
+                                                                ∆u{i} (S)
+                 |N | m=0
+                                           
+                                  m            S⊆N \{i}
+                                                |S|=m
+                                                                                              
+                    |N |−1
+                1 X                  1            X                 X
+             =                  |N |−1
+                                                                           I(L ∪ {i})              // by Lemma 4
+               |N | m=0
+                                           
+                                  m            S⊆N \{i}          L⊆S
+                                                |S|=m
+
+                                   |N |−1
+                  1        X         X              1               X
+             =                                   |N |−1
+                                                                                 I(L ∪ {i})
+                 |N |
+                                                            
+                        L⊆N \{i} m=0               m            S⊆N \{i}
+                                                                 |S|=m
+                                                                  S⊇L
+
+                                     |N |−1
+                  1        X          X             1               X
+             =                                    |N |−1
+                                                                                 I(L ∪ {i}) // since S ⊇ L, |S| = m ≥ |L|.
+                 |N |
+                                                            
+                        L⊆N \{i} m=|L|              m           S⊆N \{i}
+                                                                 |S|=m
+                                                                  S⊇L
+
+                                     |N |−1
+                                                                                       !
+                1          X          X             1                   |N | − |L| − 1
+             =                                    |N |−1
+                                                            ·                          I(L ∪ {i})
+               |N |                                                        m − |L|
+                        L⊆N \{i} m=|L|              m
+
+                                                        |N |−|L|−1
+                                                                                                                    !
+                1          X                                    X                    1             |N | − |L| − 1
+             =                     I(L ∪ {i})                                    |N |−1
+                                                                                          ·
+               |N |                                                                                      k
+                        L⊆N \{i}                                k=0              |L|+k
+                                                        |                                 {z                        }
+                                                                                          wL
+
+
+Then, we leverage the following properties of combinatorial numbers and the Beta function to sim-
+plify the term wL = |N
+                    P |−|L|−1      1     |N |−|L|−1
+                                                    
+                      k=0       |N |−1 ·      k
+                                                     .
+                                               ( |L|+k )
+                                                                         n                 n−1
+                                                                                                  
+(i) A property of combinitorial numbers. m ·                             m
+                                                                                 =n·       m−1
+                                                                                                    .
+
+R(ii) The definition of the Beta function. For p, q > 0, the Beta function is defined as B(p, q) =
+   1 p−1
+  0
+     x   (1 − x)1−q dx.
+(iii) Connections between combinitorial numbers and the Beta function.
+  ◦ When p, q ∈ Z+ , we have B(p, q) =                          1
+                                                            q·(p+q−1
+                                                                                 .
+                                                                p−1 )
+
+                                                                n
+  ◦ For m, n ∈ Z+ and n > m, we have                                              1
+                                                                    
+                                                                m
+                                                                        =   m·B(n−m+1,m)
+                                                                                                        .
+
+                        |N |−|L|−1
+                                                            !
+                           X               1 |N | − |L| − 1
+            wL =                         |N |−1
+                                               ·
+                                                   k
+                        k=0      |L|+k
+                    |N |−|L|−1
+                                                 !
+                        X         |N | − |L| − 1
+                  =                                · (|L| + k) · B(|N | − |L| − k, |L| + k)
+                                         k
+                        k=0
+                    |N |−|L|−1
+                                                      !
+                        X              |N | − |L| − 1
+                  =            |L| ·                    · B(|N | − |L| − k, |L| + k)      ···⃝1
+                                              k
+                        k=0
+                       |N |−|L|−1
+                                                       !
+                           X            |N | − |L| − 1
+                    +              k·                     · B(|N | − |L| − k, |L| + k)     ···⃝2
+                                               k
+                             k=0
+
+
+Then, we solve ⃝
+               1 and ⃝
+                     2 respectively. For ⃝,
+                                         1 we have
+
+
+                                                                             22
+

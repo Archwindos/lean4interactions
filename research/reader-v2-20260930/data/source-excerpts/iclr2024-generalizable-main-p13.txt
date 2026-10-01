@@ -1,0 +1,91 @@
+Published as a conference paper at ICLR 2024
+
+
+
+
+                   |S|−|L|
+P       P
+  S⊆T    L⊆S (−1)          vand (xL ), we first exchange the order of summation of the set L ⊆
+S ⊆ T and the set S ⊇ L. That is, we compute all linear combinations of all sets S con-
+taining L with respect to the model outputs vand (xL ) given a set of input variables L, i.e.,
+                |S|−|L|
+P
+   S:L⊆S⊆T (−1)         vand (xL ). Then, we compute all summations over the set L ⊆ T .
+In this way, we can compute them separately for different cases of L ⊆ S ⊆ T . In the following,
+we consider the cases (1) L = S = T , and (2) L ⊆ S ⊆ T, L ̸= T , respectively.
+(1) When L = S = T , the linear combination of all subsets S containing L with respect to the
+model output vand (xL ) is (−1)|T |−|T | vand (xL ) = vand (xL ).
+(2) When L ⊆ S ⊆ T, L ̸= T , the  P linear combination of all subsets S containing L with respect
+to the model output vand (xL ) is S:L⊆S⊆T (−1)|S|−|L| vand (xL ). For all sets S : T ⊇ S ⊇ L,
+let us consider the linear combinations of all sets S with number |S| for the model output vand (xL ),
+                                                                                m
+respectively. Let m := |S|−|L|, (0 ≤ m ≤ |T |−|L|), then there are a total of C|T |−|L| combinations
+of all sets S of order |S|. Thus, given L, accumulating the model outputs vand (xL ) corresponding
+                                                                    X|T |−|L|
+                                                                                 m            m
+to all S ⊇ L, then S:L⊆S⊆T (−1)|S|−|L| vand (xL ) = vand (xL ) ·
+                     P
+                                                                               C|T |−|L| (−1)    = 0.
+                                                                        m=0
+                                                                    |           {z            }
+                                                                                            =0
+Please see the complete derivation of the following formula.
+
+        X                          X       X
+                  Iand (S|xT ) =                     (−1)|S|−|L| vand (xL )
+            S⊆T                      S⊆T       L⊆S
+                                   X       X
+                              =                             (−1)|S|−|L| vand (xL )
+                                     L⊆T       S:L⊆S⊆T
+                                               X                              X|T |−|L|
+                                                                                            m            m
+                                                                                                             (8)
+                              = vand (xT ) +                   vand (xL ) ·               C|T |−|L| (−1)
+                                | {z }            L⊆T,L̸=T                        m=0
+                                                                              |            {z            }
+                                    L=T                                                    =0
+                              = vand (xT ).
+
+
+(2) Universal matching theorem of OR interactions.
+According
+P           to the definition of OR interactions inP     Section 2.1, we will derive that ∀T ⊆ N, vor (xT ) =
+   S∈{S:S∩T ̸=∅}∪{∅}   Ior (S|xT ) =  I or (∅|x T ) +     S:S∩T ̸=∅ Ior (S|xT ), s.t., Ior (∅|xT ) = vor (x∅ ).
+
+Specifically, the OR interaction is defined as Ior (S|x) := − L⊆S (−1)|S|−|L| vor (xN \L )
+                                                                                 P
+in Equation (2). Similar to the above derivation of the universal matching           P         theorem of AND
+interactions, to compute the sum of OR interactions ∀T ⊆ N, S:S∩T ̸=∅ Ior (S|xT ) =
+             h P                                    i
+                              |S|−|L|
+P
+   S:S∩T ̸=∅  −     L⊆S  (−1)         v or (x N \L )  , we first exchange the order of summation of the set
+L ⊆ S ⊆ N and the set S : S ∩ T ̸= ∅. That is, we compute all linear combinations of all sets
+S containing L with respect to the model outputs vor (xN \L ) given a set of input variables L, i.e.,
+                     |S|−|L|
+P
+  S:S∩T ̸=∅,S⊇L (−1)         vor (xN \L ). Then, we compute all summations over the set L ⊆ N .
+In this way, we can compute them separately for different cases of L ⊆ S ⊆ N, S ∩ T ̸= ∅. In
+the following, we consider the cases (1) L = N \ T , (2) L = N , (3) L ∩ T ̸= ∅, L ̸= N , and (4)
+L ∩ T = ∅, L ̸= N \ T , respectively.
+(1) When L = N \ TP    , the linear combination of all subsets S containing     L with respect to the model
+output vor (xN \L ) is S:S∩T ̸=∅,S⊇L (−1)|S|−|L| vor (xN \L ) = S:S∩T ̸=∅,S⊇L (−1)|S|−|L| vor (xT ).
+                                                                     P
+
+For all sets S : S ⊇ L, S ∩ T ̸= ∅ (then S ̸= N \ T, S ̸= L), let us consider the lin-
+ear combinations of all sets S with number |S| for the model output vor (xT ), respectively. Let
+                                                                         |S ′ |
+|S ′ | := |S| − |L|, (1 ≤ |S ′ | ≤ |T |), then there are a total of C|T | combinations of all sets S of
+order |S|. Thus, given L, accumulating the model outputs vor (xT ) corresponding to all S ⊇ L, then
+                                                           X|T |     |S ′ |      ′
+                       |S|−|L|
+                                                                    C|T | (−1)|S | = −vor (xT ).
+P
+   S:S∩T ̸=∅,S⊇L (−1)           vor (xN \L ) = vor (xT ) ·     ′
+                                                             |S |=1
+                                                           |        {z            }
+                                                                      =−1
+
+
+                                                       13
+

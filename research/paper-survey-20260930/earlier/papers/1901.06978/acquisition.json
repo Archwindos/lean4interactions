@@ -1,0 +1,50 @@
+{
+  "arxiv_id": "1901.06978",
+  "version": "v1",
+  "title": "Network Transplanting (extended abstract)",
+  "authors": [
+    "Quanshi Zhang",
+    "Yu Yang",
+    "Qian Yu",
+    "Ying Nian Wu"
+  ],
+  "first_public_date": "2019-01-21T15:58:28Z",
+  "updated": "2019-01-21T15:58:28Z",
+  "journal_ref": null,
+  "source_url": "https://arxiv.org/abs/1901.06978v1",
+  "pdf_url": "https://arxiv.org/pdf/1901.06978v1",
+  "retrieved_at": "2026-09-30T07:03:11.980009+00:00",
+  "attempts": [
+    {
+      "url": "https://arxiv.org/pdf/1901.06978v1",
+      "status": "ok",
+      "bytes": 523915
+    }
+  ],
+  "download_url": "https://arxiv.org/pdf/1901.06978v1",
+  "response_headers": {
+    "Connection": "close",
+    "Content-Length": "523915",
+    "last-modified": "Sun, 22 Jan 2023 23:43:06 GMT",
+    "content-disposition": "inline; filename=\"1901.06978v1.pdf\"",
+    "etag": "CNrRkMGt3PwCEAE=",
+    "content-type": "application/pdf",
+    "server": "Google Frontend",
+    "link": "<https://arxiv.org/pdf/1901.06978>; rel='canonical'",
+    "via": "1.1 google, 1.1 varnish, 1.1 varnish, 1.1 varnish",
+    "x-cloud-trace-context": "4be023c44010f55766c5353ed5c83a3b",
+    "access-control-allow-origin": "*",
+    "Accept-Ranges": "bytes",
+    "Age": "91928",
+    "Date": "Wed, 30 Sep 2026 07:03:12 GMT",
+    "X-Served-By": "cache-lga-kjfk8660022-LGA, cache-lga-kjfk8660022-LGA, cache-lga-kjfk8660036-LGA, cache-sin-wsap440056-SIN",
+    "X-Cache": "MISS, HIT, MISS",
+    "X-Timer": "S1790751792.141997,VS0,VE247"
+  },
+  "local_pdf": "research/paper-survey-20260930/earlier/papers/1901.06978/1901.06978v1.pdf",
+  "sha256": "3259b83708d00c2270d9b160a0c2ec977342492c45e7b198c2056646b0fae0e5",
+  "total_pages": 4,
+  "first_page": "                                                                        Network Transplanting (extended abstract)\n\n                                                                     Quanshi Zhanga , Yu Yangb , Qian Yuc and Ying Nian Wub\n                                                a                                    b                                            c\n                                                    Shanghai Jiao Tong University,       University of California, Los Angeles,       University of California, Berkeley\narXiv:1901.06978v1 [cs.LG] 21 Jan 2019\n\n\n\n\n                                                                Introduction                                    • Delivering models or data: Our delivering pre-trained\n                                         1                                                                      networks to the computation center is usually much cheaper\n                                          Besides end-to-end learning a black-box neural network, in            than collecting and sending raw training data in practice.\n                                         this paper, we propose a new deep-learning methodology,                • Middle-to-end semantic manipulation for application:\n                                         i.e. network transplanting. Instead of learning from scratch,          How to efficiently organize and use the knowledge in the\n                                         network transplanting aims to merge several convolutional              net is also a crucial problem. We use different modules in\n                                         networks that are pre-trained for different categories and             the network to encode knowledge of different categories and\n                                         tasks to build a generic, distributed neural network.                  that of different tasks. Like building LEGO blocks, people\n                                            Network transplanting is of special values in both theory           can manually connect a category module and a task module\n                                         and practice. We briefly introduce key deep-learning prob-             to accomplish a certain application (see Fig. 1(left)).\n                                         lems that network transplanting deals with as follows.\n                                                                                                                Task of network transplanting\n                                         Future potential of learning a universal net                           To solve above issues, we propose network transplanting,\n                                         Instead of learning different networks for different applica-          i.e. building a generic model by gradually absorbing net-\n                                         tions, building a universal net with a compact structure for           works locally pre-trained for specific categories and tasks.\n                                         various categories and tasks is one of ultimate objectives of          We design an interpretable modular structure for a target net-\n                                         AI. In spite of the gap between current algorithms and the             work, namely a transplant net, where each module is func-\n                                         target of learning a huge universal net, it is still meaningful        tionally mean",
+  "status": "downloaded_extracted_requires_manual_review",
+  "automatic_heading_hits": []
+}

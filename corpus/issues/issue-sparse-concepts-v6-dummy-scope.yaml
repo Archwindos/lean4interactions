@@ -1,0 +1,78 @@
+schema_version: 1
+issue_id: issue-sparse-concepts-v6-dummy-scope
+paper_id: sparse-concepts-2111-06206
+paper_version: v6
+claim_ids:
+- claim-sparse-concepts-v6-dummy
+theorem_ids: []
+source_location:
+  file: sources/2111.06206v6.pdf
+  pdf_page: 13
+  printed_page: 13
+  section: B
+  original_label: (3) Dummy axiom
+additional_source_locations:
+- file: sources/2111.06206v6.pdf
+  pdf_page: 16
+  printed_page: 16
+  section: D.1
+  original_label: (3) Dummy axiom and proof
+- file: sources/tex/appendix.tex
+  line: 67
+  line_end: 68
+- file: sources/tex/appendix.tex
+  line: 227
+  line_end: 240
+original_statement: "(3) \\textit{Dummy axiom}. If a variable {\\small $i\\in\\mathcal{N}$}\
+  \ is a dummy variable, \\emph{i.e.} \n{\\small $\\forall \\mathcal{S}\\subseteq\
+  \ \\mathcal{N}\\backslash\\{i\\}, v(\\boldsymbol{x}_{\\mathcal{S}\\cup\\{i\\}})=v(\\\
+  boldsymbol{x}_{\\mathcal{S}})+v(\\boldsymbol{x}_{\\{i\\}})$}, it has no causal effect\
+  \ with other variables, {\\small $\\forall \\mathcal{S}\\subseteq \\mathcal{N}\\\
+  backslash\\{i\\}, w_{\\mathcal{S}\\cup\\{i\\}}=0$}."
+problem: 文字说“with other variables”，可能暗指至少另有一个变量；但显示公式 ∀ S⊆N\{i}, w_(S∪{i})=0 没有限制
+  S≠∅。在 S=∅ 时，一变量取值满足原显示前提，却不满足显示结论。这里记录为原意范围歧义，不判断作者究竟采用哪种隐含范围。
+evidence:
+  full_context:
+  - reports/public-pilot/20260930-sparse-concepts-v6/source-evidence/dummy-appendixB-context.tex
+  - reports/public-pilot/20260930-sparse-concepts-v6/source-evidence/dummy-appendixD-context.tex
+  pdf_evidence:
+  - reports/public-pilot/20260930-sparse-concepts-v6/pdf-page-13.png
+  - reports/public-pilot/20260930-sparse-concepts-v6/pdf-page-16.png
+  ocr_excluded: TeX source and rendered PDF show the same universal quantifier, other-variables
+    phrase and final cancellation step.
+  displayed_formula_check:
+    N:
+    - i
+    v_empty: 0
+    v_singleton_i: 1
+    all_antecedent_cases:
+    - S: []
+      v_S_union_i: 1
+      v_S_plus_v_i: 1
+      antecedent_holds: true
+    conclusion_case:
+      S: []
+      w_S_union_i: 1
+      claimed_value: 0
+      displayed_conclusion_holds: false
+    derivation: w_{i}=v({i})−v(∅)=1. Also the displayed proof ends with sum_(Sprime
+      subset S)(−1)^(|S|−|Sprime|)=0, whose value for S=empty is 1.
+    interpretation_boundary: This contradicts the displayed all-S formula. It does
+      not contradict a reading of the prose confined to interactions with other variables;
+      intended scope awaits user confirmation.
+  lean_decl: SparseConceptsPublicPilot.displayed_dummy_counterexample
+  lean_source: reports/public-pilot/20260930-sparse-concepts-v6/PublicPilot.lean
+  lean_log: reports/public-pilot/20260930-sparse-concepts-v6/lean-applications.log
+affected_ids:
+- claim-sparse-concepts-v6-dummy
+unaffected_ids:
+- harsanyi-reconstruction
+- harsanyi-reconstruction-unique
+visibility: public
+assessment: suspected
+user_confirmation: pending
+fix_authorization: pending
+status: awaiting_user_confirmation
+math_correction_performed: false
+created_at: '2026-09-30T05:49:39.860742+00:00'
+issue_type: scope_ambiguity

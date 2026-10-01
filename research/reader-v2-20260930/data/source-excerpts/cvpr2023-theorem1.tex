@@ -1,0 +1,26 @@
+% Agent transcription from pinned CVPR 2023 main p3 / supplementary pp2--3.
+% Separate reconstruction and uniqueness clauses belong to one original Theorem 1.
+w_S=\sum_{L\subseteq S}(-1)^{|S|-|L|}v(\boldsymbol{x}_L),\qquad
+Y(\boldsymbol{x}_S)=\sum_{L\subseteq S}w_L.
+
+\forall S\subseteq N,\quad Y(\boldsymbol{x}_S)=v(\boldsymbol{x}_S).
+
+\left[\forall S\subseteq N,\quad
+v(\boldsymbol{x}_S)=\sum_{L\subseteq S}\widetilde{w}_L\right]
+\Longrightarrow
+\left[\forall S\subseteq N,\quad\widetilde{w}_S=w_S\right].
+
+% Supplementary p3 reconstruction proof.
+\begin{aligned}
+\sum_{S'\subseteq S}w_{S'}
+ &=\sum_{S'\subseteq S}\sum_{L\subseteq S'}(-1)^{|S'|-|L|}v(\boldsymbol{x}_L)\\
+ &=\sum_{L\subseteq S}v(\boldsymbol{x}_L)
+   \sum_{m=0}^{|S|-|L|}\binom{|S|-|L|}{m}(-1)^m
+  =v(\boldsymbol{x}_S).
+\end{aligned}
+
+% The supplementary uniqueness proof uses cardinality induction.
+\widetilde{w}_\emptyset=v(\boldsymbol{x}_\emptyset)=w_\emptyset,
+\qquad
+\widetilde{w}_S=v(\boldsymbol{x}_S)-\sum_{L\subsetneq S}\widetilde{w}_L
+              =w_S.

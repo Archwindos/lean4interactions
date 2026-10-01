@@ -1,0 +1,221 @@
+Published as a conference paper at ICLR 2024
+
+
+
+                              distinctive                               shared                   distinctive
+                                                      1st DNN             AND
+                                                                                   2nd DNN
+                                        AND
+                                                                         black                    OR
+                                       said                       OR
+                                                                          dog
+                                                                                   OR
+                                                                                                  dog
+            Interaction                black                  black               black          over
+            primitives                  dog                    dog        AND     over           David
+                                                      OR                 black            AND
+                                                     dog                  dog             they
+                                                     over                over             said
+
+            Input variables     They          said          the        black     dog      is     over      David
+
+            Input sentence                           They said the black dog is over David.       Negative sentiment
+
+
+Figure 1: Distinctive and shared interactions. When we extract AND-OR interactions from two
+DNNs, AND interactions S1 = {black, dog} and S2 = {black, dog, over}, and OR interactions S3 =
+{black, dog} and S4 = {black, over} are shared by two DNNs, while interactions, such as the AND
+interaction S5 = {they, said}, are distinctive interactions encoded by a single DNN.
+common interactions shared by different AI models. Interactions, which are not shared by different
+DNNs, may be perceived as out-of-distribution signals without clear meanings.
+Therefore, in this study, we revisit the generalization of interactions. Specifically, we identify a clear
+mechanism that makes the existing method extract different interactions from the same DNN under
+different initialization states, which hurts the generalization power of interactions.
+Thus, to address the generalization issue, we propose a new method for extracting generalizable
+interactions. A generalizable interaction is defined as Figure 1 shows. Given multiple DNNs trained
+for the same task and an input sample, if an interaction can be extracted from all these DNNs, then
+we consider it generalizable. Our method is designed to extract interactions with maximum gen-
+eralization power. This approach ensures that if an interaction exhibits a significant impact on the
+output score for one DNN, it usually demonstrates noteworthy influence for other DNNs. We con-
+ducted experiments on various dataset. Experiments showed that our proposed method significantly
+improved the generalization power of the extracted interactions across different DNNs.
+
+2       G ENERALIZABLE INTERACTION PRIMITIVES ACROSS DNN S
+2.1     P RELIMINARIES : EXPLAINING THE NETWORK OUTPUT WITH INTERACTION PRIMITIVES
+
+Although there is no theory to guarantee that how to define concepts that fit well with human cogni-
+tion, Li & Zhang (2023a) and Ren et al. (2024) still provided mathematical supports to explain why
+we can still use interactions between input variables as the primitives or concepts encoded by the
+DNN. Specifically, there are two types of interactions, i.e., AND interactions and OR interactions.
+AND interactions. Given a function v : Rn → R, let us consider an input sample x =
+[x1 , x2 , · · · , xn ]⊺ with n input variables indexed by N = {1, 2, ..., n}. Here, v(x) ∈ R denotes
+the function output on x3 . Then, Ren et al. (2023b) have used the Harsanyi dividend (Harsanyi,
+1963) Iand (S|x) to quantify the numerical effect of the AND relationship between input variables in
+S ⊆ N , which is encoded by the function v. We consider this interaction as an AND interaction.
+                                                 X
+                                   Iand (S|x) :=        (−1)|S|−|T | v(xT ).                      (1)
+                                                             T ⊆S
+
+where Iand (∅|x) = v(x∅ ), and xT denotes a sample whose input variables in N \ T are masked4 .
+Each AND interaction Iand (S|x) reveals the AND relationship between all variables in S. For in-
+stance, let us consider the slang term S = {x3 , x4 , x5 , x6 } in the sentence “x1 = It, x2 = is, x3 =
+raining, x4 = cats, x5 = and, x6 = dogs!” as a toy example. The co-occurrence of four words forms
+the semantic concept of “heavy rain” and contributes a numerical effect Iand (S|x) to the function
+output. Otherwise, the masking of any word xi ∈ S invalidates the semantic concept and eliminates
+the interaction effect, i.e., obtaining Iand (S|xmasked ) = 0 on the masked sample.
+    3
+     If the target function/model/network has a vectorized output, e.g., a DNN for multi-category classification,
+                            p(y=y truth |x)
+we may set v(x) = log 1−p(y=y        truth |x) by following (Deng et al., 2022).
+   4
+     We followed (Li & Zhang, 2023a) to obtain two discrete states for each input variable, i.e., the masked and
+unmasked states. We simply masked each input variable i ∈ N \ S using baseline values.
+
+
+                                                                   2
+Published as a conference paper at ICLR 2024
+
+
+
+
+OR interactions. Analogously, we can also use the OR interaction to explain the function v : Rn →
+R. To this end, (Zhou et al., 2023; Li & Zhang, 2023a) have defined the following OR interaction
+effect Ior (S|x) to measure the OR interaction encoded by v. In particular, Ior (∅|x) = v(x∅ ).
+                                            X
+                             Ior (S|x) := −        (−1)|S|−|T | v(xN \T ).                      (2)
+                                                     T ⊆S
+
+Each OR interaction Ior (S|x) describes the OR relationship between all variables in S. Let us
+consider an input sentence “x1 = This, x2 = movie, x3 = is, x4 = boring, x5 = and, x6 =
+disappointing” for sentiment classification. Let us set S = {x4 , x6 }. The presence of any word in
+S will contribute a negative sentiment effect Ior (S|x) to the function output.
+Sparsity of interactions. Theoretically, according to Equation (1), a function can encode at most 2n
+different AND interactions w.r.t. all 2n subsets ∀S, S ⊆ N . However, Ren et al. (2024) have proved
+that under some common conditions2 , most well-trained DNNs only encode a small set of AND
+interactions, denoted by Ω, i.e., only a few interactions S ∈ Ω have considerable effects Iand (S|x).
+All other interactions have almost zero effects, i.e., Iand (S|x) ≈ 0, which can be regarded as a set of
+negligible noise patterns.
+It is worth noting that an OR interaction can be regarded as a specific AND interaction, if we inverse
+the definition of the masked state and the unmasked state of an input variable5 . Thus, the proven
+sparsity of AND interactions can also indicate the conclusion that well-trained DNNs tend to encode
+a small number of OR interactions.
+Definition of interaction primitives. Considering the above proven sparsity of interactions, we
+define an interaction primitive as a salient interaction. Formally, given a threshold τ , the set of
+interaction primitives are defined as Ω = {S ⊆ N : |I(S|x)| > τ }.
+Theorem 1 (Universal matching theorem, proved by (Ren et al., 2024)). As the corollary of the
+proven sparsity in Ren et al. (2024), the function’s output on all 2n masked samples {xS |S ⊆
+                                                                                      n
+N } could beP                      P by the interaction primitives in Ω, s.t., |Ω| ≪ 2 , i.e., ∀S ⊆
+               universally explained
+N, v(xS ) = T ⊆S Iand (T |x) ≈ T ⊆S:T ∈Ω Iand (T |x).
+
+In particular, Theorem 1 shows that if we arbitrarily mask the input sample x, we can get 2n different
+masked samples4 , ∀S, S ⊆ N . Then, we can universally match the output of the function v(xS ) on
+all 2n masked samples using only a few interaction primitives in Ω.
+
+2.2    FAITHFULNESS PROBLEM WITH INTERACTION - BASED EXPLANATIONS
+
+Basic setting of using AND-OR interactions to explain a DNN. In this section, we consider to
+employ both AND interactions and OR interactions to explain the DNN’s output. This is because
+the complexity of the representations in DNNs makes it difficult to rely solely on either AND inter-
+actions or OR interactions to faithfully explain true inference primitives encoded by the DNN.
+To this end, we need to decompose the output of the DNN into two terms v(x) = vand (x) + vor (x),
+so that we can use AND interactions to explain the term vand (x) and use OR interactions to explain
+the term vor (x). In this way, the first challenge is how to learn an appropriate decomposition of
+vand (x) and vor (x) that reveals intrinsic primitive interactions encoded by the DNN. We will discuss
+this challenge later.
+No matter how we randomly decompose v(x) = vand (x) + vor (x), Theorem 2 states that we can still
+use interactions to fit the DNN’s outputs on 2n randomly masked samples {xT |T ⊆ N }. Further-
+more, according to the sparsity of interaction primitives in Section 2.1, we can obtain Proposition 1,
+i.e., the 2n network outputs on all masked samples can usually be approximated by a small number
+of AND interaction primitives in Ωand and OR interaction primitives in Ωor , s.t., |Ωand |, |Ωor | ≪ 2n .
+Theorem 2 (Universal matching theorem, proof in Appendix C). Let us be given a DNN v and an
+input sample x. For each randomly masked sample xT , T ⊆ N , we obtain
+                                        X                 X
+      v(xT ) = vand (xT ) + vor (xT ) =     Iand (S|xT ) +                   Ior (S|xT ). (3)
+                                                 S⊆T                      S∈{S:S∩T ̸=∅}∪{∅}
+   5
+     To compute Iand (S|x), we use a baseline value bi and set xi = bi to represent its masked state. If we
+consider bi variable as the presence of the variable, and consider the original value xi as its masked state (i.e.,
+using v(bT ) to represent v(xN \T ) in Equation (2)), then Ior (S|x) in Equation (2) can be formulated the same
+as the AND interaction in Equation (1).
+
+
+                                                        3
+Published as a conference paper at ICLR 2024
+
+
+
+
+Proposition 1. The output of a well-trained DNN on all 2n masked samples {xT |T ⊆ N }
+                                                                        and
+could be universally approximated by thePinteraction primitives P in Ω      and Ωor , s.t., |Ωand |,
+|Ωor | ≪ 2n , i.e., ∀T ⊆ N, v(xT ) =           I
+                                           S⊆T and  (S|x T ) +    S∈{S:S∩T ̸=∅}∪{∅} Ior (S|xT ) ≈
+        P                           P
+v(x∅ )+ ∅̸=S⊆T :S∈Ωand Iand (S|xT )+ S∩T ̸=∅:S∈Ωor Ior (S|xT ), where v(x∅ ) = vand (x∅ )+vor (x∅ ).
+
+Problems with the faithfulness of interactions. Although the universal matching capacity proven
+in Theorem 2 is a quite significant advantage of AND-OR interactions, it is still not the ultimate
+guarantee for the faithfulness of the extracted interactions. To be precise, there is still no standard
+way to faithfully decompose the vand (x) term and the vor (x) term that reveal intrinsic primitive
+interactions encoded by the DNN, considering the following two challenges.
+• Challenge 1, ambiguous decomposition of vand (x) and vor (x) usually brings in considerable uncer-
+tainty in the extraction of interactions. Let us take the following toy Boolean function as an example
+to illustrate the diversity of interactions, f (x) = x1 ∧ x2 ∧ x3 + x2 ∧ x3 + x3 ∧ x4 + x4 ∨ x5 , where
+x = [x1 , x2 , x3 , x4 , x5 ]⊺ and xi ∈ {0, 1}. We have two ways to decompose f (x). First, we can
+simply decompose vand (x) = x1 ∧ x2 ∧ x3 + x2 ∧ x3 + x3 ∧ x4 and vor (x) = x4 ∨ x5 , then to ex-
+plain f (x) with an OR interaction Ior (S = {4, 5}) and three AND interactions Iand (S = {1, 2, 3}),
+Iand (S = {2, 3}) and Iand (S = {3, 4}). Alternatively, we can also use exclusively AND interactions
+to explain f (x). Specifically, we can rewrite vand (x) = x1 ∧ x2 ∧ x3 + x2 ∧ x3 + x3 ∧ x4 + x4 ∨ x5 =
+x1 ∧ x2 ∧ x3 + x2 ∧ x3 + x3 ∧ x4 + (x4 + x5 − x4 ∧ x5 ) and vor (x) = 0, w.r.t xi ∈ {0, 1}. Thus,
+the vand term can be explained by a total of six AND interaction primitives. This is a typical case for
+diverse strategy of extracting interactions that are generated by different decompositions.
+The aforementioned f (x) is just an exceedingly simple function. In real-world applications, DNNs
+usually encode intricate AND-OR relationships among input variables, making it exceptionally chal-
+lenging to formulate an explicit expression for the DNN function or to establish a definitive ground-
+truth decomposition of vand (x) and vor (x). Consequently, the diversity issue with interactions are
+ubiquitous and unavoidable.
+• Challenge 2, how to ensure the interaction primitives are generalizable. It is commonly considered
+that generalizable primitives are usually transferable over different models trained for the same task,
+instead of being over-fitted by a single model. Thus, if an interaction primitive can be consistently
+extracted from different DNNs, then it can be considered as a faithful concept. Otherwise, non-
+generalizable (non-transferable) interactions do not appear as faithful concepts, even though they
+still satisfy the criteria of sparsity and universal matching in Theorem 2.
+Definition 1 (Transferability of interaction primitives). Given m different DNNs trained for the
+same task, v (1) , v (2) , . . . , v (m) , we use AND-OR interactions to explain the output score v (i) (x)
+                                                                                                 (i)
+of each DNN v (i) on the input sample x. Let Ωand,(i) = {S ⊆ N : |Iand                               (S|x)| > τ (i) } and
+                             (i)
+Ωor,(i) = {S ⊆ N : |Ior (S|x)| > τ (i) } denote a set of sparse AND interaction primitives and a
+set of sparse OR interaction primitives, respectively. Then, the set of generalizable AND                       Tm andand,(i)
+                                                                                                                         the
+set of generalizable OR interaction primitives for the i-th DNN, are defined as Ωand                   shared =  i=1 Ω
+and Ωorshared = m      or,(i)
+               T
+                i=1 Ω          , respectively. The generalization power of AND and OR interactions of the
+                                          (i)                                (i)
+i-th DNN, can be measured by sand             = |Ωand
+                                                  shared |/|Ω
+                                                              and,(i)
+                                                                      | and sor = |Ωor
+                                                                                    shared |/|Ω
+                                                                                               or,(i)
+                                                                                                      |, respectively.
+
+Definition 1 introduces the generalization power of interaction primitives. A larger value signifies
+higher transferability and, consequently, more generalizable interactive primitives.
+
+
+2.3    E XTRACTING GENERALIZABLE INTERACTION PRIMITIVES
+
+Neither of the aforementioned two challenges has been adequately tackled in previous interaction
+studies. In essense, interactions are determined by the decomposition of the network output v(x) =
+vand (x)+vor (x). Thus, if we rewrite the decomposition as vand (xT ) = 0.5v(xT )+γT and vor (xT ) =
+0.5v(xT ) − γT , then the learning of the best decomposition is equivalent to learning a set of {γT }.
+Here, the parameter γT ∈ R for a subset T ⊆ N determines a specific decomposition between
+vand (xT ) and vor (xT ). Therefore, our goal is to learn the appropriate parameters {γT } that reduce
+the aforementioned uncertainty of interaction primitives and boost their generalization power.
+
+                                                             4
+
