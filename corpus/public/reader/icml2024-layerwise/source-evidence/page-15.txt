@@ -1,0 +1,85 @@
+                                         Layerwise Change of Knowledge in Neural Networks
+
+F. Proof of Theorem 3.3
+Theorem 3.3 Given an input sample x ∈ Rn , the network output score v(xT ) on each masked input samples {xT |T ⊆ N }
+can be decomposed into effects of AND interactions and OR interactions, subject to Iand (∅|x) = vand (x∅ ) = v(x∅ ) and
+Ior (∅|x) = vor (x∅ ) = 0.
+                                         v(xT ) = vand (xT ) + vor (xT )
+                                                  X                        X                                                                       (14)
+                                                =           Iand (S|xT ) +                            Ior (S|xT ).
+                                                        S⊆T                                 S∩T 6=∅
+
+
+
+
+Proof. Let us first focus on the sum of AND interactions, as follows.
+                             X                          X         X
+                                       Iand (S|xT ) =                          (−1)|S|−|L| vand (xL )
+                                 S⊆T                      S⊆T          L⊆S
+                                                        X         X
+                                                    =                                  (−1)|S|−|L| vand (xL )
+                                                          L⊆T          S:L⊆S⊆T
+                                                                      X                                        X|T |−|L|                           (15)
+                                                    = vand (xT ) +                          vand (xL ) ·                   (−1)m
+                                                      | {z }                L⊆T,L6=T                               m=0
+                                                         L=T
+                                                                                                               |        {z     }
+                                                                                                                        =0
+                                                    = vand (xT ).
+
+Then, let us concentrate on the the sum of OR interactions, as follows.
+               X                               X                 X
+                             Ior (S|xT ) = −                                (−1)|S|−|L| vor (xN \L )
+                   S∩T 6=∅                        S∩T 6=∅,S6=∅       L⊆S
+                                               X        X
+                                        =−                                        (−1)|S|−|L| vor (xN \L )
+                                                  L⊆N         S:S∩T 6=∅,S⊇L
+                                                                          |T |
+                                                                                    |S |
+                                                                          X
+                                        = − vor (x∅ ) − vor (xT ) ·               C|T 2| (−1)|S2 |
+                                            | {z } | {z }
+                                                L=N                   |S2 |=1
+                                                          L=N \T
+                                                                      |                {z             }
+                                                                                    =−1
+                                                                                                      |T |                                         (16)
+                                                                                                                     |S |−|T ∩L|
+                                                   X                                X                 X
+                                           −                  vor (xN \L ) ·                                       C|T 2|−|T ∩L| (−1)|S1 |+|S2 |
+                                               L∩T 6=∅,L6=N                      S1 ⊆N \T \L |S2 |=|T ∩L|
+                                                                                               |                          {z                  }
+                                                                                                                          =0
+                                                    X                               X           X
+                                           −                    vor (xN \L ) ·                                 (−1)|S1 |+|S2 |
+                                               L∩T =∅,L6=N \T                      S2 $T S1 ⊆N \T \L
+                                                                                   |                      {z                   }
+                                                                                                          =0
+                                        = vor (xT ) − vor (x∅ )
+.
+                              P
+Thus, we obtain vor (xT ) = S∩T 6=∅ Ior (S) + vor (x∅ ), according to Eq. (16). Thus, the output score v(xT ) of the DNN on the
+masked sample xT can be represented as the sum of effects of AND-OR interactions.
+
+                         v(xT ) = vand (xT ) + vor (xT )
+                                  X                         X
+                                =           Iand (S|xT ) +                     Ior (S|xT ) + vor (x∅ )
+                                      S⊆T                        S∩T 6=∅,S6=∅
+                                  X                                             X
+                                =                 Iand (S|xT ) + vand (x∅ ) +               Ior (S|xT ) + vor (x∅ )                                (17)
+                                      S⊆T,S6=∅                                      S∩T 6=∅
+                                             X                               X
+                                = v(x∅ ) +                 Iand (S|xT ) +                Ior (S|xT )
+                                                  S⊆T,S6=∅                       S∩T 6=∅
+                                  X                         X
+                                =           Iand (S|xT ) +               Ior (S|xT ).
+                                          S⊆T                         S∩T 6=∅
+
+
+
+Thus, Theorem 3.3 is proven.
+
+
+
+
+                                                                          15

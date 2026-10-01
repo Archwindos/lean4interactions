@@ -57,7 +57,11 @@ def ingest_local(root: str | Path | None, source: str | Path, *, metadata: dict 
     # Folder name is a stable manual identity; files use filename + content.
     resolved_id = identifier(paper_id or info.get("paper_id") or "manual-" + hashlib.sha256(label.encode()).hexdigest()[:16], "paper_id")
     requested_version = version or info.get("version")
-    versions_dir = safe_path(root, f"corpus/papers/{resolved_id}")
+    visibility = info.get("visibility", "public" if source_url else "private")
+    if visibility not in {"private", "public"}:
+        raise ArchiveError("visibility must be private or public")
+    corpus_prefix = f"corpus/{visibility}"
+    versions_dir = safe_path(root, f"{corpus_prefix}/papers/{resolved_id}")
     for existing in sorted(versions_dir.glob("*/manifest.yaml")) if versions_dir.exists() else []:
         current = load_data(safe_path(root, existing), {})
         if current.get("content_fingerprint") == content_digest and (not requested_version or current.get("requested_version", current.get("version")) == requested_version):
@@ -144,10 +148,10 @@ def ingest_url(root: str | Path | None, url: str, *, paper_id: str | None = None
         return ingest_local(root, target, metadata=info, paper_id=public_id, version=version, source_url=url)
 
 
-def update_metadata(root, paper_id: str, version: str | None, fields: dict) -> dict:
+def update_metadata(root, paper_id: str, version: str | None, fields: dict, *, collection: str = "public") -> dict:
     from .store import ArchiveStore
     root = resolve_root(root)
-    paper = ArchiveStore(root).get_paper(paper_id, version)
+    paper = ArchiveStore(root, collection=collection).get_paper(paper_id, version)
     if not paper:
         raise ArchiveError(f"Unknown paper: {paper_id}")
     allowed = {"title", "authors", "publication_status", "visibility", "doi", "arxiv_id", "license"}
@@ -157,6 +161,8 @@ def update_metadata(root, paper_id: str, version: str | None, fields: dict) -> d
         raise ArchiveError("authors must be a list")
     if "visibility" in fields and fields["visibility"] not in {"private", "public"}:
         raise ArchiveError("visibility must be private or public")
+    if "visibility" in fields and fields["visibility"] != collection:
+        raise ArchiveError("Visibility cannot move a paper between pools; use explicit promote after checking a formally published source")
     manifest = dict(paper["manifest"])
     previous = {key: manifest.get(key) for key in fields}
     manifest.update(fields)
@@ -167,4 +173,31 @@ def update_metadata(root, paper_id: str, version: str | None, fields: dict) -> d
     base = safe_path(root, paper["base_path"])
     write_data(base / "metadata-history" / (stamp.replace(":", "-") + ".json"), history)
     write_data(base / "manifest.yaml", manifest)
+    return manifest
+
+
+def promote_paper(root, paper_id: str, formal_source: str | Path, *, source_url: str, title: str | None = None, version: str | None = None) -> dict:
+    """Import a verified formal source as public; private drafts stay untouched.
+
+    This deliberately never promotes draft proofs, reviews or derivatives by
+    changing visibility. The supplied formal original is its own immutable batch.
+    """
+    from .store import ArchiveStore
+    root = resolve_root(root)
+    draft = ArchiveStore(root, collection="private").get_paper(paper_id)
+    if not draft:
+        raise ArchiveError("Unknown private paper to promote")
+    url = urlparse(source_url)
+    formal_hosts = {"proceedings.mlr.press", "openaccess.thecvf.com", "openreview.net", "dl.acm.org", "ieeexplore.ieee.org", "link.springer.com", "nature.com", "www.nature.com", "science.org", "www.science.org"}
+    if url.scheme != "https" or url.hostname not in formal_hosts or url.username or url.password:
+        raise ArchiveError("Promotion requires an explicit HTTPS formal publisher source URL")
+    source = safe_path(root, formal_source, must_exist=True)
+    if not source.is_file() or source.suffix.lower() != ".pdf":
+        raise ArchiveError("Promotion requires a separately checked formal PDF original")
+    manifest = ingest_local(root, source, paper_id=paper_id, version=version,
+                            source_url=source_url, metadata={"title": title or draft["title"], "visibility": "public", "publication_status": "published"})
+    evidence = {"schema_version": 1, "action": "explicit_formal_source_promotion", "formal_source_url": source_url,
+                "formal_source_sha256": sha256(source), "private_original_retained": True,
+                "derivatives_promoted": False, "checked_at": utcnow()}
+    write_data(safe_path(root, f"corpus/public/papers/{paper_id}/{manifest['version']}/promotion-evidence.json"), evidence)
     return manifest

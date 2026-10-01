@@ -1,0 +1,1266 @@
+{
+  "paper_id": "icml2024-layerwise",
+  "symbols": [
+    {
+      "id": "model-output",
+      "canonical_tex": "v:X\\to\\mathbb R",
+      "name_zh": "实值模型输出",
+      "definition_tex": "g(S)=v(x_S)",
+      "description_md": "给定分类分数或某层探针的实值输出。",
+      "type_or_domain": "Finite sets, real values, or explicitly specified vectors/probabilities",
+      "scope": "icml2024-layerwise; fixed input/baseline/layer/decomposition where applicable",
+      "assumptions": [],
+      "empty_set_convention": "不省略空集作用域；使用相关条目的显式约定。",
+      "baseline_convention": "原始输出基线不默认零；输入基线向量与分类器截距单独标识。",
+      "aliases": [
+        "v:X\\to\\mathbb R"
+      ],
+      "paper_mappings": [
+        {
+          "paper_id": "icml2024-layerwise",
+          "version_id": "ver-icml2024-layerwise-formal",
+          "source_id": "src-icml2024-layerwise-formal",
+          "original_tex": "v:X\\to\\mathbb R",
+          "original_definition": "g(S)=v(x_S)",
+          "pdf_pages": [
+            3,
+            5
+          ],
+          "canonical_concept": "model-output",
+          "relationship": "renaming"
+        }
+      ],
+      "lean_names": [],
+      "version": "1.0",
+      "translations": {
+        "en": {
+          "name_zh": "Real-valued model output",
+          "description_md": "A specified classification score or real-valued layer-probe output.",
+          "empty_set_convention": "The empty-set scope follows the explicit convention of the relevant entry.",
+          "baseline_convention": "The raw output baseline is not assumed zero; input baseline vectors and probe intercepts are distinguished."
+        }
+      },
+      "canonical_id": "sym-model"
+    },
+    {
+      "id": "masked-input",
+      "canonical_tex": "x_S",
+      "name_zh": "保留集掩码输入",
+      "definition_tex": "(x_S)_i=\\begin{cases}x_i&i\\in S,\\\\r_i&i\\notin S\\end{cases}",
+      "description_md": "保留 S 内坐标，其余取同一输入基线。",
+      "type_or_domain": "Finite sets, real values, or explicitly specified vectors/probabilities",
+      "scope": "icml2024-layerwise; fixed input/baseline/layer/decomposition where applicable",
+      "assumptions": [],
+      "empty_set_convention": "不省略空集作用域；使用相关条目的显式约定。",
+      "baseline_convention": "原始输出基线不默认零；输入基线向量与分类器截距单独标识。",
+      "aliases": [
+        "x_T"
+      ],
+      "paper_mappings": [
+        {
+          "paper_id": "icml2024-layerwise",
+          "version_id": "ver-icml2024-layerwise-formal",
+          "source_id": "src-icml2024-layerwise-formal",
+          "original_tex": "x_T",
+          "original_definition": "(x_S)_i=\\begin{cases}x_i&i\\in S,\\\\r_i&i\\notin S\\end{cases}",
+          "pdf_pages": [
+            3,
+            13
+          ],
+          "canonical_concept": "masked-input",
+          "relationship": "renaming"
+        }
+      ],
+      "lean_names": [],
+      "version": "1.0",
+      "translations": {
+        "en": {
+          "name_zh": "Retained-set masked input",
+          "description_md": "Retain coordinates in S and use the same input baseline elsewhere.",
+          "empty_set_convention": "The empty-set scope follows the explicit convention of the relevant entry.",
+          "baseline_convention": "The raw output baseline is not assumed zero; input baseline vectors and probe intercepts are distinguished."
+        }
+      },
+      "canonical_id": "sym-mask"
+    },
+    {
+      "id": "set-game",
+      "canonical_tex": "g(S)",
+      "name_zh": "掩码集合函数",
+      "definition_tex": "g(S)=v(x_S)",
+      "description_md": "固定模型、输入、输入基线后得到的有限集合函数。",
+      "type_or_domain": "Finite sets, real values, or explicitly specified vectors/probabilities",
+      "scope": "icml2024-layerwise; fixed input/baseline/layer/decomposition where applicable",
+      "assumptions": [],
+      "empty_set_convention": "不省略空集作用域；使用相关条目的显式约定。",
+      "baseline_convention": "原始输出基线不默认零；输入基线向量与分类器截距单独标识。",
+      "aliases": [
+        "v(x_T)"
+      ],
+      "paper_mappings": [
+        {
+          "paper_id": "icml2024-layerwise",
+          "version_id": "ver-icml2024-layerwise-formal",
+          "source_id": "src-icml2024-layerwise-formal",
+          "original_tex": "v(x_T)",
+          "original_definition": "g(S)=v(x_S)",
+          "pdf_pages": [
+            3,
+            4
+          ],
+          "canonical_concept": "set-game",
+          "relationship": "renaming"
+        }
+      ],
+      "lean_names": [],
+      "version": "1.0",
+      "translations": {
+        "en": {
+          "name_zh": "Masked set game",
+          "description_md": "The finite set function determined by a fixed model, input, and input baseline.",
+          "empty_set_convention": "The empty-set scope follows the explicit convention of the relevant entry.",
+          "baseline_convention": "The raw output baseline is not assumed zero; input baseline vectors and probe intercepts are distinguished."
+        }
+      },
+      "canonical_id": "sym-game"
+    },
+    {
+      "id": "output-baseline",
+      "canonical_tex": "b",
+      "name_zh": "输出基线标量",
+      "definition_tex": "b=g(\\varnothing)=v(x_\\varnothing)",
+      "description_md": "空掩码输出，不是输入基线向量。",
+      "type_or_domain": "Finite sets, real values, or explicitly specified vectors/probabilities",
+      "scope": "icml2024-layerwise; fixed input/baseline/layer/decomposition where applicable",
+      "assumptions": [],
+      "empty_set_convention": "不省略空集作用域；使用相关条目的显式约定。",
+      "baseline_convention": "原始输出基线不默认零；输入基线向量与分类器截距单独标识。",
+      "aliases": [
+        "v(x_\\varnothing)"
+      ],
+      "paper_mappings": [
+        {
+          "paper_id": "icml2024-layerwise",
+          "version_id": "ver-icml2024-layerwise-formal",
+          "source_id": "src-icml2024-layerwise-formal",
+          "original_tex": "v(x_\\varnothing)",
+          "original_definition": "b=g(\\varnothing)=v(x_\\varnothing)",
+          "pdf_pages": [
+            4,
+            15,
+            16
+          ],
+          "canonical_concept": "output-baseline",
+          "relationship": "renaming"
+        }
+      ],
+      "lean_names": [],
+      "version": "1.0",
+      "translations": {
+        "en": {
+          "name_zh": "Scalar output baseline",
+          "description_md": "The empty-mask output, distinct from an input baseline vector.",
+          "empty_set_convention": "The empty-set scope follows the explicit convention of the relevant entry.",
+          "baseline_convention": "The raw output baseline is not assumed zero; input baseline vectors and probe intercepts are distinguished."
+        }
+      },
+      "canonical_id": "sym-output-baseline"
+    },
+    {
+      "id": "input-baseline",
+      "canonical_tex": "r",
+      "name_zh": "输入基线向量",
+      "definition_tex": "r=(r_i)_{i\\in N}",
+      "description_md": "原 b_i 是输入坐标的遮罩值。",
+      "type_or_domain": "Finite sets, real values, or explicitly specified vectors/probabilities",
+      "scope": "icml2024-layerwise; fixed input/baseline/layer/decomposition where applicable",
+      "assumptions": [],
+      "empty_set_convention": "不省略空集作用域；使用相关条目的显式约定。",
+      "baseline_convention": "原始输出基线不默认零；输入基线向量与分类器截距单独标识。",
+      "aliases": [
+        "b_i"
+      ],
+      "paper_mappings": [
+        {
+          "paper_id": "icml2024-layerwise",
+          "version_id": "ver-icml2024-layerwise-formal",
+          "source_id": "src-icml2024-layerwise-formal",
+          "original_tex": "b_i",
+          "original_definition": "r=(r_i)_{i\\in N}",
+          "pdf_pages": [
+            3,
+            13
+          ],
+          "canonical_concept": "input-baseline",
+          "relationship": "renaming"
+        }
+      ],
+      "lean_names": [],
+      "version": "1.0",
+      "translations": {
+        "en": {
+          "name_zh": "Input baseline vector",
+          "description_md": "The source b_i is the masked value of input coordinate i.",
+          "empty_set_convention": "The empty-set scope follows the explicit convention of the relevant entry.",
+          "baseline_convention": "The raw output baseline is not assumed zero; input baseline vectors and probe intercepts are distinguished."
+        }
+      },
+      "canonical_id": "sym-input-baseline"
+    },
+    {
+      "id": "layer-and-component",
+      "canonical_tex": "a_l(S)",
+      "name_zh": "AND 输出分量",
+      "definition_tex": "a_l(S)=g_l(S)/2+\\gamma_{l,S}",
+      "description_md": "固定分解的 AND 游戏，区别于总游戏。",
+      "type_or_domain": "Finite sets, real values, or explicitly specified vectors/probabilities",
+      "scope": "icml2024-layerwise; fixed input/baseline/layer/decomposition where applicable",
+      "assumptions": [],
+      "empty_set_convention": "不省略空集作用域；使用相关条目的显式约定。",
+      "baseline_convention": "原始输出基线不默认零；输入基线向量与分类器截距单独标识。",
+      "aliases": [
+        "v_{and}(x_S)"
+      ],
+      "paper_mappings": [
+        {
+          "paper_id": "icml2024-layerwise",
+          "version_id": "ver-icml2024-layerwise-formal",
+          "source_id": "src-icml2024-layerwise-formal",
+          "original_tex": "v_{and}(x_S)",
+          "original_definition": "a_l(S)=g_l(S)/2+\\gamma_{l,S}",
+          "pdf_pages": [
+            3,
+            4
+          ],
+          "canonical_concept": "layer-and-component",
+          "relationship": "renaming"
+        }
+      ],
+      "lean_names": [],
+      "version": "1.0",
+      "translations": {
+        "en": {
+          "name_zh": "AND output component",
+          "description_md": "The AND game of a fixed split, distinct from the total game.",
+          "empty_set_convention": "The empty-set scope follows the explicit convention of the relevant entry.",
+          "baseline_convention": "The raw output baseline is not assumed zero; input baseline vectors and probe intercepts are distinguished."
+        }
+      },
+      "canonical_id": "sym-and-output"
+    },
+    {
+      "id": "layer-or-component",
+      "canonical_tex": "o_l(S)",
+      "name_zh": "OR 输出分量",
+      "definition_tex": "o_l(S)=g_l(S)/2-\\gamma_{l,S}",
+      "description_md": "固定分解的 OR 游戏。",
+      "type_or_domain": "Finite sets, real values, or explicitly specified vectors/probabilities",
+      "scope": "icml2024-layerwise; fixed input/baseline/layer/decomposition where applicable",
+      "assumptions": [],
+      "empty_set_convention": "不省略空集作用域；使用相关条目的显式约定。",
+      "baseline_convention": "原始输出基线不默认零；输入基线向量与分类器截距单独标识。",
+      "aliases": [
+        "v_{or}(x_S)"
+      ],
+      "paper_mappings": [
+        {
+          "paper_id": "icml2024-layerwise",
+          "version_id": "ver-icml2024-layerwise-formal",
+          "source_id": "src-icml2024-layerwise-formal",
+          "original_tex": "v_{or}(x_S)",
+          "original_definition": "o_l(S)=g_l(S)/2-\\gamma_{l,S}",
+          "pdf_pages": [
+            3,
+            4
+          ],
+          "canonical_concept": "layer-or-component",
+          "relationship": "renaming"
+        }
+      ],
+      "lean_names": [],
+      "version": "1.0",
+      "translations": {
+        "en": {
+          "name_zh": "OR output component",
+          "description_md": "The OR game of a fixed split.",
+          "empty_set_convention": "The empty-set scope follows the explicit convention of the relevant entry.",
+          "baseline_convention": "The raw output baseline is not assumed zero; input baseline vectors and probe intercepts are distinguished."
+        }
+      },
+      "canonical_id": "sym-or-output"
+    },
+    {
+      "id": "layer-gamma",
+      "canonical_tex": "\\gamma_{l,S}",
+      "name_zh": "分解学习参数",
+      "definition_tex": "a_l+o_l=g_l",
+      "description_md": "随层和掩码定义的确定性参数。",
+      "type_or_domain": "Finite sets, real values, or explicitly specified vectors/probabilities",
+      "scope": "icml2024-layerwise; fixed input/baseline/layer/decomposition where applicable",
+      "assumptions": [],
+      "empty_set_convention": "不省略空集作用域；使用相关条目的显式约定。",
+      "baseline_convention": "原始输出基线不默认零；输入基线向量与分类器截距单独标识。",
+      "aliases": [
+        "\\gamma_T"
+      ],
+      "paper_mappings": [
+        {
+          "paper_id": "icml2024-layerwise",
+          "version_id": "ver-icml2024-layerwise-formal",
+          "source_id": "src-icml2024-layerwise-formal",
+          "original_tex": "\\gamma_T",
+          "original_definition": "a_l+o_l=g_l",
+          "pdf_pages": [
+            3,
+            4,
+            5
+          ],
+          "canonical_concept": "layer-gamma",
+          "relationship": "renaming"
+        }
+      ],
+      "lean_names": [],
+      "version": "1.0",
+      "translations": {
+        "en": {
+          "name_zh": "Learned split parameter",
+          "description_md": "A deterministic parameter indexed by layer and mask.",
+          "empty_set_convention": "The empty-set scope follows the explicit convention of the relevant entry.",
+          "baseline_convention": "The raw output baseline is not assumed zero; input baseline vectors and probe intercepts are distinguished."
+        }
+      },
+      "canonical_id": "sym-decomposition-parameter"
+    },
+    {
+      "id": "layer-and-interaction",
+      "canonical_tex": "A_l(S)",
+      "name_zh": "AND 分量交互",
+      "definition_tex": "A_l(S)=\\sum_{T\\subseteq S}(-1)^{|S|-|T|}a_l(T)",
+      "description_md": "总输出的 Eq.(1) 与分量 AND 需按作用域区分。",
+      "type_or_domain": "Finite sets, real values, or explicitly specified vectors/probabilities",
+      "scope": "icml2024-layerwise; fixed input/baseline/layer/decomposition where applicable",
+      "assumptions": [],
+      "empty_set_convention": "A_l(空集)=a_l(空集)，定理条件下等于输出基线。",
+      "baseline_convention": "原始输出基线不默认零；输入基线向量与分类器截距单独标识。",
+      "aliases": [
+        "I_{and}(S\\mid x,v^{(l)})"
+      ],
+      "paper_mappings": [
+        {
+          "paper_id": "icml2024-layerwise",
+          "version_id": "ver-icml2024-layerwise-formal",
+          "source_id": "src-icml2024-layerwise-formal",
+          "original_tex": "I_{and}(S\\mid x,v^{(l)})",
+          "original_definition": "A_l(S)=\\sum_{T\\subseteq S}(-1)^{|S|-|T|}a_l(T)",
+          "pdf_pages": [
+            3,
+            4
+          ],
+          "canonical_concept": "layer-and-interaction",
+          "relationship": "renaming"
+        }
+      ],
+      "lean_names": [],
+      "version": "1.0",
+      "translations": {
+        "en": {
+          "name_zh": "AND component dividend",
+          "description_md": "Distinguish Eq.(1) for the total output from AND dividends of a component.",
+          "empty_set_convention": "A_l(empty)=a_l(empty), equal to the output baseline under the theorem’s stated condition.",
+          "baseline_convention": "The raw output baseline is not assumed zero; input baseline vectors and probe intercepts are distinguished."
+        }
+      },
+      "canonical_id": "sym-and-component-interaction"
+    },
+    {
+      "id": "layer-or-interaction",
+      "canonical_tex": "O_l(S)",
+      "name_zh": "非空 OR 分量交互",
+      "definition_tex": "O_l(S)=-\\sum_{T\\subseteq S}(-1)^{|S|-|T|}o_l(N\\setminus T)\\ (S\\ne\\varnothing)",
+      "description_md": "非空负补集变换与空集特设约定分开。",
+      "type_or_domain": "Finite sets, real values, or explicitly specified vectors/probabilities",
+      "scope": "icml2024-layerwise; fixed input/baseline/layer/decomposition where applicable",
+      "assumptions": [],
+      "empty_set_convention": "原定理空集取 o_l(空集)=0；Eq.(2) 字面空集值 −o_l(N) 是独立来源问题。",
+      "baseline_convention": "原始输出基线不默认零；输入基线向量与分类器截距单独标识。",
+      "aliases": [
+        "I_{or}(S\\mid x,v^{(l)})"
+      ],
+      "paper_mappings": [
+        {
+          "paper_id": "icml2024-layerwise",
+          "version_id": "ver-icml2024-layerwise-formal",
+          "source_id": "src-icml2024-layerwise-formal",
+          "original_tex": "I_{or}(S\\mid x,v^{(l)})",
+          "original_definition": "O_l(S)=-\\sum_{T\\subseteq S}(-1)^{|S|-|T|}o_l(N\\setminus T)\\ (S\\ne\\varnothing)",
+          "pdf_pages": [
+            4
+          ],
+          "canonical_concept": "layer-or-interaction",
+          "relationship": "renaming"
+        }
+      ],
+      "lean_names": [],
+      "version": "1.0",
+      "translations": {
+        "en": {
+          "name_zh": "Nonempty OR component dividend",
+          "description_md": "The nonempty negative complementary transform is separate from the special empty convention.",
+          "empty_set_convention": "The theorem uses empty value o_l(empty)=0; the literal Eq.(2) value −o_l(N) is a separate source issue.",
+          "baseline_convention": "The raw output baseline is not assumed zero; input baseline vectors and probe intercepts are distinguished."
+        }
+      },
+      "canonical_id": "sym-or-component-interaction"
+    },
+    {
+      "id": "layer-conditional-game",
+      "canonical_tex": "g_{l,T}(U)",
+      "name_zh": "再次掩码条件游戏",
+      "definition_tex": "g_{l,T}(U)=g_l(T\\cap U)",
+      "description_md": "固定分解可限制，独立再学习的分解另实例化。",
+      "type_or_domain": "Finite sets, real values, or explicitly specified vectors/probabilities",
+      "scope": "icml2024-layerwise; fixed input/baseline/layer/decomposition where applicable",
+      "assumptions": [],
+      "empty_set_convention": "不省略空集作用域；使用相关条目的显式约定。",
+      "baseline_convention": "原始输出基线不默认零；输入基线向量与分类器截距单独标识。",
+      "aliases": [
+        "I(S\\mid x_T)"
+      ],
+      "paper_mappings": [
+        {
+          "paper_id": "icml2024-layerwise",
+          "version_id": "ver-icml2024-layerwise-formal",
+          "source_id": "src-icml2024-layerwise-formal",
+          "original_tex": "I(S\\mid x_T)",
+          "original_definition": "g_{l,T}(U)=g_l(T\\cap U)",
+          "pdf_pages": [
+            4,
+            15
+          ],
+          "canonical_concept": "layer-conditional-game",
+          "relationship": "renaming"
+        }
+      ],
+      "lean_names": [],
+      "version": "1.0",
+      "translations": {
+        "en": {
+          "name_zh": "Repeated-mask conditional game",
+          "description_md": "A fixed split may be restricted; an independently relearned split is a separate instance.",
+          "empty_set_convention": "The empty-set scope follows the explicit convention of the relevant entry.",
+          "baseline_convention": "The raw output baseline is not assumed zero; input baseline vectors and probe intercepts are distinguished."
+        }
+      },
+      "canonical_id": "sym-conditional-interaction"
+    },
+    {
+      "id": "layer-probe",
+      "canonical_tex": "p^{(l)}(y\\mid x)",
+      "name_zh": "线性探针预测概率",
+      "definition_tex": "p^{(l)}=\\operatorname{softmax/sigmoid}((w^{(l)})^{\\mathsf T}f^{(l)}+b^{(l)})",
+      "description_md": "原 DNN 固定，探针另训练。",
+      "type_or_domain": "Finite sets, real values, or explicitly specified vectors/probabilities",
+      "scope": "icml2024-layerwise; fixed input/baseline/layer/decomposition where applicable",
+      "assumptions": [],
+      "empty_set_convention": "不省略空集作用域；使用相关条目的显式约定。",
+      "baseline_convention": "原始输出基线不默认零；输入基线向量与分类器截距单独标识。",
+      "aliases": [
+        "p^{(l)}(y\\mid x)"
+      ],
+      "paper_mappings": [
+        {
+          "paper_id": "icml2024-layerwise",
+          "version_id": "ver-icml2024-layerwise-formal",
+          "source_id": "src-icml2024-layerwise-formal",
+          "original_tex": "p^{(l)}(y\\mid x)",
+          "original_definition": "p^{(l)}=\\operatorname{softmax/sigmoid}((w^{(l)})^{\\mathsf T}f^{(l)}+b^{(l)})",
+          "pdf_pages": [
+            5,
+            22
+          ],
+          "canonical_concept": "layer-probe",
+          "relationship": "renaming"
+        }
+      ],
+      "lean_names": [],
+      "version": "1.0",
+      "translations": {
+        "en": {
+          "name_zh": "Linear-probe probability",
+          "description_md": "The DNN is fixed while the probe is trained separately.",
+          "empty_set_convention": "The empty-set scope follows the explicit convention of the relevant entry.",
+          "baseline_convention": "The raw output baseline is not assumed zero; input baseline vectors and probe intercepts are distinguished."
+        }
+      },
+      "canonical_id": "layer-probe"
+    },
+    {
+      "id": "layer-feature",
+      "canonical_tex": "f^{(l)}(x)",
+      "name_zh": "中间层特征",
+      "definition_tex": "f^{(l)}:X\\to\\mathbb R^{d_l}",
+      "description_md": "向量特征不是直接参与 Möbius 变换的实值游戏。",
+      "type_or_domain": "Finite sets, real values, or explicitly specified vectors/probabilities",
+      "scope": "icml2024-layerwise; fixed input/baseline/layer/decomposition where applicable",
+      "assumptions": [],
+      "empty_set_convention": "不省略空集作用域；使用相关条目的显式约定。",
+      "baseline_convention": "原始输出基线不默认零；输入基线向量与分类器截距单独标识。",
+      "aliases": [
+        "f^{(l)}(x)"
+      ],
+      "paper_mappings": [
+        {
+          "paper_id": "icml2024-layerwise",
+          "version_id": "ver-icml2024-layerwise-formal",
+          "source_id": "src-icml2024-layerwise-formal",
+          "original_tex": "f^{(l)}(x)",
+          "original_definition": "f^{(l)}:X\\to\\mathbb R^{d_l}",
+          "pdf_pages": [
+            5
+          ],
+          "canonical_concept": "layer-feature",
+          "relationship": "renaming"
+        }
+      ],
+      "lean_names": [],
+      "version": "1.0",
+      "translations": {
+        "en": {
+          "name_zh": "Intermediate-layer feature",
+          "description_md": "A vector feature is distinct from the real-valued game transformed by Möbius inversion.",
+          "empty_set_convention": "The empty-set scope follows the explicit convention of the relevant entry.",
+          "baseline_convention": "The raw output baseline is not assumed zero; input baseline vectors and probe intercepts are distinguished."
+        }
+      },
+      "canonical_id": "layer-feature"
+    },
+    {
+      "id": "layer-probe-intercept",
+      "canonical_tex": "b^{(l)}",
+      "name_zh": "探针截距",
+      "definition_tex": "(w^{(l)})^{\\mathsf T}f^{(l)}(x)+b^{(l)}",
+      "description_md": "不等于输入基线或输出基线。",
+      "type_or_domain": "Finite sets, real values, or explicitly specified vectors/probabilities",
+      "scope": "icml2024-layerwise; fixed input/baseline/layer/decomposition where applicable",
+      "assumptions": [],
+      "empty_set_convention": "不省略空集作用域；使用相关条目的显式约定。",
+      "baseline_convention": "原始输出基线不默认零；输入基线向量与分类器截距单独标识。",
+      "aliases": [
+        "b^{(l)}"
+      ],
+      "paper_mappings": [
+        {
+          "paper_id": "icml2024-layerwise",
+          "version_id": "ver-icml2024-layerwise-formal",
+          "source_id": "src-icml2024-layerwise-formal",
+          "original_tex": "b^{(l)}",
+          "original_definition": "(w^{(l)})^{\\mathsf T}f^{(l)}(x)+b^{(l)}",
+          "pdf_pages": [
+            5
+          ],
+          "canonical_concept": "layer-probe-intercept",
+          "relationship": "renaming"
+        }
+      ],
+      "lean_names": [],
+      "version": "1.0",
+      "translations": {
+        "en": {
+          "name_zh": "Probe intercept",
+          "description_md": "Distinct from the input or output baseline.",
+          "empty_set_convention": "The empty-set scope follows the explicit convention of the relevant entry.",
+          "baseline_convention": "The raw output baseline is not assumed zero; input baseline vectors and probe intercepts are distinguished."
+        }
+      },
+      "canonical_id": "layer-probe-intercept"
+    },
+    {
+      "id": "layer-residual",
+      "canonical_tex": "\\delta_T",
+      "name_zh": "可学习残差",
+      "definition_tex": "|\\delta_T|<\\kappa",
+      "description_md": "确定性优化参数，不是高斯噪声。",
+      "type_or_domain": "Finite sets, real values, or explicitly specified vectors/probabilities",
+      "scope": "icml2024-layerwise; fixed input/baseline/layer/decomposition where applicable",
+      "assumptions": [],
+      "empty_set_convention": "不省略空集作用域；使用相关条目的显式约定。",
+      "baseline_convention": "原始输出基线不默认零；输入基线向量与分类器截距单独标识。",
+      "aliases": [
+        "\\delta_T"
+      ],
+      "paper_mappings": [
+        {
+          "paper_id": "icml2024-layerwise",
+          "version_id": "ver-icml2024-layerwise-formal",
+          "source_id": "src-icml2024-layerwise-formal",
+          "original_tex": "\\delta_T",
+          "original_definition": "|\\delta_T|<\\kappa",
+          "pdf_pages": [
+            5,
+            20
+          ],
+          "canonical_concept": "layer-residual",
+          "relationship": "renaming"
+        }
+      ],
+      "lean_names": [],
+      "version": "1.0",
+      "translations": {
+        "en": {
+          "name_zh": "Learned residual",
+          "description_md": "A deterministic optimization parameter, distinct from Gaussian noise.",
+          "empty_set_convention": "The empty-set scope follows the explicit convention of the relevant entry.",
+          "baseline_convention": "The raw output baseline is not assumed zero; input baseline vectors and probe intercepts are distinguished."
+        }
+      },
+      "canonical_id": "layer-residual"
+    },
+    {
+      "id": "layer-residual-bound",
+      "canonical_tex": "\\kappa",
+      "name_zh": "残差上限",
+      "definition_tex": "\\kappa=.04|g_l(N)-g_l(\\varnothing)|",
+      "description_md": "零差值时原严格约束没有可行解。",
+      "type_or_domain": "Finite sets, real values, or explicitly specified vectors/probabilities",
+      "scope": "icml2024-layerwise; fixed input/baseline/layer/decomposition where applicable",
+      "assumptions": [],
+      "empty_set_convention": "不省略空集作用域；使用相关条目的显式约定。",
+      "baseline_convention": "原始输出基线不默认零；输入基线向量与分类器截距单独标识。",
+      "aliases": [
+        "\\kappa"
+      ],
+      "paper_mappings": [
+        {
+          "paper_id": "icml2024-layerwise",
+          "version_id": "ver-icml2024-layerwise-formal",
+          "source_id": "src-icml2024-layerwise-formal",
+          "original_tex": "\\kappa",
+          "original_definition": "\\kappa=.04|g_l(N)-g_l(\\varnothing)|",
+          "pdf_pages": [
+            5,
+            20
+          ],
+          "canonical_concept": "layer-residual-bound",
+          "relationship": "renaming"
+        }
+      ],
+      "lean_names": [],
+      "version": "1.0",
+      "translations": {
+        "en": {
+          "name_zh": "Residual bound",
+          "description_md": "The strict source constraint is infeasible at a zero output difference.",
+          "empty_set_convention": "The empty-set scope follows the explicit convention of the relevant entry.",
+          "baseline_convention": "The raw output baseline is not assumed zero; input baseline vectors and probe intercepts are distinguished."
+        }
+      },
+      "canonical_id": "layer-residual-bound"
+    },
+    {
+      "id": "layer-order",
+      "canonical_tex": "m=|S|",
+      "name_zh": "交互阶数",
+      "definition_tex": "m=|S|",
+      "description_md": "交互中的变量数，不是样本数。",
+      "type_or_domain": "Finite sets, real values, or explicitly specified vectors/probabilities",
+      "scope": "icml2024-layerwise; fixed input/baseline/layer/decomposition where applicable",
+      "assumptions": [],
+      "empty_set_convention": "不省略空集作用域；使用相关条目的显式约定。",
+      "baseline_convention": "原始输出基线不默认零；输入基线向量与分类器截距单独标识。",
+      "aliases": [
+        "m=|S|"
+      ],
+      "paper_mappings": [
+        {
+          "paper_id": "icml2024-layerwise",
+          "version_id": "ver-icml2024-layerwise-formal",
+          "source_id": "src-icml2024-layerwise-formal",
+          "original_tex": "m=|S|",
+          "original_definition": "m=|S|",
+          "pdf_pages": [
+            5,
+            8
+          ],
+          "canonical_concept": "layer-order",
+          "relationship": "renaming"
+        }
+      ],
+      "lean_names": [],
+      "version": "1.0",
+      "translations": {
+        "en": {
+          "name_zh": "Interaction order",
+          "description_md": "The number of variables in a coalition, distinct from sample count.",
+          "empty_set_convention": "The empty-set scope follows the explicit convention of the relevant entry.",
+          "baseline_convention": "The raw output baseline is not assumed zero; input baseline vectors and probe intercepts are distinguished."
+        }
+      },
+      "canonical_id": "sym-order"
+    },
+    {
+      "id": "layer-threshold",
+      "canonical_tex": "\\tau_l",
+      "name_zh": "显著性交互阈值",
+      "definition_tex": "\\tau_l=.05\\max_S\\max\\{|A_l(S)|,|O_l(S)|\\}",
+      "description_md": "脚注 7 与附录 M.4 的跨样本阈值分开标识。",
+      "type_or_domain": "Finite sets, real values, or explicitly specified vectors/probabilities",
+      "scope": "icml2024-layerwise; fixed input/baseline/layer/decomposition where applicable",
+      "assumptions": [],
+      "empty_set_convention": "不省略空集作用域；使用相关条目的显式约定。",
+      "baseline_convention": "原始输出基线不默认零；输入基线向量与分类器截距单独标识。",
+      "aliases": [
+        "\\tau"
+      ],
+      "paper_mappings": [
+        {
+          "paper_id": "icml2024-layerwise",
+          "version_id": "ver-icml2024-layerwise-formal",
+          "source_id": "src-icml2024-layerwise-formal",
+          "original_tex": "\\tau",
+          "original_definition": "\\tau_l=.05\\max_S\\max\\{|A_l(S)|,|O_l(S)|\\}",
+          "pdf_pages": [
+            5,
+            22
+          ],
+          "canonical_concept": "layer-threshold",
+          "relationship": "renaming"
+        }
+      ],
+      "lean_names": [],
+      "version": "1.0",
+      "translations": {
+        "en": {
+          "name_zh": "Saliency threshold",
+          "description_md": "The footnote 7 threshold is distinct from Appendix M.4’s cross-sample maximum.",
+          "empty_set_convention": "The empty-set scope follows the explicit convention of the relevant entry.",
+          "baseline_convention": "The raw output baseline is not assumed zero; input baseline vectors and probe intercepts are distinguished."
+        }
+      },
+      "canonical_id": "layer-threshold"
+    },
+    {
+      "id": "layer-salient-family",
+      "canonical_tex": "\\Omega_{and}^{l,m}",
+      "name_zh": "显著交互集合族",
+      "definition_tex": "\\Omega_{and}^{l,m}=\\{S\\subseteq N:|S|=m,|A_l(S)|>\\tau_l\\}",
+      "description_md": "元素是变量集合 S；OR 类似。",
+      "type_or_domain": "Finite sets, real values, or explicitly specified vectors/probabilities",
+      "scope": "icml2024-layerwise; fixed input/baseline/layer/decomposition where applicable",
+      "assumptions": [],
+      "empty_set_convention": "不省略空集作用域；使用相关条目的显式约定。",
+      "baseline_convention": "原始输出基线不默认零；输入基线向量与分类器截距单独标识。",
+      "aliases": [
+        "\\Omega_{and}^{(l),m}"
+      ],
+      "paper_mappings": [
+        {
+          "paper_id": "icml2024-layerwise",
+          "version_id": "ver-icml2024-layerwise-formal",
+          "source_id": "src-icml2024-layerwise-formal",
+          "original_tex": "\\Omega_{and}^{(l),m}",
+          "original_definition": "\\Omega_{and}^{l,m}=\\{S\\subseteq N:|S|=m,|A_l(S)|>\\tau_l\\}",
+          "pdf_pages": [
+            5,
+            6
+          ],
+          "canonical_concept": "layer-salient-family",
+          "relationship": "renaming"
+        }
+      ],
+      "lean_names": [],
+      "version": "1.0",
+      "translations": {
+        "en": {
+          "name_zh": "Salient coalition family",
+          "description_md": "Its elements are coalitions S; the OR family is analogous.",
+          "empty_set_convention": "The empty-set scope follows the explicit convention of the relevant entry.",
+          "baseline_convention": "The raw output baseline is not assumed zero; input baseline vectors and probe intercepts are distinguished."
+        }
+      },
+      "canonical_id": "layer-salient-family"
+    },
+    {
+      "id": "layer-shared",
+      "canonical_tex": "s_S",
+      "name_zh": "有符号共享交互",
+      "definition_tex": "s_S=s(A_l(S),A_L(S))",
+      "description_md": "同号取最小幅度，异号取零。",
+      "type_or_domain": "Finite sets, real values, or explicitly specified vectors/probabilities",
+      "scope": "icml2024-layerwise; fixed input/baseline/layer/decomposition where applicable",
+      "assumptions": [],
+      "empty_set_convention": "不省略空集作用域；使用相关条目的显式约定。",
+      "baseline_convention": "原始输出基线不默认零；输入基线向量与分类器截距单独标识。",
+      "aliases": [
+        "s_S"
+      ],
+      "paper_mappings": [
+        {
+          "paper_id": "icml2024-layerwise",
+          "version_id": "ver-icml2024-layerwise-formal",
+          "source_id": "src-icml2024-layerwise-formal",
+          "original_tex": "s_S",
+          "original_definition": "s_S=s(A_l(S),A_L(S))",
+          "pdf_pages": [
+            6
+          ],
+          "canonical_concept": "layer-shared",
+          "relationship": "renaming"
+        }
+      ],
+      "lean_names": [],
+      "version": "1.0",
+      "translations": {
+        "en": {
+          "name_zh": "Signed shared interaction",
+          "description_md": "Use the smaller magnitude for matching signs and zero for opposite signs.",
+          "empty_set_convention": "The empty-set scope follows the explicit convention of the relevant entry.",
+          "baseline_convention": "The raw output baseline is not assumed zero; input baseline vectors and probe intercepts are distinguished."
+        }
+      },
+      "canonical_id": "layer-shared"
+    },
+    {
+      "id": "layer-all-strength",
+      "canonical_tex": "\\operatorname{all}_{l,m}",
+      "name_zh": "显著交互总强度",
+      "definition_tex": "\\operatorname{all}_{l,m}=\\sum_{S\\in\\Omega_l}|A_l(S)|",
+      "description_md": "仅对指定阶显著支持求和。",
+      "type_or_domain": "Finite sets, real values, or explicitly specified vectors/probabilities",
+      "scope": "icml2024-layerwise; fixed input/baseline/layer/decomposition where applicable",
+      "assumptions": [],
+      "empty_set_convention": "不省略空集作用域；使用相关条目的显式约定。",
+      "baseline_convention": "原始输出基线不默认零；输入基线向量与分类器截距单独标识。",
+      "aliases": [
+        "\\operatorname{all}_{l,m}"
+      ],
+      "paper_mappings": [
+        {
+          "paper_id": "icml2024-layerwise",
+          "version_id": "ver-icml2024-layerwise-formal",
+          "source_id": "src-icml2024-layerwise-formal",
+          "original_tex": "\\operatorname{all}_{l,m}",
+          "original_definition": "\\operatorname{all}_{l,m}=\\sum_{S\\in\\Omega_l}|A_l(S)|",
+          "pdf_pages": [
+            6
+          ],
+          "canonical_concept": "layer-all-strength",
+          "relationship": "renaming"
+        }
+      ],
+      "lean_names": [],
+      "version": "1.0",
+      "translations": {
+        "en": {
+          "name_zh": "Total salient strength",
+          "description_md": "Sum over the salient support of the specified order.",
+          "empty_set_convention": "The empty-set scope follows the explicit convention of the relevant entry.",
+          "baseline_convention": "The raw output baseline is not assumed zero; input baseline vectors and probe intercepts are distinguished."
+        }
+      },
+      "canonical_id": "layer-all-strength"
+    },
+    {
+      "id": "layer-overlap",
+      "canonical_tex": "\\operatorname{overlap}_{l,m}",
+      "name_zh": "共同显著共享强度",
+      "definition_tex": "\\operatorname{overlap}_{l,m}=\\sum_{S\\in\\Omega_l\\cap\\Omega_L}|s_S|",
+      "description_md": "注意与 forget/new 的求和支持不同。",
+      "type_or_domain": "Finite sets, real values, or explicitly specified vectors/probabilities",
+      "scope": "icml2024-layerwise; fixed input/baseline/layer/decomposition where applicable",
+      "assumptions": [],
+      "empty_set_convention": "不省略空集作用域；使用相关条目的显式约定。",
+      "baseline_convention": "原始输出基线不默认零；输入基线向量与分类器截距单独标识。",
+      "aliases": [
+        "\\operatorname{overlap}_{l,m}"
+      ],
+      "paper_mappings": [
+        {
+          "paper_id": "icml2024-layerwise",
+          "version_id": "ver-icml2024-layerwise-formal",
+          "source_id": "src-icml2024-layerwise-formal",
+          "original_tex": "\\operatorname{overlap}_{l,m}",
+          "original_definition": "\\operatorname{overlap}_{l,m}=\\sum_{S\\in\\Omega_l\\cap\\Omega_L}|s_S|",
+          "pdf_pages": [
+            6
+          ],
+          "canonical_concept": "layer-overlap",
+          "relationship": "renaming"
+        }
+      ],
+      "lean_names": [],
+      "version": "1.0",
+      "translations": {
+        "en": {
+          "name_zh": "Shared strength on common salient support",
+          "description_md": "Its support differs from those of forget and new.",
+          "empty_set_convention": "The empty-set scope follows the explicit convention of the relevant entry.",
+          "baseline_convention": "The raw output baseline is not assumed zero; input baseline vectors and probe intercepts are distinguished."
+        }
+      },
+      "canonical_id": "layer-overlap"
+    },
+    {
+      "id": "layer-forget-new",
+      "canonical_tex": "\\operatorname{forget}_{l,m},\\operatorname{new}_{l,m}",
+      "name_zh": "忘记与新增强度",
+      "definition_tex": "\\operatorname{forget}_{l,m}=\\sum_{S\\in\\Omega_l}|A_l(S)-s_S|,\\quad\\operatorname{new}_{l,m}=\\sum_{S\\in\\Omega_L}|A_L(S)-s_S|",
+      "description_md": "各自遍历本层/末层显著支持，subtract 实际共享系数。",
+      "type_or_domain": "Finite sets, real values, or explicitly specified vectors/probabilities",
+      "scope": "icml2024-layerwise; fixed input/baseline/layer/decomposition where applicable",
+      "assumptions": [],
+      "empty_set_convention": "不省略空集作用域；使用相关条目的显式约定。",
+      "baseline_convention": "原始输出基线不默认零；输入基线向量与分类器截距单独标识。",
+      "aliases": [
+        "\\operatorname{forget}_{l,m},\\operatorname{new}_{l,m}"
+      ],
+      "paper_mappings": [
+        {
+          "paper_id": "icml2024-layerwise",
+          "version_id": "ver-icml2024-layerwise-formal",
+          "source_id": "src-icml2024-layerwise-formal",
+          "original_tex": "\\operatorname{forget}_{l,m},\\operatorname{new}_{l,m}",
+          "original_definition": "\\operatorname{forget}_{l,m}=\\sum_{S\\in\\Omega_l}|A_l(S)-s_S|,\\quad\\operatorname{new}_{l,m}=\\sum_{S\\in\\Omega_L}|A_L(S)-s_S|",
+          "pdf_pages": [
+            6
+          ],
+          "canonical_concept": "layer-forget-new",
+          "relationship": "renaming"
+        }
+      ],
+      "lean_names": [],
+      "version": "1.0",
+      "translations": {
+        "en": {
+          "name_zh": "Forgotten and new strength",
+          "description_md": "Range over current/final salient supports respectively, subtracting the actual shared coefficient.",
+          "empty_set_convention": "The empty-set scope follows the explicit convention of the relevant entry.",
+          "baseline_convention": "The raw output baseline is not assumed zero; input baseline vectors and probe intercepts are distinguished."
+        }
+      },
+      "canonical_id": "layer-forget-new"
+    },
+    {
+      "id": "layer-normalization",
+      "canonical_tex": "c_l",
+      "name_zh": "层间归一化因子",
+      "definition_tex": "c_l=\\mathbb E_x|g_l(N)-g_l(\\varnothing)|",
+      "description_md": "脚注 8 的正缩放，不改变该层相对阈值；为零时未定义。",
+      "type_or_domain": "Finite sets, real values, or explicitly specified vectors/probabilities",
+      "scope": "icml2024-layerwise; fixed input/baseline/layer/decomposition where applicable",
+      "assumptions": [],
+      "empty_set_convention": "不省略空集作用域；使用相关条目的显式约定。",
+      "baseline_convention": "原始输出基线不默认零；输入基线向量与分类器截距单独标识。",
+      "aliases": [
+        "c_l"
+      ],
+      "paper_mappings": [
+        {
+          "paper_id": "icml2024-layerwise",
+          "version_id": "ver-icml2024-layerwise-formal",
+          "source_id": "src-icml2024-layerwise-formal",
+          "original_tex": "c_l",
+          "original_definition": "c_l=\\mathbb E_x|g_l(N)-g_l(\\varnothing)|",
+          "pdf_pages": [
+            7
+          ],
+          "canonical_concept": "layer-normalization",
+          "relationship": "renaming"
+        }
+      ],
+      "lean_names": [],
+      "version": "1.0",
+      "translations": {
+        "en": {
+          "name_zh": "Layer normalization factor",
+          "description_md": "Footnote 8’s positive scaling preserves that layer’s relative threshold; zero is undefined.",
+          "empty_set_convention": "The empty-set scope follows the explicit convention of the relevant entry.",
+          "baseline_convention": "The raw output baseline is not assumed zero; input baseline vectors and probe intercepts are distinguished."
+        }
+      },
+      "canonical_id": "layer-normalization"
+    },
+    {
+      "id": "layer-ratios",
+      "canonical_tex": "\\operatorname{completeness},\\operatorname{redundancy}",
+      "name_zh": "完备度与冗余度指标",
+      "definition_tex": "\\operatorname{completeness}=\\operatorname{overlap}/\\operatorname{all}_L,\\quad\\operatorname{redundancy}=\\operatorname{forget}/\\operatorname{all}_l",
+      "description_md": "名称不是额外语义保证。",
+      "type_or_domain": "Finite sets, real values, or explicitly specified vectors/probabilities",
+      "scope": "icml2024-layerwise; fixed input/baseline/layer/decomposition where applicable",
+      "assumptions": [],
+      "empty_set_convention": "不省略空集作用域；使用相关条目的显式约定。",
+      "baseline_convention": "原始输出基线不默认零；输入基线向量与分类器截距单独标识。",
+      "aliases": [
+        "\\operatorname{completeness},\\operatorname{redundancy}"
+      ],
+      "paper_mappings": [
+        {
+          "paper_id": "icml2024-layerwise",
+          "version_id": "ver-icml2024-layerwise-formal",
+          "source_id": "src-icml2024-layerwise-formal",
+          "original_tex": "\\operatorname{completeness},\\operatorname{redundancy}",
+          "original_definition": "\\operatorname{completeness}=\\operatorname{overlap}/\\operatorname{all}_L,\\quad\\operatorname{redundancy}=\\operatorname{forget}/\\operatorname{all}_l",
+          "pdf_pages": [
+            7
+          ],
+          "canonical_concept": "layer-ratios",
+          "relationship": "renaming"
+        }
+      ],
+      "lean_names": [],
+      "version": "1.0",
+      "translations": {
+        "en": {
+          "name_zh": "Completeness and redundancy metrics",
+          "description_md": "The names are not additional semantic guarantees.",
+          "empty_set_convention": "The empty-set scope follows the explicit convention of the relevant entry.",
+          "baseline_convention": "The raw output baseline is not assumed zero; input baseline vectors and probe intercepts are distinguished."
+        }
+      },
+      "canonical_id": "layer-ratios"
+    },
+    {
+      "id": "layer-iou",
+      "canonical_tex": "\\operatorname{IoU}(\\mathcal A,\\mathcal B)",
+      "name_zh": "集合交并比",
+      "definition_tex": "\\operatorname{IoU}=|\\mathcal A\\cap\\mathcal B|/|\\mathcal A\\cup\\mathcal B|",
+      "description_md": "同阶显著集合族的交并比；空并集原式未定义。",
+      "type_or_domain": "Finite sets, real values, or explicitly specified vectors/probabilities",
+      "scope": "icml2024-layerwise; fixed input/baseline/layer/decomposition where applicable",
+      "assumptions": [],
+      "empty_set_convention": "不省略空集作用域；使用相关条目的显式约定。",
+      "baseline_convention": "原始输出基线不默认零；输入基线向量与分类器截距单独标识。",
+      "aliases": [
+        "\\operatorname{IoU}(\\mathcal A,\\mathcal B)"
+      ],
+      "paper_mappings": [
+        {
+          "paper_id": "icml2024-layerwise",
+          "version_id": "ver-icml2024-layerwise-formal",
+          "source_id": "src-icml2024-layerwise-formal",
+          "original_tex": "\\operatorname{IoU}(\\mathcal A,\\mathcal B)",
+          "original_definition": "\\operatorname{IoU}=|\\mathcal A\\cap\\mathcal B|/|\\mathcal A\\cup\\mathcal B|",
+          "pdf_pages": [
+            8
+          ],
+          "canonical_concept": "layer-iou",
+          "relationship": "renaming"
+        }
+      ],
+      "lean_names": [],
+      "version": "1.0",
+      "translations": {
+        "en": {
+          "name_zh": "Intersection over union",
+          "description_md": "The IoU of same-order salient families; an empty union is undefined in the source.",
+          "empty_set_convention": "The empty-set scope follows the explicit convention of the relevant entry.",
+          "baseline_convention": "The raw output baseline is not assumed zero; input baseline vectors and probe intercepts are distinguished."
+        }
+      },
+      "canonical_id": "layer-iou"
+    },
+    {
+      "id": "layer-noise",
+      "canonical_tex": "\\epsilon",
+      "name_zh": "随机输入扰动",
+      "definition_tex": "\\epsilon\\sim\\mathcal N(0,\\sigma^2I)",
+      "description_md": "随机变量区别于可学习残差。",
+      "type_or_domain": "Finite sets, real values, or explicitly specified vectors/probabilities",
+      "scope": "icml2024-layerwise; fixed input/baseline/layer/decomposition where applicable",
+      "assumptions": [],
+      "empty_set_convention": "不省略空集作用域；使用相关条目的显式约定。",
+      "baseline_convention": "原始输出基线不默认零；输入基线向量与分类器截距单独标识。",
+      "aliases": [
+        "\\epsilon"
+      ],
+      "paper_mappings": [
+        {
+          "paper_id": "icml2024-layerwise",
+          "version_id": "ver-icml2024-layerwise-formal",
+          "source_id": "src-icml2024-layerwise-formal",
+          "original_tex": "\\epsilon",
+          "original_definition": "\\epsilon\\sim\\mathcal N(0,\\sigma^2I)",
+          "pdf_pages": [
+            8,
+            21
+          ],
+          "canonical_concept": "layer-noise",
+          "relationship": "renaming"
+        }
+      ],
+      "lean_names": [],
+      "version": "1.0",
+      "translations": {
+        "en": {
+          "name_zh": "Random input perturbation",
+          "description_md": "A random variable distinct from the learned residual.",
+          "empty_set_convention": "The empty-set scope follows the explicit convention of the relevant entry.",
+          "baseline_convention": "The raw output baseline is not assumed zero; input baseline vectors and probe intercepts are distinguished."
+        }
+      },
+      "canonical_id": "layer-noise"
+    },
+    {
+      "id": "layer-moments",
+      "canonical_tex": "\\mu_l(S,x),\\nu_l(S,x)",
+      "name_zh": "噪声交互均值与方差",
+      "definition_tex": "\\mu_l=\\mathbb E_\\epsilon A_l(S\\mid x+\\epsilon),\\quad\\nu_l=\\operatorname{Var}_\\epsilon A_l(S\\mid x+\\epsilon)",
+      "description_md": "定义对应真实噪声，不是对样本/层的混合平均。",
+      "type_or_domain": "Finite sets, real values, or explicitly specified vectors/probabilities",
+      "scope": "icml2024-layerwise; fixed input/baseline/layer/decomposition where applicable",
+      "assumptions": [],
+      "empty_set_convention": "不省略空集作用域；使用相关条目的显式约定。",
+      "baseline_convention": "原始输出基线不默认零；输入基线向量与分类器截距单独标识。",
+      "aliases": [
+        "\\mu_l(S,x),\\nu_l(S,x)"
+      ],
+      "paper_mappings": [
+        {
+          "paper_id": "icml2024-layerwise",
+          "version_id": "ver-icml2024-layerwise-formal",
+          "source_id": "src-icml2024-layerwise-formal",
+          "original_tex": "\\mu_l(S,x),\\nu_l(S,x)",
+          "original_definition": "\\mu_l=\\mathbb E_\\epsilon A_l(S\\mid x+\\epsilon),\\quad\\nu_l=\\operatorname{Var}_\\epsilon A_l(S\\mid x+\\epsilon)",
+          "pdf_pages": [
+            8,
+            21
+          ],
+          "canonical_concept": "layer-moments",
+          "relationship": "renaming"
+        }
+      ],
+      "lean_names": [],
+      "version": "1.0",
+      "translations": {
+        "en": {
+          "name_zh": "Mean and variance of noisy dividends",
+          "description_md": "Moments over actual perturbations, distinct from averages over samples or layers.",
+          "empty_set_convention": "The empty-set scope follows the explicit convention of the relevant entry.",
+          "baseline_convention": "The raw output baseline is not assumed zero; input baseline vectors and probe intercepts are distinguished."
+        }
+      },
+      "canonical_id": "layer-moments"
+    },
+    {
+      "id": "layer-stability",
+      "canonical_tex": "\\operatorname{stability}_{and}^{l,m}",
+      "name_zh": "相对稳定性指标",
+      "definition_tex": "\\mathbb E_x\\mathbb E_{S\\in\\Omega_l}|\\mu_l(S,x)|/\\sqrt{\\nu_l(S,x)}",
+      "description_md": "零方差和空显著集合未给约定。",
+      "type_or_domain": "Finite sets, real values, or explicitly specified vectors/probabilities",
+      "scope": "icml2024-layerwise; fixed input/baseline/layer/decomposition where applicable",
+      "assumptions": [],
+      "empty_set_convention": "不省略空集作用域；使用相关条目的显式约定。",
+      "baseline_convention": "原始输出基线不默认零；输入基线向量与分类器截距单独标识。",
+      "aliases": [
+        "\\operatorname{stability}_{and}^{l,m}"
+      ],
+      "paper_mappings": [
+        {
+          "paper_id": "icml2024-layerwise",
+          "version_id": "ver-icml2024-layerwise-formal",
+          "source_id": "src-icml2024-layerwise-formal",
+          "original_tex": "\\operatorname{stability}_{and}^{l,m}",
+          "original_definition": "\\mathbb E_x\\mathbb E_{S\\in\\Omega_l}|\\mu_l(S,x)|/\\sqrt{\\nu_l(S,x)}",
+          "pdf_pages": [
+            8,
+            21
+          ],
+          "canonical_concept": "layer-stability",
+          "relationship": "renaming"
+        }
+      ],
+      "lean_names": [],
+      "version": "1.0",
+      "translations": {
+        "en": {
+          "name_zh": "Relative stability metric",
+          "description_md": "Zero variance and empty salient families have no specified convention.",
+          "empty_set_convention": "The empty-set scope follows the explicit convention of the relevant entry.",
+          "baseline_convention": "The raw output baseline is not assumed zero; input baseline vectors and probe intercepts are distinguished."
+        }
+      },
+      "canonical_id": "layer-stability"
+    },
+    {
+      "id": "layer-noise-ratio",
+      "canonical_tex": "\\operatorname{Ratio}^{\\epsilon}_S",
+      "name_zh": "输入模式噪声比例",
+      "definition_tex": "\\|x_S-x_S^\\epsilon\\|_2/\\|x_S\\|_2",
+      "description_md": "Figure 12 的输入范数比，不是稳定性的交互方差。",
+      "type_or_domain": "Finite sets, real values, or explicitly specified vectors/probabilities",
+      "scope": "icml2024-layerwise; fixed input/baseline/layer/decomposition where applicable",
+      "assumptions": [],
+      "empty_set_convention": "不省略空集作用域；使用相关条目的显式约定。",
+      "baseline_convention": "原始输出基线不默认零；输入基线向量与分类器截距单独标识。",
+      "aliases": [
+        "\\operatorname{Radio}^{\\epsilon}_S"
+      ],
+      "paper_mappings": [
+        {
+          "paper_id": "icml2024-layerwise",
+          "version_id": "ver-icml2024-layerwise-formal",
+          "source_id": "src-icml2024-layerwise-formal",
+          "original_tex": "\\operatorname{Radio}^{\\epsilon}_S",
+          "original_definition": "\\|x_S-x_S^\\epsilon\\|_2/\\|x_S\\|_2",
+          "pdf_pages": [
+            21
+          ],
+          "canonical_concept": "layer-noise-ratio",
+          "relationship": "renaming"
+        }
+      ],
+      "lean_names": [],
+      "version": "1.0",
+      "translations": {
+        "en": {
+          "name_zh": "Input-pattern noise ratio",
+          "description_md": "The input-norm ratio in Figure 12, distinct from interaction variance in stability.",
+          "empty_set_convention": "The empty-set scope follows the explicit convention of the relevant entry.",
+          "baseline_convention": "The raw output baseline is not assumed zero; input baseline vectors and probe intercepts are distinguished."
+        }
+      },
+      "canonical_id": "layer-noise-ratio"
+    },
+    {
+      "id": "layer-shapley",
+      "canonical_tex": "\\varphi_g(i)",
+      "name_zh": "经典 Shapley 归因",
+      "definition_tex": "\\varphi_g(i)=\\sum_{U\\subseteq N\\setminus\\{i\\}}\\frac{|U|!(n-|U|-1)!}{n!}[g(U\\cup\\{i\\})-g(U)]",
+      "description_md": "从边际定义推出 AND/OR 均分，不以均分作为定义。",
+      "type_or_domain": "Finite sets, real values, or explicitly specified vectors/probabilities",
+      "scope": "icml2024-layerwise; fixed input/baseline/layer/decomposition where applicable",
+      "assumptions": [],
+      "empty_set_convention": "不省略空集作用域；使用相关条目的显式约定。",
+      "baseline_convention": "原始输出基线不默认零；输入基线向量与分类器截距单独标识。",
+      "aliases": [
+        "\\phi(i)"
+      ],
+      "paper_mappings": [
+        {
+          "paper_id": "icml2024-layerwise",
+          "version_id": "ver-icml2024-layerwise-formal",
+          "source_id": "src-icml2024-layerwise-formal",
+          "original_tex": "\\phi(i)",
+          "original_definition": "\\varphi_g(i)=\\sum_{U\\subseteq N\\setminus\\{i\\}}\\frac{|U|!(n-|U|-1)!}{n!}[g(U\\cup\\{i\\})-g(U)]",
+          "pdf_pages": [
+            13
+          ],
+          "canonical_concept": "layer-shapley",
+          "relationship": "renaming"
+        }
+      ],
+      "lean_names": [],
+      "version": "1.0",
+      "translations": {
+        "en": {
+          "name_zh": "Classical Shapley attribution",
+          "description_md": "Derive AND/OR sharing from the marginal definition, rather than defining it as sharing.",
+          "empty_set_convention": "The empty-set scope follows the explicit convention of the relevant entry.",
+          "baseline_convention": "The raw output baseline is not assumed zero; input baseline vectors and probe intercepts are distinguished."
+        }
+      },
+      "canonical_id": "sym-shapley"
+    }
+  ]
+}

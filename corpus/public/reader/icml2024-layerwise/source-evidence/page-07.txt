@@ -1,0 +1,98 @@
+         0.00                           0.00                                                                                                 DistilBERT BERTBASE
+
+
+
+
+                                                                                                              𝔼𝐱 [IoU
+                              𝔼𝐱 [IoU
+                                                           ResNet-20 ResNet-32
+
+
+
+
+                                                                                 𝔼𝐱 [Io
+𝔼𝐱 [Io
+                5     order                    5   order                                      2   5   order             2      5     order
+
+                     a DNNs trained on CIFAR10                                                        b DNNs trained on SST2
+
+
+                                                   Layerwise Change of Knowledge in Neural Networks
+
+
+
+
+Figure 4. Average IoU values of AND interactions extracted from two DNNs trained for the same task over different input samples.
+Low-order interactions usually exhibited higher IoU values, thereby being better generalized across DNNs. Please see Appendix I for
+results of OR interactions and Appendix M.3 for the selected intermediate layer.
+
+
+                                                                                      extremely high-order interactions are learned in later layers,
+                       (l),m          (l),m      (l),m                                but the learning is unstable.
+                    alland = overlapand + forgetand ,
+                                                                         (8)
+                         (L),m
+                     alland
+                                         (l),m   (l),m
+                               = overlapand + newand .                                • Fig. 3 (b) shows that redundancy(l),m
+                                                                                                                            and   values of most inter-
+                                                                                      actions first rise and then fall through layers, which indicates
+Metrics for OR interactions overlap(l),m
+                                      or  , forget(l),m
+                                                  or    , and                         that the utility of later layers of DNNs was mainly to remove
+   (l),m
+newor    were defined in the similar way.                                             redundant interactions encoded by earlier layers.
+To evaluate the progress of learning target interactions and                          • Using our results to analyze the generalization power.
+redundant interactions, we also define the completeness of                            We further use the layerwise change of interactions on each
+interactions encoded by each l-th layer w.r.t. all interactions                       specific DNN to analyze its generalization power. To this
+   (L),m
+alland     encoded by the final layer, as completeness(l),m
+                                                        and   =                       end, Section 3.3 will show a clear relationship between
+         (l),m     (L),m
+overlapand / alland . We define the redundancy of inter-                              the order of interactions and the generalization power of
+actions in each l-th layer as the ratio of the interactions                           interactions. In this way, Appendix K introduces how to use
+       (l),m                                            (l),m
+forgetand that are finally forgotten, as redundancyand =                              the distribution of interactions to analyze the generalization
+       (l),m    (l),m
+forgetand / alland . What’s more, we can define the metrics                           power of features of different layers.
+for OR interaction completeness(l),m
+                                  or   and redundancy(l),m
+                                                        or    in
+the similar way.                                                                      3.3. Analyzing the representation capacity of a DNN
+Results & Analysis. Fig. 3 (a) reports the average strength8                          Tracking salient interactions through layers also provides
+of the overlapped AND interactions overlap(l),m and , the forgot-                     us a new perspective to understand how the representation
+ten AND interactions forget(l),m
+                               and   , and newly emerged AND                          capacity gradually changes during the forward propagation.
+interactions new(l),m
+                and   . Fig. 3  (b) tracks the completeness  and                      It is because we find that the order (complexity) of interac-
+redundancy of the learned interactions through layers. We                             tions can well explain the generalization capacity and the
+discovered that even among different models on different                              instability of feature representations of a DNN.
+tasks, most DNNs still tended to follow similar information-
+processing behaviors, as follows.                                                     • Low-order interactions are more generalizable across
+                                                                                      models. According to Lemma 3.4, we can disentan-
+• Fig. 3 (a) shows that all(l),m
+                            and  and all(L),m
+                                        and   of low order                            gle the overall inference score based on the feature
+have higher strength than those of high order, which indi-                            f (l) (x) into the sum of effects of a few salient interac-
+cates that DNNs usually encode stronger low-order (simple)                            tions, v (l) (xT ) ≈ v(x∅ ) + S∈Ω(l) :∅6=S⊆T Iand (S|xT , v (l) ) +
+                                                                                                                   P
+interactions than high-order (complex) interactions.                                                                               and
+                                                                                                           Ior (S|xT , v (l) ). Thus, the generalization ca-
+                                                                                      P
+                                                                                             (l)
+                                                                                          S∈Ωor :S∩T 6=∅
+• Fig. 3 (b) shows that completeness(l),mand  values of most                          pacity of the feature f (l) (x) can be explained by the gener-
+interactions start increasing at early layers. Unlike low-                            alization capacity of salient interactions.
+order interactions, high-order interactions do not reach high
+completeness even in later layers. These indicate that the                            To this end, we consider that if multiple DNNs trained for
+early and middle layers usually had already learned most                              the same task encode the same interaction, then this inter-
+target interactions that were finally used by DNNs. Morever,                          action is regarded as well-generalized. Specifically, given
+                                                                                      two DNNs, vA and vB , trained for the same classification
+      We normalized each AND interaction Iand (S|x, v (l) ) ex-
+          8
+                                                                                      task and an input sample x, we follow the settings in Sec-
+tracted from the l-th layer of the target DNN as Iand (S|x, v (l) ) ←                 tion 3.2.2 to extract two sets of m-order salient AND inter-
+Iand (S|x, v (l) )/Ex [|v (l) (xN ) − v (l) (x∅ )|] for fair comparison.              actions from the la -th layer of the DNN vA and the lb -th
+Each OR interaction was normalized in the similar way.
+
+                                                                                 7

@@ -1,0 +1,48 @@
+                                     Layerwise Change of Knowledge in Neural Networks
+
+G. Proof of Lemma 3.4
+Lemma 3.4 (Proving interactions as primitive inference patterns) Given an input sample x ∈ Rn , the network output on
+all 2n masked input samples {xS |S ⊆ N } can be universally matched by a small set of salient interactions.
+                                                            X                         X
+                       v(xT ) = vand (xT ) + vor (xT ) =            Iand (S|xT ) +             Ior (S|xT )
+                                                           S⊆T                       S∩T 6=∅
+                                           X                                         X                                        (18)
+                              ≈ v(x∅ ) +                            Iand (S|xT ) +                             Ior (S|xT ).
+                                               S∈Ωand
+                                                  salient
+                                                          :∅6=S⊆T                        S∈Ωor
+                                                                                            salient
+                                                                                                    :S∩T 6=∅
+
+
+
+
+Proof. Ren et al. (2023a) have proven that under some common conditions1 , the output vand (xT ) of a well-trained DNN on
+all 2n masked samples {xT |T ⊆ N } can be universally approximated by a small number of AND interactions T ∈ Ωand    salient
+                                                                                  n
+with salient effects Iand (T |x) on the network output, subject to |Ωand
+                                                                     salient |  2 .
+
+Besides, as proven in Appendix C, the OR interaction can be considered as a specific AND interaction. Thus, the output
+vor (xT ) of a well-trained DNN on all 2n masked samples {xT |T ⊆ N } can be universally approximated by a small number
+of OR interactions T ∈ Ωorsalient with salient effects Ior (T |x) on the network output, subject to |Ωorsalient |  2n .
+In this way, Eq. (17) can be further approximated as
+
+                       v(xT ) = vand (xT ) + vor (xT )
+                                          X                         X
+                              = v(x∅ ) +            Iand (S|xT ) +              Ior (S|xT )
+                                              S⊆T                       S∩T 6=∅                                               (19)
+                                          X                                     X
+                              ≈ v(x∅ ) +           and
+                                                                Iand (S|xT ) +          or
+                                                                                                               Ior (S|xT ).
+                                               S∈Ωsalient :∅6=S⊆T                        S∈Ωsalient :S∩T 6=∅
+
+
+
+Thus, Lemma 3.4 is proven.
+
+
+
+
+                                                                      16

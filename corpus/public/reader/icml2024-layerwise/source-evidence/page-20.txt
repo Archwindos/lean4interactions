@@ -1,0 +1,55 @@
+                                         Layerwise Change of Knowledge in Neural Networks
+
+J. Ablation Study of κ Value in Section 3.2.2
+We find that the small noises in the output can significantly change the interaction effect. To remove the tiny noise in the
+model output and then extract relatively clean interactions, we define the new model output score v(x).
+
+
+                                                                  p(y = y truth |x)
+                                                   v(x) = log                         − δN
+                                                                1 − p(y = y truth |x)
+                                                                                                                                          (20)
+                                                                  p(y = y truth |xT )
+                                                 v(xT ) = log                           − δT
+                                                                1 − p(y = y truth |xT )
+
+
+where δT , s.t. ∀T ⊆ N, |δT | < κ is a learnable residual proposed to model and remove the tiny noise in the output v (l) (xT ),
+so as to extract relatively clean interactions. δT is constrained to a small range κ = 0.04 · |v (l) (xN ) − v (l) (x∅ )|.
+We conducted the ablation study to verify that the extraction of interactions is relatively robust to the κ value. Given a
+well-trained DNN (or linear classifier learned by intermediate layer’s features) and an input sample x ∈ Rn , we verify
+that the interactions extracted are stable in different κ value settings. To this end, we used the ResNet-20 trained on
+the CIFAR-10 (introduced in Section 3.2.1) and extracted the all AND-OR interactions encoded in different setting, e.g.,
+κ = 0.03 · |v (l) (xN ) − v (l) (x∅ )|, κ = 0.04 · |v (l) (xN ) − v (l) (x∅ )| and κ = 0.05 · |v (l) (xN ) − v (l) (x∅ )|.
+
+Fig 11 shows that the all AND-OR interactions encoded in three different κ value settings are almost the same. This indicates
+that the extraction of interactions is relatively robust to the κ value.
+
+
+
+
+Figure 11. The extracted AND-OR interactions encoded in different setting, e.g., κ = 0.03·|v (l) (xN )−v (l) (x∅ )|, κ = 0.04·|v (l) (xN )−
+v (l) (x∅ )| and κ = 0.05 · |v (l) (xN ) − v (l) (x∅ )| through different layers, as well as the raw ResNet-20. We rearranged all of the AND-OR
+interactions in the order of the interaction value strength at κ = 0.04 · |v (l) (xN ) − v (l) (x∅ )|.
+
+
+
+
+K. Discussions on Distinctive Information-Processing Behaviors of Each Specifc DNN
+We discovered that in most DNNs, low layers and middle layers usually learned to fit target interactions that were finally
+used by DNNs at the cost of encoding lots of redundant interactions. Such redundant interactions would be removed in high
+layers.
+Distinctive information-processing behaviors of different DNNs. Specifically, for DNNs trained on the MNIST dataset, they
+usually learned the target interactions for inference quickly, because the MNIST dataset was easy to learn. Particularly, for
+the ResNet-20 trained on both the MNIST dataset and the CIFAR-10 dataset, its low layers and middle layers mainly learned
+target interactions for inference, while high layers mainly forgot high-order interactions. These high-order interactions were
+unstable and exhibited poor generalization capacity, as verified in Section 3.3.
+For MLP-7 and VGG-11 trained on the CIFAR-10 dataset, low layers were unable to learn interactions that could be directly
+used for classification, due to the challenge of classification on the CIFAR dataset. Then, middle layers and high layers
+gradually learned the target interactions for inference without generating redundant interactions. High layers did not change
+the interactions significantly.
+For the DistilBERT and BERTBASE trained on the SST-2 dataset, low layers usually could not encode target interactions.
+Then, middle layers gradually learned the target interactions for inference, but also brought in lots of redundant interactions.
+High layers usually forgot redundant interactions, which were mainly high-order and unstable.
+
+                                                                      20

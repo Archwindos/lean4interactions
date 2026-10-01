@@ -1,0 +1,76 @@
+                                           Towards Attributions of Input Variables in a Coalition
+
+Then, we have:
+   φ(L ∪ S) − φ(L ∪ T )
+     X |L ∪ S|                                  X |L ∪ T |
+ =                  [Iand (K) + Ior (K)] −                    [Iand (K) + Ior (K)]
+             |K|                                        |K|
+   K⊇(L∪S)                                    K⊇(L∪T )
+                                                                                             
+        X       |L ∪ S|                                X        |L ∪ S|
+ =                        [Iand (K) + Ior (K)] +                        [Iand (K) + Ior (K)]
+                  |K|                                             |K|
+     K⊇(L∪S∪T )                                    K⊇(L∪S),K̸⊇T
+                                                                                                
+           X       |L ∪ T |                              X          |L ∪ T |
+   −                         [Iand (K) + Ior (K)] +                         [Iand (K) + Ior (K)]
+                      |K|                                             |K|
+           K⊇(L∪S∪T )                                        K⊇(L∪T ),K̸⊇S
+           X          |L ∪ S|                                   X          |L ∪ T |
+ =                            [Iand (K) + Ior (K)] −                                [Iand (K) + Ior (K)]
+                        |K|                                                  |K|
+     K⊇(L∪S),K̸⊇T                                          K⊇(L∪T ),K̸⊇S
+             X                X            |L ∪ S|
+ =                                                      [Iand (K ∪ S ∪ T ′ ) + Ior (K ∪ S ∪ T ′ )]
+                                         |K ∪ S ∪ T ′ |
+     K⊇L,K⊆N \(S∪T ) T ′ ⊆T,T ′ ̸=T
+                X                  X         |L ∪ T |
+     −                                                    [Iand (K ∪ S ′ ∪ T ) + Ior (K ∪ S ′ ∪ T )]
+                                           |K ∪ S ′ ∪ T |
+         K⊇L,K⊆N \(S∪T ) S ′ ⊆S,S ′ ̸=S
+          X            X             |L ∪ T |
+ =                                                [Iand (K ∪ S ∪ T ′ ) − Iand (K ∪ S ′ ∪ T ) + Ior (K ∪ S ∪ T ′ ) − Ior (K ∪ S ′ ∪ T )]
+                                   |K ∪ S ′ ∪ T |
+       K⊇L       T ′ ⊆T,T ′ ̸=T
+     K⊆N \(S∪T ) S ′ ⊆S,S ′ ̸=S
+                   |S ′ |=|T ′ |
+
+ =0
+Therefore, we prove the Symmetry axiom-β axiom.
+
+G.4. Proof of Additivity axiom
+Proof. According to the definition of the AND/OR interaction, we can get:
+Iandv (T ) = L⊆T (−1)|T |−|L| vand (L), Iorv (T ) = − L⊆T (−1)|T |−|L| vor (N \ L)
+             P                                        P
+
+Iandv1 (T ) = L⊆T (−1)|T |−|L| vand1 (L), Iorv1 (T ) = − L⊆T (−1)|T |−|L| vor1 (N \ L)
+             P                                          P
+
+Iandv2 (T ) = L⊆T (−1)|T |−|L| vand2 (L), Iorv2 (T ) = − L⊆T (−1)|T |−|L| vor2 (N \ L)
+             P                                          P
+
+where v(L) = vand (L) + vor (L), v1 (L) = vand1 (L) + vor1 (L) and v2 (L) = vand2 (L) + vor2 (L).
+Due to v(L) = v1 (L) + v2 (L), we have: Iandv (T ) = Iandv1 (T ) + Iandv2 (T ) and Iorv (T ) = Iorv1 (T ) + Iorv2 (T ).
+                                                                                P      |S|
+According to Equation (6) in the paper, we have: φv (S) =                         T ⊇S |T | [Iandv (T ) + Iorv (T )], φv1 (S)         =
+P      |S|                                     P     |S|                         
+  T ⊇S |T | Iandv1 (T ) + Iorv1 (T ) , φv2 (S) =  T ⊇S |T | Iandv2 (T ) + Iorv2 (T )
+
+Then, we have:
+                                         X |S|
+                           φv (S) =             [Iandv (T ) + Iorv (T )]
+                                           |T |
+                                         T ⊇S
+                                         X |S|                                                         
+                                     =          (Iandv1 (T ) + Iandv2 (T )) + (Iorv1 (T ) + Iorv2 (T ))
+                                           |T |
+                                         T ⊇S
+                                         X |S|                          X |S|                          
+                                     =          Iandv1 (T ) + Iorv1 (T ) +       Iandv2 (T ) + Iorv2 (T )
+                                           |T |                             |T |
+                                         T ⊇S                                 T ⊇S
+
+                                     = φv1 (S) + φv2 (S)
+Therefore, we prove the Additivity axiom.
+
+                                                                      20

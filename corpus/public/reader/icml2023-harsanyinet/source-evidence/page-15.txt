@@ -1,0 +1,59 @@
+                     HarsanyiNet: Computing Accurate Shapley Values in a Single Forward Propagation
+
+                                                              (l)                   (l)          (l)   (l)
+Thirdly, let us use the inductive method to prove ∀S, S ∪ Ru ̸= S and S ∪ Ru ̸= Ru , Ju (S) = 0.
+In this setting, i∈R(l) 1(i ∈ S) = 0. Then we have Ju (S) = zu (x) · i∈R(l) 1(i ∈ S) − L⊊S Ju (L) = 0.
+                Q                                          (l)      (l)    Q                  P  (l)
+                      u                                                                      u
+                      (l)
+(Similarly, ∀L ⊊ S, Ju (S) = 0 can be proved by the inductive method.)
+                                            (l)   (l)
+In this way, we have proved that ∀S ̸= Ru , Ju (S) = 0.
+
+
+
+D. Discussion on Equations (5)–(7)
+                                                        (l)
+Section 3.3 introduced that the neural activation zu (x) of the neuron (l, u) in a Harsanyi block was computed by applying
+a linear operation (Equation (5)), an AND operation (Equation (6)), and a ReLU operation (Equation (7)). We provide
+further discussions on the above three operations as follows.
+Unlike a linear layer in a traditional DNN, Equation (5) shows that among neurons in all previous (l − 1) blocks, only
+outputs of the children nodes Σu · z(l−1) can affect the output of the neuron (l, u). Equation (6) denotes that if all children
+                                (l)
+            (l)                                           (l)                                                   (l)      (l)
+nodes in Su are activated, then the activation score gu (x) can pass through the AND operation, i.e., hu (x) = gu (x).
+                                                                                    ′
+                                                                       (l)        (l )                      (l)
+Otherwise, if any children node is not activated, i.e., ∃(l′ , u′ ) ∈ Su , e.g., zu′ (x) = 0, then we have hu (x) = 0.
+
+E. Proofs and implementation details for Harsanyi-CNN
+Harsanyi-CNN architecture. Figure 6 illustrates the architecture of the Harsanyi-CNN. As introduced in Section 4.1, we
+first applied a convolutional layer, max-pooling layer and ReLU layer to obtain the feature z(0) . Then, we built cascaded
+Harsanyi blocks on z(0) . Similar to the traditional CNN, each neuron (l, u = (c, w, h)) in the convolutional layer of each
+HarsanyiBlock corresponds to a subtensor T(l) u ∈R
+                                                     C×K×K
+                                                             w.r.t. the previous layer, where C is the number of channels in
+the previous layer and K × K is the 2D kernel size. The neurons which share the same location but on different channels
+                                                                               (l)
+(l, u = (:, w, h)) correspond to the same subtensor T(l)
+                                                       u . The children set Su of each neuron (l, u) were selected from
+the subtensor T(l)                                                                          ′  ′         ′ ′
+                   u . Moreover, neurons on the same location but on different channels (l , u = (:, w , h )) belong to the
+                (l)
+children set Su simultaneously. The output of the HarsanyiBlock was constructed following Equations (5)–(7). Finally,
+each dimension of the network output v(x) is constructed as the weighted sum of the output of each HarsanyiBlock using
+linear transformations and the skip-connection.
+
+
+                                      ( )                             Harsanyi Blocks
+
+
+
+
+                                   Sub tensor                        neurons (l,u=(:,w,h))
+
+
+
+                                 Figure 6. Schematic diagram of the Harsanyi-CNN architecture.
+
+                                                              15

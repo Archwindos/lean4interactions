@@ -1,0 +1,100 @@
+                                                Layerwise Change of Knowledge in Neural Networks
+
+
+        Interactions from               Interactions from                    Interactions from             Interactions from
+        the intermediate                        the                          the intermediate                      the
+              layer                         final layer                            layer                       final layer
+
+
+
+
+              (a) DNNs trained on MINIST                                            (b) DNNs trained on CIFAR10
+
+
+                                                (l),m
+Figure 5. The relative stability (stabilityand ) of AND interactions decreased along with the order m. Low-order interactions were more
+stable to inevitable noises in data. See Appendix I for results of OR interactions and Appendix M.3 for the selected intermediate layer.
+
+
+layer of the DNN vB , respectively, which are denoted by                                    the instability of the feature f (l) (x) can be explained by the
+  (l ),m                                      (l )
+Aanda     = {S ⊆ N : |S| = m, |Iand (S|x, vAa )| > τ 7 } and                                instability of salient interactions.
+  (lb ),m                   (la ),m      (lb ),m
+Band . Accordingly, let Aor         and Bor      represent sets
+                                                                                            To this end, let us add a small Gaussian perturbation
+of salient OR interactions of m-th order, respectively. Then,
+                                                                                             ∼ N (0, σ 2 I) to the input sample x, in order to mimic
+we use the IoU metric to measure the generalization capacity
+                                                                                            inevitable noises/variations in data. Although there may
+of m-order interactions across different models.
+                                                                                            exist other noises in data, we just use Gaussian perturba-
+                                               (l ),m
+                                            |Aanda
+                                                            (l ),m
+                                                        ∩ Bandb      |                      tion to represent noises/variations in data, which may still
+                 (l ),m       (l ),m
+        IoU (Aanda        , Bandb      )=     (l ),m        (l ),m
+                                                                         ,                  provide insights into real-world applications. Thus, we use
+                                            |Aanda      ∪ Bandb      |
+                                                                                  (9)       the following metrics to measure the relative stability of
+                                              (l ),m        (l ),m
+              (la ),m    (lb ),m            |Aor a      ∩ Bor b      |                      AND-OR interactions of each order m.
+        IoU (Aor      , Bor      )     =      (l ),m        (l ),m
+                                                                         .
+                                            |Aor a      ∪ Bor b      |                                                                       q             
+                                                                                                          (l),m                   (l)              (l)
+                                                                                                 stabilityand     = Ex   E      |Eand (S, x)|   Varand (S, x) ,
+                                                                                                                          (l),m
+                                                                                                                     S∈Ωand
+Large values of IoU (A(l     a ),m
+                           and
+                                      (l ),m           (l ),m
+                                   , Bandb ) and IoU (Aor a ,                                                                                       q            
+ (lb ),m
+Bor      ) mean that most m-order interactions encoded by a                                      stability(l),m = Ex      E        |Eor(l) (S, x)|
+                                                                                                                                                          (l)
+                                                                                                                                                       Varor (S, x) .
+                                                                                                          or
+DNN can be well generalized to another DNN.                                                                          S∈Ωor
+                                                                                                                          (l),m
+
+                                                                                                                                                                     (10)
+Experiments. Here, we examined the generalization ca-
+                                                                                                       (l)                                      (l)           (l)
+pacity of interactions of different orders. We used DNNs                                    where               = E [Iand (S|x + , v )] and
+                                                                                                      Eand (S, x)                                          Varand (S, x)
+                                                                                                                                                              =
+introduced in Section 3.2.1, i.e., MLP-7, VGG-11, ResNet-                                   Var [Iand (S|x + , v (l) )] denote the mean and variance of the
+20, and ResNet-32 (He et al., 2016) trained on the CIFAR-10                                 AND interaction Iand (S|x + , v (l) ) w.r.t. Gaussian pertur-
+dataset for image classification, and DistilBERT, BERTBASE ,                                bations , which are encoded by the l-th layer of the DNN.
+and XLNet (Yang et al., 2019) fine-tuned on the SST-2                                       Similarly, Eor(l) (S, x) and V aror(l) (S, x) represent the mean
+dataset for binary sentiment classification.                                                and variance of the OR interaction Ior (S|x + , v (l) ) w.r.t.
+                                                                                            noises . Large values of stability(l),m and  and stability(l),m
+                                                                                                                                                       or    in-
+Fig. 4 reports the average IoU value of AND interactions                                    dicates that m-order interactions are stable to inevitable
+extracted from two DNNs over different input samples,                                       noises.
+            (l ),m    (l ),m
+Ex [IoU (Aanda , Bandb )], given each pair of DNNs trained
+for the same task. We discovered low-order interactions                                     Towards normalization of the noise. As a common under-
+extracted from different DNNs usually exhibited higher IoU                                  standing, people usually think that higher-order interactions
+values, i.e., different DNNs trained for the same task usually                              contain more noise than low-order interactions, because
+encoded similar sets of salient low-order interactions. This                                they involve more input variables. However, it is note-
+demonstrated low-order interactions could be better gener-                                  worthy that high-order interactions also obtain more input
+alized across DNNs. Notably,       for each m < n/2, there are                              signals, and the signal-to-noise ratio of each interaction is
+                        n
+                          
+the same number m           of potential combinations for both                              relatively consistent over interactions of different orders.
+m-order interactions and (n − m)-order interactions. Low-                                   Thus stability(l),m
+                                                                                                          and   and stability(l),m
+                                                                                                                             or    ensures a fair comparison
+order (m-order) interactions are more generalizable than                                    of interactions of different orders m. Please see Appendix L
+high-order interactions.                                                                    for details.
+• Low-order interactions are more stable to small noises.                                   Experiments. We conducted experiments to check the in-
+We discover that the order of interactions can also be used to                              stability of AND-OR interactions of each order. To this
+explain the instability of feature representations of a DNN.                                end, we added Gaussian perturbation  ∼ N (0, 0.022 I) to
+According to Lemma 3.4, the overall inference score based                                   each training sample. Then, for each order m, we computed
+                                                                                                             (l),m
+on the feature f (l) (x) can be disentangled into the sum of                                metrics stabilityand based on DNNs, and the DNNs for
+the effects of a few salient AND-OR interactions. Thus,                                     testing have been introduced in Section 3.2.1. Fig. 5 shows
+
+                                                                                        8

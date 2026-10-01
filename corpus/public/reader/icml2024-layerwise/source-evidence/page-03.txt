@@ -1,0 +1,65 @@
+                                      Layerwise Change of Knowledge in Neural Networks
+
+2. Literature in Explaining Knowledge in                               3. Tracking Interactions through Layers
+   DNNs                                                                3.1. Preliminaries: using interactions to represent
+Explaining and quantifying the exact knowledge encoded                      knowledge in DNNs
+by a DNN presents a significant challenge to explainable               So far, there is not a widely accepted way to define knowl-
+AI. So far, there has not existed a widely accepted definition         edge encoded by a DNN, because the definition of knowl-
+of knowledge that enables us to accurately disentangle and             edge is an interdisciplinary problem over cognitive science,
+quantify knowledge encoded by intermediate layers of a                 neuroscience, and mathematics. Li & Zhang (2023) has de-
+DNN, because it covers multiple disciplinary issues, such as           rived a series of properties as convincing evidence to define
+cognitive science, neuroscience, etc. To explain and quantify          interactions as symbolic primitive inference patterns en-
+the exact knowledge encoded by a DNN, previous studies                 coded by a DNN (please see Section 2 for details). Thus, in
+have either associated units of DNN feature maps with man-             this paper, we extend the definition to quantify the change of
+ually annotated semantics/concepts (Bau et al., 2017; Kim              interactions in the layer-wise forward propagation. Specif-
+et al., 2018) or automatically learned meaningful patterns             ically, there are two types of interactions, including AND
+from data (Chen et al., 2019; Shen et al., 2021; Zhang et al.,         interactions and OR interactions.
+2020), but they failed to provide a mathematically guaran-
+teed boundary for the scope of each concept/knowledge.                 Definition 3.1 (AND interactions). Given an input sam-
+Thus, previous studies could not accurately quantify the               ple x = [x1 , x2 , . . . , xn ] comprising n input variables, let
+exact amount of newly emerged/forgotten/unexplainable                  N = {1, 2, . . . , n} denote the indices of all n input variables,
+knowledge in each layer. Appendix A provides further dis-              and let v(x) ∈ R denote the scalar output of the DNN or
+cussions of more methods (Kolchinsky et al., 2019; Liang               a certain dimension of the DNN3 . Then, the AND inter-
+et al., 2020; Saxe et al., 2018; Shwartz-Ziv & Tishby, 2017;           action Iand (S|x) is used to quantify the effect of the AND
+Wang et al., 2022).                                                    (co-appearance) relationship among a subset S ⊆ N of in-
+                                                                       put variables, which is encoded by the DNN v to compute
+Faithfulness of using interaction primitives to define                 the inference scores of the label y truth .
+knowledge in DNNs. Although there is no theory to guar-                                           X
+antee that salient interactions can exactly fit the so-called                      Iand (S|x) =             (−1)|S|−|T | · v(xT ).        (1)
+                                                                                                     T ⊆S
+knowledge in human cognition, a series of studies have em-
+pirically verified and theoretically ensured the faithfulness          Here, xT denotes the masked4 sample obtained by masking
+of interaction primitives from the following perspectives.             variables in N \ T , v(xT ) represents the output score3 for
+                                                                       the target label y truth on the masked sample xT .
+(1) Li & Zhang (2023) have observed and Ren et al. (2024)
+have partially proven1 that most DNNs encode a few inter-              Each AND interaction with non-zero effect Iand (S|x) 6= 0
+actions with salient effect I(S|x) on the network output.              means that the DNN encodes the AND relationship between
+(2) Li & Zhang (2023) have observed that interactions exhib-           variables in S . The network output can be represented as
+                                                                                                            P
+ited considerable generalization capacity across samples               the sum of interaction effects v(x) = S⊆N Iand (S|x).
+and across models. Besides, they have also discovered that             OR interactions. Ren et al. (2023a); Zhou et al. (2023) have
+salient interactions exhibited remarkable discrimination               further extended the AND interaction to the OR interaction.
+power in classification tasks.                                         To this end, the overall network output is decomposed into
+(3) Ren et al. (2023a) have proven seven desirable mathe-              the component for AND interactions vand (xT ) and the com-
+matical properties for interactions.                                   ponent for OR interactions vor (xT ), subject to vand (xT ) =
+                                                                       0.5·v(xT )+γT and vor (xT ) = 0.5·v(xT )−γT . {γT } is a set of
+(4) Interaction primitives can also be used to explain the                3
+representation capacity of DNNs. Deng et al. (2022) have                     Note that people can apply different settings for v(x). Here,
+                                                                                                                         p(y=y truth |x)
+proven a counter-intuitive bottleneck of a DNN in encoding             we follow (Deng et al., 2022) to set v(x) = log 1−p(y=y    truth |x) ∈ R
+
+interaction primitives of the intermediate complexity. Liu             as the confidence of classifying the sample x to the ground-truth
+et al. (2023) have proven the learning difficulty of interaction       category y truth .
+                                                                           4
+                                                                             We mask the input variable i ∈ N \ T to the baseline value
+primitives. Zhou et al. (2024) have discovered that low-               bi to represent its masked state. Here, we follow the widely-used
+order interactions have higher generalization power than               setting of baseline values in (Dabkowski & Gal, 2017) to set bi
+high-order interactions.                                               as the mean value of this variable across all samples in image
+                                                                       classification, and follow (Shen et al., 2023) to set bi as a special
+Furthermore, we compare the interaction-based explanation              token (e.g., [MASK] token) in nature language processing. Note
+with attribution interpretability methods. Please Appendix B           that such settings of baseline values can bring in some biases (Jain
+for detailed discussions.                                              et al., 2022). To remove biases, Ren et al. (2023b) proposed a
+                                                                       method to learn optimal baseline values based on interactions.
+                                                                       Please see Appendix E for details.
+
+                                                                   3

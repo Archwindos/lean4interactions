@@ -27,12 +27,37 @@ LIBRARY_VERSION = tomllib.loads((ROOT / "lean/HarsanyiLib/lakefile.toml").read_t
 def sha(path):
     return hashlib.sha256(path.read_bytes()).hexdigest()
 
+def local_import_closure(package,entrypoints):
+    """Resolve only this package's modules actually reachable from audit imports."""
+    base=ROOT/package;pending=list(entrypoints);seen=set();paths=[]
+    while pending:
+        module=pending.pop()
+        if module in seen:continue
+        seen.add(module)
+        path=base/Path(*module.split('.')).with_suffix('.lean')
+        if not path.is_file():continue  # Lean/Mathlib/dependency modules are audited transitively by Lean.
+        if path.is_symlink() or not path.resolve().is_relative_to(base.resolve()):raise ValueError('Local import escaped package: '+module)
+        paths.append(path)
+        text=path.read_text();depth=0;clean=[];index=0
+        # Lean block comments can nest. Ignore their import-looking examples.
+        while index<len(text):
+            token=text[index:index+2]
+            if token=='/-':depth+=1;index+=2;continue
+            if depth and token=='-/':depth-=1;index+=2;continue
+            if text[index]=='\n':clean.append('\n')
+            elif not depth:clean.append(text[index])
+            index+=1
+        for line in ''.join(clean).splitlines():
+            match=re.match(r'^\s*import\s+(.+)$',line.split('--',1)[0])
+            if match:pending.extend(match.group(1).split())
+    missing=[module for module in entrypoints if not (base/Path(*module.split('.')).with_suffix('.lean')).is_file()]
+    if missing:raise ValueError('Missing audit entrypoints: '+', '.join(missing))
+    return sorted(paths)
+
 def discover():
     records = []
     for package, imports, namespace in PACKAGES:
-        for path in sorted((ROOT / package).rglob("*.lean")):
-            if ".lake" in path.parts:
-                continue
+        for path in local_import_closure(package, imports):
             text = path.read_text()
             current_namespace = None
             current_structure = None
@@ -62,12 +87,11 @@ def discover():
 
 def snapshot():
     paths = []
-    for package, _, _ in PACKAGES:
-        for path in (ROOT / package).rglob("*"):
-            if path.is_file() and ".lake" not in path.parts and (
-                path.suffix == ".lean" or path.name in {"lakefile.toml", "lean-toolchain", "lake-manifest.json"}
-            ):
-                paths.append(path)
+    for package, imports, _ in PACKAGES:
+        paths.extend(local_import_closure(package,imports))
+        for name in ['lakefile.toml','lean-toolchain','lake-manifest.json']:
+            path=ROOT/package/name
+            if path.is_file():paths.append(path)
     paths.extend(ROOT.glob("locks/lean*.json"))
     paths.extend([Path(__file__).resolve(), ROOT / "scripts/verify-lean.sh"])
     files = [{"path": str(p.relative_to(ROOT)), "sha256": sha(p)} for p in set(paths)]
@@ -177,7 +201,9 @@ def main():
               "generated_at": generated.isoformat(), "source_fingerprint": fingerprint,
               "source_files": source_files, "toolchain": version.strip(), "lean_version": "4.24.0",
               "mathlib_revision": MATHLIB_REV, "commands": commands, "declarations": exported,
-              "axiom_whitelist": sorted(WHITELIST)}
+              "axiom_whitelist": sorted(WHITELIST),
+              "verification_scope":"actual_local_import_closure_of_audit_entrypoints",
+              "entrypoints": [{"package":package,"imports":imports,"local_source_files":[str(p.relative_to(ROOT)) for p in local_import_closure(package,imports)]} for package,imports,_ in PACKAGES]}
     relative_report = str((report_dir / "report.json").relative_to(ROOT))
     (report_dir / "report.json").write_text(json.dumps(report, ensure_ascii=False, indent=2) + "\n")
     (ROOT / "reports/lean/latest.json").write_text(json.dumps({"report_path": relative_report}, indent=2) + "\n")
@@ -211,7 +237,8 @@ def main():
         catalog = {"schema_version": 1, "library": "HarsanyiLib", "library_version": LIBRARY_VERSION,
                    "lean_version": "4.24.0", "mathlib_revision": MATHLIB_REV,
                    "source_fingerprint": fingerprint, "source_files": source_files,
-                   "verification_report": relative_report, "declarations": public}
+                   "verification_report": relative_report, "declarations": public,
+                   "verification_scope":report["verification_scope"],"entrypoints":report["entrypoints"]}
         (ROOT / "catalog/library.json").write_text(json.dumps(catalog, ensure_ascii=False, indent=2) + "\n")
     print(relative_report, flush=True)
     return int(failed)

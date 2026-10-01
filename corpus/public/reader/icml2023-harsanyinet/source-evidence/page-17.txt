@@ -1,0 +1,56 @@
+                     HarsanyiNet: Computing Accurate Shapley Values in a Single Forward Propagation
+
+
+             Table 3. Classification accuracy (%) of the HarsanyiNet and baseline models on more challenging datasets
+                      Dataset                HarsanyiNet                     baseline models
+                      Oxford Flowers-102         95.48           97.9 (ResNet50 (Wightman et al., 2021))
+                      COVIDx                     96.75       96.3 (COVID-Net CXR-2 (Pavlova et al., 2022))
+
+
+Table 4. Error between the Shapley values computed by the HarsanyiNet and the Shapley values estimated by the sampling method
+
+                Dataset      Errors of Shapley values (5000 iterations)   Errors of Shapley values (10000 iterations)
+                MNIST                          0.017                                        0.012
+                CIFAR-10                       0.007                                        0.004
+
+
+compare the classification accuracy of the HarsanyiNet with a traditional DNN, we used ResNet-50 (He et al., 2016) and
+COVID-Net CXR-2 (Pavlova et al., 2022) as baseline models and reported the results in Table 3. Specifically, we used the
+intermediate-layer features with the size of 512 × 14 × 14 from the pre-trained VGG-16 model (Simonyan & Zisserman,
+2015) as z(0) , and then trained the HarsanyiNet upon z(0) with the same hyperparameters as described in Section 4.
+As shown in Table 3, the classification accuracy of the HarsanyiNet on the Oxford Flowers-102 is slightly lower than
+ResNet-50. However, on medical dataset COVIDx, the classification accuracy of the HarsanyiNet is slightly higher than
+COVID-Net CXR-2. Despite this relatively small sacrifice in classification accuracy on certain datasets, the HarsanyiNet
+computed the exact Shapley values in a single forward propogation, which was its main advantage over other neural
+networks.
+
+F.2. Experiment results for verifying the accuracy of the Shapley values on the HarsanyiNets
+To further verify the accuracy of the Shapley values on high-dimensional image datasets, we compared the Shapley values
+calculated by HarsanyiNet with those estimated by the sampling method. Specifically, we ran the sampling algorithm
+with 5000 and 10000 iterations on the MNIST dataset and the CIFAR-10 dataset, respectively. Table 4 shows the root
+mean square error (RMSE) between the Shapley values calculated by HarsanyiNet and the Shapley values estimated by
+the sampling algorithm. The estimation errors between both methods are quite small. Nevertheless, we need to emphasize
+that the sampling algorithm was more accurate when the sampling number was large, there was still a non-negligible error
+between the the estimated Shapely values and the ground-truth Shapley values.
+
+F.3. Experiment results of the training cost of the HarsanyiNets
+To further explore the training cost of the HarsanyiNets, we conducted experiments on the Census, MNIST, and CIFAR-10
+datasets to evaluate the training cost of HarsanyiNets and traditional DNNs with comparable sizes. Table 5 shows that the
+computational cost of training the HarsanyiNet is higher than training a comparable DNN, and the computational cost of the
+HarsanyiNet is about twice the cost of a traditional DNN with the same number of parameters.
+
+F.4. Experiment results of the robustness of the HarsanyiNets
+We conducted more experiments to analyze the robustness of the HarsanyiNet. Specifically, we estimate the adversarial
+robustness of the classification performance and the adversarial robustness of the estimated Shapley values (Jia et al., 2019b).
+To estimate the adversarial robustness of the classification performance on HarsanyiNet, we conducted experiments on the
+CIFAR-10 dataset to evaluate the model robustness by examining its classification accuracy on the test set of adversarial
+examples. To generate adversarial examples, we used the FGSM attack (Goodfellow et al., 2015), a gradient-based method,
+with a maximum perturbation of 8/255 (Madry et al., 2018). Table 6 shows that the classification accuracy of the adversarial
+examples of HarsanyiNet is slightly higher than that of ResNet-18 (He et al., 2016).
+To estimate the adversarial robustness of the estimated Shapley values on HarsanyiNet, we assessed the robustness of its
+estimated Shapley values by computing the ℓ2 norm of the difference in Shapley values between the adversarial and natural
+examples, i.e., ||ϕnat − ϕadv ||ℓ2 , where ϕnat denotes the Shapley values of natural examples, and ϕadv denotes the Shapley
+values of adversarial examples. To calculate the Shapley values of the ResNet-18 model, we estimate Shapley values using
+the sampling algorithm with 1000 iterations. Table 6 shows that the adversarial robustness of the estimated Shapley values
+
+                                                                17

@@ -1,0 +1,102 @@
+                                        Layerwise Change of Knowledge in Neural Networks
+
+ Network output: V x = I(S |x) + I(S |x) + I(S |x) + I(S |x)+……                                                    learning
+                                                          Learning phase: fitting                                             Forgetting phase: forgetting
+                                                                                                                   forgetting redundant Interactions.
+ S1=              Lawn
+                (1-order)
+                                                          target interactions, but also
+                                                          encoding lots of redundant                                               Flower            Face
+                                                                                                                                  (5-order)        (7-order)
+                                                          interactions.
+
+
+
+
+                                                                                  Learning strength
+ S2=               Leg
+                (2-order)
+                 Flower                                  Feed to                                                                                      Leg
+ S3=
+
+
+
+
+                                                                                                      I(S)
+                (5-order)                                                                                                                          (2-order)
+                                                                           ...
+                                                           DNN                                                                                  Lawn
+                                                                                                                                              (1-order)
+ S4=              Face
+                (7-order)                                                                                    Early layers                     Later layers
+                                                                                                                            Middle layers
+
+
+Figure 1. Tracking interactions through layers in the DNN. In most DNNs, early and middle layers usually fit target interactions modeled
+by the entire network at the cost of encoding lots of redundant interactions, and later layers remove such redundant interactions.
+
+
+teractions help us overcome the challenge of representing                 learning behavior of a DNN.
+uncountable knowledge as countable primitive patterns. In
+                                                                          • The tracking of countable interactions in different
+this way, we can exactly quantify how many interaction
+                                                                          layers reveals the change of representation complexity
+primitives are newly emerged and forgotten in each layer.
+                                                                          over different layers. The complexity of an interaction S
+(3) Connection to the generalization capacity. We hope
+                                                                          is defined as the number of input variables in S , which is
+to provide deep insights into how newly merged interac-
+                                                                          also termed the order of this interaction, i.e., order(S) = |S|.
+tion primitives and forgotten old interaction primitives are
+                                                                          In experiments, we discover that in most DNNs, early and
+related to the generalization capacity of a DNN.
+                                                                          middle layers are usually trained to fit target interactions
+Therefore, considering above challenges, we extend the                    encoded by the entire network at the cost of encoding lots
+definition of interactions to intermediate layers of a DNN.               of redundant interactions, and later layers remove such re-
+Specifically, given features of a certain layer, we train a               dundant interactions.
+linear classifier2 to use these features for classification, and
+                                                                          • Redefining the generalization capacity of DNNs and
+extract a set of interactions from the classifier. We analyze
+                                                                          tracking generalizable interactions. The use of interaction
+the faithfulness of the newly proposed interaction towards
+                                                                          primitives enables us to redefine the generalization power
+the intermediate layers of a DNN, and we discover that the
+                                                                          of a DNN from a new perspective. That is, given multiple
+new interactions provide us with a more straightforward way
+                                                                          DNNs trained for the same task, if these DNNs encode
+to analyze how knowledge changes in the layerwise forward
+                                                                          similar interactions, then we consider interactions shared by
+propagation. Instead of directly aligning features in different
+                                                                          different DNNs generalizable. We discover that low-order
+layers, we find that adjacent layers in a DNN usually encode
+                                                                          interactions usually have stronger generalization capacity
+similar sets of interactions. Thus, as illustrated in Fig. 1,
+                                                                          than high-order interactions. Besides, we also discover
+we can clarify the emergence of new interactions and the
+                                                                          that low-order interactions encoded by the DNN usually
+forgetting of old interactions in each layer.
+                                                                          exhibit more consistent effects I(S|x0 = x + ) when we add
+Faithfulness of interactions. More crucially, the newly                   different small noises  to the input sample x. In comparison,
+defined interaction primitives still belong to the typical                high-order interactions often exhibit diverse effects I(S|x0)
+paradigm of interactions, so that there are a series of the-              on inference scores w.r.t. different noises . This indicates
+orems (Ren et al., 2023a; Li & Zhang, 2023; Ren et al.,                   that low-order interactions often have higher stability.
+2024) as convincing evidence to take countable/symbolic
+                                                                          Contributions of this study are summarized as follows.
+interactions as primitive inference patterns to represent un-
+                                                                          (1) We redefine the interaction on intermediate layers, and
+countable knowledge in a DNN. Please See Section 2 and
+                                                                          find that the new definition ensures adjacent layers to encode
+Section 3.1 for details.
+                                                                          similar interactions.
+In this way, we can use interactions to explain the change                (2) Our study provides several theoretically verifiable met-
+of the representation capacity of features in different layers            rics to quantify the newly emerged knowledge and forgotten
+from the following two perspectives, which can help both                  knowledge in the forward propagation.
+theoreticians and practitioners gain new insights into the                (3) The change of interactions is also found to be related to
+    2
+                                                                          the generalization power of a DNN.
+      Belinkov (2022) discussed techniques and limitations of clas-
+sifier probes. Please See Appendix D for the solutions to these
+problems.
+
+
+                                                                      2

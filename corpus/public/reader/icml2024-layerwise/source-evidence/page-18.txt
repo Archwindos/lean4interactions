@@ -1,0 +1,206 @@
+                                                                                                         Layerwise Change of Knowledge in Neural Networks
+
+I. More Experimental Results
+I.1. Experimental Results of OR Interactions
+
+
+     （a）                                                                                                  ResNet − 20 on MNIST
+                                                         ("),%                                 ("),%           1st residual    3rd residual                                        5th residual             7th residual                         9th residual                  average
+                                                 new or                              forget or
+                                                                                                                  block           block                                               block                    block                                block                      pooling
+                                                                                     ("),%
+                                                              overlap or
+
+                                                                                                          0               6 order    0             6 order                0              6 order     0                      6 order 0                  6 order   0             6 order
+                                          " ,%
+                       all&'                                                                              ResNet − 20 on CIFAR10
+                                                                                                               1st residual      3rd residual                                      5th residual             7th residual                         9th residual                  average
+                                       ( ,%                                                                        block            block                                             block                    block                                block                      pooling
+                       all&'
+
+
+                                                     0           4                     8       order
+                                                                                                          0        4         8 order 0      4       8 order 0                      4        8 order 0       4                8 order 0           4      8 order 0         4     8 order
+                                 MLP − 7 on CIFAR10                                                                                                 VGG − 11 on CIFAR10
+                                          3rd layer                                             5th layer                      7th layer
+
+
+
+
+                                   0             4       8 order                 0         4       8 order 0             4        8 order           0               4             8 order    0      4        8 order 0                   4           8 order 0        4        8 order
+
+                             BERT!"#$ on SST2                                                                                                                              DistilBERT on SST2
+                                              2nd                  6th                              8th                    10th                   FC                                  1st                3rd                          4th                   5th                     FC
+                                          transformer          transformer                      transformer            transformer                                                transformer        transformer                  transformer           transformer
+
+
+                             0                   6 order 0                       6 order 0             6 order 0             6 order 0          6 order                       0         6 order 0           6 order 0                 6 order 0              6 order 0          6 order
+   （b）
+                                                 ResNet − 20 on MNIST                          ResNet − 20 on CIFAR10 MLP − 7 on CIFAR10                                  VGG − 11 on CIFAR10            BERT!"#$ on SST2                            DistilBERT on SST2
+                      ' ,)
+
+
+
+
+                                          1.00
+                        Completeness %&
+
+
+
+
+                                                                                                                                                                                                                                                                                      High
+                                          0.75                                                                                                                                                                                                                                        Order
+                                          0.50
+                                          0.25
+                                          0.00
+                      ' ,)
+
+
+
+
+                                          1.00
+                       Redundancy %&
+
+
+
+
+                                          0.75
+                                          0.50
+                                          0.25                                                                                                                                                                                                                                         Low
+                                          0.00
+                                                                                                                                                                                                                                                                                      Order
+
+
+
+
+Figure 7. (a) Tracking the change of the average strength of the overlapped overlap(l),m   or  , forgotten forget(l),m
+                                                                                                                 or    , and newly emerged
+                  (l),m                                                                                                                (l),m
+interactions newor      through different layers. For each subfigure, the total length of the orange bar and the grey bar equals to allor ,
+                                                                   (L),m                                          (l),m
+and the total length of the blue bar and the grey bar equals to allor    (b) Tracking the change of completenessor      and redundancy(l),m
+                                                                                                                                       or
+through different layers. We do not show interactions of the highest four orders, because almost no interactions of extremely high orders
+         或交互
+were learned.
+                                                                                                                                                                                                             ]
+                                                                  ]
+
+
+
+
+                                                                                                                                                           ]
+ ]
+
+
+
+
+                                                                                                                                                                                                            ,m
+                                                                 ,m
+
+
+
+
+                                                                                                                             𝑣A       𝑣B
+                                                                                                                                                          ,m
+,m
+
+
+
+
+                0.4                                                              0.4                                                                                                                                                                                      𝑣A         𝑣B
+                                                                                                                                                                                        interactions
+                                                                                                                                                                                                             , Borb
+
+
+
+
+                                                                                                                            MLP-7 VGG-11
+                                                                  , Borb
+
+
+
+
+                                                                                                                                                           , Borb
+
+
+
+
+                                           interactions                                                                                                                                                                               interactions
+ , Borb
+
+
+
+
+                                                                                               interactions                                                                0.2
+                                                                                                                                                                                                            L
+
+
+
+
+                                                                                                                                                                                                                            0.2
+                                                                 L
+
+
+
+
+                                                                                                                                                          l
+l
+
+
+
+
+                                             from the                                            from the                   MLP-7 ResNet-20                                               from the                                      from the                      XLNet DistilBERT
+                                                                                                                                                          l ,m
+
+
+
+
+                                                                                                                                                                                                            L ,m
+l ,m
+
+
+
+
+                                                                                 0.2
+                                                                 L ,m
+
+
+
+
+                0.2                        intermediate                                         final layer                 MLP-7 ResNet-32                                0.1          intermediate                                   final layer
+                                                                                                                                                                                                                            0.1                                       XLNet      BERTBASE
+                                                                                                                                                           𝔼𝐱 [IoU Aora
+
+
+
+
+                                                                                                                                                                                                             𝔼𝐱 [IoU Aora
+ 𝔼𝐱 [IoU Aora
+
+
+
+
+                                                                  𝔼𝐱 [IoU Aora
+
+
+
+
+                                               layer                                                                       VGG-11 ResNet-20                                                 layer
+                0.0                                                                                                        VGG-11 ResNet-32                                                                                                                         DistilBERTBERTBASE
+                                                                                 0.0                                                                                      0.0                                               0.0
+                                                                                                                          ResNet-20ResNet-32
+                                            5         order                                    5        order                                                                       2        5      order                         2          5       order
+
+                                                     a DNNs trained on CIFAR10                                                                                                                   b DNNs trained on SST2
+
+
+
+Figure 8. Average IoU values of OR interactions extracted from two DNNs trained for the same task over different input samples.
+Low-order interactions usually exhibited higher IoU values, which indicated that low-order interactions could be better generalized across
+DNNs than high-order interactions. Appendix M.3 introduces the selected intermediate layer for each DNN.
+
+
+
+
+                                                                                                                                                          18

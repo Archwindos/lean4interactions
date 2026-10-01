@@ -1,0 +1,47 @@
+                                     Layerwise Change of Knowledge in Neural Networks
+
+patches in total. Considering the DNN mainly used information contained in the foreground to make inference, we randomly
+selected n = 12 patches from 6 × 6 image patches located in the center of the image, in order to reduce the computational
+cost.
+• For the SST-2 dataset, we followed settings in (Ren et al., 2023a) to select sentences with a length of 10 words without
+unclear semantics, such as stop words. For each selected sentence, we considered each word as an input variable, thereby
+obtaining n = 10 input variables in sum. We used 50 sentences to calculate interactions in Section 3.
+
+M.2. Training Linear Classifier in Section 3.2.2
+Generally, the training parameters of the intermediate layers classifier are consistent with those of the original model.
+• For MLP-7 trained on the MNIST dataset, we used SGD with learning rate 0.01, and set the batch size to 256 to train the
+intermediate layers. For VGG-11 trained on both the MNIST dataset, we used SGD with learning rate 0.001, and set the
+batch size to 256 to train the intermediate layers. For ResNet-20 trained on both the MNIST dataset, we used SGD with
+learning rate 0.001, and set the batch size to 256 to train the intermediate layers.
+• For MLP-7 trained on the CIFAR-10 dataset, we used SGD with learning rate 0.001, and set the batch size to 256 to train
+the intermediate layers. For VGG-11 trained on both the CIFAR-10 dataset, we used SGD with learning rate 0.001, and set
+the batch size to 256 to train the intermediate layers. For ResNet-20 trained on both the CIFAR-10 dataset, we used SGD
+with learning rate 0.001, and set the batch size to 100 to train the intermediate layers.
+• For DistilBERT finetuned on the SST-2 dataset, we used SGD with learning rate 2E-5, and set the batch size to 32 to train
+the intermediate layers. For BERTBASE finetuned on the SST-2 dataset, we used SGD with learning rate 1E-5, and set the
+batch size to 16 to train the intermediate layers.
+
+M.3. Intermediate Layers Selected to Calculate Interactions in Section 3.3
+• For DNNs trained on both the MNIST dataset and the CIFAR-10 dataset, we used intermediate layers close to the output
+to compute interactions. Specifically, the MLP-7 model contained 7 linear layers, and we used features of the 4-th linear
+layer. For the VGG-11 model, we employed features of conv4 2. The ResNet-20 mdoel contained 9 residual blocks, and we
+used features after the 6-th residual block. The ResNet-32 model contained 15 residual blocks, and we used used features
+after the 10-th residual block.
+• For DNNs trained on the SST2 dataset, we also used intermediate layers close to the output to compute interactions.
+Specifically, the DistilBERT model contained 6 transformers, and we employed features after the 4-th transformer. The
+BERTBASE model contained 12 transformers, and we employed features after the 8-th transformer. The XLNet model
+contained 12 transformer-XLs, we employed features after the 8-th transformer-XL.
+
+M.4. Experimental Details for Verifying the Sparsity of Interactions in Section 3.2.
+For each sample in the MNIST dataset, as introduced in Appendix M.1, we set n = 10. For each sample in the CIFAR-10
+dataset, as introduced in Appendix M.1, we set n = 12. We randomly selected 100 images in the MNIST dataset and 30
+images in the CIFAR-10 dataset to verify the sparsity of interactions. We set τ = 0.05 · maxx maxS (max{|Iand (S|x, v (l) )|,
+|Ior (S|x, v (l) )|}) for each target layer of the target DNN to determine its salient interactions. Note that in experiments, we
+concluded first-order OR interactions to the first-order AND interactions for convenience. In other words, the first-order
+AND interactions were the sum of first-order OR interactions and the first-order AND interactions, because one single input
+variable could be considered as either OR relationship or AND relationship with itself.
+
+
+
+
+                                                               22

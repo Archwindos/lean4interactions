@@ -11,7 +11,7 @@ from .util import digest_data
 
 def _signature(store) -> str:
     files = []
-    for folder in ("corpus", "catalog"):
+    for folder in (store.corpus_prefix, "catalog"):
         base = store.path(folder)
         if base.exists():
             for path in sorted(base.rglob("*")):
@@ -19,7 +19,7 @@ def _signature(store) -> str:
                 if path.is_file() and path.suffix.lower() in {".yaml", ".yml", ".json", ".tex", ".md", ".txt"}:
                     stat = path.stat()
                     files.append([path.relative_to(store.root).as_posix(), stat.st_mtime_ns, stat.st_size])
-    return digest_data({"files": files, "public": store.public})
+    return digest_data({"files": files, "collection": store.collection})
 
 
 def _documents(store):
@@ -47,7 +47,7 @@ def _documents(store):
 
 
 def _index_path(store):
-    return store.path("build/archive-public.sqlite" if store.public else "build/archive.sqlite")
+    return store.path(f"build/archive-{store.collection}.sqlite")
 
 
 def build_index(store) -> dict:
@@ -70,7 +70,7 @@ def build_index(store) -> dict:
     finally:
         if os.path.exists(temporary):
             os.unlink(temporary)
-    return {"document_count": count, "index_path": destination.relative_to(store.root).as_posix(), "public": store.public}
+    return {"document_count": count, "index_path": destination.relative_to(store.root).as_posix(), "collection": store.collection}
 
 
 def search(store, query: str, kind: str | None = None, limit: int = 50) -> list[dict]:

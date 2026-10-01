@@ -1,0 +1,50 @@
+{
+  "status": "passed",
+  "scope": "read_only_AI_lookup_and_validation",
+  "recorded_at": "2026-10-01T04:14:17.488627+00:00",
+  "checks": [
+    {
+      "command": "verification-status hnet-axiom-symmetry",
+      "exit_code": 0,
+      "results": [
+        {
+          "compilation": "passed",
+          "axiom_audit": "passed",
+          "freshness": "current"
+        }
+      ]
+    },
+    {
+      "command": "library Harsanyi.Coalition.shapley_kernel",
+      "exit_code": 0,
+      "results": [
+        {
+          "name": "Harsanyi.Coalition.shapley_kernel",
+          "signature": "∀ {α : Type u_1} [inst : DecidableEq.{u_1 + 1} α] (R L : Finset.{u_1} α),\n  HasSubset.Subset.{u_1} L R →\n    Eq.{1}\n      (∑ U ∈ Finset.powerset.{u_1} R,\n        ite.{1} (HasSubset.Subset.{u_1} L U) (Harsanyi.factorialWeight 1 (Finset.card.{u_1} R) (Finset.card.{u_1} U)) 0)\n      (HDiv.hDiv.{0, 0, 0} 1 (HAdd.hAdd.{0, 0, 0} (↑(Finset.card.{u_1} L)) 1))",
+          "declaration": "Harsanyi.Coalition.shapley_kernel",
+          "status": "passed"
+        }
+      ]
+    },
+    {
+      "command": "validate",
+      "exit_code": 0,
+      "results": [
+        {
+          "status": "passed",
+          "errors": []
+        }
+      ]
+    }
+  ],
+  "source_files": [
+    {
+      "path": "reader/architecture/paper_agent.py",
+      "sha256": "bbfbdf10aa95cdb79b5d9a3ebf62f63ab20d5ce9945552ae46b3fe259f78d41d"
+    },
+    {
+      "path": "reader/data/full-content.json",
+      "sha256": "efefd3cdfdc42fe9f18454105feb14e87ab95da82b8471fc827e25fa2b7f8ba7"
+    }
+  ]
+}

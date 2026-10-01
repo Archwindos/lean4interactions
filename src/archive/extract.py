@@ -28,15 +28,16 @@ def _candidates(text: str, suffix: str) -> list[dict]:
     return items
 
 
-def extract_paper(root: str | Path | None, paper_id: str, version: str | None = None) -> dict:
+def extract_paper(root: str | Path | None, paper_id: str, version: str | None = None, *, collection: str = "public") -> dict:
     from .store import ArchiveStore
     root = resolve_root(root)
     paper_id = identifier(paper_id, "paper_id")
-    paper = ArchiveStore(root).get_paper(paper_id, version)
+    store = ArchiveStore(root, collection=collection)
+    paper = store.get_paper(paper_id, version)
     if not paper:
         raise ArchiveError(f"Unknown paper: {paper_id}")
     version = paper["version"]
-    directory = safe_path(root, f"corpus/papers/{paper_id}/{version}")
+    directory = safe_path(root, f"{store.corpus_prefix}/papers/{paper_id}/{version}")
     inventory = dict(paper["inventory"])
     previous_items = {item.get("claim_id"): item for item in inventory.get("items", [])}
     items = []
@@ -71,7 +72,7 @@ def extract_paper(root: str | Path | None, paper_id: str, version: str | None = 
             for candidate in _candidates(text, suffix):
                 claim_id = "claim-" + digest_data([paper_id, version, entry["path"], page, candidate["offset"], candidate["label"]])[:24]
                 location = {"file": entry["path"], "pdf_page": page, "printed_page": None, "section": None, "line": candidate["line"] if suffix != ".pdf" else None, "offset": candidate["offset"]}
-                claim_dir = safe_path(root, f"corpus/claims/{claim_id}")
+                claim_dir = safe_path(root, f"{store.corpus_prefix}/claims/{claim_id}")
                 metadata_file = claim_dir / "metadata.yaml"
                 if not metadata_file.exists():
                     metadata = {"schema_version": 1, "claim_id": claim_id, "paper_id": paper_id, "paper_version": version, "source_location": location, "original_label": candidate["label"], "kind": candidate["kind"], "theorem_ids": [], "proof_ids": [], "review_status": "candidate", "extraction_status": "candidate", "rewriting_status": "not_started", "alignment_status": "not_reviewed", "visibility": paper.get("visibility", "private"), "source_sha256": entry["sha256"], "issues": ["Automatically detected candidate; statement/proof boundaries and completeness require human review."]}

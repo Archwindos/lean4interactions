@@ -1,0 +1,2825 @@
+{
+  "schema_version": "1.0",
+  "paper_id": "iclr2024-sparse",
+  "results": {
+    "iclr2024-sparse-definitions": {
+      "title": "Masks, centered outputs, and Harsanyi interactions",
+      "overview": "The paper uses u=g₀. Its empty interaction is zero. The paper’s input baseline b is the canonical vector r, not the scalar output baseline b.",
+      "assumptions": [],
+      "definitions": [
+        "model-output",
+        "fixed-input",
+        "input-baseline-vector",
+        "variable-universe",
+        "coalition",
+        "masked-input",
+        "masked-game",
+        "output-baseline",
+        "centered-game",
+        "interaction-centered"
+      ],
+      "completion_scope": "continuing precise mathematical target",
+      "proof_scope": "continuing precise mathematical target",
+      "proof_steps": [],
+      "original_statement_note": "The official source statement is preserved. Project translations and mathematical transcriptions are distinguished from the PDF layout.",
+      "original_proof_note": "The complete original mathematical proof remains linked to the official source. Its errors are explicitly recorded; the project rewriting does not silently change the proposition.",
+      "notation_map": [
+        {
+          "source": "u(S)",
+          "canonical": "g0(S)",
+          "meaning": "The paper uses this symbol in the centered masked-game convention. Its exact definition and source scope are recorded in the linked canonical symbol entry."
+        },
+        {
+          "source": "b",
+          "canonical": "r",
+          "meaning": "Input baseline vector, distinct from the scalar output baseline."
+        }
+      ]
+    },
+    "iclr2024-sparse-desiderata": {
+      "title": "Sparsity, universal matching, and sample-wise transfer",
+      "overview": "These are evaluation criteria with externally cited empirical evidence, rather than three locally proved theorems.",
+      "assumptions": [],
+      "definitions": [
+        "model-output",
+        "fixed-input",
+        "input-baseline-vector",
+        "variable-universe",
+        "coalition",
+        "masked-input",
+        "masked-game",
+        "output-baseline",
+        "centered-game",
+        "interaction-centered",
+        "salience-threshold"
+      ],
+      "completion_scope": "continuing precise mathematical target",
+      "proof_scope": "continuing precise mathematical target",
+      "proof_steps": [],
+      "original_statement_note": "The official source statement is preserved. Project translations and mathematical transcriptions are distinguished from the PDF layout.",
+      "original_proof_note": "The complete original mathematical proof remains linked to the official source. Its errors are explicitly recorded; the project rewriting does not silently change the proposition.",
+      "notation_map": [
+        {
+          "source": "u(S)",
+          "canonical": "g0(S)",
+          "meaning": "The paper uses this symbol in the centered masked-game convention. Its exact definition and source scope are recorded in the linked canonical symbol entry."
+        },
+        {
+          "source": "b",
+          "canonical": "r",
+          "meaning": "Input baseline vector, distinct from the scalar output baseline."
+        }
+      ]
+    },
+    "iclr2024-sparse-reconstruction": {
+      "title": "Exact centered reconstruction of every mask",
+      "overview": "Expand the centered Möbius coefficients, exchange finite sums, cancel all proper-subset terms, and restore the output baseline.",
+      "assumptions": [],
+      "definitions": [
+        "model-output",
+        "fixed-input",
+        "input-baseline-vector",
+        "variable-universe",
+        "coalition",
+        "masked-input",
+        "masked-game",
+        "output-baseline",
+        "centered-game",
+        "interaction-centered"
+      ],
+      "completion_scope": "entire source target",
+      "proof_scope": "entire source target",
+      "proof_steps": [
+        {
+          "id": "iclr2024-sparse-reconstruction-step-1",
+          "title": "Definitions and original target",
+          "body_md": "Define $I(T)=\\sum_{L\\subseteq T}(-1)^{|T|-|L|}g_0(L)$. For every $S\\subseteq N$, the claim is $v(x_S)=b+\\sum_{T\\subseteq S}I(T)$.",
+          "formula_tex": "\\forall S\\subseteq N,\\quad v(x_S)=\\sum_{T\\subseteq S}I(T)+v(x_\\varnothing).",
+          "justification": "The original premises, explicit finite-index arguments, and complete shared proofs are retained. Repairs change proof steps only.",
+          "lean_refs": [
+            {
+              "declaration": "FullSparse.theorem1",
+              "source_path": "research/full-proof-integration-20260930/iclr2024-sparse/lean/FullSparse.lean",
+              "line": 12,
+              "scope": "actual_proved_statement_or_internal_proof_dependency",
+              "report_path": "research/full-proof-integration-20260930/iclr2024-sparse/verification/report.json",
+              "explanation_md": "This real declaration covers the exact scope stated in the verification report; an association does not independently verify every explanatory sentence."
+            }
+          ]
+        },
+        {
+          "id": "iclr2024-sparse-reconstruction-step-2",
+          "title": "Empty set and finite reindexing",
+          "body_md": "All subset sums include the empty set, with $I(\\varnothing)=g_0(\\varnothing)=0$. For fixed $L\\subseteq S$, the supersets $T$ in the double sum are bijectively $T=L\\cup U$ for $U\\subseteq S\\setminus L$, and $|T|-|L|=|U|$. Thus $\\sum_{T\\subseteq S}I(T)=\\sum_{L\\subseteq S}g_0(L)\\sum_{U\\subseteq S\\setminus L}(-1)^{|U|}=\\sum_{L\\subseteq S}g_0(L)(1-1)^{|S\\setminus L|}=g_0(S)$.",
+          "formula_tex": "",
+          "justification": "The original premises, explicit finite-index arguments, and complete shared proofs are retained. Repairs change proof steps only.",
+          "lean_refs": [
+            {
+              "declaration": "Harsanyi.reconstruction",
+              "source_path": "lean/HarsanyiLib/Harsanyi/Core/Mobius.lean",
+              "line": 34,
+              "scope": "actual_proved_statement_or_internal_proof_dependency",
+              "report_path": "research/full-proof-integration-20260930/cvpr2023/verification/report.json",
+              "explanation_md": "This real declaration covers the exact scope stated in the verification report; an association does not independently verify every explanatory sentence."
+            }
+          ]
+        },
+        {
+          "id": "iclr2024-sparse-reconstruction-step-3",
+          "title": "The surviving term and output baseline",
+          "body_md": "Only $L=S$ survives, with inner sum 1; a proper subset has a nonempty difference and inner sum zero. Add b. At $S=\\varnothing$, the only interaction is zero and the output is b. For two variables, $I(\\{1,2\\})=g(\\{1,2\\})-g(\\{1\\})-g(\\{2\\})+b$, and the three nonempty interactions sum to $g(\\{1,2\\})-b$. The complete shared proof is `proof-finite-mobius-reconstruction-v2`. The Lean proof uses finite insertion induction, separately identified from the author’s exchanged-sum argument.",
+          "formula_tex": "",
+          "justification": "The original premises, explicit finite-index arguments, and complete shared proofs are retained. Repairs change proof steps only.",
+          "lean_refs": [
+            {
+              "declaration": "FullSparse.theorem1",
+              "source_path": "research/full-proof-integration-20260930/iclr2024-sparse/lean/FullSparse.lean",
+              "line": 12,
+              "scope": "actual_proved_statement_or_internal_proof_dependency",
+              "report_path": "research/full-proof-integration-20260930/iclr2024-sparse/verification/report.json",
+              "explanation_md": "This real declaration covers the exact scope stated in the verification report; an association does not independently verify every explanatory sentence."
+            }
+          ]
+        }
+      ],
+      "original_statement_note": "The official source statement is preserved. Project translations and mathematical transcriptions are distinguished from the PDF layout.",
+      "original_proof_note": "The complete original mathematical proof remains linked to the official source. Its errors are explicitly recorded; the project rewriting does not silently change the proposition.",
+      "notation_map": [
+        {
+          "source": "u(S)",
+          "canonical": "g0(S)",
+          "meaning": "The paper uses this symbol in the centered masked-game convention. Its exact definition and source scope are recorded in the linked canonical symbol entry."
+        },
+        {
+          "source": "b",
+          "canonical": "r",
+          "meaning": "Input baseline vector, distinct from the scalar output baseline."
+        }
+      ]
+    },
+    "iclr2024-sparse-salient-approximation": {
+      "title": "Approximation using salient interactions",
+      "overview": "The approximation symbol has no uniform source tolerance. The exact omitted-interaction remainder identifies what is required for numerical approximation.",
+      "assumptions": [],
+      "definitions": [
+        "model-output",
+        "fixed-input",
+        "input-baseline-vector",
+        "variable-universe",
+        "coalition",
+        "masked-input",
+        "masked-game",
+        "output-baseline",
+        "centered-game",
+        "interaction-centered",
+        "salience-threshold"
+      ],
+      "completion_scope": "scope explanation only; original unquantified claim not proved as a new theorem",
+      "proof_scope": "scope explanation only; original unquantified claim not proved as a new theorem",
+      "proof_steps": [
+        {
+          "id": "iclr2024-sparse-salient-approximation-step-1",
+          "title": "Definitions, original target, and premise adapter",
+          "body_md": "For a retained family $\\Omega\\subseteq2^N$, exact reconstruction gives\n$v(x_S)-[b+\\sum_{T\\subseteq S,T\\in\\Omega}I(T)]=\\sum_{T\\subseteq S,T\\notin\\Omega}I(T)$.\nPartition the finite family into retained and omitted terms. The approximation has numerical meaning only if this total remainder is sufficiently small. Individually small omitted terms do not automatically give a certified small error for all masks. This explains the author’s approximation and does not present a newly specified tolerance as a source theorem.",
+          "formula_tex": "v(x)\\approx\\sum_{S\\in\\Omega_{\\mathrm{salient}},S\\ne\\varnothing}I(S)+v(x_\\varnothing).",
+          "justification": "The original premises, explicit finite-index arguments, and complete shared proofs are retained. Repairs change proof steps only.",
+          "lean_refs": []
+        }
+      ],
+      "original_statement_note": "The official source statement is preserved. Project translations and mathematical transcriptions are distinguished from the PDF layout.",
+      "original_proof_note": "The complete original mathematical proof remains linked to the official source. Its errors are explicitly recorded; the project rewriting does not silently change the proposition.",
+      "notation_map": [
+        {
+          "source": "u(S)",
+          "canonical": "g0(S)",
+          "meaning": "The paper uses this symbol in the centered masked-game convention. Its exact definition and source scope are recorded in the linked canonical symbol entry."
+        },
+        {
+          "source": "b",
+          "canonical": "r",
+          "meaning": "Input baseline vector, distinct from the scalar output baseline."
+        }
+      ]
+    },
+    "iclr2024-sparse-taylor-expansion": {
+      "title": "Infinite multivariate Taylor expansion at the input baseline",
+      "overview": "This is not an identity for every smooth function. The convergence and representation issue is shared with Lemma 1.",
+      "assumptions": [],
+      "definitions": [
+        "model-output",
+        "fixed-input",
+        "input-baseline-vector",
+        "input-coordinate",
+        "variable-count",
+        "taylor-multiindex",
+        "mixed-derivative"
+      ],
+      "completion_scope": "continuing precise mathematical target",
+      "proof_scope": "continuing precise mathematical target",
+      "proof_steps": [],
+      "original_statement_note": "The official source statement is preserved. Project translations and mathematical transcriptions are distinguished from the PDF layout.",
+      "original_proof_note": "The complete original mathematical proof remains linked to the official source. Its errors are explicitly recorded; the project rewriting does not silently change the proposition.",
+      "notation_map": [
+        {
+          "source": "u(S)",
+          "canonical": "g0(S)",
+          "meaning": "The paper uses this symbol in the centered masked-game convention. Its exact definition and source scope are recorded in the linked canonical symbol entry."
+        },
+        {
+          "source": "b",
+          "canonical": "r",
+          "meaning": "Input baseline vector, distinct from the scalar output baseline."
+        }
+      ]
+    },
+    "iclr2024-sparse-assumption-1alpha": {
+      "title": "Vanishing interactions above order M",
+      "overview": "This is a premise of the sparsity argument, not an unconditional conclusion.",
+      "assumptions": [],
+      "definitions": [
+        "model-output",
+        "fixed-input",
+        "input-baseline-vector",
+        "variable-universe",
+        "coalition",
+        "masked-input",
+        "masked-game",
+        "output-baseline",
+        "centered-game",
+        "interaction-centered",
+        "interaction-order",
+        "cutoff-order"
+      ],
+      "completion_scope": "continuing precise mathematical target",
+      "proof_scope": "continuing precise mathematical target",
+      "proof_steps": [],
+      "original_statement_note": "The official source statement is preserved. Project translations and mathematical transcriptions are distinguished from the PDF layout.",
+      "original_proof_note": "The complete original mathematical proof remains linked to the official source. Its errors are explicitly recorded; the project rewriting does not silently change the proposition.",
+      "notation_map": [
+        {
+          "source": "u(S)",
+          "canonical": "g0(S)",
+          "meaning": "The paper uses this symbol in the centered masked-game convention. Its exact definition and source scope are recorded in the linked canonical symbol entry."
+        },
+        {
+          "source": "b",
+          "canonical": "r",
+          "meaning": "Input baseline vector, distinct from the scalar output baseline."
+        }
+      ]
+    },
+    "iclr2024-sparse-assumption-1beta": {
+      "title": "Global vanishing of derivatives above order M",
+      "overview": "The quantifiers cover all expansion points and multiindices. The paper also mentions ReLU finite differences, without proving the corresponding implication.",
+      "assumptions": [],
+      "definitions": [
+        "model-output",
+        "input-baseline-vector",
+        "variable-count",
+        "cutoff-order",
+        "taylor-multiindex",
+        "mixed-derivative"
+      ],
+      "completion_scope": "continuing precise mathematical target",
+      "proof_scope": "continuing precise mathematical target",
+      "proof_steps": [],
+      "original_statement_note": "The official source statement is preserved. Project translations and mathematical transcriptions are distinguished from the PDF layout.",
+      "original_proof_note": "The complete original mathematical proof remains linked to the official source. Its errors are explicitly recorded; the project rewriting does not silently change the proposition.",
+      "notation_map": [
+        {
+          "source": "u(S)",
+          "canonical": "g0(S)",
+          "meaning": "The paper uses this symbol in the centered masked-game convention. Its exact definition and source scope are recorded in the linked canonical symbol entry."
+        },
+        {
+          "source": "b",
+          "canonical": "r",
+          "meaning": "Input baseline vector, distinct from the scalar output baseline."
+        }
+      ]
+    },
+    "iclr2024-sparse-lemma1": {
+      "title": "Taylor interaction formula grouped by variable support",
+      "overview": "The author groups a valid Taylor representation by multiindex support, then uses uniqueness over every mask. A general smooth-function reading has an independent validity defect.",
+      "assumptions": [
+        "The original lemma does not separately require convergence or equality of its Taylor series. Appendix B.2 uses it before the 1-β⇒1-α implication; this scope gap is separately recorded."
+      ],
+      "definitions": [
+        "model-output",
+        "fixed-input",
+        "input-baseline-vector",
+        "variable-universe",
+        "coalition",
+        "masked-input",
+        "masked-game",
+        "output-baseline",
+        "centered-game",
+        "interaction-centered",
+        "input-coordinate",
+        "variable-count",
+        "taylor-multiindex",
+        "taylor-support-class",
+        "taylor-restricted-class",
+        "mixed-derivative"
+      ],
+      "completion_scope": "original source preserved; exact mathematical issue listed",
+      "proof_scope": "original source preserved; exact mathematical issue listed",
+      "proof_steps": [
+        {
+          "id": "iclr2024-sparse-lemma1-step-1",
+          "title": "Definitions, original target, and premise adapter",
+          "body_md": "For nonempty S the author claims\n$I(S)=\\sum_{\\kappa\\in Q_S}D^\\kappa v(r)\\prod_{i\\in S}(x_i-r_i)^{\\kappa_i}/\\kappa!$,\nwhere $Q_S$ consists of multiindices positive on S and zero elsewhere. Define this right-hand side as $\\widetilde I(S)$ and set $\\widetilde I(\\varnothing)=0$. Group every masked Taylor expansion by its nonzero-coordinate support to obtain $v(x_S)=b+\\sum_{T\\subseteq S}\\widetilde I(T)$, then invoke coefficient uniqueness for all masks, including the empty mask. A single full-input equality cannot establish uniqueness.\nA smooth function need not equal its Taylor series: $v(t)=e^{-1/t^2}$ for nonzero t and $v(0)=0$ has all derivatives zero at 0, but $I(\\{1\\})=e^{-1}$. This refutes the unrestricted smooth-function reading; adding analyticity would change the original proposition. If Eq. (2) is instead a given valid Taylor representation, that example does not satisfy it and does not refute the conditional grouping argument. It also does not satisfy the global high-order zero-derivative Assumption 1-β, so it does not refute the next finite-order implication. The original formula and proof are retained.",
+          "formula_tex": "I(S)=\\sum_{\\kappa\\in Q_S}\\frac{D^\\kappa v(r)}{\\kappa!}\\prod_{i\\in S}(x_i-r_i)^{\\kappa_i},\\quad S\\ne\\varnothing.",
+          "justification": "The original premises, explicit finite-index arguments, and complete shared proofs are retained. Repairs change proof steps only.",
+          "lean_refs": []
+        }
+      ],
+      "original_statement_note": "The official source statement is preserved. Project translations and mathematical transcriptions are distinguished from the PDF layout.",
+      "original_proof_note": "The complete original mathematical proof remains linked to the official source. Its errors are explicitly recorded; the project rewriting does not silently change the proposition.",
+      "notation_map": [
+        {
+          "source": "u(S)",
+          "canonical": "g0(S)",
+          "meaning": "The paper uses this symbol in the centered masked-game convention. Its exact definition and source scope are recorded in the linked canonical symbol entry."
+        },
+        {
+          "source": "b",
+          "canonical": "r",
+          "meaning": "Input baseline vector, distinct from the scalar output baseline."
+        }
+      ]
+    },
+    "iclr2024-sparse-derivative-cutoff": {
+      "title": "Derivative cutoff implies interaction cutoff",
+      "overview": "Globally zero classical mixed partials give zero rectangular differences. The actual coordinate-mask alternating sum is that difference; nonempty centering then recovers the original interaction.",
+      "assumptions": [
+        "The original C1-function setting is retained. Global high-order mixed partials in 1-β are interpreted as classical existing derivatives; required prefix differentiability unfolds their definition and is not replaced by a total Lean deriv function returning zero.",
+        "All masks use the same fixed input baseline r and M∈ℕ. No analyticity, infinite Taylor representation, or polynomial premise is added."
+      ],
+      "definitions": [
+        "model-output",
+        "fixed-input",
+        "input-baseline-vector",
+        "variable-universe",
+        "coalition",
+        "masked-input",
+        "masked-game",
+        "output-baseline",
+        "centered-game",
+        "interaction-centered",
+        "input-coordinate",
+        "variable-count",
+        "interaction-order",
+        "cutoff-order",
+        "taylor-multiindex",
+        "mixed-derivative",
+        "sym-coordinate-direction",
+        "sym-coordinate-step",
+        "sym-coordinate-partial",
+        "sym-rectangular-difference"
+      ],
+      "completion_scope": "entire original derivative-cutoff implication under the classical meaning that the stated global high-order mixed derivatives exist and are zero; actual arbitrary coordinate mask and source centering are included",
+      "proof_scope": "entire original derivative-cutoff implication under the classical meaning that the stated global high-order mixed derivatives exist and are zero; actual arbitrary coordinate mask and source centering are included",
+      "proof_steps": [
+        {
+          "id": "cutoff-classical-partials",
+          "title": "Classical mixed partials and their existence order",
+          "body_md": "Fix $N=\\{1,\\ldots,n\\}$, $v:\\mathbb R^n\\to\\mathbb R$, x, and r. A mask keeps x_i on A and r_i elsewhere. Set $g(A)=v(x_A)$, $b=g(\\varnothing)$, and $g_0=g-b$. The source interaction is $I_{g_0}$, so its empty value is zero. Let e_i be a coordinate unit vector and $a_i=x_i-r_i$.\nThe classical partial is $D_i f(z)=\\left.\\frac d{dt}f(z+t e_i)\\right|_{t=0}$. Encode a multiindex by a nondecreasing coordinate list $(i_1,\\ldots,i_q)$, and define $P_0=v$, $P_j=D_{i_j}P_{j-1}$. Classical existence of the stated mixed partials includes actual differentiability of each required prefix along the next coordinate, and 1-β gives $P_q\\equiv0$. These existence conditions and the zero value are encoded together; only lists q>M are used. No extra global smoothness of all low derivatives is assumed. C1 alone does not imply existence of high derivatives. A fixed ascending order is used; a reverse convention can use the same difference argument in reverse order, without interchanging mixed partials.",
+          "formula_tex": "P_j=D_{i_j}P_{j-1},\\qquad q=\\sum_{i\\in N}\\kappa_i.",
+          "justification": "",
+          "lean_refs": [
+            {
+              "declaration": "Harsanyi.linePartial_coordinate_eq",
+              "source_path": "lean/HarsanyiLib/Harsanyi/Extensions/DerivativeCutoff.lean",
+              "line": 127,
+              "scope": "actual_derivative_identity_or_mask_adapter",
+              "explanation_md": "This real declaration covers the exact scope stated in the verification report; an association does not independently verify every explanatory sentence."
+            },
+            {
+              "declaration": "Harsanyi.coordinate_multiIndex_total_order",
+              "source_path": "lean/HarsanyiLib/Harsanyi/Extensions/DerivativeCutoff.lean",
+              "line": 236,
+              "scope": "actual_derivative_identity_or_mask_adapter",
+              "explanation_md": "This real declaration covers the exact scope stated in the verification report; an association does not independently verify every explanatory sentence."
+            },
+            {
+              "declaration": "Harsanyi.ClassicalMixedDerivativeCutoff",
+              "source_path": "lean/HarsanyiLib/Harsanyi/Extensions/DerivativeCutoff.lean",
+              "line": 231,
+              "scope": "actual_derivative_identity_or_mask_adapter",
+              "explanation_md": "This real declaration covers the exact scope stated in the verification report; an association does not independently verify every explanatory sentence."
+            }
+          ]
+        },
+        {
+          "id": "cutoff-difference-derivative",
+          "title": "Commutation of finite differences and true partial derivatives",
+          "body_md": "Define $\\delta_{a,i}f(z)=f(z+a e_i)-f(z)$. If f is differentiable along coordinate i everywhere, its finitely many translated sums and differences are too. Translation gives $D_i(f(\\cdot+h))(z)=D_i f(z+h)$ because $(z+t e_i)+h=(z+h)+t e_i$. The one-variable difference rule yields $D_i(\\delta_{a,j}f)=\\delta_{a,j}(D_i f)$. Induction extends this to arbitrary finite rectangular differences. Only translations and finite additions are used, with no infinite series or higher directional chain rule.",
+          "formula_tex": "D_i\\bigl(\\delta_{a,j}f\\bigr)(z)=\\delta_{a,j}(D_i f)(z).",
+          "justification": "",
+          "lean_refs": [
+            {
+              "declaration": "Harsanyi.hasLineDerivatives_translate",
+              "source_path": "lean/HarsanyiLib/Harsanyi/Extensions/DerivativeCutoff.lean",
+              "line": 46,
+              "scope": "actual_derivative_identity_or_mask_adapter",
+              "explanation_md": "This real declaration covers the exact scope stated in the verification report; an association does not independently verify every explanatory sentence."
+            },
+            {
+              "declaration": "Harsanyi.linePartial_translate",
+              "source_path": "lean/HarsanyiLib/Harsanyi/Extensions/DerivativeCutoff.lean",
+              "line": 53,
+              "scope": "actual_derivative_identity_or_mask_adapter",
+              "explanation_md": "This real declaration covers the exact scope stated in the verification report; an association does not independently verify every explanatory sentence."
+            },
+            {
+              "declaration": "Harsanyi.linePartial_sub",
+              "source_path": "lean/HarsanyiLib/Harsanyi/Extensions/DerivativeCutoff.lean",
+              "line": 60,
+              "scope": "actual_derivative_identity_or_mask_adapter",
+              "explanation_md": "This real declaration covers the exact scope stated in the verification report; an association does not independently verify every explanatory sentence."
+            },
+            {
+              "declaration": "Harsanyi.hasLineDerivatives_rectDifference",
+              "source_path": "lean/HarsanyiLib/Harsanyi/Extensions/DerivativeCutoff.lean",
+              "line": 65,
+              "scope": "actual_derivative_identity_or_mask_adapter",
+              "explanation_md": "This real declaration covers the exact scope stated in the verification report; an association does not independently verify every explanatory sentence."
+            },
+            {
+              "declaration": "Harsanyi.linePartial_rectDifference",
+              "source_path": "lean/HarsanyiLib/Harsanyi/Extensions/DerivativeCutoff.lean",
+              "line": 76,
+              "scope": "actual_derivative_identity_or_mask_adapter",
+              "explanation_md": "This real declaration covers the exact scope stated in the verification report; an association does not independently verify every explanatory sentence."
+            }
+          ]
+        },
+        {
+          "id": "cutoff-mvt-induction",
+          "title": "Zero mixed partials imply zero rectangular differences",
+          "body_md": "Induct on the direction-list length q, allowing arbitrary directions and real steps. For the empty list, both the difference and the order-zero partial are f, and its assumed zero value proves the claim. For a nonempty list, let R denote the remaining differences. The prefix-existence premise applies the induction hypothesis to $D_{i_1}f$, giving $R(D_{i_1}f)=0$. Commutation then gives $D_{i_1}(Rf)=0$. For fixed z, $H(t)=(Rf)(z+t e_{i_1})$ is differentiable on the whole real line with zero derivative. The mean value theorem gives $H(a_{i_1})=H(0)$, so the full rectangular difference is zero. Negative and zero steps require no new restrictions.",
+          "formula_tex": "P_q\\equiv0\\ \\Longrightarrow\\ \\delta_{a_{i_1},i_1}\\cdots\\delta_{a_{i_q},i_q}f\\equiv0.",
+          "justification": "",
+          "lean_refs": [
+            {
+              "declaration": "Harsanyi.deriv_line_eq",
+              "source_path": "lean/HarsanyiLib/Harsanyi/Extensions/DerivativeCutoff.lean",
+              "line": 36,
+              "scope": "actual_derivative_identity_or_mask_adapter",
+              "explanation_md": "This real declaration covers the exact scope stated in the verification report; an association does not independently verify every explanatory sentence."
+            },
+            {
+              "declaration": "Harsanyi.rectDifference_zero_of_orderedPartial_zero",
+              "source_path": "lean/HarsanyiLib/Harsanyi/Extensions/DerivativeCutoff.lean",
+              "line": 91,
+              "scope": "actual_derivative_identity_or_mask_adapter",
+              "explanation_md": "This real declaration covers the exact scope stated in the verification report; an association does not independently verify every explanatory sentence."
+            }
+          ]
+        },
+        {
+          "id": "cutoff-mask-bridge",
+          "title": "Bridge from rectangular differences to actual coordinate masks",
+          "body_md": "List the distinct coordinates of S, take steps $a_i=x_i-r_i$, and start at r. Induct on that list. The empty difference is $v(r)=g(\\varnothing)$. Adding a previously absent coordinate splits the rectangle into its translated and untranslated parts. On every remaining subset U, the translated vector is exactly the mask for $U\\cup\\{i\\}$ and the untranslated vector is the mask for U. Subtracting the alternating sums is the insertion identity for $I_g(S)$. This bridge holds for an arbitrary model v; no polynomial representation is assumed.",
+          "formula_tex": "\\left(\\prod_{i\\in S}\\delta_{x_i-r_i,i}\\right)v(r)=\\sum_{U\\subseteq S}(-1)^{|S|-|U|}v(x_U)=I_g(S).",
+          "justification": "",
+          "lean_refs": [
+            {
+              "declaration": "Harsanyi.incrementCoordinates_insert",
+              "source_path": "lean/HarsanyiLib/Harsanyi/Extensions/DerivativeCutoff.lean",
+              "line": 144,
+              "scope": "actual_derivative_identity_or_mask_adapter",
+              "explanation_md": "This real declaration covers the exact scope stated in the verification report; an association does not independently verify every explanatory sentence."
+            },
+            {
+              "declaration": "Harsanyi.rectDifference_coordinate_eq_interaction",
+              "source_path": "lean/HarsanyiLib/Harsanyi/Extensions/DerivativeCutoff.lean",
+              "line": 155,
+              "scope": "actual_derivative_identity_or_mask_adapter",
+              "explanation_md": "This real declaration covers the exact scope stated in the verification report; an association does not independently verify every explanatory sentence."
+            },
+            {
+              "declaration": "Harsanyi.incrementCoordinates_baseline",
+              "source_path": "lean/HarsanyiLib/Harsanyi/Extensions/DerivativeCutoff.lean",
+              "line": 180,
+              "scope": "actual_derivative_identity_or_mask_adapter",
+              "explanation_md": "This real declaration covers the exact scope stated in the verification report; an association does not independently verify every explanatory sentence."
+            }
+          ]
+        },
+        {
+          "id": "cutoff-apply-beta",
+          "title": "Apply the original high-order multiindex condition",
+          "body_md": "If $|S|\\ge M+1$, list S in ascending order. The selected multiindex is 1 on S and 0 elsewhere, with total degree |S|>M. The original global 1-β supplies its classical derivative existence and zero value. The analytic lemma makes its rectangular difference zero, and the mask bridge gives $I_g(S)=0$. The step sizes only affect the difference, not derivative existence or its zero premise, so x and r are arbitrary.",
+          "formula_tex": "\\kappa_i=\\mathbf1_{i\\in S},\\qquad |\\kappa|=|S|>M\\ \\Longrightarrow\\ I_g(S)=0.",
+          "justification": "",
+          "lean_refs": [
+            {
+              "declaration": "Harsanyi.coordinate_multiIndex_finset",
+              "source_path": "lean/HarsanyiLib/Harsanyi/Extensions/DerivativeCutoff.lean",
+              "line": 247,
+              "scope": "actual_derivative_identity_or_mask_adapter",
+              "explanation_md": "This real declaration covers the exact scope stated in the verification report; an association does not independently verify every explanatory sentence."
+            },
+            {
+              "declaration": "Harsanyi.orderedPartial_coordinate_amplitudes",
+              "source_path": "lean/HarsanyiLib/Harsanyi/Extensions/DerivativeCutoff.lean",
+              "line": 186,
+              "scope": "actual_derivative_identity_or_mask_adapter",
+              "explanation_md": "This real declaration covers the exact scope stated in the verification report; an association does not independently verify every explanatory sentence."
+            },
+            {
+              "declaration": "Harsanyi.orderedPartialRegular_coordinate_amplitudes",
+              "source_path": "lean/HarsanyiLib/Harsanyi/Extensions/DerivativeCutoff.lean",
+              "line": 196,
+              "scope": "actual_derivative_identity_or_mask_adapter",
+              "explanation_md": "This real declaration covers the exact scope stated in the verification report; an association does not independently verify every explanatory sentence."
+            },
+            {
+              "declaration": "Harsanyi.interaction_zero_of_classicalMixedDerivativeCutoff",
+              "source_path": "lean/HarsanyiLib/Harsanyi/Extensions/DerivativeCutoff.lean",
+              "line": 285,
+              "scope": "actual_derivative_identity_or_mask_adapter",
+              "explanation_md": "This real declaration covers the exact scope stated in the verification report; an association does not independently verify every explanatory sentence."
+            }
+          ]
+        },
+        {
+          "id": "cutoff-centered-source",
+          "title": "Recover the original centered interaction and scope",
+          "body_md": "Since |S|>M≥0, S is nonempty. Subtracting the constant baseline changes only the empty interaction, hence $I_{g_0}(S)=I_g(S)=0$, proving 1-α. Appendix B.2 uses Lemma 1’s infinite Taylor argument; this repair uses the original global 1-β in a finite-difference argument. The separate validity issue of a general Taylor-formula reading remains separate. A given valid Taylor representation gives another conditional grouping argument, whose proposition is not modified here.",
+          "formula_tex": "|S|\\ge M+1\\ \\Longrightarrow\\ I(S)=I_{g_0}(S)=I_g(S)=0.",
+          "justification": "",
+          "lean_refs": [
+            {
+              "declaration": "Harsanyi.centered_interaction_zero_of_classicalMixedDerivativeCutoff",
+              "source_path": "lean/HarsanyiLib/Harsanyi/Extensions/DerivativeCutoff.lean",
+              "line": 292,
+              "scope": "actual_derivative_identity_or_mask_adapter",
+              "explanation_md": "This real declaration covers the exact scope stated in the verification report; an association does not independently verify every explanatory sentence."
+            },
+            {
+              "declaration": "FullSparseDerivative.assumption1beta_implies1alpha",
+              "source_path": "research/full-proof-integration-20260930/cvpr2023/lean/SparseDerivativeAdapter.lean",
+              "line": 9,
+              "scope": "actual_derivative_identity_or_mask_adapter",
+              "explanation_md": "This real declaration covers the exact scope stated in the verification report; an association does not independently verify every explanatory sentence."
+            }
+          ]
+        },
+        {
+          "id": "cutoff-example",
+          "title": "A two-variable example with a nonzero output baseline",
+          "body_md": "For $v(z_1,z_2)=5+2z_1-3z_2$ and M=1, all classical mixed partials of total order at least 2 vanish. For arbitrary x,r, the centered singleton interactions are $2(x_1-r_1)$ and $-3(x_2-r_2)$, and the pair interaction is zero. The output baseline $5+2r_1-3r_2$ need not vanish; its centered empty interaction is zero and the cutoff is unchanged.",
+          "formula_tex": "",
+          "justification": "",
+          "lean_refs": []
+        }
+      ],
+      "original_statement_note": "The official source statement is preserved. Project translations and mathematical transcriptions are distinguished from the PDF layout.",
+      "original_proof_note": "The complete original mathematical proof remains linked to the official source. Its errors are explicitly recorded; the project rewriting does not silently change the proposition.",
+      "notation_map": [
+        {
+          "source": "u(S)",
+          "canonical": "g0(S)",
+          "meaning": "The paper uses this symbol in the centered masked-game convention. Its exact definition and source scope are recorded in the linked canonical symbol entry."
+        },
+        {
+          "source": "b",
+          "canonical": "r",
+          "meaning": "Input baseline vector, distinct from the scalar output baseline."
+        }
+      ]
+    },
+    "iclr2024-sparse-assumption2": {
+      "title": "Monotonicity of the mean output by mask size",
+      "overview": "Monotonicity of layer averages is distinct from pointwise monotonicity of every nested mask pair.",
+      "assumptions": [],
+      "definitions": [
+        "model-output",
+        "fixed-input",
+        "input-baseline-vector",
+        "variable-universe",
+        "coalition",
+        "masked-input",
+        "masked-game",
+        "output-baseline",
+        "centered-game",
+        "interaction-centered",
+        "mask-order",
+        "mean-output"
+      ],
+      "completion_scope": "continuing precise mathematical target",
+      "proof_scope": "continuing precise mathematical target",
+      "proof_steps": [],
+      "original_statement_note": "The official source statement is preserved. Project translations and mathematical transcriptions are distinguished from the PDF layout.",
+      "original_proof_note": "The complete original mathematical proof remains linked to the official source. Its errors are explicitly recorded; the project rewriting does not silently change the proposition.",
+      "notation_map": [
+        {
+          "source": "u(S)",
+          "canonical": "g0(S)",
+          "meaning": "The paper uses this symbol in the centered masked-game convention. Its exact definition and source scope are recorded in the linked canonical symbol entry."
+        },
+        {
+          "source": "b",
+          "canonical": "r",
+          "meaning": "Input baseline vector, distinct from the scalar output baseline."
+        }
+      ]
+    },
+    "iclr2024-sparse-assumption3": {
+      "title": "Polynomial lower bound for mean outputs",
+      "overview": "$p>0$. The m=0 quotient is undefined 0/0; the main argument uses m≥1. This boundary is recorded without changing quantifiers.",
+      "assumptions": [],
+      "definitions": [
+        "model-output",
+        "fixed-input",
+        "input-baseline-vector",
+        "variable-universe",
+        "coalition",
+        "masked-input",
+        "masked-game",
+        "output-baseline",
+        "centered-game",
+        "interaction-centered",
+        "mask-order",
+        "mean-output",
+        "robustness-exponent"
+      ],
+      "completion_scope": "continuing precise mathematical target",
+      "proof_scope": "continuing precise mathematical target",
+      "proof_steps": [],
+      "original_statement_note": "The official source statement is preserved. Project translations and mathematical transcriptions are distinguished from the PDF layout.",
+      "original_proof_note": "The complete original mathematical proof remains linked to the official source. Its errors are explicitly recorded; the project rewriting does not silently change the proposition.",
+      "notation_map": [
+        {
+          "source": "u(S)",
+          "canonical": "g0(S)",
+          "meaning": "The paper uses this symbol in the centered masked-game convention. Its exact definition and source scope are recorded in the linked canonical symbol entry."
+        },
+        {
+          "source": "b",
+          "canonical": "r",
+          "meaning": "Input baseline vector, distinct from the scalar output baseline."
+        }
+      ]
+    },
+    "iclr2024-sparse-order-statistics": {
+      "title": "Order totals, cancellation ratios, and salient counts",
+      "overview": "η divides by the absolute interaction strength. Zero total strength and zero η require separate treatment in any division argument.",
+      "assumptions": [],
+      "definitions": [
+        "model-output",
+        "fixed-input",
+        "input-baseline-vector",
+        "variable-universe",
+        "coalition",
+        "masked-input",
+        "masked-game",
+        "output-baseline",
+        "centered-game",
+        "interaction-centered",
+        "interaction-order-index",
+        "order-total",
+        "cancellation-ratio",
+        "salient-count",
+        "salience-threshold"
+      ],
+      "completion_scope": "continuing precise mathematical target",
+      "proof_scope": "continuing precise mathematical target",
+      "proof_steps": [],
+      "original_statement_note": "The official source statement is preserved. Project translations and mathematical transcriptions are distinguished from the PDF layout.",
+      "original_proof_note": "The complete original mathematical proof remains linked to the official source. Its errors are explicitly recorded; the project rewriting does not silently change the proposition.",
+      "notation_map": [
+        {
+          "source": "u(S)",
+          "canonical": "g0(S)",
+          "meaning": "The paper uses this symbol in the centered masked-game convention. Its exact definition and source scope are recorded in the linked canonical symbol entry."
+        },
+        {
+          "source": "b",
+          "canonical": "r",
+          "meaning": "Input baseline vector, distinct from the scalar output baseline."
+        }
+      ]
+    },
+    "iclr2024-sparse-lemma2": {
+      "title": "Combinatorial formula for mean masked outputs",
+      "overview": "Reconstruct each mask, count its containing supersets by a bijection, normalize by positive binomial coefficients, and apply the original cutoff.",
+      "assumptions": [
+        "Finite universe with n=|N|",
+        "The original centered convention $I(\\varnothing)=0$",
+        "Assumption 1-α",
+        "$M\\le m\\le n$"
+      ],
+      "definitions": [
+        "model-output",
+        "fixed-input",
+        "input-baseline-vector",
+        "variable-universe",
+        "coalition",
+        "masked-input",
+        "masked-game",
+        "output-baseline",
+        "centered-game",
+        "interaction-centered",
+        "variable-count",
+        "interaction-order",
+        "cutoff-order",
+        "mask-order",
+        "interaction-order-index",
+        "mean-output",
+        "order-total"
+      ],
+      "completion_scope": "entire source target",
+      "proof_scope": "entire source target",
+      "proof_steps": [
+        {
+          "id": "iclr2024-sparse-lemma2-step-1",
+          "title": "Definitions and original target",
+          "body_md": "Let $A^{(k)}=\\sum_{|T|=k}I(T)$ and n=|N|. Under 1-α, for $M\\le m\\le n$ the claim is\n$\\bar g_0^{(m)}=\\binom nm^{-1}\\sum_{|S|=m}g_0(S)=\\sum_{k=1}^M[\\binom mk/\\binom nk]A^{(k)}$.",
+          "formula_tex": "\\forall M\\le m\\le n,\\quad\\bar g_0^{(m)}=\\sum_{k=1}^M\\frac{\\binom mk}{\\binom nk}A^{(k)}.",
+          "justification": "The original premises, explicit finite-index arguments, and complete shared proofs are retained. Repairs change proof steps only.",
+          "lean_refs": [
+            {
+              "declaration": "FullSparse.lemma2",
+              "source_path": "research/full-proof-integration-20260930/iclr2024-sparse/lean/FullSparse.lean",
+              "line": 19,
+              "scope": "actual_proved_statement_or_internal_proof_dependency",
+              "report_path": "research/full-proof-integration-20260930/iclr2024-sparse/verification/report.json",
+              "explanation_md": "This real declaration covers the exact scope stated in the verification report; an association does not independently verify every explanatory sentence."
+            },
+            {
+              "declaration": "Harsanyi.Sparsity.mean_centered_cutoff",
+              "source_path": "lean/HarsanyiLib/Harsanyi/Extensions/Sparsity.lean",
+              "line": 235,
+              "scope": "actual_proved_statement_or_internal_proof_dependency",
+              "report_path": "research/full-proof-integration-20260930/iclr2024-sparse/verification/report.json",
+              "explanation_md": "This real declaration covers the exact scope stated in the verification report; an association does not independently verify every explanatory sentence."
+            }
+          ]
+        },
+        {
+          "id": "iclr2024-sparse-lemma2-step-2",
+          "title": "Reconstruction and grouping by order",
+          "body_md": "Use reconstruction on every m-element mask. The empty interaction is zero. Group the remaining terms by order to get $\\sum_{|S|=m}g_0(S)=\\sum_{k=1}^m\\sum_{|S|=m}\\sum_{T\\subseteq S,|T|=k}I(T)$.",
+          "formula_tex": "",
+          "justification": "The original premises, explicit finite-index arguments, and complete shared proofs are retained. Repairs change proof steps only.",
+          "lean_refs": [
+            {
+              "declaration": "Harsanyi.Sparsity.layer_sum_reconstruct",
+              "source_path": "lean/HarsanyiLib/Harsanyi/Extensions/Sparsity.lean",
+              "line": 195,
+              "scope": "actual_proved_statement_or_internal_proof_dependency",
+              "report_path": "research/full-proof-integration-20260930/iclr2024-sparse/verification/report.json",
+              "explanation_md": "This real declaration covers the exact scope stated in the verification report; an association does not independently verify every explanatory sentence."
+            }
+          ]
+        },
+        {
+          "id": "iclr2024-sparse-lemma2-step-3",
+          "title": "Bijection for masks containing a fixed interaction",
+          "body_md": "For fixed k-element T, m-element supersets S correspond bijectively to (m-k)-element subsets U of N\\T via S=T∪U. Therefore I(T) occurs $\\binom{n-k}{m-k}$ times. Exchanging finite sums gives $\\sum_{|S|=m}\\sum_{T\\subseteq S,|T|=k}I(T)=\\binom{n-k}{m-k}A^{(k)}$.",
+          "formula_tex": "",
+          "justification": "The original premises, explicit finite-index arguments, and complete shared proofs are retained. Repairs change proof steps only.",
+          "lean_refs": [
+            {
+              "declaration": "Harsanyi.Sparsity.card_supermasks",
+              "source_path": "lean/HarsanyiLib/Harsanyi/Extensions/Sparsity.lean",
+              "line": 129,
+              "scope": "actual_proved_statement_or_internal_proof_dependency",
+              "report_path": "research/full-proof-integration-20260930/iclr2024-sparse/verification/report.json",
+              "explanation_md": "This real declaration covers the exact scope stated in the verification report; an association does not independently verify every explanatory sentence."
+            },
+            {
+              "declaration": "Harsanyi.Sparsity.subset_layer_sum",
+              "source_path": "lean/HarsanyiLib/Harsanyi/Extensions/Sparsity.lean",
+              "line": 166,
+              "scope": "actual_proved_statement_or_internal_proof_dependency",
+              "report_path": "research/full-proof-integration-20260930/iclr2024-sparse/verification/report.json",
+              "explanation_md": "This real declaration covers the exact scope stated in the verification report; an association does not independently verify every explanatory sentence."
+            }
+          ]
+        },
+        {
+          "id": "iclr2024-sparse-lemma2-step-4",
+          "title": "The binomial ratio",
+          "body_md": "For $k\\le m\\le n$, both binomial denominators are positive. The identity $\\binom nm\\binom mk=\\binom nk\\binom{n-k}{m-k}$ gives $\\binom{n-k}{m-k}/\\binom nm=\\binom mk/\\binom nk$.",
+          "formula_tex": "",
+          "justification": "The original premises, explicit finite-index arguments, and complete shared proofs are retained. Repairs change proof steps only.",
+          "lean_refs": [
+            {
+              "declaration": "Harsanyi.Sparsity.choose_ratio",
+              "source_path": "lean/HarsanyiLib/Harsanyi/Extensions/Sparsity.lean",
+              "line": 210,
+              "scope": "actual_proved_statement_or_internal_proof_dependency",
+              "report_path": "research/full-proof-integration-20260930/iclr2024-sparse/verification/report.json",
+              "explanation_md": "This real declaration covers the exact scope stated in the verification report; an association does not independently verify every explanatory sentence."
+            }
+          ]
+        },
+        {
+          "id": "iclr2024-sparse-lemma2-step-5",
+          "title": "Centering and order cutoff",
+          "body_md": "Divide by $\\binom nm$ to obtain the formula through order m. The original cutoff makes each $k>M$ interaction and its order total zero, leaving the sum through M. For $m<M$ the same count works with $\\binom mk=0$ when $k>m$; this supplies the range needed by Theorem 2 without changing this lemma’s stated quantifiers. At m=0 the centered mean is zero.",
+          "formula_tex": "",
+          "justification": "The original premises, explicit finite-index arguments, and complete shared proofs are retained. Repairs change proof steps only.",
+          "lean_refs": [
+            {
+              "declaration": "Harsanyi.Sparsity.mean_centered_cutoff",
+              "source_path": "lean/HarsanyiLib/Harsanyi/Extensions/Sparsity.lean",
+              "line": 235,
+              "scope": "actual_proved_statement_or_internal_proof_dependency",
+              "report_path": "research/full-proof-integration-20260930/iclr2024-sparse/verification/report.json",
+              "explanation_md": "This real declaration covers the exact scope stated in the verification report; an association does not independently verify every explanatory sentence."
+            },
+            {
+              "declaration": "FullSparse.lemma2",
+              "source_path": "research/full-proof-integration-20260930/iclr2024-sparse/lean/FullSparse.lean",
+              "line": 19,
+              "scope": "actual_proved_statement_or_internal_proof_dependency",
+              "report_path": "research/full-proof-integration-20260930/iclr2024-sparse/verification/report.json",
+              "explanation_md": "This real declaration covers the exact scope stated in the verification report; an association does not independently verify every explanatory sentence."
+            }
+          ]
+        },
+        {
+          "id": "iclr2024-sparse-lemma2-step-6",
+          "title": "Boundary and three-variable check",
+          "body_md": "For $n=3,M=2$ the layer means are $A^{(1)}/3$, $2A^{(1)}/3+A^{(2)}/3$, and $A^{(1)}+A^{(2)}$. These are checks of the general claim. `Harsanyi.Sparsity.mean_centered_cutoff` proves the superset bijection, finite reindexing, binomial ratio, and centered cutoff.",
+          "formula_tex": "",
+          "justification": "The original premises, explicit finite-index arguments, and complete shared proofs are retained. Repairs change proof steps only.",
+          "lean_refs": []
+        }
+      ],
+      "original_statement_note": "The official source statement is preserved. Project translations and mathematical transcriptions are distinguished from the PDF layout.",
+      "original_proof_note": "The complete original mathematical proof remains linked to the official source. Its errors are explicitly recorded; the project rewriting does not silently change the proposition.",
+      "notation_map": [
+        {
+          "source": "u(S)",
+          "canonical": "g0(S)",
+          "meaning": "The paper uses this symbol in the centered masked-game convention. Its exact definition and source scope are recorded in the linked canonical symbol entry."
+        },
+        {
+          "source": "b",
+          "canonical": "r",
+          "meaning": "Input baseline vector, distinct from the scalar output baseline."
+        }
+      ]
+    },
+    "iclr2024-sparse-lemma3": {
+      "title": "Full column rank of the consecutive-binomial matrix",
+      "overview": "Repair the determinant sign; an independent finite-difference induction proves the full kernel statement.",
+      "assumptions": [
+        "Positive integers n and M with $M<n$",
+        "All M+1 row equations"
+      ],
+      "definitions": [
+        "variable-count",
+        "cutoff-order",
+        "mask-order",
+        "interaction-order-index"
+      ],
+      "completion_scope": "entire source target",
+      "proof_scope": "entire source target",
+      "proof_steps": [
+        {
+          "id": "iclr2024-sparse-lemma3-step-1",
+          "title": "Definitions and original target",
+          "body_md": "For 1≤$M<n$, if $\\sum_{k=1}^M[\\binom{n-j}k/\\binom nk]w_k=0$ for every j=0,…,M, then every w_k vanishes. The author’s determinant is nonzero, but Eqs. (35)–(36) omit its sign. In the displayed decreasing row order the correct value is $(-1)^{M(M-1)/2}/\\prod_{k=1}^M\\binom nk$.",
+          "formula_tex": "\\forall n,M\\in\\mathbb N^+,\\ M<n:\\quad\\left[\\forall m\\in\\{n,\\ldots,n-M\\},\\ \\sum_{k=1}^M\\frac{\\binom mk}{\\binom nk}w_k=0\\right]\\Rightarrow\\forall1\\le k\\le M,\\ w_k=0.",
+          "justification": "The original premises, explicit finite-index arguments, and complete shared proofs are retained. Repairs change proof steps only.",
+          "lean_refs": [
+            {
+              "declaration": "Harsanyi.Sparsity.binomial_matrix_kernel",
+              "source_path": "lean/HarsanyiLib/Harsanyi/Extensions/Sparsity.lean",
+              "line": 61,
+              "scope": "actual_proved_statement_or_internal_proof_dependency",
+              "report_path": "research/full-proof-integration-20260930/iclr2024-sparse/verification/report.json",
+              "explanation_md": "This real declaration covers the exact scope stated in the verification report; an association does not independently verify every explanatory sentence."
+            }
+          ]
+        },
+        {
+          "id": "iclr2024-sparse-lemma3-step-2",
+          "title": "Repair the determinant sign",
+          "body_md": "Expand the first column in Eq. (32). Its only nonzero entry is in the last row, giving cofactor sign $(-1)^{M+1}$. Repeating in one lower dimension gives the next factor $(-1)^M$, continuing to order 1 and producing the sign above. Every binomial denominator is positive, so the corrected determinant still establishes rank.",
+          "formula_tex": "",
+          "justification": "The original premises, explicit finite-index arguments, and complete shared proofs are retained. Repairs change proof steps only.",
+          "lean_refs": []
+        },
+        {
+          "id": "iclr2024-sparse-lemma3-step-3",
+          "title": "Complete finite-difference induction",
+          "body_md": "Lean uses finite differences instead of a determinant. Prove: if $M\\le n$ and $\\sum_{k=0}^M\\binom{n-j}k a_k=0$ for j=0,…,M, all a_k vanish. Induct on M. At $M=0$ the equation is a₀=0. Subtract adjacent rows and use $\\binom{n-j}{k+1}-\\binom{n-j-1}{k+1}=\\binom{n-j-1}k$. This gives the degree-M−1 system for shifted coefficients a_{k+1} and n−1. The induction hypothesis quantifies over arbitrary coefficient functions and n, so it yields a₁,…,a_$M=0$. Substitute into the first row to obtain a₀=0. Finally take a₀=0 and $a_k=w_k/\\binom nk$; positive denominators recover w_k=0. `Harsanyi.Sparsity.binomial_matrix_kernel` proves the general statement, not a few fixed matrices.",
+          "formula_tex": "",
+          "justification": "The original premises, explicit finite-index arguments, and complete shared proofs are retained. Repairs change proof steps only.",
+          "lean_refs": [
+            {
+              "declaration": "Harsanyi.Sparsity.choose_coefficients_zero",
+              "source_path": "lean/HarsanyiLib/Harsanyi/Extensions/Sparsity.lean",
+              "line": 9,
+              "scope": "actual_proved_statement_or_internal_proof_dependency",
+              "report_path": "research/full-proof-integration-20260930/iclr2024-sparse/verification/report.json",
+              "explanation_md": "This real declaration covers the exact scope stated in the verification report; an association does not independently verify every explanatory sentence."
+            },
+            {
+              "declaration": "Harsanyi.Sparsity.binomial_matrix_kernel",
+              "source_path": "lean/HarsanyiLib/Harsanyi/Extensions/Sparsity.lean",
+              "line": 61,
+              "scope": "actual_proved_statement_or_internal_proof_dependency",
+              "report_path": "research/full-proof-integration-20260930/iclr2024-sparse/verification/report.json",
+              "explanation_md": "This real declaration covers the exact scope stated in the verification report; an association does not independently verify every explanatory sentence."
+            }
+          ]
+        }
+      ],
+      "original_statement_note": "The official source statement is preserved. Project translations and mathematical transcriptions are distinguished from the PDF layout.",
+      "original_proof_note": "The complete original mathematical proof remains linked to the official source. Its errors are explicitly recorded; the project rewriting does not silently change the proposition.",
+      "notation_map": [
+        {
+          "source": "u(S)",
+          "canonical": "g0(S)",
+          "meaning": "The paper uses this symbol in the centered masked-game convention. Its exact definition and source scope are recorded in the linked canonical symbol entry."
+        },
+        {
+          "source": "b",
+          "canonical": "r",
+          "meaning": "Input baseline vector, distinct from the scalar output baseline."
+        }
+      ]
+    },
+    "iclr2024-sparse-theorem2": {
+      "title": "Base-n representation of order totals and the δ bound",
+      "overview": "Construct witnesses without assuming a nonzero first mean. Set every low-order digit to zero, preserving the original existence equations and bounds.",
+      "assumptions": [
+        "Assumptions 1-α, 2, and 3",
+        "$p>0$; the original logarithm/binomial domain $n>1$ and $M\\le n$",
+        "The original $M=0$ gap is separately listed; the positive-order construction includes $M=n$ and does not inherit Lemma 3’s $M<n$ restriction",
+        "The all-zero low-digit witness includes empty finite index families"
+      ],
+      "definitions": [
+        "model-output",
+        "fixed-input",
+        "input-baseline-vector",
+        "variable-universe",
+        "coalition",
+        "masked-input",
+        "masked-game",
+        "output-baseline",
+        "centered-game",
+        "interaction-centered",
+        "variable-count",
+        "interaction-order",
+        "cutoff-order",
+        "mask-order",
+        "interaction-order-index",
+        "mean-output",
+        "order-total",
+        "robustness-exponent",
+        "leading-coefficient",
+        "leading-aggregate",
+        "growth-offset",
+        "nary-digit",
+        "nary-aggregate",
+        "witness-order",
+        "normalized-interaction",
+        "nary-degree"
+      ],
+      "completion_scope": "all original coefficient constraints and both sign implications in positive-order defined domain $n>1$, $1\\le M\\le n$, including $M=n$; source $M=0$ reading issue remains; finite low-family J arbitrary, all-zero witness covers $p<1$",
+      "proof_scope": "all original coefficient constraints and both sign implications in positive-order defined domain $n>1$, $1\\le M\\le n$, including $M=n$; source $M=0$ reading issue remains; finite low-family J arbitrary, all-zero witness covers $p<1$",
+      "proof_steps": [
+        {
+          "id": "iclr2024-sparse-theorem2-step-1",
+          "title": "Definitions and original target",
+          "body_md": "Keep the source coefficient equality, $|\\lambda^{(k)}|\\le1$, digit bounds, witness $m_0$, and the $\\delta$ bounds for positive and negative $\\lambda$. The ellipsis for $0<p<1$ is recorded separately. The construction sets every low-order coefficient to zero, avoiding the author’s digit algorithm, the family $G$, and witness $k^*$.",
+          "formula_tex": "\\exists m_0\\in\\{n,\\ldots,n-M\\},\\quad A^{(k)}=(\\lambda^{(k)}n^{p+\\delta}+a_{\\lfloor p\\rfloor-1}^{(k)}n^{\\lfloor p\\rfloor-1}+\\cdots+a_1^{(k)}n+a_0^{(k)})\\bar g_0^{(1)}\\quad(1\\le k\\le M),",
+          "justification": "The original premises, explicit finite-index arguments, and complete shared proofs are retained. Repairs change proof steps only.",
+          "lean_refs": [
+            {
+              "declaration": "FullSparse.theorem2",
+              "source_path": "research/full-proof-integration-20260930/iclr2024-sparse/lean/FullSparse.lean",
+              "line": 30,
+              "scope": "actual_proved_statement_or_internal_proof_dependency",
+              "report_path": "research/full-proof-integration-20260930/iclr2024-sparse/verification/report.json",
+              "explanation_md": "This real declaration covers the exact scope stated in the verification report; an association does not independently verify every explanatory sentence."
+            },
+            {
+              "declaration": "Harsanyi.Sparsity.sparse_original_coefficient_witness",
+              "source_path": "lean/HarsanyiLib/Harsanyi/Extensions/Sparsity.lean",
+              "line": 519,
+              "scope": "actual_proved_statement_or_internal_proof_dependency",
+              "report_path": "research/full-proof-integration-20260930/iclr2024-sparse/verification/report.json",
+              "explanation_md": "This real declaration covers the exact scope stated in the verification report; an association does not independently verify every explanatory sentence."
+            },
+            {
+              "declaration": "Harsanyi.Sparsity.sparse_coefficient_existence",
+              "source_path": "lean/HarsanyiLib/Harsanyi/Extensions/Sparsity.lean",
+              "line": 425,
+              "scope": "actual_proved_statement_or_internal_proof_dependency",
+              "report_path": "research/full-proof-integration-20260930/iclr2024-sparse/verification/report.json",
+              "explanation_md": "This real declaration covers the exact scope stated in the verification report; an association does not independently verify every explanatory sentence."
+            },
+            {
+              "declaration": "Harsanyi.Sparsity.coefficient_normalization",
+              "source_path": "lean/HarsanyiLib/Harsanyi/Extensions/Sparsity.lean",
+              "line": 357,
+              "scope": "actual_proved_statement_or_internal_proof_dependency",
+              "report_path": "research/full-proof-integration-20260930/iclr2024-sparse/verification/report.json",
+              "explanation_md": "This real declaration covers the exact scope stated in the verification report; an association does not independently verify every explanatory sentence."
+            }
+          ]
+        },
+        {
+          "id": "iclr2024-sparse-theorem2-step-2",
+          "title": "Bounds from the original mean assumptions",
+          "body_md": "Write $\\mu_m=\\bar g_0^{(m)}$. Original monotonicity gives $0\\le\\mu_1\\le\\mu_n$. Assumption 3 at $m'=1$ gives $\\mu_n\\le n^p\\mu_1$. Split into positive-mean and zero-mean cases.",
+          "formula_tex": "",
+          "justification": "The original premises, explicit finite-index arguments, and complete shared proofs are retained. Repairs change proof steps only.",
+          "lean_refs": [
+            {
+              "declaration": "Harsanyi.Sparsity.sparse_coefficient_existence",
+              "source_path": "lean/HarsanyiLib/Harsanyi/Extensions/Sparsity.lean",
+              "line": 425,
+              "scope": "actual_proved_statement_or_internal_proof_dependency",
+              "report_path": "research/full-proof-integration-20260930/iclr2024-sparse/verification/report.json",
+              "explanation_md": "This real declaration covers the exact scope stated in the verification report; an association does not independently verify every explanatory sentence."
+            }
+          ]
+        },
+        {
+          "id": "iclr2024-sparse-theorem2-step-3",
+          "title": "Positive-mean normalization and logarithmic bound",
+          "body_md": "When $\\mu_1>0$ set $C=1+\\sum_{k=1}^M|A^{(k)}/\\mu_1|>0$, $\\delta=\\log_n C-p$, $\\lambda^{(k)}=A^{(k)}/(\\mu_1 C)$, and all digits zero. In the original logarithm/binomial domain $n>1$ and $1\\le M\\le n$, including $M=n$, one has $n^{p+\\delta}=C$, $|\\lambda^{(k)}|\\le1$, and $A^{(k)}=\\lambda^{(k)}n^{p+\\delta}\\mu_1$. Take $m_0=n$, so the binomial ratios are 1. Cutoff reconstruction gives $\\lambda=\\sum_k\\lambda^{(k)}=\\mu_n/(\\mu_1 C)>0$ and all aggregated digits zero. Hence $\\lambda C=\\mu_n/\\mu_1\\le n^p$. Monotonicity of log to base $n>1$ gives $\\delta\\le\\log_n(1/\\lambda)$, the original positive branch. This witness has positive $\\lambda$, so the negative conditional branch is not triggered.",
+          "formula_tex": "",
+          "justification": "The original premises, explicit finite-index arguments, and complete shared proofs are retained. Repairs change proof steps only.",
+          "lean_refs": [
+            {
+              "declaration": "Harsanyi.Sparsity.coefficient_normalization",
+              "source_path": "lean/HarsanyiLib/Harsanyi/Extensions/Sparsity.lean",
+              "line": 357,
+              "scope": "actual_proved_statement_or_internal_proof_dependency",
+              "report_path": "research/full-proof-integration-20260930/iclr2024-sparse/verification/report.json",
+              "explanation_md": "This real declaration covers the exact scope stated in the verification report; an association does not independently verify every explanatory sentence."
+            }
+          ]
+        },
+        {
+          "id": "iclr2024-sparse-theorem2-step-4",
+          "title": "Zero means force every order total to vanish",
+          "body_md": "If $\\mu_1=0$, the original assumptions give $0\\le\\mu_m\\le m^p\\mu_1=0$ for every $1\\le m\\le n$. Thus every layer mean is zero. Recursively at $m=k$, the counting formula has lower totals already zero and binomial coefficients zero for $k'>k$, leaving $0=A^{(k)}/\\binom nk$. The denominators are positive, so $A^{(k)}=0$, starting at $k=1$. Zero means are not taken to imply zero output at every mask.",
+          "formula_tex": "",
+          "justification": "The original premises, explicit finite-index arguments, and complete shared proofs are retained. Repairs change proof steps only.",
+          "lean_refs": [
+            {
+              "declaration": "Harsanyi.Sparsity.mean_centered_cutoff_all",
+              "source_path": "lean/HarsanyiLib/Harsanyi/Extensions/Sparsity.lean",
+              "line": 268,
+              "scope": "actual_proved_statement_or_internal_proof_dependency",
+              "report_path": "research/full-proof-integration-20260930/iclr2024-sparse/verification/report.json",
+              "explanation_md": "This real declaration covers the exact scope stated in the verification report; an association does not independently verify every explanatory sentence."
+            },
+            {
+              "declaration": "Harsanyi.Sparsity.binomial_coefficients_zero_of_le",
+              "source_path": "lean/HarsanyiLib/Harsanyi/Extensions/Sparsity.lean",
+              "line": 90,
+              "scope": "actual_proved_statement_or_internal_proof_dependency",
+              "report_path": "research/full-proof-integration-20260930/iclr2024-sparse/verification/report.json",
+              "explanation_md": "This real declaration covers the exact scope stated in the verification report; an association does not independently verify every explanatory sentence."
+            }
+          ]
+        },
+        {
+          "id": "iclr2024-sparse-theorem2-step-5",
+          "title": "Witnesses when the first mean is zero",
+          "body_md": "Choose $m_0=n$, $\\lambda^{(1)}=1$, all other $\\lambda^{(k)}=0$, $\\delta=-p$, and every low digit zero. The coefficient equalities have both sides zero; $\\lambda=1$ is nonzero. The $\\delta$ bound becomes $-p\\le0=\\log_n1$, true because $p>0$. This handles the author’s zero division, empty $G$, and low-order witness gaps without adding assumptions.",
+          "formula_tex": "",
+          "justification": "The original premises, explicit finite-index arguments, and complete shared proofs are retained. Repairs change proof steps only.",
+          "lean_refs": [
+            {
+              "declaration": "Harsanyi.Sparsity.coefficient_normalization",
+              "source_path": "lean/HarsanyiLib/Harsanyi/Extensions/Sparsity.lean",
+              "line": 357,
+              "scope": "actual_proved_statement_or_internal_proof_dependency",
+              "report_path": "research/full-proof-integration-20260930/iclr2024-sparse/verification/report.json",
+              "explanation_md": "This real declaration covers the exact scope stated in the verification report; an association does not independently verify every explanatory sentence."
+            }
+          ]
+        },
+        {
+          "id": "iclr2024-sparse-theorem2-step-6",
+          "title": "Low-digit indices and all source constraints",
+          "body_md": "Represent low digits as the finite index family $J=\\{i\\in\\mathbb N:i<\\lfloor p\\rfloor\\}$. It is empty when $p<1$. If the printed constant digit is retained separately, $a_0^{(k)}=0$ also satisfies it. The witness works for any finite digit family because every digit is zero. No $p\\ge1$ restriction is added and no existence equality is changed. `sparse_original_coefficient_witness` proves the full witness; `FullSparse.theorem2` supplies the actual masked-model adapter. The parameter domain and $M=0$ gap remain disclosed.",
+          "formula_tex": "",
+          "justification": "The original premises, explicit finite-index arguments, and complete shared proofs are retained. Repairs change proof steps only.",
+          "lean_refs": [
+            {
+              "declaration": "Harsanyi.Sparsity.sparse_original_coefficient_witness",
+              "source_path": "lean/HarsanyiLib/Harsanyi/Extensions/Sparsity.lean",
+              "line": 519,
+              "scope": "actual_proved_statement_or_internal_proof_dependency",
+              "report_path": "research/full-proof-integration-20260930/iclr2024-sparse/verification/report.json",
+              "explanation_md": "This real declaration covers the exact scope stated in the verification report; an association does not independently verify every explanatory sentence."
+            },
+            {
+              "declaration": "FullSparse.theorem2",
+              "source_path": "research/full-proof-integration-20260930/iclr2024-sparse/lean/FullSparse.lean",
+              "line": 30,
+              "scope": "actual_proved_statement_or_internal_proof_dependency",
+              "report_path": "research/full-proof-integration-20260930/iclr2024-sparse/verification/report.json",
+              "explanation_md": "This real declaration covers the exact scope stated in the verification report; an association does not independently verify every explanatory sentence."
+            }
+          ]
+        }
+      ],
+      "original_statement_note": "The official source statement is preserved. Project translations and mathematical transcriptions are distinguished from the PDF layout.",
+      "original_proof_note": "The complete original mathematical proof remains linked to the official source. Its errors are explicitly recorded; the project rewriting does not silently change the proposition.",
+      "notation_map": [
+        {
+          "source": "u(S)",
+          "canonical": "g0(S)",
+          "meaning": "The paper uses this symbol in the centered masked-game convention. Its exact definition and source scope are recorded in the linked canonical symbol entry."
+        },
+        {
+          "source": "b",
+          "canonical": "r",
+          "meaning": "Input baseline vector, distinct from the scalar output baseline."
+        }
+      ]
+    },
+    "iclr2024-sparse-asymptotic-claim": {
+      "title": "An infinite counterfamily to the Case 2 same-order sparsity inference",
+      "overview": "The original assumptions permit smooth quadratic models with polynomially small cancellation and every pair interaction salient. The exact Theorems 2–3 remain valid.",
+      "assumptions": [],
+      "definitions": [
+        "model-output",
+        "fixed-input",
+        "input-baseline-vector",
+        "variable-universe",
+        "coalition",
+        "masked-input",
+        "masked-game",
+        "output-baseline",
+        "centered-game",
+        "interaction-centered",
+        "interaction-order",
+        "cutoff-order",
+        "mask-order",
+        "interaction-order-index",
+        "mean-output",
+        "order-total",
+        "robustness-exponent",
+        "leading-coefficient",
+        "leading-aggregate",
+        "growth-offset",
+        "nary-digit",
+        "nary-aggregate",
+        "witness-order",
+        "cancellation-ratio",
+        "salience-threshold",
+        "salient-count"
+      ],
+      "completion_scope": "complete infinite-family counterexample under all original three assumptions to p8 Case2 per-order sparsity inference; finite-n BigO scope also explained; original T2/T3 and empirical mostcases not refuted",
+      "proof_scope": "complete infinite-family counterexample under all original three assumptions to p8 Case2 per-order sparsity inference; finite-n BigO scope also explained; original T2/T3 and empirical mostcases not refuted",
+      "proof_steps": [
+        {
+          "id": "iclr2024-sparse-asymptotic-claim-step-1",
+          "title": "Scope of the asymptotic interpretation",
+          "body_md": "The exact count is described asymptotically as O(n^{p+δ}/|τη|), usually far below all possible interactions. Small p, moderate cancellation, and suitable thresholds have empirical support, but n-dependent parameters and δ need not give a uniform asymptotic bound. Keep the “most cases” discussion separate. Page 8 Case 2 also claims that $R^{(k)}$ is much less than choose(n,k) if $|\\eta^{(k)}|$ is not exponentially small, without a large-k premise. The following infinite family refutes that additional inference alone.",
+          "formula_tex": "",
+          "justification": "The original premises, explicit finite-index arguments, and complete shared proofs are retained. Repairs change proof steps only.",
+          "lean_refs": []
+        },
+        {
+          "id": "iclr2024-sparse-asymptotic-claim-step-2",
+          "title": "Infinite parameter family and sign partition",
+          "body_md": "For $n\\ge3$ with $n\\equiv2,3\\pmod4$, let $q=\\binom n2=n(n-1)/2$. It is odd: at $n=4j+2$ it is $(2j+1)(4j+1)$, and at $n=4j+3$ it is $(4j+3)(2j+1)$. In particular $n=4j+3$ is infinite. Partition the q pairs into a positive family P of size $(q-1)/2$ and a negative family Q of size $(q+1)/2$. Such finite subsets exist. Set c_A=1 on P and −1 on Q, so the pair coefficients sum to −1.",
+          "formula_tex": "",
+          "justification": "The original premises, explicit finite-index arguments, and complete shared proofs are retained. Repairs change proof steps only.",
+          "lean_refs": []
+        },
+        {
+          "id": "iclr2024-sparse-asymptotic-claim-step-3",
+          "title": "Actual model and all interaction coefficients",
+          "body_md": "Use $x=(1,\\ldots,1)$, $r=0$, and the smooth quadratic model $v_n(z)=\\sum_i z_i+\\sum_{|A|=2}c_A\\prod_{i\\in A}z_i$. Its output baseline is zero. Pure-AND coefficient distribution and linearity give singleton interactions 1, pair interactions c_A, and all other interactions zero. Thus $A^{(1)}=n$ and $A^{(2)}=-1$. A finite square-activation network realizes the model via $z_i z_j=((z_i+z_j)^2-z_i^2-z_j^2)/2$. No extra “well-trained” predicate is assumed.",
+          "formula_tex": "",
+          "justification": "The original premises, explicit finite-index arguments, and complete shared proofs are retained. Repairs change proof steps only.",
+          "lean_refs": []
+        },
+        {
+          "id": "iclr2024-sparse-asymptotic-claim-step-4",
+          "title": "Check the original three assumptions",
+          "body_md": "Take $M=2<n$. All global mixed derivatives of total order at least 3 vanish, proving even 1-β; the displayed coefficients give 1-α directly. A fixed pair is contained in a uniform m-element mask with probability choose(m,2)/q, so $\\mu_m=m-\\binom m2/q$ for $0\\le m\\le n$. Its increment is $1-m/q\\ge1-2/n>0$, proving Assumption 2. For m≥1, $\\mu_m/m=1-(m-1)/(2q)$ is nonincreasing, so $\\mu_{m\\prime}\\ge(m\\prime/m)\\mu_m$ for $1\\le m\\prime\\le m$. At $m\\prime=0$ both sides are zero. Assumption 3 holds with the fixed p=1.",
+          "formula_tex": "",
+          "justification": "The original premises, explicit finite-index arguments, and complete shared proofs are retained. Repairs change proof steps only.",
+          "lean_refs": []
+        },
+        {
+          "id": "iclr2024-sparse-asymptotic-claim-step-5",
+          "title": "Threshold, cancellation ratio, and same-order density",
+          "body_md": "Choose $\\tau=1/100$. Every pair interaction has absolute value 1, so $R^{(2)}=q=\\binom n2$, total absolute pair strength q, and $\\eta^{(2)}=-1/q$. On the four submasks of a pair, outputs are 0,1,1,2+c_A, all nonnegative, with mean absolute output 3/4 or 5/4. The fixed threshold is small relative to both, matching the source’s qualitative threshold choice. The cancellation magnitude 2/[n(n−1)] decays polynomially, and $n|\\eta|\\to0$ places the example in the nearly canceling Case 2. Nevertheless $R^{(2)}/\\binom n2=1$ always.",
+          "formula_tex": "",
+          "justification": "The original premises, explicit finite-index arguments, and complete shared proofs are retained. Repairs change proof steps only.",
+          "lean_refs": []
+        },
+        {
+          "id": "iclr2024-sparse-asymptotic-claim-step-6",
+          "title": "Exact Theorem 3 and the scope of the refuted inference",
+          "body_md": "The exact Theorem 3 bound is |A^(2)|/(τ|η^(2)|)=100q, and q≤100q. Thus the exact coefficient-existence and threshold-count theorems remain valid. Only the extra inference from nonexponential cancellation to same-order sparsity fails. The adjacent empirical “most cases” wording is not made universal. There are only $n+q=O(n^2)$ nonzero interactions, still far fewer than $2^n$, so the example does not refute sparsity relative to all $2^n$ subsets. This is a project counterexample proof with no new Lean-success claim.",
+          "formula_tex": "",
+          "justification": "The original premises, explicit finite-index arguments, and complete shared proofs are retained. Repairs change proof steps only.",
+          "lean_refs": []
+        }
+      ],
+      "original_statement_note": "The official source statement is preserved. Project translations and mathematical transcriptions are distinguished from the PDF layout.",
+      "original_proof_note": "The complete original mathematical proof remains linked to the official source. Its errors are explicitly recorded; the project rewriting does not silently change the proposition.",
+      "notation_map": [
+        {
+          "source": "u(S)",
+          "canonical": "g0(S)",
+          "meaning": "The paper uses this symbol in the centered masked-game convention. Its exact definition and source scope are recorded in the linked canonical symbol entry."
+        },
+        {
+          "source": "b",
+          "canonical": "r",
+          "meaning": "Input baseline vector, distinct from the scalar output baseline."
+        }
+      ]
+    },
+    "iclr2024-sparse-theorem3": {
+      "title": "Upper bound on salient interactions of a fixed order",
+      "overview": "Threshold counting and the cancellation ratio give the bound; substitute the same coefficient witnesses from Theorem 2 within the original noncanceling Case 1.",
+      "assumptions": [
+        "The original noncanceling Case 1, with η≠0",
+        "$\\tau>0$",
+        "The same $A^{(k)}$ coefficient representation as in Theorem 2"
+      ],
+      "definitions": [
+        "model-output",
+        "fixed-input",
+        "input-baseline-vector",
+        "variable-universe",
+        "coalition",
+        "masked-input",
+        "masked-game",
+        "output-baseline",
+        "centered-game",
+        "interaction-centered",
+        "variable-count",
+        "interaction-order",
+        "cutoff-order",
+        "mask-order",
+        "interaction-order-index",
+        "mean-output",
+        "order-total",
+        "robustness-exponent",
+        "leading-coefficient",
+        "leading-aggregate",
+        "growth-offset",
+        "nary-digit",
+        "nary-aggregate",
+        "witness-order",
+        "cancellation-ratio",
+        "salience-threshold",
+        "salient-count"
+      ],
+      "completion_scope": "source non-cancellation $\\tau>0$, η≠0 scope; exact T2 witness constructed from original three assumptions and substituted into the count formula; same parameter-domain note as T2",
+      "proof_scope": "source non-cancellation $\\tau>0$, η≠0 scope; exact T2 witness constructed from original three assumptions and substituted into the count formula; same parameter-domain note as T2",
+      "proof_steps": [
+        {
+          "id": "iclr2024-sparse-theorem3-step-1",
+          "title": "Definitions and original target",
+          "body_md": "The source theorem occurs in Case 1, where $|\\eta^{(k)}|\\gg1/n$ excludes complete cancellation. Put $B_k=\\sum_{|S|=k}|I(S)|$, $\\eta^{(k)}=A^{(k)}/B_k$, and $\\tau>0$, and let $R^{(k)}$ count the terms with $|I(S)|\\ge\\tau$. In this original range, $B_k>0$ and $\\eta^{(k)}\\ne0$, so $\\tau R^{(k)}\\le\\sum_{|S|=k,|I(S)|\\ge\\tau}|I(S)|\\le B_k=|A^{(k)}|/|\\eta^{(k)}|$.",
+          "formula_tex": "R^{(k)}\\le\\frac{\\bar g_0^{(1)}}{\\tau|\\eta^{(k)}|}\\left|\\lambda^{(k)}n^{p+\\delta}+a_{\\lfloor p\\rfloor-1}^{(k)}n^{\\lfloor p\\rfloor-1}+\\cdots+a_0^{(k)}\\right|.",
+          "justification": "The original premises, explicit finite-index arguments, and complete shared proofs are retained. Repairs change proof steps only.",
+          "lean_refs": [
+            {
+              "declaration": "FullSparse.theorem3",
+              "source_path": "research/full-proof-integration-20260930/iclr2024-sparse/lean/FullSparse.lean",
+              "line": 51,
+              "scope": "actual_proved_statement_or_internal_proof_dependency",
+              "report_path": "research/full-proof-integration-20260930/iclr2024-sparse/verification/report.json",
+              "explanation_md": "This real declaration covers the exact scope stated in the verification report; an association does not independently verify every explanatory sentence."
+            },
+            {
+              "declaration": "Harsanyi.Sparsity.sparse_original_T2_T3",
+              "source_path": "lean/HarsanyiLib/Harsanyi/Extensions/Sparsity.lean",
+              "line": 579,
+              "scope": "actual_proved_statement_or_internal_proof_dependency",
+              "report_path": "research/full-proof-integration-20260930/iclr2024-sparse/verification/report.json",
+              "explanation_md": "This real declaration covers the exact scope stated in the verification report; an association does not independently verify every explanatory sentence."
+            },
+            {
+              "declaration": "Harsanyi.Sparsity.salient_bound_original_coefficients",
+              "source_path": "lean/HarsanyiLib/Harsanyi/Extensions/Sparsity.lean",
+              "line": 566,
+              "scope": "actual_proved_statement_or_internal_proof_dependency",
+              "report_path": "research/full-proof-integration-20260930/iclr2024-sparse/verification/report.json",
+              "explanation_md": "This real declaration covers the exact scope stated in the verification report; an association does not independently verify every explanatory sentence."
+            },
+            {
+              "declaration": "Harsanyi.Sparsity.salient_count_bound",
+              "source_path": "lean/HarsanyiLib/Harsanyi/Extensions/Sparsity.lean",
+              "line": 327,
+              "scope": "actual_proved_statement_or_internal_proof_dependency",
+              "report_path": "research/full-proof-integration-20260930/iclr2024-sparse/verification/report.json",
+              "explanation_md": "This real declaration covers the exact scope stated in the verification report; an association does not independently verify every explanatory sentence."
+            }
+          ]
+        },
+        {
+          "id": "iclr2024-sparse-theorem3-step-2",
+          "title": "Threshold counting and cancellation",
+          "body_md": "Apply the threshold bound to each salient term. Nonnegative absolute values give the next inequality. Finally $A^{(k)}=\\eta^{(k)}B_k$ and $B_k>0$ give the absolute-value quotient. Divide by positive $\\tau$ to obtain $R^{(k)}\\le|A^{(k)}|/(\\tau|\\eta^{(k)}|)$.",
+          "formula_tex": "",
+          "justification": "The original premises, explicit finite-index arguments, and complete shared proofs are retained. Repairs change proof steps only.",
+          "lean_refs": [
+            {
+              "declaration": "Harsanyi.Sparsity.threshold_count",
+              "source_path": "lean/HarsanyiLib/Harsanyi/Extensions/Sparsity.lean",
+              "line": 311,
+              "scope": "actual_proved_statement_or_internal_proof_dependency",
+              "report_path": "research/full-proof-integration-20260930/iclr2024-sparse/verification/report.json",
+              "explanation_md": "This real declaration covers the exact scope stated in the verification report; an association does not independently verify every explanatory sentence."
+            },
+            {
+              "declaration": "Harsanyi.Sparsity.salient_count_bound",
+              "source_path": "lean/HarsanyiLib/Harsanyi/Extensions/Sparsity.lean",
+              "line": 327,
+              "scope": "actual_proved_statement_or_internal_proof_dependency",
+              "report_path": "research/full-proof-integration-20260930/iclr2024-sparse/verification/report.json",
+              "explanation_md": "This real declaration covers the exact scope stated in the verification report; an association does not independently verify every explanatory sentence."
+            }
+          ]
+        },
+        {
+          "id": "iclr2024-sparse-theorem3-step-3",
+          "title": "Substitute the same witnesses and retain Case 1",
+          "body_md": "Substitute the same Theorem 2 coefficient representation. Original monotonicity gives $\\mu_1\\ge0$, hence $R^{(k)}\\le\\mu_1|\\lambda^{(k)}n^{p+\\delta}+\\sum_i a_i^{(k)}n^i|/(\\tau|\\eta^{(k)}|)$, which is source Eq.(6)/(54), with the same low-digit indices. At $\\eta=0$, division is invalid. For an empty order, $B_k=0$ and the salient count is zero, but the ratio $0/0$ remains undefined; neither boundary is silently added to Case 1. `salient_count_bound` proves the threshold/cancellation step, `salient_bound_original_coefficients` proves substitution, `sparse_original_T2_T3` constructs witnesses from the original three conditions, and `FullSparse.theorem3` is the actual model adapter. The report distinguishes these scopes.",
+          "formula_tex": "",
+          "justification": "The original premises, explicit finite-index arguments, and complete shared proofs are retained. Repairs change proof steps only.",
+          "lean_refs": [
+            {
+              "declaration": "Harsanyi.Sparsity.salient_bound_original_coefficients",
+              "source_path": "lean/HarsanyiLib/Harsanyi/Extensions/Sparsity.lean",
+              "line": 566,
+              "scope": "actual_proved_statement_or_internal_proof_dependency",
+              "report_path": "research/full-proof-integration-20260930/iclr2024-sparse/verification/report.json",
+              "explanation_md": "This real declaration covers the exact scope stated in the verification report; an association does not independently verify every explanatory sentence."
+            },
+            {
+              "declaration": "Harsanyi.Sparsity.sparse_original_T2_T3",
+              "source_path": "lean/HarsanyiLib/Harsanyi/Extensions/Sparsity.lean",
+              "line": 579,
+              "scope": "actual_proved_statement_or_internal_proof_dependency",
+              "report_path": "research/full-proof-integration-20260930/iclr2024-sparse/verification/report.json",
+              "explanation_md": "This real declaration covers the exact scope stated in the verification report; an association does not independently verify every explanatory sentence."
+            },
+            {
+              "declaration": "FullSparse.theorem3",
+              "source_path": "research/full-proof-integration-20260930/iclr2024-sparse/lean/FullSparse.lean",
+              "line": 51,
+              "scope": "actual_proved_statement_or_internal_proof_dependency",
+              "report_path": "research/full-proof-integration-20260930/iclr2024-sparse/verification/report.json",
+              "explanation_md": "This real declaration covers the exact scope stated in the verification report; an association does not independently verify every explanatory sentence."
+            }
+          ]
+        }
+      ],
+      "original_statement_note": "The official source statement is preserved. Project translations and mathematical transcriptions are distinguished from the PDF layout.",
+      "original_proof_note": "The complete original mathematical proof remains linked to the official source. Its errors are explicitly recorded; the project rewriting does not silently change the proposition.",
+      "notation_map": [
+        {
+          "source": "u(S)",
+          "canonical": "g0(S)",
+          "meaning": "The paper uses this symbol in the centered masked-game convention. Its exact definition and source scope are recorded in the linked canonical symbol entry."
+        },
+        {
+          "source": "b",
+          "canonical": "r",
+          "meaning": "Input baseline vector, distinct from the scalar output baseline."
+        }
+      ]
+    },
+    "iclr2024-sparse-axiom-linearity": {
+      "title": "Linearity of interactions",
+      "overview": "The sum of two centered games is centered. Substitute the original u,u₁,u₂ into the general finite linearity identity; the empty case is included.",
+      "assumptions": [],
+      "definitions": [
+        "model-output",
+        "fixed-input",
+        "input-baseline-vector",
+        "variable-universe",
+        "coalition",
+        "masked-input",
+        "masked-game",
+        "output-baseline",
+        "centered-game",
+        "interaction-centered"
+      ],
+      "completion_scope": "entire source target",
+      "proof_scope": "entire source target",
+      "proof_steps": [
+        {
+          "id": "iclr2024-sparse-axiom-linearity-step-1",
+          "title": "Definitions, original target, and premise adapter",
+          "body_md": "The complete shared proof is available through its stable shared ID; the following is the paper-specific premise adapter.\n\nThe sum of two centered games is centered. Substitute the original u,u₁,u₂ into the general finite linearity identity; the empty case is included.",
+          "formula_tex": "u=u_1+u_2\\Rightarrow I_u(S)=I_{u_1}(S)+I_{u_2}(S).",
+          "justification": "The original premises, explicit finite-index arguments, and complete shared proofs are retained. Repairs change proof steps only.",
+          "lean_refs": [
+            {
+              "declaration": "FullSparse.linearity",
+              "source_path": "research/full-proof-integration-20260930/iclr2024-sparse/lean/FullSparse.lean",
+              "line": 180,
+              "scope": "actual_proved_statement_or_internal_proof_dependency",
+              "report_path": "research/full-proof-integration-20260930/iclr2024-sparse/verification/report.json",
+              "explanation_md": "This real declaration covers the exact scope stated in the verification report; an association does not independently verify every explanatory sentence."
+            }
+          ]
+        }
+      ],
+      "original_statement_note": "The official source statement is preserved. Project translations and mathematical transcriptions are distinguished from the PDF layout.",
+      "original_proof_note": "The complete original mathematical proof remains linked to the official source. Its errors are explicitly recorded; the project rewriting does not silently change the proposition.",
+      "notation_map": [
+        {
+          "source": "u(S)",
+          "canonical": "g0(S)",
+          "meaning": "The paper uses this symbol in the centered masked-game convention. Its exact definition and source scope are recorded in the linked canonical symbol entry."
+        },
+        {
+          "source": "b",
+          "canonical": "r",
+          "meaning": "Input baseline vector, distinct from the scalar output baseline."
+        }
+      ]
+    },
+    "iclr2024-sparse-axiom-dummy": {
+      "title": "Dummy-variable property",
+      "overview": "The source A.1(3) already requires $S\\ne\\varnothing$ and $i\\notin S$. Take the shared constant c=u({i}) and restrict the original all-T additive premise to U⊆S. The complete nonempty-dummy proof then applies. The CVPR empty-S version cannot be substituted.",
+      "assumptions": [
+        "$g_0(\\varnothing)=0$",
+        "S is explicitly nonempty, as in source A.1(3)"
+      ],
+      "definitions": [
+        "model-output",
+        "fixed-input",
+        "input-baseline-vector",
+        "variable-universe",
+        "coalition",
+        "masked-input",
+        "masked-game",
+        "output-baseline",
+        "centered-game",
+        "interaction-centered"
+      ],
+      "completion_scope": "entire source target",
+      "proof_scope": "entire source target",
+      "proof_steps": [
+        {
+          "id": "iclr2024-sparse-axiom-dummy-step-1",
+          "title": "Definitions, original target, and premise adapter",
+          "body_md": "The complete shared proof is available through its stable shared ID; the following is the paper-specific premise adapter.\n\nThe source A.1(3) already requires $S\\ne\\varnothing$ and $i\\notin S$. Take the shared constant c=u({i}) and restrict the original all-T additive premise to U⊆S. The complete nonempty-dummy proof then applies. The CVPR empty-S version cannot be substituted.",
+          "formula_tex": "[\\forall T\\subseteq N\\setminus\\{i\\},\\ g_0(T\\cup\\{i\\})=g_0(T)+g_0(\\{i\\})]\\Rightarrow[\\forall\\varnothing\\ne S\\subseteq N\\setminus\\{i\\},\\ I(S\\cup\\{i\\})=0].",
+          "justification": "The original premises, explicit finite-index arguments, and complete shared proofs are retained. Repairs change proof steps only.",
+          "lean_refs": [
+            {
+              "declaration": "FullSparse.dummy",
+              "source_path": "research/full-proof-integration-20260930/iclr2024-sparse/lean/FullSparse.lean",
+              "line": 72,
+              "scope": "actual_proved_statement_or_internal_proof_dependency",
+              "report_path": "research/full-proof-integration-20260930/iclr2024-sparse/verification/report.json",
+              "explanation_md": "This real declaration covers the exact scope stated in the verification report; an association does not independently verify every explanatory sentence."
+            }
+          ]
+        }
+      ],
+      "original_statement_note": "The official source statement is preserved. Project translations and mathematical transcriptions are distinguished from the PDF layout.",
+      "original_proof_note": "The complete original mathematical proof remains linked to the official source. Its errors are explicitly recorded; the project rewriting does not silently change the proposition.",
+      "notation_map": [
+        {
+          "source": "u(S)",
+          "canonical": "g0(S)",
+          "meaning": "The paper uses this symbol in the centered masked-game convention. Its exact definition and source scope are recorded in the linked canonical symbol entry."
+        },
+        {
+          "source": "b",
+          "canonical": "r",
+          "meaning": "Input baseline vector, distinct from the scalar output baseline."
+        }
+      ]
+    },
+    "iclr2024-sparse-axiom-symmetry": {
+      "title": "Symmetry of interactions",
+      "overview": "The original equality for all $T\\subseteq N$\\{i,j} implies the equality on each U⊆S. Both i and j are absent from S, so apply the shared symmetry proof to the source u.",
+      "assumptions": [],
+      "definitions": [
+        "model-output",
+        "fixed-input",
+        "input-baseline-vector",
+        "variable-universe",
+        "coalition",
+        "masked-input",
+        "masked-game",
+        "output-baseline",
+        "centered-game",
+        "interaction-centered"
+      ],
+      "completion_scope": "entire source target",
+      "proof_scope": "entire source target",
+      "proof_steps": [
+        {
+          "id": "iclr2024-sparse-axiom-symmetry-step-1",
+          "title": "Definitions, original target, and premise adapter",
+          "body_md": "The complete shared proof is available through its stable shared ID; the following is the paper-specific premise adapter.\n\nThe original equality for all $T\\subseteq N$\\{i,j} implies the equality on each U⊆S. Both i and j are absent from S, so apply the shared symmetry proof to the source u.",
+          "formula_tex": "[\\forall T\\subseteq N\\setminus\\{i,j\\},\\ g_0(T\\cup\\{i\\})=g_0(T\\cup\\{j\\})]\\Rightarrow I(S\\cup\\{i\\})=I(S\\cup\\{j\\}).",
+          "justification": "The original premises, explicit finite-index arguments, and complete shared proofs are retained. Repairs change proof steps only.",
+          "lean_refs": [
+            {
+              "declaration": "FullSparse.symmetry",
+              "source_path": "research/full-proof-integration-20260930/iclr2024-sparse/lean/FullSparse.lean",
+              "line": 187,
+              "scope": "actual_proved_statement_or_internal_proof_dependency",
+              "report_path": "research/full-proof-integration-20260930/iclr2024-sparse/verification/report.json",
+              "explanation_md": "This real declaration covers the exact scope stated in the verification report; an association does not independently verify every explanatory sentence."
+            }
+          ]
+        }
+      ],
+      "original_statement_note": "The official source statement is preserved. Project translations and mathematical transcriptions are distinguished from the PDF layout.",
+      "original_proof_note": "The complete original mathematical proof remains linked to the official source. Its errors are explicitly recorded; the project rewriting does not silently change the proposition.",
+      "notation_map": [
+        {
+          "source": "u(S)",
+          "canonical": "g0(S)",
+          "meaning": "The paper uses this symbol in the centered masked-game convention. Its exact definition and source scope are recorded in the linked canonical symbol entry."
+        },
+        {
+          "source": "b",
+          "canonical": "r",
+          "meaning": "Input baseline vector, distinct from the scalar output baseline."
+        }
+      ]
+    },
+    "iclr2024-sparse-axiom-anonymity": {
+      "title": "Anonymity under relabeling",
+      "overview": "Treat the source permutation π as an equivalence of finite variables. Relabel masks, u, and interactions. The general shared relabeling proof applies, retaining the centered empty convention.",
+      "assumptions": [],
+      "definitions": [
+        "model-output",
+        "fixed-input",
+        "input-baseline-vector",
+        "variable-universe",
+        "coalition",
+        "masked-input",
+        "masked-game",
+        "output-baseline",
+        "centered-game",
+        "interaction-centered"
+      ],
+      "completion_scope": "entire source target",
+      "proof_scope": "entire source target",
+      "proof_steps": [
+        {
+          "id": "iclr2024-sparse-axiom-anonymity-step-1",
+          "title": "Definitions, original target, and premise adapter",
+          "body_md": "The complete shared proof is available through its stable shared ID; the following is the paper-specific premise adapter.\n\nTreat the source permutation π as an equivalence of finite variables. Relabel masks, u, and interactions. The general shared relabeling proof applies, retaining the centered empty convention.",
+          "formula_tex": "I_{g_0}(S)=I_{\\pi g_0}(\\pi S),\\quad (\\pi g_0)(\\pi T)=g_0(T).",
+          "justification": "The original premises, explicit finite-index arguments, and complete shared proofs are retained. Repairs change proof steps only.",
+          "lean_refs": [
+            {
+              "declaration": "FullSparse.anonymity",
+              "source_path": "research/full-proof-integration-20260930/iclr2024-sparse/lean/FullSparse.lean",
+              "line": 197,
+              "scope": "actual_proved_statement_or_internal_proof_dependency",
+              "report_path": "research/full-proof-integration-20260930/iclr2024-sparse/verification/report.json",
+              "explanation_md": "This real declaration covers the exact scope stated in the verification report; an association does not independently verify every explanatory sentence."
+            }
+          ]
+        }
+      ],
+      "original_statement_note": "The official source statement is preserved. Project translations and mathematical transcriptions are distinguished from the PDF layout.",
+      "original_proof_note": "The complete original mathematical proof remains linked to the official source. Its errors are explicitly recorded; the project rewriting does not silently change the proposition.",
+      "notation_map": [
+        {
+          "source": "u(S)",
+          "canonical": "g0(S)",
+          "meaning": "The paper uses this symbol in the centered masked-game convention. Its exact definition and source scope are recorded in the linked canonical symbol entry."
+        },
+        {
+          "source": "b",
+          "canonical": "r",
+          "meaning": "Input baseline vector, distinct from the scalar output baseline."
+        }
+      ]
+    },
+    "iclr2024-sparse-axiom-recursive": {
+      "title": "Recursive contextual-difference identity",
+      "overview": "The source has $i\\notin S$. The shared context-difference identity gives I($S\\cup\\{i\\}$)=I_{u(·∪{i})}(S)−I_u(S). Expanding the first interaction recovers the source recursion.",
+      "assumptions": [],
+      "definitions": [
+        "model-output",
+        "fixed-input",
+        "input-baseline-vector",
+        "variable-universe",
+        "coalition",
+        "masked-input",
+        "masked-game",
+        "output-baseline",
+        "centered-game",
+        "interaction-centered",
+        "marginal-difference"
+      ],
+      "completion_scope": "entire source target",
+      "proof_scope": "entire source target",
+      "proof_steps": [
+        {
+          "id": "iclr2024-sparse-axiom-recursive-step-1",
+          "title": "Definitions, original target, and premise adapter",
+          "body_md": "The complete shared proof is available through its stable shared ID; the following is the paper-specific premise adapter.\n\nThe source has $i\\notin S$. The shared context-difference identity gives I($S\\cup\\{i\\}$)=I_{u(·∪{i})}(S)−I_u(S). Expanding the first interaction recovers the source recursion.",
+          "formula_tex": "I(S\\cup\\{i\\})=\\sum_{L\\subseteq S}(-1)^{|S|-|L|}g_0(L\\cup\\{i\\})-I(S),\\quad i\\notin S.",
+          "justification": "The original premises, explicit finite-index arguments, and complete shared proofs are retained. Repairs change proof steps only.",
+          "lean_refs": [
+            {
+              "declaration": "FullSparse.recursive",
+              "source_path": "research/full-proof-integration-20260930/iclr2024-sparse/lean/FullSparse.lean",
+              "line": 203,
+              "scope": "actual_proved_statement_or_internal_proof_dependency",
+              "report_path": "research/full-proof-integration-20260930/iclr2024-sparse/verification/report.json",
+              "explanation_md": "This real declaration covers the exact scope stated in the verification report; an association does not independently verify every explanatory sentence."
+            }
+          ]
+        }
+      ],
+      "original_statement_note": "The official source statement is preserved. Project translations and mathematical transcriptions are distinguished from the PDF layout.",
+      "original_proof_note": "The complete original mathematical proof remains linked to the official source. Its errors are explicitly recorded; the project rewriting does not silently change the proposition.",
+      "notation_map": [
+        {
+          "source": "u(S)",
+          "canonical": "g0(S)",
+          "meaning": "The paper uses this symbol in the centered masked-game convention. Its exact definition and source scope are recorded in the linked canonical symbol entry."
+        },
+        {
+          "source": "b",
+          "canonical": "r",
+          "meaning": "Input baseline vector, distinct from the scalar output baseline."
+        }
+      ]
+    },
+    "iclr2024-sparse-axiom-distribution": {
+      "title": "Coefficient distribution of a pure interaction",
+      "overview": "The displayed u_T(S)=c when T⊆S, and zero otherwise, is the shared unanimity game. Its Möbius coefficient is c only at S=T. At $T=\\varnothing$ it is the constant game c and its empty coefficient is c; it cannot simultaneously be treated as the globally centered u.",
+      "assumptions": [
+        "Use the displayed u_T definition. At $T=\\varnothing$ it does not satisfy $g_0(\\varnothing)=0$, although the Möbius identity remains meaningful."
+      ],
+      "definitions": [
+        "model-output",
+        "fixed-input",
+        "input-baseline-vector",
+        "variable-universe",
+        "coalition",
+        "masked-input",
+        "masked-game",
+        "output-baseline",
+        "centered-game",
+        "interaction-centered"
+      ],
+      "completion_scope": "displayed uT unanimity game including $T=\\varnothing$ constant-game transform; no false claim that nonzero constant game is centered",
+      "proof_scope": "displayed uT unanimity game including $T=\\varnothing$ constant-game transform; no false claim that nonzero constant game is centered",
+      "proof_steps": [
+        {
+          "id": "iclr2024-sparse-axiom-distribution-step-1",
+          "title": "Definitions, original target, and premise adapter",
+          "body_md": "The complete shared proof is available through its stable shared ID; the following is the paper-specific premise adapter.\n\nThe displayed u_T(S)=c when T⊆S, and zero otherwise, is the shared unanimity game. Its Möbius coefficient is c only at S=T. At $T=\\varnothing$ it is the constant game c and its empty coefficient is c; it cannot simultaneously be treated as the globally centered u.",
+          "formula_tex": "u_T(S)=c\\mathbf1_{T\\subseteq S}\\quad\\Rightarrow\\quad I_{u_T}(S)=c\\mathbf1_{S=T}.",
+          "justification": "The original premises, explicit finite-index arguments, and complete shared proofs are retained. Repairs change proof steps only.",
+          "lean_refs": [
+            {
+              "declaration": "FullSparse.distribution",
+              "source_path": "research/full-proof-integration-20260930/iclr2024-sparse/lean/FullSparse.lean",
+              "line": 212,
+              "scope": "actual_proved_statement_or_internal_proof_dependency",
+              "report_path": "research/full-proof-integration-20260930/iclr2024-sparse/verification/report.json",
+              "explanation_md": "This real declaration covers the exact scope stated in the verification report; an association does not independently verify every explanatory sentence."
+            }
+          ]
+        }
+      ],
+      "original_statement_note": "The official source statement is preserved. Project translations and mathematical transcriptions are distinguished from the PDF layout.",
+      "original_proof_note": "The complete original mathematical proof remains linked to the official source. Its errors are explicitly recorded; the project rewriting does not silently change the proposition.",
+      "notation_map": [
+        {
+          "source": "u(S)",
+          "canonical": "g0(S)",
+          "meaning": "The paper uses this symbol in the centered masked-game convention. Its exact definition and source scope are recorded in the linked canonical symbol entry."
+        },
+        {
+          "source": "b",
+          "canonical": "r",
+          "meaning": "Input baseline vector, distinct from the scalar output baseline."
+        }
+      ]
+    },
+    "iclr2024-sparse-lemma4": {
+      "title": "Interaction expansion of higher marginal benefits",
+      "overview": "Set g=u=g₀ in the shared higherMarginal identity. The source $T\\subseteq N\\setminus S$ gives disjoint T,S. The shared proof does not require nonemptiness, so empty T and empty S retain the exact equality.",
+      "assumptions": [
+        "$T\\subseteq N\\setminus S$, equivalently T and S are disjoint"
+      ],
+      "definitions": [
+        "model-output",
+        "fixed-input",
+        "input-baseline-vector",
+        "variable-universe",
+        "coalition",
+        "masked-input",
+        "masked-game",
+        "output-baseline",
+        "centered-game",
+        "interaction-centered",
+        "marginal-difference"
+      ],
+      "completion_scope": "entire source target",
+      "proof_scope": "entire source target",
+      "proof_steps": [
+        {
+          "id": "iclr2024-sparse-lemma4-step-1",
+          "title": "Definitions, original target, and premise adapter",
+          "body_md": "The complete shared proof is available through its stable shared ID; the following is the paper-specific premise adapter.\n\nSet g=u=g₀ in the shared higherMarginal identity. The source $T\\subseteq N\\setminus S$ gives disjoint T,S. The shared proof does not require nonemptiness, so empty T and empty S retain the exact equality.",
+          "formula_tex": "\\Delta_Tg_0(S)=\\sum_{L\\subseteq T}(-1)^{|T|-|L|}g_0(L\\cup S)=\\sum_{U\\subseteq S}I(T\\cup U),\\quad T\\cap S=\\varnothing.",
+          "justification": "The original premises, explicit finite-index arguments, and complete shared proofs are retained. Repairs change proof steps only.",
+          "lean_refs": [
+            {
+              "declaration": "FullSparse.lemma4",
+              "source_path": "research/full-proof-integration-20260930/iclr2024-sparse/lean/FullSparse.lean",
+              "line": 82,
+              "scope": "actual_proved_statement_or_internal_proof_dependency",
+              "report_path": "research/full-proof-integration-20260930/iclr2024-sparse/verification/report.json",
+              "explanation_md": "This real declaration covers the exact scope stated in the verification report; an association does not independently verify every explanatory sentence."
+            }
+          ]
+        }
+      ],
+      "original_statement_note": "The official source statement is preserved. Project translations and mathematical transcriptions are distinguished from the PDF layout.",
+      "original_proof_note": "The complete original mathematical proof remains linked to the official source. Its errors are explicitly recorded; the project rewriting does not silently change the proposition.",
+      "notation_map": [
+        {
+          "source": "u(S)",
+          "canonical": "g0(S)",
+          "meaning": "The paper uses this symbol in the centered masked-game convention. Its exact definition and source scope are recorded in the linked canonical symbol entry."
+        },
+        {
+          "source": "b",
+          "canonical": "r",
+          "meaning": "Input baseline vector, distinct from the scalar output baseline."
+        }
+      ]
+    },
+    "iclr2024-sparse-theorem4": {
+      "title": "Shapley values as equal interaction shares",
+      "overview": "Set g=u, the same finite N, and $i\\in N$ in factorialShapley. The source weight 1/[n choose(n−1,|S|)] equals |S|!(n−|S|−1)!/n!. The complete finite convolution includes $L=\\varnothing$ and gives each coefficient weight 1/(|S|+1). The original Beta/zero-parameter/free-index errors stay visible in source and issues; the repaired proof preserves the original indicator.",
+      "assumptions": [
+        "Finite universe, $i\\in N$, and the classical Shapley definition"
+      ],
+      "definitions": [
+        "model-output",
+        "fixed-input",
+        "input-baseline-vector",
+        "variable-universe",
+        "coalition",
+        "masked-input",
+        "masked-game",
+        "output-baseline",
+        "centered-game",
+        "interaction-centered",
+        "variable-count",
+        "marginal-difference",
+        "shapley-value",
+        "beta-function"
+      ],
+      "completion_scope": "classic factorial-weighted Shapley equivalent to original per-cardinality average definition, actual centered model game",
+      "proof_scope": "classic factorial-weighted Shapley equivalent to original per-cardinality average definition, actual centered model game",
+      "proof_steps": [
+        {
+          "id": "iclr2024-sparse-theorem4-step-1",
+          "title": "Definitions, original target, and premise adapter",
+          "body_md": "The complete shared proof is available through its stable shared ID; the following is the paper-specific premise adapter.\n\nSet g=u, the same finite N, and $i\\in N$ in factorialShapley. The source weight 1/[n choose(n−1,|S|)] equals |S|!(n−|S|−1)!/n!. The complete finite convolution includes $L=\\varnothing$ and gives each coefficient weight 1/(|S|+1). The original Beta/zero-parameter/free-index errors stay visible in source and issues; the repaired proof preserves the original indicator.",
+          "formula_tex": "\\phi(i)=\\sum_{S\\subseteq N\\setminus\\{i\\}}\\frac{I(S\\cup\\{i\\})}{|S|+1}.",
+          "justification": "The original premises, explicit finite-index arguments, and complete shared proofs are retained. Repairs change proof steps only.",
+          "lean_refs": [
+            {
+              "declaration": "FullSparse.theorem4",
+              "source_path": "research/full-proof-integration-20260930/iclr2024-sparse/lean/FullSparse.lean",
+              "line": 89,
+              "scope": "actual_proved_statement_or_internal_proof_dependency",
+              "report_path": "research/full-proof-integration-20260930/iclr2024-sparse/verification/report.json",
+              "explanation_md": "This real declaration covers the exact scope stated in the verification report; an association does not independently verify every explanatory sentence."
+            }
+          ]
+        }
+      ],
+      "original_statement_note": "The official source statement is preserved. Project translations and mathematical transcriptions are distinguished from the PDF layout.",
+      "original_proof_note": "The complete original mathematical proof remains linked to the official source. Its errors are explicitly recorded; the project rewriting does not silently change the proposition.",
+      "notation_map": [
+        {
+          "source": "u(S)",
+          "canonical": "g0(S)",
+          "meaning": "The paper uses this symbol in the centered masked-game convention. Its exact definition and source scope are recorded in the linked canonical symbol entry."
+        },
+        {
+          "source": "b",
+          "canonical": "r",
+          "meaning": "Input baseline vector, distinct from the scalar output baseline."
+        }
+      ]
+    },
+    "iclr2024-sparse-theorem5": {
+      "title": "Interaction expansion of the Shapley interaction index",
+      "overview": "The source SII weight |S|!(n−|T|−|S|)!/(n−|T|+1)! is exactly factorialShapleyInteraction. Substitute u and $T\\subseteq N$. The finite convolution includes empty T, empty environments, and empty L, giving the source 1/(|S|+1) coefficient formula. The original Beta/zero-parameter/free-index errors remain visible; only the proof is repaired.",
+      "assumptions": [
+        "The classical factorial-weighted SII definition and a finite universe"
+      ],
+      "definitions": [
+        "model-output",
+        "fixed-input",
+        "input-baseline-vector",
+        "variable-universe",
+        "coalition",
+        "masked-input",
+        "masked-game",
+        "output-baseline",
+        "centered-game",
+        "interaction-centered",
+        "variable-count",
+        "marginal-difference",
+        "shapley-interaction",
+        "beta-function"
+      ],
+      "completion_scope": "classic factorial SII including all finite targets and empty targets",
+      "proof_scope": "classic factorial SII including all finite targets and empty targets",
+      "proof_steps": [
+        {
+          "id": "iclr2024-sparse-theorem5-step-1",
+          "title": "Definitions, original target, and premise adapter",
+          "body_md": "The complete shared proof is available through its stable shared ID; the following is the paper-specific premise adapter.\n\nThe source SII weight |S|!(n−|T|−|S|)!/(n−|T|+1)! is exactly factorialShapleyInteraction. Substitute u and $T\\subseteq N$. The finite convolution includes empty T, empty environments, and empty L, giving the source 1/(|S|+1) coefficient formula. The original Beta/zero-parameter/free-index errors remain visible; only the proof is repaired.",
+          "formula_tex": "\\operatorname{SI}(T)=\\sum_{S\\subseteq N\\setminus T}\\frac{I(S\\cup T)}{|S|+1}.",
+          "justification": "The original premises, explicit finite-index arguments, and complete shared proofs are retained. Repairs change proof steps only.",
+          "lean_refs": [
+            {
+              "declaration": "FullSparse.theorem5",
+              "source_path": "research/full-proof-integration-20260930/iclr2024-sparse/lean/FullSparse.lean",
+              "line": 95,
+              "scope": "actual_proved_statement_or_internal_proof_dependency",
+              "report_path": "research/full-proof-integration-20260930/iclr2024-sparse/verification/report.json",
+              "explanation_md": "This real declaration covers the exact scope stated in the verification report; an association does not independently verify every explanatory sentence."
+            }
+          ]
+        }
+      ],
+      "original_statement_note": "The official source statement is preserved. Project translations and mathematical transcriptions are distinguished from the PDF layout.",
+      "original_proof_note": "The complete original mathematical proof remains linked to the official source. Its errors are explicitly recorded; the project rewriting does not silently change the proposition.",
+      "notation_map": [
+        {
+          "source": "u(S)",
+          "canonical": "g0(S)",
+          "meaning": "The paper uses this symbol in the centered masked-game convention. Its exact definition and source scope are recorded in the linked canonical symbol entry."
+        },
+        {
+          "source": "b",
+          "canonical": "r",
+          "meaning": "Input baseline vector, distinct from the scalar output baseline."
+        }
+      ]
+    },
+    "iclr2024-sparse-theorem6": {
+      "title": "All branches of the Shapley–Taylor interaction formula",
+      "overview": "Use the source k/n times the reciprocal choose(n−1,|S|) weight, the same finite N and u, positive k, and $T\\subseteq N$. The shared proof covers |T|<k, |T|=k, and |T|>k. At the critical order, positive-order factorial convolution gives reciprocal choose(|S|+k,k), including every empty-environment branch. Original Beta/zero-parameter/free-index errors stay visible; the original three-branch statement is unchanged.",
+      "assumptions": [
+        "The original STI definition has 1≤k≤n; all three branches are retained"
+      ],
+      "definitions": [
+        "model-output",
+        "fixed-input",
+        "input-baseline-vector",
+        "variable-universe",
+        "coalition",
+        "masked-input",
+        "masked-game",
+        "output-baseline",
+        "centered-game",
+        "interaction-centered",
+        "variable-count",
+        "marginal-difference",
+        "shapley-taylor",
+        "beta-function"
+      ],
+      "completion_scope": "all three original branches for positive k, actual centered masked model game",
+      "proof_scope": "all three original branches for positive k, actual centered masked model game",
+      "proof_steps": [
+        {
+          "id": "iclr2024-sparse-theorem6-step-1",
+          "title": "Definitions, original target, and premise adapter",
+          "body_md": "The complete shared proof is available through its stable shared ID; the following is the paper-specific premise adapter.\n\nUse the source k/n times the reciprocal choose(n−1,|S|) weight, the same finite N and u, positive k, and $T\\subseteq N$. The shared proof covers |T|<k, |T|=k, and |T|>k. At the critical order, positive-order factorial convolution gives reciprocal choose(|S|+k,k), including every empty-environment branch. Original Beta/zero-parameter/free-index errors stay visible; the original three-branch statement is unchanged.",
+          "formula_tex": "\\operatorname{ST}_k(T)=\\begin{cases}I(T)&|T|<k\\\\\\sum_{S\\subseteq N\\setminus T}\\binom{|S|+k}k^{-1}I(S\\cup T)&|T|=k\\\\0&|T|>k.\\end{cases}",
+          "justification": "The original premises, explicit finite-index arguments, and complete shared proofs are retained. Repairs change proof steps only.",
+          "lean_refs": [
+            {
+              "declaration": "FullSparse.theorem6",
+              "source_path": "research/full-proof-integration-20260930/iclr2024-sparse/lean/FullSparse.lean",
+              "line": 101,
+              "scope": "actual_proved_statement_or_internal_proof_dependency",
+              "report_path": "research/full-proof-integration-20260930/iclr2024-sparse/verification/report.json",
+              "explanation_md": "This real declaration covers the exact scope stated in the verification report; an association does not independently verify every explanatory sentence."
+            }
+          ]
+        }
+      ],
+      "original_statement_note": "The official source statement is preserved. Project translations and mathematical transcriptions are distinguished from the PDF layout.",
+      "original_proof_note": "The complete original mathematical proof remains linked to the official source. Its errors are explicitly recorded; the project rewriting does not silently change the proposition.",
+      "notation_map": [
+        {
+          "source": "u(S)",
+          "canonical": "g0(S)",
+          "meaning": "The paper uses this symbol in the centered masked-game convention. Its exact definition and source scope are recorded in the linked canonical symbol entry."
+        },
+        {
+          "source": "b",
+          "canonical": "r",
+          "meaning": "Input baseline vector, distinct from the scalar output baseline."
+        }
+      ]
+    },
+    "iclr2024-sparse-noise-linearity": {
+      "title": "Linear interaction decomposition of masked-output noise",
+      "overview": "Center the noisy game and distribute its finite transform. Independence is unnecessary for this algebraic identity and is not inferred.",
+      "assumptions": [],
+      "definitions": [
+        "model-output",
+        "fixed-input",
+        "input-baseline-vector",
+        "variable-universe",
+        "coalition",
+        "masked-input",
+        "masked-game",
+        "output-baseline",
+        "centered-game",
+        "interaction-centered",
+        "output-noise"
+      ],
+      "completion_scope": "entire source target",
+      "proof_scope": "entire source target",
+      "proof_steps": [
+        {
+          "id": "iclr2024-sparse-noise-linearity-step-1",
+          "title": "Definitions, original target, and premise adapter",
+          "body_md": "If g′(S)=g(S)+ε_S, then g′₀(S)=g₀(S)+(ε_S−ε_empty). Set e₀(S)=ε_S−ε_empty and distribute the finite sum:\n$I_{g'_0}(S)=\\sum_{T\\subseteq S}(-1)^{|S|-|T|}[g_0(T)+e_0(T)]=I_{g_0}(S)+I_{e_0}(S)$.\nBoth empty interactions vanish. For nonempty S the constant ε_empty has zero alternating coefficient, so the noise coefficient is also $\\sum_{T\\subseteq S}(-1)^{|S|-|T|}\\varepsilon_T$. This needs no independence and implies no variance amplification. The insufficient source variance premise remains separate. Use the compiled `interaction_add` and `interaction_centered_nonempty`.",
+          "formula_tex": "I′(S)=I(S)+\\sum_{T\\subseteq S}(-1)^{|S|-|T|}(\\varepsilon_T-\\varepsilon_\\varnothing).",
+          "justification": "The original premises, explicit finite-index arguments, and complete shared proofs are retained. Repairs change proof steps only.",
+          "lean_refs": [
+            {
+              "declaration": "FullSparse.noise_linearity",
+              "source_path": "research/full-proof-integration-20260930/iclr2024-sparse/lean/FullSparse.lean",
+              "line": 112,
+              "scope": "actual_proved_statement_or_internal_proof_dependency",
+              "report_path": "research/full-proof-integration-20260930/iclr2024-sparse/verification/report.json",
+              "explanation_md": "This real declaration covers the exact scope stated in the verification report; an association does not independently verify every explanatory sentence."
+            }
+          ]
+        }
+      ],
+      "original_statement_note": "The official source statement is preserved. Project translations and mathematical transcriptions are distinguished from the PDF layout.",
+      "original_proof_note": "The complete original mathematical proof remains linked to the official source. Its errors are explicitly recorded; the project rewriting does not silently change the proposition.",
+      "notation_map": [
+        {
+          "source": "u(S)",
+          "canonical": "g0(S)",
+          "meaning": "The paper uses this symbol in the centered masked-game convention. Its exact definition and source scope are recorded in the linked canonical symbol entry."
+        },
+        {
+          "source": "b",
+          "canonical": "r",
+          "meaning": "Input baseline vector, distinct from the scalar output baseline."
+        }
+      ]
+    },
+    "iclr2024-sparse-noise-variance": {
+      "title": "The claimed 2^|S| noise-variance amplification",
+      "overview": "The source’s “fully random noise” does not explicitly state independent equal variances; a completely correlated example defeats the unrestricted claim.",
+      "assumptions": [],
+      "definitions": [
+        "model-output",
+        "fixed-input",
+        "input-baseline-vector",
+        "variable-universe",
+        "coalition",
+        "masked-input",
+        "masked-game",
+        "output-baseline",
+        "centered-game",
+        "interaction-centered",
+        "interaction-order",
+        "output-noise"
+      ],
+      "completion_scope": "original source preserved; exact mathematical issue listed",
+      "proof_scope": "original source preserved; exact mathematical issue listed",
+      "proof_steps": [
+        {
+          "id": "iclr2024-sparse-noise-variance-step-1",
+          "title": "Definitions, original target, and premise adapter",
+          "body_md": "Take ε_T=Z for every T, with nondegenerate Z. Centering gives e₀=0, so the noise-interaction variance is zero, rather than 2^{|S|} times Var(Z). Adding IID would change the original unrestricted claim. In contrast, Appendix D of ICLR Generalizable explicitly gives IID Gaussian noise and fixed base interactions, so that paper’s corresponding theorem can use the same tools rigorously. Preserve the cross-paper premise difference.",
+          "formula_tex": "\\operatorname{Var}(I_\\varepsilon(S))\\text{ is }2^{|S|}\\text{ times the noise variance}.",
+          "justification": "The original premises, explicit finite-index arguments, and complete shared proofs are retained. Repairs change proof steps only.",
+          "lean_refs": []
+        }
+      ],
+      "original_statement_note": "The official source statement is preserved. Project translations and mathematical transcriptions are distinguished from the PDF layout.",
+      "original_proof_note": "The complete original mathematical proof remains linked to the official source. Its errors are explicitly recorded; the project rewriting does not silently change the proposition.",
+      "notation_map": [
+        {
+          "source": "u(S)",
+          "canonical": "g0(S)",
+          "meaning": "The paper uses this symbol in the centered masked-game convention. Its exact definition and source scope are recorded in the linked canonical symbol entry."
+        },
+        {
+          "source": "b",
+          "canonical": "r",
+          "meaning": "Input baseline vector, distinct from the scalar output baseline."
+        }
+      ]
+    },
+    "iclr2024-sparse-parity-mask": {
+      "title": "Parity-dependent signs in the masked-output example",
+      "overview": "The displayed odd/even example conflicts with the paper’s centered empty convention.",
+      "assumptions": [],
+      "definitions": [
+        "model-output",
+        "fixed-input",
+        "input-baseline-vector",
+        "variable-universe",
+        "coalition",
+        "masked-input",
+        "masked-game",
+        "output-baseline",
+        "centered-game",
+        "interaction-centered",
+        "mask-order",
+        "interaction-order"
+      ],
+      "completion_scope": "original source preserved; exact mathematical issue listed",
+      "proof_scope": "original source preserved; exact mathematical issue listed",
+      "proof_steps": [
+        {
+          "id": "iclr2024-sparse-parity-mask-step-1",
+          "title": "Definitions, original target, and premise adapter",
+          "body_md": "The source example gives u(S)=1 for odd |S| and −1 otherwise. At the empty set it is −1, contradicting the global $u(\\varnothing)=0$ definition. Preserve the example and its interaction-sign inference on official PDF9. Do not silently change its empty value or rename u as raw output and then claim completion. This definition conflict is distinct from average monotonicity in Assumption 2.",
+          "formula_tex": "u(S)=1\\text{ if }|S|\\text{ odd},\\quad u(S)=-1\\text{ otherwise}.",
+          "justification": "The original premises, explicit finite-index arguments, and complete shared proofs are retained. Repairs change proof steps only.",
+          "lean_refs": []
+        }
+      ],
+      "original_statement_note": "The official source statement is preserved. Project translations and mathematical transcriptions are distinguished from the PDF layout.",
+      "original_proof_note": "The complete original mathematical proof remains linked to the official source. Its errors are explicitly recorded; the project rewriting does not silently change the proposition.",
+      "notation_map": [
+        {
+          "source": "u(S)",
+          "canonical": "g0(S)",
+          "meaning": "The paper uses this symbol in the centered masked-game convention. Its exact definition and source scope are recorded in the linked canonical symbol entry."
+        },
+        {
+          "source": "b",
+          "canonical": "r",
+          "meaning": "Input baseline vector, distinct from the scalar output baseline."
+        }
+      ]
+    },
+    "iclr2024-sparse-or-density": {
+      "title": "Discussion of dense AND effects from a high-order OR",
+      "overview": "There is no quantitative formula or proof in this passage; its formal OR definition is linked to Appendix D.2.",
+      "assumptions": [],
+      "definitions": [
+        "model-output",
+        "fixed-input",
+        "input-baseline-vector",
+        "variable-universe",
+        "coalition",
+        "masked-input",
+        "masked-game",
+        "output-baseline",
+        "centered-game",
+        "interaction-centered",
+        "or-interaction"
+      ],
+      "completion_scope": "continuing precise mathematical target",
+      "proof_scope": "continuing precise mathematical target",
+      "proof_steps": [],
+      "original_statement_note": "The official source statement is preserved. Project translations and mathematical transcriptions are distinguished from the PDF layout.",
+      "original_proof_note": "The complete original mathematical proof remains linked to the official source. Its errors are explicitly recorded; the project rewriting does not silently change the proposition.",
+      "notation_map": [
+        {
+          "source": "u(S)",
+          "canonical": "g0(S)",
+          "meaning": "The paper uses this symbol in the centered masked-game convention. Its exact definition and source scope are recorded in the linked canonical symbol entry."
+        },
+        {
+          "source": "b",
+          "canonical": "r",
+          "meaning": "Input baseline vector, distinct from the scalar output baseline."
+        }
+      ]
+    },
+    "iclr2024-sparse-periodic-density": {
+      "title": "Illustration of nonsparse interactions for a sine output",
+      "overview": "No x_i domain or threshold is given. The passage does not prove that every sine-input example is nonsparse.",
+      "assumptions": [],
+      "definitions": [
+        "model-output",
+        "fixed-input",
+        "input-baseline-vector",
+        "variable-universe",
+        "coalition",
+        "masked-input",
+        "masked-game",
+        "output-baseline",
+        "centered-game",
+        "interaction-centered"
+      ],
+      "completion_scope": "continuing precise mathematical target",
+      "proof_scope": "continuing precise mathematical target",
+      "proof_steps": [],
+      "original_statement_note": "The official source statement is preserved. Project translations and mathematical transcriptions are distinguished from the PDF layout.",
+      "original_proof_note": "The complete original mathematical proof remains linked to the official source. Its errors are explicitly recorded; the project rewriting does not silently change the proposition.",
+      "notation_map": [
+        {
+          "source": "u(S)",
+          "canonical": "g0(S)",
+          "meaning": "The paper uses this symbol in the centered masked-game convention. Its exact definition and source scope are recorded in the linked canonical symbol entry."
+        },
+        {
+          "source": "b",
+          "canonical": "r",
+          "meaning": "Input baseline vector, distinct from the scalar output baseline."
+        }
+      ]
+    },
+    "iclr2024-sparse-parity-task": {
+      "title": "Empirical large-p observations for parity classification",
+      "overview": "The training accuracy and p interval are experimental results.",
+      "assumptions": [],
+      "definitions": [
+        "model-output",
+        "fixed-input",
+        "input-baseline-vector",
+        "variable-universe",
+        "coalition",
+        "masked-input",
+        "masked-game",
+        "output-baseline",
+        "centered-game",
+        "interaction-centered",
+        "robustness-exponent"
+      ],
+      "completion_scope": "continuing precise mathematical target",
+      "proof_scope": "continuing precise mathematical target",
+      "proof_steps": [],
+      "original_statement_note": "The official source statement is preserved. Project translations and mathematical transcriptions are distinguished from the PDF layout.",
+      "original_proof_note": "The complete original mathematical proof remains linked to the official source. Its errors are explicitly recorded; the project rewriting does not silently change the proposition.",
+      "notation_map": [
+        {
+          "source": "u(S)",
+          "canonical": "g0(S)",
+          "meaning": "The paper uses this symbol in the centered masked-game convention. Its exact definition and source scope are recorded in the linked canonical symbol entry."
+        },
+        {
+          "source": "b",
+          "canonical": "r",
+          "meaning": "Input baseline vector, distinct from the scalar output baseline."
+        }
+      ]
+    },
+    "iclr2024-sparse-transfer-inference": {
+      "title": "The transferability inference from sparsity and matching",
+      "overview": "A fixed additive model has same-class samples with disjoint salient singleton supports. Sparsity and exact matching alone do not imply transfer.",
+      "assumptions": [],
+      "definitions": [
+        "model-output",
+        "fixed-input",
+        "input-baseline-vector",
+        "variable-universe",
+        "coalition",
+        "masked-input",
+        "masked-game",
+        "output-baseline",
+        "centered-game",
+        "interaction-centered",
+        "salience-threshold"
+      ],
+      "completion_scope": "original source preserved; exact mathematical issue listed",
+      "proof_scope": "original source preserved; exact mathematical issue listed",
+      "proof_steps": [
+        {
+          "id": "iclr2024-sparse-transfer-inference-step-1",
+          "title": "Definitions, original target, and premise adapter",
+          "body_md": "Use one model $v(z)=\\sum_{i=1}^n z_i$, zero input baseline, and samples $x^{(j)}=e_j$. Every sample output is $1$, so threshold classification $v(z)>1/2$ puts all samples in the same positive class and satisfies the original same-class setting. Their centered masked games are $g_0^{(j)}(S)=\\mathbf1_{j\\in S}$. Pure-singleton coefficient distribution gives $I^{(j)}(\\{j\\})=1$ with all other coefficients zero. Each sample is maximally sparse and reconstructs every mask exactly, but different samples have disjoint salient families. The model needs only $n$ singleton patterns, rather than an exponential number. This refutes the source inference without adding a pattern-budget assumption to replace it.",
+          "formula_tex": "\\text{sparsity}+\\text{universal matching}\\Rightarrow\\text{sample-wise transferability}.",
+          "justification": "The original premises, explicit finite-index arguments, and complete shared proofs are retained. Repairs change proof steps only.",
+          "lean_refs": []
+        }
+      ],
+      "original_statement_note": "The official source statement is preserved. Project translations and mathematical transcriptions are distinguished from the PDF layout.",
+      "original_proof_note": "The complete original mathematical proof remains linked to the official source. Its errors are explicitly recorded; the project rewriting does not silently change the proposition.",
+      "notation_map": [
+        {
+          "source": "u(S)",
+          "canonical": "g0(S)",
+          "meaning": "The paper uses this symbol in the centered masked-game convention. Its exact definition and source scope are recorded in the linked canonical symbol entry."
+        },
+        {
+          "source": "b",
+          "canonical": "r",
+          "meaning": "Input baseline vector, distinct from the scalar output baseline."
+        }
+      ]
+    },
+    "iclr2024-sparse-or-reverse": {
+      "title": "OR coefficients and reversed-mask AND coefficients",
+      "overview": "A reversed centered game supplies the exact sign and baseline convention.",
+      "assumptions": [],
+      "definitions": [
+        "model-output",
+        "fixed-input",
+        "input-baseline-vector",
+        "variable-universe",
+        "coalition",
+        "masked-input",
+        "masked-game",
+        "output-baseline",
+        "centered-game",
+        "interaction-centered",
+        "or-interaction"
+      ],
+      "completion_scope": "entire source target",
+      "proof_scope": "entire source target",
+      "proof_steps": [
+        {
+          "id": "iclr2024-sparse-or-reverse-step-1",
+          "title": "Definitions, original target, and premise adapter",
+          "body_md": "For nonempty S the source defines $I_\\lor(S)=-\\sum_{T\\subseteq S}(-1)^{|S|-|T|}g_0(N\\setminus T)$ and separately sets its empty value to zero. Define h(T)=g₀(N)−g₀(N\\T); then h(empty)=0. For nonempty S, the alternating sum of the constant g₀(N) is zero, so $I_h(S)=g_0(N)\\sum_{T\\subseteq S}(-1)^{|S|-|T|}-\\sum_{T\\subseteq S}(-1)^{|S|-|T|}g_0(N\\setminus T)=I_\\lor(S)$. Both empty values are also zero. This preserves the negative sign in reversing masked/present states. Shared OR reconstruction is reused, but this paper’s centered empty zero differs from Generalizable’s raw output baseline convention.",
+          "formula_tex": "I_\\lor(S)=-\\sum_{T\\subseteq S}(-1)^{|S|-|T|}g_0(N\\setminus T),\\quad I_\\lor(\\varnothing)=0.",
+          "justification": "The original premises, explicit finite-index arguments, and complete shared proofs are retained. Repairs change proof steps only.",
+          "lean_refs": [
+            {
+              "declaration": "FullSparse.or_reverse",
+              "source_path": "research/full-proof-integration-20260930/iclr2024-sparse/lean/FullSparse.lean",
+              "line": 124,
+              "scope": "actual_proved_statement_or_internal_proof_dependency",
+              "report_path": "research/full-proof-integration-20260930/iclr2024-sparse/verification/report.json",
+              "explanation_md": "This real declaration covers the exact scope stated in the verification report; an association does not independently verify every explanatory sentence."
+            }
+          ]
+        }
+      ],
+      "original_statement_note": "The official source statement is preserved. Project translations and mathematical transcriptions are distinguished from the PDF layout.",
+      "original_proof_note": "The complete original mathematical proof remains linked to the official source. Its errors are explicitly recorded; the project rewriting does not silently change the proposition.",
+      "notation_map": [
+        {
+          "source": "u(S)",
+          "canonical": "g0(S)",
+          "meaning": "The paper uses this symbol in the centered masked-game convention. Its exact definition and source scope are recorded in the linked canonical symbol entry."
+        },
+        {
+          "source": "b",
+          "canonical": "r",
+          "meaning": "Input baseline vector, distinct from the scalar output baseline."
+        }
+      ]
+    },
+    "iclr2024-sparse-and-or-matching": {
+      "title": "Exact matching by the AND–OR decomposition",
+      "overview": "Apply complete AND and OR reconstruction to the same centered components, with both empty values zero.",
+      "assumptions": [],
+      "definitions": [
+        "model-output",
+        "fixed-input",
+        "input-baseline-vector",
+        "variable-universe",
+        "coalition",
+        "masked-input",
+        "masked-game",
+        "output-baseline",
+        "centered-game",
+        "interaction-centered",
+        "or-interaction",
+        "and-component",
+        "or-component"
+      ],
+      "completion_scope": "literal Eq62 with a(empty)=b(empty)=0: both component sums and their combined actual centered model output; baseline-preserving generic identity is a separate helper",
+      "proof_scope": "literal Eq62 with a(empty)=b(empty)=0: both component sums and their combined actual centered model output; baseline-preserving generic identity is a separate helper",
+      "proof_steps": [
+        {
+          "id": "iclr2024-sparse-and-or-matching-step-1",
+          "title": "Definitions, original target, and premise adapter",
+          "body_md": "The final source decomposition is g₀(S)=g_∧(S)+g_∨(S), with both components zero at empty. Apply the Möbius transform to g_∧ and the reversed OR definition to g_∨. This is externally cited and has no new detailed local author proof. The shared reconstructions require the same finite universe, one fixed decomposition for every mask, zero component empty values, and the separately defined zero OR empty coefficient. They give $g_\\land(S)=\\sum_{T\\subseteq S}I_\\land(T)$ and $g_\\lor(S)=\\sum_{T\\cap S\\ne\\varnothing}I_\\lor(T)$; add them to obtain Eq. (62). The component-name and γ-sign misprints in the parameter sentence are recorded at the algorithm-formula level and do not alter this final matching proposition.",
+          "formula_tex": "g_0(S)=g_\\land(S)+g_\\lor(S),\\quad g_\\land(S)=\\sum_{T\\subseteq S}I_\\land(T),\\quad g_\\lor(S)=\\sum_{T\\cap S\\ne\\varnothing}I_\\lor(T).",
+          "justification": "The original premises, explicit finite-index arguments, and complete shared proofs are retained. Repairs change proof steps only.",
+          "lean_refs": [
+            {
+              "declaration": "FullSparse.and_or_matching_eq62",
+              "source_path": "research/full-proof-integration-20260930/iclr2024-sparse/lean/FullSparse.lean",
+              "line": 163,
+              "scope": "actual_proved_statement_or_internal_proof_dependency",
+              "report_path": "research/full-proof-integration-20260930/iclr2024-sparse/verification/report.json",
+              "explanation_md": "This real declaration covers the exact scope stated in the verification report; an association does not independently verify every explanatory sentence."
+            },
+            {
+              "declaration": "FullSparse.and_matching_zero_baseline",
+              "source_path": "research/full-proof-integration-20260930/iclr2024-sparse/lean/FullSparse.lean",
+              "line": 144,
+              "scope": "actual_proved_statement_or_internal_proof_dependency",
+              "report_path": "research/full-proof-integration-20260930/iclr2024-sparse/verification/report.json",
+              "explanation_md": "This real declaration covers the exact scope stated in the verification report; an association does not independently verify every explanatory sentence."
+            },
+            {
+              "declaration": "FullSparse.or_matching_zero_baseline",
+              "source_path": "research/full-proof-integration-20260930/iclr2024-sparse/lean/FullSparse.lean",
+              "line": 152,
+              "scope": "actual_proved_statement_or_internal_proof_dependency",
+              "report_path": "research/full-proof-integration-20260930/iclr2024-sparse/verification/report.json",
+              "explanation_md": "This real declaration covers the exact scope stated in the verification report; an association does not independently verify every explanatory sentence."
+            },
+            {
+              "declaration": "FullSparse.and_or_matching",
+              "source_path": "research/full-proof-integration-20260930/iclr2024-sparse/lean/FullSparse.lean",
+              "line": 136,
+              "scope": "actual_proved_statement_or_internal_proof_dependency",
+              "report_path": "research/full-proof-integration-20260930/iclr2024-sparse/verification/report.json",
+              "explanation_md": "This real declaration covers the exact scope stated in the verification report; an association does not independently verify every explanatory sentence."
+            }
+          ]
+        }
+      ],
+      "original_statement_note": "The official source statement is preserved. Project translations and mathematical transcriptions are distinguished from the PDF layout.",
+      "original_proof_note": "The complete original mathematical proof remains linked to the official source. Its errors are explicitly recorded; the project rewriting does not silently change the proposition.",
+      "notation_map": [
+        {
+          "source": "u(S)",
+          "canonical": "g0(S)",
+          "meaning": "The paper uses this symbol in the centered masked-game convention. Its exact definition and source scope are recorded in the linked canonical symbol entry."
+        },
+        {
+          "source": "b",
+          "canonical": "r",
+          "meaning": "Input baseline vector, distinct from the scalar output baseline."
+        }
+      ]
+    },
+    "iclr2024-sparse-and-or-optimization": {
+      "title": "Sparse AND–OR and denoising optimization definitions",
+      "overview": "Preserve the source’s duplicated u_and name and the two +γ terms after denoising. An objective alone does not guarantee a globally sparsest computed solution.",
+      "assumptions": [],
+      "definitions": [
+        "model-output",
+        "fixed-input",
+        "input-baseline-vector",
+        "variable-universe",
+        "coalition",
+        "masked-input",
+        "masked-game",
+        "output-baseline",
+        "centered-game",
+        "interaction-centered",
+        "or-interaction",
+        "and-component",
+        "or-component",
+        "decomposition-parameter",
+        "output-noise",
+        "noise-bound"
+      ],
+      "completion_scope": "continuing precise mathematical target",
+      "proof_scope": "continuing precise mathematical target",
+      "proof_steps": [],
+      "original_statement_note": "The official source statement is preserved. Project translations and mathematical transcriptions are distinguished from the PDF layout.",
+      "original_proof_note": "The complete original mathematical proof remains linked to the official source. Its errors are explicitly recorded; the project rewriting does not silently change the proposition.",
+      "notation_map": [
+        {
+          "source": "u(S)",
+          "canonical": "g0(S)",
+          "meaning": "The paper uses this symbol in the centered masked-game convention. Its exact definition and source scope are recorded in the linked canonical symbol entry."
+        },
+        {
+          "source": "b",
+          "canonical": "r",
+          "meaning": "Input baseline vector, distinct from the scalar output baseline."
+        }
+      ]
+    },
+    "iclr2024-sparse-threshold-discussion": {
+      "title": "Discussion of exact zeros below the threshold",
+      "overview": "The author allows small nonzero interactions. No probability model or numerical theorem is supplied; this is not a strict proof.",
+      "assumptions": [],
+      "definitions": [
+        "model-output",
+        "fixed-input",
+        "input-baseline-vector",
+        "variable-universe",
+        "coalition",
+        "masked-input",
+        "masked-game",
+        "output-baseline",
+        "centered-game",
+        "interaction-centered",
+        "salience-threshold"
+      ],
+      "completion_scope": "continuing precise mathematical target",
+      "proof_scope": "continuing precise mathematical target",
+      "proof_steps": [],
+      "original_statement_note": "The official source statement is preserved. Project translations and mathematical transcriptions are distinguished from the PDF layout.",
+      "original_proof_note": "The complete original mathematical proof remains linked to the official source. Its errors are explicitly recorded; the project rewriting does not silently change the proposition.",
+      "notation_map": [
+        {
+          "source": "u(S)",
+          "canonical": "g0(S)",
+          "meaning": "The paper uses this symbol in the centered masked-game convention. Its exact definition and source scope are recorded in the linked canonical symbol entry."
+        },
+        {
+          "source": "b",
+          "canonical": "r",
+          "meaning": "Input baseline vector, distinct from the scalar output baseline."
+        }
+      ]
+    },
+    "iclr2024-sparse-monotonicity-example": {
+      "title": "The five-variable binary mean-monotonicity example",
+      "overview": "Correct the one source arithmetic entry while keeping the same polynomial and monotonicity conclusion.",
+      "assumptions": [],
+      "definitions": [
+        "model-output",
+        "fixed-input",
+        "input-baseline-vector",
+        "variable-universe",
+        "coalition",
+        "masked-input",
+        "masked-game",
+        "output-baseline",
+        "centered-game",
+        "interaction-centered",
+        "variable-count",
+        "mask-order",
+        "mean-output"
+      ],
+      "completion_scope": "only original actual five-coordinate polynomial example: μ2=1, μ3=19/10 and μ2≤μ3; not a general monotonicity theorem",
+      "proof_scope": "only original actual five-coordinate polynomial example: μ2=1, μ3=19/10 and μ2≤μ3; not a general monotonicity theorem",
+      "proof_steps": [
+        {
+          "id": "iclr2024-sparse-monotonicity-example-step-1",
+          "title": "Original example and arithmetic repair",
+          "body_md": "The model is $v(z)=z_1z_2z_3+z_1z_2+z_2z_3+z_2+z_3$, with x=(1,1,1,1,1), $r=0$, and unused variables 4,5. The ten pair outputs in lexicographic order are 2,1,0,0,3,1,1,1,1,0, totaling 10 and averaging 1. The printed triple outputs are 5,2,2,1,1,0,3,3,1,0. The final mask {3,4,5} retains z₃=1, so its output is 1. The corrected triple list ends in 1, totals 19, and averages 1.9 rather than 1.8. The same source monotonicity statement is still 1≤1.9. Preserve the original table and error location separately.",
+          "formula_tex": "v(z)=z_1z_2z_3+z_1z_2+z_2z_3+z_2+z_3,\\quad\\mathbb E_{|S|=2}u(S)\\le\\mathbb E_{|S|=3}u(S).",
+          "justification": "The original premises, explicit finite-index arguments, and complete shared proofs are retained. Repairs change proof steps only.",
+          "lean_refs": [
+            {
+              "declaration": "FullSparse.example_mean_two",
+              "source_path": "research/full-proof-integration-20260930/iclr2024-sparse/lean/FullSparse.lean",
+              "line": 226,
+              "scope": "actual_proved_statement_or_internal_proof_dependency",
+              "report_path": "research/full-proof-integration-20260930/iclr2024-sparse/verification/report.json",
+              "explanation_md": "This real declaration covers the exact scope stated in the verification report; an association does not independently verify every explanatory sentence."
+            },
+            {
+              "declaration": "FullSparse.example_mean_three",
+              "source_path": "research/full-proof-integration-20260930/iclr2024-sparse/lean/FullSparse.lean",
+              "line": 237,
+              "scope": "actual_proved_statement_or_internal_proof_dependency",
+              "report_path": "research/full-proof-integration-20260930/iclr2024-sparse/verification/report.json",
+              "explanation_md": "This real declaration covers the exact scope stated in the verification report; an association does not independently verify every explanatory sentence."
+            },
+            {
+              "declaration": "FullSparse.example_mean_monotone_comparison",
+              "source_path": "research/full-proof-integration-20260930/iclr2024-sparse/lean/FullSparse.lean",
+              "line": 247,
+              "scope": "actual_proved_statement_or_internal_proof_dependency",
+              "report_path": "research/full-proof-integration-20260930/iclr2024-sparse/verification/report.json",
+              "explanation_md": "This real declaration covers the exact scope stated in the verification report; an association does not independently verify every explanatory sentence."
+            }
+          ]
+        },
+        {
+          "id": "iclr2024-sparse-monotonicity-example-step-2",
+          "title": "Layer means for this example only",
+          "body_md": "Count the polynomial’s two first-order, two second-order, and one third-order monomials. For 0≤m≤5, $\\bar g_0^{(m)}=2m/5+2\\binom m2/\\binom52+\\binom m3/\\binom53$. The full mean sequence is 0,0.4,1,1.9,3.2,5, nondecreasing. This verifies the original example, not a general monotonicity theorem for all DNNs.",
+          "formula_tex": "",
+          "justification": "The original premises, explicit finite-index arguments, and complete shared proofs are retained. Repairs change proof steps only.",
+          "lean_refs": [
+            {
+              "declaration": "FullSparse.example_mean_two",
+              "source_path": "research/full-proof-integration-20260930/iclr2024-sparse/lean/FullSparse.lean",
+              "line": 226,
+              "scope": "actual_proved_statement_or_internal_proof_dependency",
+              "report_path": "research/full-proof-integration-20260930/iclr2024-sparse/verification/report.json",
+              "explanation_md": "This real declaration covers the exact scope stated in the verification report; an association does not independently verify every explanatory sentence."
+            },
+            {
+              "declaration": "FullSparse.example_mean_three",
+              "source_path": "research/full-proof-integration-20260930/iclr2024-sparse/lean/FullSparse.lean",
+              "line": 237,
+              "scope": "actual_proved_statement_or_internal_proof_dependency",
+              "report_path": "research/full-proof-integration-20260930/iclr2024-sparse/verification/report.json",
+              "explanation_md": "This real declaration covers the exact scope stated in the verification report; an association does not independently verify every explanatory sentence."
+            },
+            {
+              "declaration": "FullSparse.example_mean_monotone_comparison",
+              "source_path": "research/full-proof-integration-20260930/iclr2024-sparse/lean/FullSparse.lean",
+              "line": 247,
+              "scope": "actual_proved_statement_or_internal_proof_dependency",
+              "report_path": "research/full-proof-integration-20260930/iclr2024-sparse/verification/report.json",
+              "explanation_md": "This real declaration covers the exact scope stated in the verification report; an association does not independently verify every explanatory sentence."
+            }
+          ]
+        }
+      ],
+      "original_statement_note": "The official source statement is preserved. Project translations and mathematical transcriptions are distinguished from the PDF layout.",
+      "original_proof_note": "The complete original mathematical proof remains linked to the official source. Its errors are explicitly recorded; the project rewriting does not silently change the proposition.",
+      "notation_map": [
+        {
+          "source": "u(S)",
+          "canonical": "g0(S)",
+          "meaning": "The paper uses this symbol in the centered masked-game convention. Its exact definition and source scope are recorded in the linked canonical symbol entry."
+        },
+        {
+          "source": "b",
+          "canonical": "r",
+          "meaning": "Input baseline vector, distinct from the scalar output baseline."
+        }
+      ]
+    },
+    "iclr2024-sparse-sampling-complexity": {
+      "title": "Sampling layer means with O(nt) model queries",
+      "overview": "Count the requested model evaluations, and separate query count from runtime and concentration.",
+      "assumptions": [],
+      "definitions": [
+        "model-output",
+        "fixed-input",
+        "input-baseline-vector",
+        "variable-universe",
+        "coalition",
+        "masked-input",
+        "masked-game",
+        "output-baseline",
+        "centered-game",
+        "interaction-centered",
+        "variable-count",
+        "mask-order",
+        "mean-output",
+        "sample-count"
+      ],
+      "completion_scope": "exact requested model evaluation count n*t on positive mask-size layers; no runtime or concentration statement",
+      "proof_scope": "exact requested model evaluation count n*t on positive mask-size layers; no runtime or concentration statement",
+      "proof_steps": [
+        {
+          "id": "iclr2024-sparse-sampling-complexity-step-1",
+          "title": "Layer-mean sampling and model queries",
+          "body_md": "For each m the estimator uses t sampled m-element sets and is $t^{-1}\\sum_{j=1}^t g_0(S_j)$. Positive layers m=1,…,n request exactly nt evaluations. If t queries are also made at m=0, there are (n+1)t requests, bounded by 2nt when n≥1. Thus model-query cost is O(nt). Full enumeration has $2^n$ masks and O($2^n$) requests.",
+          "formula_tex": "\\widehat{\\bar g_0}^{(m)}=\\frac1t\\sum_{j=1}^tg_0(S_j),\\quad |S_j|=m,\\quad O(nt)\\text{ model queries}.",
+          "justification": "The original premises, explicit finite-index arguments, and complete shared proofs are retained. Repairs change proof steps only.",
+          "lean_refs": [
+            {
+              "declaration": "FullSparse.sampling_evaluation_count",
+              "source_path": "research/full-proof-integration-20260930/iclr2024-sparse/lean/FullSparse.lean",
+              "line": 218,
+              "scope": "actual_proved_statement_or_internal_proof_dependency",
+              "report_path": "research/full-proof-integration-20260930/iclr2024-sparse/verification/report.json",
+              "explanation_md": "This real declaration covers the exact scope stated in the verification report; an association does not independently verify every explanatory sentence."
+            }
+          ]
+        },
+        {
+          "id": "iclr2024-sparse-sampling-complexity-step-2",
+          "title": "Query count versus runtime and certification",
+          "body_md": "Inference time per DNN call, subset sampling, and estimator computation have separate runtime costs. The source supplies no error bound or confidence level and does not prove that finite sampling strictly certifies all mean-monotonicity conditions or Assumption 3. Approximate testing is not relabeled as deterministic verification.",
+          "formula_tex": "",
+          "justification": "The original premises, explicit finite-index arguments, and complete shared proofs are retained. Repairs change proof steps only.",
+          "lean_refs": []
+        }
+      ],
+      "original_statement_note": "The official source statement is preserved. Project translations and mathematical transcriptions are distinguished from the PDF layout.",
+      "original_proof_note": "The complete original mathematical proof remains linked to the official source. Its errors are explicitly recorded; the project rewriting does not silently change the proposition.",
+      "notation_map": [
+        {
+          "source": "u(S)",
+          "canonical": "g0(S)",
+          "meaning": "The paper uses this symbol in the centered masked-game convention. Its exact definition and source scope are recorded in the linked canonical symbol entry."
+        },
+        {
+          "source": "b",
+          "canonical": "r",
+          "meaning": "Input baseline vector, distinct from the scalar output baseline."
+        }
+      ]
+    },
+    "iclr2024-sparse-experiments": {
+      "title": "Empirical sparsity, mean monotonicity, and p values",
+      "overview": "Classify all experimental tables, plots, and parameters as empirical content rather than proofs.",
+      "assumptions": [],
+      "definitions": [
+        "model-output",
+        "fixed-input",
+        "input-baseline-vector",
+        "variable-universe",
+        "coalition",
+        "masked-input",
+        "masked-game",
+        "output-baseline",
+        "centered-game",
+        "interaction-centered",
+        "interaction-order",
+        "mean-output",
+        "robustness-exponent",
+        "salience-threshold"
+      ],
+      "completion_scope": "continuing precise mathematical target",
+      "proof_scope": "continuing precise mathematical target",
+      "proof_steps": [],
+      "original_statement_note": "The official source statement is preserved. Project translations and mathematical transcriptions are distinguished from the PDF layout.",
+      "original_proof_note": "The complete original mathematical proof remains linked to the official source. Its errors are explicitly recorded; the project rewriting does not silently change the proposition.",
+      "notation_map": [
+        {
+          "source": "u(S)",
+          "canonical": "g0(S)",
+          "meaning": "The paper uses this symbol in the centered masked-game convention. Its exact definition and source scope are recorded in the linked canonical symbol entry."
+        },
+        {
+          "source": "b",
+          "canonical": "r",
+          "meaning": "Input baseline vector, distinct from the scalar output baseline."
+        }
+      ]
+    },
+    "iclr2024-sparse-related-work": {
+      "title": "Externally cited mathematical and empirical results",
+      "overview": "This is background. Each cited paper’s proof is not automatically imported into this paper’s target count.",
+      "assumptions": [],
+      "definitions": [
+        "model-output",
+        "fixed-input",
+        "input-baseline-vector",
+        "variable-universe",
+        "coalition",
+        "masked-input",
+        "masked-game",
+        "output-baseline",
+        "centered-game",
+        "interaction-centered"
+      ],
+      "completion_scope": "continuing precise mathematical target",
+      "proof_scope": "continuing precise mathematical target",
+      "proof_steps": [],
+      "original_statement_note": "The official source statement is preserved. Project translations and mathematical transcriptions are distinguished from the PDF layout.",
+      "original_proof_note": "The complete original mathematical proof remains linked to the official source. Its errors are explicitly recorded; the project rewriting does not silently change the proposition.",
+      "notation_map": [
+        {
+          "source": "u(S)",
+          "canonical": "g0(S)",
+          "meaning": "The paper uses this symbol in the centered masked-game convention. Its exact definition and source scope are recorded in the linked canonical symbol entry."
+        },
+        {
+          "source": "b",
+          "canonical": "r",
+          "meaning": "Input baseline vector, distinct from the scalar output baseline."
+        }
+      ]
+    }
+  },
+  "issues": {
+    "sparse-issue-determinant-sign": {
+      "title": "Missing cofactor sign in Lemma 3 elimination",
+      "analysis_md": "For $n=3,M=2$, the Eq.(31) matrix is $\\left[\\begin{smallmatrix}1&2\\\\1&1\\end{smallmatrix}\\right]$ with determinant $-1$. Expanding Eq.(32) along the first column omits $(-1)^{M+1}$; iteration yields $(-1)^{M(M-1)/2}$. Only the sign changes, not nonzero determinant or full column rank.",
+      "text_md": "For $n=3,M=2$, the Eq.(31) matrix is $\\left[\\begin{smallmatrix}1&2\\\\1&1\\end{smallmatrix}\\right]$ with determinant $-1$. Expanding Eq.(32) along the first column omits $(-1)^{M+1}$; iteration yields $(-1)^{M(M-1)/2}$. Only the sign changes, not nonzero determinant or full column rank.",
+      "impact_md": "The exact values in Eqs.(33)–(36) need repair; Lemma 3’s final kernel conclusion is retained."
+    },
+    "sparse-issue-beta-exponent": {
+      "title": "The beta exponent disagrees with the later value",
+      "analysis_md": "The formal image prints $1-q$. With $p=1,q=2$, the displayed integral diverges, while the later value is $B(1,2)=1/2$. Finite combinatorial counting repairs the proof without changing Shapley, SII, or STI statements.",
+      "text_md": "The formal image prints $1-q$. With $p=1,q=2$, the displayed integral diverges, while the later value is $B(1,2)=1/2$. Finite combinatorial counting repairs the proof without changing Shapley, SII, or STI statements.",
+      "impact_md": "This affects the beta definition and integral proof route, not the three final attribution identities."
+    },
+    "sparse-issue-beta-empty-L": {
+      "title": "Unaddressed zero parameter for an empty L",
+      "analysis_md": "For $L=\\varnothing$ and $k=0$, the author calls $B(n,0)$ outside the declared positive-parameter domain. When $|L|=0$, the marked integrand is zero on $(0,1)$ and cannot uniformly integrate to $1$. The discrete weight itself is finite and needs separate boundary treatment.",
+      "text_md": "For $L=\\varnothing$ and $k=0$, the author calls $B(n,0)$ outside the declared positive-parameter domain. When $|L|=0$, the marked integrand is zero on $(0,1)$ and cannot uniformly integrate to $1$. The discrete weight itself is finite and needs separate boundary treatment.",
+      "impact_md": "The empty-family branch of the coefficient proof is repaired by the shared finite proof, retaining the final formulas."
+    },
+    "sparse-issue-taylor-validity": {
+      "title": "The general infinite Taylor identity lacks a validity premise",
+      "analysis_md": "The source says continuously differentiable functions without assuming analyticity or equality to a Taylor series. Take $n=1,r=0,x=1$ and $v(t)=e^{-1/t^2}$ for $t\\ne0$, $v(0)=0$. This smooth function has all derivatives zero at the baseline, but $I(\\{1\\})=e^{-1}\\ne0$, while Eq.(8)’s right side is zero. The counterexample concerns general Lemma 1 and does not satisfy the global derivative cutoff, so it does not refute the cutoff implication.",
+      "text_md": "The source says continuously differentiable functions without assuming analyticity or equality to a Taylor series. Take $n=1,r=0,x=1$ and $v(t)=e^{-1/t^2}$ for $t\\ne0$, $v(0)=0$. This smooth function has all derivatives zero at the baseline, but $I(\\{1\\})=e^{-1}\\ne0$, while Eq.(8)’s right side is zero. The counterexample concerns general Lemma 1 and does not satisfy the global derivative cutoff, so it does not refute the cutoff implication.",
+      "impact_md": "General Lemma 1 and the infinite expansions in Eqs.(2),(11) cannot be repaired by silently adding analyticity."
+    },
+    "sparse-issue-zero-power": {
+      "title": "The masked-power argument omits a positive exponent condition",
+      "analysis_md": "For $\\kappa_i=0$, the Taylor-monomial convention gives $0^0=1$, rather than zero. The support filter only needs the implication that a masked factor vanishes when $\\kappa_i>0$. Repairing this intermediate explanation does not change the support classes or final target.",
+      "text_md": "For $\\kappa_i=0$, the Taylor-monomial convention gives $0^0=1$, rather than zero. The support filter only needs the implication that a masked factor vanishes when $\\kappa_i>0$. Repairing this intermediate explanation does not change the support classes or final target.",
+      "impact_md": "This local masked-power error is separate from the general Taylor-validity gap."
+    },
+    "sparse-issue-theorem2-zero-output": {
+      "title": "The author construction omits a zero first-order mean",
+      "analysis_md": "The all-zero centered masked game satisfies the three assumptions but Eq.(41) divides by zero. This refutes only the proof step: the final identity multiplied by a zero mean can still hold. The zero-mean branch must be treated without inserting a positive-mean assumption.",
+      "text_md": "The all-zero centered masked game satisfies the three assumptions but Eq.(41) divides by zero. This refutes only the proof step: the final identity multiplied by a zero mean can still hold. The zero-mean branch must be treated without inserting a positive-mean assumption.",
+      "impact_md": "The rewritten proof fully handles zero means without inferring that every individual mask output is zero."
+    },
+    "sparse-issue-theorem2-empty-G": {
+      "title": "The constructed leading-index family may be empty",
+      "analysis_md": "For $n=3,M=1,p=2$, the game $g_0(S)=|S|$ satisfies the three assumptions, with $\\bar g_0^{(1)}=1$ and $A^{(1)}=3$. Its highest base-$n$ degree is $q^{(1)}=1\\le\\lfloor p\\rfloor-1$, so $G$ is empty and the displayed maximum and $k^*$ do not exist. Lemma 3 cannot manufacture a nonzero leading block here. This is a construction gap, not a counterexample to the final existence claim.",
+      "text_md": "For $n=3,M=1,p=2$, the game $g_0(S)=|S|$ satisfies the three assumptions, with $\\bar g_0^{(1)}=1$ and $A^{(1)}=3$. Its highest base-$n$ degree is $q^{(1)}=1\\le\\lfloor p\\rfloor-1$, so $G$ is empty and the displayed maximum and $k^*$ do not exist. Lemma 3 cannot manufacture a nonzero leading block here. This is a construction gap, not a counterexample to the final existence claim.",
+      "impact_md": "The repaired existence construction avoids the undefined maximum rather than adding nonempty G."
+    },
+    "sparse-issue-theorem2-m0-range": {
+      "title": "The Lemma 2 range does not cover every witness row",
+      "analysis_md": "When $M<n<2M$, one has $n-M<M$, so a nonzero row obtained by Lemma 3 may lie outside Eq.(40)’s stated range. The mean-output formula extends to every retained count, with binomial coefficients zero for $k>m$. This completes the proof without adding a hypothesis.",
+      "text_md": "When $M<n<2M$, one has $n-M<M$, so a nonzero row obtained by Lemma 3 may lie outside Eq.(40)’s stated range. The mean-output formula extends to every retained count, with binomial coefficients zero for $k>m$. This completes the proof without adding a hypothesis.",
+      "impact_md": "The issue is the premise cited at Eq.(51)."
+    },
+    "sparse-issue-theorem2-p-under-one": {
+      "title": "The low-digit notation is ambiguous below exponent one",
+      "analysis_md": "The allowed $p>0$ includes $p<1$, where $\\lfloor p\\rfloor-1=-1$ despite nonnegative digit indices. The experiments include values around $0.9$, so a new $p\\ge1$ restriction would be unfaithful. The finite-family reading $J=\\{i\\in\\mathbb N:i<\\lfloor p\\rfloor\\}$ is empty there. If the printed constant digit remains separate, assigning it zero also works. The project witness handles any finite low-digit family without claiming the original ellipsis literally defined negative indices.",
+      "text_md": "The allowed $p>0$ includes $p<1$, where $\\lfloor p\\rfloor-1=-1$ despite nonnegative digit indices. The experiments include values around $0.9$, so a new $p\\ge1$ restriction would be unfaithful. The finite-family reading $J=\\{i\\in\\mathbb N:i<\\lfloor p\\rfloor\\}$ is empty there. If the printed constant digit remains separate, assigning it zero also works. The project witness handles any finite low-digit family without claiming the original ellipsis literally defined negative indices.",
+      "impact_md": "The index-family scope is disclosed while preserving the original displayed expression."
+    },
+    "sparse-issue-eta-zero": {
+      "title": "Division by the cancellation ratio at zero or an empty order",
+      "analysis_md": "An empty order gives $0/0$. Nonzero effects with exact sign cancellation give $\\eta=0$, making Eq.(57)’s division undefined. Theorem 3 is situated in Case 1 with $|\\eta|\\gg1/n$, which already provides a nonzero context. The proof is faithful in that range and is not enlarged to complete cancellation.",
+      "text_md": "An empty order gives $0/0$. Nonzero effects with exact sign cancellation give $\\eta=0$, making Eq.(57)’s division undefined. Theorem 3 is situated in Case 1 with $|\\eta|\\gg1/n$, which already provides a nonzero context. The proof is faithful in that range and is not enlarged to complete cancellation.",
+      "impact_md": "Complete cancellation is outside the usable quotient domain; the Case 1 derivation adds no new assumption."
+    },
+    "sparse-issue-noise-variance": {
+      "title": "Randomness alone does not imply the variance multiplier",
+      "analysis_md": "The source does not state independence and equal variance of the noise terms. If every $\\epsilon_T$ is the same nondegenerate random variable $Z$, centering gives $\\epsilon_T-\\epsilon_\\varnothing=0$, so every noise dividend vanishes. The claimed multiplier fails. Reading fully random as IID would require explicit source justification, and the empty centered dividend is zero rather than one copy of the noise variance.",
+      "text_md": "The source does not state independence and equal variance of the noise terms. If every $\\epsilon_T$ is the same nondegenerate random variable $Z$, centering gives $\\epsilon_T-\\epsilon_\\varnothing=0$, so every noise dividend vanishes. The claimed multiplier fails. Reading fully random as IID would require explicit source justification, and the empty centered dividend is zero rather than one copy of the noise variance.",
+      "impact_md": "The variance conclusion requires a separately recorded interpretation of independence; it is not silently inserted."
+    },
+    "sparse-issue-parity-empty": {
+      "title": "The parity example conflicts with the centered empty value",
+      "analysis_md": "The empty set has even size, so the displayed parity definition gives $u(\\varnothing)=-1$, whereas the paper’s centered convention requires $u(\\varnothing)=0$. The source example does not exist under these simultaneous definitions. Renaming u as a raw game or changing its empty value would change the example.",
+      "text_md": "The empty set has even size, so the displayed parity definition gives $u(\\varnothing)=-1$, whereas the paper’s centered convention requires $u(\\varnothing)=0$. The source example does not exist under these simultaneous definitions. Renaming u as a raw game or changing its empty value would change the example.",
+      "impact_md": "The source-symbol scope conflict is retained separately."
+    },
+    "sparse-issue-transfer": {
+      "title": "Sparse reconstruction of each sample does not imply transfer",
+      "analysis_md": "For $n\\ge2$, use one model $v(z)=\\sum_i z_i$, zero input baseline, and samples $x^{(j)}=e_j$. Each induced centered game is $g_0^{(j)}(S)=\\mathbf1_{j\\in S}$, with one nonzero singleton dividend and exact reconstruction on every mask. Their salient supports are disjoint. All outputs are $1$, so threshold $v(z)>1/2$ classifies them in the same positive category. Only $n$ patterns are needed. The original contradiction has no global pattern-budget premise.",
+      "text_md": "For $n\\ge2$, use one model $v(z)=\\sum_i z_i$, zero input baseline, and samples $x^{(j)}=e_j$. Each induced centered game is $g_0^{(j)}(S)=\\mathbf1_{j\\in S}$, with one nonzero singleton dividend and exact reconstruction on every mask. Their salient supports are disjoint. All outputs are $1$, so threshold $v(z)>1/2$ classifies them in the same positive category. Only $n$ patterns are needed. The original contradiction has no global pattern-budget premise.",
+      "impact_md": "The original same-category inference is refuted without adding a new pattern-budget assumption."
+    },
+    "sparse-issue-decomposition-notation": {
+      "title": "Component names and denoising split signs disagree",
+      "analysis_md": "The source gives both components the AND name. In the denoising equations, both include $+\\gamma$, making their sum $u-\\epsilon+2\\gamma$ rather than the denoised output. These intermediate notation/sign errors can be repaired while preserving the final decomposition $u=u_{and}+u_{or}$.",
+      "text_md": "The source gives both components the AND name. In the denoising equations, both include $+\\gamma$, making their sum $u-\\epsilon+2\\gamma$ rather than the denoised output. These intermediate notation/sign errors can be repaired while preserving the final decomposition $u=u_{and}+u_{or}$.",
+      "impact_md": "The issue concerns the intermediate algorithmic formulas, not a changed final split."
+    },
+    "sparse-issue-asymptotic-sparsity": {
+      "title": "Polynomial cancellation does not imply same-order sparsity",
+      "analysis_md": "For $n\\ge3$ with $n\\equiv2,3\\pmod4$, let $q=\\binom n2$ be odd. Assign second-order coefficients $\\pm1$ with counts $(q-1)/2$ and $(q+1)/2$, giving total $-1$. The model $v(z)=\\sum_i z_i+\\sum_{|A|=2}c_A\\prod_{i\\in A}z_i$ at the all-one input and zero baseline has $A^{(1)}=n,A^{(2)}=-1$ and zero higher interactions and mixed derivatives. Its order mean is $\\mu_m=m-\\binom m2/q$; the increments are $1-m/q>0$, and $\\mu_m/m=1-(m-1)/(2q)$ is nonincreasing. The original three assumptions hold with $M=2,p=1$. With fixed $\\tau=1/100$, $R^{(2)}=q$ and $\\eta^{(2)}=-1/q$, polynomially small despite every second-order term being salient. Theorem 3’s bound $100q$ still holds.",
+      "text_md": "For $n\\ge3$ with $n\\equiv2,3\\pmod4$, let $q=\\binom n2$ be odd. Assign second-order coefficients $\\pm1$ with counts $(q-1)/2$ and $(q+1)/2$, giving total $-1$. The model $v(z)=\\sum_i z_i+\\sum_{|A|=2}c_A\\prod_{i\\in A}z_i$ at the all-one input and zero baseline has $A^{(1)}=n,A^{(2)}=-1$ and zero higher interactions and mixed derivatives. Its order mean is $\\mu_m=m-\\binom m2/q$; the increments are $1-m/q>0$, and $\\mu_m/m=1-(m-1)/(2q)$ is nonincreasing. The original three assumptions hold with $M=2,p=1$. With fixed $\\tau=1/100$, $R^{(2)}=q$ and $\\eta^{(2)}=-1/q$, polynomially small despite every second-order term being salient. Theorem 3’s bound $100q$ still holds.",
+      "impact_md": "This refutes the extra Case 2 same-order inference, not the neighboring empirical most-cases description, Theorem 3, or total polynomial sparsity relative to $2^n$."
+    },
+    "sparse-issue-example-H-arithmetic": {
+      "title": "Appendix H omits the singleton x3 contribution",
+      "analysis_md": "The formal table prints zero for mask $\\{3,4,5\\}$, but $v=x_1x_2x_3+x_1x_2+x_2x_3+x_2+x_3$ at the all-one input and zero baseline gives output $1$ there. The sum over ten third-order masks is $19$ and the mean is $1.9$. The original comparison with second-order mean $1$ remains true.",
+      "text_md": "The formal table prints zero for mask $\\{3,4,5\\}$, but $v=x_1x_2x_3+x_1x_2+x_2x_3+x_2+x_3$ at the all-one input and zero baseline gives output $1$ there. The sum over ten third-order masks is $19$ and the mean is $1.9$. The original comparison with second-order mean $1$ remains true.",
+      "impact_md": "Only the table entry and derived mean are repaired."
+    },
+    "sparse-issue-reconstruction-index": {
+      "title": "A switched sum uses S containing L instead of T",
+      "analysis_md": "The preceding line requires $T\\supseteq L$, but the next line prints $S\\supseteq L$, which cannot filter the varying T terms and does not produce the stated binomial count. Restoring the correct bound or using the full subset bijection proves the same reconstruction claim.",
+      "text_md": "The preceding line requires $T\\supseteq L$, but the next line prints $S\\supseteq L$, which cannot filter the varying T terms and does not produce the stated binomial count. Restoring the correct bound or using the full subset bijection proves the same reconstruction claim.",
+      "impact_md": "This is a local proof-index error, not a false reconstruction theorem."
+    },
+    "sparse-issue-marginal-free-L": {
+      "title": "A grouped cardinality sum leaves L unbound",
+      "analysis_md": "After grouping by size $l$, L is no longer a summation variable; the sign exponent must depend on $l$ to use binomial cancellation. The original free-L expression is retained. The shared finite-difference proof avoids it while keeping the original lemma and all boundary cases.",
+      "text_md": "After grouping by size $l$, L is no longer a summation variable; the sign exponent must depend on $l$ to use binomial cancellation. The original free-L expression is retained. The shared finite-difference proof avoids it while keeping the original lemma and all boundary cases.",
+      "impact_md": "This repairs the local grouping step without changing the marginal theorem."
+    },
+    "sparse-issue-STI-free-S": {
+      "title": "The critical-order STI proof leaves an environment S free",
+      "analysis_md": "The original environment S has been grouped by $q=|S|$, but the denominator still contains a free S. The next integral step needs denominator $\\binom{n-1}{q}$. The shared finite factorial-convolution proof directly yields the original critical-order weight while retaining all three branches.",
+      "text_md": "The original environment S has been grouped by $q=|S|$, but the denominator still contains a free S. The next integral step needs denominator $\\binom{n-1}{q}$. The shared finite factorial-convolution proof directly yields the original critical-order weight while retaining all three branches.",
+      "impact_md": "This is a local index error in the proof, not a changed STI proposition."
+    },
+    "sparse-issue-T2-parameter-domain": {
+      "title": "Theorem 2 leaves some parameter domains unstated",
+      "analysis_md": "The source does not repeat Lemma 3’s $M<n$ in Theorem 2, so that restriction cannot be inserted. The new construction covers $M=n$. Real base-$n$ logarithms need $n>1$, and the displayed binomial denominators are nonzero for $M\\le n$. No explicit positive-M convention was found: if $M=0$ is allowed, the all-zero centered game at $n=3$ satisfies the three assumptions, but the empty sum $\\lambda=0$ contradicts $\\lambda\\ne0$. That reading has a separate counterexample, without inserting $M>0$ into the unconditional source proposition.",
+      "text_md": "The source does not repeat Lemma 3’s $M<n$ in Theorem 2, so that restriction cannot be inserted. The new construction covers $M=n$. Real base-$n$ logarithms need $n>1$, and the displayed binomial denominators are nonzero for $M\\le n$. No explicit positive-M convention was found: if $M=0$ is allowed, the all-zero centered game at $n=3$ satisfies the three assumptions, but the empty sum $\\lambda=0$ contradicts $\\lambda\\ne0$. That reading has a separate counterexample, without inserting $M>0$ into the unconditional source proposition.",
+      "impact_md": "The full existence construction is verified on the displayed positive-order expression domain; the zero-order reading remains separately refuted."
+    },
+    "sparse-issue-lemma3-copied-row": {
+      "title": "Eq.(33) copies the n−2 matrix row",
+      "analysis_md": "The formal second row outside its first column repeats $n-2$ in Eq.(33), whereas adjacent-row differences in Eq.(32) require $n-3$. The original array remains in the full transcription. Correct elimination or the completed finite-difference induction proves the original kernel conclusion without using that erroneous matrix.",
+      "text_md": "The formal second row outside its first column repeats $n-2$ in Eq.(33), whereas adjacent-row differences in Eq.(32) require $n-3$. The original array remains in the full transcription. Correct elimination or the completed finite-difference induction proves the original kernel conclusion without using that erroneous matrix.",
+      "impact_md": "The copied row and the missing cofactor sign are separate proof errors."
+    },
+    "cvpr-issue-bow-table7-probability-scale": {
+      "title": "Table 7 is incompatible if the adjacent probability scale continues",
+      "analysis_md": "The page-17 footnote beside Table 6 says in this example and uses a probability output. Table 7 on page 18 gives singleton value $6.568$ and pair value $-13.481$. If the same probability scale applies, Möbius differences lie respectively in $[-1,1]$ and $[-2,2]$, so the values are incompatible. The footnote does not unambiguously extend to Table 7, and the section does not state whether its scale changes. The values are therefore not unconditionally refuted. The formal images were checked, ruling out an extraction error.",
+      "text_md": "The page-17 footnote beside Table 6 says in this example and uses a probability output. Table 7 on page 18 gives singleton value $6.568$ and pair value $-13.481$. If the same probability scale applies, Möbius differences lie respectively in $[-1,1]$ and $[-2,2]$, so the values are incompatible. The footnote does not unambiguously extend to Table 7, and the section does not state whether its scale changes. The values are therefore not unconditionally refuted. The formal images were checked, ruling out an extraction error.",
+      "impact_md": "Only conditional compatibility of the adjacent output convention and Table 7 is at issue, not real-valued reconstruction or unconditional table data."
+    }
+  }
+}

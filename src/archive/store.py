@@ -8,15 +8,41 @@ from .util import ArchiveError, digest_data, identifier, load_data, resolve_root
 
 
 class ArchiveStore:
-    def __init__(self, root: str | Path | None = None, *, public: bool = False):
+    def __init__(self, root: str | Path | None = None, *, collection: str = "public", public: bool | None = None):
         self.root = resolve_root(root)
-        self.public = public
+        if public is True:
+            collection = "public"
+        elif public is False:
+            collection = "private"
+        if collection not in {"public", "private"}:
+            raise ArchiveError("collection must be public or private")
+        self.collection = collection
+        self.public = collection == "public"
+        self.corpus_prefix = f"corpus/{collection}"
 
     def public_view(self) -> "ArchiveStore":
         return ArchiveStore(self.root, public=True)
 
     def path(self, value: str | Path, *, must_exist: bool = False) -> Path:
-        return safe_path(self.root, value, must_exist=must_exist)
+        path = safe_path(self.root, value, must_exist=must_exist)
+        relative = path.relative_to(self.root)
+        if self.public and (relative.parts[:2] == ("corpus", "private") or relative.parts[:1] == ("inbox",)):
+            raise ArchiveError("Public store cannot open the private pool or inbox")
+        if self.public and len(relative.parts)>1 and relative.parts[0]=="corpus" and relative.parts[1] in {"papers","claims","theorems","issues","reviews"}:
+            raise ArchiveError("Inactive legacy corpus is available only as pinned historical evidence")
+        return path
+
+    def _evidence_path(self, value: str | Path, *, must_exist: bool = False) -> Path:
+        candidate = safe_path(self.root, value, must_exist=must_exist)
+        relative = candidate.relative_to(self.root).as_posix()
+        legacy = any(relative.startswith("corpus/"+kind+"/") for kind in ("papers","claims","theorems","issues","reviews"))
+        if self.public and legacy:
+            summary = load_data(self.path("reader/evidence/migration-summary.json"), {}) or {}
+            pins = {row["origin"]:row["original_sha256"] for row in summary.get("public_files", [])}
+            if relative not in pins or not candidate.is_file() or sha256(candidate)!=pins[relative]:
+                raise ArchiveError("Legacy evidence is not pinned as public or its hash changed")
+            return candidate
+        return self.path(value, must_exist=must_exist)
 
     def _data(self, relative: str, default=None):
         return load_data(self.path(relative), copy.deepcopy(default))
@@ -26,7 +52,7 @@ class ArchiveStore:
         return path.read_text(encoding="utf-8") if path.exists() else ""
 
     def _paper_versions(self) -> list[dict]:
-        directory = self.path("corpus/papers")
+        directory = self.path(f"{self.corpus_prefix}/papers")
         result = []
         if directory.exists():
             for path in sorted(directory.glob("*/*/manifest.yaml")):
@@ -56,7 +82,7 @@ class ArchiveStore:
             manifest = max(versions, key=lambda item: (item.get("retrieved_at", ""), item.get("version", "")))
             version = manifest["version"]
         identifier(version, "version")
-        base = f"corpus/papers/{paper_id}/{version}"
+        base = f"{self.corpus_prefix}/papers/{paper_id}/{version}"
         manifest = self._data(f"{base}/manifest.yaml")
         if not manifest or (self.public and manifest.get("visibility") != "public"):
             return None
@@ -67,7 +93,7 @@ class ArchiveStore:
         return {**manifest, "manifest": manifest, "inventory": inventory, "claims": claims, "base_path": base}
 
     def _raw_claims(self) -> list[dict]:
-        base = self.path("corpus/claims")
+        base = self.path(f"{self.corpus_prefix}/claims")
         if not base.exists():
             return []
         return [self._data(path, {}) for path in sorted(base.glob("*/metadata.yaml"))]
@@ -78,7 +104,7 @@ class ArchiveStore:
             if self.public and not self.is_public("claim", raw.get("claim_id", "")):
                 continue
             claim = copy.deepcopy(raw)
-            base = f"corpus/claims/{claim['claim_id']}"
+            base = f"{self.corpus_prefix}/claims/{claim['claim_id']}"
             claim.update({"original": self._text(f"{base}/original.tex"), "adaptation": self._text(f"{base}/adaptation.zh.md"), "alignment": self._data(f"{base}/alignment.yaml", {}), "review": self._data(f"{base}/review.yaml", {})})
             if self.public:
                 claim["theorem_ids"] = [tid for tid in claim.get("theorem_ids", []) if self.is_public("theorem", tid)]
@@ -107,16 +133,20 @@ class ArchiveStore:
         if not isinstance(value, str) or "\\" in value:
             raise ArchiveError("Invalid claim report path")
         path = Path(value)
-        if path.is_absolute() or path.parts[:4] != ("corpus", "claims", claim_id, "lean") or path.suffix != ".json":
+        active = path.parts[:5] == ("corpus", self.collection, "claims", claim_id, "lean")
+        # Existing compiled reports retain source hashes at immutable legacy
+        # paths. This exact same-claim report is evidence, never activity input.
+        legacy = path.parts[:4] == ("corpus", "claims", claim_id, "lean")
+        if path.is_absolute() or not (active or legacy) or path.suffix != ".json":
             raise ArchiveError("Claim report is outside its lean directory")
-        return self.path(path).relative_to(self.root).as_posix()
+        return self._evidence_path(path).relative_to(self.root).as_posix()
 
     def get_claim(self, claim_id: str) -> dict | None:
         identifier(claim_id, "claim_id")
         return next((item for item in self.list_claims() if item.get("claim_id") == claim_id), None)
 
     def _raw_theorems(self) -> list[dict]:
-        base = self.path("corpus/theorems")
+        base = self.path(f"{self.corpus_prefix}/theorems")
         if not base.exists():
             return []
         return [self._data(path, {}) for path in sorted(base.glob("*/metadata.yaml"))]
@@ -126,8 +156,11 @@ class ArchiveStore:
 
     def get_theorem(self, theorem_id: str) -> dict | None:
         identifier(theorem_id, "theorem_id")
-        base = f"corpus/theorems/{theorem_id}"
+        base = f"{self.corpus_prefix}/theorems/{theorem_id}"
         raw = self._data(f"{base}/metadata.yaml")
+        if not raw and not self.public:
+            shared = self.public_view().get_theorem(theorem_id)
+            return {**shared, "collection": "public", "dependency_resolution": "private_to_public_reference"} if shared else None
         if not raw or (self.public and not self.is_public("theorem", theorem_id)):
             return None
         result = copy.deepcopy(raw)
@@ -140,7 +173,7 @@ class ArchiveStore:
 
     def _raw_proof(self, proof_id: str) -> dict | None:
         identifier(proof_id, "proof_id")
-        base = self.path("corpus/theorems")
+        base = self.path(f"{self.corpus_prefix}/theorems")
         paths = list(base.glob(f"*/proofs/{proof_id}/metadata.yaml")) if base.exists() else []
         if len(paths) > 1:
             raise ArchiveError(f"Duplicate proof_id: {proof_id}")
@@ -151,6 +184,9 @@ class ArchiveStore:
 
     def get_proof(self, proof_id: str) -> dict | None:
         raw = self._raw_proof(proof_id)
+        if not raw and not self.public:
+            shared = self.public_view().get_proof(proof_id)
+            return {**shared, "collection": "public", "dependency_resolution": "private_to_public_reference"} if shared else None
         if not raw or (self.public and not self.is_public("proof", proof_id)):
             return None
         result = copy.deepcopy(raw)
@@ -159,6 +195,8 @@ class ArchiveStore:
 
     def is_public(self, kind: str, entity_id: str, _seen: set[str] | None = None) -> bool:
         """Fail closed; private parents/dependencies propagate to derived records."""
+        if not self.public:
+            return self.public_view().is_public(kind, entity_id, _seen)
         if not entity_id:
             return False
         seen = set(_seen or ())
@@ -174,11 +212,11 @@ class ArchiveStore:
                 versions = ArchiveStore(self.root)._paper_versions()
                 return any(item.get("paper_id") == entity_id and item.get("visibility") == "public" for item in versions)
             if kind == "claim":
-                raw = self._data(f"corpus/claims/{entity_id}/metadata.yaml", {})
-                manifest = self._data(f"corpus/papers/{raw.get('paper_id')}/{raw.get('paper_version')}/manifest.yaml", {})
+                raw = self._data(f"{self.corpus_prefix}/claims/{entity_id}/metadata.yaml", {})
+                manifest = self._data(f"{self.corpus_prefix}/papers/{raw.get('paper_id')}/{raw.get('paper_version')}/manifest.yaml", {})
                 return raw.get("visibility") == "public" and manifest.get("visibility") == "public"
             if kind == "theorem":
-                raw = self._data(f"corpus/theorems/{entity_id}/metadata.yaml", {})
+                raw = self._data(f"{self.corpus_prefix}/theorems/{entity_id}/metadata.yaml", {})
             elif kind == "proof":
                 raw = self._raw_proof(entity_id) or {}
                 if not self.is_public("theorem", raw.get("theorem_id", ""), seen):
@@ -195,11 +233,16 @@ class ArchiveStore:
                 if isinstance(dep, str) and self._raw_proof(dep):
                     if not self.is_public("proof", dep, seen):
                         return False
-                if isinstance(dep, str) and self._data(f"corpus/claims/{dep}/metadata.yaml"):
+                if isinstance(dep, str) and self._data(f"{self.corpus_prefix}/claims/{dep}/metadata.yaml"):
                     if not self.is_public("claim", dep, seen):
                         return False
+                # Unknown archive IDs fail closed without probing the private
+                # pool. Fully qualified Lean names remain library references.
+                known = self._raw_proof(dep) or self._data(f"{self.corpus_prefix}/claims/{dep}/metadata.yaml") or self._data(f"{self.corpus_prefix}/theorems/{dep}/metadata.yaml") if isinstance(dep, str) else None
+                if isinstance(dep, str) and not known and "." not in dep:
+                    return False
                 # Lean declaration names are not private archive entities.
-                if isinstance(dep, str) and (self._data(f"corpus/theorems/{dep}/metadata.yaml") is not None):
+                if isinstance(dep, str) and (self._data(f"{self.corpus_prefix}/theorems/{dep}/metadata.yaml") is not None):
                     if not self.is_public("theorem", dep, seen):
                         return False
             return True
@@ -207,13 +250,8 @@ class ArchiveStore:
             return False
 
     def relations(self, entity_id: str | None = None) -> list[dict]:
-        data = self._data("corpus/relations.yaml", {"relations": []})
+        data = self._data(f"{self.corpus_prefix}/relations.yaml", {"relations": []})
         items = list(data.get("relations", []))
-        # Local-only relations stay outside the published corpus. Public reads
-        # must never open the optional private file, even to filter it later.
-        if not self.public:
-            local = self._data("corpus/relations-local-private.yaml", {"relations": []})
-            items.extend(local.get("relations", []))
         result = []
         for item in items:
             if entity_id and entity_id not in {item.get("from_id"), item.get("to_id")}:
@@ -239,9 +277,9 @@ class ArchiveStore:
         if not report_path:
             return {"status": "unavailable", "effective_status": "unavailable", "reason": "No actual Lean verification report exists."}
         try:
-            if not self.path(report_path).is_file():
+            if not self._evidence_path(report_path).is_file():
                 return {"status": "unavailable", "effective_status": "unavailable", "report_path": report_path, "reason": "No actual verification report exists at the recorded path."}
-            report = self._data(report_path, {}) or {}
+            report = load_data(self._evidence_path(report_path), {}) or {}
             result = {**report, "report_path": report_path, "effective_status": report.get("status", "unavailable")}
             commands = report.get("commands")
             if report.get("status") == "passed" and (not commands or not all(command.get("exit_code") == 0 for command in commands)):
@@ -252,7 +290,7 @@ class ArchiveStore:
                 return result
             current = []
             for entry in records:
-                path = self.path(entry["path"], must_exist=True)
+                path = self._evidence_path(entry["path"], must_exist=True)
                 current.append({"path": entry["path"], "sha256": sha256(path)})
             fingerprint = digest_data(sorted(current, key=lambda item: item["path"]))
             if fingerprint != report.get("source_fingerprint") or any(a["sha256"] != b["sha256"] for a, b in zip(sorted(records, key=lambda item: item["path"]), sorted(current, key=lambda item: item["path"]))):
@@ -326,7 +364,7 @@ class ArchiveStore:
         edges = {}
         for theorem in self._raw_theorems():
             tid = theorem["theorem_id"]
-            for path in self.path(f"corpus/theorems/{tid}/proofs").glob("*/metadata.yaml"):
+            for path in self.path(f"{self.corpus_prefix}/theorems/{tid}/proofs").glob("*/metadata.yaml"):
                 proof = self._data(path, {})
                 for dep in proof.get("dependencies", []):
                     source = dep.get("id") if isinstance(dep, dict) else dep
@@ -372,7 +410,7 @@ class ArchiveStore:
         for paper in sorted(latest_papers.values(), key=lambda item: (item.get("title", ""), item["paper_id"])):
             paper_id = identifier(paper["paper_id"], "paper_id")
             version = identifier(paper["version"], "version")
-            inventory = self._data(f"corpus/papers/{paper_id}/{version}/inventory.yaml", {"items": [], "completeness_status": "not_reviewed", "denominator_reviewed": False})
+            inventory = self._data(f"{self.corpus_prefix}/papers/{paper_id}/{version}/inventory.yaml", {"items": [], "completeness_status": "not_reviewed", "denominator_reviewed": False})
             items = inventory.get("items", [])
             if self.public:
                 items = [item for item in items if self.is_public("claim", item.get("claim_id", ""))]
@@ -394,7 +432,7 @@ class ArchiveStore:
         theorem_count = proof_count = 0
         for raw in self._raw_theorems():
             theorem_id = identifier(raw["theorem_id"], "theorem_id")
-            base = f"corpus/theorems/{theorem_id}"
+            base = f"{self.corpus_prefix}/theorems/{theorem_id}"
             if not self._data(f"{base}/metadata.yaml") or (self.public and not self.is_public("theorem", theorem_id)):
                 continue
             theorem_count += 1
@@ -408,7 +446,7 @@ class ArchiveStore:
 
 
     def list_issues(self) -> list[dict]:
-        base = self.path("corpus/issues")
+        base = self.path(f"{self.corpus_prefix}/issues")
         if not base.exists():
             return []
         results = []

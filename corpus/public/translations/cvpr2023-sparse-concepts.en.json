@@ -1,0 +1,642 @@
+{
+  "schema_version": 1,
+  "paper_id": "cvpr2023-sparse-concepts",
+  "results": {
+    "cvpr2023-reconstruction": {
+      "title": "Theorem 1: reconstruct every masked output",
+      "overview": "Expand the dividends and exchange finite double sums. Opposite-sign pairing cancels every output coefficient except that of the retained set.",
+      "assumptions": [
+        "Finite universe; the same input, model and input baseline are fixed."
+      ],
+      "definitions": [
+        {
+          "id": "cvpr-objects",
+          "body_md": "Fix a finite universe $N$, input $x$ and input baseline vector $r$. The mask $x_S$ retains the original coordinates in $S$ and uses this same baseline elsewhere. The model is $v:X\\to\\mathbb R$, the game is $g(S)=v(x_S)$ and the output baseline is $b=g(\\varnothing)$. The paper uses raw dividends $w_A=I_g(A)=\\sum_{U\\subseteq A}(-1)^{|A|-|U|}g(U)$. Every subset sum includes the empty set, so $w_\\varnothing=b$. Centering $g_0=g-b$ changes only the empty dividend. A zero raw output baseline is not assumed."
+        }
+      ],
+      "proof_scope": "entire original result; source proof and repaired proof separately preserved",
+      "proof_steps": [
+        {
+          "id": "cvpr-recon-context",
+          "title": "Translate the original SCM into one fixed coefficient family",
+          "body_md": "For a fixed input, model and baseline, $C_A(x_S)=1$ exactly when $A\\subseteq S$. The theorem therefore concerns the same coefficients $w_A$ at every $S\\subseteq N$. Statistical independence of input variables is not a premise of this finite algebra.",
+          "justification": ""
+        },
+        {
+          "id": "cvpr-recon-main",
+          "title": "Exchange finite sums and cancel each interval",
+          "body_md": "Expand $w_A$ at fixed $S$. Each pair $L\\subseteq A\\subseteq S$ occurs once, so exchange the finite sums. For fixed $L$, let $B=A\\setminus L\\subseteq S\\setminus L$, a bijection with $|A|-|L|=|B|$. If $L\\ne S$, choose a variable in the difference and pair subsets with and without it; opposite signs cancel. If $L=S$, only empty $B$ remains with coefficient 1. Thus only $g(S)$ survives.",
+          "justification": ""
+        },
+        {
+          "id": "cvpr-recon-empty",
+          "title": "Check the empty mask and two variables",
+          "body_md": "At an empty mask the only term is $w_\\varnothing=b$. For mask outputs 7, 8, 9 and 13 on two variables, the dividends are 7, 1, 2 and 3; reconstruction gives full output 13, empty output 7 and singleton outputs 8 and 9.",
+          "justification": ""
+        }
+      ],
+      "completion_scope": "entire original result; source proof and repaired proof separately preserved",
+      "original_statement_note": "The formulas and quantifiers were checked against the formal PDF. The Chinese source text is a translation rather than a verbatim English quotation.",
+      "original_proof_note": "The author’s mathematical calculations and necessary argument are preserved, with printed errors retained. The formal PDF and page evidence preserve the original layout. Unnumbered arguments are distinguished from proofs not supplied by the authors."
+    },
+    "cvpr2023-uniqueness": {
+      "title": "Appendix C: uniqueness of coefficients reconstructing all masks",
+      "overview": "The empty mask fixes the constant coefficient. At each larger set, subtracting the already fixed proper-subset coefficients uniquely determines its coefficient.",
+      "assumptions": [
+        "Finite universe; the same input, model and input baseline are fixed."
+      ],
+      "definitions": [
+        {
+          "id": "cvpr-objects",
+          "body_md": "Fix a finite universe $N$, input $x$ and input baseline vector $r$. The mask $x_S$ retains the original coordinates in $S$ and uses this same baseline elsewhere. The model is $v:X\\to\\mathbb R$, the game is $g(S)=v(x_S)$ and the output baseline is $b=g(\\varnothing)$. The paper uses raw dividends $w_A=I_g(A)=\\sum_{U\\subseteq A}(-1)^{|A|-|U|}g(U)$. Every subset sum includes the empty set, so $w_\\varnothing=b$. Centering $g_0=g-b$ changes only the empty dividend. A zero raw output baseline is not assumed."
+        }
+      ],
+      "proof_scope": "entire original result; source proof and repaired proof separately preserved",
+      "proof_steps": [
+        {
+          "id": "cvpr-unique-quantifiers",
+          "title": "Keep every mask and one fixed coefficient family",
+          "body_md": "Assume fixed coefficients $d_A$ reconstruct $g(S)$ for every $S\\subseteq N$, including the empty set. An equality only at the full input cannot imply uniqueness.",
+          "justification": ""
+        },
+        {
+          "id": "cvpr-unique-induction",
+          "title": "Use strong induction on set cardinality",
+          "body_md": "The empty set gives $d_\\varnothing=g(\\varnothing)=w_\\varnothing$. The strong induction hypothesis says that every subset with cardinality below $|S|$ has its correct dividend. Every proper subset of $S$ is covered. Subtract the two reconstruction equalities at $S$ after replacing their identical proper-subset terms; the remaining terms give $d_S=w_S$. Since $S$ is arbitrary, all coefficients are unique.",
+          "justification": ""
+        },
+        {
+          "id": "cvpr-unique-empty",
+          "title": "Check the empty coefficient and necessary quantifiers",
+          "body_md": "For outputs 7, 8, 9 and 13, the empty equation fixes coefficient 7, the singleton equations fix 1 and 2, and the full equation fixes 3. If only the full output 13 is required, putting all of 13 at the empty coefficient or all at the full-set coefficient both fit that one equality. Other masks cannot be omitted.",
+          "justification": ""
+        }
+      ],
+      "completion_scope": "entire original result; source proof and repaired proof separately preserved",
+      "original_statement_note": "The formulas and quantifiers were checked against the formal PDF. The Chinese source text is a translation rather than a verbatim English quotation.",
+      "original_proof_note": "The author’s mathematical calculations and necessary argument are preserved, with printed errors retained. The formal PDF and page evidence preserve the original layout. Unnumbered arguments are distinguished from proofs not supplied by the authors."
+    },
+    "cvpr2023-linearity": {
+      "title": "Linearity: pointwise output addition gives dividend addition",
+      "overview": "Substitute the sum of the two models at every summation subset, then distribute the finite alternating sum.",
+      "assumptions": [
+        "Finite universe; the same input, model and input baseline are fixed."
+      ],
+      "definitions": [
+        {
+          "id": "cvpr-objects",
+          "body_md": "Fix a finite universe $N$, input $x$ and input baseline vector $r$. The mask $x_S$ retains the original coordinates in $S$ and uses this same baseline elsewhere. The model is $v:X\\to\\mathbb R$, the game is $g(S)=v(x_S)$ and the output baseline is $b=g(\\varnothing)$. The paper uses raw dividends $w_A=I_g(A)=\\sum_{U\\subseteq A}(-1)^{|A|-|U|}g(U)$. Every subset sum includes the empty set, so $w_\\varnothing=b$. Centering $g_0=g-b$ changes only the empty dividend. A zero raw output baseline is not assumed."
+        }
+      ],
+      "proof_scope": "entire original result; source proof and repaired proof separately preserved",
+      "proof_steps": [
+        {
+          "id": "paper-notation-adaptation",
+          "title": "Match the paper definitions and apply the shared proof",
+          "body_md": "The paper objects, quantifiers and baseline agree with the shared proposition below. The conditions above retain its application scope. The complete shared proof is presented continuously.",
+          "justification": "The checked paper notation mapping is recorded in this result."
+        }
+      ],
+      "completion_scope": "entire original result; source proof and repaired proof separately preserved",
+      "original_statement_note": "The formulas and quantifiers were checked against the formal PDF. The Chinese source text is a translation rather than a verbatim English quotation.",
+      "original_proof_note": "The author’s mathematical calculations and necessary argument are preserved, with printed errors retained. The formal PDF and page evidence preserve the original layout. Unnumbered arguments are distinguished from proofs not supplied by the authors."
+    },
+    "cvpr2023-dummy": {
+      "title": "Dummy: preserve the original proposition and its empty-environment counterexample",
+      "overview": "The original quantifiers include an empty environment. A one-variable model satisfies the additive premise but has a nonzero singleton dividend, refuting the proposition.",
+      "assumptions": [
+        "Finite universe; the same input, model and input baseline are fixed."
+      ],
+      "definitions": [
+        {
+          "id": "cvpr-objects",
+          "body_md": "Fix a finite universe $N$, input $x$ and input baseline vector $r$. The mask $x_S$ retains the original coordinates in $S$ and uses this same baseline elsewhere. The model is $v:X\\to\\mathbb R$, the game is $g(S)=v(x_S)$ and the output baseline is $b=g(\\varnothing)$. The paper uses raw dividends $w_A=I_g(A)=\\sum_{U\\subseteq A}(-1)^{|A|-|U|}g(U)$. Every subset sum includes the empty set, so $w_\\varnothing=b$. Centering $g_0=g-b$ changes only the empty dividend. A zero raw output baseline is not assumed."
+        }
+      ],
+      "proof_scope": "original statement and proof preserved; original statement refuted without alteration",
+      "proof_steps": [
+        {
+          "id": "dummy-counterexample",
+          "title": "Give the full counterexample under the original quantifiers",
+          "body_md": "Take $N=\\{i\\}$, $g(\\varnothing)=0$ and $g(\\{i\\})=1$. The only environment is empty, so the premise is $1=0+1$. The conclusion requires a zero singleton dividend, but its actual value is $1-0=1$. The original proposition is false. No nonempty-environment assumption is added, and the library’s null-player theorem is not passed off as this additive Dummy statement.",
+          "justification": ""
+        }
+      ],
+      "completion_scope": "original statement and proof preserved; original statement refuted without alteration",
+      "original_statement_note": "The formulas and quantifiers were checked against the formal PDF. The Chinese source text is a translation rather than a verbatim English quotation.",
+      "original_proof_note": "The author’s mathematical calculations and necessary argument are preserved, with printed errors retained. The formal PDF and page evidence preserve the original layout. Unnumbered arguments are distinguished from proofs not supplied by the authors."
+    },
+    "cvpr2023-symmetry": {
+      "title": "Symmetry: equal cooperation outputs give equal dividends",
+      "overview": "Pair subsets with and without the new variable, then use equal cooperation outputs at the same environment in every term.",
+      "assumptions": [
+        "$i,j\\in N$; for every $U\\subseteq N\\setminus\\{i,j\\}$, $g(U\\cup\\{i\\})=g(U\\cup\\{j\\})$."
+      ],
+      "definitions": [
+        {
+          "id": "cvpr-objects",
+          "body_md": "Fix a finite universe $N$, input $x$ and input baseline vector $r$. The mask $x_S$ retains the original coordinates in $S$ and uses this same baseline elsewhere. The model is $v:X\\to\\mathbb R$, the game is $g(S)=v(x_S)$ and the output baseline is $b=g(\\varnothing)$. The paper uses raw dividends $w_A=I_g(A)=\\sum_{U\\subseteq A}(-1)^{|A|-|U|}g(U)$. Every subset sum includes the empty set, so $w_\\varnothing=b$. Centering $g_0=g-b$ changes only the empty dividend. A zero raw output baseline is not assumed."
+        }
+      ],
+      "proof_scope": "entire original result; source proof and repaired proof separately preserved",
+      "proof_steps": [
+        {
+          "id": "paper-notation-adaptation",
+          "title": "Match the paper definitions and apply the shared proof",
+          "body_md": "The paper objects, quantifiers and baseline agree with the shared proposition below. The conditions above retain its application scope. The complete shared proof is presented continuously.",
+          "justification": "The checked paper notation mapping is recorded in this result."
+        }
+      ],
+      "completion_scope": "entire original result; source proof and repaired proof separately preserved",
+      "original_statement_note": "The formulas and quantifiers were checked against the formal PDF. The Chinese source text is a translation rather than a verbatim English quotation.",
+      "original_proof_note": "The author’s mathematical calculations and necessary argument are preserved, with printed errors retained. The formal PDF and page evidence preserve the original layout. Unnumbered arguments are distinguished from proofs not supplied by the authors."
+    },
+    "cvpr2023-anonymity": {
+      "title": "Anonymity: variable relabeling preserves dividends",
+      "overview": "Relabeling bijects the subsets and preserves their cardinalities, signs and corresponding outputs.",
+      "assumptions": [
+        "$\\pi:N\\to N$ is bijective; $g^\\pi(V)=g(\\pi^{-1}V)$."
+      ],
+      "definitions": [
+        {
+          "id": "cvpr-objects",
+          "body_md": "Fix a finite universe $N$, input $x$ and input baseline vector $r$. The mask $x_S$ retains the original coordinates in $S$ and uses this same baseline elsewhere. The model is $v:X\\to\\mathbb R$, the game is $g(S)=v(x_S)$ and the output baseline is $b=g(\\varnothing)$. The paper uses raw dividends $w_A=I_g(A)=\\sum_{U\\subseteq A}(-1)^{|A|-|U|}g(U)$. Every subset sum includes the empty set, so $w_\\varnothing=b$. Centering $g_0=g-b$ changes only the empty dividend. A zero raw output baseline is not assumed."
+        }
+      ],
+      "proof_scope": "entire original result; source proof and repaired proof separately preserved",
+      "proof_steps": [
+        {
+          "id": "paper-notation-adaptation",
+          "title": "Match the paper definitions and apply the shared proof",
+          "body_md": "The paper objects, quantifiers and baseline agree with the shared proposition below. The conditions above retain its application scope. The complete shared proof is presented continuously.",
+          "justification": "The checked paper notation mapping is recorded in this result."
+        }
+      ],
+      "completion_scope": "entire original result; source proof and repaired proof separately preserved",
+      "original_statement_note": "The formulas and quantifiers were checked against the formal PDF. The Chinese source text is a translation rather than a verbatim English quotation.",
+      "original_proof_note": "The author’s mathematical calculations and necessary argument are preserved, with printed errors retained. The formal PDF and page evidence preserve the original layout. Unnumbered arguments are distinguished from proofs not supplied by the authors."
+    },
+    "cvpr2023-recursive": {
+      "title": "Recursive: the interaction difference in the always-present context",
+      "overview": "Separate the subsets by whether they contain the inserted variable. Their difference is the dividend of the always-present context minus the original dividend.",
+      "assumptions": [
+        "$i\\in N$ and $S\\subseteq N\\setminus\\{i\\}$."
+      ],
+      "definitions": [
+        {
+          "id": "cvpr-objects",
+          "body_md": "Fix a finite universe $N$, input $x$ and input baseline vector $r$. The mask $x_S$ retains the original coordinates in $S$ and uses this same baseline elsewhere. The model is $v:X\\to\\mathbb R$, the game is $g(S)=v(x_S)$ and the output baseline is $b=g(\\varnothing)$. The paper uses raw dividends $w_A=I_g(A)=\\sum_{U\\subseteq A}(-1)^{|A|-|U|}g(U)$. Every subset sum includes the empty set, so $w_\\varnothing=b$. Centering $g_0=g-b$ changes only the empty dividend. A zero raw output baseline is not assumed."
+        }
+      ],
+      "proof_scope": "entire original result; source proof and repaired proof separately preserved",
+      "proof_steps": [
+        {
+          "id": "paper-notation-adaptation",
+          "title": "Match the paper definitions and apply the shared proof",
+          "body_md": "The paper objects, quantifiers and baseline agree with the shared proposition below. The conditions above retain its application scope. The complete shared proof is presented continuously.",
+          "justification": "The checked paper notation mapping is recorded in this result."
+        }
+      ],
+      "completion_scope": "entire original result; source proof and repaired proof separately preserved",
+      "original_statement_note": "The formulas and quantifiers were checked against the formal PDF. The Chinese source text is a translation rather than a verbatim English quotation.",
+      "original_proof_note": "The author’s mathematical calculations and necessary argument are preserved, with printed errors retained. The formal PDF and page evidence preserve the original layout. Unnumbered arguments are distinguished from proofs not supplied by the authors."
+    },
+    "cvpr2023-interaction-distribution": {
+      "title": "Interaction distribution: a pure AND game has a dividend only at its target",
+      "overview": "Every output vanishes when the target is not contained. At the target there is one surviving term; on strict supersets, remaining variables enable sign cancellation.",
+      "assumptions": [
+        "$T\\subseteq N$; $c\\in\\mathbb R$; the empty target is allowed."
+      ],
+      "definitions": [
+        {
+          "id": "cvpr-objects",
+          "body_md": "Fix a finite universe $N$, input $x$ and input baseline vector $r$. The mask $x_S$ retains the original coordinates in $S$ and uses this same baseline elsewhere. The model is $v:X\\to\\mathbb R$, the game is $g(S)=v(x_S)$ and the output baseline is $b=g(\\varnothing)$. The paper uses raw dividends $w_A=I_g(A)=\\sum_{U\\subseteq A}(-1)^{|A|-|U|}g(U)$. Every subset sum includes the empty set, so $w_\\varnothing=b$. Centering $g_0=g-b$ changes only the empty dividend. A zero raw output baseline is not assumed."
+        }
+      ],
+      "proof_scope": "entire original result; source proof and repaired proof separately preserved",
+      "proof_steps": [
+        {
+          "id": "paper-notation-adaptation",
+          "title": "Match the paper definitions and apply the shared proof",
+          "body_md": "The paper objects, quantifiers and baseline agree with the shared proposition below. The conditions above retain its application scope. The complete shared proof is presented continuously.",
+          "justification": "The checked paper notation mapping is recorded in this result."
+        }
+      ],
+      "completion_scope": "entire original result; source proof and repaired proof separately preserved",
+      "original_statement_note": "The formulas and quantifiers were checked against the formal PDF. The Chinese source text is a translation rather than a verbatim English quotation.",
+      "original_proof_note": "The author’s mathematical calculations and necessary argument are preserved, with printed errors retained. The formal PDF and page evidence preserve the original layout. Unnumbered arguments are distinguished from proofs not supplied by the authors."
+    },
+    "cvpr2023-marginal-decomposition": {
+      "title": "Theorem 5: dividend decomposition of a higher marginal",
+      "overview": "Reconstruct each output in the finite difference and exchange sums. Dividends omitting a difference variable cancel, leaving those containing the entire target.",
+      "assumptions": [
+        "$T,S\\subseteq N$ and $T\\cap S=\\varnothing$; either set may be empty."
+      ],
+      "definitions": [
+        {
+          "id": "cvpr-objects",
+          "body_md": "Fix a finite universe $N$, input $x$ and input baseline vector $r$. The mask $x_S$ retains the original coordinates in $S$ and uses this same baseline elsewhere. The model is $v:X\\to\\mathbb R$, the game is $g(S)=v(x_S)$ and the output baseline is $b=g(\\varnothing)$. The paper uses raw dividends $w_A=I_g(A)=\\sum_{U\\subseteq A}(-1)^{|A|-|U|}g(U)$. Every subset sum includes the empty set, so $w_\\varnothing=b$. Centering $g_0=g-b$ changes only the empty dividend. A zero raw output baseline is not assumed."
+        }
+      ],
+      "proof_scope": "entire original result; source proof and repaired proof separately preserved",
+      "proof_steps": [
+        {
+          "id": "paper-notation-adaptation",
+          "title": "Match the paper definitions and apply the shared proof",
+          "body_md": "The paper objects, quantifiers and baseline agree with the shared proposition below. The conditions above retain its application scope. The complete shared proof is presented continuously.",
+          "justification": "The checked paper notation mapping is recorded in this result."
+        }
+      ],
+      "completion_scope": "entire original result; source proof and repaired proof separately preserved",
+      "original_statement_note": "The formulas and quantifiers were checked against the formal PDF. The Chinese source text is a translation rather than a verbatim English quotation.",
+      "original_proof_note": "The author’s mathematical calculations and necessary argument are preserved, with printed errors retained. The formal PDF and page evidence preserve the original layout. Unnumbered arguments are distinguished from proofs not supplied by the authors."
+    },
+    "cvpr2023-shapley": {
+      "title": "Theorem 2: classical Shapley as equal dividend allocation",
+      "overview": "The original factorial-weighted marginal definition is converted into dividend allocation by the fully proved finite factorial convolution.",
+      "assumptions": [
+        "$i\\in N$; use the original classical factorial-weighted marginal definition."
+      ],
+      "definitions": [
+        {
+          "id": "cvpr-objects",
+          "body_md": "Fix a finite universe $N$, input $x$ and input baseline vector $r$. The mask $x_S$ retains the original coordinates in $S$ and uses this same baseline elsewhere. The model is $v:X\\to\\mathbb R$, the game is $g(S)=v(x_S)$ and the output baseline is $b=g(\\varnothing)$. The paper uses raw dividends $w_A=I_g(A)=\\sum_{U\\subseteq A}(-1)^{|A|-|U|}g(U)$. Every subset sum includes the empty set, so $w_\\varnothing=b$. Centering $g_0=g-b$ changes only the empty dividend. A zero raw output baseline is not assumed."
+        }
+      ],
+      "proof_scope": "entire original result; source proof and repaired proof separately preserved",
+      "proof_steps": [
+        {
+          "id": "paper-notation-adaptation",
+          "title": "Match the paper definitions and apply the shared proof",
+          "body_md": "The paper objects, quantifiers and baseline agree with the shared proposition below. The conditions above retain its application scope. The complete shared proof is presented continuously.",
+          "justification": "The checked paper notation mapping is recorded in this result."
+        }
+      ],
+      "completion_scope": "entire original result; source proof and repaired proof separately preserved",
+      "original_statement_note": "The formulas and quantifiers were checked against the formal PDF. The Chinese source text is a translation rather than a verbatim English quotation.",
+      "original_proof_note": "The author’s mathematical calculations and necessary argument are preserved, with printed errors retained. The formal PDF and page evidence preserve the original layout. Unnumbered arguments are distinguished from proofs not supplied by the authors."
+    },
+    "cvpr2023-shapley-interaction": {
+      "title": "Theorem 3: dividend weights for the Shapley interaction index",
+      "overview": "Apply the shared weighted higher-marginal identity to the original whole-target SII definition, including the empty target.",
+      "assumptions": [
+        "$T\\subseteq N$; use the original factorial-weighted SII definition, including the empty target."
+      ],
+      "definitions": [
+        {
+          "id": "cvpr-objects",
+          "body_md": "Fix a finite universe $N$, input $x$ and input baseline vector $r$. The mask $x_S$ retains the original coordinates in $S$ and uses this same baseline elsewhere. The model is $v:X\\to\\mathbb R$, the game is $g(S)=v(x_S)$ and the output baseline is $b=g(\\varnothing)$. The paper uses raw dividends $w_A=I_g(A)=\\sum_{U\\subseteq A}(-1)^{|A|-|U|}g(U)$. Every subset sum includes the empty set, so $w_\\varnothing=b$. Centering $g_0=g-b$ changes only the empty dividend. A zero raw output baseline is not assumed."
+        }
+      ],
+      "proof_scope": "entire original result; source proof and repaired proof separately preserved",
+      "proof_steps": [
+        {
+          "id": "paper-notation-adaptation",
+          "title": "Match the paper definitions and apply the shared proof",
+          "body_md": "The paper objects, quantifiers and baseline agree with the shared proposition below. The conditions above retain its application scope. The complete shared proof is presented continuously.",
+          "justification": "The checked paper notation mapping is recorded in this result."
+        }
+      ],
+      "completion_scope": "entire original result; source proof and repaired proof separately preserved",
+      "original_statement_note": "The formulas and quantifiers were checked against the formal PDF. The Chinese source text is a translation rather than a verbatim English quotation.",
+      "original_proof_note": "The author’s mathematical calculations and necessary argument are preserved, with printed errors retained. The formal PDF and page evidence preserve the original layout. Unnumbered arguments are distinguished from proofs not supplied by the authors."
+    },
+    "cvpr2023-shapley-taylor": {
+      "title": "Theorem 4: all order branches of the Shapley–Taylor index",
+      "overview": "The lower and higher branches follow from their definitions. The top-order branch follows from the finite factorial identity after checking all positive-order denominators.",
+      "assumptions": [
+        "$T\\subseteq N$; use the original three-branch STI definition at a positive order $k>0$. The source does not explicitly state positivity; order zero is outside the present verified scope."
+      ],
+      "definitions": [
+        {
+          "id": "cvpr-objects",
+          "body_md": "Fix a finite universe $N$, input $x$ and input baseline vector $r$. The mask $x_S$ retains the original coordinates in $S$ and uses this same baseline elsewhere. The model is $v:X\\to\\mathbb R$, the game is $g(S)=v(x_S)$ and the output baseline is $b=g(\\varnothing)$. The paper uses raw dividends $w_A=I_g(A)=\\sum_{U\\subseteq A}(-1)^{|A|-|U|}g(U)$. Every subset sum includes the empty set, so $w_\\varnothing=b$. Centering $g_0=g-b$ changes only the empty dividend. A zero raw output baseline is not assumed."
+        }
+      ],
+      "proof_scope": "all three original branches on the explicitly documented positive-order definition domain; k=0 is not source-domain verified",
+      "proof_steps": [
+        {
+          "id": "paper-notation-adaptation",
+          "title": "Match the paper definitions and apply the shared proof",
+          "body_md": "The paper objects, quantifiers and baseline agree with the shared proposition below. The conditions above retain its application scope. The complete shared proof is presented continuously.",
+          "justification": "The checked paper notation mapping is recorded in this result."
+        }
+      ],
+      "completion_scope": "all three original branches on the explicitly documented positive-order definition domain; k=0 is not source-domain verified",
+      "original_statement_note": "The formulas and quantifiers were checked against the formal PDF. The Chinese source text is a translation rather than a verbatim English quotation.",
+      "original_proof_note": "The author’s mathematical calculations and necessary argument are preserved, with printed errors retained. The formal PDF and page evidence preserve the original layout. Unnumbered arguments are distinguished from proofs not supplied by the authors."
+    },
+    "cvpr2023-scm-subset-sum": {
+      "title": "SCM: binary AND triggers give a subset sum",
+      "overview": "A pattern fires exactly when every one of its variables is retained. Substituting that indicator into the finite linear readout gives the activated-pattern sum.",
+      "assumptions": [
+        "A finite pattern family and binary triggers; the input and its masking rule are fixed."
+      ],
+      "definitions": [
+        {
+          "id": "cvpr-objects",
+          "body_md": "Fix a finite universe $N$, input $x$ and input baseline vector $r$. The mask $x_S$ retains the original coordinates in $S$ and uses this same baseline elsewhere. The model is $v:X\\to\\mathbb R$, the game is $g(S)=v(x_S)$ and the output baseline is $b=g(\\varnothing)$. The paper uses raw dividends $w_A=I_g(A)=\\sum_{U\\subseteq A}(-1)^{|A|-|U|}g(U)$. Every subset sum includes the empty set, so $w_\\varnothing=b$. Centering $g_0=g-b$ changes only the empty dividend. A zero raw output baseline is not assumed."
+        }
+      ],
+      "proof_scope": "entire original result; source proof and repaired proof separately preserved",
+      "proof_steps": [
+        {
+          "id": "scm-trigger",
+          "title": "Check each binary trigger",
+          "body_md": "For a retained set $S$, set $X_i=\\mathbf1_{i\\in S}$. If $A\\subseteq S$, every factor in the pattern product is 1; otherwise some factor is zero. The product is therefore exactly the containment indicator. The empty product is 1, so the empty pattern always fires.",
+          "justification": ""
+        },
+        {
+          "id": "scm-sum",
+          "title": "Retain exactly the activated patterns",
+          "body_md": "Substitute the trigger identity into the SCM readout for any finite retained pattern family. Every pattern not contained in $S$ contributes zero, so only contained patterns remain. The family need not contain all patterns. When it is the full powerset, reconstruction identifies the sum with $g(S)$.",
+          "justification": ""
+        }
+      ],
+      "completion_scope": "entire original result; source proof and repaired proof separately preserved",
+      "original_statement_note": "The formulas and quantifiers were checked against the formal PDF. The Chinese source text is a translation rather than a verbatim English quotation.",
+      "original_proof_note": "The author’s mathematical calculations and necessary argument are preserved, with printed errors retained. The formal PDF and page evidence preserve the original layout. Unnumbered arguments are distinguished from proofs not supplied by the authors."
+    },
+    "cvpr2023-baseline-faithfulness": {
+      "title": "Complete dividends remain exact after changing the input baseline",
+      "overview": "Recompute the masked game and every dividend for each baseline. Complete reconstruction has zero squared residual at every mask. A separate counterexample addresses the additional truncated-loss interpretation of the source sentence.",
+      "assumptions": [
+        "Finite universe; the same input, model and input baseline are fixed."
+      ],
+      "definitions": [
+        {
+          "id": "cvpr-objects",
+          "body_md": "Fix a finite universe $N$, input $x$ and input baseline vector $r$. The mask $x_S$ retains the original coordinates in $S$ and uses this same baseline elsewhere. The model is $v:X\\to\\mathbb R$, the game is $g(S)=v(x_S)$ and the output baseline is $b=g(\\varnothing)$. The paper uses raw dividends $w_A=I_g(A)=\\sum_{U\\subseteq A}(-1)^{|A|-|U|}g(U)$. Every subset sum includes the empty set, so $w_\\varnothing=b$. Centering $g_0=g-b$ changes only the empty dividend. A zero raw output baseline is not assumed."
+        }
+      ],
+      "proof_scope": "verified full-interaction reconstruction subclaim; the source sentence also contains a separate truncated-loss claim with a counterexample",
+      "proof_steps": [
+        {
+          "id": "base-rereconstruct",
+          "title": "Recompute all dividends for each input baseline",
+          "body_md": "For each baseline $r$, define all masks and the game $g_r(S)=v(x_S^{(r)})$, then recompute its dividends. Finite reconstruction gives the exact output at every mask. A baseline change requires changing the game and recomputing the coefficients; they generally do change.",
+          "justification": ""
+        },
+        {
+          "id": "base-unfaith",
+          "title": "Each complete squared residual is zero",
+          "body_md": "Without deleting patterns, each residual between the masked output and its complete dividend sum vanishes. Squaring preserves zero, and the finite sum is zero. Any two baselines satisfy this statement separately. After truncation to a retained pattern family, the theorem no longer guarantees zero residual.",
+          "justification": ""
+        },
+        {
+          "id": "base-truncated-counterexample",
+          "title": "Preserve the source sentence’s false truncated-loss interpretation",
+          "body_md": "If the sentence that a baseline “just affects” the retained coefficients’ L1 norm is read as saying truncated loss is baseline-independent, it is false. For $v(z)=z$, original input 1, input baseline $r$, and only the empty pattern retained, the complete dividends are $r$ and $1-r$. The truncated loss is $(1-r)^2$ and changes with $r$. Complete-dividend loss remains zero. The complete-reconstruction subclaim is proved, while the additional interpretation is not counted as fully verified.",
+          "justification": "Direct evaluation at the two masks; no training or probability assumption is involved."
+        }
+      ],
+      "completion_scope": "verified full-interaction reconstruction subclaim; the source sentence also contains a separate truncated-loss claim with a counterexample",
+      "original_statement_note": "The formulas and quantifiers were checked against the formal PDF. The Chinese source text is a translation rather than a verbatim English quotation.",
+      "original_proof_note": "The author’s mathematical calculations and necessary argument are preserved, with printed errors retained. The formal PDF and page evidence preserve the original layout. Unnumbered arguments are distinguished from proofs not supplied by the authors."
+    },
+    "cvpr2023-aog-regrouping": {
+      "title": "AOG: equivalent regrouping of shared AND subpatterns",
+      "overview": "A parent pattern is the union of its children’s variable sets. The product of their binary triggers equals the parent trigger, so sharing and regrouping preserve the weighted root output.",
+      "assumptions": [
+        "Each parent pattern is the union of finitely many child variable sets. Triggers are containment indicators, and the original coefficients and linear root are retained. Children may be shared and their variables may overlap."
+      ],
+      "definitions": [
+        {
+          "id": "cvpr-objects",
+          "body_md": "Fix a finite universe $N$, input $x$ and input baseline vector $r$. The mask $x_S$ retains the original coordinates in $S$ and uses this same baseline elsewhere. The model is $v:X\\to\\mathbb R$, the game is $g(S)=v(x_S)$ and the output baseline is $b=g(\\varnothing)$. The paper uses raw dividends $w_A=I_g(A)=\\sum_{U\\subseteq A}(-1)^{|A|-|U|}g(U)$. Every subset sum includes the empty set, so $w_\\varnothing=b$. Centering $g_0=g-b$ changes only the empty dividend. A zero raw output baseline is not assumed."
+        }
+      ],
+      "proof_scope": "entire original result; source proof and repaired proof separately preserved",
+      "proof_steps": [
+        {
+          "id": "aog-union",
+          "title": "Combine two child AND triggers",
+          "body_md": "Containment of $A\\cup B$ in $T$ is equivalent to containment of both $A$ and $B$. The union trigger is therefore the product of the two binary triggers. Overlap between the child variable sets is allowed because trigger values are zero or one.",
+          "justification": ""
+        },
+        {
+          "id": "aog-tree",
+          "title": "Repeated merging preserves each pattern state and the root output",
+          "body_md": "For a finite child family with variable sets $V_c$, the parent set is their union. Induct over the child family. The empty family gives an empty union and empty product, both with trigger 1. Inserting a child uses the two-set union identity and the induction hypothesis, proving the product identity. Child variables may overlap and a child may be shared by several parents. Applying such a grouping to every original pattern preserves each trigger; retaining its coefficient preserves the weighted root output.",
+          "justification": ""
+        },
+        {
+          "id": "aog-empty",
+          "title": "Check an empty pattern and a shared-node example",
+          "body_md": "A shared node with variable set $\\{5,6\\}$ groups the pattern $\\{4,5,6\\}$ into children $\\{4\\}$ and that node. With mask $\\{4,5\\}$ neither representation fires; with the full pattern mask both fire. The empty pattern and empty child product both have trigger 1. This proves equivalent regrouping only; optimality of the MDL greedy algorithm is separate.",
+          "justification": ""
+        }
+      ],
+      "completion_scope": "entire original result; source proof and repaired proof separately preserved",
+      "original_statement_note": "The formulas and quantifiers were checked against the formal PDF. The Chinese source text is a translation rather than a verbatim English quotation.",
+      "original_proof_note": "The author’s mathematical calculations and necessary argument are preserved, with printed errors retained. The formal PDF and page evidence preserve the original layout. Unnumbered arguments are distinguished from proofs not supplied by the authors."
+    },
+    "cvpr2023-addmul-coefficients": {
+      "title": "Binary addition–multiplication models: dividends are activated-term coefficients",
+      "overview": "Coordinate masking at a zero input baseline turns each monomial into a pure AND response. Linearity then combines its exact dividend; the coefficient includes the original sample product.",
+      "assumptions": [
+        "Binary coordinates and input baseline zero; merge polynomial terms with identical variable sets. A zero input baseline does not imply a zero output baseline for general models."
+      ],
+      "definitions": [
+        {
+          "id": "cvpr-objects",
+          "body_md": "Fix a finite universe $N$, input $x$ and input baseline vector $r$. The mask $x_S$ retains the original coordinates in $S$ and uses this same baseline elsewhere. The model is $v:X\\to\\mathbb R$, the game is $g(S)=v(x_S)$ and the output baseline is $b=g(\\varnothing)$. The paper uses raw dividends $w_A=I_g(A)=\\sum_{U\\subseteq A}(-1)^{|A|-|U|}g(U)$. Every subset sum includes the empty set, so $w_\\varnothing=b$. Centering $g_0=g-b$ changes only the empty dividend. A zero raw output baseline is not assumed."
+        }
+      ],
+      "proof_scope": "entire original result; source proof and repaired proof separately preserved",
+      "proof_steps": [
+        {
+          "id": "addmul-binary",
+          "title": "Evaluate each term at the fixed binary sample",
+          "body_md": "For a monomial at input baseline zero, retaining its entire variable set keeps every factor; otherwise some factor is replaced by zero. Thus the masked monomial equals its coefficient times the original sample product times the containment indicator. An original zero factor makes that coefficient vanish; the empty monomial has product 1. Combine original terms with identical variable sets first.",
+          "justification": ""
+        },
+        {
+          "id": "addmul-transform",
+          "title": "Transform each pure AND response and combine by linearity",
+          "body_md": "The finite addition–multiplication polynomial, evaluated on actual coordinate masks, is a sum of pure AND games by the preceding identity. Each has a dividend only at its own variable set. Finite linearity therefore makes a fixed set receive precisely its original coefficient times its sample product, if present in the polynomial, and zero otherwise.",
+          "justification": ""
+        },
+        {
+          "id": "addmul-examples",
+          "title": "Check both source samples and the boundary",
+          "body_md": "The source model is $v(x)=3x_1-2x_2x_3-x_3x_4x_5+5x_4x_6$. At the all-ones sample its nonzero dividends are 3, −2, −1 and 5 at the four displayed monomial sets. When the third coordinate is zero, only dividends 3 and 5 remain. Full outputs are respectively 5 and 8. Both examples have zero empty-mask output and empty dividend; these are exact activated-term coefficients.",
+          "justification": ""
+        }
+      ],
+      "completion_scope": "entire original result; source proof and repaired proof separately preserved",
+      "original_statement_note": "The formulas and quantifiers were checked against the formal PDF. The Chinese source text is a translation rather than a verbatim English quotation.",
+      "original_proof_note": "The author’s mathematical calculations and necessary argument are preserved, with printed errors retained. The formal PDF and page evidence preserve the original layout. Unnumbered arguments are distinguished from proofs not supplied by the authors."
+    },
+    "cvpr-inv-harsanyi-definition": {
+      "title": "Original definition of the Harsanyi dividend",
+      "overview": "Source definition retained in the full inventory; it has no separate proof obligation.",
+      "assumptions": [],
+      "definitions": [],
+      "proof_scope": "source_material_no_proof_obligation",
+      "proof_steps": [],
+      "original_statement_md": "This entry is included in the complete inventory. Consult its formal source pages for the original material; an exact mathematical transcription has not yet been delivered in the existing input.",
+      "original_proof_md": "A complete mathematical transcription has not yet been delivered in the existing input. The formal PDF preserves the original source."
+    },
+    "cvpr-inv-mask-definition": {
+      "title": "Masks defined by a fixed input and input baseline",
+      "overview": "Source definition retained in the full inventory; the original input baseline is distinct from the scalar output baseline.",
+      "assumptions": [],
+      "definitions": [],
+      "proof_scope": "source_material_no_proof_obligation",
+      "proof_steps": [],
+      "original_statement_md": "This entry is included in the complete inventory. Consult its formal source pages for the original material; an exact mathematical transcription has not yet been delivered in the existing input.",
+      "original_proof_md": "A complete mathematical transcription has not yet been delivered in the existing input. The formal PDF preserves the original source."
+    },
+    "cvpr-inv-remark1": {
+      "title": "Empirical sparsity: a few patterns approximate the DNN",
+      "overview": "An empirical observation, kept separate from a universally proved sparsity theorem.",
+      "assumptions": [],
+      "definitions": [],
+      "proof_scope": "source_material_no_proof_obligation",
+      "proof_steps": [],
+      "original_statement_md": "This entry is included in the complete inventory. Consult its formal source pages for the original material; an exact mathematical transcription has not yet been delivered in the existing input.",
+      "original_proof_md": "A complete mathematical transcription has not yet been delivered in the existing input. The formal PDF preserves the original source."
+    },
+    "cvpr-inv-combinatorial-beta": {
+      "title": "Binomial identities and Beta-function properties",
+      "overview": "The source lists combinatorial auxiliary material. Its exact source-transcription status remains the status recorded in the Chinese input.",
+      "assumptions": [],
+      "definitions": [],
+      "proof_scope": "source_material_no_proof_obligation",
+      "proof_steps": [],
+      "original_statement_md": "This entry is included in the complete inventory. Consult its formal source pages for the original material; an exact mathematical transcription has not yet been delivered in the existing input.",
+      "original_proof_md": "A complete mathematical transcription has not yet been delivered in the existing input. The formal PDF preserves the original source."
+    },
+    "cvpr-inv-optimization": {
+      "title": "Pattern selection and the L0-to-L1 relaxation",
+      "overview": "An optimization formulation and relaxation, without a claim that the two optimization problems have identical minimizers.",
+      "assumptions": [],
+      "definitions": [],
+      "proof_scope": "source_material_no_proof_obligation",
+      "proof_steps": [],
+      "original_statement_md": "This entry is included in the complete inventory. Consult its formal source pages for the original material; an exact mathematical transcription has not yet been delivered in the existing input.",
+      "original_proof_md": "A complete mathematical transcription has not yet been delivered in the existing input. The formal PDF preserves the original source."
+    },
+    "cvpr-inv-explained-ratio": {
+      "title": "Ratio of explained interaction effects",
+      "overview": "A defined evaluation quantity, with its denominator convention to be read from the source.",
+      "assumptions": [],
+      "definitions": [],
+      "proof_scope": "source_material_no_proof_obligation",
+      "proof_steps": [],
+      "original_statement_md": "This entry is included in the complete inventory. Consult its formal source pages for the original material; an exact mathematical transcription has not yet been delivered in the existing input.",
+      "original_proof_md": "A complete mathematical transcription has not yet been delivered in the existing input. The formal PDF preserves the original source."
+    },
+    "cvpr-inv-mdl": {
+      "title": "MDL objective and greedy selection rules",
+      "overview": "Algorithmic source material; the inventory does not supply a theorem that the greedy rules achieve a global optimum.",
+      "assumptions": [],
+      "definitions": [],
+      "proof_scope": "source_material_no_proof_obligation",
+      "proof_steps": [],
+      "original_statement_md": "This entry is included in the complete inventory. Consult its formal source pages for the original material; an exact mathematical transcription has not yet been delivered in the existing input.",
+      "original_proof_md": "A complete mathematical transcription has not yet been delivered in the existing input. The formal PDF preserves the original source."
+    },
+    "cvpr-inv-evaluation": {
+      "title": "Experimental metrics, similarities and results",
+      "overview": "Empirical and evaluation source material, separate from formal proof targets.",
+      "assumptions": [],
+      "definitions": [],
+      "proof_scope": "source_material_no_proof_obligation",
+      "proof_steps": [],
+      "original_statement_md": "This entry is included in the complete inventory. Consult its formal source pages for the original material; an exact mathematical transcription has not yet been delivered in the existing input.",
+      "original_proof_md": "A complete mathematical transcription has not yet been delivered in the existing input. The formal PDF preserves the original source."
+    },
+    "cvpr-inv-synthesized-labels": {
+      "title": "Sigmoid and And–Or synthetic ground-truth rules",
+      "overview": "Synthetic label-generation rules used in experiments, rather than a general theorem about trained networks.",
+      "assumptions": [],
+      "definitions": [],
+      "proof_scope": "source_material_no_proof_obligation",
+      "proof_steps": [],
+      "original_statement_md": "This entry is included in the complete inventory. Consult its formal source pages for the original material; an exact mathematical transcription has not yet been delivered in the existing input.",
+      "original_proof_md": "A complete mathematical transcription has not yet been delivered in the existing input. The formal PDF preserves the original source."
+    },
+    "cvpr-inv-runtime": {
+      "title": "Runtime and dimension reduction",
+      "overview": "Reported computational methods and experimental runtime, without a new universal complexity guarantee.",
+      "assumptions": [],
+      "definitions": [],
+      "proof_scope": "source_material_no_proof_obligation",
+      "proof_steps": [],
+      "original_statement_md": "This entry is included in the complete inventory. Consult its formal source pages for the original material; an exact mathematical transcription has not yet been delivered in the existing input.",
+      "original_proof_md": "A complete mathematical transcription has not yet been delivered in the existing input. The formal PDF preserves the original source."
+    },
+    "cvpr-inv-bow": {
+      "title": "AOG versus bag of words and shared phrases",
+      "overview": "A source comparison and illustration, kept distinct from the exact AND regrouping identity.",
+      "assumptions": [],
+      "definitions": [],
+      "proof_scope": "source_material_no_proof_obligation",
+      "proof_steps": [],
+      "original_statement_md": "This entry is included in the complete inventory. Consult its formal source pages for the original material; an exact mathematical transcription has not yet been delivered in the existing input.",
+      "original_proof_md": "A complete mathematical transcription has not yet been delivered in the existing input. The formal PDF preserves the original source."
+    },
+    "cvpr-inv-related-work": {
+      "title": "Results cited from related literature",
+      "overview": "External claims remain marked as citations rather than local author proofs.",
+      "assumptions": [],
+      "definitions": [],
+      "proof_scope": "source_material_no_proof_obligation",
+      "proof_steps": [],
+      "original_statement_md": "This entry is included in the complete inventory. Consult its formal source pages for the original material; an exact mathematical transcription has not yet been delivered in the existing input.",
+      "original_proof_md": "A complete mathematical transcription has not yet been delivered in the existing input. The formal PDF preserves the original source."
+    }
+  },
+  "issues": {
+    "cvpr-issue-dummy-empty": {
+      "title": "The original dummy statement is false at the empty set",
+      "evidence_md": "Take a one-player universe with empty output 0 and singleton output 1. The only premise is the empty environment, where 1=0+1 holds. The singleton dividend is 1, contradicting the claimed zero. The page-4 alternating powerset sum is one at the empty environment, rather than zero.",
+      "impact_md": "This refutes the full quantifiers of the original dummy statement only. The other properties and Theorems 1–5 do not rely on it. A nonempty-environment premise cannot be added and presented as proof of the original proposition.",
+      "text_md": "Take a one-player universe with empty output 0 and singleton output 1. The only premise is the empty environment, where 1=0+1 holds. The singleton dividend is 1, contradicting the claimed zero. The page-4 alternating powerset sum is one at the empty environment, rather than zero.\n\nThis refutes the full quantifiers of the original dummy statement only. The other properties and Theorems 1–5 do not rely on it. A nonempty-environment premise cannot be added and presented as proof of the original proposition."
+    },
+    "cvpr-issue-linearity-index": {
+      "title": "Incorrect inner output index in the linearity proof",
+      "evidence_md": "The page-4 proof fixes the output at the target set instead of the subset being summed over. For singleton outputs 0 and 1, its printed alternating expression is -1+1=0, whereas the dividend is 1. The repaired proof uses the pointwise equality of the games at every summation subset.",
+      "impact_md": "The original linearity proposition is true. Its proof is repaired by preserving the subset index throughout; the statement and assumptions are unchanged.",
+      "text_md": "The page-4 proof fixes the output at the target set instead of the subset being summed over. For singleton outputs 0 and 1, its printed alternating expression is -1+1=0, whereas the dividend is 1. The repaired proof uses the pointwise equality of the games at every summation subset.\n\nThe original linearity proposition is true. Its proof is repaired by preserving the subset index throughout; the statement and assumptions are unchanged."
+    },
+    "cvpr-issue-beta-proof": {
+      "title": "Beta-integral exponent and boundary errors",
+      "evidence_md": "The supplement defines the beta integral for positive parameters but prints exponent 1-q where q-1 is required. At p=1,q=2 the printed integral diverges while its claimed factorial value is finite. Other steps use a zero beta parameter and identify an integral as one at an empty set although its integrand is zero. An extreme empty remaining universe also requires an explicit empty-sum case.",
+      "impact_md": "These are errors in the proofs of the factorial coefficients, not counterexamples to Theorems 2–4. The repaired finite convolution proves the original conclusions, including boundary cases, without introducing integral domain assumptions.",
+      "text_md": "The supplement defines the beta integral for positive parameters but prints exponent 1-q where q-1 is required. At p=1,q=2 the printed integral diverges while its claimed factorial value is finite. Other steps use a zero beta parameter and identify an integral as one at an empty set although its integrand is zero. An extreme empty remaining universe also requires an explicit empty-sum case.\n\nThese are errors in the proofs of the factorial coefficients, not counterexamples to Theorems 2–4. The repaired finite convolution proves the original conclusions, including boundary cases, without introducing integral domain assumptions."
+    },
+    "cvpr-issue-distribution-incomparable": {
+      "title": "The distribution proof omits incomparable sets",
+      "evidence_md": "The printed cases of a target strictly below, equal to, or strictly above the unanimity field omit incomparable sets. For universe {1,2}, field {1}, and target {2}, no subset of the target contains the field, so every summand is zero. The complete partition is: the field is not contained in the target; the two are equal; or the field is strictly contained in the target.",
+      "impact_md": "The original distribution proposition remains true. The repair fills the missing case without changing its quantifiers and also supplies the Add/Mul application.",
+      "text_md": "The printed cases of a target strictly below, equal to, or strictly above the unanimity field omit incomparable sets. For universe {1,2}, field {1}, and target {2}, no subset of the target contains the field, so every summand is zero. The complete partition is: the field is not contained in the target; the two are equal; or the field is strictly contained in the target.\n\nThe original distribution proposition remains true. The repair fills the missing case without changing its quantifiers and also supplies the Add/Mul application."
+    },
+    "cvpr-issue-l0-support": {
+      "title": "The retained family need not equal the nonzero support",
+      "evidence_md": "The asserted equality between the zero-norm of retained coefficients and the retained family size fails when a retained coefficient is zero. A zero model with the empty coalition retained gives zero nonzero coefficients but family size one.",
+      "impact_md": "The paper’s retained family is not silently redefined as the support. This records an algorithmic expression boundary, separate from the numbered finite reconstruction results.",
+      "text_md": "The asserted equality between the zero-norm of retained coefficients and the retained family size fails when a retained coefficient is zero. A zero model with the empty coalition retained gives zero nonzero coefficients but family size one.\n\nThe paper’s retained family is not silently redefined as the support. This records an algorithmic expression boundary, separate from the numbered finite reconstruction results."
+    },
+    "cvpr-issue-lagrange-equivalence": {
+      "title": "Unjustified equivalence with a penalized objective",
+      "evidence_md": "The source converts constrained sparsity minimization to a penalized problem without choosing a multiplier or establishing a suitable equivalence. In a generic discrete optimization example with (support,error) pairs (0,3),(1,2),(2,0), a budget of one selects the middle point, but making it minimize error plus multiplier times support requires the multiplier to be both at most one and at least two.",
+      "impact_md": "This example establishes the failure of generic equivalence, without claiming that the three points are realized by the paper’s DNN. The source conversion remains a heuristic; the missing model-specific equivalence is not supplied as an assumption.",
+      "text_md": "The source converts constrained sparsity minimization to a penalized problem without choosing a multiplier or establishing a suitable equivalence. In a generic discrete optimization example with (support,error) pairs (0,3),(1,2),(2,0), a budget of one selects the middle point, but making it minimize error plus multiplier times support requires the multiplier to be both at most one and at least two.\n\nThis example establishes the failure of generic equivalence, without claiming that the three points are realized by the paper’s DNN. The source conversion remains a heuristic; the missing model-specific equivalence is not supplied as an assumption."
+    },
+    "cvpr-issue-ratio-zero-denominator": {
+      "title": "The retained-effect ratio has an unspecified zero denominator",
+      "evidence_md": "The ratio divides retained absolute effects by retained absolute effects plus the absolute remainder. A zero game has all these quantities zero, giving the undefined expression 0/0.",
+      "impact_md": "No value is invented for this boundary case. Finite reconstruction and uniqueness are unaffected; this issue concerns the displayed diagnostic ratio.",
+      "text_md": "The ratio divides retained absolute effects by retained absolute effects plus the absolute remainder. A zero game has all these quantities zero, giving the undefined expression 0/0.\n\nNo value is invented for this boundary case. Finite reconstruction and uniqueness are unaffected; this issue concerns the displayed diagnostic ratio."
+    },
+    "cvpr-issue-baseline-truncated-loss": {
+      "title": "The baseline can change the truncated unfaithfulness loss",
+      "evidence_md": "For the identity model, input one and baseline r, the full dividends are r and 1-r. Retaining only the empty coalition gives squared reconstruction error (1-r)^2, which varies with the baseline. Full reconstruction still has zero error for every baseline.",
+      "impact_md": "The full-coefficient zero-loss clause is true, but the claim that the baseline affects only the sparsity term is false for a truncated family. The compound sentence is not weakened and then marked proved.",
+      "text_md": "For the identity model, input one and baseline r, the full dividends are r and 1-r. Retaining only the empty coalition gives squared reconstruction error (1-r)^2, which varies with the baseline. Full reconstruction still has zero error for every baseline.\n\nThe full-coefficient zero-loss clause is true, but the claim that the baseline affects only the sparsity term is false for a truncated family. The compound sentence is not weakened and then marked proved."
+    }
+  }
+}

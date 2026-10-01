@@ -1,0 +1,81 @@
+                                         Towards Attributions of Input Variables in a Coalition
+
+
+
+                                                                                                    
+                                     1 φ(S) +                             1
+                              X                              X
+                          =                                                    [Iand (T ) + Ior (T )]
+                                     |S|                                  |T |
+                              i∈S                       T ⊆N,T ̸⊇S,T ∋i
+                            X 1         X X 1
+                          =      φ(S) +          [Iand (T ) + Ior (T )]
+                             |S|            |T |
+                              i∈S                  i∈S T ⊆N,
+                                                       T ̸⊇S,
+                                                        T ∋i
+                                      1                         X              |T ∩ S|
+                          = |S| ·        φ(S) +                                        [Iand (T ) + Ior (T )]
+                                     |S|                                         |T |
+                                                       T ⊆N,T ∩S̸=∅,T ∩S̸=S
+                                           1
+                           // For any T ,      [Iand (T ) + Ior (T )] will only be counted |T ∩ S| times.
+                                          |T |
+                                               X            |T ∩ S|
+                          = φ(S) +                                     [Iand (T ) + Ior (T )]
+                                                                |T |
+                                          T ⊆N,T ∩S̸=∅,T ∩S̸=S
+
+
+                            P                               P                           |T ∩S|
+Therefore, we prove that:      i∈S   ϕ(i) = φ(S) +             T ⊆N,T ∩S̸=∅,T ∩S̸=S       |T |   [Iand (T ) + Ior (T )]
+Especially, if a set of input variables in S are always encoded by the DNN as a coalition without any interactions containing
+partial variables in S, i.e., ∀T ∈ {T : S ̸⊆ T, T ⊆ N, i ∈ S}, Iand (T ) = Ior (T ) = 0, then we have:
+
+                       X                                       X               |T ∩ S|
+                              ϕ(i) = φ(S) +                                            [Iand (T ) + Ior (T )] = φ(S)
+                                                                                 |T |
+                       i∈S                         T ⊆N,T ∩S̸=∅,T ∩S̸=S
+
+
+Besides, we have:
+                                          1                     X           1                             1
+                              ϕ(i) =         φ(S) +                             [Iand (T ) + Ior (T )] =     φ(S)
+                                         |S|                               |T |                          |S|
+                                                         T ⊆N,T ̸⊇S,T ∋i
+
+
+Therefore, we further prove Corollary 3.5.
+
+F. Proof of Theorem 6 & Corollary 7
+                                                                              1
+                                                                P
+Proof. According to Theorem 3.2, we have: ϕ(i) =                    T ⊆N,i∈T |T | [Iand (T )   + Ior (T )].
+                                                                               P       |S|
+Then, according to Equation (6) in the paper, we have: φ(S) =                     T ⊇S |T |   [Iand (T ) + Ior (T )].
+Thus, we have: ∀i ∈ S,
+
+                          ϕ(i)
+                            X            1
+                      =                      [Iand (T ) + Ior (T )]
+                                        |T |
+                          T ⊆N,T ∋i
+                              X           1                                     X            1
+                      =                       [Iand (T ) + Ior (T )] +                           [Iand (T ) + Ior (T )]
+                                         |T |                                               |T |
+                          T ⊆N,T ⊇S                                       T ⊆N,T ̸⊇S,T ∋i
+                         1          X         |S|                                    X             1
+                      =                            [Iand (T ) + Ior (T )] +                            [Iand (T ) + Ior (T )]
+                        |S|                   |T |                                                |T |
+                               T ⊆N,T ⊇S                                       T ⊆N,T ̸⊇S,T ∋i
+                         1                         X           1
+                      =     φ(S) +                                 [Iand (T ) + Ior (T )]
+                        |S|                                   |T |
+                                           T ⊆N,T ̸⊇S,T ∋i
+
+
+                                         1                                 1
+                                                       P
+Therefore, we prove that ϕ(i) =         |S| φ(S)   +      T ⊆N,T ̸⊇S,T ∋i |T | [Iand (T )   + Ior (T )].
+
+                                                                          16

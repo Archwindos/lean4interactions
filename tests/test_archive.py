@@ -25,7 +25,7 @@ def test_private_manual_idempotent_and_versions(draft):
     assert first["publication_status"] == "unpublished"
     assert first["source_url"] is None
     assert ingest_local(root, folder)["idempotent"] is True
-    old = root / f"corpus/papers/{first['paper_id']}/{first['version']}/sources/main.md"
+    old = root / f"corpus/private/papers/{first['paper_id']}/{first['version']}/sources/main.md"
     (folder / "main.md").write_text("# Theorem 2\nA changed statement.", encoding="utf-8")
     changed = ingest_local(root, folder)
     assert changed["version"] != first["version"]
@@ -50,31 +50,31 @@ def test_metadata_revision_requires_explicit_history(draft):
     write_data(folder / "metadata.yaml", {"title": "正式题名"})
     with pytest.raises(ArchiveError, match="update-metadata"):
         ingest_local(root, folder)
-    revised = update_metadata(root, first["paper_id"], None, {"title": "正式题名"})
+    revised = update_metadata(root, first["paper_id"], None, {"title": "正式题名"}, collection="private")
     assert revised["title"] == "正式题名"
     assert revised["files"] == first["files"]
-    assert list((root / f"corpus/papers/{first['paper_id']}/v1/metadata-history").glob("*.json"))
+    assert list((root / f"corpus/private/papers/{first['paper_id']}/v1/metadata-history").glob("*.json"))
     assert ingest_local(root, folder)["idempotent"]
 
 
 def test_extract_search_chinese_number_fulltext_and_rebuild(draft):
     root, folder = draft
     paper = ingest_local(root, folder)
-    result = extract_paper(root, paper["paper_id"])
+    result = extract_paper(root, paper["paper_id"], collection="private")
     assert result["candidate_count"] == 2
     assert result["completeness_status"] == "not_reviewed"
-    store = ArchiveStore(root)
+    store = ArchiveStore(root, collection="private")
     assert any(item["kind"] == "claim" for item in store.search("定理 1"))
     assert any(item["kind"] == "source" for item in store.search("中文证明"))
     assert store.search("Uniqueness")
     assert not store.public_view().search("Uniqueness")
     assert store.coverage()["papers"][0]["coverage_ratio"] is None
     assert store.coverage()["papers"][0]["completed"] is False
-    assert extract_paper(root, paper["paper_id"])["candidate_count"] == 2
+    assert extract_paper(root, paper["paper_id"], collection="private")["candidate_count"] == 2
     assert len(store.list_claims()) == 2
-    (root / "build/archive.sqlite").unlink()
+    (root / "build/archive-private.sqlite").unlink()
     assert store.search("Uniqueness")
-    assert validate_archive(root)["status"] == "passed"
+    assert validate_archive(root, collection="private")["status"] == "passed"
 
 
 def _reviewed_extraction_fixture(root):
@@ -94,8 +94,8 @@ Manual-only fixture argument.
 Previously undetected fixture argument.
 """)
     paper = ingest_local(root, folder, paper_id="reviewed-fixture")
-    extract_paper(root, paper["paper_id"], paper["version"])
-    inventory_path = root / f"corpus/papers/{paper['paper_id']}/{paper['version']}/inventory.yaml"
+    extract_paper(root, paper["paper_id"], paper["version"], collection="private")
+    inventory_path = root / f"corpus/private/papers/{paper['paper_id']}/{paper['version']}/inventory.yaml"
     inventory = load_data(inventory_path)
     by_label = {item["original_label"]: item for item in inventory["items"]}
     primary = by_label["Synthetic primary"]
@@ -105,11 +105,11 @@ Previously undetected fixture argument.
         item.update(review_status="reviewed", disposition=disposition, review_evidence="Synthetic section-by-section audit")
         if item is duplicate:
             item["canonical_claim_id"] = primary["claim_id"]
-        metadata_path = root / f"corpus/claims/{item['claim_id']}/metadata.yaml"
+        metadata_path = root / f"corpus/private/claims/{item['claim_id']}/metadata.yaml"
         metadata = load_data(metadata_path)
         metadata.update({key: item[key] for key in ("review_status", "disposition", "review_evidence", "canonical_claim_id") if key in item})
         write_data(metadata_path, metadata)
-    claim_dir = root / f"corpus/claims/{primary['claim_id']}"
+    claim_dir = root / f"corpus/private/claims/{primary['claim_id']}"
     write_text(claim_dir / "original.tex", "Synthetic statement transcript with manually checked boundaries.\n")
     write_text(claim_dir / "original-proof.tex", "Synthetic proof transcript; retain exactly on repeat extraction.\n")
     write_text(claim_dir / "adaptation.zh.md", "这是隔离测试的人工适配说明。\n")
@@ -135,14 +135,14 @@ Previously undetected fixture argument.
                    "source_location": {"file": "sources/main.tex", "section": "Synthetic body"},
                    "review_evidence": "This occurrence was added by human review, not the detector"}
     inventory["items"].append(manual_item)
-    manual_dir = root / "corpus/claims/manual-only-fixture"
+    manual_dir = root / "corpus/private/claims/manual-only-fixture"
     write_data(manual_dir / "metadata.yaml", {"schema_version": 1, "paper_id": paper["paper_id"], "paper_version": paper["version"],
                                                "visibility": "private", "theorem_ids": [], "proof_ids": [], "alignment_status": "pending", **manual_item})
     write_text(manual_dir / "original.tex", "Manual-only fixture argument.\n")
     inventory.update(denominator_reviewed=True, completeness_status="reviewed",
                      completeness_review={"reviewer": "fixture reviewer", "sections": ["body", "appendix"], "evidence": "Synthetic complete inventory audit"})
     write_data(inventory_path, inventory)
-    snapshots = {path.relative_to(root).as_posix(): path.read_bytes() for path in (root / "corpus/claims").rglob("*") if path.is_file()}
+    snapshots = {path.relative_to(root).as_posix(): path.read_bytes() for path in (root / "corpus/private/claims").rglob("*") if path.is_file()}
     return {"paper": paper, "source": source, "inventory_path": inventory_path,
             "inventory": inventory, "primary_id": primary["claim_id"], "claim_files": snapshots}
 
@@ -154,7 +154,7 @@ def test_reextract_preserves_reviewed_inventory_and_claim_evidence(tmp_path, mon
     detector = extraction._candidates
     if detector_omits_rejected_match:
         monkeypatch.setattr(extraction, "_candidates", lambda text, suffix: [candidate for candidate in detector(text, suffix) if candidate["label"] != "Synthetic false positive"])
-    result = extract_paper(tmp_path, fixture["paper"]["paper_id"], fixture["paper"]["version"])
+    result = extract_paper(tmp_path, fixture["paper"]["paper_id"], fixture["paper"]["version"], collection="private")
     current = load_data(fixture["inventory_path"])
     assert result["candidate_count"] == 4
     assert {item["claim_id"]: item for item in current["items"]} == {item["claim_id"]: item for item in fixture["inventory"]["items"]}
@@ -162,10 +162,10 @@ def test_reextract_preserves_reviewed_inventory_and_claim_evidence(tmp_path, mon
     assert current["completeness_review"] == fixture["inventory"]["completeness_review"]
     for relative, content in fixture["claim_files"].items():
         assert (tmp_path / relative).read_bytes() == content, relative
-    claim = ArchiveStore(tmp_path).get_claim(fixture["primary_id"])
+    claim = ArchiveStore(tmp_path, collection="private").get_claim(fixture["primary_id"])
     assert claim["alignment_status"] == "aligned" and claim["verification_status"] == "passed"
     assert claim["verification_scope"] == "independent_claim"
-    assert ArchiveStore(tmp_path).coverage()["papers"][0]["proof_targets"] == 2
+    assert ArchiveStore(tmp_path, collection="private").coverage()["papers"][0]["proof_targets"] == 2
 
 
 def test_parser_upgrade_new_candidate_invalidates_inventory_review(tmp_path, monkeypatch):
@@ -180,7 +180,7 @@ def test_parser_upgrade_new_candidate_invalidates_inventory_review(tmp_path, mon
                                          "line": text.count("\n", 0, offset) + 1}]
 
     monkeypatch.setattr(extraction, "_candidates", upgraded_detector)
-    result = extract_paper(tmp_path, fixture["paper"]["paper_id"], fixture["paper"]["version"])
+    result = extract_paper(tmp_path, fixture["paper"]["paper_id"], fixture["paper"]["version"], collection="private")
     current = load_data(fixture["inventory_path"])
     assert result["candidate_count"] == 5
     assert current["denominator_reviewed"] is False
@@ -192,12 +192,12 @@ def test_parser_upgrade_new_candidate_invalidates_inventory_review(tmp_path, mon
     assert added[0]["disposition"] == "pending"
     for relative, content in fixture["claim_files"].items():
         assert (tmp_path / relative).read_bytes() == content, relative
-    store = ArchiveStore(tmp_path)
+    store = ArchiveStore(tmp_path, collection="private")
     assert store.get_claim(fixture["primary_id"])["verification_status"] == "passed"
     assert store.coverage()["papers"][0]["coverage_ratio"] is None
     assert store.coverage()["papers"][0]["completed"] is False
     # Repeating the upgraded parser does not certify its unreviewed addition.
-    extract_paper(tmp_path, fixture["paper"]["paper_id"], fixture["paper"]["version"])
+    extract_paper(tmp_path, fixture["paper"]["paper_id"], fixture["paper"]["version"], collection="private")
     assert load_data(fixture["inventory_path"])["denominator_reviewed"] is False
 
 
@@ -207,17 +207,17 @@ def test_new_source_version_does_not_inherit_inventory_review(tmp_path):
     fixture["source"].write_text(fixture["source"].read_text() + "A changed fixture source version.\n")
     paper = ingest_local(tmp_path, fixture["source"].parent, paper_id=fixture["paper"]["paper_id"])
     assert paper["version"] != fixture["paper"]["version"]
-    current = ArchiveStore(tmp_path).get_paper(paper["paper_id"], paper["version"])
+    current = ArchiveStore(tmp_path, collection="private").get_paper(paper["paper_id"], paper["version"])
     assert current["inventory"]["denominator_reviewed"] is False
     assert current["inventory"]["completeness_status"] == "not_reviewed"
-    extract_paper(tmp_path, paper["paper_id"], paper["version"])
-    assert ArchiveStore(tmp_path).get_paper(paper["paper_id"], paper["version"])["inventory"]["denominator_reviewed"] is False
+    extract_paper(tmp_path, paper["paper_id"], paper["version"], collection="private")
+    assert ArchiveStore(tmp_path, collection="private").get_paper(paper["paper_id"], paper["version"])["inventory"]["denominator_reviewed"] is False
     assert fixture["inventory_path"].read_bytes() == previous_inventory
-    assert ArchiveStore(tmp_path).get_claim(fixture["primary_id"])["verification_status"] == "passed"
+    assert ArchiveStore(tmp_path, collection="private").get_claim(fixture["primary_id"])["verification_status"] == "passed"
 
 
 def _theorem(root, theorem_id, visibility="public", dependencies=None, declaration=None):
-    base = root / f"corpus/theorems/{theorem_id}"
+    base = root / f"corpus/{visibility}/theorems/{theorem_id}"
     write_data(base / "metadata.yaml", {"schema_version": 1, "theorem_id": theorem_id, "title": theorem_id, "summary": "共享引理", "assumptions": [], "visibility": visibility, "proofs": ["proof-" + theorem_id], "lean_declarations": [declaration] if declaration else [], "tags": []})
     write_text(base / "statement.tex", "x=x")
     write_data(base / f"proofs/proof-{theorem_id}/metadata.yaml", {"schema_version": 1, "theorem_id": theorem_id, "proof_id": "proof-" + theorem_id, "visibility": visibility, "dependencies": dependencies or [], "lean_declarations": [declaration] if declaration else []})
@@ -236,7 +236,7 @@ def _report(root, declarations, commands=None):
 
 def test_verification_requires_evidence_and_detects_source_change(tmp_path):
     source = _report(tmp_path, [{"name": "Harsanyi.identity", "status": "passed", "axioms": []}])
-    store = ArchiveStore(tmp_path)
+    store = ArchiveStore(tmp_path, collection="private")
     assert store.load_catalog()["declarations"][0]["verification_status"] == "passed"
     source.write_text(source.read_text() + "-- changed\n")
     assert store.load_catalog()["declarations"][0]["verification_status"] == "stale"
@@ -245,30 +245,30 @@ def test_verification_requires_evidence_and_detects_source_change(tmp_path):
 @pytest.mark.parametrize("declarations,commands", [([{ "name": "Harsanyi.identity", "status": "passed" }], None), ([{ "name": "Harsanyi.identity", "status": "passed", "axioms": ["sorryAx"] }], None), ([{ "name": "Harsanyi.identity", "status": "passed", "axioms": [] }], []), ([{ "name": "Harsanyi.identity", "status": "passed", "axioms": [] }], [{"exit_code": 1}])])
 def test_never_trust_missing_axioms_or_failed_commands(tmp_path, declarations, commands):
     _report(tmp_path, declarations, commands)
-    assert ArchiveStore(tmp_path).load_catalog()["declarations"][0]["verification_status"] != "passed"
+    assert ArchiveStore(tmp_path, collection="private").load_catalog()["declarations"][0]["verification_status"] != "passed"
 
 
 def test_downstream_declaration_uses_actual_report(tmp_path):
     _theorem(tmp_path, "downstream", declaration="PaperProofs.actual")
     _report(tmp_path, [{"name": "Harsanyi.identity", "status": "passed", "axioms": []}, {"name": "PaperProofs.actual", "status": "passed", "axioms": ["propext"]}])
-    assert ArchiveStore(tmp_path).get_theorem("downstream")["verification_status"] == "passed"
+    assert ArchiveStore(tmp_path, collection="private").get_theorem("downstream")["verification_status"] == "passed"
 
 
 def test_public_filters_private_dependencies_issues_and_backlinks(draft):
     root, folder = draft
     paper = ingest_local(root, folder)
-    extract_paper(root, paper["paper_id"])
-    claim = ArchiveStore(root).list_claims()[0]
+    extract_paper(root, paper["paper_id"], collection="private")
+    claim = ArchiveStore(root, collection="private").list_claims()[0]
     _theorem(root, "private", visibility="private")
     _theorem(root, "public", dependencies=["proof-private"])
     _theorem(root, "independent")
-    base = root / "corpus/theorems/independent/metadata.yaml"
+    base = root / "corpus/public/theorems/independent/metadata.yaml"
     from archive.util import load_data
     data = load_data(base)
     data["source_claim_ids"] = [claim["claim_id"]]  # backlink does not privatize existing result
     write_data(base, data)
-    write_data(root / "corpus/issues/issue-private.yaml", {"issue_id": "issue-private", "visibility": "public", "paper_id": paper["paper_id"], "problem": "a local finding", "affected_ids": []})
-    store = ArchiveStore(root).public_view()
+    write_data(root / "corpus/private/issues/issue-private.yaml", {"issue_id": "issue-private", "visibility": "public", "paper_id": paper["paper_id"], "problem": "a local finding", "affected_ids": []})
+    store = ArchiveStore(root, collection="private").public_view()
     assert not store.is_public("proof", "proof-public")
     assert store.get_theorem("public")["proofs"] == []
     assert store.get_theorem("independent") is not None
@@ -279,11 +279,11 @@ def test_public_filters_private_dependencies_issues_and_backlinks(draft):
 def test_impact_tracks_shared_proof_users(draft):
     root, folder = draft
     paper = ingest_local(root, folder)
-    extract_paper(root, paper["paper_id"])
-    store = ArchiveStore(root)
+    extract_paper(root, paper["paper_id"], collection="private")
+    store = ArchiveStore(root, collection="private")
     claim = store.list_claims()[0]
     _theorem(root, "shared")
-    metadata = root / f"corpus/claims/{claim['claim_id']}/metadata.yaml"
+    metadata = root / f"corpus/private/claims/{claim['claim_id']}/metadata.yaml"
     from archive.util import load_data
     data = load_data(metadata)
     data.update(theorem_ids=["shared"], proof_ids=["proof-shared"])
@@ -296,22 +296,22 @@ def test_impact_tracks_shared_proof_users(draft):
 def test_validate_detects_corrupted_original_source(draft):
     root, folder = draft
     paper = ingest_local(root, folder)
-    original = root / f"corpus/papers/{paper['paper_id']}/v1/sources/main.md"
+    original = root / f"corpus/private/papers/{paper['paper_id']}/v1/sources/main.md"
     original.write_text("corrupted")
-    assert validate_archive(root)["status"] == "failed"
+    assert validate_archive(root, collection="private")["status"] == "failed"
 
 
 def _coverage_paper(root, records, *, denominator_reviewed=True):
-    write_data(root / "corpus/papers/coverage-test/v1/manifest.yaml", {
+    write_data(root / "corpus/private/papers/coverage-test/v1/manifest.yaml", {
         "schema_version": 1, "paper_id": "coverage-test", "version": "v1",
         "title": "Synthetic coverage test", "visibility": "private", "files": [],
     })
-    write_data(root / "corpus/papers/coverage-test/v1/inventory.yaml", {
+    write_data(root / "corpus/private/papers/coverage-test/v1/inventory.yaml", {
         "schema_version": 1, "items": records,
         "denominator_reviewed": denominator_reviewed, "completeness_status": "reviewed",
     })
     for record in records:
-        write_data(root / f"corpus/claims/{record['claim_id']}/metadata.yaml", {
+        write_data(root / f"corpus/private/claims/{record['claim_id']}/metadata.yaml", {
             "schema_version": 1, "paper_id": "coverage-test", "paper_version": "v1",
             "visibility": "private", "theorem_ids": [], "proof_ids": [], **record,
         })
@@ -333,9 +333,9 @@ def test_coverage_keeps_records_but_counts_canonical_targets_once(tmp_path):
     # row. This must not double count the superseded occurrence.
     replaced = {"schema_version": 1, "paper_id": "coverage-test", "paper_version": "v1",
                 "visibility": "private", **records[3], "disposition": "superseded"}
-    write_data(tmp_path / "corpus/claims/replaced/metadata.yaml", replaced)
+    write_data(tmp_path / "corpus/private/claims/replaced/metadata.yaml", replaced)
     _report(tmp_path, [{"name": "Harsanyi.identity", "status": "passed", "axioms": []}])
-    store = ArchiveStore(tmp_path)
+    store = ArchiveStore(tmp_path, collection="private")
     coverage = store.coverage()
     paper = coverage["papers"][0]
     assert paper["total_candidates"] == coverage["claim_count"] == 7
@@ -353,14 +353,14 @@ def test_reviewed_denominator_does_not_certify_alignment_or_exclude_issues(tmp_p
     ]
     _coverage_paper(tmp_path, records)
     _report(tmp_path, [{"name": "Harsanyi.identity", "status": "passed", "axioms": []}])
-    store = ArchiveStore(tmp_path)
+    store = ArchiveStore(tmp_path, collection="private")
     paper = store.coverage()["papers"][0]
     assert paper["denominator_reviewed"] is True
     assert paper["proof_targets"] == 2 and paper["lean_verified"] == 1
     assert paper["aligned"] == paper["original_claims_proved"] == 0
     assert paper["coverage_ratio"] == 0 and paper["completed"] is False
     from archive.util import load_data
-    metadata = tmp_path / "corpus/claims/main/metadata.yaml"
+    metadata = tmp_path / "corpus/private/claims/main/metadata.yaml"
     data = load_data(metadata)
     data["alignment_status"] = "aligned"
     write_data(metadata, data)
@@ -372,7 +372,7 @@ def test_reviewed_denominator_does_not_certify_alignment_or_exclude_issues(tmp_p
 
 def _independent_claim_report(root):
     claim_id = "independent-claim"
-    base = root / f"corpus/claims/{claim_id}/lean"
+    base = root / f"corpus/private/claims/{claim_id}/lean"
     source = base / "Adapter.lean"
     write_text(source, "theorem Private.adapter : 1 = 1 := rfl\n")
     records = [{"path": source.relative_to(root).as_posix(), "sha256": sha256(source)}]
@@ -382,14 +382,14 @@ def _independent_claim_report(root):
     write_data(base / "report.json", report)
     _coverage_paper(root, [{"claim_id": claim_id, "kind": "theorem", "review_status": "reviewed",
                           "alignment_status": "aligned", "lean_declarations": ["Private.adapter"],
-                          "verification_report": f"corpus/claims/{claim_id}/lean/report.json"}])
+                          "verification_report": f"corpus/private/claims/{claim_id}/lean/report.json"}])
     return source, base / "report.json", report
 
 
 def test_independent_claim_uses_own_report_and_expires_without_affecting_library(tmp_path):
     _report(tmp_path, [{"name": "Harsanyi.identity", "status": "passed", "axioms": []}])
     source, _, _ = _independent_claim_report(tmp_path)
-    store = ArchiveStore(tmp_path)
+    store = ArchiveStore(tmp_path, collection="private")
     claim = store.get_claim("independent-claim")
     assert claim["verification_status"] == "passed"
     assert claim["verification_scope"] == "independent_claim"
@@ -422,13 +422,13 @@ def test_independent_claim_rejects_invalid_evidence_and_foreign_report(tmp_path,
         write_data(path, report)
     else:
         from archive.util import load_data
-        metadata = tmp_path / "corpus/claims/independent-claim/metadata.yaml"
+        metadata = tmp_path / "corpus/private/claims/independent-claim/metadata.yaml"
         data = load_data(metadata)
         if invalid == "wrong_claim":
-            foreign = "corpus/claims/foreign-claim/lean/report.json"
+            foreign = "corpus/private/claims/foreign-claim/lean/report.json"
             write_data(tmp_path / foreign, report)
             data["verification_report"] = foreign
         else:
             data["verification_report"] = "reports/lean/test/report.json"
         write_data(metadata, data)
-    assert ArchiveStore(tmp_path).get_claim("independent-claim")["verification_status"] != "passed"
+    assert ArchiveStore(tmp_path, collection="private").get_claim("independent-claim")["verification_status"] != "passed"

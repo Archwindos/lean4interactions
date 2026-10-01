@@ -24,10 +24,10 @@ def _page_route(url: str) -> str:
     return path
 
 
-def export_site(root=None, output: str | Path = "build/site", public: bool = False) -> dict:
-    from fastapi.testclient import TestClient
+def export_site(root=None, output: str | Path = "build/site", public: bool = True, collection: str = "public") -> dict:
+    from .http_client import LocalAppClient
     from .web import create_app
-    store = ArchiveStore(root, public=public)
+    store = ArchiveStore(root, collection=collection if public else "private")
     destination = safe_path(store.root, output)
     if destination.exists() and any(destination.iterdir()):
         raise ArchiveError("Export destination must be empty; choose a new output directory for each snapshot")
@@ -52,7 +52,7 @@ def export_site(root=None, output: str | Path = "build/site", public: bool = Fal
         routes[f"/library/{declaration['name']}"] = f"library/{declaration['name']}.html"
     exported, omitted = [], []
     try:
-        with TestClient(create_app(root=store.root, store=store, public=public)) as client:
+        with LocalAppClient(create_app(root=store.root, store=store, public=public)) as client:
             for route, filename in routes.items():
                 split_route = urlsplit(route)
                 request_url = quote(split_route.path, safe="/") + ("?" + split_route.query if split_route.query else "")

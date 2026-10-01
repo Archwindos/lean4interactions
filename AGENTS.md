@@ -28,3 +28,12 @@
 - 所有命令和文档须区分已实现与计划。实现参考 `docs/implementation-contract.md`，状态记录 `docs/STATUS.md`。
 
 2026-10-01 发布规则：用户授权上传到 `Archwindos/lean4interactions` 并要求忽略未发表论文。公开提交不包含未发表/private 原件、匿名提取结果、私有证明、关联、评审、页面或混合报告；原件仍留在本地。`inbox/` 默认忽略全部文件，只提交说明；模板保存在 `templates/`。提交前运行项目的 publication 检查并核对 Git 暂存区；已有跟踪文件不能仅靠新增 `.gitignore` 排除。公共与本地私有关联分别保存在 `corpus/relations.yaml` 与被忽略的 `corpus/relations-local-private.yaml`，公开模式不得读取后者。环境、依赖缓存与未收录论文的大体积调研下载不上传；当前三篇正式来源和阅读器依赖须完整保留。
+
+2026-10-01 当前工作规则（取代上文旧活动路径与三篇入口）：用户要求真实独立的公开/私稿池、证明中英切换、再纳入三篇正式论文及全篇符号覆盖。当前主入口是 `reader/preview/`，可维护构建入口为 `reader/`，输入来自显式 `corpus/public/reader/input-manifest.json`。本轮六篇为原 CVPR 2023 Sparse、ICLR 2024 Sparse、ICLR 2024 Generalizable，及 ICML 2023 HarsanyiNet、ICML 2024 Layerwise、ICML 2025 Coalition；此确切集合是本轮验收目标，不是构建器不可扩展的白名单。历史 `research/full-proof-integration-20260930/` 保留只读验收证据。
+
+- 活动档案只在 `corpus/public/` 与被忽略的 `corpus/private/`，各自独立 papers/claims/theorems/issues/reviews/relations。默认公开 Store、搜索与管理不得读取 private/inbox；私稿导入默认 private。私稿可单向引用公共 Lean/证明库，不将公共对象复制到私稿池。旧 `corpus/papers`、`claims`、`theorems`、`issues`、`reviews` 和旧 relations 是本地忽略的迁移原件，不再活动读写；已固定 hash 的历史 Lean 报告是受限只读证据例外。
+- 改 visibility 不构成发表迁移。显式 promote 需要另行核对正式发表来源并保留私稿及衍生物，不默认上载。已公开预印本保留为历史材料；本轮 reader 只用正式会议发表文件。迁移必须验证无丢件、hash 守恒、去重与回滚证据。
+- 中文与英文覆盖所有重写证明、标题、假设、定义、适配及共享证明正文；人读字段可翻译，步骤 ID、公式、Lean 声明/path/行/报告和状态不可改变。原文页与原符号仍作为原来源显示，不冒充翻译。语言切换应持久化并在真实浏览器测试长证明页。
+- 证明错误按已授权 `proof_only_granted` 修正并标记；原命题及其假设不可改变。命题或子句反例、定义版本反例、原式定义域问题与条件性证明分别记录，不将任一相关 issue 统一称作整命题错误。完整性、数学审阅、双语、浏览器和真实 Lean 报告分别验收；in_progress 不算完成。
+- 当前代理按用户指定 `gpt-6.1-sol / xhigh` 分工：数学代理处理全篇数学及实际 Lean，结构代理负责输入契约、独立池、翻译整合和网页，根代理持续独立核查验收。新 Extensions 用 direct import 独立审计，不无谓改旧 barrel 导致历史报告过期。
+- 本机上传辅助脚本为被忽略的 `scripts/upload-github.local.sh`，使用方法见 `docs/github-upload.md`。脚本不可提交，不读取旧撤销令牌、不保存凭据；发布前工作树与准确 Git index 均需出版审查。

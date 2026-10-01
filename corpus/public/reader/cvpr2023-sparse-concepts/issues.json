@@ -1,0 +1,239 @@
+{
+  "paper_id": "cvpr2023-sparse-concepts",
+  "issues": [
+    {
+      "id": "cvpr-issue-dummy-empty",
+      "paper_id": "cvpr2023-sparse-concepts",
+      "title": "Dummy 原陈述包括空集，结论错误",
+      "category": "statement_counterexample",
+      "source_refs": [
+        {
+          "source_id": "src-cvpr2023-supplement",
+          "version_id": "ver-cvpr2023-formal",
+          "pdf_pages": [
+            2,
+            4
+          ]
+        }
+      ],
+      "original_formula_tex": "\\forall S\\subseteq N\\setminus\\{i\\},\\;v(x_{S\\cup\\{i\\}})=v(x_S)+v(x_{\\{i\\}})\\ \\Longrightarrow\\ \\forall S\\subseteq N\\setminus\\{i\\},\\;w_{S\\cup\\{i\\}}=0",
+      "evidence_md": "取 $N=\\{i\\}$，$v(x_\\varnothing)=0$、$v(x_{\\{i\\}})=1$。原前提只有 $S=\\varnothing$ 一个实例，$1=0+1$ 成立。按原定义 $w_{\\{i\\}}=1-0=1\\ne0$。第4页末把 $\\sum_{S^{\\prime}\\subseteq S}(-1)^{|S|-|S^{\\prime}|}$ 统一写为0，在 $S=\\varnothing$ 时实际为1。PDF图像 supp-04.png 可逐式复核。",
+      "impact_md": "只否定原 Dummy 陈述的全部量词版本。其他性质与Theorem1–5不依赖该错误。不能添加S非空条件或删去单变量结论后称原命题证明完成。",
+      "related_result_ids": [
+        "cvpr2023-dummy"
+      ],
+      "original_statement_status": "counterexample_verified",
+      "user_confirmation": "not_individually_reviewed",
+      "fix_authorization": "proof_only_granted",
+      "statement_fix_authorization": "not_granted",
+      "authorization_basis": "用户最新明确：直接标注并修正错误证明；不得修改命题；命题错误单独列出。",
+      "status": "statement_error_unrepaired",
+      "agent_evidence_status": "pdf_and_formula_checked",
+      "user_review_status": "pending"
+    },
+    {
+      "id": "cvpr-issue-linearity-index",
+      "paper_id": "cvpr2023-sparse-concepts",
+      "title": "Linearity 原证明把求和内输出索引印为固定 S",
+      "category": "proof_display_index_error",
+      "source_refs": [
+        {
+          "source_id": "src-cvpr2023-supplement",
+          "version_id": "ver-cvpr2023-formal",
+          "pdf_pages": [
+            4
+          ]
+        }
+      ],
+      "original_formula_tex": "w^v_S=\\sum_{S^{\\prime}\\subseteq S}(-1)^{|S|-|S^{\\prime}|}v(x_S)",
+      "evidence_md": "内层应随求和变量变化，但原式固定为 $x_S$。取 $S=\\{i\\}$、$v(x_\\varnothing)=0$、$v(x_{\\{i\\}})=1$，原显示右侧为 $-1+1=0$，按原定义左侧为1。原稿随后t,u输出亦相同索引。原陈述的线性性没有改变；修正证明直接逐项使用 $g_v(U)=g_t(U)+g_u(U)$。",
+      "impact_md": "错误限于原证明显示式，线性性原命题可按现有公共interaction_add忠实证明。",
+      "related_result_ids": [
+        "cvpr2023-linearity"
+      ],
+      "original_statement_status": "no_counterexample_found",
+      "user_confirmation": "not_individually_reviewed",
+      "fix_authorization": "proof_only_granted",
+      "statement_fix_authorization": "not_granted",
+      "authorization_basis": "用户最新明确：直接标注并修正错误证明；不得修改命题；命题错误单独列出。",
+      "status": "proof_repair_in_progress",
+      "agent_evidence_status": "pdf_and_formula_checked",
+      "user_review_status": "pending"
+    },
+    {
+      "id": "cvpr-issue-beta-proof",
+      "paper_id": "cvpr2023-sparse-concepts",
+      "title": "Theorem2–4 的 Beta 定义排印与零参数边界",
+      "category": "proof_definition_and_boundary_error",
+      "source_refs": [
+        {
+          "source_id": "src-cvpr2023-supplement",
+          "version_id": "ver-cvpr2023-formal",
+          "pdf_pages": [
+            7,
+            8,
+            9,
+            10,
+            11
+          ]
+        }
+      ],
+      "original_formula_tex": "B(p,q)=\\int_0^1x^{p-1}(1-x)^{1-q}\\,dx;\\quad B(|N|-|L|-k,|L|+k);\\quad \\int_0^1|L|(1-x)^{|L|-1}\\,dx=1",
+      "evidence_md": "第7页(ii)明示 $p,q>0$ 却将指数写为 $1-q$。取 $(p,q)=(1,2)$，其积分发散，后续有限阶乘公式不匹配。同页 $L=\\varnothing,k=0$ 是求和允许项，却调用 $B(|N|,0)$，超出正参数定义；①在 $|L|=0$ 时被积函数在开区间上为零，统一写成1不成立。Theorem3第9页和Theorem4第10–11页复用这一路线，故归并为同一issue。另极端剩余集合为空时②的重编号上界成为负数，须明确空和，而原文未单独处理。",
+      "impact_md": "原Shapley、SII、STI结论未发现反例。保持同一命题的全部允许集合，使用有限阶乘卷积给完整证明，含L空集与剩余集合为空，避免修补原积分域而改变目标。",
+      "related_result_ids": [
+        "cvpr2023-shapley",
+        "cvpr2023-shapley-interaction",
+        "cvpr2023-shapley-taylor"
+      ],
+      "original_statement_status": "no_counterexample_found",
+      "user_confirmation": "not_individually_reviewed",
+      "fix_authorization": "proof_only_granted",
+      "statement_fix_authorization": "not_granted",
+      "authorization_basis": "用户最新明确：直接标注并修正错误证明；不得修改命题；命题错误单独列出。",
+      "status": "proof_repair_in_progress",
+      "agent_evidence_status": "pdf_and_formula_checked",
+      "user_review_status": "pending"
+    },
+    {
+      "id": "cvpr-issue-distribution-incomparable",
+      "paper_id": "cvpr2023-sparse-concepts",
+      "title": "纯AND分布证明的三个case没有覆盖不可比集合",
+      "category": "proof_case_coverage_gap",
+      "source_refs": [
+        {
+          "source_id": "src-cvpr2023-supplement",
+          "version_id": "ver-cvpr2023-formal",
+          "pdf_pages": [
+            5,
+            6
+          ]
+        }
+      ],
+      "original_formula_tex": "S\\subsetneq T;\\quad S=T;\\quad S\\supsetneq T",
+      "evidence_md": "原目标量化全部 $S\\subseteq N$，但原证明只写上述三类。例 $N=\\{1,2\\}$、$T=\\{1\\}$、$S=\\{2\\}$ 落在三类之外。目标 $w_S=0$ 在此仍真，因为没有 $U\\subseteq S$ 包含T。修正证明以 $T\\not\\subseteq S$、$S=T$、$T\\subsetneq S$ 分组（不改原陈述），也可直接复用已编译的interaction_unanimity。",
+      "impact_md": "原目标正确，原证明缺case。Add-Mul推导复用这个目标，保留同一原命题并完成修证明。",
+      "related_result_ids": [
+        "cvpr2023-interaction-distribution",
+        "cvpr2023-addmul-coefficients"
+      ],
+      "original_statement_status": "no_counterexample_found",
+      "user_confirmation": "not_individually_reviewed",
+      "fix_authorization": "proof_only_granted",
+      "statement_fix_authorization": "not_granted",
+      "authorization_basis": "用户最新明确：直接标注并修正错误证明；不得修改命题；命题错误单独列出。",
+      "status": "proof_repair_in_progress",
+      "agent_evidence_status": "pdf_and_formula_checked",
+      "user_review_status": "pending"
+    },
+    {
+      "id": "cvpr-issue-l0-support",
+      "paper_id": "cvpr2023-sparse-concepts",
+      "title": "选择集合大小与非零系数个数不总相等",
+      "category": "algorithm_or_definition_boundary",
+      "source_refs": [
+        {
+          "source_id": "src-cvpr2023-main",
+          "version_id": "ver-cvpr2023-formal",
+          "pdf_pages": [
+            4
+          ]
+        }
+      ],
+      "original_formula_tex": "\\|\\boldsymbol w_\\Omega\\|_0=|\\Omega|",
+      "evidence_md": "第4页定义 $w^{\\prime}_S=w_S$ 若 $S\\in\\Omega$，否则为0。若 $S\\in\\Omega$ 而 $w_S=0$，它贡献集合大小却不贡献L0范数；例如全零模型、$\\Omega=\\{\\varnothing\\}$ 给0与1。两类可行表示的最优值可能通过删除零项联系，但原逐项相等并无无条件证明。",
+      "impact_md": "这是算法段的原等式边界，不是编号定理；不静默把Omega定义改为support。目录保留原式和反例。",
+      "related_result_ids": [],
+      "original_statement_status": "counterexample_verified",
+      "user_confirmation": "not_individually_reviewed",
+      "fix_authorization": "proof_only_granted",
+      "statement_fix_authorization": "not_granted",
+      "authorization_basis": "用户最新明确：直接标注并修正错误证明；不得修改命题；命题错误单独列出。",
+      "status": "statement_error_unrepaired",
+      "agent_evidence_status": "pdf_and_formula_checked",
+      "user_review_status": "pending"
+    },
+    {
+      "id": "cvpr-issue-lagrange-equivalence",
+      "paper_id": "cvpr2023-sparse-concepts",
+      "title": "L0约束与固定罚参数目标的等价箭头未被证明",
+      "category": "algorithm_or_definition_boundary",
+      "source_refs": [
+        {
+          "source_id": "src-cvpr2023-main",
+          "version_id": "ver-cvpr2023-formal",
+          "pdf_pages": [
+            4
+          ]
+        }
+      ],
+      "original_formula_tex": "\\min\\mathrm{unfaith}\\ \\mathrm{s.t.}\\|w_\\Omega\\|_0\\le M\\ \\Longleftrightarrow\\ \\min\\mathrm{unfaith}+\\lambda\\|w_\\Omega\\|_0",
+      "evidence_md": "原Eq.(6)没有规定罚参数如何选取或证明离散非凸目标的强对偶。一般离散优化中，可行点 (support,error)=(0,3),(1,2),(2,0)，约束M=1选择中点，但任何lambda要选中点都需lambda≤1且lambda≥2，矛盾。本反例针对一般等价箭头，没有声称这一三点实例已由本文某个DNN产生。",
+      "impact_md": "只能按原文登记为启发式目标转换/松弛；不当作本篇已证明的数学等价。",
+      "related_result_ids": [],
+      "original_statement_status": "no_counterexample_found",
+      "user_confirmation": "not_individually_reviewed",
+      "fix_authorization": "proof_only_granted",
+      "statement_fix_authorization": "not_granted",
+      "authorization_basis": "用户最新明确：直接标注并修正错误证明；不得修改命题；命题错误单独列出。",
+      "status": "boundary_recorded",
+      "agent_evidence_status": "pdf_and_formula_checked",
+      "user_review_status": "pending"
+    },
+    {
+      "id": "cvpr-issue-ratio-zero-denominator",
+      "paper_id": "cvpr2023-sparse-concepts",
+      "title": "已解释比例在全部效应为零时未定义",
+      "category": "algorithm_or_definition_boundary",
+      "source_refs": [
+        {
+          "source_id": "src-cvpr2023-main",
+          "version_id": "ver-cvpr2023-formal",
+          "pdf_pages": [
+            5
+          ]
+        }
+      ],
+      "original_formula_tex": "R_\\Omega=\\frac{\\sum_{S\\in\\Omega}|w_S|}{\\sum_{S\\in\\Omega}|w_S|+|\\Delta|}",
+      "evidence_md": "取 $v(x_S)=0$ 对所有S，得到全部 $w_S=0$、$\\Delta=0$，分母为0。原文未给此边界约定。符号表把分母非零记录为表达式的定义域条件，不据此修改原论文命题或杜撰R值。",
+      "impact_md": "仅影响指标的零模型边界与符号域；重构/唯一性仍适用。",
+      "related_result_ids": [],
+      "original_statement_status": "counterexample_verified",
+      "user_confirmation": "not_individually_reviewed",
+      "fix_authorization": "proof_only_granted",
+      "statement_fix_authorization": "not_granted",
+      "authorization_basis": "用户最新明确：直接标注并修正错误证明；不得修改命题；命题错误单独列出。",
+      "status": "statement_error_unrepaired",
+      "agent_evidence_status": "pdf_and_formula_checked",
+      "user_review_status": "pending"
+    },
+    {
+      "id": "cvpr-issue-baseline-truncated-loss",
+      "paper_id": "cvpr2023-sparse-concepts",
+      "title": "基线变化也会改变截断的平方残差损失",
+      "category": "source_compound_claim_truncated_clause_counterexample",
+      "source_refs": [
+        {
+          "source_id": "src-cvpr2023-main",
+          "version_id": "ver-cvpr2023-formal",
+          "pdf_pages": [
+            5
+          ],
+          "section": "3.2 first paragraph"
+        }
+      ],
+      "original_formula_tex": "\\text{change of baseline values always ensures unfaith}(w)=0\\text{ and just affects }\\|w_\\Omega\\|_1",
+      "evidence_md": "原“just affects $\\|w_\\Omega\\|_1$”不能解释为截断损失unfaith不随基线变。取单变量模型 $v(z)=z$、原输入x=1、输入基线r、只保留 $\\Omega=\\{\\varnothing\\}$。完整交互为 $w_\\varnothing=r,w_{\\{1\\}}=1-r$；截断残差平方和为 $[r-r]^2+[1-r]^2=(1-r)^2$，随r变化。完整交互的unfaith始终0，但截断损失部分也可能改变。保留原句、单列该解释错误，不把原复合断言替换成较弱命题后算整体通过。",
+      "impact_md": "完整w各自重构的恒等式成立；不据此证明截断损失只变化L1。原复合句保留且分开状态。",
+      "related_result_ids": [
+        "cvpr2023-baseline-faithfulness"
+      ],
+      "original_statement_status": "compound_clause_counterexample_verified",
+      "user_confirmation": "not_individually_reviewed",
+      "fix_authorization": "proof_only_granted",
+      "statement_fix_authorization": "not_granted",
+      "status": "false_clause_recorded_without_statement_replacement"
+    }
+  ],
+  "authorization": "proof_only_granted; statements must remain unchanged"
+}

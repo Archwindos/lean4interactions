@@ -1,0 +1,82 @@
+                                         Towards Attributions of Input Variables in a Coalition
+
+G.2. Proof of Symmetry axiom-α
+Proof. According to the definition of the AND/OR interaction, we can get:
+Iand (T ∪ {i}) = L⊆(T ∪{i}) (−1)|T ∪{i}|−|L| vand (L), Ior (T ∪ {i}) = − L⊆(T ∪{i}) (−1)|T ∪{i}|−|L| vor (N \ L)
+                P                                                       P
+
+Iand (T ∪ {j}) = L⊆(T ∪{j}) (−1)|T ∪{j}|−|L| vand (L), Ior (T ∪ {j}) = − L⊆(T ∪{j}) (−1)|T ∪{j}|−|L| vor (N \ L)
+                P                                                       P
+
+Due to ∀S ⊆ N \ {i, j}, v(S ∪ {i}) = v(S ∪ {j}), we have: ∀S ⊆ N \ {i, j}, vand (S ∪ {i}) = vand (S ∪ {j}), vor (S ∪ {i}) =
+vor (S ∪ {j})
+Then, we have:
+                       Iand (T ∪ {i}) − Iand (T ∪ {j})
+                       X                                           X
+                     =                (−1)|T ∪{i}|−|L| vand (L) −                 (−1)|T ∪{j}|−|L| vand (L)
+                           L⊆(T ∪{i})                                  L⊆(T ∪{j})
+                       X                                      X                                            
+                     =            (−1)|T ∪{i}|−|L| vand (L) +           (−1)|T ∪{i}|−|L∪{i}| vand (L ∪ {i})
+                              L⊆T                                  L⊆T
+                          X                                      X                                            
+                        −           (−1)|T ∪{j}|−|L| vand (L) +            (−1)|T ∪{j}|−|L∪{j}| vand (L ∪ {j})
+                                L⊆T                                   L⊆T
+                       X
+                                     |T |−|L|
+                     =          (−1)          [vand (L ∪ {i}) − vand (L ∪ {j})] = 0
+                             L⊆T
+
+
+                  Ior (T ∪ {i}) − Ior (T ∪ {j})
+                      X                                              X
+                =−                   (−1)|T ∪{i}|−|L| vor (N \ L) +                 (−1)|T ∪{j}|−|L| vor (N \ L)
+                         L⊆(T ∪{i})                                      L⊆(T ∪{j})
+                  X                                           X                                                 
+                =            (−1)|T ∪{j}|−|L| vor (N \ L) +           (−1)|T ∪{j}|−|L∪{j}| vor (N \ (L ∪ {j}))
+                        L⊆T                                       L⊆T
+                      X                                         X                                                 
+                                      |T ∪{i}|−|L|
+                   −           (−1)                vor (N \ L) +         (−1)|T ∪{i}|−|L∪{i}| vor (N \ (L ∪ {i}))
+                           L⊆T                                      L⊆T
+                  X
+                                |T |−|L|
+                =          (−1)          [vor ((N \ (L ∪ {i, j})) ∪ {i}) − vor ((N \ (L ∪ {i, j})) ∪ {j})] = 0
+                         L⊆T
+
+                                                                                              P                 |S∪{i}|
+Besides, according to Equation (6) in the paper, we have: φ(S ∪ {i}) =                             T ⊇(S∪{i})     |T |    [Iand (T ) + Ior (T )] and
+φ(S ∪ {j}) = T ⊇(S∪{j}) |S∪{j}|
+              P
+                             |T | [Iand (T ) + Ior (T )].
+Then, we have:
+    φ(S ∪ {i}) − φ(S ∪ {j})
+       X       |S ∪ {i}|                                   X      |S ∪ {j}|
+  =                         [Iand (T ) + Ior (T )] −                           [Iand (T ) + Ior (T )]
+                   |T |                                                |T |
+    T ⊇(S∪{i})                                        T ⊇(S∪{j})
+                                                                                                          
+          X         |S| + 1                                   X           |S| + 1
+  =                           [Iand (T ) + Ior (T )] +                              [Iand (T ) + Ior (T )]
+                      |T |                                                  |T |
+      T ⊇(S∪{i,j})                                       T ⊇(S∪{i}),T ̸∋j
+                                                                                                             
+             X          |S| + 1                                  X           |S| + 1
+    −                            [Iand (T ) + Ior (T )] +                              [Iand (T ) + Ior (T )]
+                          |T |                                                  |T |
+           T ⊇(S∪{i,j})                                       T ⊇(S∪{j}),T ̸∋i
+            X            |S| + 1                                 X             |S| + 1
+  =                              [Iand (T ) + Ior (T )] −                              [Iand (T ) + Ior (T )]
+                           |T |                                                  |T |
+      T ⊇(S∪{i}),T ̸∋j                                      T ⊇(S∪{j}),T ̸∋i
+            X             |S| + 1                                                    X             |S| + 1
+  =                                [Iand (T ∪ {i}) + Ior (T ∪ {i})] −                                       [Iand (T ∪ {j}) + Ior (T ∪ {j})]
+                         |T ∪ {i}|                                                                |T ∪ {j}|
+      T ⊇S,T ⊆N \{i,j}                                                         T ⊇S,T ⊆N \{i,j}
+            X            |S| + 1
+  =                               [(Iand (T ∪ {i}) − Iand (T ∪ {j})) + (Ior (T ∪ {i}) − Ior (T ∪ {j}))] = 0
+                         |T | + 1
+      T ⊇S,T ⊆N \{i,j}
+
+i.e.,φ(S ∪ {i}) = φ(S ∪ {j})
+
+                                                                       18

@@ -1,0 +1,1665 @@
+                      Layerwise Change of Knowledge in Neural Networks
+
+
+               Xu Cheng * 1 2 Lei Cheng * 2 Zhaoran Peng 2 Yang Xu 3 Tian Han 4 Quanshi Zhang§ 2
+
+
+                          Abstract                                      task-irrelevant information. Liang et al. (2020) extract com-
+                                                                        mon feature components shared by different features as the
+      This paper aims to explain how a deep neural
+                                                                        shared knowledge.
+      network (DNN) gradually extracts new knowl-
+      edge and forgets noisy features through layers in                 In this paper, we aim to define and quantify the knowl-
+      forward propagation. Up to now, although the                      edge encoded in each layer. In this way, we can accurately
+      definition of knowledge encoded by the DNN has                    decompose and track explicit changes of knowledge (i.e.,
+      not reached a consensus, Li & Zhang (2023); Ren                   the learning of new knowledge and the forgetting of old
+      et al. (2023a; 2024) have derived a series of math-               knowledge) through different layers.
+      ematical evidence to take interactions as symbolic
+                                                                        However, there is no a widely-accepted definition of knowl-
+      primitive inference patterns encoded by a DNN.
+                                                                        edge, because we cannot mathematically define/formulate
+      We extend the definition of interactions and, for
+                                                                        knowledge in human cognition. Instead of focusing on cog-
+      the first time, extract interactions encoded by inter-
+                                                                        nitive issues, Ren et al. (2023a); Li & Zhang (2023) have
+      mediate layers. We quantify and track the newly
+                                                                        discovered and Ren et al. (2024) have theoretically proven1
+      emerged interactions and the forgotten interac-
+                                                                        the sparsity property and universal-matching property
+      tions in each layer during the forward propagation,
+                                                                        of interactions, i.e., given an input sample x, a well-trained
+      which shed new light on the learning behavior of
+                                                                        DNN usually only implicitly encodes a small number of in-
+      DNNs. The layer-wise change of interactions also
+                                                                        teractions between the input variables, and the inference
+      reveals the change of the generalization capac-
+                                                                        score can be explained as numerical effects of these interac-
+      ity and instability of feature representations of a
+                                                                        tions. Thus, these two properties mathematically make
+      DNN.
+                                                                        such interactions (also called interaction primitives or
+                                                                        interaction concepts) be considered as the knowledge en-
+                                                                        coded by a DNN. As Fig. 1 shows, given a dog image x,
+1. Introduction                                                         each interaction implicitly encoded by the DNN represents a
+Recently, understanding the black-box representation of                 co-appearance relationship between input variables (image
+deep neural networks (DNNs) has received increasing atten-              patches) in S = {eye, nose, mouth}. This is actually an
+tion. This paper investigates how a DNN gradually extracts              AND relationship between image patches in image x. Only
+knowledge from the input for inference during the layer-                when all patches in S are present in the image, the interac-
+wise forward propagation, although the definition of knowl-             tion S is activated and makes a numerical effect I(S|x) on
+edge encoded by an AI model is still an open problem. To                the classification score. Masking4 any patch will deactivate
+this end, the information bottleneck theory (Shwartz-Ziv                the interaction S and remove the effect.
+& Tishby, 2017; Saxe et al., 2018) uses mutual informa-                 Although the above studies make it plausible to define and
+tion between the input and the intermediate-layer feature to            quantify interactions encoded by a DNN, our target of quan-
+measure knowledge encoded in each layer. It finds that the              tifying and tracking the interactions encoded by different
+DNN fits (learns) task-relevant information, and compresses             layers presents the following three new challenges.
+  *                                                                     (1) Alignment of interaction primitives. The fair compari-
+     Equal contribution 1 Nanjing University of Science and Tech-
+nology. 2 Shanghai Jiao Tong University. 3 Zhejiang University.         son between any arbitrary pair of layers requires interaction
+4
+  Stevens Institute of Technology.                                      primitives extracted from different layers to be aligned, al-
+   Correspondence to: Quanshi Zhang. Quanshi Zhang is the corre-        though the physical feature dimensions in different layers
+sponding author. He is with the Department of Computer Science          do not have a clear correspondence/alignment.
+and Engineering, the John Hopcroft Center, at the Shanghai Jiao         (2) Decomposability and countability of knowledge. In-
+Tong University, China. <zqs1022@sjtu.edu.cn>.
+                                                                           1
+                                                                             Ren et al. (2024) have proven that the sparsity of interactions
+Proceedings of the 41 st International Conference on Machine            can be guaranteed by three common conditions for the DNN’s
+Learning, Vienna, Austria. PMLR 235, 2024. Copyright 2024 by            smooth inferences on randomly masked samples.
+the author(s).
+
+                                                                    1
+                                        Layerwise Change of Knowledge in Neural Networks
+
+ Network output: V x = I(S |x) + I(S |x) + I(S |x) + I(S |x)+……                                                    learning
+                                                          Learning phase: fitting                                             Forgetting phase: forgetting
+                                                                                                                   forgetting redundant Interactions.
+ S1=              Lawn
+                (1-order)
+                                                          target interactions, but also
+                                                          encoding lots of redundant                                               Flower            Face
+                                                                                                                                  (5-order)        (7-order)
+                                                          interactions.
+
+
+
+
+                                                                                  Learning strength
+ S2=               Leg
+                (2-order)
+                 Flower                                  Feed to                                                                                      Leg
+ S3=
+
+
+
+
+                                                                                                      I(S)
+                (5-order)                                                                                                                          (2-order)
+                                                                           ...
+                                                           DNN                                                                                  Lawn
+                                                                                                                                              (1-order)
+ S4=              Face
+                (7-order)                                                                                    Early layers                     Later layers
+                                                                                                                            Middle layers
+
+
+Figure 1. Tracking interactions through layers in the DNN. In most DNNs, early and middle layers usually fit target interactions modeled
+by the entire network at the cost of encoding lots of redundant interactions, and later layers remove such redundant interactions.
+
+
+teractions help us overcome the challenge of representing                 learning behavior of a DNN.
+uncountable knowledge as countable primitive patterns. In
+                                                                          • The tracking of countable interactions in different
+this way, we can exactly quantify how many interaction
+                                                                          layers reveals the change of representation complexity
+primitives are newly emerged and forgotten in each layer.
+                                                                          over different layers. The complexity of an interaction S
+(3) Connection to the generalization capacity. We hope
+                                                                          is defined as the number of input variables in S , which is
+to provide deep insights into how newly merged interac-
+                                                                          also termed the order of this interaction, i.e., order(S) = |S|.
+tion primitives and forgotten old interaction primitives are
+                                                                          In experiments, we discover that in most DNNs, early and
+related to the generalization capacity of a DNN.
+                                                                          middle layers are usually trained to fit target interactions
+Therefore, considering above challenges, we extend the                    encoded by the entire network at the cost of encoding lots
+definition of interactions to intermediate layers of a DNN.               of redundant interactions, and later layers remove such re-
+Specifically, given features of a certain layer, we train a               dundant interactions.
+linear classifier2 to use these features for classification, and
+                                                                          • Redefining the generalization capacity of DNNs and
+extract a set of interactions from the classifier. We analyze
+                                                                          tracking generalizable interactions. The use of interaction
+the faithfulness of the newly proposed interaction towards
+                                                                          primitives enables us to redefine the generalization power
+the intermediate layers of a DNN, and we discover that the
+                                                                          of a DNN from a new perspective. That is, given multiple
+new interactions provide us with a more straightforward way
+                                                                          DNNs trained for the same task, if these DNNs encode
+to analyze how knowledge changes in the layerwise forward
+                                                                          similar interactions, then we consider interactions shared by
+propagation. Instead of directly aligning features in different
+                                                                          different DNNs generalizable. We discover that low-order
+layers, we find that adjacent layers in a DNN usually encode
+                                                                          interactions usually have stronger generalization capacity
+similar sets of interactions. Thus, as illustrated in Fig. 1,
+                                                                          than high-order interactions. Besides, we also discover
+we can clarify the emergence of new interactions and the
+                                                                          that low-order interactions encoded by the DNN usually
+forgetting of old interactions in each layer.
+                                                                          exhibit more consistent effects I(S|x0 = x + ) when we add
+Faithfulness of interactions. More crucially, the newly                   different small noises  to the input sample x. In comparison,
+defined interaction primitives still belong to the typical                high-order interactions often exhibit diverse effects I(S|x0)
+paradigm of interactions, so that there are a series of the-              on inference scores w.r.t. different noises . This indicates
+orems (Ren et al., 2023a; Li & Zhang, 2023; Ren et al.,                   that low-order interactions often have higher stability.
+2024) as convincing evidence to take countable/symbolic
+                                                                          Contributions of this study are summarized as follows.
+interactions as primitive inference patterns to represent un-
+                                                                          (1) We redefine the interaction on intermediate layers, and
+countable knowledge in a DNN. Please See Section 2 and
+                                                                          find that the new definition ensures adjacent layers to encode
+Section 3.1 for details.
+                                                                          similar interactions.
+In this way, we can use interactions to explain the change                (2) Our study provides several theoretically verifiable met-
+of the representation capacity of features in different layers            rics to quantify the newly emerged knowledge and forgotten
+from the following two perspectives, which can help both                  knowledge in the forward propagation.
+theoreticians and practitioners gain new insights into the                (3) The change of interactions is also found to be related to
+    2
+                                                                          the generalization power of a DNN.
+      Belinkov (2022) discussed techniques and limitations of clas-
+sifier probes. Please See Appendix D for the solutions to these
+problems.
+
+
+                                                                      2
+                                      Layerwise Change of Knowledge in Neural Networks
+
+2. Literature in Explaining Knowledge in                               3. Tracking Interactions through Layers
+   DNNs                                                                3.1. Preliminaries: using interactions to represent
+Explaining and quantifying the exact knowledge encoded                      knowledge in DNNs
+by a DNN presents a significant challenge to explainable               So far, there is not a widely accepted way to define knowl-
+AI. So far, there has not existed a widely accepted definition         edge encoded by a DNN, because the definition of knowl-
+of knowledge that enables us to accurately disentangle and             edge is an interdisciplinary problem over cognitive science,
+quantify knowledge encoded by intermediate layers of a                 neuroscience, and mathematics. Li & Zhang (2023) has de-
+DNN, because it covers multiple disciplinary issues, such as           rived a series of properties as convincing evidence to define
+cognitive science, neuroscience, etc. To explain and quantify          interactions as symbolic primitive inference patterns en-
+the exact knowledge encoded by a DNN, previous studies                 coded by a DNN (please see Section 2 for details). Thus, in
+have either associated units of DNN feature maps with man-             this paper, we extend the definition to quantify the change of
+ually annotated semantics/concepts (Bau et al., 2017; Kim              interactions in the layer-wise forward propagation. Specif-
+et al., 2018) or automatically learned meaningful patterns             ically, there are two types of interactions, including AND
+from data (Chen et al., 2019; Shen et al., 2021; Zhang et al.,         interactions and OR interactions.
+2020), but they failed to provide a mathematically guaran-
+teed boundary for the scope of each concept/knowledge.                 Definition 3.1 (AND interactions). Given an input sam-
+Thus, previous studies could not accurately quantify the               ple x = [x1 , x2 , . . . , xn ] comprising n input variables, let
+exact amount of newly emerged/forgotten/unexplainable                  N = {1, 2, . . . , n} denote the indices of all n input variables,
+knowledge in each layer. Appendix A provides further dis-              and let v(x) ∈ R denote the scalar output of the DNN or
+cussions of more methods (Kolchinsky et al., 2019; Liang               a certain dimension of the DNN3 . Then, the AND inter-
+et al., 2020; Saxe et al., 2018; Shwartz-Ziv & Tishby, 2017;           action Iand (S|x) is used to quantify the effect of the AND
+Wang et al., 2022).                                                    (co-appearance) relationship among a subset S ⊆ N of in-
+                                                                       put variables, which is encoded by the DNN v to compute
+Faithfulness of using interaction primitives to define                 the inference scores of the label y truth .
+knowledge in DNNs. Although there is no theory to guar-                                           X
+antee that salient interactions can exactly fit the so-called                      Iand (S|x) =             (−1)|S|−|T | · v(xT ).        (1)
+                                                                                                     T ⊆S
+knowledge in human cognition, a series of studies have em-
+pirically verified and theoretically ensured the faithfulness          Here, xT denotes the masked4 sample obtained by masking
+of interaction primitives from the following perspectives.             variables in N \ T , v(xT ) represents the output score3 for
+                                                                       the target label y truth on the masked sample xT .
+(1) Li & Zhang (2023) have observed and Ren et al. (2024)
+have partially proven1 that most DNNs encode a few inter-              Each AND interaction with non-zero effect Iand (S|x) 6= 0
+actions with salient effect I(S|x) on the network output.              means that the DNN encodes the AND relationship between
+(2) Li & Zhang (2023) have observed that interactions exhib-           variables in S . The network output can be represented as
+                                                                                                            P
+ited considerable generalization capacity across samples               the sum of interaction effects v(x) = S⊆N Iand (S|x).
+and across models. Besides, they have also discovered that             OR interactions. Ren et al. (2023a); Zhou et al. (2023) have
+salient interactions exhibited remarkable discrimination               further extended the AND interaction to the OR interaction.
+power in classification tasks.                                         To this end, the overall network output is decomposed into
+(3) Ren et al. (2023a) have proven seven desirable mathe-              the component for AND interactions vand (xT ) and the com-
+matical properties for interactions.                                   ponent for OR interactions vor (xT ), subject to vand (xT ) =
+                                                                       0.5·v(xT )+γT and vor (xT ) = 0.5·v(xT )−γT . {γT } is a set of
+(4) Interaction primitives can also be used to explain the                3
+representation capacity of DNNs. Deng et al. (2022) have                     Note that people can apply different settings for v(x). Here,
+                                                                                                                         p(y=y truth |x)
+proven a counter-intuitive bottleneck of a DNN in encoding             we follow (Deng et al., 2022) to set v(x) = log 1−p(y=y    truth |x) ∈ R
+
+interaction primitives of the intermediate complexity. Liu             as the confidence of classifying the sample x to the ground-truth
+et al. (2023) have proven the learning difficulty of interaction       category y truth .
+                                                                           4
+                                                                             We mask the input variable i ∈ N \ T to the baseline value
+primitives. Zhou et al. (2024) have discovered that low-               bi to represent its masked state. Here, we follow the widely-used
+order interactions have higher generalization power than               setting of baseline values in (Dabkowski & Gal, 2017) to set bi
+high-order interactions.                                               as the mean value of this variable across all samples in image
+                                                                       classification, and follow (Shen et al., 2023) to set bi as a special
+Furthermore, we compare the interaction-based explanation              token (e.g., [MASK] token) in nature language processing. Note
+with attribution interpretability methods. Please Appendix B           that such settings of baseline values can bring in some biases (Jain
+for detailed discussions.                                              et al., 2022). To remove biases, Ren et al. (2023b) proposed a
+                                                                       method to learn optimal baseline values based on interactions.
+                                                                       Please see Appendix E for details.
+
+                                                                   3
+                                            Layerwise Change of Knowledge in Neural Networks
+
+learnable parameters to determine the decomposition. In this                    3.2. Tracking interactions through layers
+way, people can simultaneously explain AND interactions
+                                                                                Despite the universal-matching property, the transferability,
+and OR interactions encoded by DNN. The AND interaction
+                                                                                and the discrimination power of interactions in Section 2,
+is extracted as Iand (S|x) = T ⊆S (−1)|S|−|T | · vand (xT ), just
+                            P
+                                                                                the definition, quantification, and tracking of interactions
+like in Eq. (1). The OR interaction is defined as follows.
+                                                                                through layers present distinctive challenges in real appli-
+Definition 3.2 (OR interactions). The OR interaction is                         cations. Specifically, we aim to define the interaction for
+used to quantify the effect of the OR relationship between a                    the high-dimensional features, while previous interactions
+set S ⊆ N of input variables encoded by the DNN..                               are all defined on a scalar output score. Besides, the newly
+        Ior (S|x) = −
+                        X
+                                   (−1)|S|−|T | · vor (xN \T ).       (2)       defined interaction successfully ensures that neighboring
+                            T ⊆S                                                layers encode similar interactions. This enables us to pro-
+                                                                                pose various metrics to track the newly emerged interaction
+Eq. (2) indicates that the presence of any input variable in S                  primitives and the forgotten interaction primitives in each
+will activate the OR interaction and make an effect Ior (S|x)                   layer, which provide new insights into the learning of DNNs.
+to the output score v(x). Ren et al. (2023a); Zhou et al.
+(2023) proposed to learn parameters {γT } to generate the                       3.2.1. V ERIFYING THE SPARSITY OF INTERACTIONS
+sparsest AND-OR interactions. The AND-OR interactions
+is determined when {γT } are learned. Please see Zhou                           Before we define interactions encoded by intermediate-layer
+et al. (2023) for detailed technique of learning {γT } for the                  features, we need to first examine whether the final layer of
+optimal decomposition of AND-OR interactions.                                   the DNN encodes a small number of interactions. Although
+                                                                                the sparsity of interactions has been partially proven under
+Faithfulness. The sparsity property and universal-                              three common conditions2 , it is still a challenge to strictly
+matching property mathematically guarantee the faith-                           examine whether the DNN fully satisfies these conditions
+fulness of interaction-based explanation. Let us randomly                       in real applications. Besides, the sparsity of interactions
+mask4 an input sample x and generate a total of 2n masked                       has not been proven when we simultaneously use AND
+samples xT . Then, Theorem 3.3 shows that output scores                         interactions and OR interactions to explain a DNN.
+v(xT ) on all 2n masked samples xT can always be well
+matched by AND-OR interactions.                                                 The interactions used by the final layer are directly ex-
+Theorem 3.3. (Proven in Appendix F) Given an input                              tracted based on the network output score v(x)3 , according
+sample x ∈ Rn , the network output score v(xT ) on each                         to Eq. (1) and Eq. (2). Thus, we can consider interactions
+masked input samples {xT |T ⊆ N } can be decomposed into                        extracted from the final layer as the target interactions used
+effects of AND interactions and OR interactions, subject to                     for the inference. If these interactions are sparse, then the
+Iand (∅|x) = vand (x∅ ) = v(x∅ ) and Ior (∅|x) = vor (x∅ ) = 0.                 utility of all layers can be simplified as pushing features
+                                                                                towards a specific small set of sparse interactions. This will
+   v(xT ) = vand (xT ) + vor (xT )                                              significantly simplify feature analysis.
+            X                        X                                (3)
+          =           Iand (S|xT ) +                   Ior (S|xT )              Experiments. We conducted experiments to illustrate the
+                 S⊆T                         S∩T 6=∅
+                                                                                sparsity of interactions. Given a well-trained DNN and
+Ren et al. (2024) have proven1 that most AND-OR interac-                        an input sample x ∈ Rn , we calculated AND interactions
+tions have negligible effects I(S|x) ≈ 0 on inference, which                    Iand (S|x) and OR interactions Ior (S|x) of all 2n possible
+can be regarded as noisy patterns. Only a small number                          subsets5 S ⊆ N . To this end, we trained VGG-11 (Si-
+of interactions have considerable effects. Given an input                       monyan & Zisserman, 2014), ResNet-20 (He et al., 2016)
+sample x ∈ Rn , we can use a small set of salient AND                           on the MNIST dataset (LeCun et al., 1998) and CIFAR-10
+interactions Ωand                             or
+                salient and OR interactions Ωsalient to univer-
+                                                                                datasets (Krizhevsky et al., 2009), respectively. We also
+sally match network outputs v(xT ) on all 2n masked                             learned a seven-layer MLP (namely MLP-7) on the MNIST
+samples. This indicates that salient interactions can serve                     dataset and CIFAR-10 dataset, respectively, where each
+as primitive inference patterns encoded by the DNN.                             layer contained 1024 neurons. Please see Appendix M.4 for
+Lemma 3.4. (Proving interactions as primitive inference                         experimental details.
+patterns, c.f. Appendix G) Given an input sample x ∈                            Fig. 2 shows the strength of all AND-OR interactions ex-
+Rn , the network output on all 2n masked input samples                          tracted from different samples x, |I(S|x)| w.r.t. different S
+{xT |T ⊆ N } can be universally matched by a small set of                       and x, in descending order. We discovered only about 21.8
+salient interactions.                                                           AND/OR salient interactions in each MNIST image and
+                        X                        X
+ v(xT ) ≈ v(x∅ ) +            Iand (S|xT ) +            Ior (S|xT )                5
+                                                                                     Appendix M.1 introduces the details of selecting a relatively
+                     S∈Ωand                    S∈Ωor
+                                                  salient
+                                                                      (4)       small number of input variables (image patches or words) to com-
+                         salient
+                     ∅6=S⊆T                    S∩T 6=∅
+                                                                                pute interactions in order to reduce computational cost.
+
+
+                                                                            4
+           salient                     salient
+                noisy                      noisy
+
+
+
+
+                                             Layerwise Change of Knowledge in Neural Networks
+
+
+
+
+           salient                     salient
+                noisy                      noisy
+
+
+
+
+Figure 2. Sparsity of interactions. We visualized strength of all AND-OR interactions extracted from different samples x, |I(S|x)| w.r.t.
+different S and x, in a descending order. Only about 21.8 AND/OR interactions in each sample of the MNIST dataset and about 45.6
+AND/OR interactions in each sample of the CIFAR-10 dataset made salient effects on the network output.
+
+
+about 45.6 AND/OR salient interactions in each CIFAR-10                     The new function v (l) (x) enables a fair comparison between
+image. All other interactions exhibited very small effects.                 interactions extracted from different layers. The classifica-
+Such a phenomenon verified the sparsity of interactions.                    tion score v (l) (x) potentially reflects a set of interactions,
+                                                                            which are encoded by f (l) (x) and can be directly used for
+3.2.2. E XTRACTING INTERACTIONS FROM                                        classification. Specifically, we conducted experiments to
+        INTERMEDIATE LAYERS                                                 extract interactions from different layers of different DNNs5 .
+                                                                            We used the MLP-7, VGG-11, and ResNet-20 trained on
+In comparison with extracting interactions from the network
+                                                                            the MNIST dataset and CIFAR-10 dataset, which were in-
+output score v(x)3 , defining and extracting interactions from
+                                                                            troduced in Section 3.2.1. We also fine-tuned pre-trained
+intermediate layers present a new challenge. It is because
+                                                                            DistilBERT (Sanh et al., 2019) and BERTBASE (Devlin et al.,
+the intermediate-layer features are usually high-dimensional
+                                                                            2019) models on the SST-2 dataset (Socher et al., 2013) for
+vectors/tensors/matrices, rather than a scalar output. Thus,
+                                                                            binary sentiment classification.
+we need to define a new scalar metric v (l) (x), which faith-
+fully identify signals in the high-dimensional feature directly             We used the order of an interaction to measure the com-
+related to the classification task, to compute interactions en-             plexity of the interaction. The order was defined as the
+coded by the l-th layer of the DNN.                                         number of input variables involved in this interaction, i.e.,
+                                                                            order(S) = |S|. As illustrated in Fig. 3, linear classifiers
+To this end, given an input sample x, we propose to train a
+                                                                            trained on features of early layers encode less high-order
+linear classifier p(l) (y|x) = softmax/sigmoid((w(l) )T f (l) (x)+
+                                                                            interactions than later layers. We can consider that features
+b(l) ) based on the cross-entropy loss, which uses the feature
+                                                                            in early layers usually represent lots of local and simple non-
+f (l) (x) of the l-th layer to conduct the same classification
+                                                                            linear patterns between a few input variables, but most of
+task as the DNN6 . We can define the following v (l) (x) to
+                                                                            such patterns cannot be directly used by the classifier for the
+represent signals encoded by the l-th layer of the DNN.
+                                                                            classification task. Besides, compared to linear classifiers
+                               p(l) (y = y truth |x)                        trained on early-layer features, classifiers trained on features
+           v (l) (x) = log                             − δN ,
+                             1 − p(l) (y = y truth |x)                      of later layers usually share more similar interactions with
+                                                                  (5)       the final layer of the DNN.
+                               p(l) (y = y truth |xT )
+         v (l) (xT ) = log                               − δT ,
+                             1 − p(l) (y = y truth |xT )                    Emergence of new interactions and discarding of old
+where δT is a learnable residual proposed to model and                      interactions. In this experiment, we quantified how the
+remove the tiny noise from the output v (l) (xT ), so as to                 DNN gradually learned new interactions and discarded use-
+extract relatively clean interactions. δT is constrained to a               less interactions in the forward propagation and obtained
+small range κ = 0.04 · |v (l) (xN ) − v (l) (x∅ )|. We discover             the target interactions in the last layer. To this end, given
+that small noise in output function v (l) (xT ) may signifi-                all AND-OR interactions encoded by the l-th layer, let
+                                                                              (l),m
+cantly change the interaction effect. In this way, parameters               Ωand    = {S ⊆ N : |S| = m, |Iand (S|x, v (l) )| > τ }7 de-
+{γT , δT } are learned by minimizing T ⊆N |Iand (T |x, v (l) )| +
+                                           P                                note the set of salient AND interactions of the m-th order
+|Ior (T |x, v (l) )|, s.t. ∀T ⊆ N, |δT | < κ. An ablation study in          extracted from the l-th layer. Accordingly, Ω(l),mor   = {S ⊆
+Appendix J shows that the extraction of interactions is rela-               N : |S| = m, |Ior (S|x, v (l) )| > τ 7 } represented the set of
+tively robust to the κ value.                                               salient OR interactions of the m-th order extracted from
+                                                                            the l-th layer. To this end, we used all(l),m
+                                                                                                                        and and all(L),m
+                                                                                                                                   and   to
+Comparing interaction complexity over different layers.
+                                                                               7
+                                                                                We set τ = 0.05 · maxS (|Iand (S|x, v (l) )|, |Ior (S|x, v (l) )|) to
+   6
+    Appendix M.2 introduces the details of training the classifier.         select a set of salient interactions from all interactions extracted
+Note that the network parameters in the DNN are all fixed without           from the l-th layer of the target DNN.
+being tuned, when we learn classifiers.
+
+                                                                        5
+                                                                                              Layerwise Change of Knowledge in Neural Networks
+
+（a）                                                                                           ResNet − 20 on MNIST
+                                                new and
+                                                         ("),%
+                                                                         forget and
+                                                                                   ("),%           1st residual    3rd residual                                  5th residual            7th residual              9th residual                  average
+                                                                                                      block           block                                         block                   block                     block                      pooling
+                                                                         ("),%
+                                                            overlap and
+
+                                                                                              0               6 order        0          6 order        0             6 order      0           6 order 0                  6 order   0             6 order
+                                        " ,%
+     all&'(                                                                                   ResNet − 20 on CIFAR10
+                                                                                                   1st residual      3rd residual                               5th residual            7th residual               9th residual                  average
+                                        ) ,%                                                           block            block                                      block                   block                      block                      pooling
+     all&'(
+
+
+                                                     0           4        8        order
+                                                                                              0        4         8 order 0       4       8 order 0              4        8 order 0      4       8 order 0          4      8 order 0         4     8 order
+                           MLP − 7 on CIFAR10                                                                                            VGG − 11 on CIFAR10
+                                    3rd layer                                       5th layer                      7th layer                       conv1_1                             conv3_2                     conv5_2                        FC2
+
+
+
+
+                               0                4        8 order     0        4        8 order 0             4         8 order           0         4           8 order    0       4      8 order 0           4         8 order 0        4        8 order
+
+                   BERT!"#$ on SST2                                                                                                                     DistilBERT on SST2
+                                            2nd                  6th                    8th                    10th                    FC                          1st                3rd                 4th                 5th                     FC
+                                        transformer          transformer            transformer            transformer                                         transformer        transformer         transformer         transformer
+
+
+                  0                             6 order 0            6 order 0             6 order 0             6 order 0           6 order               0        6 order 0           6 order 0          6 order 0           6 order 0          6 order
+（b）
+                                                ResNet − 20 on MNIST               ResNet − 20 on CIFAR10 MLP − 7 on CIFAR10                           VGG − 11 on CIFAR10            BERT!"#$ on SST2                 DistilBERT on SST2
+    ( ,*
+      Redundancy %&' Completeness %&'
+
+
+
+
+                                        1.00
+                                                                                                                                                                                                                                                        High
+                                        0.75                                                                                                                                                                                                            Order
+                                        0.50
+                                        0.25
+                                        0.00
+     ( ,*
+
+
+
+
+                                        1.00
+                                        0.75
+                                        0.50
+                                        0.25                                                                                                                                                                                                             Low
+                                        0.00
+                                                                                                                                                                                                                                                        Order
+                                                Early                Later        Early                Later       Early                Later          Early                  Later   Early                Later       Early             Later
+
+
+
+                                                                                                                                                                                (l),m                                  (l),m
+Figure 3. (a) Tracking the change of the average strength of the overlapped (overlapand ), forgotten (forgetand ), and newly emerged
+                  (l),m                                                                                                               (l),m
+interactions (newand ) through different layers. For each subfigure, the total length of the orange bar and the grey bar equals to alland ,
+                                                                   (L),m                                        (l),m                 (l),m
+and the total length of the blue bar and the grey bar equals to alland   (b) Tracking the change of completenessand and redundancyand
+through different layers. We do not show interactions of the highest four orders, because almost no interactions of extremely high orders
+were learned. Please see Appendix I for results of OR interactions and results on tabular datasets.
+
+
+                                                                                                                                                                                                         (l),m
+quantify the overall strength of all m-order salient AND                                                                                               layer, but were not encoded by the l-th layer, newand   .
+interactions encoded by the l-th layer and those encoded by
+the final layer (the L-th layer), respectively.                                                                                                                                   X
+                                                                                                                                                                    (l),m                                                 (l,L)
+                                                                                                                                                       overlapand             =               (l),m   T    (L),m         Iand, shared (S|x) ,
+                                                                                                                                                                                        S∈Ωand            Ωand
+
+                                                                                                                                                                    (l),m
+                                                                                                                                                                                  X                                                    (l,L)
+                                                                                                                                                           forgetand          =               (l),m    Iand (S|x, v (l) ) − Iand, shared (S|x) ,
+                                                       (l),m
+                                                                     X                                           (l)                                                                    S∈Ωand
+                                                    alland    =                    (l),m   |Iand (S|x, v               )|,
+                                                                          S∈Ωand                                                                                    (l),m
+                                                                                                                                                                                  X                                                     (l,L)
+                                                                                                                                      (6)                      newand         =               (L),m       Iand (S|x, v (L) ) − Iand, shared (S|x) ,
+                                                  (L),m
+                                                               X                                                 (L)                                                                    S∈Ωand
+                                               alland        =                             |Iand (S|x, v               )|.
+                                                                         S∈Ωand
+                                                                                  (L),m                                                                                                                                  (7)
+                                                                                                                                                                  (l,L)
+                                                                                                                                                       where Iand,    shared (S|x) measured the shared AND inter-
+                                                                                                                                                       actions between Iand (S|x, v (l) ) extracted from the l-th
+                                                                                                                                                       layer and Iand (S|x, v (L) ) encoded by the final L-th layer.
+As Fig. 3 shows, we designed the following three metrics to                                                                                            If Iand (S|x, v (l) ) and Iand (S|x, v (L) ) had opposite interac-
+further disentangle the overall strength all(l),m    and all(L),m                                                                                      tion effects, then Iand,   (l,L)
+                                                                                                                                                                                      shared (S|x) = 0; Otherwise, the
+                                               and          and
+into three terms: (1) the overall strength of interactions                                                                                                                                               (l,L)
+                                                                                                                                                       shared AND interaction was defined as Iand,           shared (S|x) =
+shared by both the l-th layer and the final layer, overlap(l),m
+                                                             and ,
+                                                                                                                                                       sign(Iand (S|x, v )) · min(|Iand (S|x, v )|, |Iand (S|x, v (L) )|).
+                                                                                                                                                                           (l)                     (l)
+(2) the overall strength of interactions encoded by the l-th
+layer but later forgotten in the final layer, forget(l),m
+                                                    and , (3) the                                                                                      Thus, overlap(l),m       (l),m         (l),m
+                                                                                                                                                                    and , forgetand , and newand    formed a decom-
+overall strength of interactions that were encoded in the final                                                                                        position of overall interaction strength, as follows.
+
+                                                                                                                                               6
+         0.00                           0.00                                                                                                 DistilBERT BERTBASE
+
+
+
+
+                                                                                                              𝔼𝐱 [IoU
+                              𝔼𝐱 [IoU
+                                                           ResNet-20 ResNet-32
+
+
+
+
+                                                                                 𝔼𝐱 [Io
+𝔼𝐱 [Io
+                5     order                    5   order                                      2   5   order             2      5     order
+
+                     a DNNs trained on CIFAR10                                                        b DNNs trained on SST2
+
+
+                                                   Layerwise Change of Knowledge in Neural Networks
+
+
+
+
+Figure 4. Average IoU values of AND interactions extracted from two DNNs trained for the same task over different input samples.
+Low-order interactions usually exhibited higher IoU values, thereby being better generalized across DNNs. Please see Appendix I for
+results of OR interactions and Appendix M.3 for the selected intermediate layer.
+
+
+                                                                                      extremely high-order interactions are learned in later layers,
+                       (l),m          (l),m      (l),m                                but the learning is unstable.
+                    alland = overlapand + forgetand ,
+                                                                         (8)
+                         (L),m
+                     alland
+                                         (l),m   (l),m
+                               = overlapand + newand .                                • Fig. 3 (b) shows that redundancy(l),m
+                                                                                                                            and   values of most inter-
+                                                                                      actions first rise and then fall through layers, which indicates
+Metrics for OR interactions overlap(l),m
+                                      or  , forget(l),m
+                                                  or    , and                         that the utility of later layers of DNNs was mainly to remove
+   (l),m
+newor    were defined in the similar way.                                             redundant interactions encoded by earlier layers.
+To evaluate the progress of learning target interactions and                          • Using our results to analyze the generalization power.
+redundant interactions, we also define the completeness of                            We further use the layerwise change of interactions on each
+interactions encoded by each l-th layer w.r.t. all interactions                       specific DNN to analyze its generalization power. To this
+   (L),m
+alland     encoded by the final layer, as completeness(l),m
+                                                        and   =                       end, Section 3.3 will show a clear relationship between
+         (l),m     (L),m
+overlapand / alland . We define the redundancy of inter-                              the order of interactions and the generalization power of
+actions in each l-th layer as the ratio of the interactions                           interactions. In this way, Appendix K introduces how to use
+       (l),m                                            (l),m
+forgetand that are finally forgotten, as redundancyand =                              the distribution of interactions to analyze the generalization
+       (l),m    (l),m
+forgetand / alland . What’s more, we can define the metrics                           power of features of different layers.
+for OR interaction completeness(l),m
+                                  or   and redundancy(l),m
+                                                        or    in
+the similar way.                                                                      3.3. Analyzing the representation capacity of a DNN
+Results & Analysis. Fig. 3 (a) reports the average strength8                          Tracking salient interactions through layers also provides
+of the overlapped AND interactions overlap(l),m and , the forgot-                     us a new perspective to understand how the representation
+ten AND interactions forget(l),m
+                               and   , and newly emerged AND                          capacity gradually changes during the forward propagation.
+interactions new(l),m
+                and   . Fig. 3  (b) tracks the completeness  and                      It is because we find that the order (complexity) of interac-
+redundancy of the learned interactions through layers. We                             tions can well explain the generalization capacity and the
+discovered that even among different models on different                              instability of feature representations of a DNN.
+tasks, most DNNs still tended to follow similar information-
+processing behaviors, as follows.                                                     • Low-order interactions are more generalizable across
+                                                                                      models. According to Lemma 3.4, we can disentan-
+• Fig. 3 (a) shows that all(l),m
+                            and  and all(L),m
+                                        and   of low order                            gle the overall inference score based on the feature
+have higher strength than those of high order, which indi-                            f (l) (x) into the sum of effects of a few salient interac-
+cates that DNNs usually encode stronger low-order (simple)                            tions, v (l) (xT ) ≈ v(x∅ ) + S∈Ω(l) :∅6=S⊆T Iand (S|xT , v (l) ) +
+                                                                                                                   P
+interactions than high-order (complex) interactions.                                                                               and
+                                                                                                           Ior (S|xT , v (l) ). Thus, the generalization ca-
+                                                                                      P
+                                                                                             (l)
+                                                                                          S∈Ωor :S∩T 6=∅
+• Fig. 3 (b) shows that completeness(l),mand  values of most                          pacity of the feature f (l) (x) can be explained by the gener-
+interactions start increasing at early layers. Unlike low-                            alization capacity of salient interactions.
+order interactions, high-order interactions do not reach high
+completeness even in later layers. These indicate that the                            To this end, we consider that if multiple DNNs trained for
+early and middle layers usually had already learned most                              the same task encode the same interaction, then this inter-
+target interactions that were finally used by DNNs. Morever,                          action is regarded as well-generalized. Specifically, given
+                                                                                      two DNNs, vA and vB , trained for the same classification
+      We normalized each AND interaction Iand (S|x, v (l) ) ex-
+          8
+                                                                                      task and an input sample x, we follow the settings in Sec-
+tracted from the l-th layer of the target DNN as Iand (S|x, v (l) ) ←                 tion 3.2.2 to extract two sets of m-order salient AND inter-
+Iand (S|x, v (l) )/Ex [|v (l) (xN ) − v (l) (x∅ )|] for fair comparison.              actions from the la -th layer of the DNN vA and the lb -th
+Each OR interaction was normalized in the similar way.
+
+                                                                                 7
+                                                Layerwise Change of Knowledge in Neural Networks
+
+
+        Interactions from               Interactions from                    Interactions from             Interactions from
+        the intermediate                        the                          the intermediate                      the
+              layer                         final layer                            layer                       final layer
+
+
+
+
+              (a) DNNs trained on MINIST                                            (b) DNNs trained on CIFAR10
+
+
+                                                (l),m
+Figure 5. The relative stability (stabilityand ) of AND interactions decreased along with the order m. Low-order interactions were more
+stable to inevitable noises in data. See Appendix I for results of OR interactions and Appendix M.3 for the selected intermediate layer.
+
+
+layer of the DNN vB , respectively, which are denoted by                                    the instability of the feature f (l) (x) can be explained by the
+  (l ),m                                      (l )
+Aanda     = {S ⊆ N : |S| = m, |Iand (S|x, vAa )| > τ 7 } and                                instability of salient interactions.
+  (lb ),m                   (la ),m      (lb ),m
+Band . Accordingly, let Aor         and Bor      represent sets
+                                                                                            To this end, let us add a small Gaussian perturbation
+of salient OR interactions of m-th order, respectively. Then,
+                                                                                             ∼ N (0, σ 2 I) to the input sample x, in order to mimic
+we use the IoU metric to measure the generalization capacity
+                                                                                            inevitable noises/variations in data. Although there may
+of m-order interactions across different models.
+                                                                                            exist other noises in data, we just use Gaussian perturba-
+                                               (l ),m
+                                            |Aanda
+                                                            (l ),m
+                                                        ∩ Bandb      |                      tion to represent noises/variations in data, which may still
+                 (l ),m       (l ),m
+        IoU (Aanda        , Bandb      )=     (l ),m        (l ),m
+                                                                         ,                  provide insights into real-world applications. Thus, we use
+                                            |Aanda      ∪ Bandb      |
+                                                                                  (9)       the following metrics to measure the relative stability of
+                                              (l ),m        (l ),m
+              (la ),m    (lb ),m            |Aor a      ∩ Bor b      |                      AND-OR interactions of each order m.
+        IoU (Aor      , Bor      )     =      (l ),m        (l ),m
+                                                                         .
+                                            |Aor a      ∪ Bor b      |                                                                       q             
+                                                                                                          (l),m                   (l)              (l)
+                                                                                                 stabilityand     = Ex   E      |Eand (S, x)|   Varand (S, x) ,
+                                                                                                                          (l),m
+                                                                                                                     S∈Ωand
+Large values of IoU (A(l     a ),m
+                           and
+                                      (l ),m           (l ),m
+                                   , Bandb ) and IoU (Aor a ,                                                                                       q            
+ (lb ),m
+Bor      ) mean that most m-order interactions encoded by a                                      stability(l),m = Ex      E        |Eor(l) (S, x)|
+                                                                                                                                                          (l)
+                                                                                                                                                       Varor (S, x) .
+                                                                                                          or
+DNN can be well generalized to another DNN.                                                                          S∈Ωor
+                                                                                                                          (l),m
+
+                                                                                                                                                                     (10)
+Experiments. Here, we examined the generalization ca-
+                                                                                                       (l)                                      (l)           (l)
+pacity of interactions of different orders. We used DNNs                                    where               = E [Iand (S|x + , v )] and
+                                                                                                      Eand (S, x)                                          Varand (S, x)
+                                                                                                                                                              =
+introduced in Section 3.2.1, i.e., MLP-7, VGG-11, ResNet-                                   Var [Iand (S|x + , v (l) )] denote the mean and variance of the
+20, and ResNet-32 (He et al., 2016) trained on the CIFAR-10                                 AND interaction Iand (S|x + , v (l) ) w.r.t. Gaussian pertur-
+dataset for image classification, and DistilBERT, BERTBASE ,                                bations , which are encoded by the l-th layer of the DNN.
+and XLNet (Yang et al., 2019) fine-tuned on the SST-2                                       Similarly, Eor(l) (S, x) and V aror(l) (S, x) represent the mean
+dataset for binary sentiment classification.                                                and variance of the OR interaction Ior (S|x + , v (l) ) w.r.t.
+                                                                                            noises . Large values of stability(l),m and  and stability(l),m
+                                                                                                                                                       or    in-
+Fig. 4 reports the average IoU value of AND interactions                                    dicates that m-order interactions are stable to inevitable
+extracted from two DNNs over different input samples,                                       noises.
+            (l ),m    (l ),m
+Ex [IoU (Aanda , Bandb )], given each pair of DNNs trained
+for the same task. We discovered low-order interactions                                     Towards normalization of the noise. As a common under-
+extracted from different DNNs usually exhibited higher IoU                                  standing, people usually think that higher-order interactions
+values, i.e., different DNNs trained for the same task usually                              contain more noise than low-order interactions, because
+encoded similar sets of salient low-order interactions. This                                they involve more input variables. However, it is note-
+demonstrated low-order interactions could be better gener-                                  worthy that high-order interactions also obtain more input
+alized across DNNs. Notably,       for each m < n/2, there are                              signals, and the signal-to-noise ratio of each interaction is
+                        n
+                          
+the same number m           of potential combinations for both                              relatively consistent over interactions of different orders.
+m-order interactions and (n − m)-order interactions. Low-                                   Thus stability(l),m
+                                                                                                          and   and stability(l),m
+                                                                                                                             or    ensures a fair comparison
+order (m-order) interactions are more generalizable than                                    of interactions of different orders m. Please see Appendix L
+high-order interactions.                                                                    for details.
+• Low-order interactions are more stable to small noises.                                   Experiments. We conducted experiments to check the in-
+We discover that the order of interactions can also be used to                              stability of AND-OR interactions of each order. To this
+explain the instability of feature representations of a DNN.                                end, we added Gaussian perturbation  ∼ N (0, 0.022 I) to
+According to Lemma 3.4, the overall inference score based                                   each training sample. Then, for each order m, we computed
+                                                                                                             (l),m
+on the feature f (l) (x) can be disentangled into the sum of                                metrics stabilityand based on DNNs, and the DNNs for
+the effects of a few salient AND-OR interactions. Thus,                                     testing have been introduced in Section 3.2.1. Fig. 5 shows
+
+                                                                                        8
+                                       Layerwise Change of Knowledge in Neural Networks
+
+                                    (l),m
+that the relative stability stabilityand decreased along with            References
+the order m, which indicated that low-order interactions
+                                                                         Ancona, M., Oztireli, C., and Gross, M. Explaining deep
+were more stable to inevitable noises in data than high-order
+                                                                           neural networks with a polynomial time algorithm for
+interactions. In other words, low-order interactions usually
+                                                                           shapley value approximation. In International Confer-
+exhibited consistent effects Iand (S|x + , v (l) ) on the network
+                                                                           ence on Machine Learning, pp. 272–281. PMLR, 2019.
+output/intermediate-layer feature w.r.t. different noises 
+than high-order interactions. This indicated that low-order              Bau, D., Zhou, B., Khosla, A., Oliva, A., and Torralba,
+interactions were more likely to be generalized to similar                 A. Network dissection: Quantifying interpretability of
+samples (e.g., samples with small intra-class variations).                 deep visual representations. In Proceedings of the IEEE
+                                                                           conference on computer vision and pattern recognition,
+Thus, according to Figs. 3, 4, 5, we discovered that for
+                                                                           pp. 6541–6549, 2017.
+ResNet-20 trained on both the MNIST dataset and the
+CIFAR-10 dataset, their later layers usually exclusively                 Belinkov, Y. Probing classifiers: Promises, shortcomings,
+forgot redundant high-order interactions without encoding                  and advances. Computational Linguistics, 48(1):207–219,
+new interactions, which were non-generalizable and unsta-                  2022.
+ble. Besides, later layers of DistilBERT and BERTBASE
+trained on the SST-2 dataset usually forgot redundant and                Chen, C., Li, O., Tao, D., Barnett, A., Rudin, C., and Su, J. K.
+non-generalizable high-order interactions.                                 This looks like that: deep learning for interpretable image
+                                                                           recognition. Advances in neural information processing
+                                                                           systems, 32, 2019.
+4. Conclusion and Discussion
+                                                                         Dabkowski, P. and Gal, Y. Real time image saliency for
+In this paper, we use interaction primitives to represent                  black box classifiers. Advances in neural information
+knowledge encoded by the DNN. The sparsity and the                         processing systems, 30, 2017.
+universal-matching property of interactions ensure the trust-
+worthiness of taking interactions as symbolic primitive infer-           Deng, H., Ren, Q., Zhang, H., and Zhang, Q. DISCOV-
+ence patterns encoded by a DNN. Thus, we further quantify                  ERING AND EXPLAINING THE REPRESENTATION
+and track the newly emerged interaction primitives and the                 BOTTLENECK OF DNNS. In International Confer-
+forgotten interaction primitives in each layer during the                  ence on Learning Representations, 2022. URL https:
+forward propagation, which provides new insights into the                 //openreview.net/forum?id=iRCUlgmdfHJ.
+learning behavior of DNNs. The layer-wise change of inter-
+                                                                         Devlin, J., Chang, M.-W., Lee, K., and Toutanova, K. BERT:
+actions potentially reveals the change of the generalization
+                                                                           Pre-training of deep bidirectional transformers for lan-
+capacity and instability of feature representations of a DNN.
+                                                                           guage understanding. In Proceedings of the 2019 Confer-
+                                                                           ence of the North American Chapter of the Association for
+Acknowledgements                                                           Computational Linguistics: Human Language Technolo-
+                                                                           gies, Volume 1 (Long and Short Papers), pp. 4171–4186.
+This work is partially supported by the National Science and
+                                                                           Association for Computational Linguistics, 2019.
+Technology Major Project (2021ZD0111602), the National
+Nature Science Foundation of China (92370115, 62276165).                 Fong, R., Patrick, M., and Vedaldi, A. Understanding deep
+This work is also partially supported by Huawei Technolo-                  networks via extremal perturbations and smooth masks.
+gies Inc.                                                                  In Proceedings of the IEEE/CVF international conference
+                                                                           on computer vision, pp. 2950–2958, 2019.
+Impact Statement                                                         He, K., Zhang, X., Ren, S., and Sun, J. Deep residual learn-
+This paper uses interaction primitives to represent knowl-                 ing for image recognition. In Proceedings of the IEEE
+edge encoded by the DNN, and further quantify and track                    conference on computer vision and pattern recognition,
+the layer-wise change of interaction primitives in the DNN                 pp. 770–778, 2016.
+during the forward propagation. The layer-wise change of                 Jain, S., Salman, H., Wong, E., Zhang, P., Vineet, V., Vem-
+interactions also reveals the change of the generalization ca-              prala, S., and Madry, A. Missingness bias in model
+pacity and instability of feature representations of the DNN.               debugging. arXiv preprint arXiv:2204.08945, 2022.
+There are no ethical issues with this paper, and there are no
+potential societal consequences of this paper that need to be            Kim, B., Wattenberg, M., Gilmer, J., Cai, C., Wexler, J.,
+specifically highlighted.                                                  Viegas, F., et al. Interpretability beyond feature attribu-
+                                                                           tion: Quantitative testing with concept activation vectors
+                                                                           (tcav). In International conference on machine learning,
+                                                                           pp. 2668–2677. PMLR, 2018.
+
+                                                                     9
+                                    Layerwise Change of Knowledge in Neural Networks
+
+Kolchinsky, A., Tracey, B. D., and Kuyk, S. V. Caveats               Sanh, V., Debut, L., Chaumond, J., and Wolf, T. Distilbert,
+  for information bottleneck in deterministic scenarios. In            a distilled version of bert: smaller, faster, cheaper and
+  International Conference on Learning Representations,                lighter. arXiv preprint arXiv:1910.01108, 2019.
+  2019. URL https://openreview.net/forum?
+                                                                     Saxe, A. M., Bansal, Y., Dapello, J., Advani, M., Kolchinsky,
+  id=rke4HiAcY7.
+                                                                       A., Tracey, B. D., and Cox, D. D. On the information bot-
+Krizhevsky, A., Hinton, G., et al. Learning multiple layers            tleneck theory of deep learning. In International Confer-
+  of features from tiny images. 2009.                                  ence on Learning Representations, 2018. URL https:
+                                                                       //openreview.net/forum?id=ry_WPG-A-.
+LeCun, Y., Bottou, L., Bengio, Y., and Haffner, P. Gradient-
+  based learning applied to document recognition. Proceed-           Shen, W., Wei, Z., Huang, S., Zhang, B., Fan, J., Zhao,
+  ings of the IEEE, 86(11):2278–2324, 1998.                            P., and Zhang, Q. Interpretable compositional convolu-
+                                                                       tional neural networks. In Proceedings of the Thirtieth
+Li, M. and Zhang, Q. Does a neural network really encode               International Joint Conference on Artificial Intelligence,
+  symbolic concepts? In Proceedings of the 40th Interna-               IJCAI-21, pp. 2971–2978, 2021.
+  tional Conference on Machine Learning, volume 202, pp.
+                                                                     Shen, W., Cheng, L., Yang, Y., Li, M., and Zhang, Q. Can
+  20452–20469. PMLR, 23–29 Jul 2023.
+                                                                       the inference logic of large language models be disentan-
+Liang, R., Li, T., Li, L., Wang, J., and Zhang, Q. Knowledge           gled into symbolic concepts?, 2023.
+  consistency between neural networks and beyond. In                 Shwartz-Ziv, R. and Tishby, N. Opening the black box of
+  International Conference on Learning Representations,                deep neural networks via information. arXiv preprint
+  2020. URL https://openreview.net/forum?                              arXiv:1703.00810, 2017.
+  id=BJeS62EtwH.
+                                                                     Simonyan, K. and Zisserman, A. Very deep convolu-
+Liu, D., Deng, H., Cheng, X., Ren, Q., Wang, K., and Zhang,            tional networks for large-scale image recognition. arXiv
+  Q. Towards the difficulty for a deep neural network to               preprint arXiv:1409.1556, 2014.
+  learn concepts of different complexities. In Thirty-seventh
+  Conference on Neural Information Processing Systems,               Socher, R., Perelygin, A., Wu, J., Chuang, J., Manning,
+  2023.                                                                C. D., Ng, A., and Potts, C. Recursive deep models for
+                                                                       semantic compositionality over a sentiment treebank. In
+Lundberg, S. M. and Lee, S.-I. A unified approach to inter-            Proceedings of the 2013 Conference on Empirical Meth-
+  preting model predictions. Advances in neural informa-               ods in Natural Language Processing, pp. 1631–1642,
+  tion processing systems, 30, 2017.                                   2013.
+
+Pimentel, T., Valvoda, J., Maudslay, R. H., Zmigrod,                 Sundararajan, M., Dhamdhere, K., and Agarwal, A. The
+  R., Williams, A., and Cotterell, R. Information-                     shapley taylor interaction index. In International confer-
+  theoretic probing for linguistic structure. arXiv preprint           ence on machine learning, pp. 9259–9268. PMLR, 2020.
+  arXiv:2004.03061, 2020.
+                                                                     Wang, Z., Huang, S.-L., Kuruoglu, E. E., Sun, J., Chen, X.,
+Ren, J., Li, M., Chen, Q., Deng, H., and Zhang, Q.                    and Zheng, Y. PAC-bayes information bottleneck. In
+  Defining and quantifying the emergence of sparse con-               International Conference on Learning Representations,
+  cepts in dnns. In Proceedings of the IEEE/CVF Con-                  2022. URL https://openreview.net/forum?
+  ference on Computer Vision and Pattern Recognition                  id=iLHOIDsPv1P.
+  (CVPR), 2023a. URL https://arxiv.org/pdf/                          Yang, Z., Dai, Z., Yang, Y., Carbonell, J., Salakhutdinov,
+  2111.06206v5.pdf.                                                    R. R., and Le, Q. V. Xlnet: Generalized autoregressive
+                                                                       pretraining for language understanding. Advances in
+Ren, J., Zhou, Z., Chen, Q., and Zhang, Q. Can we faith-
+                                                                       neural information processing systems, 32, 2019.
+  fully represent absence states to compute shapley val-
+  ues on a DNN? In The Eleventh International Confer-                Zhang, Q., Wang, X., Wu, Y. N., Zhou, H., and Zhu, S.-
+  ence on Learning Representations, 2023b. URL https:                  C. Interpretable cnns for object classification. IEEE
+  //openreview.net/forum?id=YV8tP7bW6Kt.                               transactions on pattern analysis and machine intelligence,
+                                                                       43(10):3416–3431, 2020.
+Ren, Q., Gao, J., Shen, W., and Zhang, Q. Where we have ar-
+  rived in proving the emergence of sparse interaction prim-         Zhou, H., Tang, H., Li, M., Zhang, H., Liu, Z., and Zhang,
+  itives in AI models. In The Twelfth International Confer-            Q. Explaining how a neural network play the go game
+  ence on Learning Representations, 2024. URL https:                   and let people learn. arXiv preprint arXiv:2310.09838,
+  //openreview.net/forum?id=3pWSL8My6B.                                2023.
+
+                                                                10
+                                 Layerwise Change of Knowledge in Neural Networks
+
+Zhou, H., Zhang, H., Deng, H., Liu, D., Shen, W., Chan,
+  S.-H., and Zhang, Q. Explaining generalization power
+  of a dnn using interactive concepts. In Thirty-Eight
+  AAAI Conference on Artificial Intelligence, 2024. URL
+  arXivpreprintarXiv:2302.13091.
+
+
+
+
+                                                          11
+                                                         Layerwise Change of Knowledge in Neural Networks
+
+A. Detailed Analysis for Previous Studies Using Knowledge to Explain DNNs
+Explaining and quantifying the exact knowledge encoded by a DNN presents a significant challenge to explainable AI. So
+far, there has not existed a widely accepted definition of knowledge that enables us to accurately disentangle and quantify
+knowledge encoded by intermediate layers of a DNN, because it covers various aspects of cognitive science, neuroscience,
+and mathematics. To this end, previous works have employed different methods to quantify knowledge encoded by a DNN.
+Then, let us revisit previous studies from the perspective of three challenges mentioned in Section 1.
+First, Bau et al. (2017); Kim et al. (2018) associated neurons with manually annotated semantics/concepts (knowledge).
+However, these works could not quantify the exact amount of knowledge in the DNN, or discover new concepts emerged
+in intermediate layers. Second, learning interpretable neural networks with meaningful features in intermediate layers
+was another classic direction in explainable AI (Zhang et al., 2020; Shen et al., 2021; Chen et al., 2019). Although these
+studies automatically learned meaningful concepts without human annotations, they did not provide a mathematically
+guaranteed boundary for each concept/knowledge. Thus, these works could not quantify the exact amount of newly
+emerged/forgotten/unexplainable knowledge in each layer.
+Third, the information-bottleneck theory (Shwartz-Ziv & Tishby, 2017; Saxe et al., 2018) used the mutual information
+between inputs and intermediate-layer features to quantify knowledge encoded by the DNN. However, the mutual information
+could only measure the overall information contained in each feature, but could not accurately quantify exact knowledge
+represented by the newly emerged information and the forgotten information. Besides, Kolchinsky et al. (2019) showed the
+mutual information was difficult to measure accurately, and Wang et al. (2022); Saxe et al. (2018) discovered the mutual
+information had mathematical flaws in explaining the generalization power of a DNN.
+Fourth, Liang et al. (2020) disentangled feature components from each layer, which could be reconstructed by features in
+other layers, so as to evaluate the changes of features in different layers. However, the changes of features in different layers
+could not be aligned to the same feature space for fair comparison, and could not be employed to explain the generalization
+capacity of the DNN.
+
+B. Comparison between Interaction-based Explanation and Attribution Interpretability Methods
+We compare our interaction-based explanation with attribution interpretability methods from the following three perspectives.
+• Perspective 1: Whether the method can explain the detailed inference logic of a DNN. We have conducted a new
+experiment to show explanation results of other interpretability methods for comparison. Figure 6 shows that the main
+difference between our interaction-based explanation and traditional attribution methods (such as Integrated Gradient (?),
+Shapley value (?), and etc.) is that the interaction-based explanation precisely shows the detailed inference logic of the DNN,
+while attribution methods can only provide the importance score of each input variable to the network output. Thus, our
+method can provide a more precise explanation than attribution methods, and the faithfulness of our method is theoretically
+ensured by the universal matching property in Theorem 3.3.
+                             Our method: explaining interactions                                 Integrate Gradient: estimating                                     Shapley value: estimating
+                                as detailed inference patterns                                  importance of each input variable                                importance of each input variable
+
+
+
+                                                                   Attribution values of the
+          Computing
+                                                                        output feature                                               Computing Shapley
+    interactions based on
+                                                                    embeddings of the 8th                                            values based on the
+     the feature after the
+                                                                     transformer block,                                              feature after the 8th
+      8th transformer
+                                                                   which are computed by                                             transformer block
+            block
+                                                                     Integrated Gradient
+
+
+
+         Computing
+     interactions based
+                                                                   Attribution values of the
+      on the feature of                                                                                                                Computing Shapley
+                                                                   input feature, which are
+       the final layer                                                                                                                 values based on the
+                                                                    computed by Integrated
+                                                                                                                                    feature of the final layer
+                                                                           Gradient
+
+
+
+
+Figure 6. The comparison of explanation results between our interaction-based method, Integrated Gradient, and Shapley value.
+
+• Perspective 2: Theoretical connections between AND-OR interactions and attribution explanation methods.
+
+                                                                                               12
+                                     Layerwise Change of Knowledge in Neural Networks
+
+Besides, our AND-OR interactions can be considered as the elementary factors that determine the Shapley value (?).
+The Shapley value is a widely accepted standard attribution method, which assigns the numerical attribution of each
+input variable to the network output score. The Shapley value satisfies linearity, nullity, symmetry, and efficiency axioms.
+        P value φ(i)
+The Shapley
+                      1
+                                   P variable1 i ∈ N can be rewritten as a re-allocation of AND-OR interactions, i.e.,,
+                          of each input
+φ(i) = S⊆N,S3i |S|      Iand (S) + S⊆N,S3i |S|    Ior (S). It means that the computation of the Shapley value φ(i) can be
+explained as uniformly allocating the effect of each interaction I(S) to its compositional input variables i ∈ S.
+• Perspective 3: If each feature dimension in an intermediate layer does not have a clear receptive field, the
+explanation based on this feature dimension’s attribution will not have clear semantic meaning. In this case, we can
+only use interactions to explain the DNN. For example, in an MLP, each feature dimension in an intermediate layer does
+not have a clear receptive field on input variables, i.e.,, this feature dimension does not have a clear physical meaning. In this
+case, visualizing the attribution of the feature dimension does not provide an intuitive explanation. so that it is meaningless
+to compute the attribution/importance of these features. In comparison, Figure. 6 shows that interactions extracted from a
+high layer still have clear physical meaning, and interactions used for computing a high-layer feature can also be aligned
+with interactions for computing a low-layer feature.
+
+C. Proving the OR Interaction Can Be Considered A Specific AND Interaction
+The OR interaction Ior (S|x) can be considered as a specific AND interaction interaction Iand (S|x), when we we inverse the
+definition of masked states and unmasked states of the input variable.
+Specifically, given an input sample x ∈ Rn , let xN \T denote the masked sample obtained by masking input variables in T ,
+while leaving variables in N \ T unaltered. Here, we mask the input variable i ∈ T to the baseline value bi to represent its
+masked state, as follows.                                  (
+                                                                    xi , i ∈ N \ T
+                                                  (xN \T )i =                                                                (11)
+                                                                    bi , i ∈ T
+
+Then, let us consider the masked sample x0T , where we inverse the definition of the masked state and the unmasked state of
+each input variable to obtain this masked sample. That is, we mask input variables in the set N \ T to baseline values, and
+keep variables in T unchanged, as follows.
+                                                               (
+                                                                   xi , i ∈ T
+                                                   (x0T )i =                                                                 (12)
+                                                                   bi , i ∈ N \ T
+
+Thus, the OR interaction Iand (S|x) in Eq. 2 in main paper can be represented by the specific AND interaction Iand (S|x0 ), as
+follows.                                               X
+                                           Ior (S|x) = −              (−1)|S|−|T | v(xN \T ),
+                                                               T ⊆S
+                                                           X
+                                                    =−                (−1)|S|−|T | v(x0T ),                                  (13)
+                                                               T ⊆S
+
+                                                    = −Iand (S|x0 ).
+
+In this way, based on Eq. (13), the proven sparsity of AND interactions in (Ren et al., 2024) also proves the sparsity of OR
+interactions, i.e., most well-trained DNNs usually encode a small number of OR interactions.
+
+D. Discussion on Techniques and Limitations of Classifier Probe
+Probing classifiers have become one of the prominent methodologies for interpreting and analyzing deep neural network
+models. This approach involves training a classifier to predict a specific linguistic property based on the representations
+generated by a model. In our study, we utilize this technique by selecting features from the mid-layers of a neural network.
+These selected features are then used to train a linear classifier, enabling us to assess and understand the knowledge contained
+within the mid-layer features of the neural network. However, it’s important to acknowledge that the probing classifiers
+approach is not without its drawbacks. Belinkov (2022) have outlined the limitations of this framework, and we will explore
+these challenges in the following discussion.
+• A primary challenge arises in how we interpret the performance from the probing classifier, particularly in selecting an
+appropriate baseline for comparison. Our study diverges from the traditional method of directly comparing overall model
+
+                                                                   13
+                                     Layerwise Change of Knowledge in Neural Networks
+
+performance. Instead, we concentrate on the knowledge contained within the middle layer features, specifically their direct
+applicability to classification tasks. In fact, our findings reveal a high degree of similarity in the knowledge interpreted
+across adjacent layers, which partly reflects the faithfulness of our work.
+• The second challenge concerns the selection of the classifier’s structure. Pimentel et al. (2020) contend that to obtain the
+most accurate estimate of the information a model possesses about a given property, it is advisable to use the most complex
+probe available. However, our research is not focused on the ultimate classifiability of the intermediate layer. Instead, we are
+interested in determining the extent to which the features of this layer can be directly applied to the classification task. In
+light of this, we opt for one of the simplest classifier structures available: the linear classifier. This choice is driven by our
+specific objective of evaluating the direct applicability of middle layer features, rather than maximizing the classification
+potential of the probe.
+• The third challenge addresses the disconnect between the probing classifier g and the original model f . This implies that
+the knowledge inferred from the classifier may not always align with what is actually utilized by the original model. This is
+a good question. In fact, this perspective is central to our research. Our findings indicate that neural networks tend to learn
+numerous redundant features in the middle layers, which are subsequently forgotten in the later layers. Our methodology
+offers a quantifiable analysis of the variation in knowledge across different layers, shedding light on how information is
+processed and transformed within the network.
+• The fourth challenge concerns the imperfection of the dataset used for training. Specifically, the classifier is unable to
+exhaustively uncover all the knowledge present due to the limitations inherent in the dataset. This is a real drawback, as
+it is not feasible to use an all-encompassing dataset for perfect training. Our approach mitigates this issue by training the
+classifier on the same dataset as the original model. This strategy aims to ensure as fair and balanced a training process as
+possible, while acknowledging the constraints of the dataset while striving.
+In summary, while employing probing classifiers in the interpretation of neural network models does introduce specific
+challenges, our approach aims to maximize the potential and ensure a thorough and insightful analysis of neural network
+models.
+
+E. Discussion on the Bias Introduced by Masking Input Variables
+In attribution method research, a prevalent approach involves utilizing a designated baseline value to obscure input variables
+in a DNN(Lundberg & Lee, 2017; Ancona et al., 2019; Fong et al., 2019). This technique measures the impact of these
+masked inputs on the network’s output, thereby estimating the significance of each input variable. Nevertheless, research by
+Jain et al. (2022) indicates that this current method of masking may introduce substantial bias in the model’s predictions.
+Specifically, it has been observed that the DNN tends to make errors influenced more by the areas subjected to masking than
+by the unmasked features.
+In efforts to mitigate this bias, Ren et al. (2023b) have proposed utilizing causal patterns to scrutinize the reliability of
+baseline values. More importantly, they have established that causal patterns can be interpreted as the fundamental logic
+behind the concept of the Shapley value. Building upon this, they have proposed a novel methodology for determining
+optimal baseline values. The efficacy of this approach is underscored by the positive outcomes observed in various
+experimental settings.
+
+
+
+
+                                                               14
+                                         Layerwise Change of Knowledge in Neural Networks
+
+F. Proof of Theorem 3.3
+Theorem 3.3 Given an input sample x ∈ Rn , the network output score v(xT ) on each masked input samples {xT |T ⊆ N }
+can be decomposed into effects of AND interactions and OR interactions, subject to Iand (∅|x) = vand (x∅ ) = v(x∅ ) and
+Ior (∅|x) = vor (x∅ ) = 0.
+                                         v(xT ) = vand (xT ) + vor (xT )
+                                                  X                        X                                                                       (14)
+                                                =           Iand (S|xT ) +                            Ior (S|xT ).
+                                                        S⊆T                                 S∩T 6=∅
+
+
+
+
+Proof. Let us first focus on the sum of AND interactions, as follows.
+                             X                          X         X
+                                       Iand (S|xT ) =                          (−1)|S|−|L| vand (xL )
+                                 S⊆T                      S⊆T          L⊆S
+                                                        X         X
+                                                    =                                  (−1)|S|−|L| vand (xL )
+                                                          L⊆T          S:L⊆S⊆T
+                                                                      X                                        X|T |−|L|                           (15)
+                                                    = vand (xT ) +                          vand (xL ) ·                   (−1)m
+                                                      | {z }                L⊆T,L6=T                               m=0
+                                                         L=T
+                                                                                                               |        {z     }
+                                                                                                                        =0
+                                                    = vand (xT ).
+
+Then, let us concentrate on the the sum of OR interactions, as follows.
+               X                               X                 X
+                             Ior (S|xT ) = −                                (−1)|S|−|L| vor (xN \L )
+                   S∩T 6=∅                        S∩T 6=∅,S6=∅       L⊆S
+                                               X        X
+                                        =−                                        (−1)|S|−|L| vor (xN \L )
+                                                  L⊆N         S:S∩T 6=∅,S⊇L
+                                                                          |T |
+                                                                                    |S |
+                                                                          X
+                                        = − vor (x∅ ) − vor (xT ) ·               C|T 2| (−1)|S2 |
+                                            | {z } | {z }
+                                                L=N                   |S2 |=1
+                                                          L=N \T
+                                                                      |                {z             }
+                                                                                    =−1
+                                                                                                      |T |                                         (16)
+                                                                                                                     |S |−|T ∩L|
+                                                   X                                X                 X
+                                           −                  vor (xN \L ) ·                                       C|T 2|−|T ∩L| (−1)|S1 |+|S2 |
+                                               L∩T 6=∅,L6=N                      S1 ⊆N \T \L |S2 |=|T ∩L|
+                                                                                               |                          {z                  }
+                                                                                                                          =0
+                                                    X                               X           X
+                                           −                    vor (xN \L ) ·                                 (−1)|S1 |+|S2 |
+                                               L∩T =∅,L6=N \T                      S2 $T S1 ⊆N \T \L
+                                                                                   |                      {z                   }
+                                                                                                          =0
+                                        = vor (xT ) − vor (x∅ )
+.
+                              P
+Thus, we obtain vor (xT ) = S∩T 6=∅ Ior (S) + vor (x∅ ), according to Eq. (16). Thus, the output score v(xT ) of the DNN on the
+masked sample xT can be represented as the sum of effects of AND-OR interactions.
+
+                         v(xT ) = vand (xT ) + vor (xT )
+                                  X                         X
+                                =           Iand (S|xT ) +                     Ior (S|xT ) + vor (x∅ )
+                                      S⊆T                        S∩T 6=∅,S6=∅
+                                  X                                             X
+                                =                 Iand (S|xT ) + vand (x∅ ) +               Ior (S|xT ) + vor (x∅ )                                (17)
+                                      S⊆T,S6=∅                                      S∩T 6=∅
+                                             X                               X
+                                = v(x∅ ) +                 Iand (S|xT ) +                Ior (S|xT )
+                                                  S⊆T,S6=∅                       S∩T 6=∅
+                                  X                         X
+                                =           Iand (S|xT ) +               Ior (S|xT ).
+                                          S⊆T                         S∩T 6=∅
+
+
+
+Thus, Theorem 3.3 is proven.
+
+
+
+
+                                                                          15
+                                     Layerwise Change of Knowledge in Neural Networks
+
+G. Proof of Lemma 3.4
+Lemma 3.4 (Proving interactions as primitive inference patterns) Given an input sample x ∈ Rn , the network output on
+all 2n masked input samples {xS |S ⊆ N } can be universally matched by a small set of salient interactions.
+                                                            X                         X
+                       v(xT ) = vand (xT ) + vor (xT ) =            Iand (S|xT ) +             Ior (S|xT )
+                                                           S⊆T                       S∩T 6=∅
+                                           X                                         X                                        (18)
+                              ≈ v(x∅ ) +                            Iand (S|xT ) +                             Ior (S|xT ).
+                                               S∈Ωand
+                                                  salient
+                                                          :∅6=S⊆T                        S∈Ωor
+                                                                                            salient
+                                                                                                    :S∩T 6=∅
+
+
+
+
+Proof. Ren et al. (2023a) have proven that under some common conditions1 , the output vand (xT ) of a well-trained DNN on
+all 2n masked samples {xT |T ⊆ N } can be universally approximated by a small number of AND interactions T ∈ Ωand    salient
+                                                                                  n
+with salient effects Iand (T |x) on the network output, subject to |Ωand
+                                                                     salient |  2 .
+
+Besides, as proven in Appendix C, the OR interaction can be considered as a specific AND interaction. Thus, the output
+vor (xT ) of a well-trained DNN on all 2n masked samples {xT |T ⊆ N } can be universally approximated by a small number
+of OR interactions T ∈ Ωorsalient with salient effects Ior (T |x) on the network output, subject to |Ωorsalient |  2n .
+In this way, Eq. (17) can be further approximated as
+
+                       v(xT ) = vand (xT ) + vor (xT )
+                                          X                         X
+                              = v(x∅ ) +            Iand (S|xT ) +              Ior (S|xT )
+                                              S⊆T                       S∩T 6=∅                                               (19)
+                                          X                                     X
+                              ≈ v(x∅ ) +           and
+                                                                Iand (S|xT ) +          or
+                                                                                                               Ior (S|xT ).
+                                               S∈Ωsalient :∅6=S⊆T                        S∈Ωsalient :S∩T 6=∅
+
+
+
+Thus, Lemma 3.4 is proven.
+
+
+
+
+                                                                      16
+                                 Layerwise Change of Knowledge in Neural Networks
+
+H. Table of Metrics Used in the Paper
+For a better understanding of our paper, we conclude all used metrics into the following table, where we clarify the
+formulation and the physical meaning of each metric.
+
+
+
+
+                                                        17
+                                                                                                         Layerwise Change of Knowledge in Neural Networks
+
+I. More Experimental Results
+I.1. Experimental Results of OR Interactions
+
+
+     （a）                                                                                                  ResNet − 20 on MNIST
+                                                         ("),%                                 ("),%           1st residual    3rd residual                                        5th residual             7th residual                         9th residual                  average
+                                                 new or                              forget or
+                                                                                                                  block           block                                               block                    block                                block                      pooling
+                                                                                     ("),%
+                                                              overlap or
+
+                                                                                                          0               6 order    0             6 order                0              6 order     0                      6 order 0                  6 order   0             6 order
+                                          " ,%
+                       all&'                                                                              ResNet − 20 on CIFAR10
+                                                                                                               1st residual      3rd residual                                      5th residual             7th residual                         9th residual                  average
+                                       ( ,%                                                                        block            block                                             block                    block                                block                      pooling
+                       all&'
+
+
+                                                     0           4                     8       order
+                                                                                                          0        4         8 order 0      4       8 order 0                      4        8 order 0       4                8 order 0           4      8 order 0         4     8 order
+                                 MLP − 7 on CIFAR10                                                                                                 VGG − 11 on CIFAR10
+                                          3rd layer                                             5th layer                      7th layer
+
+
+
+
+                                   0             4       8 order                 0         4       8 order 0             4        8 order           0               4             8 order    0      4        8 order 0                   4           8 order 0        4        8 order
+
+                             BERT!"#$ on SST2                                                                                                                              DistilBERT on SST2
+                                              2nd                  6th                              8th                    10th                   FC                                  1st                3rd                          4th                   5th                     FC
+                                          transformer          transformer                      transformer            transformer                                                transformer        transformer                  transformer           transformer
+
+
+                             0                   6 order 0                       6 order 0             6 order 0             6 order 0          6 order                       0         6 order 0           6 order 0                 6 order 0              6 order 0          6 order
+   （b）
+                                                 ResNet − 20 on MNIST                          ResNet − 20 on CIFAR10 MLP − 7 on CIFAR10                                  VGG − 11 on CIFAR10            BERT!"#$ on SST2                            DistilBERT on SST2
+                      ' ,)
+
+
+
+
+                                          1.00
+                        Completeness %&
+
+
+
+
+                                                                                                                                                                                                                                                                                      High
+                                          0.75                                                                                                                                                                                                                                        Order
+                                          0.50
+                                          0.25
+                                          0.00
+                      ' ,)
+
+
+
+
+                                          1.00
+                       Redundancy %&
+
+
+
+
+                                          0.75
+                                          0.50
+                                          0.25                                                                                                                                                                                                                                         Low
+                                          0.00
+                                                                                                                                                                                                                                                                                      Order
+
+
+
+
+Figure 7. (a) Tracking the change of the average strength of the overlapped overlap(l),m   or  , forgotten forget(l),m
+                                                                                                                 or    , and newly emerged
+                  (l),m                                                                                                                (l),m
+interactions newor      through different layers. For each subfigure, the total length of the orange bar and the grey bar equals to allor ,
+                                                                   (L),m                                          (l),m
+and the total length of the blue bar and the grey bar equals to allor    (b) Tracking the change of completenessor      and redundancy(l),m
+                                                                                                                                       or
+through different layers. We do not show interactions of the highest four orders, because almost no interactions of extremely high orders
+         或交互
+were learned.
+                                                                                                                                                                                                             ]
+                                                                  ]
+
+
+
+
+                                                                                                                                                           ]
+ ]
+
+
+
+
+                                                                                                                                                                                                            ,m
+                                                                 ,m
+
+
+
+
+                                                                                                                             𝑣A       𝑣B
+                                                                                                                                                          ,m
+,m
+
+
+
+
+                0.4                                                              0.4                                                                                                                                                                                      𝑣A         𝑣B
+                                                                                                                                                                                        interactions
+                                                                                                                                                                                                             , Borb
+
+
+
+
+                                                                                                                            MLP-7 VGG-11
+                                                                  , Borb
+
+
+
+
+                                                                                                                                                           , Borb
+
+
+
+
+                                           interactions                                                                                                                                                                               interactions
+ , Borb
+
+
+
+
+                                                                                               interactions                                                                0.2
+                                                                                                                                                                                                            L
+
+
+
+
+                                                                                                                                                                                                                            0.2
+                                                                 L
+
+
+
+
+                                                                                                                                                          l
+l
+
+
+
+
+                                             from the                                            from the                   MLP-7 ResNet-20                                               from the                                      from the                      XLNet DistilBERT
+                                                                                                                                                          l ,m
+
+
+
+
+                                                                                                                                                                                                            L ,m
+l ,m
+
+
+
+
+                                                                                 0.2
+                                                                 L ,m
+
+
+
+
+                0.2                        intermediate                                         final layer                 MLP-7 ResNet-32                                0.1          intermediate                                   final layer
+                                                                                                                                                                                                                            0.1                                       XLNet      BERTBASE
+                                                                                                                                                           𝔼𝐱 [IoU Aora
+
+
+
+
+                                                                                                                                                                                                             𝔼𝐱 [IoU Aora
+ 𝔼𝐱 [IoU Aora
+
+
+
+
+                                                                  𝔼𝐱 [IoU Aora
+
+
+
+
+                                               layer                                                                       VGG-11 ResNet-20                                                 layer
+                0.0                                                                                                        VGG-11 ResNet-32                                                                                                                         DistilBERTBERTBASE
+                                                                                 0.0                                                                                      0.0                                               0.0
+                                                                                                                          ResNet-20ResNet-32
+                                            5         order                                    5        order                                                                       2        5      order                         2          5       order
+
+                                                     a DNNs trained on CIFAR10                                                                                                                   b DNNs trained on SST2
+
+
+
+Figure 8. Average IoU values of OR interactions extracted from two DNNs trained for the same task over different input samples.
+Low-order interactions usually exhibited higher IoU values, which indicated that low-order interactions could be better generalized across
+DNNs than high-order interactions. Appendix M.3 introduces the selected intermediate layer for each DNN.
+
+
+
+
+                                                                                                                                                          18
+                                                             Layerwise Change of Knowledge in Neural Networks
+
+           Interactions from                        Interactions from                      Interactions from                          Interactions from
+           the intermediate                                 the                            the intermediate                                   the
+                 layer                                  final layer                              layer                                    final layer
+
+
+
+
+                       (a) DNNs trained on MINIST                                                       (b) DNNs trained on CIFAR10
+
+
+Figure 9. The relative stability stability(l),m
+                                          or    of OR interactions decreased along with the order m. It indicated that low-order interactions
+were more stable to inevitable noises in data. Appendix M.3 introduces the selected intermediate layer for each DNN.
+
+
+I.2. Experimental Results on Tabular Datasets
+We also trained the MLP-7 model on two tabular datasets (the UCI census dataset and the commercial dataset), and tracked
+the layer-wise change of interactions during the forward propagation in the MLP-7 model. Specifically, we calculated metrics
+        (l),m       (l),m          (l),m
+overlapand , forgetand , and newand to quantify the overlapped AND interactions, forgotten AND interactions, and newly
+                                                                              (l),m                           (l),m
+emerged AND interactions, respectively. We also calculated the completenessand metric and the redundanceand metric to
+evaluate the progress of learning target AND interactions and removing redundant AND interactions.
+Figure 10 (a) reports the average strength of the overlapped, forgotten, and newly emerged interactions through different
+layers, and Figure 10 (b) tracks the completeness and redundancy of the learned interactions through layers. It shows that (1)
+DNNs encode stronger low-order (simple) interactions than high-order (complex) interactions. (2) The early and middle
+layers usually had already learned most target interactions that were finally used by DNNs. Moreover, extremely high-order
+interactions are learned in later layers, but the learning is unstable. (3) DNNs quickly learn all target interactions without
+learning many redundant interactions. These conclusions are similar to the conclusions obtained on models trained on
+MNIST, CIFAR-10, SST-2 in the paper.
+
+（a）                                                                                                                                        （b）                               MLP − 7 on Census
+   MLP − 7 on Census                                                                                                                                                  1.00                                         1.00
+                                                                                                                                                𝑙 ,𝑚
+
+
+
+
+                                                                                                                                                                                                 𝑙 ,𝑚
+                                                                                                                                                   Completeness 𝑎𝑛𝑑
+
+
+
+
+                                                                                                                                                                                                  Redundancy 𝑎𝑛𝑑
+            3rd layer
+            3rd layer                    5thlayer
+                                        4th  layer                 7thlayer
+                                                                  5th  layer                  6th layer                  7th layer                                    0.75                                         0.75
+                                                                                                                                                                      0.50                                         0.50
+                                                                                                                                                                      0.25                                         0.25
+                                                                                                                                                                      0.00                                         0.00
+                                                                                                                                                                             Low          High                            Low   High
+   0           6   order      0         6   order     0           6   order    0           6    order     0          6     order
+   MLP − 7 on Commercial                                                                                                                                                     MLP − 7 on Commercial
+                                                                                                                                                                      1.00                                         1.00
+                                                                                                                                                𝑙 ,𝑚
+
+
+
+
+                                                                                                                                                                                                 𝑙 ,𝑚
+            3rd layer                   4th layer                 5th layer                   6th layer                  7th layer
+                                                                                                                                                   Completeness 𝑎𝑛𝑑
+
+
+
+
+                                                                                                                                                                      0.75                        Redundancy 𝑎𝑛𝑑   0.75
+                                                                                                                                                                      0.50                                         0.50
+                                                                                                                                                                      0.25                                         0.25
+
+                                                                                                                                                                      0.00                                         0.00
+   0       4           8order 0     4        8order 0         4        8order 0        4          8order 0       4           8order                                          Low          High                            Low   High
+
+       new (𝑙),𝑚
+           and : the overall strength of interactions that are encoded in the final layer, but are not encoded by the l-th layer
+       forget (𝑙),𝑚
+              and :the overall strength of interactions encoded by the l-th layer but later forgotten in the final layer
+               (𝑙),𝑚
+       overlap and : the overall strength of AND interactions shared by both the l−th layer and the final layer
+
+
+                                                                                      (𝑙),𝑚                       (𝑙),𝑚                                                               𝑙 ,𝑚
+ (a) Tracking the change of the average strength of the overlapped (𝑜𝑣𝑒𝑟𝑙𝑎𝑝and ), forgotten (𝑓𝑜𝑟𝑔𝑒𝑡and ), and newly                           (b)Tracking the change of Completeness and   and
+                                                                                                                             (l),m             𝑙 ,𝑚        (l),m
+Figure
+ emerged10.     (a) Tracking
+          interactions
+                             (𝑙),𝑚 the change of the average strength of the overlapped overlap
+                       (𝑛𝑒𝑤and ) through                                                                                           , forgotten
+                                            different layers. For each subfigure, the total length of the orange bar and the or 𝑅𝑒𝑑𝑢𝑛𝑑𝑎𝑛𝑐𝑦    and forget           , and
+                                                                                                                                                    throughordifferent     newly
+                                                                                                                                                                       layers. We doemerged
+                                                                                                                                                                                     not show
+                       (l),m
+                        𝑙 ,𝑚                                                                      𝐿 ,𝑚                          interactions of the highest four orders, because almost(l),m
+                                                                                                                                                                                          no
+interactions     new
+ grey bar equals to 𝑎𝑙𝑙or       through     different     layers.   For   each    subfigure,      the
+                       and , and the total length of the blue bar and the grey bar equals to 𝑎𝑙𝑙and
+                                                                                                        total  length    of the orange    bar   and   the  grey    bar   equals   to
+                                                                                                                                interactions of extremely high orders were learned.allor      ,
+                                                                                            (L),m                                                          (l),m                         (l),m
+and the total length of the blue bar and the grey bar equals to allor                                (b) Tracking the change of completenessor                      and redundancyor
+through different layers. We do not show interactions of the highest four orders, because almost no interactions of extremely high orders
+were learned.
+
+
+
+
+                                                                                                          19
+                                         Layerwise Change of Knowledge in Neural Networks
+
+J. Ablation Study of κ Value in Section 3.2.2
+We find that the small noises in the output can significantly change the interaction effect. To remove the tiny noise in the
+model output and then extract relatively clean interactions, we define the new model output score v(x).
+
+
+                                                                  p(y = y truth |x)
+                                                   v(x) = log                         − δN
+                                                                1 − p(y = y truth |x)
+                                                                                                                                          (20)
+                                                                  p(y = y truth |xT )
+                                                 v(xT ) = log                           − δT
+                                                                1 − p(y = y truth |xT )
+
+
+where δT , s.t. ∀T ⊆ N, |δT | < κ is a learnable residual proposed to model and remove the tiny noise in the output v (l) (xT ),
+so as to extract relatively clean interactions. δT is constrained to a small range κ = 0.04 · |v (l) (xN ) − v (l) (x∅ )|.
+We conducted the ablation study to verify that the extraction of interactions is relatively robust to the κ value. Given a
+well-trained DNN (or linear classifier learned by intermediate layer’s features) and an input sample x ∈ Rn , we verify
+that the interactions extracted are stable in different κ value settings. To this end, we used the ResNet-20 trained on
+the CIFAR-10 (introduced in Section 3.2.1) and extracted the all AND-OR interactions encoded in different setting, e.g.,
+κ = 0.03 · |v (l) (xN ) − v (l) (x∅ )|, κ = 0.04 · |v (l) (xN ) − v (l) (x∅ )| and κ = 0.05 · |v (l) (xN ) − v (l) (x∅ )|.
+
+Fig 11 shows that the all AND-OR interactions encoded in three different κ value settings are almost the same. This indicates
+that the extraction of interactions is relatively robust to the κ value.
+
+
+
+
+Figure 11. The extracted AND-OR interactions encoded in different setting, e.g., κ = 0.03·|v (l) (xN )−v (l) (x∅ )|, κ = 0.04·|v (l) (xN )−
+v (l) (x∅ )| and κ = 0.05 · |v (l) (xN ) − v (l) (x∅ )| through different layers, as well as the raw ResNet-20. We rearranged all of the AND-OR
+interactions in the order of the interaction value strength at κ = 0.04 · |v (l) (xN ) − v (l) (x∅ )|.
+
+
+
+
+K. Discussions on Distinctive Information-Processing Behaviors of Each Specifc DNN
+We discovered that in most DNNs, low layers and middle layers usually learned to fit target interactions that were finally
+used by DNNs at the cost of encoding lots of redundant interactions. Such redundant interactions would be removed in high
+layers.
+Distinctive information-processing behaviors of different DNNs. Specifically, for DNNs trained on the MNIST dataset, they
+usually learned the target interactions for inference quickly, because the MNIST dataset was easy to learn. Particularly, for
+the ResNet-20 trained on both the MNIST dataset and the CIFAR-10 dataset, its low layers and middle layers mainly learned
+target interactions for inference, while high layers mainly forgot high-order interactions. These high-order interactions were
+unstable and exhibited poor generalization capacity, as verified in Section 3.3.
+For MLP-7 and VGG-11 trained on the CIFAR-10 dataset, low layers were unable to learn interactions that could be directly
+used for classification, due to the challenge of classification on the CIFAR dataset. Then, middle layers and high layers
+gradually learned the target interactions for inference without generating redundant interactions. High layers did not change
+the interactions significantly.
+For the DistilBERT and BERTBASE trained on the SST-2 dataset, low layers usually could not encode target interactions.
+Then, middle layers gradually learned the target interactions for inference, but also brought in lots of redundant interactions.
+High layers usually forgot redundant interactions, which were mainly high-order and unstable.
+
+                                                                      20
+                                      Layerwise Change of Knowledge in Neural Networks
+
+L. Discussion on the Noise Ratio of Interactions over Different Orders
+In section 3.3 of the main paper, we add a small Gaussian perturbation  ∼ N (0, σ 2 I) to the input sample x, in order to
+mimic inevitable noises/variations in data. And then we use the new metrics to measure the relative stability of AND-OR
+interactions of each order m as follow.
+                                                                                         q              
+                                          (l),m                         (l),m                  (l),m
+                                 stabilityand     = Ex      E         |Eand (S, x)|         Varand (S, x)
+                                                             (l),m
+                                                         S∈Ωand
+                                                                                         q                                   (21)
+                                          (l),m                                                (l),m
+                                 stabilityor    = Ex        E         |Eor(l),m (S, x)|     Varor (S, x)
+                                                             (l),m
+                                                         S∈Ωor
+
+
+         (l),m                                             (l),m
+where Eand     (S, x) = E [Iand (S|x + , v (l) )] and Varand (S, x) = Var [Iand (S|x + , v (l) )] denote the mean and variance of
+                                       (l)
+the AND interaction Iand (S|x + , v ) w.r.t. Gaussian perturbations , which are encoded by the l-th layer of the DNN. In
+fact, higher-order interactions comprise more input variables, which means it would obtain more gaussian perturbations.
+However, the signal strength of higher order interaction also increases linearly with order m. Fig.5 in the main paper shows
+that low-order interactions are more stable to small noises. Here we verify that the noise ratio of each interaction is relatively
+consistent over interactions of different orders, so that stability enables a fair comparison of interactions of different orders.
+To this end, we used the images in CIFAR-10 dataset and annotated semantic parts in each image, following Appendix M.1.
+Then we added the small Gaussian perturbation  ∼ N (0, σ 2 I) to the image x, and obtained the noise image x . For
+each interaction pattern S , we calculate the ratio of noise intensity to interaction pattern signal intensity, e.g., RadioS =
+kxs − xs k2 /kxs k2 .
+
+Fig. 12 shows the distribution of RadioS under different interaction order. It can be found that the median RadioS values
+for different orders interactions is basically the same, and there is no phenomenon that the noise proportion of high-order
+interactions is significantly higher than that of low-order interactions. Therefore, the poor stability of the high order
+interaction is not due to its noise ratio.
+
+
+
+
+               Figure 12. Box-and-whisker diagram of RadioS
+                                                           for interaction pattern S of different interaction order.
+
+
+
+
+M. Experimental details
+M.1. Annotating Semantics Parts
+We followed (Li & Zhang, 2023) to annotate semantic parts in MNIST dataset and CIFAR-10 dataset. Given an input sample
+xRn , the DNN may encode at most 2n interactions. The computational cost for extracting salient interactions is high, when
+the number of input variables n is large. In order to overcome this issue, we simply annotate 10 –12 semantic parts in each
+input sample, such that the annotated semantic parts are aligned over different samples in the same dataset. Then, each
+semantic part in an input sample is taken as a “single” input variable to the DNN.
+• For images in the MNIST dataset, we followed settings in (Li & Zhang, 2023) to annotate semantic parts for 100 samples.
+Specifically, given an image, we divided the whole image into small patches of size 3 × 3. Considering the DNN mainly used
+the digit in the foreground to make inference, we selected n = 10 patches in the foreground as input variables to calculate
+interactions, in order to reduce the computational cost.
+• For images in the CIFAR-10 dataset, we followed settings in (Ren et al., 2023a) to annotate semantic parts for 30 samples.
+Specifically, given an image, we divided the whole image into small patches of size 4 × 4, thereby obtaining 8 × 8 image
+
+                                                                        21
+                                     Layerwise Change of Knowledge in Neural Networks
+
+patches in total. Considering the DNN mainly used information contained in the foreground to make inference, we randomly
+selected n = 12 patches from 6 × 6 image patches located in the center of the image, in order to reduce the computational
+cost.
+• For the SST-2 dataset, we followed settings in (Ren et al., 2023a) to select sentences with a length of 10 words without
+unclear semantics, such as stop words. For each selected sentence, we considered each word as an input variable, thereby
+obtaining n = 10 input variables in sum. We used 50 sentences to calculate interactions in Section 3.
+
+M.2. Training Linear Classifier in Section 3.2.2
+Generally, the training parameters of the intermediate layers classifier are consistent with those of the original model.
+• For MLP-7 trained on the MNIST dataset, we used SGD with learning rate 0.01, and set the batch size to 256 to train the
+intermediate layers. For VGG-11 trained on both the MNIST dataset, we used SGD with learning rate 0.001, and set the
+batch size to 256 to train the intermediate layers. For ResNet-20 trained on both the MNIST dataset, we used SGD with
+learning rate 0.001, and set the batch size to 256 to train the intermediate layers.
+• For MLP-7 trained on the CIFAR-10 dataset, we used SGD with learning rate 0.001, and set the batch size to 256 to train
+the intermediate layers. For VGG-11 trained on both the CIFAR-10 dataset, we used SGD with learning rate 0.001, and set
+the batch size to 256 to train the intermediate layers. For ResNet-20 trained on both the CIFAR-10 dataset, we used SGD
+with learning rate 0.001, and set the batch size to 100 to train the intermediate layers.
+• For DistilBERT finetuned on the SST-2 dataset, we used SGD with learning rate 2E-5, and set the batch size to 32 to train
+the intermediate layers. For BERTBASE finetuned on the SST-2 dataset, we used SGD with learning rate 1E-5, and set the
+batch size to 16 to train the intermediate layers.
+
+M.3. Intermediate Layers Selected to Calculate Interactions in Section 3.3
+• For DNNs trained on both the MNIST dataset and the CIFAR-10 dataset, we used intermediate layers close to the output
+to compute interactions. Specifically, the MLP-7 model contained 7 linear layers, and we used features of the 4-th linear
+layer. For the VGG-11 model, we employed features of conv4 2. The ResNet-20 mdoel contained 9 residual blocks, and we
+used features after the 6-th residual block. The ResNet-32 model contained 15 residual blocks, and we used used features
+after the 10-th residual block.
+• For DNNs trained on the SST2 dataset, we also used intermediate layers close to the output to compute interactions.
+Specifically, the DistilBERT model contained 6 transformers, and we employed features after the 4-th transformer. The
+BERTBASE model contained 12 transformers, and we employed features after the 8-th transformer. The XLNet model
+contained 12 transformer-XLs, we employed features after the 8-th transformer-XL.
+
+M.4. Experimental Details for Verifying the Sparsity of Interactions in Section 3.2.
+For each sample in the MNIST dataset, as introduced in Appendix M.1, we set n = 10. For each sample in the CIFAR-10
+dataset, as introduced in Appendix M.1, we set n = 12. We randomly selected 100 images in the MNIST dataset and 30
+images in the CIFAR-10 dataset to verify the sparsity of interactions. We set τ = 0.05 · maxx maxS (max{|Iand (S|x, v (l) )|,
+|Ior (S|x, v (l) )|}) for each target layer of the target DNN to determine its salient interactions. Note that in experiments, we
+concluded first-order OR interactions to the first-order AND interactions for convenience. In other words, the first-order
+AND interactions were the sum of first-order OR interactions and the first-order AND interactions, because one single input
+variable could be considered as either OR relationship or AND relationship with itself.
+
+
+
+
+                                                               22
+

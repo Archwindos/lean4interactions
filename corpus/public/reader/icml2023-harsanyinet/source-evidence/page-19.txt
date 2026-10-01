@@ -1,0 +1,42 @@
+                       HarsanyiNet: Computing Accurate Shapley Values in a Single Forward Propagation
+
+
+
+
+Figure 7. Shapley values computed by different methods on the Census dataset. The number of inferences conducted for each method is
+indicated in the brackets. The samples in the first row are from category ‘≤50K’ and the samples in the second row are from the category
+‘>50K’.
+
+
+z(0) using the sampling, KernelSHAP, and DeepSHAP methods. For the MNIST dataset, we run about 20000 iterations of
+the sampling method and 20000 iterations of the KernelSHAP method until convergence. For the CIFAR-10 dataset, we run
+about 20000 iterations of the sampling method and 200000 iterations of the KernelSHAP method until convergence.
+For the FastSHAP method, we used the training samples x and the model predictions of the Harsanyi-CNN to train a
+explainer model ϕf ast , and slightly modified the model architecture to return the attribution maps with a tensor of the same
+size as the size of z(0) , i.e., 14 × 14 for the MNIST dataset and 16 × 16 for the CIFAR-10 dataset. For the MNIST dataset,
+since (Jethani et al., 2021) did not report the explainer model ϕf ast , we trained a explainer model with the same structure as
+which the CIFAR-10 dataset used, and computed the attribution maps on the MNIST dataset.
+
+F.8. Experiment details for comparing computed Shapley values with true Shapley values on the MNIST and
+     CIFAR-10 datasets
+As mentioned in Section 4.2, in order to reduce the computational cost, we randomly sampled n = 12 variables in the
+foreground of the sample as input variables on image datasets. In this way, ground-truth Shapley values were computed
+by masking the selected 12 variables and keeping all the other variables as the original variables of the sample. Let us
+denote the set of the selected variables as N̂ , thus, |N̂ | = 12. Specifically, we set all the variables xi , i ∈
+                                                                                                                 / N̂ as the baseline
+value, i.e., ∀i ∈
+                / N̂ , bi = xi and ∀i ∈ N̂ , bi = 0, to obtain a baseline sample v(x∅ ). Based on the baseline sample v(x∅ ),
+we obtained 2|N̂ | different masked samples. For the HarsanyiNet, when we computed the Shapley values for the selected
+variables based on Theorem 1, we only visited the sets that contain the selected variables, i.e., S ∋ i, ∀i ∈ N̂ . Besides, |S|
+denoted theP                                Pn in S. In this way, we computed the Shapley values for the selected variables
+              number of the selected variables
+                                1
+by ϕ(i) = S⊆N :S∋i,i∈N̂ |S|       I(S) and i=1 ϕ(i) = v(xN = x) − v(x∅ ). For the ShapNets, we set all the variables
+       / N̂ as the baseline value bi = 0 to obtain a masked sample x′ , i.e., x′i = xi , ∀i ∈ N̂ ; x′i = 0, otherwise. Then, with
+xi , i ∈
+the masked input sample, we could compute the Shapley values for the selected variables with the ShapNet.
+
+
+
+
+                                                                  19

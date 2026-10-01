@@ -1,0 +1,1492 @@
+                       HarsanyiNet: Computing Accurate Shapley Values
+                               in a Single Forward Propagation
+
+
+                      Lu Chen * 1 Siyu Lou * 1 2 Keyan Zhang 1 Jin Huang 1 Quanshi Zhang 1
+
+
+                         Abstract                                           (2) =        (   )+   (   )+       (   )
+                                                                        for the patch
+                                                                                                           (   )=      (   &       )                        (   )
+     The Shapley value is widely regarded as a trust-
+                                                                                                                               (       )=   (   &   &   )
+     worthy attribution metric. However, when people                                                       (   )
+
+
+
+
+                                                                        Shapley values
+     use Shapley values to explain the attribution of
+     input variables of a deep neural network (DNN),                                                       (   )
+     it usually requires a very high computational cost
+                                                                                                           (   )
+     to approximate relatively accurate Shapley values
+     in real-world applications. Therefore, we propose
+     a novel network architecture, the HarsanyiNet,
+     which makes inferences on the input sample and
+     simultaneously computes the exact Shapley val-
+     ues of the input variables in a single forward prop-                                                                                                           Output
+
+     agation. The HarsanyiNet is designed on the the-
+     oretical foundation that the Shapley value can be
+     reformulated as the redistribution of Harsanyi in-              Figure 1. Overview of the HarsanyiNet. The HarsanyiNet encodes
+     teractions encoded by the network.                              different Harsanyi interactions, each representing an AND relation-
+                                                                     ship between different patches. Shapley values can be computed
+                                                                     as re-allocation of Harsanyi interactions.
+1. Introduction
+                                                                     However, using the Shapley value in real-world applica-
+Explainable artificial intelligence (XAI) has received con-
+                                                                     tions is often impractical because (1) computing the exact
+siderable attention in recent years. A typical direction of
+                                                                     Shapley value is NP-hard, and (2) existing approximation
+explaining deep neural networks (DNNs) is to estimate the
+                                                                     techniques (Castro et al., 2009; Lundberg & Lee, 2017)
+salience/importance/contribution of an input variable (e.g.,
+                                                                     often confront a dilemma in that approximating Shapley val-
+a pixel of an image or a word in a sentence) to the network
+                                                                     ues with an acceptable accuracy usually requires to conduct
+output. Related studies have been termed the attribution
+                                                                     a huge number of network inferences.
+methods (Bach et al., 2015; Selvaraju et al., 2017; Sundarara-
+jan et al., 2017; Lundberg & Lee, 2017). In comparison with          Thus, in this paper, we aim to directly jump out of the above
+most attribution methods designed without solid theoreti-            dilemma and design a neural network, namely HarsanyiNet,
+cal supports, the Shapley value (Shapley, 1953) has been             which simultaneously conducts model inference on the input
+proved the only solution in game theory that satisfies the           sample and computes the exact Shapley value for each input
+linearity, dummy, symmetry, and efficiency axioms (Young,            variable in a single forward propagation1 .
+1985). Therefore, the Shapley value is widely considered a
+                                                                     Specifically, the theoretical foundation for the HarsanyiNet
+relatively trustworthy attribution for each input variable.
+                                                                     is that the Shapley value of an input variable can be refor-
+   *
+     Equal contribution 1 Shanghai Jiao Tong University, China       mulated as a redistribution of its different Harsanyi inter-
+2
+ Eastern Institute for Advanced Study, China. Correspondence         actions (Harsanyi, 1963) encoded by the DNN. Formally,
+to: Quanshi Zhang is the corresponding author. He is with            given a DNN and an input sample with n variables, a
+the Department of Computer Science and Engineering, the John
+                                                                     Harsanyi interaction S represents an AND relationship be-
+Hopcroft Center, at the Shanghai Jiao Tong University, China.
+<zqs1022@sjtu.edu.cn>.                                               tween the variables in S, which is encoded by the DNN.
+                                                                     A DNN usually encodes many different Harsanyi interac-
+Proceedings of the 40 th International Conference on Machine         tions. Each Harsanyi interaction makes a specific numerical
+Learning, Honolulu, Hawaii, USA. PMLR 202, 2023. Copyright
+                                                                        1
+2023 by the author(s).                                                        https://github.com/csluchen/harsanyinet
+
+                                                                 1
+                     HarsanyiNet: Computing Accurate Shapley Values in a Single Forward Propagation
+
+contribution, denoted by I(S), to the inference score of the         2. Related Work
+DNN. Let us take the interaction between image patches
+S = {eye, nose, mouth} as a toy example. If all these patches        Estimating the importance/attribution/saliency of input vari-
+co-appear, then they form a face pattern and make a spe-             ables represents a typical direction in XAI. In general, pre-
+cific interaction effect I(S) to the confidence score of face        vious attribution methods usually computed the attributions
+detection. Masking any patch will destroy this pattern and           of input variables based on gradient (Simonyan et al., 2014;
+remove the interaction effect, i.e., making I(S) = 0.                Springenberg et al., 2015; Shrikumar et al., 2016; Selvaraju
+                                                                     et al., 2017; Sundararajan et al., 2017), via back-propagation
+Because it is proven that the Shapley value can be computed          of attributions (Bach et al., 2015; Montavon et al., 2017;
+using Harsanyi interactions, the activation of each interme-         Shrikumar et al., 2017), and based on perturbations on the
+diate neuron in the HarsanyiNet is designed to represent a           input variables (Ribeiro et al., 2016; Zintgraf et al., 2017;
+specific Harsanyi interaction. The intermediate neuron is            Fong & Vedaldi, 2017; Lundberg & Lee, 2017; Plumb et al.,
+termed as the Harsanyi unit. Such a network design enables           2018; Covert et al., 2021; Deng et al., 2021; Chen et al.,
+us to derive the exact Shapley value of an input variable            2022).
+using activation scores of Harsanyi units.
+The proposed HarsanyiNet has significant advantages over             2.1. Shapley values
+existing approaches for approximating Shapley values by              Unlike other attribution methods, the Shapley value is de-
+conducting a single network inference.                               signed in game theory. Let us consider the following coop-
+• Existing approximation methods, e.g., DeepSHAP (Lund-              erative game, in which a set of n players N = {1, 2, . . . , n}
+berg & Lee, 2017) and FastSHAP (Jethani et al., 2021),               collaborate with each other and finally win a reward R.
+estimate Shapley values with considerable errors, but the            The Shapley value (Shapley, 1953) is then developed as a
+HarsanyiNet can generate exact Shapley values, which is              fair approach to allocating the overall reward R to the n
+both theoretically guaranteed and experimentally verified.           players. The Shapley value ϕ(i) is defined as the composi-
+                                                                     tional reward allocated from R to the player i ∈ N , and we
+• The only existing work allowing to compute accurate                can consider ϕ(i) reflects the numerical contribution of the
+Shapley values in a single forward propagation is the Shap-          player i in the game.
+Net (Wang et al., 2021). However, the ShapNet is designed
+                                                                     Definition 1 (Shapley values). The Shapley value ϕ(i) of
+to only encode interactions between at most k input vari-
+                                                                     an input variable i is given by
+ables (k ≪ n, they set k = 4), and the computational
+cost of the ShapNet’s inference (forward propagation) is                        X |S|!(n − |S| − 1)!
+2k times more than that of traditional networks. Alterna-             ϕ(i) :=                        [V (S ∪ {i})−V (S)] , (1)
+                                                                                          n!
+tively, this study also provides another network (i.e., Deep                S⊆N \{i}
+
+ShapNet) to encode more complex interactions, but it can-
+                                                                     where V : 2N 7→ R denotes the reward function, i.e.,
+not guarantee the accuracy of the computed Shapley values.
+                                                                     ∀S ⊆ N, V (S) measures the reward if a subset S of players
+In comparison, the HarsanyiNet does not limit the number
+                                                                     participate in the game. Thus, V (∅) = 0, and V (N ) = R
+of the input variables within the interaction, thereby ensur-
+                                                                     denotes the overall reward won by all players in N .
+ing broader applicability and exhibiting significantly better
+performance.                                                         Faithfulness. The Shapley value is widely considered a rela-
+Moreover, we implement two specific HarsanyiNets in the              tively faithful attribution, because Young (1985) has proved
+experiment, the Harsanyi-MLP extended from multi-layer               that it is the unique game-theoretic solution that satisfies the
+perceptrons (MLP) and the Harsanyi-CNN developed on                  linearity, dummy, symmetry and efficiency axioms for ideal
+convolutional neural networks (CNN).                                 attributions. Please see Appendix A for details.
+
+The contributions of this paper can be summarized as fol-            In addition to estimating the importance of each input vari-
+lows. (1) We propose a novel neural network architecture,            able, the Shapley value is also widely used to estimate the
+the HarsanyiNet, which can simultaneously perform model              importance of every single data point in a whole dataset,
+inference and compute exact Shapley values in one forward            which can be, for instance, used to address data evaluation
+propagation. (2) Following the paradigm of HarsanyiNet,              problem (Jia et al., 2019a; 2021).
+we design Harsanyi-MLP and Harsanyi-CNN for tabular
+data and image data, respectively. (3) The HarsanyiNet does          2.2. Dilemma of computational complexity versus
+not constrain the representation of specific interactions, but            approximation accuracy
+it can still guarantee the accuracy of Shapley values.               The biggest challenge of applying Shapley values to real-
+                                                                     world applications is the NP-hard computational complexity.
+                                                                     According to Equation (1) and Section 3, when we compute
+
+                                                                 2
+                        HarsanyiNet: Computing Accurate Shapley Values in a Single Forward Propagation
+
+Shapley values for input variables of a DNN, it requires to                   of the i-th input variable to the network prediction score.
+conduct inference on all the 2n different masked samples.
+To alleviate the computational burden, many approximation                     3.1. Preliminaries: Harsanyi interactions
+methods (Castro et al., 2009; Lundberg & Lee, 2017; Covert
+& Lee, 2021) have been proposed. However, as Figure 3                         The Harsanyi interaction (or the Harsanyi divi-
+shows, a higher approximation accuracy of Shapley values                      dend) (Harsanyi, 1963) provides a deeper insight
+usually requires more network inferences (e.g., inferences                    into the essential reason why the Shapley value is computed
+on as many as thousands of masked samples).                                   as in Equation (1). A DNN usually does not use each
+                                                                              individual input variable to conduct model inference
+Specifically, some approaches estimated Shapley values                        independently. Instead, the DNN models the interactions
+via sampling techniques (Castro et al., 2009; Strumbelj &                     between different input variables and considers such
+Kononenko, 2010; Okhrati & Lipani, 2021; Mitchell et al.,                     interactions as basic inference patterns. To this end, the
+2022), and some converted the approximation of Shapley                        Harsanyi interaction I(S) measures the interactive effect
+values to a weighted least squares problem (Lundberg &                        between each subset S ⊆ N of input variables, which is
+Lee, 2017; Simon & Vincent, 2020; Covert & Lee, 2021).                        encoded by a DNN.
+However, these methods all faced a dilemma, i.e., a more ac-
+curate approximation required higher computational costs.                     Definition 2 (Harsanyi interactions). The Harsanyi interac-
+                                                                              tion between a set of variables in S w.r.t. thePmodel output
+Other studies accelerated the computation by assuming a                                          defined I(S) := V (S) − L⊊S I(L) =
+                                                                              v(x) is recursivelyP
+specific distribution of data (Chen et al., 2019), ignoring                   v(xS ) − v(x∅ ) − L⊊S I(L) subject to I(∅) := 0.
+small interactions between input variables (Wang et al.,
+2022), or learning an explainer model to directly predict                     According to Definition 2, the network output can be
+the Shapley value (Jethani et al., 2021). However, these                      explained as the  P sum of all Harsanyi interactions, i.e.,
+methods could not generate fully accurate Shapley values.                     v(x)−v(x∅ )=        S⊆N I(S). Essentially, each Harsanyi
+Wang et al. (2021) proposed the ShapNets. The ShapNet                         interaction I(S) reveals an AND relationship between all
+was constrained to only encode interactions between a small                   the variables in set S. Let us consider a visual pattern
+number of variables (usually less than 4). When the ShapNet                   S = {eye, nose, mouth} for face detection as a toy example.
+was extended to encode interactions between more variables,                   If the image patches of eye, nose, and mouth appear together,
+it could no longer estimate exactly accurate Shapley values.                  the co-appearance of the three parts forms a visual pattern
+In comparison, our HarsanyiNet can accurately compute                         and makes a numerical contribution I(S) to the classifica-
+Shapley values in a single forward propagation, and it is not                 tion score v(x) of the face. Otherwise, masking any part
+constrained to encode specific interactions, thereby exhibit-                 in S will deactivate the pattern and remove the interactive
+ing much more flexibility and better performance.                             effect, i.e., making I(S) = 0.
+                                                                              Grabisch et al. (2016) and Ren et al. (2023a) further proved
+3. Methodology                                                                that the Harsanyi interaction also satisfies the four properties,
+The Shapley value defined in Equation (1) is widely used                      namely linearity, dummy, symmetry and efficiency.
+to estimate attributions of input variables in a DNN. We
+consider the DNN as a cooperative game, and consider                          3.2. Harsanyi interactions compose Shapley values
+input variables x = [x1 , x2 , ..., xn ]⊺ as players, N =                     We jump out of the dilemma of computational complexity
+{1, 2, . . . , n}. v(x) ∈ R corresponds to the network predic-                versus approximation accuracy mentioned in Section 2. The-
+tion score2 on x. Let xS denote a masked sample, where                        orem 1 allows us to derive a novel neural network architec-
+input variables in N \ S, S ⊆ N are masked by baseline                        ture, namely HarsanyiNet, which uses Harsanyi interactions
+values3 . In this way, we can define the total reward gained                  to simultaneously perform model inference and compute
+by the input variables in S as the inference score on the                     exact Shapley values in a single forward propagation.
+masked sample xS , i.e., V (S) := v(xS ) − v(x∅ ). Thus, the
+Shapley value ϕ(i) in Equation (1) measures the importance                    • Basic requirements for the HarsanyiNet. The key idea
+                                                                              of the HarsanyiNet is to let different intermediate-layer neu-
+   2
+      As in previous studies (Jethani et al., 2021; Wang et al., 2022),       rons to represent different Harsanyi interactions. Later, we
+if the network has a scalar output, then v(x) can be formulated
+                                                                              will prove that we can use such a network design to compute
+directly as the network output. If the network has a vector out-
+put, e.g., multi-category classification, we may define v(x) as the           the exact Shapley values in a single forward propagation.
+output dimension corresponding to the ground-truth category.                  Specifically, let us introduce the following two designs in
+    3
+      The baseline value can be set as zero, mean value over differ-          the HarsanyiNet.
+ent inputs or other statistic values in previous studies (Lundberg &
+Lee, 2017; Covert & Lee, 2021).                                               Firstly, as shown in Figure 1, the HarsanyiNet has L cas-
+                                                                              caded blocks in the neural network. In each block, we add
+
+                                                                          3
+                       HarsanyiNet: Computing Accurate Shapley Values in a Single Forward Propagation
+
+an AND operation layer between a linear layer and a ReLU              Shapley value ϕ(i) equals to the sum of evenly distributed
+                                      (l)
+layer. Given an input sample x, let zu (x) denote the u-th            Harsanyi interactions that contain i, i.e.,
+                                                         (l)
+dimension of the output feature vector z(l) (x) ∈ Rm in                                       X              1
+the l-th linear layer. The HarsanyiNet is designed to let each                       ϕ(i) =                     I(S).          (3)
+                       (l)                                                                      S⊆N :S∋i    |S|
+feature dimension zu (x) satisfy the following two require-
+              (l)
+ments, and zu (x) is also called a Harsanyi unit. Theorem 3
+will show how to use the Harsanyi unit to compute exact               Theorem 1 demonstrates that we can understand the Shap-
+Shapley values directly.                                              ley value ϕ(i) as a uniform reassignment of each Harsanyi
+                                                 (l)                  interaction I(S) which includes the variable i. For example,
+Requirement 1 (R1). The neural output zu (x) is ex-                   let us consider a toy model that uses age (a), education (e),
+clusively determined by a specific set of input variables             occupation (o), and marital status (m) to infer the income
+   (l)                                                (l)
+Ru ⊆ N , namely the receptive field of neuron zu (x). In              level. We assume that we can only Pdecompose four non-zero
+                                                            (l)
+other words, none of the other input variables in N \Ru af-           Harsanyi interactions, i.e., v(x) = S⊆N ={a,e,o,m} I(S) =
+fect the neuron activation, i.e., given two arbitrary samples         I({a, o}) + I({a, e}) + I({a, o, m}) + I({o, m}) to sim-
+                      (l)                 (l)           (l)
+x and x′ , if ∀ i ∈ Ru , x′i = xi , then zu (x′ ) = zu (x).           plify the story. We uniformly allocate the numerical con-
+Requirement 2 (R2). Masking any variables in the recep-               tribution I({a, o, m}) to variables age, occupation, and
+              (l)                  (l)            (l)
+tive field Ru of the neuron zu will make zu (x) = 0.                  marital status, with each receiving 13 I({a, o, r}) as a com-
+Specifically, let xS denote the sample obtained by masking            ponent of its attribution. In this way, each input vari-
+variables in the set N \ S in the sample x. Then, given any           able accumulates compositional attributions from differ-
+                                   (l)                                ent Harsanyi interactions, e.g., ϕ̂(a) = 12 I({a, o}) +
+masked sample xS , the neuron zu must satisfy the property            1               1
+                                                                      2 I({a, e}) + 3 I({a, o, m}). Such an accumulated attri-
+zu (xS ) = zu (x) · i∈R(l) 1(i ∈ S).
+  (l)          (l)    Q
+                               u                                      bution ϕ̂(a) equals to the Shapley value ϕ(a).
+These two requirements indicate that a Harsanyi unit                  Lemma 1 (Harsanyi interaction of a Harsanyi unit, proof
+  (l)
+zu must represent an AND relationship between input                   in Appendix C). Let us consider the output of a Harsanyi
+                 (l)                                                        (l)                                (l)
+variables in Ru . Changing variables outside the receptive            unit zu (x) as the reward. Then, let Ju (S) denote the
+        (l)                                                                                                     (l)
+field Ru will not affect the neural activation of the Harsanyi        Harsanyi interaction w.r.t. the function zu (x). Then, we
+             (l)        (l)                                                   (l) (l)      (l)                   (l) (l)
+unit, i.e., zu (xS ) = zu (x), but masking any variables in           have Ju (Ru ) = zu (x), and ∀S ̸= Ru , Ju (S) = 0,
+   (l)                                       (l)
+Ru will deactivate the unit, i.e., making zu (xS ) = 0.               according to the two requirements R1 and R2.
+Secondly, although the HarsanyiNet may have various types             Theorem 2 (Proof in Appendix B). Let a network output
+                                                                                                          PL       (l)
+of outputs (including a scalar output, a vectorized output,           v(x) ∈ R be represented as v(x) = l=1 (wv )⊺ z(l) (x),
+a matrix output, and a tensor output), each dimension of              according to Equation (2). In this way, the Harsanyi in-
+the network output is designed as a weighted sum of all               teraction between input variables in the set S computed
+Harsanyi units. Let v(x) denote the multi-dimensional                 on the network output v(x) can be represented as I(S) =
+output, and let v(x) be an arbitrary output dimension pa-             PL Pm(l) (l) (l)
+                   (l)                                                   l=1   u=1 wv,u Ju (S).
+rameterized by {wv }. Then, we get
+                                     L                                Theorem 2 shows that the Harsanyi interaction
+v(x) = [v(x), v (x), . . . ] , v(x) = (wv(l) )⊺ z(l) (x), (2)
+                                     X
+                ′          ⊺                                          I(S) w.r.t. network output v(x) can be represented
+                                                                                                               (l)
+                                      l=1                             as the sum of Harsanyi interactions Ju (S) computed on
+                                                                                                (l)
+where
+        (l)
+       wv  ∈R   m(l)
+                     denotes the weight for the specific out-         different Harsanyi units zu (x). In this manner, we plug the
+put dimension v. As shown in Figure 1, the above equation             conclusions in Lemma 1 and Theorem 2 into Equation (3),
+can be implemented by adding skip connections to connect              and we derive the following theorem.
+the Harsanyi units in all L layers to the HarsanyiNet output.         Theorem 3 (Deriving Shapley values from Harsanyi units
+                                                                      in intermediate layers, proof in Appendix B). The Shapley
+• Proving that we can compute accurate Shapley values
+                                                                      value ϕ(i) can be computed as
+in a single forward propagation. The preceding para-
+graphs only outline the two requirements for Harsanyi units,                    XL Xm(l)          1
+and Section 3.3 will introduce how to force neurons to meet            ϕ(i) =                     (l)
+                                                                                                        wv,u zu (x)1(R(l)
+                                                                                                         (l) (l)
+                                                                                                                      u ∋ i). (4)
+                                                                                  l=1    u=1   |Ru |
+such requirements. Before that, we derive Theorem 3 to
+prove that the above requirements allow us to compute the
+exact Shapley values in a forward propagation.                        Theorem 3 demonstrates that the Shapley value ϕ(i) can
+Theorem 1 (Connection between Shapley values and                      be directly computed using the outputs of Harsanyi units
+Harsanyi interactions, proof in (Harsanyi, 1963)). The                z(l) (x) in the intermediate layers in forward propagation.
+
+                                                                  4
+                              HarsanyiNet: Computing Accurate Shapley Values in a Single Forward Propagation
+
+Cost of computing HarsanyiNet. We conduct one network                            among its children nodes (more discussions in Appendix D).
+                                                        (l)
+inference to obtain the outputs of all Harsanyi units zu (x).                    To implement the children selection in Equation (5),
+Then, we compute Shapley values based on Equation (4),                                                                            (l)
+                                                                                 we compute the binary diagonal matrix Σu by setting
+whose computational cost is O(nM ), where M = L             (l)
+                                                  P
+                                                      l=1 m
+                                                                                 (Σu )i,i=1((τ u )i > 0), where τ u ∈ RM is a trainable
+                                                                                     (l)          (l)               (l)         (l)
+
+denotes the total number of Harsanyi units. The compu-
+tational cost O(nM ) is negligible, compared to the heavy                        parameter vector. Note that during the training phase,
+computational cost of one forward propagation. Therefore,                        the gradient of the loss function cannot pass through
+                                                                                    (l)    (l)
+we can roughly consider the overall cost of computing                            Σu to τ u in the above implementation; therefore, we
+Shapley values as one forward propagation.                                       employ Straight-Through Estimators (STE) (Bengio
+                                                                                                                           (l)
+                                                                                 et al., 2013) to train the parameter τ u . The STE uses
+                                                                                 (Σu )i,i = 1((τ u )i > 0) in the forward-propagation
+                                                                                     (l)            (l)
+3.3. Designing the HarsanyiNet towards R1 and R2
+                                                                                               (l)         (l)          (l)            (l)
+                                                                                 and set ∂(Σu )i,i /∂(τ u )i = βe−(τ u )i /(1 + e−(τ u )i )2
+This subsection first introduces the detailed design of the
+                                                                                 in the back-propagation process, where β is a pos-
+HarsanyiNet. The basic idea is to construct a neural net-
+                                                                                 itive scalar.        Besides, to reduce the optimization
+work in which each neuron represents an AND relationship
+                                                                                 difficulty of the AND operation in Equation (6), we
+between its children nodes in the previous layers, and the
+                                                                                 approximate the AND operation as h(l)                  (l)
+                                                                                                                               u (x) = gu (x)
+neuron’s receptive field can be computed as the union of                                                                             i1/tr(Σ(l)
+                                                                                                                                            u )
+                                                                                 hQ
+                                                                                    M (l)
+the receptive fields of its children nodes. Then, Theorem 4                                 (l)
+                                                                                    u′ =1 (Σu ·tanh(γ ·Σu   z
+                                                                                                        (l) (l−1)       (l)
+                                                                                                                  )+(I−Σu )·1)u′                ,
+proves that such a network design satisfies the requirements                     where γ is a positive scalar. Here, each output dimension of
+R1 and R2 in Section 3.2.                                                        the function tanh(·) is within the range of [0, 1), since z(l−1)
+                                                                                 passes through the ReLU operation, and ∀u, zu ≥ 0.
+                                                                                                                                  (l−1)
+Harsanyi blocks. As Figure 1 shows, the HarsanyiNet
+contains L cascaded Harsanyi blocks. Specifically, we use                        Input and receptive field. Let us set z(0) = x − b ∈ Rn as
+tuple (l, u) to denote the u-th neuron in the l-th Harsanyi                      the input of the linear operation in the first Harsanyi block,
+block’s linear layer. Each neuron (l, u) has a set of children                   and let us define the baseline value bi as the masking state
+          (l)                            (l)
+nodes Su . The children nodes in Su can be selected                              of each input variable xi . To further simplify the imple-
+from all neurons in all (l − 1) previous Harsanyi blocks4 .                      mentation, we adopt a single value baseline b5 . It is worth
+Alternatively, we can just select children nodes from the                        noting that more sophisticated baseline values have been
+(l−1)-th block, as a simplified implementation. The children                     discussed in (Lundberg & Lee, 2017; Covert et al., 2020;
+         (l)
+nodes Su which can be learned for each neuron (l, u) will                        Sundararajan & Najmi, 2020; Chen et al., 2022). Based
+                                                       (l)
+be introduced later. Thus, given the children set Su , the                       on Equations (5)–(7), we can obtain that the receptive field
+                   (l)                                                             (l)
+neural activation zu (x) of the neuron (l, u) is computed by                     Ru of a Harsanyi unit (l, u) can be computed recursively,
+applying the linear, AND, and ReLU operations                                    as follows.
+                                                                                                                (l′ )
+                                      //Linear operation                             R(l)
+                                                                                        u := ∪(l′ ,u′ )∈S (l) Ru′ ,     s.t. R(1)   (1)
+                                                                                                                              u := Su .      (8)
+ gu(l) (x)   =(A(l)        u ·z
+                          Σ(l)
+                    ⊺           (l−1)
+                u ) ·
+                                                                                                           u
+                                       .                               (5)
+                                                   on children nodes
+                                                                                 Theorem 4 (proof in Appendix B). Based on Equations (5)–
+                                        (l′ )               //AND                                          (l)              (l)
+                                  1                                              (7), the receptive field Ru of the neuron zu automatically
+                              Y
+ h(l)
+  u (x)      =   gu(l) (x)·           (zu′ (x)    ̸= 0).               (6)
+                                                           operation             satisfies the two requirements R1 and R2.
+                                  (l)
+                       (l′ ,u′ )∈Su
+                                                                                                                                       (l)
+ zu(l) (x) = ReLU(h(l)
+                   u (x)).                 //Non-linear operation (7)            This theorem proves that setting each neuron zu based
+                                                                                 on Equations (5)–(7) can successfully encode an AND re-
+                                                                                                                            (l)
+In the above equations, z(l−1) = [z(1) (x)⊺ , z(2) (x)⊺ , . . . ,                lationship between input variables in Ru . In other words,
+                        (l)                                                                                                       (l)
+z(l−1) (x)⊺ ]⊺ ∈ RM vectorizes the neurons in all the                            only the input variables in the receptive field Ru can affect
+                                                  (l)                                              (l)
+previous (l − 1) blocks. The children set Su is imple-                           neural output zu (x), and masking any input variables in
+                                        (l)                                        (l)              (l)
+mented as a binary diagonal matrix Σu ∈ {0, 1}M ×M ,
+                                                      (l)    (l)
+                                                                                 Ru will make zu (x) = 0. In particular, let us consider the
+which selects children nodes of the neuron (l, u) from all                       inference on a masked sample xS as an example. According
+M (l) =
+          Pl−1 (l′ )
+                          neurons in all the (l − 1) previous                    to Theorem 4, the masked sample xS is implemented by
+             l′ =1 m
+          (l)      M (l)                                                         setting ∀i ∈/ S, xi = bi . Subsequently, this masked sam-
+blocks. Au ∈ R           denotes the weight vector.
+                                                                                 ple can exclusively activate all Harsanyi units subject to
+                                                                                   (l)
+The three operations in Equations (5)–(7) ensure that                            Ru ⊆ S. All other Harsanyi units are not activated, i.e.,
+                    (l)                                                              (l)       (l)
+each Harsanyi unit zu (x) represents an AND relationship                         ∀Ru ̸⊆ S, zu (xS ) = 0.
+    4                                       (1)                                    5
+      In particular, children nodes in Su are directly selected from                 We simply set the baseline value b = 0, since we use the
+the input variables.                                                             ReLU function as the non-linear operation.
+
+                                                                             5
+                                                              HarsanyiNet: Computing Accurate Shapley Values in a Single Forward Propagation
+
+                                               MLP-5 trained            ResMLP-5 trained              ResNet-32 trained           cial detection (Dua & Graff, 2017), and the MNIST (LeCun
+                                           on Census dataset            on Census dataset             on MNIST dataset
+ Number of Harsanyi interactions
+
+
+
+                                                                                                                                  & Cortes, 2010) datasets. Only a few Harsanyi interactions
+                                                                                                                                  were found to be salient. Most Harsanyi interactions were
+                                       Interaction stength |I(S)|   Interaction stength |I(S)|   Interaction stength |I(S)|       close to zero, and could be considered noise.
+                                               MLP-5 trained            ResMLP-5 trained                VGG-16 trained
+                                          on TV news dataset           on TV news dataset             on MNIST dataset            Therefore, the above experiments demonstrated that many
+                                                                                                                                  applications only required DNNs to encode a few salient
+                                                                                                                                  Harsanyi interactions, instead of modeling an exponential
+                                       Interaction stength |I(S)|   Interaction stength |I(S)|   Interaction stength |I(S)|       number of Harsanyi interactions. From this perspective, the
+                                                                                                                                  HarsanyiNet has sufficient representation capacity.
+Figure 2. The histogram of interaction strength |I(S)| of different
+Harsanyi interactions encoded by a DNN.
+                                                                                                                                  4. Experiments
+3.4. Discussion on the sparsity of Harsanyi interactions                                                                          4.1. Two types of HarsanyiNets
+
+Theoretically, a model can encode at most 2n different                                                                            In the experiments, we constructed and tested two types
+Harsanyi interactions, but each AI model has its own limi-                                                                        of HarsanyiNets following the paradigm in Equations (5)–
+tation in encoding interactions, whichP are far less than 2n .                                                                    (7), i.e., the HarsanyiNet constructed with fully-connected
+                                         L
+The HarsanyiNet learns at most M = l=1 m(l) Harsanyi                                                                              layers, namely Harsanyi-MLP, and the HarsanyiNet con-
+interactions, as proved in Lemma 1 and Theorem 2. Thus,                                                                           structed with convolutional layers, namely Harsanyi-CNN.
+the next question is whether the HarsanyiNet has sufficient                                                                       The Harsanyi-MLP was suitable for handling tabular data,
+representation capacity to handle real-world applications.                                                                        and the Harsanyi-CNN was designed for image data.
+
+To this end, recent studies have observed (Deng et al., 2022;                                                                     • Harsanyi-MLP was designed as an extension of the MLP
+Ren et al., 2023a; Li & Zhang, 2023) and mathematically                                                                           network. As mentioned at the beginning of Section 3.3, we
+proved (Ren et al., 2023b) that traditional DNNs often en-                                                                        chose not to connect each neuron (l, u) from the neurons in
+code only a few Harsanyi interactions in real-world applica-                                                                      all (l − 1) previous blocks. Instead, we simply selected a
+                                                                                                                                                         (l)
+tions, instead of learning all 2n Harsanyi interactions. To be                                                                    set of children nodes Su from the (l − 1)-th block. Specif-
+                                                                                                                                                                                              (l)
+precise, the network output can be represented as                                                                                 ically, this was implemented by fixing all elements in τ u
+                 X                 X                                                                                              corresponding to all neurons in the 1st, 2nd,. . . ,(l − 2)-th
+         v(x) =          N
+                           I(S) =           I(S) + ϵ,      (9)                                                                    blocks to 0.
+                                                            S∈2                         S∈Ω
+                                                                                                                                  • Harsanyi-CNN mainly used the following two specific
+where Ω ⊆ 2N ={S ′ ⊆ N } denotes a small set of Harsanyi
+                                                                                                                                  settings to adapt convolutional layers into the paradigm of
+interactions with considerable interaction strength |I(S)|.
+                                                                                                                                  HarsanyiNet. Setting 1. Similar to the Harsanyi-MLP, the
+All other Harsanyi interactions have negligible interaction                                                                                                                        (l)
+strength, i.e., |I(S)| ≈ 0, which can be considered noisy                                                                         Harsanyi-CNN constructed the children set Su of each
+inference patterns. ϵ = S ′ ∈2N \Ω I(S ′ ) is relatively small.
+                        P                                                                                                         neuron (l, u) from the neurons in the (l − 1)-th block. Let
+                                                                                                                                  C ×K ×K denote the tensor size of the convolutional kernel.
+                                                                                                                                                                                      (l)
+Furthermore, we conducted new experiments to verify the                                                                           As Figure 6 shows, we selected children nodes Su of the
+sparsity of Harsanyi interactions in DNNs. Given a trained                                                                        neuron (l, u = (c, h, w)) from neurons in the C × K × K
+network v and an input sample x, we computed the interac-                                                                         sub-tensor, which was clipped from the feature tensor of the
+tion strength |I(S)| of all 2n Harsanyi interactions w.r.t.all                                                                    (l − 1)-th block and corresponded to the upper neuron (l, u),
+S ⊆ N . We followed (Ren et al., 2023a) to compute the in-                                                                        where c, h, w represent the location of the neuron (l, u).
+teraction strength |I(S)| of different Harsanyi interactions6 .                                                                                           (l)
+                                                                                                                                  Accordingly, we had τ u as a CK 2 -dimensional vector.
+Please see Appendix F.6 for more details. Figure 2 shows
+the extracted Harsanyi interactions. Such experiments were                                                                        Setting 2. Furthermore, we set all neurons (l, u = (:, h, w))
+conducted on various DNNs, including MLP, the residual                                                                            at the same location, but on different channels, to share
+                                                                                                                                                          (l)
+MLP7 used in Touvron et al. (2022), the residual net with                                                                         the same children set Su=(:,h,w) to reduce the number of
+32 layers (ResNet-32) (He et al., 2016) and the VGG net                                                                                         (l)
+                                                                                                                                  parameters τ u . This could be implemented by letting all
+with 16 layers (VGG-16) (Simonyan et al., 2014), on the                                                                           neurons (l, u = (1, h, w)), . . . , (l, u = (C, h, w)) share
+Census Income (Dua & Graff, 2017), the TV news commer-                                                                                                  (l)
+                                                                                                                                  the same parameter τ u . Based on the above design, we
+                                   6
+      For image data, Ren et al. (2023a) computed Harsanyi inter-                                                                 proved that all Harsanyi units (l, u = (c, h, w)) in the
+actions between randomly sampled image regions to reduce the                                                                      same location (h, w) on different channels (c = 1, . . . , C)
+computational cost.                                                                                                                                                  (l)
+    7
+                                                                                                                                  had the same receptive field Ru=(:,h,w) and contributed
+      We used 5-layer MLP (MLP-5) and 5-layer residual MLP                                                                                                                           (l)
+(ResMLP-5) with 100 neurons in each hidden layer respectively.                                                                    to the same Harsanyi interaction I(S = Ru=(:,h,w) ).
+
+                                                                                                                              6
+                     HarsanyiNet: Computing Accurate Shapley Values in a Single Forward Propagation
+
+Please see Appendix E for the proof. Therefore, we
+                                                                     Table 1. Root mean squared errors of the estimated Shapley value
+further considered neurons in the same location (h, w)
+                                                                     and the classification accuracy of the DNN.
+on different channels as a single Harsanyi unit. In this
+                                             (l)  (l)                                                                 Shallow       Deep
+way, Equation (6) could be rewritten as hu (x) = gu (x) ·                                             HarsanyiNet
+                                                                                                                      ShapNet     ShapNet8
+              (l) 1(
+Q                   PC     (l−1)
+  (l−1,u′ )∈S
+            u        c=1 |zu′ =(c,h,w) (x)| =
+                                            ̸ 0).
+                                                                                                 MNIST dataset
+In the implementation, we first applied a convolutional layer,         Classification accuracy (↑)       99.16          40.18      93.85
+max-pooling layer, and ReLU layer on the input image to ob-            Errors of Shapley values (↓)    1.19e-07       3.79e-07     0.891
+tain the feature z(0) in an intermediate layer. Subsequently,                                   CIFAR-10 dataset
+we regarded z(0) as the input of the Harsanyi-CNN, instead             Classification accuracy (↑)       89.34          20.48      73.51
+of directly using raw pixel values as input variables. It was          Errors of Shapley values (↓)    6.88e-08       2.41e-07     0.409
+because using the ReLU operation enabled us to simply                                             Census dataset
+define bi = 0 as the baseline value (i.e., the masking state)          Classification accuracy (↑)       84.57          84.14      84.72
+for all the feature dimensions z(0) . In addition, according           Errors of Shapley values (↓)    2.18e-08       5.12e-07     0.412
+                                                       (0)                                        Yeast dataset
+to Setting 2, we could consider the feature vector z(:,h,w)
+at location (h, w) as a single input variable, and we used             Classification accuracy (↑)       59.91          57.17      59.70
+  (0)
+                                                                       Errors of Shapley values (↓)    3.36e-08       1.97e-07     0.127
+z(:,h,w) = 0 to identify its masking state.                                                      TV news dataset
+                                                                       Classification accuracy (↑)       82.20          79.72      82.46
+4.2. Experiments and comparison                                        Errors of Shapley values (↓)    5.69e-08       2.47e-07     0.239
+
+Dataset. We trained the Harsanyi-MLP on three tabular
+                                                                     Table 2. Error of the computed Shapley values on the Census, Yeast
+datasets from the UCI machine learning repository (Dua &
+                                                                     and TV news dataset.
+Graff, 2017), including the Census Income dataset (n = 12),
+the Yeast dataset (n = 8) and the TV news commercial                                 Models
+                                                                                                HarsanyiNet        DeepSHAP      FastSHAP
+detection dataset (n = 10), where n denotes the number of              Datasets
+input variables. For simplicity, these datasets were termed            Census                     2.18e-08           0.701        0.270
+Census, Yeast, and TV news. We trained the Harsanyi-CNN                Yeast                      3.36e-08           1.311        0.467
+on two image datasets: the MNIST dataset (LeCun & Cortes,
+                                                                       TV news                    5.69e-08           0.758        0.526
+2010) and the CIFAR-10 dataset (Krizhevsky et al., 2009).
+Accuracy of Shapley values and computational cost. We                2019) to quantify the computational cost of approximating
+conducted experiments to verify whether the HarsanyiNet              Shapley values. These methods usually needed thousands of
+could compute accurate Shapley values in a single for-               network inferences to compute the relatively accurate Shap-
+ward propagation. We evaluated both the accuracy and                 ley values. In comparison, the HarsanyiNet only needed
+the time cost of calculating Shapley values. We computed             one forward propagation to obtain the exact Shapley values
+the root mean squared error (RMSE) between the esti-                 (see “⋆” in Figure 3). DeepSHAP and FastSHAP could
+mated Shapley values ϕx and the true Shapley values, i.e.,           compute the Shapley values in one forward propagation, but
+RMSE=Ex [ √1n ||ϕx − ϕ∗x ||], where the vector of ground-            as shown in Table 2, the estimated errors of Shapley values
+truth Shapley values ϕ∗x on the sample x could be directly           were considerably larger than the HarsanyiNet.
+computed by following Definition 1 when n ≤ 16.
+                                                                     Comparing with the ShapNets. Besides, we also com-
+Comparing with approximation methods. We com-                        pared the classification accuracy and the accuracy of Shap-
+pared the accuracy of Shapley values computed by the                 ley values with two types of ShapNet (Wang et al., 2021),
+HarsanyiNet with those estimated by various approxi-                 namely Shallow ShapNet and Deep ShapNet. Input sam-
+mation methods, including the sampling method (Castro                ples in the MNIST and CIFAR-10 datasets contained many
+et al., 2009), KernelSHAP (Lundberg & Lee, 2017), Ker-               more input variables. To calculate the ground-truth Shapley
+nelSHAP with paired sampling (KernelSHAP-PS) (Covert                 values through Definition 1, we randomly sampled n = 12
+& Lee, 2021), antithetical sampling (Mitchell et al., 2022),         variables as input variables in the foreground of the sample
+DeepSHAP (Lundberg & Lee, 2017) and FastSHAP (Jethani                x. In this way, ground-truth Shapley values were computed
+et al., 2021). The approximation methods also computed               by masking the selected 12 variables and keeping all the
+Shapley values on the HarsanyiNet for fair comparison. Fig-          other variables as original values of these variables. Simi-
+ure 3 shows that many approximation methods generated                    8
+                                                                           The results were obtained using the codes released by the
+more accurate Shapley values, when they conducted more               original paper (Wang et al., 2021). In particular, for image datasets,
+inferences for approximation. The number of inferences               each experiment was run for ten rounds with different random
+was widely used (Lundberg & Lee, 2017; Ancona et al.,                initialization, and the best result from the 10 runs was presented.
+
+                                                                 7
+                          HarsanyiNet: Computing Accurate Shapley Values in a Single Forward Propagation
+
+                     Census dataset                             Yeast dataset                                 TV news dataset                          Sampling
+                           HarsanyiNet                               HarsanyiNet                                      HarsanyiNet
+                                                                                                                                                       Antithetical
+                           (RMSE = 2.2 × 10 ,                        (RMSE = 3.4 × 10 ,                               (RMSE = 5.7 × 10 ,
+                                                                                                                                                       Sampling
+    RMSE
+
+
+
+
+                                                RMSE
+
+
+
+
+                                                                                          RMSE
+                           #inference = 1)                           #inference = 1)                                  #inference = 1)
+
+                                                                                                                                                       KernelSHAP
+
+                                                                                                                                                       KernelSHAP-PS
+             number of network inferences              number of network inferences                     number of network inferences
+                                                                                                                                                           January 20, 2023
+Figure 3. Comparison of estimation errors and the computational cost (number of network inferences) required by different methods.
+                                                                                                                                  (2)
+                                                                                                                             R2
+number of HarsanyiNet Sampling KernelSHAP FastSHAP DeepSHAP                                       (!)          (#)                          (!)    (#)
+inferences     (1)     (2×10! )  (2×10! )    (1)       (1)                                       𝑧!           𝑧!             R2
+                                                                                                                                  (2)      𝑧'     𝑧'
+
+                                                                                      Input       (!)           (#)         (%)             (!)    (#)                (%)
+                                                                                                 𝑧#           𝑧#           𝑧!              𝑧(     𝑧(              𝑧#
+
+                                                                                                  (!)           (#)                         (!)    (#)
+                                                                                                 𝑧%           𝑧%                           𝑧)     𝑧)
+
+                                                                                                  (!)          (#)                          (!)    (#)
+                                                                                                 𝑧&           𝑧&                           𝑧*     𝑧*
+
+
+
+
+                                                                                      Figure 5. Visualization of the receptive field of Harsanyi units and
+                                                                                      the corresponding children nodes.
+number of
+inferences     (1)         (2×10! )      (2×10" )       (1)          (1)
+
+
+                                                                                      Visualization. We generated attribution maps based on the
+                                                                                      Shapley values estimated by each method on the MNIST
+                                                                                      and CIFAR-10 datasets. As Figure 4 shows9 , the attribution
+                                                                                      maps generated by the HarsanyiNet were almost the same as
+                                                                                      Shapley values, which were estimated by conducting infer-
+                                                                                      ences on 20000 sampled masked images and had converged
+                                                                                      to the true Shapley values. We also visualized the receptive
+                                                                                      fields of Harsanyi units on digit image in Figure 5. It veri-
+                                                                                      fied that we could obtain the receptive field of a Harsanyi
+Figure 4. Shapley values computed2 by different methods. The                                (l)
+                                                                                      unit zu by merging receptive fields of its children nodes.
+number of inferences conducted for approximation is also shown.
+                                                                                      Implementation details. The Harsanyi-MLP was con-
+                                                                                      structed with 3 cascaded Harsanyi blocks, where each
+larly, we could still use the Harsanyi-CNN and ShapNets to                            was formulated by following Equations (5)–(7), and each
+derive the Shapley value when we only considered n = 12                               Harsanyi block had 100 neurons. The Harsanyi-CNN was
+input variables (please see Appendix F.8 for details).                                constructed with 10 cascaded Harsanyi blocks upon the
+Table 1 shows that both the HarsanyiNet and the Shallow                               feature z(0) , and each Harsanyi block had 512 × 16 × 1 16
+ShapNet generated exact Shapley values with negligible                                neurons, where 512 is the number of channels. The hyperpa-
+errors, which were caused by unavoidable computational                                rameters were set to β = 10 and γ = 100 for Harsanyi-MLP
+errors, but the HarsanyiNet had much higher classification                            trained on tabular data, and set β = 1000 and γ = 1 for
+accuracy than the Shallow ShapNet. This was because the                               Harsanyi-CNN trained on the image data respectively. For
+representation capacity of the Shallow ShapNet was limited                            the Harsanyi-MLP, we randomly selected 10 neurons in the
+                                                                                                                                  (l)
+and could only encode interactions between a few input                                previous layer as the initial children set Su , and set the
+                                                                                                                       (l)
+variables. On the other hand, the Deep ShapNet could not                              corresponding dimensions in τ u to 1. For all other neu-
+compute the exact Shapley values, although the Deep Shap-                                 9
+                                                                                            To facilitate comparison with other methods, for the MNIST
+Net achieved higher classification accuracy than the Shallow                          dataset, the Harsanyi-CNN was constructed with 4 cascaded
+ShapNet. This was because the Deep ShapNet managed                                    Harsanyi blocks, and each Harsanyi block had 32 × 14 × 14 neu-
+to encode interactions between more input variables, but                              rons, where 32 is the number of channels. The hyperparameters
+the cost was that the Deep ShapNet could no longer theo-                              were set to β = 100 and γ = 0.05, respectively. For the CIFAR-
+retically guarantee the accuracy of the estimated Shapley                             10 dataset, the Harsanyi-CNN was constructed with 10 cascaded
+                                                                                      Harsanyi blocks, and each Harsanyi block had 256 × 16 × 16
+values. Despite of this, the HarsanyiNet performed much                               neurons, where 256 is the number of channels. The hyperparam-
+better than the Deep ShapNet on more sophisticated tasks,                             eters were set to β = 1000 and γ = 1, respectively. Please see
+such as image classification on the CIFAR-10 dataset.                                 Appendix F.7 for more details.
+
+                                                                                8
+                     HarsanyiNet: Computing Accurate Shapley Values in a Single Forward Propagation
+
+rons in the previous layer, their corresponding dimensions             non-linear classifier decisions by layer-wise relevance
+     (l)
+in τ u were initialized to −1. For the Harsanyi-CNN, we                propagation. PloS one, 10(7):e0130140, 2015.
+                                (l)
+initialized each parameter (τ u )i ∼ N (0, 0.012 ), which
+                                                                     Bengio, Y., Léonard, N., and Courville, A. Estimating or
+randomly selected about half of the neurons in the previous
+                    (l)                                   (l)          propagating gradients through stochastic neurons for con-
+layer to satisfy (τ u )i > 0 as the initial children set Su .          ditional computation. arXiv preprint arXiv:1308.3432,
+Discussion on evaluation metrics for attributions. Actu-               2013.
+ally, many other metrics have been used to evaluate attri-
+bution methods, such as ROAR (Hooker et al., 2019) and               Castro, J., Gómez, D., and Tejada, J. Polynomial calculation
+weakly-supervised object localization (Zhou et al., 2016;              of the shapley value based on sampling. Computers &
+Schulz et al., 2020). As Table 1 and Figure 3 show that the            Operations Research, 36(5):1726–1730, 2009.
+HarsanyiNet generated the fully accurate Shapley values, the
+                                                                     Chen, H., C. Covert, I., M. Lundberg, S., and Lee, S.-I.
+evaluation of the attribution generated by the HarsanyiNet
+                                                                       Algorithms to estimate shapley value feature attributions.
+should be the same as the Shapley values, and the perfor-
+                                                                       arXiv preprint arXiv:2207.07605, 2022.
+mance of Shapley values had been sophisticatedly analyzed
+in previous studies (Lundberg & Lee, 2017; Chen et al.,              Chen, J., Song, L., Wainwright, M. J., and Jordan, M. I.
+2019; Wang et al., 2021; Jethani et al., 2021). In particular,         L-shapley and c-shapley: Efficient model interpretation
+the Shapley value did not always perform the best in all               for structured data. International Conference on Learning
+evaluation metrics, although it was considered one of the              Representation, 2019.
+most standard attribution methods and satisfied linearity,
+dummy, symmetry, and efficiency axioms.                              Covert, I. and Lee, S.-I. Improving kernelshap: Practi-
+                                                                       cal shapley value estimation using linear regression. In
+5. Conclusion                                                          International Conference on Artificial Intelligence and
+                                                                       Statistics, pp. 3457–3465. PMLR, 2021.
+In this paper, we have proposed the HarsanyiNet that can
+simultaneously perform model inference and compute the               Covert, I., Lundberg, S., and Lee, S.-I. Explaining by remov-
+exact Shapley values of input variables in a single forward            ing: A unified framework for model explanation. Journal
+propagation. We have theoretically proved and experimen-               of Machine Learning Research, 2021.
+tally verified the accuracy of Shapley values computed by
+                                                                     Covert, I. C., Lundberg, S., and Lee, S.-I. Understand-
+the HarsanyiNet. Only negligible errors at the level of 10−8
+                                                                       ing global feature contributions with additive importance
+– 10−7 were caused by unavoidable computational errors.
+                                                                       measures. Advances in Neural Information Processing
+Furthermore, we have demonstrated that the HarsanyiNet
+                                                                       Systems, 33, 2020.
+does not constrain the interactions between input variables,
+thereby exhibiting strong representation power.                      Deng, H., Zou, N., Chen, W., Feng, G., Du, M., and Hu, X.
+                                                                       Mutual information preserving back-propagation: Learn
+Acknowledgements                                                       to invert for faithful attribution. In Proceedings of the
+                                                                       27th ACM SIGKDD Conference on Knowledge Discovery
+This work is partially supported by the National Nature                & Data Mining, pp. 258–268, 2021.
+Science Foundation of China (62276165), National Key
+R&D Program of China (2021ZD0111602), Shanghai Natu-                 Deng, H., Ren, Q., Zhang, H., and Zhang, Q. Discover-
+ral Science Foundation (21JC1403800,21ZR1434600), Na-                  ing and explaining the representation bottleneck of dnns.
+tional Nature Science Foundation of China (U19B2043),                  International Conference on Learning Representation,
+Shanghai Municipal Science and Technology Key Project                  2022.
+(2021SHZDZX0102).
+                                                                     Dua, D. and Graff, C. UCI machine learning repository,
+                                                                       2017. URL http://archive.ics.uci.edu/ml.
+References
+Ancona, M., Oztireli, C., and Gross, M. Explaining deep              Fong, R. C. and Vedaldi, A. Interpretable explanations of
+  neural networks with a polynomial time algorithm for                 black boxes by meaningful perturbation. In Proceed-
+  shapley value approximation. In International Confer-                ings of the IEEE International Conference on Computer
+  ence on Machine Learning, pp. 272–281. PMLR, 2019.                   Vision, pp. 3429–3437, 2017.
+
+                                                                     Goodfellow, I. J., Shlens, J., and Szegedy, C. Explaining
+Bach, S., Binder, A., Montavon, G., Klauschen, F., Müller,            and harnessing adversarial examples. In International
+  K.-R., and Samek, W. On pixel-wise explanations for                 Conference on Learning Representation, 2015.
+
+                                                                 9
+                     HarsanyiNet: Computing Accurate Shapley Values in a Single Forward Propagation
+
+Grabisch, M. et al. Set functions, games and capacities in             Mitchell, R., Cooper, J., Frank, E., and Holmes, G. Sam-
+  decision making, volume 46. Springer, 2016.                           pling permutations for shapley value estimation. Journal
+                                                                        of Machine Learning Research, 23:1–46, 2022.
+Harsanyi, J. C. A simplified bargaining model for the n-
+  person cooperative game. International Economic Re-                  Montavon, G., Lapuschkin, S., Binder, A., Samek, W., and
+  view, 4(2):194–220, 1963.                                             Müller, K.-R. Explaining nonlinear classification deci-
+                                                                        sions with deep taylor decomposition. Pattern recogni-
+He, K., Zhang, X., Ren, S., and Sun, J. Deep residual learn-
+                                                                        tion, 65:211–222, 2017.
+  ing for image recognition. In Proceedings of the IEEE
+  Conference on Computer Vision and Pattern Recognition,               Nilsback, M.-E. and Zisserman, A. Automated flower classi-
+  pp. 770–778, 2016.                                                     fication over a large number of classes. In Indian Confer-
+                                                                         ence on Computer Vision, Graphics & Image Processing,
+Hooker, S., Erhan, D., Kindermans, P.-J., and Kim, B. A
+                                                                         2008.
+  benchmark for interpretability methods in deep neural
+  networks. Advances in Neural Information Processing                  Okhrati, R. and Lipani, A. A multilinear sampling algorithm
+ Systems, 32, 2019.                                                      to estimate shapley values. International Conference on
+                                                                         Pattern Recognition, 2021.
+Jethani, N., Sudarshan, M., Covert, I. C., Lee, S.-I., and Ran-
+   ganath, R. Fastshap: Real-time shapley value estimation.            Pavlova, M., Terhljan, N., G Chung, A., Zhao, A., Surana,
+   In International Conference on Learning Representations,              S., Aboutalebi, H., Gunraj, H., Sabri, A., Alaref, A., and
+   2021.                                                                 Wong, A. Covid-net cxr-2: An enhanced deep convolu-
+Jia, R., Dao, D., Wang, B., Hubis, F. A., Gurel, N. M., Li,              tional neural network design for detection of covid-19
+   B., Zhang, C., Spanos, C. J., and Song, D. Efficient task-            cases from chest x-ray images. In Front Med (Lausanne),
+   specific data valuation for nearest neighbor algorithms.              2022.
+   In International Conference on Very Large Databases,                Plumb, G., Molitor, D., and Talwalkar, A. S. Model agnos-
+   2019a.                                                                tic supervised local explanations. Advances in Neural
+Jia, R., Dao, D., Wang, B., Hubis, F. A., Hynes, N., Gurel,              Information Processing Systems, 31, 2018.
+   N. M., Li, B., Zhang, C., Song, D., and Spanos, C. To-              Ren, J., Li, M., Chen, Q., Deng, H., and Zhang, Q. Defin-
+   wards efficient data valuation based on the shapley value.            ing and quantifying the emergence of sparse concepts in
+   In International Conference on Artificial Intelligence and            dnns. IEEE Conference on Computer Vision and Pattern
+   Statistics, 2019b.                                                    Recognition, 2023a.
+Jia, R., Wu, F., Sun, X., Xu, J., Dao, D., Kailkhura, B.,              Ren, Q., Gao, J., Shen, W., and Zhang, Q. Where we
+   Zhang, C., Li, B., and Song, D. Scalability vs. utility: Do           have arrived in proving the emergence of sparse symbolic
+   we have to sacrifice one for the other in data importance             concepts in ai models. arXiv preprint arXiv:2305.01939,
+   quantification? In IEEE Conference on Computer Vision                 2023b.
+   and Pattern Recognition, 2021.
+                                                                       Ribeiro, M. T., Singh, S., and Guestrin, C. ”why should
+Krizhevsky, A., Hinton, G., et al. Learning multiple layers
+                                                                         i trust you?” explaining the predictions of any classifier.
+  of features from tiny images. 2009.
+                                                                         In Proceedings of the 22nd ACM SIGKDD International
+LeCun, Y. and Cortes, C. Mnist handwritten digit                         Conference on Knowledge Discovery and Data Mining,
+  database, 2010. URL http://yann.lecun.com/                             pp. 1135–1144, 2016.
+  exdb/mnist/.
+                                                                       Schulz, K., Sixt, L., Tombari, F., and Landgraf, T. Re-
+Li, M. and Zhang, Q. Does a neural network really en-                    stricting the flow: Information bottlenecks for attribution.
+  code symbolic concepts? International Conference on                    International Conference on Learning Representation,
+  Machine Learning, 2023.                                                2020.
+
+Lundberg, S. M. and Lee, S.-I. A unified approach to inter-            Selvaraju, R. R., Cogswell, M., Das, A., Vedantam, R.,
+  preting model predictions. Advances in Neural Informa-                 Parikh, D., and Batra, D. Grad-cam: Visual explanations
+  tion Processing Systems, 30, 2017.                                     from deep networks via gradient-based localization. In
+                                                                         Proceedings of the IEEE International Conference on
+Madry, A., Makelov, A., Schmidt, L., Tsipras, D., and                    Computer Vision, pp. 618–626, 2017.
+ Vladu, A. Towards deep learning models resistant to
+ adversarial attacks. In International Conference on Learn-            Shapley, L. S. A value for n-person games. In Contributions
+ ing Representation, 2018.                                               to the Theory of Games, 2(28):307–317, 1953.
+
+                                                                  10
+                     HarsanyiNet: Computing Accurate Shapley Values in a Single Forward Propagation
+
+Shrikumar, A., Greenside, P., Shcherbina, A., and Kundaje,           Wang, R., Wang, X., and Inouye, D. Shapley explanation
+  A. Not just a black box: Learning important features                networks. In International Conference on Learning Rep-
+  through propagating activation differences. arXiv preprint          resentations, 2021.
+  arXiv:1605.01713, 2016.
+                                                                     Weber, R. J. Probabilistic values for games. The Shapley
+Shrikumar, A., Greenside, P., and Kundaje, A. Learning                Value. Essays in Honor of Lloyd S. Shapley, 101–119,
+  important features through propagating activation differ-           1988.
+  ences. In International Conference on Machine Learning,
+  pp. 3145–3153. PMLR, 2017.                                         Wightman, R., Touvron, H., and Jégou, H. Resnet strikes
+                                                                      back: An improved training procedure in timm. In Neural
+Simon, G. and Vincent, T. A projected stochastic gradient             Information Processing Systems, 2021.
+  algorithm for estimating shapley value applied in attribute
+  importance. In International Cross-Domain Conference               Young, H. P. Monotonic solutions of cooperative games.
+  on Machine Learning and Knowledge Extraction, 2020.                  International Journal of Game Theory, 14:65–72, 1985.
+
+Simonyan, K. and Zisserman, A. Very deep convolutional               Zhou, B., Khosla, A., Lapedriza, A., Oliva, A., and Torralba,
+  networks for large-scale image recognition. In Interna-              A. Learning deep features for discriminative localization.
+  tional Conference on Learning Representation, 2015.                  In Proceedings of the IEEE Conference on Computer
+                                                                       Vision and Pattern Recognition, pp. 2921–2929, 2016.
+Simonyan, K., Vedaldi, A., and Zisserman, A. Deep inside
+  convolutional networks: Visualising image classification           Zintgraf, L. M., Cohen, T. S., Adel, T., and Welling, M.
+  models and saliency maps. International Conference on                Visualizing deep neural network decisions: Prediction
+  Learning Representations, 2014.                                      difference analysis. International Conference on Learn-
+                                                                       ing Representations, 2017.
+Springenberg, J. T., Dosovitskiy, A., Brox, T., and Ried-
+  miller, M. Striving for simplicity: The all convolutional
+  net. International Conference on Learning Representa-
+  tions, 2015.
+
+Strumbelj, E. and Kononenko, I. An efficient explanation of
+   individual classifications using game theory. The Journal
+   of Machine Learning Research, 11:1–18, 2010.
+
+Sundararajan, M. and Najmi, A. The many shapley values
+  for model explanation. In International Conference on
+  Machine Learning, pp. 9269–9278. PMLR, 2020.
+
+Sundararajan, M., Taly, A., and Yan, Q. Axiomatic attribu-
+  tion for deep networks. In International Conference on
+  Machine Learning, pp. 3319–3328. PMLR, 2017.
+
+Touvron, H., Bojanowski, P., Caron, M., Cord, M., El-
+  Nouby, A., Grave, E., Izacard, G., Joulin, A., Synnaeve,
+  G., Verbeek, J., et al. Resmlp: Feedforward networks for
+  image classification with data-efficient training. IEEE
+  Transactions on Pattern Analysis and Machine Intelli-
+  gence, 2022.
+
+Wang, G., Chuang, Y.-N., Du, M., Yang, F., Zhou, Q., Tri-
+ pathi, P., Cai, X., and Hu, X. Accelerating shapley ex-
+ planation via contributive cooperator selection. In Inter-
+ national Conference on Machine Learning, pp. 22576–
+ 22590. PMLR, 2022.
+
+Wang, L., Lin, Z. Q., and Wong, A. Covid-net: a tailored
+ deep convolutional neural network design for detection
+ of covid-19 cases from chest x-ray image. In Scientific
+ Reports, 2020.
+
+                                                                11
+                     HarsanyiNet: Computing Accurate Shapley Values in a Single Forward Propagation
+
+A. The Shapley values
+In this section, we revisits the four axioms that the Shapley values satisfy, which ensures the Shapley values as relatively
+faithful attribution values. Let us consider the following cooperative game V : 2N 7→ R, in which a set of n players
+N = {1, 2, . . . , n} collaborate and win a reward R. Here, V (S) is equivalent to v(xS ) − v(x∅ ) mentioned in the paper, and
+we have V (∅) = 0. Young (1985) proved that the Shapley value was the unique solution which satisfied the four axioms,
+including the linearity axiom, dummy axiom, symmetry axiom and efficiency axiom (Weber, 1988) .
+(1) Linearity axiom: If the game V (·) is a linear combination of two games U (·), W (·) for all S ⊆ N , i.e. V (S) =
+U (S) + W (S) and (c · V )(S) = c · V (S), ∀c ∈ R, then the Shapley value in the game V is also a linear combination of
+that in the games U and W , i.e. ∀i ∈ N, ϕV (i) = ϕU (i) + ϕW (i) and ϕc·V (i) = c · ϕV (i).
+(2) Dummy axiom: A player i is defined as a dummy player if V (S ∪ {i}) = V (S) + V ({i}) for every S ⊆ N \ {i}.
+The dummy player i satisfies ϕ(i) = V ({i}), which indicates player i influence the overall reward alone, without
+interacting/cooperating with other players in N .
+(3) Symmetry axiom: For two players i and j, if ∀S ⊆ N \ {i, j}, V (S ∪ {i}) = V (S ∪ {j}), then the Shapley values of
+players i and j are equal, i.e. ϕ(i) = ϕ(j).
+                                                                                                      Pn
+(4) Efficiency axiom: The overall reward is equal to the sum of the Shapley value of each player, i.e. i=1 ϕ(i) = V (N ).
+
+B. Proofs of Theorems
+In this section, we prove the theorems in the paper.
+                                                                        PL      (l)
+Theorem 2. Let a network output v(x) ∈ R be represented as v(x) = l=1 (wv )⊺ z(l) (x), according to Equation (2).
+In this way, the Harsanyi interaction between input variables in the set S computed on the network output v(x) can be
+                       PL Pm(l) (l) (l)
+represented as I(S) = l=1 u=1 wu Ju (S).
+
+
+
+Proof. We have
+
+                                                       XL
+                                             v(x) =            (wv(l) )⊺ z(l) (x)
+                                                         l=1
+                                                       XL Xm(l)
+                                                  =                        wu(l) zu(l) (x).
+                                                         l=1         u=1
+
+
+
+According to the linearity property of the Harsanyi interactions, if ∀S ⊆ N , v(xS ) = u(xS ) + w(xS ) and (cv)(xS ) =
+c · v(xS ), ∀c ∈ R, then the Harsanyi interaction I v (S) is also a linear combination of I u (S) and I w (S), i.e., ∀S ⊆ N ,
+                                                                         (l)
+I v (S) = I u (S) + I w (S) and I (cv) (S) = c · I v (S). Therefore, as Ju (S) denotes the Harsanyi interaction computed on the
+            (l)                                                                                                     (l)
+function zu (x), we have the Harsanyi interaction computed on network output v(x) a linear combination of Ju (S), i.e.,
+
+                                                       XL Xm(l)
+                                            I(S) =                         wu(l) Ju(l) (S).
+                                                        l=1          u=1
+
+
+
+
+Theorem 3 (Deriving Shapley values from Harsanyi units in intermediate layers). The Shapley value ϕ(i) can be computed
+as
+                                            XL Xm(l)             1
+                                   ϕ(i) =                        (l)
+                                                                       wu(l) zu(l) (x)1(R(l)
+                                                                                         u ∋ i).
+                                               l=1     u=1   |Ru |
+
+                                                                12
+                     HarsanyiNet: Computing Accurate Shapley Values in a Single Forward Propagation
+
+Proof. According to Theorem 1 and Theorem 2, we have
+                                                                  X                         1
+                                                       ϕ(i) =                                  I(S)
+                                                                      S⊆N :S∋i             |S|
+                                                                                   1
+                                                                                      I(S)1(S ∋ i)
+                                                                  X
+                                                              =
+                                                                      S⊆N         |S|
+                                                                           (l)
+                                                                  L m
+                                                                                       1
+                                                                                             wu(l) zu(l) (x)1(R(l)
+                                                                  X X
+                                                              =                        (l)                     u ∋ i).
+                                                                  l=1 u=1         |Ru |
+
+
+
+                                                                                              (l)                            (l)
+Theorem 4. Based on Equations (5)–(7), the receptive field Ru of the neuron zu automatically satisfies the Requirement 1
+                            (l)                                             (l)                    (l′ )      (1)   (1)
+and 2. The receptive field Ru of a neuron (l, u) is defined recursively by Ru := ∪(l′ ,u′ )∈S (l) Ru′ , s.t. Ru := Su .
+                                                                                                                                                 u
+
+
+
+                                                          (l)                                 (l)
+Proof. (1) Proof of the receptive field Ru of the neuron zu satisfies the Requirement 1.
+                                                                                                                                                                               (l)
+Given two arbitrary samples x̃ = z̃(0) and x = z(0) , to satisfy the Requirement 1, we will prove that if ∀ i ∈ Ru , x̃i = xi ,
+      (l)       (l)
+then zu (x̃) = zu (x).
+                                                (1)      (1)         (l)                            (1)               (1)
+Firstly, for the first layer, ∀u′ , Ru′ = Su′ ⊆ Ru , we prove zu′ (x̃) = zu′ (x).
+                                            
+          (1)            (1)         (1)         (1)                     (1)      (1)    (l)     (0)
+We get gu′ (x̃) = (Au′ )⊺ · Σu′ · z̃(0) = (Au′ )⊺ · ζ, where ∀i ∈ Ru′ = Su′ ⊆ Ru , ζ i = z̃i , otherwise ζ i = 0.
+                                              
+               (1)            (1)        (1)         (1)                     (1)      (0)    (0)
+We also get gu′ (x) = (Au′ )⊺ · Σu′ · z(0) = (Au′ )⊺ · η, where ∀i ∈ Ru′ , η i = zi = z̃i , otherwise η i = 0.
+        (1)        (1)                     (1)           (1)
+Thus, gu′ (x̃) = gu′ (x) and zu′ (x̃) = zu′ (x).
+                         (l)                   (l)
+Secondly, we prove zu (x̃) = zu (x) using the above conclusion.
+                                         (2)                         (1)               (l)                          (2)            (2)
+For the second layer, ∀u′ , Ru′ = ∪(1,u′′ )∈S (2) Ru′′ ⊆ Ru , we can get zu′ (x̃) = zu′ (x) easily, since its children nodes
+                                                                u′
+                               (1)             (1)      (l)                                                                 (1)                (1)
+is selected from ∀u′′ , Ru′′ = Su′′ ⊆ Ru , and the output of which satisfies zu′′ (x̃) = zu′′ (x). Similarly, we can derive
+  (l)        (l)
+zu (x̃) = zu (x) recursively.
+                                                                                 (l)                            (l)
+In this way, we have proved that the receptive field Ru of the neuron zu satisfies the Requirement 1.
+                                                 (l)                             (l)
+(2) Proof of the receptive field Ru of the neuron zu satisfies the Requirement 2.
+                                                                                                          (0)
+Given a sample x = z(0) and its arbitrary masked sample xS = zS , to satisfy the Requirement 2, we will prove that
+zu (xS ) = zu (x) · i∈R(l) 1(i ∈ S). Specifically, we will prove that under the conditions of (1) ∀S ⊇ Ru , (2)
+ (l)        (l)     Q                                                                                      (l)
+                          u
+
+∀S ⊊ Ru , or ∀S, S ∪ Ru ̸= S and S ∪ Ru ̸= Ru , we can get zu (xS ) = zu (x) · i∈R(l) 1(i ∈ S), respectively.
+        (l)           (l)                 (l)   (l)           (l)         (l)     Q
+                                                                                                                                                     u
+
+                                    (l) (l)        (l)
+                                                                                                          1                                     (l)
+                                                          Q
+Firstly, we can easily get ∀S ⊇ Ru , zu (xS ) = zu (x) · i∈R(l) (i ∈                                                  S). Since ∀i ∈           Ru , (xS )i           = xi , let us use the
+                                                               u
+                                     (l)       (l)      (l)
+                                                                                                                      1(i ∈ S).
+                                                               Q
+proven conclusion of (1) to derive zu (xS ) = zu (x) = zu (x) · i∈R(l)
+                                                                                                                u
+
+                                                                                             (l)                            (l)                                (l)       (l)
+Secondly, we prove that under the conditions of ∀S ⊊ Ru , or ∀S, S ∪ Ru ̸= S and S ∪ Ru ̸= Ru , we can get
+zu (xS ) = zu (x) · i∈R(l) 1(i ∈ S).
+ (l)        (l)    Q
+                                     u
+
+
+Let xS denote the sample obtained by masking variables with b in the set N \ S in the sample x, then z(0) = x − b ∈ Rn .
+                                                                      (l)                         (l)
+In both settings, there exists at least a variable j that belongs to Ru but not to S, i.e., ∃j ∈ Ru , j ∈
+                                                                                                        / S, we have (xS )j = b,
+(zS )j = 0 and i∈R(l) 1(i ∈ S) = 0.
+  (0)             Q
+                         u
+
+                                                                                                                            (1)          (1)             (l)                    (1)
+For the first layer, there exists at least a neuron (1, u′ ) which satisfies j ∈ Ru′ = Su′ ⊆ Ru . Then ∀u′ , hu′ (xS ) =
+gu′ (xS ) · (0,u′′ )∈S (1) 1(zu′′ (xS ) ̸= 0) = gu′ (xS ) · 1((zS )j ̸= 0) = 0 and zu′ (xS ) = 0. Since j ∈ Ru =
+ (1)        Q                 (0)                  (1)             (0)                  (1)                        (l)
+                         u′
+
+
+                                                                                             13
+                              HarsanyiNet: Computing Accurate Shapley Values in a Single Forward Propagation
+
+                 (l′ )                                                                                                                                         (l)
+∪(l′ ,u′′ )∈S (l) Ru′′ , there exists at least a neuron (1, u′ ) will affect the neuron (l, u) recursively, i.e., hu (xS ) = 0 and
+             u
+
+zu (xS ) = 0. Thus, zu (xS ) = zu (x) · i∈R(l) 1(i ∈ S) = 0.
+ (l)                        (l)         (l)      Q
+                                                                        u
+
+                                                                                (l)                                     (l)
+In this way, we have proved that the receptive field Ru of the neuron zu satisfies the Requirement 2.
+
+
+
+C. Proof of Lemma 1
+                                                                                                                                                         (l)
+Lemma 1 (Harsanyi interaction of a Harsanyi unit). Let us consider the output of a Harsanyi unit zu (x) as the reward.
+            (l)                                                       (l)                    (l)   (l)     (l)
+Then, let Ju (S) denote the Harsanyi interaction w.r.t. the function zu (x). Then, we have Ju (Ru ) = zu (x), and
+        (l)     (l)
+∀S ̸= Ru , Ju (S) = 0, according to Requirements 1 and 2.
+                                                        P
+Proof. According to Definition 2, i.e., I(S) = v(S) − L⊊S I(L) subject to I(∅) := 0, and Requirements 2, i.e.,
+zu (xS ) = zu (x) · i∈R(l) 1(i ∈ S), the Harsanyi interaction of a Harsanyi unit can be written as,
+ (l)        (l)    Q
+                                         u
+
+                                                                                               X
+                                                 Ju(l) (S) = zu(l) (xS ) −                             Ju(l) (L)
+                                                                                               L⊊S
+
+                                                                                                       1(i ∈ S) −
+                                                                                           Y                                  X
+                                                                   =   zu(l) (x)     ·                                              Ju(l) (L)
+                                                                                         i∈Ru
+                                                                                                 (l)                          L⊊S
+
+
+                 (l)         (l)         (l)
+(1) Proof of Ju (Ru ) = zu (x).
+                                                                                           (l)         (l)
+Firstly, let us use the inductive method to prove ∀L ⊊ Ru , Ju (L) = 0.
+If |L| = 1, ∀L′ ⊆ L ⊊ Ru , we have i∈R(l) 1(i ∈ L′ ) = 0, then we get Ju (L′ ) = zu (x) · i∈R(l) 1(i ∈ L′ ) = 0.
+                           (l)         Q                                (l)       (l)    Q
+                                                                   u                                                                                     u
+
+                                                  (l)                          (l)
+Assume that if |L| = k, ∀L′ ⊆ L ⊊                Ru ,         we have         Ju (L′ )           = 0.
+Then if |L| = k + 1, ∀L′ ⊆ L ⊊ Ru , we have i∈R(l) 1(i ∈ L) = 0 and ∀L′ ⊊ L, Ju (L′ ) = 0. Thus, we get
+                                  (l)         Q                               (l)
+                                                    u
+
+Ju (L) = zu (x) · i∈R(l) 1(i ∈ L) − L′ ⊊L Ju (L′ ) = 0.
+ (l)        (l)  Q                  P      (l)
+                                     u
+
+                                                                        (l)                        (l)        (l)
+In this way, we have proved that ∀1 ≤ |L| < |Ru |, ∀L ⊊ Ru , Ju (L) = 0.
+                                                                               (l)         (l)                                      (l)    (l)   (l)
+Secondly, let us use the proven conclusion ∀L ⊊ Ru , Ju (L) = 0 to derive Ju (Ru ) = zu (x).
+Since i∈R(l) 1(i ∈ Ru ) = 1, we get Ju (Ru ) = zu (x) · i∈R(l) 1(i ∈ Ru ) − L⊊R(l) Ju (L) = zu (x).
+     Q                  (l)              (l)  (l)   (l)   Q                 (l) P         (l) (l)
+             u                                                                                                      u                             u
+
+                                                (l) (l)                 (l)
+In this way, we have proved that               Ju (Ru )            =   zu (x).
+                          (l)  (l)
+(2) Proof of ∀S ̸=       Ru , Ju (S)           = 0.
+                (l)  (l)                                                                                                                           (l)               (l)
+To prove ∀S ̸= Ru , Ju (S) = 0, we will prove that under                                                 the conditions of (1) ∀S ⊊ Ru , (2) ∀S ⊋ Ru , and (3)
+          (l)            (l)    (l)             (l)
+∀S, S ∪ Ru ̸= S and S ∪ Ru ̸= Ru , we can get Ju (S) =                                                   0, respectively.
+                                                      (l)     (l)
+Firstly, we have proved that ∀S ⊊ Ru , Ju (S) = 0.
+                                                                                                 (l)         (l)
+Secondly, let us use the inductive method to prove ∀S ⊋ Ru , Ju (S) = 0.
+In this setting, i∈R(l) 1(i ∈ S) = 1. If |S| = |Ru | + 1, ∀S ⊋ Ru , we have Ju (S) = zu (x) · i∈R(l) 1(i ∈
+                 Q                                    (l)            (l)     (l)       (l)    Q
+                      u                                                                             u
+     P         (l)        (l)       (l) (l)    P            (l)                              (l)  (l)
+S) − L⊊S Ju (L) = zu (x) − [Ju (Ru ) + L⊊S,L̸=R(l) Ju (L)] = 0. (Similarly, ∀L ⊊ S and L ̸= Ru , Ju (L) = 0
+                                                          u
+can be proved by the inductive method.)
+                                   (l)                       (l)                         (l)
+Assume that if |S| = |Ru | + k, ∀S ⊋ Ru , we have Ju (S) = 0.
+                       (l)                                  (l)                      (l)
+Then if |S| = |Ru | + (k + 1), ∀S ⊋ Ru , we have Ju (S) = 0.
+
+                                                                                                 14
+                     HarsanyiNet: Computing Accurate Shapley Values in a Single Forward Propagation
+
+                                                              (l)                   (l)          (l)   (l)
+Thirdly, let us use the inductive method to prove ∀S, S ∪ Ru ̸= S and S ∪ Ru ̸= Ru , Ju (S) = 0.
+In this setting, i∈R(l) 1(i ∈ S) = 0. Then we have Ju (S) = zu (x) · i∈R(l) 1(i ∈ S) − L⊊S Ju (L) = 0.
+                Q                                          (l)      (l)    Q                  P  (l)
+                      u                                                                      u
+                      (l)
+(Similarly, ∀L ⊊ S, Ju (S) = 0 can be proved by the inductive method.)
+                                            (l)   (l)
+In this way, we have proved that ∀S ̸= Ru , Ju (S) = 0.
+
+
+
+D. Discussion on Equations (5)–(7)
+                                                        (l)
+Section 3.3 introduced that the neural activation zu (x) of the neuron (l, u) in a Harsanyi block was computed by applying
+a linear operation (Equation (5)), an AND operation (Equation (6)), and a ReLU operation (Equation (7)). We provide
+further discussions on the above three operations as follows.
+Unlike a linear layer in a traditional DNN, Equation (5) shows that among neurons in all previous (l − 1) blocks, only
+outputs of the children nodes Σu · z(l−1) can affect the output of the neuron (l, u). Equation (6) denotes that if all children
+                                (l)
+            (l)                                           (l)                                                   (l)      (l)
+nodes in Su are activated, then the activation score gu (x) can pass through the AND operation, i.e., hu (x) = gu (x).
+                                                                                    ′
+                                                                       (l)        (l )                      (l)
+Otherwise, if any children node is not activated, i.e., ∃(l′ , u′ ) ∈ Su , e.g., zu′ (x) = 0, then we have hu (x) = 0.
+
+E. Proofs and implementation details for Harsanyi-CNN
+Harsanyi-CNN architecture. Figure 6 illustrates the architecture of the Harsanyi-CNN. As introduced in Section 4.1, we
+first applied a convolutional layer, max-pooling layer and ReLU layer to obtain the feature z(0) . Then, we built cascaded
+Harsanyi blocks on z(0) . Similar to the traditional CNN, each neuron (l, u = (c, w, h)) in the convolutional layer of each
+HarsanyiBlock corresponds to a subtensor T(l) u ∈R
+                                                     C×K×K
+                                                             w.r.t. the previous layer, where C is the number of channels in
+the previous layer and K × K is the 2D kernel size. The neurons which share the same location but on different channels
+                                                                               (l)
+(l, u = (:, w, h)) correspond to the same subtensor T(l)
+                                                       u . The children set Su of each neuron (l, u) were selected from
+the subtensor T(l)                                                                          ′  ′         ′ ′
+                   u . Moreover, neurons on the same location but on different channels (l , u = (:, w , h )) belong to the
+                (l)
+children set Su simultaneously. The output of the HarsanyiBlock was constructed following Equations (5)–(7). Finally,
+each dimension of the network output v(x) is constructed as the weighted sum of the output of each HarsanyiBlock using
+linear transformations and the skip-connection.
+
+
+                                      ( )                             Harsanyi Blocks
+
+
+
+
+                                   Sub tensor                        neurons (l,u=(:,w,h))
+
+
+
+                                 Figure 6. Schematic diagram of the Harsanyi-CNN architecture.
+
+                                                              15
+                                HarsanyiNet: Computing Accurate Shapley Values in a Single Forward Propagation
+
+Proof of the conclusion in Setting 2 that based on the design of letting all neurons (l, u = (1, h, w)), . . . , (l, u = (C, h, w))
+                                 (l)
+share the same parameter τ u , all Harsanyi units (l, u = (c, h, w)) in the same location (h, w) on different channels
+                                                 (l)                                                                     (l)
+(c = 1, . . . , C) had the same receptive field Ru=(:,h,w) and contributed to the same Harsanyi interaction I(S = Ru=(:,h,w) ).
+
+                                                                       (l)               (l)                            (l)                         2
+Proof. According to the implementation ∀(l, u), τ u=(1,h,w) = τ u=(2,h,w) = · · · = τ u=(C,h,w) ∈ RCK , we will prove
+                    (l)                   (l)                        (l)
+that ∀(l, u), Ru=(1,h,w) = Ru=(2,h,w) = · · · = Ru=(C,h,w) .
+
+Since ∀(l, u), (Σu )i,i = 1((τ u )i > 0), then for arbitrary binary diagonal matrix Σu , we have ∀(l, u), Σu=(1,h,w) =
+                          (l)              (l)                                                                          (l)                             (l)
+
+  (l)                               (l)                                       (l)                            (l)                                        (l)
+Σu=(2,h,w) = · · · = Σu=(C,h,w) . The children set Su is implemented by Σu , then we have ∀(l, u), Su=(1,h,w) =
+  (l)                               (l)                                                                     (l)                 (l)
+Su=(2,h,w) = · · · = Su=(C,h,w) . According to Equation (8), we derive Ru from Su recursively, then we have
+          (l)                       (l)                        (l)
+∀(l, u), Ru=(1,h,w) = Ru=(2,h,w) = · · · = Ru=(C,h,w) . In this way, the Harsanyi units (l, u = (c, h, w)) in the same
+                                                                                                                  (l)
+location (h, w) on different channels (c = 1, . . . , C) had the same receptive field Ru=(:,h,w) .
+Next, we will show that considering C channels as C Harsanyi units, and considering C channels together as a single
+Harsanyi unit, their Harsanyi interactions are equal in both cases.
+Considering C channels as C Harsanyi units, we have totally m(l) = H × W × C Harsanyi units in the l-th layer. We have
+         (l)                  (l)                           (l)                                        (l)
+I(S = Ru=(1,h,w) ) = I(S = Ru=(2,h,w) ) = · · · = I(S = Ru=(C,h,w) ), which is abbreviated to I(S = Ru ). According
+to Theorem 2 and Lemma 1, we have
+                                XL Xm(l)                              XL XH×W ×C
+                I(S = R(l)u )=
+                                                 (l) (l)
+                                               wv,u Ju (S = R(l) u )=
+                                                                                          (l) (l)
+                                                                                         wv,u zu (x)
+                                                 l=1         u=1                                     l=1          u=1
+         (l)           (l)
+where   wv,u∈ R and zu (x) ∈ R. Based on Equations (5)–(7), note that ∀c ∈ {1, 2, . . . , C}, (l, u = (c, h, w)) share the
+                       (l)           (l)                 (l)             (l)
+same children nodes Su=(1,h,w) = Su=(2,h,w) = · · · = Su=(C,h,w) , then hu=(c,h,w) (x) at the same location on different
+                                                                                                                    (l)
+channels is activated or deactivated at the same time, due to the AND operation on the child  nodes. Besides, zu 2(x)
+                                                              (l)         (l)      (l)
+is determined by the linear combination of the child nodes gu (x) = (Au )⊺· Σu · (l−1) , where Au ∈ RCK is
+                                                                                                           (l)
+                                                                                                                          z
+                                                                                                                              (l)               2
+the parameter of a convolution kernel (A total of C convolution kernels, denoted as Bu ∈ R(CK )×C , can derive C
+                                                             (l)      2      2
+harsanyi units at the same position on different channels), Σu ∈ R(CK )×(CK ) denotes the selected children nodes and
+z(l−1) ∈ RCK denotes the feature maps of the (l − 1)-th layer within the coverage of the convolution kernel.
+               2
+
+
+
+Considering C channels together as a single Harsanyi unit, we have totally m(l) = H × W Harsanyi units in the l-th layer.
+                (l)
+We use I(S = Ru=(:,h,w) ) to denote this case. According to Theorem 2 and Lemma 1, we have
+
+                                   (l)
+                                                 XL Xm(l)                                            XL XH×W
+                                                                            (l) (l)
+                    I(S = Ru=(:,h,w) ) =                                   wv,u Ju (S = R(l)
+                                                                                         u )=
+                                                                                                                                      (l) ⊺ (l)
+                                                                                                                                    (wv,u ) zu (x)
+                                                       l=1     u=1                                         l=1          u=1
+         (l)                        (l)                                                                                                   (l)                 (l)
+where wv,u ∈ RC and zu (x) ∈ RC . Based on Equations (5)–(7), note that ∀c ∈ {1, 2, . . . , C}, Su=(:,h,w) = Su=(c,h,w) ,
+then the single C-dimensional Harsanyi unit has the same activation state as C Hassani units
+                                                                                               in above case. Besides,
+zu (x) is determined by the linear combination of the child nodes gu (x) = (Bu )⊺ · Σu · z(l−1) ∈ RC , where
+ (l)                                                                (l)         (l)          (l)
+
+  (l)           2                                                                              (l)                 2           2
+Bu ∈ R(CK )×C is the parameters of a total of C convolution kernels, Σu ∈ R(CK )×(CK ) denotes the selected children
+nodes and z(l−1) ∈ RCK denotes the feature maps of the (l − 1)-th layer within the coverage of the convolution kernel.
+                      2
+
+
+
+In this way, we proved that the Harsanyi units (l, u = (c, h, w)) in the same location (h, w) on different channels
+                                                 (l)                                                               (l)
+(c = 1, . . . , C) had the same receptive field Ru=(:,h,w) and contributed to the same Harsanyi interaction I(S = Ru=(:,h,w) ).
+
+
+
+F. More experiment results and details
+F.1. Experiment results of more challenging datasets on the HarsanyiNets
+To further explore the classification performance of the HarsanyiNets, we conducted experiments on more challenging
+datasets, including the Oxford Flowers-102 (Nilsback & Zisserman, 2008) and COVIDx dataset (Wang et al., 2020). To
+
+                                                                                    16
+                     HarsanyiNet: Computing Accurate Shapley Values in a Single Forward Propagation
+
+
+             Table 3. Classification accuracy (%) of the HarsanyiNet and baseline models on more challenging datasets
+                      Dataset                HarsanyiNet                     baseline models
+                      Oxford Flowers-102         95.48           97.9 (ResNet50 (Wightman et al., 2021))
+                      COVIDx                     96.75       96.3 (COVID-Net CXR-2 (Pavlova et al., 2022))
+
+
+Table 4. Error between the Shapley values computed by the HarsanyiNet and the Shapley values estimated by the sampling method
+
+                Dataset      Errors of Shapley values (5000 iterations)   Errors of Shapley values (10000 iterations)
+                MNIST                          0.017                                        0.012
+                CIFAR-10                       0.007                                        0.004
+
+
+compare the classification accuracy of the HarsanyiNet with a traditional DNN, we used ResNet-50 (He et al., 2016) and
+COVID-Net CXR-2 (Pavlova et al., 2022) as baseline models and reported the results in Table 3. Specifically, we used the
+intermediate-layer features with the size of 512 × 14 × 14 from the pre-trained VGG-16 model (Simonyan & Zisserman,
+2015) as z(0) , and then trained the HarsanyiNet upon z(0) with the same hyperparameters as described in Section 4.
+As shown in Table 3, the classification accuracy of the HarsanyiNet on the Oxford Flowers-102 is slightly lower than
+ResNet-50. However, on medical dataset COVIDx, the classification accuracy of the HarsanyiNet is slightly higher than
+COVID-Net CXR-2. Despite this relatively small sacrifice in classification accuracy on certain datasets, the HarsanyiNet
+computed the exact Shapley values in a single forward propogation, which was its main advantage over other neural
+networks.
+
+F.2. Experiment results for verifying the accuracy of the Shapley values on the HarsanyiNets
+To further verify the accuracy of the Shapley values on high-dimensional image datasets, we compared the Shapley values
+calculated by HarsanyiNet with those estimated by the sampling method. Specifically, we ran the sampling algorithm
+with 5000 and 10000 iterations on the MNIST dataset and the CIFAR-10 dataset, respectively. Table 4 shows the root
+mean square error (RMSE) between the Shapley values calculated by HarsanyiNet and the Shapley values estimated by
+the sampling algorithm. The estimation errors between both methods are quite small. Nevertheless, we need to emphasize
+that the sampling algorithm was more accurate when the sampling number was large, there was still a non-negligible error
+between the the estimated Shapely values and the ground-truth Shapley values.
+
+F.3. Experiment results of the training cost of the HarsanyiNets
+To further explore the training cost of the HarsanyiNets, we conducted experiments on the Census, MNIST, and CIFAR-10
+datasets to evaluate the training cost of HarsanyiNets and traditional DNNs with comparable sizes. Table 5 shows that the
+computational cost of training the HarsanyiNet is higher than training a comparable DNN, and the computational cost of the
+HarsanyiNet is about twice the cost of a traditional DNN with the same number of parameters.
+
+F.4. Experiment results of the robustness of the HarsanyiNets
+We conducted more experiments to analyze the robustness of the HarsanyiNet. Specifically, we estimate the adversarial
+robustness of the classification performance and the adversarial robustness of the estimated Shapley values (Jia et al., 2019b).
+To estimate the adversarial robustness of the classification performance on HarsanyiNet, we conducted experiments on the
+CIFAR-10 dataset to evaluate the model robustness by examining its classification accuracy on the test set of adversarial
+examples. To generate adversarial examples, we used the FGSM attack (Goodfellow et al., 2015), a gradient-based method,
+with a maximum perturbation of 8/255 (Madry et al., 2018). Table 6 shows that the classification accuracy of the adversarial
+examples of HarsanyiNet is slightly higher than that of ResNet-18 (He et al., 2016).
+To estimate the adversarial robustness of the estimated Shapley values on HarsanyiNet, we assessed the robustness of its
+estimated Shapley values by computing the ℓ2 norm of the difference in Shapley values between the adversarial and natural
+examples, i.e., ||ϕnat − ϕadv ||ℓ2 , where ϕnat denotes the Shapley values of natural examples, and ϕadv denotes the Shapley
+values of adversarial examples. To calculate the Shapley values of the ResNet-18 model, we estimate Shapley values using
+the sampling algorithm with 1000 iterations. Table 6 shows that the adversarial robustness of the estimated Shapley values
+
+                                                                17
+                    HarsanyiNet: Computing Accurate Shapley Values in a Single Forward Propagation
+
+
+                         Table 5. Training cost per epoch (s) of the HarsanyiNet and the comparable DNN
+                                         Dataset      HarsanyiNet     Comparable DNN
+                                         Census            5.0               1.9
+                                         MNIST            243.3             127.0
+                                         CIFAR-10         205.0             106.7
+
+                                     Table 6. Model robustness and Shapley value robustness
+           Model          Classification accuracy of adversarial examples (%)   ℓ2 norm of the Shapley value difference
+           HarsanyiNet                         13.83%                                            1.44
+           ResNet-18                            8.21%                                            1.50
+
+
+on HarsanyiNet (estimated by the ℓ2 norm of the difference of Shapley values, the lower the better) is slightly higher than
+that of ResNet-18.
+Both experiments indicate that HarsanyiNet has a robustness close to, or even slightly higher than, that of the traditional
+model.
+
+F.5. More results of the estimated Shapley values on the HarsanyiNets
+We conducted more experiments to show the explanations produced by our HarsanyiNets. Specifically, we trained the
+Harsanyi-MLP on tabular datasets and the Harsanyi-CNN on image datasets.
+For the tabular datasets including the Census, Yeast and TV news datasets, we compared the estimated Shapley values
+for each method in Figure 7, Figure 8, and Figure 9, respectively. It can be seen that the Shapley values calculated
+by our HarsanyiNet were exactly the same as the ground-truth Shapley values calculated by Definition 1, while the
+approximation methods, including the sampling method (Castro et al., 2009), antithetical sampling (Mitchell et al., 2022),
+KernelSHAP (Lundberg & Lee, 2017), and KernelSHAP with paired sampling (KernelSHAP-PS) (Covert & Lee, 2021),
+needed thousands of network inferences to compute the relatively accurate Shapley values.
+For the image datasets including the MNIST and CIFAR-10 datasets, we generated more attribution maps on different
+categories in Figure 10 and Figure 11, respectively.
+
+F.6. Experiment details for computing interaction strength of Harsanyi interactions encoded by a DNN
+When the number of input variables is small (e.g., n < 16), we can iteratively calculate the interaction strength of all
+Harsanyi interactions following Definition 2. For tabular datasets, including the Census, Yeast and TV news datasets, we set
+the baseline value of each input variable the mean value of this variable over all training samples. Then we computed each
+Harsanyi interaction’s strength in a brute-force manner.
+For the MNIST dataset, it is impractical to directly compute the Harsanyi strength of all Harsanyi interactions. To reduce
+the computational cost, we randomly sampled 8 image regions in the foreground of each image following the previous
+work (Ren et al., 2023a). Then we were able to compute the Harsanyi effect of all possible Harsanyi interactions among the
+sampled 8 image regions (In total we obtained 28 = 256 different Harsanyi interactions). In terms of the baseline value, we
+set, for each pixel, the baseline value to zero.
+
+F.7. Experiment details for generating attribution maps in Figure 4
+We compare the attribution maps of each method on the Harsanyi-CNN models. To facilitate comparison with other methods,
+the Harsanyi-CNN for the MNIST dataset was constructed with 4 cascaded Harsanyi blocks, and each Harsanyi block
+had 32 × 14 × 14 neurons, where 32 is the number of channels. The hyperparameters were set to β = 100 and γ = 0.05
+respectively. The Harsanyi-CNN for the CIFAR-10 dataset was constructed with 10 cascaded Harsanyi blocks, and each
+Harsanyi block had 256 × 16 × 16 neurons, where 256 is the number of channels. The hyperparameters were set to β = 1000
+and γ = 1 respectively. In this way, the HarsanyiNet and the other four model-agnostic methods used the same model to
+ensure the fairness of the comparison.
+Besides, since the Harsanyi-CNN model calculated Shapley values on the feature z(0) , we also calculated Shapley values on
+
+                                                               18
+                       HarsanyiNet: Computing Accurate Shapley Values in a Single Forward Propagation
+
+
+
+
+Figure 7. Shapley values computed by different methods on the Census dataset. The number of inferences conducted for each method is
+indicated in the brackets. The samples in the first row are from category ‘≤50K’ and the samples in the second row are from the category
+‘>50K’.
+
+
+z(0) using the sampling, KernelSHAP, and DeepSHAP methods. For the MNIST dataset, we run about 20000 iterations of
+the sampling method and 20000 iterations of the KernelSHAP method until convergence. For the CIFAR-10 dataset, we run
+about 20000 iterations of the sampling method and 200000 iterations of the KernelSHAP method until convergence.
+For the FastSHAP method, we used the training samples x and the model predictions of the Harsanyi-CNN to train a
+explainer model ϕf ast , and slightly modified the model architecture to return the attribution maps with a tensor of the same
+size as the size of z(0) , i.e., 14 × 14 for the MNIST dataset and 16 × 16 for the CIFAR-10 dataset. For the MNIST dataset,
+since (Jethani et al., 2021) did not report the explainer model ϕf ast , we trained a explainer model with the same structure as
+which the CIFAR-10 dataset used, and computed the attribution maps on the MNIST dataset.
+
+F.8. Experiment details for comparing computed Shapley values with true Shapley values on the MNIST and
+     CIFAR-10 datasets
+As mentioned in Section 4.2, in order to reduce the computational cost, we randomly sampled n = 12 variables in the
+foreground of the sample as input variables on image datasets. In this way, ground-truth Shapley values were computed
+by masking the selected 12 variables and keeping all the other variables as the original variables of the sample. Let us
+denote the set of the selected variables as N̂ , thus, |N̂ | = 12. Specifically, we set all the variables xi , i ∈
+                                                                                                                 / N̂ as the baseline
+value, i.e., ∀i ∈
+                / N̂ , bi = xi and ∀i ∈ N̂ , bi = 0, to obtain a baseline sample v(x∅ ). Based on the baseline sample v(x∅ ),
+we obtained 2|N̂ | different masked samples. For the HarsanyiNet, when we computed the Shapley values for the selected
+variables based on Theorem 1, we only visited the sets that contain the selected variables, i.e., S ∋ i, ∀i ∈ N̂ . Besides, |S|
+denoted theP                                Pn in S. In this way, we computed the Shapley values for the selected variables
+              number of the selected variables
+                                1
+by ϕ(i) = S⊆N :S∋i,i∈N̂ |S|       I(S) and i=1 ϕ(i) = v(xN = x) − v(x∅ ). For the ShapNets, we set all the variables
+       / N̂ as the baseline value bi = 0 to obtain a masked sample x′ , i.e., x′i = xi , ∀i ∈ N̂ ; x′i = 0, otherwise. Then, with
+xi , i ∈
+the masked input sample, we could compute the Shapley values for the selected variables with the ShapNet.
+
+
+
+
+                                                                  19
+                      HarsanyiNet: Computing Accurate Shapley Values in a Single Forward Propagation
+  Shapley values
+  Shapley values
+  Shapley values
+
+
+
+
+Figure 8. Shapley values computed by different methods on the Yeast dataset. The number of inferences conducted for each method is
+indicated in the brackets. The Shapley values calculated on samples from 3 categories (out of 10 categories) are shown. Samples in the
+first row are from category ‘CYT’, samples in the second row are from category ‘MIT’, and samples in the last row are from category
+‘NUC’.
+
+
+
+
+                                                                 20
+                      HarsanyiNet: Computing Accurate Shapley Values in a Single Forward Propagation
+
+
+
+
+Figure 9. Shapley values computed by different methods on the TV News dataset. The number of inferences conducted for each method is
+indicated in the brackets. The samples in the first row are from category ‘Non Commercials’ and the samples in the second row are from
+the category ‘Commercials’.
+
+
+
+
+                            Class 0
+
+
+                            Class 1
+
+
+                            Class 2
+
+
+Figure 10. Shapley values produced by the HarsanyiNet on the MNIST dataset. The Shapley value is computed by setting v(xS ) as the
+output dimension of the ground-truth category of the input sample x.
+
+
+
+
+                                                                 21
+                      HarsanyiNet: Computing Accurate Shapley Values in a Single Forward Propagation
+
+
+
+
+Airplane
+
+
+Automobile
+
+
+Bird
+
+
+Cat
+
+
+Deer
+
+
+Dog
+
+
+Frog
+
+
+Horse
+
+
+Ship
+
+
+Truck
+
+
+Figure 11. Shapley values produced by the HarsanyiNet on the CIFAR-10 dataset. The Shapley value is computed by setting v(xS ) as the
+output dimension of the ground-truth category of the input sample x.
+
+
+
+
+                                                                 22
+

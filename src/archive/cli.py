@@ -17,6 +17,8 @@ from .validate import validate_archive
 def parser() -> argparse.ArgumentParser:
     result = argparse.ArgumentParser(prog="archive", description="Local proof archive; files are the source of truth.")
     result.add_argument("--root", help="Archive root (default ARCHIVE_ROOT or project root)")
+    result.add_argument("--collection", choices=("public", "private"), default="public", help="Select one physically independent pool")
+    result.add_argument("--private", action="store_true", help="Explicitly select local private pool")
     commands = result.add_subparsers(dest="command", required=True)
     ingest = commands.add_parser("ingest", help="Import a local file/batch or explicitly requested public URL")
     ingest.add_argument("source", nargs="?", help="Local project path")
@@ -24,6 +26,12 @@ def parser() -> argparse.ArgumentParser:
     ingest.add_argument("--paper-id")
     ingest.add_argument("--version")
     ingest.add_argument("--title")
+    promote = commands.add_parser("promote", help="Import a checked formal PDF; retain private originals and derivatives")
+    promote.add_argument("paper_id")
+    promote.add_argument("formal_source")
+    promote.add_argument("--source-url", required=True)
+    promote.add_argument("--title")
+    promote.add_argument("--version")
     commands.add_parser("inbox", help="Import all immediate inbox batch folders")
     extract = commands.add_parser("extract", help="Detect local candidates; completeness remains pending")
     extract.add_argument("paper_id")
@@ -64,7 +72,7 @@ def parser() -> argparse.ArgumentParser:
     verify.add_argument("--report-only", action="store_true")
     serve = commands.add_parser("serve", help="Serve the local archive")
     serve.add_argument("--host", default="127.0.0.1")
-    serve.add_argument("--port", type=int, default=8000)
+    serve.add_argument("--port", type=int, default=8001)
     serve.add_argument("--public", action="store_true")
     export = commands.add_parser("export", help="Export a portable local website")
     export.add_argument("--output", default="build/site")
@@ -75,7 +83,8 @@ def parser() -> argparse.ArgumentParser:
 def main(argv: list[str] | None = None) -> int:
     args = parser().parse_args(argv)
     root = resolve_root(args.root)
-    store = ArchiveStore(root, public=getattr(args, "public", False))
+    collection = "private" if args.private else args.collection
+    store = ArchiveStore(root, collection=collection)
     try:
         if args.command == "ingest":
             if bool(args.url) == bool(args.source):
@@ -84,16 +93,19 @@ def main(argv: list[str] | None = None) -> int:
                 output = ingest_url(root, args.url, paper_id=args.paper_id, version=args.version, title=args.title)
             else:
                 output = ingest_local(root, args.source, metadata={"title": args.title} if args.title else None, paper_id=args.paper_id, version=args.version)
+        elif args.command == "promote":
+            from .ingest import promote_paper
+            output = promote_paper(root, args.paper_id, args.formal_source, source_url=args.source_url, title=args.title, version=args.version)
         elif args.command == "inbox":
             output = ingest_inbox(root)
         elif args.command == "extract":
-            output = extract_paper(root, args.paper_id, args.version)
+            output = extract_paper(root, args.paper_id, args.version, collection=collection)
         elif args.command == "update-metadata":
             from .ingest import update_metadata
             fields = {name: getattr(args, name) for name in ("title", "authors", "publication_status", "visibility", "doi", "arxiv_id") if getattr(args, name) is not None}
-            output = update_metadata(root, args.paper_id, args.version, fields)
+            output = update_metadata(root, args.paper_id, args.version, fields, collection=collection)
         elif args.command == "validate":
-            output = validate_archive(root)
+            output = validate_archive(root, collection=collection)
         elif args.command == "build":
             output = store.build_index()
         elif args.command == "coverage":
@@ -125,11 +137,16 @@ def main(argv: list[str] | None = None) -> int:
         elif args.command == "serve":
             import uvicorn
             from .web import create_app
-            uvicorn.run(create_app(root=root, public=args.public), host=args.host, port=args.port)
+            if collection == "public":
+                from starlette.staticfiles import StaticFiles
+                preview = safe_path(root, "reader/preview", must_exist=True)
+                uvicorn.run(StaticFiles(directory=str(preview), html=True), host=args.host, port=args.port)
+            else:
+                uvicorn.run(create_app(root=root, public=False, collection="private"), host=args.host, port=args.port)
             return 0
         elif args.command == "export":
             from .export import export_site
-            output = export_site(root=root, output=safe_path(root, args.output), public=args.public)
+            output = export_site(root=root, output=safe_path(root, args.output), public=collection == "public", collection=collection)
         else:
             raise ArchiveError("Unknown command")
         if getattr(args, "format", "json") == "text":

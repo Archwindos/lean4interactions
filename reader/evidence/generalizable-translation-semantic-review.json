@@ -1,0 +1,1674 @@
+{
+  "status": "reviewed",
+  "scope": "manual_translation_semantics_of_these_30_results_not_independent_mathematical_acceptance",
+  "review_method": "English prose was authored and checked against the preserved active Chinese result text and the shared finite proof. Core baseline, quantifier, mask and counterexample boundaries were checked explicitly. Inline TeX formatting differences below remain visible; exact string inequality does not imply mathematical inequality.",
+  "results": 30,
+  "source_sha256": "330c21032d7a18989be9dafa6b15998b9bcd8ad8d3b3e6d448896d870f1efd26",
+  "english_sha256": "cd32714d12d8046f4ddbb4261566a6477c4e15bc18ceb00d85aaf2174efc303a",
+  "translator_source_sha256": "46b3f6981333944ca43d32e36480f4687d57d404c392ccfdc7bc88227d8cb343",
+  "checks": [
+    {
+      "topic": "fixed-input and baseline",
+      "finding": "g(S)=v(x_S) uses the raw output and does not impose g(empty)=0; the centered game is a distinct object."
+    },
+    {
+      "topic": "mask composition and label parameters",
+      "finding": "Repeated actual coordinate masks compose by intersection; label-game parameters remain separate when masked samples coincide."
+    },
+    {
+      "topic": "AND/OR reconstruction and empty coalition",
+      "finding": "Conditioned coefficients are recomputed; the OR complement-game transform applies only at nonempty coefficient indices, with the original empty OR baseline handled separately."
+    },
+    {
+      "topic": "nonzero baseline numerical example",
+      "finding": "The four game values 7,8,9,13 give raw AND coefficients 7,1,2,3 and nonempty OR coefficients 4,5,-3. The empty baseline remains 7; the conditioned singleton reconstructs as 7+1+0=8."
+    },
+    {
+      "topic": "noise variance",
+      "finding": "Variance uses the same fixed T random variable and all original independent noises. The finite sign coefficients have squared magnitude one; the empty-case variance remains sigma squared."
+    },
+    {
+      "topic": "row-norm counterexample and parent optimization",
+      "finding": "The (-3,2) example refutes only the pointwise signed-max expansion. Neither language claims that it proves distinct minima for the unresolved parent optimization equation."
+    },
+    {
+      "topic": "query counts and source-only claims",
+      "finding": "The 2^n count concerns masks/query labels, not injectively distinct samples. Approximation/citation/empirical statements retain their original scope and are not promoted to proved theorems."
+    }
+  ],
+  "inline_tex_differences_reviewed": [
+    {
+      "id": "f11-and-mask-zero",
+      "step_id": "f11-mask-comp",
+      "classification": "inline_tex_text_difference_requires_semantic_review",
+      "zh": [
+        [
+          "i",
+          "",
+          ""
+        ],
+        [
+          "i\\in T\\cap L",
+          "",
+          ""
+        ],
+        [
+          "x_i",
+          "",
+          ""
+        ],
+        [
+          "i\\notin L",
+          "",
+          ""
+        ],
+        [
+          "r_i",
+          "",
+          ""
+        ],
+        [
+          "i\\in L\\setminus T",
+          "",
+          ""
+        ],
+        [
+          "r_i",
+          "",
+          ""
+        ],
+        [
+          "r_i",
+          "",
+          ""
+        ],
+        [
+          "(x_T)_L=x_{T\\cap L}",
+          "",
+          ""
+        ],
+        [
+          "r",
+          "",
+          ""
+        ]
+      ],
+      "en": [
+        [
+          "i",
+          "",
+          ""
+        ],
+        [
+          "i\\in T\\cap L",
+          "",
+          ""
+        ],
+        [
+          "x_i",
+          "",
+          ""
+        ],
+        [
+          "i\\notin L",
+          "",
+          ""
+        ],
+        [
+          "r_i",
+          "",
+          ""
+        ],
+        [
+          "i\\in L\\setminus T",
+          "",
+          ""
+        ],
+        [
+          "r_i",
+          "",
+          ""
+        ],
+        [
+          "(x_T)_L=x_{T\\cap L}",
+          "",
+          ""
+        ],
+        [
+          "r",
+          "",
+          ""
+        ]
+      ]
+    },
+    {
+      "id": "f11-and-mask-zero",
+      "step_id": "f11-mask-boundary",
+      "classification": "inline_tex_text_difference_requires_semantic_review",
+      "zh": [
+        [
+          "S=\\varnothing",
+          "",
+          ""
+        ],
+        [
+          "T",
+          "",
+          ""
+        ],
+        [
+          "b",
+          "",
+          ""
+        ],
+        [
+          "T=N",
+          "",
+          ""
+        ],
+        [
+          "S\\not\\subseteq T",
+          "",
+          ""
+        ],
+        [
+          "T=\\varnothing",
+          "",
+          ""
+        ],
+        [
+          "S",
+          "",
+          ""
+        ]
+      ],
+      "en": [
+        [
+          "T",
+          "",
+          ""
+        ],
+        [
+          "b",
+          "",
+          ""
+        ],
+        [
+          "T=N",
+          "",
+          ""
+        ],
+        [
+          "S\\not\\subseteq T",
+          "",
+          ""
+        ],
+        [
+          "T=\\varnothing",
+          "",
+          ""
+        ]
+      ]
+    },
+    {
+      "id": "f11-or-duality",
+      "step_id": "f11-dual-definition",
+      "classification": "inline_tex_text_difference_requires_semantic_review",
+      "zh": [
+        [
+          "S\\ne\\varnothing",
+          "",
+          ""
+        ],
+        [
+          "g^c",
+          "",
+          ""
+        ],
+        [
+          "g(\\varnothing)",
+          "",
+          ""
+        ],
+        [
+          "-g(N)",
+          "",
+          ""
+        ]
+      ],
+      "en": [
+        [
+          "S\\ne\\varnothing",
+          "",
+          ""
+        ],
+        [
+          "g^c",
+          "",
+          ""
+        ],
+        [
+          "g(\\varnothing)",
+          "",
+          ""
+        ],
+        [
+          "g^c",
+          "",
+          ""
+        ],
+        [
+          "-g(N)",
+          "",
+          ""
+        ]
+      ]
+    },
+    {
+      "id": "f11-or-duality",
+      "step_id": "f11-dual-example",
+      "classification": "inline_tex_text_difference_requires_semantic_review",
+      "zh": [
+        [
+          "N=\\{1,2\\}",
+          "",
+          ""
+        ],
+        [
+          "g(\\varnothing)=7",
+          "",
+          ""
+        ],
+        [
+          "g(\\{1\\})=8",
+          "",
+          ""
+        ],
+        [
+          "g(\\{2\\})=9",
+          "",
+          ""
+        ],
+        [
+          "g(\\{1,2\\})=13",
+          "",
+          ""
+        ],
+        [
+          "w_\\varnothing=7",
+          "",
+          ""
+        ],
+        [
+          "w_{\\{1\\}}=1",
+          "",
+          ""
+        ],
+        [
+          "w_{\\{2\\}}=2",
+          "",
+          ""
+        ],
+        [
+          "w_{\\{1,2\\}}=3",
+          "",
+          ""
+        ],
+        [
+          "g^c",
+          "",
+          ""
+        ],
+        [
+          "-4",
+          "",
+          ""
+        ],
+        [
+          "-5",
+          "",
+          ""
+        ],
+        [
+          "-3",
+          "",
+          ""
+        ],
+        [
+          "-13",
+          "",
+          ""
+        ]
+      ],
+      "en": [
+        [
+          "N=\\{1,2\\}",
+          "",
+          ""
+        ],
+        [
+          "g(\\varnothing)=7",
+          "",
+          ""
+        ],
+        [
+          "g(\\{1\\})=8",
+          "",
+          ""
+        ],
+        [
+          "g(\\{2\\})=9",
+          "",
+          ""
+        ],
+        [
+          "g(N)=13",
+          "",
+          ""
+        ],
+        [
+          "7,1,2,3",
+          "",
+          ""
+        ],
+        [
+          "-4,-5",
+          "",
+          ""
+        ],
+        [
+          "3",
+          "",
+          ""
+        ],
+        [
+          "4,5,-3",
+          "",
+          ""
+        ],
+        [
+          "7",
+          "",
+          ""
+        ],
+        [
+          "13",
+          "",
+          ""
+        ],
+        [
+          "-13",
+          "",
+          ""
+        ],
+        [
+          "7",
+          "",
+          ""
+        ]
+      ]
+    },
+    {
+      "id": "f11-external-sparsity",
+      "step_id": "f11-external-sparsity-step-1",
+      "classification": "inline_tex_text_difference_requires_semantic_review",
+      "zh": [],
+      "en": [
+        [
+          "M",
+          "",
+          ""
+        ]
+      ]
+    },
+    {
+      "id": "iclr2024-generalizable-theorem1",
+      "step_id": "f11-exact-adapt",
+      "classification": "inline_tex_text_difference_requires_semantic_review",
+      "zh": [
+        [
+          "I_{and}(A\\mid x)",
+          "",
+          ""
+        ],
+        [
+          "I_g(A)",
+          "",
+          ""
+        ]
+      ],
+      "en": [
+        [
+          "x,r",
+          "",
+          ""
+        ],
+        [
+          "I_{and}(A\\mid x)",
+          "",
+          ""
+        ],
+        [
+          "I_g(A)",
+          "",
+          ""
+        ],
+        [
+          "b",
+          "",
+          ""
+        ]
+      ]
+    },
+    {
+      "id": "iclr2024-generalizable-andor",
+      "step_id": "f11-parent-decompose",
+      "classification": "inline_tex_text_difference_requires_semantic_review",
+      "zh": [
+        [
+          "g(U)=g_{and}(U)+g_{or}(U)",
+          "",
+          ""
+        ],
+        [
+          "\\gamma_U",
+          "",
+          ""
+        ],
+        [
+          "\\gamma_U",
+          "",
+          ""
+        ],
+        [
+          "x_i=r_i",
+          "",
+          ""
+        ]
+      ],
+      "en": [
+        [
+          "g(U)=g_{and}(U)+g_{or}(U)",
+          "",
+          ""
+        ],
+        [
+          "x_i=r_i",
+          "",
+          ""
+        ]
+      ]
+    },
+    {
+      "id": "iclr2024-generalizable-and",
+      "step_id": "f11-and-coeff-align",
+      "classification": "inline_tex_text_difference_requires_semantic_review",
+      "zh": [
+        [
+          "S\\subseteq T",
+          "",
+          ""
+        ],
+        [
+          "L\\subseteq S",
+          "",
+          ""
+        ],
+        [
+          "L\\subseteq T",
+          "",
+          ""
+        ],
+        [
+          "T\\cap L=L",
+          "",
+          ""
+        ],
+        [
+          "g_{and,T}(L)=g_{and}(T\\cap L)",
+          "",
+          ""
+        ],
+        [
+          "g_{and}(L)",
+          "",
+          ""
+        ],
+        [
+          "I_{g_{and,T}}(S)=I_{g_{and}}(S)",
+          "",
+          ""
+        ],
+        [
+          "(x_T)_L=x_L",
+          "",
+          ""
+        ]
+      ],
+      "en": [
+        [
+          "S\\subseteq T",
+          "",
+          ""
+        ],
+        [
+          "L\\subseteq S",
+          "",
+          ""
+        ],
+        [
+          "T",
+          "",
+          ""
+        ],
+        [
+          "T\\cap L=L",
+          "",
+          ""
+        ],
+        [
+          "g_{and,T}(L)=g_{and}(L)",
+          "",
+          ""
+        ],
+        [
+          "I_{g_{and,T}}(S)=I_{g_{and}}(S)",
+          "",
+          ""
+        ],
+        [
+          "(x_T)_L=x_L",
+          "",
+          ""
+        ]
+      ]
+    },
+    {
+      "id": "iclr2024-generalizable-and",
+      "step_id": "f11-and-reconstruct",
+      "classification": "inline_tex_text_difference_requires_semantic_review",
+      "zh": [
+        [
+          "g_{and,T}",
+          "",
+          ""
+        ],
+        [
+          "\\sum_{S\\subseteq T}I_{g_{and,T}}(S)=g_{and,T}(T)=g_{and}(T)",
+          "",
+          ""
+        ],
+        [
+          "T\\cap T=T",
+          "",
+          ""
+        ],
+        [
+          "\\sum_{S\\subseteq T}I_{g_{and}}(S)",
+          "",
+          ""
+        ],
+        [
+          "g_{and}(\\varnothing)",
+          "",
+          ""
+        ]
+      ],
+      "en": [
+        [
+          "g_{and,T}",
+          "",
+          ""
+        ],
+        [
+          "S\\subseteq T",
+          "",
+          ""
+        ],
+        [
+          "g_{and,T}(T)=g_{and}(T)",
+          "",
+          ""
+        ],
+        [
+          "T\\cap T=T",
+          "",
+          ""
+        ],
+        [
+          "g_{and}(\\varnothing)",
+          "",
+          ""
+        ]
+      ]
+    },
+    {
+      "id": "iclr2024-generalizable-or",
+      "step_id": "f11-or-transform",
+      "classification": "inline_tex_text_difference_requires_semantic_review",
+      "zh": [
+        [
+          "f(L)=-h(N\\setminus L)",
+          "",
+          ""
+        ],
+        [
+          "S",
+          "",
+          ""
+        ],
+        [
+          "O_h^N(S)=I_f(S)",
+          "",
+          ""
+        ],
+        [
+          "f(N)-f(N\\setminus T)=-h(\\varnothing)+h(T)",
+          "",
+          ""
+        ],
+        [
+          "T\\subseteq N",
+          "",
+          ""
+        ],
+        [
+          "N\\setminus(N\\setminus T)=T",
+          "",
+          ""
+        ],
+        [
+          "h(T)=g_{or}(T)",
+          "",
+          ""
+        ],
+        [
+          "h(\\varnothing)=g_{or}(\\varnothing)",
+          "",
+          ""
+        ]
+      ],
+      "en": [
+        [
+          "f(L)=-h(N\\setminus L)",
+          "",
+          ""
+        ],
+        [
+          "S",
+          "",
+          ""
+        ],
+        [
+          "O_h^N(S)=I_f(S)",
+          "",
+          ""
+        ],
+        [
+          "f(N)-f(N\\setminus T)=-h(\\varnothing)+h(T)",
+          "",
+          ""
+        ],
+        [
+          "N\\setminus(N\\setminus T)=T",
+          "",
+          ""
+        ],
+        [
+          "h(T)=g_{or}(T)",
+          "",
+          ""
+        ],
+        [
+          "h(\\varnothing)=g_{or}(\\varnothing)",
+          "",
+          ""
+        ]
+      ]
+    },
+    {
+      "id": "iclr2024-generalizable-or",
+      "step_id": "f11-or-example",
+      "classification": "inline_tex_text_difference_requires_semantic_review",
+      "zh": [
+        [
+          "N=\\{1,2\\}",
+          "",
+          ""
+        ],
+        [
+          "g(\\varnothing)=7",
+          "",
+          ""
+        ],
+        [
+          "g(\\{1\\})=8",
+          "",
+          ""
+        ],
+        [
+          "g(\\{2\\})=9",
+          "",
+          ""
+        ],
+        [
+          "g(\\{1,2\\})=13",
+          "",
+          ""
+        ],
+        [
+          "w_\\varnothing=7",
+          "",
+          ""
+        ],
+        [
+          "w_{\\{1\\}}=1",
+          "",
+          ""
+        ],
+        [
+          "w_{\\{2\\}}=2",
+          "",
+          ""
+        ],
+        [
+          "w_{\\{1,2\\}}=3",
+          "",
+          ""
+        ],
+        [
+          "O_g^N(\\{1\\})=4",
+          "",
+          ""
+        ],
+        [
+          "O_g^N(\\{2\\})=5",
+          "",
+          ""
+        ],
+        [
+          "O_g^N(N)=-3",
+          "",
+          ""
+        ],
+        [
+          "T=\\{1\\}",
+          "",
+          ""
+        ],
+        [
+          "h_T(L)=g(T\\cap L)",
+          "",
+          ""
+        ],
+        [
+          "\\{1\\}",
+          "",
+          ""
+        ],
+        [
+          "N",
+          "",
+          ""
+        ],
+        [
+          "7+1+0=8=g(T)",
+          "",
+          ""
+        ],
+        [
+          "7+4-3=8",
+          "",
+          ""
+        ],
+        [
+          "T=\\varnothing",
+          "",
+          ""
+        ],
+        [
+          "T=N",
+          "",
+          ""
+        ],
+        [
+          "7+4+5-3=13",
+          "",
+          ""
+        ]
+      ],
+      "en": [
+        [
+          "7,8,9,13",
+          "",
+          ""
+        ],
+        [
+          "\\varnothing,\\{1\\},\\{2\\},N",
+          "",
+          ""
+        ],
+        [
+          "7,1,2,3",
+          "",
+          ""
+        ],
+        [
+          "4,5,-3",
+          "",
+          ""
+        ],
+        [
+          "7",
+          "",
+          ""
+        ],
+        [
+          "T=\\{1\\}",
+          "",
+          ""
+        ],
+        [
+          "h_T(L)=g(T\\cap L)",
+          "",
+          ""
+        ],
+        [
+          "7,8,7,8",
+          "",
+          ""
+        ],
+        [
+          "1,0,0",
+          "",
+          ""
+        ],
+        [
+          "7",
+          "",
+          ""
+        ],
+        [
+          "7+1+0=8=g(T)",
+          "",
+          ""
+        ],
+        [
+          "7+4-3=8",
+          "",
+          ""
+        ],
+        [
+          "T",
+          "",
+          ""
+        ],
+        [
+          "7",
+          "",
+          ""
+        ],
+        [
+          "T=N",
+          "",
+          ""
+        ],
+        [
+          "7+4+5-3=13",
+          "",
+          ""
+        ]
+      ]
+    },
+    {
+      "id": "f11-proposition1",
+      "step_id": "f11-proposition1-step-1",
+      "classification": "inline_tex_text_difference_requires_semantic_review",
+      "zh": [],
+      "en": [
+        [
+          "x_T",
+          "",
+          ""
+        ],
+        [
+          "g^T(L)=v(x_{T\\cap L})",
+          "",
+          ""
+        ],
+        [
+          "N",
+          "",
+          ""
+        ],
+        [
+          "I(S\\mid x_T)",
+          "",
+          ""
+        ],
+        [
+          "S\\subseteq T",
+          "",
+          ""
+        ],
+        [
+          "S\\cap T\\ne\\varnothing",
+          "",
+          ""
+        ],
+        [
+          "v(x_\\varnothing)",
+          "",
+          ""
+        ],
+        [
+          "T",
+          "",
+          ""
+        ],
+        [
+          "v(x_T)",
+          "",
+          ""
+        ]
+      ]
+    },
+    {
+      "id": "f11-proposition1",
+      "step_id": "f11-proposition1-step-2",
+      "classification": "inline_tex_text_difference_requires_semantic_review",
+      "zh": [],
+      "en": [
+        [
+          "I^T",
+          "",
+          ""
+        ],
+        [
+          "2^n",
+          "",
+          ""
+        ]
+      ]
+    },
+    {
+      "id": "f11-boolean-decomposition",
+      "step_id": "f11-boolean-truth",
+      "classification": "inline_tex_text_difference_requires_semantic_review",
+      "zh": [
+        [
+          "x_4+x_5-x_4x_5",
+          "",
+          ""
+        ]
+      ],
+      "en": [
+        [
+          "0,1",
+          "",
+          ""
+        ],
+        [
+          "(x_4,x_5)=(0,0),(1,0),(0,1),(1,1)",
+          "",
+          ""
+        ],
+        [
+          "x_4+x_5-x_4x_5",
+          "",
+          ""
+        ],
+        [
+          "0,1,1,1",
+          "",
+          ""
+        ]
+      ]
+    },
+    {
+      "id": "f11-boolean-decomposition",
+      "step_id": "f11-boolean-expand",
+      "classification": "inline_tex_text_difference_requires_semantic_review",
+      "zh": [],
+      "en": [
+        [
+          "\\{1,2,3\\},\\{2,3\\},\\{3,4\\},\\{4\\},\\{5\\},\\{4,5\\}",
+          "",
+          ""
+        ],
+        [
+          "-1",
+          "",
+          ""
+        ],
+        [
+          "+1",
+          "",
+          ""
+        ],
+        [
+          "\\{4,5\\}",
+          "",
+          ""
+        ]
+      ]
+    },
+    {
+      "id": "f11-boolean-decomposition",
+      "step_id": "f11-boolean-support",
+      "classification": "inline_tex_text_difference_requires_semantic_review",
+      "zh": [],
+      "en": [
+        [
+          "1",
+          "",
+          ""
+        ],
+        [
+          "\\{4,5\\}",
+          "",
+          ""
+        ],
+        [
+          "1",
+          "",
+          ""
+        ],
+        [
+          "0",
+          "",
+          ""
+        ],
+        [
+          "4",
+          "",
+          ""
+        ]
+      ]
+    },
+    {
+      "id": "f11-reparameterization",
+      "step_id": "f11-reparameterization-step-1",
+      "classification": "inline_tex_text_difference_requires_semantic_review",
+      "zh": [],
+      "en": [
+        [
+          "\\gamma_T",
+          "",
+          ""
+        ],
+        [
+          "T",
+          "",
+          ""
+        ],
+        [
+          "g(T)",
+          "",
+          ""
+        ]
+      ]
+    },
+    {
+      "id": "f11-reparameterization",
+      "step_id": "f11-reparameterization-step-2",
+      "classification": "inline_tex_text_difference_requires_semantic_review",
+      "zh": [],
+      "en": [
+        [
+          "a(T)+b(T)=g(T)",
+          "",
+          ""
+        ],
+        [
+          "\\gamma_T=(a(T)-b(T))/2",
+          "",
+          ""
+        ],
+        [
+          "a=g/2+\\gamma",
+          "",
+          ""
+        ],
+        [
+          "b=g/2-\\gamma",
+          "",
+          ""
+        ],
+        [
+          "a-g/2",
+          "",
+          ""
+        ]
+      ]
+    },
+    {
+      "id": "f11-reparameterization",
+      "step_id": "f11-reparameterization-step-3",
+      "classification": "inline_tex_text_difference_requires_semantic_review",
+      "zh": [],
+      "en": [
+        [
+          "i",
+          "",
+          ""
+        ],
+        [
+          "\\gamma_T^{(i)}",
+          "",
+          ""
+        ]
+      ]
+    },
+    {
+      "id": "f11-rowmax-penalty",
+      "step_id": "f11-rowmax-penalty-step-1",
+      "classification": "inline_tex_text_difference_requires_semantic_review",
+      "zh": [],
+      "en": [
+        [
+          "R=\\max_i|a_i|\\ge0",
+          "",
+          ""
+        ],
+        [
+          "j",
+          "",
+          ""
+        ],
+        [
+          "R",
+          "",
+          ""
+        ],
+        [
+          "R",
+          "",
+          ""
+        ],
+        [
+          "R",
+          "",
+          ""
+        ],
+        [
+          "j",
+          "",
+          ""
+        ],
+        [
+          "R",
+          "",
+          ""
+        ]
+      ]
+    },
+    {
+      "id": "f11-rowmax-penalty",
+      "step_id": "f11-rowmax-penalty-step-2",
+      "classification": "inline_tex_text_difference_requires_semantic_review",
+      "zh": [],
+      "en": [
+        [
+          "R",
+          "",
+          ""
+        ]
+      ]
+    },
+    {
+      "id": "f11-and-variance",
+      "step_id": "f11-and-variance-step-1",
+      "classification": "inline_tex_text_difference_requires_semantic_review",
+      "zh": [],
+      "en": [
+        [
+          "\\sum_{L\\subseteq T}c_L\\epsilon_L",
+          "",
+          ""
+        ],
+        [
+          "c_L=(-1)^{|T|-|L|}",
+          "",
+          ""
+        ]
+      ]
+    },
+    {
+      "id": "f11-and-variance",
+      "step_id": "f11-and-variance-step-2",
+      "classification": "inline_tex_text_difference_requires_semantic_review",
+      "zh": [],
+      "en": [
+        [
+          "\\sigma^2",
+          "",
+          ""
+        ]
+      ]
+    },
+    {
+      "id": "f11-and-variance",
+      "step_id": "f11-and-variance-step-3",
+      "classification": "inline_tex_text_difference_requires_semantic_review",
+      "zh": [],
+      "en": [
+        [
+          "2^{|T|}",
+          "",
+          ""
+        ],
+        [
+          "T",
+          "",
+          ""
+        ],
+        [
+          "T=\\varnothing",
+          "",
+          ""
+        ],
+        [
+          "\\sigma^2",
+          "",
+          ""
+        ],
+        [
+          "S",
+          "",
+          ""
+        ],
+        [
+          "T",
+          "",
+          ""
+        ],
+        [
+          "T",
+          "",
+          ""
+        ]
+      ]
+    },
+    {
+      "id": "f11-or-variance",
+      "step_id": "f11-or-variance-step-1",
+      "classification": "inline_tex_text_difference_requires_semantic_review",
+      "zh": [],
+      "en": [
+        [
+          "T\\subseteq N",
+          "",
+          ""
+        ],
+        [
+          "g_{or}(L)",
+          "",
+          ""
+        ],
+        [
+          "\\epsilon_L",
+          "",
+          ""
+        ],
+        [
+          "\\sum_{L\\subseteq T}(-1)^{|T|-|L|}\\epsilon_{N\\setminus L}",
+          "",
+          ""
+        ]
+      ]
+    },
+    {
+      "id": "f11-or-variance",
+      "step_id": "f11-or-variance-step-2",
+      "classification": "inline_tex_text_difference_requires_semantic_review",
+      "zh": [],
+      "en": [
+        [
+          "L,K\\subseteq T\\subseteq N",
+          "",
+          ""
+        ],
+        [
+          "N\\setminus L=N\\setminus K",
+          "",
+          ""
+        ],
+        [
+          "L=K",
+          "",
+          ""
+        ],
+        [
+          "L",
+          "",
+          ""
+        ],
+        [
+          "2^{|T|}\\sigma^2",
+          "",
+          ""
+        ]
+      ]
+    },
+    {
+      "id": "f11-or-variance",
+      "step_id": "f11-or-variance-step-3",
+      "classification": "inline_tex_text_difference_requires_semantic_review",
+      "zh": [],
+      "en": [
+        [
+          "I_{or}(\\varnothing)=v_{or}(x_\\varnothing)",
+          "",
+          ""
+        ],
+        [
+          "\\sigma^2=2^0\\sigma^2",
+          "",
+          ""
+        ]
+      ]
+    },
+    {
+      "id": "f11-shapley",
+      "step_id": "f11-shapley-component",
+      "classification": "inline_tex_text_difference_requires_semantic_review",
+      "zh": [
+        [
+          "I_{and}(S\\mid x)",
+          "",
+          ""
+        ],
+        [
+          "v",
+          "",
+          ""
+        ],
+        [
+          "v_{and}",
+          "",
+          ""
+        ],
+        [
+          "g(A)=v(x_A)",
+          "",
+          ""
+        ],
+        [
+          "i\\in N",
+          "",
+          ""
+        ]
+      ],
+      "en": [
+        [
+          "v",
+          "",
+          ""
+        ],
+        [
+          "v_{and}",
+          "",
+          ""
+        ],
+        [
+          "g(A)=v(x_A)",
+          "",
+          ""
+        ],
+        [
+          "i\\in N",
+          "",
+          ""
+        ]
+      ]
+    },
+    {
+      "id": "f11-equation10",
+      "step_id": "f11-equation10-step-1",
+      "classification": "inline_tex_text_difference_requires_semantic_review",
+      "zh": [],
+      "en": [
+        [
+          "\\max(|a|,|b|)",
+          "",
+          ""
+        ],
+        [
+          "|\\max(a,b)|",
+          "",
+          ""
+        ],
+        [
+          "a=-3,b=2",
+          "",
+          ""
+        ],
+        [
+          "3",
+          "",
+          ""
+        ],
+        [
+          "2",
+          "",
+          ""
+        ]
+      ]
+    },
+    {
+      "id": "f11-equation10",
+      "step_id": "f11-equation10-step-2",
+      "classification": "inline_tex_text_difference_requires_semantic_review",
+      "zh": [],
+      "en": [
+        [
+          "S",
+          "",
+          ""
+        ],
+        [
+          "x_{T_k},\\gamma_{T_k}",
+          "",
+          ""
+        ],
+        [
+          "T",
+          "",
+          ""
+        ]
+      ]
+    },
+    {
+      "id": "f11-mask-complexity",
+      "step_id": "f11-count-bijection",
+      "classification": "inline_tex_text_difference_requires_semantic_review",
+      "zh": [
+        [
+          "i\\in N",
+          "",
+          ""
+        ],
+        [
+          "S",
+          "",
+          ""
+        ],
+        [
+          "S\\subseteq N",
+          "",
+          ""
+        ],
+        [
+          "n",
+          "",
+          ""
+        ],
+        [
+          "2^n",
+          "",
+          ""
+        ],
+        [
+          "|\\mathcal P(N)|=2^n",
+          "",
+          ""
+        ],
+        [
+          "x_i=r_i",
+          "",
+          ""
+        ],
+        [
+          "2^n",
+          "",
+          ""
+        ]
+      ],
+      "en": [
+        [
+          "i\\in N",
+          "",
+          ""
+        ],
+        [
+          "S",
+          "",
+          ""
+        ],
+        [
+          "2^n",
+          "",
+          ""
+        ],
+        [
+          "x_i=r_i",
+          "",
+          ""
+        ],
+        [
+          "2^n",
+          "",
+          ""
+        ]
+      ]
+    },
+    {
+      "id": "f11-mask-complexity",
+      "step_id": "f11-count-queries",
+      "classification": "inline_tex_text_difference_requires_semantic_review",
+      "zh": [
+        [
+          "2^n",
+          "",
+          ""
+        ],
+        [
+          "m",
+          "",
+          ""
+        ],
+        [
+          "m2^n",
+          "",
+          ""
+        ]
+      ],
+      "en": [
+        [
+          "2^n",
+          "",
+          ""
+        ],
+        [
+          "m2^n",
+          "",
+          ""
+        ],
+        [
+          "m",
+          "",
+          ""
+        ]
+      ]
+    },
+    {
+      "id": "f11-mask-complexity",
+      "step_id": "f11-count-boundary",
+      "classification": "inline_tex_text_difference_requires_semantic_review",
+      "zh": [
+        [
+          "n=0",
+          "",
+          ""
+        ],
+        [
+          "1=2^0",
+          "",
+          ""
+        ],
+        [
+          "n=6",
+          "",
+          ""
+        ]
+      ],
+      "en": [
+        [
+          "n=0",
+          "",
+          ""
+        ],
+        [
+          "1=2^0",
+          "",
+          ""
+        ],
+        [
+          "n=6",
+          "",
+          ""
+        ],
+        [
+          "64",
+          "",
+          ""
+        ]
+      ]
+    },
+    {
+      "id": "f11-alpha-zero",
+      "step_id": "f11-alpha-zero-step-1",
+      "classification": "inline_tex_text_difference_requires_semantic_review",
+      "zh": [],
+      "en": [
+        [
+          "P(A,B)",
+          "",
+          ""
+        ],
+        [
+          "Q(A,B)",
+          "",
+          ""
+        ],
+        [
+          "P+\\alpha Q",
+          "",
+          ""
+        ],
+        [
+          "\\alpha=0",
+          "",
+          ""
+        ],
+        [
+          "P+0Q=P",
+          "",
+          ""
+        ]
+      ]
+    }
+  ],
+  "formula_identity_checked_separately": "reader/bilingual.py preserves independent formula fields, step IDs and formal mappings; most inline differences add math delimiters or combine repeated numerical values."
+}

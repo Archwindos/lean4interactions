@@ -1,0 +1,97 @@
+                                               Towards Attributions of Input Variables in a Coalition
+
+Therefore, we prove the Symmetry axiom-α axiom.
+
+G.3. Proof of Symmetry axiom-β
+Proof. Without loss of generality, we assume S ∩ T = ∅.
+According to the definition of the AND/OR interaction, we can get:∀K ⊇ L, K ⊆ N \ (S ∪ T ), ∀T ′ ⊆ T, T ′ ̸= T, ∀S ′ ⊆
+S, S ′ ̸= S, |S ′ | = |T ′ |,
+                                                ′
+Iand (K ∪ S ∪ T ′ ) = J⊆(K∪S∪T ′ ) (−1)|K∪S∪T |−|J| vand (J)
+                          P
+
+                                                  ′
+Ior (K ∪ S ∪ T ′ ) = − J⊆(K∪S∪T ′ ) (−1)|K∪S∪T |−|L| vor (N \ J)
+                            P
+
+                                            ′
+Iand (K ∪ S ′ ∪ T ) = J⊆(K∪S ′ ∪T ) (−1)|K∪S ∪T |−|J| vand (J)
+                          P
+
+                                              ′
+Ior (K ∪ S ′ ∪ T ) = − J⊆(K∪S ′ ∪T ) (−1)|K∪S ∪T |−|L| vor (N \ J)
+                            P
+
+Then, we have:
+
+           Iand (K ∪ S ∪ T ′ ) − Iand (K ∪ S ′ ∪ T )
+           X                             ′             X                    ′
+         =               ′
+                           (−1)|K∪S∪T |−|J| vand (J) −        ′
+                                                                    (−1)|K∪S ∪T |−|J| vand (J)
+               J⊆(K∪S∪T )                               J⊆(K∪S ∪T )
+                                                                                                                                              
+                  X             X             ′                                               X                   ′
+                                                                                                                                                
+         =                           (−1)|K∪S∪T |−|J∪A| vand (J ∪ A) −                                  (−1)|K∪S       ∪T |−|J∪B|
+                                                                                                                                    vand (J ∪ B)
+                                                                                                                                               
+                               
+                                   ′
+                                                                                            B∈T \T ′
+                                                                                                                                               
+             J⊆(K∪S ′ ∪T ′ )        A∈S\S
+                                    A̸=S\S ′                                                B̸=T \T ′
+                  X                     X                          ′
+         =                                          (−1)|K∪S           ∪T |−|J∪B|
+                                                                                    [vand (J ∪ A) − vand (J ∪ B)]
+             J⊆(K∪S ′ ∪T ′ ) A∈S\S ′ ,A̸=S\S ′
+                             B∈T \T ′ ,B̸=T \T ′
+                                 |A|=|B|
+
+         =0
+
+
+   Ior (K ∪ S ∪ T ′ ) − Ior (K ∪ S ′ ∪ T )
+       X                             ′                X                       ′
+  =−                   (−1)|K∪S∪T |−|L| vor (N \ J) +                 (−1)|K∪S ∪T |−|L| vor (N \ J)
+          J⊆(K∪S∪T ′ )                                  J⊆(K∪S ′ ∪T )
+                                                                                                                                                   
+           X             X           ′                               X             ′
+                                                                                                              
+  =                           (−1)|K∪S ∪T |−|J∪B| vor (N \ (J ∪ B)) −     (−1)|K∪S∪T |−|J∪A| vor (N \ (J ∪ A))
+                                                                                                             
+                        
+                            ′                                           ′
+                                                                                                             
+      J⊆(K∪S ′ ∪T ′ )     B∈T \T                                                              A∈S\S
+                          B̸=T \T ′                                                           A̸=S\S ′
+           X                   X                          ′
+  =                                            (−1)|K∪S       ∪T |−|J∪B|
+                                                                           [vor (N \ (J ∪ B)) − vor (N \ (J ∪ A))]
+                                ′
+      J⊆(K∪S ′ ∪T ′ ) A∈S\S ,A̸=S\S        ′
+
+                      B∈T \T ′ ,B̸=T \T ′
+                          |A|=|B|
+           X                   X                          ′
+  =                                            (−1)|K∪S       ∪T |−|J∪B|
+                                                                           [vor ((N \ (J ∪ A ∪ B)) ∪ A) − vor ((N \ (J ∪ A ∪ B)) ∪ B)]
+      J⊆(K∪S ′ ∪T ′ )           ′          ′
+                        A∈S\S ,A̸=S\S
+                        B∈T \T ′ ,B̸=T \T ′
+                            |A|=|B|
+           X                   X
+  =                                            0= 0
+      J⊆(K∪S ′ ∪T ′ ) A∈S\S ′ ,A̸=S\S ′
+                      B∈T \T ′ ,B̸=T \T ′
+                          |A|=|B|
+
+
+                                                                                          P               |L∪S|
+Besides, according to Equation (6) in the paper, we have: φ(L∪S) =                          K⊇(L∪S)        |K|    [Iand (K) + Ior (K)] and φ(L∪T ) =
+P           |L∪T |
+  K⊇(L∪T ) |K| [Iand (K) + Ior (K)].
+
+
+                                                                               19

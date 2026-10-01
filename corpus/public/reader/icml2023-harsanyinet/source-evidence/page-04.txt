@@ -1,0 +1,86 @@
+                       HarsanyiNet: Computing Accurate Shapley Values in a Single Forward Propagation
+
+an AND operation layer between a linear layer and a ReLU              Shapley value ϕ(i) equals to the sum of evenly distributed
+                                      (l)
+layer. Given an input sample x, let zu (x) denote the u-th            Harsanyi interactions that contain i, i.e.,
+                                                         (l)
+dimension of the output feature vector z(l) (x) ∈ Rm in                                       X              1
+the l-th linear layer. The HarsanyiNet is designed to let each                       ϕ(i) =                     I(S).          (3)
+                       (l)                                                                      S⊆N :S∋i    |S|
+feature dimension zu (x) satisfy the following two require-
+              (l)
+ments, and zu (x) is also called a Harsanyi unit. Theorem 3
+will show how to use the Harsanyi unit to compute exact               Theorem 1 demonstrates that we can understand the Shap-
+Shapley values directly.                                              ley value ϕ(i) as a uniform reassignment of each Harsanyi
+                                                 (l)                  interaction I(S) which includes the variable i. For example,
+Requirement 1 (R1). The neural output zu (x) is ex-                   let us consider a toy model that uses age (a), education (e),
+clusively determined by a specific set of input variables             occupation (o), and marital status (m) to infer the income
+   (l)                                                (l)
+Ru ⊆ N , namely the receptive field of neuron zu (x). In              level. We assume that we can only Pdecompose four non-zero
+                                                            (l)
+other words, none of the other input variables in N \Ru af-           Harsanyi interactions, i.e., v(x) = S⊆N ={a,e,o,m} I(S) =
+fect the neuron activation, i.e., given two arbitrary samples         I({a, o}) + I({a, e}) + I({a, o, m}) + I({o, m}) to sim-
+                      (l)                 (l)           (l)
+x and x′ , if ∀ i ∈ Ru , x′i = xi , then zu (x′ ) = zu (x).           plify the story. We uniformly allocate the numerical con-
+Requirement 2 (R2). Masking any variables in the recep-               tribution I({a, o, m}) to variables age, occupation, and
+              (l)                  (l)            (l)
+tive field Ru of the neuron zu will make zu (x) = 0.                  marital status, with each receiving 13 I({a, o, r}) as a com-
+Specifically, let xS denote the sample obtained by masking            ponent of its attribution. In this way, each input vari-
+variables in the set N \ S in the sample x. Then, given any           able accumulates compositional attributions from differ-
+                                   (l)                                ent Harsanyi interactions, e.g., ϕ̂(a) = 12 I({a, o}) +
+masked sample xS , the neuron zu must satisfy the property            1               1
+                                                                      2 I({a, e}) + 3 I({a, o, m}). Such an accumulated attri-
+zu (xS ) = zu (x) · i∈R(l) 1(i ∈ S).
+  (l)          (l)    Q
+                               u                                      bution ϕ̂(a) equals to the Shapley value ϕ(a).
+These two requirements indicate that a Harsanyi unit                  Lemma 1 (Harsanyi interaction of a Harsanyi unit, proof
+  (l)
+zu must represent an AND relationship between input                   in Appendix C). Let us consider the output of a Harsanyi
+                 (l)                                                        (l)                                (l)
+variables in Ru . Changing variables outside the receptive            unit zu (x) as the reward. Then, let Ju (S) denote the
+        (l)                                                                                                     (l)
+field Ru will not affect the neural activation of the Harsanyi        Harsanyi interaction w.r.t. the function zu (x). Then, we
+             (l)        (l)                                                   (l) (l)      (l)                   (l) (l)
+unit, i.e., zu (xS ) = zu (x), but masking any variables in           have Ju (Ru ) = zu (x), and ∀S ̸= Ru , Ju (S) = 0,
+   (l)                                       (l)
+Ru will deactivate the unit, i.e., making zu (xS ) = 0.               according to the two requirements R1 and R2.
+Secondly, although the HarsanyiNet may have various types             Theorem 2 (Proof in Appendix B). Let a network output
+                                                                                                          PL       (l)
+of outputs (including a scalar output, a vectorized output,           v(x) ∈ R be represented as v(x) = l=1 (wv )⊺ z(l) (x),
+a matrix output, and a tensor output), each dimension of              according to Equation (2). In this way, the Harsanyi in-
+the network output is designed as a weighted sum of all               teraction between input variables in the set S computed
+Harsanyi units. Let v(x) denote the multi-dimensional                 on the network output v(x) can be represented as I(S) =
+output, and let v(x) be an arbitrary output dimension pa-             PL Pm(l) (l) (l)
+                   (l)                                                   l=1   u=1 wv,u Ju (S).
+rameterized by {wv }. Then, we get
+                                     L                                Theorem 2 shows that the Harsanyi interaction
+v(x) = [v(x), v (x), . . . ] , v(x) = (wv(l) )⊺ z(l) (x), (2)
+                                     X
+                ′          ⊺                                          I(S) w.r.t. network output v(x) can be represented
+                                                                                                               (l)
+                                      l=1                             as the sum of Harsanyi interactions Ju (S) computed on
+                                                                                                (l)
+where
+        (l)
+       wv  ∈R   m(l)
+                     denotes the weight for the specific out-         different Harsanyi units zu (x). In this manner, we plug the
+put dimension v. As shown in Figure 1, the above equation             conclusions in Lemma 1 and Theorem 2 into Equation (3),
+can be implemented by adding skip connections to connect              and we derive the following theorem.
+the Harsanyi units in all L layers to the HarsanyiNet output.         Theorem 3 (Deriving Shapley values from Harsanyi units
+                                                                      in intermediate layers, proof in Appendix B). The Shapley
+• Proving that we can compute accurate Shapley values
+                                                                      value ϕ(i) can be computed as
+in a single forward propagation. The preceding para-
+graphs only outline the two requirements for Harsanyi units,                    XL Xm(l)          1
+and Section 3.3 will introduce how to force neurons to meet            ϕ(i) =                     (l)
+                                                                                                        wv,u zu (x)1(R(l)
+                                                                                                         (l) (l)
+                                                                                                                      u ∋ i). (4)
+                                                                                  l=1    u=1   |Ru |
+such requirements. Before that, we derive Theorem 3 to
+prove that the above requirements allow us to compute the
+exact Shapley values in a forward propagation.                        Theorem 3 demonstrates that the Shapley value ϕ(i) can
+Theorem 1 (Connection between Shapley values and                      be directly computed using the outputs of Harsanyi units
+Harsanyi interactions, proof in (Harsanyi, 1963)). The                z(l) (x) in the intermediate layers in forward propagation.
+
+                                                                  4

@@ -1,0 +1,66 @@
+                     HarsanyiNet: Computing Accurate Shapley Values in a Single Forward Propagation
+
+contribution, denoted by I(S), to the inference score of the         2. Related Work
+DNN. Let us take the interaction between image patches
+S = {eye, nose, mouth} as a toy example. If all these patches        Estimating the importance/attribution/saliency of input vari-
+co-appear, then they form a face pattern and make a spe-             ables represents a typical direction in XAI. In general, pre-
+cific interaction effect I(S) to the confidence score of face        vious attribution methods usually computed the attributions
+detection. Masking any patch will destroy this pattern and           of input variables based on gradient (Simonyan et al., 2014;
+remove the interaction effect, i.e., making I(S) = 0.                Springenberg et al., 2015; Shrikumar et al., 2016; Selvaraju
+                                                                     et al., 2017; Sundararajan et al., 2017), via back-propagation
+Because it is proven that the Shapley value can be computed          of attributions (Bach et al., 2015; Montavon et al., 2017;
+using Harsanyi interactions, the activation of each interme-         Shrikumar et al., 2017), and based on perturbations on the
+diate neuron in the HarsanyiNet is designed to represent a           input variables (Ribeiro et al., 2016; Zintgraf et al., 2017;
+specific Harsanyi interaction. The intermediate neuron is            Fong & Vedaldi, 2017; Lundberg & Lee, 2017; Plumb et al.,
+termed as the Harsanyi unit. Such a network design enables           2018; Covert et al., 2021; Deng et al., 2021; Chen et al.,
+us to derive the exact Shapley value of an input variable            2022).
+using activation scores of Harsanyi units.
+The proposed HarsanyiNet has significant advantages over             2.1. Shapley values
+existing approaches for approximating Shapley values by              Unlike other attribution methods, the Shapley value is de-
+conducting a single network inference.                               signed in game theory. Let us consider the following coop-
+• Existing approximation methods, e.g., DeepSHAP (Lund-              erative game, in which a set of n players N = {1, 2, . . . , n}
+berg & Lee, 2017) and FastSHAP (Jethani et al., 2021),               collaborate with each other and finally win a reward R.
+estimate Shapley values with considerable errors, but the            The Shapley value (Shapley, 1953) is then developed as a
+HarsanyiNet can generate exact Shapley values, which is              fair approach to allocating the overall reward R to the n
+both theoretically guaranteed and experimentally verified.           players. The Shapley value ϕ(i) is defined as the composi-
+                                                                     tional reward allocated from R to the player i ∈ N , and we
+• The only existing work allowing to compute accurate                can consider ϕ(i) reflects the numerical contribution of the
+Shapley values in a single forward propagation is the Shap-          player i in the game.
+Net (Wang et al., 2021). However, the ShapNet is designed
+                                                                     Definition 1 (Shapley values). The Shapley value ϕ(i) of
+to only encode interactions between at most k input vari-
+                                                                     an input variable i is given by
+ables (k ≪ n, they set k = 4), and the computational
+cost of the ShapNet’s inference (forward propagation) is                        X |S|!(n − |S| − 1)!
+2k times more than that of traditional networks. Alterna-             ϕ(i) :=                        [V (S ∪ {i})−V (S)] , (1)
+                                                                                          n!
+tively, this study also provides another network (i.e., Deep                S⊆N \{i}
+
+ShapNet) to encode more complex interactions, but it can-
+                                                                     where V : 2N 7→ R denotes the reward function, i.e.,
+not guarantee the accuracy of the computed Shapley values.
+                                                                     ∀S ⊆ N, V (S) measures the reward if a subset S of players
+In comparison, the HarsanyiNet does not limit the number
+                                                                     participate in the game. Thus, V (∅) = 0, and V (N ) = R
+of the input variables within the interaction, thereby ensur-
+                                                                     denotes the overall reward won by all players in N .
+ing broader applicability and exhibiting significantly better
+performance.                                                         Faithfulness. The Shapley value is widely considered a rela-
+Moreover, we implement two specific HarsanyiNets in the              tively faithful attribution, because Young (1985) has proved
+experiment, the Harsanyi-MLP extended from multi-layer               that it is the unique game-theoretic solution that satisfies the
+perceptrons (MLP) and the Harsanyi-CNN developed on                  linearity, dummy, symmetry and efficiency axioms for ideal
+convolutional neural networks (CNN).                                 attributions. Please see Appendix A for details.
+
+The contributions of this paper can be summarized as fol-            In addition to estimating the importance of each input vari-
+lows. (1) We propose a novel neural network architecture,            able, the Shapley value is also widely used to estimate the
+the HarsanyiNet, which can simultaneously perform model              importance of every single data point in a whole dataset,
+inference and compute exact Shapley values in one forward            which can be, for instance, used to address data evaluation
+propagation. (2) Following the paradigm of HarsanyiNet,              problem (Jia et al., 2019a; 2021).
+we design Harsanyi-MLP and Harsanyi-CNN for tabular
+data and image data, respectively. (3) The HarsanyiNet does          2.2. Dilemma of computational complexity versus
+not constrain the representation of specific interactions, but            approximation accuracy
+it can still guarantee the accuracy of Shapley values.               The biggest challenge of applying Shapley values to real-
+                                                                     world applications is the NP-hard computational complexity.
+                                                                     According to Equation (1) and Section 3, when we compute
+
+                                                                 2

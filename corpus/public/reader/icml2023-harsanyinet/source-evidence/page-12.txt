@@ -1,0 +1,63 @@
+                     HarsanyiNet: Computing Accurate Shapley Values in a Single Forward Propagation
+
+A. The Shapley values
+In this section, we revisits the four axioms that the Shapley values satisfy, which ensures the Shapley values as relatively
+faithful attribution values. Let us consider the following cooperative game V : 2N 7→ R, in which a set of n players
+N = {1, 2, . . . , n} collaborate and win a reward R. Here, V (S) is equivalent to v(xS ) − v(x∅ ) mentioned in the paper, and
+we have V (∅) = 0. Young (1985) proved that the Shapley value was the unique solution which satisfied the four axioms,
+including the linearity axiom, dummy axiom, symmetry axiom and efficiency axiom (Weber, 1988) .
+(1) Linearity axiom: If the game V (·) is a linear combination of two games U (·), W (·) for all S ⊆ N , i.e. V (S) =
+U (S) + W (S) and (c · V )(S) = c · V (S), ∀c ∈ R, then the Shapley value in the game V is also a linear combination of
+that in the games U and W , i.e. ∀i ∈ N, ϕV (i) = ϕU (i) + ϕW (i) and ϕc·V (i) = c · ϕV (i).
+(2) Dummy axiom: A player i is defined as a dummy player if V (S ∪ {i}) = V (S) + V ({i}) for every S ⊆ N \ {i}.
+The dummy player i satisfies ϕ(i) = V ({i}), which indicates player i influence the overall reward alone, without
+interacting/cooperating with other players in N .
+(3) Symmetry axiom: For two players i and j, if ∀S ⊆ N \ {i, j}, V (S ∪ {i}) = V (S ∪ {j}), then the Shapley values of
+players i and j are equal, i.e. ϕ(i) = ϕ(j).
+                                                                                                      Pn
+(4) Efficiency axiom: The overall reward is equal to the sum of the Shapley value of each player, i.e. i=1 ϕ(i) = V (N ).
+
+B. Proofs of Theorems
+In this section, we prove the theorems in the paper.
+                                                                        PL      (l)
+Theorem 2. Let a network output v(x) ∈ R be represented as v(x) = l=1 (wv )⊺ z(l) (x), according to Equation (2).
+In this way, the Harsanyi interaction between input variables in the set S computed on the network output v(x) can be
+                       PL Pm(l) (l) (l)
+represented as I(S) = l=1 u=1 wu Ju (S).
+
+
+
+Proof. We have
+
+                                                       XL
+                                             v(x) =            (wv(l) )⊺ z(l) (x)
+                                                         l=1
+                                                       XL Xm(l)
+                                                  =                        wu(l) zu(l) (x).
+                                                         l=1         u=1
+
+
+
+According to the linearity property of the Harsanyi interactions, if ∀S ⊆ N , v(xS ) = u(xS ) + w(xS ) and (cv)(xS ) =
+c · v(xS ), ∀c ∈ R, then the Harsanyi interaction I v (S) is also a linear combination of I u (S) and I w (S), i.e., ∀S ⊆ N ,
+                                                                         (l)
+I v (S) = I u (S) + I w (S) and I (cv) (S) = c · I v (S). Therefore, as Ju (S) denotes the Harsanyi interaction computed on the
+            (l)                                                                                                     (l)
+function zu (x), we have the Harsanyi interaction computed on network output v(x) a linear combination of Ju (S), i.e.,
+
+                                                       XL Xm(l)
+                                            I(S) =                         wu(l) Ju(l) (S).
+                                                        l=1          u=1
+
+
+
+
+Theorem 3 (Deriving Shapley values from Harsanyi units in intermediate layers). The Shapley value ϕ(i) can be computed
+as
+                                            XL Xm(l)             1
+                                   ϕ(i) =                        (l)
+                                                                       wu(l) zu(l) (x)1(R(l)
+                                                                                         u ∋ i).
+                                               l=1     u=1   |Ru |
+
+                                                                12

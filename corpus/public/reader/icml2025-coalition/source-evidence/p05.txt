@@ -1,0 +1,77 @@
+                                       Towards Attributions of Input Variables in a Coalition
+
+
+              Table 1. Comparison between the solutions of the conflict of attributions in different attribution methods
+                 Attribution methods                              Solutions for the conflict of attributions
+                                                                              P
+          Shapley value (Shapley et al., 1953)   Efficiency axiom v(N ) = i∈N ϕ(i), but cannot ensureP         the efficiency
+                                                     property, w.r.t. any arbitrary set S ⊆ N , i.e., φ(S) ̸= i∈S ϕ(i)
+            Banzhaf value (Penrose, 1946)                           2-efficiency axiom: B(i) + B(j)
+                                                                                                 P = B({i, j})
+                                                                        but do not satisfy B(S) = i∈S B(i)
+        Joint Shapley value (Harris et al., 2021) Joint linearity, dummy, efficiency, anonymity, symmetry axioms, but estimating
+                                                   the attribution of a set of features/interactions, like (Sundararajan et al., 2020)
+                                                             Using a loss ∥v(S) − i∈S ϕ(i)∥2 to alleviate the conflict
+                                                                                     P
+              Faith-Shap (Tsai et al., 2023)
+                      Our method                                  Proving the conflict is naturally unavoidable,
+                                                                and quantifying the essential cause for the conflict
+
+                                                                                                                                1
+jective existence. The theoretical explanation and clear                  location of φ(S) to its constituent input variables, |S| φ(S),
+disentanglement of effects responsible for the conflict                   as the attribution of the i-th variable. Theorem 3.6 explains
+is usually considered as a more faithful solution to the                                                       1
+                                                                          the difference between ϕ(i) and |S|    φ(S). It shows that the
+coalition’s attribution. To this end, Theorem 3.4 disen-                  Shapley value ϕ(i) can be decomposed into two parts. (1)
+tangles Shapley values of all input variables in S into two               The first part Ui,S is a component of coalition attribution
+components, i.e., (1) the attribution component ϕshared (S)                1
+                                                                          |S| φ(S), i.e., the uniform allocation of φ(S) to its con-
+shared by both the coalition and the individual variables,                stituent input variables. (2) The second part Ui,S̄ comes
+and (2) the conflicting attribution component ϕconflict (S).              from all interactions {T }, which cover just partial but not
+Theorem 3.4. (proved
+                 P in Appendix E) For any coalition                       all variables in S, i.e., {T | T ⊆ N, i ∈ T ∩ S, T ∩ S ̸= S}.
+S ⊆ N , we have i∈S ϕ(i) = ϕshared (S) + ϕconflict (S).                   Theorem 3.6. (proved in Appendix F) ∀i ∈ S,
+            def
+ϕshared (S) = φ(S) is the attribution component exist-                    ϕ(i) = T ⊆N,T ⊇S |T1 | [Iand (T ) + Ior (T )]
+                                                                                  P
+
+ing in both the coalition’s attribution φ(S) and indi-                    + T ⊆N,T ̸⊇S,T ∋i |T1 | [Iand (T ) + Ior (T )]
+                                                                            P
+vidual input variable’s attribution ϕ(i), thereby being                       1             X              1
+                                                                          =      φ(S) +                        [Iand (T ) + Ior (T )]
+termed the shared attribution component. ϕconflict (S) =                     |S|                          |T |
+P                        |T ∩S|                                             | {z } T ⊆N,T ̸⊇S,T ∋i
+   T ⊆N,T ∩S̸=∅,T ∩S̸=S |T | [Iand (T ) + Ior (T )] represents                 Ui,S
+                                                                                        |                    {z                     }
+                                                                                                             Ui,S̄
+the conflict (or difference) between the coalition attribution
+and the individual variables’ attribution.                                Corollary 3.7 further shows that if S = {i} only contains a
+                                                                          single variable xi , then the attribution of the coalition S is
+Theorem 3.4 shows that the conflict between individual
+                                                                          equal to the Shapley value ϕ(i).
+variables’ attributions and the attribution of the coali-
+tion S comes from numerical effects of all interactions                   Corollary 3.7. φ(S = {i}) = ϕ(i)
+T that contain just partial but not all variables in S,                   Verifying whether we can use coalition attributions to
+subject to ∅ ̸= T ∩ S ̸= S. This well fits the human un-                  compute the Shapley value. We conducted experiments to
+derstanding of the conflict, i.e., not all interactions take S            examine Theorem 3.6, i.e., whether we could use the coali-
+as a singleton coalition. In particular, Corollary 3.5 shows              tion S’s attribution to calculate the Shapley value of the i-th
+that if the DNN always considers all variables in S as a                  input variable, i ∈ S. We used ∆ϕ(i)S = ϕ(i) − ϕ̂(i) to
+coalition without encoding interactions covering partial but              measure the approximation error between the true Shapley
+not all variables in S, i.e., ∀T ∈ {T : S ̸⊆ T, T ⊆ N, i ∈                value computed based on Equation (2), ϕ(i), and the Shap-
+S}, Iand (T ) = Ior (T ) = 0, then there will be no conflict of
+                                                                          ley value estimated by Theorem 3.6, ϕ̂(i). We conducted
+attributions, w.r.t. the coalition S.
+                                                                          experiments on the DNNs introduced in Section 4.1. Table 2
+Corollary 3.5. If a set of input variables in S are always                reports the average estimation error Ex,|S|=m [E|∆ϕ(i)S |]
+encoded by the DNN as a coalition without any interactions                over all samples through all potential combinations of (i, S)
+containing partial variables in S, i.e., ∀T ∈ {T : S ̸⊆                   s.t., i ∈ S of a specific order |S| = m. The small errors
+T, T ⊆ N, i ∈ S}, Iand (T ) = Ior (T ) = 0, then the attribu-             proved the correctness of our theory.
+tion of the coalition S can fully determine
+                                          Pthe Shapley value
+                    1
+ϕ(i), i.e., ϕ(i) = |S| φ(S) and φ(S) = i∈S ϕ(i).                          3.5. Properties/axioms for the attribution of a coalition
+Explaining Shapley values. Let us use the coalition attri-                Just like in the Shapley value, the following five axioms
+bution φ(S) to explain the Shapley value of each variable i               have been widely considered as standard requirements for
+in S, ϕ(i). Specifically, we can simply take the uniform al-              reliable attributions (Lundberg & Lee, 2017). Although
+
+                                                                      5

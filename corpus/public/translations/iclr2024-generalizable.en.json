@@ -1,0 +1,918 @@
+{
+  "schema_version": 1,
+  "paper_id": "iclr2024-generalizable",
+  "translation_type": "project_translation",
+  "results": {
+    "f11-model-mask": {
+      "title": "Model, masking and input baseline",
+      "overview": "Masking uses the same model, input and coordinate baseline. The input baseline and scalar output baseline are distinct.",
+      "proof_steps": [],
+      "notation_map": []
+    },
+    "f11-and-definition": {
+      "title": "AND/Harsanyi interactions and the empty coalition",
+      "overview": "This is a definition rather than a theorem. The appendix applies the transform to the AND component.",
+      "proof_steps": [],
+      "notation_map": []
+    },
+    "f11-and-mask-zero": {
+      "title": "Mask cancellation: AND interactions containing a removed variable vanish",
+      "overview": "Two masks with the same baseline compose by intersection. Pairing subsets with and without a removed variable cancels their equal outputs.",
+      "completion_scope": "entire original finite-algebra statement",
+      "assumptions": [
+        "Finite $N$; the same fixed coordinate baseline $r$, input $x$ and model throughout. No zero-baseline assumption on raw outputs."
+      ],
+      "definitions": [
+        {
+          "id": "f11-coordinate-objects",
+          "body_md": "Fix $N=\\{1,\\ldots,n\\}$, a model $v:\\mathbb R^n\\to\\mathbb R$, an input $x$ and one coordinate baseline $r$. Write $g(A)=v(x_A)$ and $b=g(\\varnothing)$. Repeated masking defines $g_T(A)=v((x_T)_A)=g(T\\cap A)$. Define $I_g(S)=\\sum_{L\\subseteq S}(-1)^{|S|-|L|}g(L)$ and $w_A=I_g(A)$. For nonempty $S$, define $O_g^N(S)=-I_{g^c}(S)$ with $g^c(L)=g(N\\setminus L)$; separately set $O_g^N(\\varnothing)=g(\\varnothing)$. All subset sums include the empty set, and raw outputs need not have zero baseline. For components, use $v_{and}$ and $v_{or}$ to form their respective games and conditional games."
+        }
+      ],
+      "proof_steps": [
+        {
+          "id": "f11-mask-comp",
+          "title": "Complete mask-composition lemma",
+          "body_md": "Fix a coordinate $i$. If $i\\in T\\cap L$, both masks retain $x_i$. If $i\\notin L$, the second sets it to $r_i$. If $i\\in L\\setminus T$, the first has already set it to $r_i$ and the second retains that value. Hence $(x_T)_L=x_{T\\cap L}$ coordinatewise. Both masks must use the same $r$.",
+          "justification": ""
+        },
+        {
+          "id": "f11-mask-zero-pair",
+          "title": "Choose a removed variable and pair subsets",
+          "body_md": "If $S\\not\\subseteq T$, choose $i\\in S\\setminus T$. For each $U\\subseteq S\\setminus\\{i\\}$, we have $T\\cap(U\\cup\\{i\\})=T\\cap U$. The corresponding conditional outputs are equal and their signs are opposite, so every pair cancels. Neither linearity of the model nor $g(\\varnothing)=0$ is required.",
+          "justification": ""
+        },
+        {
+          "id": "f11-mask-boundary",
+          "title": "Empty-coalition and unmasked boundaries",
+          "body_md": "The empty set is always contained in $T$, so the vanishing statement excludes the empty interaction, whose value is $b$. For $T=N$ there is no $S\\not\\subseteq T$. For $T=\\varnothing$, every nonempty conditional interaction vanishes.",
+          "justification": ""
+        }
+      ],
+      "notation_map": [
+        {
+          "original_tex": "I_{and}(S\\mid x)",
+          "canonical_tex": "I_g(S)",
+          "relationship": "same_definition"
+        },
+        {
+          "original_tex": "I_{and}(S\\mid x_T)",
+          "canonical_tex": "I_{g_T}(S)",
+          "relationship": "derived_quantity"
+        },
+        {
+          "original_tex": "I_{or}(S\\mid x_T)",
+          "canonical_tex": "O_{g_T}^N(S)",
+          "relationship": "derived_quantity"
+        }
+      ]
+    },
+    "f11-or-definition": {
+      "title": "OR interactions and the separate empty value",
+      "overview": "The nonempty formula in Eq. (2) and the explicit empty-coalition convention are recorded separately.",
+      "proof_steps": [],
+      "notation_map": []
+    },
+    "f11-or-duality": {
+      "title": "OR duality: the negative AND transform of reversed mask states",
+      "overview": "For nonempty coalitions, OR is the negative Mobius transform of the complement game. Its empty value follows the separate baseline convention.",
+      "completion_scope": "nonempty OR duality with explicit separate empty convention; does not prove sparsity inheritance assumptions",
+      "assumptions": [
+        "Finite $N$; the same fixed coordinate baseline $r$, input $x$ and model throughout. No zero-baseline assumption on raw outputs."
+      ],
+      "definitions": [
+        {
+          "id": "f11-coordinate-objects",
+          "body_md": "Fix $N=\\{1,\\ldots,n\\}$, a model $v:\\mathbb R^n\\to\\mathbb R$, an input $x$ and one coordinate baseline $r$. Write $g(A)=v(x_A)$ and $b=g(\\varnothing)$. Repeated masking defines $g_T(A)=v((x_T)_A)=g(T\\cap A)$. Define $I_g(S)=\\sum_{L\\subseteq S}(-1)^{|S|-|L|}g(L)$ and $w_A=I_g(A)$. For nonempty $S$, define $O_g^N(S)=-I_{g^c}(S)$ with $g^c(L)=g(N\\setminus L)$; separately set $O_g^N(\\varnothing)=g(\\varnothing)$. All subset sums include the empty set, and raw outputs need not have zero baseline. For components, use $v_{and}$ and $v_{or}$ to form their respective games and conditional games."
+        }
+      ],
+      "proof_steps": [
+        {
+          "id": "f11-dual-game",
+          "title": "Define the game with reversed states",
+          "body_md": "Exchanging retain and baseline states gives $g^c(L)=g(N\\setminus L)$. This reverses the finite state indices; it does not replace the model with another model.",
+          "justification": ""
+        },
+        {
+          "id": "f11-dual-definition",
+          "title": "Compare the nonempty OR and AND definitions term by term",
+          "body_md": "For $S\\ne\\varnothing$, the OR terms form the AND transform of $g^c$ with an overall minus sign. Values are generally opposite, with equal magnitude. Empty OR is separately $g(\\varnothing)$, whereas negative empty AND of $g^c$ is $-g(N)$; these need not agree.",
+          "justification": ""
+        },
+        {
+          "id": "f11-dual-example",
+          "title": "Two-variable and empty-coalition example",
+          "body_md": "Take $N=\\{1,2\\}$ and outputs $g(\\varnothing)=7$, $g(\\{1\\})=8$, $g(\\{2\\})=9$, $g(N)=13$. The raw AND coefficients are $7,1,2,3$. The complement game has singleton AND values $-4,-5$ and pair value $3$, giving OR values $4,5,-3$ with empty baseline $7$. Its reversed empty AND value is $13$; its negative $-13$ cannot replace $7$.",
+          "justification": ""
+        }
+      ],
+      "notation_map": [
+        {
+          "original_tex": "I_{and}(S\\mid x)",
+          "canonical_tex": "I_g(S)",
+          "relationship": "same_definition"
+        },
+        {
+          "original_tex": "I_{and}(S\\mid x_T)",
+          "canonical_tex": "I_{g_T}(S)",
+          "relationship": "derived_quantity"
+        },
+        {
+          "original_tex": "I_{or}(S\\mid x_T)",
+          "canonical_tex": "O_{g_T}^N(S)",
+          "relationship": "derived_quantity"
+        }
+      ]
+    },
+    "f11-external-sparsity": {
+      "title": "AND sparsity and its three externally cited conditions",
+      "overview": "The cited conditions and their mathematical scope are explained in full. This paper supplies no independent quantified sparsity theorem.",
+      "completion_scope": "The cited conditions and their mathematical scope are explained in full. This paper supplies no independent quantified sparsity theorem.",
+      "assumptions": [
+        "The original empirical well-trained-DNN wording and three conditions cited from Ren et al. (2024), rather than newly introduced premises."
+      ],
+      "proof_steps": [
+        {
+          "id": "f11-external-sparsity-step-1",
+          "title": "Scope of the external citation",
+          "body_md": "Page 3 and Appendix B on page 12 restate sparsity. The first condition requires every output mixed derivative above order $M$ to vanish throughout the input domain (Sparse assumption 1beta); the implication 1beta to 1alpha gives exact high-order interaction vanishing. The remaining conditions are monotonicity of mean output and a polynomial lower bound on the mean masked output. This paper does not re-prove a quantified sparsity rate from them. Sparse Theorems 2 and 3 and their Case 1 scope remain external dependencies.",
+          "justification": "Formal citation and the locations of all three conditions."
+        },
+        {
+          "id": "f11-external-sparsity-step-2",
+          "title": "Boundary of the available conclusion",
+          "body_md": "The empirical term well-trained cannot be replaced with a new mathematical predicate carrying a stronger sufficient sparsity assumption. A finite-n counting bound from Sparse also cannot be upgraded to a strict asymptotic claim for every network. This entry explains the sources and conditions; the paper has no independent proof.",
+          "justification": "Review of the citation scope; no new theorem."
+        }
+      ],
+      "notation_map": [
+        {
+          "source": "v(x_T)",
+          "canonical": "g(T)",
+          "meaning": "Fixed-input, fixed-baseline masked-output game; the empty output is unrestricted."
+        }
+      ]
+    },
+    "f11-significant-definition": {
+      "title": "The set of salient interactions",
+      "overview": "A threshold defines salience; the threshold itself does not prove sparsity.",
+      "proof_steps": [],
+      "notation_map": []
+    },
+    "iclr2024-generalizable-theorem1": {
+      "title": "The exact part of Theorem 1: AND reconstruction for every mask",
+      "overview": "The raw AND transform includes the empty coefficient. Finite cancellation reconstructs each masked output without a sparsity assumption.",
+      "completion_scope": "exact equality component of original Theorem1; approximate/sparsity clause remains a separate inventory target",
+      "assumptions": [
+        "Finite $N$; the same fixed coordinate baseline $r$, input $x$ and model throughout. No zero-baseline assumption on raw outputs."
+      ],
+      "definitions": [
+        {
+          "id": "f11-coordinate-objects",
+          "body_md": "Fix $N=\\{1,\\ldots,n\\}$, a model $v:\\mathbb R^n\\to\\mathbb R$, an input $x$ and one coordinate baseline $r$. Write $g(A)=v(x_A)$ and $b=g(\\varnothing)$. Repeated masking defines $g_T(A)=v((x_T)_A)=g(T\\cap A)$. Define $I_g(S)=\\sum_{L\\subseteq S}(-1)^{|S|-|L|}g(L)$ and $w_A=I_g(A)$. For nonempty $S$, define $O_g^N(S)=-I_{g^c}(S)$ with $g^c(L)=g(N\\setminus L)$; separately set $O_g^N(\\varnothing)=g(\\varnothing)$. All subset sums include the empty set, and raw outputs need not have zero baseline. For components, use $v_{and}$ and $v_{or}$ to form their respective games and conditional games."
+        }
+      ],
+      "proof_steps": [
+        {
+          "id": "f11-exact-adapt",
+          "title": "Adapt the raw AND definition",
+          "body_md": "With $x,r$ fixed, the paper coefficient $I_{and}(A\\mid x)$ is $I_g(A)$. It uses raw outputs and has empty value $b$.",
+          "justification": ""
+        },
+        {
+          "id": "cvpr-recon-main",
+          "title": "Finite double sum and interval cancellation",
+          "body_md": "For fixed $S$, expand $w_A$. Every pair $L\\subseteq A\\subseteq S$ occurs once, so the finite sums may be exchanged. For fixed $L$, use the bijection $B=A\\setminus L\\subseteq S\\setminus L$, with $|A|-|L|=|B|$. If $L\\ne S$, choose $i\\in S\\setminus L$ and pair the sets $B$ according to whether they contain $i$; the signs are opposite and the inner sum vanishes. If $L=S$, only $B=\\varnothing$ remains and its coefficient is one. Hence the sum leaves exactly $g(S)$.",
+          "justification": ""
+        },
+        {
+          "id": "cvpr-recon-empty",
+          "title": "Check the empty coalition and a two-variable example",
+          "body_md": "At $S=\\varnothing$, only $w_\\varnothing=b$ occurs. Take $g(\\varnothing)=7,g(\\{1\\})=8,g(\\{2\\})=9,g(\\{1,2\\})=13$. The coefficients are 7,1,2,3; the full-input sum is 13, the empty-input sum is 7, and the singleton sums are 8 and 9.",
+          "justification": ""
+        }
+      ],
+      "notation_map": [
+        {
+          "original_tex": "I_{and}(S\\mid x)",
+          "canonical_tex": "I_g(S)",
+          "relationship": "same_definition"
+        },
+        {
+          "original_tex": "I_{and}(S\\mid x_T)",
+          "canonical_tex": "I_{g_T}(S)",
+          "relationship": "derived_quantity"
+        },
+        {
+          "original_tex": "I_{or}(S\\mid x_T)",
+          "canonical_tex": "O_{g_T}^N(S)",
+          "relationship": "derived_quantity"
+        }
+      ]
+    },
+    "f11-theorem1-approx": {
+      "title": "Approximating every output with a small salient family: an external claim",
+      "overview": "The approximation clause is explained in full. The unquantified approximation and small-family notation are not advertised as a complete Lean theorem.",
+      "completion_scope": "The approximation clause is explained in full. The unquantified approximation and small-family notation are not advertised as a complete Lean theorem.",
+      "proof_steps": [
+        {
+          "id": "f11-theorem1-approx-step-1",
+          "title": "Separate exact reconstruction from approximation",
+          "body_md": "The exact full-interaction clause of Theorem 1 follows from the complete shared finite Mobius identity. The small-salient-family approximation cites Sparse theory and empirical sparsity without a uniform tolerance. The approximate sum includes the empty interaction exactly when it belongs to the retained family; an extra baseline cannot be added unconditionally. Exact reconstruction makes the residual the sum of all omitted coefficients, including the empty one if omitted, but does not bound that sum.",
+          "justification": "Grouping a finite index family and applying complete reconstruction."
+        },
+        {
+          "id": "f11-theorem1-approx-step-2",
+          "title": "Meaning of approximation",
+          "body_md": "The paper supplies neither an epsilon nor a uniform error bound, and does not quantify few salient. This project adds no error premise and does not replace the clause with a threshold-error theorem. Empirical matching plots and rigorous external bounds remain separate entries.",
+          "justification": "Original approximation semantics and source boundary."
+        }
+      ],
+      "notation_map": [
+        {
+          "source": "v(x_T)",
+          "canonical": "g(T)",
+          "meaning": "Fixed-input, fixed-baseline masked-output game; the empty output is unrestricted."
+        }
+      ]
+    },
+    "iclr2024-generalizable-andor": {
+      "title": "Theorem 2: the complete literal AND-OR matching statement",
+      "overview": "Arbitrary mask-label components reconstruct in their conditional games. Adding them recovers the original output even when distinct mask labels yield the same input.",
+      "completion_scope": "complete arbitrary mask-label component statement, including every gamma assignment; actual input-function variant retained as a special case",
+      "assumptions": [
+        "$g(U)=v(x_U)$; finite $N$ and $T\\subseteq N$. AND and OR components are arbitrary set functions, with $g(U)=g_{and}(U)+g_{or}(U)$ for every label $U$. No assumption $x_i\\ne r_i$ or extension to input functions is required."
+      ],
+      "definitions": [
+        {
+          "id": "f11-coordinate-and-label-objects",
+          "body_md": "Fix $N=\\{1,\\ldots,n\\}$, a model $v:\\mathbb R^n\\to\\mathbb R$, an input $x$ and one coordinate baseline $r$. Write $g(A)=v(x_A)$ and $b=g(\\varnothing)$. Repeated masking defines $g_T(A)=v((x_T)_A)=g(T\\cap A)$. Define $I_g(S)=\\sum_{L\\subseteq S}(-1)^{|S|-|L|}g(L)$ and $w_A=I_g(A)$. For nonempty $S$, define $O_g^N(S)=-I_{g^c}(S)$ with $g^c(L)=g(N\\setminus L)$; separately set $O_g^N(\\varnothing)=g(\\varnothing)$. All subset sums include the empty set, and raw outputs need not have zero baseline. For components, use $v_{and}$ and $v_{or}$ to form their respective games and conditional games. Pages 4 and 6 allow arbitrary mask-label parameters $\\gamma_A$. Thus the most general joint decomposition consists of $g_{and}(A)=\\tfrac12g(A)+\\gamma_A$ and $g_{or}(A)=\\tfrac12g(A)-\\gamma_A$, or any two set functions summing to $g(A)$. Define $g_{and,T}(L)=g_{and}(T\\cap L)$ and similarly for OR. Here $v_{and}(x_A),v_{or}(x_A)$ denote mask-label values; they are actual evaluations on input vectors only when the components come from input functions. The case $x_i=r_i$ is allowed. Distinct labels need not give distinct inputs, and arbitrary gamma values need not extend to a single-valued input function."
+        }
+      ],
+      "proof_steps": [
+        {
+          "id": "f11-mask-comp",
+          "title": "Complete mask-composition lemma",
+          "body_md": "Fix a coordinate $i$. If $i\\in T\\cap L$, both masks retain $x_i$. If $i\\notin L$, the second sets it to $r_i$. If $i\\in L\\setminus T$, the first has already set it to $r_i$ and the second retains that value. Hence $(x_T)_L=x_{T\\cap L}$ coordinatewise. Both masks must use the same $r$.",
+          "justification": ""
+        },
+        {
+          "id": "f11-parent-decompose",
+          "title": "Use the original decomposition at each mask label",
+          "body_md": "The original decomposition satisfies $g(U)=g_{and}(U)+g_{or}(U)$ at every label. In the arbitrary gamma parameterization, the two gamma terms cancel immediately. Even when $x_i=r_i$ makes two labels yield the same vector, the components remain valid set functions; no extension-to-input-function condition is added.",
+          "justification": ""
+        },
+        {
+          "id": "f11-and-coeff-align",
+          "title": "Align fixed-input and literal conditional coefficients",
+          "body_md": "If $S\\subseteq T$, then every $L\\subseteq S$ also lies in $T$, so $T\\cap L=L$. Thus $g_{and,T}(L)=g_{and}(L)$ at each summand, and $I_{g_{and,T}}(S)=I_{g_{and}}(S)$. For actual input-function components, $(x_T)_L=x_L$ gives the same alignment.",
+          "justification": ""
+        },
+        {
+          "id": "f11-and-reconstruct",
+          "title": "Apply complete finite reconstruction and check its conditions",
+          "body_md": "Apply finite reconstruction to $g_{and,T}$: the sum over $S\\subseteq T$ is $g_{and,T}(T)=g_{and}(T)$ since $T\\cap T=T$. The preceding alignment gives the same value using fixed-input coefficients. Both sums include $g_{and}(\\varnothing)$; no zero-baseline condition is added.",
+          "justification": ""
+        },
+        {
+          "id": "f11-or-literal-game",
+          "title": "Retain the literal conditional input and correct the original substitution",
+          "body_md": "Fix $T\\subseteq N$ and set $h(L)=g_{or,T}(L)=g_{or}(T\\cap L)$, retaining the conditional labels of the parent formula. Then $h(N\\setminus L)=g_{or}(T\\setminus L)$. Only for input-function components can this be written as $v_{or}((x_T)_{N\\setminus L})=v_{or}(x_{T\\setminus L})$. Page 13 instead substitutes $v_{or}(x_{N\\setminus L})$, which is generally different. The corrected proof covers arbitrary label functions without an extension assumption.",
+          "justification": ""
+        },
+        {
+          "id": "f11-or-filter",
+          "title": "Complete lemma: intersecting subsets form a difference of two families",
+          "body_md": "For $S\\subseteq N$, $S\\cap T=\\varnothing$ exactly when $S\\subseteq N\\setminus T$. Therefore the intersecting family is $\\mathcal P(N)\\setminus\\mathcal P(N\\setminus T)$. The latter is contained in the former, so its finite sum is the difference of the two complete sums. The empty set belongs to both complete families and never to the intersecting family.",
+          "justification": ""
+        },
+        {
+          "id": "f11-or-transform",
+          "title": "Reconstruct the negative complement game twice",
+          "body_md": "Set $f(L)=-h(N\\setminus L)$. For nonempty $S$, finite-sum linearity gives $O_h^N(S)=I_f(S)$. The intersecting family excludes the empty set, so substitution is valid there. Two reconstructions give $f(N)-f(N\\setminus T)=-h(\\varnothing)+h(T)$, using $N\\setminus(N\\setminus T)=T$. Finally $h(T)=g_{or}(T)$ and $h(\\varnothing)=g_{or}(\\varnothing)$.",
+          "justification": ""
+        },
+        {
+          "id": "f11-or-baseline",
+          "title": "Restore the separate empty OR baseline",
+          "body_md": "The empty definition is $O_h^N(\\varnothing)=h(\\varnothing)=g_{or}(\\varnothing)$. Restoring it reconstructs $g_{or}(T)$. For $T=\\varnothing$, the intersecting family is empty and only the baseline remains. For $T=N$, it reconstructs the full label value. This includes the coincident empty-mask boundaries of the original cases.",
+          "justification": ""
+        },
+        {
+          "id": "f11-parent-add",
+          "title": "Add the components to obtain the literal parent formula",
+          "body_md": "The AND and OR parts reconstruct $g_{and}(T)$ and $g_{or}(T)$. Add them and use the original decomposition to get $g(T)=v(x_T)$. The two empty terms sum to $g(\\varnothing)$. Coefficients still come from $g_{and,T},g_{or,T}$; input-function components are a special case.",
+          "justification": ""
+        }
+      ],
+      "notation_map": [
+        {
+          "original_tex": "I_{and}(S\\mid x)",
+          "canonical_tex": "I_g(S)",
+          "relationship": "same_definition"
+        },
+        {
+          "original_tex": "I_{and}(S\\mid x_T)",
+          "canonical_tex": "I_{g_T}(S)",
+          "relationship": "derived_quantity"
+        },
+        {
+          "original_tex": "I_{or}(S\\mid x_T)",
+          "canonical_tex": "O_{g_T}^N(S)",
+          "relationship": "derived_quantity"
+        }
+      ]
+    },
+    "iclr2024-generalizable-and": {
+      "title": "Appendix C(1): fixed-input and literal conditional AND reconstruction",
+      "overview": "Mask intersection aligns the two conditional coefficient conventions; complete finite reconstruction then applies term by term.",
+      "completion_scope": "complete arbitrary mask-label component statement, including every gamma assignment; actual input-function variant retained as a special case",
+      "assumptions": [
+        "$g(U)=v(x_U)$; finite $N$ and $T\\subseteq N$. AND and OR components are arbitrary set functions, with $g(U)=g_{and}(U)+g_{or}(U)$ for every label $U$. No assumption $x_i\\ne r_i$ or extension to input functions is required."
+      ],
+      "definitions": [
+        {
+          "id": "f11-coordinate-and-label-objects",
+          "body_md": "Fix $N=\\{1,\\ldots,n\\}$, a model $v:\\mathbb R^n\\to\\mathbb R$, an input $x$ and one coordinate baseline $r$. Write $g(A)=v(x_A)$ and $b=g(\\varnothing)$. Repeated masking defines $g_T(A)=v((x_T)_A)=g(T\\cap A)$. Define $I_g(S)=\\sum_{L\\subseteq S}(-1)^{|S|-|L|}g(L)$ and $w_A=I_g(A)$. For nonempty $S$, define $O_g^N(S)=-I_{g^c}(S)$ with $g^c(L)=g(N\\setminus L)$; separately set $O_g^N(\\varnothing)=g(\\varnothing)$. All subset sums include the empty set, and raw outputs need not have zero baseline. For components, use $v_{and}$ and $v_{or}$ to form their respective games and conditional games. Pages 4 and 6 allow arbitrary mask-label parameters $\\gamma_A$. Thus the most general joint decomposition consists of $g_{and}(A)=\\tfrac12g(A)+\\gamma_A$ and $g_{or}(A)=\\tfrac12g(A)-\\gamma_A$, or any two set functions summing to $g(A)$. Define $g_{and,T}(L)=g_{and}(T\\cap L)$ and similarly for OR. Here $v_{and}(x_A),v_{or}(x_A)$ denote mask-label values; they are actual evaluations on input vectors only when the components come from input functions. The case $x_i=r_i$ is allowed. Distinct labels need not give distinct inputs, and arbitrary gamma values need not extend to a single-valued input function."
+        }
+      ],
+      "proof_steps": [
+        {
+          "id": "f11-and-coeff-align",
+          "title": "Align fixed-input and literal conditional coefficients",
+          "body_md": "If $S\\subseteq T$, then every $L\\subseteq S$ also lies in $T$, so $T\\cap L=L$. Thus $g_{and,T}(L)=g_{and}(L)$ at each summand, and $I_{g_{and,T}}(S)=I_{g_{and}}(S)$. For actual input-function components, $(x_T)_L=x_L$ gives the same alignment.",
+          "justification": ""
+        },
+        {
+          "id": "f11-and-reconstruct",
+          "title": "Apply complete finite reconstruction and check its conditions",
+          "body_md": "Apply finite reconstruction to $g_{and,T}$: the sum over $S\\subseteq T$ is $g_{and,T}(T)=g_{and}(T)$ since $T\\cap T=T$. The preceding alignment gives the same value using fixed-input coefficients. Both sums include $g_{and}(\\varnothing)$; no zero-baseline condition is added.",
+          "justification": ""
+        },
+        {
+          "id": "f11-and-empty",
+          "title": "Empty-mask boundary",
+          "body_md": "For $T=\\varnothing$, the only summand is $S=\\varnothing$ and both sides equal $g_{and}(\\varnothing)$. This holds for arbitrary label components and actual input-function components.",
+          "justification": ""
+        }
+      ],
+      "notation_map": [
+        {
+          "original_tex": "I_{and}(S\\mid x)",
+          "canonical_tex": "I_g(S)",
+          "relationship": "same_definition"
+        },
+        {
+          "original_tex": "I_{and}(S\\mid x_T)",
+          "canonical_tex": "I_{g_T}(S)",
+          "relationship": "derived_quantity"
+        },
+        {
+          "original_tex": "I_{or}(S\\mid x_T)",
+          "canonical_tex": "O_{g_T}^N(S)",
+          "relationship": "derived_quantity"
+        }
+      ]
+    },
+    "iclr2024-generalizable-or": {
+      "title": "Appendix C(2): complete OR reconstruction and proof correction",
+      "overview": "Intersecting subsets are all subsets minus disjoint subsets. Subtract two exact reconstruction sums and restore the separately defined OR baseline.",
+      "completion_scope": "complete arbitrary mask-label component statement, including every gamma assignment; actual input-function variant retained as a special case",
+      "assumptions": [
+        "$g(U)=v(x_U)$; finite $N$ and $T\\subseteq N$. AND and OR components are arbitrary set functions, with $g(U)=g_{and}(U)+g_{or}(U)$ for every label $U$. No assumption $x_i\\ne r_i$ or extension to input functions is required."
+      ],
+      "definitions": [
+        {
+          "id": "f11-coordinate-and-label-objects",
+          "body_md": "Fix $N=\\{1,\\ldots,n\\}$, a model $v:\\mathbb R^n\\to\\mathbb R$, an input $x$ and one coordinate baseline $r$. Write $g(A)=v(x_A)$ and $b=g(\\varnothing)$. Repeated masking defines $g_T(A)=v((x_T)_A)=g(T\\cap A)$. Define $I_g(S)=\\sum_{L\\subseteq S}(-1)^{|S|-|L|}g(L)$ and $w_A=I_g(A)$. For nonempty $S$, define $O_g^N(S)=-I_{g^c}(S)$ with $g^c(L)=g(N\\setminus L)$; separately set $O_g^N(\\varnothing)=g(\\varnothing)$. All subset sums include the empty set, and raw outputs need not have zero baseline. For components, use $v_{and}$ and $v_{or}$ to form their respective games and conditional games. Pages 4 and 6 allow arbitrary mask-label parameters $\\gamma_A$. Thus the most general joint decomposition consists of $g_{and}(A)=\\tfrac12g(A)+\\gamma_A$ and $g_{or}(A)=\\tfrac12g(A)-\\gamma_A$, or any two set functions summing to $g(A)$. Define $g_{and,T}(L)=g_{and}(T\\cap L)$ and similarly for OR. Here $v_{and}(x_A),v_{or}(x_A)$ denote mask-label values; they are actual evaluations on input vectors only when the components come from input functions. The case $x_i=r_i$ is allowed. Distinct labels need not give distinct inputs, and arbitrary gamma values need not extend to a single-valued input function."
+        }
+      ],
+      "proof_steps": [
+        {
+          "id": "f11-or-literal-game",
+          "title": "Retain the literal conditional input and correct the original substitution",
+          "body_md": "Fix $T\\subseteq N$ and set $h(L)=g_{or,T}(L)=g_{or}(T\\cap L)$, retaining the conditional labels of the parent formula. Then $h(N\\setminus L)=g_{or}(T\\setminus L)$. Only for input-function components can this be written as $v_{or}((x_T)_{N\\setminus L})=v_{or}(x_{T\\setminus L})$. Page 13 instead substitutes $v_{or}(x_{N\\setminus L})$, which is generally different. The corrected proof covers arbitrary label functions without an extension assumption.",
+          "justification": ""
+        },
+        {
+          "id": "f11-or-filter",
+          "title": "Complete lemma: intersecting subsets form a difference of two families",
+          "body_md": "For $S\\subseteq N$, $S\\cap T=\\varnothing$ exactly when $S\\subseteq N\\setminus T$. Therefore the intersecting family is $\\mathcal P(N)\\setminus\\mathcal P(N\\setminus T)$. The latter is contained in the former, so its finite sum is the difference of the two complete sums. The empty set belongs to both complete families and never to the intersecting family.",
+          "justification": ""
+        },
+        {
+          "id": "f11-or-transform",
+          "title": "Reconstruct the negative complement game twice",
+          "body_md": "Set $f(L)=-h(N\\setminus L)$. For nonempty $S$, finite-sum linearity gives $O_h^N(S)=I_f(S)$. The intersecting family excludes the empty set, so substitution is valid there. Two reconstructions give $f(N)-f(N\\setminus T)=-h(\\varnothing)+h(T)$, using $N\\setminus(N\\setminus T)=T$. Finally $h(T)=g_{or}(T)$ and $h(\\varnothing)=g_{or}(\\varnothing)$.",
+          "justification": ""
+        },
+        {
+          "id": "f11-or-baseline",
+          "title": "Restore the separate empty OR baseline",
+          "body_md": "The empty definition is $O_h^N(\\varnothing)=h(\\varnothing)=g_{or}(\\varnothing)$. Restoring it reconstructs $g_{or}(T)$. For $T=\\varnothing$, the intersecting family is empty and only the baseline remains. For $T=N$, it reconstructs the full label value. This includes the coincident empty-mask boundaries of the original cases.",
+          "justification": ""
+        },
+        {
+          "id": "f11-or-example",
+          "title": "Two-variable check with a nonzero baseline",
+          "body_md": "For outputs $7,8,9,13$ on $\\varnothing,\\{1\\},\\{2\\},N$, raw AND coefficients are $7,1,2,3$ and fixed-input OR coefficients are $4,5,-3$ with empty value $7$. For the literal $T=\\{1\\}$ formula, use $h_T(L)=g(T\\cap L)$ with outputs $7,8,7,8$. Its OR coefficients are $1,0,0$, with empty $7$. The intersecting sum gives $7+1+0=8=g(T)$. The fixed-input formula also gives $7+4-3=8$, but its individual coefficients differ. Empty $T$ gives baseline $7$; for $T=N$, the games agree and give $7+4+5-3=13$.",
+          "justification": ""
+        }
+      ],
+      "notation_map": [
+        {
+          "original_tex": "I_{and}(S\\mid x)",
+          "canonical_tex": "I_g(S)",
+          "relationship": "same_definition"
+        },
+        {
+          "original_tex": "I_{and}(S\\mid x_T)",
+          "canonical_tex": "I_{g_T}(S)",
+          "relationship": "derived_quantity"
+        },
+        {
+          "original_tex": "I_{or}(S\\mid x_T)",
+          "canonical_tex": "O_{g_T}^N(S)",
+          "relationship": "derived_quantity"
+        }
+      ]
+    },
+    "f11-proposition1": {
+      "title": "Approximating outputs with a small AND-OR family",
+      "overview": "The approximation and small-family assertions remain unquantified. Their exact dependencies and omitted terms are explained without claiming a general sparsity proof.",
+      "completion_scope": "The approximation and small-family assertions remain unquantified. Their exact dependencies and omitted terms are explained without claiming a general sparsity proof.",
+      "assumptions": [
+        "The original well-trained wording is retained without introducing a project premise."
+      ],
+      "proof_steps": [
+        {
+          "id": "f11-proposition1-step-1",
+          "title": "Exact matching with all interactions",
+          "body_md": "The literal conditional input $x_T$ must be retained. With the same model components and baseline, define $g^T(L)=v(x_{T\\cap L})$ and the corresponding AND/OR component games. Repeated masking gives this intersection identity. Their raw transforms on the same $N$ are the original $I(S\\mid x_T)$. AND uses $S\\subseteq T$; OR uses $S\\cap T\\ne\\varnothing$ plus its separate empty term. The component baselines sum to $v(x_\\varnothing)$ and their values at $T$ sum to $v(x_T)$, proving literal Theorem 2. Conditional OR coefficients cannot be replaced termwise with unmasked-input coefficients.",
+          "justification": "The complete shared proof of this paper Theorem 2."
+        },
+        {
+          "id": "f11-proposition1-step-2",
+          "title": "The actual remainder after salient-family truncation",
+          "body_md": "Remove coefficients outside the retained AND and OR families. The error is exactly the two omitted conditional-interaction sums, retaining $I^T$ for each original conditional input. The paper asks for both families to be much smaller than $2^n$ and approximate all masks but supplies no independent quantitative derivation. For arbitrary decompositions, exact reconstruction does not itself make either remainder small.",
+          "justification": "Finite grouping without added error or sparsity assumptions."
+        }
+      ],
+      "notation_map": [
+        {
+          "source": "v(x_T)",
+          "canonical": "g(T)",
+          "meaning": "Fixed-input, fixed-baseline masked-output game; the empty output is unrestricted."
+        }
+      ]
+    },
+    "f11-boolean-decomposition": {
+      "title": "A five-variable Boolean function: two exact AND-OR decompositions",
+      "overview": "Boolean OR equals the sum of its variables minus their AND. Substitution gives two pointwise equal decompositions with different supports.",
+      "completion_scope": "entire original finite-algebra statement",
+      "assumptions": [
+        "Boolean input coordinates are 0 or 1. A zero input baseline is used for support calculations. The algebraic function identity holds for all five Boolean variables."
+      ],
+      "definitions": [
+        {
+          "id": "f11-coordinate-objects",
+          "body_md": "Fix $N=\\{1,\\ldots,n\\}$, a model $v:\\mathbb R^n\\to\\mathbb R$, an input $x$ and one coordinate baseline $r$. Write $g(A)=v(x_A)$ and $b=g(\\varnothing)$. Repeated masking defines $g_T(A)=v((x_T)_A)=g(T\\cap A)$. Define $I_g(S)=\\sum_{L\\subseteq S}(-1)^{|S|-|L|}g(L)$ and $w_A=I_g(A)$. For nonempty $S$, define $O_g^N(S)=-I_{g^c}(S)$ with $g^c(L)=g(N\\setminus L)$; separately set $O_g^N(\\varnothing)=g(\\varnothing)$. All subset sums include the empty set, and raw outputs need not have zero baseline. For components, use $v_{and}$ and $v_{or}$ to form their respective games and conditional games."
+        }
+      ],
+      "proof_steps": [
+        {
+          "id": "f11-boolean-truth",
+          "title": "Complete two-variable OR identity",
+          "body_md": "View Boolean variables as real values $0,1$. At $(x_4,x_5)=(0,0),(1,0),(0,1),(1,1)$, the expression $x_4+x_5-x_4x_5$ has values $0,1,1,1$, exactly Boolean OR.",
+          "justification": ""
+        },
+        {
+          "id": "f11-boolean-expand",
+          "title": "Retain the three common AND terms and expand OR",
+          "body_md": "Substitute this identity into the original five-variable function. The three AND terms remain, giving six distinct sets $\\{1,2,3\\},\\{2,3\\},\\{3,4\\},\\{4\\},\\{5\\},\\{4,5\\}$. The last coefficient is $-1$ and the others are $+1$. The other decomposition retains three AND terms and one OR term on $\\{4,5\\}$. They agree pointwise; uniqueness or global optimality is not asserted.",
+          "justification": ""
+        },
+        {
+          "id": "f11-boolean-support",
+          "title": "Actual supports at the full input",
+          "body_md": "At the all-one input with zero baseline, the six product terms are pure AND functions; shared distribution and linearity determine their coefficients. The alternative uses the same three AND supports and one nonempty OR coefficient $1$ on $\\{4,5\\}$. This OR property follows since its complement game is constant $1$ minus pure AND. Both expressions are $0$ at the all-zero or empty input and $4$ at the full input.",
+          "justification": ""
+        }
+      ],
+      "notation_map": [
+        {
+          "original_tex": "I_{and}(S\\mid x)",
+          "canonical_tex": "I_g(S)",
+          "relationship": "same_definition"
+        },
+        {
+          "original_tex": "I_{and}(S\\mid x_T)",
+          "canonical_tex": "I_{g_T}(S)",
+          "relationship": "derived_quantity"
+        },
+        {
+          "original_tex": "I_{or}(S\\mid x_T)",
+          "canonical_tex": "O_{g_T}^N(S)",
+          "relationship": "derived_quantity"
+        }
+      ]
+    },
+    "f11-transferability": {
+      "title": "Transferability and common interactions",
+      "overview": "The intersection and ratio are definitions. The paper gives no convention for an empty denominator.",
+      "proof_steps": [],
+      "notation_map": []
+    },
+    "f11-reparameterization": {
+      "title": "A bijective gamma parameterization of AND-OR decompositions",
+      "overview": "The parameterization is bijective for arbitrary outputs and arbitrary decompositions over all mask labels.",
+      "completion_scope": "The parameterization is bijective for arbitrary outputs and arbitrary decompositions over all mask labels.",
+      "proof_steps": [
+        {
+          "id": "f11-reparameterization-step-1",
+          "title": "From parameters to a decomposition",
+          "body_md": "Fix the input, model and baseline, and choose any real family $\\gamma_T$. At each $T$, the positive and negative gamma terms cancel, so the two components sum to $g(T)$, including the empty mask and the uncentered baseline.",
+          "justification": "Real addition identity."
+        },
+        {
+          "id": "f11-reparameterization-step-2",
+          "title": "Recover the unique parameter from a decomposition",
+          "body_md": "Given any $a(T)+b(T)=g(T)$, set $\\gamma_T=(a(T)-b(T))/2$. Substitution gives $a=g/2+\\gamma$ and $b=g/2-\\gamma$. Any parameter satisfying the first equation equals $a-g/2$, so it is unique. Pointwise reasoning over all masks proves the bijection of set functions without assuming optimization succeeds.",
+          "justification": "Real algebra and function extensionality."
+        },
+        {
+          "id": "f11-reparameterization-step-3",
+          "title": "Adapt independently to multiple models",
+          "body_md": "Apply the same argument to each model $i$, obtaining its own $\\gamma_T^{(i)}$ and components. These parameters are model-specific, distinct from the later shared gamma constraint.",
+          "justification": "Universal quantification over models."
+        }
+      ],
+      "notation_map": [
+        {
+          "source": "v(x_T)",
+          "canonical": "g(T)",
+          "meaning": "Fixed-input, fixed-baseline masked-output game; the empty output is unrestricted."
+        }
+      ]
+    },
+    "f11-objectives": {
+      "title": "Definitions of sparse, cross-model and redundancy objectives",
+      "overview": "These are objective definitions and design interpretations. No theorem guarantees that training achieves global generalization.",
+      "proof_steps": [],
+      "source_material_summary_md": "Both vectors in Eq. (4) contain all $2^n$ interactions. In Eqs. (5) and (6), rows represent common subsets and columns represent models. Rowmax is the row infinity norm, the maximum absolute entry. The one-norm here sums absolute values of all entries, rather than being an induced matrix norm. Eq. (6) uses $\\alpha\\in[0,1]$. These define objectives; the interpretations about generalization and shortcuts supply no mathematical training guarantee.",
+      "notation_map": []
+    },
+    "f11-rowmax-penalty": {
+      "title": "A row penalty stays unchanged below its existing maximum magnitude",
+      "overview": "The row infinity-norm penalty is locally invariant for all finite model families. This does not establish a theorem about optimal support.",
+      "completion_scope": "The row infinity-norm penalty is locally invariant for all finite model families. This does not establish a theorem about optimal support.",
+      "assumptions": [
+        "A finite family of at least one model, with a fixed row S."
+      ],
+      "proof_steps": [
+        {
+          "id": "f11-rowmax-penalty-step-1",
+          "title": "The original row norm",
+          "body_md": "Page 6 defines row infinity norm, so the row penalty is $R=\\max_i|a_i|\\ge0$. Suppose model $j$ retains magnitude $R$ while other magnitudes change within $R$. The new maximum is at most $R$; the retained $j$ term also makes it at least $R$.",
+          "justification": "Upper and lower bounds on a finite maximum."
+        },
+        {
+          "id": "f11-rowmax-penalty-step-2",
+          "title": "Local invariance of the total penalty",
+          "body_md": "If only this row changes, its rowmax coordinate remains unchanged, so the sum of absolute rowmax coordinates is unchanged. This is the precise meaning of other models without a penalty: other values in the row may change within magnitude $R$, with either sign.",
+          "justification": "Coordinatewise equality in a finite sum."
+        },
+        {
+          "id": "f11-rowmax-penalty-step-3",
+          "title": "Boundary of the optimization interpretation",
+          "body_md": "The paper interprets the objective as encouraging a shared sparse family. This flat-region property neither proves every optimum has the same support nor guarantees that learned interactions generalize across models. No such global conclusion is added.",
+          "justification": "Local algebra and empirical interpretations are distinct."
+        }
+      ],
+      "notation_map": [
+        {
+          "source": "v(x_T)",
+          "canonical": "g(T)",
+          "meaning": "Fixed-input, fixed-baseline masked-output game; the empty output is unrestricted."
+        }
+      ]
+    },
+    "f11-shared-gamma": {
+      "title": "Shared and individual parameters and the clipping rule",
+      "overview": "The parameterization and clipping operation retain the boundary difference between a strict constraint and clipping to equality.",
+      "proof_steps": [],
+      "notation_map": []
+    },
+    "f11-and-variance": {
+      "title": "AND interaction variance under independent Gaussian noise",
+      "overview": "The proof covers the actual fixed interaction with IID output perturbations in Appendix D. It does not cover gamma re-optimized after perturbation.",
+      "completion_scope": "The proof covers the actual fixed interaction with IID output perturbations in Appendix D. It does not cover gamma re-optimized after perturbation.",
+      "assumptions": [
+        "Fixed model, input, baseline and unperturbed interaction.",
+        "Appendix D assumes all output perturbations are IID $N(0,\\sigma^2)$.",
+        "Variance is taken over the joint noise sample; adaptively optimized gamma is not treated as fixed."
+      ],
+      "proof_steps": [
+        {
+          "id": "f11-and-variance-step-1",
+          "title": "The actual random-variable identity",
+          "body_md": "Appendix D writes the noisy interaction as the fixed interaction plus $\\sum_{L\\subseteq T}c_L\\epsilon_L$, where $c_L=(-1)^{|T|-|L|}$. The fixed interaction is constant, so translation does not change variance. Gaussian terms have finite second moments, as do their deterministic sign changes.",
+          "justification": "The original proof identity and invariance under constant translation."
+        },
+        {
+          "id": "f11-and-variance-step-2",
+          "title": "Independence and additivity of variance",
+          "body_md": "Distinct output noises are independent by the original IID assumption. Multiplication by fixed signs preserves independence. The variance of a finite independent square-integrable sum is the sum of variances; this does not assume the conclusion. Each sign has square one, so each term contributes $\\sigma^2$.",
+          "justification": "Covariances of independent variables vanish."
+        },
+        {
+          "id": "f11-and-variance-step-3",
+          "title": "Count subsets and correct the source notation",
+          "body_md": "There are $2^{|T|}$ subsets of $T$, giving the claimed variance. For $T=\\varnothing$, raw AND is the noisy output baseline with variance $\\sigma^2$, consistent with the formula. The first sentence on page 15 mixes an $S$-indexed centering sum and a single-noise $T$ index. The actual same-$T$ variance follows the original proof, while that sentence is recorded separately as an issue.",
+          "justification": "Power-set cardinality and the raw empty-coalition convention."
+        }
+      ],
+      "notation_map": [
+        {
+          "source": "v(x_T)",
+          "canonical": "g(T)",
+          "meaning": "Fixed-input, fixed-baseline masked-output game; the empty output is unrestricted."
+        }
+      ]
+    },
+    "f11-or-variance": {
+      "title": "OR interaction variance under independent Gaussian noise",
+      "overview": "Complement reindexing and the separate empty branch give the complete IID variance proof. The paper only says Similarly for OR.",
+      "completion_scope": "Complement reindexing and the separate empty branch give the complete IID variance proof. The paper only says Similarly for OR.",
+      "assumptions": [
+        "Fixed model, input, baseline and unperturbed interaction.",
+        "Appendix D assumes all output perturbations are IID $N(0,\\sigma^2)$.",
+        "Variance is taken over the joint noise sample; adaptively optimized gamma is not treated as fixed."
+      ],
+      "proof_steps": [
+        {
+          "id": "f11-or-variance-step-1",
+          "title": "Expand the actual nonempty OR random variable",
+          "body_md": "For nonempty $T\\subseteq N$, OR is the negative Mobius transform of complement outputs. Perturbing each fixed $g_{or}(L)$ by $\\epsilon_L$ and distributing the finite sum gives the original interaction minus $\\sum_{L\\subseteq T}(-1)^{|T|-|L|}\\epsilon_{N\\setminus L}$. This identity comes from the definition and is not imposed as the target premise.",
+          "justification": "Original OR definition and linear distribution."
+        },
+        {
+          "id": "f11-or-variance-step-2",
+          "title": "Complement indices preserve independence",
+          "body_md": "For $L,K\\subseteq T\\subseteq N$, equality $N\\setminus L=N\\setminus K$ implies $L=K$ by complementing in the same universe. Thus distinct $L$ use distinct IID outputs; the reindexed family remains independent and identically distributed. The deterministic negative signs also square to one. The finite Gaussian variance sum gives $2^{|T|}\\sigma^2$.",
+          "justification": "Complement injection and the variance of the actual random-variable sum."
+        },
+        {
+          "id": "f11-or-variance-step-3",
+          "title": "The original empty-coalition branch",
+          "body_md": "Generalizable separately defines $I_{or}(\\varnothing)=v_{or}(x_\\varnothing)$. Its noisy baseline has variance $\\sigma^2=2^0\\sigma^2$. This branch cannot be replaced by the nonempty negative-Mobius formula and differs from Sparse centered empty interaction zero.",
+          "justification": "The independently specified empty definition."
+        }
+      ],
+      "notation_map": [
+        {
+          "source": "v(x_T)",
+          "canonical": "g(T)",
+          "meaning": "Fixed-input, fixed-baseline masked-output game; the empty output is unrestricted."
+        }
+      ]
+    },
+    "f11-noise-error": {
+      "title": "Learnable output error and clipping",
+      "overview": "Random IID noise and a deterministic optimized error share epsilon notation but are distinct concepts. The printed negative-sign clipping problem is recorded separately.",
+      "proof_steps": [],
+      "notation_map": []
+    },
+    "f11-shapley": {
+      "title": "Theorem 3: classical Shapley values from the original model AND interactions",
+      "overview": "Classical factorial weights yield equal dividend sharing. Reindexing environment subsets by coalitions containing the variable gives the cited formula.",
+      "completion_scope": "entire external Shapley statement using the original model v AND coefficients; this paper has no author proof",
+      "assumptions": [
+        "Finite $N$; the same fixed coordinate baseline $r$, input $x$ and model throughout. No zero-baseline assumption on raw outputs."
+      ],
+      "definitions": [
+        {
+          "id": "f11-coordinate-objects",
+          "body_md": "Fix $N=\\{1,\\ldots,n\\}$, a model $v:\\mathbb R^n\\to\\mathbb R$, an input $x$ and one coordinate baseline $r$. Write $g(A)=v(x_A)$ and $b=g(\\varnothing)$. Repeated masking defines $g_T(A)=v((x_T)_A)=g(T\\cap A)$. Define $I_g(S)=\\sum_{L\\subseteq S}(-1)^{|S|-|L|}g(L)$ and $w_A=I_g(A)$. For nonempty $S$, define $O_g^N(S)=-I_{g^c}(S)$ with $g^c(L)=g(N\\setminus L)$; separately set $O_g^N(\\varnothing)=g(\\varnothing)$. All subset sums include the empty set, and raw outputs need not have zero baseline. For components, use $v_{and}$ and $v_{or}$ to form their respective games and conditional games."
+        }
+      ],
+      "proof_steps": [
+        {
+          "id": "f11-shapley-component",
+          "title": "Check that these are original-model AND interactions",
+          "body_md": "Theorem 3 uses AND interactions from the original model $v$, not coefficients of an arbitrary learned $v_{and}$ component. Set $g(A)=v(x_A)$ and $i\\in N$ to satisfy the classical factorial-Shapley and shared-proof premises.",
+          "justification": ""
+        },
+        {
+          "id": "shapley-definition",
+          "title": "Start from the classical factorial-weighted definition",
+          "body_md": "Let $i\\in N$, so $n=|N|\\ge1$. Classical Shapley weights each environment marginal $g(S\\cup\\{i\\})-g(S)=\\Delta_{\\{i\\}}g(S)$ by $|S|!(n-|S|-1)!/n!$, for $S\\subseteq N\\setminus\\{i\\}$.",
+          "justification": ""
+        },
+        {
+          "id": "factorial-lemma",
+          "title": "Prove the finite factorial convolution"
+        },
+        {
+          "id": "factorial-coefficient",
+          "title": "Sum weights over all supersets of a fixed subset"
+        },
+        {
+          "id": "factorial-transform",
+          "title": "Exchange the sums to obtain the weighted finite-difference transform"
+        },
+        {
+          "id": "shapley-specialize",
+          "title": "Check all parameters of the shared identity",
+          "body_md": "Set $T=\\{i\\}$, $E=N\\setminus\\{i\\}$ and $k=1$. Then $m=n-1$, and the left weight is exactly the classical Shapley weight. The right coefficient is $\\binom{|U|+1}{1}^{-1}=1/(|U|+1)$. The difference target and environment are disjoint and the order is positive, so every premise of the shared identity is satisfied.",
+          "justification": ""
+        },
+        {
+          "id": "shapley-empty-example",
+          "title": "Check the baseline and a two-variable example",
+          "body_md": "For outputs 7, 8, 9 and 13, the dividends are 7, 1, 2 and 3. The two Shapley values are $1+3/2=5/2$ and $2+3/2=7/2$, summing to $6=g(N)-b$. The environment may be empty, but a dividend allocated to $i$ always contains $i$ and is nonempty. The baseline is not allocated. For a one-player game the sole environment is empty and its value is the singleton output minus the baseline.",
+          "justification": ""
+        },
+        {
+          "id": "f11-shapley-reindex",
+          "title": "Reindex environments by coalitions containing the variable",
+          "body_md": "Environment subsets $U\\subseteq N\\setminus\\{i\\}$ correspond bijectively to coalitions containing $i$ by $S=U\\cup\\{i\\}$, with inverse $U=S\\setminus\\{i\\}$ and $|S|=|U|+1$. Termwise reindexing yields the original denominator $|S|$. The empty set contains no $i$ and receives no allocation.",
+          "justification": ""
+        }
+      ],
+      "notation_map": [
+        {
+          "original_tex": "I_{and}(S\\mid x)",
+          "canonical_tex": "I_g(S)",
+          "relationship": "same_definition"
+        },
+        {
+          "original_tex": "I_{and}(S\\mid x_T)",
+          "canonical_tex": "I_{g_T}(S)",
+          "relationship": "derived_quantity"
+        },
+        {
+          "original_tex": "I_{or}(S\\mid x_T)",
+          "canonical_tex": "O_{g_T}^N(S)",
+          "relationship": "derived_quantity"
+        }
+      ]
+    },
+    "f11-equation10": {
+      "title": "The original expansion of the two-model objective",
+      "overview": "The signed-max pointwise clause is refuted. The full equation involving minima is retained; its free indices and comparison of optimum values remain unassessed.",
+      "completion_scope": "The signed-max pointwise clause is refuted. The full equation involving minima is retained; its free indices and comparison of optimum values remain unassessed.",
+      "proof_steps": [
+        {
+          "id": "f11-equation10-step-1",
+          "title": "A pointwise counterexample",
+          "body_md": "Page 6 defines rowmax as $\\max(|a|,|b|)$, whereas the Eq. (10) expansion on page 16 uses $|\\max(a,b)|$. At $a=-3,b=2$, these are $3$ and $2$, so the row identity fails. Invertibility of the Mobius transform allows such a two-model AND row to be realized by corresponding output decompositions; the values are valid interactions.",
+          "justification": "Direct real arithmetic; original AND values have no nonnegativity constraint."
+        },
+        {
+          "id": "f11-equation10-step-2",
+          "title": "Impact and the additional index errors",
+          "body_md": "The counterexample refutes only the pointwise row identity used in the expansion. A single point does not show that two optimization minima differ. The free $S$ index and fixed $x_{T_k},\\gamma_{T_k}$ inside the $T$ sum remain recorded as printing issues. The parent equation with minima has not been fully assessed while those indices remain unresolved. Replacing the original signed maximum with an absolute maximum would change the statement and cannot certify it.",
+          "justification": "Distinguish the pointwise subclaim from the parent equation involving minima."
+        }
+      ],
+      "notation_map": [
+        {
+          "source": "v(x_T)",
+          "canonical": "g(T)",
+          "meaning": "Fixed-input, fixed-baseline masked-output game; the empty output is unrestricted."
+        }
+      ]
+    },
+    "f11-mask-complexity": {
+      "title": "Counting mask settings and exhaustive model queries",
+      "overview": "Mask settings correspond bijectively to subsets. One query per setting therefore uses 2^n calls.",
+      "completion_scope": "mask-set cardinality and one-query-per-mask count; not a total training or interaction-computation time bound",
+      "assumptions": [
+        "Finite $N$; the same fixed coordinate baseline $r$, input $x$ and model throughout. No zero-baseline assumption on raw outputs."
+      ],
+      "definitions": [
+        {
+          "id": "f11-coordinate-objects",
+          "body_md": "Fix $N=\\{1,\\ldots,n\\}$, a model $v:\\mathbb R^n\\to\\mathbb R$, an input $x$ and one coordinate baseline $r$. Write $g(A)=v(x_A)$ and $b=g(\\varnothing)$. Repeated masking defines $g_T(A)=v((x_T)_A)=g(T\\cap A)$. Define $I_g(S)=\\sum_{L\\subseteq S}(-1)^{|S|-|L|}g(L)$ and $w_A=I_g(A)$. For nonempty $S$, define $O_g^N(S)=-I_{g^c}(S)$ with $g^c(L)=g(N\\setminus L)$; separately set $O_g^N(\\varnothing)=g(\\varnothing)$. All subset sums include the empty set, and raw outputs need not have zero baseline. For components, use $v_{and}$ and $v_{or}$ to form their respective games and conditional games."
+        }
+      ],
+      "proof_steps": [
+        {
+          "id": "f11-count-bijection",
+          "title": "Two states per variable are in bijection with subsets",
+          "body_md": "Each $i\\in N$ chooses retained input or baseline. Its retained-coordinate set $S$ determines the setting uniquely, and every subset determines a setting. Thus there are $2^n$ settings. Even if $x_i=r_i$ makes distinct settings yield the same vector, their number is still $2^n$.",
+          "justification": ""
+        },
+        {
+          "id": "f11-count-queries",
+          "title": "Query count for complete enumeration",
+          "body_md": "Querying the model once per setting uses $2^n$ calls, or $m2^n$ for $m$ models enumerated once each. This counts a query scheme; it alone does not bound total interaction transforms, training or gradient-optimization time.",
+          "justification": ""
+        },
+        {
+          "id": "f11-count-boundary",
+          "title": "Zero variables and the six-variable example",
+          "body_md": "For $n=0$, there is one empty setting, $1=2^0$. For $n=6$, there are $64$. The timing table is experimental; setting counts do not determine elapsed seconds.",
+          "justification": ""
+        }
+      ],
+      "notation_map": [
+        {
+          "original_tex": "I_{and}(S\\mid x)",
+          "canonical_tex": "I_g(S)",
+          "relationship": "same_definition"
+        },
+        {
+          "original_tex": "I_{and}(S\\mid x_T)",
+          "canonical_tex": "I_{g_T}(S)",
+          "relationship": "derived_quantity"
+        },
+        {
+          "original_tex": "I_{or}(S\\mid x_T)",
+          "canonical_tex": "O_{g_T}^N(S)",
+          "relationship": "derived_quantity"
+        }
+      ]
+    },
+    "f11-alpha-zero": {
+      "title": "At alpha zero, Eq. (6) reduces to Eq. (5)",
+      "overview": "The deterministic substitution identity is proved in full. The empirical ablation is recorded separately.",
+      "completion_scope": "The deterministic substitution identity is proved in full. The empirical ablation is recorded separately.",
+      "proof_steps": [
+        {
+          "id": "f11-alpha-zero-step-1",
+          "title": "Original objective definitions",
+          "body_md": "Let $P(A,B)$ be the sum of the two rowmax one-norms and $Q(A,B)$ the two entrywise one-norms. The pointwise Eq. (6) objective is $P+\\alpha Q$. Substituting $\\alpha=0$ gives $P+0Q=P$, the Eq. (5) objective.",
+          "justification": "Multiplication by zero and the original objective definitions."
+        },
+        {
+          "id": "f11-alpha-zero-step-2",
+          "title": "Adapt the minimization problem",
+          "body_md": "The feasible parameter domain is the same, so identical pointwise objective functions give the same minimization problem. This says nothing about generalization curves at other alpha values. The empirical ablation on pages 17-18 is separate. The alpha-zero sentence occurs on formal PDF page 17, with its figure continuing on page 18.",
+          "justification": "Same domain and same function; corrected formal page location."
+        }
+      ],
+      "notation_map": [
+        {
+          "source": "v(x_T)",
+          "canonical": "g(T)",
+          "meaning": "Fixed-input, fixed-baseline masked-output game; the empty output is unrestricted."
+        }
+      ]
+    },
+    "f11-procedure-example": {
+      "title": "The complete six-token interaction-extraction example",
+      "overview": "The example records input domains, baseline, 64 masks, log odds, gamma, interactions, optimization and thresholding. It is an algorithm example rather than a general correctness proof.",
+      "proof_steps": [],
+      "source_material_summary_md": "Appendix L gives eight steps. (1) Use the six tokens in A stitch in time saves nine, with token embeddings in $\\mathbb R^{768}$ for BERTBASE or $\\mathbb R^{1024}$ for BERTLARGE. (2) Choose each model special-token embedding as its baseline. (3) Enumerate all $2^6=64$ masks, from $T_0=\\varnothing$ to $T_{63}=N$. (4) Evaluate each masked model output as log odds of the ground-truth class. (5) Set AND and OR components to half the output plus or minus gamma for every model and mask. (6) Compute interactions using Eqs. (1) and (2); although the printed step includes all indices, the OR empty value must still follow the separate Section 2.1 convention. (7) Learn gamma using Eq. (6) and iterate from step 5 to convergence. (8) Select each model salient family using the absolute-interaction threshold. This is an algorithm example, not a proof of convergence or general correctness.",
+      "notation_map": []
+    },
+    "f11-matching-metric": {
+      "title": "The matching precision metric for the top k interactions",
+      "overview": "The metric m conflicts with the model-count m. The notation v(N) abbreviates a set output, and no zero-denominator convention is given.",
+      "proof_steps": [],
+      "notation_map": []
+    },
+    "f11-empirical": {
+      "title": "Experiments on sparsity, transfer, visualization and matching",
+      "overview": "Appendix N.1 compares interactions obtained from random initializations. It does not prove diversity of global optima.",
+      "proof_steps": [],
+      "source_material_summary_md": "Section 3 and Appendices E, H, I, J, K, M, N and O.1 provide datasets, plots and empirical comparisons. Appendix N.1 initializes gamma twice from N(0,1) and reports AND/OR overlaps of 10.90%/16.18% for BERTBASE and 17.84%/20.90% for BERTLARGE. It does not prove these are different global optima. N.2 plots matching error over all masks after removing learnable error. Empirical plots are not additional mathematical proofs.",
+      "notation_map": []
+    },
+    "f11-background-selection": {
+      "title": "Selected input variables and fixed background",
+      "overview": "All masks are relative to the selected universe. Unselected background remains fixed; empirical absence of interaction is not a formal zero-interaction assumption.",
+      "proof_steps": [],
+      "source_material_summary_md": "Appendices E and O.2 select $t<n$ variables to form $N$ and leave unselected variables unchanged. SST-2 uses at most ten semantic tokens; SQuAD masks whole words with all their tokens and selects ten words; MNIST-3 selects eight foreground $3\\times3$ patches with a zero-patch baseline. The background and stopword decisions are empirical choices, not proved zero-interaction conditions.",
+      "notation_map": []
+    }
+  },
+  "issues": {
+    "issue-f11-or-intermediate-20260930": {
+      "title": "OR proof: intermediate zero sums, conditioned-output substitution and overlapping empty-mask cases",
+      "text_md": "The proof has intermediate case and conditioned-mask errors. The OR and AND-OR parent statements are retained; the repaired proof keeps the literal conditioned sample in every summand.",
+      "evidence_md": "On page 13, the first substitution drops a second mask. Take N={1,2}, T={1}, $g(A)=\\mathbf1_{N\\subseteq A}$ and S=N. The literal conditioned game hT is identically zero, giving an OR coefficient of zero on the left and minus one in the printed right side. The correct summand is $v_{or}((x_T)_{N\\setminus L})=v_{or}(x_{T\\setminus L})$. Page 14 case (3) uses $\\sum_{j=0}^{|T|-|T\\cap L|}\\binom{|T|-|T\\cap L|}j(-1)^j=0$, but when T is a subset of L the upper limit is zero and the sum is one; N={1,2}, T=L={1} is an example. The complete outer sum still cancels, but the marked inner zero is false. Case (4) requires adding at least one variable in T although the printed lower bound is zero. When T is empty, case (1) L=N minus T and case (2) L=N overlap and cannot count the same term twice.",
+      "impact_md": "These are intermediate proof-case and conditioned-output substitution errors, with the original OR and AND-OR statements unchanged. The repaired proof uses the difference of intersecting subset families and complete Mobius reconstruction, including the empty T, while retaining the literal conditioned sample term by term."
+    },
+    "f11-issue-variance-expectation-indices": {
+      "title": "Appendix D: mismatched variance center and expectation indices",
+      "text_md": "The opening expression centers I-prime(T) using I-prime(S) and indexes the outer expectation only by epsilon_T. A variance requires the joint noise expectation and the mean of the same T random variable. The subsequent proof uses the correct Var(I-prime(T)) with fixed I(T); its IID variance conclusion is retained.",
+      "analysis_md": "The opening center and expectation indices are inconsistent. The following original proof uses the fixed-T variance and the full independent noise family correctly. The project preserves the opening formula and repairs the notation and explanation without changing the final variance statement."
+    },
+    "f11-issue-rowmax-signed-max": {
+      "title": "Eq. (10): counterexample to the pointwise row-norm expansion",
+      "text_md": "Page 6 defines the maximum absolute value in each row, whereas the page 16 Eq. (10) expansion uses the absolute value of the signed maximum. These are different functions. The counterexample concerns this pointwise subclaim; it does not show that the two minimized objective values differ.",
+      "problem_md": "Page 6 defines the maximum absolute value in each row, whereas the page 16 Eq. (10) expansion uses the absolute value of the signed maximum. These are different functions. This issue concerns only the pointwise expansion and does not refute equality of the two minimized values.",
+      "evidence_md": "The counterexample to this pointwise identity has actually compiled. The full Eq. (10) contains unbound indices; its parent optimization equation and equality of optimal values remain unassessed.",
+      "impact_md": "The pointwise row-norm expansion is false. This counterexample cannot be promoted to a refutation of the complete equation with minima. The original Eq. (6) definition and author Eq. (10) are both retained."
+    },
+    "f11-issue-equation10-free-indices": {
+      "title": "Eq. (10): unbound summation indices and unresolved parent optimization scope",
+      "text_md": "The outer sum binds T_k, while the inner sum uses T subset S and |S|-|T| without binding S in this expansion. Some outputs and parameters remain indexed by T_k rather than the inner T. The full original formula is retained without choosing an amended interpretation for the author.",
+      "problem_md": "The outer sum binds T_k, while the inner sum uses T subset S and |S|-|T| without binding S. Some outputs and parameters are still indexed by T_k instead of the inner T. The project retains the full formula without selecting a repaired interpretation.",
+      "evidence_md": "Compare formal PDF page 16 line by line: the minimization, summation domains, output indices and free S in Eq. (10) are preserved in the source tab. The existing (-3,2) counterexample checks only the signed-max expansion.",
+      "impact_md": "The parent equation with minima remains unassessed. Guessing indices, changing the statement or applying a pointwise counterexample does not establish that the two optimization minima differ."
+    }
+  }
+}

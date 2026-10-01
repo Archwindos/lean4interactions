@@ -1,0 +1,75 @@
+                                          Towards Attributions of Input Variables in a Coalition
+
+set of all input variables and the model output on the input              of any word in S will disrupt the AND relationship and
+sample x is represented as v(x) ∈ R. There are various                    remove the effect Iand (S).
+settings for v(x) when the model has multiple output dimen-
+                                                                          Ior (S) represents the OR relationship among input vari-
+sions. In multi-category classification tasks, v(x) is usually
+                                                                          ables in S. The presence of any variable in S contributes
+defined below, following (Deng et al., 2022).
+                                                                          an effect of Ior (S) to the model’s output. Given the sen-
+                                 p(y = y ∗ |x)                            tence “This movie is boring and disappointing” for senti-
+                 v(x) = log                                    (1)        ment classification, the OR interaction between variables
+                               1 − p(y = y ∗ |x)
+                                                                          in T = {x1 = boring, x2 = disappointing} represents a
+where y ∗ denotes the ground-truth label of the input x.                  negative sentiment with Ior (T ) < 0. If any words in T are
+Shapley value (Shapley et al., 1953) is a well-known game-                present, then this pattern is activated and contributes Ior (T )
+theoretic metric to measure the attribution/importance of                 to the model output v(N ). Only masking all words in T can
+each input variable to the output of the AI model. The                    deactivate the interaction and remove the effect Ior (T ).
+Shapley value has been considered as the unique attribution
+method that satisfies the axioms of anonymity, symmetry,                  Universal-matching property. The output of an AI model
+dummy, additivity, and efficiency. In this way, the Shapley               can always be explained as numerical effects of AND-OR in-
+value of the i-th variable is computed as follows:                        teractions. In particular, the faithfulness of interaction-based
+          X            |S|!(n − |S| − 1)!                               explanation is ensured by the universal-matching property
+ ϕ(i) =                                  · v(S∪{i})−v(S) (2)
+            S⊆N \{i}           n!                                         (Li & Zhang, 2023). Given each randomly masked sample
+                                                                          xS (S ⊆ N ), we can always use AND-OR interactions to
+ where | · | denotes the cardinality of the set. Here, we use
+                                                                          mimic the network output v(S) on xS . No matter how we
+v(S) to simplify the notation of v(xS ), and v(xS ) denotes
+                                                                          randomly mask the input and obtain a masked sample xS s.t.
+the model output on a masked sample xS . In the masked
+                                                                          S ⊆ N , the masking operation deactivates some AND-OR
+sample xS , variables in S are present, and variables in N \S
+                                                                          interactions, but it is proven that the network output on each
+are masked. In this way, v(∅) represents the model output
+                                                                          randomly masked sample v(S) can be always accurately
+when all input variables are masked, and v(N ) denotes the
+                                                                          estimated as the sum of numerical effects of the remaining
+model output on the original input sample x.
+                                                                          AND-OR interactions. Please see Appendix B for details.
+ AND-OR interactions. Given an AI model v(·) and a set
+S ⊆ N (S ̸= ∅), the AND interaction effect Iand (S) and
+the OR interaction effect Ior (S), between input variables in             3.2. Revisiting attributions from interactions
+S can be computed, as follows.                                            In this section, we will revisit the conflict problem in the
+                                                                          attribution method and reformulate classical attribution met-
+                           X             |S|−|L|
+              Iand (S) =          (−1)             vand (L)     (3)
+                            L⊆S
+                                                                          rics from the perspective of interactions.
+                        X
+          Ior (S) = −            (−1)|S|−|L| vor (N \ L)        (4)       What is a coalition? Given an AI model v with n in-
+                           L⊆S
+                                                                          put variables in N , the estimation of the numerical attribu-
+ where vand (L) = 0.5v(L)+γL and vor (L) = 0.5v(L)−γL                     tion of each i-th input variable ϕ(i) depends on the parti-
+represent output components exclusively for AND interac-                  tion of input variables. For example, given an input sen-
+tions and OR interactions, respectively, subject to v(L) =                tence “raining cats and dogs”, some people choose to take
+vand (L) + vor (L). In this way, the extraction of all AND-               each token as an input variable and compute the attribu-
+OR interactions is determined by learning optimal param-                  tions of different tokens, N = {rain, -ing, cats, and, dogs},
+eters {γL }. (Li & Zhang, 2023) have proposed to learn                    while other people use words as input variables, P =
+parameters {γL } P via a LASSO-like loss to achieve sparsest              {{rain, -ing}, cats, and, dogs}.Thus, the combination of
+interactions, i.e., S⊆N |Iand (S)| + |Ior (S)|.                           input variables can be considered as a coalition, just like
+How to understand AND-OR interactions. Iand (S) mea-                      the coalition of S = {rain, -ing} in the second case. As
+sures the non-linear relationship (AND relationship) be-                  Figure 1 shows, people may manually select a set of input
+tween input variables in S ⊆ N . The presence of all vari-                variables with actual semantics to construct a coalition.
+ables in S contributes an effect Iand (S) to the model’s out-             Compared to estimating a scalar attribution of a coalition S,
+put. For example, we consider the slang term S = {x1 =                    the interaction usually represents more disentangled effects.
+raining, x2 = cats, x3 = and, x4 = dogs} in the input sen-                For example, for a coalition S = {a, b, c}, different inter-
+tence “It was raining cats and dogs outside.” An AI model                 action effects I({a}), I({b}), I({c}), I({a, b}), I({a, c}),
+may encode the AND relationship between the variables in                  I({b, c}), I({a, b, c}) may affect the attribution of the coali-
+S as an inference pattern of “heavy rain.” If all four words              tion S. Please see Appendix A for a detailed comparison
+exist in the input sentence, the DNN will detect this infer-              between coalition attribution and interaction effect.
+ence pattern and make a numerical effect Iand (S) to push the
+output towards the meaning of “heavy rain.” The masking                   Conflict of attributions. Definition 3.1 introduces the con-
+
+                                                                      3

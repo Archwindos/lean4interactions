@@ -1,0 +1,284 @@
+{
+  "paper_id": "icml2024-layerwise",
+  "issues": [
+    {
+      "id": "layer-issue-binomial-15",
+      "paper_id": "icml2024-layerwise",
+      "title": "Eq.(15) 缺失二项式系数",
+      "kind": "proof_error",
+      "source_refs": [
+        {
+          "source_id": "src-icml2024-layerwise-formal",
+          "pdf_pages": [
+            15
+          ]
+        }
+      ],
+      "original_expression": "\\sum_{m=0}^{|T|-|L|}(-1)^m=0",
+      "description_md": "作者按阶数汇总子集时漏掉组合数量。",
+      "evidence_md": "$|T|-|L|=2$ 时原和为 $1-1+1=1$，并非 $0$；正确和为 $1-2+1=0$。",
+      "impact_md": "同一重构命题用完整二项式消去补正，原错式保留。",
+      "user_confirmation": "not_individually_confirmed",
+      "fix_authorization": "proof_only_granted",
+      "proposition_modification_authorized": false,
+      "status": "agent_checked",
+      "translations": {
+        "en": {
+          "title": "Missing binomial multiplicities in Eq.(15)",
+          "description_md": "The author groups subsets by size without their multiplicities.",
+          "evidence_md": "For $|T|-|L|=2$, the printed sum is $1-1+1=1$, rather than $0$; the correct sum is $1-2+1=0$.",
+          "impact_md": "The same reconstruction claim is repaired by full binomial cancellation; the erroneous source expression is retained."
+        }
+      }
+    },
+    {
+      "id": "layer-issue-or-calculation-16",
+      "paper_id": "icml2024-layerwise",
+      "title": "Eq.(16) OR 分组的零因子不成立",
+      "kind": "proof_error",
+      "source_refs": [
+        {
+          "source_id": "src-icml2024-layerwise-formal",
+          "pdf_pages": [
+            15
+          ]
+        }
+      ],
+      "original_expression": "\\sum_{S_1\\subseteq N\\setminus T\\setminus L}(\\cdots)=0",
+      "description_md": "原分组的符号缺少固定 L 与 T 交集的指数；零因子仍须按两个剩余块完整核对。",
+      "evidence_md": "取 $N=\\{1,2\\},T=\\{1\\},L=\\{1\\}$，原式 $S_1=\\varnothing,\\{2\\}$ 的符号与原 $|S|-|L|$ 相反。其分组总和虽可由剩余块消去，但这不使逐项错符号相等。",
+      "impact_md": "用全 OR 和减去不激活 OR 和完整补证，不改变定理。",
+      "user_confirmation": "not_individually_confirmed",
+      "fix_authorization": "proof_only_granted",
+      "proposition_modification_authorized": false,
+      "status": "agent_checked",
+      "translations": {
+        "en": {
+          "title": "Invalid zero-factor grouping in Eq.(16)",
+          "description_md": "The grouping omits the fixed-L intersection exponent; zero factors must still be checked using both remaining blocks.",
+          "evidence_md": "For $N=\\{1,2\\},T=\\{1\\},L=\\{1\\}$, the printed signs for $S_1=\\varnothing,\\{2\\}$ are opposite to the original exponent $|S|-|L|$. The grouped sum can still cancel using its remaining blocks, which does not make the printed termwise signs equal.",
+          "impact_md": "Subtracting the inactive OR sum from the full OR sum repairs the proof without changing the theorem."
+        }
+      }
+    },
+    {
+      "id": "layer-issue-conditional-scope",
+      "paper_id": "icml2024-layerwise",
+      "title": "固定与条件 OR 游戏不可混换",
+      "kind": "scope_mismatch",
+      "source_refs": [
+        {
+          "source_id": "src-icml2024-layerwise-formal",
+          "pdf_pages": [
+            4,
+            15
+          ]
+        }
+      ],
+      "original_expression": "I_{or}(S\\mid x_T)\\ne I_{or}(S\\mid x)\\ \\text{in general}",
+      "description_md": "AND 在 S⊆T 时可限制相等；OR 补集变换在再次掩码后通常改变。",
+      "evidence_md": "$N=\\{1,2\\}$，$o(U)=\\mathbf1_{\\{1,2\\}\\subseteq U}$，$T=\\{1\\}$：固定 $O(\\{1\\})=1$，限制游戏 $o_T\\equiv0$ 的 $O_T(\\{1\\})=0$。",
+      "impact_md": "两种重构均证明；限制分解与独立重新学习的分解须分别实例化。",
+      "user_confirmation": "not_individually_confirmed",
+      "fix_authorization": "proof_only_granted",
+      "proposition_modification_authorized": false,
+      "status": "agent_checked",
+      "translations": {
+        "en": {
+          "title": "Fixed and conditional OR games differ",
+          "description_md": "AND restriction agrees for S contained in T; the OR complementary transform generally changes under repeated masking.",
+          "evidence_md": "For $N=\\{1,2\\}$, $o(U)=\\mathbf1_{\\{1,2\\}\\subseteq U}$, and $T=\\{1\\}$, fixed $O(\\{1\\})=1$, while $o_T\\equiv0$ yields $O_T(\\{1\\})=0$.",
+          "impact_md": "Both reconstruction forms are proved. A restricted split and an independently relearned split must be instantiated separately."
+        }
+      }
+    },
+    {
+      "id": "layer-issue-empty-or",
+      "paper_id": "icml2024-layerwise",
+      "title": "Eq.(2) 字面空集值与定理特设值不同",
+      "kind": "undefined_original_scope",
+      "source_refs": [
+        {
+          "source_id": "src-icml2024-layerwise-formal",
+          "pdf_pages": [
+            4
+          ]
+        }
+      ],
+      "original_expression": "-\\sum_{T\\subseteq\\varnothing}(-1)^{0-|T|}o(N\\setminus T)=-o(N)",
+      "description_md": "Definition 3.2 对所有 S 的公式在空集不等于随后特设基线。",
+      "evidence_md": "$o(\\varnothing)=0,o(N)=1$ 给原公式空值 $-1$，而定理空值 $0$。",
+      "impact_md": "非空负变换与原定理空集约定分开保存。",
+      "user_confirmation": "not_individually_confirmed",
+      "fix_authorization": "proof_only_granted",
+      "proposition_modification_authorized": false,
+      "status": "agent_checked",
+      "translations": {
+        "en": {
+          "title": "Eq.(2) has a different literal empty value",
+          "description_md": "The all-S formula in Definition 3.2 differs at the empty set from the later special baseline.",
+          "evidence_md": "$o(\\varnothing)=0,o(N)=1$ gives literal empty value $-1$, while the theorem specifies $0$.",
+          "impact_md": "The nonempty negative transform and the theorem’s empty convention are retained separately."
+        }
+      }
+    },
+    {
+      "id": "layer-issue-baseline-19",
+      "paper_id": "icml2024-layerwise",
+      "title": "Eq.(19) 重复加入输出基线",
+      "kind": "proof_error",
+      "source_refs": [
+        {
+          "source_id": "src-icml2024-layerwise-formal",
+          "pdf_pages": [
+            16
+          ]
+        }
+      ],
+      "original_expression": "g(T)=b+\\sum_{S\\subseteq T}A_T(S)+\\sum_{S\\cap T\\ne\\varnothing}O_T(S)",
+      "description_md": "AND 求和已经含空集基线，原式又加了一次。",
+      "evidence_md": "$g\\equiv1,a\\equiv1,o\\equiv0$ 满足原空分量条件，原右端为 $1+1=2\\ne1$。",
+      "impact_md": "保留显式 b 时删去 AND 求和中的空项；这修复中间式，不解决显著近似的外引缺口。",
+      "user_confirmation": "not_individually_confirmed",
+      "fix_authorization": "proof_only_granted",
+      "proposition_modification_authorized": false,
+      "status": "agent_checked",
+      "translations": {
+        "en": {
+          "title": "Duplicated output baseline in Eq.(19)",
+          "description_md": "The AND sum already contains the empty baseline, which is added again.",
+          "evidence_md": "$g\\equiv1,a\\equiv1,o\\equiv0$ satisfies the stated empty-component conditions, but the printed right side is $1+1=2\\ne1$.",
+          "impact_md": "Exclude the empty AND term when keeping explicit b. This repairs the intermediate equality without resolving the external sparse-approximation gap."
+        }
+      }
+    },
+    {
+      "id": "layer-issue-sparse-transfer",
+      "paper_id": "icml2024-layerwise",
+      "title": "Lemma 3.4 与 OR 稀疏外引条件未验证",
+      "kind": "external_scope_issue",
+      "source_refs": [
+        {
+          "source_id": "src-icml2024-layerwise-formal",
+          "pdf_pages": [
+            3,
+            4,
+            13,
+            16
+          ]
+        }
+      ],
+      "original_expression": "O(S)=-I_h(S)\\not\\Rightarrow\\#\\{S:O(S)\\ne0\\}\\ll2^n",
+      "description_md": "补集代数等式不能自动保证学习分量满足所引稀疏定理条件。",
+      "evidence_md": "原文缺少对 AND 分量、OR 分量补集游戏的条件检验，也没有给“小”和近似误差的定量定义。",
+      "impact_md": "完整原文仍保留，项目给出尾和条件界并将原断言范围标为未完成，未偷添条件。",
+      "user_confirmation": "not_individually_confirmed",
+      "fix_authorization": "proof_only_granted",
+      "proposition_modification_authorized": false,
+      "status": "agent_checked",
+      "translations": {
+        "en": {
+          "title": "Unverified external conditions for Lemma 3.4 and OR sparsity",
+          "description_md": "The complementary algebraic identity does not establish that learned components satisfy the cited sparsity theorem’s conditions.",
+          "evidence_md": "The source does not check the assumptions for the AND component and complemented OR component, or quantify smallness and approximation error.",
+          "impact_md": "The full source remains available. A separate tail-bound result is supplied, while the original assertion’s scope remains unresolved without inserted assumptions."
+        }
+      }
+    },
+    {
+      "id": "layer-issue-coordinate-13",
+      "paper_id": "icml2024-layerwise",
+      "title": "Eq.(12) 不是所需反向掩码",
+      "kind": "false_under_displayed_definitions",
+      "source_refs": [
+        {
+          "source_id": "src-icml2024-layerwise-formal",
+          "pdf_pages": [
+            13
+          ]
+        }
+      ],
+      "original_expression": "v(x_{N\\setminus T})=v(x'_T)",
+      "description_md": "原两坐标定义实际互补，Eq.(13) 的第二等号错误。",
+      "evidence_md": "$N=T=\\{1\\},x_1=1,r_1=0,v(z)=z_1$ 给 $0\\ne1$。",
+      "impact_md": "原坐标错式独立登记；游戏层面的补集负变换证明有效，不把新定义换进原式。",
+      "user_confirmation": "not_individually_confirmed",
+      "fix_authorization": "proof_only_granted",
+      "proposition_modification_authorized": false,
+      "status": "agent_checked",
+      "translations": {
+        "en": {
+          "title": "Eq.(12) is not the required reversed mask",
+          "description_md": "The two printed coordinate definitions are complementary, making the second equality in Eq.(13) false.",
+          "evidence_md": "$N=T=\\{1\\},x_1=1,r_1=0,v(z)=z_1$ gives $0\\ne1$.",
+          "impact_md": "The coordinate error is recorded separately. The complementary-game negative transform remains valid; a new coordinate definition is not substituted into the source."
+        }
+      }
+    },
+    {
+      "id": "layer-issue-strength-8",
+      "paper_id": "icml2024-layerwise",
+      "title": "Eq.(8) 在原显著支持下第一等式失败",
+      "kind": "false_original_statement",
+      "source_refs": [
+        {
+          "source_id": "src-icml2024-layerwise-formal",
+          "pdf_pages": [
+            5,
+            6,
+            7
+          ]
+        }
+      ],
+      "original_expression": "\\operatorname{all}_{l,1}=\\operatorname{overlap}_{l,1}+\\operatorname{forget}_{l,1}",
+      "description_md": "重叠项只在共同显著支持求和，忘记项却从每个本层显著系数减去实际共享值。",
+      "evidence_md": "归一化纯 AND 系数本层 $(1/2,1/2)$、末层 $(1/101,100/101)$；原阈值给支持 $\\{\\{1\\},\\{2\\}\\}$ 与 $\\{\\{2\\}\\}$。$\\operatorname{all}_{l,1}=1$，$\\operatorname{overlap}_{l,1}+\\operatorname{forget}_{l,1}=1/2+99/202=100/101$。两分解 L1=1 全局最优。",
+      "impact_md": "第一子句有完整反例；本例第二子句成立。不能用正确标量引理冒充原总式证明。",
+      "user_confirmation": "not_individually_confirmed",
+      "fix_authorization": "proof_only_granted",
+      "proposition_modification_authorized": false,
+      "status": "agent_checked",
+      "translations": {
+        "en": {
+          "title": "The first Eq.(8) identity fails with the stated salient supports",
+          "description_md": "Overlap uses only the common salient support, while forget subtracts the actual shared coefficient at every current-layer salient coalition.",
+          "evidence_md": "Normalized pure AND coefficients are $(1/2,1/2)$ and $(1/101,100/101)$. The stated thresholds give supports $\\{\\{1\\},\\{2\\}\\}$ and $\\{\\{2\\}\\}$. Then $\\operatorname{all}_{l,1}=1$, while $\\operatorname{overlap}_{l,1}+\\operatorname{forget}_{l,1}=1/2+99/202=100/101$. Both splits are globally L1-optimal at value 1.",
+          "impact_md": "The first clause has a full counterexample; the second holds in this witness. The valid scalar lemma does not prove the printed aggregate identity."
+        }
+      }
+    },
+    {
+      "id": "layer-issue-zero-metrics",
+      "paper_id": "icml2024-layerwise",
+      "title": "比值、平均与归一化的零边界未规定",
+      "kind": "undefined_original_scope",
+      "source_refs": [
+        {
+          "source_id": "src-icml2024-layerwise-formal",
+          "pdf_pages": [
+            5,
+            7,
+            8,
+            21
+          ]
+        }
+      ],
+      "original_expression": "0/0",
+      "description_md": "空并集、零总强度、零方差、空显著集合或零归一化因子会产生未定义实数表达。",
+      "evidence_md": "原文未分别给这些情况的赋值规则；残差严格界在 κ=0 时也无可行解。",
+      "impact_md": "只在原表达有定义时解释数值，不新增隐含零值约定。",
+      "user_confirmation": "not_individually_confirmed",
+      "fix_authorization": "proof_only_granted",
+      "proposition_modification_authorized": false,
+      "status": "agent_checked",
+      "translations": {
+        "en": {
+          "title": "Unspecified zero boundaries of ratios, averages, and normalization",
+          "description_md": "An empty union, zero total strength, zero variance, empty salient family, or zero normalization factor can make the real expression undefined.",
+          "evidence_md": "The source supplies no separate values for these cases; its strict residual bound is also infeasible when κ=0.",
+          "impact_md": "Interpret the metrics where their original expressions are defined, without adding a hidden zero convention."
+        }
+      }
+    }
+  ]
+}

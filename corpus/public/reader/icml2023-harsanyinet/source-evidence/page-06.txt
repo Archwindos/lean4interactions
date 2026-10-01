@@ -1,0 +1,81 @@
+                                                              HarsanyiNet: Computing Accurate Shapley Values in a Single Forward Propagation
+
+                                               MLP-5 trained            ResMLP-5 trained              ResNet-32 trained           cial detection (Dua & Graff, 2017), and the MNIST (LeCun
+                                           on Census dataset            on Census dataset             on MNIST dataset
+ Number of Harsanyi interactions
+
+
+
+                                                                                                                                  & Cortes, 2010) datasets. Only a few Harsanyi interactions
+                                                                                                                                  were found to be salient. Most Harsanyi interactions were
+                                       Interaction stength |I(S)|   Interaction stength |I(S)|   Interaction stength |I(S)|       close to zero, and could be considered noise.
+                                               MLP-5 trained            ResMLP-5 trained                VGG-16 trained
+                                          on TV news dataset           on TV news dataset             on MNIST dataset            Therefore, the above experiments demonstrated that many
+                                                                                                                                  applications only required DNNs to encode a few salient
+                                                                                                                                  Harsanyi interactions, instead of modeling an exponential
+                                       Interaction stength |I(S)|   Interaction stength |I(S)|   Interaction stength |I(S)|       number of Harsanyi interactions. From this perspective, the
+                                                                                                                                  HarsanyiNet has sufficient representation capacity.
+Figure 2. The histogram of interaction strength |I(S)| of different
+Harsanyi interactions encoded by a DNN.
+                                                                                                                                  4. Experiments
+3.4. Discussion on the sparsity of Harsanyi interactions                                                                          4.1. Two types of HarsanyiNets
+
+Theoretically, a model can encode at most 2n different                                                                            In the experiments, we constructed and tested two types
+Harsanyi interactions, but each AI model has its own limi-                                                                        of HarsanyiNets following the paradigm in Equations (5)–
+tation in encoding interactions, whichP are far less than 2n .                                                                    (7), i.e., the HarsanyiNet constructed with fully-connected
+                                         L
+The HarsanyiNet learns at most M = l=1 m(l) Harsanyi                                                                              layers, namely Harsanyi-MLP, and the HarsanyiNet con-
+interactions, as proved in Lemma 1 and Theorem 2. Thus,                                                                           structed with convolutional layers, namely Harsanyi-CNN.
+the next question is whether the HarsanyiNet has sufficient                                                                       The Harsanyi-MLP was suitable for handling tabular data,
+representation capacity to handle real-world applications.                                                                        and the Harsanyi-CNN was designed for image data.
+
+To this end, recent studies have observed (Deng et al., 2022;                                                                     • Harsanyi-MLP was designed as an extension of the MLP
+Ren et al., 2023a; Li & Zhang, 2023) and mathematically                                                                           network. As mentioned at the beginning of Section 3.3, we
+proved (Ren et al., 2023b) that traditional DNNs often en-                                                                        chose not to connect each neuron (l, u) from the neurons in
+code only a few Harsanyi interactions in real-world applica-                                                                      all (l − 1) previous blocks. Instead, we simply selected a
+                                                                                                                                                         (l)
+tions, instead of learning all 2n Harsanyi interactions. To be                                                                    set of children nodes Su from the (l − 1)-th block. Specif-
+                                                                                                                                                                                              (l)
+precise, the network output can be represented as                                                                                 ically, this was implemented by fixing all elements in τ u
+                 X                 X                                                                                              corresponding to all neurons in the 1st, 2nd,. . . ,(l − 2)-th
+         v(x) =          N
+                           I(S) =           I(S) + ϵ,      (9)                                                                    blocks to 0.
+                                                            S∈2                         S∈Ω
+                                                                                                                                  • Harsanyi-CNN mainly used the following two specific
+where Ω ⊆ 2N ={S ′ ⊆ N } denotes a small set of Harsanyi
+                                                                                                                                  settings to adapt convolutional layers into the paradigm of
+interactions with considerable interaction strength |I(S)|.
+                                                                                                                                  HarsanyiNet. Setting 1. Similar to the Harsanyi-MLP, the
+All other Harsanyi interactions have negligible interaction                                                                                                                        (l)
+strength, i.e., |I(S)| ≈ 0, which can be considered noisy                                                                         Harsanyi-CNN constructed the children set Su of each
+inference patterns. ϵ = S ′ ∈2N \Ω I(S ′ ) is relatively small.
+                        P                                                                                                         neuron (l, u) from the neurons in the (l − 1)-th block. Let
+                                                                                                                                  C ×K ×K denote the tensor size of the convolutional kernel.
+                                                                                                                                                                                      (l)
+Furthermore, we conducted new experiments to verify the                                                                           As Figure 6 shows, we selected children nodes Su of the
+sparsity of Harsanyi interactions in DNNs. Given a trained                                                                        neuron (l, u = (c, h, w)) from neurons in the C × K × K
+network v and an input sample x, we computed the interac-                                                                         sub-tensor, which was clipped from the feature tensor of the
+tion strength |I(S)| of all 2n Harsanyi interactions w.r.t.all                                                                    (l − 1)-th block and corresponded to the upper neuron (l, u),
+S ⊆ N . We followed (Ren et al., 2023a) to compute the in-                                                                        where c, h, w represent the location of the neuron (l, u).
+teraction strength |I(S)| of different Harsanyi interactions6 .                                                                                           (l)
+                                                                                                                                  Accordingly, we had τ u as a CK 2 -dimensional vector.
+Please see Appendix F.6 for more details. Figure 2 shows
+the extracted Harsanyi interactions. Such experiments were                                                                        Setting 2. Furthermore, we set all neurons (l, u = (:, h, w))
+conducted on various DNNs, including MLP, the residual                                                                            at the same location, but on different channels, to share
+                                                                                                                                                          (l)
+MLP7 used in Touvron et al. (2022), the residual net with                                                                         the same children set Su=(:,h,w) to reduce the number of
+32 layers (ResNet-32) (He et al., 2016) and the VGG net                                                                                         (l)
+                                                                                                                                  parameters τ u . This could be implemented by letting all
+with 16 layers (VGG-16) (Simonyan et al., 2014), on the                                                                           neurons (l, u = (1, h, w)), . . . , (l, u = (C, h, w)) share
+Census Income (Dua & Graff, 2017), the TV news commer-                                                                                                  (l)
+                                                                                                                                  the same parameter τ u . Based on the above design, we
+                                   6
+      For image data, Ren et al. (2023a) computed Harsanyi inter-                                                                 proved that all Harsanyi units (l, u = (c, h, w)) in the
+actions between randomly sampled image regions to reduce the                                                                      same location (h, w) on different channels (c = 1, . . . , C)
+computational cost.                                                                                                                                                  (l)
+    7
+                                                                                                                                  had the same receptive field Ru=(:,h,w) and contributed
+      We used 5-layer MLP (MLP-5) and 5-layer residual MLP                                                                                                                           (l)
+(ResMLP-5) with 100 neurons in each hidden layer respectively.                                                                    to the same Harsanyi interaction I(S = Ru=(:,h,w) ).
+
+                                                                                                                              6

@@ -1,0 +1,86 @@
+                                              Towards Attributions of Input Variables in a Coalition
+
+Then we have:
+          X        1
+                 |S|−1
+                       [Iand (S) + Ior (S)]
+        S⊆N,S∋i
+                2
+          X        X             (−1)|S|−|L|+1
+    =                                          {[vand (L ∪ {i}) − vand (L)] + [vor (N \ L) − vor (N − L − {i})]}
+        S⊆N,S∋i
+                         L⊆S\{i}    2|S|−1
+          X        X        (−1)|S|−|L|
+    =                                   {[vand (L ∪ {i}) − vand (L)] + [vor (N \ L) − vor (N − L − {i})]}
+                        L⊆S    2|S|
+        S⊆N \{i}
+          X                   X                   (−1)|S|
+    =              (−1)|L|                                {[vand (L ∪ {i}) − vand (L)] + [vor (N \ L) − vor (N − L − {i})]}
+                                      S⊆N \{i},S⊇L 2|S|
+        L⊆N \{i}
+          X                    (−1)|L|
+    =              (−1)|L|             {[vand (L ∪ {i}) − vand (L)] + [vor (N \ L) − vor (N − L − {i})]}
+                               2|N |−1
+        L⊆N \{i}
+               X          (−1)|S|     (−1)|L|
+          //                  |S|
+                                   = |N |−1 .
+            S⊆N \{i},S⊇L 2            2
+          X     1
+    =                {[vand (L ∪ {i}) − vand (L)] + [vor (N \ L) − vor (N − L − {i})]}
+             2|N |−1
+        L⊆N \{i}
+          X             1                                             X           1
+    =                         [vand (S ∪ {i}) − vand (S)] +                            [vor (N \ S) − vor (N − S − {i})] // Let L = S.
+                   2|N |−1                                                     2|N |−1
+        S⊆N \{i}                                                   S⊆N \{i}
+          X             1                                             X           1
+    =                        [v (S ∪ {i}) − vand (S)] +
+                       |N |−1 and
+                                                                                       [vor (S ∪ {i}) − vor (S)]
+                   2                                                           2|N |−1
+        S⊆N \{i}                                                   S⊆N \{i}
+          X             1
+    =                          {[vand (S ∪ {i}) + vor (S ∪ {i})] − [vand (S) + vor (S)]}
+                   2|N |−1
+        S⊆N \{i}
+          X           1
+    =                      · [v(S ∪ {i}) − v(S)]
+                   2|N |−1
+        S⊆N \{i}
+
+    = B(i)
+
+                                        1
+                        P
+Therefore, B(i) =            S⊆N,S∋i 2|S|−1      [Iand (S) + Ior (S)].
+
+E. Proof of Theorem 4 & Corollary 5
+                                                                               1
+                                                                 P
+Proof. According to Theorem 2, we have: ϕ(i) =                       T ⊆N,i∈T |T | [Iand (T )     + Ior (T )].
+                                                                                   P       |S|
+Then, according to Equation (6) in the paper, we have: φ(S) =                         T ⊇S |T |   [Iand (T ) + Ior (T )].
+Thus, we have:
+                            X
+                                  ϕ(i)
+                            i∈S
+                            X         X       1
+                       =                          [Iand (T ) + Ior (T )]
+                                             |T |
+                            i∈S T ⊆N,T ∋i
+                            X         X        1                                   X             1
+                       =                           [Iand (T ) + Ior (T )] +                          [Iand (T ) + Ior (T )]
+                                              |T |                                              |T |
+                            i∈S T ⊆N,T ⊇S                                     T ⊆N,T ̸⊇S,T ∋i
+                                                                                                                                
+                            X
+                                   1
+                                            X         |S|                                  X             1
+                       =                                   [Iand (T ) + Ior (T )] +                          [Iand (T ) + Ior (T )]
+                                   |S|                |T |                                              |T |
+                            i∈S           T ⊆N,T ⊇S                                   T ⊆N,T ̸⊇S,T ∋i
+
+
+
+                                                                              15

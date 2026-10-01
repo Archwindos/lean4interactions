@@ -1,0 +1,909 @@
+{
+  "paper_id": "icml2025-coalition",
+  "symbols": [
+    {
+      "id": "sym-coalition-and-component",
+      "canonical_tex": "a(S)",
+      "name_zh": "AND输出分量",
+      "definition_tex": "a(S)=g(S)/2+\\gamma_S",
+      "description_md": "AND输出分量",
+      "type_or_domain": "2^N→ℝ",
+      "scope": "icml2025-coalition; fixed finite universe/input/baseline/decomposition",
+      "assumptions": [
+        "有限总体；所有掩码用同一分解。"
+      ],
+      "empty_set_convention": "原AND/OR公式只对非空交互；分量空输出单独保留。",
+      "baseline_convention": "g(空集)=b，a(空集)+o(空集)=b，不默认零。",
+      "aliases": [
+        "v_{and}(S)"
+      ],
+      "paper_mappings": [
+        {
+          "paper_id": "icml2025-coalition",
+          "version_id": "ver-icml2025-coalition-formal",
+          "original_tex": "v_{and}(S)",
+          "original_definition": "a(S)=g(S)/2+\\gamma_S",
+          "pdf_pages": [
+            3
+          ],
+          "source_id": "src-icml2025-coalition",
+          "canonical_concept": "sym-coalition-and-component",
+          "relationship": "renaming"
+        }
+      ],
+      "lean_names": [],
+      "version": "1.0",
+      "translations": {
+        "en": {
+          "name": "AND output component",
+          "description_md": "AND output component",
+          "assumptions": [
+            "Finite universe; one fixed decomposition for every mask."
+          ],
+          "empty_set_convention": "The source AND/OR coefficient formulas apply to nonempty sets; component empty outputs are separate.",
+          "baseline_convention": "g(empty)=b and a(empty)+o(empty)=b; no zero baseline is assumed."
+        }
+      },
+      "canonical_id": "sym-and-output"
+    },
+    {
+      "id": "sym-coalition-or-component",
+      "canonical_tex": "o(S)",
+      "name_zh": "OR输出分量",
+      "definition_tex": "o(S)=g(S)/2-\\gamma_S",
+      "description_md": "OR输出分量",
+      "type_or_domain": "2^N→ℝ",
+      "scope": "icml2025-coalition; fixed finite universe/input/baseline/decomposition",
+      "assumptions": [
+        "有限总体；所有掩码用同一分解。"
+      ],
+      "empty_set_convention": "原AND/OR公式只对非空交互；分量空输出单独保留。",
+      "baseline_convention": "g(空集)=b，a(空集)+o(空集)=b，不默认零。",
+      "aliases": [
+        "v_{or}(S)"
+      ],
+      "paper_mappings": [
+        {
+          "paper_id": "icml2025-coalition",
+          "version_id": "ver-icml2025-coalition-formal",
+          "original_tex": "v_{or}(S)",
+          "original_definition": "o(S)=g(S)/2-\\gamma_S",
+          "pdf_pages": [
+            3
+          ],
+          "source_id": "src-icml2025-coalition",
+          "canonical_concept": "sym-coalition-or-component",
+          "relationship": "renaming"
+        }
+      ],
+      "lean_names": [],
+      "version": "1.0",
+      "translations": {
+        "en": {
+          "name": "OR output component",
+          "description_md": "OR output component",
+          "assumptions": [
+            "Finite universe; one fixed decomposition for every mask."
+          ],
+          "empty_set_convention": "The source AND/OR coefficient formulas apply to nonempty sets; component empty outputs are separate.",
+          "baseline_convention": "g(empty)=b and a(empty)+o(empty)=b; no zero baseline is assumed."
+        }
+      },
+      "canonical_id": "sym-or-output"
+    },
+    {
+      "id": "sym-coalition-decomposition-parameter",
+      "canonical_tex": "\\gamma_S",
+      "name_zh": "AND/OR分解参数",
+      "definition_tex": "\\gamma_S=a(S)-g(S)/2",
+      "description_md": "AND/OR分解参数",
+      "type_or_domain": "2^N→ℝ",
+      "scope": "icml2025-coalition; fixed finite universe/input/baseline/decomposition",
+      "assumptions": [
+        "有限总体；所有掩码用同一分解。"
+      ],
+      "empty_set_convention": "原AND/OR公式只对非空交互；分量空输出单独保留。",
+      "baseline_convention": "g(空集)=b，a(空集)+o(空集)=b，不默认零。",
+      "aliases": [
+        "\\gamma_L"
+      ],
+      "paper_mappings": [
+        {
+          "paper_id": "icml2025-coalition",
+          "version_id": "ver-icml2025-coalition-formal",
+          "original_tex": "\\gamma_L",
+          "original_definition": "\\gamma_S=a(S)-g(S)/2",
+          "pdf_pages": [
+            3
+          ],
+          "source_id": "src-icml2025-coalition",
+          "canonical_concept": "sym-coalition-decomposition-parameter",
+          "relationship": "renaming"
+        }
+      ],
+      "lean_names": [],
+      "version": "1.0",
+      "translations": {
+        "en": {
+          "name": "AND/OR decomposition parameter",
+          "description_md": "AND/OR decomposition parameter",
+          "assumptions": [
+            "Finite universe; one fixed decomposition for every mask."
+          ],
+          "empty_set_convention": "The source AND/OR coefficient formulas apply to nonempty sets; component empty outputs are separate.",
+          "baseline_convention": "g(empty)=b and a(empty)+o(empty)=b; no zero baseline is assumed."
+        }
+      },
+      "canonical_id": "sym-decomposition-parameter"
+    },
+    {
+      "id": "sym-coalition-and-effect",
+      "canonical_tex": "A(T)",
+      "name_zh": "分量AND交互",
+      "definition_tex": "A(T)=I_a(T)",
+      "description_md": "分量AND交互",
+      "type_or_domain": "nonempty T⊆N",
+      "scope": "icml2025-coalition; fixed finite universe/input/baseline/decomposition",
+      "assumptions": [
+        "有限总体；所有掩码用同一分解。"
+      ],
+      "empty_set_convention": "原AND/OR公式只对非空交互；分量空输出单独保留。",
+      "baseline_convention": "g(空集)=b，a(空集)+o(空集)=b，不默认零。",
+      "aliases": [
+        "I_{and}(T)"
+      ],
+      "paper_mappings": [
+        {
+          "paper_id": "icml2025-coalition",
+          "version_id": "ver-icml2025-coalition-formal",
+          "original_tex": "I_{and}(T)",
+          "original_definition": "A(T)=I_a(T)",
+          "pdf_pages": [
+            3,
+            12
+          ],
+          "source_id": "src-icml2025-coalition",
+          "canonical_concept": "sym-coalition-and-effect",
+          "relationship": "renaming"
+        }
+      ],
+      "lean_names": [],
+      "version": "1.0",
+      "translations": {
+        "en": {
+          "name": "Component AND effect",
+          "description_md": "Component AND effect",
+          "assumptions": [
+            "Finite universe; one fixed decomposition for every mask."
+          ],
+          "empty_set_convention": "The source AND/OR coefficient formulas apply to nonempty sets; component empty outputs are separate.",
+          "baseline_convention": "g(empty)=b and a(empty)+o(empty)=b; no zero baseline is assumed."
+        }
+      },
+      "canonical_id": "sym-and-component-interaction"
+    },
+    {
+      "id": "sym-coalition-or-effect",
+      "canonical_tex": "O(T)",
+      "name_zh": "分量OR交互",
+      "definition_tex": "O(T)=-I_{o(N\\setminus\\cdot)}(T)",
+      "description_md": "分量OR交互",
+      "type_or_domain": "nonempty T⊆N",
+      "scope": "icml2025-coalition; fixed finite universe/input/baseline/decomposition",
+      "assumptions": [
+        "有限总体；所有掩码用同一分解。"
+      ],
+      "empty_set_convention": "原AND/OR公式只对非空交互；分量空输出单独保留。",
+      "baseline_convention": "g(空集)=b，a(空集)+o(空集)=b，不默认零。",
+      "aliases": [
+        "I_{or}(T)"
+      ],
+      "paper_mappings": [
+        {
+          "paper_id": "icml2025-coalition",
+          "version_id": "ver-icml2025-coalition-formal",
+          "original_tex": "I_{or}(T)",
+          "original_definition": "O(T)=-I_{o(N\\setminus\\cdot)}(T)",
+          "pdf_pages": [
+            3,
+            12
+          ],
+          "source_id": "src-icml2025-coalition",
+          "canonical_concept": "sym-coalition-or-effect",
+          "relationship": "renaming"
+        }
+      ],
+      "lean_names": [],
+      "version": "1.0",
+      "translations": {
+        "en": {
+          "name": "Component OR effect",
+          "description_md": "Component OR effect",
+          "assumptions": [
+            "Finite universe; one fixed decomposition for every mask."
+          ],
+          "empty_set_convention": "The source AND/OR coefficient formulas apply to nonempty sets; component empty outputs are separate.",
+          "baseline_convention": "g(empty)=b and a(empty)+o(empty)=b; no zero baseline is assumed."
+        }
+      },
+      "canonical_id": "sym-or-component-interaction"
+    },
+    {
+      "id": "sym-coalition-total-effect",
+      "canonical_tex": "J(T)",
+      "name_zh": "AND/OR交互之和",
+      "definition_tex": "J(T)=A(T)+O(T)",
+      "description_md": "AND/OR交互之和",
+      "type_or_domain": "nonempty T⊆N",
+      "scope": "icml2025-coalition; fixed finite universe/input/baseline/decomposition",
+      "assumptions": [
+        "有限总体；所有掩码用同一分解。"
+      ],
+      "empty_set_convention": "原AND/OR公式只对非空交互；分量空输出单独保留。",
+      "baseline_convention": "g(空集)=b，a(空集)+o(空集)=b，不默认零。",
+      "aliases": [
+        "I_{and}(T)+I_{or}(T)"
+      ],
+      "paper_mappings": [
+        {
+          "paper_id": "icml2025-coalition",
+          "version_id": "ver-icml2025-coalition-formal",
+          "original_tex": "I_{and}(T)+I_{or}(T)",
+          "original_definition": "J(T)=A(T)+O(T)",
+          "pdf_pages": [
+            4,
+            5,
+            6
+          ],
+          "source_id": "src-icml2025-coalition",
+          "canonical_concept": "sym-coalition-total-effect",
+          "relationship": "renaming"
+        }
+      ],
+      "lean_names": [],
+      "version": "1.0",
+      "translations": {
+        "en": {
+          "name": "Sum of AND/OR effects",
+          "description_md": "Sum of AND/OR effects",
+          "assumptions": [
+            "Finite universe; one fixed decomposition for every mask."
+          ],
+          "empty_set_convention": "The source AND/OR coefficient formulas apply to nonempty sets; component empty outputs are separate.",
+          "baseline_convention": "g(empty)=b and a(empty)+o(empty)=b; no zero baseline is assumed."
+        }
+      },
+      "canonical_id": "sym-coalition-total-effect"
+    },
+    {
+      "id": "sym-coalition-attribution",
+      "canonical_tex": "\\phi(S)",
+      "name_zh": "联盟归因",
+      "definition_tex": "\\phi(S)=\\sum_{T\\supseteq S}|S|J(T)/|T|",
+      "description_md": "联盟归因",
+      "type_or_domain": "nonempty S⊆N; original empty scope undefined",
+      "scope": "icml2025-coalition; fixed finite universe/input/baseline/decomposition",
+      "assumptions": [
+        "有限总体；所有掩码用同一分解。"
+      ],
+      "empty_set_convention": "原AND/OR公式只对非空交互；分量空输出单独保留。",
+      "baseline_convention": "g(空集)=b，a(空集)+o(空集)=b，不默认零。",
+      "aliases": [
+        "\\phi(S)"
+      ],
+      "paper_mappings": [
+        {
+          "paper_id": "icml2025-coalition",
+          "version_id": "ver-icml2025-coalition-formal",
+          "original_tex": "\\phi(S)",
+          "original_definition": "\\phi(S)=\\sum_{T\\supseteq S}|S|J(T)/|T|",
+          "pdf_pages": [
+            4
+          ],
+          "source_id": "src-icml2025-coalition",
+          "canonical_concept": "sym-coalition-attribution",
+          "relationship": "renaming"
+        }
+      ],
+      "lean_names": [],
+      "version": "1.0",
+      "translations": {
+        "en": {
+          "name": "Coalition attribution",
+          "description_md": "Coalition attribution",
+          "assumptions": [
+            "Finite universe; one fixed decomposition for every mask."
+          ],
+          "empty_set_convention": "The source AND/OR coefficient formulas apply to nonempty sets; component empty outputs are separate.",
+          "baseline_convention": "g(empty)=b and a(empty)+o(empty)=b; no zero baseline is assumed."
+        }
+      },
+      "canonical_id": "sym-coalition-attribution"
+    },
+    {
+      "id": "sym-coalition-shapley",
+      "canonical_tex": "\\varphi(i)",
+      "name_zh": "经典Shapley值",
+      "definition_tex": "\\varphi(i)=\\sum_{U\\subseteq N\\setminus\\{i\\}}\\frac{|U|!(n-|U|-1)!}{n!}[g(U\\cup\\{i\\})-g(U)]",
+      "description_md": "经典Shapley值",
+      "type_or_domain": "i∈N",
+      "scope": "icml2025-coalition; fixed finite universe/input/baseline/decomposition",
+      "assumptions": [
+        "有限总体；所有掩码用同一分解。"
+      ],
+      "empty_set_convention": "原AND/OR公式只对非空交互；分量空输出单独保留。",
+      "baseline_convention": "g(空集)=b，a(空集)+o(空集)=b，不默认零。",
+      "aliases": [
+        "\\varphi(i)"
+      ],
+      "paper_mappings": [
+        {
+          "paper_id": "icml2025-coalition",
+          "version_id": "ver-icml2025-coalition-formal",
+          "original_tex": "\\varphi(i)",
+          "original_definition": "\\varphi(i)=\\sum_{U\\subseteq N\\setminus\\{i\\}}\\frac{|U|!(n-|U|-1)!}{n!}[g(U\\cup\\{i\\})-g(U)]",
+          "pdf_pages": [
+            3
+          ],
+          "source_id": "src-icml2025-coalition",
+          "canonical_concept": "sym-coalition-shapley",
+          "relationship": "renaming"
+        }
+      ],
+      "lean_names": [],
+      "version": "1.0",
+      "translations": {
+        "en": {
+          "name": "Classical Shapley value",
+          "description_md": "Classical Shapley value",
+          "assumptions": [
+            "Finite universe; one fixed decomposition for every mask."
+          ],
+          "empty_set_convention": "The source AND/OR coefficient formulas apply to nonempty sets; component empty outputs are separate.",
+          "baseline_convention": "g(empty)=b and a(empty)+o(empty)=b; no zero baseline is assumed."
+        }
+      },
+      "canonical_id": "sym-shapley"
+    },
+    {
+      "id": "sym-coalition-banzhaf",
+      "canonical_tex": "B(i)",
+      "name_zh": "Banzhaf值",
+      "definition_tex": "B(i)=2^{1-n}\\sum_{U\\subseteq N\\setminus\\{i\\}}[g(U\\cup\\{i\\})-g(U)]",
+      "description_md": "Banzhaf值",
+      "type_or_domain": "i∈N",
+      "scope": "icml2025-coalition; fixed finite universe/input/baseline/decomposition",
+      "assumptions": [
+        "有限总体；所有掩码用同一分解。"
+      ],
+      "empty_set_convention": "原AND/OR公式只对非空交互；分量空输出单独保留。",
+      "baseline_convention": "g(空集)=b，a(空集)+o(空集)=b，不默认零。",
+      "aliases": [
+        "B(i)"
+      ],
+      "paper_mappings": [
+        {
+          "paper_id": "icml2025-coalition",
+          "version_id": "ver-icml2025-coalition-formal",
+          "original_tex": "B(i)",
+          "original_definition": "B(i)=2^{1-n}\\sum_{U\\subseteq N\\setminus\\{i\\}}[g(U\\cup\\{i\\})-g(U)]",
+          "pdf_pages": [
+            4
+          ],
+          "source_id": "src-icml2025-coalition",
+          "canonical_concept": "sym-coalition-banzhaf",
+          "relationship": "renaming"
+        }
+      ],
+      "lean_names": [],
+      "version": "1.0",
+      "translations": {
+        "en": {
+          "name": "Banzhaf value",
+          "description_md": "Banzhaf value",
+          "assumptions": [
+            "Finite universe; one fixed decomposition for every mask."
+          ],
+          "empty_set_convention": "The source AND/OR coefficient formulas apply to nonempty sets; component empty outputs are separate.",
+          "baseline_convention": "g(empty)=b and a(empty)+o(empty)=b; no zero baseline is assumed."
+        }
+      },
+      "canonical_id": "sym-coalition-banzhaf"
+    },
+    {
+      "id": "sym-coalition-uniform-share",
+      "canonical_tex": "U_{i,S}",
+      "name_zh": "单变量联盟均分项",
+      "definition_tex": "U_{i,S}=\\phi(S)/|S|",
+      "description_md": "单变量联盟均分项",
+      "type_or_domain": "i∈S",
+      "scope": "icml2025-coalition; fixed finite universe/input/baseline/decomposition",
+      "assumptions": [
+        "有限总体；所有掩码用同一分解。"
+      ],
+      "empty_set_convention": "原AND/OR公式只对非空交互；分量空输出单独保留。",
+      "baseline_convention": "g(空集)=b，a(空集)+o(空集)=b，不默认零。",
+      "aliases": [
+        "U_{i,S}"
+      ],
+      "paper_mappings": [
+        {
+          "paper_id": "icml2025-coalition",
+          "version_id": "ver-icml2025-coalition-formal",
+          "original_tex": "U_{i,S}",
+          "original_definition": "U_{i,S}=\\phi(S)/|S|",
+          "pdf_pages": [
+            5
+          ],
+          "source_id": "src-icml2025-coalition",
+          "canonical_concept": "sym-coalition-uniform-share",
+          "relationship": "renaming"
+        }
+      ],
+      "lean_names": [],
+      "version": "1.0",
+      "translations": {
+        "en": {
+          "name": "Individual equal coalition share",
+          "description_md": "Individual equal coalition share",
+          "assumptions": [
+            "Finite universe; one fixed decomposition for every mask."
+          ],
+          "empty_set_convention": "The source AND/OR coefficient formulas apply to nonempty sets; component empty outputs are separate.",
+          "baseline_convention": "g(empty)=b and a(empty)+o(empty)=b; no zero baseline is assumed."
+        }
+      },
+      "canonical_id": "sym-coalition-uniform-share"
+    },
+    {
+      "id": "sym-coalition-individual-conflict",
+      "canonical_tex": "U_{i,\\bar S}",
+      "name_zh": "单变量部分覆盖冲突",
+      "definition_tex": "U_{i,\\bar S}=\\sum_{T\\ni i,T\\not\\supseteq S}J(T)/|T|",
+      "description_md": "单变量部分覆盖冲突",
+      "type_or_domain": "i∈S",
+      "scope": "icml2025-coalition; fixed finite universe/input/baseline/decomposition",
+      "assumptions": [
+        "有限总体；所有掩码用同一分解。"
+      ],
+      "empty_set_convention": "原AND/OR公式只对非空交互；分量空输出单独保留。",
+      "baseline_convention": "g(空集)=b，a(空集)+o(空集)=b，不默认零。",
+      "aliases": [
+        "U_{i,\\bar S}"
+      ],
+      "paper_mappings": [
+        {
+          "paper_id": "icml2025-coalition",
+          "version_id": "ver-icml2025-coalition-formal",
+          "original_tex": "U_{i,\\bar S}",
+          "original_definition": "U_{i,\\bar S}=\\sum_{T\\ni i,T\\not\\supseteq S}J(T)/|T|",
+          "pdf_pages": [
+            5
+          ],
+          "source_id": "src-icml2025-coalition",
+          "canonical_concept": "sym-coalition-individual-conflict",
+          "relationship": "renaming"
+        }
+      ],
+      "lean_names": [],
+      "version": "1.0",
+      "translations": {
+        "en": {
+          "name": "Individual partial-coverage conflict",
+          "description_md": "Individual partial-coverage conflict",
+          "assumptions": [
+            "Finite universe; one fixed decomposition for every mask."
+          ],
+          "empty_set_convention": "The source AND/OR coefficient formulas apply to nonempty sets; component empty outputs are separate.",
+          "baseline_convention": "g(empty)=b and a(empty)+o(empty)=b; no zero baseline is assumed."
+        }
+      },
+      "canonical_id": "sym-coalition-individual-conflict"
+    },
+    {
+      "id": "sym-coalition-total-conflict",
+      "canonical_tex": "\\varphi_{conflict}(S)",
+      "name_zh": "联盟总冲突归因",
+      "definition_tex": "\\varphi_{conflict}(S)=\\sum_{\\varnothing\\ne T\\cap S\\ne S}|T\\cap S|J(T)/|T|",
+      "description_md": "联盟总冲突归因",
+      "type_or_domain": "nonempty S⊆N",
+      "scope": "icml2025-coalition; fixed finite universe/input/baseline/decomposition",
+      "assumptions": [
+        "有限总体；所有掩码用同一分解。"
+      ],
+      "empty_set_convention": "原AND/OR公式只对非空交互；分量空输出单独保留。",
+      "baseline_convention": "g(空集)=b，a(空集)+o(空集)=b，不默认零。",
+      "aliases": [
+        "\\varphi_{conflict}(S)"
+      ],
+      "paper_mappings": [
+        {
+          "paper_id": "icml2025-coalition",
+          "version_id": "ver-icml2025-coalition-formal",
+          "original_tex": "\\varphi_{conflict}(S)",
+          "original_definition": "\\varphi_{conflict}(S)=\\sum_{\\varnothing\\ne T\\cap S\\ne S}|T\\cap S|J(T)/|T|",
+          "pdf_pages": [
+            5
+          ],
+          "source_id": "src-icml2025-coalition",
+          "canonical_concept": "sym-coalition-total-conflict",
+          "relationship": "renaming"
+        }
+      ],
+      "lean_names": [],
+      "version": "1.0",
+      "translations": {
+        "en": {
+          "name": "Total coalition conflict",
+          "description_md": "Total coalition conflict",
+          "assumptions": [
+            "Finite universe; one fixed decomposition for every mask."
+          ],
+          "empty_set_convention": "The source AND/OR coefficient formulas apply to nonempty sets; component empty outputs are separate.",
+          "baseline_convention": "g(empty)=b and a(empty)+o(empty)=b; no zero baseline is assumed."
+        }
+      },
+      "canonical_id": "sym-coalition-total-conflict"
+    },
+    {
+      "id": "sym-coalition-metric-R",
+      "canonical_tex": "R(i)",
+      "name_zh": "联盟忠实度比例 R",
+      "definition_tex": "R(i)=|U_{i,S}|/(|U_{i,S}|+|U_{i,\\bar S}|)",
+      "description_md": "联盟忠实度比例 R",
+      "type_or_domain": "original positive-denominator quotient domain",
+      "scope": "icml2025-coalition; fixed finite universe/input/baseline/decomposition",
+      "assumptions": [
+        "有限总体；所有掩码用同一分解。"
+      ],
+      "empty_set_convention": "原AND/OR公式只对非空交互；分量空输出单独保留。",
+      "baseline_convention": "g(空集)=b，a(空集)+o(空集)=b，不默认零。",
+      "aliases": [
+        "R(i)"
+      ],
+      "paper_mappings": [
+        {
+          "paper_id": "icml2025-coalition",
+          "version_id": "ver-icml2025-coalition-formal",
+          "original_tex": "R(i)",
+          "original_definition": "R(i)=|U_{i,S}|/(|U_{i,S}|+|U_{i,\\bar S}|)",
+          "pdf_pages": [
+            6
+          ],
+          "source_id": "src-icml2025-coalition",
+          "canonical_concept": "sym-coalition-metric-R",
+          "relationship": "renaming"
+        }
+      ],
+      "lean_names": [],
+      "version": "1.0",
+      "translations": {
+        "en": {
+          "name": "Coalition-faithfulness ratio R",
+          "description_md": "Coalition-faithfulness ratio R",
+          "assumptions": [
+            "Finite universe; one fixed decomposition for every mask."
+          ],
+          "empty_set_convention": "The source AND/OR coefficient formulas apply to nonempty sets; component empty outputs are separate.",
+          "baseline_convention": "g(empty)=b and a(empty)+o(empty)=b; no zero baseline is assumed."
+        }
+      },
+      "canonical_id": "sym-coalition-metric-R"
+    },
+    {
+      "id": "sym-coalition-metric-Rprime",
+      "canonical_tex": "R\\prime(i)",
+      "name_zh": "联盟忠实度比例 Rprime",
+      "definition_tex": "R\\prime(i)=\\frac{\\sum_{T\\supseteq S}(|A(T)|+|O(T)|)/|T|}{\\sum_{T\\ni i}(|A(T)|+|O(T)|)/|T|}",
+      "description_md": "联盟忠实度比例 Rprime",
+      "type_or_domain": "original positive-denominator quotient domain",
+      "scope": "icml2025-coalition; fixed finite universe/input/baseline/decomposition",
+      "assumptions": [
+        "有限总体；所有掩码用同一分解。"
+      ],
+      "empty_set_convention": "原AND/OR公式只对非空交互；分量空输出单独保留。",
+      "baseline_convention": "g(空集)=b，a(空集)+o(空集)=b，不默认零。",
+      "aliases": [
+        "R\\prime(i)"
+      ],
+      "paper_mappings": [
+        {
+          "paper_id": "icml2025-coalition",
+          "version_id": "ver-icml2025-coalition-formal",
+          "original_tex": "R\\prime(i)",
+          "original_definition": "R\\prime(i)=\\frac{\\sum_{T\\supseteq S}(|A(T)|+|O(T)|)/|T|}{\\sum_{T\\ni i}(|A(T)|+|O(T)|)/|T|}",
+          "pdf_pages": [
+            6
+          ],
+          "source_id": "src-icml2025-coalition",
+          "canonical_concept": "sym-coalition-metric-Rprime",
+          "relationship": "renaming"
+        }
+      ],
+      "lean_names": [],
+      "version": "1.0",
+      "translations": {
+        "en": {
+          "name": "Coalition-faithfulness ratio Rprime",
+          "description_md": "Coalition-faithfulness ratio Rprime",
+          "assumptions": [
+            "Finite universe; one fixed decomposition for every mask."
+          ],
+          "empty_set_convention": "The source AND/OR coefficient formulas apply to nonempty sets; component empty outputs are separate.",
+          "baseline_convention": "g(empty)=b and a(empty)+o(empty)=b; no zero baseline is assumed."
+        }
+      },
+      "canonical_id": "sym-coalition-metric-Rprime"
+    },
+    {
+      "id": "sym-coalition-metric-Q",
+      "canonical_tex": "Q(S)",
+      "name_zh": "联盟忠实度比例 Q",
+      "definition_tex": "Q(S)=\\frac{\\sum_{T\\supseteq S}|S|(|A(T)|+|O(T)|)/|T|}{\\sum_{T\\cap S\\ne\\varnothing}|T\\cap S|(|A(T)|+|O(T)|)/|T|}",
+      "description_md": "联盟忠实度比例 Q",
+      "type_or_domain": "original positive-denominator quotient domain",
+      "scope": "icml2025-coalition; fixed finite universe/input/baseline/decomposition",
+      "assumptions": [
+        "有限总体；所有掩码用同一分解。"
+      ],
+      "empty_set_convention": "原AND/OR公式只对非空交互；分量空输出单独保留。",
+      "baseline_convention": "g(空集)=b，a(空集)+o(空集)=b，不默认零。",
+      "aliases": [
+        "Q(S)"
+      ],
+      "paper_mappings": [
+        {
+          "paper_id": "icml2025-coalition",
+          "version_id": "ver-icml2025-coalition-formal",
+          "original_tex": "Q(S)",
+          "original_definition": "Q(S)=\\frac{\\sum_{T\\supseteq S}|S|(|A(T)|+|O(T)|)/|T|}{\\sum_{T\\cap S\\ne\\varnothing}|T\\cap S|(|A(T)|+|O(T)|)/|T|}",
+          "pdf_pages": [
+            7
+          ],
+          "source_id": "src-icml2025-coalition",
+          "canonical_concept": "sym-coalition-metric-Q",
+          "relationship": "renaming"
+        }
+      ],
+      "lean_names": [],
+      "version": "1.0",
+      "translations": {
+        "en": {
+          "name": "Coalition-faithfulness ratio Q",
+          "description_md": "Coalition-faithfulness ratio Q",
+          "assumptions": [
+            "Finite universe; one fixed decomposition for every mask."
+          ],
+          "empty_set_convention": "The source AND/OR coefficient formulas apply to nonempty sets; component empty outputs are separate.",
+          "baseline_convention": "g(empty)=b and a(empty)+o(empty)=b; no zero baseline is assumed."
+        }
+      },
+      "canonical_id": "sym-coalition-metric-Q"
+    },
+    {
+      "id": "sym-model",
+      "canonical_tex": "v",
+      "name_zh": "模型",
+      "definition_tex": "v:X\\to\\mathbb R",
+      "description_md": "模型",
+      "type_or_domain": "see canonical definition",
+      "scope": "icml2025-coalition; fixed finite universe/input/baseline/decomposition",
+      "assumptions": [
+        "有限总体；所有掩码用同一分解。"
+      ],
+      "empty_set_convention": "原AND/OR公式只对非空交互；分量空输出单独保留。",
+      "baseline_convention": "g(空集)=b，a(空集)+o(空集)=b，不默认零。",
+      "aliases": [
+        "v"
+      ],
+      "paper_mappings": [
+        {
+          "paper_id": "icml2025-coalition",
+          "version_id": "ver-icml2025-coalition-formal",
+          "original_tex": "v",
+          "original_definition": "v:X\\to\\mathbb R",
+          "pdf_pages": [
+            3
+          ],
+          "source_id": "src-icml2025-coalition",
+          "canonical_concept": "sym-model",
+          "relationship": "same_definition"
+        }
+      ],
+      "lean_names": [],
+      "version": "1.0",
+      "translations": {
+        "en": {
+          "name": "Model",
+          "description_md": "Model",
+          "assumptions": [
+            "Finite universe; one fixed decomposition for every mask."
+          ],
+          "empty_set_convention": "The source AND/OR coefficient formulas apply to nonempty sets; component empty outputs are separate.",
+          "baseline_convention": "g(empty)=b and a(empty)+o(empty)=b; no zero baseline is assumed."
+        }
+      },
+      "canonical_id": "sym-model"
+    },
+    {
+      "id": "sym-game",
+      "canonical_tex": "g(S)",
+      "name_zh": "掩码集合函数",
+      "definition_tex": "g(S)=v(x_S)",
+      "description_md": "掩码集合函数",
+      "type_or_domain": "see canonical definition",
+      "scope": "icml2025-coalition; fixed finite universe/input/baseline/decomposition",
+      "assumptions": [
+        "有限总体；所有掩码用同一分解。"
+      ],
+      "empty_set_convention": "原AND/OR公式只对非空交互；分量空输出单独保留。",
+      "baseline_convention": "g(空集)=b，a(空集)+o(空集)=b，不默认零。",
+      "aliases": [
+        "v(S)"
+      ],
+      "paper_mappings": [
+        {
+          "paper_id": "icml2025-coalition",
+          "version_id": "ver-icml2025-coalition-formal",
+          "original_tex": "v(S)",
+          "original_definition": "g(S)=v(x_S)",
+          "pdf_pages": [
+            3
+          ],
+          "source_id": "src-icml2025-coalition",
+          "canonical_concept": "sym-game",
+          "relationship": "renaming"
+        }
+      ],
+      "lean_names": [],
+      "version": "1.0",
+      "translations": {
+        "en": {
+          "name": "Masked game",
+          "description_md": "Masked game",
+          "assumptions": [
+            "Finite universe; one fixed decomposition for every mask."
+          ],
+          "empty_set_convention": "The source AND/OR coefficient formulas apply to nonempty sets; component empty outputs are separate.",
+          "baseline_convention": "g(empty)=b and a(empty)+o(empty)=b; no zero baseline is assumed."
+        }
+      },
+      "canonical_id": "sym-game"
+    },
+    {
+      "id": "sym-output-baseline",
+      "canonical_tex": "b",
+      "name_zh": "输出基线标量",
+      "definition_tex": "b=v(x_\\varnothing)",
+      "description_md": "输出基线标量",
+      "type_or_domain": "see canonical definition",
+      "scope": "icml2025-coalition; fixed finite universe/input/baseline/decomposition",
+      "assumptions": [
+        "有限总体；所有掩码用同一分解。"
+      ],
+      "empty_set_convention": "原AND/OR公式只对非空交互；分量空输出单独保留。",
+      "baseline_convention": "g(空集)=b，a(空集)+o(空集)=b，不默认零。",
+      "aliases": [
+        "v(\\varnothing)"
+      ],
+      "paper_mappings": [
+        {
+          "paper_id": "icml2025-coalition",
+          "version_id": "ver-icml2025-coalition-formal",
+          "original_tex": "v(\\varnothing)",
+          "original_definition": "b=v(x_\\varnothing)",
+          "pdf_pages": [
+            3
+          ],
+          "source_id": "src-icml2025-coalition",
+          "canonical_concept": "sym-output-baseline",
+          "relationship": "same_definition"
+        }
+      ],
+      "lean_names": [],
+      "version": "1.0",
+      "translations": {
+        "en": {
+          "name": "Output baseline scalar",
+          "description_md": "Output baseline scalar",
+          "assumptions": [
+            "Finite universe; one fixed decomposition for every mask."
+          ],
+          "empty_set_convention": "The source AND/OR coefficient formulas apply to nonempty sets; component empty outputs are separate.",
+          "baseline_convention": "g(empty)=b and a(empty)+o(empty)=b; no zero baseline is assumed."
+        }
+      },
+      "canonical_id": "sym-output-baseline"
+    },
+    {
+      "id": "sym-universe",
+      "canonical_tex": "N",
+      "name_zh": "有限变量总体",
+      "definition_tex": "N=\\{1,\\ldots,n\\}",
+      "description_md": "有限变量总体",
+      "type_or_domain": "see canonical definition",
+      "scope": "icml2025-coalition; fixed finite universe/input/baseline/decomposition",
+      "assumptions": [
+        "有限总体；所有掩码用同一分解。"
+      ],
+      "empty_set_convention": "原AND/OR公式只对非空交互；分量空输出单独保留。",
+      "baseline_convention": "g(空集)=b，a(空集)+o(空集)=b，不默认零。",
+      "aliases": [
+        "N"
+      ],
+      "paper_mappings": [
+        {
+          "paper_id": "icml2025-coalition",
+          "version_id": "ver-icml2025-coalition-formal",
+          "original_tex": "N",
+          "original_definition": "N=\\{1,\\ldots,n\\}",
+          "pdf_pages": [
+            3
+          ],
+          "source_id": "src-icml2025-coalition",
+          "canonical_concept": "sym-universe",
+          "relationship": "same_definition"
+        }
+      ],
+      "lean_names": [],
+      "version": "1.0",
+      "translations": {
+        "en": {
+          "name": "Finite variable universe",
+          "description_md": "Finite variable universe",
+          "assumptions": [
+            "Finite universe; one fixed decomposition for every mask."
+          ],
+          "empty_set_convention": "The source AND/OR coefficient formulas apply to nonempty sets; component empty outputs are separate.",
+          "baseline_convention": "g(empty)=b and a(empty)+o(empty)=b; no zero baseline is assumed."
+        }
+      },
+      "canonical_id": "sym-universe"
+    },
+    {
+      "id": "sym-mask",
+      "canonical_tex": "x_S",
+      "name_zh": "固定基线掩码输入",
+      "definition_tex": "(x_S)_i=x_i\\ (i\\in S),\\quad r_i\\ (i\\notin S)",
+      "description_md": "固定基线掩码输入",
+      "type_or_domain": "see canonical definition",
+      "scope": "icml2025-coalition; fixed finite universe/input/baseline/decomposition",
+      "assumptions": [
+        "有限总体；所有掩码用同一分解。"
+      ],
+      "empty_set_convention": "原AND/OR公式只对非空交互；分量空输出单独保留。",
+      "baseline_convention": "g(空集)=b，a(空集)+o(空集)=b，不默认零。",
+      "aliases": [
+        "x_S"
+      ],
+      "paper_mappings": [
+        {
+          "paper_id": "icml2025-coalition",
+          "version_id": "ver-icml2025-coalition-formal",
+          "original_tex": "x_S",
+          "original_definition": "(x_S)_i=x_i\\ (i\\in S),\\quad r_i\\ (i\\notin S)",
+          "pdf_pages": [
+            3
+          ],
+          "source_id": "src-icml2025-coalition",
+          "canonical_concept": "sym-mask",
+          "relationship": "same_definition"
+        }
+      ],
+      "lean_names": [],
+      "version": "1.0",
+      "translations": {
+        "en": {
+          "name": "Fixed-baseline masked input",
+          "description_md": "Fixed-baseline masked input",
+          "assumptions": [
+            "Finite universe; one fixed decomposition for every mask."
+          ],
+          "empty_set_convention": "The source AND/OR coefficient formulas apply to nonempty sets; component empty outputs are separate.",
+          "baseline_convention": "g(empty)=b and a(empty)+o(empty)=b; no zero baseline is assumed."
+        }
+      },
+      "canonical_id": "sym-mask"
+    }
+  ]
+}

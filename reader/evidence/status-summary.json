@@ -1,0 +1,1313 @@
+{
+  "status": "counted",
+  "scope": "data_and_current_evidence_accounting_not_mathematical_acceptance",
+  "snapshot_sha256": "adf1364a303ced66e8a8a179aad7fb46e52f31911b1453c0f0a3af5b32496c64",
+  "count_semantics": {
+    "complete_proof_text": "Complete rewritten proof text in its recorded scope; not a blanket assertion that every source statement is true.",
+    "theorem_proof": "Current Lean theorem evidence in the explicitly recorded Lean scope; the actual type and source assumptions remain authoritative.",
+    "partial_component": "Only a stated component, conditional domain, or component/counterexample combination is formalized.",
+    "counterexample": "A current formal counterexample as the primary role; never counted as a proof of the source statement. Partial-component targets can also contain formal counterexamples, so this exclusive role count is not the total number of formal counterexamples.",
+    "none": "No current mapped formal evidence for this target; delivered text and human counterexamples may still exist."
+  },
+  "role_count_note": "These mutually exclusive counts describe the primary evidence role of each target. Mixed partial proofs retain their counterexample declarations in target_records; a zero primary counterexample count does not mean no formal counterexample exists.",
+  "paper_count": 6,
+  "inventory_entries": 171,
+  "result_pages": 168,
+  "proof_targets": 104,
+  "shared_proofs": 15,
+  "canonical_concepts": 151,
+  "complete_proof_text": 66,
+  "other_delivered_scope_or_counterexample_targets": 38,
+  "current_lean_evidence_roles": {
+    "theorem_proof": 69,
+    "partial_component": 16,
+    "counterexample": 2,
+    "none": 17
+  },
+  "papers": [
+    {
+      "paper_id": "cvpr2023-sparse-concepts",
+      "result_pages": 28,
+      "proof_targets": 16,
+      "complete_proof_text": 14,
+      "other_delivered_scope_or_counterexample_targets": 2,
+      "current_lean_evidence_roles": {
+        "theorem_proof": 14,
+        "partial_component": 1,
+        "counterexample": 1,
+        "none": 0
+      },
+      "target_records": [
+        {
+          "id": "cvpr2023-reconstruction",
+          "rewrite_role": "proof",
+          "rewrite_status": "complete",
+          "reading_status": "complete",
+          "statement_assessment": "no_statement_error_recorded",
+          "current_lean_evidence_role": "theorem_proof",
+          "current_mapped_declarations": [
+            "Harsanyi.reconstruction",
+            "FullCvpr.reconstruction"
+          ]
+        },
+        {
+          "id": "cvpr2023-uniqueness",
+          "rewrite_role": "proof",
+          "rewrite_status": "complete",
+          "reading_status": "complete",
+          "statement_assessment": "no_statement_error_recorded",
+          "current_lean_evidence_role": "theorem_proof",
+          "current_mapped_declarations": [
+            "Harsanyi.reconstruction_unique",
+            "FullCvpr.uniqueness"
+          ]
+        },
+        {
+          "id": "cvpr2023-linearity",
+          "rewrite_role": "proof",
+          "rewrite_status": "complete",
+          "reading_status": "complete",
+          "statement_assessment": "no_statement_error_recorded",
+          "current_lean_evidence_role": "theorem_proof",
+          "current_mapped_declarations": [
+            "Harsanyi.interaction_add",
+            "FullCvpr.linearity"
+          ]
+        },
+        {
+          "id": "cvpr2023-dummy",
+          "rewrite_role": "counterexample",
+          "rewrite_status": "blocked_by_source_issue",
+          "reading_status": "pending",
+          "statement_assessment": "refuted",
+          "current_lean_evidence_role": "counterexample",
+          "current_mapped_declarations": [
+            "FullCvpr.dummy_statement_counterexample"
+          ]
+        },
+        {
+          "id": "cvpr2023-symmetry",
+          "rewrite_role": "proof",
+          "rewrite_status": "complete",
+          "reading_status": "complete",
+          "statement_assessment": "no_statement_error_recorded",
+          "current_lean_evidence_role": "theorem_proof",
+          "current_mapped_declarations": [
+            "Harsanyi.interaction_symmetry",
+            "FullCvpr.symmetry"
+          ]
+        },
+        {
+          "id": "cvpr2023-anonymity",
+          "rewrite_role": "proof",
+          "rewrite_status": "complete",
+          "reading_status": "complete",
+          "statement_assessment": "no_statement_error_recorded",
+          "current_lean_evidence_role": "theorem_proof",
+          "current_mapped_declarations": [
+            "Harsanyi.interaction_relabel",
+            "FullCvpr.anonymity"
+          ]
+        },
+        {
+          "id": "cvpr2023-recursive",
+          "rewrite_role": "proof",
+          "rewrite_status": "complete",
+          "reading_status": "complete",
+          "statement_assessment": "no_statement_error_recorded",
+          "current_lean_evidence_role": "theorem_proof",
+          "current_mapped_declarations": [
+            "Harsanyi.interaction_context_difference",
+            "FullCvpr.recursive"
+          ]
+        },
+        {
+          "id": "cvpr2023-interaction-distribution",
+          "rewrite_role": "proof",
+          "rewrite_status": "complete",
+          "reading_status": "complete",
+          "statement_assessment": "no_statement_error_recorded",
+          "current_lean_evidence_role": "theorem_proof",
+          "current_mapped_declarations": [
+            "Harsanyi.interaction_unanimity",
+            "FullCvpr.interaction_distribution"
+          ]
+        },
+        {
+          "id": "cvpr2023-marginal-decomposition",
+          "rewrite_role": "proof",
+          "rewrite_status": "complete",
+          "reading_status": "complete",
+          "statement_assessment": "no_statement_error_recorded",
+          "current_lean_evidence_role": "theorem_proof",
+          "current_mapped_declarations": [
+            "Harsanyi.higherMarginal_eq_sum_interaction",
+            "FullCvpr.marginal_decomposition"
+          ]
+        },
+        {
+          "id": "cvpr2023-shapley",
+          "rewrite_role": "proof",
+          "rewrite_status": "complete",
+          "reading_status": "complete",
+          "statement_assessment": "no_statement_error_recorded",
+          "current_lean_evidence_role": "theorem_proof",
+          "current_mapped_declarations": [
+            "Harsanyi.factorialShapley_eq_dividends",
+            "FullCvpr.shapley"
+          ]
+        },
+        {
+          "id": "cvpr2023-shapley-interaction",
+          "rewrite_role": "proof",
+          "rewrite_status": "complete",
+          "reading_status": "complete",
+          "statement_assessment": "no_statement_error_recorded",
+          "current_lean_evidence_role": "theorem_proof",
+          "current_mapped_declarations": [
+            "Harsanyi.factorialShapleyInteraction_eq_dividends",
+            "FullCvpr.shapley_interaction"
+          ]
+        },
+        {
+          "id": "cvpr2023-shapley-taylor",
+          "rewrite_role": "proof",
+          "rewrite_status": "complete",
+          "reading_status": "complete",
+          "statement_assessment": "no_statement_error_recorded",
+          "current_lean_evidence_role": "theorem_proof",
+          "current_mapped_declarations": [
+            "Harsanyi.shapleyTaylor_eq_dividends",
+            "FullCvpr.shapley_taylor"
+          ]
+        },
+        {
+          "id": "cvpr2023-scm-subset-sum",
+          "rewrite_role": "proof",
+          "rewrite_status": "complete",
+          "reading_status": "complete",
+          "statement_assessment": "no_statement_error_recorded",
+          "current_lean_evidence_role": "theorem_proof",
+          "current_mapped_declarations": [
+            "FullCvpr.andTrigger_product",
+            "FullCvpr.causalOutput_eq_sum_subset",
+            "FullCvpr.causalOutput_full"
+          ]
+        },
+        {
+          "id": "cvpr2023-baseline-faithfulness",
+          "rewrite_role": "partial_proof_with_refuted_clause",
+          "rewrite_status": "blocked_by_source_issue",
+          "reading_status": "pending",
+          "statement_assessment": "partially_refuted",
+          "current_lean_evidence_role": "partial_component",
+          "current_mapped_declarations": [
+            "FullCvpr.complete_unfaithfulness_zero",
+            "FullCvpr.baseline_truncated_loss_counterexample"
+          ]
+        },
+        {
+          "id": "cvpr2023-aog-regrouping",
+          "rewrite_role": "proof",
+          "rewrite_status": "complete",
+          "reading_status": "complete",
+          "statement_assessment": "no_statement_error_recorded",
+          "current_lean_evidence_role": "theorem_proof",
+          "current_mapped_declarations": [
+            "FullCvpr.andTrigger_children",
+            "FullCvpr.causalOutput_regrouped"
+          ]
+        },
+        {
+          "id": "cvpr2023-addmul-coefficients",
+          "rewrite_role": "proof",
+          "rewrite_status": "complete",
+          "reading_status": "complete",
+          "statement_assessment": "no_statement_error_recorded",
+          "current_lean_evidence_role": "theorem_proof",
+          "current_mapped_declarations": [
+            "FullCvpr.masked_monomial",
+            "FullCvpr.addmul_coordinate_adapter"
+          ]
+        }
+      ]
+    },
+    {
+      "paper_id": "iclr2024-sparse",
+      "result_pages": 42,
+      "proof_targets": 27,
+      "complete_proof_text": 19,
+      "other_delivered_scope_or_counterexample_targets": 8,
+      "current_lean_evidence_roles": {
+        "theorem_proof": 21,
+        "partial_component": 0,
+        "counterexample": 0,
+        "none": 6
+      },
+      "target_records": [
+        {
+          "id": "iclr2024-sparse-reconstruction",
+          "rewrite_role": "proof",
+          "rewrite_status": "complete",
+          "reading_status": "complete",
+          "statement_assessment": "no_statement_error_recorded",
+          "current_lean_evidence_role": "theorem_proof",
+          "current_mapped_declarations": [
+            "FullSparse.theorem1"
+          ]
+        },
+        {
+          "id": "iclr2024-sparse-salient-approximation",
+          "rewrite_role": "statement_scope_explanation",
+          "rewrite_status": "complete",
+          "reading_status": "scope_explanation_complete",
+          "statement_assessment": "no_statement_error_recorded",
+          "current_lean_evidence_role": "none",
+          "current_mapped_declarations": []
+        },
+        {
+          "id": "iclr2024-sparse-lemma1",
+          "rewrite_role": "statement_scope_explanation",
+          "rewrite_status": "blocked_by_source_issue",
+          "reading_status": "pending",
+          "statement_assessment": "counterexample_recorded",
+          "current_lean_evidence_role": "none",
+          "current_mapped_declarations": []
+        },
+        {
+          "id": "iclr2024-sparse-derivative-cutoff",
+          "rewrite_role": "proof",
+          "rewrite_status": "complete",
+          "reading_status": "complete",
+          "statement_assessment": "no_statement_error_recorded",
+          "current_lean_evidence_role": "theorem_proof",
+          "current_mapped_declarations": [
+            "FullSparseDerivative.assumption1beta_implies1alpha",
+            "Harsanyi.interaction_zero_of_classicalMixedDerivativeCutoff",
+            "Harsanyi.centered_interaction_zero_of_classicalMixedDerivativeCutoff"
+          ]
+        },
+        {
+          "id": "iclr2024-sparse-lemma2",
+          "rewrite_role": "proof",
+          "rewrite_status": "complete",
+          "reading_status": "complete",
+          "statement_assessment": "no_statement_error_recorded",
+          "current_lean_evidence_role": "theorem_proof",
+          "current_mapped_declarations": [
+            "FullSparse.lemma2",
+            "Harsanyi.Sparsity.mean_centered_cutoff"
+          ]
+        },
+        {
+          "id": "iclr2024-sparse-lemma3",
+          "rewrite_role": "proof",
+          "rewrite_status": "complete",
+          "reading_status": "complete",
+          "statement_assessment": "no_statement_error_recorded",
+          "current_lean_evidence_role": "theorem_proof",
+          "current_mapped_declarations": [
+            "Harsanyi.Sparsity.binomial_matrix_kernel"
+          ]
+        },
+        {
+          "id": "iclr2024-sparse-theorem2",
+          "rewrite_role": "statement_scope_explanation",
+          "rewrite_status": "complete",
+          "reading_status": "scope_explanation_complete",
+          "statement_assessment": "scope_under_review",
+          "current_lean_evidence_role": "theorem_proof",
+          "current_mapped_declarations": [
+            "FullSparse.theorem2",
+            "Harsanyi.Sparsity.sparse_original_coefficient_witness",
+            "Harsanyi.Sparsity.sparse_coefficient_existence",
+            "Harsanyi.Sparsity.coefficient_normalization"
+          ]
+        },
+        {
+          "id": "iclr2024-sparse-asymptotic-claim",
+          "rewrite_role": "counterexample",
+          "rewrite_status": "blocked_by_source_issue",
+          "reading_status": "pending",
+          "statement_assessment": "partially_refuted",
+          "current_lean_evidence_role": "none",
+          "current_mapped_declarations": []
+        },
+        {
+          "id": "iclr2024-sparse-theorem3",
+          "rewrite_role": "statement_scope_explanation",
+          "rewrite_status": "complete",
+          "reading_status": "scope_explanation_complete",
+          "statement_assessment": "scope_under_review",
+          "current_lean_evidence_role": "theorem_proof",
+          "current_mapped_declarations": [
+            "FullSparse.theorem3",
+            "Harsanyi.Sparsity.sparse_original_T2_T3",
+            "Harsanyi.Sparsity.salient_bound_original_coefficients",
+            "Harsanyi.Sparsity.salient_count_bound"
+          ]
+        },
+        {
+          "id": "iclr2024-sparse-axiom-linearity",
+          "rewrite_role": "proof",
+          "rewrite_status": "complete",
+          "reading_status": "complete",
+          "statement_assessment": "no_statement_error_recorded",
+          "current_lean_evidence_role": "theorem_proof",
+          "current_mapped_declarations": [
+            "FullSparse.linearity"
+          ]
+        },
+        {
+          "id": "iclr2024-sparse-axiom-dummy",
+          "rewrite_role": "proof",
+          "rewrite_status": "complete",
+          "reading_status": "complete",
+          "statement_assessment": "no_statement_error_recorded",
+          "current_lean_evidence_role": "theorem_proof",
+          "current_mapped_declarations": [
+            "FullSparse.dummy"
+          ]
+        },
+        {
+          "id": "iclr2024-sparse-axiom-symmetry",
+          "rewrite_role": "proof",
+          "rewrite_status": "complete",
+          "reading_status": "complete",
+          "statement_assessment": "no_statement_error_recorded",
+          "current_lean_evidence_role": "theorem_proof",
+          "current_mapped_declarations": [
+            "FullSparse.symmetry"
+          ]
+        },
+        {
+          "id": "iclr2024-sparse-axiom-anonymity",
+          "rewrite_role": "proof",
+          "rewrite_status": "complete",
+          "reading_status": "complete",
+          "statement_assessment": "no_statement_error_recorded",
+          "current_lean_evidence_role": "theorem_proof",
+          "current_mapped_declarations": [
+            "FullSparse.anonymity"
+          ]
+        },
+        {
+          "id": "iclr2024-sparse-axiom-recursive",
+          "rewrite_role": "proof",
+          "rewrite_status": "complete",
+          "reading_status": "complete",
+          "statement_assessment": "no_statement_error_recorded",
+          "current_lean_evidence_role": "theorem_proof",
+          "current_mapped_declarations": [
+            "FullSparse.recursive"
+          ]
+        },
+        {
+          "id": "iclr2024-sparse-axiom-distribution",
+          "rewrite_role": "proof",
+          "rewrite_status": "complete",
+          "reading_status": "complete",
+          "statement_assessment": "no_statement_error_recorded",
+          "current_lean_evidence_role": "theorem_proof",
+          "current_mapped_declarations": [
+            "FullSparse.distribution"
+          ]
+        },
+        {
+          "id": "iclr2024-sparse-lemma4",
+          "rewrite_role": "proof",
+          "rewrite_status": "complete",
+          "reading_status": "complete",
+          "statement_assessment": "no_statement_error_recorded",
+          "current_lean_evidence_role": "theorem_proof",
+          "current_mapped_declarations": [
+            "FullSparse.lemma4"
+          ]
+        },
+        {
+          "id": "iclr2024-sparse-theorem4",
+          "rewrite_role": "proof",
+          "rewrite_status": "complete",
+          "reading_status": "complete",
+          "statement_assessment": "no_statement_error_recorded",
+          "current_lean_evidence_role": "theorem_proof",
+          "current_mapped_declarations": [
+            "FullSparse.theorem4"
+          ]
+        },
+        {
+          "id": "iclr2024-sparse-theorem5",
+          "rewrite_role": "proof",
+          "rewrite_status": "complete",
+          "reading_status": "complete",
+          "statement_assessment": "no_statement_error_recorded",
+          "current_lean_evidence_role": "theorem_proof",
+          "current_mapped_declarations": [
+            "FullSparse.theorem5"
+          ]
+        },
+        {
+          "id": "iclr2024-sparse-theorem6",
+          "rewrite_role": "proof",
+          "rewrite_status": "complete",
+          "reading_status": "complete",
+          "statement_assessment": "no_statement_error_recorded",
+          "current_lean_evidence_role": "theorem_proof",
+          "current_mapped_declarations": [
+            "FullSparse.theorem6"
+          ]
+        },
+        {
+          "id": "iclr2024-sparse-noise-linearity",
+          "rewrite_role": "proof",
+          "rewrite_status": "complete",
+          "reading_status": "complete",
+          "statement_assessment": "no_statement_error_recorded",
+          "current_lean_evidence_role": "theorem_proof",
+          "current_mapped_declarations": [
+            "FullSparse.noise_linearity"
+          ]
+        },
+        {
+          "id": "iclr2024-sparse-noise-variance",
+          "rewrite_role": "statement_scope_explanation",
+          "rewrite_status": "blocked_by_source_issue",
+          "reading_status": "pending",
+          "statement_assessment": "scope_under_review",
+          "current_lean_evidence_role": "none",
+          "current_mapped_declarations": []
+        },
+        {
+          "id": "iclr2024-sparse-parity-mask",
+          "rewrite_role": "statement_scope_explanation",
+          "rewrite_status": "blocked_by_source_issue",
+          "reading_status": "pending",
+          "statement_assessment": "scope_under_review",
+          "current_lean_evidence_role": "none",
+          "current_mapped_declarations": []
+        },
+        {
+          "id": "iclr2024-sparse-transfer-inference",
+          "rewrite_role": "counterexample",
+          "rewrite_status": "blocked_by_source_issue",
+          "reading_status": "pending",
+          "statement_assessment": "counterexample_recorded",
+          "current_lean_evidence_role": "none",
+          "current_mapped_declarations": []
+        },
+        {
+          "id": "iclr2024-sparse-or-reverse",
+          "rewrite_role": "proof",
+          "rewrite_status": "complete",
+          "reading_status": "complete",
+          "statement_assessment": "no_statement_error_recorded",
+          "current_lean_evidence_role": "theorem_proof",
+          "current_mapped_declarations": [
+            "FullSparse.or_reverse"
+          ]
+        },
+        {
+          "id": "iclr2024-sparse-and-or-matching",
+          "rewrite_role": "proof",
+          "rewrite_status": "complete",
+          "reading_status": "complete",
+          "statement_assessment": "no_statement_error_recorded",
+          "current_lean_evidence_role": "theorem_proof",
+          "current_mapped_declarations": [
+            "FullSparse.and_or_matching_eq62",
+            "FullSparse.and_matching_zero_baseline",
+            "FullSparse.or_matching_zero_baseline",
+            "FullSparse.and_or_matching"
+          ]
+        },
+        {
+          "id": "iclr2024-sparse-monotonicity-example",
+          "rewrite_role": "proof",
+          "rewrite_status": "complete",
+          "reading_status": "complete",
+          "statement_assessment": "no_statement_error_recorded",
+          "current_lean_evidence_role": "theorem_proof",
+          "current_mapped_declarations": [
+            "FullSparse.example_mean_two",
+            "FullSparse.example_mean_three",
+            "FullSparse.example_mean_monotone_comparison"
+          ]
+        },
+        {
+          "id": "iclr2024-sparse-sampling-complexity",
+          "rewrite_role": "proof",
+          "rewrite_status": "complete",
+          "reading_status": "complete",
+          "statement_assessment": "no_statement_error_recorded",
+          "current_lean_evidence_role": "theorem_proof",
+          "current_mapped_declarations": [
+            "FullSparse.sampling_evaluation_count"
+          ]
+        }
+      ]
+    },
+    {
+      "paper_id": "iclr2024-generalizable",
+      "result_pages": 30,
+      "proof_targets": 18,
+      "complete_proof_text": 13,
+      "other_delivered_scope_or_counterexample_targets": 5,
+      "current_lean_evidence_roles": {
+        "theorem_proof": 13,
+        "partial_component": 1,
+        "counterexample": 1,
+        "none": 3
+      },
+      "target_records": [
+        {
+          "id": "f11-and-mask-zero",
+          "rewrite_role": "proof",
+          "rewrite_status": "complete",
+          "reading_status": "complete",
+          "statement_assessment": "no_statement_error_recorded",
+          "current_lean_evidence_role": "theorem_proof",
+          "current_mapped_declarations": [
+            "Harsanyi.maskCoordinates_comp",
+            "Harsanyi.and_mask_interaction_zero",
+            "FullGeneralizable.and_mask_zero"
+          ]
+        },
+        {
+          "id": "f11-or-duality",
+          "rewrite_role": "proof",
+          "rewrite_status": "complete",
+          "reading_status": "complete",
+          "statement_assessment": "no_statement_error_recorded",
+          "current_lean_evidence_role": "theorem_proof",
+          "current_mapped_declarations": [
+            "Harsanyi.or_dual",
+            "FullGeneralizable.or_duality"
+          ]
+        },
+        {
+          "id": "f11-external-sparsity",
+          "rewrite_role": "statement_scope_explanation",
+          "rewrite_status": "complete",
+          "reading_status": "scope_explanation_complete",
+          "statement_assessment": "no_statement_error_recorded",
+          "current_lean_evidence_role": "none",
+          "current_mapped_declarations": []
+        },
+        {
+          "id": "iclr2024-generalizable-theorem1",
+          "rewrite_role": "proof",
+          "rewrite_status": "complete",
+          "reading_status": "complete",
+          "statement_assessment": "no_statement_error_recorded",
+          "current_lean_evidence_role": "theorem_proof",
+          "current_mapped_declarations": [
+            "FullGeneralizable.exact_and_reconstruction"
+          ]
+        },
+        {
+          "id": "f11-theorem1-approx",
+          "rewrite_role": "statement_scope_explanation",
+          "rewrite_status": "complete",
+          "reading_status": "scope_explanation_complete",
+          "statement_assessment": "no_statement_error_recorded",
+          "current_lean_evidence_role": "none",
+          "current_mapped_declarations": []
+        },
+        {
+          "id": "iclr2024-generalizable-andor",
+          "rewrite_role": "proof",
+          "rewrite_status": "complete",
+          "reading_status": "complete",
+          "statement_assessment": "no_statement_error_recorded",
+          "current_lean_evidence_role": "theorem_proof",
+          "current_mapped_declarations": [
+            "FullGeneralizable.literal_and_or_reconstruction",
+            "FullGeneralizable.label_and_or_reconstruction"
+          ]
+        },
+        {
+          "id": "iclr2024-generalizable-and",
+          "rewrite_role": "proof",
+          "rewrite_status": "complete",
+          "reading_status": "complete",
+          "statement_assessment": "no_statement_error_recorded",
+          "current_lean_evidence_role": "theorem_proof",
+          "current_mapped_declarations": [
+            "FullGeneralizable.literal_and_coefficient_eq",
+            "FullGeneralizable.literal_and_reconstruction",
+            "FullGeneralizable.label_and_coefficient_eq",
+            "FullGeneralizable.label_and_reconstruction"
+          ]
+        },
+        {
+          "id": "iclr2024-generalizable-or",
+          "rewrite_role": "proof",
+          "rewrite_status": "complete",
+          "reading_status": "complete",
+          "statement_assessment": "no_statement_error_recorded",
+          "current_lean_evidence_role": "theorem_proof",
+          "current_mapped_declarations": [
+            "Harsanyi.activated_subset_sum",
+            "Harsanyi.or_reconstruction",
+            "FullGeneralizable.literal_or_reconstruction",
+            "FullGeneralizable.literal_or_nonempty_sum",
+            "FullGeneralizable.label_or_nonempty_sum",
+            "FullGeneralizable.label_or_reconstruction"
+          ]
+        },
+        {
+          "id": "f11-proposition1",
+          "rewrite_role": "statement_scope_explanation",
+          "rewrite_status": "complete",
+          "reading_status": "scope_explanation_complete",
+          "statement_assessment": "no_statement_error_recorded",
+          "current_lean_evidence_role": "none",
+          "current_mapped_declarations": []
+        },
+        {
+          "id": "f11-boolean-decomposition",
+          "rewrite_role": "proof",
+          "rewrite_status": "complete",
+          "reading_status": "complete",
+          "statement_assessment": "no_statement_error_recorded",
+          "current_lean_evidence_role": "theorem_proof",
+          "current_mapped_declarations": [
+            "FullGeneralizable.boolean_or_additive",
+            "FullGeneralizable.boolean_decomposition",
+            "Harsanyi.orInteraction_unanimity",
+            "FullCvpr.addmul_coordinate_adapter"
+          ]
+        },
+        {
+          "id": "f11-reparameterization",
+          "rewrite_role": "proof",
+          "rewrite_status": "complete",
+          "reading_status": "complete",
+          "statement_assessment": "no_statement_error_recorded",
+          "current_lean_evidence_role": "theorem_proof",
+          "current_mapped_declarations": [
+            "FullGeneralizableAnalysis.masked_model_decomposition",
+            "FullGeneralizableAnalysis.decomposition_iff_unique_gamma"
+          ]
+        },
+        {
+          "id": "f11-rowmax-penalty",
+          "rewrite_role": "proof",
+          "rewrite_status": "complete",
+          "reading_status": "complete",
+          "statement_assessment": "no_statement_error_recorded",
+          "current_lean_evidence_role": "theorem_proof",
+          "current_mapped_declarations": [
+            "FullGeneralizableAnalysis.rowStrength_plateau"
+          ]
+        },
+        {
+          "id": "f11-and-variance",
+          "rewrite_role": "proof",
+          "rewrite_status": "complete",
+          "reading_status": "complete",
+          "statement_assessment": "no_statement_error_recorded",
+          "current_lean_evidence_role": "theorem_proof",
+          "current_mapped_declarations": [
+            "FullGeneralizableAnalysis.masked_model_and_variance",
+            "Harsanyi.noisy_masked_and_variance"
+          ]
+        },
+        {
+          "id": "f11-or-variance",
+          "rewrite_role": "proof",
+          "rewrite_status": "complete",
+          "reading_status": "complete",
+          "statement_assessment": "no_statement_error_recorded",
+          "current_lean_evidence_role": "theorem_proof",
+          "current_mapped_declarations": [
+            "FullGeneralizableAnalysis.masked_model_or_variance",
+            "Harsanyi.noisy_masked_or_variance"
+          ]
+        },
+        {
+          "id": "f11-shapley",
+          "rewrite_role": "proof",
+          "rewrite_status": "complete",
+          "reading_status": "complete",
+          "statement_assessment": "no_statement_error_recorded",
+          "current_lean_evidence_role": "theorem_proof",
+          "current_mapped_declarations": [
+            "Harsanyi.factorialShapley_eq_dividendAllocation",
+            "FullGeneralizable.shapley"
+          ]
+        },
+        {
+          "id": "f11-equation10",
+          "rewrite_role": "counterexample",
+          "rewrite_status": "blocked_by_source_issue",
+          "reading_status": "pending",
+          "statement_assessment": "scope_under_review",
+          "current_lean_evidence_role": "counterexample",
+          "current_mapped_declarations": [
+            "FullGeneralizableAnalysis.signed_max_counterexample"
+          ]
+        },
+        {
+          "id": "f11-mask-complexity",
+          "rewrite_role": "partial_component",
+          "rewrite_status": "complete",
+          "reading_status": "scope_explanation_complete",
+          "statement_assessment": "no_statement_error_recorded",
+          "current_lean_evidence_role": "partial_component",
+          "current_mapped_declarations": [
+            "FullGeneralizable.mask_count"
+          ]
+        },
+        {
+          "id": "f11-alpha-zero",
+          "rewrite_role": "proof",
+          "rewrite_status": "complete",
+          "reading_status": "complete",
+          "statement_assessment": "no_statement_error_recorded",
+          "current_lean_evidence_role": "theorem_proof",
+          "current_mapped_declarations": [
+            "FullGeneralizableAnalysis.alpha_zero"
+          ]
+        }
+      ]
+    },
+    {
+      "paper_id": "icml2023-harsanyinet",
+      "result_pages": 22,
+      "proof_targets": 15,
+      "complete_proof_text": 10,
+      "other_delivered_scope_or_counterexample_targets": 5,
+      "current_lean_evidence_roles": {
+        "theorem_proof": 10,
+        "partial_component": 4,
+        "counterexample": 0,
+        "none": 1
+      },
+      "target_records": [
+        {
+          "id": "hnet-reconstruction",
+          "rewrite_role": "proof",
+          "rewrite_status": "complete",
+          "reading_status": "complete",
+          "statement_assessment": "no_statement_error_recorded",
+          "current_lean_evidence_role": "theorem_proof",
+          "current_mapped_declarations": [
+            "Harsanyi.reconstruction"
+          ]
+        },
+        {
+          "id": "hnet-shapley-dividend",
+          "rewrite_role": "proof",
+          "rewrite_status": "complete",
+          "reading_status": "complete",
+          "statement_assessment": "no_statement_error_recorded",
+          "current_lean_evidence_role": "theorem_proof",
+          "current_mapped_declarations": [
+            "Harsanyi.factorialShapley_eq_dividendAllocation",
+            "Harsanyi.factorialShapley"
+          ]
+        },
+        {
+          "id": "hnet-unit-interaction",
+          "rewrite_role": "counterexample",
+          "rewrite_status": "blocked_by_source_issue",
+          "reading_status": "pending",
+          "statement_assessment": "refuted",
+          "current_lean_evidence_role": "partial_component",
+          "current_mapped_declarations": [
+            "Harsanyi.Network.empty_unit_counterexample",
+            "Harsanyi.Network.requirement_unit_interaction",
+            "Harsanyi.Network.unit_interaction"
+          ]
+        },
+        {
+          "id": "hnet-readout-linearity",
+          "rewrite_role": "proof",
+          "rewrite_status": "complete",
+          "reading_status": "complete",
+          "statement_assessment": "no_statement_error_recorded",
+          "current_lean_evidence_role": "theorem_proof",
+          "current_mapped_declarations": [
+            "PaperHarsanyiNet.centered_readout",
+            "Harsanyi.Network.interaction_weighted_sum"
+          ]
+        },
+        {
+          "id": "hnet-forward-shapley",
+          "rewrite_role": "statement_scope_explanation",
+          "rewrite_status": "complete_with_original_domain_issue",
+          "reading_status": "scope_explanation_complete",
+          "statement_assessment": "scope_under_review",
+          "current_lean_evidence_role": "partial_component",
+          "current_mapped_declarations": [
+            "PaperHarsanyiNet.finite_requirements_attribution",
+            "PaperHarsanyiNet.exact_forward_attribution",
+            "Harsanyi.Network.requirement_forward_shapley",
+            "Harsanyi.Network.forward_shapley"
+          ]
+        },
+        {
+          "id": "hnet-runtime",
+          "rewrite_role": "statement_scope_explanation",
+          "rewrite_status": "complete",
+          "reading_status": "scope_explanation_complete",
+          "statement_assessment": "no_statement_error_recorded",
+          "current_lean_evidence_role": "none",
+          "current_mapped_declarations": []
+        },
+        {
+          "id": "hnet-architecture-r1-r2",
+          "rewrite_role": "proof",
+          "rewrite_status": "complete",
+          "reading_status": "complete",
+          "statement_assessment": "no_statement_error_recorded",
+          "current_lean_evidence_role": "theorem_proof",
+          "current_mapped_declarations": [
+            "Harsanyi.Network.value_mask",
+            "Harsanyi.Network.value_congr",
+            "Harsanyi.Network.value_baseline",
+            "Harsanyi.Network.value_empty_receptive"
+          ]
+        },
+        {
+          "id": "hnet-sparsity-count",
+          "rewrite_role": "partial_proof_with_refuted_clause",
+          "rewrite_status": "complete",
+          "reading_status": "scope_explanation_complete",
+          "statement_assessment": "partially_refuted",
+          "current_lean_evidence_role": "partial_component",
+          "current_mapped_declarations": [
+            "PaperHarsanyiNet.finite_support_card",
+            "Harsanyi.Network.support_card_le_units",
+            "Harsanyi.Network.support_subset_fields"
+          ]
+        },
+        {
+          "id": "hnet-cnn-receptive",
+          "rewrite_role": "proof",
+          "rewrite_status": "complete",
+          "reading_status": "complete",
+          "statement_assessment": "no_statement_error_recorded",
+          "current_lean_evidence_role": "theorem_proof",
+          "current_mapped_declarations": [
+            "Harsanyi.Network.receptive_shared_children"
+          ]
+        },
+        {
+          "id": "hnet-cnn-regroup",
+          "rewrite_role": "partial_proof_with_refuted_clause",
+          "rewrite_status": "complete",
+          "reading_status": "scope_explanation_complete",
+          "statement_assessment": "partially_refuted",
+          "current_lean_evidence_role": "partial_component",
+          "current_mapped_declarations": [
+            "Harsanyi.Network.groupedBlock_mask",
+            "Harsanyi.Network.channel_grouping",
+            "Harsanyi.Network.scalar_grouped_gate_counterexample"
+          ]
+        },
+        {
+          "id": "hnet-axiom-linearity",
+          "rewrite_role": "proof",
+          "rewrite_status": "complete",
+          "reading_status": "complete",
+          "statement_assessment": "no_statement_error_recorded",
+          "current_lean_evidence_role": "theorem_proof",
+          "current_mapped_declarations": [
+            "PaperHarsanyiNet.shapley_add",
+            "PaperHarsanyiNet.shapley_scale"
+          ]
+        },
+        {
+          "id": "hnet-axiom-dummy",
+          "rewrite_role": "proof",
+          "rewrite_status": "complete",
+          "reading_status": "complete",
+          "statement_assessment": "no_statement_error_recorded",
+          "current_lean_evidence_role": "theorem_proof",
+          "current_mapped_declarations": [
+            "PaperHarsanyiNet.shapley_dummy"
+          ]
+        },
+        {
+          "id": "hnet-axiom-symmetry",
+          "rewrite_role": "proof",
+          "rewrite_status": "complete",
+          "reading_status": "complete",
+          "statement_assessment": "no_statement_error_recorded",
+          "current_lean_evidence_role": "theorem_proof",
+          "current_mapped_declarations": [
+            "PaperHarsanyiNet.shapley_symmetry"
+          ]
+        },
+        {
+          "id": "hnet-axiom-efficiency",
+          "rewrite_role": "proof",
+          "rewrite_status": "complete",
+          "reading_status": "complete",
+          "statement_assessment": "no_statement_error_recorded",
+          "current_lean_evidence_role": "theorem_proof",
+          "current_mapped_declarations": [
+            "PaperHarsanyiNet.shapley_efficiency",
+            "Harsanyi.reconstruction"
+          ]
+        },
+        {
+          "id": "hnet-conditional-attribution",
+          "rewrite_role": "proof",
+          "rewrite_status": "complete",
+          "reading_status": "complete",
+          "statement_assessment": "no_statement_error_recorded",
+          "current_lean_evidence_role": "theorem_proof",
+          "current_mapped_declarations": [
+            "PaperHarsanyiNet.finite_conditional_attribution",
+            "PaperHarsanyiNet.conditional_attribution",
+            "Harsanyi.Network.conditional_receptive",
+            "Harsanyi.Network.conditional_forward_shapley"
+          ]
+        }
+      ]
+    },
+    {
+      "paper_id": "icml2024-layerwise",
+      "result_pages": 17,
+      "proof_targets": 9,
+      "complete_proof_text": 4,
+      "other_delivered_scope_or_counterexample_targets": 5,
+      "current_lean_evidence_roles": {
+        "theorem_proof": 5,
+        "partial_component": 2,
+        "counterexample": 0,
+        "none": 2
+      },
+      "target_records": [
+        {
+          "id": "layer-and-reconstruction",
+          "rewrite_role": "proof",
+          "rewrite_status": "complete",
+          "reading_status": "complete",
+          "statement_assessment": "no_statement_error_recorded",
+          "current_lean_evidence_role": "theorem_proof",
+          "current_mapped_declarations": [
+            "Harsanyi.reconstruction"
+          ]
+        },
+        {
+          "id": "layer-universal-matching",
+          "rewrite_role": "statement_scope_explanation",
+          "rewrite_status": "complete",
+          "reading_status": "scope_explanation_complete",
+          "statement_assessment": "scope_under_review",
+          "current_lean_evidence_role": "theorem_proof",
+          "current_mapped_declarations": [
+            "PaperLayerwise.actual_matching",
+            "PaperLayerwise.actual_remasked_matching",
+            "PaperLayerwise.repeated_mask",
+            "Harsanyi.Layerwise.restricted_and"
+          ]
+        },
+        {
+          "id": "layer-salient-matching",
+          "rewrite_role": "statement_scope_explanation",
+          "rewrite_status": "complete_with_scope_issue",
+          "reading_status": "scope_explanation_complete",
+          "statement_assessment": "scope_under_review",
+          "current_lean_evidence_role": "partial_component",
+          "current_mapped_declarations": [
+            "Harsanyi.Layerwise.duplicated_baseline_counterexample"
+          ]
+        },
+        {
+          "id": "layer-strength-decomposition",
+          "rewrite_role": "counterexample",
+          "rewrite_status": "blocked_by_source_issue",
+          "reading_status": "pending",
+          "statement_assessment": "refuted",
+          "current_lean_evidence_role": "partial_component",
+          "current_mapped_declarations": [
+            "Harsanyi.Layerwise.normalized_thresholded_counterexample",
+            "Harsanyi.Layerwise.strengthGame_dividends",
+            "Harsanyi.Layerwise.strength_full_outputs",
+            "Harsanyi.Layerwise.strength_supports",
+            "Harsanyi.Layerwise.scalar_strength_decomposition"
+          ]
+        },
+        {
+          "id": "layer-binomial-symmetry",
+          "rewrite_role": "proof",
+          "rewrite_status": "complete",
+          "reading_status": "complete",
+          "statement_assessment": "no_statement_error_recorded",
+          "current_lean_evidence_role": "theorem_proof",
+          "current_mapped_declarations": [
+            "Harsanyi.Layerwise.complementary_order_count"
+          ]
+        },
+        {
+          "id": "layer-shapley-and-or",
+          "rewrite_role": "proof",
+          "rewrite_status": "complete",
+          "reading_status": "complete",
+          "statement_assessment": "no_statement_error_recorded",
+          "current_lean_evidence_role": "theorem_proof",
+          "current_mapped_declarations": [
+            "PaperLayerwise.actual_shapley",
+            "Harsanyi.Layerwise.shapley_and_or"
+          ]
+        },
+        {
+          "id": "layer-complement-duality",
+          "rewrite_role": "statement_scope_explanation",
+          "rewrite_status": "complete_with_scope_issue",
+          "reading_status": "scope_explanation_complete",
+          "statement_assessment": "scope_under_review",
+          "current_lean_evidence_role": "none",
+          "current_mapped_declarations": []
+        },
+        {
+          "id": "layer-or-sparsity-inheritance",
+          "rewrite_role": "statement_scope_explanation",
+          "rewrite_status": "complete_with_scope_issue",
+          "reading_status": "scope_explanation_complete",
+          "statement_assessment": "scope_under_review",
+          "current_lean_evidence_role": "none",
+          "current_mapped_declarations": []
+        },
+        {
+          "id": "layer-singleton-merge",
+          "rewrite_role": "proof",
+          "rewrite_status": "complete",
+          "reading_status": "complete",
+          "statement_assessment": "no_statement_error_recorded",
+          "current_lean_evidence_role": "theorem_proof",
+          "current_mapped_declarations": [
+            "Harsanyi.Layerwise.singleton_merge",
+            "Harsanyi.Layerwise.singleton_activation"
+          ]
+        }
+      ]
+    },
+    {
+      "paper_id": "icml2025-coalition",
+      "result_pages": 29,
+      "proof_targets": 19,
+      "complete_proof_text": 6,
+      "other_delivered_scope_or_counterexample_targets": 13,
+      "current_lean_evidence_roles": {
+        "theorem_proof": 6,
+        "partial_component": 8,
+        "counterexample": 0,
+        "none": 5
+      },
+      "target_records": [
+        {
+          "id": "coalition-shapley",
+          "rewrite_role": "proof",
+          "rewrite_status": "complete",
+          "reading_status": "complete",
+          "statement_assessment": "no_statement_error_recorded",
+          "current_lean_evidence_role": "theorem_proof",
+          "current_mapped_declarations": [
+            "PaperCoalition.theorem32",
+            "Harsanyi.Coalition.shapley_and_or"
+          ]
+        },
+        {
+          "id": "coalition-banzhaf",
+          "rewrite_role": "proof",
+          "rewrite_status": "complete",
+          "reading_status": "complete",
+          "statement_assessment": "no_statement_error_recorded",
+          "current_lean_evidence_role": "theorem_proof",
+          "current_mapped_declarations": [
+            "PaperCoalition.theorem33",
+            "Harsanyi.Coalition.banzhaf_and_or"
+          ]
+        },
+        {
+          "id": "coalition-conflict",
+          "rewrite_role": "statement_scope_explanation",
+          "rewrite_status": "complete",
+          "reading_status": "scope_explanation_complete",
+          "statement_assessment": "scope_under_review",
+          "current_lean_evidence_role": "partial_component",
+          "current_mapped_declarations": [
+            "PaperCoalition.theorem34_nonempty",
+            "Harsanyi.Coalition.paper_conflict"
+          ]
+        },
+        {
+          "id": "coalition-no-conflict",
+          "rewrite_role": "statement_scope_explanation",
+          "rewrite_status": "complete",
+          "reading_status": "scope_explanation_complete",
+          "statement_assessment": "scope_under_review",
+          "current_lean_evidence_role": "partial_component",
+          "current_mapped_declarations": [
+            "Harsanyi.Coalition.paper_no_conflict",
+            "Harsanyi.Coalition.paper_individual_no_conflict"
+          ]
+        },
+        {
+          "id": "coalition-individual",
+          "rewrite_role": "proof",
+          "rewrite_status": "complete",
+          "reading_status": "complete",
+          "statement_assessment": "no_statement_error_recorded",
+          "current_lean_evidence_role": "theorem_proof",
+          "current_mapped_declarations": [
+            "PaperCoalition.theorem36",
+            "Harsanyi.Coalition.paper_individual"
+          ]
+        },
+        {
+          "id": "coalition-singleton",
+          "rewrite_role": "proof",
+          "rewrite_status": "complete",
+          "reading_status": "complete",
+          "statement_assessment": "no_statement_error_recorded",
+          "current_lean_evidence_role": "theorem_proof",
+          "current_mapped_declarations": [
+            "PaperCoalition.corollary37",
+            "Harsanyi.Coalition.paper_singleton"
+          ]
+        },
+        {
+          "id": "coalition-efficiency",
+          "rewrite_role": "statement_scope_explanation",
+          "rewrite_status": "complete",
+          "reading_status": "scope_explanation_complete",
+          "statement_assessment": "scope_under_review",
+          "current_lean_evidence_role": "partial_component",
+          "current_mapped_declarations": [
+            "PaperCoalition.corollary38_nonempty",
+            "Harsanyi.Coalition.paper_efficiency"
+          ]
+        },
+        {
+          "id": "coalition-anonymity",
+          "rewrite_role": "statement_scope_explanation",
+          "rewrite_status": "complete_with_scope_issue",
+          "reading_status": "scope_explanation_complete",
+          "statement_assessment": "scope_under_review",
+          "current_lean_evidence_role": "none",
+          "current_mapped_declarations": []
+        },
+        {
+          "id": "coalition-symmetry-alpha",
+          "rewrite_role": "counterexample",
+          "rewrite_status": "blocked_by_source_issue",
+          "reading_status": "pending",
+          "statement_assessment": "refuted",
+          "current_lean_evidence_role": "none",
+          "current_mapped_declarations": []
+        },
+        {
+          "id": "coalition-symmetry-beta",
+          "rewrite_role": "counterexample",
+          "rewrite_status": "blocked_by_source_issue",
+          "reading_status": "pending",
+          "statement_assessment": "refuted",
+          "current_lean_evidence_role": "none",
+          "current_mapped_declarations": []
+        },
+        {
+          "id": "coalition-additivity",
+          "rewrite_role": "counterexample",
+          "rewrite_status": "blocked_by_source_issue",
+          "reading_status": "pending",
+          "statement_assessment": "refuted",
+          "current_lean_evidence_role": "none",
+          "current_mapped_declarations": []
+        },
+        {
+          "id": "coalition-dummy",
+          "rewrite_role": "partial_proof_with_refuted_clause",
+          "rewrite_status": "complete_with_definition_only_counterexample",
+          "reading_status": "scope_explanation_complete",
+          "statement_assessment": "partially_refuted",
+          "current_lean_evidence_role": "none",
+          "current_mapped_declarations": []
+        },
+        {
+          "id": "coalition-shapley-coefficient",
+          "rewrite_role": "partial_component",
+          "rewrite_status": "complete",
+          "reading_status": "scope_explanation_complete",
+          "statement_assessment": "no_statement_error_recorded",
+          "current_lean_evidence_role": "partial_component",
+          "current_mapped_declarations": [
+            "Harsanyi.Coalition.shapley_kernel"
+          ]
+        },
+        {
+          "id": "coalition-banzhaf-coefficient",
+          "rewrite_role": "proof",
+          "rewrite_status": "complete",
+          "reading_status": "complete",
+          "statement_assessment": "no_statement_error_recorded",
+          "current_lean_evidence_role": "theorem_proof",
+          "current_mapped_declarations": [
+            "Harsanyi.Coalition.signed_half_superset"
+          ]
+        },
+        {
+          "id": "coalition-matching",
+          "rewrite_role": "proof",
+          "rewrite_status": "complete",
+          "reading_status": "complete",
+          "statement_assessment": "no_statement_error_recorded",
+          "current_lean_evidence_role": "theorem_proof",
+          "current_mapped_declarations": [
+            "Harsanyi.Coalition.universal_matching"
+          ]
+        },
+        {
+          "id": "coalition-R",
+          "rewrite_role": "statement_scope_explanation",
+          "rewrite_status": "complete_with_original_domain_issue",
+          "reading_status": "scope_explanation_complete",
+          "statement_assessment": "scope_under_review",
+          "current_lean_evidence_role": "partial_component",
+          "current_mapped_declarations": [
+            "Harsanyi.Coalition.r_bounds"
+          ]
+        },
+        {
+          "id": "coalition-Rprime",
+          "rewrite_role": "statement_scope_explanation",
+          "rewrite_status": "complete_with_original_domain_issue",
+          "reading_status": "scope_explanation_complete",
+          "statement_assessment": "scope_under_review",
+          "current_lean_evidence_role": "partial_component",
+          "current_mapped_declarations": [
+            "Harsanyi.Coalition.rprime_bounds"
+          ]
+        },
+        {
+          "id": "coalition-Q",
+          "rewrite_role": "statement_scope_explanation",
+          "rewrite_status": "complete_with_original_domain_issue",
+          "reading_status": "scope_explanation_complete",
+          "statement_assessment": "scope_under_review",
+          "current_lean_evidence_role": "partial_component",
+          "current_mapped_declarations": [
+            "Harsanyi.Coalition.q_bounds"
+          ]
+        },
+        {
+          "id": "coalition-toy-support",
+          "rewrite_role": "partial_component",
+          "rewrite_status": "complete",
+          "reading_status": "scope_explanation_complete",
+          "statement_assessment": "no_statement_error_recorded",
+          "current_lean_evidence_role": "partial_component",
+          "current_mapped_declarations": [
+            "Harsanyi.Coalition.toy_and_support"
+          ]
+        }
+      ]
+    }
+  ]
+}

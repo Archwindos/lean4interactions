@@ -1,0 +1,75 @@
+                                            Layerwise Change of Knowledge in Neural Networks
+
+learnable parameters to determine the decomposition. In this                    3.2. Tracking interactions through layers
+way, people can simultaneously explain AND interactions
+                                                                                Despite the universal-matching property, the transferability,
+and OR interactions encoded by DNN. The AND interaction
+                                                                                and the discrimination power of interactions in Section 2,
+is extracted as Iand (S|x) = T ⊆S (−1)|S|−|T | · vand (xT ), just
+                            P
+                                                                                the definition, quantification, and tracking of interactions
+like in Eq. (1). The OR interaction is defined as follows.
+                                                                                through layers present distinctive challenges in real appli-
+Definition 3.2 (OR interactions). The OR interaction is                         cations. Specifically, we aim to define the interaction for
+used to quantify the effect of the OR relationship between a                    the high-dimensional features, while previous interactions
+set S ⊆ N of input variables encoded by the DNN..                               are all defined on a scalar output score. Besides, the newly
+        Ior (S|x) = −
+                        X
+                                   (−1)|S|−|T | · vor (xN \T ).       (2)       defined interaction successfully ensures that neighboring
+                            T ⊆S                                                layers encode similar interactions. This enables us to pro-
+                                                                                pose various metrics to track the newly emerged interaction
+Eq. (2) indicates that the presence of any input variable in S                  primitives and the forgotten interaction primitives in each
+will activate the OR interaction and make an effect Ior (S|x)                   layer, which provide new insights into the learning of DNNs.
+to the output score v(x). Ren et al. (2023a); Zhou et al.
+(2023) proposed to learn parameters {γT } to generate the                       3.2.1. V ERIFYING THE SPARSITY OF INTERACTIONS
+sparsest AND-OR interactions. The AND-OR interactions
+is determined when {γT } are learned. Please see Zhou                           Before we define interactions encoded by intermediate-layer
+et al. (2023) for detailed technique of learning {γT } for the                  features, we need to first examine whether the final layer of
+optimal decomposition of AND-OR interactions.                                   the DNN encodes a small number of interactions. Although
+                                                                                the sparsity of interactions has been partially proven under
+Faithfulness. The sparsity property and universal-                              three common conditions2 , it is still a challenge to strictly
+matching property mathematically guarantee the faith-                           examine whether the DNN fully satisfies these conditions
+fulness of interaction-based explanation. Let us randomly                       in real applications. Besides, the sparsity of interactions
+mask4 an input sample x and generate a total of 2n masked                       has not been proven when we simultaneously use AND
+samples xT . Then, Theorem 3.3 shows that output scores                         interactions and OR interactions to explain a DNN.
+v(xT ) on all 2n masked samples xT can always be well
+matched by AND-OR interactions.                                                 The interactions used by the final layer are directly ex-
+Theorem 3.3. (Proven in Appendix F) Given an input                              tracted based on the network output score v(x)3 , according
+sample x ∈ Rn , the network output score v(xT ) on each                         to Eq. (1) and Eq. (2). Thus, we can consider interactions
+masked input samples {xT |T ⊆ N } can be decomposed into                        extracted from the final layer as the target interactions used
+effects of AND interactions and OR interactions, subject to                     for the inference. If these interactions are sparse, then the
+Iand (∅|x) = vand (x∅ ) = v(x∅ ) and Ior (∅|x) = vor (x∅ ) = 0.                 utility of all layers can be simplified as pushing features
+                                                                                towards a specific small set of sparse interactions. This will
+   v(xT ) = vand (xT ) + vor (xT )                                              significantly simplify feature analysis.
+            X                        X                                (3)
+          =           Iand (S|xT ) +                   Ior (S|xT )              Experiments. We conducted experiments to illustrate the
+                 S⊆T                         S∩T 6=∅
+                                                                                sparsity of interactions. Given a well-trained DNN and
+Ren et al. (2024) have proven1 that most AND-OR interac-                        an input sample x ∈ Rn , we calculated AND interactions
+tions have negligible effects I(S|x) ≈ 0 on inference, which                    Iand (S|x) and OR interactions Ior (S|x) of all 2n possible
+can be regarded as noisy patterns. Only a small number                          subsets5 S ⊆ N . To this end, we trained VGG-11 (Si-
+of interactions have considerable effects. Given an input                       monyan & Zisserman, 2014), ResNet-20 (He et al., 2016)
+sample x ∈ Rn , we can use a small set of salient AND                           on the MNIST dataset (LeCun et al., 1998) and CIFAR-10
+interactions Ωand                             or
+                salient and OR interactions Ωsalient to univer-
+                                                                                datasets (Krizhevsky et al., 2009), respectively. We also
+sally match network outputs v(xT ) on all 2n masked                             learned a seven-layer MLP (namely MLP-7) on the MNIST
+samples. This indicates that salient interactions can serve                     dataset and CIFAR-10 dataset, respectively, where each
+as primitive inference patterns encoded by the DNN.                             layer contained 1024 neurons. Please see Appendix M.4 for
+Lemma 3.4. (Proving interactions as primitive inference                         experimental details.
+patterns, c.f. Appendix G) Given an input sample x ∈                            Fig. 2 shows the strength of all AND-OR interactions ex-
+Rn , the network output on all 2n masked input samples                          tracted from different samples x, |I(S|x)| w.r.t. different S
+{xT |T ⊆ N } can be universally matched by a small set of                       and x, in descending order. We discovered only about 21.8
+salient interactions.                                                           AND/OR salient interactions in each MNIST image and
+                        X                        X
+ v(xT ) ≈ v(x∅ ) +            Iand (S|xT ) +            Ior (S|xT )                5
+                                                                                     Appendix M.1 introduces the details of selecting a relatively
+                     S∈Ωand                    S∈Ωor
+                                                  salient
+                                                                      (4)       small number of input variables (image patches or words) to com-
+                         salient
+                     ∅6=S⊆T                    S∩T 6=∅
+                                                                                pute interactions in order to reduce computational cost.
+
+
+                                                                            4

@@ -1,0 +1,76 @@
+                                        Towards Attributions of Input Variables in a Coalition
+
+flict of attributions between a coalition and variables.                  value of the i-th variable, the effects of the interactions
+Definition 3.1. Given two partitions of n input variables                 Iand (S) and Ior (S) subject to i ∈ S are allocated to B(i)
+                                                                                                     1
+                                                                          with a constant weight 2|S|−1  .
+N = {1, Sm2, ...., n} and P = {S1 , S2 , ..., Sm }, subject to
+N = i=1 Si , ∀i ̸= j, Si ∩ Sj = ∅, the conflict of
+attributions means that there exists a coalition Sk such                  3.3. Attribution value for a coalition
+that the attribution of the coalition Sk is not equal to                  The Shapley value is widely recognized as a standard attri-
+the sum of attributions of its compositional variables, i.e.              bution method with a relatively solid theoretical foundation,
+           P
+ϕP (Sk ) ̸= i∈Sk ϕN (i).
+                                                                          and Section 3.2 has explained the internal mechanism for
+The above conflict is common in practical applications. In                the Shapley value from the perspective of AND-OR interac-
+particular, there does not exist a universally accepted par-              tions. Based on this, in this subsection, we further extend
+tition of input variables. To this end, neither the Shapley               the Shapley value of each individual input variable to define
+value nor the Banzhaf value can eliminate the conflict of the             the attribution of a coalition.
+attributions calculated under different partitions of variables.          As mentioned in Definition 3.1, the core problem is that
+Reformulating attributions. As the theoretical foundation                 different partitions of input variables may lead to conflicts
+to explain the conflict of attributions, let us first revisit             of attributions. To this end, previous studies usually apply
+classical game-theoretic attributions, such as the Shapley                an additional loss to force the method to extract attributions
+value (Shapley et al., 1953) and the Banzhaf value (Lehrer,               without suffering much from the conflict. For example, the
+1988). We find that both two attribution metrics can be                   Faith-Shap (Tsai et al., 2023) used the minimum squared
+explained as an allocation of AND-OR interaction effects.                 loss to push attribution of a coalition S towards the sum of
+Theorem 3.2. (Reformulation of the Shapley value,                                  P of individual variables in S, i.e., pushing v(S)
+                                                                          attribution
+                                                                          towards i∈S ϕ(i). Please see Table 1 for a detailed com-
+proved in Appendix C) The Shapley value ϕ(i) of                           parison of previous methods.
+P input 1variable xi can be explained as ϕ(i) =
+each
+  S⊆N,i∈S |S| [Iand (S) + Ior (S)].
+                                                                          As the same shown in Section 2, methods in Table 1 are
+                                                                          designed to solve the conflict in an engineering manner. In
+Theorem 3.2 explains the internal mechanism of the Shapley                comparison, we focus on the mathematical factor that causes
+value, i.e., the Shapley value is computed by evenly allocat-             the conflict of attributions. To this end, we are inspired
+ing each interaction effect to all its compositional input vari-          by Theorem 3.2, which explains the Shapley value as a
+ables. For example, in the sentence “It was raining cats and              uniform re-allocation of each interaction effect Iand (S) or
+dogs outside.”, the DNN may encode the AND interaction                    Ior (S) to each input variable i in S. Just like that, we can
+S1 = {x1 = raining, x2 = cats, x3 = and, x4 = dogs}                       similarly define the attribution of a coalition S, φ(S), as the
+to represent a heavy rain. Because these four variables                   re-allocation of AND-OR interactions, as follows:
+x1 , x2 , x3 , x4 play the same role in the interaction S1 , it is                                    X |S|
+supposed to allocate the numerical effect Iand (S1 ) uniformly                   ∀S ⊆ N, φ(S) =                 [Iand (T ) + Ior (T )] (6)
+                                                                                                           |T |
+                                                                                                      T ⊇S
+to each variable, i.e., allocating 14 Iand (S1 ) to the variable
+x2 = cats. Besides, the variable x2 = cats may also be                     For example, in an input sentence “It was raining cats and
+involved in other interactions, such as Iand (S2 = {x1 , x2 })            dogs outside.”, we may annotate a coalition S = {x1 =
+and Ior (S3 = {x2 , x3 , x4 }). Then the Shapley value of                 rain, x2 = -ing}. Let us suppose that the model has en-
+x2 = cats can be computed as the accumulation of all allo-                coded an AND interaction T = {x1 = rain, x2 = -ing, x3 =
+cated effect ϕ(x1 ) = 14 Iand (S1 ) + 21 Iand (S2 ) + 31 Ior (S3 ).       cats, x4 = and, x5 = dogs}. The numerical effect Iand (T ) de-
+                                                                          pends on all the five variables. Thus, 25 Iand (T ) is supposed
+The Banzhaf value (Penrose, 1946) is another classical
+                                                                          to be assigned with the coalition S containing two input
+attribution metric, and we find that the mechanism of the
+                                                                          variables and be added to φ(S). In this way, the attribution
+Banzhaf value can also be explained as a specific allocation
+                                                                          of the coalition S, φ(S), can be explained as an allocation
+of interaction effects. Specifically, the Banzhaf value of i-th
+                                                                          of all interactions Iand (T ) and Ior (T ) that cover all variables
+variable is formulated as follows.
+                                                                          in S, i.e., T ⊇ S.
+               X               1                         
+      B(i) =                          · v(S ∪ {i}) − v(S)      (5)
+                   S⊆N \{i} 2|N |−1
+                                                                          3.4. Explaining the conflict of attributions
+Theorem 3.3. (Reformulation of the Banzhaf value,
+proved in Appendix D) The Banzhaf value B(i) of                           Instead of forcibly eliminating the conflict in an engineer-
+each                  xi can be reformulated as B(i) =                    ing mannerP(Tsai et al., 2023), we find that the conflict
+P input variable
+             1                                                            ϕP (Sk ) ̸= i∈Sk ϕN (i) in Definition 3.1 naturally exists
+  S⊆N,i∈S 2|S|−1 [I and (S) + Ior (S)].
+                                                                          in different AI models. Thus, we need to face and accept
+Theorem 3.3 shows that when we compute the Banzhaf                        such a conflict, instead of forcibly eliminating such an ob-
+
+                                                                      4

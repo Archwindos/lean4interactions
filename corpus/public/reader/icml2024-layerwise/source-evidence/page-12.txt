@@ -1,0 +1,72 @@
+                                                         Layerwise Change of Knowledge in Neural Networks
+
+A. Detailed Analysis for Previous Studies Using Knowledge to Explain DNNs
+Explaining and quantifying the exact knowledge encoded by a DNN presents a significant challenge to explainable AI. So
+far, there has not existed a widely accepted definition of knowledge that enables us to accurately disentangle and quantify
+knowledge encoded by intermediate layers of a DNN, because it covers various aspects of cognitive science, neuroscience,
+and mathematics. To this end, previous works have employed different methods to quantify knowledge encoded by a DNN.
+Then, let us revisit previous studies from the perspective of three challenges mentioned in Section 1.
+First, Bau et al. (2017); Kim et al. (2018) associated neurons with manually annotated semantics/concepts (knowledge).
+However, these works could not quantify the exact amount of knowledge in the DNN, or discover new concepts emerged
+in intermediate layers. Second, learning interpretable neural networks with meaningful features in intermediate layers
+was another classic direction in explainable AI (Zhang et al., 2020; Shen et al., 2021; Chen et al., 2019). Although these
+studies automatically learned meaningful concepts without human annotations, they did not provide a mathematically
+guaranteed boundary for each concept/knowledge. Thus, these works could not quantify the exact amount of newly
+emerged/forgotten/unexplainable knowledge in each layer.
+Third, the information-bottleneck theory (Shwartz-Ziv & Tishby, 2017; Saxe et al., 2018) used the mutual information
+between inputs and intermediate-layer features to quantify knowledge encoded by the DNN. However, the mutual information
+could only measure the overall information contained in each feature, but could not accurately quantify exact knowledge
+represented by the newly emerged information and the forgotten information. Besides, Kolchinsky et al. (2019) showed the
+mutual information was difficult to measure accurately, and Wang et al. (2022); Saxe et al. (2018) discovered the mutual
+information had mathematical flaws in explaining the generalization power of a DNN.
+Fourth, Liang et al. (2020) disentangled feature components from each layer, which could be reconstructed by features in
+other layers, so as to evaluate the changes of features in different layers. However, the changes of features in different layers
+could not be aligned to the same feature space for fair comparison, and could not be employed to explain the generalization
+capacity of the DNN.
+
+B. Comparison between Interaction-based Explanation and Attribution Interpretability Methods
+We compare our interaction-based explanation with attribution interpretability methods from the following three perspectives.
+• Perspective 1: Whether the method can explain the detailed inference logic of a DNN. We have conducted a new
+experiment to show explanation results of other interpretability methods for comparison. Figure 6 shows that the main
+difference between our interaction-based explanation and traditional attribution methods (such as Integrated Gradient (?),
+Shapley value (?), and etc.) is that the interaction-based explanation precisely shows the detailed inference logic of the DNN,
+while attribution methods can only provide the importance score of each input variable to the network output. Thus, our
+method can provide a more precise explanation than attribution methods, and the faithfulness of our method is theoretically
+ensured by the universal matching property in Theorem 3.3.
+                             Our method: explaining interactions                                 Integrate Gradient: estimating                                     Shapley value: estimating
+                                as detailed inference patterns                                  importance of each input variable                                importance of each input variable
+
+
+
+                                                                   Attribution values of the
+          Computing
+                                                                        output feature                                               Computing Shapley
+    interactions based on
+                                                                    embeddings of the 8th                                            values based on the
+     the feature after the
+                                                                     transformer block,                                              feature after the 8th
+      8th transformer
+                                                                   which are computed by                                             transformer block
+            block
+                                                                     Integrated Gradient
+
+
+
+         Computing
+     interactions based
+                                                                   Attribution values of the
+      on the feature of                                                                                                                Computing Shapley
+                                                                   input feature, which are
+       the final layer                                                                                                                 values based on the
+                                                                    computed by Integrated
+                                                                                                                                    feature of the final layer
+                                                                           Gradient
+
+
+
+
+Figure 6. The comparison of explanation results between our interaction-based method, Integrated Gradient, and Shapley value.
+
+• Perspective 2: Theoretical connections between AND-OR interactions and attribution explanation methods.
+
+                                                                                               12

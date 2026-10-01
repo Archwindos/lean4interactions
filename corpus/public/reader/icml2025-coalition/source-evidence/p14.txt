@@ -1,0 +1,90 @@
+                                           Towards Attributions of Input Variables in a Coalition
+
+Then, for the sum of OR interactions, we have
+
+
+
+           ES⊆N \{i} [B]
+                       X
+          =ES⊆N \{i}     Ior (L ∪ {i})
+                          L∩S̸=∅
+                  n−1
+              1   X       1         X              X
+          =             n−1
+                                                            Ior (L ∪ {i})
+              n m=0      m        S⊆N \{i}, L∩S̸=∅
+                                   |S|=m
+                              n−1
+            1       X         X       1            X
+          =                          n−1
+                                                              Ior (L ∪ {i})
+            n                         m
+                  L⊆N \{i} m=0                  S∩L̸=∅,
+                                               S⊆N \{i},
+                                                 |S|=m
+                              n−1
+              1     X         X       1                X
+          =                          n−1
+                                                                  Ior (L ∪ {i})
+              n                       m
+                  L⊆N \{i} m=0                 S⊆N \{i}\L,
+                                                 |S|=m
+                              n−1−|L|
+              1     X          X           1                 X
+          =                               n−1
+                                                                     Ior (L ∪ {i}) // Since S ⊆ N \ {i} \ L, |S| ≤ n − 1 − |L|.
+              n                m=0         m
+                  L⊆N \{i}                             S⊆N \{i}\L,
+                                                         |S|=m
+                              n−1−|L|                                 
+              1     X          X           1               n − 1 − |L|
+          =                               n−1
+                                                                       Ior (L ∪ {i})
+              n                m=0         m
+                                                               m
+                  L⊆N \{i}
+                              n−1−|L|                                
+            1       X          X                   1    n − 1 − |L|
+          =                                  n−1
+                                                                       Ior (L ∪ {i}) // Let k = n − 1 − |L| − m.
+            n                             n−1−|L|−k
+                                                      n − 1 − |L| − k
+                  L⊆N \{i}     k=0
+                              n−1−|L|                               
+              1     X          X               1         n − 1 − |L|
+          =                                n−1
+                                                                     Ior (L ∪ {i})
+              n                           |L|+k
+                                                              k
+                  L⊆N \{i}     k=0
+              1     X            n
+          =                           Ior (L ∪ {i})
+              n               |L| + 1
+                  L⊆N \{i}
+                  X         1
+          =                      Ior (L ∪ {i})
+                         |L| + 1
+              L⊆N \{i}
+                  X       1
+          =                  Ior (S) // Let S = L ∪ {i}.
+                         |S|
+              S⊆N,i∈S
+
+
+
+
+                                                                                      1
+                     P                         P                           P
+Therefore, ϕ(i) =        S⊆N \{i} [A]      +           S⊆N \{i} [B]    =     S⊆N,i∈S |S| [Iand (S)   + Ior (S)].
+
+D. Proof of Theorem 3
+Proof. According to the definition of the AND/OR interaction, we can get:
+Iand (S) = L⊆S (−1)|S|−|L| vand (L) = L⊆S\{i} (−1)|S|−|L|+1 [vand (L ∪ {i}) − vand (L)]
+           P                             P
+
+Ior (S) = − L⊆S (−1)|S|−|L| vor (N \ L) = L⊆S\{i} (−1)|S|−|L|+1 [vor (N \ L) − vor (N − L − {i})]
+           P                                P
+
+where v(L) = vand (L) + vor (L).
+
+                                                                                14

@@ -1,0 +1,78 @@
+                                            Towards Attributions of Input Variables in a Coalition
+
+
+                                             Table 5. Coalition attribution metrics on SST-2 dataset
+                                    Sentences                                                             Bert-large
+                                                                                       Q({mesmerizing performances}) = 0.743
+              (a) the mesmerizing performances of the leads keep
+                                                                                R({mesmerizing}) = 0.690, R′ ({mesmerizing}) = 0.682
+                 the film grounded and keep the audience riveted.
+                                                                                R({performances}) = 0.677, R′ ({performances}) = 0.685
+                                                                                              Q({rivaling blair}) = 0.425
+           (b) one of creepiest, scariest movies to come along in a long,
+                                                                                     R({rivaling}) = 0.145, R′ ({rivaling}) = 0.391
+                long time, easily rivaling blair witch or the others
+                                                                                       R({blair}) = 0.250, R′ ({blair}) = 0.466
+                                    Sentences                                                              LLaMA
+                                                                                   Q({mesmerizing performances}) = 0.746
+             (a) the mesmerizing performances of the leads keep
+                                                                            R({mesmerizing}) = 0.611, R′ ({mesmerizing}) = 0.652
+                the film grounded and keep the audience riveted.
+                                                                            R({performances}) = 0.726, R′ ({performances}) = 0.739
+                                                                                             Q({rivaling blair}) = 0.312
+          (b) one of creepiest, scariest movies to come along in a long,
+                                                                                    R({rivaling}) = 0.238, R′ ({rivaling}) = 0.429
+               long time, easily rivaling blair witch or the others
+                                                                                      R({blair}) = 0.277, R′ ({blair}) = 0.286
+
+
+                 Input Go Games               Top-ranked coalitions selected by                  Top-ranked coalitions selected by the
+                   from KataGo                     professional Go players                               interaction strength
+
+                (a)
+                                      (1)                       (2)                        (3)                      (4)
+
+
+
+
+                (b)
+                                      (1)                      (2)                         (3)                       (4)
+
+
+
+
+Figure 2. Visualization of two approaches for the selection of coalitions in KataGo. For a coalition S, φ(S) > 0 means the coalition S of
+stones makes a positive numerical effect for the white, while it makes a negative effect when φ(S) < 0.
+                                                                                                            pwhite (xS )
+score of white stone in Go. The advantage score depends on                       2023a) to set v(S) = log( 1−p white (xS )
+                                                                                                                           ) + ak , s.t. ak =
+complex coalitions (shape patterns) between white stones                                                                   pwhite (xT )
+                                                                                 Ex ET ⊆N :k=nwhite (T )−nblack (T ) log( 1−p             ) measures the
+                                                                                                                              white (xT )
+and black stones. However, there are no metrics to evaluate
+                                                                                 advantage score of white stones, where nwhite (T ) is the
+the true attribution of each shape pattern.
+                                                                                 number of white stones in T . pwhite (xS ) represents the
+Therefore, we conducted experiments to quantify the at-                          score of white stones on input xS , where stones in N \ S
+tribution of each shape pattern encoded by the KataGo                            were removed from the board. ak , k = − n2 , − n−2                     n
+                                                                                                                                               2 , ..., 2
+model (Wu, 2020), which was an open-source Go engine,                            represents a bias of the network output on a certain input.
+and was known for its strong performance in playing the
+                                                                                 Notably, although KataGo’s capabilities surpassed those of
+game of Go. The KataGo incorporated the Monte Carlo
+                                                                                 human players, it was not necessary for the coalition/interac-
+Tree Search and a value network to play the game, and we
+                                                                                 tions modeled by KataGo to reflect human cognition of the
+evaluated shape patterns encoded by the value network.
+                                                                                 Go game. Therefore, we used two strategies to select coali-
+We had KataGo execute 40 moves against each other. Due to                        tion candidates. The first strategy was to let professional
+the significantly high computational cost of interactions, we                    human players annotate classical shape patterns, accord-
+only explained a local board state consisting of n = 10                          ing to human understanding of the Go game. The second
+stones (i.e., 5 white stones and 5 black stones). These                          strategy was to select top-k interactions selected by the inter-
+10 stones were selected by professional Go players as in-                        action strength (|I(T )| ) as coalition candidates suggested
+put variables N , between which interactions were com-                           by the DNN. Then, given each coalition candidate, we cal-
+puted. The remaining stones on the board were treated as                         culated the attribution φ(S) of selected coalitions. Figure
+a constant background. Then, we followed (Zhou et al.,                           2 shows that coalitions that boosted the advantage score
+
+
+                                                                            8

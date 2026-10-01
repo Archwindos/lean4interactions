@@ -1,0 +1,114 @@
+                                                             Layerwise Change of Knowledge in Neural Networks
+
+           Interactions from                        Interactions from                      Interactions from                          Interactions from
+           the intermediate                                 the                            the intermediate                                   the
+                 layer                                  final layer                              layer                                    final layer
+
+
+
+
+                       (a) DNNs trained on MINIST                                                       (b) DNNs trained on CIFAR10
+
+
+Figure 9. The relative stability stability(l),m
+                                          or    of OR interactions decreased along with the order m. It indicated that low-order interactions
+were more stable to inevitable noises in data. Appendix M.3 introduces the selected intermediate layer for each DNN.
+
+
+I.2. Experimental Results on Tabular Datasets
+We also trained the MLP-7 model on two tabular datasets (the UCI census dataset and the commercial dataset), and tracked
+the layer-wise change of interactions during the forward propagation in the MLP-7 model. Specifically, we calculated metrics
+        (l),m       (l),m          (l),m
+overlapand , forgetand , and newand to quantify the overlapped AND interactions, forgotten AND interactions, and newly
+                                                                              (l),m                           (l),m
+emerged AND interactions, respectively. We also calculated the completenessand metric and the redundanceand metric to
+evaluate the progress of learning target AND interactions and removing redundant AND interactions.
+Figure 10 (a) reports the average strength of the overlapped, forgotten, and newly emerged interactions through different
+layers, and Figure 10 (b) tracks the completeness and redundancy of the learned interactions through layers. It shows that (1)
+DNNs encode stronger low-order (simple) interactions than high-order (complex) interactions. (2) The early and middle
+layers usually had already learned most target interactions that were finally used by DNNs. Moreover, extremely high-order
+interactions are learned in later layers, but the learning is unstable. (3) DNNs quickly learn all target interactions without
+learning many redundant interactions. These conclusions are similar to the conclusions obtained on models trained on
+MNIST, CIFAR-10, SST-2 in the paper.
+
+（a）                                                                                                                                        （b）                               MLP − 7 on Census
+   MLP − 7 on Census                                                                                                                                                  1.00                                         1.00
+                                                                                                                                                𝑙 ,𝑚
+
+
+
+
+                                                                                                                                                                                                 𝑙 ,𝑚
+                                                                                                                                                   Completeness 𝑎𝑛𝑑
+
+
+
+
+                                                                                                                                                                                                  Redundancy 𝑎𝑛𝑑
+            3rd layer
+            3rd layer                    5thlayer
+                                        4th  layer                 7thlayer
+                                                                  5th  layer                  6th layer                  7th layer                                    0.75                                         0.75
+                                                                                                                                                                      0.50                                         0.50
+                                                                                                                                                                      0.25                                         0.25
+                                                                                                                                                                      0.00                                         0.00
+                                                                                                                                                                             Low          High                            Low   High
+   0           6   order      0         6   order     0           6   order    0           6    order     0          6     order
+   MLP − 7 on Commercial                                                                                                                                                     MLP − 7 on Commercial
+                                                                                                                                                                      1.00                                         1.00
+                                                                                                                                                𝑙 ,𝑚
+
+
+
+
+                                                                                                                                                                                                 𝑙 ,𝑚
+            3rd layer                   4th layer                 5th layer                   6th layer                  7th layer
+                                                                                                                                                   Completeness 𝑎𝑛𝑑
+
+
+
+
+                                                                                                                                                                      0.75                        Redundancy 𝑎𝑛𝑑   0.75
+                                                                                                                                                                      0.50                                         0.50
+                                                                                                                                                                      0.25                                         0.25
+
+                                                                                                                                                                      0.00                                         0.00
+   0       4           8order 0     4        8order 0         4        8order 0        4          8order 0       4           8order                                          Low          High                            Low   High
+
+       new (𝑙),𝑚
+           and : the overall strength of interactions that are encoded in the final layer, but are not encoded by the l-th layer
+       forget (𝑙),𝑚
+              and :the overall strength of interactions encoded by the l-th layer but later forgotten in the final layer
+               (𝑙),𝑚
+       overlap and : the overall strength of AND interactions shared by both the l−th layer and the final layer
+
+
+                                                                                      (𝑙),𝑚                       (𝑙),𝑚                                                               𝑙 ,𝑚
+ (a) Tracking the change of the average strength of the overlapped (𝑜𝑣𝑒𝑟𝑙𝑎𝑝and ), forgotten (𝑓𝑜𝑟𝑔𝑒𝑡and ), and newly                           (b)Tracking the change of Completeness and   and
+                                                                                                                             (l),m             𝑙 ,𝑚        (l),m
+Figure
+ emerged10.     (a) Tracking
+          interactions
+                             (𝑙),𝑚 the change of the average strength of the overlapped overlap
+                       (𝑛𝑒𝑤and ) through                                                                                           , forgotten
+                                            different layers. For each subfigure, the total length of the orange bar and the or 𝑅𝑒𝑑𝑢𝑛𝑑𝑎𝑛𝑐𝑦    and forget           , and
+                                                                                                                                                    throughordifferent     newly
+                                                                                                                                                                       layers. We doemerged
+                                                                                                                                                                                     not show
+                       (l),m
+                        𝑙 ,𝑚                                                                      𝐿 ,𝑚                          interactions of the highest four orders, because almost(l),m
+                                                                                                                                                                                          no
+interactions     new
+ grey bar equals to 𝑎𝑙𝑙or       through     different     layers.   For   each    subfigure,      the
+                       and , and the total length of the blue bar and the grey bar equals to 𝑎𝑙𝑙and
+                                                                                                        total  length    of the orange    bar   and   the  grey    bar   equals   to
+                                                                                                                                interactions of extremely high orders were learned.allor      ,
+                                                                                            (L),m                                                          (l),m                         (l),m
+and the total length of the blue bar and the grey bar equals to allor                                (b) Tracking the change of completenessor                      and redundancyor
+through different layers. We do not show interactions of the highest four orders, because almost no interactions of extremely high orders
+were learned.
+
+
+
+
+                                                                                                          19

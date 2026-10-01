@@ -1,0 +1,1642 @@
+{
+  "paper_id": "icml2023-harsanyinet",
+  "symbols": [
+    {
+      "id": "hnet-raw-game",
+      "canonical_tex": "g(T)",
+      "name_zh": "原始掩码输出",
+      "name_en": "Raw masked output",
+      "definition_tex": "g(T)=v(x_T)",
+      "description_md": "原始掩码输出；按本篇来源作用域读取。",
+      "type_or_domain": "Game α",
+      "scope": "fixed input and baseline; finite masks of this paper",
+      "assumptions": [
+        "输入与参数固定，所有集合为有限。"
+      ],
+      "empty_set_convention": "原I(empty)=0；原始g(empty)不默认零；空场R1/R2可为常数，实际无偏置架构恒零。",
+      "baseline_convention": "原输入b_i映射r_i；原V=g0；原I=I_g0；输出b=g(empty)。",
+      "aliases": [
+        "v(x_T)"
+      ],
+      "paper_mappings": [
+        {
+          "paper_id": "icml2023-harsanyinet",
+          "version_id": "ver-icml2023-harsanyinet-formal",
+          "original_tex": "v(x_T)",
+          "original_definition_tex": "v(x_T)",
+          "pdf_pages": [
+            3,
+            12,
+            19
+          ],
+          "source_id": "src-icml2023-harsanyinet-formal",
+          "relation_type": "same_definition",
+          "note": "保留源定义域和中心化约定。"
+        }
+      ],
+      "lean_names": [
+        "Harsanyi.Game"
+      ],
+      "version": 1,
+      "translations": {
+        "en": {
+          "name_zh": "Raw masked output",
+          "description_md": "Raw masked output; interpreted in the source-specific scope.",
+          "assumptions": [
+            "Inputs and parameters fixed; every coalition is finite."
+          ],
+          "empty_set_convention": "The source empty dividend is zero; the raw empty output is not assumed zero. R1/R2 allow constant empty-field units; the actual bias-free architecture makes them zero.",
+          "baseline_convention": "The source input b_i maps to r_i; V is g0, I is its dividend, and scalar output b is g(empty).",
+          "paper_mappings": [
+            {
+              "paper_id": "icml2023-harsanyinet",
+              "note": "Preserve the source domain and centering convention."
+            }
+          ]
+        }
+      },
+      "canonical_id": "sym-game"
+    },
+    {
+      "id": "hnet-output-baseline",
+      "canonical_tex": "b",
+      "name_zh": "输出基线",
+      "name_en": "Output baseline",
+      "definition_tex": "b=g(\\varnothing)",
+      "description_md": "输出基线；按本篇来源作用域读取。",
+      "type_or_domain": "ℝ",
+      "scope": "fixed input and baseline; finite masks of this paper",
+      "assumptions": [
+        "输入与参数固定，所有集合为有限。"
+      ],
+      "empty_set_convention": "原I(empty)=0；原始g(empty)不默认零；空场R1/R2可为常数，实际无偏置架构恒零。",
+      "baseline_convention": "原输入b_i映射r_i；原V=g0；原I=I_g0；输出b=g(empty)。",
+      "aliases": [
+        "v(x_\\varnothing)"
+      ],
+      "paper_mappings": [
+        {
+          "paper_id": "icml2023-harsanyinet",
+          "version_id": "ver-icml2023-harsanyinet-formal",
+          "original_tex": "v(x_\\varnothing)",
+          "original_definition_tex": "v(x_\\varnothing)",
+          "pdf_pages": [
+            3,
+            12,
+            19
+          ],
+          "source_id": "src-icml2023-harsanyinet-formal",
+          "relation_type": "renaming",
+          "note": "保留源定义域和中心化约定。"
+        }
+      ],
+      "lean_names": [
+        "Harsanyi.centered"
+      ],
+      "version": 1,
+      "translations": {
+        "en": {
+          "name_zh": "Output baseline",
+          "description_md": "Output baseline; interpreted in the source-specific scope.",
+          "assumptions": [
+            "Inputs and parameters fixed; every coalition is finite."
+          ],
+          "empty_set_convention": "The source empty dividend is zero; the raw empty output is not assumed zero. R1/R2 allow constant empty-field units; the actual bias-free architecture makes them zero.",
+          "baseline_convention": "The source input b_i maps to r_i; V is g0, I is its dividend, and scalar output b is g(empty).",
+          "paper_mappings": [
+            {
+              "paper_id": "icml2023-harsanyinet",
+              "note": "Preserve the source domain and centering convention."
+            }
+          ]
+        }
+      },
+      "canonical_id": "sym-output-baseline"
+    },
+    {
+      "id": "hnet-centered-game",
+      "canonical_tex": "g_0(T)",
+      "name_zh": "中心化收益",
+      "name_en": "Centered reward",
+      "definition_tex": "g_0(T)=g(T)-b",
+      "description_md": "中心化收益；按本篇来源作用域读取。",
+      "type_or_domain": "Game α",
+      "scope": "fixed input and baseline; finite masks of this paper",
+      "assumptions": [
+        "输入与参数固定，所有集合为有限。"
+      ],
+      "empty_set_convention": "原I(empty)=0；原始g(empty)不默认零；空场R1/R2可为常数，实际无偏置架构恒零。",
+      "baseline_convention": "原输入b_i映射r_i；原V=g0；原I=I_g0；输出b=g(empty)。",
+      "aliases": [
+        "V(T)"
+      ],
+      "paper_mappings": [
+        {
+          "paper_id": "icml2023-harsanyinet",
+          "version_id": "ver-icml2023-harsanyinet-formal",
+          "original_tex": "V(T)",
+          "original_definition_tex": "V(T)=v(x_T)-v(x_\\varnothing)",
+          "pdf_pages": [
+            3,
+            12
+          ],
+          "source_id": "src-icml2023-harsanyinet-formal",
+          "relation_type": "centered_variant",
+          "note": "保留源定义域和中心化约定。"
+        }
+      ],
+      "lean_names": [
+        "Harsanyi.centered"
+      ],
+      "version": 1,
+      "translations": {
+        "en": {
+          "name_zh": "Centered reward",
+          "description_md": "Centered reward; interpreted in the source-specific scope.",
+          "assumptions": [
+            "Inputs and parameters fixed; every coalition is finite."
+          ],
+          "empty_set_convention": "The source empty dividend is zero; the raw empty output is not assumed zero. R1/R2 allow constant empty-field units; the actual bias-free architecture makes them zero.",
+          "baseline_convention": "The source input b_i maps to r_i; V is g0, I is its dividend, and scalar output b is g(empty).",
+          "paper_mappings": [
+            {
+              "paper_id": "icml2023-harsanyinet",
+              "note": "Preserve the source domain and centering convention."
+            }
+          ]
+        }
+      },
+      "canonical_id": "sym-centered-game"
+    },
+    {
+      "id": "hnet-centered-dividend",
+      "canonical_tex": "I_{g_0}(S)",
+      "name_zh": "中心化交互",
+      "name_en": "Centered dividend",
+      "definition_tex": "I_{g_0}(S)=\\sum_{T\\subseteq S}(-1)^{|S|-|T|}g_0(T)",
+      "description_md": "中心化交互；按本篇来源作用域读取。",
+      "type_or_domain": "ℝ",
+      "scope": "fixed input and baseline; finite masks of this paper",
+      "assumptions": [
+        "输入与参数固定，所有集合为有限。"
+      ],
+      "empty_set_convention": "原I(empty)=0；原始g(empty)不默认零；空场R1/R2可为常数，实际无偏置架构恒零。",
+      "baseline_convention": "原输入b_i映射r_i；原V=g0；原I=I_g0；输出b=g(empty)。",
+      "aliases": [
+        "I(S)"
+      ],
+      "paper_mappings": [
+        {
+          "paper_id": "icml2023-harsanyinet",
+          "version_id": "ver-icml2023-harsanyinet-formal",
+          "original_tex": "I(S)",
+          "original_definition_tex": "I(\\varnothing)=0",
+          "pdf_pages": [
+            3,
+            14,
+            15
+          ],
+          "source_id": "src-icml2023-harsanyinet-formal",
+          "relation_type": "same_definition",
+          "note": "保留源定义域和中心化约定。"
+        }
+      ],
+      "lean_names": [
+        "Harsanyi.interaction"
+      ],
+      "version": 1,
+      "translations": {
+        "en": {
+          "name_zh": "Centered dividend",
+          "description_md": "Centered dividend; interpreted in the source-specific scope.",
+          "assumptions": [
+            "Inputs and parameters fixed; every coalition is finite."
+          ],
+          "empty_set_convention": "The source empty dividend is zero; the raw empty output is not assumed zero. R1/R2 allow constant empty-field units; the actual bias-free architecture makes them zero.",
+          "baseline_convention": "The source input b_i maps to r_i; V is g0, I is its dividend, and scalar output b is g(empty).",
+          "paper_mappings": [
+            {
+              "paper_id": "icml2023-harsanyinet",
+              "note": "Preserve the source domain and centering convention."
+            }
+          ]
+        }
+      },
+      "canonical_id": "sym-centered-interaction"
+    },
+    {
+      "id": "hnet-input-baseline",
+      "canonical_tex": "r_i",
+      "name_zh": "输入基线向量",
+      "name_en": "Input baseline vector",
+      "definition_tex": "(x_T)_i=\\begin{cases}x_i&i\\in T\\\\r_i&i\\notin T\\end{cases}",
+      "description_md": "输入基线向量；按本篇来源作用域读取。",
+      "type_or_domain": "α → ℝ",
+      "scope": "fixed input and baseline; finite masks of this paper",
+      "assumptions": [
+        "输入与参数固定，所有集合为有限。"
+      ],
+      "empty_set_convention": "原I(empty)=0；原始g(empty)不默认零；空场R1/R2可为常数，实际无偏置架构恒零。",
+      "baseline_convention": "原输入b_i映射r_i；原V=g0；原I=I_g0；输出b=g(empty)。",
+      "aliases": [
+        "b_i"
+      ],
+      "paper_mappings": [
+        {
+          "paper_id": "icml2023-harsanyinet",
+          "version_id": "ver-icml2023-harsanyinet-formal",
+          "original_tex": "b_i",
+          "original_definition_tex": "b_i",
+          "pdf_pages": [
+            3,
+            19
+          ],
+          "source_id": "src-icml2023-harsanyinet-formal",
+          "relation_type": "derived_quantity",
+          "note": "原b_i对应公共输入基线向量r的第i坐标r_i；不是输出基线标量b。"
+        }
+      ],
+      "lean_names": [
+        "Harsanyi.maskCoordinates"
+      ],
+      "version": 1,
+      "translations": {
+        "en": {
+          "name_zh": "Input baseline vector",
+          "description_md": "Input baseline vector; interpreted in the source-specific scope.",
+          "assumptions": [
+            "Inputs and parameters fixed; every coalition is finite."
+          ],
+          "empty_set_convention": "The source empty dividend is zero; the raw empty output is not assumed zero. R1/R2 allow constant empty-field units; the actual bias-free architecture makes them zero.",
+          "baseline_convention": "The source input b_i maps to r_i; V is g0, I is its dividend, and scalar output b is g(empty).",
+          "paper_mappings": [
+            {
+              "paper_id": "icml2023-harsanyinet",
+              "note": "The source b_i is coordinate r_i of the shared input-baseline vector r, not the scalar output baseline b."
+            }
+          ]
+        }
+      },
+      "canonical_id": "sym-input-baseline"
+    },
+    {
+      "id": "hnet-unit-game",
+      "canonical_tex": "u_j(T)",
+      "name_zh": "单元掩码游戏",
+      "name_en": "Masked unit game",
+      "definition_tex": "u_j(T)=z_j(x_T)",
+      "description_md": "单元掩码游戏；按本篇来源作用域读取。",
+      "type_or_domain": "Game α",
+      "scope": "fixed input and baseline; finite masks of this paper",
+      "assumptions": [
+        "输入与参数固定，所有集合为有限。"
+      ],
+      "empty_set_convention": "原I(empty)=0；原始g(empty)不默认零；空场R1/R2可为常数，实际无偏置架构恒零。",
+      "baseline_convention": "原输入b_i映射r_i；原V=g0；原I=I_g0；输出b=g(empty)。",
+      "aliases": [
+        "z_u^{(l)}(x_T)"
+      ],
+      "paper_mappings": [
+        {
+          "paper_id": "icml2023-harsanyinet",
+          "version_id": "ver-icml2023-harsanyinet-formal",
+          "original_tex": "z_u^{(l)}(x_T)",
+          "original_definition_tex": "z_u^{(l)}(x_T)",
+          "pdf_pages": [
+            3,
+            12,
+            14
+          ],
+          "source_id": "src-icml2023-harsanyinet-formal",
+          "relation_type": "renaming",
+          "note": "保留源定义域和中心化约定。"
+        }
+      ],
+      "lean_names": [
+        "Harsanyi.Network.unitGame"
+      ],
+      "version": 1,
+      "translations": {
+        "en": {
+          "name_zh": "Masked unit game",
+          "description_md": "Masked unit game; interpreted in the source-specific scope.",
+          "assumptions": [
+            "Inputs and parameters fixed; every coalition is finite."
+          ],
+          "empty_set_convention": "The source empty dividend is zero; the raw empty output is not assumed zero. R1/R2 allow constant empty-field units; the actual bias-free architecture makes them zero.",
+          "baseline_convention": "The source input b_i maps to r_i; V is g0, I is its dividend, and scalar output b is g(empty).",
+          "paper_mappings": [
+            {
+              "paper_id": "icml2023-harsanyinet",
+              "note": "Preserve the source domain and centering convention."
+            }
+          ]
+        }
+      }
+    },
+    {
+      "id": "hnet-unit-dividend",
+      "canonical_tex": "J_j(S)",
+      "name_zh": "单元中心化交互",
+      "name_en": "Centered unit dividend",
+      "definition_tex": "J_j(S)=I_{u_j-u_j(\\varnothing)}(S)",
+      "description_md": "单元中心化交互；按本篇来源作用域读取。",
+      "type_or_domain": "ℝ",
+      "scope": "fixed input and baseline; finite masks of this paper",
+      "assumptions": [
+        "输入与参数固定，所有集合为有限。"
+      ],
+      "empty_set_convention": "原I(empty)=0；原始g(empty)不默认零；空场R1/R2可为常数，实际无偏置架构恒零。",
+      "baseline_convention": "原输入b_i映射r_i；原V=g0；原I=I_g0；输出b=g(empty)。",
+      "aliases": [
+        "J_u^{(l)}(S)"
+      ],
+      "paper_mappings": [
+        {
+          "paper_id": "icml2023-harsanyinet",
+          "version_id": "ver-icml2023-harsanyinet-formal",
+          "original_tex": "J_u^{(l)}(S)",
+          "original_definition_tex": "J_u^{(l)}(S)",
+          "pdf_pages": [
+            3,
+            12,
+            14,
+            15
+          ],
+          "source_id": "src-icml2023-harsanyinet-formal",
+          "relation_type": "same_definition",
+          "note": "保留源定义域和中心化约定。"
+        }
+      ],
+      "lean_names": [
+        "Harsanyi.Network.requirement_unit_interaction"
+      ],
+      "version": 1,
+      "translations": {
+        "en": {
+          "name_zh": "Centered unit dividend",
+          "description_md": "Centered unit dividend; interpreted in the source-specific scope.",
+          "assumptions": [
+            "Inputs and parameters fixed; every coalition is finite."
+          ],
+          "empty_set_convention": "The source empty dividend is zero; the raw empty output is not assumed zero. R1/R2 allow constant empty-field units; the actual bias-free architecture makes them zero.",
+          "baseline_convention": "The source input b_i maps to r_i; V is g0, I is its dividend, and scalar output b is g(empty).",
+          "paper_mappings": [
+            {
+              "paper_id": "icml2023-harsanyinet",
+              "note": "Preserve the source domain and centering convention."
+            }
+          ]
+        }
+      }
+    },
+    {
+      "id": "hnet-receptive-field",
+      "canonical_tex": "R_j",
+      "name_zh": "感受野",
+      "name_en": "Receptive field",
+      "definition_tex": "R_j=\\bigcup_{k\\in C_j}R_k",
+      "description_md": "感受野；按本篇来源作用域读取。",
+      "type_or_domain": "Finset α",
+      "scope": "fixed input and baseline; finite masks of this paper",
+      "assumptions": [
+        "输入与参数固定，所有集合为有限。"
+      ],
+      "empty_set_convention": "原I(empty)=0；原始g(empty)不默认零；空场R1/R2可为常数，实际无偏置架构恒零。",
+      "baseline_convention": "原输入b_i映射r_i；原V=g0；原I=I_g0；输出b=g(empty)。",
+      "aliases": [
+        "R_u^{(l)}"
+      ],
+      "paper_mappings": [
+        {
+          "paper_id": "icml2023-harsanyinet",
+          "version_id": "ver-icml2023-harsanyinet-formal",
+          "original_tex": "R_u^{(l)}",
+          "original_definition_tex": "R_u^{(l)}",
+          "pdf_pages": [
+            3,
+            5,
+            13,
+            16
+          ],
+          "source_id": "src-icml2023-harsanyinet-formal",
+          "relation_type": "same_definition",
+          "note": "保留源定义域和中心化约定。"
+        }
+      ],
+      "lean_names": [
+        "Harsanyi.Network.receptive"
+      ],
+      "version": 1,
+      "translations": {
+        "en": {
+          "name_zh": "Receptive field",
+          "description_md": "Receptive field; interpreted in the source-specific scope.",
+          "assumptions": [
+            "Inputs and parameters fixed; every coalition is finite."
+          ],
+          "empty_set_convention": "The source empty dividend is zero; the raw empty output is not assumed zero. R1/R2 allow constant empty-field units; the actual bias-free architecture makes them zero.",
+          "baseline_convention": "The source input b_i maps to r_i; V is g0, I is its dividend, and scalar output b is g(empty).",
+          "paper_mappings": [
+            {
+              "paper_id": "icml2023-harsanyinet",
+              "note": "Preserve the source domain and centering convention."
+            }
+          ]
+        }
+      }
+    },
+    {
+      "id": "hnet-child-set",
+      "canonical_tex": "C_j",
+      "name_zh": "所选孩子节点",
+      "name_en": "Selected child nodes",
+      "definition_tex": "C_j=\\{k:(\\Sigma_j)_{kk}=1\\}",
+      "description_md": "所选孩子节点；按本篇来源作用域读取。",
+      "type_or_domain": "finite node index set",
+      "scope": "fixed input and baseline; finite masks of this paper",
+      "assumptions": [
+        "输入与参数固定，所有集合为有限。"
+      ],
+      "empty_set_convention": "原I(empty)=0；原始g(empty)不默认零；空场R1/R2可为常数，实际无偏置架构恒零。",
+      "baseline_convention": "原输入b_i映射r_i；原V=g0；原I=I_g0；输出b=g(empty)。",
+      "aliases": [
+        "S_u^{(l)}"
+      ],
+      "paper_mappings": [
+        {
+          "paper_id": "icml2023-harsanyinet",
+          "version_id": "ver-icml2023-harsanyinet-formal",
+          "original_tex": "S_u^{(l)}",
+          "original_definition_tex": "S_u^{(l)}",
+          "pdf_pages": [
+            4,
+            5,
+            13,
+            16
+          ],
+          "source_id": "src-icml2023-harsanyinet-formal",
+          "relation_type": "renaming",
+          "note": "保留源定义域和中心化约定。"
+        }
+      ],
+      "lean_names": [
+        "Harsanyi.Network.Expr"
+      ],
+      "version": 1,
+      "translations": {
+        "en": {
+          "name_zh": "Selected child nodes",
+          "description_md": "Selected child nodes; interpreted in the source-specific scope.",
+          "assumptions": [
+            "Inputs and parameters fixed; every coalition is finite."
+          ],
+          "empty_set_convention": "The source empty dividend is zero; the raw empty output is not assumed zero. R1/R2 allow constant empty-field units; the actual bias-free architecture makes them zero.",
+          "baseline_convention": "The source input b_i maps to r_i; V is g0, I is its dividend, and scalar output b is g(empty).",
+          "paper_mappings": [
+            {
+              "paper_id": "icml2023-harsanyinet",
+              "note": "Preserve the source domain and centering convention."
+            }
+          ]
+        }
+      }
+    },
+    {
+      "id": "hnet-shapley",
+      "canonical_tex": "\\varphi_g(i)",
+      "name_zh": "经典阶乘权重Shapley",
+      "name_en": "Classical factorial-weighted Shapley",
+      "definition_tex": "\\varphi_g(i)=\\sum_{T\\subseteq N\\setminus\\{i\\}}\\frac{|T|!(|N|-|T|-1)!}{|N|!}[g(T\\cup\\{i\\})-g(T)]",
+      "description_md": "经典阶乘权重Shapley；按本篇来源作用域读取。",
+      "type_or_domain": "ℝ, i ∈ N",
+      "scope": "fixed input and baseline; finite masks of this paper",
+      "assumptions": [
+        "输入与参数固定，所有集合为有限。"
+      ],
+      "empty_set_convention": "原I(empty)=0；原始g(empty)不默认零；空场R1/R2可为常数，实际无偏置架构恒零。",
+      "baseline_convention": "原输入b_i映射r_i；原V=g0；原I=I_g0；输出b=g(empty)。",
+      "aliases": [
+        "\\varphi(i)"
+      ],
+      "paper_mappings": [
+        {
+          "paper_id": "icml2023-harsanyinet",
+          "version_id": "ver-icml2023-harsanyinet-formal",
+          "original_tex": "\\varphi(i)",
+          "original_definition_tex": "\\varphi(i)",
+          "pdf_pages": [
+            3,
+            12,
+            13,
+            19
+          ],
+          "source_id": "src-icml2023-harsanyinet-formal",
+          "relation_type": "same_definition",
+          "note": "保留源定义域和中心化约定。"
+        }
+      ],
+      "lean_names": [
+        "Harsanyi.factorialShapley"
+      ],
+      "version": 1,
+      "translations": {
+        "en": {
+          "name_zh": "Classical factorial-weighted Shapley",
+          "description_md": "Classical factorial-weighted Shapley; interpreted in the source-specific scope.",
+          "assumptions": [
+            "Inputs and parameters fixed; every coalition is finite."
+          ],
+          "empty_set_convention": "The source empty dividend is zero; the raw empty output is not assumed zero. R1/R2 allow constant empty-field units; the actual bias-free architecture makes them zero.",
+          "baseline_convention": "The source input b_i maps to r_i; V is g0, I is its dividend, and scalar output b is g(empty).",
+          "paper_mappings": [
+            {
+              "paper_id": "icml2023-harsanyinet",
+              "note": "Preserve the source domain and centering convention."
+            }
+          ]
+        }
+      },
+      "canonical_id": "sym-shapley"
+    },
+    {
+      "id": "hnet-selected-universe",
+      "canonical_tex": "Q",
+      "name_zh": "条件归因的玩家集",
+      "name_en": "Players of the conditional attribution game",
+      "definition_tex": "g_Q(T)=g(T\\cup(N\\setminus Q))",
+      "description_md": "条件归因的玩家集；按本篇来源作用域读取。",
+      "type_or_domain": "Finset α, Q ⊆ N",
+      "scope": "fixed input and baseline; finite masks of this paper",
+      "assumptions": [
+        "输入与参数固定，所有集合为有限。"
+      ],
+      "empty_set_convention": "原I(empty)=0；原始g(empty)不默认零；空场R1/R2可为常数，实际无偏置架构恒零。",
+      "baseline_convention": "原输入b_i映射r_i；原V=g0；原I=I_g0；输出b=g(empty)。",
+      "aliases": [
+        "\\widehat N"
+      ],
+      "paper_mappings": [
+        {
+          "paper_id": "icml2023-harsanyinet",
+          "version_id": "ver-icml2023-harsanyinet-formal",
+          "original_tex": "\\widehat N",
+          "original_definition_tex": "\\widehat N",
+          "pdf_pages": [
+            19
+          ],
+          "source_id": "src-icml2023-harsanyinet-formal",
+          "relation_type": "renaming",
+          "note": "保留源定义域和中心化约定。"
+        }
+      ],
+      "lean_names": [
+        "Harsanyi.Network.conditional_forward_shapley"
+      ],
+      "version": 1,
+      "translations": {
+        "en": {
+          "name_zh": "Players of the conditional attribution game",
+          "description_md": "Players of the conditional attribution game; interpreted in the source-specific scope.",
+          "assumptions": [
+            "Inputs and parameters fixed; every coalition is finite."
+          ],
+          "empty_set_convention": "The source empty dividend is zero; the raw empty output is not assumed zero. R1/R2 allow constant empty-field units; the actual bias-free architecture makes them zero.",
+          "baseline_convention": "The source input b_i maps to r_i; V is g0, I is its dividend, and scalar output b is g(empty).",
+          "paper_mappings": [
+            {
+              "paper_id": "icml2023-harsanyinet",
+              "note": "Preserve the source domain and centering convention."
+            }
+          ]
+        }
+      }
+    },
+    {
+      "id": "hnet-reduced-field",
+      "canonical_tex": "R_j\\cap Q",
+      "name_zh": "选中玩家的场",
+      "name_en": "Field restricted to selected players",
+      "definition_tex": "|R_j\\cap Q|",
+      "description_md": "选中玩家的场；按本篇来源作用域读取。",
+      "type_or_domain": "Finset α",
+      "scope": "fixed input and baseline; finite masks of this paper",
+      "assumptions": [
+        "输入与参数固定，所有集合为有限。"
+      ],
+      "empty_set_convention": "原I(empty)=0；原始g(empty)不默认零；空场R1/R2可为常数，实际无偏置架构恒零。",
+      "baseline_convention": "原输入b_i映射r_i；原V=g0；原I=I_g0；输出b=g(empty)。",
+      "aliases": [
+        "S\\cap\\widehat N"
+      ],
+      "paper_mappings": [
+        {
+          "paper_id": "icml2023-harsanyinet",
+          "version_id": "ver-icml2023-harsanyinet-formal",
+          "original_tex": "S\\cap\\widehat N",
+          "original_definition_tex": "|S|",
+          "pdf_pages": [
+            19
+          ],
+          "source_id": "src-icml2023-harsanyinet-formal",
+          "relation_type": "derived_quantity",
+          "note": "保留源定义域和中心化约定。"
+        }
+      ],
+      "lean_names": [
+        "Harsanyi.Network.conditional_receptive"
+      ],
+      "version": 1,
+      "translations": {
+        "en": {
+          "name_zh": "Field restricted to selected players",
+          "description_md": "Field restricted to selected players; interpreted in the source-specific scope.",
+          "assumptions": [
+            "Inputs and parameters fixed; every coalition is finite."
+          ],
+          "empty_set_convention": "The source empty dividend is zero; the raw empty output is not assumed zero. R1/R2 allow constant empty-field units; the actual bias-free architecture makes them zero.",
+          "baseline_convention": "The source input b_i maps to r_i; V is g0, I is its dividend, and scalar output b is g(empty).",
+          "paper_mappings": [
+            {
+              "paper_id": "icml2023-harsanyinet",
+              "note": "Preserve the source domain and centering convention."
+            }
+          ]
+        }
+      }
+    },
+    {
+      "id": "hnet-unit-count",
+      "canonical_tex": "M",
+      "name_zh": "单元数量与交互支撑上界",
+      "name_en": "Unit count and dividend-support upper bound",
+      "definition_tex": "M=\\sum_lm^{(l)}",
+      "description_md": "单元数量与交互支撑上界；按本篇来源作用域读取。",
+      "type_or_domain": "ℕ",
+      "scope": "fixed input and baseline; finite masks of this paper",
+      "assumptions": [
+        "输入与参数固定，所有集合为有限。"
+      ],
+      "empty_set_convention": "原I(empty)=0；原始g(empty)不默认零；空场R1/R2可为常数，实际无偏置架构恒零。",
+      "baseline_convention": "原输入b_i映射r_i；原V=g0；原I=I_g0；输出b=g(empty)。",
+      "aliases": [
+        "M"
+      ],
+      "paper_mappings": [
+        {
+          "paper_id": "icml2023-harsanyinet",
+          "version_id": "ver-icml2023-harsanyinet-formal",
+          "original_tex": "M",
+          "original_definition_tex": "M",
+          "pdf_pages": [
+            4,
+            6
+          ],
+          "source_id": "src-icml2023-harsanyinet-formal",
+          "relation_type": "same_definition",
+          "note": "保留源定义域和中心化约定。"
+        }
+      ],
+      "lean_names": [
+        "Harsanyi.Network.support_card_le_units"
+      ],
+      "version": 1,
+      "translations": {
+        "en": {
+          "name_zh": "Unit count and dividend-support upper bound",
+          "description_md": "Unit count and dividend-support upper bound; interpreted in the source-specific scope.",
+          "assumptions": [
+            "Inputs and parameters fixed; every coalition is finite."
+          ],
+          "empty_set_convention": "The source empty dividend is zero; the raw empty output is not assumed zero. R1/R2 allow constant empty-field units; the actual bias-free architecture makes them zero.",
+          "baseline_convention": "The source input b_i maps to r_i; V is g0, I is its dividend, and scalar output b is g(empty).",
+          "paper_mappings": [
+            {
+              "paper_id": "icml2023-harsanyinet",
+              "note": "Preserve the source domain and centering convention."
+            }
+          ]
+        }
+      }
+    },
+    {
+      "id": "hnet-channel-gate",
+      "canonical_tex": "\\mathbf1_{\\sum_c|z_c|\\ne0}",
+      "name_zh": "分组通道非零gate",
+      "name_en": "Grouped channel nonzero gate",
+      "definition_tex": "\\sum_c|z_c|\\ne0\\iff\\exists c,z_c\\ne0",
+      "description_md": "分组通道非零gate；按本篇来源作用域读取。",
+      "type_or_domain": "finite real vector",
+      "scope": "fixed input and baseline; finite masks of this paper",
+      "assumptions": [
+        "输入与参数固定，所有集合为有限。"
+      ],
+      "empty_set_convention": "原I(empty)=0；原始g(empty)不默认零；空场R1/R2可为常数，实际无偏置架构恒零。",
+      "baseline_convention": "原输入b_i映射r_i；原V=g0；原I=I_g0；输出b=g(empty)。",
+      "aliases": [
+        "\\mathbf1_{\\sum_c|z_c|\\ne0}"
+      ],
+      "paper_mappings": [
+        {
+          "paper_id": "icml2023-harsanyinet",
+          "version_id": "ver-icml2023-harsanyinet-formal",
+          "original_tex": "\\mathbf1_{\\sum_c|z_c|\\ne0}",
+          "original_definition_tex": "\\mathbf1_{\\sum_c|z_c|\\ne0}",
+          "pdf_pages": [
+            7,
+            16
+          ],
+          "source_id": "src-icml2023-harsanyinet-formal",
+          "relation_type": "conflict",
+          "note": "groupgate与scalarAND数值不同；其余按显式定义对齐。"
+        }
+      ],
+      "lean_names": [
+        "Harsanyi.Network.groupedBlock"
+      ],
+      "version": 1,
+      "translations": {
+        "en": {
+          "name_zh": "Grouped channel nonzero gate",
+          "description_md": "Grouped channel nonzero gate; interpreted in the source-specific scope.",
+          "assumptions": [
+            "Inputs and parameters fixed; every coalition is finite."
+          ],
+          "empty_set_convention": "The source empty dividend is zero; the raw empty output is not assumed zero. R1/R2 allow constant empty-field units; the actual bias-free architecture makes them zero.",
+          "baseline_convention": "The source input b_i maps to r_i; V is g0, I is its dividend, and scalar output b is g(empty).",
+          "paper_mappings": [
+            {
+              "paper_id": "icml2023-harsanyinet",
+              "note": "Grouped and scalar AND gates differ numerically."
+            }
+          ]
+        }
+      }
+    },
+    {
+      "id": "hnet-population",
+      "canonical_tex": "N",
+      "name_zh": "玩家总体",
+      "name_en": "Player universe",
+      "definition_tex": "N=\\{1,\\ldots,n\\}",
+      "description_md": "玩家总体；本篇局部符号，不与其他论文同字母自动合并。",
+      "type_or_domain": "finite set",
+      "scope": "source-local fixed-input network or experiment",
+      "assumptions": [],
+      "empty_set_convention": "按相关定义与已登记问题解释。",
+      "baseline_convention": "输入基线r与输出基线g(empty)分别保留。",
+      "aliases": [
+        "N"
+      ],
+      "paper_mappings": [
+        {
+          "paper_id": "icml2023-harsanyinet",
+          "version_id": "ver-icml2023-harsanyinet-formal",
+          "original_tex": "N",
+          "original_definition_tex": "N=\\{1,\\ldots,n\\}",
+          "pdf_pages": [
+            3
+          ],
+          "source_id": "src-icml2023-harsanyinet-formal",
+          "relation_type": "same_definition",
+          "note": "原局部符号和定义域保留。"
+        }
+      ],
+      "lean_names": [],
+      "version": 1,
+      "translations": {
+        "en": {
+          "name_zh": "Player universe",
+          "description_md": "Player universe; a source-local symbol, not automatically merged with the same letter in another paper.",
+          "empty_set_convention": "Interpret according to the relevant definition and recorded source issue.",
+          "baseline_convention": "The input baseline and the scalar empty output remain distinct.",
+          "paper_mappings": [
+            {
+              "paper_id": "icml2023-harsanyinet",
+              "note": "The source-local symbol and its domain are preserved."
+            }
+          ]
+        }
+      },
+      "canonical_id": "sym-universe"
+    },
+    {
+      "id": "hnet-input",
+      "canonical_tex": "x",
+      "name_zh": "固定输入",
+      "name_en": "Fixed input",
+      "definition_tex": "x\\in\\mathbb R^n",
+      "description_md": "固定输入；本篇局部符号，不与其他论文同字母自动合并。",
+      "type_or_domain": "real coordinate vector",
+      "scope": "source-local fixed-input network or experiment",
+      "assumptions": [],
+      "empty_set_convention": "按相关定义与已登记问题解释。",
+      "baseline_convention": "输入基线r与输出基线g(empty)分别保留。",
+      "aliases": [
+        "x"
+      ],
+      "paper_mappings": [
+        {
+          "paper_id": "icml2023-harsanyinet",
+          "version_id": "ver-icml2023-harsanyinet-formal",
+          "original_tex": "x",
+          "original_definition_tex": "x\\in\\mathbb R^n",
+          "pdf_pages": [
+            3
+          ],
+          "source_id": "src-icml2023-harsanyinet-formal",
+          "relation_type": "same_definition",
+          "note": "原局部符号和定义域保留。"
+        }
+      ],
+      "lean_names": [],
+      "version": 1,
+      "translations": {
+        "en": {
+          "name_zh": "Fixed input",
+          "description_md": "Fixed input; a source-local symbol, not automatically merged with the same letter in another paper.",
+          "empty_set_convention": "Interpret according to the relevant definition and recorded source issue.",
+          "baseline_convention": "The input baseline and the scalar empty output remain distinct.",
+          "paper_mappings": [
+            {
+              "paper_id": "icml2023-harsanyinet",
+              "note": "The source-local symbol and its domain are preserved."
+            }
+          ]
+        }
+      },
+      "canonical_id": "sym-input"
+    },
+    {
+      "id": "hnet-mask",
+      "canonical_tex": "x_T",
+      "name_zh": "基线掩码样本",
+      "name_en": "Baseline-masked sample",
+      "definition_tex": "(x_T)_i=x_i\\ (i\\in T),\\quad(x_T)_i=r_i\\ (i\\notin T)",
+      "description_md": "基线掩码样本；本篇局部符号，不与其他论文同字母自动合并。",
+      "type_or_domain": "real coordinate vector",
+      "scope": "source-local fixed-input network or experiment",
+      "assumptions": [],
+      "empty_set_convention": "按相关定义与已登记问题解释。",
+      "baseline_convention": "输入基线r与输出基线g(empty)分别保留。",
+      "aliases": [
+        "x_T"
+      ],
+      "paper_mappings": [
+        {
+          "paper_id": "icml2023-harsanyinet",
+          "version_id": "ver-icml2023-harsanyinet-formal",
+          "original_tex": "x_T",
+          "original_definition_tex": "(x_T)_i=x_i\\ (i\\in T),\\quad(x_T)_i=r_i\\ (i\\notin T)",
+          "pdf_pages": [
+            3
+          ],
+          "source_id": "src-icml2023-harsanyinet-formal",
+          "relation_type": "same_definition",
+          "note": "原局部符号和定义域保留。"
+        }
+      ],
+      "lean_names": [],
+      "version": 1,
+      "translations": {
+        "en": {
+          "name_zh": "Baseline-masked sample",
+          "description_md": "Baseline-masked sample; a source-local symbol, not automatically merged with the same letter in another paper.",
+          "empty_set_convention": "Interpret according to the relevant definition and recorded source issue.",
+          "baseline_convention": "The input baseline and the scalar empty output remain distinct.",
+          "paper_mappings": [
+            {
+              "paper_id": "icml2023-harsanyinet",
+              "note": "The source-local symbol and its domain are preserved."
+            }
+          ]
+        }
+      },
+      "canonical_id": "sym-mask"
+    },
+    {
+      "id": "hnet-unit-output",
+      "canonical_tex": "z_u^{(l)}(x)",
+      "name_zh": "ReLU后的单元输出",
+      "name_en": "Post-ReLU unit output",
+      "definition_tex": "z_u^{(l)}=\\max(h_u^{(l)},0)",
+      "description_md": "ReLU后的单元输出；本篇局部符号，不与其他论文同字母自动合并。",
+      "type_or_domain": "ℝ or finite channel vector",
+      "scope": "source-local fixed-input network or experiment",
+      "assumptions": [],
+      "empty_set_convention": "按相关定义与已登记问题解释。",
+      "baseline_convention": "输入基线r与输出基线g(empty)分别保留。",
+      "aliases": [
+        "z_u^{(l)}(x)"
+      ],
+      "paper_mappings": [
+        {
+          "paper_id": "icml2023-harsanyinet",
+          "version_id": "ver-icml2023-harsanyinet-formal",
+          "original_tex": "z_u^{(l)}(x)",
+          "original_definition_tex": "z_u^{(l)}=\\max(h_u^{(l)},0)",
+          "pdf_pages": [
+            4,
+            5,
+            7,
+            16
+          ],
+          "source_id": "src-icml2023-harsanyinet-formal",
+          "relation_type": "same_definition",
+          "note": "原局部符号和定义域保留。"
+        }
+      ],
+      "lean_names": [],
+      "version": 1,
+      "translations": {
+        "en": {
+          "name_zh": "Post-ReLU unit output",
+          "description_md": "Post-ReLU unit output; a source-local symbol, not automatically merged with the same letter in another paper.",
+          "empty_set_convention": "Interpret according to the relevant definition and recorded source issue.",
+          "baseline_convention": "The input baseline and the scalar empty output remain distinct.",
+          "paper_mappings": [
+            {
+              "paper_id": "icml2023-harsanyinet",
+              "note": "The source-local symbol and its domain are preserved."
+            }
+          ]
+        }
+      }
+    },
+    {
+      "id": "hnet-linear-value",
+      "canonical_tex": "g_u^{(l)}(x)",
+      "name_zh": "单元无偏置线性值",
+      "name_en": "Bias-free unit preactivation",
+      "definition_tex": "g_u^{(l)}=(A_u^{(l)})^\\top\\Sigma_u^{(l)}z^{(l-1)}",
+      "description_md": "单元无偏置线性值；本篇局部符号，不与其他论文同字母自动合并。",
+      "type_or_domain": "ℝ or finite channel vector",
+      "scope": "source-local fixed-input network or experiment",
+      "assumptions": [],
+      "empty_set_convention": "按相关定义与已登记问题解释。",
+      "baseline_convention": "输入基线r与输出基线g(empty)分别保留。",
+      "aliases": [
+        "g_u^{(l)}(x)"
+      ],
+      "paper_mappings": [
+        {
+          "paper_id": "icml2023-harsanyinet",
+          "version_id": "ver-icml2023-harsanyinet-formal",
+          "original_tex": "g_u^{(l)}(x)",
+          "original_definition_tex": "g_u^{(l)}=(A_u^{(l)})^\\top\\Sigma_u^{(l)}z^{(l-1)}",
+          "pdf_pages": [
+            5,
+            16
+          ],
+          "source_id": "src-icml2023-harsanyinet-formal",
+          "relation_type": "same_definition",
+          "note": "模型输出g与block线性值g_u作用域不同。"
+        }
+      ],
+      "lean_names": [],
+      "version": 1,
+      "translations": {
+        "en": {
+          "name_zh": "Bias-free unit preactivation",
+          "description_md": "Bias-free unit preactivation; a source-local symbol, not automatically merged with the same letter in another paper.",
+          "empty_set_convention": "Interpret according to the relevant definition and recorded source issue.",
+          "baseline_convention": "The input baseline and the scalar empty output remain distinct.",
+          "paper_mappings": [
+            {
+              "paper_id": "icml2023-harsanyinet",
+              "note": "The game output g and block preactivation g_u have different scopes."
+            }
+          ]
+        }
+      }
+    },
+    {
+      "id": "hnet-gated-value",
+      "canonical_tex": "h_u^{(l)}(x)",
+      "name_zh": "门控线性值",
+      "name_en": "Gated linear value",
+      "definition_tex": "h_u^{(l)}=g_u^{(l)}\\prod_{k\\in C_u}\\mathbf1_{z_k\\ne0}",
+      "description_md": "门控线性值；本篇局部符号，不与其他论文同字母自动合并。",
+      "type_or_domain": "ℝ or finite channel vector",
+      "scope": "source-local fixed-input network or experiment",
+      "assumptions": [],
+      "empty_set_convention": "按相关定义与已登记问题解释。",
+      "baseline_convention": "输入基线r与输出基线g(empty)分别保留。",
+      "aliases": [
+        "h_u^{(l)}(x)"
+      ],
+      "paper_mappings": [
+        {
+          "paper_id": "icml2023-harsanyinet",
+          "version_id": "ver-icml2023-harsanyinet-formal",
+          "original_tex": "h_u^{(l)}(x)",
+          "original_definition_tex": "h_u^{(l)}=g_u^{(l)}\\prod_{k\\in C_u}\\mathbf1_{z_k\\ne0}",
+          "pdf_pages": [
+            5,
+            16
+          ],
+          "source_id": "src-icml2023-harsanyinet-formal",
+          "relation_type": "same_definition",
+          "note": "原局部符号和定义域保留。"
+        }
+      ],
+      "lean_names": [],
+      "version": 1,
+      "translations": {
+        "en": {
+          "name_zh": "Gated linear value",
+          "description_md": "Gated linear value; a source-local symbol, not automatically merged with the same letter in another paper.",
+          "empty_set_convention": "Interpret according to the relevant definition and recorded source issue.",
+          "baseline_convention": "The input baseline and the scalar empty output remain distinct.",
+          "paper_mappings": [
+            {
+              "paper_id": "icml2023-harsanyinet",
+              "note": "The source-local symbol and its domain are preserved."
+            }
+          ]
+        }
+      }
+    },
+    {
+      "id": "hnet-kernel-weight",
+      "canonical_tex": "A_u^{(l)}",
+      "name_zh": "线性/卷积权重",
+      "name_en": "Linear or convolution weights",
+      "definition_tex": "A_u^{(l)}\\in\\mathbb R^{m^{(l-1)}}",
+      "description_md": "线性/卷积权重；本篇局部符号，不与其他论文同字母自动合并。",
+      "type_or_domain": "finite real vector or channel matrix",
+      "scope": "source-local fixed-input network or experiment",
+      "assumptions": [],
+      "empty_set_convention": "按相关定义与已登记问题解释。",
+      "baseline_convention": "输入基线r与输出基线g(empty)分别保留。",
+      "aliases": [
+        "A_u^{(l)}"
+      ],
+      "paper_mappings": [
+        {
+          "paper_id": "icml2023-harsanyinet",
+          "version_id": "ver-icml2023-harsanyinet-formal",
+          "original_tex": "A_u^{(l)}",
+          "original_definition_tex": "A_u^{(l)}\\in\\mathbb R^{m^{(l-1)}}",
+          "pdf_pages": [
+            5
+          ],
+          "source_id": "src-icml2023-harsanyinet-formal",
+          "relation_type": "same_definition",
+          "note": "原局部符号和定义域保留。"
+        },
+        {
+          "paper_id": "icml2023-harsanyinet",
+          "version_id": "ver-icml2023-harsanyinet-formal",
+          "original_tex": "A_u^{(l)}",
+          "original_definition_tex": "A_u^{(l)}\\in\\mathbb R^{CK^2},\\quad B_u^{(l)}\\in\\mathbb R^{(CK^2)\\times C}",
+          "pdf_pages": [
+            16
+          ],
+          "source_id": "src-icml2023-harsanyinet-formal",
+          "relation_type": "same_definition",
+          "note": "CNN局部核维数CK²；不把MLP全前层宽度作为该来源定义。"
+        }
+      ],
+      "lean_names": [],
+      "version": 1,
+      "translations": {
+        "en": {
+          "name_zh": "Linear or convolution weights",
+          "description_md": "Linear or convolution weights; a source-local symbol, not automatically merged with the same letter in another paper.",
+          "empty_set_convention": "Interpret according to the relevant definition and recorded source issue.",
+          "baseline_convention": "The input baseline and the scalar empty output remain distinct.",
+          "paper_mappings": [
+            {
+              "paper_id": "icml2023-harsanyinet",
+              "note": "The MLP linear weight uses the preceding-layer width."
+            },
+            {
+              "paper_id": "icml2023-harsanyinet",
+              "note": "The CNN local-kernel dimension is CK²; the MLP whole-layer width is not substituted for this source definition."
+            }
+          ]
+        }
+      }
+    },
+    {
+      "id": "hnet-readout-weight",
+      "canonical_tex": "w_{v,u}^{(l)}",
+      "name_zh": "读出权重",
+      "name_en": "Readout weights",
+      "definition_tex": "v(x)=\\sum_{l,u}w_{v,u}^{(l)}z_u^{(l)}(x)",
+      "description_md": "读出权重；本篇局部符号，不与其他论文同字母自动合并。",
+      "type_or_domain": "ℝ or channel vector",
+      "scope": "source-local fixed-input network or experiment",
+      "assumptions": [],
+      "empty_set_convention": "按相关定义与已登记问题解释。",
+      "baseline_convention": "输入基线r与输出基线g(empty)分别保留。",
+      "aliases": [
+        "w_{v,u}^{(l)}"
+      ],
+      "paper_mappings": [
+        {
+          "paper_id": "icml2023-harsanyinet",
+          "version_id": "ver-icml2023-harsanyinet-formal",
+          "original_tex": "w_{v,u}^{(l)}",
+          "original_definition_tex": "v(x)=\\sum_{l,u}w_{v,u}^{(l)}z_u^{(l)}(x)",
+          "pdf_pages": [
+            4,
+            12,
+            16
+          ],
+          "source_id": "src-icml2023-harsanyinet-formal",
+          "relation_type": "same_definition",
+          "note": "原局部符号和定义域保留。"
+        }
+      ],
+      "lean_names": [],
+      "version": 1,
+      "translations": {
+        "en": {
+          "name_zh": "Readout weights",
+          "description_md": "Readout weights; a source-local symbol, not automatically merged with the same letter in another paper.",
+          "empty_set_convention": "Interpret according to the relevant definition and recorded source issue.",
+          "baseline_convention": "The input baseline and the scalar empty output remain distinct.",
+          "paper_mappings": [
+            {
+              "paper_id": "icml2023-harsanyinet",
+              "note": "The source-local symbol and its domain are preserved."
+            }
+          ]
+        }
+      }
+    },
+    {
+      "id": "hnet-selection-matrix",
+      "canonical_tex": "\\Sigma_u^{(l)}",
+      "name_zh": "二值选子矩阵",
+      "name_en": "Binary child-selection matrix",
+      "definition_tex": "(\\Sigma_u)_{ii}=\\mathbf1_{(\\tau_u)_i>0}",
+      "description_md": "二值选子矩阵；本篇局部符号，不与其他论文同字母自动合并。",
+      "type_or_domain": "binary diagonal finite matrix",
+      "scope": "source-local fixed-input network or experiment",
+      "assumptions": [],
+      "empty_set_convention": "按相关定义与已登记问题解释。",
+      "baseline_convention": "输入基线r与输出基线g(empty)分别保留。",
+      "aliases": [
+        "\\Sigma_u^{(l)}"
+      ],
+      "paper_mappings": [
+        {
+          "paper_id": "icml2023-harsanyinet",
+          "version_id": "ver-icml2023-harsanyinet-formal",
+          "original_tex": "\\Sigma_u^{(l)}",
+          "original_definition_tex": "(\\Sigma_u)_{ii}=\\mathbf1_{(\\tau_u)_i>0}",
+          "pdf_pages": [
+            5,
+            6,
+            16
+          ],
+          "source_id": "src-icml2023-harsanyinet-formal",
+          "relation_type": "same_definition",
+          "note": "原局部符号和定义域保留。"
+        }
+      ],
+      "lean_names": [],
+      "version": 1,
+      "translations": {
+        "en": {
+          "name_zh": "Binary child-selection matrix",
+          "description_md": "Binary child-selection matrix; a source-local symbol, not automatically merged with the same letter in another paper.",
+          "empty_set_convention": "Interpret according to the relevant definition and recorded source issue.",
+          "baseline_convention": "The input baseline and the scalar empty output remain distinct.",
+          "paper_mappings": [
+            {
+              "paper_id": "icml2023-harsanyinet",
+              "note": "The source-local symbol and its domain are preserved."
+            }
+          ]
+        }
+      }
+    },
+    {
+      "id": "hnet-selection-parameter",
+      "canonical_tex": "\\tau_u^{(l)}",
+      "name_zh": "可训练选子参数",
+      "name_en": "Trainable child-selection parameter",
+      "definition_tex": "(\\Sigma_u)_{ii}=\\mathbf1_{(\\tau_u)_i>0}",
+      "description_md": "可训练选子参数；本篇局部符号，不与其他论文同字母自动合并。",
+      "type_or_domain": "finite real vector",
+      "scope": "source-local fixed-input network or experiment",
+      "assumptions": [],
+      "empty_set_convention": "按相关定义与已登记问题解释。",
+      "baseline_convention": "输入基线r与输出基线g(empty)分别保留。",
+      "aliases": [
+        "\\tau_u^{(l)}"
+      ],
+      "paper_mappings": [
+        {
+          "paper_id": "icml2023-harsanyinet",
+          "version_id": "ver-icml2023-harsanyinet-formal",
+          "original_tex": "\\tau_u^{(l)}",
+          "original_definition_tex": "(\\Sigma_u)_{ii}=\\mathbf1_{(\\tau_u)_i>0}",
+          "pdf_pages": [
+            5,
+            6,
+            16
+          ],
+          "source_id": "src-icml2023-harsanyinet-formal",
+          "relation_type": "same_definition",
+          "note": "原局部符号和定义域保留。"
+        }
+      ],
+      "lean_names": [],
+      "version": 1,
+      "translations": {
+        "en": {
+          "name_zh": "Trainable child-selection parameter",
+          "description_md": "Trainable child-selection parameter; a source-local symbol, not automatically merged with the same letter in another paper.",
+          "empty_set_convention": "Interpret according to the relevant definition and recorded source issue.",
+          "baseline_convention": "The input baseline and the scalar empty output remain distinct.",
+          "paper_mappings": [
+            {
+              "paper_id": "icml2023-harsanyinet",
+              "note": "The source-local symbol and its domain are preserved."
+            }
+          ]
+        }
+      }
+    },
+    {
+      "id": "hnet-smooth-scale",
+      "canonical_tex": "\\gamma",
+      "name_zh": "光滑gate尺度",
+      "name_en": "Smooth-gate scale",
+      "definition_tex": "\\gamma>0",
+      "description_md": "光滑gate尺度；本篇局部符号，不与其他论文同字母自动合并。",
+      "type_or_domain": "positive real",
+      "scope": "source-local fixed-input network or experiment",
+      "assumptions": [],
+      "empty_set_convention": "按相关定义与已登记问题解释。",
+      "baseline_convention": "输入基线r与输出基线g(empty)分别保留。",
+      "aliases": [
+        "\\gamma"
+      ],
+      "paper_mappings": [
+        {
+          "paper_id": "icml2023-harsanyinet",
+          "version_id": "ver-icml2023-harsanyinet-formal",
+          "original_tex": "\\gamma",
+          "original_definition_tex": "\\gamma>0",
+          "pdf_pages": [
+            5,
+            6
+          ],
+          "source_id": "src-icml2023-harsanyinet-formal",
+          "relation_type": "same_definition",
+          "note": "原局部符号和定义域保留。"
+        }
+      ],
+      "lean_names": [],
+      "version": 1,
+      "translations": {
+        "en": {
+          "name_zh": "Smooth-gate scale",
+          "description_md": "Smooth-gate scale; a source-local symbol, not automatically merged with the same letter in another paper.",
+          "empty_set_convention": "Interpret according to the relevant definition and recorded source issue.",
+          "baseline_convention": "The input baseline and the scalar empty output remain distinct.",
+          "paper_mappings": [
+            {
+              "paper_id": "icml2023-harsanyinet",
+              "note": "The source-local symbol and its domain are preserved."
+            }
+          ]
+        }
+      }
+    },
+    {
+      "id": "hnet-ste-scale",
+      "canonical_tex": "\\beta",
+      "name_zh": "STE替代梯度尺度",
+      "name_en": "STE surrogate-gradient scale",
+      "definition_tex": "\\frac{\\partial\\Sigma_{ii}}{\\partial\\tau_i}\\mathrel{\\widehat=}\\frac{\\beta e^{-\\tau_i}}{(1+e^{-\\tau_i})^2}",
+      "description_md": "STE替代梯度尺度；本篇局部符号，不与其他论文同字母自动合并。",
+      "type_or_domain": "real scale, surrogate derivative",
+      "scope": "source-local fixed-input network or experiment",
+      "assumptions": [],
+      "empty_set_convention": "按相关定义与已登记问题解释。",
+      "baseline_convention": "输入基线r与输出基线g(empty)分别保留。",
+      "aliases": [
+        "\\beta"
+      ],
+      "paper_mappings": [
+        {
+          "paper_id": "icml2023-harsanyinet",
+          "version_id": "ver-icml2023-harsanyinet-formal",
+          "original_tex": "\\beta",
+          "original_definition_tex": "\\frac{\\partial\\Sigma_{ii}}{\\partial\\tau_i}\\mathrel{\\widehat=}\\frac{\\beta e^{-\\tau_i}}{(1+e^{-\\tau_i})^2}",
+          "pdf_pages": [
+            5,
+            6
+          ],
+          "source_id": "src-icml2023-harsanyinet-formal",
+          "relation_type": "same_definition",
+          "note": "原局部符号和定义域保留。"
+        }
+      ],
+      "lean_names": [],
+      "version": 1,
+      "translations": {
+        "en": {
+          "name_zh": "STE surrogate-gradient scale",
+          "description_md": "STE surrogate-gradient scale; a source-local symbol, not automatically merged with the same letter in another paper.",
+          "empty_set_convention": "Interpret according to the relevant definition and recorded source issue.",
+          "baseline_convention": "The input baseline and the scalar empty output remain distinct.",
+          "paper_mappings": [
+            {
+              "paper_id": "icml2023-harsanyinet",
+              "note": "The source-local symbol and its domain are preserved."
+            }
+          ]
+        }
+      }
+    },
+    {
+      "id": "hnet-retained-family",
+      "canonical_tex": "\\Omega",
+      "name_zh": "保留交互集合",
+      "name_en": "Retained interaction family",
+      "definition_tex": "\\Omega\\subseteq2^N",
+      "description_md": "保留交互集合；本篇局部符号，不与其他论文同字母自动合并。",
+      "type_or_domain": "finite family of coalitions",
+      "scope": "source-local fixed-input network or experiment",
+      "assumptions": [],
+      "empty_set_convention": "按相关定义与已登记问题解释。",
+      "baseline_convention": "输入基线r与输出基线g(empty)分别保留。",
+      "aliases": [
+        "\\Omega"
+      ],
+      "paper_mappings": [
+        {
+          "paper_id": "icml2023-harsanyinet",
+          "version_id": "ver-icml2023-harsanyinet-formal",
+          "original_tex": "\\Omega",
+          "original_definition_tex": "\\Omega\\subseteq2^N",
+          "pdf_pages": [
+            6
+          ],
+          "source_id": "src-icml2023-harsanyinet-formal",
+          "relation_type": "same_definition",
+          "note": "原局部符号和定义域保留。"
+        }
+      ],
+      "lean_names": [],
+      "version": 1,
+      "translations": {
+        "en": {
+          "name_zh": "Retained interaction family",
+          "description_md": "Retained interaction family; a source-local symbol, not automatically merged with the same letter in another paper.",
+          "empty_set_convention": "Interpret according to the relevant definition and recorded source issue.",
+          "baseline_convention": "The input baseline and the scalar empty output remain distinct.",
+          "paper_mappings": [
+            {
+              "paper_id": "icml2023-harsanyinet",
+              "note": "The source-local symbol and its domain are preserved."
+            }
+          ]
+        }
+      }
+    },
+    {
+      "id": "hnet-omitted-tail",
+      "canonical_tex": "\\epsilon",
+      "name_zh": "遗漏交互有符号尾和",
+      "name_en": "Signed omitted-dividend tail",
+      "definition_tex": "\\epsilon=\\sum_{S\\subseteq N:S\\notin\\Omega}I(S)",
+      "description_md": "遗漏交互有符号尾和；本篇局部符号，不与其他论文同字母自动合并。",
+      "type_or_domain": "ℝ; no smallness assumed",
+      "scope": "source-local fixed-input network or experiment",
+      "assumptions": [],
+      "empty_set_convention": "按相关定义与已登记问题解释。",
+      "baseline_convention": "输入基线r与输出基线g(empty)分别保留。",
+      "aliases": [
+        "\\epsilon"
+      ],
+      "paper_mappings": [
+        {
+          "paper_id": "icml2023-harsanyinet",
+          "version_id": "ver-icml2023-harsanyinet-formal",
+          "original_tex": "\\epsilon",
+          "original_definition_tex": "\\epsilon=\\sum_{S\\subseteq N:S\\notin\\Omega}I(S)",
+          "pdf_pages": [
+            6
+          ],
+          "source_id": "src-icml2023-harsanyinet-formal",
+          "relation_type": "same_definition",
+          "note": "原局部符号和定义域保留。"
+        }
+      ],
+      "lean_names": [],
+      "version": 1,
+      "translations": {
+        "en": {
+          "name_zh": "Signed omitted-dividend tail",
+          "description_md": "Signed omitted-dividend tail; a source-local symbol, not automatically merged with the same letter in another paper.",
+          "empty_set_convention": "Interpret according to the relevant definition and recorded source issue.",
+          "baseline_convention": "The input baseline and the scalar empty output remain distinct.",
+          "paper_mappings": [
+            {
+              "paper_id": "icml2023-harsanyinet",
+              "note": "The source-local symbol and its domain are preserved."
+            }
+          ]
+        }
+      }
+    },
+    {
+      "id": "hnet-channel-count",
+      "canonical_tex": "C",
+      "name_zh": "通道数量",
+      "name_en": "Number of channels",
+      "definition_tex": "c\\in\\{1,\\ldots,C\\}",
+      "description_md": "通道数量；本篇局部符号，不与其他论文同字母自动合并。",
+      "type_or_domain": "natural number",
+      "scope": "source-local fixed-input network or experiment",
+      "assumptions": [],
+      "empty_set_convention": "按相关定义与已登记问题解释。",
+      "baseline_convention": "输入基线r与输出基线g(empty)分别保留。",
+      "aliases": [
+        "C"
+      ],
+      "paper_mappings": [
+        {
+          "paper_id": "icml2023-harsanyinet",
+          "version_id": "ver-icml2023-harsanyinet-formal",
+          "original_tex": "C",
+          "original_definition_tex": "c\\in\\{1,\\ldots,C\\}",
+          "pdf_pages": [
+            7,
+            16
+          ],
+          "source_id": "src-icml2023-harsanyinet-formal",
+          "relation_type": "same_definition",
+          "note": "原局部符号和定义域保留。"
+        }
+      ],
+      "lean_names": [],
+      "version": 1,
+      "translations": {
+        "en": {
+          "name_zh": "Number of channels",
+          "description_md": "Number of channels; a source-local symbol, not automatically merged with the same letter in another paper.",
+          "empty_set_convention": "Interpret according to the relevant definition and recorded source issue.",
+          "baseline_convention": "The input baseline and the scalar empty output remain distinct.",
+          "paper_mappings": [
+            {
+              "paper_id": "icml2023-harsanyinet",
+              "note": "The source-local symbol and its domain are preserved."
+            }
+          ]
+        }
+      }
+    },
+    {
+      "id": "hnet-spatial-position",
+      "canonical_tex": "(h,w)",
+      "name_zh": "空间位置",
+      "name_en": "Spatial position",
+      "definition_tex": "(h,w)\\in\\{1,\\ldots,H\\}\\times\\{1,\\ldots,W\\}",
+      "description_md": "空间位置；本篇局部符号，不与其他论文同字母自动合并。",
+      "type_or_domain": "finite pair index",
+      "scope": "source-local fixed-input network or experiment",
+      "assumptions": [],
+      "empty_set_convention": "按相关定义与已登记问题解释。",
+      "baseline_convention": "输入基线r与输出基线g(empty)分别保留。",
+      "aliases": [
+        "(h,w)"
+      ],
+      "paper_mappings": [
+        {
+          "paper_id": "icml2023-harsanyinet",
+          "version_id": "ver-icml2023-harsanyinet-formal",
+          "original_tex": "(h,w)",
+          "original_definition_tex": "(h,w)\\in\\{1,\\ldots,H\\}\\times\\{1,\\ldots,W\\}",
+          "pdf_pages": [
+            7,
+            16
+          ],
+          "source_id": "src-icml2023-harsanyinet-formal",
+          "relation_type": "same_definition",
+          "note": "原局部符号和定义域保留。"
+        }
+      ],
+      "lean_names": [],
+      "version": 1,
+      "translations": {
+        "en": {
+          "name_zh": "Spatial position",
+          "description_md": "Spatial position; a source-local symbol, not automatically merged with the same letter in another paper.",
+          "empty_set_convention": "Interpret according to the relevant definition and recorded source issue.",
+          "baseline_convention": "The input baseline and the scalar empty output remain distinct.",
+          "paper_mappings": [
+            {
+              "paper_id": "icml2023-harsanyinet",
+              "note": "The source-local symbol and its domain are preserved."
+            }
+          ]
+        }
+      }
+    },
+    {
+      "id": "hnet-layer-width",
+      "canonical_tex": "m^{(l)}",
+      "name_zh": "各层单元数量",
+      "name_en": "Units in a layer",
+      "definition_tex": "M=\\sum_{l=1}^Lm^{(l)}",
+      "description_md": "各层单元数量；本篇局部符号，不与其他论文同字母自动合并。",
+      "type_or_domain": "natural number",
+      "scope": "source-local fixed-input network or experiment",
+      "assumptions": [],
+      "empty_set_convention": "按相关定义与已登记问题解释。",
+      "baseline_convention": "输入基线r与输出基线g(empty)分别保留。",
+      "aliases": [
+        "m^{(l)}"
+      ],
+      "paper_mappings": [
+        {
+          "paper_id": "icml2023-harsanyinet",
+          "version_id": "ver-icml2023-harsanyinet-formal",
+          "original_tex": "m^{(l)}",
+          "original_definition_tex": "M=\\sum_{l=1}^Lm^{(l)}",
+          "pdf_pages": [
+            4,
+            6,
+            16
+          ],
+          "source_id": "src-icml2023-harsanyinet-formal",
+          "relation_type": "same_definition",
+          "note": "原局部符号和定义域保留。"
+        }
+      ],
+      "lean_names": [],
+      "version": 1,
+      "translations": {
+        "en": {
+          "name_zh": "Units in a layer",
+          "description_md": "Units in a layer; a source-local symbol, not automatically merged with the same letter in another paper.",
+          "empty_set_convention": "Interpret according to the relevant definition and recorded source issue.",
+          "baseline_convention": "The input baseline and the scalar empty output remain distinct.",
+          "paper_mappings": [
+            {
+              "paper_id": "icml2023-harsanyinet",
+              "note": "The source-local symbol and its domain are preserved."
+            }
+          ]
+        }
+      }
+    },
+    {
+      "id": "hnet-rmse",
+      "canonical_tex": "\\operatorname{RMSE}",
+      "name_zh": "经验归因误差",
+      "name_en": "Empirical attribution error",
+      "definition_tex": "\\mathbb E_x[\\|\\varphi_x-\\varphi_x^*\\|_2/\\sqrt n]",
+      "description_md": "经验归因误差；本篇局部符号，不与其他论文同字母自动合并。",
+      "type_or_domain": "empirical sample average",
+      "scope": "source-local fixed-input network or experiment",
+      "assumptions": [],
+      "empty_set_convention": "按相关定义与已登记问题解释。",
+      "baseline_convention": "输入基线r与输出基线g(empty)分别保留。",
+      "aliases": [
+        "\\operatorname{RMSE}"
+      ],
+      "paper_mappings": [
+        {
+          "paper_id": "icml2023-harsanyinet",
+          "version_id": "ver-icml2023-harsanyinet-formal",
+          "original_tex": "\\operatorname{RMSE}",
+          "original_definition_tex": "\\mathbb E_x[\\|\\varphi_x-\\varphi_x^*\\|_2/\\sqrt n]",
+          "pdf_pages": [
+            7,
+            17
+          ],
+          "source_id": "src-icml2023-harsanyinet-formal",
+          "relation_type": "same_definition",
+          "note": "原局部符号和定义域保留。"
+        }
+      ],
+      "lean_names": [],
+      "version": 1,
+      "translations": {
+        "en": {
+          "name_zh": "Empirical attribution error",
+          "description_md": "Empirical attribution error; a source-local symbol, not automatically merged with the same letter in another paper.",
+          "empty_set_convention": "Interpret according to the relevant definition and recorded source issue.",
+          "baseline_convention": "The input baseline and the scalar empty output remain distinct.",
+          "paper_mappings": [
+            {
+              "paper_id": "icml2023-harsanyinet",
+              "note": "The source-local symbol and its domain are preserved."
+            }
+          ]
+        }
+      }
+    }
+  ]
+}

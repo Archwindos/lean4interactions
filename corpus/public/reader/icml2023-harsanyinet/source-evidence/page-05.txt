@@ -1,0 +1,114 @@
+                              HarsanyiNet: Computing Accurate Shapley Values in a Single Forward Propagation
+
+Cost of computing HarsanyiNet. We conduct one network                            among its children nodes (more discussions in Appendix D).
+                                                        (l)
+inference to obtain the outputs of all Harsanyi units zu (x).                    To implement the children selection in Equation (5),
+Then, we compute Shapley values based on Equation (4),                                                                            (l)
+                                                                                 we compute the binary diagonal matrix Σu by setting
+whose computational cost is O(nM ), where M = L             (l)
+                                                  P
+                                                      l=1 m
+                                                                                 (Σu )i,i=1((τ u )i > 0), where τ u ∈ RM is a trainable
+                                                                                     (l)          (l)               (l)         (l)
+
+denotes the total number of Harsanyi units. The compu-
+tational cost O(nM ) is negligible, compared to the heavy                        parameter vector. Note that during the training phase,
+computational cost of one forward propagation. Therefore,                        the gradient of the loss function cannot pass through
+                                                                                    (l)    (l)
+we can roughly consider the overall cost of computing                            Σu to τ u in the above implementation; therefore, we
+Shapley values as one forward propagation.                                       employ Straight-Through Estimators (STE) (Bengio
+                                                                                                                           (l)
+                                                                                 et al., 2013) to train the parameter τ u . The STE uses
+                                                                                 (Σu )i,i = 1((τ u )i > 0) in the forward-propagation
+                                                                                     (l)            (l)
+3.3. Designing the HarsanyiNet towards R1 and R2
+                                                                                               (l)         (l)          (l)            (l)
+                                                                                 and set ∂(Σu )i,i /∂(τ u )i = βe−(τ u )i /(1 + e−(τ u )i )2
+This subsection first introduces the detailed design of the
+                                                                                 in the back-propagation process, where β is a pos-
+HarsanyiNet. The basic idea is to construct a neural net-
+                                                                                 itive scalar.        Besides, to reduce the optimization
+work in which each neuron represents an AND relationship
+                                                                                 difficulty of the AND operation in Equation (6), we
+between its children nodes in the previous layers, and the
+                                                                                 approximate the AND operation as h(l)                  (l)
+                                                                                                                               u (x) = gu (x)
+neuron’s receptive field can be computed as the union of                                                                             i1/tr(Σ(l)
+                                                                                                                                            u )
+                                                                                 hQ
+                                                                                    M (l)
+the receptive fields of its children nodes. Then, Theorem 4                                 (l)
+                                                                                    u′ =1 (Σu ·tanh(γ ·Σu   z
+                                                                                                        (l) (l−1)       (l)
+                                                                                                                  )+(I−Σu )·1)u′                ,
+proves that such a network design satisfies the requirements                     where γ is a positive scalar. Here, each output dimension of
+R1 and R2 in Section 3.2.                                                        the function tanh(·) is within the range of [0, 1), since z(l−1)
+                                                                                 passes through the ReLU operation, and ∀u, zu ≥ 0.
+                                                                                                                                  (l−1)
+Harsanyi blocks. As Figure 1 shows, the HarsanyiNet
+contains L cascaded Harsanyi blocks. Specifically, we use                        Input and receptive field. Let us set z(0) = x − b ∈ Rn as
+tuple (l, u) to denote the u-th neuron in the l-th Harsanyi                      the input of the linear operation in the first Harsanyi block,
+block’s linear layer. Each neuron (l, u) has a set of children                   and let us define the baseline value bi as the masking state
+          (l)                            (l)
+nodes Su . The children nodes in Su can be selected                              of each input variable xi . To further simplify the imple-
+from all neurons in all (l − 1) previous Harsanyi blocks4 .                      mentation, we adopt a single value baseline b5 . It is worth
+Alternatively, we can just select children nodes from the                        noting that more sophisticated baseline values have been
+(l−1)-th block, as a simplified implementation. The children                     discussed in (Lundberg & Lee, 2017; Covert et al., 2020;
+         (l)
+nodes Su which can be learned for each neuron (l, u) will                        Sundararajan & Najmi, 2020; Chen et al., 2022). Based
+                                                       (l)
+be introduced later. Thus, given the children set Su , the                       on Equations (5)–(7), we can obtain that the receptive field
+                   (l)                                                             (l)
+neural activation zu (x) of the neuron (l, u) is computed by                     Ru of a Harsanyi unit (l, u) can be computed recursively,
+applying the linear, AND, and ReLU operations                                    as follows.
+                                                                                                                (l′ )
+                                      //Linear operation                             R(l)
+                                                                                        u := ∪(l′ ,u′ )∈S (l) Ru′ ,     s.t. R(1)   (1)
+                                                                                                                              u := Su .      (8)
+ gu(l) (x)   =(A(l)        u ·z
+                          Σ(l)
+                    ⊺           (l−1)
+                u ) ·
+                                                                                                           u
+                                       .                               (5)
+                                                   on children nodes
+                                                                                 Theorem 4 (proof in Appendix B). Based on Equations (5)–
+                                        (l′ )               //AND                                          (l)              (l)
+                                  1                                              (7), the receptive field Ru of the neuron zu automatically
+                              Y
+ h(l)
+  u (x)      =   gu(l) (x)·           (zu′ (x)    ̸= 0).               (6)
+                                                           operation             satisfies the two requirements R1 and R2.
+                                  (l)
+                       (l′ ,u′ )∈Su
+                                                                                                                                       (l)
+ zu(l) (x) = ReLU(h(l)
+                   u (x)).                 //Non-linear operation (7)            This theorem proves that setting each neuron zu based
+                                                                                 on Equations (5)–(7) can successfully encode an AND re-
+                                                                                                                            (l)
+In the above equations, z(l−1) = [z(1) (x)⊺ , z(2) (x)⊺ , . . . ,                lationship between input variables in Ru . In other words,
+                        (l)                                                                                                       (l)
+z(l−1) (x)⊺ ]⊺ ∈ RM vectorizes the neurons in all the                            only the input variables in the receptive field Ru can affect
+                                                  (l)                                              (l)
+previous (l − 1) blocks. The children set Su is imple-                           neural output zu (x), and masking any input variables in
+                                        (l)                                        (l)              (l)
+mented as a binary diagonal matrix Σu ∈ {0, 1}M ×M ,
+                                                      (l)    (l)
+                                                                                 Ru will make zu (x) = 0. In particular, let us consider the
+which selects children nodes of the neuron (l, u) from all                       inference on a masked sample xS as an example. According
+M (l) =
+          Pl−1 (l′ )
+                          neurons in all the (l − 1) previous                    to Theorem 4, the masked sample xS is implemented by
+             l′ =1 m
+          (l)      M (l)                                                         setting ∀i ∈/ S, xi = bi . Subsequently, this masked sam-
+blocks. Au ∈ R           denotes the weight vector.
+                                                                                 ple can exclusively activate all Harsanyi units subject to
+                                                                                   (l)
+The three operations in Equations (5)–(7) ensure that                            Ru ⊆ S. All other Harsanyi units are not activated, i.e.,
+                    (l)                                                              (l)       (l)
+each Harsanyi unit zu (x) represents an AND relationship                         ∀Ru ̸⊆ S, zu (xS ) = 0.
+    4                                       (1)                                    5
+      In particular, children nodes in Su are directly selected from                 We simply set the baseline value b = 0, since we use the
+the input variables.                                                             ReLU function as the non-linear operation.
+
+                                                                             5

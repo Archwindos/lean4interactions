@@ -7,10 +7,20 @@ from pathlib import Path
 
 import pytest
 import yaml
-from fastapi.testclient import TestClient
+from archive.http_client import LocalAppClient
 
 from archive.util import digest_data, sha256
 from archive.web import _safe_markdown, create_app
+
+_clients=[]
+def TestClient(app):
+    client=LocalAppClient(app);_clients.append(client);return client
+
+@pytest.fixture(autouse=True)
+def stop_local_servers():
+    yield
+    for client in _clients:client.close()
+    _clients.clear()
 
 PROJECT = Path(__file__).resolve().parents[1]
 
@@ -30,50 +40,50 @@ def archive_root(tmp_path: Path) -> Path:
         ("public-test", "public", "测试公开论文"),
         ("private-test", "private", "秘密测试手稿"),
     ]:
-        source = root / f"corpus/papers/{paper_id}/v1/sources/paper.tex"
+        source = root / f"corpus/{visibility}/papers/{paper_id}/v1/sources/paper.tex"
         source.parent.mkdir(parents=True)
         source.write_text("Synthetic test material", encoding="utf-8")
-        write_yaml(root, f"corpus/papers/{paper_id}/v1/manifest.yaml", {
+        write_yaml(root, f"corpus/{visibility}/papers/{paper_id}/v1/manifest.yaml", {
             "schema_version": 1, "paper_id": paper_id, "version": "v1",
             "title": title, "authors": ["测试作者"], "visibility": visibility,
             "source_type": "manual", "publication_status": "unpublished",
             "files": [{"path": "sources/paper.tex", "sha256": sha256(source)}],
         })
         claim_id = paper_id + "-claim"
-        write_yaml(root, f"corpus/papers/{paper_id}/v1/inventory.yaml", {
+        write_yaml(root, f"corpus/{visibility}/papers/{paper_id}/v1/inventory.yaml", {
             "schema_version": 1, "denominator_reviewed": False,
             "completeness_status": "not_reviewed",
             "items": [{"claim_id": claim_id, "kind": "theorem"}],
         })
-        write_yaml(root, f"corpus/claims/{claim_id}/metadata.yaml", {
+        write_yaml(root, f"corpus/{visibility}/claims/{claim_id}/metadata.yaml", {
             "schema_version": 1, "claim_id": claim_id, "paper_id": paper_id,
             "paper_version": "v1", "original_label": "Theorem TEST",
             "source_location": {"section": "测试节", "pdf_page": 2},
             "theorem_ids": ["test-result"], "proof_ids": ["test-proof"],
             "visibility": visibility, "alignment_status": "pending",
         })
-        (root / f"corpus/claims/{claim_id}/original.tex").write_text("x = x", encoding="utf-8")
-    write_yaml(root, "corpus/theorems/test-result/metadata.yaml", {
+        (root / f"corpus/{visibility}/claims/{claim_id}/original.tex").write_text("x = x", encoding="utf-8")
+    write_yaml(root, "corpus/public/theorems/test-result/metadata.yaml", {
         "schema_version": 1, "theorem_id": "test-result", "title": "测试自反结论",
         "summary": "仅用于页面测试", "assumptions": ["x 是一个实数"],
         "visibility": "public", "lean_declarations": ["Test.self"],
     })
-    (root / "corpus/theorems/test-result/statement.tex").write_text("x=x", encoding="utf-8")
-    write_yaml(root, "corpus/theorems/test-result/proofs/test-proof/metadata.yaml", {
+    (root / "corpus/public/theorems/test-result/statement.tex").write_text("x=x", encoding="utf-8")
+    write_yaml(root, "corpus/public/theorems/test-result/proofs/test-proof/metadata.yaml", {
         "schema_version": 1, "proof_id": "test-proof", "theorem_id": "test-result",
         "title": "测试分步证明", "visibility": "public", "lean_declarations": ["Test.self"],
         "lean_dependencies": ["Test.self"],
         "steps": [{"id": "step-1", "title": "自反性", "lean_declarations": ["Test.self"]},
                   {"id": "step-2", "title": "未登记步骤", "lean_declarations": ["Test.missing"]}],
     })
-    (root / "corpus/theorems/test-result/proofs/test-proof/proof.zh.md").write_text(
+    (root / "corpus/public/theorems/test-result/proofs/test-proof/proof.zh.md").write_text(
         '# 第一步\n\n<a id="step-1"></a>\n\n依据自反性，$x=x$。\n\n<script>alert(\'unsafe\')</script>', encoding="utf-8",
     )
-    write_yaml(root, "corpus/theorems/private-derived/metadata.yaml", {
+    write_yaml(root, "corpus/public/theorems/private-derived/metadata.yaml", {
         "schema_version": 1, "theorem_id": "private-derived", "title": "秘密派生结果",
         "visibility": "public", "derived_from": ["private-test-claim"],
     })
-    write_yaml(root, "corpus/issues/test-issue.yaml", {
+    write_yaml(root, "corpus/private/issues/test-issue.yaml", {
         "schema_version": 1, "issue_id": "test-issue", "title": "测试问题",
         "paper_id": "private-test", "visibility": "private",
         "original_statement": "测试原文", "problem": "测试疑似问题",
@@ -111,10 +121,10 @@ def archive_root(tmp_path: Path) -> Path:
 def test_main_routes_and_local_formula_assets(archive_root: Path) -> None:
     client = TestClient(create_app(root=archive_root))
     for route in [
-        "/", "/papers", "/papers/public-test", "/papers/private-test?version=v1",
+        "/", "/papers", "/papers/public-test", 
         "/theorems", "/theorems/test-result", "/proofs/test-proof",
         "/claims/public-test-claim", "/library", "/library/Test.self",
-        "/issues", "/issues/test-issue", "/search",
+        "/issues", "/search",
     ]:
         response = client.get(route)
         assert response.status_code == 200, (route, response.text)
@@ -144,7 +154,7 @@ def test_search_title_author_id_and_claim(archive_root: Path) -> None:
 def test_shared_proof_has_bidirectional_source_links(archive_root: Path) -> None:
     client = TestClient(create_app(root=archive_root))
     proof = client.get("/proofs/test-proof").text
-    assert "/claims/public-test-claim" in proof and "/claims/private-test-claim" in proof
+    assert "/claims/public-test-claim" in proof and "/claims/private-test-claim" not in proof
     assert "/theorems/test-result" in proof and "/library/Test.self" in proof
     claim = client.get("/claims/public-test-claim").text
     assert "/proofs/test-proof" in claim and "/theorems/test-result" in claim
@@ -179,7 +189,7 @@ def test_step_markers_are_strict_unique_and_do_not_enable_html() -> None:
 
 
 def test_step_links_resolve_actual_api_source_and_reverse_explanation(archive_root: Path) -> None:
-    client = TestClient(create_app(root=archive_root))
+    client = TestClient(create_app(root=archive_root,public=False))
     page = client.get("/proofs/test-proof").text
     assert 'href="#step-1"' in page
     assert 'href="/library/Test.self#signature"' in page
@@ -205,7 +215,7 @@ def test_stale_report_never_displays_current_validation(archive_root: Path) -> N
 
 
 def test_file_route_rejects_escape_symlink_and_metadata(archive_root: Path) -> None:
-    client = TestClient(create_app(root=archive_root))
+    client = TestClient(create_app(root=archive_root,public=False))
     assert client.get("/files/lean/HarsanyiLib/Harsanyi/Test.lean").status_code == 200
     for path in [
         "/files/%2E%2E/PLAN.md", "/files/lean/%2E%2E/%2E%2E/PLAN.md",
@@ -237,7 +247,7 @@ def test_public_routes_remove_private_and_derived_metadata(archive_root: Path) -
 
 
 def test_issue_page_keeps_confirmation_and_fix_authorization_separate(archive_root: Path) -> None:
-    client = TestClient(create_app(root=archive_root))
+    client = TestClient(create_app(root=archive_root,public=False))
     page = client.get("/issues/test-issue").text
     assert "用户确认" in page and "修正授权" in page
     assert "测试原文" in page and "测试证据" in page
@@ -246,7 +256,7 @@ def test_issue_page_keeps_confirmation_and_fix_authorization_separate(archive_ro
 
 def test_independent_claim_evidence_is_local_scoped_and_privacy_filtered(archive_root: Path) -> None:
     claim_id = "private-test-claim"
-    relative = f"corpus/claims/{claim_id}/lean"
+    relative = f"corpus/private/claims/{claim_id}/lean"
     base = archive_root / relative
     base.mkdir()
     source = base / "Adapter.lean"
@@ -260,11 +270,11 @@ def test_independent_claim_evidence_is_local_scoped_and_privacy_filtered(archive
               "commands": [{"exit_code": 0, "log_path": f"{relative}/build.log"}],
               "declarations": [{"name": "Private.adapter", "status": "passed", "axioms": []}]}
     (base / "report.json").write_text(json.dumps(report), encoding="utf-8")
-    metadata = archive_root / f"corpus/claims/{claim_id}/metadata.yaml"
+    metadata = archive_root / f"corpus/private/claims/{claim_id}/metadata.yaml"
     data = yaml.safe_load(metadata.read_text())
     data.update(verification_report=f"{relative}/report.json", lean_declarations=["Private.adapter"])
     write_yaml(archive_root, metadata.relative_to(archive_root).as_posix(), data)
-    client = TestClient(create_app(root=archive_root))
+    client = TestClient(create_app(root=archive_root,public=False))
     page = client.get(f"/claims/{claim_id}").text
     assert "独立论文应用验证" in page and "通过" in page
     for name in ("report.json", "Adapter.lean", "build.log"):
@@ -280,15 +290,15 @@ def test_independent_claim_evidence_is_local_scoped_and_privacy_filtered(archive
 
 def test_static_export_preserves_versions_steps_and_public_visibility(archive_root: Path) -> None:
     from archive.export import export_site
-    v1 = archive_root / "corpus/papers/public-test/v1"
+    v1 = archive_root / "corpus/public/papers/public-test/v1"
     for version, title, visibility in [("v2", "公开论文第二版", "public"), ("v3", "版本私有手稿", "private")]:
-        base = archive_root / f"corpus/papers/public-test/{version}"
+        base = archive_root / f"corpus/{visibility}/papers/public-test/{version}"
         shutil.copytree(v1, base)
         metadata = yaml.safe_load((base / "manifest.yaml").read_text())
         metadata.update(version=version, title=title, visibility=visibility)
         write_yaml(archive_root, (base / "manifest.yaml").relative_to(archive_root).as_posix(), metadata)
         write_yaml(archive_root, (base / "inventory.yaml").relative_to(archive_root).as_posix(), {"items": [], "denominator_reviewed": False})
-    export_site(root=archive_root, output="build/test-local-export")
+    export_site(root=archive_root, output="build/test-local-export",public=False)
     export_site(root=archive_root, output="build/test-public-export", public=True)
     local = archive_root / "build/test-local-export"
     public = archive_root / "build/test-public-export"

@@ -1,0 +1,94 @@
+                                HarsanyiNet: Computing Accurate Shapley Values in a Single Forward Propagation
+
+Proof of the conclusion in Setting 2 that based on the design of letting all neurons (l, u = (1, h, w)), . . . , (l, u = (C, h, w))
+                                 (l)
+share the same parameter τ u , all Harsanyi units (l, u = (c, h, w)) in the same location (h, w) on different channels
+                                                 (l)                                                                     (l)
+(c = 1, . . . , C) had the same receptive field Ru=(:,h,w) and contributed to the same Harsanyi interaction I(S = Ru=(:,h,w) ).
+
+                                                                       (l)               (l)                            (l)                         2
+Proof. According to the implementation ∀(l, u), τ u=(1,h,w) = τ u=(2,h,w) = · · · = τ u=(C,h,w) ∈ RCK , we will prove
+                    (l)                   (l)                        (l)
+that ∀(l, u), Ru=(1,h,w) = Ru=(2,h,w) = · · · = Ru=(C,h,w) .
+
+Since ∀(l, u), (Σu )i,i = 1((τ u )i > 0), then for arbitrary binary diagonal matrix Σu , we have ∀(l, u), Σu=(1,h,w) =
+                          (l)              (l)                                                                          (l)                             (l)
+
+  (l)                               (l)                                       (l)                            (l)                                        (l)
+Σu=(2,h,w) = · · · = Σu=(C,h,w) . The children set Su is implemented by Σu , then we have ∀(l, u), Su=(1,h,w) =
+  (l)                               (l)                                                                     (l)                 (l)
+Su=(2,h,w) = · · · = Su=(C,h,w) . According to Equation (8), we derive Ru from Su recursively, then we have
+          (l)                       (l)                        (l)
+∀(l, u), Ru=(1,h,w) = Ru=(2,h,w) = · · · = Ru=(C,h,w) . In this way, the Harsanyi units (l, u = (c, h, w)) in the same
+                                                                                                                  (l)
+location (h, w) on different channels (c = 1, . . . , C) had the same receptive field Ru=(:,h,w) .
+Next, we will show that considering C channels as C Harsanyi units, and considering C channels together as a single
+Harsanyi unit, their Harsanyi interactions are equal in both cases.
+Considering C channels as C Harsanyi units, we have totally m(l) = H × W × C Harsanyi units in the l-th layer. We have
+         (l)                  (l)                           (l)                                        (l)
+I(S = Ru=(1,h,w) ) = I(S = Ru=(2,h,w) ) = · · · = I(S = Ru=(C,h,w) ), which is abbreviated to I(S = Ru ). According
+to Theorem 2 and Lemma 1, we have
+                                XL Xm(l)                              XL XH×W ×C
+                I(S = R(l)u )=
+                                                 (l) (l)
+                                               wv,u Ju (S = R(l) u )=
+                                                                                          (l) (l)
+                                                                                         wv,u zu (x)
+                                                 l=1         u=1                                     l=1          u=1
+         (l)           (l)
+where   wv,u∈ R and zu (x) ∈ R. Based on Equations (5)–(7), note that ∀c ∈ {1, 2, . . . , C}, (l, u = (c, h, w)) share the
+                       (l)           (l)                 (l)             (l)
+same children nodes Su=(1,h,w) = Su=(2,h,w) = · · · = Su=(C,h,w) , then hu=(c,h,w) (x) at the same location on different
+                                                                                                                    (l)
+channels is activated or deactivated at the same time, due to the AND operation on the child  nodes. Besides, zu 2(x)
+                                                              (l)         (l)      (l)
+is determined by the linear combination of the child nodes gu (x) = (Au )⊺· Σu · (l−1) , where Au ∈ RCK is
+                                                                                                           (l)
+                                                                                                                          z
+                                                                                                                              (l)               2
+the parameter of a convolution kernel (A total of C convolution kernels, denoted as Bu ∈ R(CK )×C , can derive C
+                                                             (l)      2      2
+harsanyi units at the same position on different channels), Σu ∈ R(CK )×(CK ) denotes the selected children nodes and
+z(l−1) ∈ RCK denotes the feature maps of the (l − 1)-th layer within the coverage of the convolution kernel.
+               2
+
+
+
+Considering C channels together as a single Harsanyi unit, we have totally m(l) = H × W Harsanyi units in the l-th layer.
+                (l)
+We use I(S = Ru=(:,h,w) ) to denote this case. According to Theorem 2 and Lemma 1, we have
+
+                                   (l)
+                                                 XL Xm(l)                                            XL XH×W
+                                                                            (l) (l)
+                    I(S = Ru=(:,h,w) ) =                                   wv,u Ju (S = R(l)
+                                                                                         u )=
+                                                                                                                                      (l) ⊺ (l)
+                                                                                                                                    (wv,u ) zu (x)
+                                                       l=1     u=1                                         l=1          u=1
+         (l)                        (l)                                                                                                   (l)                 (l)
+where wv,u ∈ RC and zu (x) ∈ RC . Based on Equations (5)–(7), note that ∀c ∈ {1, 2, . . . , C}, Su=(:,h,w) = Su=(c,h,w) ,
+then the single C-dimensional Harsanyi unit has the same activation state as C Hassani units
+                                                                                               in above case. Besides,
+zu (x) is determined by the linear combination of the child nodes gu (x) = (Bu )⊺ · Σu · z(l−1) ∈ RC , where
+ (l)                                                                (l)         (l)          (l)
+
+  (l)           2                                                                              (l)                 2           2
+Bu ∈ R(CK )×C is the parameters of a total of C convolution kernels, Σu ∈ R(CK )×(CK ) denotes the selected children
+nodes and z(l−1) ∈ RCK denotes the feature maps of the (l − 1)-th layer within the coverage of the convolution kernel.
+                      2
+
+
+
+In this way, we proved that the Harsanyi units (l, u = (c, h, w)) in the same location (h, w) on different channels
+                                                 (l)                                                               (l)
+(c = 1, . . . , C) had the same receptive field Ru=(:,h,w) and contributed to the same Harsanyi interaction I(S = Ru=(:,h,w) ).
+
+
+
+F. More experiment results and details
+F.1. Experiment results of more challenging datasets on the HarsanyiNets
+To further explore the classification performance of the HarsanyiNets, we conducted experiments on more challenging
+datasets, including the Oxford Flowers-102 (Nilsback & Zisserman, 2008) and COVIDx dataset (Wang et al., 2020). To
+
+                                                                                    16

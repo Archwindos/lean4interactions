@@ -1,0 +1,569 @@
+{
+  "schema_version": 1,
+  "shared_proofs": {
+    "proof-finite-mobius-reconstruction-v2": {
+      "title": "Shared proof: exact reconstruction of every masked output",
+      "assumptions": [
+        {
+          "id": "finite-coalitions",
+          "text_md": "The coalition is finite. The games and coefficient functions are arbitrary real-valued functions on finite subsets; continuity, differentiability, independence and a zero output baseline are unnecessary."
+        },
+        {
+          "id": "finite-domain",
+          "text_md": "The ambient universe may be infinite, but every coalition in a sum is finite. Paper applications fix a finite universe and use its powerset."
+        }
+      ],
+      "definitions": [
+        {
+          "id": "interaction",
+          "text_md": "The interaction is a finite alternating sum. Since the summation subset is contained in the target, the cardinality difference in its exponent is a nonnegative integer."
+        },
+        {
+          "id": "reconstruct",
+          "text_md": "Reconstruction sums all coefficients activated by the retained-variable set."
+        },
+        {
+          "id": "finite-difference",
+          "text_md": "The insertion difference compares retaining the distinguished variable with masking it. The insertion lemma below is used only when that variable is absent from the target."
+        }
+      ],
+      "overview": "Insertion separates subsets with and without the new variable. The insertion interaction becomes a finite difference; strengthened induction reconstructs both games and cancels the intermediate output.",
+      "completion_scope": "The public finite-set reconstruction theorem and its actual library induction; paper specializations are separate.",
+      "example_md": "For two variables with mask outputs 2, 5, 7 and 13, the dividends are 2, 3, 5 and 3. Their full sum is 13, the empty-mask sum is 2, and singleton reconstruction gives 5 and 7. If only the full output 13 were required, coefficients 0, 0, 0 and 13 would also fit that one mask but fail all others. Hence the universal mask requirement matters.",
+      "caveats": [
+        "The human proof explains the existing library declarations; its five steps do not introduce five new Lean theorems. The checked scope consists of the library theorem and separately compiled paper adapters.",
+        "Every subset sum includes the empty coefficient. If it is omitted, add the output baseline outside the sum.",
+        "The source uses double sums and binomial cancellation; the library uses insertion induction or converse inversion. These are separately identified proof routes, not a claim of line-by-line formal translation."
+      ],
+      "proof_steps": [
+        {
+          "id": "step-1",
+          "title": "Partition the subsets into two families",
+          "body_md": "Fix finite $S$ and $i\\notin S$. Every subset of $S\\cup\\{i\\}$ either excludes $i$, and is a subset $T$ of $S$, or includes $i$, and uniquely equals $T\\cup\\{i\\}$ with $T\\subseteq S$. The families are disjoint and exhaustive, so any finite sum of a function $F$ splits into these two sums. The empty subset occurs in the first family; empty $T$ in the second family produces $\\{i\\}$.",
+          "justification": "The explicit bijections for subsets with and without the inserted variable."
+        },
+        {
+          "id": "step-2",
+          "title": "Expand the signs to obtain the insertion difference",
+          "body_md": "Every $T\\subseteq S$ excludes $i$, so the two inserted cardinalities are $|S|+1$ and $|T|+1$. Put $k=|S|-|T|\\ge0$. The coefficient of $g(T)$ is $(-1)^{k+1}=-(-1)^k$, and the coefficient of $g(T\\cup\\{i\\})$ is $(-1)^k$. Combining the paired terms gives $(-1)^k[g(T\\cup\\{i\\})-g(T)]$. The resulting sum is the interaction of $\\Delta_i g$ on $S$.",
+          "justification": "Insertion cardinalities, the recurrence for integer powers, and finite distributivity."
+        },
+        {
+          "id": "step-3",
+          "title": "Strengthen the induction statement and handle the empty set",
+          "body_md": "Induct by inserting elements into finite $S$, with the strengthened statement that reconstruction holds for every game $g$. This quantification is necessary because the next step applies induction to the new game $\\Delta_i g$. When $S=\\varnothing$, its only subset is itself; the exponent is zero, so both interaction and reconstruction equal $g(\\varnothing)$. No zero-baseline assumption is used.",
+          "justification": "Finite-set insertion induction and the exact empty-interaction formula."
+        },
+        {
+          "id": "step-4",
+          "title": "Apply induction to each of the two sums",
+          "body_md": "Assume that every game $h$ is reconstructed on $S$, and let $i\\notin S$. Split the reconstruction on $S\\cup\\{i\\}$ into the two families from the first step. In the family containing $i$, each $T\\subseteq S$ still excludes $i$, so apply the insertion-difference identity term by term. The two sums become reconstruction for $g$ and reconstruction for $\\Delta_i g$ on $S$. The same strengthened induction hypothesis gives $g(S)$ and $\\Delta_i g(S)$ respectively.",
+          "justification": "Subset partition, the insertion identity, and induction quantified over all games."
+        },
+        {
+          "id": "step-5",
+          "title": "Cancel the intermediate output and finish induction",
+          "body_md": "By definition, $\\Delta_i g(S)=g(S\\cup\\{i\\})-g(S)$. Adding it to $g(S)$ cancels the intermediate value and leaves the required output on the inserted set. The empty case and insertion step cover every finite set. For a paper application, instantiate the game with $g(S)=v(x_S)$ using one fixed model, input and mask rule.",
+          "justification": "The finite-difference definition and real addition and subtraction."
+        }
+      ]
+    },
+    "proof-finite-mobius-uniqueness-v2": {
+      "title": "Shared proof: uniqueness of coefficients reconstructing all masks",
+      "assumptions": [
+        {
+          "id": "finite-coalitions",
+          "text_md": "The coalition is finite. The games and coefficient functions are arbitrary real-valued functions on finite subsets; continuity, differentiability, independence and a zero output baseline are unnecessary."
+        },
+        {
+          "id": "finite-domain",
+          "text_md": "The ambient universe may be infinite, but every coalition in a sum is finite. Paper applications fix a finite universe and use its powerset."
+        },
+        {
+          "id": "all-masks",
+          "text_md": "The same coefficients must reconstruct every finite subset in the domain, including the empty set. Reconstruction at one specified coalition is insufficient."
+        }
+      ],
+      "definitions": [
+        {
+          "id": "interaction",
+          "text_md": "The interaction is a finite alternating sum. Since the summation subset is contained in the target, the cardinality difference in its exponent is a nonnegative integer."
+        },
+        {
+          "id": "reconstruct",
+          "text_md": "Reconstruction sums all coefficients activated by the retained-variable set."
+        },
+        {
+          "id": "finite-difference",
+          "text_md": "The insertion difference compares retaining the distinguished variable with masking it. The insertion lemma below is used only when that variable is absent from the target."
+        }
+      ],
+      "overview": "Prove converse Möbius inversion for arbitrary coefficients, then substitute the reconstruction equality at every mask and conclude pointwise equality.",
+      "completion_scope": "Coefficient uniqueness and the converse inversion actually used by the library; finite-universe paper quantifiers are recorded by separate adapters.",
+      "example_md": "For two variables with mask outputs 2, 5, 7 and 13, the dividends are 2, 3, 5 and 3. Their full sum is 13, the empty-mask sum is 2, and singleton reconstruction gives 5 and 7. If only the full output 13 were required, coefficients 0, 0, 0 and 13 would also fit that one mask but fail all others. Hence the universal mask requirement matters.",
+      "caveats": [
+        "Uniqueness concerns coefficients for one fixed game and the same AND activation rule. It does not assert uniqueness of every explanation framework, causal model or AND–OR decomposition.",
+        "The source inducts on cardinality; the library proves converse inversion. This text fully explains the route actually used by the library.",
+        "Every subset, including the empty one, must be reconstructed exactly. Fitting only the full input, or fitting approximately, does not satisfy the theorem."
+      ],
+      "proof_steps": [
+        {
+          "id": "step-1",
+          "title": "Prove converse inversion at the empty set",
+          "body_md": "First prove $I_{R_d}(S)=d(S)$ for an arbitrary coefficient function $d$, without using the reconstruction hypothesis. Induct on finite $S$ and keep $d$ universally quantified. At the empty set, $R_d(\\varnothing)=d(\\varnothing)$, and the empty interaction of this game has that same value. Thus the empty coefficient is fixed rather than an additional free parameter.",
+          "justification": "The definitions and strengthened finite-set induction."
+        },
+        {
+          "id": "step-2",
+          "title": "The difference of a reconstruction is another reconstruction",
+          "body_md": "For $i\\notin S$, define $e(U)=d(U\\cup\\{i\\})$. Every $T\\subseteq S$ excludes $i$, so splitting the subsets of $T\\cup\\{i\\}$ gives $R_d(T\\cup\\{i\\})=R_d(T)+\\sum_{U\\subseteq T}d(U\\cup\\{i\\})$. Subtraction leaves $R_e(T)$. This identity is used only for $T\\subseteq S$: when $i\\in T$, the two-family argument would no longer be disjoint.",
+          "justification": "The subset partition, cancellation of finite sums, and the definition of the new coefficient function."
+        },
+        {
+          "id": "step-3",
+          "title": "Use local equality to prove the insertion step",
+          "body_md": "The insertion lemma gives $I_{R_d}(S\\cup\\{i\\})=I_{\\Delta_i R_d}(S)$. The interaction on $S$ reads only values at subsets of $S$, where the previous step proves that $\\Delta_i R_d$ equals $R_e$. Hence its interaction equals $I_{R_e}(S)$. Apply the induction hypothesis for the arbitrary function $e$ to obtain $e(S)=d(S\\cup\\{i\\})$. This proves converse inversion on the inserted set.",
+          "justification": "Insertion differences, congruence on the subsets actually used, and strengthened induction."
+        },
+        {
+          "id": "step-4",
+          "title": "Substitute the reconstruction hypothesis for every mask",
+          "body_md": "Restore the assumption that the same $d$ satisfies $R_d(T)=g(T)$ at every finite $T$. For arbitrary $S$, converse inversion gives $d(S)=I_{R_d}(S)$. In this finite sum every argument $U$ is a subset of $S$, so the assumption replaces $R_d(U)$ by $g(U)$ term by term. The resulting sum is $I_g(S)$. Coefficients are not chosen afresh for each mask.",
+          "justification": "Converse inversion and the reconstruction equality at each subset."
+        },
+        {
+          "id": "step-5",
+          "title": "Conclude function equality and check the application domain",
+          "body_md": "Since $S$ is arbitrary, equality at every finite input gives $d=I_g$. The public result quantifies over all finite subsets of a universe that may itself be infinite; a paper application restricts this universe to its finite $N$. In particular, the empty mask forces $d(\\varnothing)=g(\\varnothing)$, and a singleton forces $d(\\{i\\})=g(\\{i\\})-g(\\varnothing)$. Higher coefficients are then fixed by the already determined proper-subset coefficients.",
+          "justification": "Function extensionality and the finite-universe paper specialization."
+        }
+      ]
+    },
+    "shared-harsanyi-linearity": {
+      "title": "Shared proof: linearity of interactions",
+      "assumptions": [
+        "$g,h:\\mathcal P(N)\\to\\mathbb R$; $A\\subseteq N$."
+      ],
+      "definitions": [
+        {
+          "id": "finite-game",
+          "body_md": "Fix a finite universe $N$. A game $g:\\mathcal P(N)\\to\\mathbb R$ has output baseline $b=g(\\varnothing)$ and interaction $I_g(A)=\\sum_{U\\subseteq A}(-1)^{|A|-|U|}g(U)$. Write $w_A=I_g(A)$. Every subset sum includes the empty set, and $w_\\varnothing=b$. The finite difference is $\\Delta_Tg(S)=\\sum_{L\\subseteq T}(-1)^{|T|-|L|}g(L\\cup S)$. No zero output baseline is assumed. Centering $g_0=g-b$ removes only the empty dividend."
+        }
+      ],
+      "proof_steps": [
+        {
+          "id": "linearity-pointwise",
+          "title": "Apply the premise at the actual summation argument",
+          "body_md": "Assume $g_v(U)=g_t(U)+g_u(U)$ for every $U\\subseteq N$. For a fixed $A$, each $U\\subseteq A$ lies in that domain. The original proof wrote the fixed output at $x_A$ inside the alternating sum; the repaired proof uses the output at the summation argument $x_U$ in every term, preserving the original proposition.",
+          "justification": ""
+        },
+        {
+          "id": "linearity-distribute",
+          "title": "Distribute within the finite sum",
+          "body_md": "For each $U\\subseteq A$, distribute its alternating coefficient over the two outputs. Then distribute the finite sum over addition. The two resulting sums are exactly $I_{g_t}(A)$ and $I_{g_u}(A)$.",
+          "justification": ""
+        },
+        {
+          "id": "linearity-empty",
+          "title": "Check the empty set and a constant example",
+          "body_md": "For $A=\\varnothing$, the identity states $b_v=b_t+b_u$; none of these baselines needs to vanish. For constant models with values 2 and 5, their sum has value 7: its empty dividend is 7 and every nonempty dividend is zero.",
+          "justification": ""
+        }
+      ]
+    },
+    "shared-harsanyi-symmetry": {
+      "title": "Shared proof: symmetry of interactions",
+      "assumptions": [
+        "$S\\subseteq N$, $i,j\\in N\\setminus S$; for every $U\\subseteq S$, $g(U\\cup\\{i\\})=g(U\\cup\\{j\\})$."
+      ],
+      "definitions": [
+        {
+          "id": "finite-game",
+          "body_md": "Fix a finite universe $N$. A game $g:\\mathcal P(N)\\to\\mathbb R$ has output baseline $b=g(\\varnothing)$ and interaction $I_g(A)=\\sum_{U\\subseteq A}(-1)^{|A|-|U|}g(U)$. Write $w_A=I_g(A)$. Every subset sum includes the empty set, and $w_\\varnothing=b$. The finite difference is $\\Delta_Tg(S)=\\sum_{L\\subseteq T}(-1)^{|T|-|L|}g(L\\cup S)$. No zero output baseline is assumed. Centering $g_0=g-b$ removes only the empty dividend."
+        }
+      ],
+      "proof_steps": [
+        {
+          "id": "symm-split",
+          "title": "Pair subsets that include or exclude the distinguished variable",
+          "body_md": "Since $i,j\\notin S$, every subset of $S\\cup\\{i\\}$ uniquely has the form $U$ or $U\\cup\\{i\\}$ for $U\\subseteq S$. Insertion increases cardinality by one, giving opposite signs. Each $U$ excludes both distinguished variables, so the equal-cooperation premise applies to every paired term.",
+          "justification": ""
+        },
+        {
+          "id": "symm-substitute",
+          "title": "Replace equal cooperation outputs term by term",
+          "body_md": "Replace $g(U\\cup\\{i\\})$ by $g(U\\cup\\{j\\})$ using the premise; leave $g(U)$ unchanged. Recombine the terms with and without $j$ to obtain the interaction on $S\\cup\\{j\\}$. Equality also holds when $i=j$, so no distinctness hypothesis is added.",
+          "justification": ""
+        },
+        {
+          "id": "symm-empty",
+          "title": "Check the empty environment",
+          "body_md": "When $S=\\varnothing$, equal singleton outputs have the same subtraction of the common baseline. For baseline 7, singleton outputs 8 and 8, and two-variable output 12, both singleton dividends are 1; if the two variables are distinct, the pair dividend is 3.",
+          "justification": ""
+        }
+      ]
+    },
+    "shared-harsanyi-anonymity": {
+      "title": "Shared proof: invariance under relabeling",
+      "assumptions": [
+        "$\\pi:N\\to N$ is a permutation; $g^\\pi(V)=g(\\pi^{-1}V)$; $S\\subseteq N$."
+      ],
+      "definitions": [
+        {
+          "id": "finite-game",
+          "body_md": "Fix a finite universe $N$. A game $g:\\mathcal P(N)\\to\\mathbb R$ has output baseline $b=g(\\varnothing)$ and interaction $I_g(A)=\\sum_{U\\subseteq A}(-1)^{|A|-|U|}g(U)$. Write $w_A=I_g(A)$. Every subset sum includes the empty set, and $w_\\varnothing=b$. The finite difference is $\\Delta_Tg(S)=\\sum_{L\\subseteq T}(-1)^{|T|-|L|}g(L\\cup S)$. No zero output baseline is assumed. Centering $g_0=g-b$ removes only the empty dividend."
+        }
+      ],
+      "proof_steps": [
+        {
+          "id": "anon-bijection",
+          "title": "Define the relabeled game and the subset bijection",
+          "body_md": "For a permutation $\\pi$, define $g^\\pi(V)=g(\\pi^{-1}V)$. The map $U\\mapsto\\pi U$ bijects the subsets of $S$ with those of $\\pi S$ and preserves cardinality. Its inverse sends $V$ to $\\pi^{-1}V$.",
+          "justification": ""
+        },
+        {
+          "id": "anon-reindex",
+          "title": "Reindex the finite sum by this bijection",
+          "body_md": "Corresponding terms have exponent $|\\pi S|-|\\pi U|=|S|-|U|$ and output $g^\\pi(\\pi U)=g(U)$. Therefore every summand agrees and the sums agree.",
+          "justification": ""
+        },
+        {
+          "id": "anon-empty",
+          "title": "Check a swap and the baseline",
+          "body_md": "For two variables with outputs 7, 8, 9 and 13 at the empty, first singleton, second singleton and full masks, the dividends are 7, 1, 2 and 3. Swapping the variable names swaps the singleton dividends while leaving the empty and pair dividends unchanged. A permutation fixes the empty set, so it also preserves the output baseline.",
+          "justification": ""
+        }
+      ]
+    },
+    "shared-harsanyi-recursive": {
+      "title": "Shared proof: context difference for inserting a variable",
+      "assumptions": [
+        "$i\\in N\\setminus S$; $g_i(U)=g(U\\cup\\{i\\})$."
+      ],
+      "definitions": [
+        {
+          "id": "finite-game",
+          "body_md": "Fix a finite universe $N$. A game $g:\\mathcal P(N)\\to\\mathbb R$ has output baseline $b=g(\\varnothing)$ and interaction $I_g(A)=\\sum_{U\\subseteq A}(-1)^{|A|-|U|}g(U)$. Write $w_A=I_g(A)$. Every subset sum includes the empty set, and $w_\\varnothing=b$. The finite difference is $\\Delta_Tg(S)=\\sum_{L\\subseteq T}(-1)^{|T|-|L|}g(L\\cup S)$. No zero output baseline is assumed. Centering $g_0=g-b$ removes only the empty dividend."
+        }
+      ],
+      "proof_steps": [
+        {
+          "id": "rec-context",
+          "title": "Define the context in which the variable is always present",
+          "body_md": "Define $g_i(U)=g(U\\cup\\{i\\})$. The original interaction conditioned on the presence of $i$ is $I_{g_i}(S)$. The empty value of this conditional game is $g(\\{i\\})$, which need not equal the original baseline $g(\\varnothing)$.",
+          "justification": ""
+        },
+        {
+          "id": "rec-pair",
+          "title": "Pair the subsets and check their signs",
+          "body_md": "With $i\\notin S$, the subset $U\\cup\\{i\\}$ has exponent $|S|+1-(|U|+1)=|S|-|U|$. The term for $U$ has one extra minus sign. Pairing the families gives the game $g_i(U)-g(U)$; linearity separates its two interactions.",
+          "justification": ""
+        },
+        {
+          "id": "rec-empty",
+          "title": "Check the empty case and a numerical difference",
+          "body_md": "For mask outputs 7, 8, 9 and 13 on two variables, the dividends are 7, 1, 2 and 3. With $S=\\{2\\}$ and $i=1$, the conditional interaction is $13-8=5$, the original one is $9-7=2$, and their difference is the pair dividend 3. For an empty environment, the formula yields the singleton output minus the baseline, without asserting that it vanishes.",
+          "justification": ""
+        }
+      ]
+    },
+    "shared-harsanyi-interaction-distribution": {
+      "title": "Shared proof: the unique dividend of a pure AND game",
+      "assumptions": [
+        "$T,S\\subseteq N$, $c\\in\\mathbb R$; $u_T(U)=c\\mathbf1_{T\\subseteq U}$. Empty $T$ and incomparable sets are included."
+      ],
+      "definitions": [
+        {
+          "id": "finite-game",
+          "body_md": "Fix a finite universe $N$. A game $g:\\mathcal P(N)\\to\\mathbb R$ has output baseline $b=g(\\varnothing)$ and interaction $I_g(A)=\\sum_{U\\subseteq A}(-1)^{|A|-|U|}g(U)$. Write $w_A=I_g(A)$. Every subset sum includes the empty set, and $w_\\varnothing=b$. The finite difference is $\\Delta_Tg(S)=\\sum_{L\\subseteq T}(-1)^{|T|-|L|}g(L\\cup S)$. No zero output baseline is assumed. Centering $g_0=g-b$ removes only the empty dividend."
+        }
+      ],
+      "proof_steps": [
+        {
+          "id": "dist-outside",
+          "title": "Handle every case in which the target is not contained",
+          "body_md": "If $T\\not\\subseteq S$, no subset $U$ of $S$ can contain $T$. Thus every output and summand is zero. This includes both proper-subset and incomparable cases; the original proof omitted the latter.",
+          "justification": ""
+        },
+        {
+          "id": "dist-equal",
+          "title": "Evaluate at the target itself",
+          "body_md": "If $S=T$, only the subset $U=T$ contributes the output $c$, with coefficient 1; every proper subset contributes zero. This also covers the empty target, whose only summand is the empty-set output $c$.",
+          "justification": ""
+        },
+        {
+          "id": "dist-superset",
+          "title": "Cancel on strict supersets",
+          "body_md": "For $T\\subsetneq S$, the potentially nonzero subsets uniquely equal $T\\cup B$, with $B\\subseteq S\\setminus T$. Their exponents are $|S\\setminus T|-|B|$. Choose an element of the nonempty difference, and pair each $B$ excluding it with the subset including it. The two signs are opposite, so the whole sum vanishes.",
+          "justification": ""
+        },
+        {
+          "id": "dist-example",
+          "title": "Check the empty target and an incomparable set",
+          "body_md": "An empty target gives the constant game $c$, with only its empty dividend nonzero. With $N=\\{1,2\\}$, $T=\\{1\\}$ and $c=3$, the four outputs are 0, 3, 0 and 3, and the dividends are 0, 3, 0 and 0. The incomparable set $\\{2\\}$ is covered by the first case.",
+          "justification": ""
+        }
+      ]
+    },
+    "shared-harsanyi-marginal-decomposition": {
+      "title": "Shared proof: dividend decomposition of a higher marginal",
+      "assumptions": [
+        "$T,S\\subseteq N$; $T\\cap S=\\varnothing$."
+      ],
+      "definitions": [
+        {
+          "id": "finite-game",
+          "body_md": "Fix a finite universe $N$. A game $g:\\mathcal P(N)\\to\\mathbb R$ has output baseline $b=g(\\varnothing)$ and interaction $I_g(A)=\\sum_{U\\subseteq A}(-1)^{|A|-|U|}g(U)$. Write $w_A=I_g(A)$. Every subset sum includes the empty set, and $w_\\varnothing=b$. The finite difference is $\\Delta_Tg(S)=\\sum_{L\\subseteq T}(-1)^{|T|-|L|}g(L\\cup S)$. No zero output baseline is assumed. Centering $g_0=g-b$ removes only the empty dividend."
+        }
+      ],
+      "proof_steps": [
+        {
+          "id": "marg-expand",
+          "title": "Reconstruct every output used by the difference",
+          "body_md": "Fix disjoint $T$ and $S$. For each $L\\subseteq T$, reconstruct $g(L\\cup S)$. Every subset $K$ of this union uniquely decomposes into $A\\cup U$, where $A=K\\cap L\\subseteq L$ and $U=K\\cap S\\subseteq S$. Disjointness prevents duplicate representations.",
+          "justification": ""
+        },
+        {
+          "id": "marg-cancel",
+          "title": "Exchange finite sums and cancel within each environment subset",
+          "body_md": "Group first by $U$, then by $A\\subseteq T$. Every $L$ containing $A$ uniquely equals $A\\cup B$, with $B\\subseteq T\\setminus A$. If $A\\ne T$, pairing subsets of the nonempty difference cancels opposite signs. If $A=T$, only empty $B$ remains with coefficient 1. Therefore each $U$ contributes exactly $w_{T\\cup U}$.",
+          "justification": ""
+        },
+        {
+          "id": "marg-empty",
+          "title": "Check both empty-set boundaries",
+          "body_md": "For the two-variable outputs 7, 8, 9 and 13, the difference for $T=\\{1\\}$ and $S=\\{2\\}$ is $13-9=4$, and its dividend sum is $1+3=4$. When $T$ is empty, the identity is reconstruction of $g(S)$; when $S$ is empty, both sides equal $w_T$.",
+          "justification": ""
+        }
+      ]
+    },
+    "shared-harsanyi-factorial-convolution": {
+      "title": "Shared auxiliary proof: finite factorial convolution, including empty boundaries",
+      "assumptions": [
+        "$T,E\\subseteq N$, $T\\cap E=\\varnothing$; $k\\in\\mathbb N$, $k>0$; $m=|E|$."
+      ],
+      "definitions": [
+        {
+          "id": "finite-game",
+          "body_md": "Fix a finite universe $N$. A game $g:\\mathcal P(N)\\to\\mathbb R$ has output baseline $b=g(\\varnothing)$ and interaction $I_g(A)=\\sum_{U\\subseteq A}(-1)^{|A|-|U|}g(U)$. Write $w_A=I_g(A)$. Every subset sum includes the empty set, and $w_\\varnothing=b$. The finite difference is $\\Delta_Tg(S)=\\sum_{L\\subseteq T}(-1)^{|T|-|L|}g(L\\cup S)$. No zero output baseline is assumed. Centering $g_0=g-b$ removes only the empty dividend."
+        }
+      ],
+      "proof_steps": [
+        {
+          "id": "factorial-lemma",
+          "title": "Prove the finite factorial convolution",
+          "body_md": "For finite $R$ of size $m$, define $F_R(a,b)=\\sum_{A\\subseteq R}(a+|A|)!(b+m-|A|)!$. Induct on $R$ with the statement strengthened to every nonnegative $a,b$. At the empty set both sides are $a!b!$. Inserting a new element splits the sum as $F_R(a,b+1)+F_R(a+1,b)$. The induction expressions share denominator $(a+b+2)!$ and large factorial $(a+b+m+2)!$. The smaller factorials combine as $a!(b+1)!+(a+1)!b!=a!b!(a+b+2)$. Cancelling this positive factor proves the formula on the inserted set. Every factorial denominator is positive; zero values of $a,b,m$ are included.",
+          "justification": ""
+        },
+        {
+          "id": "factorial-coefficient",
+          "title": "Sum weights over all supersets of a fixed subset",
+          "body_md": "Let $k>0$, $L\\subseteq E$, $m=|E|$, $l=|L|$ and $R=E\\setminus L$. Each $S$ with $L\\subseteq S\\subseteq E$ uniquely equals $L\\cup A$ with $A\\subseteq R$. Thus $|S|=l+|A|$ and $|R|=m-l$. Apply the preceding convolution with $a=l$ and $b=k-1$. Use $k(k-1)!=k!$ and cancel the positive large factorial $(m+k)!$ to obtain the displayed weight sum. Both $L=\\varnothing$ and $L=E$ are included.",
+          "justification": ""
+        },
+        {
+          "id": "factorial-transform",
+          "title": "Exchange the sums to obtain the weighted finite-difference transform",
+          "body_md": "Disjointness of $T,E$ gives $\\Delta_Tg(S)=\\sum_{U\\subseteq S}w_{T\\cup U}$. Every pair $U\\subseteq S\\subseteq E$ occurs exactly once, so exchange the finite sums. For fixed $U$, the preceding superset-weight identity supplies precisely the displayed coefficient of $w_{T\\cup U}$.",
+          "justification": ""
+        }
+      ]
+    },
+    "shared-harsanyi-shapley-dividend": {
+      "title": "Shared proof: classical Shapley equals equal dividend allocation",
+      "assumptions": [
+        "$i\\in N$; $\\phi_g$ is defined by the classical factorial-weighted marginal formula; $n=|N|\\ge1$."
+      ],
+      "definitions": [
+        {
+          "id": "finite-game",
+          "body_md": "Fix a finite universe $N$. A game $g:\\mathcal P(N)\\to\\mathbb R$ has output baseline $b=g(\\varnothing)$ and interaction $I_g(A)=\\sum_{U\\subseteq A}(-1)^{|A|-|U|}g(U)$. Write $w_A=I_g(A)$. Every subset sum includes the empty set, and $w_\\varnothing=b$. The finite difference is $\\Delta_Tg(S)=\\sum_{L\\subseteq T}(-1)^{|T|-|L|}g(L\\cup S)$. No zero output baseline is assumed. Centering $g_0=g-b$ removes only the empty dividend."
+        }
+      ],
+      "proof_steps": [
+        {
+          "id": "shapley-definition",
+          "title": "Start from the classical factorial-weighted definition",
+          "body_md": "Let $i\\in N$, so $n=|N|\\ge1$. Classical Shapley weights each environment marginal $g(S\\cup\\{i\\})-g(S)=\\Delta_{\\{i\\}}g(S)$ by $|S|!(n-|S|-1)!/n!$, for $S\\subseteq N\\setminus\\{i\\}$.",
+          "justification": ""
+        },
+        {
+          "id": "factorial-lemma",
+          "title": "Prove the finite factorial convolution"
+        },
+        {
+          "id": "factorial-coefficient",
+          "title": "Sum weights over all supersets of a fixed subset"
+        },
+        {
+          "id": "factorial-transform",
+          "title": "Exchange the sums to obtain the weighted finite-difference transform"
+        },
+        {
+          "id": "shapley-specialize",
+          "title": "Check all parameters of the shared identity",
+          "body_md": "Set $T=\\{i\\}$, $E=N\\setminus\\{i\\}$ and $k=1$. Then $m=n-1$, and the left weight is exactly the classical Shapley weight. The right coefficient is $\\binom{|U|+1}{1}^{-1}=1/(|U|+1)$. The difference target and environment are disjoint and the order is positive, so every premise of the shared identity is satisfied.",
+          "justification": ""
+        },
+        {
+          "id": "shapley-empty-example",
+          "title": "Check the baseline and a two-variable example",
+          "body_md": "For outputs 7, 8, 9 and 13, the dividends are 7, 1, 2 and 3. The two Shapley values are $1+3/2=5/2$ and $2+3/2=7/2$, summing to $6=g(N)-b$. The environment may be empty, but a dividend allocated to $i$ always contains $i$ and is nonempty. The baseline is not allocated. For a one-player game the sole environment is empty and its value is the singleton output minus the baseline.",
+          "justification": ""
+        }
+      ]
+    },
+    "shared-harsanyi-shapley-interaction-dividend": {
+      "title": "Shared proof: exact dividend weights for the Shapley interaction index",
+      "assumptions": [
+        "$T\\subseteq N$; use the original factorial-weighted SII definition with environment $N\\setminus T$, including the empty target."
+      ],
+      "definitions": [
+        {
+          "id": "finite-game",
+          "body_md": "Fix a finite universe $N$. A game $g:\\mathcal P(N)\\to\\mathbb R$ has output baseline $b=g(\\varnothing)$ and interaction $I_g(A)=\\sum_{U\\subseteq A}(-1)^{|A|-|U|}g(U)$. Write $w_A=I_g(A)$. Every subset sum includes the empty set, and $w_\\varnothing=b$. The finite difference is $\\Delta_Tg(S)=\\sum_{L\\subseteq T}(-1)^{|T|-|L|}g(L\\cup S)$. No zero output baseline is assumed. Centering $g_0=g-b$ removes only the empty dividend."
+        }
+      ],
+      "proof_steps": [
+        {
+          "id": "sii-definition",
+          "title": "Keep the original factorial definition and external environment",
+          "body_md": "Put $t=|T|$, $E=N\\setminus T$ and $m=n-t$. SII uses the whole-target finite difference with weight $|S|!(m-|S|)!/(m+1)!$. It does not allocate separately to the members of $T$. The source domain includes both $T=\\varnothing$ and $T=N$.",
+          "justification": ""
+        },
+        {
+          "id": "factorial-lemma",
+          "title": "Prove the finite factorial convolution"
+        },
+        {
+          "id": "factorial-coefficient",
+          "title": "Sum weights over all supersets of a fixed subset"
+        },
+        {
+          "id": "factorial-transform",
+          "title": "Exchange the sums to obtain the weighted finite-difference transform"
+        },
+        {
+          "id": "sii-specialize",
+          "title": "Specialize the shared weighted identity to order one",
+          "body_md": "The target $T$ and its external environment $E$ are disjoint. At $k=1$, each left weight agrees with the original SII definition and each right weight is $1/(|U|+1)$. For $T=N$, the environment is empty and the result is $w_N$. For an empty target, the left side is the indicated weighted average of raw outputs and the right side includes the empty dividend $b$.",
+          "justification": ""
+        },
+        {
+          "id": "sii-example",
+          "title": "Check the two-variable boundaries",
+          "body_md": "For outputs 7, 8, 9 and 13, the dividends are 7, 1, 2 and 3. SII at the full target equals 3; at the first singleton it equals $5/2$. For the empty target the factorial formula gives $7/3+8/6+9/6+13/3=19/2$, agreeing with $7+1/2+2/2+3/3=19/2$ from the dividend formula.",
+          "justification": ""
+        }
+      ]
+    },
+    "shared-harsanyi-shapley-taylor-dividend": {
+      "title": "Shared proof: all three branches of the Shapley–Taylor index",
+      "assumptions": [
+        "$T\\subseteq N$; the original three-branch STI definition at a positive integer order $k>0$. The source does not explicitly state $k>0$; this is the positive-order domain interpretation. Order zero is outside the present verification scope."
+      ],
+      "definitions": [
+        {
+          "id": "finite-game",
+          "body_md": "Fix a finite universe $N$. A game $g:\\mathcal P(N)\\to\\mathbb R$ has output baseline $b=g(\\varnothing)$ and interaction $I_g(A)=\\sum_{U\\subseteq A}(-1)^{|A|-|U|}g(U)$. Write $w_A=I_g(A)$. Every subset sum includes the empty set, and $w_\\varnothing=b$. The finite difference is $\\Delta_Tg(S)=\\sum_{L\\subseteq T}(-1)^{|T|-|L|}g(L\\cup S)$. No zero output baseline is assumed. Centering $g_0=g-b$ removes only the empty dividend."
+        }
+      ],
+      "proof_steps": [
+        {
+          "id": "sti-low",
+          "title": "Handle the lower and higher order branches",
+          "body_md": "At a positive order $k$, if $|T|<k$, the finite difference in the empty environment is $w_T$ by definition; for an empty target its value is $b$. If $|T|>k$, the definition gives zero. These branches require neither division by $n$ nor $n\\ge k$.",
+          "justification": ""
+        },
+        {
+          "id": "sti-top-weight",
+          "title": "Convert the top-order weight to the shared factorial weight",
+          "body_md": "If $|T|=k$, positivity and $T\\subseteq N$ give $n\\ge k\\ge1$, so division by $n$ is valid. Put $E=N\\setminus T$ and $m=n-k$. For $S\\subseteq E$, its size $s$ satisfies $s\\le m\\le n-1$, making the relevant binomial coefficient positive. Expand its factorial definition and use $k(k-1)!=k!$ to obtain the displayed shared weight.",
+          "justification": ""
+        },
+        {
+          "id": "factorial-lemma",
+          "title": "Prove the finite factorial convolution"
+        },
+        {
+          "id": "factorial-coefficient",
+          "title": "Sum weights over all supersets of a fixed subset"
+        },
+        {
+          "id": "factorial-transform",
+          "title": "Exchange the sums to obtain the weighted finite-difference transform"
+        },
+        {
+          "id": "sti-top-finish",
+          "title": "Apply the shared identity at the top order",
+          "body_md": "The target and environment are disjoint and $k>0$, so the weighted finite-difference identity yields coefficient $\\binom{|U|+k}{k}^{-1}$. Combining this with the lower and higher order definition branches proves the full three-branch statement.",
+          "justification": ""
+        },
+        {
+          "id": "sti-example",
+          "title": "Check empty targets and two positive orders",
+          "body_md": "For the outputs 7, 8, 9 and 13, the dividends are 7, 1, 2 and 3. At $k=1$, the empty target has value 7, the singletons have values $5/2$ and $7/2$, and the pair is above the order and has value zero. At $k=2$, the four values are 7, 1, 2 and 3, summing to 13. If the universe is empty and $k\\ge1$, only the lower-order empty target remains with value $b$. Positive order is the stated scope interpretation; the source does not explicitly print the inequality.",
+          "justification": ""
+        }
+      ]
+    },
+    "shared-harsanyi-dummy-nonempty": {
+      "title": "Shared valid property: additive dummy interactions vanish in nonempty environments",
+      "assumptions": [
+        "$i\\in N\\setminus S$; $S\\ne\\varnothing$; $c\\in\\mathbb R$; for every $U\\subseteq S$, $g(U\\cup\\{i\\})=g(U)+c$."
+      ],
+      "definitions": [
+        {
+          "id": "finite-game",
+          "body_md": "Fix a finite universe $N$. A game $g:\\mathcal P(N)\\to\\mathbb R$ has output baseline $b=g(\\varnothing)$ and interaction $I_g(A)=\\sum_{U\\subseteq A}(-1)^{|A|-|U|}g(U)$. Write $w_A=I_g(A)$. Every subset sum includes the empty set, and $w_\\varnothing=b$. The finite difference is $\\Delta_Tg(S)=\\sum_{L\\subseteq T}(-1)^{|T|-|L|}g(L\\cup S)$. No zero output baseline is assumed. Centering $g_0=g-b$ removes only the empty dividend."
+        }
+      ],
+      "proof_steps": [
+        {
+          "id": "dummy-nonempty-exact-domain",
+          "title": "State the exact domain of the valid public property",
+          "body_md": "This public result requires $S\\ne\\varnothing$ and has different quantifiers from the false CVPR proposition; it cannot replace that proposition. Since $i\\notin S$ and the marginal is the constant $c$, the interaction containing $i$ equals the interaction of the constant game $c$ on $S$.",
+          "justification": "The original Sparse statement can use this result if it already excludes empty environments; the original CVPR statement cannot."
+        },
+        {
+          "id": "dummy-nonempty-pair",
+          "title": "Cancel all subsets by an explicit pairing",
+          "body_md": "Pair subsets with and without $i$ to obtain $I_g(S\\cup\\{i\\})=c\\sum_{U\\subseteq S}(-1)^{|S|-|U|}$. Choose $j\\in S$, possible because $S$ is nonempty, and pair subsets with and without $j$. Their signs cancel, giving zero. For empty $S$, the sum equals $c$, demonstrating why the boundary condition is necessary.",
+          "justification": "No assumption $g(\\varnothing)=0$ is needed; the premises imply $c=g(\\{i\\})-g(\\varnothing)$."
+        }
+      ]
+    },
+    "shared-harsanyi-or-reconstruction": {
+      "title": "Shared proof: exact reconstruction by the OR complement transform",
+      "assumptions": [
+        "$T\\subseteq N$; $g:\\mathcal P(N)\\to\\mathbb R$. Nonempty OR dividends are the negative AND transform of the complement game; the empty OR dividend is the original output baseline."
+      ],
+      "definitions": [
+        {
+          "id": "finite-or-game",
+          "body_md": "Fix a finite universe $N$. A game $g:\\mathcal P(N)\\to\\mathbb R$ has output baseline $b=g(\\varnothing)$ and interaction $I_g(A)=\\sum_{U\\subseteq A}(-1)^{|A|-|U|}g(U)$. Write $w_A=I_g(A)$. Every subset sum includes the empty set, and $w_\\varnothing=b$. The finite difference is $\\Delta_Tg(S)=\\sum_{L\\subseteq T}(-1)^{|T|-|L|}g(L\\cup S)$. No zero output baseline is assumed. Centering $g_0=g-b$ removes only the empty dividend. For nonempty targets, $O_g^N(S)=-I_{g^c}(S)$ where $g^c(L)=g(N\\setminus L)$; the empty OR coefficient is $g(\\varnothing)$."
+        }
+      ],
+      "proof_steps": [
+        {
+          "id": "f11-or-filter",
+          "title": "Intersecting subsets are a difference of two powersets",
+          "body_md": "For $T\\subseteq N$ and $S\\subseteq N$, disjointness from $T$ is equivalent to $S\\subseteq N\\setminus T$. Therefore the intersecting family is $\\mathcal P(N)\\setminus\\mathcal P(N\\setminus T)$. The second powerset is contained in the first, so its sum is subtracted from the full sum. The empty set belongs to both full families and to neither intersecting family.",
+          "justification": ""
+        },
+        {
+          "id": "f11-or-transform",
+          "title": "Reconstruct the negative complement game twice",
+          "body_md": "Let $f(L)=-h(N\\setminus L)$. Linearity shows that each nonempty OR coefficient equals $I_f(S)$. Every intersecting set is nonempty, so substitute these coefficients throughout the intersecting sum. Apply reconstruction on $N$ and on $N\\setminus T$ to obtain $f(N)-f(N\\setminus T)=-h(\\varnothing)+h(T)$. The final complement equality uses the checked premise $T\\subseteq N$.",
+          "justification": ""
+        },
+        {
+          "id": "f11-or-baseline",
+          "title": "Add back the separately defined empty OR baseline",
+          "body_md": "The empty OR coefficient is $h(\\varnothing)=v_{or}(x_\\varnothing)$. Adding it to the intersecting sum gives $v_{or}(x_T)$. For empty $T$, the intersecting family is empty and only the baseline remains; for $T=N$, the full output is recovered. This also avoids double-counting source cases when $T$ is empty.",
+          "justification": ""
+        }
+      ]
+    }
+  }
+}

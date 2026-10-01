@@ -1,0 +1,63 @@
+                                          Towards Attributions of Input Variables in a Coalition
+
+A. Coalition attribution vs interaction effect
+Unlike the coalition attribution, interaction metrics (Harsanyi, 1959; Grabisch & Roubens, 1999; Sundararajan et al., 2020;
+Tsai et al., 2023) usually disentangle explicit effect I(S) of each specific subset S ⊆ N away from the effect I(S ′ ) of its
+overlapping neighbor subset S ′ , instead of considering how to merge effects of overlapping subsets into the attribution of a
+coalition T ⊆ S, S ′ . For example, the Harsanyi interaction (Harsanyi, 1959) separately calculates the interaction effects
+I(S1 = {x1 , x2 }), I(S2 = {x1 , x2 , x3 }), and I(S3 = {x1 , x2 , x3 , x4 }). There are no direct connections between these
+interaction effects. In contrast, the coalition attribution focuses on how to reasonably summarize these interaction effects
+into a single scalar importance score φ(S1 ) of the coalition S1 . In practice, both approaches can be applied to various types
+of applications, the analysis of byte blocks in cryptographic round functions (Zheng et al., 2024).
+
+B. Universal-matching property of AND-OR interactions
+(Li & Zhang, 2023) have proven that the output of an AI model can always be explained by AND-OR interactions. For
+each input sample x, we can randomly mask x and generate 2n different masked samples {xS }, w.r.t. S ⊆ N . Given each
+randomly masked sample xS , we can always use AND-OR interactions to mimic the network output v(S) on xS , as follows.
+
+
+
+                                                          X                           X
+                                      v(S) = v(∅) +                      Iand (L) +                     Ior (L)                                  (10)
+                                                              L⊆S,L̸=∅                    L∩S̸=∅,L̸=∅
+
+
+
+
+Furthermore, (Ren et al., 2023a) have shown that the effects of interactions in most DNNs are usually very sparse. The
+majority of interaction effects are nearly zero, and only a few of the most salient interaction effects are sufficient to
+approximate the network’s output v(N ).
+
+C. Proof of Theorem 2
+                                                                                          P           |S|!(n−|S|−1)!                     
+Proof. According to the definition of Shapley values, we have: ϕ(i) =                     S⊆N \{i}          n!         · v(S ∪ {i}) − v(S) =
+                             
+ES⊆N \{i} v(S ∪ {i}) − v(S) .
+                                                                                                      P                             P
+Then, according to Equation (10) in the paper, we have: ∀S ⊆ N, v(S) = v(∅) +                            L⊆S,L̸=∅ Iand (L)     +       L∩S̸=∅ Ior (L).
+Thus, we have:
+
+
+
+
+          v(S ∪ {i}) − v(S)
+                                                                                                                                       
+                        X                                   X                                    X                          X
+         = v(∅) +                        Iand (L) +                  Ior (L) − v(∅) +                   Iand (L) +               Ior (L)
+                        L⊆(S∪{i}),L̸=∅                 L∩(S∪{i})̸=∅                            L⊆S,L̸=∅                    L∩S̸=∅
+                                                                                                                    
+                      X                          X                             X                        X
+         =                       Iand (L) −              Iand (L) +                    Ior (L) −            Ior (L)
+                 L⊆(S∪{i}),L̸=∅                L⊆S,L̸=∅                   L∩(S∪{i})̸=∅                L∩S̸=∅
+             X                            X
+         =         Iand (L ∪ {i}) +            Ior (L ∪ {i})
+             L⊆S                      L∩S=∅
+             |         {z         }   |          {z           }
+                       A                         B
+
+
+
+
+This allows us to break down the Shapley value into ϕ(i) = ES⊆N \{i} [A + B].
+
+                                                                         12

@@ -1,0 +1,1483 @@
+{
+  "paper_id": "cvpr2023-sparse-concepts",
+  "symbols": [
+    {
+      "id": "sym-model",
+      "canonical_id": "sym-model",
+      "canonical_tex": "v:X\\to\\mathbb R",
+      "name_zh": "模型输出函数",
+      "definition_tex": "v(x_S)\\in\\mathbb R",
+      "description_md": "实数输出分数；分类实例用对数几率。模型的输入是完整输入对象，集合参数属于其掩码适配。",
+      "type_or_domain": "X→ℝ",
+      "scope": "all paper",
+      "assumptions": [],
+      "empty_set_convention": "不适用",
+      "baseline_convention": "固定输入基线r；不假定输出基线为0",
+      "aliases": [
+        "v(\\boldsymbol x)"
+      ],
+      "paper_mappings": [
+        {
+          "paper_id": "cvpr2023-sparse-concepts",
+          "version_id": "ver-cvpr2023-formal",
+          "original_tex": "v(\\boldsymbol x)",
+          "original_definition_tex": "v(x_S)\\in\\mathbb R",
+          "source_id": "src-cvpr2023-main",
+          "pdf_pages": [
+            3
+          ],
+          "equation_label": null,
+          "relation_type": "same_definition",
+          "canonical_id": "sym-model"
+        }
+      ],
+      "lean_names": [
+        "FullCvpr.maskedGame"
+      ],
+      "version": "full-paper-20260930",
+      "alignment_status": "agent_checked_definition",
+      "user_review_status": "pending"
+    },
+    {
+      "id": "sym-input",
+      "canonical_id": "sym-input",
+      "canonical_tex": "x",
+      "name_zh": "固定原输入",
+      "definition_tex": "x\\in X",
+      "description_md": "固定原输入",
+      "type_or_domain": "输入向量；原文n个变量",
+      "scope": "one input-specific explanation",
+      "assumptions": [],
+      "empty_set_convention": "不适用",
+      "baseline_convention": "固定输入基线r；不假定输出基线为0",
+      "aliases": [
+        "\\boldsymbol x"
+      ],
+      "paper_mappings": [
+        {
+          "paper_id": "cvpr2023-sparse-concepts",
+          "version_id": "ver-cvpr2023-formal",
+          "original_tex": "\\boldsymbol x",
+          "original_definition_tex": "x\\in X",
+          "source_id": "src-cvpr2023-main",
+          "pdf_pages": [
+            3
+          ],
+          "equation_label": null,
+          "relation_type": "same_definition",
+          "canonical_id": "sym-input"
+        }
+      ],
+      "lean_names": [],
+      "version": "full-paper-20260930",
+      "alignment_status": "agent_checked_definition",
+      "user_review_status": "pending"
+    },
+    {
+      "id": "sym-universe",
+      "canonical_id": "sym-universe",
+      "canonical_tex": "N",
+      "name_zh": "有限变量总体",
+      "definition_tex": "N=\\{1,\\ldots,n\\}",
+      "description_md": "有限变量总体",
+      "type_or_domain": "finite set",
+      "scope": "fixed input sample",
+      "assumptions": [],
+      "empty_set_convention": "n=0的代数边界允许；Shapley选i∈N时强制n≥1",
+      "baseline_convention": "固定输入基线r；不假定输出基线为0",
+      "aliases": [
+        "\\mathcal N"
+      ],
+      "paper_mappings": [
+        {
+          "paper_id": "cvpr2023-sparse-concepts",
+          "version_id": "ver-cvpr2023-formal",
+          "original_tex": "\\mathcal N",
+          "original_definition_tex": "N=\\{1,\\ldots,n\\}",
+          "source_id": "src-cvpr2023-main",
+          "pdf_pages": [
+            3
+          ],
+          "equation_label": null,
+          "relation_type": "same_definition",
+          "canonical_id": "sym-universe"
+        }
+      ],
+      "lean_names": [],
+      "version": "full-paper-20260930",
+      "alignment_status": "agent_checked_definition",
+      "user_review_status": "pending"
+    },
+    {
+      "id": "sym-cvpr-input-dimension",
+      "canonical_id": "sym-cvpr-input-dimension",
+      "canonical_tex": "n",
+      "name_zh": "输入变量数",
+      "definition_tex": "n=|N|",
+      "description_md": "输入变量数",
+      "type_or_domain": "ℕ",
+      "scope": "fixed input sample",
+      "assumptions": [],
+      "empty_set_convention": "n=0时有唯一空掩码",
+      "baseline_convention": "固定输入基线r；不假定输出基线为0",
+      "aliases": [
+        "n"
+      ],
+      "paper_mappings": [
+        {
+          "paper_id": "cvpr2023-sparse-concepts",
+          "version_id": "ver-cvpr2023-formal",
+          "original_tex": "n",
+          "original_definition_tex": "n=|N|",
+          "source_id": "src-cvpr2023-main",
+          "pdf_pages": [
+            3
+          ],
+          "equation_label": null,
+          "relation_type": "same_definition",
+          "canonical_id": "sym-cvpr-input-dimension"
+        }
+      ],
+      "lean_names": [],
+      "version": "full-paper-20260930",
+      "alignment_status": "agent_checked_definition",
+      "user_review_status": "pending"
+    },
+    {
+      "id": "sym-coalition",
+      "canonical_id": "sym-coalition",
+      "canonical_tex": "S,T,A,U,L\\subseteq N",
+      "name_zh": "变量子集",
+      "definition_tex": "S\\in\\mathcal P(N)",
+      "description_md": "变量子集",
+      "type_or_domain": "finite subset",
+      "scope": "各公式内哑变量/目标集合须区分",
+      "assumptions": [],
+      "empty_set_convention": "本篇子集和包括空集",
+      "baseline_convention": "固定输入基线r；不假定输出基线为0",
+      "aliases": [
+        "\\mathcal S,\\mathcal T,\\mathcal L"
+      ],
+      "paper_mappings": [
+        {
+          "paper_id": "cvpr2023-sparse-concepts",
+          "version_id": "ver-cvpr2023-formal",
+          "original_tex": "\\mathcal S,\\mathcal T,\\mathcal L",
+          "original_definition_tex": "S\\in\\mathcal P(N)",
+          "source_id": "src-cvpr2023-main",
+          "pdf_pages": [
+            3
+          ],
+          "equation_label": null,
+          "relation_type": "same_definition",
+          "canonical_id": "sym-coalition"
+        }
+      ],
+      "lean_names": [],
+      "version": "full-paper-20260930",
+      "alignment_status": "agent_checked_definition",
+      "user_review_status": "pending"
+    },
+    {
+      "id": "sym-input-baseline",
+      "canonical_id": "sym-input-baseline",
+      "canonical_tex": "r",
+      "name_zh": "输入基线向量",
+      "definition_tex": "r=(r_1,\\ldots,r_n)",
+      "description_md": "坐标缺失的替代输入值。不同r需各自重算g和交互；不是输出标量b。",
+      "type_or_domain": "与输入坐标同型的向量",
+      "scope": "mask rule and learned baseline",
+      "assumptions": [],
+      "empty_set_convention": "不适用",
+      "baseline_convention": "固定输入基线r；不假定输出基线为0",
+      "aliases": [
+        "\\boldsymbol r"
+      ],
+      "paper_mappings": [
+        {
+          "paper_id": "cvpr2023-sparse-concepts",
+          "version_id": "ver-cvpr2023-formal",
+          "original_tex": "\\boldsymbol r",
+          "original_definition_tex": "r=(r_1,\\ldots,r_n)",
+          "source_id": "src-cvpr2023-main",
+          "pdf_pages": [
+            3,
+            4,
+            5
+          ],
+          "equation_label": "main (4)",
+          "relation_type": "same_definition",
+          "canonical_id": "sym-input-baseline"
+        }
+      ],
+      "lean_names": [],
+      "version": "full-paper-20260930",
+      "alignment_status": "agent_checked_definition",
+      "user_review_status": "pending"
+    },
+    {
+      "id": "sym-mask",
+      "canonical_id": "sym-mask",
+      "canonical_tex": "x_S",
+      "name_zh": "掩码输入",
+      "definition_tex": "(x_S)_i=\\begin{cases}x_i&i\\in S,\\\\r_i&i\\notin S\\end{cases}",
+      "description_md": "掩码输入",
+      "type_or_domain": "X",
+      "scope": "fixed x and r",
+      "assumptions": [],
+      "empty_set_convention": "x空=r；xN=x",
+      "baseline_convention": "固定输入基线r；不假定输出基线为0",
+      "aliases": [
+        "\\boldsymbol x_\\mathcal S"
+      ],
+      "paper_mappings": [
+        {
+          "paper_id": "cvpr2023-sparse-concepts",
+          "version_id": "ver-cvpr2023-formal",
+          "original_tex": "\\boldsymbol x_\\mathcal S",
+          "original_definition_tex": "(x_S)_i=\\begin{cases}x_i&i\\in S,\\\\r_i&i\\notin S\\end{cases}",
+          "source_id": "src-cvpr2023-main",
+          "pdf_pages": [
+            3,
+            4
+          ],
+          "equation_label": "main (4)",
+          "relation_type": "same_definition",
+          "canonical_id": "sym-mask"
+        }
+      ],
+      "lean_names": [],
+      "version": "full-paper-20260930",
+      "alignment_status": "agent_checked_definition",
+      "user_review_status": "pending"
+    },
+    {
+      "id": "sym-game",
+      "canonical_id": "sym-game",
+      "canonical_tex": "g(S)",
+      "name_zh": "固定掩码集合函数",
+      "definition_tex": "g(S)=v(x_S)",
+      "description_md": "项目规范集合函数，与原AOG结构g不同。",
+      "type_or_domain": "𝒫(N)→ℝ",
+      "scope": "all finite algebra proofs",
+      "assumptions": [],
+      "empty_set_convention": "g空=b",
+      "baseline_convention": "固定输入基线r；不假定输出基线为0",
+      "aliases": [
+        "v(\\boldsymbol x_\\mathcal S)"
+      ],
+      "paper_mappings": [
+        {
+          "paper_id": "cvpr2023-sparse-concepts",
+          "version_id": "ver-cvpr2023-formal",
+          "original_tex": "v(\\boldsymbol x_\\mathcal S)",
+          "original_definition_tex": "g(S)=v(x_S)",
+          "source_id": "src-cvpr2023-main",
+          "pdf_pages": [
+            3
+          ],
+          "equation_label": null,
+          "relation_type": "derived_quantity",
+          "canonical_id": "sym-game"
+        }
+      ],
+      "lean_names": [
+        "Harsanyi.Game",
+        "FullCvpr.maskedGame"
+      ],
+      "version": "full-paper-20260930",
+      "alignment_status": "agent_checked_definition",
+      "user_review_status": "pending"
+    },
+    {
+      "id": "sym-output-baseline",
+      "canonical_id": "sym-output-baseline",
+      "canonical_tex": "b",
+      "name_zh": "输出基线标量",
+      "definition_tex": "b=v(x_\\varnothing)=g(\\varnothing)",
+      "description_md": "输出基线标量",
+      "type_or_domain": "ℝ",
+      "scope": "fixed model,input,baseline",
+      "assumptions": [],
+      "empty_set_convention": "空集交互等于b",
+      "baseline_convention": "固定输入基线r；不假定输出基线为0",
+      "aliases": [
+        "v(\\boldsymbol x_\\emptyset)"
+      ],
+      "paper_mappings": [
+        {
+          "paper_id": "cvpr2023-sparse-concepts",
+          "version_id": "ver-cvpr2023-formal",
+          "original_tex": "v(\\boldsymbol x_\\emptyset)",
+          "original_definition_tex": "b=v(x_\\varnothing)=g(\\varnothing)",
+          "source_id": "src-cvpr2023-main",
+          "pdf_pages": [
+            3
+          ],
+          "equation_label": null,
+          "relation_type": "derived_quantity",
+          "canonical_id": "sym-output-baseline"
+        }
+      ],
+      "lean_names": [
+        "Harsanyi.interaction_empty"
+      ],
+      "version": "full-paper-20260930",
+      "alignment_status": "agent_checked_definition",
+      "user_review_status": "pending"
+    },
+    {
+      "id": "sym-centered-game",
+      "canonical_id": "sym-centered-game",
+      "canonical_tex": "g_0(S)",
+      "name_zh": "中心化集合函数",
+      "definition_tex": "g_0(S)=g(S)-b",
+      "description_md": "规范派生量；不要将本篇w自动改成中心化交互。",
+      "type_or_domain": "𝒫(N)→ℝ",
+      "scope": "cross-paper convention only; not CVPR original convention",
+      "assumptions": [],
+      "empty_set_convention": "g0空=0是定义后果",
+      "baseline_convention": "固定输入基线r；不假定输出基线为0",
+      "aliases": [
+        "\\text{本篇没有单独中心化定义}"
+      ],
+      "paper_mappings": [
+        {
+          "paper_id": "cvpr2023-sparse-concepts",
+          "version_id": "ver-cvpr2023-formal",
+          "original_tex": "\\text{本篇没有单独中心化定义}",
+          "original_definition_tex": "g_0(S)=g(S)-b",
+          "source_id": "src-cvpr2023-main",
+          "pdf_pages": [
+            3
+          ],
+          "equation_label": null,
+          "relation_type": "centered_variant",
+          "canonical_id": "sym-centered-game"
+        }
+      ],
+      "lean_names": [
+        "Harsanyi.centered"
+      ],
+      "version": "full-paper-20260930",
+      "alignment_status": "agent_checked_definition",
+      "user_review_status": "pending"
+    },
+    {
+      "id": "sym-and-interaction",
+      "canonical_id": "sym-and-interaction",
+      "canonical_tex": "I_g(A)",
+      "name_zh": "原始AND交互",
+      "definition_tex": "I_g(A)=\\sum_{U\\subseteq A}(-1)^{|A|-|U|}g(U)",
+      "description_md": "原始AND交互",
+      "type_or_domain": "𝒫(N)→ℝ",
+      "scope": "CVPR original uncentered coefficients",
+      "assumptions": [],
+      "empty_set_convention": "I_g空=g空=b",
+      "baseline_convention": "固定输入基线r；不假定输出基线为0",
+      "aliases": [
+        "w_\\mathcal S"
+      ],
+      "paper_mappings": [
+        {
+          "paper_id": "cvpr2023-sparse-concepts",
+          "version_id": "ver-cvpr2023-formal",
+          "original_tex": "w_\\mathcal S",
+          "original_definition_tex": "I_g(A)=\\sum_{U\\subseteq A}(-1)^{|A|-|U|}g(U)",
+          "source_id": "src-cvpr2023-main",
+          "pdf_pages": [
+            3
+          ],
+          "equation_label": "main Theorem1; supp(1)",
+          "relation_type": "renaming",
+          "canonical_id": "sym-and-interaction"
+        }
+      ],
+      "lean_names": [
+        "Harsanyi.interaction"
+      ],
+      "version": "full-paper-20260930",
+      "alignment_status": "agent_checked_definition",
+      "user_review_status": "pending"
+    },
+    {
+      "id": "sym-order",
+      "canonical_id": "sym-order",
+      "canonical_tex": "|S|",
+      "name_zh": "交互阶数",
+      "definition_tex": "\\operatorname{order}(S)=|S|",
+      "description_md": "交互阶数",
+      "type_or_domain": "ℕ",
+      "scope": "coalition-specific cardinality",
+      "assumptions": [],
+      "empty_set_convention": "空集阶数0",
+      "baseline_convention": "固定输入基线r；不假定输出基线为0",
+      "aliases": [
+        "|\\mathcal S|"
+      ],
+      "paper_mappings": [
+        {
+          "paper_id": "cvpr2023-sparse-concepts",
+          "version_id": "ver-cvpr2023-formal",
+          "original_tex": "|\\mathcal S|",
+          "original_definition_tex": "\\operatorname{order}(S)=|S|",
+          "source_id": "src-cvpr2023-main",
+          "pdf_pages": [
+            3
+          ],
+          "equation_label": null,
+          "relation_type": "same_definition",
+          "canonical_id": "sym-order"
+        }
+      ],
+      "lean_names": [],
+      "version": "full-paper-20260930",
+      "alignment_status": "agent_checked_definition",
+      "user_review_status": "pending"
+    },
+    {
+      "id": "sym-cvpr-source-state",
+      "canonical_id": "sym-cvpr-source-state",
+      "canonical_tex": "X_i",
+      "name_zh": "二值变量保留状态",
+      "definition_tex": "X_i(x_T)=\\mathbf1_{i\\in T}",
+      "description_md": "二值变量保留状态",
+      "type_or_domain": "{0,1}",
+      "scope": "SCM input state",
+      "assumptions": [],
+      "empty_set_convention": "空掩码时所有Xi=0",
+      "baseline_convention": "固定输入基线r；不假定输出基线为0",
+      "aliases": [
+        "X_i"
+      ],
+      "paper_mappings": [
+        {
+          "paper_id": "cvpr2023-sparse-concepts",
+          "version_id": "ver-cvpr2023-formal",
+          "original_tex": "X_i",
+          "original_definition_tex": "X_i(x_T)=\\mathbf1_{i\\in T}",
+          "source_id": "src-cvpr2023-main",
+          "pdf_pages": [
+            3
+          ],
+          "equation_label": "main(1)",
+          "relation_type": "same_definition",
+          "canonical_id": "sym-cvpr-source-state"
+        }
+      ],
+      "lean_names": [],
+      "version": "full-paper-20260930",
+      "alignment_status": "agent_checked_definition",
+      "user_review_status": "pending"
+    },
+    {
+      "id": "sym-cvpr-trigger",
+      "canonical_id": "sym-cvpr-trigger",
+      "canonical_tex": "C_A(x_T)",
+      "name_zh": "AND模式触发状态",
+      "definition_tex": "C_A(x_T)=\\prod_{i\\in A}X_i=\\mathbf1_{A\\subseteq T}",
+      "description_md": "AND模式触发状态",
+      "type_or_domain": "{0,1}",
+      "scope": "SCM and AOG",
+      "assumptions": [],
+      "empty_set_convention": "空模式空积1",
+      "baseline_convention": "固定输入基线r；不假定输出基线为0",
+      "aliases": [
+        "C_\\mathcal S"
+      ],
+      "paper_mappings": [
+        {
+          "paper_id": "cvpr2023-sparse-concepts",
+          "version_id": "ver-cvpr2023-formal",
+          "original_tex": "C_\\mathcal S",
+          "original_definition_tex": "C_A(x_T)=\\prod_{i\\in A}X_i=\\mathbf1_{A\\subseteq T}",
+          "source_id": "src-cvpr2023-main",
+          "pdf_pages": [
+            3,
+            5
+          ],
+          "equation_label": null,
+          "relation_type": "same_definition",
+          "canonical_id": "sym-cvpr-trigger"
+        }
+      ],
+      "lean_names": [
+        "FullCvpr.andTrigger",
+        "FullCvpr.andTrigger_product"
+      ],
+      "version": "full-paper-20260930",
+      "alignment_status": "agent_checked_definition",
+      "user_review_status": "pending"
+    },
+    {
+      "id": "sym-cvpr-causal-output",
+      "canonical_id": "sym-cvpr-causal-output",
+      "canonical_tex": "Y_\\Omega(x_T)",
+      "name_zh": "因果图输出",
+      "definition_tex": "Y_\\Omega(x_T)=\\sum_{A\\in\\Omega}w_A C_A(x_T)",
+      "description_md": "因果图输出",
+      "type_or_domain": "ℝ",
+      "scope": "selected or full graph",
+      "assumptions": [],
+      "empty_set_convention": "若空模式保留则空输入Y=b；删去空模式则可有基线误差",
+      "baseline_convention": "固定输入基线r；不假定输出基线为0",
+      "aliases": [
+        "Y(\\boldsymbol x_\\mathcal S)"
+      ],
+      "paper_mappings": [
+        {
+          "paper_id": "cvpr2023-sparse-concepts",
+          "version_id": "ver-cvpr2023-formal",
+          "original_tex": "Y(\\boldsymbol x_\\mathcal S)",
+          "original_definition_tex": "Y_\\Omega(x_T)=\\sum_{A\\in\\Omega}w_A C_A(x_T)",
+          "source_id": "src-cvpr2023-main",
+          "pdf_pages": [
+            3,
+            4
+          ],
+          "equation_label": "main(2)",
+          "relation_type": "renaming",
+          "canonical_id": "sym-cvpr-causal-output"
+        }
+      ],
+      "lean_names": [
+        "FullCvpr.causalOutput"
+      ],
+      "version": "full-paper-20260930",
+      "alignment_status": "agent_checked_definition",
+      "user_review_status": "pending"
+    },
+    {
+      "id": "sym-cvpr-pattern-set",
+      "canonical_id": "sym-cvpr-pattern-set",
+      "canonical_tex": "\\Omega",
+      "name_zh": "保留模式集合",
+      "definition_tex": "\\Omega\\subseteq\\mathcal P(N)",
+      "description_md": "Theorem1中Omega=𝒫(N)；3.2中Omega是保留集合，不保证每个保留系数非零。两作用域明确区分。",
+      "type_or_domain": "finite set of finite subsets",
+      "scope": "full graph Theorem1 versus sparse selected graph 3.2",
+      "assumptions": [],
+      "empty_set_convention": "可含空模式；Omega本身也可为空",
+      "baseline_convention": "固定输入基线r；不假定输出基线为0",
+      "aliases": [
+        "\\Omega"
+      ],
+      "paper_mappings": [
+        {
+          "paper_id": "cvpr2023-sparse-concepts",
+          "version_id": "ver-cvpr2023-formal",
+          "original_tex": "\\Omega",
+          "original_definition_tex": "\\Omega\\subseteq\\mathcal P(N)",
+          "source_id": "src-cvpr2023-main",
+          "pdf_pages": [
+            3,
+            4,
+            5
+          ],
+          "equation_label": null,
+          "relation_type": "same_definition",
+          "canonical_id": "sym-cvpr-pattern-set"
+        }
+      ],
+      "lean_names": [],
+      "version": "full-paper-20260930",
+      "alignment_status": "agent_checked_definition",
+      "user_review_status": "pending"
+    },
+    {
+      "id": "sym-cvpr-alternative-coefficients",
+      "canonical_id": "sym-cvpr-alternative-coefficients",
+      "canonical_tex": "d_A",
+      "name_zh": "另一组重构系数",
+      "definition_tex": "\\forall T\\subseteq N,\\;g(T)=\\sum_{A\\subseteq T}d_A",
+      "description_md": "另一组重构系数",
+      "type_or_domain": "𝒫(N)→ℝ",
+      "scope": "Appendix C uniqueness",
+      "assumptions": [],
+      "empty_set_convention": "d空=g空",
+      "baseline_convention": "固定输入基线r；不假定输出基线为0",
+      "aliases": [
+        "\\tilde w_\\mathcal S"
+      ],
+      "paper_mappings": [
+        {
+          "paper_id": "cvpr2023-sparse-concepts",
+          "version_id": "ver-cvpr2023-formal",
+          "original_tex": "\\tilde w_\\mathcal S",
+          "original_definition_tex": "\\forall T\\subseteq N,\\;g(T)=\\sum_{A\\subseteq T}d_A",
+          "source_id": "src-cvpr2023-supplement",
+          "pdf_pages": [
+            3
+          ],
+          "equation_label": null,
+          "relation_type": "renaming",
+          "canonical_id": "sym-cvpr-alternative-coefficients"
+        }
+      ],
+      "lean_names": [
+        "Harsanyi.reconstruction_unique"
+      ],
+      "version": "full-paper-20260930",
+      "alignment_status": "agent_checked_definition",
+      "user_review_status": "pending"
+    },
+    {
+      "id": "sym-cvpr-context-interaction",
+      "canonical_id": "sym-cvpr-context-interaction",
+      "canonical_tex": "I_{g_i}(S)",
+      "name_zh": "变量i始终存在的上下文交互",
+      "definition_tex": "g_i(U)=g(U\\cup\\{i\\});\\ I_{g_i}(S)=\\sum_{U\\subseteq S}(-1)^{|S|-|U|}g_i(U)",
+      "description_md": "变量i始终存在的上下文交互",
+      "type_or_domain": "ℝ",
+      "scope": "recursive axiom",
+      "assumptions": [],
+      "empty_set_convention": "I_gi空=g(i)，不是原基线b",
+      "baseline_convention": "固定输入基线r；不假定输出基线为0",
+      "aliases": [
+        "w_{\\mathcal S|i\\ present}"
+      ],
+      "paper_mappings": [
+        {
+          "paper_id": "cvpr2023-sparse-concepts",
+          "version_id": "ver-cvpr2023-formal",
+          "original_tex": "w_{\\mathcal S|i\\ present}",
+          "original_definition_tex": "g_i(U)=g(U\\cup\\{i\\});\\ I_{g_i}(S)=\\sum_{U\\subseteq S}(-1)^{|S|-|U|}g_i(U)",
+          "source_id": "src-cvpr2023-supplement",
+          "pdf_pages": [
+            2,
+            5
+          ],
+          "equation_label": null,
+          "relation_type": "renaming",
+          "canonical_id": "sym-cvpr-context-interaction"
+        }
+      ],
+      "lean_names": [
+        "Harsanyi.interaction_context_difference"
+      ],
+      "version": "full-paper-20260930",
+      "alignment_status": "agent_checked_definition",
+      "user_review_status": "pending"
+    },
+    {
+      "id": "sym-cvpr-permutation",
+      "canonical_id": "sym-cvpr-permutation",
+      "canonical_tex": "\\pi",
+      "name_zh": "变量置换",
+      "definition_tex": "\\pi:N\\simeq N;\\;g^\\pi(V)=g(\\pi^{-1}V)",
+      "description_md": "变量置换",
+      "type_or_domain": "bijection and relabeled game",
+      "scope": "anonymity axiom",
+      "assumptions": [],
+      "empty_set_convention": "π空=空",
+      "baseline_convention": "固定输入基线r；不假定输出基线为0",
+      "aliases": [
+        "\\pi,\\pi v"
+      ],
+      "paper_mappings": [
+        {
+          "paper_id": "cvpr2023-sparse-concepts",
+          "version_id": "ver-cvpr2023-formal",
+          "original_tex": "\\pi,\\pi v",
+          "original_definition_tex": "\\pi:N\\simeq N;\\;g^\\pi(V)=g(\\pi^{-1}V)",
+          "source_id": "src-cvpr2023-supplement",
+          "pdf_pages": [
+            2,
+            5
+          ],
+          "equation_label": null,
+          "relation_type": "renaming",
+          "canonical_id": "sym-cvpr-permutation"
+        }
+      ],
+      "lean_names": [
+        "Harsanyi.interaction_relabel"
+      ],
+      "version": "full-paper-20260930",
+      "alignment_status": "agent_checked_definition",
+      "user_review_status": "pending"
+    },
+    {
+      "id": "sym-cvpr-pure-and-coefficient",
+      "canonical_id": "sym-cvpr-pure-and-coefficient",
+      "canonical_tex": "c",
+      "name_zh": "纯AND常数效应",
+      "definition_tex": "u_A(S)=c\\,\\mathbf1_{A\\subseteq S}",
+      "description_md": "纯AND常数效应",
+      "type_or_domain": "ℝ",
+      "scope": "interaction distribution axiom",
+      "assumptions": [],
+      "empty_set_convention": "A空时uA为常数c；唯一空交互c",
+      "baseline_convention": "固定输入基线r；不假定输出基线为0",
+      "aliases": [
+        "c"
+      ],
+      "paper_mappings": [
+        {
+          "paper_id": "cvpr2023-sparse-concepts",
+          "version_id": "ver-cvpr2023-formal",
+          "original_tex": "c",
+          "original_definition_tex": "u_A(S)=c\\,\\mathbf1_{A\\subseteq S}",
+          "source_id": "src-cvpr2023-supplement",
+          "pdf_pages": [
+            2,
+            5,
+            6
+          ],
+          "equation_label": null,
+          "relation_type": "renaming",
+          "canonical_id": "sym-cvpr-pure-and-coefficient"
+        }
+      ],
+      "lean_names": [
+        "Harsanyi.unanimity"
+      ],
+      "version": "full-paper-20260930",
+      "alignment_status": "agent_checked_definition",
+      "user_review_status": "pending"
+    },
+    {
+      "id": "sym-cvpr-marginal",
+      "canonical_id": "sym-cvpr-marginal",
+      "canonical_tex": "\\Delta_Tg(S)",
+      "name_zh": "环境中的高阶边际差分",
+      "definition_tex": "\\Delta_Tg(S)=\\sum_{L\\subseteq T}(-1)^{|T|-|L|}g(L\\cup S)",
+      "description_md": "要求差分集合T与环境S不相交。与正文近似残差Δ不同。",
+      "type_or_domain": "ℝ",
+      "scope": "Theorem5 and attribution definitions",
+      "assumptions": [
+        "T\\cap S=\\varnothing"
+      ],
+      "empty_set_convention": "T空时等于g(S)；S空时等于I_g(T)",
+      "baseline_convention": "固定输入基线r；不假定输出基线为0",
+      "aliases": [
+        "\\Delta v_\\mathcal T(\\boldsymbol x_\\mathcal S)"
+      ],
+      "paper_mappings": [
+        {
+          "paper_id": "cvpr2023-sparse-concepts",
+          "version_id": "ver-cvpr2023-formal",
+          "original_tex": "\\Delta v_\\mathcal T(\\boldsymbol x_\\mathcal S)",
+          "original_definition_tex": "\\Delta_Tg(S)=\\sum_{L\\subseteq T}(-1)^{|T|-|L|}g(L\\cup S)",
+          "source_id": "src-cvpr2023-supplement",
+          "pdf_pages": [
+            2,
+            6
+          ],
+          "equation_label": null,
+          "relation_type": "renaming",
+          "canonical_id": "sym-cvpr-marginal"
+        }
+      ],
+      "lean_names": [
+        "Harsanyi.higherMarginal"
+      ],
+      "version": "full-paper-20260930",
+      "alignment_status": "agent_checked_definition",
+      "user_review_status": "pending"
+    },
+    {
+      "id": "sym-shapley",
+      "canonical_id": "sym-shapley",
+      "canonical_tex": "\\phi_g(i)",
+      "name_zh": "经典Shapley值",
+      "definition_tex": "\\phi_g(i)=\\sum_{S\\subseteq N\\setminus\\{i\\}}\\frac{|S|!(n-|S|-1)!}{n!}[g(S\\cup\\{i\\})-g(S)]",
+      "description_md": "先用经典阶乘权重定义，再证明等分交互式；非定义同义反复。",
+      "type_or_domain": "ℝ, i∈N",
+      "scope": "Theorem2",
+      "assumptions": [
+        "i∈N，故n≥1"
+      ],
+      "empty_set_convention": "环境S可空；w空不分给i",
+      "baseline_convention": "固定输入基线r；不假定输出基线为0",
+      "aliases": [
+        "\\phi(i)"
+      ],
+      "paper_mappings": [
+        {
+          "paper_id": "cvpr2023-sparse-concepts",
+          "version_id": "ver-cvpr2023-formal",
+          "original_tex": "\\phi(i)",
+          "original_definition_tex": "\\phi_g(i)=\\sum_{S\\subseteq N\\setminus\\{i\\}}\\frac{|S|!(n-|S|-1)!}{n!}[g(S\\cup\\{i\\})-g(S)]",
+          "source_id": "src-cvpr2023-main",
+          "pdf_pages": [
+            4
+          ],
+          "equation_label": null,
+          "relation_type": "renaming",
+          "canonical_id": "sym-shapley"
+        }
+      ],
+      "lean_names": [
+        "Harsanyi.factorialShapley",
+        "Harsanyi.factorialShapley_eq_dividends"
+      ],
+      "version": "full-paper-20260930",
+      "alignment_status": "agent_checked_definition",
+      "user_review_status": "pending"
+    },
+    {
+      "id": "sym-cvpr-sii",
+      "canonical_id": "sym-cvpr-sii",
+      "canonical_tex": "I_g^{\\rm Shapley}(T)",
+      "name_zh": "Shapley interaction 指数",
+      "definition_tex": "\\sum_{S\\subseteq N\\setminus T}\\frac{|S|!(n-|T|-|S|)!}{(n-|T|+1)!}\\Delta_Tg(S)",
+      "description_md": "Shapley interaction 指数",
+      "type_or_domain": "ℝ",
+      "scope": "Theorem3",
+      "assumptions": [],
+      "empty_set_convention": "原T⊆N量词允许T空；采用公式的空目标延伸，基线b参与",
+      "baseline_convention": "固定输入基线r；不假定输出基线为0",
+      "aliases": [
+        "I^{Shapley}(\\mathcal T)"
+      ],
+      "paper_mappings": [
+        {
+          "paper_id": "cvpr2023-sparse-concepts",
+          "version_id": "ver-cvpr2023-formal",
+          "original_tex": "I^{Shapley}(\\mathcal T)",
+          "original_definition_tex": "\\sum_{S\\subseteq N\\setminus T}\\frac{|S|!(n-|T|-|S|)!}{(n-|T|+1)!}\\Delta_Tg(S)",
+          "source_id": "src-cvpr2023-supplement",
+          "pdf_pages": [
+            2,
+            8,
+            9
+          ],
+          "equation_label": null,
+          "relation_type": "renaming",
+          "canonical_id": "sym-cvpr-sii"
+        }
+      ],
+      "lean_names": [
+        "Harsanyi.factorialShapleyInteraction"
+      ],
+      "version": "full-paper-20260930",
+      "alignment_status": "agent_checked_definition",
+      "user_review_status": "pending"
+    },
+    {
+      "id": "sym-cvpr-sti",
+      "canonical_id": "sym-cvpr-sti",
+      "canonical_tex": "I_g^{\\rm ST(k)}(T)",
+      "name_zh": "Shapley–Taylor 指数",
+      "definition_tex": "\\begin{cases}\\Delta_Tg(\\varnothing)&|T|<k,\\\\\\frac{k}{n}\\sum_{S\\subseteq N\\setminus T}\\binom{n-1}{|S|}^{-1}\\Delta_Tg(S)&|T|=k,\\\\0&|T|>k\\end{cases}",
+      "description_md": "Shapley–Taylor 指数",
+      "type_or_domain": "ℝ; positive order k",
+      "scope": "Theorem4",
+      "assumptions": [
+        "T⊆N；正阶k≥1是有效定义域核验，原文只称k-th未明写不等式；k=0不在本轮对齐范围"
+      ],
+      "empty_set_convention": "T空、k>0属低阶分支，值b；N空仍成立",
+      "baseline_convention": "固定输入基线r；不假定输出基线为0",
+      "aliases": [
+        "I^{Shapley\\text{-}Taylor(k)}(\\mathcal T)"
+      ],
+      "paper_mappings": [
+        {
+          "paper_id": "cvpr2023-sparse-concepts",
+          "version_id": "ver-cvpr2023-formal",
+          "original_tex": "I^{Shapley\\text{-}Taylor(k)}(\\mathcal T)",
+          "original_definition_tex": "\\begin{cases}\\Delta_Tg(\\varnothing)&|T|<k,\\\\\\frac{k}{n}\\sum_{S\\subseteq N\\setminus T}\\binom{n-1}{|S|}^{-1}\\Delta_Tg(S)&|T|=k,\\\\0&|T|>k\\end{cases}",
+          "source_id": "src-cvpr2023-supplement",
+          "pdf_pages": [
+            2,
+            9,
+            10,
+            11
+          ],
+          "equation_label": null,
+          "relation_type": "renaming",
+          "canonical_id": "sym-cvpr-sti"
+        }
+      ],
+      "lean_names": [
+        "Harsanyi.shapleyTaylor"
+      ],
+      "version": "full-paper-20260930",
+      "alignment_status": "agent_checked_definition",
+      "user_review_status": "pending"
+    },
+    {
+      "id": "sym-cvpr-sti-order",
+      "canonical_id": "sym-cvpr-sti-order",
+      "canonical_tex": "k",
+      "name_zh": "Shapley–Taylor最高保留阶数",
+      "definition_tex": "k\\in\\mathbb N_{>0}",
+      "description_md": "独立于输入维数n和单个交互阶数|S|。作者原文只写k-th，项目正阶域是显式语义对齐，不能伪称作者给出k>0。",
+      "type_or_domain": "positive integer",
+      "scope": "Theorem4",
+      "assumptions": [
+        "当前STI闭式核验采用正整数阶数 $k>0$ 的有效定义域解释；CVPR原文仅写k-th，未显式写不等式；k=0没有计入已核验范围。"
+      ],
+      "empty_set_convention": "不适用",
+      "baseline_convention": "固定输入基线r；不假定输出基线为0",
+      "aliases": [
+        "k"
+      ],
+      "paper_mappings": [
+        {
+          "paper_id": "cvpr2023-sparse-concepts",
+          "version_id": "ver-cvpr2023-formal",
+          "original_tex": "k",
+          "original_definition_tex": "k\\in\\mathbb N_{>0}",
+          "source_id": "src-cvpr2023-supplement",
+          "pdf_pages": [
+            9,
+            10,
+            11
+          ],
+          "equation_label": null,
+          "relation_type": "renaming",
+          "canonical_id": "sym-cvpr-sti-order"
+        }
+      ],
+      "lean_names": [
+        "Harsanyi.shapleyTaylor_eq_dividends"
+      ],
+      "version": "full-paper-20260930",
+      "alignment_status": "agent_checked_definition",
+      "user_review_status": "pending"
+    },
+    {
+      "id": "sym-cvpr-beta",
+      "canonical_id": "sym-cvpr-beta",
+      "canonical_tex": "B(p,q)",
+      "name_zh": "Beta辅助函数",
+      "definition_tex": "B(p,q)=\\int_0^1t^{p-1}(1-t)^{q-1}dt",
+      "description_md": "原第7页定义印作(1−t)^{1−q}，与后用公式冲突，原式保留在issue/transcript；新证明不用Beta。",
+      "type_or_domain": "p,q>0",
+      "scope": "author Theorem2–4 proof ingredient",
+      "assumptions": [
+        "正确定义域p,q>0；原路线调用q=0非法"
+      ],
+      "empty_set_convention": "不适用",
+      "baseline_convention": "固定输入基线r；不假定输出基线为0",
+      "aliases": [
+        "B(p,q)"
+      ],
+      "paper_mappings": [
+        {
+          "paper_id": "cvpr2023-sparse-concepts",
+          "version_id": "ver-cvpr2023-formal",
+          "original_tex": "B(p,q)",
+          "original_definition_tex": "B(p,q)=\\int_0^1x^{p-1}(1-x)^{1-q}\\,dx",
+          "source_id": "src-cvpr2023-supplement",
+          "pdf_pages": [
+            7
+          ],
+          "equation_label": null,
+          "relation_type": "conflict",
+          "canonical_id": "sym-cvpr-beta",
+          "relationship": "conflict"
+        }
+      ],
+      "lean_names": [],
+      "version": "full-paper-20260930",
+      "alignment_status": "agent_checked_definition",
+      "user_review_status": "pending"
+    },
+    {
+      "id": "sym-cvpr-coefficient-weight",
+      "canonical_id": "sym-cvpr-coefficient-weight",
+      "canonical_tex": "\\alpha_L",
+      "name_zh": "原证明重排后的组合系数",
+      "definition_tex": "\\alpha_L=\\sum_r\\binom{m}{|L|+r}^{-1}\\binom{m-|L|}{r}",
+      "description_md": "按所属定理保存参数；不是AOG共用子节点α。",
+      "type_or_domain": "ℝ",
+      "scope": "theorem-specific coefficient; m differs in Theorem2/3/4",
+      "assumptions": [],
+      "empty_set_convention": "L空必须保留，不可套用原非法Beta零参数",
+      "baseline_convention": "固定输入基线r；不假定输出基线为0",
+      "aliases": [
+        "\\alpha_\\mathcal L"
+      ],
+      "paper_mappings": [
+        {
+          "paper_id": "cvpr2023-sparse-concepts",
+          "version_id": "ver-cvpr2023-formal",
+          "original_tex": "\\alpha_\\mathcal L",
+          "original_definition_tex": "\\alpha_L=\\sum_r\\binom{m}{|L|+r}^{-1}\\binom{m-|L|}{r}",
+          "source_id": "src-cvpr2023-supplement",
+          "pdf_pages": [
+            7,
+            8,
+            9,
+            10,
+            11
+          ],
+          "equation_label": null,
+          "relation_type": "renaming",
+          "canonical_id": "sym-cvpr-coefficient-weight"
+        }
+      ],
+      "lean_names": [],
+      "version": "full-paper-20260930",
+      "alignment_status": "agent_checked_definition",
+      "user_review_status": "pending"
+    },
+    {
+      "id": "sym-cvpr-support-budget",
+      "canonical_id": "sym-cvpr-support-budget",
+      "canonical_tex": "M_{\\rm max}",
+      "name_zh": "最大保留模式数",
+      "definition_tex": "|\\Omega|\\le M_{\\rm max}",
+      "description_md": "与AOG节点集合𝓜不同。原L0=|Omega|有零系数边界问题。",
+      "type_or_domain": "ℕ",
+      "scope": "main Eq.(5)",
+      "assumptions": [],
+      "empty_set_convention": "不适用",
+      "baseline_convention": "固定输入基线r；不假定输出基线为0",
+      "aliases": [
+        "M"
+      ],
+      "paper_mappings": [
+        {
+          "paper_id": "cvpr2023-sparse-concepts",
+          "version_id": "ver-cvpr2023-formal",
+          "original_tex": "M",
+          "original_definition_tex": "|\\Omega|\\le M_{\\rm max}",
+          "source_id": "src-cvpr2023-main",
+          "pdf_pages": [
+            4
+          ],
+          "equation_label": null,
+          "relation_type": "renaming",
+          "canonical_id": "sym-cvpr-support-budget"
+        }
+      ],
+      "lean_names": [],
+      "version": "full-paper-20260930",
+      "alignment_status": "agent_checked_definition",
+      "user_review_status": "pending"
+    },
+    {
+      "id": "sym-cvpr-lasso-penalty",
+      "canonical_id": "sym-cvpr-lasso-penalty",
+      "canonical_tex": "\\lambda",
+      "name_zh": "稀疏惩罚系数",
+      "definition_tex": "L=\\operatorname{unfaith}(w_\\Omega)+\\lambda\\|w_\\Omega\\|_1",
+      "description_md": "原约束→罚目标等价箭头并无一般证明，作为算法解释记录。",
+      "type_or_domain": "real hyperparameter",
+      "scope": "main Eq.(6)",
+      "assumptions": [],
+      "empty_set_convention": "不适用",
+      "baseline_convention": "固定输入基线r；不假定输出基线为0",
+      "aliases": [
+        "\\lambda"
+      ],
+      "paper_mappings": [
+        {
+          "paper_id": "cvpr2023-sparse-concepts",
+          "version_id": "ver-cvpr2023-formal",
+          "original_tex": "\\lambda",
+          "original_definition_tex": "L=\\operatorname{unfaith}(w_\\Omega)+\\lambda\\|w_\\Omega\\|_1",
+          "source_id": "src-cvpr2023-main",
+          "pdf_pages": [
+            4,
+            5
+          ],
+          "equation_label": null,
+          "relation_type": "renaming",
+          "canonical_id": "sym-cvpr-lasso-penalty"
+        }
+      ],
+      "lean_names": [],
+      "version": "full-paper-20260930",
+      "alignment_status": "agent_checked_definition",
+      "user_review_status": "pending"
+    },
+    {
+      "id": "sym-cvpr-unfaithfulness",
+      "canonical_id": "sym-cvpr-unfaithfulness",
+      "canonical_tex": "\\operatorname{unfaith}(w_\\Omega)",
+      "name_zh": "全部掩码平方残差和",
+      "definition_tex": "\\sum_{T\\subseteq N}[g(T)-Y_\\Omega(x_T)]^2",
+      "description_md": "全部掩码平方残差和",
+      "type_or_domain": "ℝ≥0",
+      "scope": "main Eq.(5)",
+      "assumptions": [],
+      "empty_set_convention": "含空掩码；完整权重必0，截断权重不必0",
+      "baseline_convention": "固定输入基线r；不假定输出基线为0",
+      "aliases": [
+        "\\mathrm{unfaith}(\\boldsymbol w_\\Omega)"
+      ],
+      "paper_mappings": [
+        {
+          "paper_id": "cvpr2023-sparse-concepts",
+          "version_id": "ver-cvpr2023-formal",
+          "original_tex": "\\mathrm{unfaith}(\\boldsymbol w_\\Omega)",
+          "original_definition_tex": "\\sum_{T\\subseteq N}[g(T)-Y_\\Omega(x_T)]^2",
+          "source_id": "src-cvpr2023-main",
+          "pdf_pages": [
+            4
+          ],
+          "equation_label": null,
+          "relation_type": "renaming",
+          "canonical_id": "sym-cvpr-unfaithfulness"
+        }
+      ],
+      "lean_names": [
+        "FullCvpr.complete_unfaithfulness_zero"
+      ],
+      "version": "full-paper-20260930",
+      "alignment_status": "agent_checked_definition",
+      "user_review_status": "pending"
+    },
+    {
+      "id": "sym-cvpr-residual",
+      "canonical_id": "sym-cvpr-residual",
+      "canonical_tex": "\\Delta_{\\rm residual}",
+      "name_zh": "完整输入上未解释效应",
+      "definition_tex": "\\Delta_{\\rm residual}=g(N)-\\sum_{S\\in\\Omega}w_S",
+      "description_md": "标量残差；不是Theorem5带集合下标的高阶差分Δ_Tg(S)。",
+      "type_or_domain": "ℝ",
+      "scope": "main Eq.(7)",
+      "assumptions": [],
+      "empty_set_convention": "不适用",
+      "baseline_convention": "固定输入基线r；不假定输出基线为0",
+      "aliases": [
+        "\\Delta"
+      ],
+      "paper_mappings": [
+        {
+          "paper_id": "cvpr2023-sparse-concepts",
+          "version_id": "ver-cvpr2023-formal",
+          "original_tex": "\\Delta",
+          "original_definition_tex": "\\Delta_{\\rm residual}=g(N)-\\sum_{S\\in\\Omega}w_S",
+          "source_id": "src-cvpr2023-main",
+          "pdf_pages": [
+            5
+          ],
+          "equation_label": null,
+          "relation_type": "renaming",
+          "canonical_id": "sym-cvpr-residual"
+        }
+      ],
+      "lean_names": [],
+      "version": "full-paper-20260930",
+      "alignment_status": "agent_checked_definition",
+      "user_review_status": "pending"
+    },
+    {
+      "id": "sym-cvpr-explained-ratio",
+      "canonical_id": "sym-cvpr-explained-ratio",
+      "canonical_tex": "R_\\Omega",
+      "name_zh": "已解释效应比例",
+      "definition_tex": "R_\\Omega=\\frac{\\sum_{S\\in\\Omega}|w_S|}{\\sum_{S\\in\\Omega}|w_S|+|\\Delta_{\\rm residual}|}",
+      "description_md": "已解释效应比例",
+      "type_or_domain": "[0,1] when denominator positive",
+      "scope": "main Eq.(7)",
+      "assumptions": [
+        "表达式分母>0；原文未明示零分母规则"
+      ],
+      "empty_set_convention": "Omega空且gN=0时原定义0/0未给约定",
+      "baseline_convention": "固定输入基线r；不假定输出基线为0",
+      "aliases": [
+        "R_\\Omega"
+      ],
+      "paper_mappings": [
+        {
+          "paper_id": "cvpr2023-sparse-concepts",
+          "version_id": "ver-cvpr2023-formal",
+          "original_tex": "R_\\Omega",
+          "original_definition_tex": "R_\\Omega=\\frac{\\sum_{S\\in\\Omega}|w_S|}{\\sum_{S\\in\\Omega}|w_S|+|\\Delta_{\\rm residual}|}",
+          "source_id": "src-cvpr2023-main",
+          "pdf_pages": [
+            5
+          ],
+          "equation_label": null,
+          "relation_type": "renaming",
+          "canonical_id": "sym-cvpr-explained-ratio"
+        }
+      ],
+      "lean_names": [],
+      "version": "full-paper-20260930",
+      "alignment_status": "agent_checked_definition",
+      "user_review_status": "pending"
+    },
+    {
+      "id": "sym-cvpr-aog",
+      "canonical_id": "sym-cvpr-aog",
+      "canonical_tex": "G",
+      "name_zh": "And-Or图结构",
+      "definition_tex": "G=\\text{learned And-Or graph}",
+      "description_md": "原字母g是图，不是规范集合函数g(S)；必须按作用域区分。",
+      "type_or_domain": "finite graph",
+      "scope": "main 3.3 and MDL",
+      "assumptions": [],
+      "empty_set_convention": "不适用",
+      "baseline_convention": "固定输入基线r；不假定输出基线为0",
+      "aliases": [
+        "g"
+      ],
+      "paper_mappings": [
+        {
+          "paper_id": "cvpr2023-sparse-concepts",
+          "version_id": "ver-cvpr2023-formal",
+          "original_tex": "g",
+          "original_definition_tex": "G=\\text{learned And-Or graph}",
+          "source_id": "src-cvpr2023-main",
+          "pdf_pages": [
+            5,
+            6
+          ],
+          "equation_label": null,
+          "relation_type": "conflict",
+          "canonical_id": "sym-cvpr-aog"
+        }
+      ],
+      "lean_names": [],
+      "version": "full-paper-20260930",
+      "alignment_status": "agent_checked_definition",
+      "user_review_status": "pending"
+    },
+    {
+      "id": "sym-cvpr-node-set",
+      "canonical_id": "sym-cvpr-node-set",
+      "canonical_tex": "\\mathcal M",
+      "name_zh": "AOG节点词典集合",
+      "definition_tex": "\\mathcal M=N\\cup\\Omega_{\\rm coalition}",
+      "description_md": "叶变量与新共享AND节点的集合；不是最大模式数M。",
+      "type_or_domain": "finite node set",
+      "scope": "main3.3 and supp F",
+      "assumptions": [],
+      "empty_set_convention": "不适用",
+      "baseline_convention": "固定输入基线r；不假定输出基线为0",
+      "aliases": [
+        "\\mathcal M"
+      ],
+      "paper_mappings": [
+        {
+          "paper_id": "cvpr2023-sparse-concepts",
+          "version_id": "ver-cvpr2023-formal",
+          "original_tex": "\\mathcal M",
+          "original_definition_tex": "\\mathcal M=N\\cup\\Omega_{\\rm coalition}",
+          "source_id": "src-cvpr2023-main",
+          "pdf_pages": [
+            5,
+            6
+          ],
+          "equation_label": null,
+          "relation_type": "same_definition",
+          "canonical_id": "sym-cvpr-node-set"
+        }
+      ],
+      "lean_names": [],
+      "version": "full-paper-20260930",
+      "alignment_status": "agent_checked_definition",
+      "user_review_status": "pending"
+    },
+    {
+      "id": "sym-cvpr-shared-node",
+      "canonical_id": "sym-cvpr-shared-node",
+      "canonical_tex": "\\alpha,\\beta",
+      "name_zh": "共享AND子模式节点",
+      "definition_tex": "\\beta=\\{x_5,x_6\\}",
+      "description_md": "独立于定理证明中的组合系数α_L。",
+      "type_or_domain": "finite coalition label",
+      "scope": "main Fig1 and 3.3",
+      "assumptions": [],
+      "empty_set_convention": "不适用",
+      "baseline_convention": "固定输入基线r；不假定输出基线为0",
+      "aliases": [
+        "\\alpha,\\beta"
+      ],
+      "paper_mappings": [
+        {
+          "paper_id": "cvpr2023-sparse-concepts",
+          "version_id": "ver-cvpr2023-formal",
+          "original_tex": "\\alpha,\\beta",
+          "original_definition_tex": "\\beta=\\{x_5,x_6\\}",
+          "source_id": "src-cvpr2023-main",
+          "pdf_pages": [
+            5
+          ],
+          "equation_label": null,
+          "relation_type": "same_definition",
+          "canonical_id": "sym-cvpr-shared-node"
+        }
+      ],
+      "lean_names": [],
+      "version": "full-paper-20260930",
+      "alignment_status": "agent_checked_definition",
+      "user_review_status": "pending"
+    },
+    {
+      "id": "sym-cvpr-children",
+      "canonical_id": "sym-cvpr-children",
+      "canonical_tex": "\\operatorname{Child}(A)",
+      "name_zh": "组成一个模式的子节点",
+      "definition_tex": "C_A=\\prod_{B\\in\\operatorname{Child}(A)}C_B",
+      "description_md": "组成一个模式的子节点",
+      "type_or_domain": "finite set of graph child nodes",
+      "scope": "main3.3",
+      "assumptions": [],
+      "empty_set_convention": "空子节点族积1",
+      "baseline_convention": "固定输入基线r；不假定输出基线为0",
+      "aliases": [
+        "\\operatorname{Child}(\\mathcal S)"
+      ],
+      "paper_mappings": [
+        {
+          "paper_id": "cvpr2023-sparse-concepts",
+          "version_id": "ver-cvpr2023-formal",
+          "original_tex": "\\operatorname{Child}(\\mathcal S)",
+          "original_definition_tex": "C_A=\\prod_{B\\in\\operatorname{Child}(A)}C_B",
+          "source_id": "src-cvpr2023-main",
+          "pdf_pages": [
+            5
+          ],
+          "equation_label": null,
+          "relation_type": "same_definition",
+          "canonical_id": "sym-cvpr-children"
+        }
+      ],
+      "lean_names": [],
+      "version": "full-paper-20260930",
+      "alignment_status": "agent_checked_definition",
+      "user_review_status": "pending"
+    },
+    {
+      "id": "sym-cvpr-description-length",
+      "canonical_id": "sym-cvpr-description-length",
+      "canonical_tex": "L(G,\\mathcal M)",
+      "name_zh": "MDL总描述长度",
+      "definition_tex": "L(G,\\mathcal M)=L(\\mathcal M)+L_\\mathcal M(G)",
+      "description_md": "后两项为节点词典与图的编码描述长度；不是集合L的基数。",
+      "type_or_domain": "real objective",
+      "scope": "main Eq.(8), supp F",
+      "assumptions": [],
+      "empty_set_convention": "不适用",
+      "baseline_convention": "固定输入基线r；不假定输出基线为0",
+      "aliases": [
+        "L(g,\\mathcal M)"
+      ],
+      "paper_mappings": [
+        {
+          "paper_id": "cvpr2023-sparse-concepts",
+          "version_id": "ver-cvpr2023-formal",
+          "original_tex": "L(g,\\mathcal M)",
+          "original_definition_tex": "L(G,\\mathcal M)=L(\\mathcal M)+L_\\mathcal M(G)",
+          "source_id": "src-cvpr2023-main",
+          "pdf_pages": [
+            5,
+            6
+          ],
+          "equation_label": null,
+          "relation_type": "renaming",
+          "canonical_id": "sym-cvpr-description-length"
+        }
+      ],
+      "lean_names": [],
+      "version": "full-paper-20260930",
+      "alignment_status": "agent_checked_definition",
+      "user_review_status": "pending"
+    },
+    {
+      "id": "sym-cvpr-mdl-efficiency",
+      "canonical_id": "sym-cvpr-mdl-efficiency",
+      "canonical_tex": "\\delta_{\\rm MDL}(\\alpha)",
+      "name_zh": "共享节点的描述长度变更率",
+      "definition_tex": "\\delta_{\\rm MDL}(\\alpha)=\\frac{L(G,\\mathcal M\\cup\\{\\alpha\\})-L(G,\\mathcal M)}{|\\alpha|}",
+      "description_md": "ΔL是长度变化，不是模型输出残差Δ。",
+      "type_or_domain": "ℝ; nonempty α",
+      "scope": "supp F Eq.(3)",
+      "assumptions": [],
+      "empty_set_convention": "需α非空方可除其大小",
+      "baseline_convention": "固定输入基线r；不假定输出基线为0",
+      "aliases": [
+        "\\delta(\\alpha)"
+      ],
+      "paper_mappings": [
+        {
+          "paper_id": "cvpr2023-sparse-concepts",
+          "version_id": "ver-cvpr2023-formal",
+          "original_tex": "\\delta(\\alpha)",
+          "original_definition_tex": "\\delta_{\\rm MDL}(\\alpha)=\\frac{L(G,\\mathcal M\\cup\\{\\alpha\\})-L(G,\\mathcal M)}{|\\alpha|}",
+          "source_id": "src-cvpr2023-supplement",
+          "pdf_pages": [
+            12
+          ],
+          "equation_label": null,
+          "relation_type": "renaming",
+          "canonical_id": "sym-cvpr-mdl-efficiency"
+        }
+      ],
+      "lean_names": [],
+      "version": "full-paper-20260930",
+      "alignment_status": "agent_checked_definition",
+      "user_review_status": "pending"
+    },
+    {
+      "id": "sym-cvpr-baseline-radius",
+      "canonical_id": "sym-cvpr-baseline-radius",
+      "canonical_tex": "\\tau_{\\rm baseline}",
+      "name_zh": "基线学习的允许范围",
+      "definition_tex": "\\|r_i-r_i^{initial}\\|_2\\le\\tau_{\\rm baseline}",
+      "description_md": "实验设0.01 Var[x_i]；与And-Or人工显著激活阈值0.5区分。",
+      "type_or_domain": "nonnegative real",
+      "scope": "main3.2,4.2; supp E",
+      "assumptions": [],
+      "empty_set_convention": "不适用",
+      "baseline_convention": "固定输入基线r；不假定输出基线为0",
+      "aliases": [
+        "\\tau"
+      ],
+      "paper_mappings": [
+        {
+          "paper_id": "cvpr2023-sparse-concepts",
+          "version_id": "ver-cvpr2023-formal",
+          "original_tex": "\\tau",
+          "original_definition_tex": "\\|r_i-r_i^{initial}\\|_2\\le\\tau_{\\rm baseline}",
+          "source_id": "src-cvpr2023-main",
+          "pdf_pages": [
+            5,
+            8
+          ],
+          "equation_label": null,
+          "relation_type": "renaming",
+          "canonical_id": "sym-cvpr-baseline-radius"
+        }
+      ],
+      "lean_names": [],
+      "version": "full-paper-20260930",
+      "alignment_status": "agent_checked_definition",
+      "user_review_status": "pending"
+    },
+    {
+      "id": "sym-cvpr-label-threshold",
+      "canonical_id": "sym-cvpr-label-threshold",
+      "canonical_tex": "\\tau_{\\rm label}",
+      "name_zh": "人工真值模式激活阈值",
+      "definition_tex": "\\tau_{\\rm label}=0.5",
+      "description_md": "人工标签规则，不等价全部Harsanyi交互真值。",
+      "type_or_domain": "real threshold",
+      "scope": "supp G.3 And-Or labeling",
+      "assumptions": [],
+      "empty_set_convention": "不适用",
+      "baseline_convention": "固定输入基线r；不假定输出基线为0",
+      "aliases": [
+        "\\tau"
+      ],
+      "paper_mappings": [
+        {
+          "paper_id": "cvpr2023-sparse-concepts",
+          "version_id": "ver-cvpr2023-formal",
+          "original_tex": "\\tau",
+          "original_definition_tex": "\\tau_{\\rm label}=0.5",
+          "source_id": "src-cvpr2023-supplement",
+          "pdf_pages": [
+            14
+          ],
+          "equation_label": null,
+          "relation_type": "renaming",
+          "canonical_id": "sym-cvpr-label-threshold"
+        }
+      ],
+      "lean_names": [],
+      "version": "full-paper-20260930",
+      "alignment_status": "agent_checked_definition",
+      "user_review_status": "pending"
+    }
+  ]
+}

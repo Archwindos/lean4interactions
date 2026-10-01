@@ -1,0 +1,44 @@
+                                     Layerwise Change of Knowledge in Neural Networks
+
+performance. Instead, we concentrate on the knowledge contained within the middle layer features, specifically their direct
+applicability to classification tasks. In fact, our findings reveal a high degree of similarity in the knowledge interpreted
+across adjacent layers, which partly reflects the faithfulness of our work.
+• The second challenge concerns the selection of the classifier’s structure. Pimentel et al. (2020) contend that to obtain the
+most accurate estimate of the information a model possesses about a given property, it is advisable to use the most complex
+probe available. However, our research is not focused on the ultimate classifiability of the intermediate layer. Instead, we are
+interested in determining the extent to which the features of this layer can be directly applied to the classification task. In
+light of this, we opt for one of the simplest classifier structures available: the linear classifier. This choice is driven by our
+specific objective of evaluating the direct applicability of middle layer features, rather than maximizing the classification
+potential of the probe.
+• The third challenge addresses the disconnect between the probing classifier g and the original model f . This implies that
+the knowledge inferred from the classifier may not always align with what is actually utilized by the original model. This is
+a good question. In fact, this perspective is central to our research. Our findings indicate that neural networks tend to learn
+numerous redundant features in the middle layers, which are subsequently forgotten in the later layers. Our methodology
+offers a quantifiable analysis of the variation in knowledge across different layers, shedding light on how information is
+processed and transformed within the network.
+• The fourth challenge concerns the imperfection of the dataset used for training. Specifically, the classifier is unable to
+exhaustively uncover all the knowledge present due to the limitations inherent in the dataset. This is a real drawback, as
+it is not feasible to use an all-encompassing dataset for perfect training. Our approach mitigates this issue by training the
+classifier on the same dataset as the original model. This strategy aims to ensure as fair and balanced a training process as
+possible, while acknowledging the constraints of the dataset while striving.
+In summary, while employing probing classifiers in the interpretation of neural network models does introduce specific
+challenges, our approach aims to maximize the potential and ensure a thorough and insightful analysis of neural network
+models.
+
+E. Discussion on the Bias Introduced by Masking Input Variables
+In attribution method research, a prevalent approach involves utilizing a designated baseline value to obscure input variables
+in a DNN(Lundberg & Lee, 2017; Ancona et al., 2019; Fong et al., 2019). This technique measures the impact of these
+masked inputs on the network’s output, thereby estimating the significance of each input variable. Nevertheless, research by
+Jain et al. (2022) indicates that this current method of masking may introduce substantial bias in the model’s predictions.
+Specifically, it has been observed that the DNN tends to make errors influenced more by the areas subjected to masking than
+by the unmasked features.
+In efforts to mitigate this bias, Ren et al. (2023b) have proposed utilizing causal patterns to scrutinize the reliability of
+baseline values. More importantly, they have established that causal patterns can be interpreted as the fundamental logic
+behind the concept of the Shapley value. Building upon this, they have proposed a novel methodology for determining
+optimal baseline values. The efficacy of this approach is underscored by the positive outcomes observed in various
+experimental settings.
+
+
+
+
+                                                               14

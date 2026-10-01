@@ -1,0 +1,71 @@
+                                   Towards Attributions of Input Variables in a Coalition
+
+
+                  Game 1
+
+
+
+
+                                       (1) 𝜑 3,5,7 = 1.70 and 𝜑 1,3,5,7 = 0.53. The shape pattern is a “shoulder-hit” pattern, therefore, white stones are in
+                                           advantage in this shape pattern. However, the white stone 1 makes the opportunity for black stones to break the union of
+                                           white stones, therefore,𝜑 1,3,5,7 < 𝜑 3,5,7 .
+
+
+
+
+                   Game 2
+
+
+
+
+                                    (1) 𝜑 7, 10 = 0.74 and 𝜑 3, 7, 10 = 2.55. The combination of white stones 7 and 10 is not a good strategy. However, the
+                                        move of black stone 3 makes the combination of white stones {7, 10} form a combat configuration. The shape pattern {3,7,10}
+                                        is a typical tactical pattern known as “shoulder-hit.” Therefore, shape pattern {3,7,10} is more advantageous for white stones
+                                        than shape pattern {7, 10}.
+                                    (2) 𝜑 7, 10 = 0.74 and 𝜑 4, 7, 10 = 1.39. Likewise, the move of black stone 4 also makes the combination of white stones
+                                        {7, 10} form a combat configuration. The shape pattern {4,7,10} is also a “shoulder-hit” pattern, and is more advantageous
+                                        for white stones than shape pattern {7, 10}. However, the position of black stone 4 in the pattern {4, 7, 10} is superior to the
+                                        black stone in the pattern {3, 7, 10}. Therefore, 𝜑 4, 7, 10 < 𝜑 3, 7, 10 .
+                                    (3) 𝜑 3, 7, 10 = 2.55 and 𝜑 3, 7, 8,10 = 0.86. Although the shape pattern {3,7,10} is a “shoulder-hit” pattern, due to the
+                                        problematic placement of white stone 8, black stones get the opportunity to split the white combinations {7, 8, 10}. Therefore,
+                                        shape pattern {3,7,8,10} have a lower advantage score than shape pattern {3,7,10}.
+                                    (4) 𝜑 4, 7, 10 = 1.39 and 𝜑 4, 7, 8,10 = 0.88. Although the shape pattern {4,7,10} is a “shoulder-hit” pattern, due to the
+                                        problematic placement of white stone 8, black stones get the opportunity to split the white combinations {7, 8, 10}. Therefore,
+                                        shape pattern {4,7,8,10} have a lower advantage score than shape pattern {4,7,10}.
+
+                   Game 3                                                                  Game 4
+
+
+
+
+                                   (1) 𝜑 1,2,4,5 = −0.81. The shape                                                     (1) 𝜑 {3,7,8} = 3.41. The shape pattern
+                                       pattern {1,2,4,5} is advantageous                                                    {3,7,8} is advantageous for white
+                                       for black stones, because in this                                                    stones, because it is a typical
+                                       case white stones form a combat                                                      formalized series of moves (Dingshi),
+                                       configuration too slowly.                                                            known as “corner regular form.”
+
+
+
+                             Figure 3. Analysis of shape patterns in Go compared to human intuition
+Figure 4 and 5 respectively show the results of coalition attribution faithfulness metrics of VGG-11 and ResNet-20 model
+on the CIFAR-10 dataset. Figure 6 and 7 respectively show the results of coalition attribution faithfulness metrics of
+VGG-11 and ResNet-20 model on the MNIST dataset. In these figures, x1 , ..., x10 represent the selected image regions,
+and the image regions marked in yellow represent the selected coalition S. These results show that the manually selected
+coalitions, like {x0 , x1 , x4 } on the left side of the top row in Figure 4, which represents the head of the horse, had high
+Q(S), R(i), R′ (i) values and were considered as faithful coalitions. In comparison, the randomly selected coalitions with
+low high Q(S), R(i), R′ (i) values, were considered as unfaithful coalitions.
+
+J. Comparison with human intuitions in Go game
+This experiment applies our theoretical framework to uncover shape patterns implicitly learned by the network, many of
+which go beyond traditional human knowledge.
+We hired 5 expert Go players to analyze the fitness between the extracted coalitions and human intuition on many more
+game boards. Under their guidance, we focused on explaining shape patterns involving a limited number of stones, as
+determined by the experts. Specifically, we excluded coalitions with more than six stones, as such complex configurations
+were often found to have a negligible impact and likely reflect noise. Figure J shows the detailed analysis of shape patterns
+in Go compared to human intuition. As shown in Figure J, some automatically learned coalitions do not fit human intuition.
+As a possible explanation for this, human players typically assess patterns based on short-term tactical search and a few-step
+lookahead, but the value network implicitly captures long-term statistical regularities from many more games. Although
+these long-term patterns are difficult to interpret directly, they may reveal new shape patterns. Expert Go players say they
+have learned some new knowledge from these patterns.
+
+                                                                               22

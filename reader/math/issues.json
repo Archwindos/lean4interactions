@@ -1,0 +1,3074 @@
+{
+  "issues": [
+    {
+      "id": "cvpr-issue-dummy-empty",
+      "paper_id": "cvpr2023-sparse-concepts",
+      "title": "Dummy 原陈述包括空集，结论错误",
+      "category": "statement_counterexample",
+      "source_refs": [
+        {
+          "id": "src-cvpr2023-supplement",
+          "source_id": "src-cvpr2023-supplement",
+          "locations": [
+            {
+              "pdf_page": 2,
+              "role": "statement",
+              "label": "正式PDF"
+            },
+            {
+              "pdf_page": 4,
+              "role": "statement",
+              "label": "正式PDF"
+            }
+          ]
+        }
+      ],
+      "original_formula_tex": "\\forall S\\subseteq N\\setminus\\{i\\},\\;v(x_{S\\cup\\{i\\}})=v(x_S)+v(x_{\\{i\\}})\\ \\Longrightarrow\\ \\forall S\\subseteq N\\setminus\\{i\\},\\;w_{S\\cup\\{i\\}}=0",
+      "evidence_md": "取 $N=\\{i\\}$，$v(x_\\varnothing)=0$、$v(x_{\\{i\\}})=1$。原前提只有 $S=\\varnothing$ 一个实例，$1=0+1$ 成立。按原定义 $w_{\\{i\\}}=1-0=1\\ne0$。第4页末把 $\\sum_{S^{\\prime}\\subseteq S}(-1)^{|S|-|S^{\\prime}|}$ 统一写为0，在 $S=\\varnothing$ 时实际为1。PDF图像 supp-04.png 可逐式复核。",
+      "impact_md": "只否定原 Dummy 陈述的全部量词版本。其他性质与Theorem1–5不依赖该错误。不能添加S非空条件或删去单变量结论后称原命题证明完成。",
+      "related_result_ids": [
+        "cvpr2023-dummy"
+      ],
+      "original_statement_status": "counterexample_verified",
+      "user_confirmation": "not_individually_reviewed",
+      "fix_authorization": "proof_only_granted",
+      "statement_fix_authorization": "not_granted",
+      "authorization_basis": "用户最新明确：直接标注并修正错误证明；不得修改命题；命题错误单独列出。",
+      "status": "statement_error_unrepaired",
+      "agent_evidence_status": "pdf_and_formula_checked",
+      "user_review_status": "pending",
+      "source_schema_status": {
+        "category": "statement_counterexample",
+        "original_statement_status": "counterexample_verified",
+        "status": "statement_error_unrepaired"
+      },
+      "issue_type": "statement_counterexample",
+      "assessment_status": "refuted",
+      "affected_result_ids": [
+        "cvpr2023-dummy"
+      ],
+      "text_md": "取 $N=\\{i\\}$，$v(x_\\varnothing)=0$、$v(x_{\\{i\\}})=1$。原前提只有 $S=\\varnothing$ 一个实例，$1=0+1$ 成立。按原定义 $w_{\\{i\\}}=1-0=1\\ne0$。第4页末把 $\\sum_{S^{\\prime}\\subseteq S}(-1)^{|S|-|S^{\\prime}|}$ 统一写为0，在 $S=\\varnothing$ 时实际为1。PDF图像 supp-04.png 可逐式复核。",
+      "translations": {
+        "en": {
+          "title": "The original dummy statement is false at the empty set",
+          "evidence_md": "Take a one-player universe with empty output 0 and singleton output 1. The only premise is the empty environment, where 1=0+1 holds. The singleton dividend is 1, contradicting the claimed zero. The page-4 alternating powerset sum is one at the empty environment, rather than zero.",
+          "impact_md": "This refutes the full quantifiers of the original dummy statement only. The other properties and Theorems 1–5 do not rely on it. A nonempty-environment premise cannot be added and presented as proof of the original proposition.",
+          "text_md": "Take a one-player universe with empty output 0 and singleton output 1. The only premise is the empty environment, where 1=0+1 holds. The singleton dividend is 1, contradicting the claimed zero. The page-4 alternating powerset sum is one at the empty environment, rather than zero.\n\nThis refutes the full quantifiers of the original dummy statement only. The other properties and Theorems 1–5 do not rely on it. A nonempty-environment premise cannot be added and presented as proof of the original proposition."
+        }
+      }
+    },
+    {
+      "id": "cvpr-issue-linearity-index",
+      "paper_id": "cvpr2023-sparse-concepts",
+      "title": "Linearity 原证明把求和内输出索引印为固定 S",
+      "category": "proof_display_index_error",
+      "source_refs": [
+        {
+          "id": "src-cvpr2023-supplement",
+          "source_id": "src-cvpr2023-supplement",
+          "locations": [
+            {
+              "pdf_page": 4,
+              "role": "statement",
+              "label": "正式PDF"
+            }
+          ]
+        }
+      ],
+      "original_formula_tex": "w^v_S=\\sum_{S^{\\prime}\\subseteq S}(-1)^{|S|-|S^{\\prime}|}v(x_S)",
+      "evidence_md": "内层应随求和变量变化，但原式固定为 $x_S$。取 $S=\\{i\\}$、$v(x_\\varnothing)=0$、$v(x_{\\{i\\}})=1$，原显示右侧为 $-1+1=0$，按原定义左侧为1。原稿随后t,u输出亦相同索引。原陈述的线性性没有改变；修正证明直接逐项使用 $g_v(U)=g_t(U)+g_u(U)$。",
+      "impact_md": "错误限于原证明显示式，线性性原命题可按现有公共interaction_add忠实证明。",
+      "related_result_ids": [
+        "cvpr2023-linearity"
+      ],
+      "original_statement_status": "no_counterexample_found",
+      "user_confirmation": "not_individually_reviewed",
+      "fix_authorization": "proof_only_granted",
+      "statement_fix_authorization": "not_granted",
+      "authorization_basis": "用户最新明确：直接标注并修正错误证明；不得修改命题；命题错误单独列出。",
+      "status": "proof_repair_in_progress",
+      "agent_evidence_status": "pdf_and_formula_checked",
+      "user_review_status": "pending",
+      "source_schema_status": {
+        "category": "proof_display_index_error",
+        "original_statement_status": "no_counterexample_found",
+        "status": "proof_repair_in_progress"
+      },
+      "issue_type": "proof_step_error",
+      "assessment_status": "proof_error_recorded",
+      "affected_result_ids": [
+        "cvpr2023-linearity"
+      ],
+      "text_md": "内层应随求和变量变化，但原式固定为 $x_S$。取 $S=\\{i\\}$、$v(x_\\varnothing)=0$、$v(x_{\\{i\\}})=1$，原显示右侧为 $-1+1=0$，按原定义左侧为1。原稿随后t,u输出亦相同索引。原陈述的线性性没有改变；修正证明直接逐项使用 $g_v(U)=g_t(U)+g_u(U)$。",
+      "translations": {
+        "en": {
+          "title": "Incorrect inner output index in the linearity proof",
+          "evidence_md": "The page-4 proof fixes the output at the target set instead of the subset being summed over. For singleton outputs 0 and 1, its printed alternating expression is -1+1=0, whereas the dividend is 1. The repaired proof uses the pointwise equality of the games at every summation subset.",
+          "impact_md": "The original linearity proposition is true. Its proof is repaired by preserving the subset index throughout; the statement and assumptions are unchanged.",
+          "text_md": "The page-4 proof fixes the output at the target set instead of the subset being summed over. For singleton outputs 0 and 1, its printed alternating expression is -1+1=0, whereas the dividend is 1. The repaired proof uses the pointwise equality of the games at every summation subset.\n\nThe original linearity proposition is true. Its proof is repaired by preserving the subset index throughout; the statement and assumptions are unchanged."
+        }
+      }
+    },
+    {
+      "id": "cvpr-issue-beta-proof",
+      "paper_id": "cvpr2023-sparse-concepts",
+      "title": "Theorem2–4 的 Beta 定义排印与零参数边界",
+      "category": "proof_definition_and_boundary_error",
+      "source_refs": [
+        {
+          "id": "src-cvpr2023-supplement",
+          "source_id": "src-cvpr2023-supplement",
+          "locations": [
+            {
+              "pdf_page": 7,
+              "role": "statement",
+              "label": "正式PDF"
+            },
+            {
+              "pdf_page": 8,
+              "role": "statement",
+              "label": "正式PDF"
+            },
+            {
+              "pdf_page": 9,
+              "role": "statement",
+              "label": "正式PDF"
+            },
+            {
+              "pdf_page": 10,
+              "role": "statement",
+              "label": "正式PDF"
+            },
+            {
+              "pdf_page": 11,
+              "role": "statement",
+              "label": "正式PDF"
+            }
+          ]
+        }
+      ],
+      "original_formula_tex": "B(p,q)=\\int_0^1x^{p-1}(1-x)^{1-q}\\,dx;\\quad B(|N|-|L|-k,|L|+k);\\quad \\int_0^1|L|(1-x)^{|L|-1}\\,dx=1",
+      "evidence_md": "第7页(ii)明示 $p,q>0$ 却将指数写为 $1-q$。取 $(p,q)=(1,2)$，其积分发散，后续有限阶乘公式不匹配。同页 $L=\\varnothing,k=0$ 是求和允许项，却调用 $B(|N|,0)$，超出正参数定义；①在 $|L|=0$ 时被积函数在开区间上为零，统一写成1不成立。Theorem3第9页和Theorem4第10–11页复用这一路线，故归并为同一issue。另极端剩余集合为空时②的重编号上界成为负数，须明确空和，而原文未单独处理。",
+      "impact_md": "原Shapley、SII、STI结论未发现反例。保持同一命题的全部允许集合，使用有限阶乘卷积给完整证明，含L空集与剩余集合为空，避免修补原积分域而改变目标。",
+      "related_result_ids": [
+        "cvpr2023-shapley",
+        "cvpr2023-shapley-interaction",
+        "cvpr2023-shapley-taylor"
+      ],
+      "original_statement_status": "no_counterexample_found",
+      "user_confirmation": "not_individually_reviewed",
+      "fix_authorization": "proof_only_granted",
+      "statement_fix_authorization": "not_granted",
+      "authorization_basis": "用户最新明确：直接标注并修正错误证明；不得修改命题；命题错误单独列出。",
+      "status": "proof_repair_in_progress",
+      "agent_evidence_status": "pdf_and_formula_checked",
+      "user_review_status": "pending",
+      "source_schema_status": {
+        "category": "proof_definition_and_boundary_error",
+        "original_statement_status": "no_counterexample_found",
+        "status": "proof_repair_in_progress"
+      },
+      "issue_type": "proof_step_error",
+      "assessment_status": "proof_error_recorded",
+      "affected_result_ids": [
+        "cvpr2023-shapley",
+        "cvpr2023-shapley-interaction",
+        "cvpr2023-shapley-taylor"
+      ],
+      "text_md": "第7页(ii)明示 $p,q>0$ 却将指数写为 $1-q$。取 $(p,q)=(1,2)$，其积分发散，后续有限阶乘公式不匹配。同页 $L=\\varnothing,k=0$ 是求和允许项，却调用 $B(|N|,0)$，超出正参数定义；①在 $|L|=0$ 时被积函数在开区间上为零，统一写成1不成立。Theorem3第9页和Theorem4第10–11页复用这一路线，故归并为同一issue。另极端剩余集合为空时②的重编号上界成为负数，须明确空和，而原文未单独处理。",
+      "translations": {
+        "en": {
+          "title": "Beta-integral exponent and boundary errors",
+          "evidence_md": "The supplement defines the beta integral for positive parameters but prints exponent 1-q where q-1 is required. At p=1,q=2 the printed integral diverges while its claimed factorial value is finite. Other steps use a zero beta parameter and identify an integral as one at an empty set although its integrand is zero. An extreme empty remaining universe also requires an explicit empty-sum case.",
+          "impact_md": "These are errors in the proofs of the factorial coefficients, not counterexamples to Theorems 2–4. The repaired finite convolution proves the original conclusions, including boundary cases, without introducing integral domain assumptions.",
+          "text_md": "The supplement defines the beta integral for positive parameters but prints exponent 1-q where q-1 is required. At p=1,q=2 the printed integral diverges while its claimed factorial value is finite. Other steps use a zero beta parameter and identify an integral as one at an empty set although its integrand is zero. An extreme empty remaining universe also requires an explicit empty-sum case.\n\nThese are errors in the proofs of the factorial coefficients, not counterexamples to Theorems 2–4. The repaired finite convolution proves the original conclusions, including boundary cases, without introducing integral domain assumptions."
+        }
+      }
+    },
+    {
+      "id": "cvpr-issue-distribution-incomparable",
+      "paper_id": "cvpr2023-sparse-concepts",
+      "title": "纯AND分布证明的三个case没有覆盖不可比集合",
+      "category": "proof_case_coverage_gap",
+      "source_refs": [
+        {
+          "id": "src-cvpr2023-supplement",
+          "source_id": "src-cvpr2023-supplement",
+          "locations": [
+            {
+              "pdf_page": 5,
+              "role": "statement",
+              "label": "正式PDF"
+            },
+            {
+              "pdf_page": 6,
+              "role": "statement",
+              "label": "正式PDF"
+            }
+          ]
+        }
+      ],
+      "original_formula_tex": "S\\subsetneq T;\\quad S=T;\\quad S\\supsetneq T",
+      "evidence_md": "原目标量化全部 $S\\subseteq N$，但原证明只写上述三类。例 $N=\\{1,2\\}$、$T=\\{1\\}$、$S=\\{2\\}$ 落在三类之外。目标 $w_S=0$ 在此仍真，因为没有 $U\\subseteq S$ 包含T。修正证明以 $T\\not\\subseteq S$、$S=T$、$T\\subsetneq S$ 分组（不改原陈述），也可直接复用已编译的interaction_unanimity。",
+      "impact_md": "原目标正确，原证明缺case。Add-Mul推导复用这个目标，保留同一原命题并完成修证明。",
+      "related_result_ids": [
+        "cvpr2023-interaction-distribution",
+        "cvpr2023-addmul-coefficients"
+      ],
+      "original_statement_status": "no_counterexample_found",
+      "user_confirmation": "not_individually_reviewed",
+      "fix_authorization": "proof_only_granted",
+      "statement_fix_authorization": "not_granted",
+      "authorization_basis": "用户最新明确：直接标注并修正错误证明；不得修改命题；命题错误单独列出。",
+      "status": "proof_repair_in_progress",
+      "agent_evidence_status": "pdf_and_formula_checked",
+      "user_review_status": "pending",
+      "source_schema_status": {
+        "category": "proof_case_coverage_gap",
+        "original_statement_status": "no_counterexample_found",
+        "status": "proof_repair_in_progress"
+      },
+      "issue_type": "proof_step_error",
+      "assessment_status": "proof_error_recorded",
+      "affected_result_ids": [
+        "cvpr2023-interaction-distribution",
+        "cvpr2023-addmul-coefficients"
+      ],
+      "text_md": "原目标量化全部 $S\\subseteq N$，但原证明只写上述三类。例 $N=\\{1,2\\}$、$T=\\{1\\}$、$S=\\{2\\}$ 落在三类之外。目标 $w_S=0$ 在此仍真，因为没有 $U\\subseteq S$ 包含T。修正证明以 $T\\not\\subseteq S$、$S=T$、$T\\subsetneq S$ 分组（不改原陈述），也可直接复用已编译的interaction_unanimity。",
+      "translations": {
+        "en": {
+          "title": "The distribution proof omits incomparable sets",
+          "evidence_md": "The printed cases of a target strictly below, equal to, or strictly above the unanimity field omit incomparable sets. For universe {1,2}, field {1}, and target {2}, no subset of the target contains the field, so every summand is zero. The complete partition is: the field is not contained in the target; the two are equal; or the field is strictly contained in the target.",
+          "impact_md": "The original distribution proposition remains true. The repair fills the missing case without changing its quantifiers and also supplies the Add/Mul application.",
+          "text_md": "The printed cases of a target strictly below, equal to, or strictly above the unanimity field omit incomparable sets. For universe {1,2}, field {1}, and target {2}, no subset of the target contains the field, so every summand is zero. The complete partition is: the field is not contained in the target; the two are equal; or the field is strictly contained in the target.\n\nThe original distribution proposition remains true. The repair fills the missing case without changing its quantifiers and also supplies the Add/Mul application."
+        }
+      }
+    },
+    {
+      "id": "cvpr-issue-l0-support",
+      "paper_id": "cvpr2023-sparse-concepts",
+      "title": "选择集合大小与非零系数个数不总相等",
+      "category": "algorithm_or_definition_boundary",
+      "source_refs": [
+        {
+          "id": "src-cvpr2023-main",
+          "source_id": "src-cvpr2023-main",
+          "locations": [
+            {
+              "pdf_page": 4,
+              "role": "statement",
+              "label": "正式PDF"
+            }
+          ]
+        }
+      ],
+      "original_formula_tex": "\\|\\boldsymbol w_\\Omega\\|_0=|\\Omega|",
+      "evidence_md": "第4页定义 $w^{\\prime}_S=w_S$ 若 $S\\in\\Omega$，否则为0。若 $S\\in\\Omega$ 而 $w_S=0$，它贡献集合大小却不贡献L0范数；例如全零模型、$\\Omega=\\{\\varnothing\\}$ 给0与1。两类可行表示的最优值可能通过删除零项联系，但原逐项相等并无无条件证明。",
+      "impact_md": "这是算法段的原等式边界，不是编号定理；不静默把Omega定义改为support。目录保留原式和反例。",
+      "related_result_ids": [],
+      "original_statement_status": "counterexample_verified",
+      "user_confirmation": "not_individually_reviewed",
+      "fix_authorization": "proof_only_granted",
+      "statement_fix_authorization": "not_granted",
+      "authorization_basis": "用户最新明确：直接标注并修正错误证明；不得修改命题；命题错误单独列出。",
+      "status": "statement_error_unrepaired",
+      "agent_evidence_status": "pdf_and_formula_checked",
+      "user_review_status": "pending",
+      "source_schema_status": {
+        "category": "algorithm_or_definition_boundary",
+        "original_statement_status": "counterexample_verified",
+        "status": "statement_error_unrepaired"
+      },
+      "issue_type": "definition_or_algorithm_boundary",
+      "assessment_status": "refuted",
+      "affected_result_ids": [],
+      "text_md": "第4页定义 $w^{\\prime}_S=w_S$ 若 $S\\in\\Omega$，否则为0。若 $S\\in\\Omega$ 而 $w_S=0$，它贡献集合大小却不贡献L0范数；例如全零模型、$\\Omega=\\{\\varnothing\\}$ 给0与1。两类可行表示的最优值可能通过删除零项联系，但原逐项相等并无无条件证明。",
+      "translations": {
+        "en": {
+          "title": "The retained family need not equal the nonzero support",
+          "evidence_md": "The asserted equality between the zero-norm of retained coefficients and the retained family size fails when a retained coefficient is zero. A zero model with the empty coalition retained gives zero nonzero coefficients but family size one.",
+          "impact_md": "The paper’s retained family is not silently redefined as the support. This records an algorithmic expression boundary, separate from the numbered finite reconstruction results.",
+          "text_md": "The asserted equality between the zero-norm of retained coefficients and the retained family size fails when a retained coefficient is zero. A zero model with the empty coalition retained gives zero nonzero coefficients but family size one.\n\nThe paper’s retained family is not silently redefined as the support. This records an algorithmic expression boundary, separate from the numbered finite reconstruction results."
+        }
+      }
+    },
+    {
+      "id": "cvpr-issue-lagrange-equivalence",
+      "paper_id": "cvpr2023-sparse-concepts",
+      "title": "L0约束与固定罚参数目标的等价箭头未被证明",
+      "category": "algorithm_or_definition_boundary",
+      "source_refs": [
+        {
+          "id": "src-cvpr2023-main",
+          "source_id": "src-cvpr2023-main",
+          "locations": [
+            {
+              "pdf_page": 4,
+              "role": "statement",
+              "label": "正式PDF"
+            }
+          ]
+        }
+      ],
+      "original_formula_tex": "\\min\\mathrm{unfaith}\\ \\mathrm{s.t.}\\|w_\\Omega\\|_0\\le M\\ \\Longleftrightarrow\\ \\min\\mathrm{unfaith}+\\lambda\\|w_\\Omega\\|_0",
+      "evidence_md": "原Eq.(6)没有规定罚参数如何选取或证明离散非凸目标的强对偶。一般离散优化中，可行点 (support,error)=(0,3),(1,2),(2,0)，约束M=1选择中点，但任何lambda要选中点都需lambda≤1且lambda≥2，矛盾。本反例针对一般等价箭头，没有声称这一三点实例已由本文某个DNN产生。",
+      "impact_md": "只能按原文登记为启发式目标转换/松弛；不当作本篇已证明的数学等价。",
+      "related_result_ids": [],
+      "original_statement_status": "no_counterexample_found",
+      "user_confirmation": "not_individually_reviewed",
+      "fix_authorization": "proof_only_granted",
+      "statement_fix_authorization": "not_granted",
+      "authorization_basis": "用户最新明确：直接标注并修正错误证明；不得修改命题；命题错误单独列出。",
+      "status": "boundary_recorded",
+      "agent_evidence_status": "pdf_and_formula_checked",
+      "user_review_status": "pending",
+      "source_schema_status": {
+        "category": "algorithm_or_definition_boundary",
+        "original_statement_status": "no_counterexample_found",
+        "status": "boundary_recorded"
+      },
+      "issue_type": "definition_or_algorithm_boundary",
+      "assessment_status": "proof_error_recorded",
+      "affected_result_ids": [],
+      "text_md": "原Eq.(6)没有规定罚参数如何选取或证明离散非凸目标的强对偶。一般离散优化中，可行点 (support,error)=(0,3),(1,2),(2,0)，约束M=1选择中点，但任何lambda要选中点都需lambda≤1且lambda≥2，矛盾。本反例针对一般等价箭头，没有声称这一三点实例已由本文某个DNN产生。",
+      "translations": {
+        "en": {
+          "title": "Unjustified equivalence with a penalized objective",
+          "evidence_md": "The source converts constrained sparsity minimization to a penalized problem without choosing a multiplier or establishing a suitable equivalence. In a generic discrete optimization example with (support,error) pairs (0,3),(1,2),(2,0), a budget of one selects the middle point, but making it minimize error plus multiplier times support requires the multiplier to be both at most one and at least two.",
+          "impact_md": "This example establishes the failure of generic equivalence, without claiming that the three points are realized by the paper’s DNN. The source conversion remains a heuristic; the missing model-specific equivalence is not supplied as an assumption.",
+          "text_md": "The source converts constrained sparsity minimization to a penalized problem without choosing a multiplier or establishing a suitable equivalence. In a generic discrete optimization example with (support,error) pairs (0,3),(1,2),(2,0), a budget of one selects the middle point, but making it minimize error plus multiplier times support requires the multiplier to be both at most one and at least two.\n\nThis example establishes the failure of generic equivalence, without claiming that the three points are realized by the paper’s DNN. The source conversion remains a heuristic; the missing model-specific equivalence is not supplied as an assumption."
+        }
+      }
+    },
+    {
+      "id": "cvpr-issue-ratio-zero-denominator",
+      "paper_id": "cvpr2023-sparse-concepts",
+      "title": "已解释比例在全部效应为零时未定义",
+      "category": "algorithm_or_definition_boundary",
+      "source_refs": [
+        {
+          "id": "src-cvpr2023-main",
+          "source_id": "src-cvpr2023-main",
+          "locations": [
+            {
+              "pdf_page": 5,
+              "role": "statement",
+              "label": "正式PDF"
+            }
+          ]
+        }
+      ],
+      "original_formula_tex": "R_\\Omega=\\frac{\\sum_{S\\in\\Omega}|w_S|}{\\sum_{S\\in\\Omega}|w_S|+|\\Delta|}",
+      "evidence_md": "取 $v(x_S)=0$ 对所有S，得到全部 $w_S=0$、$\\Delta=0$，分母为0。原文未给此边界约定。符号表把分母非零记录为表达式的定义域条件，不据此修改原论文命题或杜撰R值。",
+      "impact_md": "仅影响指标的零模型边界与符号域；重构/唯一性仍适用。",
+      "related_result_ids": [],
+      "original_statement_status": "counterexample_verified",
+      "user_confirmation": "not_individually_reviewed",
+      "fix_authorization": "proof_only_granted",
+      "statement_fix_authorization": "not_granted",
+      "authorization_basis": "用户最新明确：直接标注并修正错误证明；不得修改命题；命题错误单独列出。",
+      "status": "statement_error_unrepaired",
+      "agent_evidence_status": "pdf_and_formula_checked",
+      "user_review_status": "pending",
+      "source_schema_status": {
+        "category": "algorithm_or_definition_boundary",
+        "original_statement_status": "counterexample_verified",
+        "status": "statement_error_unrepaired"
+      },
+      "issue_type": "definition_or_algorithm_boundary",
+      "assessment_status": "refuted",
+      "affected_result_ids": [],
+      "text_md": "取 $v(x_S)=0$ 对所有S，得到全部 $w_S=0$、$\\Delta=0$，分母为0。原文未给此边界约定。符号表把分母非零记录为表达式的定义域条件，不据此修改原论文命题或杜撰R值。",
+      "translations": {
+        "en": {
+          "title": "The retained-effect ratio has an unspecified zero denominator",
+          "evidence_md": "The ratio divides retained absolute effects by retained absolute effects plus the absolute remainder. A zero game has all these quantities zero, giving the undefined expression 0/0.",
+          "impact_md": "No value is invented for this boundary case. Finite reconstruction and uniqueness are unaffected; this issue concerns the displayed diagnostic ratio.",
+          "text_md": "The ratio divides retained absolute effects by retained absolute effects plus the absolute remainder. A zero game has all these quantities zero, giving the undefined expression 0/0.\n\nNo value is invented for this boundary case. Finite reconstruction and uniqueness are unaffected; this issue concerns the displayed diagnostic ratio."
+        }
+      }
+    },
+    {
+      "id": "cvpr-issue-baseline-truncated-loss",
+      "paper_id": "cvpr2023-sparse-concepts",
+      "title": "基线变化也会改变截断的平方残差损失",
+      "category": "source_compound_claim_truncated_clause_counterexample",
+      "source_refs": [
+        {
+          "id": "src-cvpr2023-main",
+          "source_id": "src-cvpr2023-main",
+          "locations": [
+            {
+              "pdf_page": 5,
+              "role": "statement",
+              "label": "3.2 first paragraph"
+            }
+          ]
+        }
+      ],
+      "original_formula_tex": "\\text{change of baseline values always ensures unfaith}(w)=0\\text{ and just affects }\\|w_\\Omega\\|_1",
+      "evidence_md": "原“just affects $\\|w_\\Omega\\|_1$”不能解释为截断损失unfaith不随基线变。取单变量模型 $v(z)=z$、原输入x=1、输入基线r、只保留 $\\Omega=\\{\\varnothing\\}$。完整交互为 $w_\\varnothing=r,w_{\\{1\\}}=1-r$；截断残差平方和为 $[r-r]^2+[1-r]^2=(1-r)^2$，随r变化。完整交互的unfaith始终0，但截断损失部分也可能改变。保留原句、单列该解释错误，不把原复合断言替换成较弱命题后算整体通过。",
+      "impact_md": "完整w各自重构的恒等式成立；不据此证明截断损失只变化L1。原复合句保留且分开状态。",
+      "related_result_ids": [
+        "cvpr2023-baseline-faithfulness"
+      ],
+      "original_statement_status": "compound_clause_counterexample_verified",
+      "user_confirmation": "not_individually_reviewed",
+      "fix_authorization": "proof_only_granted",
+      "statement_fix_authorization": "not_granted",
+      "status": "false_clause_recorded_without_statement_replacement",
+      "source_schema_status": {
+        "category": "source_compound_claim_truncated_clause_counterexample",
+        "original_statement_status": "compound_clause_counterexample_verified",
+        "status": "false_clause_recorded_without_statement_replacement"
+      },
+      "issue_type": "statement_partial_counterexample",
+      "assessment_status": "partially_refuted",
+      "affected_result_ids": [
+        "cvpr2023-baseline-faithfulness"
+      ],
+      "text_md": "原“just affects $\\|w_\\Omega\\|_1$”不能解释为截断损失unfaith不随基线变。取单变量模型 $v(z)=z$、原输入x=1、输入基线r、只保留 $\\Omega=\\{\\varnothing\\}$。完整交互为 $w_\\varnothing=r,w_{\\{1\\}}=1-r$；截断残差平方和为 $[r-r]^2+[1-r]^2=(1-r)^2$，随r变化。完整交互的unfaith始终0，但截断损失部分也可能改变。保留原句、单列该解释错误，不把原复合断言替换成较弱命题后算整体通过。",
+      "translations": {
+        "en": {
+          "title": "The baseline can change the truncated unfaithfulness loss",
+          "evidence_md": "For the identity model, input one and baseline r, the full dividends are r and 1-r. Retaining only the empty coalition gives squared reconstruction error (1-r)^2, which varies with the baseline. Full reconstruction still has zero error for every baseline.",
+          "impact_md": "The full-coefficient zero-loss clause is true, but the claim that the baseline affects only the sparsity term is false for a truncated family. The compound sentence is not weakened and then marked proved.",
+          "text_md": "For the identity model, input one and baseline r, the full dividends are r and 1-r. Retaining only the empty coalition gives squared reconstruction error (1-r)^2, which varies with the baseline. Full reconstruction still has zero error for every baseline.\n\nThe full-coefficient zero-loss clause is true, but the claim that the baseline affects only the sparsity term is false for a truncated family. The compound sentence is not weakened and then marked proved."
+        }
+      }
+    },
+    {
+      "id": "sparse-issue-determinant-sign",
+      "paper_id": "iclr2024-sparse",
+      "title": "Lemma3行列式消元漏余子式符号",
+      "kind": "source_proof_error",
+      "source_refs": [
+        {
+          "id": "src-iclr2024-sparse-main",
+          "source_id": "src-iclr2024-sparse-main",
+          "locations": [
+            {
+              "pdf_page": 18,
+              "role": "statement",
+              "label": "正式PDF"
+            }
+          ]
+        }
+      ],
+      "original_formula_tex": "D\\prod_{k=1}^M\\binom nk=1,\\quad D=(\\prod_{k=1}^M\\binom nk)^{-1}",
+      "analysis_md": "取n=3,M=2，Eq31的矩阵为[[1,2],[1,1]]，行列式−1。Eq32沿首列展开漏(−1)^(M+1)，重复后应有(−1)^(M(M−1)/2)。这只改变非零行列式的符号，不推翻满列秩命题。",
+      "affected_result_ids": [
+        "iclr2024-sparse-lemma3"
+      ],
+      "impact_scope": "Eq33–36的精确值；Lemma3最终零空间结论保持，已授权修中间证明。",
+      "evidence_checked": "p18 PNG visually checked, exact 2×2 determinant countercheck",
+      "user_confirmation": "not_required_for_proof_repair_under_latest_instruction",
+      "fix_authorization": "proof_only_granted",
+      "statement_change_authorization": "not_granted",
+      "statement_status": "not_declared_false",
+      "resolution_status": "proof_repaired_same_original_statement_in_project_layer",
+      "source_schema_status": {
+        "kind": "source_proof_error",
+        "statement_status": "not_declared_false"
+      },
+      "issue_type": "proof_step_error",
+      "assessment_status": "proof_error_recorded",
+      "text_md": "取n=3,M=2，Eq31的矩阵为[[1,2],[1,1]]，行列式−1。Eq32沿首列展开漏(−1)^(M+1)，重复后应有(−1)^(M(M−1)/2)。这只改变非零行列式的符号，不推翻满列秩命题。",
+      "translations": {
+        "en": {
+          "title": "Missing cofactor sign in Lemma 3 elimination",
+          "analysis_md": "For $n=3,M=2$, the Eq.(31) matrix is $\\left[\\begin{smallmatrix}1&2\\\\1&1\\end{smallmatrix}\\right]$ with determinant $-1$. Expanding Eq.(32) along the first column omits $(-1)^{M+1}$; iteration yields $(-1)^{M(M-1)/2}$. Only the sign changes, not nonzero determinant or full column rank.",
+          "text_md": "For $n=3,M=2$, the Eq.(31) matrix is $\\left[\\begin{smallmatrix}1&2\\\\1&1\\end{smallmatrix}\\right]$ with determinant $-1$. Expanding Eq.(32) along the first column omits $(-1)^{M+1}$; iteration yields $(-1)^{M(M-1)/2}$. Only the sign changes, not nonzero determinant or full column rank.",
+          "impact_md": "The exact values in Eqs.(33)–(36) need repair; Lemma 3’s final kernel conclusion is retained."
+        }
+      }
+    },
+    {
+      "id": "sparse-issue-beta-exponent",
+      "paper_id": "iclr2024-sparse",
+      "title": "Beta定义指数方向与后续值不一致",
+      "kind": "source_proof_error",
+      "source_refs": [
+        {
+          "id": "src-iclr2024-sparse-main",
+          "source_id": "src-iclr2024-sparse-main",
+          "locations": [
+            {
+              "pdf_page": 22,
+              "role": "statement",
+              "label": "正式PDF"
+            }
+          ]
+        }
+      ],
+      "original_formula_tex": "B(p,q)=\\int_0^1x^{p-1}(1-x)^{1-q}\\,dx",
+      "analysis_md": "正式图像确写1−q。取p=1,q=2，右侧为发散积分；随后给B(1,2)=1/2。修证明可用有限组合计数，不改Shapley/SII/STI命题。",
+      "affected_result_ids": [
+        "iclr2024-sparse-theorem4",
+        "iclr2024-sparse-theorem5",
+        "iclr2024-sparse-theorem6"
+      ],
+      "impact_scope": "证明工具定义及后续积分路线；非三个最终指标恒等式的反例。",
+      "evidence_checked": "p22 PNG visually checked; same error occurs in formal CVPR supplement p7",
+      "user_confirmation": "not_required_for_proof_repair_under_latest_instruction",
+      "fix_authorization": "proof_only_granted",
+      "statement_change_authorization": "not_granted",
+      "statement_status": "not_declared_false",
+      "resolution_status": "proof_repaired_same_original_statement_in_project_layer",
+      "source_schema_status": {
+        "kind": "source_proof_error",
+        "statement_status": "not_declared_false"
+      },
+      "issue_type": "proof_step_error",
+      "assessment_status": "proof_error_recorded",
+      "text_md": "正式图像确写1−q。取p=1,q=2，右侧为发散积分；随后给B(1,2)=1/2。修证明可用有限组合计数，不改Shapley/SII/STI命题。",
+      "translations": {
+        "en": {
+          "title": "The beta exponent disagrees with the later value",
+          "analysis_md": "The formal image prints $1-q$. With $p=1,q=2$, the displayed integral diverges, while the later value is $B(1,2)=1/2$. Finite combinatorial counting repairs the proof without changing Shapley, SII, or STI statements.",
+          "text_md": "The formal image prints $1-q$. With $p=1,q=2$, the displayed integral diverges, while the later value is $B(1,2)=1/2$. Finite combinatorial counting repairs the proof without changing Shapley, SII, or STI statements.",
+          "impact_md": "This affects the beta definition and integral proof route, not the three final attribution identities."
+        }
+      }
+    },
+    {
+      "id": "sparse-issue-beta-empty-L",
+      "paper_id": "iclr2024-sparse",
+      "title": "Shapley等证明的L=∅零参数边界未处理",
+      "kind": "source_proof_error",
+      "source_refs": [
+        {
+          "id": "src-iclr2024-sparse-main",
+          "source_id": "src-iclr2024-sparse-main",
+          "locations": [
+            {
+              "pdf_page": 22,
+              "role": "statement",
+              "label": "正式PDF"
+            },
+            {
+              "pdf_page": 23,
+              "role": "statement",
+              "label": "正式PDF"
+            },
+            {
+              "pdf_page": 24,
+              "role": "statement",
+              "label": "正式PDF"
+            },
+            {
+              "pdf_page": 26,
+              "role": "statement",
+              "label": "正式PDF"
+            },
+            {
+              "pdf_page": 27,
+              "role": "statement",
+              "label": "正式PDF"
+            }
+          ]
+        }
+      ],
+      "original_formula_tex": "B(n-|L|-k,|L|+k),\\qquad |L|\\int_0^1(1-x)^{|L|-1}\\,dx=1",
+      "analysis_md": "允许L=∅且k=0时调用B(n,0)，违反刚声明的正参数域。|L|=0时标①的被积函数在(0,1)为0，不能统一写成1；原离散权重项本身有限，需独立处理边界。",
+      "affected_result_ids": [
+        "iclr2024-sparse-theorem4",
+        "iclr2024-sparse-theorem5",
+        "iclr2024-sparse-theorem6"
+      ],
+      "impact_scope": "权重化简路线的空集分支；最终公式可以不改，使用共享修复证明。",
+      "evidence_checked": "p22 visually checked plus p23/24/26/27 full formal text",
+      "user_confirmation": "not_required_for_proof_repair_under_latest_instruction",
+      "fix_authorization": "proof_only_granted",
+      "statement_change_authorization": "not_granted",
+      "statement_status": "not_declared_false",
+      "resolution_status": "proof_repaired_same_original_statement_in_project_layer",
+      "source_schema_status": {
+        "kind": "source_proof_error",
+        "statement_status": "not_declared_false"
+      },
+      "issue_type": "proof_step_error",
+      "assessment_status": "proof_error_recorded",
+      "text_md": "允许L=∅且k=0时调用B(n,0)，违反刚声明的正参数域。|L|=0时标①的被积函数在(0,1)为0，不能统一写成1；原离散权重项本身有限，需独立处理边界。",
+      "translations": {
+        "en": {
+          "title": "Unaddressed zero parameter for an empty L",
+          "analysis_md": "For $L=\\varnothing$ and $k=0$, the author calls $B(n,0)$ outside the declared positive-parameter domain. When $|L|=0$, the marked integrand is zero on $(0,1)$ and cannot uniformly integrate to $1$. The discrete weight itself is finite and needs separate boundary treatment.",
+          "text_md": "For $L=\\varnothing$ and $k=0$, the author calls $B(n,0)$ outside the declared positive-parameter domain. When $|L|=0$, the marked integrand is zero on $(0,1)$ and cannot uniformly integrate to $1$. The discrete weight itself is finite and needs separate boundary treatment.",
+          "impact_md": "The empty-family branch of the coefficient proof is repaired by the shared finite proof, retaining the final formulas."
+        }
+      }
+    },
+    {
+      "id": "sparse-issue-taylor-validity",
+      "paper_id": "iclr2024-sparse",
+      "title": "Lemma1的一般无限Taylor恒等式缺少有效性前提",
+      "kind": "source_statement_counterexample",
+      "source_refs": [
+        {
+          "id": "src-iclr2024-sparse-main",
+          "source_id": "src-iclr2024-sparse-main",
+          "locations": [
+            {
+              "pdf_page": 5,
+              "role": "statement",
+              "label": "正式PDF"
+            },
+            {
+              "pdf_page": 15,
+              "role": "statement",
+              "label": "正式PDF"
+            },
+            {
+              "pdf_page": 16,
+              "role": "statement",
+              "label": "正式PDF"
+            }
+          ]
+        }
+      ],
+      "original_formula_tex": "v(x_S)=\\sum_{\\kappa\\in\\mathbb N^n}\\frac{D^\\kappa v(b)}{\\kappa!}(x_S-b)^\\kappa",
+      "analysis_md": "原文仅说适用于continuously differentiable functions，Lemma1本身未假设解析性或Taylor级数等于函数。n=1,b=0,x=1，取v(t)=exp(−1/t²)（t≠0），v(0)=0。此函数C∞，所有在0的导数为0，但I({1})=e^(−1)≠0，而Eq8右边为0。反例针对一般Lemma1，不满足全空间高阶导数为零，故不直接否定1β⇒1α。",
+      "affected_result_ids": [
+        "iclr2024-sparse-lemma1"
+      ],
+      "impact_scope": "一般Lemma1与无限展开Eq2/11不能无条件修复；不能补解析性后冒充原命题。",
+      "evidence_checked": "formal PDF page text; image check recorded separately",
+      "user_confirmation": "not_required_for_proof_repair_under_latest_instruction",
+      "fix_authorization": "proof_only_granted",
+      "statement_change_authorization": "not_granted",
+      "statement_status": "requires_assessment",
+      "resolution_status": "separate_original_statement_review",
+      "source_schema_status": {
+        "kind": "source_statement_counterexample",
+        "statement_status": "requires_assessment"
+      },
+      "issue_type": "statement_counterexample",
+      "assessment_status": "recorded_for_review",
+      "text_md": "原文仅说适用于continuously differentiable functions，Lemma1本身未假设解析性或Taylor级数等于函数。n=1,b=0,x=1，取v(t)=exp(−1/t²)（t≠0），v(0)=0。此函数C∞，所有在0的导数为0，但I({1})=e^(−1)≠0，而Eq8右边为0。反例针对一般Lemma1，不满足全空间高阶导数为零，故不直接否定1β⇒1α。",
+      "translations": {
+        "en": {
+          "title": "The general infinite Taylor identity lacks a validity premise",
+          "analysis_md": "The source says continuously differentiable functions without assuming analyticity or equality to a Taylor series. Take $n=1,r=0,x=1$ and $v(t)=e^{-1/t^2}$ for $t\\ne0$, $v(0)=0$. This smooth function has all derivatives zero at the baseline, but $I(\\{1\\})=e^{-1}\\ne0$, while Eq.(8)’s right side is zero. The counterexample concerns general Lemma 1 and does not satisfy the global derivative cutoff, so it does not refute the cutoff implication.",
+          "text_md": "The source says continuously differentiable functions without assuming analyticity or equality to a Taylor series. Take $n=1,r=0,x=1$ and $v(t)=e^{-1/t^2}$ for $t\\ne0$, $v(0)=0$. This smooth function has all derivatives zero at the baseline, but $I(\\{1\\})=e^{-1}\\ne0$, while Eq.(8)’s right side is zero. The counterexample concerns general Lemma 1 and does not satisfy the global derivative cutoff, so it does not refute the cutoff implication.",
+          "impact_md": "General Lemma 1 and the infinite expansions in Eqs.(2),(11) cannot be repaired by silently adding analyticity."
+        }
+      }
+    },
+    {
+      "id": "sparse-issue-zero-power",
+      "paper_id": "iclr2024-sparse",
+      "title": "Lemma1掩码幂式漏κ_i>0条件",
+      "kind": "source_proof_error",
+      "source_refs": [
+        {
+          "id": "src-iclr2024-sparse-main",
+          "source_id": "src-iclr2024-sparse-main",
+          "locations": [
+            {
+              "pdf_page": 16,
+              "role": "statement",
+              "label": "正式PDF"
+            }
+          ]
+        }
+      ],
+      "original_formula_tex": "\\forall i\\notin S,\\ [(x_S)_i-b_i]^{\\kappa_i}=0",
+      "analysis_md": "κ_i=0时该式为0^0=1（Taylor单项式约定），不是0。后续PS过滤实际只需“若κ_i>0则项为零”，可修证明中间解释；不改PS或最终目标。",
+      "affected_result_ids": [
+        "iclr2024-sparse-lemma1"
+      ],
+      "impact_scope": "p16关于零项的单句；与一般Taylor有效性缺口是两个独立问题。",
+      "evidence_checked": "formal PDF page text; image check recorded separately",
+      "user_confirmation": "not_required_for_proof_repair_under_latest_instruction",
+      "fix_authorization": "proof_only_granted",
+      "statement_change_authorization": "not_granted",
+      "statement_status": "not_declared_false",
+      "resolution_status": "recorded_repair_in_progress",
+      "source_schema_status": {
+        "kind": "source_proof_error",
+        "statement_status": "not_declared_false"
+      },
+      "issue_type": "proof_step_error",
+      "assessment_status": "proof_error_recorded",
+      "text_md": "κ_i=0时该式为0^0=1（Taylor单项式约定），不是0。后续PS过滤实际只需“若κ_i>0则项为零”，可修证明中间解释；不改PS或最终目标。",
+      "translations": {
+        "en": {
+          "title": "The masked-power argument omits a positive exponent condition",
+          "analysis_md": "For $\\kappa_i=0$, the Taylor-monomial convention gives $0^0=1$, rather than zero. The support filter only needs the implication that a masked factor vanishes when $\\kappa_i>0$. Repairing this intermediate explanation does not change the support classes or final target.",
+          "text_md": "For $\\kappa_i=0$, the Taylor-monomial convention gives $0^0=1$, rather than zero. The support filter only needs the implication that a masked factor vanishes when $\\kappa_i>0$. Repairing this intermediate explanation does not change the support classes or final target.",
+          "impact_md": "This local masked-power error is separate from the general Taylor-validity gap."
+        }
+      }
+    },
+    {
+      "id": "sparse-issue-theorem2-zero-output",
+      "paper_id": "iclr2024-sparse",
+      "title": "Theorem2原路线未处理ū(1)=0",
+      "kind": "source_proof_error",
+      "source_refs": [
+        {
+          "id": "src-iclr2024-sparse-main",
+          "source_id": "src-iclr2024-sparse-main",
+          "locations": [
+            {
+              "pdf_page": 19,
+              "role": "statement",
+              "label": "正式PDF"
+            }
+          ]
+        }
+      ],
+      "original_formula_tex": "A^{(k)}/\\bar u^{(1)}",
+      "analysis_md": "取所有掩码u(S)=0，三条假设均满足，但Eq41除以0。此反例只否定原证明步骤：最终等式乘ū(1)=0仍可成立，不能据此宣布Theorem2是假。修路线应处理全零分支，不能增添ū(1)>0假设。",
+      "affected_result_ids": [
+        "iclr2024-sparse-theorem2"
+      ],
+      "impact_scope": "n进制构造步骤；正确的零平均分支已在项目重写中完整补齐；不从均值零推逐点输出零。",
+      "evidence_checked": "p19 PNG visually checked",
+      "user_confirmation": "not_required_for_proof_repair_under_latest_instruction",
+      "fix_authorization": "proof_only_granted",
+      "statement_change_authorization": "not_granted",
+      "statement_status": "not_declared_false",
+      "resolution_status": "proof_repaired_same_original_statement_in_project_layer",
+      "source_schema_status": {
+        "kind": "source_proof_error",
+        "statement_status": "not_declared_false"
+      },
+      "issue_type": "proof_step_error",
+      "assessment_status": "proof_error_recorded",
+      "text_md": "取所有掩码u(S)=0，三条假设均满足，但Eq41除以0。此反例只否定原证明步骤：最终等式乘ū(1)=0仍可成立，不能据此宣布Theorem2是假。修路线应处理全零分支，不能增添ū(1)>0假设。",
+      "translations": {
+        "en": {
+          "title": "The author construction omits a zero first-order mean",
+          "analysis_md": "The all-zero centered masked game satisfies the three assumptions but Eq.(41) divides by zero. This refutes only the proof step: the final identity multiplied by a zero mean can still hold. The zero-mean branch must be treated without inserting a positive-mean assumption.",
+          "text_md": "The all-zero centered masked game satisfies the three assumptions but Eq.(41) divides by zero. This refutes only the proof step: the final identity multiplied by a zero mean can still hold. The zero-mean branch must be treated without inserting a positive-mean assumption.",
+          "impact_md": "The rewritten proof fully handles zero means without inferring that every individual mask output is zero."
+        }
+      }
+    },
+    {
+      "id": "sparse-issue-theorem2-empty-G",
+      "paper_id": "iclr2024-sparse",
+      "title": "Theorem2原构造G可为空",
+      "kind": "source_proof_error",
+      "source_refs": [
+        {
+          "id": "src-iclr2024-sparse-main",
+          "source_id": "src-iclr2024-sparse-main",
+          "locations": [
+            {
+              "pdf_page": 19,
+              "role": "statement",
+              "label": "正式PDF"
+            },
+            {
+              "pdf_page": 20,
+              "role": "statement",
+              "label": "正式PDF"
+            }
+          ]
+        }
+      ],
+      "original_formula_tex": "G=\\{k:1\\le k\\le M,q^{(k)}\\ge\\lfloor p\\rfloor\\},\\quad\\delta=\\max_{k\\in G}\\delta^{(k)}",
+      "analysis_md": "n=3,M=1,p=2，u(S)=|S|满足三假设，ū(1)=1,A(1)=3，n进制最高次数q(1)=1≤floor(p)−1，故G为空。原最大值与k*不存在；Lemma3不能制造原构造全零λ以外的λ。最终存在式或有另一构造，此为路线缺口而非最终结论反例。",
+      "affected_result_ids": [
+        "iclr2024-sparse-theorem2"
+      ],
+      "impact_scope": "δ,k*构造及Eq50调用；不能仅补G非空。",
+      "evidence_checked": "formal PDF page text; image check recorded separately",
+      "user_confirmation": "not_required_for_proof_repair_under_latest_instruction",
+      "fix_authorization": "proof_only_granted",
+      "statement_change_authorization": "not_granted",
+      "statement_status": "not_declared_false",
+      "resolution_status": "proof_repaired_same_original_statement_in_project_layer",
+      "source_schema_status": {
+        "kind": "source_proof_error",
+        "statement_status": "not_declared_false"
+      },
+      "issue_type": "proof_step_error",
+      "assessment_status": "proof_error_recorded",
+      "text_md": "n=3,M=1,p=2，u(S)=|S|满足三假设，ū(1)=1,A(1)=3，n进制最高次数q(1)=1≤floor(p)−1，故G为空。原最大值与k*不存在；Lemma3不能制造原构造全零λ以外的λ。最终存在式或有另一构造，此为路线缺口而非最终结论反例。",
+      "translations": {
+        "en": {
+          "title": "The constructed leading-index family may be empty",
+          "analysis_md": "For $n=3,M=1,p=2$, the game $g_0(S)=|S|$ satisfies the three assumptions, with $\\bar g_0^{(1)}=1$ and $A^{(1)}=3$. Its highest base-$n$ degree is $q^{(1)}=1\\le\\lfloor p\\rfloor-1$, so $G$ is empty and the displayed maximum and $k^*$ do not exist. Lemma 3 cannot manufacture a nonzero leading block here. This is a construction gap, not a counterexample to the final existence claim.",
+          "text_md": "For $n=3,M=1,p=2$, the game $g_0(S)=|S|$ satisfies the three assumptions, with $\\bar g_0^{(1)}=1$ and $A^{(1)}=3$. Its highest base-$n$ degree is $q^{(1)}=1\\le\\lfloor p\\rfloor-1$, so $G$ is empty and the displayed maximum and $k^*$ do not exist. Lemma 3 cannot manufacture a nonzero leading block here. This is a construction gap, not a counterexample to the final existence claim.",
+          "impact_md": "The repaired existence construction avoids the undefined maximum rather than adding nonempty G."
+        }
+      }
+    },
+    {
+      "id": "sparse-issue-theorem2-m0-range",
+      "paper_id": "iclr2024-sparse",
+      "title": "Theorem2调用Lemma2的m范围不足",
+      "kind": "source_proof_error",
+      "source_refs": [
+        {
+          "id": "src-iclr2024-sparse-main",
+          "source_id": "src-iclr2024-sparse-main",
+          "locations": [
+            {
+              "pdf_page": 20,
+              "role": "statement",
+              "label": "正式PDF"
+            }
+          ]
+        }
+      ],
+      "original_formula_tex": "m_0\\in\\{n,n-1,\\ldots,n-M\\},\\qquad (40)\\text{ only for }M\\le m\\le n",
+      "analysis_md": "当M<n<2M时n−M<M，Lemma3取得的非零行可能不在Eq40已陈述范围。平均公式本身可对所有m扩展（k>m的组合数为0），属于证明补全而非新增数学假设。",
+      "affected_result_ids": [
+        "iclr2024-sparse-theorem2"
+      ],
+      "impact_scope": "Eq51的前提引用。",
+      "evidence_checked": "formal PDF page text; image check recorded separately",
+      "user_confirmation": "not_required_for_proof_repair_under_latest_instruction",
+      "fix_authorization": "proof_only_granted",
+      "statement_change_authorization": "not_granted",
+      "statement_status": "not_declared_false",
+      "resolution_status": "proof_repaired_same_original_statement_in_project_layer",
+      "source_schema_status": {
+        "kind": "source_proof_error",
+        "statement_status": "not_declared_false"
+      },
+      "issue_type": "proof_step_error",
+      "assessment_status": "proof_error_recorded",
+      "text_md": "当M<n<2M时n−M<M，Lemma3取得的非零行可能不在Eq40已陈述范围。平均公式本身可对所有m扩展（k>m的组合数为0），属于证明补全而非新增数学假设。",
+      "translations": {
+        "en": {
+          "title": "The Lemma 2 range does not cover every witness row",
+          "analysis_md": "When $M<n<2M$, one has $n-M<M$, so a nonzero row obtained by Lemma 3 may lie outside Eq.(40)’s stated range. The mean-output formula extends to every retained count, with binomial coefficients zero for $k>m$. This completes the proof without adding a hypothesis.",
+          "text_md": "When $M<n<2M$, one has $n-M<M$, so a nonzero row obtained by Lemma 3 may lie outside Eq.(40)’s stated range. The mean-output formula extends to every retained count, with binomial coefficients zero for $k>m$. This completes the proof without adding a hypothesis.",
+          "impact_md": "The issue is the premise cited at Eq.(51)."
+        }
+      }
+    },
+    {
+      "id": "sparse-issue-theorem2-p-under-one",
+      "paper_id": "iclr2024-sparse",
+      "title": "p∈(0,1)时低位下标书写未定义",
+      "kind": "statement_notation_scope_issue",
+      "source_refs": [
+        {
+          "id": "src-iclr2024-sparse-main",
+          "source_id": "src-iclr2024-sparse-main",
+          "locations": [
+            {
+              "pdf_page": 7,
+              "role": "statement",
+              "label": "正式PDF"
+            },
+            {
+              "pdf_page": 19,
+              "role": "statement",
+              "label": "正式PDF"
+            }
+          ]
+        }
+      ],
+      "original_formula_tex": "a_{\\lfloor p\\rfloor-1}^{(k)}n^{\\lfloor p\\rfloor-1}+\\cdots+a_0^{(k)}",
+      "analysis_md": "p>0允许p<1；floor(p)−1=−1，而正文只定义非负进制位、常数位。作者实验包含约0.9值，不能擅补p≥1。规范求和读作有限族J={i∈ℕ:i<floor(p)}时该族为空；若继续保留额外显示的a0项，全部低位取0的同一见证也成立。项目给任意有限低位族的统一构造，覆盖这两种常规读法，无须添加p≥1。原省略号书写问题仍保留，不声称原式逐字定义了负指标。",
+      "affected_result_ids": [
+        "iclr2024-sparse-theorem2",
+        "iclr2024-sparse-theorem3"
+      ],
+      "impact_scope": "原定理的索引族须明确，保留原式。",
+      "evidence_checked": "formal PDF page text; image check recorded separately",
+      "user_confirmation": "not_required_for_proof_repair_under_latest_instruction",
+      "fix_authorization": "proof_only_granted",
+      "statement_change_authorization": "not_granted",
+      "statement_status": "requires_assessment",
+      "resolution_status": "separate_original_statement_review",
+      "source_schema_status": {
+        "kind": "statement_notation_scope_issue",
+        "statement_status": "requires_assessment"
+      },
+      "issue_type": "statement_alignment_or_scope",
+      "assessment_status": "recorded_for_review",
+      "text_md": "p>0允许p<1；floor(p)−1=−1，而正文只定义非负进制位、常数位。作者实验包含约0.9值，不能擅补p≥1。规范求和读作有限族J={i∈ℕ:i<floor(p)}时该族为空；若继续保留额外显示的a0项，全部低位取0的同一见证也成立。项目给任意有限低位族的统一构造，覆盖这两种常规读法，无须添加p≥1。原省略号书写问题仍保留，不声称原式逐字定义了负指标。",
+      "translations": {
+        "en": {
+          "title": "The low-digit notation is ambiguous below exponent one",
+          "analysis_md": "The allowed $p>0$ includes $p<1$, where $\\lfloor p\\rfloor-1=-1$ despite nonnegative digit indices. The experiments include values around $0.9$, so a new $p\\ge1$ restriction would be unfaithful. The finite-family reading $J=\\{i\\in\\mathbb N:i<\\lfloor p\\rfloor\\}$ is empty there. If the printed constant digit remains separate, assigning it zero also works. The project witness handles any finite low-digit family without claiming the original ellipsis literally defined negative indices.",
+          "text_md": "The allowed $p>0$ includes $p<1$, where $\\lfloor p\\rfloor-1=-1$ despite nonnegative digit indices. The experiments include values around $0.9$, so a new $p\\ge1$ restriction would be unfaithful. The finite-family reading $J=\\{i\\in\\mathbb N:i<\\lfloor p\\rfloor\\}$ is empty there. If the printed constant digit remains separate, assigning it zero also works. The project witness handles any finite low-digit family without claiming the original ellipsis literally defined negative indices.",
+          "impact_md": "The index-family scope is disclosed while preserving the original displayed expression."
+        }
+      }
+    },
+    {
+      "id": "sparse-issue-eta-zero",
+      "paper_id": "iclr2024-sparse",
+      "title": "完全抵消与空阶下η除法边界",
+      "kind": "source_proof_error",
+      "source_refs": [
+        {
+          "id": "src-iclr2024-sparse-main",
+          "source_id": "src-iclr2024-sparse-main",
+          "locations": [
+            {
+              "pdf_page": 7,
+              "role": "statement",
+              "label": "正式PDF"
+            },
+            {
+              "pdf_page": 8,
+              "role": "statement",
+              "label": "正式PDF"
+            },
+            {
+              "pdf_page": 20,
+              "role": "statement",
+              "label": "正式PDF"
+            },
+            {
+              "pdf_page": 21,
+              "role": "statement",
+              "label": "正式PDF"
+            }
+          ]
+        }
+      ],
+      "original_formula_tex": "\\eta^{(k)}=A^{(k)}/\\sum_{|S|=k}|I(S)|,\\quad A^{(k)}/\\eta^{(k)}=\\sum_{|S|=k}|I(S)|",
+      "analysis_md": "无交互时定义为0/0；非零正负交互恰好抵消时η=0，Eq57除法亦未定义。Theorem3所在Case1明确|η|≫1/n，已提供非零上下文，可以在该原范围忠实证明；不能扩大为完全抵消情况。",
+      "affected_result_ids": [
+        "iclr2024-sparse-theorem3"
+      ],
+      "impact_scope": "完全抵消情况不在可用除法范围；Case1计数推导无须增假设。",
+      "evidence_checked": "formal PDF page text; image check recorded separately",
+      "user_confirmation": "not_required_for_proof_repair_under_latest_instruction",
+      "fix_authorization": "proof_only_granted",
+      "statement_change_authorization": "not_granted",
+      "statement_status": "not_declared_false",
+      "resolution_status": "proof_repaired_same_original_statement_in_project_layer",
+      "source_schema_status": {
+        "kind": "source_proof_error",
+        "statement_status": "not_declared_false"
+      },
+      "issue_type": "proof_step_error",
+      "assessment_status": "proof_error_recorded",
+      "text_md": "无交互时定义为0/0；非零正负交互恰好抵消时η=0，Eq57除法亦未定义。Theorem3所在Case1明确|η|≫1/n，已提供非零上下文，可以在该原范围忠实证明；不能扩大为完全抵消情况。",
+      "translations": {
+        "en": {
+          "title": "Division by the cancellation ratio at zero or an empty order",
+          "analysis_md": "An empty order gives $0/0$. Nonzero effects with exact sign cancellation give $\\eta=0$, making Eq.(57)’s division undefined. Theorem 3 is situated in Case 1 with $|\\eta|\\gg1/n$, which already provides a nonzero context. The proof is faithful in that range and is not enlarged to complete cancellation.",
+          "text_md": "An empty order gives $0/0$. Nonzero effects with exact sign cancellation give $\\eta=0$, making Eq.(57)’s division undefined. Theorem 3 is situated in Case 1 with $|\\eta|\\gg1/n$, which already provides a nonzero context. The proof is faithful in that range and is not enlarged to complete cancellation.",
+          "impact_md": "Complete cancellation is outside the usable quotient domain; the Case 1 derivation adds no new assumption."
+        }
+      }
+    },
+    {
+      "id": "sparse-issue-noise-variance",
+      "paper_id": "iclr2024-sparse",
+      "title": "fully random不足以推出2^|S|方差放大",
+      "kind": "source_statement_assumption_gap",
+      "source_refs": [
+        {
+          "id": "src-iclr2024-sparse-main",
+          "source_id": "src-iclr2024-sparse-main",
+          "locations": [
+            {
+              "pdf_page": 8,
+              "role": "statement",
+              "label": "正式PDF"
+            }
+          ]
+        }
+      ],
+      "original_formula_tex": "\\operatorname{Var}(I_\\varepsilon(S))=2^{|S|}\\operatorname{Var}(\\varepsilon)",
+      "analysis_md": "原文未说明噪声项相互独立且同方差。令所有εT同一个非退化随机Z，中心化后εT−ε∅=0，所有噪声交互为0；该方差放大式不成立。若fully random意为iid需明确语义，不能自行给独立同方差假设。空集交互恒0也不是1倍原噪声方差。",
+      "affected_result_ids": [
+        "iclr2024-sparse-noise-variance"
+      ],
+      "impact_scope": "噪声线性分解成立；概率结论另列，不公开增条件版本。",
+      "evidence_checked": "formal PDF page text; image check recorded separately",
+      "user_confirmation": "not_required_for_proof_repair_under_latest_instruction",
+      "fix_authorization": "proof_only_granted",
+      "statement_change_authorization": "not_granted",
+      "statement_status": "requires_assessment",
+      "resolution_status": "separate_original_statement_review",
+      "source_schema_status": {
+        "kind": "source_statement_assumption_gap",
+        "statement_status": "requires_assessment"
+      },
+      "issue_type": "statement_alignment_or_scope",
+      "assessment_status": "recorded_for_review",
+      "text_md": "原文未说明噪声项相互独立且同方差。令所有εT同一个非退化随机Z，中心化后εT−ε∅=0，所有噪声交互为0；该方差放大式不成立。若fully random意为iid需明确语义，不能自行给独立同方差假设。空集交互恒0也不是1倍原噪声方差。",
+      "translations": {
+        "en": {
+          "title": "Randomness alone does not imply the variance multiplier",
+          "analysis_md": "The source does not state independence and equal variance of the noise terms. If every $\\epsilon_T$ is the same nondegenerate random variable $Z$, centering gives $\\epsilon_T-\\epsilon_\\varnothing=0$, so every noise dividend vanishes. The claimed multiplier fails. Reading fully random as IID would require explicit source justification, and the empty centered dividend is zero rather than one copy of the noise variance.",
+          "text_md": "The source does not state independence and equal variance of the noise terms. If every $\\epsilon_T$ is the same nondegenerate random variable $Z$, centering gives $\\epsilon_T-\\epsilon_\\varnothing=0$, so every noise dividend vanishes. The claimed multiplier fails. Reading fully random as IID would require explicit source justification, and the empty centered dividend is zero rather than one copy of the noise variance.",
+          "impact_md": "The variance conclusion requires a separately recorded interpretation of independence; it is not silently inserted."
+        }
+      }
+    },
+    {
+      "id": "sparse-issue-parity-empty",
+      "paper_id": "iclr2024-sparse",
+      "title": "奇偶例的u(∅)与中心化冲突",
+      "kind": "source_statement_definition_conflict",
+      "source_refs": [
+        {
+          "id": "src-iclr2024-sparse-main",
+          "source_id": "src-iclr2024-sparse-main",
+          "locations": [
+            {
+              "pdf_page": 9,
+              "role": "statement",
+              "label": "正式PDF"
+            }
+          ]
+        }
+      ],
+      "original_formula_tex": "u(S)=\\begin{cases}+1&|S|\\text{ odd}\\\\-1&|S|\\text{ even}\\end{cases}",
+      "analysis_md": "空集偶数，所以该显示定义给u(∅)=−1，而本篇全局定义给u(∅)=0。原示例在当前定义域中不存在。不能把u改成g或改空集值后宣称原例证明完成；原符号语义冲突单列。",
+      "affected_result_ids": [
+        "iclr2024-sparse-parity-mask"
+      ],
+      "impact_scope": "正文Scenario2示例；不涉及Assumption2作为条件的其他证明。",
+      "evidence_checked": "formal PDF page text; image check recorded separately",
+      "user_confirmation": "not_required_for_proof_repair_under_latest_instruction",
+      "fix_authorization": "proof_only_granted",
+      "statement_change_authorization": "not_granted",
+      "statement_status": "requires_assessment",
+      "resolution_status": "separate_original_statement_review",
+      "source_schema_status": {
+        "kind": "source_statement_definition_conflict",
+        "statement_status": "requires_assessment"
+      },
+      "issue_type": "statement_alignment_or_scope",
+      "assessment_status": "recorded_for_review",
+      "text_md": "空集偶数，所以该显示定义给u(∅)=−1，而本篇全局定义给u(∅)=0。原示例在当前定义域中不存在。不能把u改成g或改空集值后宣称原例证明完成；原符号语义冲突单列。",
+      "translations": {
+        "en": {
+          "title": "The parity example conflicts with the centered empty value",
+          "analysis_md": "The empty set has even size, so the displayed parity definition gives $u(\\varnothing)=-1$, whereas the paper’s centered convention requires $u(\\varnothing)=0$. The source example does not exist under these simultaneous definitions. Renaming u as a raw game or changing its empty value would change the example.",
+          "text_md": "The empty set has even size, so the displayed parity definition gives $u(\\varnothing)=-1$, whereas the paper’s centered convention requires $u(\\varnothing)=0$. The source example does not exist under these simultaneous definitions. Renaming u as a raw game or changing its empty value would change the example.",
+          "impact_md": "The source-symbol scope conflict is retained separately."
+        }
+      }
+    },
+    {
+      "id": "sparse-issue-transfer",
+      "paper_id": "iclr2024-sparse",
+      "title": "单样本稀疏与重构不能推出样本间迁移",
+      "kind": "source_statement_counterexample",
+      "source_refs": [
+        {
+          "id": "src-iclr2024-sparse-main",
+          "source_id": "src-iclr2024-sparse-main",
+          "locations": [
+            {
+              "pdf_page": 9,
+              "role": "statement",
+              "label": "正式PDF"
+            }
+          ]
+        }
+      ],
+      "original_formula_tex": "\\text{sparsity} + \\text{universal matching}\\Rightarrow\\text{sample-wise transferability}",
+      "analysis_md": "令总体N有n≥2变量，n个样本分别诱导g0^(j)(S)=1若j∈S，反之0。每个样本仅一个非零单变量交互，全部掩码都精确重构；不同样本的显著支撑互不相交。这些集合函数可由同一模型在不同掩码样本上实现（例如各样本仅一个坐标非零、v(z)=sum_i z_i），所有样本输出为1，可按分类阈值v(z)>1/2全部指定为同一正类，满足原“same category”条件。无需“爆炸”模式数。原反证没有全模型模式预算前提。",
+      "affected_result_ids": [
+        "iclr2024-sparse-transfer-inference"
+      ],
+      "impact_scope": "Section4迁移推断不是两已知性质的逻辑推论，单独列出。",
+      "evidence_checked": "formal PDF page text; image check recorded separately",
+      "user_confirmation": "not_required_for_proof_repair_under_latest_instruction",
+      "fix_authorization": "proof_only_granted",
+      "statement_change_authorization": "not_granted",
+      "statement_status": "requires_assessment",
+      "resolution_status": "separate_original_statement_review",
+      "source_schema_status": {
+        "kind": "source_statement_counterexample",
+        "statement_status": "requires_assessment"
+      },
+      "issue_type": "statement_counterexample",
+      "assessment_status": "recorded_for_review",
+      "text_md": "令总体N有n≥2变量，n个样本分别诱导g0^(j)(S)=1若j∈S，反之0。每个样本仅一个非零单变量交互，全部掩码都精确重构；不同样本的显著支撑互不相交。这些集合函数可由同一模型在不同掩码样本上实现（例如各样本仅一个坐标非零、v(z)=sum_i z_i），所有样本输出为1，可按分类阈值v(z)>1/2全部指定为同一正类，满足原“same category”条件。无需“爆炸”模式数。原反证没有全模型模式预算前提。",
+      "translations": {
+        "en": {
+          "title": "Sparse reconstruction of each sample does not imply transfer",
+          "analysis_md": "For $n\\ge2$, use one model $v(z)=\\sum_i z_i$, zero input baseline, and samples $x^{(j)}=e_j$. Each induced centered game is $g_0^{(j)}(S)=\\mathbf1_{j\\in S}$, with one nonzero singleton dividend and exact reconstruction on every mask. Their salient supports are disjoint. All outputs are $1$, so threshold $v(z)>1/2$ classifies them in the same positive category. Only $n$ patterns are needed. The original contradiction has no global pattern-budget premise.",
+          "text_md": "For $n\\ge2$, use one model $v(z)=\\sum_i z_i$, zero input baseline, and samples $x^{(j)}=e_j$. Each induced centered game is $g_0^{(j)}(S)=\\mathbf1_{j\\in S}$, with one nonzero singleton dividend and exact reconstruction on every mask. Their salient supports are disjoint. All outputs are $1$, so threshold $v(z)>1/2$ classifies them in the same positive category. Only $n$ patterns are needed. The original contradiction has no global pattern-budget premise.",
+          "impact_md": "The original same-category inference is refuted without adding a new pattern-budget assumption."
+        }
+      }
+    },
+    {
+      "id": "sparse-issue-decomposition-notation",
+      "paper_id": "iclr2024-sparse",
+      "title": "D.2两个分量名称及去噪γ符号不一致",
+      "kind": "source_proof_error",
+      "source_refs": [
+        {
+          "id": "src-iclr2024-sparse-main",
+          "source_id": "src-iclr2024-sparse-main",
+          "locations": [
+            {
+              "pdf_page": 29,
+              "role": "statement",
+              "label": "正式PDF"
+            }
+          ]
+        }
+      ],
+      "original_formula_tex": "u_{and}=0.5u+\\gamma,\\quad u_{and}=0.5u-\\gamma;\\qquad u_{and}=0.5(u-\\varepsilon)+\\gamma,\\quad u_{or}=0.5(u-\\varepsilon)+\\gamma",
+      "analysis_md": "正式原式第二分量同名uand，去噪两项加γ使和为u−ε+2γ而非去噪输出。属于算法/证明中间式的标记与符号错；在原最终分解u=uand+uor保持不变下可标注并修中间式。",
+      "affected_result_ids": [
+        "iclr2024-sparse-and-or-optimization"
+      ],
+      "impact_scope": "D.2分解参数式；Eq61/62的数学目标本身未因此被推翻。",
+      "evidence_checked": "formal PDF page text; image check recorded separately",
+      "user_confirmation": "not_required_for_proof_repair_under_latest_instruction",
+      "fix_authorization": "proof_only_granted",
+      "statement_change_authorization": "not_granted",
+      "statement_status": "not_declared_false",
+      "resolution_status": "proof_repaired_same_original_statement_in_project_layer",
+      "source_schema_status": {
+        "kind": "source_proof_error",
+        "statement_status": "not_declared_false"
+      },
+      "issue_type": "proof_step_error",
+      "assessment_status": "proof_error_recorded",
+      "text_md": "正式原式第二分量同名uand，去噪两项加γ使和为u−ε+2γ而非去噪输出。属于算法/证明中间式的标记与符号错；在原最终分解u=uand+uor保持不变下可标注并修中间式。",
+      "translations": {
+        "en": {
+          "title": "Component names and denoising split signs disagree",
+          "analysis_md": "The source gives both components the AND name. In the denoising equations, both include $+\\gamma$, making their sum $u-\\epsilon+2\\gamma$ rather than the denoised output. These intermediate notation/sign errors can be repaired while preserving the final decomposition $u=u_{and}+u_{or}$.",
+          "text_md": "The source gives both components the AND name. In the denoising equations, both include $+\\gamma$, making their sum $u-\\epsilon+2\\gamma$ rather than the denoised output. These intermediate notation/sign errors can be repaired while preserving the final decomposition $u=u_{and}+u_{or}$.",
+          "impact_md": "The issue concerns the intermediate algorithmic formulas, not a changed final split."
+        }
+      }
+    },
+    {
+      "id": "sparse-issue-asymptotic-sparsity",
+      "paper_id": "iclr2024-sparse",
+      "title": "Case2非指数小抵消比例不足以推出同阶稀疏",
+      "kind": "source_statement_counterexample",
+      "source_refs": [
+        {
+          "id": "src-iclr2024-sparse-main",
+          "source_id": "src-iclr2024-sparse-main",
+          "locations": [
+            {
+              "pdf_page": 7,
+              "role": "statement",
+              "label": "正式PDF"
+            },
+            {
+              "pdf_page": 8,
+              "role": "statement",
+              "label": "正式PDF"
+            }
+          ]
+        }
+      ],
+      "original_formula_tex": "\\text{Case2: }|\\eta^{(k)}|\\text{ not exponentially small}\\ \\Longrightarrow\\ R^{(k)}\\text{ still much less than }\\binom nk",
+      "analysis_md": "完整无限族反例已写于math/rewrites.zh.md的asymptotic-claim。取n≥3且n≡2/3 mod4，q=choose(n,2)奇数；二阶±1系数的正/负项数为(q−1)/2与(q+1)/2，总和−1。模型v=Σzi+Σc_A∏i∈A zi，输入全1、基线0，给A1=n,A2=−1，所有高于二阶交互和混合偏导为零。μm=m−choose(m,2)/q；μm+1−μm=1−m/q>0，μm/m=1−(m−1)/(2q)非增，故原三条件以M=2,p=1完整满足。固定τ=1/100得到R2=q、η2=−1/q，其仅多项式小却二阶全显著。T3右端100q仍有效。反例只否定第8页Case2额外同阶推断，不把邻近mostcases经验描述当全称命题，也不否定总O(n²)相对2^n仍稀疏。",
+      "affected_result_ids": [
+        "iclr2024-sparse-asymptotic-claim"
+      ],
+      "impact_scope": "Only p8 Case2 non-exponentially-small η ⇒ per-order R≪choose(n,k) inference; exact T2/T3 and neighboring empirical most-cases claim unchanged.",
+      "evidence_checked": "formal p8 source and PNG independently checked by CVPR agent/root; complete original-assumption counterexample independently recalculated",
+      "user_confirmation": "not_required_for_proof_repair_under_latest_instruction",
+      "fix_authorization": "proof_only_granted",
+      "statement_change_authorization": "not_granted",
+      "statement_status": "specific_case2_per_order_inference_refuted; adjacent_mostcases_not_refuted; exact_T2_T3_unchanged",
+      "resolution_status": "original_clause_preserved_and_counterexample_separately_proved",
+      "assessment_status": "partially_refuted",
+      "proof_path": "research/full-proof-integration-20260930/iclr2024-sparse/math/rewrites.zh.md",
+      "scope_notes_md": "此外，有限n的O(n^(p+δ)/|τη|)表达若未控制δ、阈值及抵消比例随n的变化，不自动成为统一渐近界；这一范围说明保留。Case1相邻mostcases经验描述不被当成全称命题反驳。",
+      "source_schema_status": {
+        "kind": "source_statement_counterexample",
+        "statement_status": "specific_case2_per_order_inference_refuted; adjacent_mostcases_not_refuted; exact_T2_T3_unchanged",
+        "assessment_status": "specific_original_clause_refuted_by_complete_infinite_family"
+      },
+      "issue_type": "statement_partial_counterexample",
+      "text_md": "完整无限族反例已写于math/rewrites.zh.md的asymptotic-claim。取n≥3且n≡2/3 mod4，q=choose(n,2)奇数；二阶±1系数的正/负项数为(q−1)/2与(q+1)/2，总和−1。模型v=Σzi+Σc_A∏i∈A zi，输入全1、基线0，给A1=n,A2=−1，所有高于二阶交互和混合偏导为零。μm=m−choose(m,2)/q；μm+1−μm=1−m/q>0，μm/m=1−(m−1)/(2q)非增，故原三条件以M=2,p=1完整满足。固定τ=1/100得到R2=q、η2=−1/q，其仅多项式小却二阶全显著。T3右端100q仍有效。反例只否定第8页Case2额外同阶推断，不把邻近mostcases经验描述当全称命题，也不否定总O(n²)相对2^n仍稀疏。",
+      "clause_assessments": [
+        {
+          "id": "case2_nonexponential_eta_implies_per_order_sparsity",
+          "status": "refuted",
+          "scope": "actual original-assumption infinite family n≡2/3 mod4, M=2,p=1,τ=.01,η2=−1/choose(n,2),R2=choose(n,2)"
+        },
+        {
+          "id": "case1_mostcases",
+          "status": "empirical_not_refuted",
+          "scope": "not read as a universal quantified theorem"
+        },
+        {
+          "id": "exact_T2_T3",
+          "status": "unchanged_and_verified",
+          "scope": "the exact coefficient existence and count inequality; source parameter-domain notes remain"
+        },
+        {
+          "id": "finite_n_bigO_interpretation",
+          "status": "scope_explanation",
+          "scope": "n-dependent δ,η,τ do not by themselves supply a uniform asymptotic comparison"
+        }
+      ],
+      "translations": {
+        "en": {
+          "title": "Polynomial cancellation does not imply same-order sparsity",
+          "analysis_md": "For $n\\ge3$ with $n\\equiv2,3\\pmod4$, let $q=\\binom n2$ be odd. Assign second-order coefficients $\\pm1$ with counts $(q-1)/2$ and $(q+1)/2$, giving total $-1$. The model $v(z)=\\sum_i z_i+\\sum_{|A|=2}c_A\\prod_{i\\in A}z_i$ at the all-one input and zero baseline has $A^{(1)}=n,A^{(2)}=-1$ and zero higher interactions and mixed derivatives. Its order mean is $\\mu_m=m-\\binom m2/q$; the increments are $1-m/q>0$, and $\\mu_m/m=1-(m-1)/(2q)$ is nonincreasing. The original three assumptions hold with $M=2,p=1$. With fixed $\\tau=1/100$, $R^{(2)}=q$ and $\\eta^{(2)}=-1/q$, polynomially small despite every second-order term being salient. Theorem 3’s bound $100q$ still holds.",
+          "text_md": "For $n\\ge3$ with $n\\equiv2,3\\pmod4$, let $q=\\binom n2$ be odd. Assign second-order coefficients $\\pm1$ with counts $(q-1)/2$ and $(q+1)/2$, giving total $-1$. The model $v(z)=\\sum_i z_i+\\sum_{|A|=2}c_A\\prod_{i\\in A}z_i$ at the all-one input and zero baseline has $A^{(1)}=n,A^{(2)}=-1$ and zero higher interactions and mixed derivatives. Its order mean is $\\mu_m=m-\\binom m2/q$; the increments are $1-m/q>0$, and $\\mu_m/m=1-(m-1)/(2q)$ is nonincreasing. The original three assumptions hold with $M=2,p=1$. With fixed $\\tau=1/100$, $R^{(2)}=q$ and $\\eta^{(2)}=-1/q$, polynomially small despite every second-order term being salient. Theorem 3’s bound $100q$ still holds.",
+          "impact_md": "This refutes the extra Case 2 same-order inference, not the neighboring empirical most-cases description, Theorem 3, or total polynomial sparsity relative to $2^n$."
+        }
+      }
+    },
+    {
+      "id": "sparse-issue-example-H-arithmetic",
+      "paper_id": "iclr2024-sparse",
+      "title": "Appendix H三阶表漏x3单变量项",
+      "kind": "source_proof_error",
+      "source_refs": [
+        {
+          "id": "src-iclr2024-sparse-main",
+          "source_id": "src-iclr2024-sparse-main",
+          "locations": [
+            {
+              "pdf_page": 34,
+              "role": "statement",
+              "label": "正式PDF"
+            }
+          ]
+        }
+      ],
+      "original_formula_tex": "u(\\{3,4,5\\})=0,\\qquad\\bar u^{(3)}=1.8",
+      "analysis_md": "正式图像确给0，但代入v=x1x2x3+x1x2+x2x3+x2+x3、x=(1,1,1,1,1)、基线0，{3,4,5}保留x3=1，所以输出为1。三阶10项和应19、平均1.9。原二阶平均1≤三阶平均的结论仍成立；仅修算例表项和派生均值。",
+      "affected_result_ids": [
+        "iclr2024-sparse-monotonicity-example"
+      ],
+      "impact_scope": "一个中间表项与均值1.8；不否定原单调示例结论。",
+      "evidence_checked": "p34 PNG visually checked; independently detected by root and confirmed locally",
+      "user_confirmation": "not_required_for_proof_repair_under_latest_instruction",
+      "fix_authorization": "proof_only_granted",
+      "statement_change_authorization": "not_granted",
+      "statement_status": "not_declared_false",
+      "resolution_status": "proof_repaired_same_original_statement_in_project_layer",
+      "source_schema_status": {
+        "kind": "source_proof_error",
+        "statement_status": "not_declared_false"
+      },
+      "issue_type": "proof_step_error",
+      "assessment_status": "proof_error_recorded",
+      "text_md": "正式图像确给0，但代入v=x1x2x3+x1x2+x2x3+x2+x3、x=(1,1,1,1,1)、基线0，{3,4,5}保留x3=1，所以输出为1。三阶10项和应19、平均1.9。原二阶平均1≤三阶平均的结论仍成立；仅修算例表项和派生均值。",
+      "translations": {
+        "en": {
+          "title": "Appendix H omits the singleton x3 contribution",
+          "analysis_md": "The formal table prints zero for mask $\\{3,4,5\\}$, but $v=x_1x_2x_3+x_1x_2+x_2x_3+x_2+x_3$ at the all-one input and zero baseline gives output $1$ there. The sum over ten third-order masks is $19$ and the mean is $1.9$. The original comparison with second-order mean $1$ remains true.",
+          "text_md": "The formal table prints zero for mask $\\{3,4,5\\}$, but $v=x_1x_2x_3+x_1x_2+x_2x_3+x_2+x_3$ at the all-one input and zero baseline gives output $1$ there. The sum over ten third-order masks is $19$ and the mean is $1.9$. The original comparison with second-order mean $1$ remains true.",
+          "impact_md": "Only the table entry and derived mean are repaired."
+        }
+      }
+    },
+    {
+      "id": "sparse-issue-reconstruction-index",
+      "paper_id": "iclr2024-sparse",
+      "title": "Theorem1换序后的第三行误用S⊇L",
+      "kind": "source_proof_error",
+      "source_refs": [
+        {
+          "id": "src-iclr2024-sparse-main",
+          "source_id": "src-iclr2024-sparse-main",
+          "locations": [
+            {
+              "pdf_page": 15,
+              "role": "statement",
+              "label": "正式PDF"
+            }
+          ]
+        }
+      ],
+      "original_formula_tex": "\\sum_{\\substack{T\\subseteq S:S\\supseteq L\\\\|T|=t}}(-1)^{t-|L|}u(L)",
+      "analysis_md": "上一行要求T⊇L；第三行写成S⊇L不能筛选该L对应的T，导致计数不再是choose(|S|−|L|,t−|L|)。这是证明中间索引排印错；恢复上一行的T⊇L或用完整子集双射可证明相同原重构命题。",
+      "affected_result_ids": [
+        "iclr2024-sparse-reconstruction"
+      ],
+      "impact_scope": "B.1证明第三个等式中的求和限制；最终定理保持不变。",
+      "evidence_checked": "p15 PNG visually checked",
+      "user_confirmation": "not_required_for_proof_repair_under_latest_instruction",
+      "fix_authorization": "proof_only_granted",
+      "statement_change_authorization": "not_granted",
+      "statement_status": "not_declared_false",
+      "resolution_status": "proof_repaired_same_original_statement_in_project_layer",
+      "source_schema_status": {
+        "kind": "source_proof_error",
+        "statement_status": "not_declared_false"
+      },
+      "issue_type": "proof_step_error",
+      "assessment_status": "proof_error_recorded",
+      "text_md": "上一行要求T⊇L；第三行写成S⊇L不能筛选该L对应的T，导致计数不再是choose(|S|−|L|,t−|L|)。这是证明中间索引排印错；恢复上一行的T⊇L或用完整子集双射可证明相同原重构命题。",
+      "translations": {
+        "en": {
+          "title": "A switched sum uses S containing L instead of T",
+          "analysis_md": "The preceding line requires $T\\supseteq L$, but the next line prints $S\\supseteq L$, which cannot filter the varying T terms and does not produce the stated binomial count. Restoring the correct bound or using the full subset bijection proves the same reconstruction claim.",
+          "text_md": "The preceding line requires $T\\supseteq L$, but the next line prints $S\\supseteq L$, which cannot filter the varying T terms and does not produce the stated binomial count. Restoring the correct bound or using the full subset bijection proves the same reconstruction claim.",
+          "impact_md": "This is a local proof-index error, not a false reconstruction theorem."
+        }
+      }
+    },
+    {
+      "id": "sparse-issue-marginal-free-L",
+      "paper_id": "iclr2024-sparse",
+      "title": "Lemma4按l分组后仍保留未绑定L",
+      "kind": "source_proof_error",
+      "source_refs": [
+        {
+          "id": "src-iclr2024-sparse-main",
+          "source_id": "src-iclr2024-sparse-main",
+          "locations": [
+            {
+              "pdf_page": 21,
+              "role": "statement",
+              "label": "正式PDF"
+            }
+          ]
+        }
+      ],
+      "original_formula_tex": "\\sum_{l=|K\\setminus S|}^{|T|}(-1)^{|T|-|L|}\\binom{|T|-|K\\setminus S|}{l-|K\\setminus S|}",
+      "analysis_md": "按基数l分组后L已经不是求和变量，指数应随l变化才能调用二项式抵消。保留原自由L式供核查，项目共享有限差分证明不使用该错误中间式；原引理目标和全部T/S边界不变。",
+      "affected_result_ids": [
+        "iclr2024-sparse-lemma4"
+      ],
+      "impact_scope": "B.5分组求和的一行；不影响修复后的原边际命题。",
+      "evidence_checked": "p21 PNG visually checked",
+      "user_confirmation": "not_required_for_proof_repair_under_latest_instruction",
+      "fix_authorization": "proof_only_granted",
+      "statement_change_authorization": "not_granted",
+      "statement_status": "not_declared_false",
+      "resolution_status": "proof_repaired_same_original_statement_in_project_layer",
+      "source_schema_status": {
+        "kind": "source_proof_error",
+        "statement_status": "not_declared_false"
+      },
+      "issue_type": "proof_step_error",
+      "assessment_status": "proof_error_recorded",
+      "text_md": "按基数l分组后L已经不是求和变量，指数应随l变化才能调用二项式抵消。保留原自由L式供核查，项目共享有限差分证明不使用该错误中间式；原引理目标和全部T/S边界不变。",
+      "translations": {
+        "en": {
+          "title": "A grouped cardinality sum leaves L unbound",
+          "analysis_md": "After grouping by size $l$, L is no longer a summation variable; the sign exponent must depend on $l$ to use binomial cancellation. The original free-L expression is retained. The shared finite-difference proof avoids it while keeping the original lemma and all boundary cases.",
+          "text_md": "After grouping by size $l$, L is no longer a summation variable; the sign exponent must depend on $l$ to use binomial cancellation. The original free-L expression is retained. The shared finite-difference proof avoids it while keeping the original lemma and all boundary cases.",
+          "impact_md": "This repairs the local grouping step without changing the marginal theorem."
+        }
+      }
+    },
+    {
+      "id": "sparse-issue-STI-free-S",
+      "paper_id": "iclr2024-sparse",
+      "title": "Theorem6临界阶换序后组合数误留自由S",
+      "kind": "source_proof_error",
+      "source_refs": [
+        {
+          "id": "src-iclr2024-sparse-main",
+          "source_id": "src-iclr2024-sparse-main",
+          "locations": [
+            {
+              "pdf_page": 26,
+              "role": "statement",
+              "label": "正式PDF"
+            }
+          ]
+        }
+      ],
+      "original_formula_tex": "\\sum_{L\\subseteq N\\setminus T}I(T\\cup L)\\sum_{q=0}^{n-t}\\frac{\\binom{n-t-|L|}{q-|L|}}{\\binom{n-1}{|S|}}",
+      "analysis_md": "外层原环境S在换序后已按q=|S|分组，分母仍出现自由S；下一段转积分要求分母为choose(n−1,q)。这是局部索引排印错误，修复的共享有限阶乘卷积证明直接得到原临界阶权重，保留三分支命题。",
+      "affected_result_ids": [
+        "iclr2024-sparse-theorem6"
+      ],
+      "impact_scope": "B.7临界阶权重换序行；原STI最终展开保持不变。",
+      "evidence_checked": "p26 PNG visually checked",
+      "user_confirmation": "not_required_for_proof_repair_under_latest_instruction",
+      "fix_authorization": "proof_only_granted",
+      "statement_change_authorization": "not_granted",
+      "statement_status": "not_declared_false",
+      "resolution_status": "proof_repaired_same_original_statement_in_project_layer",
+      "source_schema_status": {
+        "kind": "source_proof_error",
+        "statement_status": "not_declared_false"
+      },
+      "issue_type": "proof_step_error",
+      "assessment_status": "proof_error_recorded",
+      "text_md": "外层原环境S在换序后已按q=|S|分组，分母仍出现自由S；下一段转积分要求分母为choose(n−1,q)。这是局部索引排印错误，修复的共享有限阶乘卷积证明直接得到原临界阶权重，保留三分支命题。",
+      "translations": {
+        "en": {
+          "title": "The critical-order STI proof leaves an environment S free",
+          "analysis_md": "The original environment S has been grouped by $q=|S|$, but the denominator still contains a free S. The next integral step needs denominator $\\binom{n-1}{q}$. The shared finite factorial-convolution proof directly yields the original critical-order weight while retaining all three branches.",
+          "text_md": "The original environment S has been grouped by $q=|S|$, but the denominator still contains a free S. The next integral step needs denominator $\\binom{n-1}{q}$. The shared finite factorial-convolution proof directly yields the original critical-order weight while retaining all three branches.",
+          "impact_md": "This is a local index error in the proof, not a changed STI proposition."
+        }
+      }
+    },
+    {
+      "id": "sparse-issue-T2-parameter-domain",
+      "paper_id": "iclr2024-sparse",
+      "title": "T2参数域未在陈述中明确",
+      "kind": "statement_parameter_domain_gap",
+      "source_refs": [
+        {
+          "id": "src-iclr2024-sparse-main",
+          "source_id": "src-iclr2024-sparse-main",
+          "locations": [
+            {
+              "pdf_page": 5,
+              "role": "statement",
+              "label": "正式PDF"
+            },
+            {
+              "pdf_page": 7,
+              "role": "statement",
+              "label": "正式PDF"
+            },
+            {
+              "pdf_page": 17,
+              "role": "statement",
+              "label": "正式PDF"
+            },
+            {
+              "pdf_page": 18,
+              "role": "statement",
+              "label": "正式PDF"
+            },
+            {
+              "pdf_page": 19,
+              "role": "statement",
+              "label": "正式PDF"
+            }
+          ]
+        }
+      ],
+      "original_formula_tex": "\\lambda=\\sum_{k=1}^M\\frac{\\binom{m_0}k}{\\binom nk}\\lambda^{(k)}\\ne0,\\qquad\\log_n(\\cdot)",
+      "analysis_md": "T2正文/附录没有明确重复Lemma3的M<n；不能把该限制偷偷加到T2。新构造覆盖M=n。实数log_n和n进制在n>1，全部choose(n,k)分母非零在M≤n；这是原表达的定义域说明。原页面未找到明确M∈N+约定：若允许M=0，取n=3且所有中心化输出0，三假设均成立，λ的空和为0，与λ≠0矛盾；因此这一读法的原陈述有反例，单列，不补M>0后冒充无条件原命题。正阶定义域中的完整存在构造另可验证。",
+      "affected_result_ids": [
+        "iclr2024-sparse-theorem2",
+        "iclr2024-sparse-theorem3"
+      ],
+      "impact_scope": "缺失的参数作用域与零阶读法；正常正阶范围原系数目标不改。",
+      "evidence_checked": "formal p5/7/17/18/19 text and formula boundaries reviewed",
+      "user_confirmation": "not_required_for_proof_repair_under_latest_instruction",
+      "fix_authorization": "proof_only_granted",
+      "statement_change_authorization": "not_granted",
+      "statement_status": "requires_assessment",
+      "resolution_status": "separate_original_statement_review",
+      "source_schema_status": {
+        "kind": "statement_parameter_domain_gap",
+        "statement_status": "requires_assessment"
+      },
+      "issue_type": "statement_alignment_or_scope",
+      "assessment_status": "recorded_for_review",
+      "text_md": "T2正文/附录没有明确重复Lemma3的M<n；不能把该限制偷偷加到T2。新构造覆盖M=n。实数log_n和n进制在n>1，全部choose(n,k)分母非零在M≤n；这是原表达的定义域说明。原页面未找到明确M∈N+约定：若允许M=0，取n=3且所有中心化输出0，三假设均成立，λ的空和为0，与λ≠0矛盾；因此这一读法的原陈述有反例，单列，不补M>0后冒充无条件原命题。正阶定义域中的完整存在构造另可验证。",
+      "translations": {
+        "en": {
+          "title": "Theorem 2 leaves some parameter domains unstated",
+          "analysis_md": "The source does not repeat Lemma 3’s $M<n$ in Theorem 2, so that restriction cannot be inserted. The new construction covers $M=n$. Real base-$n$ logarithms need $n>1$, and the displayed binomial denominators are nonzero for $M\\le n$. No explicit positive-M convention was found: if $M=0$ is allowed, the all-zero centered game at $n=3$ satisfies the three assumptions, but the empty sum $\\lambda=0$ contradicts $\\lambda\\ne0$. That reading has a separate counterexample, without inserting $M>0$ into the unconditional source proposition.",
+          "text_md": "The source does not repeat Lemma 3’s $M<n$ in Theorem 2, so that restriction cannot be inserted. The new construction covers $M=n$. Real base-$n$ logarithms need $n>1$, and the displayed binomial denominators are nonzero for $M\\le n$. No explicit positive-M convention was found: if $M=0$ is allowed, the all-zero centered game at $n=3$ satisfies the three assumptions, but the empty sum $\\lambda=0$ contradicts $\\lambda\\ne0$. That reading has a separate counterexample, without inserting $M>0$ into the unconditional source proposition.",
+          "impact_md": "The full existence construction is verified on the displayed positive-order expression domain; the zero-order reading remains separately refuted."
+        }
+      }
+    },
+    {
+      "id": "sparse-issue-lemma3-copied-row",
+      "paper_id": "iclr2024-sparse",
+      "title": "Lemma3 Eq33的降阶矩阵一行复制了n−2",
+      "kind": "source_proof_error",
+      "source_refs": [
+        {
+          "id": "src-iclr2024-sparse-main",
+          "source_id": "src-iclr2024-sparse-main",
+          "locations": [
+            {
+              "pdf_page": 18,
+              "role": "statement",
+              "label": "正式PDF"
+            }
+          ]
+        }
+      ],
+      "original_formula_tex": "\\left[\\binom{n-3}0,\\binom{n-2}1,\\ldots,\\binom{n-2}{M-2}\\right]",
+      "analysis_md": "正式Eq33第二行除第一列外仍印n−2，与Eq32相邻行差分后第二行应来自n−3不一致。原数组在完整TeX中保留；正确消元或已完成的有限差分归纳可证明原零空间结论，不需沿错误矩阵再计算。该索引复制错与余子式符号漏项分别标记。",
+      "affected_result_ids": [
+        "iclr2024-sparse-lemma3"
+      ],
+      "impact_scope": "Eq33降阶矩阵的第二行；不改变Lemma3正确最终结论。",
+      "evidence_checked": "p18 PNG visually checked",
+      "user_confirmation": "not_required_for_proof_repair_under_latest_instruction",
+      "fix_authorization": "proof_only_granted",
+      "statement_change_authorization": "not_granted",
+      "statement_status": "not_declared_false",
+      "resolution_status": "proof_repaired_same_original_statement_in_project_layer",
+      "source_schema_status": {
+        "kind": "source_proof_error",
+        "statement_status": "not_declared_false"
+      },
+      "issue_type": "proof_step_error",
+      "assessment_status": "proof_error_recorded",
+      "text_md": "正式Eq33第二行除第一列外仍印n−2，与Eq32相邻行差分后第二行应来自n−3不一致。原数组在完整TeX中保留；正确消元或已完成的有限差分归纳可证明原零空间结论，不需沿错误矩阵再计算。该索引复制错与余子式符号漏项分别标记。",
+      "translations": {
+        "en": {
+          "title": "Eq.(33) copies the n−2 matrix row",
+          "analysis_md": "The formal second row outside its first column repeats $n-2$ in Eq.(33), whereas adjacent-row differences in Eq.(32) require $n-3$. The original array remains in the full transcription. Correct elimination or the completed finite-difference induction proves the original kernel conclusion without using that erroneous matrix.",
+          "text_md": "The formal second row outside its first column repeats $n-2$ in Eq.(33), whereas adjacent-row differences in Eq.(32) require $n-3$. The original array remains in the full transcription. Correct elimination or the completed finite-difference induction proves the original kernel conclusion without using that erroneous matrix.",
+          "impact_md": "The copied row and the missing cofactor sign are separate proof errors."
+        }
+      }
+    },
+    {
+      "id": "issue-f11-or-intermediate-20260930",
+      "paper_id": "iclr2024-generalizable",
+      "title": "OR原证明的分类中间零和、条件输出代入及空掩码重合",
+      "category": "proof_case_and_mask_alignment_errors",
+      "source_refs": [
+        {
+          "id": "src-iclr2024-generalizable-main",
+          "source_id": "src-iclr2024-generalizable-main",
+          "locations": [
+            {
+              "pdf_page": 13,
+              "role": "statement",
+              "label": "Appendix C(2); Eq.(9)"
+            },
+            {
+              "pdf_page": 14,
+              "role": "statement",
+              "label": "Appendix C(2); Eq.(9)"
+            }
+          ]
+        }
+      ],
+      "original_formula_tex": "\\sum_{S:S\\cap T\\ne\\varnothing}I_{or}(S\\mid x_T)=\\sum_{S:S\\cap T\\ne\\varnothing}\\left[-\\sum_{L\\subseteq S}(-1)^{|S|-|L|}v_{or}(x_{N\\setminus L})\\right]",
+      "evidence_md": "第13页该首代入式不保留二次掩码。取N={1,2}、T={1}、$g(A)=\\mathbf1_{N\\subseteq A}$、S=N。字面条件游戏hT全零，所以OR系数左0；原右−1。正确逐项输出是 $v_{or}((x_T)_{N\\setminus L})=v_{or}(x_{T\\setminus L})$。第14页case(3)以 $\\sum_{j=0}^{|T|-|T\\cap L|}\\binom{|T|-|T\\cap L|}j(-1)^j=0$ 作内层消去，但T子集L时上界0，和1；例如N={1,2},T=L={1}。完整外层仍能消去，但原标注内零不成立。case(4)激活要求在T新增至少一个变量，原下界印0，应分别核实际索引族；T空时case(1) L=N\\T与case(2)L=N重合，不能重复计同一项。",
+      "impact_md": "错误属于原证明的中间分类和条件式代入；原OR及AND-OR父命题不变。修正证明使用相交子集族差及完整Möbius重构，包含T空，逐项保留literal conditioned sample。",
+      "related_result_ids": [
+        "iclr2024-generalizable-or",
+        "iclr2024-generalizable-andor"
+      ],
+      "original_statement_status": "no_counterexample_found; proof repaired without changing statement",
+      "user_confirmation": "not_individually_reviewed",
+      "fix_authorization": "proof_only_granted",
+      "statement_fix_authorization": "not_granted",
+      "status": "proof_repaired_and_formally_audited",
+      "user_review_status": "pending",
+      "source_schema_status": {
+        "category": "proof_case_and_mask_alignment_errors",
+        "original_statement_status": "no_counterexample_found; proof repaired without changing statement",
+        "status": "proof_repaired_and_formally_audited"
+      },
+      "issue_type": "proof_step_error",
+      "assessment_status": "proof_error_recorded",
+      "affected_result_ids": [
+        "iclr2024-generalizable-or",
+        "iclr2024-generalizable-andor"
+      ],
+      "text_md": "第13页该首代入式不保留二次掩码。取N={1,2}、T={1}、$g(A)=\\mathbf1_{N\\subseteq A}$、S=N。字面条件游戏hT全零，所以OR系数左0；原右−1。正确逐项输出是 $v_{or}((x_T)_{N\\setminus L})=v_{or}(x_{T\\setminus L})$。第14页case(3)以 $\\sum_{j=0}^{|T|-|T\\cap L|}\\binom{|T|-|T\\cap L|}j(-1)^j=0$ 作内层消去，但T子集L时上界0，和1；例如N={1,2},T=L={1}。完整外层仍能消去，但原标注内零不成立。case(4)激活要求在T新增至少一个变量，原下界印0，应分别核实际索引族；T空时case(1) L=N\\T与case(2)L=N重合，不能重复计同一项。",
+      "translations": {
+        "en": {
+          "title": "OR proof: intermediate zero sums, conditioned-output substitution and overlapping empty-mask cases",
+          "text_md": "The proof has intermediate case and conditioned-mask errors. The OR and AND-OR parent statements are retained; the repaired proof keeps the literal conditioned sample in every summand.",
+          "evidence_md": "On page 13, the first substitution drops a second mask. Take N={1,2}, T={1}, $g(A)=\\mathbf1_{N\\subseteq A}$ and S=N. The literal conditioned game hT is identically zero, giving an OR coefficient of zero on the left and minus one in the printed right side. The correct summand is $v_{or}((x_T)_{N\\setminus L})=v_{or}(x_{T\\setminus L})$. Page 14 case (3) uses $\\sum_{j=0}^{|T|-|T\\cap L|}\\binom{|T|-|T\\cap L|}j(-1)^j=0$, but when T is a subset of L the upper limit is zero and the sum is one; N={1,2}, T=L={1} is an example. The complete outer sum still cancels, but the marked inner zero is false. Case (4) requires adding at least one variable in T although the printed lower bound is zero. When T is empty, case (1) L=N minus T and case (2) L=N overlap and cannot count the same term twice.",
+          "impact_md": "These are intermediate proof-case and conditioned-output substitution errors, with the original OR and AND-OR statements unchanged. The repaired proof uses the difference of intersecting subset families and complete Mobius reconstruction, including the empty T, while retaining the literal conditioned sample term by term."
+        }
+      }
+    },
+    {
+      "id": "f11-issue-variance-expectation-indices",
+      "paper_id": "iclr2024-generalizable",
+      "kind": "source_proof_notation_error",
+      "title": "Appendix D首句方差中心跨S与期望下标不一致",
+      "original_formula_tex": "\\mathbb E_{\\varepsilon_T\\sim N(0,\\sigma^2)}[I′_{\\rm and}(T)-\\mathbb E_{\\forall S,\\varepsilon_S\\sim N(0,\\sigma^2)}I′_{\\rm and}(S)]^2=2^{|T|}\\sigma^2",
+      "source_refs": [
+        {
+          "id": "src-iclr2024-generalizable-main",
+          "source_id": "src-iclr2024-generalizable-main",
+          "locations": [
+            {
+              "pdf_page": 15,
+              "role": "statement",
+              "label": "正式PDF"
+            }
+          ]
+        }
+      ],
+      "analysis_md": "首句内层中心写I′(S)，外层仅εT下标；严格方差须对全部噪声联合样本求期望且中心为同T随机变量的期望。随后原Proof实际使用Var(I′(T))和固定I(T)，其IID方差结论正确。原首句保留，修记号与证明解释，不改最终Var结论。",
+      "affected_result_ids": [
+        "f11-and-variance"
+      ],
+      "impact_scope": "p15引导首句的期望记法；不否定原Proof固定IID方差结论",
+      "statement_status": "final_variance_statement_correct_under_original_proof_assumptions",
+      "fix_authorization": "proof_only_granted",
+      "user_confirmation": "not_required_for_proof_repair",
+      "resolution_status": "proof_notation_repaired_in_project_explanation",
+      "source_schema_status": {
+        "kind": "source_proof_notation_error",
+        "statement_status": "final_variance_statement_correct_under_original_proof_assumptions"
+      },
+      "issue_type": "proof_step_error",
+      "assessment_status": "proof_error_recorded",
+      "text_md": "首句内层中心写I′(S)，外层仅εT下标；严格方差须对全部噪声联合样本求期望且中心为同T随机变量的期望。随后原Proof实际使用Var(I′(T))和固定I(T)，其IID方差结论正确。原首句保留，修记号与证明解释，不改最终Var结论。",
+      "translations": {
+        "en": {
+          "title": "Appendix D: mismatched variance center and expectation indices",
+          "text_md": "The opening expression centers I-prime(T) using I-prime(S) and indexes the outer expectation only by epsilon_T. A variance requires the joint noise expectation and the mean of the same T random variable. The subsequent proof uses the correct Var(I-prime(T)) with fixed I(T); its IID variance conclusion is retained.",
+          "analysis_md": "The opening center and expectation indices are inconsistent. The following original proof uses the fixed-T variance and the full independent noise family correctly. The project preserves the opening formula and repairs the notation and explanation without changing the final variance statement."
+        }
+      }
+    },
+    {
+      "paper_id": "iclr2024-generalizable",
+      "affected_result_ids": [
+        "f11-equation10"
+      ],
+      "fix_authorization": "proof_only_granted",
+      "user_review_status": "pending",
+      "id": "f11-issue-rowmax-signed-max",
+      "title": "Eq.(10)：行范数的逐点展开有反例",
+      "kind": "analysis_subclause_counterexample",
+      "issue_type": "analysis_subclause_counterexample",
+      "assessment_status": "clause_refuted_parent_not_assessed",
+      "source_refs": [
+        {
+          "id": "src-iclr2024-generalizable-main",
+          "source_id": "src-iclr2024-generalizable-main",
+          "locations": [
+            {
+              "pdf_page": 6,
+              "role": "statement",
+              "label": "Eq.(5) rowmax definition"
+            },
+            {
+              "pdf_page": 16,
+              "role": "proof",
+              "label": "Appendix F Eq.(10)"
+            }
+          ]
+        }
+      ],
+      "original_formula_tex": "\\operatorname{rowmax}(a,b)=\\max(|a|,|b|),\\qquad\\text{Eq.(10) uses }|\\max(a,b)|",
+      "problem_md": "第6页定义每行的最大绝对值范数；第16页Eq.(10)逐点展开用了有符号最大值的绝对值。两者不是同一函数。这个问题仅针对展开中的子断言，不证明两个带min目标的最优值不同。",
+      "counterexample_tex": "a=-3,\\ b=2:\\qquad\\max(|a|,|b|)=3\\ne2=|\\max(a,b)|",
+      "evidence_md": "原式中的这一逐点恒等式已由项目反例声明实际编译。完整Eq.(10)含未绑定的索引，父优化等式的严格含义与最优值等价另列未判定。",
+      "clause_assessments": [
+        {
+          "id": "rowmax_expansion",
+          "status": "refuted",
+          "counterexample": "a=-3,b=2: row l∞=3; |signed max|=2"
+        },
+        {
+          "id": "parent_optimization_equation",
+          "status": "not_assessed",
+          "scope": "original free indices unresolved; pointwise counterexample does not compare minimized values"
+        }
+      ],
+      "impact_md": "可以判定行范数逐点展开错误；不能将此反例提升为对整个原min等式的反驳。原Eq.(6)定义与作者Eq.(10)均保留。",
+      "source_schema_status": {
+        "kind": "analysis_subclause_counterexample",
+        "assessment_status": "clause_refuted_parent_not_assessed"
+      },
+      "text_md": "第6页定义每行的最大绝对值范数；第16页Eq.(10)逐点展开用了有符号最大值的绝对值。两者不是同一函数。这个问题仅针对展开中的子断言，不证明两个带min目标的最优值不同。",
+      "translations": {
+        "en": {
+          "title": "Eq. (10): counterexample to the pointwise row-norm expansion",
+          "text_md": "Page 6 defines the maximum absolute value in each row, whereas the page 16 Eq. (10) expansion uses the absolute value of the signed maximum. These are different functions. The counterexample concerns this pointwise subclaim; it does not show that the two minimized objective values differ.",
+          "problem_md": "Page 6 defines the maximum absolute value in each row, whereas the page 16 Eq. (10) expansion uses the absolute value of the signed maximum. These are different functions. This issue concerns only the pointwise expansion and does not refute equality of the two minimized values.",
+          "evidence_md": "The counterexample to this pointwise identity has actually compiled. The full Eq. (10) contains unbound indices; its parent optimization equation and equality of optimal values remain unassessed.",
+          "impact_md": "The pointwise row-norm expansion is false. This counterexample cannot be promoted to a refutation of the complete equation with minima. The original Eq. (6) definition and author Eq. (10) are both retained."
+        }
+      }
+    },
+    {
+      "paper_id": "iclr2024-generalizable",
+      "affected_result_ids": [
+        "f11-equation10"
+      ],
+      "fix_authorization": "proof_only_granted",
+      "user_review_status": "pending",
+      "id": "f11-issue-equation10-free-indices",
+      "title": "Eq.(10)：求和索引与父优化等式的作用域未明确",
+      "kind": "statement_notation_scope_issue",
+      "statement_status": "not_assessed_ill_scoped",
+      "source_refs": [
+        {
+          "id": "src-iclr2024-generalizable-main",
+          "source_id": "src-iclr2024-generalizable-main",
+          "locations": [
+            {
+              "pdf_page": 16,
+              "role": "statement",
+              "label": "Appendix F Eq.(10)"
+            }
+          ]
+        }
+      ],
+      "original_formula_tex": "\\begin{aligned}\n\\mathrm{Loss}&=\\min_{\\{\\gamma_{T_k}^{(1)},\\gamma_{T_k}^{(2)}\\}}(\\|\\operatorname{rowmax}(I_{\\mathrm{and}})\\|_1+\\|\\operatorname{rowmax}(I_{\\mathrm{or}})\\|_1)+\\alpha(\\|I_{\\mathrm{and}}\\|_1+\\|I_{\\mathrm{or}}\\|_1)\\\\\n&=\\min_{\\{\\gamma_{T_k}^{(1)},\\gamma_{T_k}^{(2)}\\}}\\sum_{T_k\\subseteq N}\\left|\\max\\left(\\sum_{T\\subseteq S}(-1)^{|S|-|T|}[0.5v^{(1)}(x_{T_k})+\\gamma_{T_k}^{(1)}],\\sum_{T\\subseteq S}(-1)^{|S|-|T|}[0.5v^{(2)}(x_{T_k})+\\gamma_{T_k}^{(2)}]\\right)\\right|\\\\\n&\\quad+\\sum_{T_k\\subseteq N}\\left|\\max\\left(-\\sum_{T\\subseteq S}(-1)^{|S|-|T|}[0.5v^{(1)}(x_{N\\setminus T_k})-\\gamma_{T_k}^{(1)}],-\\sum_{T\\subseteq S}(-1)^{|S|-|T|}[0.5v^{(2)}(x_{N\\setminus T_k})-\\gamma_{T_k}^{(2)}]\\right)\\right|\\\\\n&\\quad+\\alpha\\sum_{T_k\\subseteq N}\\sum_{i=1}^2\\left|\\sum_{T\\subseteq S}(-1)^{|S|-|T|}[0.5v^{(i)}(x_{T_k})+\\gamma_{T_k}^{(i)}]\\right|\\\\\n&\\quad+\\alpha\\sum_{T_k\\subseteq N}\\sum_{i=1}^2\\left|-\\sum_{T\\subseteq S}(-1)^{|S|-|T|}[0.5v^{(i)}(x_{N\\setminus T_k})-\\gamma_{T_k}^{(i)}]\\right|.\n\\end{aligned}",
+      "problem_md": "作者外层求和绑定T_k，内层使用T⊆S以及|S|-|T|，但S没有在这份展开中绑定；部分输出和参数仍按T_k而非内层T索引。项目保留完整原式，未替作者选择一种修正后的解释。",
+      "evidence_md": "请逐行对照正式PDF第16页：原Eq.(10)的min、求和范围、输出索引与自由S均在原文栏完整保留。已有(-3,2)反例只检验其中有符号max展开。",
+      "impact_md": "父min等式尚未判定。不得通过猜测索引、更改原陈述或根据逐点反例直接声称两种优化最优值不同。",
+      "source_schema_status": {
+        "kind": "statement_notation_scope_issue",
+        "statement_status": "not_assessed_ill_scoped"
+      },
+      "issue_type": "statement_alignment_or_scope",
+      "assessment_status": "recorded_for_review",
+      "text_md": "作者外层求和绑定T_k，内层使用T⊆S以及|S|-|T|，但S没有在这份展开中绑定；部分输出和参数仍按T_k而非内层T索引。项目保留完整原式，未替作者选择一种修正后的解释。",
+      "translations": {
+        "en": {
+          "title": "Eq. (10): unbound summation indices and unresolved parent optimization scope",
+          "text_md": "The outer sum binds T_k, while the inner sum uses T subset S and |S|-|T| without binding S in this expansion. Some outputs and parameters remain indexed by T_k rather than the inner T. The full original formula is retained without choosing an amended interpretation for the author.",
+          "problem_md": "The outer sum binds T_k, while the inner sum uses T subset S and |S|-|T| without binding S. Some outputs and parameters are still indexed by T_k instead of the inner T. The project retains the full formula without selecting a repaired interpretation.",
+          "evidence_md": "Compare formal PDF page 16 line by line: the minimization, summation domains, output indices and free S in Eq. (10) are preserved in the source tab. The existing (-3,2) counterexample checks only the signed-max expansion.",
+          "impact_md": "The parent equation with minima remains unassessed. Guessing indices, changing the statement or applying a pointwise counterexample does not establish that the two optimization minima differ."
+        }
+      }
+    },
+    {
+      "id": "hnet-issue-empty-field",
+      "paper_id": "icml2023-harsanyinet",
+      "title": "Lemma 1 的空场命题反例",
+      "category": "statement_counterexample",
+      "source_refs": [
+        {
+          "id": "src-icml2023-harsanyinet-formal",
+          "source_id": "src-icml2023-harsanyinet-formal",
+          "locations": [
+            {
+              "pdf_page": 3,
+              "role": "statement",
+              "label": "正式PDF"
+            },
+            {
+              "pdf_page": 14,
+              "role": "statement",
+              "label": "正式PDF"
+            },
+            {
+              "pdf_page": 15,
+              "role": "statement",
+              "label": "正式PDF"
+            }
+          ]
+        }
+      ],
+      "original_formula_tex": "J_j(R_j)=z_j(x)",
+      "evidence_md": "原Lemma只要求R1/R2。取 $R_j=\\varnothing,z_j\\equiv1$，R1成立且R2为空积1。但原Definition2使所有中心化交互零，尤其 $J_j(\\varnothing)=0\\ne1$。PDF15推导非空集合交替和为零时未分辨空场。",
+      "impact_md": "原Lemma全范围错误，不能加非空前提；实际无偏置架构零基线子结论另证。Theorem3只分给包含玩家的场，常数单元贡献零，并未被此反例推翻。",
+      "text_md": "原Lemma只要求R1/R2。取 $R_j=\\varnothing,z_j\\equiv1$，R1成立且R2为空积1。但原Definition2使所有中心化交互零，尤其 $J_j(\\varnothing)=0\\ne1$。PDF15推导非空集合交替和为零时未分辨空场。\n\n原Lemma全范围错误，不能加非空前提；实际无偏置架构零基线子结论另证。Theorem3只分给包含玩家的场，常数单元贡献零，并未被此反例推翻。",
+      "related_result_ids": [
+        "hnet-unit-interaction"
+      ],
+      "original_statement_status": "counterexample_verified",
+      "user_confirmation": "not_individually_reviewed",
+      "user_review_status": "pending",
+      "fix_authorization": "proof_only_granted",
+      "statement_fix_authorization": "not_granted",
+      "status": "statement_error_unrepaired",
+      "agent_evidence_status": "pdf_and_formula_checked",
+      "translations": {
+        "en": {
+          "title": "Empty-field counterexample to Lemma 1",
+          "evidence_md": "The original lemma assumes only R1/R2. An empty-field unit constantly equal to one satisfies both requirements, including the empty product in R2. Definition 2 makes every centered dividend zero, so the claimed field dividend differs from its unit value. The page-15 alternating-sum argument fails to separate the empty field.",
+          "impact_md": "The full lemma is false and cannot be repaired by adding a nonempty premise. The bias-free architecture boundary is proved separately. Theorem 3 allocates only fields containing a player and gives constant units zero, so this counterexample does not refute its valid algorithm.",
+          "text_md": "The original lemma assumes only R1/R2. An empty-field unit constantly equal to one satisfies both requirements, including the empty product in R2. Definition 2 makes every centered dividend zero, so the claimed field dividend differs from its unit value. The page-15 alternating-sum argument fails to separate the empty field.\n\nThe full lemma is false and cannot be repaired by adding a nonempty premise. The bias-free architecture boundary is proved separately. Theorem 3 allocates only fields containing a player and gives constant units zero, so this counterexample does not refute its valid algorithm."
+        }
+      },
+      "source_schema_status": {
+        "category": "statement_counterexample",
+        "original_statement_status": "counterexample_verified",
+        "status": "statement_error_unrepaired"
+      },
+      "issue_type": "statement_counterexample",
+      "assessment_status": "refuted",
+      "affected_result_ids": [
+        "hnet-unit-interaction"
+      ]
+    },
+    {
+      "id": "hnet-issue-t3-empty-division",
+      "paper_id": "icml2023-harsanyinet",
+      "title": "Theorem 3 原全j分式空场约定未明",
+      "category": "expression_domain",
+      "source_refs": [
+        {
+          "id": "src-icml2023-harsanyinet-formal",
+          "source_id": "src-icml2023-harsanyinet-formal",
+          "locations": [
+            {
+              "pdf_page": 12,
+              "role": "statement",
+              "label": "正式PDF"
+            },
+            {
+              "pdf_page": 13,
+              "role": "statement",
+              "label": "正式PDF"
+            }
+          ]
+        }
+      ],
+      "original_formula_tex": "\\sum_j\\frac{w_jz_j(x)}{|R_j|}\\mathbf1_{i\\in R_j}",
+      "evidence_md": "全j求和可能包含空场；实数域先算分式再乘零需要除零约定。严谨条件和只在场含i时算分式，含i保证基数正。",
+      "impact_md": "这是表达式定义域歧义；完整经典归因条件和恒等式已证，不宣称Theorem3被空场Lemma反例推翻。",
+      "text_md": "全j求和可能包含空场；实数域先算分式再乘零需要除零约定。严谨条件和只在场含i时算分式，含i保证基数正。\n\n这是表达式定义域歧义；完整经典归因条件和恒等式已证，不宣称Theorem3被空场Lemma反例推翻。",
+      "related_result_ids": [
+        "hnet-forward-shapley"
+      ],
+      "original_statement_status": "source_scope_checked",
+      "user_confirmation": "not_individually_reviewed",
+      "user_review_status": "pending",
+      "fix_authorization": "proof_only_granted",
+      "statement_fix_authorization": "not_granted",
+      "status": "scope_ambiguous",
+      "agent_evidence_status": "pdf_and_formula_checked",
+      "translations": {
+        "en": {
+          "title": "Theorem 3 lacks a printed empty-field division convention",
+          "evidence_md": "The all-unit sum may contain empty fields. Evaluating the fraction before multiplying a zero indicator requires a division convention. The conditional sum evaluates it only for a field containing the player, whose cardinality is positive.",
+          "impact_md": "This is an expression-domain ambiguity. The classical conditional-sum identity is proved; the empty-field lemma counterexample is not presented as a refutation of that identity.",
+          "text_md": "The all-unit sum may contain empty fields. Evaluating the fraction before multiplying a zero indicator requires a division convention. The conditional sum evaluates it only for a field containing the player, whose cardinality is positive.\n\nThis is an expression-domain ambiguity. The classical conditional-sum identity is proved; the empty-field lemma counterexample is not presented as a refutation of that identity."
+        }
+      },
+      "source_schema_status": {
+        "category": "expression_domain",
+        "original_statement_status": "source_scope_checked",
+        "status": "scope_ambiguous"
+      },
+      "issue_type": "statement_alignment_or_scope",
+      "assessment_status": "recorded_for_review",
+      "affected_result_ids": [
+        "hnet-forward-shapley"
+      ]
+    },
+    {
+      "id": "hnet-issue-t4-quantifier",
+      "paper_id": "icml2023-harsanyinet",
+      "title": "Theorem 4 证明的全第一层量词及乘积替换错误",
+      "category": "proof_step_error",
+      "source_refs": [
+        {
+          "id": "src-icml2023-harsanyinet-formal",
+          "source_id": "src-icml2023-harsanyinet-formal",
+          "locations": [
+            {
+              "pdf_page": 13,
+              "role": "statement",
+              "label": "正式PDF"
+            },
+            {
+              "pdf_page": 14,
+              "role": "statement",
+              "label": "正式PDF"
+            }
+          ]
+        }
+      ],
+      "original_formula_tex": "\\forall u^{\\prime},\\ z_{u^{\\prime}}^{(1)}(x_T)=0",
+      "evidence_md": "缺一个输入变量只保证依赖它的孩子沿路径为零，不保证所有第一层节点为零。整个AND积也不能无条件等于指定单因子；修正只使用存在一个零因子使乘积零。",
+      "impact_md": "命题不变，按感受野并集和拓扑次序证明R1/R2；完整原链保留在original-proofs。",
+      "text_md": "缺一个输入变量只保证依赖它的孩子沿路径为零，不保证所有第一层节点为零。整个AND积也不能无条件等于指定单因子；修正只使用存在一个零因子使乘积零。\n\n命题不变，按感受野并集和拓扑次序证明R1/R2；完整原链保留在original-proofs。",
+      "related_result_ids": [
+        "hnet-architecture-r1-r2"
+      ],
+      "original_statement_status": "source_scope_checked",
+      "user_confirmation": "not_individually_reviewed",
+      "user_review_status": "pending",
+      "fix_authorization": "proof_only_granted",
+      "statement_fix_authorization": "not_granted",
+      "status": "proof_error_repaired",
+      "agent_evidence_status": "pdf_and_formula_checked",
+      "translations": {
+        "en": {
+          "title": "Incorrect first-layer quantifier and product substitution in Theorem 4",
+          "evidence_md": "Missing one input only makes relevant dependent children vanish, not every first-layer neuron. An entire AND product also cannot be replaced unconditionally by one factor. The repair uses one zero factor to make the product zero.",
+          "impact_md": "The proposition is unchanged. The repaired proof follows field unions and feed-forward induction; the full printed chain remains in original-proofs.",
+          "text_md": "Missing one input only makes relevant dependent children vanish, not every first-layer neuron. An entire AND product also cannot be replaced unconditionally by one factor. The repair uses one zero factor to make the product zero.\n\nThe proposition is unchanged. The repaired proof follows field unions and feed-forward induction; the full printed chain remains in original-proofs."
+        }
+      },
+      "source_schema_status": {
+        "category": "proof_step_error",
+        "original_statement_status": "source_scope_checked",
+        "status": "proof_error_repaired"
+      },
+      "issue_type": "proof_step_error",
+      "assessment_status": "proof_error_recorded",
+      "affected_result_ids": [
+        "hnet-architecture-r1-r2"
+      ]
+    },
+    {
+      "id": "hnet-issue-cnn-filter",
+      "paper_id": "icml2023-harsanyinet",
+      "title": "CNN 原交互展开漏感受野过滤",
+      "category": "proof_step_error",
+      "source_refs": [
+        {
+          "id": "src-icml2023-harsanyinet-formal",
+          "source_id": "src-icml2023-harsanyinet-formal",
+          "locations": [
+            {
+              "pdf_page": 16,
+              "role": "statement",
+              "label": "正式PDF"
+            }
+          ]
+        }
+      ],
+      "original_formula_tex": "I(S=R_u)=\\sum_jw_jz_j(x)",
+      "evidence_md": "目标S固定时只有 $R_j=S$ 的单元贡献。场分别为单例1/2、贡献各1时，目标单例1的交互1而无过滤末和2。原等式全文保留，修正加入已由unit变换导出的过滤。",
+      "impact_md": "不否定正确有限通道重组；修正同一模型的目标交互展开。",
+      "text_md": "目标S固定时只有 $R_j=S$ 的单元贡献。场分别为单例1/2、贡献各1时，目标单例1的交互1而无过滤末和2。原等式全文保留，修正加入已由unit变换导出的过滤。\n\n不否定正确有限通道重组；修正同一模型的目标交互展开。",
+      "related_result_ids": [
+        "hnet-cnn-regroup"
+      ],
+      "original_statement_status": "source_scope_checked",
+      "user_confirmation": "not_individually_reviewed",
+      "user_review_status": "pending",
+      "fix_authorization": "proof_only_granted",
+      "statement_fix_authorization": "not_granted",
+      "status": "proof_error_repaired",
+      "agent_evidence_status": "pdf_and_formula_checked",
+      "translations": {
+        "en": {
+          "title": "Missing receptive-field filter in the CNN interaction expansion",
+          "evidence_md": "For a fixed target, only units with that field contribute. Two distinct singleton-field units with contribution one each give target dividend one but an unfiltered final sum two. The printed equality is preserved; its repair restores the filter derived from the unit transform.",
+          "impact_md": "This repairs the target-dividend expansion for a single model and does not refute finite channel regrouping.",
+          "text_md": "For a fixed target, only units with that field contribute. Two distinct singleton-field units with contribution one each give target dividend one but an unfiltered final sum two. The printed equality is preserved; its repair restores the filter derived from the unit transform.\n\nThis repairs the target-dividend expansion for a single model and does not refute finite channel regrouping."
+        }
+      },
+      "source_schema_status": {
+        "category": "proof_step_error",
+        "original_statement_status": "source_scope_checked",
+        "status": "proof_error_repaired"
+      },
+      "issue_type": "proof_step_error",
+      "assessment_status": "proof_error_recorded",
+      "affected_result_ids": [
+        "hnet-cnn-regroup"
+      ]
+    },
+    {
+      "id": "hnet-issue-cnn-activation",
+      "paper_id": "icml2023-harsanyinet",
+      "title": "共同gate不推出全部通道输出同时非零",
+      "category": "proof_step_error",
+      "source_refs": [
+        {
+          "id": "src-icml2023-harsanyinet-formal",
+          "source_id": "src-icml2023-harsanyinet-formal",
+          "locations": [
+            {
+              "pdf_page": 16,
+              "role": "statement",
+              "label": "正式PDF"
+            }
+          ]
+        }
+      ],
+      "original_formula_tex": "h_{(1,h,w)},\\ldots,h_{(C,h,w)}\\text{ activate simultaneously}",
+      "evidence_md": "原句用共同孩子推出同时激活。共同gate确相同，但两个权重给线性值1与-1，ReLU后为(1,0)。因此只能说gate同时开闭，不能把非零输出同步当作group证明前提。",
+      "impact_md": "感受野等式及加权有限和仍成立；分组gate掩码律独立证明。",
+      "text_md": "原句用共同孩子推出同时激活。共同gate确相同，但两个权重给线性值1与-1，ReLU后为(1,0)。因此只能说gate同时开闭，不能把非零输出同步当作group证明前提。\n\n感受野等式及加权有限和仍成立；分组gate掩码律独立证明。",
+      "related_result_ids": [
+        "hnet-cnn-receptive",
+        "hnet-cnn-regroup"
+      ],
+      "original_statement_status": "source_scope_checked",
+      "user_confirmation": "not_individually_reviewed",
+      "user_review_status": "pending",
+      "fix_authorization": "proof_only_granted",
+      "statement_fix_authorization": "not_granted",
+      "status": "proof_error_repaired",
+      "agent_evidence_status": "pdf_and_formula_checked",
+      "translations": {
+        "en": {
+          "title": "A common gate does not force simultaneous nonzero channel outputs",
+          "evidence_md": "The printed sentence infers simultaneous activation from shared children. The common gate agrees, but weights producing preactivations one and minus one give post-ReLU outputs (1,0). Only the gate states agree; simultaneous nonzero output cannot be used in the grouped proof.",
+          "impact_md": "The field equality and weighted finite regrouping remain valid. The grouped gate’s mask law is proved independently.",
+          "text_md": "The printed sentence infers simultaneous activation from shared children. The common gate agrees, but weights producing preactivations one and minus one give post-ReLU outputs (1,0). Only the gate states agree; simultaneous nonzero output cannot be used in the grouped proof.\n\nThe field equality and weighted finite regrouping remain valid. The grouped gate’s mask law is proved independently."
+        }
+      },
+      "source_schema_status": {
+        "category": "proof_step_error",
+        "original_statement_status": "source_scope_checked",
+        "status": "proof_error_repaired"
+      },
+      "issue_type": "proof_step_error",
+      "assessment_status": "proof_error_recorded",
+      "affected_result_ids": [
+        "hnet-cnn-receptive",
+        "hnet-cnn-regroup"
+      ]
+    },
+    {
+      "id": "hnet-issue-cnn-gate-equivalence",
+      "paper_id": "icml2023-harsanyinet",
+      "title": "scalar AND 与 group gate 数值等价子句错误",
+      "category": "statement_counterexample",
+      "source_refs": [
+        {
+          "id": "src-icml2023-harsanyinet-formal",
+          "source_id": "src-icml2023-harsanyinet-formal",
+          "locations": [
+            {
+              "pdf_page": 7,
+              "role": "statement",
+              "label": "正式PDF"
+            },
+            {
+              "pdf_page": 16,
+              "role": "statement",
+              "label": "正式PDF"
+            }
+          ]
+        }
+      ],
+      "original_formula_tex": "\\prod_c\\mathbf1_{z_c\\ne0}=\\mathbf1_{\\sum_c|z_c|\\ne0}",
+      "evidence_md": "孩子向量(1,0)给左gate0、右gate1；父线性值1时ReLU输出分别0、1。改变gate没有保持同一函数。",
+      "impact_md": "仅此数值等价子句被否定；新groupgate架构仍能满足R1/R2及其自身输出的Shapley式，正文完整直接归纳。",
+      "text_md": "孩子向量(1,0)给左gate0、右gate1；父线性值1时ReLU输出分别0、1。改变gate没有保持同一函数。\n\n仅此数值等价子句被否定；新groupgate架构仍能满足R1/R2及其自身输出的Shapley式，正文完整直接归纳。",
+      "related_result_ids": [
+        "hnet-cnn-regroup"
+      ],
+      "original_statement_status": "counterexample_verified",
+      "user_confirmation": "not_individually_reviewed",
+      "user_review_status": "pending",
+      "fix_authorization": "proof_only_granted",
+      "statement_fix_authorization": "not_granted",
+      "status": "statement_error_unrepaired",
+      "agent_evidence_status": "pdf_and_formula_checked",
+      "translations": {
+        "en": {
+          "title": "False numerical-equivalence subclaim for scalar AND and grouped gates",
+          "evidence_md": "A child vector (1,0) gives scalar gate zero and grouped gate one. With parent linear value one, the outputs are zero and one. Changing the gate therefore changes the function.",
+          "impact_md": "Only this numerical-equivalence subclaim is refuted. The new grouped architecture still satisfies R1/R2 and the Shapley identity for its own output, as shown by the direct induction.",
+          "text_md": "A child vector (1,0) gives scalar gate zero and grouped gate one. With parent linear value one, the outputs are zero and one. Changing the gate therefore changes the function.\n\nOnly this numerical-equivalence subclaim is refuted. The new grouped architecture still satisfies R1/R2 and the Shapley identity for its own output, as shown by the direct induction."
+        }
+      },
+      "source_schema_status": {
+        "category": "statement_counterexample",
+        "original_statement_status": "counterexample_verified",
+        "status": "statement_error_unrepaired"
+      },
+      "issue_type": "statement_counterexample",
+      "assessment_status": "refuted",
+      "affected_result_ids": [
+        "hnet-cnn-regroup"
+      ]
+    },
+    {
+      "id": "hnet-issue-eq9-baseline",
+      "paper_id": "icml2023-harsanyinet",
+      "title": "Eq.(9) 任意传统网络省略输出基线",
+      "category": "statement_counterexample",
+      "source_refs": [
+        {
+          "id": "src-icml2023-harsanyinet-formal",
+          "source_id": "src-icml2023-harsanyinet-formal",
+          "locations": [
+            {
+              "pdf_page": 3,
+              "role": "statement",
+              "label": "正式PDF"
+            },
+            {
+              "pdf_page": 6,
+              "role": "statement",
+              "label": "正式PDF"
+            }
+          ]
+        }
+      ],
+      "original_formula_tex": "v(x)=\\sum_{S\\subseteq N}I(S)",
+      "evidence_md": "本篇I为中心化交互，重构和是 $v(x)-v(x_\\varnothing)$。常数模型1全部I为零但原输出1，反例否定任意传统网络的第一等号。",
+      "impact_md": "无偏置Harsanyi实际架构基线零时成立；M数量界不证明传统DNN尾和小。",
+      "text_md": "本篇I为中心化交互，重构和是 $v(x)-v(x_\\varnothing)$。常数模型1全部I为零但原输出1，反例否定任意传统网络的第一等号。\n\n无偏置Harsanyi实际架构基线零时成立；M数量界不证明传统DNN尾和小。",
+      "related_result_ids": [
+        "hnet-sparsity-count",
+        "hnet-external-sparsity"
+      ],
+      "original_statement_status": "counterexample_verified",
+      "user_confirmation": "not_individually_reviewed",
+      "user_review_status": "pending",
+      "fix_authorization": "proof_only_granted",
+      "statement_fix_authorization": "not_granted",
+      "status": "statement_error_unrepaired",
+      "agent_evidence_status": "pdf_and_formula_checked",
+      "translations": {
+        "en": {
+          "title": "Equation (9) omits the output baseline for general conventional networks",
+          "evidence_md": "The paper uses centered dividends, whose sum is the output difference from the baseline. A constant-one model has every centered dividend zero but raw output one, refuting the first equality for an arbitrary conventional model.",
+          "impact_md": "The equality holds for the actual bias-free Harsanyi architecture with zero baseline. The M-count bound does not prove small omitted effects in a conventional DNN.",
+          "text_md": "The paper uses centered dividends, whose sum is the output difference from the baseline. A constant-one model has every centered dividend zero but raw output one, refuting the first equality for an arbitrary conventional model.\n\nThe equality holds for the actual bias-free Harsanyi architecture with zero baseline. The M-count bound does not prove small omitted effects in a conventional DNN."
+        }
+      },
+      "source_schema_status": {
+        "category": "statement_counterexample",
+        "original_statement_status": "counterexample_verified",
+        "status": "statement_error_unrepaired"
+      },
+      "issue_type": "statement_counterexample",
+      "assessment_status": "refuted",
+      "affected_result_ids": [
+        "hnet-sparsity-count",
+        "hnet-external-sparsity"
+      ]
+    },
+    {
+      "id": "hnet-issue-smooth-domain",
+      "paper_id": "icml2023-harsanyinet",
+      "title": "光滑gate空选子指数与第一层非负域未说明",
+      "category": "expression_domain",
+      "source_refs": [
+        {
+          "id": "src-icml2023-harsanyinet-formal",
+          "source_id": "src-icml2023-harsanyinet-formal",
+          "locations": [
+            {
+              "pdf_page": 5,
+              "role": "statement",
+              "label": "正式PDF"
+            },
+            {
+              "pdf_page": 6,
+              "role": "statement",
+              "label": "正式PDF"
+            }
+          ]
+        }
+      ],
+      "original_formula_tex": "1/\\operatorname{tr}\\Sigma_j",
+      "evidence_md": "空选子使trace为零，几何均值指数无实数定义约定。第一层x-r未经ReLU，可为负，不能自动套所有前层非负的说明。",
+      "impact_md": "完整记录训练定义及边界；hardgate形式化不冒充该训练公式全参数域验证。",
+      "text_md": "空选子使trace为零，几何均值指数无实数定义约定。第一层x-r未经ReLU，可为负，不能自动套所有前层非负的说明。\n\n完整记录训练定义及边界；hardgate形式化不冒充该训练公式全参数域验证。",
+      "related_result_ids": [
+        "hnet-smooth-gate"
+      ],
+      "original_statement_status": "source_scope_checked",
+      "user_confirmation": "not_individually_reviewed",
+      "user_review_status": "pending",
+      "fix_authorization": "proof_only_granted",
+      "statement_fix_authorization": "not_granted",
+      "status": "domain_unspecified",
+      "agent_evidence_status": "pdf_and_formula_checked",
+      "translations": {
+        "en": {
+          "title": "Unspecified empty selection and first-layer domain for the smooth gate",
+          "evidence_md": "An empty child selection has zero trace, leaving the geometric-mean exponent without a real-domain convention. First-layer centered inputs precede ReLU and can be negative, so the nonnegative-child description does not automatically include them.",
+          "impact_md": "The training definition and its boundaries are recorded completely. Hard-gate verification is not presented as verification of this formula over its entire parameter domain.",
+          "text_md": "An empty child selection has zero trace, leaving the geometric-mean exponent without a real-domain convention. First-layer centered inputs precede ReLU and can be negative, so the nonnegative-child description does not automatically include them.\n\nThe training definition and its boundaries are recorded completely. Hard-gate verification is not presented as verification of this formula over its entire parameter domain."
+        }
+      },
+      "source_schema_status": {
+        "category": "expression_domain",
+        "original_statement_status": "source_scope_checked",
+        "status": "domain_unspecified"
+      },
+      "issue_type": "statement_alignment_or_scope",
+      "assessment_status": "recorded_for_review",
+      "affected_result_ids": [
+        "hnet-smooth-gate"
+      ]
+    },
+    {
+      "id": "layer-issue-binomial-15",
+      "paper_id": "icml2024-layerwise",
+      "title": "Eq.(15) 缺失二项式系数",
+      "kind": "proof_error",
+      "source_refs": [
+        {
+          "id": "src-icml2024-layerwise-formal",
+          "source_id": "src-icml2024-layerwise-formal",
+          "locations": [
+            {
+              "pdf_page": 15,
+              "role": "statement",
+              "label": "正式PDF"
+            }
+          ]
+        }
+      ],
+      "original_expression": "\\sum_{m=0}^{|T|-|L|}(-1)^m=0",
+      "description_md": "作者按阶数汇总子集时漏掉组合数量。",
+      "evidence_md": "$|T|-|L|=2$ 时原和为 $1-1+1=1$，并非 $0$；正确和为 $1-2+1=0$。",
+      "impact_md": "同一重构命题用完整二项式消去补正，原错式保留。",
+      "user_confirmation": "not_individually_confirmed",
+      "fix_authorization": "proof_only_granted",
+      "proposition_modification_authorized": false,
+      "status": "agent_checked",
+      "translations": {
+        "en": {
+          "title": "Missing binomial multiplicities in Eq.(15)",
+          "description_md": "The author groups subsets by size without their multiplicities.",
+          "evidence_md": "For $|T|-|L|=2$, the printed sum is $1-1+1=1$, rather than $0$; the correct sum is $1-2+1=0$.",
+          "impact_md": "The same reconstruction claim is repaired by full binomial cancellation; the erroneous source expression is retained.",
+          "text_md": "The author groups subsets by size without their multiplicities."
+        }
+      },
+      "source_schema_status": {
+        "kind": "proof_error",
+        "status": "agent_checked"
+      },
+      "issue_type": "proof_step_error",
+      "assessment_status": "proof_error_recorded",
+      "affected_result_ids": [],
+      "text_md": "作者按阶数汇总子集时漏掉组合数量。"
+    },
+    {
+      "id": "layer-issue-or-calculation-16",
+      "paper_id": "icml2024-layerwise",
+      "title": "Eq.(16) OR 分组的零因子不成立",
+      "kind": "proof_error",
+      "source_refs": [
+        {
+          "id": "src-icml2024-layerwise-formal",
+          "source_id": "src-icml2024-layerwise-formal",
+          "locations": [
+            {
+              "pdf_page": 15,
+              "role": "statement",
+              "label": "正式PDF"
+            }
+          ]
+        }
+      ],
+      "original_expression": "\\sum_{S_1\\subseteq N\\setminus T\\setminus L}(\\cdots)=0",
+      "description_md": "原分组的符号缺少固定 L 与 T 交集的指数；零因子仍须按两个剩余块完整核对。",
+      "evidence_md": "取 $N=\\{1,2\\},T=\\{1\\},L=\\{1\\}$，原式 $S_1=\\varnothing,\\{2\\}$ 的符号与原 $|S|-|L|$ 相反。其分组总和虽可由剩余块消去，但这不使逐项错符号相等。",
+      "impact_md": "用全 OR 和减去不激活 OR 和完整补证，不改变定理。",
+      "user_confirmation": "not_individually_confirmed",
+      "fix_authorization": "proof_only_granted",
+      "proposition_modification_authorized": false,
+      "status": "agent_checked",
+      "translations": {
+        "en": {
+          "title": "Invalid zero-factor grouping in Eq.(16)",
+          "description_md": "The grouping omits the fixed-L intersection exponent; zero factors must still be checked using both remaining blocks.",
+          "evidence_md": "For $N=\\{1,2\\},T=\\{1\\},L=\\{1\\}$, the printed signs for $S_1=\\varnothing,\\{2\\}$ are opposite to the original exponent $|S|-|L|$. The grouped sum can still cancel using its remaining blocks, which does not make the printed termwise signs equal.",
+          "impact_md": "Subtracting the inactive OR sum from the full OR sum repairs the proof without changing the theorem.",
+          "text_md": "The grouping omits the fixed-L intersection exponent; zero factors must still be checked using both remaining blocks."
+        }
+      },
+      "source_schema_status": {
+        "kind": "proof_error",
+        "status": "agent_checked"
+      },
+      "issue_type": "proof_step_error",
+      "assessment_status": "proof_error_recorded",
+      "affected_result_ids": [],
+      "text_md": "原分组的符号缺少固定 L 与 T 交集的指数；零因子仍须按两个剩余块完整核对。"
+    },
+    {
+      "id": "layer-issue-conditional-scope",
+      "paper_id": "icml2024-layerwise",
+      "title": "固定与条件 OR 游戏不可混换",
+      "kind": "scope_mismatch",
+      "source_refs": [
+        {
+          "id": "src-icml2024-layerwise-formal",
+          "source_id": "src-icml2024-layerwise-formal",
+          "locations": [
+            {
+              "pdf_page": 4,
+              "role": "statement",
+              "label": "正式PDF"
+            },
+            {
+              "pdf_page": 15,
+              "role": "statement",
+              "label": "正式PDF"
+            }
+          ]
+        }
+      ],
+      "original_expression": "I_{or}(S\\mid x_T)\\ne I_{or}(S\\mid x)\\ \\text{in general}",
+      "description_md": "AND 在 S⊆T 时可限制相等；OR 补集变换在再次掩码后通常改变。",
+      "evidence_md": "$N=\\{1,2\\}$，$o(U)=\\mathbf1_{\\{1,2\\}\\subseteq U}$，$T=\\{1\\}$：固定 $O(\\{1\\})=1$，限制游戏 $o_T\\equiv0$ 的 $O_T(\\{1\\})=0$。",
+      "impact_md": "两种重构均证明；限制分解与独立重新学习的分解须分别实例化。",
+      "user_confirmation": "not_individually_confirmed",
+      "fix_authorization": "proof_only_granted",
+      "proposition_modification_authorized": false,
+      "status": "agent_checked",
+      "translations": {
+        "en": {
+          "title": "Fixed and conditional OR games differ",
+          "description_md": "AND restriction agrees for S contained in T; the OR complementary transform generally changes under repeated masking.",
+          "evidence_md": "For $N=\\{1,2\\}$, $o(U)=\\mathbf1_{\\{1,2\\}\\subseteq U}$, and $T=\\{1\\}$, fixed $O(\\{1\\})=1$, while $o_T\\equiv0$ yields $O_T(\\{1\\})=0$.",
+          "impact_md": "Both reconstruction forms are proved. A restricted split and an independently relearned split must be instantiated separately.",
+          "text_md": "AND restriction agrees for S contained in T; the OR complementary transform generally changes under repeated masking."
+        }
+      },
+      "source_schema_status": {
+        "kind": "scope_mismatch",
+        "status": "agent_checked"
+      },
+      "issue_type": "statement_alignment_or_scope",
+      "assessment_status": "recorded_for_review",
+      "affected_result_ids": [],
+      "text_md": "AND 在 S⊆T 时可限制相等；OR 补集变换在再次掩码后通常改变。"
+    },
+    {
+      "id": "layer-issue-empty-or",
+      "paper_id": "icml2024-layerwise",
+      "title": "Eq.(2) 字面空集值与定理特设值不同",
+      "kind": "undefined_original_scope",
+      "source_refs": [
+        {
+          "id": "src-icml2024-layerwise-formal",
+          "source_id": "src-icml2024-layerwise-formal",
+          "locations": [
+            {
+              "pdf_page": 4,
+              "role": "statement",
+              "label": "正式PDF"
+            }
+          ]
+        }
+      ],
+      "original_expression": "-\\sum_{T\\subseteq\\varnothing}(-1)^{0-|T|}o(N\\setminus T)=-o(N)",
+      "description_md": "Definition 3.2 对所有 S 的公式在空集不等于随后特设基线。",
+      "evidence_md": "$o(\\varnothing)=0,o(N)=1$ 给原公式空值 $-1$，而定理空值 $0$。",
+      "impact_md": "非空负变换与原定理空集约定分开保存。",
+      "user_confirmation": "not_individually_confirmed",
+      "fix_authorization": "proof_only_granted",
+      "proposition_modification_authorized": false,
+      "status": "agent_checked",
+      "translations": {
+        "en": {
+          "title": "Eq.(2) has a different literal empty value",
+          "description_md": "The all-S formula in Definition 3.2 differs at the empty set from the later special baseline.",
+          "evidence_md": "$o(\\varnothing)=0,o(N)=1$ gives literal empty value $-1$, while the theorem specifies $0$.",
+          "impact_md": "The nonempty negative transform and the theorem’s empty convention are retained separately.",
+          "text_md": "The all-S formula in Definition 3.2 differs at the empty set from the later special baseline."
+        }
+      },
+      "source_schema_status": {
+        "kind": "undefined_original_scope",
+        "status": "agent_checked"
+      },
+      "issue_type": "statement_alignment_or_scope",
+      "assessment_status": "recorded_for_review",
+      "affected_result_ids": [],
+      "text_md": "Definition 3.2 对所有 S 的公式在空集不等于随后特设基线。"
+    },
+    {
+      "id": "layer-issue-baseline-19",
+      "paper_id": "icml2024-layerwise",
+      "title": "Eq.(19) 重复加入输出基线",
+      "kind": "proof_error",
+      "source_refs": [
+        {
+          "id": "src-icml2024-layerwise-formal",
+          "source_id": "src-icml2024-layerwise-formal",
+          "locations": [
+            {
+              "pdf_page": 16,
+              "role": "statement",
+              "label": "正式PDF"
+            }
+          ]
+        }
+      ],
+      "original_expression": "g(T)=b+\\sum_{S\\subseteq T}A_T(S)+\\sum_{S\\cap T\\ne\\varnothing}O_T(S)",
+      "description_md": "AND 求和已经含空集基线，原式又加了一次。",
+      "evidence_md": "$g\\equiv1,a\\equiv1,o\\equiv0$ 满足原空分量条件，原右端为 $1+1=2\\ne1$。",
+      "impact_md": "保留显式 b 时删去 AND 求和中的空项；这修复中间式，不解决显著近似的外引缺口。",
+      "user_confirmation": "not_individually_confirmed",
+      "fix_authorization": "proof_only_granted",
+      "proposition_modification_authorized": false,
+      "status": "agent_checked",
+      "translations": {
+        "en": {
+          "title": "Duplicated output baseline in Eq.(19)",
+          "description_md": "The AND sum already contains the empty baseline, which is added again.",
+          "evidence_md": "$g\\equiv1,a\\equiv1,o\\equiv0$ satisfies the stated empty-component conditions, but the printed right side is $1+1=2\\ne1$.",
+          "impact_md": "Exclude the empty AND term when keeping explicit b. This repairs the intermediate equality without resolving the external sparse-approximation gap.",
+          "text_md": "The AND sum already contains the empty baseline, which is added again."
+        }
+      },
+      "source_schema_status": {
+        "kind": "proof_error",
+        "status": "agent_checked"
+      },
+      "issue_type": "proof_step_error",
+      "assessment_status": "proof_error_recorded",
+      "affected_result_ids": [],
+      "text_md": "AND 求和已经含空集基线，原式又加了一次。"
+    },
+    {
+      "id": "layer-issue-sparse-transfer",
+      "paper_id": "icml2024-layerwise",
+      "title": "Lemma 3.4 与 OR 稀疏外引条件未验证",
+      "kind": "external_scope_issue",
+      "source_refs": [
+        {
+          "id": "src-icml2024-layerwise-formal",
+          "source_id": "src-icml2024-layerwise-formal",
+          "locations": [
+            {
+              "pdf_page": 3,
+              "role": "statement",
+              "label": "正式PDF"
+            },
+            {
+              "pdf_page": 4,
+              "role": "statement",
+              "label": "正式PDF"
+            },
+            {
+              "pdf_page": 13,
+              "role": "statement",
+              "label": "正式PDF"
+            },
+            {
+              "pdf_page": 16,
+              "role": "statement",
+              "label": "正式PDF"
+            }
+          ]
+        }
+      ],
+      "original_expression": "O(S)=-I_h(S)\\not\\Rightarrow\\#\\{S:O(S)\\ne0\\}\\ll2^n",
+      "description_md": "补集代数等式不能自动保证学习分量满足所引稀疏定理条件。",
+      "evidence_md": "原文缺少对 AND 分量、OR 分量补集游戏的条件检验，也没有给“小”和近似误差的定量定义。",
+      "impact_md": "完整原文仍保留，项目给出尾和条件界并将原断言范围标为未完成，未偷添条件。",
+      "user_confirmation": "not_individually_confirmed",
+      "fix_authorization": "proof_only_granted",
+      "proposition_modification_authorized": false,
+      "status": "agent_checked",
+      "translations": {
+        "en": {
+          "title": "Unverified external conditions for Lemma 3.4 and OR sparsity",
+          "description_md": "The complementary algebraic identity does not establish that learned components satisfy the cited sparsity theorem’s conditions.",
+          "evidence_md": "The source does not check the assumptions for the AND component and complemented OR component, or quantify smallness and approximation error.",
+          "impact_md": "The full source remains available. A separate tail-bound result is supplied, while the original assertion’s scope remains unresolved without inserted assumptions.",
+          "text_md": "The complementary algebraic identity does not establish that learned components satisfy the cited sparsity theorem’s conditions."
+        }
+      },
+      "source_schema_status": {
+        "kind": "external_scope_issue",
+        "status": "agent_checked"
+      },
+      "issue_type": "statement_alignment_or_scope",
+      "assessment_status": "recorded_for_review",
+      "affected_result_ids": [],
+      "text_md": "补集代数等式不能自动保证学习分量满足所引稀疏定理条件。"
+    },
+    {
+      "id": "layer-issue-coordinate-13",
+      "paper_id": "icml2024-layerwise",
+      "title": "Eq.(12) 不是所需反向掩码",
+      "kind": "false_under_displayed_definitions",
+      "source_refs": [
+        {
+          "id": "src-icml2024-layerwise-formal",
+          "source_id": "src-icml2024-layerwise-formal",
+          "locations": [
+            {
+              "pdf_page": 13,
+              "role": "statement",
+              "label": "正式PDF"
+            }
+          ]
+        }
+      ],
+      "original_expression": "v(x_{N\\setminus T})=v(x'_T)",
+      "description_md": "原两坐标定义实际互补，Eq.(13) 的第二等号错误。",
+      "evidence_md": "$N=T=\\{1\\},x_1=1,r_1=0,v(z)=z_1$ 给 $0\\ne1$。",
+      "impact_md": "原坐标错式独立登记；游戏层面的补集负变换证明有效，不把新定义换进原式。",
+      "user_confirmation": "not_individually_confirmed",
+      "fix_authorization": "proof_only_granted",
+      "proposition_modification_authorized": false,
+      "status": "agent_checked",
+      "translations": {
+        "en": {
+          "title": "Eq.(12) is not the required reversed mask",
+          "description_md": "The two printed coordinate definitions are complementary, making the second equality in Eq.(13) false.",
+          "evidence_md": "$N=T=\\{1\\},x_1=1,r_1=0,v(z)=z_1$ gives $0\\ne1$.",
+          "impact_md": "The coordinate error is recorded separately. The complementary-game negative transform remains valid; a new coordinate definition is not substituted into the source.",
+          "text_md": "The two printed coordinate definitions are complementary, making the second equality in Eq.(13) false."
+        }
+      },
+      "source_schema_status": {
+        "kind": "false_under_displayed_definitions",
+        "status": "agent_checked"
+      },
+      "issue_type": "statement_alignment_or_scope",
+      "assessment_status": "recorded_for_review",
+      "affected_result_ids": [],
+      "text_md": "原两坐标定义实际互补，Eq.(13) 的第二等号错误。"
+    },
+    {
+      "id": "layer-issue-strength-8",
+      "paper_id": "icml2024-layerwise",
+      "title": "Eq.(8) 在原显著支持下第一等式失败",
+      "kind": "false_original_statement",
+      "source_refs": [
+        {
+          "id": "src-icml2024-layerwise-formal",
+          "source_id": "src-icml2024-layerwise-formal",
+          "locations": [
+            {
+              "pdf_page": 5,
+              "role": "statement",
+              "label": "正式PDF"
+            },
+            {
+              "pdf_page": 6,
+              "role": "statement",
+              "label": "正式PDF"
+            },
+            {
+              "pdf_page": 7,
+              "role": "statement",
+              "label": "正式PDF"
+            }
+          ]
+        }
+      ],
+      "original_expression": "\\operatorname{all}_{l,1}=\\operatorname{overlap}_{l,1}+\\operatorname{forget}_{l,1}",
+      "description_md": "重叠项只在共同显著支持求和，忘记项却从每个本层显著系数减去实际共享值。",
+      "evidence_md": "归一化纯 AND 系数本层 $(1/2,1/2)$、末层 $(1/101,100/101)$；原阈值给支持 $\\{\\{1\\},\\{2\\}\\}$ 与 $\\{\\{2\\}\\}$。$\\operatorname{all}_{l,1}=1$，$\\operatorname{overlap}_{l,1}+\\operatorname{forget}_{l,1}=1/2+99/202=100/101$。两分解 L1=1 全局最优。",
+      "impact_md": "第一子句有完整反例；本例第二子句成立。不能用正确标量引理冒充原总式证明。",
+      "user_confirmation": "not_individually_confirmed",
+      "fix_authorization": "proof_only_granted",
+      "proposition_modification_authorized": false,
+      "status": "agent_checked",
+      "translations": {
+        "en": {
+          "title": "The first Eq.(8) identity fails with the stated salient supports",
+          "description_md": "Overlap uses only the common salient support, while forget subtracts the actual shared coefficient at every current-layer salient coalition.",
+          "evidence_md": "Normalized pure AND coefficients are $(1/2,1/2)$ and $(1/101,100/101)$. The stated thresholds give supports $\\{\\{1\\},\\{2\\}\\}$ and $\\{\\{2\\}\\}$. Then $\\operatorname{all}_{l,1}=1$, while $\\operatorname{overlap}_{l,1}+\\operatorname{forget}_{l,1}=1/2+99/202=100/101$. Both splits are globally L1-optimal at value 1.",
+          "impact_md": "The first clause has a full counterexample; the second holds in this witness. The valid scalar lemma does not prove the printed aggregate identity.",
+          "text_md": "Overlap uses only the common salient support, while forget subtracts the actual shared coefficient at every current-layer salient coalition."
+        }
+      },
+      "source_schema_status": {
+        "kind": "false_original_statement",
+        "status": "agent_checked"
+      },
+      "issue_type": "statement_counterexample",
+      "assessment_status": "refuted",
+      "affected_result_ids": [],
+      "text_md": "重叠项只在共同显著支持求和，忘记项却从每个本层显著系数减去实际共享值。"
+    },
+    {
+      "id": "layer-issue-zero-metrics",
+      "paper_id": "icml2024-layerwise",
+      "title": "比值、平均与归一化的零边界未规定",
+      "kind": "undefined_original_scope",
+      "source_refs": [
+        {
+          "id": "src-icml2024-layerwise-formal",
+          "source_id": "src-icml2024-layerwise-formal",
+          "locations": [
+            {
+              "pdf_page": 5,
+              "role": "statement",
+              "label": "正式PDF"
+            },
+            {
+              "pdf_page": 7,
+              "role": "statement",
+              "label": "正式PDF"
+            },
+            {
+              "pdf_page": 8,
+              "role": "statement",
+              "label": "正式PDF"
+            },
+            {
+              "pdf_page": 21,
+              "role": "statement",
+              "label": "正式PDF"
+            }
+          ]
+        }
+      ],
+      "original_expression": "0/0",
+      "description_md": "空并集、零总强度、零方差、空显著集合或零归一化因子会产生未定义实数表达。",
+      "evidence_md": "原文未分别给这些情况的赋值规则；残差严格界在 κ=0 时也无可行解。",
+      "impact_md": "只在原表达有定义时解释数值，不新增隐含零值约定。",
+      "user_confirmation": "not_individually_confirmed",
+      "fix_authorization": "proof_only_granted",
+      "proposition_modification_authorized": false,
+      "status": "agent_checked",
+      "translations": {
+        "en": {
+          "title": "Unspecified zero boundaries of ratios, averages, and normalization",
+          "description_md": "An empty union, zero total strength, zero variance, empty salient family, or zero normalization factor can make the real expression undefined.",
+          "evidence_md": "The source supplies no separate values for these cases; its strict residual bound is also infeasible when κ=0.",
+          "impact_md": "Interpret the metrics where their original expressions are defined, without adding a hidden zero convention.",
+          "text_md": "An empty union, zero total strength, zero variance, empty salient family, or zero normalization factor can make the real expression undefined."
+        }
+      },
+      "source_schema_status": {
+        "kind": "undefined_original_scope",
+        "status": "agent_checked"
+      },
+      "issue_type": "statement_alignment_or_scope",
+      "assessment_status": "recorded_for_review",
+      "affected_result_ids": [],
+      "text_md": "空并集、零总强度、零方差、空显著集合或零归一化因子会产生未定义实数表达。"
+    },
+    {
+      "id": "issue-coalition-empty-coalition",
+      "paper_id": "icml2025-coalition",
+      "kind": "undefined_original_scope",
+      "source_refs": [
+        {
+          "id": "src-icml2025-coalition",
+          "source_id": "src-icml2025-coalition",
+          "locations": [
+            {
+              "pdf_page": 4,
+              "role": "statement",
+              "label": "正式PDF"
+            },
+            {
+              "pdf_page": 5,
+              "role": "statement",
+              "label": "正式PDF"
+            },
+            {
+              "pdf_page": 6,
+              "role": "statement",
+              "label": "正式PDF"
+            }
+          ]
+        }
+      ],
+      "original_expression": "\\forall S\\subseteq N,\\quad\\phi(S)=\\sum_{T\\supseteq S}\\frac{|S|}{|T|}J(T)",
+      "description_md": "Eq.(6) 的全子集量词包含空集，但 T=空集项含0/0；3.4、3.8及部分公理沿用该未定义对象。",
+      "evidence_md": "S=\\varnothing,T=\\varnothing gives |S|/|T|=0/0; Eq.(3),(4) only define nonempty interactions.",
+      "impact_md": "The nonempty-coalition proof is recorded separately. No zero convention or new hypothesis is silently appended to the original statement.",
+      "user_confirmation": "not_individually_confirmed",
+      "fix_authorization": "proof_only_granted",
+      "proposition_modification_authorized": false,
+      "status": "agent_checked",
+      "translations": {
+        "en": {
+          "description_md": "The all-subsets quantifier in Eq. (6) includes the empty set, whose T=empty term contains 0/0. Later all-coalition statements inherit this undefined object.",
+          "evidence_md": "S=\\varnothing,T=\\varnothing gives |S|/|T|=0/0; Eq.(3),(4) only define nonempty interactions.",
+          "impact_md": "The nonempty-coalition proof is recorded separately. No zero convention or new hypothesis is silently appended to the original statement.",
+          "title": "Undefined empty-coalition attribution",
+          "text_md": "The all-subsets quantifier in Eq. (6) includes the empty set, whose T=empty term contains 0/0. Later all-coalition statements inherit this undefined object."
+        }
+      },
+      "title": "原空联盟归因未定义",
+      "source_schema_status": {
+        "kind": "undefined_original_scope",
+        "status": "agent_checked"
+      },
+      "issue_type": "statement_alignment_or_scope",
+      "assessment_status": "recorded_for_review",
+      "affected_result_ids": [],
+      "text_md": "Eq.(6) 的全子集量词包含空集，但 T=空集项含0/0；3.4、3.8及部分公理沿用该未定义对象。"
+    },
+    {
+      "id": "issue-coalition-or-condition",
+      "paper_id": "icml2025-coalition",
+      "kind": "proof_error_repaired",
+      "source_refs": [
+        {
+          "id": "src-icml2025-coalition",
+          "source_id": "src-icml2025-coalition",
+          "locations": [
+            {
+              "pdf_page": 14,
+              "role": "statement",
+              "label": "正式PDF"
+            }
+          ]
+        }
+      ],
+      "original_expression": "\\mathbb E_S\\sum_{L\\cap S\\ne\\varnothing}I_{\\rm or}(L\\cup\\{i\\})",
+      "description_md": "附录C的OR边际第一行和随后求和域误写非空交集；必须是不交。下一行改为 S⊆N\\{i}\\L 说明作者实际计算的是不交。",
+      "evidence_md": "The OR effect is activated by adding i exactly when i belongs to T and T∩S=empty. A term already intersecting S cancels from the marginal.",
+      "impact_md": "Theorem 3.2 is unchanged; only the erroneous proof condition is repaired.",
+      "user_confirmation": "not_individually_confirmed",
+      "fix_authorization": "proof_only_granted",
+      "proposition_modification_authorized": false,
+      "status": "agent_checked",
+      "translations": {
+        "en": {
+          "description_md": "Appendix C prints a nonempty intersection in the OR marginal sum. The correct condition is disjointness, as the following complement-subset line already uses.",
+          "evidence_md": "The OR effect is activated by adding i exactly when i belongs to T and T∩S=empty. A term already intersecting S cancels from the marginal.",
+          "impact_md": "Theorem 3.2 is unchanged; only the erroneous proof condition is repaired.",
+          "title": "Misprinted OR-marginal summation domain",
+          "text_md": "Appendix C prints a nonempty intersection in the OR marginal sum. The correct condition is disjointness, as the following complement-subset line already uses."
+        }
+      },
+      "title": "OR边际的原求和域错印",
+      "source_schema_status": {
+        "kind": "proof_error_repaired",
+        "status": "agent_checked"
+      },
+      "issue_type": "proof_step_error",
+      "assessment_status": "proof_error_recorded",
+      "affected_result_ids": [],
+      "text_md": "附录C的OR边际第一行和随后求和域误写非空交集；必须是不交。下一行改为 S⊆N\\{i}\\L 说明作者实际计算的是不交。"
+    },
+    {
+      "id": "issue-coalition-zero-denominators",
+      "paper_id": "icml2025-coalition",
+      "kind": "undefined_original_scope",
+      "source_refs": [
+        {
+          "id": "src-icml2025-coalition",
+          "source_id": "src-icml2025-coalition",
+          "locations": [
+            {
+              "pdf_page": 6,
+              "role": "statement",
+              "label": "正式PDF"
+            },
+            {
+              "pdf_page": 7,
+              "role": "statement",
+              "label": "正式PDF"
+            }
+          ]
+        }
+      ],
+      "original_expression": "R(i),R\\prime(i),Q(S)\\in[0,1]",
+      "description_md": "三个比例未规定零分母。零游戏配零分解使分子分母皆零；不能直接声称所有输入上均定义且落在区间。",
+      "evidence_md": "g(S)=0, γ_S=0 for every S gives A(T)=O(T)=0 and all three ratios 0/0.",
+      "impact_md": "Bounds hold on the original quotient domain where the denominator is positive. This scope restriction is disclosed, not added to the original claim.",
+      "user_confirmation": "not_individually_confirmed",
+      "fix_authorization": "proof_only_granted",
+      "proposition_modification_authorized": false,
+      "status": "agent_checked",
+      "translations": {
+        "en": {
+          "description_md": "No zero-denominator convention is supplied for the three ratios. The zero game with the zero decomposition gives numerator and denominator zero.",
+          "evidence_md": "g(S)=0, γ_S=0 for every S gives A(T)=O(T)=0 and all three ratios 0/0.",
+          "impact_md": "Bounds hold on the original quotient domain where the denominator is positive. This scope restriction is disclosed, not added to the original claim.",
+          "title": "Zero denominators in faithfulness ratios",
+          "text_md": "No zero-denominator convention is supplied for the three ratios. The zero game with the zero decomposition gives numerator and denominator zero."
+        }
+      },
+      "title": "忠实度比例的零分母",
+      "source_schema_status": {
+        "kind": "undefined_original_scope",
+        "status": "agent_checked"
+      },
+      "issue_type": "statement_alignment_or_scope",
+      "assessment_status": "recorded_for_review",
+      "affected_result_ids": [],
+      "text_md": "三个比例未规定零分母。零游戏配零分解使分子分母皆零；不能直接声称所有输入上均定义且落在区间。"
+    },
+    {
+      "id": "issue-coalition-symmetry-decomposition",
+      "paper_id": "icml2025-coalition",
+      "kind": "false_original_statement",
+      "source_refs": [
+        {
+          "id": "src-icml2025-coalition",
+          "source_id": "src-icml2025-coalition",
+          "locations": [
+            {
+              "pdf_page": 6,
+              "role": "statement",
+              "label": "正式PDF"
+            },
+            {
+              "pdf_page": 18,
+              "role": "statement",
+              "label": "正式PDF"
+            },
+            {
+              "pdf_page": 19,
+              "role": "statement",
+              "label": "正式PDF"
+            },
+            {
+              "pdf_page": 20,
+              "role": "statement",
+              "label": "正式PDF"
+            }
+          ]
+        }
+      ],
+      "original_expression": "g(U\\cup\\{i\\})=g(U\\cup\\{j\\})\\Longrightarrow a(U\\cup\\{i\\})=a(U\\cup\\{j\\}),\\ o(U\\cup\\{i\\})=o(U\\cup\\{j\\})",
+      "description_md": "总输出对称不能推出各分量对称；α、β公理在原给定分解规则下均有全局最优反例。",
+      "evidence_md": "取 $N=\\{1,2,3\\}$，$g(U)=|U|$。令 $P=\\{1,3\\}$，$a(U)=\\mathbf1[P\\subseteq U]+\\mathbf1[2\\in U]$，$o(U)=\\mathbf1[U\\cap P\\ne\\varnothing]$；这确实满足 $a+o=g$（在 $P$ 中有0、1、2个变量时，AND+OR分别为0、1、2）。因此 $\\gamma_U=a(U)-g(U)/2$ 是原分量形式的实际实现。其唯一非零非空系数为 $A(P)=1,O(P)=1,A(\\{2\\})=1$。于是 $\\phi(P)=2$ 而 $\\phi(\\{2,3\\})=0$。任意精确分解由 Eq.(10) 满足 $g(N)-g(\\varnothing)=\\sum_{T\\ne\\varnothing}(A(T)+O(T))$，三角不等式给出 $|g(N)-g(\\varnothing)|\\le\\sum_{T\\ne\\varnothing}(|A(T)|+|O(T)|)$。本例右侧为3、左侧也为3，故是全局最优的稀疏分解。总游戏完全对称，而最优分解非唯一，并不保证分量对称。\n\nLet $N=\\{1,2,3\\}$ and $g(U)=|U|$. Put $P=\\{1,3\\}$, $a(U)=\\mathbf1[P\\subseteq U]+\\mathbf1[2\\in U]$, and $o(U)=\\mathbf1[U\\cap P\\ne\\varnothing]$. Then $a+o=g$: AND plus OR contributes 0, 1, or 2 according to the number of present members of $P$. The actual decomposition parameter is $\\gamma_U=a(U)-g(U)/2$. The only nonzero nonempty coefficients are $A(P)=1,O(P)=1,A(\\{2\\})=1$, so $\\phi(P)=2$ and $\\phi(\\{2,3\\})=0$. Equation (10) implies $g(N)-g(\\varnothing)=\\sum_{T\\ne\\varnothing}(A(T)+O(T))$ for every exact decomposition. Hence the triangle inequality gives $|g(N)-g(\\varnothing)|\\le\\sum_{T\\ne\\varnothing}(|A(T)|+|O(T)|)$. Both sides equal 3 here, proving global optimality. A symmetric total game can therefore have nonsymmetric globally sparsest decompositions.",
+      "impact_md": "For α use i=1,j=2,L={3}; for β use S={1},T={2},L={3}. Its premise holds because g depends only on cardinality. The claimed conclusion fails.",
+      "user_confirmation": "not_individually_confirmed",
+      "fix_authorization": "proof_only_granted",
+      "proposition_modification_authorized": false,
+      "status": "agent_checked",
+      "translations": {
+        "en": {
+          "description_md": "Symmetry of the total output does not imply symmetry of each component. Both symmetry axioms admit globally optimal counterexamples under the specified decomposition rules.",
+          "evidence_md": "Let $N=\\{1,2,3\\}$ and $g(U)=|U|$. Put $P=\\{1,3\\}$, $a(U)=\\mathbf1[P\\subseteq U]+\\mathbf1[2\\in U]$, and $o(U)=\\mathbf1[U\\cap P\\ne\\varnothing]$. Then $a+o=g$: AND plus OR contributes 0, 1, or 2 according to the number of present members of $P$. The actual decomposition parameter is $\\gamma_U=a(U)-g(U)/2$. The only nonzero nonempty coefficients are $A(P)=1,O(P)=1,A(\\{2\\})=1$, so $\\phi(P)=2$ and $\\phi(\\{2,3\\})=0$. Equation (10) implies $g(N)-g(\\varnothing)=\\sum_{T\\ne\\varnothing}(A(T)+O(T))$ for every exact decomposition. Hence the triangle inequality gives $|g(N)-g(\\varnothing)|\\le\\sum_{T\\ne\\varnothing}(|A(T)|+|O(T)|)$. Both sides equal 3 here, proving global optimality. A symmetric total game can therefore have nonsymmetric globally sparsest decompositions.",
+          "impact_md": "For α use i=1,j=2,L={3}; for β use S={1},T={2},L={3}. Its premise holds because g depends only on cardinality. The claimed conclusion fails.",
+          "title": "A symmetric total game need not have symmetric optimal components",
+          "text_md": "Symmetry of the total output does not imply symmetry of each component. Both symmetry axioms admit globally optimal counterexamples under the specified decomposition rules."
+        }
+      },
+      "title": "总游戏对称不保证最优分解对称",
+      "source_schema_status": {
+        "kind": "false_original_statement",
+        "status": "agent_checked"
+      },
+      "issue_type": "statement_counterexample",
+      "assessment_status": "refuted",
+      "affected_result_ids": [],
+      "text_md": "总输出对称不能推出各分量对称；α、β公理在原给定分解规则下均有全局最优反例。"
+    },
+    {
+      "id": "issue-coalition-additivity-decomposition",
+      "paper_id": "icml2025-coalition",
+      "kind": "false_original_statement",
+      "source_refs": [
+        {
+          "id": "src-icml2025-coalition",
+          "source_id": "src-icml2025-coalition",
+          "locations": [
+            {
+              "pdf_page": 6,
+              "role": "statement",
+              "label": "正式PDF"
+            },
+            {
+              "pdf_page": 20,
+              "role": "statement",
+              "label": "正式PDF"
+            }
+          ]
+        }
+      ],
+      "original_expression": "g=g_1+g_2\\Longrightarrow A_g=A_{g_1}+A_{g_2},\\ O_g=O_{g_1}+O_{g_2}",
+      "description_md": "附录G.4从总输出可加性直接推出分量交互可加性，未得到分解参数兼容；原可加公理有最优分解反例。",
+      "evidence_md": "取 $N=\\{1,2\\}$，$g_1(U)=\\mathbf1[1\\in U]$、$g_2(U)=\\mathbf1[2\\in U]$，总游戏 $g=g_1+g_2$。对子游戏取 $a_k=g_k,o_k=0$，二者最小 L1 都为1，联盟 $N$ 的归因为0。对总游戏取 $a(U)=\\mathbf1[N\\subseteq U]$、$o(U)=\\mathbf1[U\\ne\\varnothing]$，对应 $\\gamma_U=a(U)-|U|/2$，唯一非零交互为 $A(N)=O(N)=1$，L1=2，达到 $|g(N)-g(\\varnothing)|=2$ 下界。故三次分解均全局最优，但 $\\phi_g(N)=2\\ne0=\\phi_{g_1}(N)+\\phi_{g_2}(N)$。\n\nLet $N=\\{1,2\\}$, $g_1(U)=\\mathbf1[1\\in U]$, $g_2(U)=\\mathbf1[2\\in U]$, and $g=g_1+g_2$. Choose $a_k=g_k,o_k=0$ for the component games. Each has globally minimal L1 value 1 and zero attribution to $N$. For the total game choose $a(U)=\\mathbf1[N\\subseteq U]$, $o(U)=\\mathbf1[U\\ne\\varnothing]$, and thus $\\gamma_U=a(U)-|U|/2$. Its only nonzero interactions are $A(N)=O(N)=1$. Its L1 value 2 reaches the lower bound $|g(N)-g(\\varnothing)|=2$. All three decompositions are globally optimal, yet $\\phi_g(N)=2\\ne0=\\phi_{g_1}(N)+\\phi_{g_2}(N)$.",
+      "impact_md": "A linearity theorem for a fixed compatible coefficient decomposition is valid but is not a proof of the original axiom.",
+      "user_confirmation": "not_individually_confirmed",
+      "fix_authorization": "proof_only_granted",
+      "proposition_modification_authorized": false,
+      "status": "agent_checked",
+      "translations": {
+        "en": {
+          "description_md": "Appendix G.4 infers component additivity from total-game additivity without compatible decomposition parameters. The original axiom has a globally optimal counterexample.",
+          "evidence_md": "Let $N=\\{1,2\\}$, $g_1(U)=\\mathbf1[1\\in U]$, $g_2(U)=\\mathbf1[2\\in U]$, and $g=g_1+g_2$. Choose $a_k=g_k,o_k=0$ for the component games. Each has globally minimal L1 value 1 and zero attribution to $N$. For the total game choose $a(U)=\\mathbf1[N\\subseteq U]$, $o(U)=\\mathbf1[U\\ne\\varnothing]$, and thus $\\gamma_U=a(U)-|U|/2$. Its only nonzero interactions are $A(N)=O(N)=1$. Its L1 value 2 reaches the lower bound $|g(N)-g(\\varnothing)|=2$. All three decompositions are globally optimal, yet $\\phi_g(N)=2\\ne0=\\phi_{g_1}(N)+\\phi_{g_2}(N)$.",
+          "impact_md": "A linearity theorem for a fixed compatible coefficient decomposition is valid but is not a proof of the original axiom.",
+          "title": "Optimal decompositions need not give additive coalition attribution",
+          "text_md": "Appendix G.4 infers component additivity from total-game additivity without compatible decomposition parameters. The original axiom has a globally optimal counterexample."
+        }
+      },
+      "title": "最优分解不能保证联盟归因可加",
+      "source_schema_status": {
+        "kind": "false_original_statement",
+        "status": "agent_checked"
+      },
+      "issue_type": "statement_counterexample",
+      "assessment_status": "refuted",
+      "affected_result_ids": [],
+      "text_md": "附录G.4从总输出可加性直接推出分量交互可加性，未得到分解参数兼容；原可加公理有最优分解反例。"
+    },
+    {
+      "id": "issue-coalition-dummy-decomposition",
+      "paper_id": "icml2025-coalition",
+      "kind": "false_under_displayed_definitions",
+      "source_refs": [
+        {
+          "id": "src-icml2025-coalition",
+          "source_id": "src-icml2025-coalition",
+          "locations": [
+            {
+              "pdf_page": 6,
+              "role": "statement",
+              "label": "正式PDF"
+            },
+            {
+              "pdf_page": 21,
+              "role": "statement",
+              "label": "正式PDF"
+            }
+          ]
+        }
+      ],
+      "original_expression": "g(U\\cup\\{i\\})=g(U)\\Longrightarrow a(U\\cup\\{i\\})=a(U),\\ o(U\\cup\\{i\\})=o(U)",
+      "description_md": "总输出dummy不能推出分量dummy；给出满足显示定义、但不是L1最优的反例，最优规则的dummy版本单独保留未判定。",
+      "evidence_md": "令 $N=\\{1,2\\}$、总游戏 $g=0$，取 $\\gamma_U=\\mathbf1[U=N]$，所以 $a=\\gamma,o=-\\gamma$。所有变量都是总游戏的dummy。计算 $A(N)=1$、$O(N)=1$，所以 $\\phi(N)=2\\ne0$。此例满足正文显示的分解定义，但 L1=4 并非全局最稀疏（零分解的 L1=0）。因此它反驳“仅依据分解定义即可满足dummy”的表述，不能声称已反驳额外规定全局最优且给定选择规则的dummy版本。论文没有把该选择规则完整规定为公理前提。\n\nLet $N=\\{1,2\\}$ and $g=0$, and choose $\\gamma_U=\\mathbf1[U=N]$, so $a=\\gamma$ and $o=-\\gamma$. Every variable is dummy for the total game. Nevertheless $A(N)=O(N)=1$, giving $\\phi(N)=2$. This satisfies the displayed decomposition definitions, but its L1 value 4 is not globally minimal: the zero decomposition has value 0. It refutes the dummy claim from the displayed definitions alone; it is not a counterexample to a separately stipulated global-optimum selection rule. The paper does not fully specify such a rule as an axiom premise.",
+      "impact_md": "No component-dummy premise is added to complete the original axiom.",
+      "user_confirmation": "not_individually_confirmed",
+      "fix_authorization": "proof_only_granted",
+      "proposition_modification_authorized": false,
+      "status": "agent_checked",
+      "translations": {
+        "en": {
+          "description_md": "A dummy total game need not have dummy components. The explicit counterexample satisfies the displayed definitions but is not L1 optimal; the version with an additional optimizer rule remains separately unresolved.",
+          "evidence_md": "Let $N=\\{1,2\\}$ and $g=0$, and choose $\\gamma_U=\\mathbf1[U=N]$, so $a=\\gamma$ and $o=-\\gamma$. Every variable is dummy for the total game. Nevertheless $A(N)=O(N)=1$, giving $\\phi(N)=2$. This satisfies the displayed decomposition definitions, but its L1 value 4 is not globally minimal: the zero decomposition has value 0. It refutes the dummy claim from the displayed definitions alone; it is not a counterexample to a separately stipulated global-optimum selection rule. The paper does not fully specify such a rule as an axiom premise.",
+          "impact_md": "No component-dummy premise is added to complete the original axiom.",
+          "title": "Dummy premises and decomposition-selection scope",
+          "text_md": "A dummy total game need not have dummy components. The explicit counterexample satisfies the displayed definitions but is not L1 optimal; the version with an additional optimizer rule remains separately unresolved."
+        }
+      },
+      "title": "Dummy条件与分解选择的范围",
+      "source_schema_status": {
+        "kind": "false_under_displayed_definitions",
+        "status": "agent_checked"
+      },
+      "issue_type": "statement_alignment_or_scope",
+      "assessment_status": "recorded_for_review",
+      "affected_result_ids": [],
+      "text_md": "总输出dummy不能推出分量dummy；给出满足显示定义、但不是L1最优的反例，最优规则的dummy版本单独保留未判定。"
+    },
+    {
+      "id": "issue-coalition-anonymity-selection",
+      "paper_id": "icml2025-coalition",
+      "kind": "underspecified_decomposition_rule",
+      "source_refs": [
+        {
+          "id": "src-icml2025-coalition",
+          "source_id": "src-icml2025-coalition",
+          "locations": [
+            {
+              "pdf_page": 6,
+              "role": "statement",
+              "label": "正式PDF"
+            },
+            {
+              "pdf_page": 17,
+              "role": "statement",
+              "label": "正式PDF"
+            }
+          ]
+        }
+      ],
+      "original_expression": "\\sigma g(\\sigma U)=g(U)\\Longrightarrow \\sigma a(\\sigma U)=a(U),\\sigma o(\\sigma U)=o(U)",
+      "description_md": "若σ作用于既定AND/OR分解，匿名性是正确的换元恒等式；若仅作用于总游戏并重新求最优分解，最优非唯一不能保证此推断。",
+      "evidence_md": "取 $N=\\{1,2,3\\}$，$g(U)=|U|$。令 $P=\\{1,3\\}$，$a(U)=\\mathbf1[P\\subseteq U]+\\mathbf1[2\\in U]$，$o(U)=\\mathbf1[U\\cap P\\ne\\varnothing]$；这确实满足 $a+o=g$（在 $P$ 中有0、1、2个变量时，AND+OR分别为0、1、2）。因此 $\\gamma_U=a(U)-g(U)/2$ 是原分量形式的实际实现。其唯一非零非空系数为 $A(P)=1,O(P)=1,A(\\{2\\})=1$。于是 $\\phi(P)=2$ 而 $\\phi(\\{2,3\\})=0$。任意精确分解由 Eq.(10) 满足 $g(N)-g(\\varnothing)=\\sum_{T\\ne\\varnothing}(A(T)+O(T))$，三角不等式给出 $|g(N)-g(\\varnothing)|\\le\\sum_{T\\ne\\varnothing}(|A(T)|+|O(T)|)$。本例右侧为3、左侧也为3，故是全局最优的稀疏分解。总游戏完全对称，而最优分解非唯一，并不保证分量对称。\n\nLet $N=\\{1,2,3\\}$ and $g(U)=|U|$. Put $P=\\{1,3\\}$, $a(U)=\\mathbf1[P\\subseteq U]+\\mathbf1[2\\in U]$, and $o(U)=\\mathbf1[U\\cap P\\ne\\varnothing]$. Then $a+o=g$: AND plus OR contributes 0, 1, or 2 according to the number of present members of $P$. The actual decomposition parameter is $\\gamma_U=a(U)-g(U)/2$. The only nonzero nonempty coefficients are $A(P)=1,O(P)=1,A(\\{2\\})=1$, so $\\phi(P)=2$ and $\\phi(\\{2,3\\})=0$. Equation (10) implies $g(N)-g(\\varnothing)=\\sum_{T\\ne\\varnothing}(A(T)+O(T))$ for every exact decomposition. Hence the triangle inequality gives $|g(N)-g(\\varnothing)|\\le\\sum_{T\\ne\\varnothing}(|A(T)|+|O(T)|)$. Both sides equal 3 here, proving global optimality. A symmetric total game can therefore have nonsymmetric globally sparsest decompositions.",
+      "impact_md": "The transported-decomposition proof is preserved with its exact meaning; it does not prove invariance under an unspecified independently selected optimum.",
+      "user_confirmation": "not_individually_confirmed",
+      "fix_authorization": "proof_only_granted",
+      "proposition_modification_authorized": false,
+      "status": "agent_checked",
+      "translations": {
+        "en": {
+          "description_md": "If σ transports a fixed AND/OR decomposition, anonymity is a correct change-of-variables identity. If only the total game is permuted and its decomposition is recomputed, nonunique optima do not guarantee the printed component inference.",
+          "evidence_md": "Let $N=\\{1,2,3\\}$ and $g(U)=|U|$. Put $P=\\{1,3\\}$, $a(U)=\\mathbf1[P\\subseteq U]+\\mathbf1[2\\in U]$, and $o(U)=\\mathbf1[U\\cap P\\ne\\varnothing]$. Then $a+o=g$: AND plus OR contributes 0, 1, or 2 according to the number of present members of $P$. The actual decomposition parameter is $\\gamma_U=a(U)-g(U)/2$. The only nonzero nonempty coefficients are $A(P)=1,O(P)=1,A(\\{2\\})=1$, so $\\phi(P)=2$ and $\\phi(\\{2,3\\})=0$. Equation (10) implies $g(N)-g(\\varnothing)=\\sum_{T\\ne\\varnothing}(A(T)+O(T))$ for every exact decomposition. Hence the triangle inequality gives $|g(N)-g(\\varnothing)|\\le\\sum_{T\\ne\\varnothing}(|A(T)|+|O(T)|)$. Both sides equal 3 here, proving global optimality. A symmetric total game can therefore have nonsymmetric globally sparsest decompositions.",
+          "impact_md": "The transported-decomposition proof is preserved with its exact meaning; it does not prove invariance under an unspecified independently selected optimum.",
+          "title": "Transporting components versus reselecting an optimum",
+          "text_md": "If σ transports a fixed AND/OR decomposition, anonymity is a correct change-of-variables identity. If only the total game is permuted and its decomposition is recomputed, nonunique optima do not guarantee the printed component inference."
+        }
+      },
+      "title": "匿名性中的分量运输与重新选解",
+      "source_schema_status": {
+        "kind": "underspecified_decomposition_rule",
+        "status": "agent_checked"
+      },
+      "issue_type": "statement_alignment_or_scope",
+      "assessment_status": "recorded_for_review",
+      "affected_result_ids": [],
+      "text_md": "若σ作用于既定AND/OR分解，匿名性是正确的换元恒等式；若仅作用于总游戏并重新求最优分解，最优非唯一不能保证此推断。"
+    },
+    {
+      "id": "issue-coalition-beta-pairing",
+      "paper_id": "icml2025-coalition",
+      "kind": "proof_error",
+      "source_refs": [
+        {
+          "id": "src-icml2025-coalition",
+          "source_id": "src-icml2025-coalition",
+          "locations": [
+            {
+              "pdf_page": 19,
+              "role": "statement",
+              "label": "正式PDF"
+            },
+            {
+              "pdf_page": 20,
+              "role": "statement",
+              "label": "正式PDF"
+            }
+          ]
+        }
+      ],
+      "original_expression": "\\sum_{A}\\!f(A)-\\sum_B\\!h(B)=\\sum_{|A|=|B|}(f(A)-h(B))",
+      "description_md": "G.3把两边分别求和改成全部等基数对求和，未给双射；每一项通常被重复计数。最初WLOG不交也没有给重叠化简。",
+      "evidence_md": "If there are c subsets on each side of a fixed cardinality, the all-pairs sum equals c times the difference of the two original sums, not that difference. For c=2 take f=(1,0),h=(0,0): original difference 1, paired difference 2.",
+      "impact_md": "These proof defects are retained; the original symmetry-β statement already fails by the independent optimal-decomposition counterexample.",
+      "user_confirmation": "not_individually_confirmed",
+      "fix_authorization": "proof_only_granted",
+      "proposition_modification_authorized": false,
+      "status": "agent_checked",
+      "translations": {
+        "en": {
+          "description_md": "G.3 replaces separate sums by all equal-cardinality pairs without a bijection, repeating summands in general. Its initial disjointness reduction also lacks a reduction for overlapping coalitions.",
+          "evidence_md": "If there are c subsets on each side of a fixed cardinality, the all-pairs sum equals c times the difference of the two original sums, not that difference. For c=2 take f=(1,0),h=(0,0): original difference 1, paired difference 2.",
+          "impact_md": "These proof defects are retained; the original symmetry-β statement already fails by the independent optimal-decomposition counterexample.",
+          "title": "Repeated counting in the original symmetry-β pairing",
+          "text_md": "G.3 replaces separate sums by all equal-cardinality pairs without a bijection, repeating summands in general. Its initial disjointness reduction also lacks a reduction for overlapping coalitions."
+        }
+      },
+      "title": "对称性β原配对的重复计数",
+      "source_schema_status": {
+        "kind": "proof_error",
+        "status": "agent_checked"
+      },
+      "issue_type": "proof_step_error",
+      "assessment_status": "proof_error_recorded",
+      "affected_result_ids": [],
+      "text_md": "G.3把两边分别求和改成全部等基数对求和，未给双射；每一项通常被重复计数。最初WLOG不交也没有给重叠化简。"
+    },
+    {
+      "id": "cvpr-issue-bow-table7-probability-scale",
+      "paper_id": "cvpr2023-sparse-concepts",
+      "kind": "conditional_source_example_scale_gap",
+      "issue_type": "statement_alignment_or_scope",
+      "assessment_status": "recorded_for_review",
+      "title": "Table7若沿用相邻概率输出尺度，则数值不相容；本节未说明尺度变化",
+      "source_inventory_ids": [
+        "cvpr-inv-bow"
+      ],
+      "affected_result_ids": [
+        "cvpr-inv-bow"
+      ],
+      "source_refs": [
+        {
+          "id": "src-cvpr2023-supplement",
+          "source_id": "src-cvpr2023-supplement",
+          "locations": [
+            {
+              "pdf_page": 17,
+              "role": "statement",
+              "label": "Appendix I; footnote after Table6; Table7"
+            },
+            {
+              "pdf_page": 18,
+              "role": "statement",
+              "label": "Appendix I; footnote after Table6; Table7"
+            }
+          ]
+        }
+      ],
+      "original_formula_tex": "v(x_S)=p(y=\\text{positive sentiment}\\mid x_S)\\quad\\text{(p17: In this example)},\\qquad w_{\\{\\mathrm{smart}\\}}=6.568,\\quad w_{\\{\\mathrm{not},\\mathrm{smart}\\}}=-13.481\\quad\\text{(Table7)}",
+      "analysis_formula_tex": "\\left[\\forall L,\\ 0\\le g(L)\\le1\\right]\\ \\Longrightarrow\\ w_{\\{i\\}}=g(\\{i\\})-g(\\varnothing)\\in[-1,1],\\quad w_{\\{i,j\\}}=g(\\{i,j\\})-g(\\{i\\})-g(\\{j\\})+g(\\varnothing)\\in[-2,2].",
+      "analysis_md": "正式p17脚注在Table6相邻例子写In this example，采用概率输出；p18Table7有单变量6.568和二变量−13.481。若Table7继续使用这一概率尺度，原Möbius差分分别受[−1,1]及[−2,2]限制，故两表值与该定义不能同时成立。但是该脚注没有无歧义声明延续到Table7，原本节也未说明尺度是否变化；这里不无条件判表数据已证伪。正式PNG已实际查看，排除了文本提取误差。",
+      "impact_scope": "Only the conditional compatibility between the neighboring probability-output convention and Table7 reported values; not a counterexample to arbitrary-real reconstruction, uniqueness, attribution, or unconditional Table7 data.",
+      "statement_status": "conditional_incompatibility_if_same_probability_scale; unconditional_table7_values_not_refuted",
+      "resolution_status": "source_scope_ambiguity_recorded_without_changing_data_or_output_definition",
+      "fix_authorization": "proof_only_granted",
+      "statement_fix_authorization": "not_granted",
+      "user_confirmation": "not_required_to_record_source_issue",
+      "user_review_status": "pending",
+      "evidence_role": "scope_explanation",
+      "verification_role": "scope_explanation",
+      "review_path": "research/full-proof-integration-20260930/iclr2024-sparse/review-of-cvpr-and-generalizable-finite.md",
+      "source_schema_status": {
+        "kind": "conditional_source_example_scale_gap",
+        "statement_status": "conditional_incompatibility_if_same_probability_scale; unconditional_table7_values_not_refuted",
+        "assessment_status": "conditional_incompatibility_proved; table7_output_scale_not_specified"
+      },
+      "text_md": "正式p17脚注在Table6相邻例子写In this example，采用概率输出；p18Table7有单变量6.568和二变量−13.481。若Table7继续使用这一概率尺度，原Möbius差分分别受[−1,1]及[−2,2]限制，故两表值与该定义不能同时成立。但是该脚注没有无歧义声明延续到Table7，原本节也未说明尺度是否变化；这里不无条件判表数据已证伪。正式PNG已实际查看，排除了文本提取误差。",
+      "translations": {
+        "en": {
+          "title": "Table 7 is incompatible if the adjacent probability scale continues",
+          "analysis_md": "The page-17 footnote beside Table 6 says in this example and uses a probability output. Table 7 on page 18 gives singleton value $6.568$ and pair value $-13.481$. If the same probability scale applies, Möbius differences lie respectively in $[-1,1]$ and $[-2,2]$, so the values are incompatible. The footnote does not unambiguously extend to Table 7, and the section does not state whether its scale changes. The values are therefore not unconditionally refuted. The formal images were checked, ruling out an extraction error.",
+          "text_md": "The page-17 footnote beside Table 6 says in this example and uses a probability output. Table 7 on page 18 gives singleton value $6.568$ and pair value $-13.481$. If the same probability scale applies, Möbius differences lie respectively in $[-1,1]$ and $[-2,2]$, so the values are incompatible. The footnote does not unambiguously extend to Table 7, and the section does not state whether its scale changes. The values are therefore not unconditionally refuted. The formal images were checked, ruling out an extraction error.",
+          "impact_md": "Only conditional compatibility of the adjacent output convention and Table 7 is at issue, not real-valued reconstruction or unconditional table data."
+        }
+      }
+    }
+  ]
+}

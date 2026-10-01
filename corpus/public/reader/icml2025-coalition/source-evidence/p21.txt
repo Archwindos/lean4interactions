@@ -1,0 +1,68 @@
+                                    Towards Attributions of Input Variables in a Coalition
+
+G.5. Proof of Dummy axiom
+Proof. According to the definition of the AND/OR interaction, we can get:
+∀T ∋ i, Iand (T ) = L⊆T (−1)|T |−|L| vand (T ) = L⊆T \{i} (−1)|T |−|L|+1 [vand (L ∪ {i}) − vand (L)]
+                    P                           P
+
+∀T ∋ i, Ior (T ) = − L⊆T (−1)|T |−|L| vor (N \ L) = L⊆T \{i} (−1)|T |−|L|+1 [vor (N \ L) − vor (N − L − {i})]
+                    P                              P
+
+Due to ∀T ⊆ N \ {i}, v(T ∪ {i}) = v(T ), we have: ∀T ⊆ N \ {i}, vand (T ∪ {i}) = vand (T ), vor (T ∪ {i}) = vor (T ).
+Thus, we have:
+                                              X
+                                Iand (T ) =                  (−1)|T |−|L|+1 [vand (L ∪ {i}) − vand (L)] = 0
+                                                  L⊆T \{i}
+                                   X
+                       Ior (T ) =                 (−1)|T |−|L|+1 [vor (N \ L) − vor (N − L − {i})] = 0
+                                       L⊆T \{i}
+
+
+Then, according to Equation (6) in the paper, we get:
+
+                                 X |S|                                    X         |S|
+                       φ(S) =           [Iand (T ) + Ior (T )] =                         [Iand (T ) + Ior (T )] = 0
+                                   |T |                                             |T |
+                                T ⊇S                                    T ⊇S,T ∋i
+
+Therefore, we prove the Dummy axiom.
+
+G.6. Proof of Corollary 8
+                                                                                       P
+Proof. According to the Efficiency axiom of the Shapley value, we have: v(N ) − v(∅) = i∈N ϕ(i).
+
+Then, according to Theorem 4, we have: i∈S ϕ(i) = φ(S) + T ⊆N,T ∩S̸=∅,T ∩S̸=S |T|T∩S|
+                                       P                     P
+                                                                                      | [Iand (T ) + Ior (T )].
+
+Thus, we have:
+                                    X
+                  v(N ) − v(∅) =          ϕ(i)
+                                    i∈N
+                                    X               X
+                                =         ϕ(i) +            ϕ(i)
+                                    i∈S            i∈N \S
+                                                 X                        X               |T ∩ S|
+                                = φ(S) +               ϕ(i) +                                     [Iand (T ) + Ior (T )]
+                                                                                            |T |
+                                              i∈N \S            T ⊆N,T ∩S̸=∅,T ∩S̸=S
+
+Therefore, we prove Corollary 8.
+
+H. Detailed introduction about the axioms for the coalition attribution
+The anonymity axiom shows that the order of input variables does not essentially affect the coalition’s attribution φ(S).
+The symmetry axiom shows that if two coalitions always have the same roles, then they have exactly the same attributions.
+The additivity axiom shows if the model output v(S) can be represented as the sum of outputs of two sub-models
+v(S) = v1 (S) + v2 (S), then a coalition’s attribution can be decomposed into attributions computed on the two sub-models.
+The dummy axiom shows that if the coalition S contains a dummy input variable i, which does not contribute to the model
+output, then the coalition S has zero attribution (but the coalition S \ {i} may have non-zero attribution φ(S \ {i}).
+
+I. Results of coalition faithfulness metrics on the image data
+We evaluated whether these DNNs accurately represented natural coalitions in human cognition. We trained VGG-
+11 (Simonyan & Zisserman, 2014) and ResNet-20 (He et al., 2016) on the MNIST (LeCun et al., 1998) and CIFAR-
+10 (Krizhevsky, 2012) datasets. We divided an image sample into 8 × 8 regions and manually selected 10 image regions,
+which included some neighboring regions with specific semantics and some other random regions. The set of regions that
+represented clear visual concepts was annotated as a true coalition. In comparison, a random set of image regions was
+annotated as a false coalition.
+
+                                                                   21

@@ -1,0 +1,102 @@
+                     HarsanyiNet: Computing Accurate Shapley Values in a Single Forward Propagation
+
+Proof. According to Theorem 1 and Theorem 2, we have
+                                                                  X                         1
+                                                       ϕ(i) =                                  I(S)
+                                                                      S⊆N :S∋i             |S|
+                                                                                   1
+                                                                                      I(S)1(S ∋ i)
+                                                                  X
+                                                              =
+                                                                      S⊆N         |S|
+                                                                           (l)
+                                                                  L m
+                                                                                       1
+                                                                                             wu(l) zu(l) (x)1(R(l)
+                                                                  X X
+                                                              =                        (l)                     u ∋ i).
+                                                                  l=1 u=1         |Ru |
+
+
+
+                                                                                              (l)                            (l)
+Theorem 4. Based on Equations (5)–(7), the receptive field Ru of the neuron zu automatically satisfies the Requirement 1
+                            (l)                                             (l)                    (l′ )      (1)   (1)
+and 2. The receptive field Ru of a neuron (l, u) is defined recursively by Ru := ∪(l′ ,u′ )∈S (l) Ru′ , s.t. Ru := Su .
+                                                                                                                                                 u
+
+
+
+                                                          (l)                                 (l)
+Proof. (1) Proof of the receptive field Ru of the neuron zu satisfies the Requirement 1.
+                                                                                                                                                                               (l)
+Given two arbitrary samples x̃ = z̃(0) and x = z(0) , to satisfy the Requirement 1, we will prove that if ∀ i ∈ Ru , x̃i = xi ,
+      (l)       (l)
+then zu (x̃) = zu (x).
+                                                (1)      (1)         (l)                            (1)               (1)
+Firstly, for the first layer, ∀u′ , Ru′ = Su′ ⊆ Ru , we prove zu′ (x̃) = zu′ (x).
+                                            
+          (1)            (1)         (1)         (1)                     (1)      (1)    (l)     (0)
+We get gu′ (x̃) = (Au′ )⊺ · Σu′ · z̃(0) = (Au′ )⊺ · ζ, where ∀i ∈ Ru′ = Su′ ⊆ Ru , ζ i = z̃i , otherwise ζ i = 0.
+                                              
+               (1)            (1)        (1)         (1)                     (1)      (0)    (0)
+We also get gu′ (x) = (Au′ )⊺ · Σu′ · z(0) = (Au′ )⊺ · η, where ∀i ∈ Ru′ , η i = zi = z̃i , otherwise η i = 0.
+        (1)        (1)                     (1)           (1)
+Thus, gu′ (x̃) = gu′ (x) and zu′ (x̃) = zu′ (x).
+                         (l)                   (l)
+Secondly, we prove zu (x̃) = zu (x) using the above conclusion.
+                                         (2)                         (1)               (l)                          (2)            (2)
+For the second layer, ∀u′ , Ru′ = ∪(1,u′′ )∈S (2) Ru′′ ⊆ Ru , we can get zu′ (x̃) = zu′ (x) easily, since its children nodes
+                                                                u′
+                               (1)             (1)      (l)                                                                 (1)                (1)
+is selected from ∀u′′ , Ru′′ = Su′′ ⊆ Ru , and the output of which satisfies zu′′ (x̃) = zu′′ (x). Similarly, we can derive
+  (l)        (l)
+zu (x̃) = zu (x) recursively.
+                                                                                 (l)                            (l)
+In this way, we have proved that the receptive field Ru of the neuron zu satisfies the Requirement 1.
+                                                 (l)                             (l)
+(2) Proof of the receptive field Ru of the neuron zu satisfies the Requirement 2.
+                                                                                                          (0)
+Given a sample x = z(0) and its arbitrary masked sample xS = zS , to satisfy the Requirement 2, we will prove that
+zu (xS ) = zu (x) · i∈R(l) 1(i ∈ S). Specifically, we will prove that under the conditions of (1) ∀S ⊇ Ru , (2)
+ (l)        (l)     Q                                                                                      (l)
+                          u
+
+∀S ⊊ Ru , or ∀S, S ∪ Ru ̸= S and S ∪ Ru ̸= Ru , we can get zu (xS ) = zu (x) · i∈R(l) 1(i ∈ S), respectively.
+        (l)           (l)                 (l)   (l)           (l)         (l)     Q
+                                                                                                                                                     u
+
+                                    (l) (l)        (l)
+                                                                                                          1                                     (l)
+                                                          Q
+Firstly, we can easily get ∀S ⊇ Ru , zu (xS ) = zu (x) · i∈R(l) (i ∈                                                  S). Since ∀i ∈           Ru , (xS )i           = xi , let us use the
+                                                               u
+                                     (l)       (l)      (l)
+                                                                                                                      1(i ∈ S).
+                                                               Q
+proven conclusion of (1) to derive zu (xS ) = zu (x) = zu (x) · i∈R(l)
+                                                                                                                u
+
+                                                                                             (l)                            (l)                                (l)       (l)
+Secondly, we prove that under the conditions of ∀S ⊊ Ru , or ∀S, S ∪ Ru ̸= S and S ∪ Ru ̸= Ru , we can get
+zu (xS ) = zu (x) · i∈R(l) 1(i ∈ S).
+ (l)        (l)    Q
+                                     u
+
+
+Let xS denote the sample obtained by masking variables with b in the set N \ S in the sample x, then z(0) = x − b ∈ Rn .
+                                                                      (l)                         (l)
+In both settings, there exists at least a variable j that belongs to Ru but not to S, i.e., ∃j ∈ Ru , j ∈
+                                                                                                        / S, we have (xS )j = b,
+(zS )j = 0 and i∈R(l) 1(i ∈ S) = 0.
+  (0)             Q
+                         u
+
+                                                                                                                            (1)          (1)             (l)                    (1)
+For the first layer, there exists at least a neuron (1, u′ ) which satisfies j ∈ Ru′ = Su′ ⊆ Ru . Then ∀u′ , hu′ (xS ) =
+gu′ (xS ) · (0,u′′ )∈S (1) 1(zu′′ (xS ) ̸= 0) = gu′ (xS ) · 1((zS )j ̸= 0) = 0 and zu′ (xS ) = 0. Since j ∈ Ru =
+ (1)        Q                 (0)                  (1)             (0)                  (1)                        (l)
+                         u′
+
+
+                                                                                             13

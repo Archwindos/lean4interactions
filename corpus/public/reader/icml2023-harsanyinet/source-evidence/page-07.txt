@@ -1,0 +1,74 @@
+                     HarsanyiNet: Computing Accurate Shapley Values in a Single Forward Propagation
+
+Please see Appendix E for the proof. Therefore, we
+                                                                     Table 1. Root mean squared errors of the estimated Shapley value
+further considered neurons in the same location (h, w)
+                                                                     and the classification accuracy of the DNN.
+on different channels as a single Harsanyi unit. In this
+                                             (l)  (l)                                                                 Shallow       Deep
+way, Equation (6) could be rewritten as hu (x) = gu (x) ·                                             HarsanyiNet
+                                                                                                                      ShapNet     ShapNet8
+              (l) 1(
+Q                   PC     (l−1)
+  (l−1,u′ )∈S
+            u        c=1 |zu′ =(c,h,w) (x)| =
+                                            ̸ 0).
+                                                                                                 MNIST dataset
+In the implementation, we first applied a convolutional layer,         Classification accuracy (↑)       99.16          40.18      93.85
+max-pooling layer, and ReLU layer on the input image to ob-            Errors of Shapley values (↓)    1.19e-07       3.79e-07     0.891
+tain the feature z(0) in an intermediate layer. Subsequently,                                   CIFAR-10 dataset
+we regarded z(0) as the input of the Harsanyi-CNN, instead             Classification accuracy (↑)       89.34          20.48      73.51
+of directly using raw pixel values as input variables. It was          Errors of Shapley values (↓)    6.88e-08       2.41e-07     0.409
+because using the ReLU operation enabled us to simply                                             Census dataset
+define bi = 0 as the baseline value (i.e., the masking state)          Classification accuracy (↑)       84.57          84.14      84.72
+for all the feature dimensions z(0) . In addition, according           Errors of Shapley values (↓)    2.18e-08       5.12e-07     0.412
+                                                       (0)                                        Yeast dataset
+to Setting 2, we could consider the feature vector z(:,h,w)
+at location (h, w) as a single input variable, and we used             Classification accuracy (↑)       59.91          57.17      59.70
+  (0)
+                                                                       Errors of Shapley values (↓)    3.36e-08       1.97e-07     0.127
+z(:,h,w) = 0 to identify its masking state.                                                      TV news dataset
+                                                                       Classification accuracy (↑)       82.20          79.72      82.46
+4.2. Experiments and comparison                                        Errors of Shapley values (↓)    5.69e-08       2.47e-07     0.239
+
+Dataset. We trained the Harsanyi-MLP on three tabular
+                                                                     Table 2. Error of the computed Shapley values on the Census, Yeast
+datasets from the UCI machine learning repository (Dua &
+                                                                     and TV news dataset.
+Graff, 2017), including the Census Income dataset (n = 12),
+the Yeast dataset (n = 8) and the TV news commercial                                 Models
+                                                                                                HarsanyiNet        DeepSHAP      FastSHAP
+detection dataset (n = 10), where n denotes the number of              Datasets
+input variables. For simplicity, these datasets were termed            Census                     2.18e-08           0.701        0.270
+Census, Yeast, and TV news. We trained the Harsanyi-CNN                Yeast                      3.36e-08           1.311        0.467
+on two image datasets: the MNIST dataset (LeCun & Cortes,
+                                                                       TV news                    5.69e-08           0.758        0.526
+2010) and the CIFAR-10 dataset (Krizhevsky et al., 2009).
+Accuracy of Shapley values and computational cost. We                2019) to quantify the computational cost of approximating
+conducted experiments to verify whether the HarsanyiNet              Shapley values. These methods usually needed thousands of
+could compute accurate Shapley values in a single for-               network inferences to compute the relatively accurate Shap-
+ward propagation. We evaluated both the accuracy and                 ley values. In comparison, the HarsanyiNet only needed
+the time cost of calculating Shapley values. We computed             one forward propagation to obtain the exact Shapley values
+the root mean squared error (RMSE) between the esti-                 (see “⋆” in Figure 3). DeepSHAP and FastSHAP could
+mated Shapley values ϕx and the true Shapley values, i.e.,           compute the Shapley values in one forward propagation, but
+RMSE=Ex [ √1n ||ϕx − ϕ∗x ||], where the vector of ground-            as shown in Table 2, the estimated errors of Shapley values
+truth Shapley values ϕ∗x on the sample x could be directly           were considerably larger than the HarsanyiNet.
+computed by following Definition 1 when n ≤ 16.
+                                                                     Comparing with the ShapNets. Besides, we also com-
+Comparing with approximation methods. We com-                        pared the classification accuracy and the accuracy of Shap-
+pared the accuracy of Shapley values computed by the                 ley values with two types of ShapNet (Wang et al., 2021),
+HarsanyiNet with those estimated by various approxi-                 namely Shallow ShapNet and Deep ShapNet. Input sam-
+mation methods, including the sampling method (Castro                ples in the MNIST and CIFAR-10 datasets contained many
+et al., 2009), KernelSHAP (Lundberg & Lee, 2017), Ker-               more input variables. To calculate the ground-truth Shapley
+nelSHAP with paired sampling (KernelSHAP-PS) (Covert                 values through Definition 1, we randomly sampled n = 12
+& Lee, 2021), antithetical sampling (Mitchell et al., 2022),         variables as input variables in the foreground of the sample
+DeepSHAP (Lundberg & Lee, 2017) and FastSHAP (Jethani                x. In this way, ground-truth Shapley values were computed
+et al., 2021). The approximation methods also computed               by masking the selected 12 variables and keeping all the
+Shapley values on the HarsanyiNet for fair comparison. Fig-          other variables as original values of these variables. Simi-
+ure 3 shows that many approximation methods generated                    8
+                                                                           The results were obtained using the codes released by the
+more accurate Shapley values, when they conducted more               original paper (Wang et al., 2021). In particular, for image datasets,
+inferences for approximation. The number of inferences               each experiment was run for ten rounds with different random
+was widely used (Lundberg & Lee, 2017; Ancona et al.,                initialization, and the best result from the 10 runs was presented.
+
+                                                                 7

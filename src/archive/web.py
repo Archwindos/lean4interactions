@@ -192,8 +192,8 @@ def _catalog_name(item: dict) -> str:
     return str(item.get("declaration") or item.get("declaration_name") or item.get("name") or item.get("lean_name") or "")
 
 
-def create_app(root: str | Path | None = None, store: ArchiveStore | None = None, public: bool = False) -> FastAPI:
-    store = store or ArchiveStore(root=root)
+def create_app(root: str | Path | None = None, store: ArchiveStore | None = None, public: bool = True, collection: str = "public") -> FastAPI:
+    store = store or ArchiveStore(root=root, collection=collection if public else "private")
     if public and hasattr(store, "public_view"):
         store = store.public_view()
     project_root = Path(root or store.root).resolve()
@@ -259,17 +259,17 @@ def create_app(root: str | Path | None = None, store: ArchiveStore | None = None
             return []
         files = [{"path": report_path, "title": "独立验证报告"}]
         try:
-            report = load_data(store.path(report_path, must_exist=True), {})
+            report = load_data(store._evidence_path(report_path), {})
             candidates = [(record.get("path"), "Lean 源码", {".lean"}) for record in report.get("source_files", [])]
             candidates += [(record.get("log_path"), "验证日志", {".log", ".txt"}) for record in report.get("commands", [])]
-            prefix = ("corpus", "claims", item["claim_id"], "lean")
+            prefix = tuple(Path(report_path).parts[:-1])
             for relative, title, suffixes in candidates:
                 if not isinstance(relative, str):
                     continue
                 path = Path(relative)
-                if path.is_absolute() or path.parts[:4] != prefix or path.suffix not in suffixes:
+                if path.is_absolute() or path.parts[:len(prefix)] != prefix or path.suffix not in suffixes:
                     continue
-                candidate = store.path(path, must_exist=True)
+                candidate = store._evidence_path(path)
                 normalized = candidate.relative_to(project_root).as_posix()
                 if candidate.is_file() and normalized not in {file["path"] for file in files}:
                     files.append({"path": normalized, "title": title})
@@ -445,12 +445,17 @@ def create_app(root: str | Path | None = None, store: ArchiveStore | None = None
         if not candidate.is_file():
             raise HTTPException(404, "文件不存在")
         # Corpus metadata are presented through typed routes, not raw downloads.
-        if path.parts[0] == "corpus" and not (len(path.parts) > 5 and path.parts[1] == "papers" and path.parts[4] == "sources"):
-            if len(path.parts) < 5 or path.parts[1] != "claims" or path.parts[3] != "lean":
-                raise HTTPException(404, "文件路径不可用")
-            item = store.get_claim(path.parts[2])
-            if item is None or not visible("claim", item) or relative not in {file["path"] for file in claim_evidence_files(item)}:
-                raise HTTPException(404, "文件路径不可用")
+        if path.parts[0] == "corpus":
+            parts=path.parts
+            if len(parts)>6 and parts[1]==store.collection and parts[2]=="papers" and parts[5]=="sources":
+                paper=store.get_paper(parts[3],version=parts[4])
+                if not paper:raise HTTPException(404,"文件路径不可用")
+            else:
+                if len(parts)<6 or parts[1]!=store.collection or parts[2]!="claims" or parts[4]!="lean":
+                    raise HTTPException(404,"文件路径不可用")
+                item=store.get_claim(parts[3])
+                if item is None or not visible("claim",item) or relative not in {file["path"] for file in claim_evidence_files(item)}:
+                    raise HTTPException(404,"文件路径不可用")
         if candidate.suffix.lower() not in {".lean", ".json", ".log", ".txt", ".md", ".pdf", ".tex", ".yaml"}:
             raise HTTPException(404, "不支持该文件类型")
         return candidate

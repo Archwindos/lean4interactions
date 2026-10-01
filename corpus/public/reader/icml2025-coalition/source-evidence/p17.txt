@@ -1,0 +1,75 @@
+                                   Towards Attributions of Input Variables in a Coalition
+
+Specially, we let S = {i} and then we have:
+                                         ϕ(i)
+                                          1                 X             1
+                                       =     φ(S) +                           [Iand (T ) + Ior (T )]
+                                         |S|                             |T |
+                                                      T ⊆N,T ̸⊇S,T ∋i
+                                        1                  X              1
+                                       = φ(S) +                               [Iand (T ) + Ior (T )]
+                                        1                                |T |
+                                                   T ⊆N,T ̸⊇{i},T ∋i
+
+                                       = φ(S) = φ(S = {i})
+Therefore, we further prove Corollary 3.7: φ(S = {i}) = ϕ(i).
+
+G. Proofs of axioms for the attribution of a coalition
+In this section, we will prove the axioms for the attribution of a coalition in the main paper and Corollary 8.
+
+G.1. Proof of Anonymity axiom
+Proof. According to the definition of the AND/OR interaction, we can get:
+Iandv (T ) = L⊆T (−1)|T |−|L| vand (L), Iorv (T ) = − L⊆T (−1)|T |−|L| vor (N \ L)
+             P                                       P
+
+Iandσv (σ(T )) = L⊆σ(T ) (−1)|σ(T )|−|L| σvand (L),
+                 P
+
+Iorσv (σ(T )) = − L⊆σ(T ) (−1)|σ(T )|−|L| σvor (N \ L)
+                 P
+
+Due to σv(σ(S)) = v(S), we have: σvand (σ(S)) = vand (S) and σvor (σ(S)) = vor (S).
+Thus, we have:
+                                                 X
+                             Iandσv (σ(T )) =                  (−1)|σ(T )|−|L| σvand (L)
+                                                     L⊆σ(T )
+                                                 X
+                                             =                         (−1)|σ(T )|−|σ(K)| σvand (σ(K))
+                                                     L=σ(K)⊆σ(T )
+                                                 X
+                                             =                         (−1)|T |−|K| vand (K)
+                                                     L=σ(K)⊆σ(T )
+                                                 X
+                                             =             (−1)|T |−|K| vand (K) = Iandv (T )
+                                                     K⊆T
+
+                                               X
+                           Iorσv (σ(T )) = −                (−1)|σ(T )|−|L| σvor (N \ L)
+                                                  L⊆σ(T )
+                                               X
+                                          =−                        (−1)|σ(T )|−|σ(K)| σvor (N \ σ(K))
+                                                  L=σ(K)⊆σ(T )
+                                               X
+                                          =−                        (−1)|σ(T )|−|σ(K)| σvor (σ(N \ K))
+                                                  L=σ(K)⊆σ(T )
+                                               X
+                                          =−            (−1)|T |−|K| vor (N \ K) = Iorv (T )
+                                                  K⊆T
+                                                                                P       |S|
+Then, according to Equation (6) in the paper, we have: φv (S) =                    T ⊇S |T |   [Iandv (T ) + Iorv (T )] and φσv (σ(S)) =
+P        |σ(S)|
+  T ⊇σ(S) |T | [Iandσv (T ) + Iorσv (T )].
+
+Thus, we have:
+                         X |σ(S)|                                             X         |σ(S)|
+        φσv (σ(S)) =              [Iandσv (T ) + Iorσv (T )] =                                 [Iandσv (σ(L)) + Iorσv (σ(L))]
+                             |T |                                                       |σ(L)|
+                        T ⊇σ(S)                                         T =σ(L)⊇σ(S)
+                            X          |S|                          X |S|
+                    =                      [Iandv (L) + Iorv (L)] =       [Iandv (L) + Iorv (L)] = φv (S)
+                                       |L|                            |L|
+                        T =σ(L)⊇σ(S)                                    L⊇S
+
+Therefore, we prove the Anonymity axiom.
+
+                                                                  17

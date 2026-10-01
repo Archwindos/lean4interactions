@@ -1,0 +1,80 @@
+                                             Towards Attributions of Input Variables in a Coalition
+
+                                                                                   fit the target function f (x), then our metrics were supposed
+     Table 4. Coalition faithfulness metrics on toy functions
+                                                                                   to identify these purely faithful/purely unfaithful/partially
+                                   Ef,i [R(i)] Ef,i [R′ (i)] Ef [Q(S)]             faithful coalitions.
+    purely faithful coalitions       0.944       0.936       0.948
+   partially faithful coalitions     0.471       0.608       0.590                 In practice, we trained the MLP (Ren et al., 2023b) to regress
+   purely unfaithful coalitions      0.031       0.016       0.013                 the functions. Table 4 showed that the regression of a purely
+                                                                                   faithful coalition S had Q(S), R′ (i), R(i) close to 1, and
+                                                                                   the regression of a purely unfaithful coalition S always had
+ where T ⊇S |T1 | (|Iand (T )|+|Ior (T )|) denotes the strength                    Q(S), R′ (i), R(i) close to 0. A partially faithful coalition
+        P
+
+                           are allocated from the coalition S
+of interaction effects thatP                                                       S always had 0 < Q(S), R′ (i), R(i) < 1 which means that
+to the variable i, i ∈ S. T ′ ∋i |T1′ | (|Iand (T ′ )| + |Ior (T ′ )|)             variable in S existed in the true interactions containing the
+denotes the strength of interaction effects allocated to the                       whole coalition S, and also existed in other interactions.
+variable i, no matter whether or not the variable i collabo-
+                                                                                   Experiments on DNNs trained for NLP tasks. We con-
+rates with other variables in S \ {i} as a coalition.
+                                                                                   ducted experiments to evaluate whether the AI model faith-
+Unlike the first two metrics focusing on the effect of a                           fully encoded such natural coalitions in human cognition.
+single variable i, the third metric Q(S) ∈ [0, 1] is defined                       We finetuned the pre-trained BERT-large (Devlin et al.,
+to measure the significance of the entire coalition S.
+                                                                                   2018) and LLaMA (Touvron et al., 2023) model on SST-2
+                              |S|
+                                                                                   dataset (Socher et al., 2013) for sentiment classification. We
+                    P
+                       T ⊇S |T | (|Iand (T )| + |Ior (T )|)
+  Q(S) = P                      |T ′ ∩S|
+                                                                         (9)       divided the input sentence into words and manually selected
+                                                 ′           ′
+               T ′ ⊆N,T ′ ∩S̸=∅ |T ′ | (|Iand (T )| + |Ior (T )|)
+                                                                                   10 words as input variables. Given an input sentence x,
+ where the numerator measures the overall strength of effects                      we annotated some natural coalitions according to human
+allocated to the coalition S, and the denominator denotes                          cognition. For example, in the sentence “It was raining
+the overall strength of effects of all variables in S, no matter                   cats and dogs outside,” the phrase “raining cats and dogs”
+whether these variables construct the entire coalition.                            was annotated as a natural coalition. In comparison, we
+                                                                                   randomly selected coalitions as false coalitions.
+Experiments on toy functions. We conducted two experi-
+ments to use three metrics in Equations (7)-(9) to evaluate                        Table 5 shows that in the sentence (a), the coalition S
+the faithfulness of different coalitions encoded by a DNN.                         “mesmerizing performances” represented the positive emo-
+However, the core problem was that it was difficult to ob-                         tions with high Q(S), R(i), R′ (i) values on Bert-large and
+tain ground-truth interactions encoded by a DNN because                            LLaMA models, thereby being considered as a faithful coali-
+true/ideal interactions that were supposed to be learned for a                     tion. In comparison, in the sentence (b), the selected coali-
+task were not necessarily equivalent to the real interactions                      tion S “rivaling blair” separated the phrase “blair witch,” so
+that a DNN had learned. Thus, we P     trained DNNs                                S was considered as an unfaithful coalition, which was also
+                                                  Q to regress
+                                          m
+the following toy function f (x) = i=1 wi j∈Ti xj with                             reflected by the low Q(S), R(i), R′ (i) values. It provides
+clear interactions to determine ground-truth interactions,                         new insights that if a coalition contains both tokens related
+where x = [x1 , x2 , ..., xn ] ∈ {0, 1}n , ∀i ̸= j, Ti ̸= Tj . The                 to the generated language and irrelevant tokens, then this
+function f (x) was determined by m different true interac-                         coalition usually represents a representation flaw.
+tions {Ti | i = 1, 2, ..., m}. We designed a set of 20 target                      Experiments on DNNs trained for image classification.
+functions f (x) for testing by applying different sets of {Ti }.                   We conducted experiments on VGG-11 (Simonyan & Zis-
+Specifically, we evaluated the faithfulness of the following                       serman, 2014) and ResNet-20 (He et al., 2016) on the
+three types of coalitions. (1) Given the target function f (x),                    MNIST (LeCun et al., 1998) and CIFAR-10 (Krizhevsky,
+w.r.t. m true interactions {Ti | i = 1, ..., m}, each of the                       2012) datasets and verified that these DNNs represented
+first type of coalitions, S, was fully contained by some true                      natural coalitions that fit human cognition. Please see Ap-
+interactions Ti ⊇ S, without being partially covered by any                        pendix I for experimental settings and results.
+interactions Ti (Ti ∩ S ̸= ∅, Ti ∩ S ̸= S). Thus, the first
+type of coalition was supposed to be the most purely faith-                        4.2. Application: explaining the Go game
+ful coalitions. (2) In contrast, each of the second type of
+                                                                                   Computing the attribution value of a coalition is of signifi-
+coalition, S, was partially covered by some true interactions
+                                                                                   cant value in practice, and our method can be widely used.
+Ti (Ti ∩ S ̸= ∅, Ti ∩ S ̸= S) without being fully contained
+                                                                                   A typical application is to explain shape patterns memorized
+by any interactions Ti . These coalitions were supposed to
+                                                                                   by a DNN to play the game of Go, which is inspired by
+be purely unfaithful coalitions. (3) The third type of coali-
+                                                                                   the previous work (Zhou et al., 2023b). The shape patterns
+tions were termed partially faithful coalitions, i.e., being
+                                                                                   correspond to coalitions between input stones. Specifically,
+contained by some interactions Ti ⊇ S and partially cov-
+                                                                                   people usually use a value network to estimate the advantage
+ered by other interactions Tj . If the DNN was well trained to
+
+                                                                               7

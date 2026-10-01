@@ -1,0 +1,64 @@
+                        HarsanyiNet: Computing Accurate Shapley Values in a Single Forward Propagation
+
+Shapley values for input variables of a DNN, it requires to                   of the i-th input variable to the network prediction score.
+conduct inference on all the 2n different masked samples.
+To alleviate the computational burden, many approximation                     3.1. Preliminaries: Harsanyi interactions
+methods (Castro et al., 2009; Lundberg & Lee, 2017; Covert
+& Lee, 2021) have been proposed. However, as Figure 3                         The Harsanyi interaction (or the Harsanyi divi-
+shows, a higher approximation accuracy of Shapley values                      dend) (Harsanyi, 1963) provides a deeper insight
+usually requires more network inferences (e.g., inferences                    into the essential reason why the Shapley value is computed
+on as many as thousands of masked samples).                                   as in Equation (1). A DNN usually does not use each
+                                                                              individual input variable to conduct model inference
+Specifically, some approaches estimated Shapley values                        independently. Instead, the DNN models the interactions
+via sampling techniques (Castro et al., 2009; Strumbelj &                     between different input variables and considers such
+Kononenko, 2010; Okhrati & Lipani, 2021; Mitchell et al.,                     interactions as basic inference patterns. To this end, the
+2022), and some converted the approximation of Shapley                        Harsanyi interaction I(S) measures the interactive effect
+values to a weighted least squares problem (Lundberg &                        between each subset S ⊆ N of input variables, which is
+Lee, 2017; Simon & Vincent, 2020; Covert & Lee, 2021).                        encoded by a DNN.
+However, these methods all faced a dilemma, i.e., a more ac-
+curate approximation required higher computational costs.                     Definition 2 (Harsanyi interactions). The Harsanyi interac-
+                                                                              tion between a set of variables in S w.r.t. thePmodel output
+Other studies accelerated the computation by assuming a                                          defined I(S) := V (S) − L⊊S I(L) =
+                                                                              v(x) is recursivelyP
+specific distribution of data (Chen et al., 2019), ignoring                   v(xS ) − v(x∅ ) − L⊊S I(L) subject to I(∅) := 0.
+small interactions between input variables (Wang et al.,
+2022), or learning an explainer model to directly predict                     According to Definition 2, the network output can be
+the Shapley value (Jethani et al., 2021). However, these                      explained as the  P sum of all Harsanyi interactions, i.e.,
+methods could not generate fully accurate Shapley values.                     v(x)−v(x∅ )=        S⊆N I(S). Essentially, each Harsanyi
+Wang et al. (2021) proposed the ShapNets. The ShapNet                         interaction I(S) reveals an AND relationship between all
+was constrained to only encode interactions between a small                   the variables in set S. Let us consider a visual pattern
+number of variables (usually less than 4). When the ShapNet                   S = {eye, nose, mouth} for face detection as a toy example.
+was extended to encode interactions between more variables,                   If the image patches of eye, nose, and mouth appear together,
+it could no longer estimate exactly accurate Shapley values.                  the co-appearance of the three parts forms a visual pattern
+In comparison, our HarsanyiNet can accurately compute                         and makes a numerical contribution I(S) to the classifica-
+Shapley values in a single forward propagation, and it is not                 tion score v(x) of the face. Otherwise, masking any part
+constrained to encode specific interactions, thereby exhibit-                 in S will deactivate the pattern and remove the interactive
+ing much more flexibility and better performance.                             effect, i.e., making I(S) = 0.
+                                                                              Grabisch et al. (2016) and Ren et al. (2023a) further proved
+3. Methodology                                                                that the Harsanyi interaction also satisfies the four properties,
+The Shapley value defined in Equation (1) is widely used                      namely linearity, dummy, symmetry and efficiency.
+to estimate attributions of input variables in a DNN. We
+consider the DNN as a cooperative game, and consider                          3.2. Harsanyi interactions compose Shapley values
+input variables x = [x1 , x2 , ..., xn ]⊺ as players, N =                     We jump out of the dilemma of computational complexity
+{1, 2, . . . , n}. v(x) ∈ R corresponds to the network predic-                versus approximation accuracy mentioned in Section 2. The-
+tion score2 on x. Let xS denote a masked sample, where                        orem 1 allows us to derive a novel neural network architec-
+input variables in N \ S, S ⊆ N are masked by baseline                        ture, namely HarsanyiNet, which uses Harsanyi interactions
+values3 . In this way, we can define the total reward gained                  to simultaneously perform model inference and compute
+by the input variables in S as the inference score on the                     exact Shapley values in a single forward propagation.
+masked sample xS , i.e., V (S) := v(xS ) − v(x∅ ). Thus, the
+Shapley value ϕ(i) in Equation (1) measures the importance                    • Basic requirements for the HarsanyiNet. The key idea
+                                                                              of the HarsanyiNet is to let different intermediate-layer neu-
+   2
+      As in previous studies (Jethani et al., 2021; Wang et al., 2022),       rons to represent different Harsanyi interactions. Later, we
+if the network has a scalar output, then v(x) can be formulated
+                                                                              will prove that we can use such a network design to compute
+directly as the network output. If the network has a vector out-
+put, e.g., multi-category classification, we may define v(x) as the           the exact Shapley values in a single forward propagation.
+output dimension corresponding to the ground-truth category.                  Specifically, let us introduce the following two designs in
+    3
+      The baseline value can be set as zero, mean value over differ-          the HarsanyiNet.
+ent inputs or other statistic values in previous studies (Lundberg &
+Lee, 2017; Covert & Lee, 2021).                                               Firstly, as shown in Figure 1, the HarsanyiNet has L cas-
+                                                                              caded blocks in the neural network. In each block, we add
+
+                                                                          3

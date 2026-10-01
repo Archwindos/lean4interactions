@@ -1,0 +1,90 @@
+                              HarsanyiNet: Computing Accurate Shapley Values in a Single Forward Propagation
+
+                 (l′ )                                                                                                                                         (l)
+∪(l′ ,u′′ )∈S (l) Ru′′ , there exists at least a neuron (1, u′ ) will affect the neuron (l, u) recursively, i.e., hu (xS ) = 0 and
+             u
+
+zu (xS ) = 0. Thus, zu (xS ) = zu (x) · i∈R(l) 1(i ∈ S) = 0.
+ (l)                        (l)         (l)      Q
+                                                                        u
+
+                                                                                (l)                                     (l)
+In this way, we have proved that the receptive field Ru of the neuron zu satisfies the Requirement 2.
+
+
+
+C. Proof of Lemma 1
+                                                                                                                                                         (l)
+Lemma 1 (Harsanyi interaction of a Harsanyi unit). Let us consider the output of a Harsanyi unit zu (x) as the reward.
+            (l)                                                       (l)                    (l)   (l)     (l)
+Then, let Ju (S) denote the Harsanyi interaction w.r.t. the function zu (x). Then, we have Ju (Ru ) = zu (x), and
+        (l)     (l)
+∀S ̸= Ru , Ju (S) = 0, according to Requirements 1 and 2.
+                                                        P
+Proof. According to Definition 2, i.e., I(S) = v(S) − L⊊S I(L) subject to I(∅) := 0, and Requirements 2, i.e.,
+zu (xS ) = zu (x) · i∈R(l) 1(i ∈ S), the Harsanyi interaction of a Harsanyi unit can be written as,
+ (l)        (l)    Q
+                                         u
+
+                                                                                               X
+                                                 Ju(l) (S) = zu(l) (xS ) −                             Ju(l) (L)
+                                                                                               L⊊S
+
+                                                                                                       1(i ∈ S) −
+                                                                                           Y                                  X
+                                                                   =   zu(l) (x)     ·                                              Ju(l) (L)
+                                                                                         i∈Ru
+                                                                                                 (l)                          L⊊S
+
+
+                 (l)         (l)         (l)
+(1) Proof of Ju (Ru ) = zu (x).
+                                                                                           (l)         (l)
+Firstly, let us use the inductive method to prove ∀L ⊊ Ru , Ju (L) = 0.
+If |L| = 1, ∀L′ ⊆ L ⊊ Ru , we have i∈R(l) 1(i ∈ L′ ) = 0, then we get Ju (L′ ) = zu (x) · i∈R(l) 1(i ∈ L′ ) = 0.
+                           (l)         Q                                (l)       (l)    Q
+                                                                   u                                                                                     u
+
+                                                  (l)                          (l)
+Assume that if |L| = k, ∀L′ ⊆ L ⊊                Ru ,         we have         Ju (L′ )           = 0.
+Then if |L| = k + 1, ∀L′ ⊆ L ⊊ Ru , we have i∈R(l) 1(i ∈ L) = 0 and ∀L′ ⊊ L, Ju (L′ ) = 0. Thus, we get
+                                  (l)         Q                               (l)
+                                                    u
+
+Ju (L) = zu (x) · i∈R(l) 1(i ∈ L) − L′ ⊊L Ju (L′ ) = 0.
+ (l)        (l)  Q                  P      (l)
+                                     u
+
+                                                                        (l)                        (l)        (l)
+In this way, we have proved that ∀1 ≤ |L| < |Ru |, ∀L ⊊ Ru , Ju (L) = 0.
+                                                                               (l)         (l)                                      (l)    (l)   (l)
+Secondly, let us use the proven conclusion ∀L ⊊ Ru , Ju (L) = 0 to derive Ju (Ru ) = zu (x).
+Since i∈R(l) 1(i ∈ Ru ) = 1, we get Ju (Ru ) = zu (x) · i∈R(l) 1(i ∈ Ru ) − L⊊R(l) Ju (L) = zu (x).
+     Q                  (l)              (l)  (l)   (l)   Q                 (l) P         (l) (l)
+             u                                                                                                      u                             u
+
+                                                (l) (l)                 (l)
+In this way, we have proved that               Ju (Ru )            =   zu (x).
+                          (l)  (l)
+(2) Proof of ∀S ̸=       Ru , Ju (S)           = 0.
+                (l)  (l)                                                                                                                           (l)               (l)
+To prove ∀S ̸= Ru , Ju (S) = 0, we will prove that under                                                 the conditions of (1) ∀S ⊊ Ru , (2) ∀S ⊋ Ru , and (3)
+          (l)            (l)    (l)             (l)
+∀S, S ∪ Ru ̸= S and S ∪ Ru ̸= Ru , we can get Ju (S) =                                                   0, respectively.
+                                                      (l)     (l)
+Firstly, we have proved that ∀S ⊊ Ru , Ju (S) = 0.
+                                                                                                 (l)         (l)
+Secondly, let us use the inductive method to prove ∀S ⊋ Ru , Ju (S) = 0.
+In this setting, i∈R(l) 1(i ∈ S) = 1. If |S| = |Ru | + 1, ∀S ⊋ Ru , we have Ju (S) = zu (x) · i∈R(l) 1(i ∈
+                 Q                                    (l)            (l)     (l)       (l)    Q
+                      u                                                                             u
+     P         (l)        (l)       (l) (l)    P            (l)                              (l)  (l)
+S) − L⊊S Ju (L) = zu (x) − [Ju (Ru ) + L⊊S,L̸=R(l) Ju (L)] = 0. (Similarly, ∀L ⊊ S and L ̸= Ru , Ju (L) = 0
+                                                          u
+can be proved by the inductive method.)
+                                   (l)                       (l)                         (l)
+Assume that if |S| = |Ru | + k, ∀S ⊋ Ru , we have Ju (S) = 0.
+                       (l)                                  (l)                      (l)
+Then if |S| = |Ru | + (k + 1), ∀S ⊋ Ru , we have Ju (S) = 0.
+
+                                                                                                 14

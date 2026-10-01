@@ -1,0 +1,223 @@
+{
+  "schema_version": 1,
+  "reviewer": "vnext_coalition_math",
+  "reviewed_target_ids": [
+    "hnet-reconstruction",
+    "hnet-shapley-dividend",
+    "hnet-unit-interaction",
+    "hnet-readout-linearity",
+    "hnet-forward-shapley",
+    "hnet-runtime",
+    "hnet-architecture-r1-r2",
+    "hnet-sparsity-count",
+    "hnet-cnn-receptive",
+    "hnet-cnn-regroup",
+    "hnet-axiom-linearity",
+    "hnet-axiom-dummy",
+    "hnet-axiom-symmetry",
+    "hnet-axiom-efficiency",
+    "hnet-conditional-attribution"
+  ],
+  "reviewed_source_pdf_pages": [
+    3,
+    4,
+    5,
+    6,
+    7,
+    12,
+    13,
+    14,
+    15,
+    16,
+    19
+  ],
+  "review_status": "independent_agent_review_completed_not_user_approval",
+  "source_inputs_at_initial_review": [
+    {
+      "path": "corpus/public/reader/icml2023-harsanyinet/content.json",
+      "sha256": "ebd4b1db9febd667dabcf80f7d1ad552356f57ede4963d6c13badfc983a10481"
+    },
+    {
+      "path": "corpus/public/reader/icml2023-harsanyinet/inventory.json",
+      "sha256": "8695d28eb96178c5f39403c0b785937e04272ac42de6272a8d0b09b08732280a"
+    },
+    {
+      "path": "corpus/public/reader/icml2023-harsanyinet/sources/formal.pdf",
+      "sha256": "ca752800222bcd9326fbee43747b3adfc996e23ff7996de40c72457e661c02ca"
+    },
+    {
+      "path": "lean/HarsanyiLib/Harsanyi/Extensions/HarsanyiNetwork.lean",
+      "sha256": "35bfa5756b10cf0672f42c3cd6ec0727ebaea83df2354928750ef97591f6366d"
+    },
+    {
+      "path": "corpus/public/reader/icml2023-harsanyinet/lean/PaperHarsanyiNet.lean",
+      "sha256": "86c4239db75e6c98d841bae670e19822017b4cff8fbe5aaaa80fc9bd7d9f4767"
+    }
+  ],
+  "not_independently_reviewed": "Remaining experimental/background page details; Layerwise was implemented by this reviewer and is not claimed independently peer-reviewed here.",
+  "findings": [
+    "Generic all-Finset mask-law premise requires a finite-universe original-premise wrapper or scope disclosure.",
+    "The original all-unit Theorem3 display has an empty-field quotient-domain issue, distinct from Lemma1 false empty-field conclusion."
+  ],
+  "report_path": "corpus/public/reader/icml2025-coalition/review-of-network-papers.md",
+  "generated_at": "2026-10-01T03:49:00.527367+00:00",
+  "source_semantics_automatically_verified": false,
+  "followup_status": "resolved_by_actual_finite_universe_wrappers_and_source_domain_status",
+  "final_checked_declarations": [
+    {
+      "name": "PaperHarsanyiNet.finite_requirements_attribution",
+      "source_path": "corpus/public/reader/icml2023-harsanyinet/lean/PaperHarsanyiNet.lean",
+      "line": 38,
+      "status": "passed",
+      "axioms": [
+        "propext",
+        "Quot.sound",
+        "Classical.choice"
+      ]
+    },
+    {
+      "name": "PaperHarsanyiNet.finite_support_card",
+      "source_path": "corpus/public/reader/icml2023-harsanyinet/lean/PaperHarsanyiNet.lean",
+      "line": 48,
+      "status": "passed",
+      "axioms": [
+        "propext",
+        "Quot.sound",
+        "Classical.choice"
+      ]
+    },
+    {
+      "name": "PaperHarsanyiNet.finite_conditional_attribution",
+      "source_path": "corpus/public/reader/icml2023-harsanyinet/lean/PaperHarsanyiNet.lean",
+      "line": 58,
+      "status": "passed",
+      "axioms": [
+        "propext",
+        "Quot.sound",
+        "Classical.choice"
+      ]
+    },
+    {
+      "name": "PaperHarsanyiNet.shapley_add",
+      "source_path": "corpus/public/reader/icml2023-harsanyinet/lean/PaperHarsanyiNet.lean",
+      "line": 68,
+      "status": "passed",
+      "axioms": [
+        "propext",
+        "Quot.sound",
+        "Classical.choice"
+      ]
+    },
+    {
+      "name": "PaperHarsanyiNet.shapley_scale",
+      "source_path": "corpus/public/reader/icml2023-harsanyinet/lean/PaperHarsanyiNet.lean",
+      "line": 73,
+      "status": "passed",
+      "axioms": [
+        "propext",
+        "Quot.sound",
+        "Classical.choice"
+      ]
+    },
+    {
+      "name": "PaperHarsanyiNet.shapley_dummy",
+      "source_path": "corpus/public/reader/icml2023-harsanyinet/lean/PaperHarsanyiNet.lean",
+      "line": 89,
+      "status": "passed",
+      "axioms": [
+        "propext",
+        "Quot.sound",
+        "Classical.choice"
+      ]
+    },
+    {
+      "name": "PaperHarsanyiNet.shapley_efficiency",
+      "source_path": "corpus/public/reader/icml2023-harsanyinet/lean/PaperHarsanyiNet.lean",
+      "line": 82,
+      "status": "passed",
+      "axioms": [
+        "propext",
+        "Quot.sound",
+        "Classical.choice"
+      ]
+    }
+  ],
+  "finite_domain_assessment": "Fin n/univ makes subset_univ internally automatic; the explicit original finite-domain premise is not strengthened.",
+  "t3_domain_assessment": "Original all-unit quotient issue remains independently scoped; conditional-sum formula is proved.",
+  "updated_at": "2026-10-01T04:10:52.789394+00:00",
+  "historical_41_declaration_report_snapshot": {
+    "path": "corpus/public/reader/icml2023-harsanyinet/verification/report.json",
+    "sha256": "2bce97653a7fee138781690c760f8cf5106197edda73bb51d5b87809614f3c30",
+    "status": "passed",
+    "checked_declarations": 41,
+    "source_hashes_current_at_review": true,
+    "snapshot_only": true
+  },
+  "final_report": {
+    "path": "corpus/public/reader/icml2023-harsanyinet/verification/report.json",
+    "sha256": "a7194bd7f5f8e4bd5cf68f59734e9852408e79754feee9c6a313874de2e6cb45",
+    "status": "passed",
+    "checked_declarations": 42,
+    "source_hashes_current_at_review": true
+  },
+  "historical_content_sha256": "ebd4b1db9febd667dabcf80f7d1ad552356f57ede4963d6c13badfc983a10481",
+  "final_content_sha256": "270fb734c8d29f5329e8985922a47797a370c38a6f33b241f78f1d471bcaf02c",
+  "final_axiom_increment_review": [
+    {
+      "name": "PaperHarsanyiNet.shapley_add",
+      "source_path": "corpus/public/reader/icml2023-harsanyinet/lean/PaperHarsanyiNet.lean",
+      "line": 68,
+      "status": "passed",
+      "axioms": [
+        "propext",
+        "Quot.sound",
+        "Classical.choice"
+      ]
+    },
+    {
+      "name": "PaperHarsanyiNet.shapley_scale",
+      "source_path": "corpus/public/reader/icml2023-harsanyinet/lean/PaperHarsanyiNet.lean",
+      "line": 73,
+      "status": "passed",
+      "axioms": [
+        "propext",
+        "Quot.sound",
+        "Classical.choice"
+      ]
+    },
+    {
+      "name": "PaperHarsanyiNet.shapley_efficiency",
+      "source_path": "corpus/public/reader/icml2023-harsanyinet/lean/PaperHarsanyiNet.lean",
+      "line": 82,
+      "status": "passed",
+      "axioms": [
+        "propext",
+        "Quot.sound",
+        "Classical.choice"
+      ]
+    },
+    {
+      "name": "PaperHarsanyiNet.shapley_dummy",
+      "source_path": "corpus/public/reader/icml2023-harsanyinet/lean/PaperHarsanyiNet.lean",
+      "line": 89,
+      "status": "passed",
+      "axioms": [
+        "propext",
+        "Quot.sound",
+        "Classical.choice"
+      ]
+    },
+    {
+      "name": "PaperHarsanyiNet.shapley_symmetry",
+      "source_path": "corpus/public/reader/icml2023-harsanyinet/lean/PaperHarsanyiNet.lean",
+      "line": 109,
+      "status": "passed",
+      "axioms": [
+        "propext",
+        "Quot.sound",
+        "Classical.choice"
+      ]
+    }
+  ],
+  "final_axiom_increment_review_scope": "Read the actual five classical factorial-Shapley declaration types and proofs, including original finite-domain symmetry at line 109; historical text about absent dedicated declarations is an initial-review snapshot superseded by this increment."
+}

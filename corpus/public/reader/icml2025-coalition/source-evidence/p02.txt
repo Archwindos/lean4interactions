@@ -1,0 +1,81 @@
+                                     Towards Attributions of Input Variables in a Coalition
+
+First, we discover the breakthrough point for proving the              aries (Ribeiro et al., 2016; Plumb et al., 2019), while others
+conflict is to disentangle all numerical effects in comput-            integrated gradients w.r.t. inputs (Sundararajan et al., 2017)
+ing attributions. We prove that the Shapley and Banzhaf                or used gradient strength for feature attribution (Selvaraju
+values can be computed by reallocating the numerical ef-               et al., 2019). MUSE (Lakkaraju et al., 2019) analyzed de-
+fects of AND-OR interactions in the AI model to different              cisions in lower-dimensional subspaces, and LRP (Bach
+input variables. The AND-OR interaction (Li & Zhang,                   et al., 2015) propagated model outputs to assign feature
+2023) measures the non-linear relationship between input               importance. DeepLIFT (Shrikumar et al., 2017) estimated
+variables, as shown in the toy example in Figure 1(a).                 input impacts by propagating differences from baseline pre-
+                                                                       dictions. Many works (Lundberg & Lee, 2017; Alshebli
+Second, considering the interaction explains the internal
+                                                                       et al., 2019; Sundararajan & Najmi, 2020; Mitchell et al.,
+mechanisms for the Shapley value, we extend the defini-
+                                                                       2022) used the Shapley value (Shapley et al., 1953), a stan-
+tion of the Shapley value and design a new attribution
+                                                                       dard attribution metric satisfying key axioms. (Covert et al.,
+metric φ(S) for a coalition S of multiple variables. More
+                                                                       2020) modified it for global efficiency, and (Mitchell et al.,
+importantly, we find that AND-OR interactions clarify
+                                                                       2022) introduced efficient sampling methods. (Lundstrom
+the essential mechanism that causes the conflict between
+                                                                       & Razaviyayn, 2023) also proposed a unified framework for
+individual variables’ attributions ϕ(i) and the coalition
+                                                                       game-theoretic attribution methods, including the Shapley
+S’s attribution φ(S). Essentially, for each coalition S, the
+                                                                       value, based on the Möbius transform. However, the above
+attribution of the coalition is computed using two types of
+                                                                       attribution methods do not focus on explaining the partition
+interactions: (1) the interaction T1 containing all variables
+                                                                       of input variables but rather compute the attribution value
+in S (i.e., T1 ⊇ S), and (2) the interaction T2 containing
+                                                                       given a predefined partition.
+partial variables in S (i.e., T2 ∩S ̸= ∅ and T2 ∩S ̸= S). The
+interaction T1 is used to compute both Shapley values ϕ(i),            Interaction. Unlike attribution methods estimating the im-
+i ∈ S, and the coalition attribution φ(S). Whereas, the                portance of each input variable, the interaction usually pro-
+interaction T2 is exclusively used to compute the Shapley              vides a more fine-grained explanation, i.e., the importance of
+value ϕ(i), i ∈ S. Specifically, the interaction T2 is only            each specific collaboration between a set of input variables.
+used to compute the Shapley value ϕ(i), i ∈ S, but is not              Some studies (Tsang et al., 2017) measured feature inter-
+used to compute the attribution of the coalition φ(S). Thus,           actions in neural networks by considering salient weights
+the second type of interaction, i.e., T2 is the direct reason          between features. (Singh et al., 2019) created hierarchical
+for the conflict of attributions.                                      explanations in feed-forward networks, while (Cui et al.,
+                                                                       2019; Janizek et al., 2021) focused on pairwise interactions
+Third, we further propose three metrics to evaluate the
+                                                                       in Bayesian and second-order derivative neural networks.
+faithfulness of the coalition and construct experiments
+                                                                       Inspired by the Shapley value, recent research measured fea-
+under different scenarios. Specifically, we evaluated our
+                                                                       ture group interactions by calculating marginal importance
+criteria on both synthetically generated function data and
+                                                                       (v(S) − v(∅)). (Sundararajan et al., 2020) introduced the
+real-world tasks, including NLP and image classification,
+                                                                       Shapley Taylor interaction index, while (Lundberg et al.,
+demonstrating consistency with human intuition. Further-
+                                                                       2020) applied the Shapley interaction index (Grabisch &
+more, we applied our approach to the game of Go, where
+                                                                       Roubens, 1999) to tree-based models. Archipelago (Tsang
+we found that it aligns with the understanding of Go players
+                                                                       et al., 2020) provided a post-hoc explanation method, evalu-
+and can assist them in discovering new interpretations of
+                                                                       ating feature groups as a whole. (Tsai et al., 2023) proposed
+standard opening patterns.
+                                                                       the Faithful Shapley Interaction index, extending the four
+Contributions. (1) We clarify the internal mechanism for               standard Shapley axioms. (Harris et al., 2021) proposed
+the common conflict between individual variables’ attribu-             the Joint Shapley value to assess feature sets’ average con-
+tions and a coalition’s attribution by using interactions to           tributions across different explanation orders. However,
+reformulate the attribution. (2) We propose a new coalition            previous methods face the conflict between a coalition’s
+attribution metric with a clear explanation for such a conflict.       attribution and the attributions of its individual variables (or
+(3) We further propose three metrics to assess coalition faith-        sub-coalitions), in an engineering manner, without offering
+fulness and conduct experiments across various scenarios.              a theoretical explanation. Further explanation on coalitions
+                                                                       and interactions can be found in Appendix A.
+
+2. Related works                                                       3. Algorithm
+Attribution methods. Estimating the attribution of input               3.1. Preliminaries: AND-OR interactions
+variables for inference is a classic direction in the field of
+                                                                       Given an AI model and an input sample x = [x1 , x2 , ..., xn ]
+Explainable AI (Zhou et al., 2024; Ren et al., 2025). Some
+                                                                       with n input variables, N = {1, ..., n} represents the index
+studies explained AI models using local decision bound-
+
+                                                                   2

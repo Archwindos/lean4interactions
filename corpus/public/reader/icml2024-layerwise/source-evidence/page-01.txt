@@ -1,0 +1,70 @@
+                      Layerwise Change of Knowledge in Neural Networks
+
+
+               Xu Cheng * 1 2 Lei Cheng * 2 Zhaoran Peng 2 Yang Xu 3 Tian Han 4 Quanshi Zhang§ 2
+
+
+                          Abstract                                      task-irrelevant information. Liang et al. (2020) extract com-
+                                                                        mon feature components shared by different features as the
+      This paper aims to explain how a deep neural
+                                                                        shared knowledge.
+      network (DNN) gradually extracts new knowl-
+      edge and forgets noisy features through layers in                 In this paper, we aim to define and quantify the knowl-
+      forward propagation. Up to now, although the                      edge encoded in each layer. In this way, we can accurately
+      definition of knowledge encoded by the DNN has                    decompose and track explicit changes of knowledge (i.e.,
+      not reached a consensus, Li & Zhang (2023); Ren                   the learning of new knowledge and the forgetting of old
+      et al. (2023a; 2024) have derived a series of math-               knowledge) through different layers.
+      ematical evidence to take interactions as symbolic
+                                                                        However, there is no a widely-accepted definition of knowl-
+      primitive inference patterns encoded by a DNN.
+                                                                        edge, because we cannot mathematically define/formulate
+      We extend the definition of interactions and, for
+                                                                        knowledge in human cognition. Instead of focusing on cog-
+      the first time, extract interactions encoded by inter-
+                                                                        nitive issues, Ren et al. (2023a); Li & Zhang (2023) have
+      mediate layers. We quantify and track the newly
+                                                                        discovered and Ren et al. (2024) have theoretically proven1
+      emerged interactions and the forgotten interac-
+                                                                        the sparsity property and universal-matching property
+      tions in each layer during the forward propagation,
+                                                                        of interactions, i.e., given an input sample x, a well-trained
+      which shed new light on the learning behavior of
+                                                                        DNN usually only implicitly encodes a small number of in-
+      DNNs. The layer-wise change of interactions also
+                                                                        teractions between the input variables, and the inference
+      reveals the change of the generalization capac-
+                                                                        score can be explained as numerical effects of these interac-
+      ity and instability of feature representations of a
+                                                                        tions. Thus, these two properties mathematically make
+      DNN.
+                                                                        such interactions (also called interaction primitives or
+                                                                        interaction concepts) be considered as the knowledge en-
+                                                                        coded by a DNN. As Fig. 1 shows, given a dog image x,
+1. Introduction                                                         each interaction implicitly encoded by the DNN represents a
+Recently, understanding the black-box representation of                 co-appearance relationship between input variables (image
+deep neural networks (DNNs) has received increasing atten-              patches) in S = {eye, nose, mouth}. This is actually an
+tion. This paper investigates how a DNN gradually extracts              AND relationship between image patches in image x. Only
+knowledge from the input for inference during the layer-                when all patches in S are present in the image, the interac-
+wise forward propagation, although the definition of knowl-             tion S is activated and makes a numerical effect I(S|x) on
+edge encoded by an AI model is still an open problem. To                the classification score. Masking4 any patch will deactivate
+this end, the information bottleneck theory (Shwartz-Ziv                the interaction S and remove the effect.
+& Tishby, 2017; Saxe et al., 2018) uses mutual informa-                 Although the above studies make it plausible to define and
+tion between the input and the intermediate-layer feature to            quantify interactions encoded by a DNN, our target of quan-
+measure knowledge encoded in each layer. It finds that the              tifying and tracking the interactions encoded by different
+DNN fits (learns) task-relevant information, and compresses             layers presents the following three new challenges.
+  *                                                                     (1) Alignment of interaction primitives. The fair compari-
+     Equal contribution 1 Nanjing University of Science and Tech-
+nology. 2 Shanghai Jiao Tong University. 3 Zhejiang University.         son between any arbitrary pair of layers requires interaction
+4
+  Stevens Institute of Technology.                                      primitives extracted from different layers to be aligned, al-
+   Correspondence to: Quanshi Zhang. Quanshi Zhang is the corre-        though the physical feature dimensions in different layers
+sponding author. He is with the Department of Computer Science          do not have a clear correspondence/alignment.
+and Engineering, the John Hopcroft Center, at the Shanghai Jiao         (2) Decomposability and countability of knowledge. In-
+Tong University, China. <zqs1022@sjtu.edu.cn>.
+                                                                           1
+                                                                             Ren et al. (2024) have proven that the sparsity of interactions
+Proceedings of the 41 st International Conference on Machine            can be guaranteed by three common conditions for the DNN’s
+Learning, Vienna, Austria. PMLR 235, 2024. Copyright 2024 by            smooth inferences on randomly masked samples.
+the author(s).
+
+                                                                    1

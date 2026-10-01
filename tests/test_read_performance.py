@@ -32,15 +32,15 @@ def read_root(tmp_path):
         "verification_report": "reports/lean/test/report.json",
         "declarations": [{"name": "Test.identity", "visibility": "public"}],
     })
-    adapter_source, _ = _report(tmp_path, "corpus/claims/private-claim/lean/report.json",
-                                "corpus/claims/private-claim/lean/Adapter.lean", "Private.adapter")
+    adapter_source, _ = _report(tmp_path, "corpus/private/claims/private-claim/lean/report.json",
+                                "corpus/private/claims/private-claim/lean/Adapter.lean", "Private.adapter")
     for visibility in ("public", "private"):
         paper_id = visibility + "-paper"
         claim_id = visibility + "-claim"
-        write_data(tmp_path / f"corpus/papers/{paper_id}/v1/manifest.yaml", {
+        write_data(tmp_path / f"corpus/{visibility}/papers/{paper_id}/v1/manifest.yaml", {
             "paper_id": paper_id, "version": "v1", "title": paper_id, "visibility": visibility,
         })
-        write_data(tmp_path / f"corpus/papers/{paper_id}/v1/inventory.yaml", {
+        write_data(tmp_path / f"corpus/{visibility}/papers/{paper_id}/v1/inventory.yaml", {
             "items": [{"claim_id": claim_id, "kind": "theorem"}],
             "denominator_reviewed": True, "completeness_status": "reviewed",
         })
@@ -49,19 +49,22 @@ def read_root(tmp_path):
                  "theorem_ids": ["shared"], "proof_ids": ["public-proof"],
                  "lean_declarations": ["Test.identity" if visibility == "public" else "Private.adapter"]}
         if visibility == "private":
-            claim["verification_report"] = "corpus/claims/private-claim/lean/report.json"
-        write_data(tmp_path / f"corpus/claims/{claim_id}/metadata.yaml", claim)
-        write_text(tmp_path / f"corpus/claims/{claim_id}/original.tex", "Synthetic body omitted from coverage")
+            claim["verification_report"] = "corpus/private/claims/private-claim/lean/report.json"
+        write_data(tmp_path / f"corpus/{visibility}/claims/{claim_id}/metadata.yaml", claim)
+        write_text(tmp_path / f"corpus/{visibility}/claims/{claim_id}/original.tex", "Synthetic body omitted from coverage")
     for theorem_id, derived_from in (("shared", []), ("derived", ["private-claim"])):
-        write_data(tmp_path / f"corpus/theorems/{theorem_id}/metadata.yaml", {
+        pool = "private" if derived_from else "public"
+        write_data(tmp_path / f"corpus/{pool}/theorems/{theorem_id}/metadata.yaml", {
             "theorem_id": theorem_id, "visibility": "public", "derived_from": derived_from,
         })
     for proof_id, source_claims in (("public-proof", []), ("derived-proof", ["private-claim"])):
-        write_data(tmp_path / f"corpus/theorems/shared/proofs/{proof_id}/metadata.yaml", {
-            "proof_id": proof_id, "theorem_id": "shared", "visibility": "public",
+        pool = "private" if source_claims else "public"
+        parent = "derived" if source_claims else "shared"
+        write_data(tmp_path / f"corpus/{pool}/theorems/{parent}/proofs/{proof_id}/metadata.yaml", {
+            "proof_id": proof_id, "theorem_id": parent, "visibility": pool,
             "source_claim_ids": source_claims,
         })
-    write_data(tmp_path / "corpus/issues/private-issue.yaml", {
+    write_data(tmp_path / "corpus/private/issues/private-issue.yaml", {
         "issue_id": "private-issue", "visibility": "public", "paper_id": "private-paper",
     })
     return tmp_path, library_source, adapter_source
@@ -69,7 +72,7 @@ def read_root(tmp_path):
 
 def test_coverage_does_not_expand_entities_or_reparse_claims(read_root, monkeypatch):
     root, _, _ = read_root
-    store = ArchiveStore(root)
+    store = ArchiveStore(root, collection="private")
     def unexpected(*args, **kwargs):
         pytest.fail("Coverage expanded full entities or read a body")
     for method in ("list_papers", "list_claims", "list_theorems", "get_theorem", "get_proof", "_text"):
@@ -81,11 +84,11 @@ def test_coverage_does_not_expand_entities_or_reparse_claims(read_root, monkeypa
         return original_load(path, default)
     monkeypatch.setattr(store_module, "load_data", counted_load)
     coverage = store.coverage()
-    assert coverage["paper_count"] == coverage["claim_count"] == coverage["theorem_count"] == coverage["proof_count"] == 2
+    assert coverage["paper_count"] == coverage["claim_count"] == coverage["theorem_count"] == coverage["proof_count"] == 1
     assert coverage["verified_declarations"] == coverage["open_issues"] == 1
     assert all(paper["completed"] and paper["coverage_ratio"] == 1 for paper in coverage["papers"])
-    assert reads["corpus/claims/public-claim/metadata.yaml"] == 1
-    assert reads["corpus/claims/private-claim/metadata.yaml"] == 1
+    assert reads["corpus/public/claims/public-claim/metadata.yaml"] == 0
+    assert reads["corpus/private/claims/private-claim/metadata.yaml"] == 1
     assert not any(path.endswith(("alignment.yaml", "review.yaml")) for path in reads)
 
 
@@ -100,7 +103,7 @@ def test_coverage_counts_follow_public_parent_and_dependency_filters(read_root):
 @pytest.mark.parametrize("scope", ["library", "independent"])
 def test_coverage_rehashes_same_size_sources_with_restored_mtime(read_root, scope):
     root, library_source, adapter_source = read_root
-    store = ArchiveStore(root)
+    store = ArchiveStore(root, collection="private")
     assert all(paper["completed"] for paper in store.coverage()["papers"])
     source = library_source if scope == "library" else adapter_source
     before = source.stat()
@@ -112,7 +115,7 @@ def test_coverage_rehashes_same_size_sources_with_restored_mtime(read_root, scop
     after = source.stat()
     assert (after.st_size, after.st_mtime_ns) == (before.st_size, before.st_mtime_ns)
     coverage = store.coverage()
-    by_id = {paper["paper_id"]: paper for paper in coverage["papers"]}
+    by_id = {paper["paper_id"]: paper for paper in coverage["papers"]+ArchiveStore(root, collection="public").coverage()["papers"]}
     stale_id = "public-paper" if scope == "library" else "private-paper"
     unchanged_id = "private-paper" if scope == "library" else "public-paper"
     assert by_id[stale_id]["lean_verified"] == 0
@@ -125,7 +128,7 @@ def test_coverage_rereads_metadata_and_rejects_new_source_symlink(read_root):
     root, library_source, _ = read_root
     store = ArchiveStore(root, public=True)
     assert store.coverage()["claim_count"] == 1
-    metadata = root / "corpus/claims/public-claim/metadata.yaml"
+    metadata = root / "corpus/public/claims/public-claim/metadata.yaml"
     before = metadata.stat()
     text = metadata.read_text()
     changed = text.replace("visibility: public", "visibility: hidden")

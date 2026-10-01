@@ -1,0 +1,73 @@
+                                      Towards Attributions of Input Variables in a Coalition
+
+there are slight differences in axioms for the Shapley value,
+                                                                        Table 2. Approximate error Ex,|S|=m [E|∆ϕ(i)S |] of using coali-
+the coalition attribution also satisfies these axioms, which
+                                                                        tion attribution to mimic the Shapley value ϕ(i)
+are proven in Appendix G. Appendix H introduces a more
+                                                                                 m=1       m=2             m=3             m=4          m=5
+detailed understanding of these axioms.
+                                                                            3.6 × 10−8 1.1 × 10−7 2.2 × 10−7 4.2 × 10−7 7.6 × 10−7
+  1. Anonymity axiom: Let us consider a permutation                              m=6       m=7             m=8             m=9         m = 10
+     operation σ on all input varaibles in N . σv denotes the                       −7              −7           −7              −7
+                                                                            9.1 × 10     4.4 × 10        6.3 × 10     8.8 × 10        2.8 × 10−7
+     permutated function subject to σv(σ(S)) = v(S), for
+     all S ⊆ N and σ(S) = {σ(i) : i ∈ S}. Then, it has
+                                                                        Table 3. Approximate error Ex,|S|=m [E|∆vS |] of using coalition
+     φv (S) = φσv (σ(S)).
+                                                                        attribution to mimic the model output v(N )
+  2. Symmetry axiom-α: If two input variables i and j                            m=1       m=2             m=3             m=4          m=5
+     have the same effect, i.e. ∀S ⊆ N \{i, j}, v(S∪{i}) =                  2.3 × 10−7 5.8 × 10−7 9.1 × 10−7 1.8 × 10−7 6.3 × 10−7
+     v(S ∪ {j}), then ∀S ⊆ N \ {i, j}, φ(S ∪ {i}) =                              m=6       m=7             m=8             m=9         m = 10
+     φ(S ∪ {j}).
+                                                                            2.1 × 10−7 5.1 × 10−7 3.6 × 10−7 3.1 × 10−7 4.7 × 10−7
+  3. Symmetry axiom-β: If two coalitions S and T (|S| =
+     |T |) have the same effect, i.e. ∀T ′ ⊆ T, ∀S ′ ⊆ S,               attribution. We computed ∆vS = v(N ) − v̂(N |S) to mea-
+     |S ′ | = |T ′ |, ∀L ⊆ N \(S ′ ∪T ′ ), v(L∪S ′ ) = v(L∪T ′ ),       sure the approximation error. Table 3 reports the average
+     then it has ∀L ⊆ N \ (S ∪ T ), φ(L ∪ S) = φ(L ∪ T ).               estimation error Ex,|S|=m [E|∆vS |] over all samples. The
+                                                                        settings of neural networks and datasets was introduced in
+  4. Additivity axiom: If the output of DNN can be divided              Section 4.1. We found that no matter how the coalition S
+     into two independent parts, i.e. ∀S ⊆ N, v(S) =                    was selected, the model output v(N ) could be well mim-
+     v1 (S) + v2 (S), then the attribution of any coalition             icked by the coalition attribution φ(S) and the effect of
+     S can also be decomposed to two parts, i.e. ∀S ⊆                   interactions T covering partial but not all variables in S.
+     N, φv (S) = φv1 (S) + φv2 (S).
+
+  5. Dummy axiom: If a coalition S is a dummy coalition,                4. Experiment
+     i.e. ∃i ∈ S, ∀T ⊆ N \ {i}, v(T ∪ {i}) = v(T ), then                4.1. Evaluating faithfulness of a coalition
+     it has no attribution to the DNN output, i.e. φ(S) = 0.
+                                                                        In this study, we prove the essential mechanism behind the
+Efficiency axiom. The overall model output can be de-                   conflicts of attributions computed on different partitions
+composed into attributions of coalitions and attributions               of input variables (see Theorem 3.6). The decomposition
+of individual variables. Theorem 3.6 can directly derive                of the Shapley value into two terms Ui,S and Ui,S̄ in
+the following corollary.                                                Theorem 3.6 also enables us to evaluate the faithfulness
+                                                                        of the coalition. Specifically, (1) the Ui,S term reflects the
+Corollary 3.8. (Efficiency) For any coalition S ⊆ N ,                   confidence of the coalition, because Ui,S measures effects
+the output score of a model can be decomposed into                      of all interactions T (T ⊇ S) that take S as a singleton
+the attribution of the coalition S and the attribution                  variable; (2) In comparison, Ui,S̄ reflects the significance of
+of each input variable in N \ S and the utilities of                    variables in S that do not act as a singleton variable, because
+the interactions covering partial variables P in S, i.e.,               Ui,S̄ measures the effect of interactions T that cover just
+∀S ⊆ N, v(N ) − v(∅) = φ(S) +                   i∈N \S ϕ(i) +           partial but not all variables in S. In this way, we propose
+P                      |T ∩S|
+   T ⊆N,T ∩S̸=∅,T ∩S̸=S |T | [Iand (T ) + Ior (T )]
+                                                                        three metrics to evaluate the faithfulness of the coalition.
+                                                                        The first metric R(i) is designed to evaluate for each specific
+Corollary 3.8 shows another type of efficiency property.                coalition S ⊆ N , whether the Ui,S term dominates the
+I.e., an AI model’s output on the input x can be accurately             major effect of ϕ(i). If so, we consider the set of variables
+mimicked by the sum of the coalition S’s attribution, the               in S as a faithful coalition.
+Shapley value of each variable in N \ S, and the numerical                                               |Ui,S |
+effects of the interaction covering partial variables in S.                              R(i) =                        ,    i∈S                    (7)
+                                                                                                    |Ui,S | + |Ui,S̄ |
+Verifying whether we can use coalition attributions to ex-
+                                                                         The second metric R′ (i) ∈ [0, 1] is defined to measure the
+plain the network output. According to Corollary 3.8, we                significance of the variable i participating in the coalition S,
+can use the coalition attribution to mimic the output v(N ) of          in a more fine-grained manner, as follows.
+neural networks on any arbitrary sample. Therefore, given a
+                                                                                                   1
+                                                                                       P
+coalition S, we followed Corollary 3.8 to compute v̂(N |S)                   ′            T ⊇S |T | (|Iand (T )| + |Ior (T )|)
+                                                                           R (i) = P              1                               ,     i∈S        (8)
+to represent the model output mimicked by the coalition                                                         ′            ′
+                                                                                         T ′ ∋i |T ′ | (|Iand (T )| + |Ior (T )|)
+
+
+                                                                    6

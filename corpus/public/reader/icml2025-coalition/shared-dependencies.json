@@ -1,0 +1,41 @@
+{
+  "schema_version": 1,
+  "paper_id": "icml2025-coalition",
+  "scope": "Reviewed dependencies only; proof prose, source claims and Lean coverage are unchanged.",
+  "results": {
+    "coalition-matching": [
+      {
+        "id": "proof-finite-mobius-reconstruction-v2",
+        "relationship": "uses_shared_theorem",
+        "scope_md": "复用任意有限实值游戏的 Möbius 重构，包含空集项且不要求零输出基线。这里只支持本结果中的 AND/补集游戏反演，其他适配仍由本条证明与独立 Lean 范围说明。",
+        "scope_en_md": "Reuse Möbius reconstruction for an arbitrary finite real-valued game, including its empty dividend and without a zero output baseline. It supports only the AND/complement-game inversion here; the remaining adaptation belongs to this result’s proof and separately reported Lean scope."
+      },
+      {
+        "id": "shared-harsanyi-or-reconstruction",
+        "relationship": "uses_shared_theorem",
+        "scope_md": "复用 $T\\subseteq N$ 下的 OR 激活和 $o(T)-o(\\varnothing)$。非空 OR 是负补集变换；空项独立取 $o(\\varnothing)$，不是将负补集公式代入空集。本链接不覆盖分解选择、近似或其他本篇命题。",
+        "scope_en_md": "Reuse the activated OR sum $o(T)-o(\\varnothing)$ for $T\\subseteq N$. Nonempty OR dividends use the negative complement transform; the empty coefficient is separately $o(\\varnothing)$, rather than the transform evaluated at the empty set. This link does not cover decomposition selection, approximation, or other paper claims."
+      }
+    ],
+    "coalition-shapley": [
+      {
+        "id": "proof-finite-mobius-reconstruction-v2",
+        "relationship": "uses_shared_theorem",
+        "scope_md": "复用任意有限实值游戏的 Möbius 重构，包含空集项且不要求零输出基线。这里只支持本结果中的 AND/补集游戏反演，其他适配仍由本条证明与独立 Lean 范围说明。",
+        "scope_en_md": "Reuse Möbius reconstruction for an arbitrary finite real-valued game, including its empty dividend and without a zero output baseline. It supports only the AND/complement-game inversion here; the remaining adaptation belongs to this result’s proof and separately reported Lean scope."
+      },
+      {
+        "id": "shared-harsanyi-or-reconstruction",
+        "relationship": "uses_shared_theorem",
+        "scope_md": "复用 $T\\subseteq N$ 下的 OR 激活和 $o(T)-o(\\varnothing)$。非空 OR 是负补集变换；空项独立取 $o(\\varnothing)$，不是将负补集公式代入空集。本链接不覆盖分解选择、近似或其他本篇命题。",
+        "scope_en_md": "Reuse the activated OR sum $o(T)-o(\\varnothing)$ for $T\\subseteq N$. Nonempty OR dividends use the negative complement transform; the empty coefficient is separately $o(\\varnothing)$, rather than the transform evaluated at the empty set. This link does not cover decomposition selection, approximation, or other paper claims."
+      },
+      {
+        "id": "shared-harsanyi-shapley-dividend",
+        "relationship": "uses_shared_theorem",
+        "scope_md": "在 $i\\in N$ 的经典阶乘边际定义下，对 AND 分量游戏 $a$ 使用公共 Shapley–Harsanyi 均分桥；任意基线在边际中抵消。OR 的首位计数/补集适配及最终 AND/OR 合成仍是本结果自己的证明，不能由本链接宣称整个目标已覆盖。",
+        "scope_en_md": "For $i\\in N$ and the classical factorial-weighted marginal definition, use the shared Shapley–Harsanyi bridge on the AND component game $a$; an arbitrary baseline cancels in marginals. The OR first-position/complement adaptation and final AND/OR combination remain this result’s own proof. This dependency does not claim coverage of the whole target."
+      }
+    ]
+  }
+}

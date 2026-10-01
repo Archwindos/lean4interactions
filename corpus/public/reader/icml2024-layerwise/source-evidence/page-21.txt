@@ -1,0 +1,60 @@
+                                      Layerwise Change of Knowledge in Neural Networks
+
+L. Discussion on the Noise Ratio of Interactions over Different Orders
+In section 3.3 of the main paper, we add a small Gaussian perturbation  ∼ N (0, σ 2 I) to the input sample x, in order to
+mimic inevitable noises/variations in data. And then we use the new metrics to measure the relative stability of AND-OR
+interactions of each order m as follow.
+                                                                                         q              
+                                          (l),m                         (l),m                  (l),m
+                                 stabilityand     = Ex      E         |Eand (S, x)|         Varand (S, x)
+                                                             (l),m
+                                                         S∈Ωand
+                                                                                         q                                   (21)
+                                          (l),m                                                (l),m
+                                 stabilityor    = Ex        E         |Eor(l),m (S, x)|     Varor (S, x)
+                                                             (l),m
+                                                         S∈Ωor
+
+
+         (l),m                                             (l),m
+where Eand     (S, x) = E [Iand (S|x + , v (l) )] and Varand (S, x) = Var [Iand (S|x + , v (l) )] denote the mean and variance of
+                                       (l)
+the AND interaction Iand (S|x + , v ) w.r.t. Gaussian perturbations , which are encoded by the l-th layer of the DNN. In
+fact, higher-order interactions comprise more input variables, which means it would obtain more gaussian perturbations.
+However, the signal strength of higher order interaction also increases linearly with order m. Fig.5 in the main paper shows
+that low-order interactions are more stable to small noises. Here we verify that the noise ratio of each interaction is relatively
+consistent over interactions of different orders, so that stability enables a fair comparison of interactions of different orders.
+To this end, we used the images in CIFAR-10 dataset and annotated semantic parts in each image, following Appendix M.1.
+Then we added the small Gaussian perturbation  ∼ N (0, σ 2 I) to the image x, and obtained the noise image x . For
+each interaction pattern S , we calculate the ratio of noise intensity to interaction pattern signal intensity, e.g., RadioS =
+kxs − xs k2 /kxs k2 .
+
+Fig. 12 shows the distribution of RadioS under different interaction order. It can be found that the median RadioS values
+for different orders interactions is basically the same, and there is no phenomenon that the noise proportion of high-order
+interactions is significantly higher than that of low-order interactions. Therefore, the poor stability of the high order
+interaction is not due to its noise ratio.
+
+
+
+
+               Figure 12. Box-and-whisker diagram of RadioS
+                                                           for interaction pattern S of different interaction order.
+
+
+
+
+M. Experimental details
+M.1. Annotating Semantics Parts
+We followed (Li & Zhang, 2023) to annotate semantic parts in MNIST dataset and CIFAR-10 dataset. Given an input sample
+xRn , the DNN may encode at most 2n interactions. The computational cost for extracting salient interactions is high, when
+the number of input variables n is large. In order to overcome this issue, we simply annotate 10 –12 semantic parts in each
+input sample, such that the annotated semantic parts are aligned over different samples in the same dataset. Then, each
+semantic part in an input sample is taken as a “single” input variable to the DNN.
+• For images in the MNIST dataset, we followed settings in (Li & Zhang, 2023) to annotate semantic parts for 100 samples.
+Specifically, given an image, we divided the whole image into small patches of size 3 × 3. Considering the DNN mainly used
+the digit in the foreground to make inference, we selected n = 10 patches in the foreground as input variables to calculate
+interactions, in order to reduce the computational cost.
+• For images in the CIFAR-10 dataset, we followed settings in (Ren et al., 2023a) to annotate semantic parts for 30 samples.
+Specifically, given an image, we divided the whole image into small patches of size 4 × 4, thereby obtaining 8 × 8 image
+
+                                                                        21

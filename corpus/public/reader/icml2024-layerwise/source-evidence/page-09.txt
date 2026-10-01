@@ -1,0 +1,69 @@
+                                       Layerwise Change of Knowledge in Neural Networks
+
+                                    (l),m
+that the relative stability stabilityand decreased along with            References
+the order m, which indicated that low-order interactions
+                                                                         Ancona, M., Oztireli, C., and Gross, M. Explaining deep
+were more stable to inevitable noises in data than high-order
+                                                                           neural networks with a polynomial time algorithm for
+interactions. In other words, low-order interactions usually
+                                                                           shapley value approximation. In International Confer-
+exhibited consistent effects Iand (S|x + , v (l) ) on the network
+                                                                           ence on Machine Learning, pp. 272–281. PMLR, 2019.
+output/intermediate-layer feature w.r.t. different noises 
+than high-order interactions. This indicated that low-order              Bau, D., Zhou, B., Khosla, A., Oliva, A., and Torralba,
+interactions were more likely to be generalized to similar                 A. Network dissection: Quantifying interpretability of
+samples (e.g., samples with small intra-class variations).                 deep visual representations. In Proceedings of the IEEE
+                                                                           conference on computer vision and pattern recognition,
+Thus, according to Figs. 3, 4, 5, we discovered that for
+                                                                           pp. 6541–6549, 2017.
+ResNet-20 trained on both the MNIST dataset and the
+CIFAR-10 dataset, their later layers usually exclusively                 Belinkov, Y. Probing classifiers: Promises, shortcomings,
+forgot redundant high-order interactions without encoding                  and advances. Computational Linguistics, 48(1):207–219,
+new interactions, which were non-generalizable and unsta-                  2022.
+ble. Besides, later layers of DistilBERT and BERTBASE
+trained on the SST-2 dataset usually forgot redundant and                Chen, C., Li, O., Tao, D., Barnett, A., Rudin, C., and Su, J. K.
+non-generalizable high-order interactions.                                 This looks like that: deep learning for interpretable image
+                                                                           recognition. Advances in neural information processing
+                                                                           systems, 32, 2019.
+4. Conclusion and Discussion
+                                                                         Dabkowski, P. and Gal, Y. Real time image saliency for
+In this paper, we use interaction primitives to represent                  black box classifiers. Advances in neural information
+knowledge encoded by the DNN. The sparsity and the                         processing systems, 30, 2017.
+universal-matching property of interactions ensure the trust-
+worthiness of taking interactions as symbolic primitive infer-           Deng, H., Ren, Q., Zhang, H., and Zhang, Q. DISCOV-
+ence patterns encoded by a DNN. Thus, we further quantify                  ERING AND EXPLAINING THE REPRESENTATION
+and track the newly emerged interaction primitives and the                 BOTTLENECK OF DNNS. In International Confer-
+forgotten interaction primitives in each layer during the                  ence on Learning Representations, 2022. URL https:
+forward propagation, which provides new insights into the                 //openreview.net/forum?id=iRCUlgmdfHJ.
+learning behavior of DNNs. The layer-wise change of inter-
+                                                                         Devlin, J., Chang, M.-W., Lee, K., and Toutanova, K. BERT:
+actions potentially reveals the change of the generalization
+                                                                           Pre-training of deep bidirectional transformers for lan-
+capacity and instability of feature representations of a DNN.
+                                                                           guage understanding. In Proceedings of the 2019 Confer-
+                                                                           ence of the North American Chapter of the Association for
+Acknowledgements                                                           Computational Linguistics: Human Language Technolo-
+                                                                           gies, Volume 1 (Long and Short Papers), pp. 4171–4186.
+This work is partially supported by the National Science and
+                                                                           Association for Computational Linguistics, 2019.
+Technology Major Project (2021ZD0111602), the National
+Nature Science Foundation of China (92370115, 62276165).                 Fong, R., Patrick, M., and Vedaldi, A. Understanding deep
+This work is also partially supported by Huawei Technolo-                  networks via extremal perturbations and smooth masks.
+gies Inc.                                                                  In Proceedings of the IEEE/CVF international conference
+                                                                           on computer vision, pp. 2950–2958, 2019.
+Impact Statement                                                         He, K., Zhang, X., Ren, S., and Sun, J. Deep residual learn-
+This paper uses interaction primitives to represent knowl-                 ing for image recognition. In Proceedings of the IEEE
+edge encoded by the DNN, and further quantify and track                    conference on computer vision and pattern recognition,
+the layer-wise change of interaction primitives in the DNN                 pp. 770–778, 2016.
+during the forward propagation. The layer-wise change of                 Jain, S., Salman, H., Wong, E., Zhang, P., Vineet, V., Vem-
+interactions also reveals the change of the generalization ca-              prala, S., and Madry, A. Missingness bias in model
+pacity and instability of feature representations of the DNN.               debugging. arXiv preprint arXiv:2204.08945, 2022.
+There are no ethical issues with this paper, and there are no
+potential societal consequences of this paper that need to be            Kim, B., Wattenberg, M., Gilmer, J., Cai, C., Wexler, J.,
+specifically highlighted.                                                  Viegas, F., et al. Interpretability beyond feature attribu-
+                                                                           tion: Quantitative testing with concept activation vectors
+                                                                           (tcav). In International conference on machine learning,
+                                                                           pp. 2668–2677. PMLR, 2018.
+
+                                                                     9

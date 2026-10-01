@@ -1,0 +1,255 @@
+{
+  "paper_id": "icml2025-coalition",
+  "issues": [
+    {
+      "id": "issue-coalition-empty-coalition",
+      "paper_id": "icml2025-coalition",
+      "kind": "undefined_original_scope",
+      "source_refs": [
+        {
+          "source_id": "src-icml2025-coalition",
+          "pdf_pages": [
+            4,
+            5,
+            6
+          ]
+        }
+      ],
+      "original_expression": "\\forall S\\subseteq N,\\quad\\phi(S)=\\sum_{T\\supseteq S}\\frac{|S|}{|T|}J(T)",
+      "description_md": "Eq.(6) 的全子集量词包含空集，但 T=空集项含0/0；3.4、3.8及部分公理沿用该未定义对象。",
+      "evidence_md": "S=\\varnothing,T=\\varnothing gives |S|/|T|=0/0; Eq.(3),(4) only define nonempty interactions.",
+      "impact_md": "The nonempty-coalition proof is recorded separately. No zero convention or new hypothesis is silently appended to the original statement.",
+      "user_confirmation": "not_individually_confirmed",
+      "fix_authorization": "proof_only_granted",
+      "proposition_modification_authorized": false,
+      "status": "agent_checked",
+      "translations": {
+        "en": {
+          "description_md": "The all-subsets quantifier in Eq. (6) includes the empty set, whose T=empty term contains 0/0. Later all-coalition statements inherit this undefined object.",
+          "evidence_md": "S=\\varnothing,T=\\varnothing gives |S|/|T|=0/0; Eq.(3),(4) only define nonempty interactions.",
+          "impact_md": "The nonempty-coalition proof is recorded separately. No zero convention or new hypothesis is silently appended to the original statement.",
+          "title": "Undefined empty-coalition attribution"
+        }
+      },
+      "title": "原空联盟归因未定义"
+    },
+    {
+      "id": "issue-coalition-or-condition",
+      "paper_id": "icml2025-coalition",
+      "kind": "proof_error_repaired",
+      "source_refs": [
+        {
+          "source_id": "src-icml2025-coalition",
+          "pdf_pages": [
+            14
+          ]
+        }
+      ],
+      "original_expression": "\\mathbb E_S\\sum_{L\\cap S\\ne\\varnothing}I_{\\rm or}(L\\cup\\{i\\})",
+      "description_md": "附录C的OR边际第一行和随后求和域误写非空交集；必须是不交。下一行改为 S⊆N\\{i}\\L 说明作者实际计算的是不交。",
+      "evidence_md": "The OR effect is activated by adding i exactly when i belongs to T and T∩S=empty. A term already intersecting S cancels from the marginal.",
+      "impact_md": "Theorem 3.2 is unchanged; only the erroneous proof condition is repaired.",
+      "user_confirmation": "not_individually_confirmed",
+      "fix_authorization": "proof_only_granted",
+      "proposition_modification_authorized": false,
+      "status": "agent_checked",
+      "translations": {
+        "en": {
+          "description_md": "Appendix C prints a nonempty intersection in the OR marginal sum. The correct condition is disjointness, as the following complement-subset line already uses.",
+          "evidence_md": "The OR effect is activated by adding i exactly when i belongs to T and T∩S=empty. A term already intersecting S cancels from the marginal.",
+          "impact_md": "Theorem 3.2 is unchanged; only the erroneous proof condition is repaired.",
+          "title": "Misprinted OR-marginal summation domain"
+        }
+      },
+      "title": "OR边际的原求和域错印"
+    },
+    {
+      "id": "issue-coalition-zero-denominators",
+      "paper_id": "icml2025-coalition",
+      "kind": "undefined_original_scope",
+      "source_refs": [
+        {
+          "source_id": "src-icml2025-coalition",
+          "pdf_pages": [
+            6,
+            7
+          ]
+        }
+      ],
+      "original_expression": "R(i),R\\prime(i),Q(S)\\in[0,1]",
+      "description_md": "三个比例未规定零分母。零游戏配零分解使分子分母皆零；不能直接声称所有输入上均定义且落在区间。",
+      "evidence_md": "g(S)=0, γ_S=0 for every S gives A(T)=O(T)=0 and all three ratios 0/0.",
+      "impact_md": "Bounds hold on the original quotient domain where the denominator is positive. This scope restriction is disclosed, not added to the original claim.",
+      "user_confirmation": "not_individually_confirmed",
+      "fix_authorization": "proof_only_granted",
+      "proposition_modification_authorized": false,
+      "status": "agent_checked",
+      "translations": {
+        "en": {
+          "description_md": "No zero-denominator convention is supplied for the three ratios. The zero game with the zero decomposition gives numerator and denominator zero.",
+          "evidence_md": "g(S)=0, γ_S=0 for every S gives A(T)=O(T)=0 and all three ratios 0/0.",
+          "impact_md": "Bounds hold on the original quotient domain where the denominator is positive. This scope restriction is disclosed, not added to the original claim.",
+          "title": "Zero denominators in faithfulness ratios"
+        }
+      },
+      "title": "忠实度比例的零分母"
+    },
+    {
+      "id": "issue-coalition-symmetry-decomposition",
+      "paper_id": "icml2025-coalition",
+      "kind": "false_original_statement",
+      "source_refs": [
+        {
+          "source_id": "src-icml2025-coalition",
+          "pdf_pages": [
+            6,
+            18,
+            19,
+            20
+          ]
+        }
+      ],
+      "original_expression": "g(U\\cup\\{i\\})=g(U\\cup\\{j\\})\\Longrightarrow a(U\\cup\\{i\\})=a(U\\cup\\{j\\}),\\ o(U\\cup\\{i\\})=o(U\\cup\\{j\\})",
+      "description_md": "总输出对称不能推出各分量对称；α、β公理在原给定分解规则下均有全局最优反例。",
+      "evidence_md": "取 $N=\\{1,2,3\\}$，$g(U)=|U|$。令 $P=\\{1,3\\}$，$a(U)=\\mathbf1[P\\subseteq U]+\\mathbf1[2\\in U]$，$o(U)=\\mathbf1[U\\cap P\\ne\\varnothing]$；这确实满足 $a+o=g$（在 $P$ 中有0、1、2个变量时，AND+OR分别为0、1、2）。因此 $\\gamma_U=a(U)-g(U)/2$ 是原分量形式的实际实现。其唯一非零非空系数为 $A(P)=1,O(P)=1,A(\\{2\\})=1$。于是 $\\phi(P)=2$ 而 $\\phi(\\{2,3\\})=0$。任意精确分解由 Eq.(10) 满足 $g(N)-g(\\varnothing)=\\sum_{T\\ne\\varnothing}(A(T)+O(T))$，三角不等式给出 $|g(N)-g(\\varnothing)|\\le\\sum_{T\\ne\\varnothing}(|A(T)|+|O(T)|)$。本例右侧为3、左侧也为3，故是全局最优的稀疏分解。总游戏完全对称，而最优分解非唯一，并不保证分量对称。\n\nLet $N=\\{1,2,3\\}$ and $g(U)=|U|$. Put $P=\\{1,3\\}$, $a(U)=\\mathbf1[P\\subseteq U]+\\mathbf1[2\\in U]$, and $o(U)=\\mathbf1[U\\cap P\\ne\\varnothing]$. Then $a+o=g$: AND plus OR contributes 0, 1, or 2 according to the number of present members of $P$. The actual decomposition parameter is $\\gamma_U=a(U)-g(U)/2$. The only nonzero nonempty coefficients are $A(P)=1,O(P)=1,A(\\{2\\})=1$, so $\\phi(P)=2$ and $\\phi(\\{2,3\\})=0$. Equation (10) implies $g(N)-g(\\varnothing)=\\sum_{T\\ne\\varnothing}(A(T)+O(T))$ for every exact decomposition. Hence the triangle inequality gives $|g(N)-g(\\varnothing)|\\le\\sum_{T\\ne\\varnothing}(|A(T)|+|O(T)|)$. Both sides equal 3 here, proving global optimality. A symmetric total game can therefore have nonsymmetric globally sparsest decompositions.",
+      "impact_md": "For α use i=1,j=2,L={3}; for β use S={1},T={2},L={3}. Its premise holds because g depends only on cardinality. The claimed conclusion fails.",
+      "user_confirmation": "not_individually_confirmed",
+      "fix_authorization": "proof_only_granted",
+      "proposition_modification_authorized": false,
+      "status": "agent_checked",
+      "translations": {
+        "en": {
+          "description_md": "Symmetry of the total output does not imply symmetry of each component. Both symmetry axioms admit globally optimal counterexamples under the specified decomposition rules.",
+          "evidence_md": "Let $N=\\{1,2,3\\}$ and $g(U)=|U|$. Put $P=\\{1,3\\}$, $a(U)=\\mathbf1[P\\subseteq U]+\\mathbf1[2\\in U]$, and $o(U)=\\mathbf1[U\\cap P\\ne\\varnothing]$. Then $a+o=g$: AND plus OR contributes 0, 1, or 2 according to the number of present members of $P$. The actual decomposition parameter is $\\gamma_U=a(U)-g(U)/2$. The only nonzero nonempty coefficients are $A(P)=1,O(P)=1,A(\\{2\\})=1$, so $\\phi(P)=2$ and $\\phi(\\{2,3\\})=0$. Equation (10) implies $g(N)-g(\\varnothing)=\\sum_{T\\ne\\varnothing}(A(T)+O(T))$ for every exact decomposition. Hence the triangle inequality gives $|g(N)-g(\\varnothing)|\\le\\sum_{T\\ne\\varnothing}(|A(T)|+|O(T)|)$. Both sides equal 3 here, proving global optimality. A symmetric total game can therefore have nonsymmetric globally sparsest decompositions.",
+          "impact_md": "For α use i=1,j=2,L={3}; for β use S={1},T={2},L={3}. Its premise holds because g depends only on cardinality. The claimed conclusion fails.",
+          "title": "A symmetric total game need not have symmetric optimal components"
+        }
+      },
+      "title": "总游戏对称不保证最优分解对称"
+    },
+    {
+      "id": "issue-coalition-additivity-decomposition",
+      "paper_id": "icml2025-coalition",
+      "kind": "false_original_statement",
+      "source_refs": [
+        {
+          "source_id": "src-icml2025-coalition",
+          "pdf_pages": [
+            6,
+            20
+          ]
+        }
+      ],
+      "original_expression": "g=g_1+g_2\\Longrightarrow A_g=A_{g_1}+A_{g_2},\\ O_g=O_{g_1}+O_{g_2}",
+      "description_md": "附录G.4从总输出可加性直接推出分量交互可加性，未得到分解参数兼容；原可加公理有最优分解反例。",
+      "evidence_md": "取 $N=\\{1,2\\}$，$g_1(U)=\\mathbf1[1\\in U]$、$g_2(U)=\\mathbf1[2\\in U]$，总游戏 $g=g_1+g_2$。对子游戏取 $a_k=g_k,o_k=0$，二者最小 L1 都为1，联盟 $N$ 的归因为0。对总游戏取 $a(U)=\\mathbf1[N\\subseteq U]$、$o(U)=\\mathbf1[U\\ne\\varnothing]$，对应 $\\gamma_U=a(U)-|U|/2$，唯一非零交互为 $A(N)=O(N)=1$，L1=2，达到 $|g(N)-g(\\varnothing)|=2$ 下界。故三次分解均全局最优，但 $\\phi_g(N)=2\\ne0=\\phi_{g_1}(N)+\\phi_{g_2}(N)$。\n\nLet $N=\\{1,2\\}$, $g_1(U)=\\mathbf1[1\\in U]$, $g_2(U)=\\mathbf1[2\\in U]$, and $g=g_1+g_2$. Choose $a_k=g_k,o_k=0$ for the component games. Each has globally minimal L1 value 1 and zero attribution to $N$. For the total game choose $a(U)=\\mathbf1[N\\subseteq U]$, $o(U)=\\mathbf1[U\\ne\\varnothing]$, and thus $\\gamma_U=a(U)-|U|/2$. Its only nonzero interactions are $A(N)=O(N)=1$. Its L1 value 2 reaches the lower bound $|g(N)-g(\\varnothing)|=2$. All three decompositions are globally optimal, yet $\\phi_g(N)=2\\ne0=\\phi_{g_1}(N)+\\phi_{g_2}(N)$.",
+      "impact_md": "A linearity theorem for a fixed compatible coefficient decomposition is valid but is not a proof of the original axiom.",
+      "user_confirmation": "not_individually_confirmed",
+      "fix_authorization": "proof_only_granted",
+      "proposition_modification_authorized": false,
+      "status": "agent_checked",
+      "translations": {
+        "en": {
+          "description_md": "Appendix G.4 infers component additivity from total-game additivity without compatible decomposition parameters. The original axiom has a globally optimal counterexample.",
+          "evidence_md": "Let $N=\\{1,2\\}$, $g_1(U)=\\mathbf1[1\\in U]$, $g_2(U)=\\mathbf1[2\\in U]$, and $g=g_1+g_2$. Choose $a_k=g_k,o_k=0$ for the component games. Each has globally minimal L1 value 1 and zero attribution to $N$. For the total game choose $a(U)=\\mathbf1[N\\subseteq U]$, $o(U)=\\mathbf1[U\\ne\\varnothing]$, and thus $\\gamma_U=a(U)-|U|/2$. Its only nonzero interactions are $A(N)=O(N)=1$. Its L1 value 2 reaches the lower bound $|g(N)-g(\\varnothing)|=2$. All three decompositions are globally optimal, yet $\\phi_g(N)=2\\ne0=\\phi_{g_1}(N)+\\phi_{g_2}(N)$.",
+          "impact_md": "A linearity theorem for a fixed compatible coefficient decomposition is valid but is not a proof of the original axiom.",
+          "title": "Optimal decompositions need not give additive coalition attribution"
+        }
+      },
+      "title": "最优分解不能保证联盟归因可加"
+    },
+    {
+      "id": "issue-coalition-dummy-decomposition",
+      "paper_id": "icml2025-coalition",
+      "kind": "false_under_displayed_definitions",
+      "source_refs": [
+        {
+          "source_id": "src-icml2025-coalition",
+          "pdf_pages": [
+            6,
+            21
+          ]
+        }
+      ],
+      "original_expression": "g(U\\cup\\{i\\})=g(U)\\Longrightarrow a(U\\cup\\{i\\})=a(U),\\ o(U\\cup\\{i\\})=o(U)",
+      "description_md": "总输出dummy不能推出分量dummy；给出满足显示定义、但不是L1最优的反例，最优规则的dummy版本单独保留未判定。",
+      "evidence_md": "令 $N=\\{1,2\\}$、总游戏 $g=0$，取 $\\gamma_U=\\mathbf1[U=N]$，所以 $a=\\gamma,o=-\\gamma$。所有变量都是总游戏的dummy。计算 $A(N)=1$、$O(N)=1$，所以 $\\phi(N)=2\\ne0$。此例满足正文显示的分解定义，但 L1=4 并非全局最稀疏（零分解的 L1=0）。因此它反驳“仅依据分解定义即可满足dummy”的表述，不能声称已反驳额外规定全局最优且给定选择规则的dummy版本。论文没有把该选择规则完整规定为公理前提。\n\nLet $N=\\{1,2\\}$ and $g=0$, and choose $\\gamma_U=\\mathbf1[U=N]$, so $a=\\gamma$ and $o=-\\gamma$. Every variable is dummy for the total game. Nevertheless $A(N)=O(N)=1$, giving $\\phi(N)=2$. This satisfies the displayed decomposition definitions, but its L1 value 4 is not globally minimal: the zero decomposition has value 0. It refutes the dummy claim from the displayed definitions alone; it is not a counterexample to a separately stipulated global-optimum selection rule. The paper does not fully specify such a rule as an axiom premise.",
+      "impact_md": "No component-dummy premise is added to complete the original axiom.",
+      "user_confirmation": "not_individually_confirmed",
+      "fix_authorization": "proof_only_granted",
+      "proposition_modification_authorized": false,
+      "status": "agent_checked",
+      "translations": {
+        "en": {
+          "description_md": "A dummy total game need not have dummy components. The explicit counterexample satisfies the displayed definitions but is not L1 optimal; the version with an additional optimizer rule remains separately unresolved.",
+          "evidence_md": "Let $N=\\{1,2\\}$ and $g=0$, and choose $\\gamma_U=\\mathbf1[U=N]$, so $a=\\gamma$ and $o=-\\gamma$. Every variable is dummy for the total game. Nevertheless $A(N)=O(N)=1$, giving $\\phi(N)=2$. This satisfies the displayed decomposition definitions, but its L1 value 4 is not globally minimal: the zero decomposition has value 0. It refutes the dummy claim from the displayed definitions alone; it is not a counterexample to a separately stipulated global-optimum selection rule. The paper does not fully specify such a rule as an axiom premise.",
+          "impact_md": "No component-dummy premise is added to complete the original axiom.",
+          "title": "Dummy premises and decomposition-selection scope"
+        }
+      },
+      "title": "Dummy条件与分解选择的范围"
+    },
+    {
+      "id": "issue-coalition-anonymity-selection",
+      "paper_id": "icml2025-coalition",
+      "kind": "underspecified_decomposition_rule",
+      "source_refs": [
+        {
+          "source_id": "src-icml2025-coalition",
+          "pdf_pages": [
+            6,
+            17
+          ]
+        }
+      ],
+      "original_expression": "\\sigma g(\\sigma U)=g(U)\\Longrightarrow \\sigma a(\\sigma U)=a(U),\\sigma o(\\sigma U)=o(U)",
+      "description_md": "若σ作用于既定AND/OR分解，匿名性是正确的换元恒等式；若仅作用于总游戏并重新求最优分解，最优非唯一不能保证此推断。",
+      "evidence_md": "取 $N=\\{1,2,3\\}$，$g(U)=|U|$。令 $P=\\{1,3\\}$，$a(U)=\\mathbf1[P\\subseteq U]+\\mathbf1[2\\in U]$，$o(U)=\\mathbf1[U\\cap P\\ne\\varnothing]$；这确实满足 $a+o=g$（在 $P$ 中有0、1、2个变量时，AND+OR分别为0、1、2）。因此 $\\gamma_U=a(U)-g(U)/2$ 是原分量形式的实际实现。其唯一非零非空系数为 $A(P)=1,O(P)=1,A(\\{2\\})=1$。于是 $\\phi(P)=2$ 而 $\\phi(\\{2,3\\})=0$。任意精确分解由 Eq.(10) 满足 $g(N)-g(\\varnothing)=\\sum_{T\\ne\\varnothing}(A(T)+O(T))$，三角不等式给出 $|g(N)-g(\\varnothing)|\\le\\sum_{T\\ne\\varnothing}(|A(T)|+|O(T)|)$。本例右侧为3、左侧也为3，故是全局最优的稀疏分解。总游戏完全对称，而最优分解非唯一，并不保证分量对称。\n\nLet $N=\\{1,2,3\\}$ and $g(U)=|U|$. Put $P=\\{1,3\\}$, $a(U)=\\mathbf1[P\\subseteq U]+\\mathbf1[2\\in U]$, and $o(U)=\\mathbf1[U\\cap P\\ne\\varnothing]$. Then $a+o=g$: AND plus OR contributes 0, 1, or 2 according to the number of present members of $P$. The actual decomposition parameter is $\\gamma_U=a(U)-g(U)/2$. The only nonzero nonempty coefficients are $A(P)=1,O(P)=1,A(\\{2\\})=1$, so $\\phi(P)=2$ and $\\phi(\\{2,3\\})=0$. Equation (10) implies $g(N)-g(\\varnothing)=\\sum_{T\\ne\\varnothing}(A(T)+O(T))$ for every exact decomposition. Hence the triangle inequality gives $|g(N)-g(\\varnothing)|\\le\\sum_{T\\ne\\varnothing}(|A(T)|+|O(T)|)$. Both sides equal 3 here, proving global optimality. A symmetric total game can therefore have nonsymmetric globally sparsest decompositions.",
+      "impact_md": "The transported-decomposition proof is preserved with its exact meaning; it does not prove invariance under an unspecified independently selected optimum.",
+      "user_confirmation": "not_individually_confirmed",
+      "fix_authorization": "proof_only_granted",
+      "proposition_modification_authorized": false,
+      "status": "agent_checked",
+      "translations": {
+        "en": {
+          "description_md": "If σ transports a fixed AND/OR decomposition, anonymity is a correct change-of-variables identity. If only the total game is permuted and its decomposition is recomputed, nonunique optima do not guarantee the printed component inference.",
+          "evidence_md": "Let $N=\\{1,2,3\\}$ and $g(U)=|U|$. Put $P=\\{1,3\\}$, $a(U)=\\mathbf1[P\\subseteq U]+\\mathbf1[2\\in U]$, and $o(U)=\\mathbf1[U\\cap P\\ne\\varnothing]$. Then $a+o=g$: AND plus OR contributes 0, 1, or 2 according to the number of present members of $P$. The actual decomposition parameter is $\\gamma_U=a(U)-g(U)/2$. The only nonzero nonempty coefficients are $A(P)=1,O(P)=1,A(\\{2\\})=1$, so $\\phi(P)=2$ and $\\phi(\\{2,3\\})=0$. Equation (10) implies $g(N)-g(\\varnothing)=\\sum_{T\\ne\\varnothing}(A(T)+O(T))$ for every exact decomposition. Hence the triangle inequality gives $|g(N)-g(\\varnothing)|\\le\\sum_{T\\ne\\varnothing}(|A(T)|+|O(T)|)$. Both sides equal 3 here, proving global optimality. A symmetric total game can therefore have nonsymmetric globally sparsest decompositions.",
+          "impact_md": "The transported-decomposition proof is preserved with its exact meaning; it does not prove invariance under an unspecified independently selected optimum.",
+          "title": "Transporting components versus reselecting an optimum"
+        }
+      },
+      "title": "匿名性中的分量运输与重新选解"
+    },
+    {
+      "id": "issue-coalition-beta-pairing",
+      "paper_id": "icml2025-coalition",
+      "kind": "proof_error",
+      "source_refs": [
+        {
+          "source_id": "src-icml2025-coalition",
+          "pdf_pages": [
+            19,
+            20
+          ]
+        }
+      ],
+      "original_expression": "\\sum_{A}\\!f(A)-\\sum_B\\!h(B)=\\sum_{|A|=|B|}(f(A)-h(B))",
+      "description_md": "G.3把两边分别求和改成全部等基数对求和，未给双射；每一项通常被重复计数。最初WLOG不交也没有给重叠化简。",
+      "evidence_md": "If there are c subsets on each side of a fixed cardinality, the all-pairs sum equals c times the difference of the two original sums, not that difference. For c=2 take f=(1,0),h=(0,0): original difference 1, paired difference 2.",
+      "impact_md": "These proof defects are retained; the original symmetry-β statement already fails by the independent optimal-decomposition counterexample.",
+      "user_confirmation": "not_individually_confirmed",
+      "fix_authorization": "proof_only_granted",
+      "proposition_modification_authorized": false,
+      "status": "agent_checked",
+      "translations": {
+        "en": {
+          "description_md": "G.3 replaces separate sums by all equal-cardinality pairs without a bijection, repeating summands in general. Its initial disjointness reduction also lacks a reduction for overlapping coalitions.",
+          "evidence_md": "If there are c subsets on each side of a fixed cardinality, the all-pairs sum equals c times the difference of the two original sums, not that difference. For c=2 take f=(1,0),h=(0,0): original difference 1, paired difference 2.",
+          "impact_md": "These proof defects are retained; the original symmetry-β statement already fails by the independent optimal-decomposition counterexample.",
+          "title": "Repeated counting in the original symmetry-β pairing"
+        }
+      },
+      "title": "对称性β原配对的重复计数"
+    }
+  ]
+}

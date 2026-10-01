@@ -1,0 +1,54 @@
+                    HarsanyiNet: Computing Accurate Shapley Values in a Single Forward Propagation
+
+
+                         Table 5. Training cost per epoch (s) of the HarsanyiNet and the comparable DNN
+                                         Dataset      HarsanyiNet     Comparable DNN
+                                         Census            5.0               1.9
+                                         MNIST            243.3             127.0
+                                         CIFAR-10         205.0             106.7
+
+                                     Table 6. Model robustness and Shapley value robustness
+           Model          Classification accuracy of adversarial examples (%)   ℓ2 norm of the Shapley value difference
+           HarsanyiNet                         13.83%                                            1.44
+           ResNet-18                            8.21%                                            1.50
+
+
+on HarsanyiNet (estimated by the ℓ2 norm of the difference of Shapley values, the lower the better) is slightly higher than
+that of ResNet-18.
+Both experiments indicate that HarsanyiNet has a robustness close to, or even slightly higher than, that of the traditional
+model.
+
+F.5. More results of the estimated Shapley values on the HarsanyiNets
+We conducted more experiments to show the explanations produced by our HarsanyiNets. Specifically, we trained the
+Harsanyi-MLP on tabular datasets and the Harsanyi-CNN on image datasets.
+For the tabular datasets including the Census, Yeast and TV news datasets, we compared the estimated Shapley values
+for each method in Figure 7, Figure 8, and Figure 9, respectively. It can be seen that the Shapley values calculated
+by our HarsanyiNet were exactly the same as the ground-truth Shapley values calculated by Definition 1, while the
+approximation methods, including the sampling method (Castro et al., 2009), antithetical sampling (Mitchell et al., 2022),
+KernelSHAP (Lundberg & Lee, 2017), and KernelSHAP with paired sampling (KernelSHAP-PS) (Covert & Lee, 2021),
+needed thousands of network inferences to compute the relatively accurate Shapley values.
+For the image datasets including the MNIST and CIFAR-10 datasets, we generated more attribution maps on different
+categories in Figure 10 and Figure 11, respectively.
+
+F.6. Experiment details for computing interaction strength of Harsanyi interactions encoded by a DNN
+When the number of input variables is small (e.g., n < 16), we can iteratively calculate the interaction strength of all
+Harsanyi interactions following Definition 2. For tabular datasets, including the Census, Yeast and TV news datasets, we set
+the baseline value of each input variable the mean value of this variable over all training samples. Then we computed each
+Harsanyi interaction’s strength in a brute-force manner.
+For the MNIST dataset, it is impractical to directly compute the Harsanyi strength of all Harsanyi interactions. To reduce
+the computational cost, we randomly sampled 8 image regions in the foreground of each image following the previous
+work (Ren et al., 2023a). Then we were able to compute the Harsanyi effect of all possible Harsanyi interactions among the
+sampled 8 image regions (In total we obtained 28 = 256 different Harsanyi interactions). In terms of the baseline value, we
+set, for each pixel, the baseline value to zero.
+
+F.7. Experiment details for generating attribution maps in Figure 4
+We compare the attribution maps of each method on the Harsanyi-CNN models. To facilitate comparison with other methods,
+the Harsanyi-CNN for the MNIST dataset was constructed with 4 cascaded Harsanyi blocks, and each Harsanyi block
+had 32 × 14 × 14 neurons, where 32 is the number of channels. The hyperparameters were set to β = 100 and γ = 0.05
+respectively. The Harsanyi-CNN for the CIFAR-10 dataset was constructed with 10 cascaded Harsanyi blocks, and each
+Harsanyi block had 256 × 16 × 16 neurons, where 256 is the number of channels. The hyperparameters were set to β = 1000
+and γ = 1 respectively. In this way, the HarsanyiNet and the other four model-agnostic methods used the same model to
+ensure the fairness of the comparison.
+Besides, since the Harsanyi-CNN model calculated Shapley values on the feature z(0) , we also calculated Shapley values on
+
+                                                               18

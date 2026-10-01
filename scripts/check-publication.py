@@ -70,9 +70,9 @@ def declared_private(data) -> bool:
 
 
 def discover_private() -> tuple[set[str], set[str]]:
-    roots: set[str] = set()
+    roots: set[str] = {"corpus/private"}
     identifiers: set[str] = set()
-    for pattern in ("corpus/papers/*/*/manifest.yaml", "corpus/claims/*/metadata.yaml", "corpus/issues/*.yaml"):
+    for pattern in ("corpus/papers/*/*/manifest.yaml", "corpus/claims/*/metadata.yaml", "corpus/issues/*.yaml", "corpus/private/papers/*/*/manifest.yaml", "corpus/private/claims/*/metadata.yaml", "corpus/private/issues/*.yaml", "corpus/private/reviews/**/*.yaml", "corpus/public/papers/*/*/manifest.yaml", "corpus/public/claims/*/metadata.yaml"):
         for path in ROOT.glob(pattern):
             data = load_local(path)
             if declared_private(data):
@@ -154,7 +154,8 @@ def private_fingerprints(roots: set[str]):
     # Shared mathematical prose can originate in published papers too. Remove
     # those matches before checking private text overlaps.
     public_text = set()
-    for manifest in ROOT.glob("corpus/papers/*/*/manifest.yaml"):
+    public_manifests = list(ROOT.glob("corpus/public/papers/*/*/manifest.yaml")) + list(ROOT.glob("corpus/papers/*/*/manifest.yaml"))
+    for manifest in public_manifests:
         if declared_private(load_local(manifest)):
             continue
         for path in manifest.parent.rglob("*"):
@@ -164,7 +165,7 @@ def private_fingerprints(roots: set[str]):
             hashes.pop(hashlib.sha256(data).hexdigest(), None)
             if path.suffix in {".txt", ".tex", ".md"}:
                 public_text.update(shingles(data.decode("utf-8", errors="replace")))
-    for pattern in ("research/full-proof-integration-20260930/*/source-evidence/*.txt", "research/reader-v2-20260930/math/source-review/*.txt"):
+    for pattern in ("research/full-proof-integration-20260930/*/source-evidence/*.txt", "research/reader-v2-20260930/math/source-review/*.txt", "corpus/public/reader/*/source-evidence/*.txt"):
         for path in ROOT.glob(pattern):
             if not under(path.relative_to(ROOT).as_posix(), roots) and contained(path):
                 public_text.update(shingles(local_read(path).decode("utf-8", errors="replace")))
@@ -178,6 +179,10 @@ def path_rules(path: str, private_roots: set[str]) -> list[str]:
         rules.append("unsafe-path")
     if any(part in CACHE_PARTS or part.endswith(".egg-info") for part in parts):
         rules.append("dependency-or-cache")
+    if len(parts)>1 and parts[0]=="corpus" and parts[1] in {"papers","claims","theorems","issues","reviews"} or path.startswith("corpus/relations"):
+        rules.append("inactive-legacy-corpus")
+    if any(part.startswith((".ingest-", ".migration-", ".promote-")) for part in parts):
+        rules.append("unfinished-migration-or-import-staging")
     if "build" in parts or "browser-tools" in parts:
         rules.append("generated-build-or-browser-download")
     if under(path, private_roots):
@@ -188,6 +193,8 @@ def path_rules(path: str, private_roots: set[str]) -> list[str]:
         rules.append("historical-private-snapshot")
     if path in {"docs/history/readme-before-full-integration-20260930.md", "docs/history/status-before-full-integration-20260930.md"}:
         rules.append("historical-private-review")
+    if path == "scripts/upload-github.local.sh":
+        rules.append("local-only-upload-helper")
     filename = parts[-1] if parts else ""
     if (filename in {".env", ".netrc", ".npmrc", ".pypirc"} or filename.startswith(".env.") and filename != ".env.example"
             or any(part in {".aws", ".ssh"} for part in parts) or filename.endswith((".pem", ".key")) or "credentials" in filename.lower()):
@@ -233,6 +240,36 @@ def main() -> int:
         raise RuntimeError("Initialize this project repository before auditing; parent repositories are not consulted")
     if Path(git("rev-parse", "--show-toplevel").decode().strip()) != ROOT:
         raise RuntimeError("Git repository must be rooted at this project")
+    manifest_path = ROOT / "corpus/public/reader/input-manifest.json"
+    if manifest_path.exists():
+        active = load_local(manifest_path)
+        paper_ids=[item.get('paper_id') for item in active.get('papers',[])]
+        if not paper_ids or any(not isinstance(x,str) or not x for x in paper_ids) or len(paper_ids)!=len(set(paper_ids)):
+            raise RuntimeError('Active reader requires a nonempty explicit manifest with unique paper IDs')
+        if active.get('visibility')!='public' or active.get('publication_status')!='published':
+            raise RuntimeError('Active reader manifest is not public/formal')
+        for item in active["papers"]:
+            meta_rel=item['metadata_path']
+            if not meta_rel.startswith('corpus/public/reader/'+item['paper_id']+'/') or '..' in Path(meta_rel).parts:
+                raise RuntimeError('Active metadata is outside its paper directory')
+            meta_path = ROOT / meta_rel
+            if not meta_path.is_file():raise RuntimeError('Active formal metadata is missing')
+            metadata = load_local(meta_path)
+            if metadata.get("visibility") != "public" or metadata.get("publication_status") != "published":
+                raise RuntimeError("Active reader metadata is not public/formal")
+            for source in metadata.get("sources", []):
+                source_path = source.get("local_path", "")
+                if not source_path.startswith("corpus/public/reader/" + item["paper_id"] + "/") or ".." in Path(source_path).parts:
+                    raise RuntimeError("Active formal source is outside its paper directory")
+                if source.get("visibility") != "public" or source.get("publication_status") != "published":
+                    raise RuntimeError("Active reader source is not public/formal")
+                if not (ROOT / source_path).is_file():
+                    raise RuntimeError("Active formal source is missing")
+                if not source.get("sha256"):
+                    raise RuntimeError("Active formal source has no pinned hash")
+                if hashlib.sha256(local_read(ROOT / source_path)).hexdigest() != source["sha256"]:
+                    raise RuntimeError("Active formal source hash changed")
+                OFFICIAL_PDFS.add(source_path)
     private_roots, identifiers = discover_private()
     hashes, private_text, private_count = private_fingerprints(private_roots)
     forbidden = []

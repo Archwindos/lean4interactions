@@ -1,0 +1,117 @@
+                                                                                              Layerwise Change of Knowledge in Neural Networks
+
+（a）                                                                                           ResNet − 20 on MNIST
+                                                new and
+                                                         ("),%
+                                                                         forget and
+                                                                                   ("),%           1st residual    3rd residual                                  5th residual            7th residual              9th residual                  average
+                                                                                                      block           block                                         block                   block                     block                      pooling
+                                                                         ("),%
+                                                            overlap and
+
+                                                                                              0               6 order        0          6 order        0             6 order      0           6 order 0                  6 order   0             6 order
+                                        " ,%
+     all&'(                                                                                   ResNet − 20 on CIFAR10
+                                                                                                   1st residual      3rd residual                               5th residual            7th residual               9th residual                  average
+                                        ) ,%                                                           block            block                                      block                   block                      block                      pooling
+     all&'(
+
+
+                                                     0           4        8        order
+                                                                                              0        4         8 order 0       4       8 order 0              4        8 order 0      4       8 order 0          4      8 order 0         4     8 order
+                           MLP − 7 on CIFAR10                                                                                            VGG − 11 on CIFAR10
+                                    3rd layer                                       5th layer                      7th layer                       conv1_1                             conv3_2                     conv5_2                        FC2
+
+
+
+
+                               0                4        8 order     0        4        8 order 0             4         8 order           0         4           8 order    0       4      8 order 0           4         8 order 0        4        8 order
+
+                   BERT!"#$ on SST2                                                                                                                     DistilBERT on SST2
+                                            2nd                  6th                    8th                    10th                    FC                          1st                3rd                 4th                 5th                     FC
+                                        transformer          transformer            transformer            transformer                                         transformer        transformer         transformer         transformer
+
+
+                  0                             6 order 0            6 order 0             6 order 0             6 order 0           6 order               0        6 order 0           6 order 0          6 order 0           6 order 0          6 order
+（b）
+                                                ResNet − 20 on MNIST               ResNet − 20 on CIFAR10 MLP − 7 on CIFAR10                           VGG − 11 on CIFAR10            BERT!"#$ on SST2                 DistilBERT on SST2
+    ( ,*
+      Redundancy %&' Completeness %&'
+
+
+
+
+                                        1.00
+                                                                                                                                                                                                                                                        High
+                                        0.75                                                                                                                                                                                                            Order
+                                        0.50
+                                        0.25
+                                        0.00
+     ( ,*
+
+
+
+
+                                        1.00
+                                        0.75
+                                        0.50
+                                        0.25                                                                                                                                                                                                             Low
+                                        0.00
+                                                                                                                                                                                                                                                        Order
+                                                Early                Later        Early                Later       Early                Later          Early                  Later   Early                Later       Early             Later
+
+
+
+                                                                                                                                                                                (l),m                                  (l),m
+Figure 3. (a) Tracking the change of the average strength of the overlapped (overlapand ), forgotten (forgetand ), and newly emerged
+                  (l),m                                                                                                               (l),m
+interactions (newand ) through different layers. For each subfigure, the total length of the orange bar and the grey bar equals to alland ,
+                                                                   (L),m                                        (l),m                 (l),m
+and the total length of the blue bar and the grey bar equals to alland   (b) Tracking the change of completenessand and redundancyand
+through different layers. We do not show interactions of the highest four orders, because almost no interactions of extremely high orders
+were learned. Please see Appendix I for results of OR interactions and results on tabular datasets.
+
+
+                                                                                                                                                                                                         (l),m
+quantify the overall strength of all m-order salient AND                                                                                               layer, but were not encoded by the l-th layer, newand   .
+interactions encoded by the l-th layer and those encoded by
+the final layer (the L-th layer), respectively.                                                                                                                                   X
+                                                                                                                                                                    (l),m                                                 (l,L)
+                                                                                                                                                       overlapand             =               (l),m   T    (L),m         Iand, shared (S|x) ,
+                                                                                                                                                                                        S∈Ωand            Ωand
+
+                                                                                                                                                                    (l),m
+                                                                                                                                                                                  X                                                    (l,L)
+                                                                                                                                                           forgetand          =               (l),m    Iand (S|x, v (l) ) − Iand, shared (S|x) ,
+                                                       (l),m
+                                                                     X                                           (l)                                                                    S∈Ωand
+                                                    alland    =                    (l),m   |Iand (S|x, v               )|,
+                                                                          S∈Ωand                                                                                    (l),m
+                                                                                                                                                                                  X                                                     (l,L)
+                                                                                                                                      (6)                      newand         =               (L),m       Iand (S|x, v (L) ) − Iand, shared (S|x) ,
+                                                  (L),m
+                                                               X                                                 (L)                                                                    S∈Ωand
+                                               alland        =                             |Iand (S|x, v               )|.
+                                                                         S∈Ωand
+                                                                                  (L),m                                                                                                                                  (7)
+                                                                                                                                                                  (l,L)
+                                                                                                                                                       where Iand,    shared (S|x) measured the shared AND inter-
+                                                                                                                                                       actions between Iand (S|x, v (l) ) extracted from the l-th
+                                                                                                                                                       layer and Iand (S|x, v (L) ) encoded by the final L-th layer.
+As Fig. 3 shows, we designed the following three metrics to                                                                                            If Iand (S|x, v (l) ) and Iand (S|x, v (L) ) had opposite interac-
+further disentangle the overall strength all(l),m    and all(L),m                                                                                      tion effects, then Iand,   (l,L)
+                                                                                                                                                                                      shared (S|x) = 0; Otherwise, the
+                                               and          and
+into three terms: (1) the overall strength of interactions                                                                                                                                               (l,L)
+                                                                                                                                                       shared AND interaction was defined as Iand,           shared (S|x) =
+shared by both the l-th layer and the final layer, overlap(l),m
+                                                             and ,
+                                                                                                                                                       sign(Iand (S|x, v )) · min(|Iand (S|x, v )|, |Iand (S|x, v (L) )|).
+                                                                                                                                                                           (l)                     (l)
+(2) the overall strength of interactions encoded by the l-th
+layer but later forgotten in the final layer, forget(l),m
+                                                    and , (3) the                                                                                      Thus, overlap(l),m       (l),m         (l),m
+                                                                                                                                                                    and , forgetand , and newand    formed a decom-
+overall strength of interactions that were encoded in the final                                                                                        position of overall interaction strength, as follows.
+
+                                                                                                                                               6

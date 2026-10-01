@@ -1,0 +1,75 @@
+                       HarsanyiNet: Computing Accurate Shapley Values
+                               in a Single Forward Propagation
+
+
+                      Lu Chen * 1 Siyu Lou * 1 2 Keyan Zhang 1 Jin Huang 1 Quanshi Zhang 1
+
+
+                         Abstract                                           (2) =        (   )+   (   )+       (   )
+                                                                        for the patch
+                                                                                                           (   )=      (   &       )                        (   )
+     The Shapley value is widely regarded as a trust-
+                                                                                                                               (       )=   (   &   &   )
+     worthy attribution metric. However, when people                                                       (   )
+
+
+
+
+                                                                        Shapley values
+     use Shapley values to explain the attribution of
+     input variables of a deep neural network (DNN),                                                       (   )
+     it usually requires a very high computational cost
+                                                                                                           (   )
+     to approximate relatively accurate Shapley values
+     in real-world applications. Therefore, we propose
+     a novel network architecture, the HarsanyiNet,
+     which makes inferences on the input sample and
+     simultaneously computes the exact Shapley val-
+     ues of the input variables in a single forward prop-                                                                                                           Output
+
+     agation. The HarsanyiNet is designed on the the-
+     oretical foundation that the Shapley value can be
+     reformulated as the redistribution of Harsanyi in-              Figure 1. Overview of the HarsanyiNet. The HarsanyiNet encodes
+     teractions encoded by the network.                              different Harsanyi interactions, each representing an AND relation-
+                                                                     ship between different patches. Shapley values can be computed
+                                                                     as re-allocation of Harsanyi interactions.
+1. Introduction
+                                                                     However, using the Shapley value in real-world applica-
+Explainable artificial intelligence (XAI) has received con-
+                                                                     tions is often impractical because (1) computing the exact
+siderable attention in recent years. A typical direction of
+                                                                     Shapley value is NP-hard, and (2) existing approximation
+explaining deep neural networks (DNNs) is to estimate the
+                                                                     techniques (Castro et al., 2009; Lundberg & Lee, 2017)
+salience/importance/contribution of an input variable (e.g.,
+                                                                     often confront a dilemma in that approximating Shapley val-
+a pixel of an image or a word in a sentence) to the network
+                                                                     ues with an acceptable accuracy usually requires to conduct
+output. Related studies have been termed the attribution
+                                                                     a huge number of network inferences.
+methods (Bach et al., 2015; Selvaraju et al., 2017; Sundarara-
+jan et al., 2017; Lundberg & Lee, 2017). In comparison with          Thus, in this paper, we aim to directly jump out of the above
+most attribution methods designed without solid theoreti-            dilemma and design a neural network, namely HarsanyiNet,
+cal supports, the Shapley value (Shapley, 1953) has been             which simultaneously conducts model inference on the input
+proved the only solution in game theory that satisfies the           sample and computes the exact Shapley value for each input
+linearity, dummy, symmetry, and efficiency axioms (Young,            variable in a single forward propagation1 .
+1985). Therefore, the Shapley value is widely considered a
+                                                                     Specifically, the theoretical foundation for the HarsanyiNet
+relatively trustworthy attribution for each input variable.
+                                                                     is that the Shapley value of an input variable can be refor-
+   *
+     Equal contribution 1 Shanghai Jiao Tong University, China       mulated as a redistribution of its different Harsanyi inter-
+2
+ Eastern Institute for Advanced Study, China. Correspondence         actions (Harsanyi, 1963) encoded by the DNN. Formally,
+to: Quanshi Zhang is the corresponding author. He is with            given a DNN and an input sample with n variables, a
+the Department of Computer Science and Engineering, the John
+                                                                     Harsanyi interaction S represents an AND relationship be-
+Hopcroft Center, at the Shanghai Jiao Tong University, China.
+<zqs1022@sjtu.edu.cn>.                                               tween the variables in S, which is encoded by the DNN.
+                                                                     A DNN usually encodes many different Harsanyi interac-
+Proceedings of the 40 th International Conference on Machine         tions. Each Harsanyi interaction makes a specific numerical
+Learning, Honolulu, Hawaii, USA. PMLR 202, 2023. Copyright
+                                                                        1
+2023 by the author(s).                                                        https://github.com/csluchen/harsanyinet
+
+                                                                 1

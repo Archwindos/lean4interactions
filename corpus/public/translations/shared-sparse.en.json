@@ -1,0 +1,210 @@
+{
+  "schema_version": "1.0",
+  "shared_proofs": {
+    "shared-harsanyi-derivative-cutoff-mvt": {
+      "title": "Complete shared proof: zero classical mixed partials and rectangular differences",
+      "overview": "Globally zero classical mixed partials give zero rectangular differences. The actual coordinate-mask alternating sum is that difference; nonempty centering then recovers the original interaction.",
+      "assumptions": [
+        "The original C1-function setting is retained. Global high-order mixed partials in 1-β are interpreted as classical existing derivatives; required prefix differentiability unfolds their definition and is not replaced by a total Lean deriv function returning zero.",
+        "All masks use the same fixed input baseline r and M∈ℕ. No analyticity, infinite Taylor representation, or polynomial premise is added."
+      ],
+      "definitions": [
+        {
+          "id": "derivative-cutoff-objects",
+          "body_md": "Fix $N=\\{1,\\ldots,n\\}$, $v:\\mathbb R^n\\to\\mathbb R$, x, and r. The coordinate mask keeps x_i on A and r_i elsewhere. Let $g(A)=v(x_A)$, $b=g(\\varnothing)$, and $g_0(A)=g(A)-b$. The source interaction is $I(A)=I_{g_0}(A)$, with empty value zero. Let e_i be the coordinate unit vector and $a_i=x_i-r_i$ the actual masking increment."
+        }
+      ],
+      "proof_steps": [
+        {
+          "id": "cutoff-classical-partials",
+          "title": "Classical mixed partials and their existence order",
+          "body_md": "The classical partial is $D_i f(z)=\\left.\\frac d{dt}f(z+t e_i)\\right|_{t=0}$. Encode a multiindex by a nondecreasing coordinate list $(i_1,\\ldots,i_q)$, and define $P_0=v$, $P_j=D_{i_j}P_{j-1}$. Classical existence of the stated mixed partials includes actual differentiability of each required prefix along the next coordinate, and 1-β gives $P_q\\equiv0$. These existence conditions and the zero value are encoded together; only lists q>M are used. No extra global smoothness of all low derivatives is assumed. C1 alone does not imply existence of high derivatives. A fixed ascending order is used; a reverse convention can use the same difference argument in reverse order, without interchanging mixed partials.",
+          "formula_tex": "P_j=D_{i_j}P_{j-1},\\qquad q=\\sum_{i\\in N}\\kappa_i.",
+          "justification": "",
+          "lean_refs": [
+            {
+              "declaration": "Harsanyi.linePartial_coordinate_eq",
+              "source_path": "lean/HarsanyiLib/Harsanyi/Extensions/DerivativeCutoff.lean",
+              "line": 127,
+              "scope": "actual_derivative_identity_or_mask_adapter",
+              "explanation_md": "Actual partial-derivative, finite-difference or mask declaration, without assuming a Taylor representation or the desired vanishing of interactions."
+            },
+            {
+              "declaration": "Harsanyi.coordinate_multiIndex_total_order",
+              "source_path": "lean/HarsanyiLib/Harsanyi/Extensions/DerivativeCutoff.lean",
+              "line": 236,
+              "scope": "actual_derivative_identity_or_mask_adapter",
+              "explanation_md": "Actual partial-derivative, finite-difference or mask declaration, without assuming a Taylor representation or the desired vanishing of interactions."
+            },
+            {
+              "declaration": "Harsanyi.ClassicalMixedDerivativeCutoff",
+              "source_path": "lean/HarsanyiLib/Harsanyi/Extensions/DerivativeCutoff.lean",
+              "line": 231,
+              "scope": "actual_derivative_identity_or_mask_adapter",
+              "explanation_md": "Actual partial-derivative, finite-difference or mask declaration, without assuming a Taylor representation or the desired vanishing of interactions."
+            }
+          ]
+        },
+        {
+          "id": "cutoff-difference-derivative",
+          "title": "Commutation of finite differences and true partial derivatives",
+          "body_md": "Define $\\delta_{a,i}f(z)=f(z+a e_i)-f(z)$. If f is differentiable along coordinate i everywhere, its finitely many translated sums and differences are too. Translation gives $D_i(f(\\cdot+h))(z)=D_i f(z+h)$ because $(z+t e_i)+h=(z+h)+t e_i$. The one-variable difference rule yields $D_i(\\delta_{a,j}f)=\\delta_{a,j}(D_i f)$. Induction extends this to arbitrary finite rectangular differences. Only translations and finite additions are used, with no infinite series or higher directional chain rule.",
+          "formula_tex": "D_i\\bigl(\\delta_{a,j}f\\bigr)(z)=\\delta_{a,j}(D_i f)(z).",
+          "justification": "",
+          "lean_refs": [
+            {
+              "declaration": "Harsanyi.hasLineDerivatives_translate",
+              "source_path": "lean/HarsanyiLib/Harsanyi/Extensions/DerivativeCutoff.lean",
+              "line": 46,
+              "scope": "actual_derivative_identity_or_mask_adapter",
+              "explanation_md": "Actual partial-derivative, finite-difference or mask declaration, without assuming a Taylor representation or the desired vanishing of interactions."
+            },
+            {
+              "declaration": "Harsanyi.linePartial_translate",
+              "source_path": "lean/HarsanyiLib/Harsanyi/Extensions/DerivativeCutoff.lean",
+              "line": 53,
+              "scope": "actual_derivative_identity_or_mask_adapter",
+              "explanation_md": "Actual partial-derivative, finite-difference or mask declaration, without assuming a Taylor representation or the desired vanishing of interactions."
+            },
+            {
+              "declaration": "Harsanyi.linePartial_sub",
+              "source_path": "lean/HarsanyiLib/Harsanyi/Extensions/DerivativeCutoff.lean",
+              "line": 60,
+              "scope": "actual_derivative_identity_or_mask_adapter",
+              "explanation_md": "Actual partial-derivative, finite-difference or mask declaration, without assuming a Taylor representation or the desired vanishing of interactions."
+            },
+            {
+              "declaration": "Harsanyi.hasLineDerivatives_rectDifference",
+              "source_path": "lean/HarsanyiLib/Harsanyi/Extensions/DerivativeCutoff.lean",
+              "line": 65,
+              "scope": "actual_derivative_identity_or_mask_adapter",
+              "explanation_md": "Actual partial-derivative, finite-difference or mask declaration, without assuming a Taylor representation or the desired vanishing of interactions."
+            },
+            {
+              "declaration": "Harsanyi.linePartial_rectDifference",
+              "source_path": "lean/HarsanyiLib/Harsanyi/Extensions/DerivativeCutoff.lean",
+              "line": 76,
+              "scope": "actual_derivative_identity_or_mask_adapter",
+              "explanation_md": "Actual partial-derivative, finite-difference or mask declaration, without assuming a Taylor representation or the desired vanishing of interactions."
+            }
+          ]
+        },
+        {
+          "id": "cutoff-mvt-induction",
+          "title": "Zero mixed partials imply zero rectangular differences",
+          "body_md": "Induct on the direction-list length q, allowing arbitrary directions and real steps. For the empty list, both the difference and the order-zero partial are f, and its assumed zero value proves the claim. For a nonempty list, let R denote the remaining differences. The prefix-existence premise applies the induction hypothesis to $D_{i_1}f$, giving $R(D_{i_1}f)=0$. Commutation then gives $D_{i_1}(Rf)=0$. For fixed z, $H(t)=(Rf)(z+t e_{i_1})$ is differentiable on the whole real line with zero derivative. The mean value theorem gives $H(a_{i_1})=H(0)$, so the full rectangular difference is zero. Negative and zero steps require no new restrictions.",
+          "formula_tex": "P_q\\equiv0\\ \\Longrightarrow\\ \\delta_{a_{i_1},i_1}\\cdots\\delta_{a_{i_q},i_q}f\\equiv0.",
+          "justification": "",
+          "lean_refs": [
+            {
+              "declaration": "Harsanyi.deriv_line_eq",
+              "source_path": "lean/HarsanyiLib/Harsanyi/Extensions/DerivativeCutoff.lean",
+              "line": 36,
+              "scope": "actual_derivative_identity_or_mask_adapter",
+              "explanation_md": "Actual partial-derivative, finite-difference or mask declaration, without assuming a Taylor representation or the desired vanishing of interactions."
+            },
+            {
+              "declaration": "Harsanyi.rectDifference_zero_of_orderedPartial_zero",
+              "source_path": "lean/HarsanyiLib/Harsanyi/Extensions/DerivativeCutoff.lean",
+              "line": 91,
+              "scope": "actual_derivative_identity_or_mask_adapter",
+              "explanation_md": "Actual partial-derivative, finite-difference or mask declaration, without assuming a Taylor representation or the desired vanishing of interactions."
+            }
+          ]
+        },
+        {
+          "id": "cutoff-mask-bridge",
+          "title": "Bridge from rectangular differences to actual coordinate masks",
+          "body_md": "List the distinct coordinates of S, take steps $a_i=x_i-r_i$, and start at r. Induct on that list. The empty difference is $v(r)=g(\\varnothing)$. Adding a previously absent coordinate splits the rectangle into its translated and untranslated parts. On every remaining subset U, the translated vector is exactly the mask for $U\\cup\\{i\\}$ and the untranslated vector is the mask for U. Subtracting the alternating sums is the insertion identity for $I_g(S)$. This bridge holds for an arbitrary model v; no polynomial representation is assumed.",
+          "formula_tex": "\\left(\\prod_{i\\in S}\\delta_{x_i-r_i,i}\\right)v(r)=\\sum_{U\\subseteq S}(-1)^{|S|-|U|}v(x_U)=I_g(S).",
+          "justification": "",
+          "lean_refs": [
+            {
+              "declaration": "Harsanyi.incrementCoordinates_insert",
+              "source_path": "lean/HarsanyiLib/Harsanyi/Extensions/DerivativeCutoff.lean",
+              "line": 144,
+              "scope": "actual_derivative_identity_or_mask_adapter",
+              "explanation_md": "Actual partial-derivative, finite-difference or mask declaration, without assuming a Taylor representation or the desired vanishing of interactions."
+            },
+            {
+              "declaration": "Harsanyi.rectDifference_coordinate_eq_interaction",
+              "source_path": "lean/HarsanyiLib/Harsanyi/Extensions/DerivativeCutoff.lean",
+              "line": 155,
+              "scope": "actual_derivative_identity_or_mask_adapter",
+              "explanation_md": "Actual partial-derivative, finite-difference or mask declaration, without assuming a Taylor representation or the desired vanishing of interactions."
+            },
+            {
+              "declaration": "Harsanyi.incrementCoordinates_baseline",
+              "source_path": "lean/HarsanyiLib/Harsanyi/Extensions/DerivativeCutoff.lean",
+              "line": 180,
+              "scope": "actual_derivative_identity_or_mask_adapter",
+              "explanation_md": "Actual partial-derivative, finite-difference or mask declaration, without assuming a Taylor representation or the desired vanishing of interactions."
+            }
+          ]
+        },
+        {
+          "id": "cutoff-apply-beta",
+          "title": "Apply the original high-order multiindex condition",
+          "body_md": "If $|S|\\ge M+1$, list S in ascending order. The selected multiindex is 1 on S and 0 elsewhere, with total degree |S|>M. The original global 1-β supplies its classical derivative existence and zero value. The analytic lemma makes its rectangular difference zero, and the mask bridge gives $I_g(S)=0$. The step sizes only affect the difference, not derivative existence or its zero premise, so x and r are arbitrary.",
+          "formula_tex": "\\kappa_i=\\mathbf1_{i\\in S},\\qquad |\\kappa|=|S|>M\\ \\Longrightarrow\\ I_g(S)=0.",
+          "justification": "",
+          "lean_refs": [
+            {
+              "declaration": "Harsanyi.coordinate_multiIndex_finset",
+              "source_path": "lean/HarsanyiLib/Harsanyi/Extensions/DerivativeCutoff.lean",
+              "line": 247,
+              "scope": "actual_derivative_identity_or_mask_adapter",
+              "explanation_md": "Actual partial-derivative, finite-difference or mask declaration, without assuming a Taylor representation or the desired vanishing of interactions."
+            },
+            {
+              "declaration": "Harsanyi.orderedPartial_coordinate_amplitudes",
+              "source_path": "lean/HarsanyiLib/Harsanyi/Extensions/DerivativeCutoff.lean",
+              "line": 186,
+              "scope": "actual_derivative_identity_or_mask_adapter",
+              "explanation_md": "Actual partial-derivative, finite-difference or mask declaration, without assuming a Taylor representation or the desired vanishing of interactions."
+            },
+            {
+              "declaration": "Harsanyi.orderedPartialRegular_coordinate_amplitudes",
+              "source_path": "lean/HarsanyiLib/Harsanyi/Extensions/DerivativeCutoff.lean",
+              "line": 196,
+              "scope": "actual_derivative_identity_or_mask_adapter",
+              "explanation_md": "Actual partial-derivative, finite-difference or mask declaration, without assuming a Taylor representation or the desired vanishing of interactions."
+            },
+            {
+              "declaration": "Harsanyi.interaction_zero_of_classicalMixedDerivativeCutoff",
+              "source_path": "lean/HarsanyiLib/Harsanyi/Extensions/DerivativeCutoff.lean",
+              "line": 285,
+              "scope": "actual_derivative_identity_or_mask_adapter",
+              "explanation_md": "Actual partial-derivative, finite-difference or mask declaration, without assuming a Taylor representation or the desired vanishing of interactions."
+            }
+          ]
+        },
+        {
+          "id": "cutoff-centered-source",
+          "title": "Recover the original centered interaction and scope",
+          "body_md": "Since |S|>M≥0, S is nonempty. Subtracting the constant baseline changes only the empty interaction, hence $I_{g_0}(S)=I_g(S)=0$, proving 1-α. Appendix B.2 uses Lemma 1’s infinite Taylor argument; this repair uses the original global 1-β in a finite-difference argument. The separate validity issue of a general Taylor-formula reading remains separate. A given valid Taylor representation gives another conditional grouping argument, whose proposition is not modified here.",
+          "formula_tex": "|S|\\ge M+1\\ \\Longrightarrow\\ I(S)=I_{g_0}(S)=I_g(S)=0.",
+          "justification": "",
+          "lean_refs": [
+            {
+              "declaration": "Harsanyi.centered_interaction_zero_of_classicalMixedDerivativeCutoff",
+              "source_path": "lean/HarsanyiLib/Harsanyi/Extensions/DerivativeCutoff.lean",
+              "line": 292,
+              "scope": "actual_derivative_identity_or_mask_adapter",
+              "explanation_md": "Actual partial-derivative, finite-difference or mask declaration, without assuming a Taylor representation or the desired vanishing of interactions."
+            },
+            {
+              "declaration": "FullSparseDerivative.assumption1beta_implies1alpha",
+              "source_path": "research/full-proof-integration-20260930/cvpr2023/lean/SparseDerivativeAdapter.lean",
+              "line": 9,
+              "scope": "actual_derivative_identity_or_mask_adapter",
+              "explanation_md": "Actual partial-derivative, finite-difference or mask declaration, without assuming a Taylor representation or the desired vanishing of interactions."
+            }
+          ]
+        }
+      ],
+      "proof_scope": "entire original derivative-cutoff implication under the classical meaning that the stated global high-order mixed derivatives exist and are zero; actual arbitrary coordinate mask and source centering are included",
+      "completion_scope": "entire original derivative-cutoff implication under the classical meaning that the stated global high-order mixed derivatives exist and are zero; actual arbitrary coordinate mask and source centering are included"
+    }
+  }
+}

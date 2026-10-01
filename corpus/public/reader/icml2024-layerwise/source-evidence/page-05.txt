@@ -1,0 +1,87 @@
+           salient                     salient
+                noisy                      noisy
+
+
+
+
+                                             Layerwise Change of Knowledge in Neural Networks
+
+
+
+
+           salient                     salient
+                noisy                      noisy
+
+
+
+
+Figure 2. Sparsity of interactions. We visualized strength of all AND-OR interactions extracted from different samples x, |I(S|x)| w.r.t.
+different S and x, in a descending order. Only about 21.8 AND/OR interactions in each sample of the MNIST dataset and about 45.6
+AND/OR interactions in each sample of the CIFAR-10 dataset made salient effects on the network output.
+
+
+about 45.6 AND/OR salient interactions in each CIFAR-10                     The new function v (l) (x) enables a fair comparison between
+image. All other interactions exhibited very small effects.                 interactions extracted from different layers. The classifica-
+Such a phenomenon verified the sparsity of interactions.                    tion score v (l) (x) potentially reflects a set of interactions,
+                                                                            which are encoded by f (l) (x) and can be directly used for
+3.2.2. E XTRACTING INTERACTIONS FROM                                        classification. Specifically, we conducted experiments to
+        INTERMEDIATE LAYERS                                                 extract interactions from different layers of different DNNs5 .
+                                                                            We used the MLP-7, VGG-11, and ResNet-20 trained on
+In comparison with extracting interactions from the network
+                                                                            the MNIST dataset and CIFAR-10 dataset, which were in-
+output score v(x)3 , defining and extracting interactions from
+                                                                            troduced in Section 3.2.1. We also fine-tuned pre-trained
+intermediate layers present a new challenge. It is because
+                                                                            DistilBERT (Sanh et al., 2019) and BERTBASE (Devlin et al.,
+the intermediate-layer features are usually high-dimensional
+                                                                            2019) models on the SST-2 dataset (Socher et al., 2013) for
+vectors/tensors/matrices, rather than a scalar output. Thus,
+                                                                            binary sentiment classification.
+we need to define a new scalar metric v (l) (x), which faith-
+fully identify signals in the high-dimensional feature directly             We used the order of an interaction to measure the com-
+related to the classification task, to compute interactions en-             plexity of the interaction. The order was defined as the
+coded by the l-th layer of the DNN.                                         number of input variables involved in this interaction, i.e.,
+                                                                            order(S) = |S|. As illustrated in Fig. 3, linear classifiers
+To this end, given an input sample x, we propose to train a
+                                                                            trained on features of early layers encode less high-order
+linear classifier p(l) (y|x) = softmax/sigmoid((w(l) )T f (l) (x)+
+                                                                            interactions than later layers. We can consider that features
+b(l) ) based on the cross-entropy loss, which uses the feature
+                                                                            in early layers usually represent lots of local and simple non-
+f (l) (x) of the l-th layer to conduct the same classification
+                                                                            linear patterns between a few input variables, but most of
+task as the DNN6 . We can define the following v (l) (x) to
+                                                                            such patterns cannot be directly used by the classifier for the
+represent signals encoded by the l-th layer of the DNN.
+                                                                            classification task. Besides, compared to linear classifiers
+                               p(l) (y = y truth |x)                        trained on early-layer features, classifiers trained on features
+           v (l) (x) = log                             − δN ,
+                             1 − p(l) (y = y truth |x)                      of later layers usually share more similar interactions with
+                                                                  (5)       the final layer of the DNN.
+                               p(l) (y = y truth |xT )
+         v (l) (xT ) = log                               − δT ,
+                             1 − p(l) (y = y truth |xT )                    Emergence of new interactions and discarding of old
+where δT is a learnable residual proposed to model and                      interactions. In this experiment, we quantified how the
+remove the tiny noise from the output v (l) (xT ), so as to                 DNN gradually learned new interactions and discarded use-
+extract relatively clean interactions. δT is constrained to a               less interactions in the forward propagation and obtained
+small range κ = 0.04 · |v (l) (xN ) − v (l) (x∅ )|. We discover             the target interactions in the last layer. To this end, given
+that small noise in output function v (l) (xT ) may signifi-                all AND-OR interactions encoded by the l-th layer, let
+                                                                              (l),m
+cantly change the interaction effect. In this way, parameters               Ωand    = {S ⊆ N : |S| = m, |Iand (S|x, v (l) )| > τ }7 de-
+{γT , δT } are learned by minimizing T ⊆N |Iand (T |x, v (l) )| +
+                                           P                                note the set of salient AND interactions of the m-th order
+|Ior (T |x, v (l) )|, s.t. ∀T ⊆ N, |δT | < κ. An ablation study in          extracted from the l-th layer. Accordingly, Ω(l),mor   = {S ⊆
+Appendix J shows that the extraction of interactions is rela-               N : |S| = m, |Ior (S|x, v (l) )| > τ 7 } represented the set of
+tively robust to the κ value.                                               salient OR interactions of the m-th order extracted from
+                                                                            the l-th layer. To this end, we used all(l),m
+                                                                                                                        and and all(L),m
+                                                                                                                                   and   to
+Comparing interaction complexity over different layers.
+                                                                               7
+                                                                                We set τ = 0.05 · maxS (|Iand (S|x, v (l) )|, |Ior (S|x, v (l) )|) to
+   6
+    Appendix M.2 introduces the details of training the classifier.         select a set of salient interactions from all interactions extracted
+Note that the network parameters in the DNN are all fixed without           from the l-th layer of the target DNN.
+being tuned, when we learn classifiers.
+
+                                                                        5
